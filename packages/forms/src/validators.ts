@@ -24,13 +24,13 @@ function isEmptyInputValue(value: any): boolean {
  * 一个 `InjectionToken`，用于注册额外的同步验证器，供 `AbstractControl` 使用。
  *
  * @see `NG_ASYNC_VALIDATORS`
- * 
+ *
  * @usageNotes
- * 
+ *
  * ### Providing a custom validator
  *
  * ### 提供自定义验证器
- * 
+ *
  * The following example registers a custom validator directive. Adding the validator to the 
  * existing collection of validators requires the `multi: true` option.
  *
@@ -58,7 +58,7 @@ export const NG_VALIDATORS = new InjectionToken<Array<Validator|Function>>('NgVa
  * 一个 `InjectionToken`，用于注册额外的异步验证器，供 `AbstractControl` 使用。
  *
  * @see `NG_VALIDATORS`
- * 
+ *
  */
 export const NG_ASYNC_VALIDATORS =
     new InjectionToken<Array<Validator|Function>>('NgAsyncValidators');
@@ -387,7 +387,7 @@ export class Validators {
    *
    * 此验证器什么也不做。
    */
-  static nullValidator(c: AbstractControl): ValidationErrors|null { return null; }
+  static nullValidator(control: AbstractControl): ValidationErrors|null { return null; }
 
   /**
    * @description

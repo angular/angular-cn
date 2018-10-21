@@ -1,4 +1,4 @@
-# Visual Studio 2015 QuickStart
+# Using Angular with Visual Studio 2015
 
 # Visual Studio 2015 快速上手
 
@@ -9,14 +9,14 @@ Some developers prefer Visual Studio as their Integrated Development Environment
 有些开发者喜欢用 Visual Studio。
 
 This cookbook describes the steps required to set up and use the
-Angular QuickStart files in **Visual Studio 2015 within an ASP.NET 4.x project**.
+Angular [Getting Started](guide/quickstart) files in Visual Studio 2015 within an ASP.NET 4.x project.
 
 本文介绍了在**Visual Studio 2015 的 ASP.NET 4.x 项目中**，用 Angular 实现“快速上手”所需的步骤。
 
 <div class="alert is-helpful">
 
 There is no *live example* for this cookbook because it describes Visual Studio, not 
-the QuickStart application itself.
+the Angular Getting Started application itself.
 
 本文中没有*在线例子*，因为它介绍的是 Visual Studio，而不是《快速上手》应用程序本身。
 
@@ -28,7 +28,7 @@ the QuickStart application itself.
 
 ## ASP.NET 4.x 项目
 
-To set up the QuickStart files with an **ASP.NET 4.x project** in
+To set up the Getting Started files with an **ASP.NET 4.x project** in
 Visual Studio 2015, follow these steps:
 
 要用 Visual Studio 2015 在**ASP.NET 4.x 项目**中设置**《快速上手》**文件，请遵循如下步骤：
@@ -52,18 +52,13 @@ Note that the resulting code does not map to the docs. Adjust accordingly.
 
 Install **[Node.js® and npm](https://nodejs.org/en/download/)**
 if they are not already on your machine.
+See [Getting Started](guide/quickstart) for supported versions and instructions. 
 
 如果你的电脑里没有 Node.js®和 npm，请安装**[它们](https://nodejs.org/en/download/)**。
+参见[快速上手](guide/quickstart)以了解所支持的版本和安装步骤。
 
-<div class="alert is-helpful">
 
-**Verify that you are running Node.js version `8.x` or greater, and npm `5.x` or greater**
-by running `node -v` and `npm -v` in a terminal window.
-Older versions produce errors.
 
-在终端或者控制台中运行 `node -v` 和 `npm -v`，**请确认你的 Node.js 版本为 `8.x` 或更高，npm 的版本为 `5.x` 或更高**。老版本会引起错误。
-
-</div>
 
 <h2 id='prereq2'>Prerequisite: Visual Studio 2015 Update 3</h2>
 
@@ -117,28 +112,28 @@ find them in either location, it will use its own versions of the tools.
 
 Visual Studio 将优先在当前的工作区查找外部工具，如果没有找到，便查找全局路径，如果还没有找到，Visual Studio 就使用自带的工具版本。
 
-<h2 id='prereq4'>Prerequisite: Install TypeScript 2.2 for Visual Studio 2015</h2>
+<h2 id='prereq4'>Prerequisite: Install TypeScript for Visual Studio 2015</h2>
 
 <h2 id='prereq4'>前提条件: 安装 TypeScript 2.2 for Visual Studio 2015</h2>
 
-While Visual Studio Update 3 ships with TypeScript support out of the box, it currently doesn’t ship with TypeScript 2.2, 
+While Visual Studio Update 3 ships with TypeScript support out of the box, it currently doesn’t ship with TypeScript 3.1, 
 which you need to develop Angular applications.
 
 Visual Studio Update 3 自带 TypeScript 支持，但是它的 TypeScript 版本开发 Angular 应用需要的不是 2.2。
 
-To install TypeScript 2.2:
+To install TypeScript 3.1:
 
 要安装 TypeScript 2.2：
 
- * Download and install **[TypeScript 2.2 for Visual Studio 2015](https://www.microsoft.com/en-us/download/details.aspx?id=48593)**
+ * Download and install [TypeScript 3.1 for Visual Studio 2015](https://www.microsoft.com/en-us/download/details.aspx?id=48593),
 
     下载并安装 **[TypeScript 2.2 for Visual Studio 2015](https://www.microsoft.com/en-us/download/details.aspx?id=48593)**
 
- * OR install it with npm: `npm install -g typescript@2.2`.
+ * OR install it with npm: `npm install -g typescript@3.1`.
 
     或通过 npm 安装：`npm install -g typescript@2.2`。
 
-You can find out more about TypeScript 2.2 support in Visual studio **[here](https://blogs.msdn.microsoft.com/typescript/2017/02/22/announcing-typescript-2-2/)**.
+You can find out more about TypeScript 3.1 support in Visual Studio **[here](https://blogs.msdn.microsoft.com/typescript/announcing-typescript-3-1/)**.
 
 你可以在**[这儿](https://blogs.msdn.microsoft.com/typescript/2017/02/22/announcing-typescript-2-2/)**查看更多 Visual Studio 中 TypeScript 2.2 的支持。
 
@@ -147,12 +142,10 @@ restart it to make sure everything is clean.
 
 至此，Visual Studio 已经准备好了。重新启动 Visual Studio，这样就可以有一个崭新的开始了。
 
-<h2 id='download'>Step 1: Download the QuickStart files</h2>
+<h2 id='download'>Step 1: Download the Angular Getting Started app</h2>
 
 <h2 id='download'>第一步: 现在“快速上手”文件</h2>
-
-[Download the QuickStart source](https://github.com/angular/quickstart)
-from GitHub. If you downloaded as a zip file, extract the files.
+Go to the final code review in [Getting Started](guide/quickstart) and download the solution app project. These files contain a starter Angular app.
 
 从 GitHub[下载“快速上手”的源代码](https://github.com/angular/quickstart)。如果下载的是一个压缩的 zip 文件，解压它。
 
@@ -189,11 +182,11 @@ no authentication, and no hosting. Pick the template and options appropriate for
 
 </div>
 
-<h2 id='copy'>Step 3: Copy the QuickStart files into the ASP.NET project folder</h2>
+<h2 id='copy'>Step 3: Copy the Angular Getting Started project files into the ASP.NET project folder</h2>
 
 <h2 id='copy'>第三步: 把“快速上手”的文件复制到 ASP.NET 项目所在的目录</h2>
 
-Copy the QuickStart files you downloaded from GitHub into the folder containing the `.csproj` file.
+Copy the files you downloaded from [Getting Started](guide/quickstart) into the folder containing the `.csproj` file.
 Include the files in the Visual Studio project as follows:
 
 拷贝从 GitHub 下载的“快速上手”文件到包含 `.csproj` 文件的目录中。按照下面的步骤把它们加到 Visual Studio 中：
@@ -272,7 +265,7 @@ Right-click `index.html` in Solution Explorer and select option `Set As Start Pa
 ### 按 F5 以在 VS 中运行
 
 Most Visual Studio developers like to press the F5 key and see the IIS server come up. 
-To use the IIS server with the QuickStart app, you must make the following three changes. 
+To use the IIS server with the Getting Started app, you must make the following three changes. 
 
 大多数 Visual Studio 开发者喜欢按 F5 键来启动 IIS 服务器。
 要在这个《快速上手》应用中使用 IIS 服务器，你要做下列修改：
@@ -325,7 +318,7 @@ for any address other than `/` or `/index.html`.
 You have to configure the server to return `index.html` for requests to these "unknown" pages.
 The `lite-server` development server does out-of-the-box.
 If you've switched over to F5 and IIS, you have to configure IIS to do it.
-This section walks through the steps to adapt the QuickStart application.
+This section walks through the steps to adapt the Getting Started application.
 
 你就要配置服务器，为那些"未知"的页面返回 `index.html`。
 `lite-server` 开发服务器内置了这项功能。如果要切换到 F5 + IIS，你就要自己来配置 IIS 实现它了。
@@ -391,7 +384,7 @@ It's faster to run without the debugger by pressing `Ctrl-F5`.
 
 </div>
 
-The default browser opens and displays the QuickStart sample application.
+The default browser opens and displays the Getting Started sample application.
 
 默认浏览器打开并显示《快速上手》例子应用。
 

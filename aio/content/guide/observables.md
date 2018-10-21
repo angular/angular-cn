@@ -1,3 +1,4 @@
+
 # Observables
 
 # 可观察对象（Observable）
@@ -42,7 +43,7 @@ Here's an example that demonstrates the basic usage model by showing how an obse
 
 下面这个例子中示范了这种基本用法，它展示了如何使用可观察对象来对当前地理位置进行更新。
 
-<code-example path="observables/src/geolocation.ts" title="Observe geolocation updates"></code-example>
+<code-example path="observables/src/geolocation.ts" header="Observe geolocation updates"></code-example>
 
 ## Defining observers
 
@@ -73,15 +74,15 @@ An `Observable` instance begins publishing values only when someone subscribes t
 
 <div class="alert is-helpful">
 
-   In order to show how subscribing works, we need to create a new observable. There is a  constructor that you use to create new instances, but for illustration, we can use some static methods on the `Observable` class that create simple observables of frequently used types:
+In order to show how subscribing works, we need to create a new observable. There is a constructor that you use to create new instances, but for illustration, we can use some methods from the RxJS library that create simple observables of frequently used types:
 
    为了展示订阅的原理，我们需要创建新的可观察对象。它有一个构造函数可以用来创建新实例，但是为了更简明，也可以使用 `Observable` 上定义的一些静态方法来创建一些常用的简单可观察对象：
 
-  * `Observable.of(...items)`&mdash;Returns an `Observable` instance that synchronously delivers the values provided as arguments.
+  * `of(...items)`&mdash;Returns an `Observable` instance that synchronously delivers the values provided as arguments.
 
      `Observable.of(...items)` —— 返回一个 `Observable` 实例，它用同步的方式把参数中提供的这些值发送出来。
 
-  * `Observable.from(iterable)`&mdash;Converts its argument to an `Observable` instance. This method is commonly used to convert an array to an observable.
+  * `from(iterable)`&mdash;Converts its argument to an `Observable` instance. This method is commonly used to convert an array to an observable.
 
      `Observable.from(iterable)` —— 把它的参数转换成一个 `Observable` 实例。
     该方法通常用于把一个数组转换成一个（发送多个值的）可观察对象。
@@ -95,13 +96,13 @@ Here's an example of creating and subscribing to a simple observable, with an ob
 <code-example
   path="observables/src/subscribing.ts"
   region="observer"
-  title="Subscribe using observer"></code-example>
+  header="Subscribe using observer"></code-example>
 
 Alternatively, the `subscribe()` method can accept callback function definitions in line, for `next`, `error`, and `complete` handlers. For example, the following `subscribe()` call is the same as the one that specifies the predefined observer:
 
 另外，`subscribe()` 方法还可以接收定义在同一行中的回调函数，无论 `next`、`error` 还是 `complete` 处理器。比如，下面的 `subscribe()` 调用和前面指定预定义观察者的例子是等价的。
 
-<code-example path="observables/src/subscribing.ts" region="sub_fn" title="Subscribe with positional arguments"></code-example>
+<code-example path="observables/src/subscribing.ts" region="sub_fn" header="Subscribe with positional arguments"></code-example>
 
 In either case, a `next` handler is required. The `error` and `complete` handlers are optional.
 
@@ -122,23 +123,23 @@ Use the `Observable` constructor to create an observable stream of any type. The
 当执行可观察对象的 `subscribe()` 方法时，这个构造函数就会把它接收到的参数作为订阅函数来运行。
 订阅函数会接收一个 `Observer` 对象，并把值发布给观察者的 `next()` 方法。
 
-For example, to create an observable equivalent to the `Observable.of(1, 2, 3)` above, you could do something like this:
+For example, to create an observable equivalent to the `of(1, 2, 3)` above, you could do something like this:
 
 比如，要创建一个与前面的 `Observable.of(1, 2, 3)` 等价的可观察对象，你可以这样做：
 
-<code-example path="observables/src/creating.ts" region="subscriber" title="Create observable with constructor"></code-example>
+<code-example path="observables/src/creating.ts" region="subscriber" header="Create observable with constructor"></code-example>
 
 To take this example a little further, we can create an observable that publishes events. In this example, the subscriber function is defined inline.
 
 如果要略微加强这个例子，我们可以创建一个用来发布事件的可观察对象。在这个例子中，订阅函数是用内联方式定义的。
 
-<code-example path="observables/src/creating.ts" region="fromevent" title="Create with custom fromEvent function"></code-example>
+<code-example path="observables/src/creating.ts" region="fromevent" header="Create with custom fromEvent function"></code-example>
 
 Now you can use this function to create an observable that publishes keydown events:
 
 现在，你就可以使用这个函数来创建可发布 `keydown` 事件的可观察对象了：
 
-<code-example path="observables/src/creating.ts" region="fromevent_use" title="Use custom fromEvent function"></code-example>
+<code-example path="observables/src/creating.ts" region="fromevent_use" header="Use custom fromEvent function"></code-example>
 
 ## Multicasting
 
@@ -165,19 +166,19 @@ Let’s look at an example that counts from 1 to 3, with a one-second delay afte
 
 来看一个从 1 到 3 进行计数的例子，它每发出一个数字就会等待 1 秒。
 
-<code-example path="observables/src/multicasting.ts" region="delay_sequence" title="Create a delayed sequence"></code-example>
+<code-example path="observables/src/multicasting.ts" region="delay_sequence" header="Create a delayed sequence"></code-example>
 
 Notice that if you subscribe twice, there will be two separate streams, each emitting values every second. It looks something like this:
 
 注意，如果你订阅了两次，就会有两个独立的流，每个流都会每秒发出一个数字。代码如下：
 
-<code-example path="observables/src/multicasting.ts" region="subscribe_twice" title="Two subscriptions"></code-example>
+<code-example path="observables/src/multicasting.ts" region="subscribe_twice" header="Two subscriptions"></code-example>
 
  Changing the observable to be multicasting could look something like this:
 
  修改这个可观察对象以支持多播，代码如下：
 
-<code-example path="observables/src/multicasting.ts" region="multicast_sequence" title="Create a multicast subscriber"></code-example>
+<code-example path="observables/src/multicasting.ts" region="multicast_sequence" header="Create a multicast subscriber"></code-example>
 
 <div class="alert is-helpful">
    Multicasting observables take a bit more setup, but they can be useful for certain applications. Later we will look at tools that simplify the process of multicasting, allowing you to take any observable and make it multicasting.

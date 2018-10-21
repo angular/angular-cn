@@ -41,7 +41,7 @@ that Angular calls shortly after creating the component:
 每个接口都有唯一的一个钩子方法，它们的名字是由接口名再加上 `ng` 前缀构成的。比如，`OnInit` 接口的钩子方法叫做 `ngOnInit`，
 Angular 在创建组件后立刻调用它，：
 
-<code-example path="lifecycle-hooks/src/app/peek-a-boo.component.ts" region="ngOnInit" title="peek-a-boo.component.ts (excerpt)" linenums="false"></code-example>
+<code-example path="lifecycle-hooks/src/app/peek-a-boo.component.ts" region="ngOnInit" header="peek-a-boo.component.ts (excerpt)" linenums="false"></code-example>
 
 No directive or component will implement all of the lifecycle hooks.
 Angular only calls a directive/component hook method *if it is defined*.
@@ -593,7 +593,7 @@ that log messages to the parent via an injected `LoggerService`.
 
 这个鬼鬼祟祟的侦探指令很简单，几乎完全由 `ngOnInit()` 和 `ngOnDestroy()` 钩子组成，它通过一个注入进来的 `LoggerService` 来把消息记录到父组件中去。
 
-<code-example path="lifecycle-hooks/src/app/spy.directive.ts" region="spy-directive" title="src/app/spy.directive.ts" linenums="false"></code-example>
+<code-example path="lifecycle-hooks/src/app/spy.directive.ts" region="spy-directive" header="src/app/spy.directive.ts" linenums="false"></code-example>
 
 You can apply the spy to any native or component element and it'll be initialized and destroyed
 at the same time as that element.
@@ -602,7 +602,7 @@ Here it is attached to the repeated hero `<div>`:
 你可以把这个侦探指令写到任何原生元素或组件元素上，它将与所在的组件同时初始化和销毁。
 下面是把它附加到用来重复显示英雄数据的这个 `<div>` 上。
 
-<code-example path="lifecycle-hooks/src/app/spy.component.html" region="template" title="src/app/spy.component.html" linenums="false"></code-example>
+<code-example path="lifecycle-hooks/src/app/spy.component.html" region="template" header="src/app/spy.component.html" linenums="false"></code-example>
 
 Each spy's birth and death marks the birth and death of the attached hero `<div>`
 with an entry in the *Hook Log* as seen here:
@@ -735,7 +735,7 @@ This example monitors the `OnChanges` hook.
 一旦检测到该组件(或指令)的***输入属性***发生了变化，Angular 就会调用它的 `ngOnChanges()` 方法。
 本例监控 `OnChanges` 钩子。
 
-<code-example path="lifecycle-hooks/src/app/on-changes.component.ts" region="ng-on-changes" title="on-changes.component.ts (excerpt)" linenums="false"></code-example>
+<code-example path="lifecycle-hooks/src/app/on-changes.component.ts" region="ng-on-changes" header="on-changes.component.ts (excerpt)" linenums="false"></code-example>
 
 The `ngOnChanges()` method takes an object that maps each changed property name to a
 [SimpleChange](api/core/SimpleChange) object holding the current and previous property values.
@@ -748,13 +748,13 @@ The example component, `OnChangesComponent`, has two input properties: `hero` an
 
 这个例子中的 `OnChangesComponent` 组件有两个输入属性：`hero` 和 `power`。
 
-<code-example path="lifecycle-hooks/src/app/on-changes.component.ts" region="inputs" title="src/app/on-changes.component.ts" linenums="false"></code-example>
+<code-example path="lifecycle-hooks/src/app/on-changes.component.ts" region="inputs" header="src/app/on-changes.component.ts" linenums="false"></code-example>
 
 The host `OnChangesParentComponent` binds to them like this:
 
 宿主 `OnChangesParentComponent` 绑定了它们，就像这样：
 
-<code-example path="lifecycle-hooks/src/app/on-changes-parent.component.html" region="on-changes" title="src/app/on-changes-parent.component.html"></code-example>
+<code-example path="lifecycle-hooks/src/app/on-changes-parent.component.html" region="on-changes" header="src/app/on-changes-parent.component.html"></code-example>
 
 Here's the sample in action as the user makes changes.
 
@@ -804,7 +804,7 @@ The *DoCheck* sample extends the *OnChanges* sample with the following `ngDoChec
 
 *DoCheck* 范例通过下面的 `ngDoCheck()` 实现扩展了 *OnChanges* 范例：
 
-<code-example path="lifecycle-hooks/src/app/do-check.component.ts" region="ng-do-check" title="DoCheckComponent (ngDoCheck)" linenums="false"></code-example>
+<code-example path="lifecycle-hooks/src/app/do-check.component.ts" region="ng-do-check" header="DoCheckComponent (ngDoCheck)" linenums="false"></code-example>
 
 This code inspects certain _values of interest_, capturing and comparing their current state against previous values.
 It writes a special message to the log when there are no substantive changes to the `hero` or the `power`
@@ -852,13 +852,13 @@ Here's a child view that displays a hero's name in an `<input>`:
 
 下面是一个子视图，它用来把英雄的名字显示在一个 `<input>` 中：
 
-<code-example path="lifecycle-hooks/src/app/after-view.component.ts" region="child-view" title="ChildComponent" linenums="false"></code-example>
+<code-example path="lifecycle-hooks/src/app/after-view.component.ts" region="child-view" header="ChildComponent" linenums="false"></code-example>
 
 The `AfterViewComponent` displays this child view *within its template*:
 
 `AfterViewComponent` 把这个子视图显示*在它的模板中*：
 
-<code-example path="lifecycle-hooks/src/app/after-view.component.ts" region="template" title="AfterViewComponent (template)" linenums="false"></code-example>
+<code-example path="lifecycle-hooks/src/app/after-view.component.ts" region="template" header="AfterViewComponent (template)" linenums="false"></code-example>
 
 The following hooks take action based on changing values *within the child view*,
 which can only be reached by querying for the child view via the property decorated with
@@ -866,7 +866,7 @@ which can only be reached by querying for the child view via the property decora
 
 下列钩子基于*子视图中*的每一次数据变更采取行动，它只能通过带[@ViewChild](api/core/ViewChild)装饰器的属性来访问子视图。
 
-<code-example path="lifecycle-hooks/src/app/after-view.component.ts" region="hooks" title="AfterViewComponent (class excerpts)" linenums="false"></code-example>
+<code-example path="lifecycle-hooks/src/app/after-view.component.ts" region="hooks" header="AfterViewComponent (class excerpts)" linenums="false"></code-example>
 
 {@a wait-a-tick}
 
@@ -878,7 +878,7 @@ The `doSomething()` method updates the screen when the hero name exceeds 10 char
 
 当英雄的名字超过 10 个字符时，`doSomething()` 方法就会更新屏幕。
 
-<code-example path="lifecycle-hooks/src/app/after-view.component.ts" region="do-something" title="AfterViewComponent (doSomething)" linenums="false"></code-example>
+<code-example path="lifecycle-hooks/src/app/after-view.component.ts" region="do-something" header="AfterViewComponent (doSomething)" linenums="false"></code-example>
 
 Why does the `doSomething()` method wait a tick before updating `comment`?
 
@@ -948,7 +948,7 @@ the `AfterContentComponent`'s parent. Here's the parent's template:
 对比[前一个](guide/lifecycle-hooks#afterview)例子考虑这个变化。
 这次不再通过模板来把子视图包含进来，而是改为从 `AfterContentComponent` 的父组件中导入它。下面是父组件的模板：
 
-<code-example path="lifecycle-hooks/src/app/after-content.component.ts" region="parent-template" title="AfterContentParentComponent (template excerpt)" linenums="false"></code-example>
+<code-example path="lifecycle-hooks/src/app/after-content.component.ts" region="parent-template" header="AfterContentParentComponent (template excerpt)" linenums="false"></code-example>
 
 Notice that the `<app-child>` tag is tucked between the `<after-content>` tags.
 Never put content between a component's element tags *unless you intend to project that content
@@ -961,7 +961,7 @@ Now look at the component's template:
 
 现在来看下 `<after-content>` 组件的模板：
 
-<code-example path="lifecycle-hooks/src/app/after-content.component.ts" region="template" title="AfterContentComponent (template)" linenums="false"></code-example>
+<code-example path="lifecycle-hooks/src/app/after-content.component.ts" region="template" header="AfterContentComponent (template)" linenums="false"></code-example>
 
 The `<ng-content>` tag is a *placeholder* for the external content.
 It tells Angular where to insert that content.
@@ -1018,7 +1018,7 @@ which can only be reached by querying for them via the property decorated with
 
 下列 *AfterContent* 钩子基于*子级内容*中值的变化而采取相应的行动，它只能通过带有[@ContentChild](api/core/ContentChild)装饰器的属性来查询到“子级内容”。
 
-<code-example path="lifecycle-hooks/src/app/after-content.component.ts" region="hooks" title="AfterContentComponent (class excerpts)" linenums="false"></code-example>
+<code-example path="lifecycle-hooks/src/app/after-content.component.ts" region="hooks" header="AfterContentComponent (class excerpts)" linenums="false"></code-example>
 
 {@a no-unidirectional-flow-worries}
 

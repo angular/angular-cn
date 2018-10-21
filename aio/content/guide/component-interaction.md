@@ -54,7 +54,7 @@ typically adorned with [@Input decorations](guide/template-syntax#inputs-outputs
 
 `HeroChildComponent` 有两个***输入型属性***，它们通常带[@Input 装饰器](guide/template-syntax#inputs-outputs)。
 
-<code-example path="component-interaction/src/app/hero-child.component.ts" title="component-interaction/src/app/hero-child.component.ts">
+<code-example path="component-interaction/src/app/hero-child.component.ts" header="component-interaction/src/app/hero-child.component.ts">
 
 </code-example>
 
@@ -68,7 +68,7 @@ and each iteration's `hero` instance to the child's `hero` property.
 
 父组件 `HeroParentComponent` 把子组件的 `HeroChildComponent` 放到 `*ngFor` 循环器中，把自己的 `master` 字符串属性绑定到子组件的 `master` 别名上，并把每个循环的 `hero` 实例绑定到子组件的 `hero` 属性。
 
-<code-example path="component-interaction/src/app/hero-parent.component.ts" title="component-interaction/src/app/hero-parent.component.ts">
+<code-example path="component-interaction/src/app/hero-parent.component.ts" header="component-interaction/src/app/hero-parent.component.ts">
 
 </code-example>
 
@@ -88,7 +88,7 @@ E2E test that all children were instantiated and displayed as expected:
 
 端到端测试，用于确保所有的子组件都像所期待的那样被初始化并显示出来。
 
-<code-example path="component-interaction/e2e/src/app.e2e-spec.ts" region="parent-to-child" title="component-interaction/e2e/src/app.e2e-spec.ts">
+<code-example path="component-interaction/e2e/src/app.e2e-spec.ts" region="parent-to-child" header="component-interaction/e2e/src/app.e2e-spec.ts">
 
 </code-example>
 
@@ -111,7 +111,7 @@ trims the whitespace from a name and replaces an empty value with default text.
 
 子组件 `NameChildComponent` 的输入属性 `name` 上的这个 setter，会 trim 掉名字里的空格，并把空值替换成默认字符串。
 
-<code-example path="component-interaction/src/app/name-child.component.ts" title="component-interaction/src/app/name-child.component.ts">
+<code-example path="component-interaction/src/app/name-child.component.ts" header="component-interaction/src/app/name-child.component.ts">
 
 </code-example>
 
@@ -119,7 +119,7 @@ Here's the `NameParentComponent` demonstrating name variations including a name 
 
 下面的 `NameParentComponent` 展示了各种名字的处理方式，包括一个全是空格的名字。
 
-<code-example path="component-interaction/src/app/name-parent.component.ts" title="component-interaction/src/app/name-parent.component.ts">
+<code-example path="component-interaction/src/app/name-parent.component.ts" header="component-interaction/src/app/name-parent.component.ts">
 
 </code-example>
 
@@ -135,7 +135,7 @@ E2E tests of input property setter with empty and non-empty names:
 
 端到端测试：输入属性的 setter，分别使用空名字和非空名字。
 
-<code-example path="component-interaction/e2e/src/app.e2e-spec.ts" region="parent-to-child-setter" title="component-interaction/e2e/src/app.e2e-spec.ts">
+<code-example path="component-interaction/e2e/src/app.e2e-spec.ts" region="parent-to-child-setter" header="component-interaction/e2e/src/app.e2e-spec.ts">
 
 </code-example>
 
@@ -169,7 +169,7 @@ This `VersionChildComponent` detects changes to the `major` and `minor` input pr
 
 这个 `VersionChildComponent` 会监测输入属性 `major` 和 `minor` 的变化，并把这些变化编写成日志以报告这些变化。
 
-<code-example path="component-interaction/src/app/version-child.component.ts" title="component-interaction/src/app/version-child.component.ts">
+<code-example path="component-interaction/src/app/version-child.component.ts" header="component-interaction/src/app/version-child.component.ts">
 
 </code-example>
 
@@ -177,7 +177,7 @@ The `VersionParentComponent` supplies the `minor` and `major` values and binds b
 
 `VersionParentComponent` 提供 `minor` 和 `major` 值，把修改它们值的方法绑定到按钮上。
 
-<code-example path="component-interaction/src/app/version-parent.component.ts" title="component-interaction/src/app/version-parent.component.ts">
+<code-example path="component-interaction/src/app/version-parent.component.ts" header="component-interaction/src/app/version-parent.component.ts">
 
 </code-example>
 
@@ -198,7 +198,7 @@ the expected `ngOnChanges` calls and values:
 
 测试确保***这两个***输入属性值都被初始化了，当点击按钮后，`ngOnChanges` 应该被调用，属性的值也符合预期。
 
-<code-example path="component-interaction/e2e/src/app.e2e-spec.ts" region="parent-to-child-onchanges" title="component-interaction/e2e/src/app.e2e-spec.ts">
+<code-example path="component-interaction/e2e/src/app.e2e-spec.ts" region="parent-to-child-onchanges" header="component-interaction/e2e/src/app.e2e-spec.ts">
 
 </code-example>
 
@@ -223,7 +223,7 @@ The child's `EventEmitter` property is an ***output property***,
 
 子组件的 `EventEmitter` 属性是一个**输出属性**，通常带有[@Output 装饰器](guide/template-syntax#inputs-outputs)，就像在 `VoterComponent` 中看到的。
 
-<code-example path="component-interaction/src/app/voter.component.ts" title="component-interaction/src/app/voter.component.ts">
+<code-example path="component-interaction/src/app/voter.component.ts" header="component-interaction/src/app/voter.component.ts">
 
 </code-example>
 
@@ -236,7 +236,7 @@ payload `$event` and updates a counter.
 
 父组件 `VoteTakerComponent` 绑定了一个事件处理器(`onVoted()`)，用来响应子组件的事件(`$event`)并更新一个计数器。
 
-<code-example path="component-interaction/src/app/votetaker.component.ts" title="component-interaction/src/app/votetaker.component.ts">
+<code-example path="component-interaction/src/app/votetaker.component.ts" header="component-interaction/src/app/votetaker.component.ts">
 
 </code-example>
 
@@ -257,7 +257,7 @@ Test that clicking the *Agree* and *Disagree* buttons update the appropriate cou
 
 测试确保点击 *Agree* 和 *Disagree* 按钮时，计数器被正确更新。
 
-<code-example path="component-interaction/e2e/src/app.e2e-spec.ts" region="child-to-parent" title="component-interaction/e2e/src/app.e2e-spec.ts">
+<code-example path="component-interaction/e2e/src/app.e2e-spec.ts" region="child-to-parent" header="component-interaction/e2e/src/app.e2e-spec.ts">
 
 </code-example>
 
@@ -285,7 +285,7 @@ countdown status message in its own template.
 
 子组件 `CountdownTimerComponent` 进行倒计时，归零时发射一个导弹。`start` 和 `stop` 方法负责控制时钟并在模板里显示倒计时的状态信息。
 
-<code-example path="component-interaction/src/app/countdown-timer.component.ts" title="component-interaction/src/app/countdown-timer.component.ts">
+<code-example path="component-interaction/src/app/countdown-timer.component.ts" header="component-interaction/src/app/countdown-timer.component.ts">
 
 </code-example>
 
@@ -293,7 +293,7 @@ The `CountdownLocalVarParentComponent` that hosts the timer component is as foll
 
 计时器组件的宿主组件 `CountdownLocalVarParentComponent` 如下：
 
-<code-example path="component-interaction/src/app/countdown-parent.component.ts" region="lv" title="component-interaction/src/app/countdown-parent.component.ts">
+<code-example path="component-interaction/src/app/countdown-parent.component.ts" region="lv" header="component-interaction/src/app/countdown-parent.component.ts">
 
 </code-example>
 
@@ -333,7 +333,7 @@ Test also that clicking the *Stop* button pauses the countdown timer:
 
 测试确保在父组件模板中显示的秒数和子组件状态信息里的秒数同步。它还会点击 *Stop* 按钮来停止倒计时：
 
-<code-example path="component-interaction/e2e/src/app.e2e-spec.ts" region="countdown-timer-tests" title="component-interaction/e2e/src/app.e2e-spec.ts">
+<code-example path="component-interaction/e2e/src/app.e2e-spec.ts" region="countdown-timer-tests" header="component-interaction/e2e/src/app.e2e-spec.ts">
 
 </code-example>
 
@@ -384,7 +384,7 @@ Here is the parent, `CountdownViewChildParentComponent`:
 
 下面是父组件 `CountdownViewChildParentComponent`:
 
-<code-example path="component-interaction/src/app/countdown-parent.component.ts" region="vc" title="component-interaction/src/app/countdown-parent.component.ts">
+<code-example path="component-interaction/src/app/countdown-parent.component.ts" region="vc" header="component-interaction/src/app/countdown-parent.component.ts">
 
 </code-example>
 
@@ -461,7 +461,7 @@ This `MissionService` connects the `MissionControlComponent` to multiple `Astron
 
 这个 `MissionService` 把 `MissionControlComponent` 和多个 `AstronautComponent` 子组件连接起来。
 
-<code-example path="component-interaction/src/app/mission.service.ts" title="component-interaction/src/app/mission.service.ts">
+<code-example path="component-interaction/src/app/mission.service.ts" header="component-interaction/src/app/mission.service.ts">
 
 </code-example>
 
@@ -470,7 +470,7 @@ The `MissionControlComponent` both provides the instance of the service that it 
 
 `MissionControlComponent` 提供服务的实例，并将其共享给它的子组件(通过 `providers` 元数据数组)，子组件可以通过构造函数将该实例注入到自身。
 
-<code-example path="component-interaction/src/app/missioncontrol.component.ts" title="component-interaction/src/app/missioncontrol.component.ts">
+<code-example path="component-interaction/src/app/missioncontrol.component.ts" header="component-interaction/src/app/missioncontrol.component.ts">
 
 </code-example>
 
@@ -479,7 +479,7 @@ Each `AstronautComponent` is a child of the `MissionControlComponent` and theref
 
 `AstronautComponent` 也通过自己的构造函数注入该服务。由于每个 `AstronautComponent` 都是 `MissionControlComponent` 的子组件，所以它们获取到的也是父组件的这个服务实例。
 
-<code-example path="component-interaction/src/app/astronaut.component.ts" title="component-interaction/src/app/astronaut.component.ts">
+<code-example path="component-interaction/src/app/astronaut.component.ts" header="component-interaction/src/app/astronaut.component.ts">
 
 </code-example>
 
@@ -519,7 +519,7 @@ and verify that the history meets expectations:
 
 测试确保点击父组件 `MissionControlComponent` 和子组件 `AstronautComponent` 两个的组件的按钮时，*History* 日志和预期的一样。
 
-<code-example path="component-interaction/e2e/src/app.e2e-spec.ts" region="bidirectional-service" title="component-interaction/e2e/src/app.e2e-spec.ts">
+<code-example path="component-interaction/e2e/src/app.e2e-spec.ts" region="bidirectional-service" header="component-interaction/e2e/src/app.e2e-spec.ts">
 
 </code-example>
 

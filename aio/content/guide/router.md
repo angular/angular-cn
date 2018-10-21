@@ -85,7 +85,7 @@ set the `href` value *exactly* as shown here.
 
 如果 `app` 文件夹是该应用的根目录（就像范例应用中一样），那就把 `href` 的值设置为下面这样：
 
-<code-example path="router/src/index.html" linenums="false" title="src/index.html (base-href)" region="base-href">
+<code-example path="router/src/index.html" linenums="false" header="src/index.html (base-href)" region="base-href">
 
 </code-example>
 
@@ -103,7 +103,7 @@ Angular 的路由器是一个可选的服务，它用来呈现指定的 URL 所�
 它并不是 Angular 核心库的一部分，而是在它自己的 `@angular/router` 包中。
 像其它 Angular 包一样，你可以从它导入所需的一切。
 
-<code-example path="router/src/app/app.module.1.ts" linenums="false" title="src/app/app.module.ts (import)" region="import-router">
+<code-example path="router/src/app/app.module.1.ts" linenums="false" header="src/app/app.module.ts (import)" region="import-router">
 
 </code-example>
 
@@ -129,14 +129,14 @@ from which it can determine the component to display.
 当浏览器的 URL 变化时，路由器会查找对应的 `Route`（路由），并据此决定该显示哪个组件。
 
 A router has no routes until you configure it.
-The following example creates four route definitions, configures the router via the `RouterModule.forRoot` method,
+The following example creates five route definitions, configures the router via the `RouterModule.forRoot` method,
 and adds the result to the `AppModule`'s `imports` array.
 
 路由器需要先配置才会有路由信息。
 下面的例子创建了四个路由定义，并用 `RouterModule.forRoot` 方法来配置路由器，
 并把它的返回值添加到 `AppModule` 的 `imports` 数组中。
 
-<code-example path="router/src/app/app.module.0.ts" linenums="false" title="src/app/app.module.ts (excerpt)">
+<code-example path="router/src/app/app.module.0.ts" linenums="false" header="src/app/app.module.ts (excerpt)">
 
 </code-example>
 
@@ -207,19 +207,27 @@ If you need to see what events are happening during the navigation lifecycle, th
 
 ### 路由出口
 
-Given this configuration, when the browser URL for this application becomes `/heroes`,
-the router matches that URL to the route path `/heroes` and displays the `HeroListComponent`
-_after_ a `RouterOutlet` that you've placed in the host view's HTML.
+The `RouterOutlet` is a directive from the router library that is used like a component. 
+It acts as a placeholder that marks the spot in the template where the router should 
+display the components for that outlet.
 
-有了这份配置，当本应用在浏览器中的 URL 变为 `/heroes` 时，路由器就会匹配到 `path` 为 `heroes` 的 `Route`，并在宿主视图中的*`RouterOutlet`*之后显示 `HeroListComponent` 组件。
+`RouterOutlet` 是一个来自路由模块中的指令，它的用法类似于组件。
+它扮演一个占位符的角色，用于在模板中标出一个位置，路由器将会把要显示在这个出口处的组件显示在这里。
 
 <code-example language="html">
   &lt;router-outlet>&lt;/router-outlet>
-  &lt;!-- Routed views go here -->
+  &lt;!-- Routed components go here -->
 
 </code-example>
 
+Given the configuration above, when the browser URL for this application becomes `/heroes`,
+the router matches that URL to the route path `/heroes` and displays the `HeroListComponent`
+as a sibling element to the `RouterOutlet` that you've placed in the host component's template.
+
+有了这份配置，当本应用在浏览器中的 URL 变为 `/heroes` 时，路由器就会匹配到 `path` 为 `heroes` 的 `Route`，并在宿主视图中的*`RouterOutlet`*之后显示 `HeroListComponent` 组件。
+
 {@a basics-router-links}
+{@a router-link}
 
 ### Router links
 
@@ -236,7 +244,7 @@ Consider the following template:
 
 考虑下列模板：
 
-<code-example path="router/src/app/app.component.1.ts" linenums="false" title="src/app/app.component.ts (template)" region="template">
+<code-example path="router/src/app/app.component.1.html" linenums="false" header="src/app/app.component.html">
 
 </code-example>
 
@@ -253,13 +261,21 @@ The router resolves that array into a complete URL.
 如果需要更加动态的导航路径，那就把它绑定到一个返回*链接参数数组*的模板表达式。
 路由器会把这个数组解析成完整的 URL。
 
-The **`RouterLinkActive`** directive on each anchor tag helps visually distinguish the anchor for the currently selected "active" route.
-The router adds the `active` CSS class to the element when the associated *RouterLink* becomes active.
-You can add this directive to the anchor or to its parent element.
+{@a router-link-active}
 
-每个 `a` 标签上的**`RouterLinkActive`**指令可以帮用户在外观上区分出当前选中的“活动”路由。
-当与它关联的 *RouterLink* 被激活时，路由器会把 CSS 类 `active` 添加到这个元素上。
-你可以把该指令添加到 `a` 元素或它的父元素上。
+
+### Active router links
+
+The `RouterLinkActive` directive toggles css classes for active `RouterLink` bindings based on the current `RouterState`.
+
+On each anchor tag, you see a [property binding](guide/template-syntax#property-binding) to the `RouterLinkActive` directive that look like `routerLinkActive="..."`.
+
+The template expression to the right of the equals (=) contains a space-delimited string of CSS classes
+that the Router will add when this link is active (and remove when the link is inactive). You set the `RouterLinkActive` 
+directive to a string of classes such as `[routerLinkActive]="'active fluffy'"` or bind it to a component 
+property that returns such a string. 
+
+Active route links cascade down through each level of the route tree, so parent and child router links can be active at the same time. To override this behavior, you can bind to the `[routerLinkActiveOptions]` input binding with the `{ exact: true }` expression. By using `{ exact: true }`, a given `RouterLink` will only be active if its URL is an exact match to the current URL.
 
 {@a basics-router-state}
 
@@ -557,6 +573,29 @@ During each navigation, the `Router` emits navigation events through the `Router
       本[事件](api/router/NavigationStart)会在导航开始时触发。
 
     </td>
+  </tr>
+
+  <tr>
+    <td>
+      <code>RouteConfigLoadStart</code>
+    </td>
+    <td>
+
+      An [event](api/router/RouteConfigLoadStart) triggered before the `Router`
+      [lazy loads](#asynchronous-routing) a route configuration.
+
+    </td>
+  </tr>
+
+  <tr>
+    <td>
+      <code>RouteConfigLoadEnd</code>
+    </td>
+    <td>
+
+      An [event](api/router/RouteConfigLoadEnd) triggered after a route has been lazy loaded.
+
+    </td>
 
   </tr>
 
@@ -582,14 +621,56 @@ During each navigation, the `Router` emits navigation events through the `Router
 
     <td>
 
-      <code>RouteConfigLoadStart</code>
+      <code>GuardsCheckStart</code>
+    </td>
+    <td>
 
+      An [event](api/router/GuardsCheckStart) triggered when the Router begins the Guards phase of routing.
+
+    </td>
+  </tr>
+
+  <tr>
+    <td>
+      <code>ChildActivationStart</code>
+    </td>
+    <td>
+
+      An [event](api/router/ChildActivationStart) triggered when the Router begins activating a route's children.
+
+    </td>
+  </tr>
+
+  <tr>
+    <td>
+      <code>ActivationStart</code>
+    </td>
+    <td>
+
+      An [event](api/router/ActivationStart) triggered when the Router begins activating a route.
+
+    </td>
+  </tr>
+
+  <tr>
+    <td>
+      <code>GuardsCheckEnd</code>
+    </td>
+    <td>
+
+      An [event](api/router/GuardsCheckEnd) triggered when the Router finishes the Guards phase of routing successfully.
+
+    </td>
+  </tr>
+
+  <tr>
+    <td>
+      <code>ResolveStart</code>
     </td>
 
     <td>
 
-      An [event](api/router/RouteConfigLoadStart) triggered before the `Router`
-      [lazy loads](#asynchronous-routing) a route configuration.
+      An [event](api/router/ResolveStart) triggered when the Router begins the Resolve phase of routing.
 
       本[事件](api/router/RouteConfigLoadStart)会在 `Router` 对一个路由配置进行[惰性加载](#asynchronous-routing)之前触发。
 
@@ -601,13 +682,34 @@ During each navigation, the `Router` emits navigation events through the `Router
 
     <td>
 
-      <code>RouteConfigLoadEnd</code>
+      <code>ResolveEnd</code>
+    </td>
+    <td>
 
+      An [event](api/router/ResolveEnd) triggered when the Router finishes the Resolve phase of routing successfuly.
+
+    </td>
+  </tr>
+
+  <tr>
+    <td>
+      <code>ChildActivationEnd</code>
     </td>
 
     <td>
 
-      An [event](api/router/RouteConfigLoadEnd) triggered after a route has been lazy loaded.
+      An [event](api/router/ChildActivationEnd) triggered when the Router finishes activating a route's children.
+
+    </td>
+  </tr>
+
+  <tr>
+    <td>
+      <code>ActivationEnd</code>
+    </td>
+    <td>
+
+      An [event](api/router/ActivationStart) triggered when the Router finishes activating a route.
 
       本[事件](api/router/RouteConfigLoadEnd)会在路由被惰性加载之后触发。
 
@@ -668,13 +770,25 @@ During each navigation, the `Router` emits navigation events through the `Router
       这个[事件](api/router/NavigationError)会在导航由于意料之外的错误而失败时触发。
 
     </td>
+  </tr>
+
+  <tr>
+    <td>
+      <code>Scroll</code>
+    </td>
+    <td>
+
+      An [event](api/router/Scroll) that represents a scrolling event.
+
+    </td>
 
   </tr>
 </table>
 
-These events are logged to the console when the `enableTracing` option is enabled also. Since the events are provided as an `Observable`, you can `filter()` for events of interest and `subscribe()` to them to make decisions based on the sequence of events in the navigation process.
+These events are logged to the console when the `enableTracing` option is enabled also. For an example of filtering router navigation events, visit the [router section](guide/observables-in-angular#router) of the [Observables in Angular](guide/observables-in-angular) guide.
 
-当打开了 `enableTracing` 选项时，这些事件也同时会记录到控制台中。由于这些事件是以 `Observable` 的形式提供的，所以你可以对自己感兴趣的事件进行 `filter()`，并 `subscribe()` 它们，以便根据导航过程中的事件顺序做出决策。
+当启用了 `enableTracing` 选项时，这些事件也同时会记录到控制台中。要想查看对路由导航事件进行过滤的例子，请访问 [Angular 中的可观察对象](guide/observables-in-angular)一章的[路由器部分](guide/observables-in-angular#router)
+
 
 {@a basics-summary}
 
@@ -1078,7 +1192,7 @@ Now click the *Crisis Center* link for a list of ongoing crises.
 </figure>
 
 Select a crisis and the application takes you to a crisis editing screen.
-The _Crisis Detail_ appears in a child view on the same page, beneath the list.
+The _Crisis Detail_ appears in a child component on the same page, beneath the list.
 
 选择其中之一，该应用就会把你带到此危机的编辑页面。
 *危机详情*出现在了当前页的子视图区，也就是在列表的紧下方。
@@ -1136,7 +1250,7 @@ Proceed to the first application milestone.
 
 {@a getting-started}
 
-## Milestone 1: Getting started with the router
+## Milestone 1: Getting started
 
 ## 里程碑 1：从路由器开始
 
@@ -1148,112 +1262,23 @@ Begin with a simple version of the app that navigates between two empty views.
   <img src='generated/images/guide/router/router-1-anim.gif' alt="App in action">
 </figure>
 
-{@a base-href}
-
-### Set the *&lt;base href>*
-
-### 设置*&lt;base href>*
-
-The router uses the browser's
-<a href="https://developer.mozilla.org/en-US/docs/Web/API/History_API#Adding_and_modifying_history_entries" title="HTML5 browser history push-state">history.pushState</a>
-for navigation. Thanks to `pushState`, you can make in-app URL paths look the way you want them to
-look, e.g. `localhost:3000/crisis-center`. The in-app URLs can be indistinguishable from server URLs.
-
-路由器使用浏览器的<a href="https://developer.mozilla.org/en-US/docs/Web/API/History_API#Adding_and_modifying_history_entries" target="_blank" title="HTML5 browser history push-state">history.pushState</a>进行导航。
-感谢 `pushState`！有了它，你就能按所期望的样子来显示应用内部的 URL 路径，比如：`localhost:3000/crisis-center`。虽然你使用的全部是客户端合成的视图，但应用内部的这些 URL 看起来和来自服务器的没有什么不同。
-
-Modern HTML5 browsers were the first to support `pushState` which is why many people refer to these URLs as
-"HTML5 style" URLs.
-
-现代 HTML 5 浏览器是最早支持 `pushState` 的，这也就是很多人喜欢把这种 URL 称作“HTML 5 风格的”URL 的原因。
-
-<div class="alert is-helpful">
-
-HTML5 style navigation is the router default.
-In the [LocationStrategy and browser URL styles](#browser-url-styles) Appendix,
-learn why HTML5 style is preferred, how to adjust its behavior, and how to switch to the
-older hash (#) style, if necessary.
-
-HTML 5 风格的导航是路由器的默认值。请到下面的附录[浏览器 URL 风格](guide/router#browser-url-styles)中学习为什么首选“HTML 5”风格、如何调整它的行为，以及如何在必要时切换回老式的 hash（#）风格。
-
-</div>
-
-You must **add a
-<a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/base" title="base href">&lt;base href&gt; element</a>**
-to the app's `index.html` for `pushState` routing to work.
-The browser uses the `<base href>` value to prefix *relative* URLs when referencing
-CSS files, scripts, and images.
-
-你必须往本应用的 `index.html` 中**添加一个<a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/base" target="_blank" title="base href">&lt;base href&gt; 元素</a>**，这样 `pushState` 才能正常工作。
-当引用 CSS 文件、脚本和图片时，浏览器会用 `<base href>` 的值作为*相对*URL 的前缀。
-
-Add the `<base>` element just after the  `<head>` tag.
-If the `app` folder is the application root, as it is for this application,
-set the `href` value in **`index.html`** *exactly* as shown here.
-
-把 `<base>` 元素添加到 `<head>` 元素中。
-如果 `app` 目录是应用的根目录，对于本应用，可以像这样设置**`index.html`**中的 `href` 值：
-
-<code-example path="router/src/index.html" linenums="false" title="src/index.html (base-href)" region="base-href">
-
-</code-example>
-
-<div class="callout is-important">
-
-<header>Live example note</header>
-
-<header>在线例子说明</header>
-
-A live coding environment like Stackblitz sets the application base address dynamically so you can't specify a fixed address.
-That's why the example code replaces the `<base href...>` with a script that writes the `<base>` tag on the fly.
-
-像 Stackblitz 这样的在线编程环境会动态设置应用的基地址（base href），因此你没办法指定固定的地址。
-这就是为什么范例代码中要用一个脚本动态写入 `<base>` 标签，而不是直接写 `<base href...>`。
-
-<code-example language="html">
-  &lt;script>document.write('&lt;base href="' + document.location + '" />');&lt;/script>
-
-</code-example>
-
-You only need this trick for the live example, not production code.
-
-你只应该在在线例子这种情况下使用这种小花招，不要把它用到产品的正式代码中。
-
-</div>
-
 {@a import}
 
-### Importing from the router library
+Generate a sample application to follow the walkthrough.
 
-### 从路由库中导入
+遵循这些步骤生成一个范例应用。
 
-Begin by importing some symbols from the router library.
-The Router is in its own `@angular/router` package.
-It's not part of the Angular core. The router is an optional service because not all applications
-need routing and, depending on your requirements, you may need a different routing library.
+<code-example language="none" class="code-shell">
+  ng new angular-router-sample
+</code-example>
 
-先从路由库导入一些符号。
-路由器在它自己的 `@angular/router` 包中。
-它不是 Angular 内核的一部分。该路由器是可选的服务，这是因为并不是所有应用都需要路由，并且，如果需要，你还可能需要另外的路由库。
-
-You teach the router how to navigate by configuring it with routes.
-
-通过一些路由来配置路由器，你可以教路由器如何进行导航。
-
-{@a route-config}
-
-#### Define routes
+### Define Routes
 
 #### 定义路由
 
 A router must be configured with a list of route definitions.
 
 路由器必须用“路由定义”的列表进行配置。
-
-The first configuration defines an array of two routes with simple paths leading to the
-`CrisisListComponent` and `HeroListComponent`.
-
-第一个配置中定义了由两个路由构成的数组，它们分别通过路径(path)导航到了 `CrisisListComponent` 和 `HeroListComponent` 组件。
 
 Each definition translates to a [Route](api/router/Route) object which has two things: a
 `path`, the URL path segment for this route; and a
@@ -1280,21 +1305,51 @@ activates an instance of `CrisisListComponent`, displays its view, and updates t
 browser's address location and history with the URL for that path.
 
    **当应用程序请求导航到路径 `/crisis-center` 时，路由器激活一个 `CrisisListComponent` 的实例，显示它的视图，并将该路径更新到浏览器地址栏和历史。**
+The first configuration defines an array of two routes with simple paths leading to the
+`CrisisListComponent` and `HeroListComponent`. Generate the `CrisisList` and `HeroList` components.
 
-Here is the first configuration. Pass the array of routes, `appRoutes`, to the `RouterModule.forRoot` method.
-It returns a module, containing the configured `Router` service provider, plus other providers that the routing library requires.
-Once the application is bootstrapped, the `Router` performs the initial navigation based on the current browser URL.
+<code-example language="none" class="code-shell">
+  ng generate component crisis-list
+</code-example>
+
+<code-example language="none" class="code-shell">
+  ng generate component hero-list
+</code-example>
+
+Replace the contents of each component with the sample HTML below.
+
+<code-tabs>
+
+  <code-pane header="src/app/crisis-list/crisis-list.component.html" path="router/src/app/crisis-list/crisis-list.component.html">
+
+  </code-pane>
+
+  <code-pane header="src/app/hero-list/hero-list.component.html" path="router/src/app/hero-list/hero-list.component.html" region="template">
+
+  </code-pane>
+
+</code-tabs>
+
+### Register Router and Routes
+
+In order to use the Router, you must first register the `RouterModule` from the `@angular/router` package. Define an array of routes, `appRoutes`, and pass them to the `RouterModule.forRoot()` method. It returns a module, containing the configured `Router` service provider, plus other providers that the routing library requires. Once the application is bootstrapped, the `Router` performs the initial navigation based on the current browser URL.
 
 下面是第一个配置。把路由数组传递到 `RouterModule.forRoot` 方法，该方法返回一个包含已配置的 `Router` 服务提供商模块和一些其它路由包需要的服务提供商。应用启动时，`Router` 将在当前浏览器 URL 的基础上进行初始导航。
 
-<code-example path="router/src/app/app.module.1.ts" linenums="false" title="src/app/app.module.ts (first-config)" region="first-config">
+<div class="alert is-important">
+
+  **Note:** The `RouterModule.forRoot` method is a pattern used to register application-wide providers. Read more about application-wide providers in the [Singleton services](guide/singleton-services#forroot) guide.
+
+</div>
+
+<code-example path="router/src/app/app.module.1.ts" linenums="false" header="src/app/app.module.ts (first-config)" region="first-config">
 
 </code-example>
 
 <div class="alert is-helpful">
 
 Adding the configured `RouterModule` to the `AppModule` is sufficient for simple route configurations.
-As the application grows, you'll want to refactor the routing configuration into a separate file
+As the application grows, you'll want to [refactor the routing configuration](#refactor-the-routing-configuration-into-a-routing-module) into a separate file
 and create a **[Routing Module](#routing-module)**, a special type of `Service Module` dedicated to the purpose
 of routing in feature modules.
 
@@ -1303,18 +1358,17 @@ of routing in feature modules.
 
 </div>
 
-Providing the `RouterModule` in the `AppModule` makes the Router available everywhere in the application.
+Registering the `RouterModule.forRoot()` in the `AppModule` imports makes the `Router` service available everywhere in the application.
 
 在 `AppModule` 中提供 `RouterModule`，让该路由器在应用的任何地方都能被使用。
 
 {@a shell}
 
-### The *AppComponent* shell
+### Add the Router Outlet
 
 ### *AppComponent* 外壳组件
 
-The root `AppComponent` is the application shell. It has a title, a navigation bar with two links,
-and a *router outlet* where the router swaps views on and off the page. Here's what you get:
+The root `AppComponent` is the application shell. It has a title, a navigation bar with two links, and a router outlet where the router swaps components on and off the page. Here's what you get:
 
 根组件 `AppComponent` 是本应用的壳。它在顶部有一个标题、一个带两个链接的导航条，在底部有一个*路由器出口*，路由器会在它所指定的位置上把视图切入或调出页面。就像下图中所标出的：
 
@@ -1322,127 +1376,27 @@ and a *router outlet* where the router swaps views on and off the page. Here's w
   <img src='generated/images/guide/router/shell-and-outlet.png' alt="Shell">
 </figure>
 
+The router outlet serves as a placeholder when the routed components will be rendered below it.
+
+路由出口扮演一个占位符的角色，路由组件将会渲染在它的下方。
+
 {@a shell-template}
 
 The corresponding component template looks like this:
 
 该组件所对应的模板是这样的：
 
-<code-example path="router/src/app/app.component.1.ts" linenums="false" title="src/app/app.component.ts (template)" region="template">
-
-</code-example>
-
-{@a router-outlet}
-
-### *RouterOutlet*
-
-### 路由出口
-
-The `RouterOutlet` is a directive from the router library that marks
-the spot in the template where the router should display the views for that outlet.
-
-`RouterOutlet` 是一个来自路由库的组件。
-路由器会在 `<router-outlet>` 标签中显示视图。
-
-<div class="alert is-helpful">
-
-The router adds the `<router-outlet>` element to the DOM
-and subsequently inserts the navigated view element
-immediately _after_ the `<router-outlet>`.
-
-路由器会把 `<router-outlet>` 元素添加到了 DOM 中，紧接着立即在这个 `<router-outlet>` *之后*插入导航到的视图元素。
-
-</div>
-
-{@a router-link}
-
-### *RouterLink* binding
-
-### `routerLink` 绑定
-
-Above the outlet, within the anchor tags, you see
-[attribute bindings](guide/template-syntax#attribute-binding) to
-the `RouterLink` directive that look like `routerLink="..."`.
-
-在出口上方的 A 标签中，有一个绑定 `RouterLink` 指令的[属性绑定](guide/template-syntax#property-binding)，就像这样：`routerLink="..."`。
-
-The links in this example each have a string path, the path of a route that
-you configured earlier. There are no route parameters yet.
-
-例子中的每个链接都有一个字符串型的路径，也就是你以前配置过的路由路径，但还没有指定路由参数。
-
-You can also add more contextual information to the `RouterLink` by providing query string parameters
-or a URL fragment for jumping to different areas on the page. Query string parameters
-are provided through the `[queryParams]` binding which takes an object (e.g. `{ name: 'value' }`), while the URL fragment
-takes a single value bound to the `[fragment]` input binding.
-
-你还可以通过提供查询字符串参数为 `RouterLink` 提供更多情境信息，或提供一个 URL 片段（Fragment 或 hash）来跳转到本页面中的其它区域。
-查询字符串可以由 `[queryParams]` 绑定来提供，它需要一个对象型参数（如 `{ name: 'value' }`），而 URL 片段需要一个绑定到 `[fragment]` 的单一值。
-
-<div class="alert is-helpful">
-
-Learn about the how you can also use the _link parameters array_ in the [appendix below](#link-parameters-array).
-
-还可以到[后面的附录](guide/router#link-parameters-array)中学习如何使用**链接参数数组**。
-
-</div>
-
-{@a router-link-active}
-
-### *RouterLinkActive* binding
-
-### `routerLinkActive` 绑定
-
-On each anchor tag, you also see [property bindings](guide/template-syntax#property-binding) to
-the `RouterLinkActive` directive that look like `routerLinkActive="..."`.
-
-每个 A 标签还有一个到 `RouterLinkActive` 指令的[属性绑定](guide/template-syntax#property-binding)，就像 `routerLinkActive="..."`。
-
-The template expression to the right of the equals (=) contains a space-delimited string of CSS classes
-that the Router will add when this link is active (and remove when the link is inactive).
-You can also set the `RouterLinkActive` directive to a string of classes such as `[routerLinkActive]="'active fluffy'"`
-or bind it to a component property that returns such a string.
-
-等号（=）右侧的模板表达式包含用空格分隔的一些 CSS 类。当路由激活时路由器就会把它们添加到此链接上（反之则移除）。你还可以把 `RouterLinkActive` 指令绑定到一个 CSS 类组成的数组，如 `[routerLinkActive]="['...']"`。
-
-The `RouterLinkActive` directive toggles css classes for active `RouterLink`s based on the current `RouterState`.
-This cascades down through each level of the route tree, so parent and child router links can be active at the same time.
-To override this behavior, you can bind to the `[routerLinkActiveOptions]` input binding with the `{ exact: true }` expression.
-By using `{ exact: true }`, a given `RouterLink` will only be active if its URL is an exact match to the current URL.
-
-`RouterLinkActive` 指令会基于当前的 `RouterState` 对象来为激活的 `RouterLink` 切换 CSS 类。
-这会一直沿着路由树往下进行级联处理，所以父路由链接和子路由链接可能会同时激活。
-要改变这种行为，可以把 `[routerLinkActiveOptions]` 绑定到 `{exact: true}` 表达式。
-如果使用了 `{ exact: true }`，那么只有在其 URL 与当前 URL 精确匹配时才会激活指定的 `RouterLink`。
-
-{@a router-directives}
-
-### *Router directives*
-
-### *路由器指令集*
-
-`RouterLink`, `RouterLinkActive` and `RouterOutlet` are directives provided by the Angular `RouterModule` package.
-They are readily available for you to use in the template.
-
-`RouterLink`、`RouterLinkActive` 和 `RouterOutlet` 是由 `RouterModule` 包提供的指令。
-现在你可以把它用在模板中了。
-
-The current state of `app.component.ts` looks like this:
-
-`app.component.ts` 目前是这样的：
-
-<code-example path="router/src/app/app.component.1.ts" linenums="false" title="src/app/app.component.ts (excerpt)">
+<code-example path="router/src/app/app.component.1.html" linenums="false" header="src/app/app.component.html">
 
 </code-example>
 
 {@a wildcard}
 
-### Wildcard route
+### Define a Wildcard route
 
 ### 通配符路由
 
-You've created two routes in the app so far, one to `/crisis-center` and the other to `/heroes`.
-Any other URL causes the router to throw an error and crash the app.
+You've created two routes in the app so far, one to `/crisis-center` and the other to `/heroes`. Any other URL causes the router to throw an error and crash the app.
 
 你以前在应用中创建过两个路由，一个是 `/crisis-center`，另一个是 `/heroes`。
 所有其它 URL 都会导致路由器抛出错误，并让应用崩溃。
@@ -1472,7 +1426,7 @@ To test this feature, add a button with a `RouterLink` to the `HeroListComponent
 
 要测试本特性，请往 `HeroListComponent` 的模板中添加一个带 `RouterLink` 的按钮，并且把它的链接设置为 `"/sidekicks"`。
 
-<code-example path="router/src/app/hero-list.component.ts" linenums="false" title="src/app/hero-list.component.ts (excerpt)">
+<code-example path="router/src/app/hero-list/hero-list.component.html" linenums="false" header="src/app/hero-list/hero-list.component.html (excerpt)">
 
 </code-example>
 
@@ -1484,7 +1438,7 @@ Instead of adding the `"/sidekicks"` route, define a `wildcard` route instead an
 
 不要添加 `"/sidekicks"` 路由，而是定义一个“通配符”路由，让它直接导航到 `PageNotFoundComponent` 组件。
 
-<code-example path="router/src/app/app.module.1.ts" linenums="false" title="src/app/app.module.ts (wildcard)" region="wildcard">
+<code-example path="router/src/app/app.module.1.ts" linenums="false" header="src/app/app.module.ts (wildcard)" region="wildcard">
 
 </code-example>
 
@@ -1492,13 +1446,13 @@ Create the `PageNotFoundComponent` to display when users visit invalid URLs.
 
 创建 `PageNotFoundComponent`，以便在用户访问无效网址时显示它。
 
-<code-example path="router/src/app/not-found.component.ts" linenums="false" title="src/app/not-found.component.ts (404 component)">
-
+<code-example language="none" class="code-shell">
+  ng generate component page-not-found
 </code-example>
 
-As with the other components, add the `PageNotFoundComponent` to the `AppModule` declarations.
+<code-example path="router/src/app/page-not-found/page-not-found.component.html" linenums="false" header="src/app/page-not-found.component.html (404 component)">
 
-像其它组件一样，把 `PageNotFoundComponent` 添加到 `AppModule` 的声明中。
+</code-example>
 
 Now when the user visits `/sidekicks`, or any other invalid URL, the browser displays "Page not found".
 The browser address bar continues to point to the invalid URL.
@@ -1506,9 +1460,9 @@ The browser address bar continues to point to the invalid URL.
 现在，当用户访问 `/sidekicks` 或任何无效的 URL 时，浏览器就会显示“Page not found”。
 浏览器的地址栏仍指向无效的 URL。
 
-{@a default-route}
+{@a redirect}
 
-### The _default_ route to heroes
+### Set up redirects
 
 ### 把*默认*路由设置为英雄列表
 
@@ -1517,7 +1471,7 @@ When the application launches, the initial URL in the browser bar is something l
 应用启动时，浏览器地址栏中的初始 URL 是这样的：
 
 <code-example>
-  localhost:3000
+  localhost:4200
 </code-example>
 
 That doesn't match any of the concrete configured routes which means
@@ -1527,15 +1481,9 @@ the router falls through to the wildcard route and displays the `PageNotFoundCom
 
 The application needs a **default route** to a valid page.
 The default page for this app is the list of heroes.
-The app should navigate there as if the user clicked the "Heroes" link or pasted `localhost:3000/heroes` into the address bar.
+The app should navigate there as if the user clicked the "Heroes" link or pasted `localhost:4200/heroes` into the address bar.
 
-这个应用需要一个有效的**默认路由**，在这里应该用英雄列表作为默认页。当用户点击"Heroes"链接或把 `localhost:3000/heroes` 粘贴到地址栏时，它应该导航到列表页。
-
-{@a redirect}
-
-### Redirecting routes
-
-### 重定向路由
+这个应用需要一个有效的**默认路由**，在这里应该用英雄列表作为默认页。当用户点击"Heroes"链接或把 `localhost:4200/heroes` 粘贴到地址栏时，它应该导航到列表页。
 
 The preferred solution is to add a `redirect` route that translates the initial relative URL (`''`)
 to the desired default path (`/heroes`). The browser address bar shows `.../heroes` as if you'd navigated there directly.
@@ -1549,8 +1497,9 @@ It's just above the wildcard route in the following excerpt showing the complete
 在通配符路由*上方*添加一个默认路由。
 在下方的代码片段中，它出现在通配符路由的紧上方，展示了这个里程碑的完整 `appRoutes`。
 
-<code-example path="router/src/app/app-routing.module.1.ts" linenums="false" title="src/app/app-routing.module.ts (appRoutes)" region="appRoutes">
+<code-example path="router/src/app/app-routing.module.1.ts" linenums="false" header="src/app/app-routing.module.ts (appRoutes)" region="appRoutes">
 </code-example>
+
 
 A redirect route requires a `pathMatch` property to tell the router how to match a URL to the path of a route.
 The router throws an error if you don't.
@@ -1561,6 +1510,7 @@ so set the `pathMatch` value to `'full'`.
 在本应用中，路由器应该只有在*完整的 URL*等于 `''` 时才选择 `HeroListComponent` 组件，因此要把 `pathMatch` 设置为 `'full'`。
 
 <div class="alert is-helpful">
+
 
 Technically, `pathMatch = 'full'` results in a route hit when the *remaining*, unmatched segments of the URL match `''`.
 In this example, the redirect is in a top level route so the *remaining* URL and the *entire* URL are the same thing.
@@ -1601,6 +1551,7 @@ Learn more in Victor Savkin's
 要了解更多，参见 Victor Savkin 的帖子[关于重定向](http://victorsavkin.com/post/146722301646/angular-router-empty-paths-componentless-routes)。
 
 </div>
+
 
 ### Basics wrap up
 
@@ -1643,12 +1594,6 @@ You've learned how to do the following:
 
    当应用在空路径下启动时，导航到默认路由
 
-The rest of the starter app is mundane, with little interest from a router perspective.
-Here are the details for readers inclined to build the sample through to this milestone.
-
-这个初学者应用的其它部分有点平淡无奇，从路由器的角度来看也很平淡。
-如果你还是倾向于在这个里程碑里构建它们，参见下面的构建详情。
-
 The starter app's structure looks like this:
 
 这个初学者应用的结构是这样的：
@@ -1657,8 +1602,7 @@ The starter app's structure looks like this:
 
   <div class='file'>
 
-    router-sample
-
+    angular-router-sample
   </div>
 
   <div class='children'>
@@ -1681,13 +1625,20 @@ The starter app's structure looks like this:
 
         <div class='file'>
 
-          app.component.ts
-
+          crisis-list
         </div>
+
+        <div class='children'>
+
+          <div class='file'>
+
+            crisis-list.component.css
+
+          </div>
 
         <div class='file'>
 
-          app.module.ts
+          crisis-list.component.html
 
         </div>
 
@@ -1697,16 +1648,76 @@ The starter app's structure looks like this:
 
         </div>
 
-        <div class='file'>
-
-          hero-list.component.ts
-
         </div>
 
         <div class='file'>
 
-          not-found.component.ts
+          hero-list
+        </div>
 
+        <div class='children'>
+
+          <div class='file'>
+
+            hero-list.component.css
+
+          </div>
+
+          <div class='file'>
+
+            hero-list.component.html
+
+          </div>
+
+          <div class='file'>
+
+            hero-list.component.ts
+
+          </div>
+          
+        </div>
+
+        <div class='file'>
+          page-not-found
+        </div>
+
+        <div class='children'>
+
+          <div class='file'>
+
+            page-not-found.component.css
+
+          </div>
+
+          <div class='file'>
+
+            page-not-found.component.html
+
+          </div>
+
+          <div class='file'>
+
+            page-not-found.component.ts
+
+          </div>
+          
+        </div>
+
+        <div class='file'>
+          app.component.css
+        </div>
+
+        <div class='file'>
+          app.component.html
+        </div>
+
+        <div class='file'>
+          app.component.ts
+        </div>
+
+        <div class='file'>
+
+          app.module.ts
         </div>
 
       </div>
@@ -1759,31 +1770,27 @@ Here are the files discussed in this milestone.
 
 <code-tabs>
 
-  <code-pane title="app.component.ts" path="router/src/app/app.component.1.ts">
+  <code-pane header="app.component.html" path="router/src/app/app.component.1.html">
 
   </code-pane>
 
-  <code-pane title="app.module.ts" path="router/src/app/app.module.1.ts">
+  <code-pane header="app.module.ts" path="router/src/app/app.module.1.ts">
 
   </code-pane>
 
-  <code-pane title="main.ts" path="router/src/main.ts">
+  <code-pane header="hero-list/hero-list.component.html" path="router/src/app/hero-list/hero-list.component.html">
 
   </code-pane>
 
-  <code-pane title="hero-list.component.ts" path="router/src/app/hero-list.component.ts">
+  <code-pane header="crisis-list/crisis-list.component.html" path="router/src/app/crisis-list/crisis-list.component.html">
 
   </code-pane>
 
-  <code-pane title="crisis-list.component.ts" path="router/src/app/crisis-list.component.ts">
+  <code-pane header="page-not-found/page-not-found.component.html" path="router/src/app/page-not-found/page-not-found.component.html">
 
   </code-pane>
 
-  <code-pane title="not-found.component.ts" path="router/src/app/not-found.component.ts">
-
-  </code-pane>
-
-  <code-pane title="index.html" path="router/src/index.html">
+  <code-pane header="index.html" path="router/src/index.html">
 
   </code-pane>
 
@@ -1824,6 +1831,24 @@ The **Routing Module** has several characteristics:
 * Does **not** declare components.
 
    **不要**声明组件。
+ 
+{@a integrate-routing}
+
+### Integrate routing with your app
+
+The sample routing application does not include routing by default.
+When you use the [Angular CLI](cli) to create a project that will use routing, set the `--routing` option for the project or app, and for each NgModule. 
+When you create or initialize a new project (using the CLI [`ng new`](cli/new) command) or a new app (using the [`ng generate app`](cli/generate) command), specify the `--routing` option.  This tells the CLI to include the `@angular/router` npm package and create a file named `app-routing.module.ts`.
+You can then use routing in any NgModule that you add to the project or app.
+
+For example, the following command generates an NgModule that can use routing.
+
+```sh
+ng generate module my-module --routing
+```
+
+This creates a separate file named `my-module-routing.module.ts` to store the NgModule's routes.
+The file includes an empty `Routes` object that you can fill with routes to different components and NgModules.
 
 {@a routing-refactor}
 
@@ -1831,50 +1856,47 @@ The **Routing Module** has several characteristics:
 
 ### 将路由配置重构为*路由模块*
 
-Create a file named `app-routing.module.ts` in the `/app` folder to contain the routing module.
+Create an `AppRouting` module in the `/app` folder to contain the routing configuration.
 
 在 `/app` 目录下创建一个名叫 `app-routing.module.ts` 的文件，以包含这个路由模块。
 
-Import the `CrisisListComponent` and the `HeroListComponent` components
+<code-example language="none" class="code-shell">
+  ng generate module app-routing --module app --flat
+</code-example>
+
+Import the `CrisisListComponent`, `HeroListComponent`, and `PageNotFoundCompponent` symbols
 just like you did in the `app.module.ts`. Then move the `Router` imports
 and routing configuration, including `RouterModule.forRoot`, into this routing module.
 
-导入 `CrisisListComponent` 和 `HeroListComponent` 组件，就像 `app.module.ts` 中一样。然后把 `Router` 的导入语句和路由配置以及 `RouterModule.forRoot` 移入这个路由模块中。
+导入 `CrisisListComponent`、`HeroListComponent` 和 `PageNotFoundCompponent` 组件，就像 `app.module.ts` 中那样。然后把 `Router` 的导入语句和路由配置以及 `RouterModule.forRoot` 移入这个路由模块中。
 
-Following convention, add a class name `AppRoutingModule` and export it
-so you can import it later in `AppModule`.
+Re-export the Angular `RouterModule` by adding it to the module `exports` array.
+By re-exporting the `RouterModule` here the components declared in `AppModule` will have access to router directives such as `RouterLink` and `RouterOutlet`.
 
-遵循规约，添加一个 `AppRoutingModule` 类并导出它，以便稍后在 `AppModule` 中导入它。
-
-Finally, re-export the Angular `RouterModule` by adding it to the module `exports` array.
-By re-exporting the `RouterModule` here and importing `AppRoutingModule` in `AppModule`,
-the components declared in `AppModule` will have access to router directives such as `RouterLink` and `RouterOutlet`.
-
-最后，可以通过把它添加到该模块的 `exports` 数组中来再次导出 `RouterModule`。
+把它添加到该模块的 `exports` 数组中，以再次导出 `RouterModule`。
 通过在 `AppModule` 中导入 `AppRoutingModule` 并再次导出 `RouterModule`，那些声明在 `AppModule` 中的组件就可以访问路由指令了，比如 `RouterLink` 和 `RouterOutlet`。
 
 After these steps, the file should look like this.
 
 做完这些之后，该文件变成了这样：
 
-<code-example path="router/src/app/app-routing.module.1.ts" title="src/app/app-routing.module.ts">
+<code-example path="router/src/app/app-routing.module.1.ts" header="src/app/app-routing.module.ts">
 
 </code-example>
 
-Next, update the `app.module.ts` file,
-first importing the newly created `AppRoutingModule`from `app-routing.module.ts`,
-then replacing `RouterModule.forRoot` in the `imports` array with the `AppRoutingModule`.
+Next, update the `app.module.ts` file, removing `RouterModule.forRoot` in 
+the `imports` array.
 
 接下来，修改 `app.module.ts` 文件，首先从 `app-routing.module.ts` 中导入新创建的 `AppRoutingModule`，
 然后把 `imports` 数组中的 `RouterModule.forRoot` 替换为 `AppRoutingModule`。
 
-<code-example path="router/src/app/app.module.2.ts" title="src/app/app.module.ts">
+<code-example path="router/src/app/app.module.2.ts" header="src/app/app.module.ts">
 
 </code-example>
 
 <div class="alert is-helpful">
 
-Later in this guide you will create [multiple routing modules](#hero-routing-module) and discover that
+Later in this guide you will create [multiple routing modules](#heroes-functionality) and discover that
 you must import those routing modules [in the correct order](#routing-module-order).
 
 本章稍后的部分，你将创建一个[多路由模块](guide/router#hero-routing-module)，并揭示你为何必须[以正确的顺序导入那些路由模块](guide/router#routing-module-order)。
@@ -1989,58 +2011,58 @@ Then you'll import into the main module and navigate among them.
 
 Follow these steps:
 
-按照下列步骤：
+遵循下列步骤：
 
-* Create the `src/app/heroes` folder; you'll be adding files implementing *hero management* there.
+* Create a `HeroesModule` with routing in the heroes folder and register it with the root `AppModule`. This is where you'll be implementing the *hero management*.
 
-   创建 `src/app/heroes` 文件夹，你将会把*英雄管理*功能的实现文件放在这里。
+  在 `heroes` 目录下创建一个带路由的 `HeroesModule`，并把它注册进 `AppModule` 中。
+  这里就是你实现*英雄管理*特性的地方。
 
-* Delete the placeholder `hero-list.component.ts` that's in the `app` folder.
+<code-example language="none" class="code-shell">
+  ng generate module heroes/heroes --module app --flat --routing
+</code-example>
 
-   在 `app` 目录下删除占位用的 `hero-list.component.ts` 文件。
+* Move the placeholder `hero-list` folder that's in the `app` into the `heroes` folder.
 
-* Create a new `hero-list.component.ts` under `src/app/heroes`.
+  把 `app` 下占位用的 `hero-list` 移到 `heroes` 目录中。
 
-   在 `src/app/heroes` 目录下创建新的 `hero-list.component.ts` 文件。
-
-* Copy into it the contents of the `app.component.ts` from
-  the <live-example name="toh-pt4" title="Tour of Heroes: Services example code">"Services" tutorial</live-example>.
-
-   把<live-example name="toh-pt4" title="《英雄指南》：各个服务的范例代码"></live-example>复制到 `app.component.ts` 中。
-
-* Make a few minor but necessary changes:
-
-   做一些微小但必要的修改：
-
-  * Delete the `selector` (routed components don't need them).
-
-     删除 `selector`（路由组件不需要它们）。
-
-  * Delete the `<h1>`.
-
-     删除 `<h1>`。
+* Copy the contents of the `heroes/heroes.component.html` from
+  the <live-example name="toh-pt4" title="Tour of Heroes: Services example code">"Services" tutorial</live-example> into the `hero-list.component.html` template.
+  
+  从 <live-example name="toh-pt4" title="Tour of Heroes: Services example code">教程的 "服务" 部分</live-example>把 `heroes/heroes.component.html` 的内容复制到 `hero-list.component.html` 模板中。
 
   * Relabel the `<h2>` to `<h2>HEROES</h2>`.
 
      给 `<h2>` 加文字，改成 `<h2>HEROES</h2>`。
 
-  * Delete the `<hero-detail>` at the bottom of the template.
+  * Delete the `<app-hero-detail>` component at the bottom of the template.
 
      删除模板底部的 `<hero-detail>`。
 
-  * Rename the `AppComponent` class to `HeroListComponent`.
 
-     把 `AppComponent` 类改名为 `HeroListComponent`。
+* Copy the contents of the `heroes/heroes.component.css` from the live example into the `hero-list.component.css` file.
+* Copy the contents of the `heroes/heroes.component.ts` from the live example into the `hero-list.component.ts` file.
 
-* Copy the `hero-detail.component.ts` and the `hero.service.ts` files into the `heroes` subfolder.
+  * Change the component class name to `HeroListComponent`.
+  * Change the `selector` to `app-hero-list`.
+  
+<div class="alert is-helpful">
 
-   把 `hero-detail.component.ts` 和 `hero.service.ts` 复制到 `heroes` 子目录下。
+   Selectors are **not required** for _routed components_ due to the components are dynamically inserted when the page is rendered, but are useful for identifying and targeting them in your HTML element tree.
+   
+   对于**路由组件**来说，这些选择器**不是必须的**，因为这些组件是在渲染页面时动态插入的，不过选择器对于在 HTML 元素树中标记和选中它们是很有用的。
 
-* Create a (pre-routing) `heroes.module.ts` in the heroes folder that looks like this:
+</div>
 
-   在 `heroes` 子目录下创建一个不带路由的 `heroes.module.ts` 文件，内容如下：
+* Copy the `hero-detail` folder, the `hero.ts`, `hero.service.ts`,  and `mock-heroes.ts` files into the `heroes` subfolder.
+* Copy the `message.service.ts` into the `src/app` folder.
+* Update the relative path import to the `message.service` in the `hero.service.ts` file.
 
-<code-example path="router/src/app/heroes/heroes.module.ts" region="v1" title="src/app/heroes/heroes.module.ts (pre-routing)">
+Next, you'll update the `HeroesModule` metadata.
+
+  * Import and add the `HeroDetailComponent` and `HeroListComponent` to the `declarations` array in the `HeroesModule`.
+
+<code-example path="router/src/app/heroes/heroes.module.ts" header="src/app/heroes/heroes.module.ts">
 
 </code-example>
 
@@ -2060,21 +2082,57 @@ When you're done, you'll have these *hero management* files:
 
     <div class='file'>
 
-      hero-detail.component.ts
+hero-detail
+    </div>
+
+      <div class='children'>
+
+        <div class='file'>
+          hero-detail.component.css
+        </div>
+
+        <div class='file'>
+          hero-detail.component.html
+        </div>
+
+        <div class='file'>      hero-detail.component.ts
 
     </div>
+
+      </div>
 
     <div class='file'>
 
-      hero-list.component.ts
-
+hero-list
     </div>
+
+      <div class='children'>
+
+        <div class='file'>
+          hero-list.component.css
+        </div>
+
+        <div class='file'>
+          hero-list.component.html
+        </div>
+
+        <div class='file'>      hero-list.component.ts
+
+    </div></div>
 
     <div class='file'>
 
       hero.service.ts
 
+    </div>    
+
+    <div class='file'>
+      hero.ts
     </div>
+
+    <div class='file'>
+      heroes-routing.module.ts
+    </div>    
 
     <div class='file'>
 
@@ -2082,13 +2140,22 @@ When you're done, you'll have these *hero management* files:
 
     </div>
 
+    <div class='file'>
+      mock-heroes.ts
+    </div>
+
+    </div>
+
+
+
+
   </div>
 
 </div>
 
 {@a hero-routing-requirements}
 
-### *Hero* feature routing requirements
+#### *Hero* feature routing requirements
 
 ### *英雄*特性区的路由需求
 
@@ -2110,40 +2177,7 @@ You tell the detail view which hero to display by including the selected hero's 
 当用户从列表中选择了一个英雄时，应用就导航到详情页以显示那个英雄。
   通过把所选英雄的 id 编码进路由的 URL 中，就能告诉详情视图该显示哪个英雄。
 
-{@a hero-routing-module}
-
-### *Hero* feature route configuration
-
-### *英雄*特性区的路由配置
-
-Create a new `heroes-routing.module.ts` in the `heroes` folder
-using the same techniques you learned while creating the `AppRoutingModule`.
-
-在 `heroes` 目录下创建一个新的 `heroes-routing.module.ts` 文件，使用的技术和以前创建 `AppRoutingModule` 时的一样。
-
-<code-example path="router/src/app/heroes/heroes-routing.module.1.ts" title="src/app/heroes/heroes-routing.module.ts">
-
-</code-example>
-
-<div class="alert is-helpful">
-
-Put the routing module file in the same folder as its companion module file.
-Here both `heroes-routing.module.ts` and `heroes.module.ts` are in the same `src/app/heroes` folder.
-
-把路由模块文件和它对应的模块文件放在同一个目录下。
-比如这里的 `heroes-routing.module.ts` 和 `heroes.module.ts` 都位于 `src/app/heroes` 目录下。
-
-Consider giving each feature module its own route configuration file.
-It may seem like overkill early when the feature routes are simple.
-But routes have a tendency to grow more complex and consistency in patterns pays off over time.
-
-将路由模块文件放到它相关的模块文件所在目录里。
-这里，`heroes-routing.module.ts` 和 `heroes.module.ts` 都在 `app/heroes` 目录中。
-
-</div>
-
-Import the hero components from their new locations in the `src/app/heroes/` folder, define the two hero routes,
-and export the `HeroRoutingModule` class.
+Import the hero components from their new locations in the `src/app/heroes/` folder, define the two hero routes.
 
 从新位置 `src/app/heroes/` 目录中导入英雄相关的组件，定义两个“英雄管理”路由，并导出 `HeroRoutingModule` 类。
 
@@ -2171,32 +2205,32 @@ In any other module, you must call the **`RouterModule.forChild`** method to reg
 
 </div>
 
-{@a adding-routing-module}
+The updated `HeroesRoutingModule` looks like this:
 
-### Add the routing module to the _HeroesModule_
+修改后的 `HeroesRoutingModule` 是这样的：
 
-### 把路由模块添加到 `HeroesModule` 中
-
-Add the `HeroRoutingModule` to the `HeroModule`
-just as you added `AppRoutingModule` to the `AppModule`.
-
-把 `HeroRoutingModule` 添加到 `HeroModule` 中，就像为 `AppModule` 添加 `AppRoutingModule` 一样。
-
-Open `heroes.module.ts`.
-Import the `HeroRoutingModule` token from `heroes-routing.module.ts` and
-add it to the `imports` array of the `HeroesModule`.
-The finished `HeroesModule` looks like this:
-
-打开 `heroes.module.ts`，从 `heroes-routing.module.ts` 中导入 `HeroRoutingModule` 并把它添加到 `HeroesModule` 的 `imports` 数组中。
-写完后的 `HeroesModule` 是这样的：
-
-<code-example path="router/src/app/heroes/heroes.module.ts" title="src/app/heroes/heroes.module.ts">
+<code-example path="router/src/app/heroes/heroes-routing.module.1.ts" header="src/app/heroes/heroes-routing.module.ts">
 
 </code-example>
 
+
+
+<div class="alert is-helpful">
+
+
+Consider giving each feature module its own route configuration file.
+It may seem like overkill early when the feature routes are simple.
+But routes have a tendency to grow more complex and consistency in patterns pays off over time.
+
+考虑让每个特性模块都有自己的路由配置文件。
+在特性路由非常简单的早期阶段它看起来可能有点过度设计，但是，路由很容易变得更复杂，随着时间的推移，保持一致的模式会让你得到回报。
+
+</div>
+
+
 {@a remove-duplicate-hero-routes}
 
-### Remove duplicate hero routes
+#### Remove duplicate hero routes
 
 ### 移除重复的“英雄管理”路由
 
@@ -2211,10 +2245,9 @@ This allows you to continue defining the feature module routes without modifying
 由特性模块提供的路由会被路由器再组合上它们所导入的模块的路由。
 这让你可以继续定义特性路由模块中的路由，而不用修改主路由配置。
 
-But you don't want to define the same routes twice.
 Remove the `HeroListComponent` import and the `/heroes` route from the `app-routing.module.ts`.
 
-但你显然不希望把同一个路由定义两次，那就移除 `HeroListComponent` 的导入和来自 `app-routing.module.ts` 中的 `/heroes` 路由。
+移除 `HeroListComponent` 的导入和来自 `app-routing.module.ts` 中的 `/heroes` 路由。
 
 **Leave the default and the wildcard routes!**
 These are concerns at the top level of the application itself.
@@ -2222,40 +2255,20 @@ These are concerns at the top level of the application itself.
 **保留默认路由和通配符路由！**
 它们是应用程序顶层该自己处理的关注点。
 
-<code-example path="router/src/app/app-routing.module.2.ts" linenums="false" title="src/app/app-routing.module.ts (v2)">
+<code-example path="router/src/app/app-routing.module.2.ts" linenums="false" header="src/app/app-routing.module.ts (v2)">
 
 </code-example>
 
 {@a merge-hero-routes}
 
-### Import hero module into AppModule
 
-### 把“英雄管理”模块导入到 AppModule
+#### Remove heroes declarations
 
-The heroes feature module is ready, but the application doesn't know about the `HeroesModule` yet.
-Open `app.module.ts` and revise it as follows.
+#### 移除英雄列表的声明
 
-英雄这个特性模块已经就绪，但应用仍然不知道 `HeroesModule` 的存在。
-打开 `app.module.ts`，并按照下述步骤修改它。
-
-Import the `HeroesModule` and add it to the `imports` array in the `@NgModule` metadata of the `AppModule`.
-
-导入 `HeroesModule` 并且把它加到根模块 `AppModule` 的 `@NgModule` 元数据中的 `imports` 数组中。
-
-Remove the `HeroListComponent` from the `AppModule`'s `declarations` because it's now provided by the `HeroesModule`.
-This is important. There can be only _one_ owner for a declared component.
-In this case, the `Heroes` module is the owner of the `Heroes` components and is making them available to
-components in the `AppModule` via the `HeroesModule`.
+Remove the `HeroListComponent` from the `AppModule`'s `declarations` because it's now provided by the `HeroesModule`. You can evolve the hero feature with more components and different routes. That's a key benefit of creating a separate module for each feature area.
 
 从 `AppModule` 的 `declarations` 中移除 `HeroListComponent`，因为它现在已经改由 `HeroesModule` 提供了。
-这一步很重要！因为一个组件只能声明在*一个*属主模块中。
-这个例子中，`Heroes` 模块就是 `Heroes` 组件的属主模块，而 `AppModule` 要通过导入 `HeroesModule` 才能使用这些组件。
-
-As a result, the `AppModule` no longer has specific knowledge of the hero feature, its components, or its route details.
-You can evolve the hero feature with more components and different routes.
-That's a key benefit of creating a separate module for each feature area.
-
-最终，`AppModule` 不再了解那些特定于“英雄”特性的知识，比如它的组件、路由细节等。
 你可以让“英雄”特性独立演化，添加更多的组件或各种各样的路由。
 这就是为每个特性区创建独立模块后获得的核心优势。
 
@@ -2263,7 +2276,7 @@ After these steps, the `AppModule` should look like this:
 
 经过这些步骤，`AppModule` 变成了这样：
 
-<code-example path="router/src/app/app.module.3.ts" title="src/app/app.module.ts">
+<code-example path="router/src/app/app.module.3.ts" header="src/app/app.module.ts">
 
 </code-example>
 
@@ -2278,7 +2291,7 @@ Most importantly, it comes _after_ the `HeroesModule`.
 
 看看该模块的 `imports` 数组。注意，`AppRoutingModule` 是*最后一个*。最重要的是，它位于 `HeroesModule` 之后。
 
-<code-example path="router/src/app/app.module.3.ts" region="module-imports" title="src/app/app.module.ts (module-imports)" linenums="false">
+<code-example path="router/src/app/app.module.3.ts" region="module-imports" header="src/app/app.module.ts (module-imports)" linenums="false">
 
 </code-example>
 
@@ -2322,11 +2335,15 @@ Learn about inspecting the runtime router configuration
 
 </div>
 
+### Route Parameters
+
+### 路由参数
+
 {@a route-def-with-parameter}
 
-### Route definition with a parameter
+#### Route definition with a parameter
 
-### 带参数的路由定义
+#### 带参数的路由定义
 
 Return to the `HeroesRoutingModule` and look at the route definitions again.
 The route to `HeroDetailComponent` has a twist.
@@ -2334,7 +2351,7 @@ The route to `HeroDetailComponent` has a twist.
 回到 `HeroesRoutingModule` 并再次检查这些路由定义。
 `HeroDetailComponent` 的路由有点特殊。
 
-<code-example path="router/src/app/heroes/heroes-routing.module.1.ts" linenums="false" title="src/app/heroes/heroes-routing.module.ts (excerpt)" region="hero-detail-route">
+<code-example path="router/src/app/heroes/heroes-routing.module.1.ts" linenums="false" header="src/app/heroes/heroes-routing.module.ts (excerpt)" region="hero-detail-route">
 
 </code-example>
 
@@ -2349,7 +2366,7 @@ you expect a hero id to appear in the browser URL like this:
 如果要告诉路由器导航到详情组件，并让它显示“Magneta”，你会期望这个英雄的 `id` 像这样显示在浏览器的 URL 中：
 
 <code-example format="nocode">
-  localhost:3000/hero/15
+  localhost:4200/hero/15
 
 </code-example>
 
@@ -2377,7 +2394,7 @@ a route for some other hero.
 
 {@a route-parameters}
 
-### Setting the route parameters in the list view
+#### Setting the route parameters in the list view
 
 ### 在列表视图中设置路由参数
 
@@ -2391,12 +2408,12 @@ Accordingly, the _link parameters array_ has *two* items:  the routing _path_ an
 
 因此，这个*链接参数数组*中有两个条目：目标路由的**`path`（路径）**，和一个用来指定所选英雄 `id` 的**路由参数**。
 
-<code-example path="router/src/app/heroes/hero-list.component.1.ts" linenums="false" title="src/app/heroes/hero-list.component.ts (link-parameters-array)" region="link-parameters-array">
+<code-example path="router/src/app/heroes/hero-list/hero-list.component.1.ts" linenums="false" header="src/app/heroes/hero-list/hero-list.component.ts (link-parameters-array)" region="link-parameters-array">
 
 </code-example>
 
 The router composes the destination URL from the array like this:
-`localhost:3000/hero/15`.
+`localhost:4200/hero/15`.
 
 路由器从该数组中组合出了目标 URL：
 `localhost:3000/hero/15`。
@@ -2426,7 +2443,7 @@ Import the `Router`, `ActivatedRoute`, and `ParamMap` tokens from the router pac
 
 从路由器（`router`）包中导入 `Router`、`ActivatedRoute` 和 `Params` 类。
 
-<code-example path="router/src/app/heroes/hero-detail.component.1.ts" linenums="false" title="src/app/heroes/hero-detail.component.ts (activated route)" region="imports">
+<code-example path="router/src/app/heroes/hero-detail/hero-detail.component.1.ts" linenums="false" header="src/app/heroes/hero-detail/hero-detail.component.ts (activated route)" region="imports">
 
 </code-example>
 
@@ -2434,7 +2451,7 @@ Import the `switchMap` operator because you need it later to process the `Observ
 
 这里导入 `switchMap` 操作符是因为你稍后将会处理路由参数的可观察对象 `Observable`。
 
-<code-example path="router/src/app/heroes/hero-detail.component.ts" linenums="false" title="src/app/heroes/hero-detail.component.ts (switchMap operator import)" region="rxjs-operator-import">
+<code-example path="router/src/app/heroes/hero-detail/hero-detail.component.3.ts" linenums="false" header="src/app/heroes/hero-detail/hero-detail.component.ts (switchMap operator import)" region="rxjs-operator-import">
 
 </code-example>
 
@@ -2445,7 +2462,7 @@ that the component requires and reference them as private variables.
 
 通常，你会直接写一个构造函数，让 Angular 把组件所需的服务注入进来，自动定义同名的私有变量，并把它们存进去。
 
-<code-example path="router/src/app/heroes/hero-detail.component.ts" linenums="false" title="src/app/heroes/hero-detail.component.ts (constructor)" region="ctor">
+<code-example path="router/src/app/heroes/hero-detail/hero-detail.component.3.ts" linenums="false" header="src/app/heroes/hero-detail/hero-detail.component.ts (constructor)" region="ctor">
 
 </code-example>
 
@@ -2454,7 +2471,7 @@ pull the hero `id` from the parameters and retrieve the hero to display.
 
 然后，在 `ngOnInit` 方法中，你用 `ActivatedRoute` 服务来接收路由的参数，从参数中取得该英雄的 `id`，并接收此英雄用于显示。
 
-<code-example path="router/src/app/heroes/hero-detail.component.ts" linenums="false" title="src/app/heroes/hero-detail.component.ts (ngOnInit)" region="ngOnInit">
+<code-example path="router/src/app/heroes/hero-detail/hero-detail.component.3.ts" linenums="false" header="src/app/heroes/hero-detail/hero-detail.component.ts (ngOnInit)" region="ngOnInit">
 
 </code-example>
 
@@ -2679,7 +2696,7 @@ It's much simpler to write and read:
 你可以通过它来直接访问参数，而不用订阅或者添加 Observable 的操作符。
 这样在读写时就会更简单：
 
-<code-example path="router/src/app/heroes/hero-detail.component.2.ts" linenums="false" title="src/app/heroes/hero-detail.component.ts (ngOnInit snapshot)" region="snapshot">
+<code-example path="router/src/app/heroes/hero-detail/hero-detail.component.2.ts" linenums="false" header="src/app/heroes/hero-detail/hero-detail.component.ts (ngOnInit snapshot)" region="snapshot">
 
 </code-example>
 
@@ -2714,13 +2731,13 @@ It holds the _path to the `HeroListComponent`_:
 路由的 `navigate` 方法同样接受一个单条目的*链接参数数组*，你也可以把它绑定到 `[routerLink]` 指令上。
 它保存着**到 `HeroListComponent` 组件的路径**：
 
-<code-example path="router/src/app/heroes/hero-detail.component.1.ts" linenums="false" title="src/app/heroes/hero-detail.component.ts (excerpt)" region="gotoHeroes">
+<code-example path="router/src/app/heroes/hero-detail/hero-detail.component.1.ts" linenums="false" header="src/app/heroes/hero-detail/hero-detail.component.ts (excerpt)" region="gotoHeroes">
 
 </code-example>
 
 {@a optional-route-parameters}
 
-### Route Parameters: Required or optional?
+#### Route Parameters: Required or optional?
 
 ### 路由参数：必须还是可选？
 
@@ -2730,12 +2747,12 @@ as you do when navigating to the `HeroDetailComponent` in order to view the hero
 如果想导航到 `HeroDetailComponent` 以对 id 为 15 的英雄进行查看并编辑，就要在路由的 URL 中使用[*路由参数*](guide/router#route-parameters)来指定*必要*参数值。
 
 <code-example format="nocode">
-  localhost:3000/hero/15
+  localhost:4200/hero/15
 
 </code-example>
 
 You can also add *optional* information to a route request.
-For example, when returning to the heroes list from the hero detail view,
+For example, when returning to the hero-detail.component.ts list from the hero detail view,
 it would be nice if the viewed hero was preselected in the list.
 
 你也能在路由请求中添加*可选*信息。
@@ -2783,7 +2800,7 @@ prefer an *optional parameter* when the value is optional, complex, and/or multi
 
 {@a optionally-selecting}
 
-### Heroes list: optionally selecting a hero
+#### Heroes list: optionally selecting a hero
 
 ### 英雄列表：选定一个英雄（也可不选）
 
@@ -2792,7 +2809,7 @@ When navigating to the `HeroDetailComponent` you specified the _required_ `id` o
 
 当导航到 `HeroDetailComponent` 时，你可以在*路由参数*中指定一个所要编辑的英雄 `id`，只要把它作为[链接参数数组](guide/router#link-parameters-array)中的第二个条目就可以了。
 
-<code-example path="router/src/app/heroes/hero-list.component.1.ts" linenums="false" title="src/app/heroes/hero-list.component.ts (link-parameters-array)" region="link-parameters-array">
+<code-example path="router/src/app/heroes/hero-list/hero-list.component.1.ts" linenums="false" header="src/app/heroes/hero-list/hero-list.component.ts (link-parameters-array)" region="link-parameters-array">
 
 </code-example>
 
@@ -2801,7 +2818,7 @@ as a route parameter with an `:id` placeholder token in the route `path`:
 
 路由器在导航 URL 中内嵌了 `id` 的值，这是因为你把它用一个 `:id` 占位符当做路由参数定义在了路由的 `path` 中：
 
-<code-example path="router/src/app/heroes/heroes-routing.module.1.ts" linenums="false" title="src/app/heroes/heroes-routing.module.ts (hero-detail-route)" region="hero-detail-route">
+<code-example path="router/src/app/heroes/heroes-routing.module.1.ts" linenums="false" header="src/app/heroes/heroes-routing.module.ts (hero-detail-route)" region="hero-detail-route">
 
 </code-example>
 
@@ -2810,7 +2827,7 @@ which it uses to navigate back to the `HeroListComponent`.
 
 当用户点击后退按钮时，`HeroDetailComponent` 构造了另一个*链接参数数组*，可以用它导航回 `HeroListComponent`。
 
-<code-example path="router/src/app/heroes/hero-detail.component.1.ts" linenums="false" title="src/app/heroes/hero-detail.component.ts (gotoHeroes)" region="gotoHeroes">
+<code-example path="router/src/app/heroes/hero-detail/hero-detail.component.1.ts" linenums="false" header="src/app/heroes/hero-detail/hero-detail.component.ts (gotoHeroes)" region="gotoHeroes">
 
 </code-example>
 
@@ -2833,7 +2850,7 @@ Here's the revised navigation statement:
 为了演示，这里还在对象中定义了一个没用的额外参数（`foo`），`HeroListComponent` 应该忽略它。
 下面是修改过的导航语句：
 
-<code-example path="router/src/app/heroes/hero-detail.component.ts" linenums="false" title="src/app/heroes/hero-detail.component.ts (go to heroes)" region="gotoHeroes">
+<code-example path="router/src/app/heroes/hero-detail/hero-detail.component.3.ts" linenums="false" header="src/app/heroes/hero-detail/hero-detail.component.ts (go to heroes)" region="gotoHeroes">
 
 </code-example>
 
@@ -2850,7 +2867,7 @@ It should look something like this, depending on where you run it:
 它应该是这样的，不过也取决于你在哪里运行它：
 
 <code-example language="bash">
-  localhost:3000/heroes;id=15;foo=foo
+  localhost:4200/heroes;id=15;foo=foo
 
 </code-example>
 
@@ -2932,7 +2949,7 @@ First you extend the router import statement to include the `ActivatedRoute` ser
 
 首先，你扩展该路由的导入语句，以包含进 `ActivatedRoute` 服务的类；
 
-<code-example path="router/src/app/heroes/hero-list.component.ts" linenums="false" title="src/app/heroes/hero-list.component.ts (import)" region="import-router">
+<code-example path="router/src/app/heroes/hero-list/hero-list.component.ts" linenums="false" header="src/app/heroes/hero-list/hero-list.component.ts (import)" region="import-router">
 
 </code-example>
 
@@ -2940,7 +2957,7 @@ Import the `switchMap` operator to perform an operation on the `Observable` of r
 
 导入 `switchMap` 操作符，在路由参数的 `Observable` 对象上执行操作。
 
-<code-example path="router/src/app/heroes/hero-list.component.ts" linenums="false" title="src/app/heroes/hero-list.component.ts (rxjs imports)" region="rxjs-imports">
+<code-example path="router/src/app/heroes/hero-list/hero-list.component.ts" linenums="false" header="src/app/heroes/hero-list/hero-list.component.ts (rxjs imports)" region="rxjs-imports">
 
 </code-example>
 
@@ -2948,7 +2965,7 @@ Then you inject the `ActivatedRoute` in the `HeroListComponent` constructor.
 
 接着，你注入 `ActivatedRoute` 到 `HeroListComponent` 的构造函数中。
 
-<code-example path="router/src/app/heroes/hero-list.component.ts" linenums="false" title="src/app/heroes/hero-list.component.ts (constructor and ngOnInit)" region="ctor">
+<code-example path="router/src/app/heroes/hero-list/hero-list.component.ts" linenums="false" header="src/app/heroes/hero-list/hero-list.component.ts (constructor and ngOnInit)" region="ctor">
 
 </code-example>
 
@@ -2966,7 +2983,13 @@ Look for it within the repeated `<li>` tag as shown here:
 如果该方法返回 `true`，此绑定就会添加 CSS 类 `selected`，否则就移除它。
 在 `<li>` 标记中找到它，就像这样：
 
-<code-example path="router/src/app/heroes/hero-list.component.ts" linenums="false" title="src/app/heroes/hero-list.component.ts (template)" region="template">
+<code-example path="router/src/app/heroes/hero-list/hero-list.component.html" linenums="false" header="src/app/heroes/hero-list/hero-list.component.html">
+
+</code-example>
+
+Add some styles to apply when the list item is selected.
+
+<code-example path="router/src/app/heroes/hero-list/hero-list.component.css" linenums="false" region="selected" header="src/app/heroes/hero-list/hero-list.component.css">
 
 </code-example>
 
@@ -2982,36 +3005,50 @@ The optional `foo` route parameter is harmless and continues to be ignored.
 
 这儿可选的 `foo` 路由参数人畜无害，并继续被忽略。
 
+### Adding routable animations
+
+### 添加路由动画
+
 {@a route-animation}
 
-### Adding animations to the routed component
+#### Adding animations to the routed component
 
-### 为路由组件添加动画
+#### 为路由组件添加动画
 
 The heroes feature module is almost complete, but what is a feature without some smooth transitions?
 
 这个“英雄”特性模块就要完成了，但这个特性还没有平滑的转场效果。
 
-This section shows you how to add some [animations](guide/animations)
-to the `HeroDetailComponent`.
+This section shows you how to add some [animations](guide/animations) to the `HeroDetailComponent`.
 
 在这一节，你将为*英雄详情*组件添加一些[动画](guide/animations)。
 
-First import `BrowserAnimationsModule`:
+First import the `BrowserAnimationsModule` and add it to the `imports` array:
 
 首先导入 `BrowserAnimationsModule`：
 
-<code-example path="router/src/app/app.module.ts" linenums="false" title="src/app/app.module.ts (animations-module)" region="animations-module">
+<code-example path="router/src/app/app.module.ts" linenums="false" header="src/app/app.module.ts (animations-module)" region="animations-module">
 
 </code-example>
+
+Next, add a `data` object to the routes for `HeroListComponent` and `HeroDetailComponent`. Transitions are based on `states` and you'll use the `animation` data from the route to provide a named animation `state` for the transitions.
+
+接下来，为指向 `HeroListComponent` 和 `HeroDetailComponent` 的路由定义添加一个 `data` 对象。
+转场是基于 `states` 的，你将使用来自路由的 `animation` 数据为转场提供一个有名字的动画 `state`。
+
+<code-example path="router/src/app/heroes/heroes-routing.module.2.ts" header="src/app/heroes/heroes-routing.module.ts (animation data)">
+
+</code-example>
+
 
 Create an `animations.ts` file in the root `src/app/` folder. The contents look like this:
 
 在根目录 `src/app/` 下创建一个 `animations.ts`。内容如下：
 
-<code-example path="router/src/app/animations.ts" linenums="false" title="src/app/animations.ts (excerpt)">
+<code-example path="router/src/app/animations.ts" linenums="false" header="src/app/animations.ts (excerpt)">
 
 </code-example>
+
 
 This file does the following:
 
@@ -3021,26 +3058,20 @@ This file does the following:
 
    导入动画符号以构建动画触发器、控制状态并管理状态之间的过渡。
 
-* Exports a constant named `slideInDownAnimation` set to an animation trigger named *`routeAnimation`*;
-animated components will refer to this name.
+* Exports a constant named `slideInAnimation` set to an animation trigger named *`routeAnimation`*;
 
-   导出了一个名叫 `slideInDownAnimation` 的常量，并把它设置为一个名叫*`routeAnimation` 的动画触发器。带动画的组件将会引用这个名字。
+   导出了一个名叫 `slideInAnimation` 的常量，并把它设置为一个名叫*`routeAnimation` 的动画触发器。
 
-* Specifies the _wildcard state_ , `*`, that matches any animation state that the route component is in.
-
-   指定了一个*通配符状态* —— `*`，它匹配该路由组件存在时的任何动画状态。
-
-* Defines two *transitions*, one to ease the component in from the left of the screen as it enters the application view (`:enter`),
-the other to animate the component down as it leaves the application view (`:leave`).
+* Defines one *transition* when switching back and forth from the `heroes` and `hero` routes to ease the component in from the left of the screen as it enters the application view (`:enter`), the other to animate the component to the right as it leaves the application view (`:leave`).
 
    定义两个*过渡效果*，其中一个（`:enter`）在组件进入应用视图时让它从屏幕左侧缓动进入（ease-in），另一个（`:leave`）在组件离开应用视图时让它向下飞出。
 
-You could create more triggers with different transitions for other route components. This trigger is sufficient for the current milestone.
+You could also create more transitions for other routes. This trigger is sufficient for the current milestone.
 
 你可以为其它路由组件用不同的转场效果创建更多触发器。现在这个触发器已经足够当前的里程碑用了。
 
-Back in the `HeroDetailComponent`, import the `slideInDownAnimation` from `'./animations.ts`.
-Add the `HostBinding` decorator  to the imports from `@angular/core`; you'll need it in a moment.
+Back in the `AppComponent`, import the `RouterOutlet` token from the `@angular/router` package and the `slideInDownAnimation` from 
+`'./animations.ts`.
 
 返回 `HeroDetailComponent`，从 `'./animations.ts` 中导入 `slideInDownAnimation`。
 从 `@angular/core` 中导入 `HostBinding` 装饰器，你很快就会用到它。
@@ -3049,37 +3080,33 @@ Add an `animations` array to the `@Component` metadata's that contains the `slid
 
 把一个包含 `slideInDownAnimation` 的 `animations` 数组添加到 `@Component` 的元数据中。
 
-Then add three `@HostBinding` properties to the class to set the animation and styles for the route component's element.
-
-然后把三个 `@HostBinding` 属性添加到类中以设置这个路由组件元素的动画和样式。
-
-<code-example path="router/src/app/heroes/hero-detail.component.ts" linenums="false" title="src/app/heroes/hero-detail.component.ts (host bindings)" region="host-bindings">
+<code-example path="router/src/app/app.component.2.ts" linenums="false" header="src/app/app.component.ts (animations)" region="animation-imports">
 
 </code-example>
 
-The `'@routeAnimation'` passed to the first `@HostBinding` matches
-the name of the `slideInDownAnimation` _trigger_, `routeAnimation`.
-Set the `routeAnimation` property to `true` because you only care about the `:enter` and `:leave` states.
+In order to use the routable animations, you'll need to wrap the `RouterOutlet` inside an element. You'll
+use the `@routeAnimation` trigger and bind it to the element.
 
-传给了第一个 `@HostBinding` 的 `'@routeAnimation'` 匹配了 `slideInDownAnimation`*触发器*的名字 `routeAnimation`。
-把 `routeAnimation` 属性设置为 `true`，因为你只关心 `:enter` 和 `:leave` 这两个状态。
+为了使用路由动画，你需要把 `RouterOutlet` 包装到一个元素中。你要把 `@routeAnimation` 触发器绑定到该元素上。
 
-The other two `@HostBinding` properties style the display and position of the component.
+For the `@routeAnimation` transitions to key off states, you'll need to provide it with the `data` from the `ActivatedRoute`. The `RouterOutlet` is exposed as an `outlet` template variable, so you bind a reference to the router outlet. A variable of `routerOutlet` is an ideal choice.
 
-另外两个 `@HostBinding` 属性指定组件的外观和位置。
+为了把 `@routeAnimation` 转场转场到指定的状态，你需要从 `ActivatedRoute` 的 `data` 中提供它。
+`RouterOutlet` 导出成了一个模板变量 `outlet`，这样你就可以绑定一个到路由出口的引用了。给这个变量取名做 `routerOutlet` 是一个理想的选择。
 
-The `HeroDetailComponent` will ease in from the left when routed to and will slide down when navigating away.
+<code-example path="router/src/app/app.component.2.html" linenums="false" header="src/app/app.component.html (router outlet)">
 
-当进入该路由时，`HeroDetailComponent` 将会从左侧缓动进入屏幕，而离开路由时，将会向下划出。
+</code-example>
 
-<div class="alert is-helpful">
+The `@routeAnimation` property is bound to the `getAnimationData` with the provided `routerOutlet` reference, so you'll need to define that function in the `AppComponent`. The `getAnimationData` function returns the animation property from the `data` provided through the `ActivatedRoute`. The `animation` property matches the `transition` names you used in the `slideDownAnimation` defined in `animations.ts`.
 
-Applying route animations to individual components works for a simple demo, but in a real life app,
-it is better to animate routes based on _route paths_.
+<code-example path="router/src/app/app.component.2.ts" linenums="false" header="src/app/app.component.ts (router outlet)" region="function-binding">
 
-在这样简单的演示程序中，可以把路由动画应用到独立的组件中，但是在真实的应用中，最好能基于*路由路径*应用路由动画。
+</code-example>
 
-</div>
+When switching between the two routes, the `HeroDetailComponent` and `HeroListComponent` will ease in from the left when routed to and will slide to the right when navigating away.
+
+如果在两个路由之间切换，导航进来时，`HeroDetailComponent` 和 `HeroListComponent` 会从左侧滑入；导航离开时将会从右侧划出。
 
 {@a milestone-3-wrap-up}
 
@@ -3107,7 +3134,7 @@ You've learned how to do the following:
 
    把这个特性分区模块导入根模块 `AppModule`
 
-* Apply animations to the route component.
+* Applying routable animations based on the page.
 
    把动画应用到路由组件上
 
@@ -3119,27 +3146,46 @@ After these changes, the folder structure looks like this:
 
   <div class='file'>
 
-    router-sample
-
+    angular-router-sample
   </div>
 
   <div class='children'>
 
     <div class='file'>
-
       src
-
     </div>
 
     <div class='children'>
 
+    <div class='file'>
+
+      app
+
+    </div>
+
+      <div class='children'>
+
       <div class='file'>
 
-        app
+        crisis-list
 
       </div>
 
-      <div class='children'>
+          <div class='children'>
+
+            <div class='file'>
+              crisis-list.component.css
+            </div>
+
+            <div class='file'>
+              crisis-list.component.html
+            </div>
+
+            <div class='file'>
+              crisis-list.component.ts
+            </div>
+
+          </div>      
 
         <div class='file'>
 
@@ -3151,21 +3197,57 @@ After these changes, the folder structure looks like this:
 
           <div class='file'>
 
-            hero-detail.component.ts
+hero-detail
+          </div>
+
+            <div class='children'>
+
+              <div class='file'>
+                hero-detail.component.css
+              </div>
+
+              <div class='file'>
+                hero-detail.component.html
+              </div>
+
+              <div class='file'>            hero-detail.component.ts
 
           </div>
+
+            </div>
 
           <div class='file'>
 
-            hero-list.component.ts
-
+hero-list
           </div>
+
+            <div class='children'>
+
+              <div class='file'>
+                hero-list.component.css
+              </div>
+
+              <div class='file'>
+                hero-list.component.html
+              </div>
+
+              <div class='file'>            hero-list.component.ts
+
+          </div></div>
 
           <div class='file'>
 
             hero.service.ts
 
+          </div>    
+
+          <div class='file'>
+            hero.ts
           </div>
+
+          <div class='file'>
+            heroes-routing.module.ts
+          </div>    
 
           <div class='file'>
 
@@ -3175,11 +3257,50 @@ After these changes, the folder structure looks like this:
 
           <div class='file'>
 
-            heroes-routing.module.ts
-
+            mock-heroes.ts
           </div>
 
         </div>
+
+        <div class='file'>
+          page-not-found
+        </div>
+
+        <div class='children'>
+
+          <div class='file'>
+
+            page-not-found.component.css
+
+          </div>
+
+          <div class='file'>
+
+            page-not-found.component.html
+
+          </div>
+
+          <div class='file'>
+
+            page-not-found.component.ts
+
+          </div>
+          
+        </div>
+
+      </div>
+
+      <div class='file'>
+        animations.ts
+      </div>
+
+      <div class='file'>
+        app.component.css
+      </div>
+
+      <div class='file'>
+        app.component.html
+      </div>
 
         <div class='file'>
 
@@ -3201,15 +3322,14 @@ After these changes, the folder structure looks like this:
 
         <div class='file'>
 
-          crisis-list.component.ts
+          main.ts
 
-        </div>
-
+        
       </div>
 
       <div class='file'>
 
-        main.ts
+        message.service.ts
 
       </div>
 
@@ -3255,37 +3375,61 @@ Here are the relevant files for this version of the sample application.
 
 <code-tabs>
 
-  <code-pane title="app.component.ts" path="router/src/app/app.component.1.ts">
+  <code-pane header="animations.ts" path="router/src/app/animations.ts">
+
+  </code-pane>  
+
+  <code-pane header="app.component.html" path="router/src/app/app.component.2.html">
 
   </code-pane>
 
-  <code-pane title="app.module.ts" path="router/src/app/app.module.3.ts">
+  <code-pane header="app.component.ts" path="router/src/app/app.component.2.ts">
 
   </code-pane>
 
-  <code-pane title="app-routing.module.ts" path="router/src/app/app-routing.module.2.ts">
+  <code-pane header="app.module.ts" path="router/src/app/app.module.3.ts">
 
   </code-pane>
 
-  <code-pane title="hero-list.component.ts" path="router/src/app/heroes/hero-list.component.ts">
+  <code-pane header="app-routing.module.ts" path="router/src/app/app-routing.module.2.ts" region="milestone3">
 
   </code-pane>
 
-  <code-pane title="hero-detail.component.ts" path="router/src/app/heroes/hero-detail.component.ts">
+  <code-pane header="hero-list.component.css" path="router/src/app/heroes/hero-list/hero-list.component.css">
+
+  </code-pane>  
+
+  <code-pane header="hero-list.component.html" path="router/src/app/heroes/hero-list/hero-list.component.html">
+
+  </code-pane>  
+
+  <code-pane header="hero-list.component.ts" path="router/src/app/heroes/hero-list/hero-list.component.ts">
 
   </code-pane>
 
-  <code-pane title="hero.service.ts" path="router/src/app/heroes/hero.service.ts">
+  <code-pane header="hero-detail.component.html" path="router/src/app/heroes/hero-detail/hero-detail.component.html">
 
   </code-pane>
 
-  <code-pane title="heroes.module.ts" path="router/src/app/heroes/heroes.module.ts">
+  <code-pane header="hero-detail.component.ts" path="router/src/app/heroes/hero-detail/hero-detail.component.3.ts">
 
   </code-pane>
 
-  <code-pane title="heroes-routing.module.ts" path="router/src/app/heroes/heroes-routing.module.1.ts">
+  <code-pane header="hero.service.ts" path="router/src/app/heroes/hero.service.ts">
 
   </code-pane>
+
+  <code-pane header="heroes.module.ts" path="router/src/app/heroes/heroes.module.ts">
+
+  </code-pane>
+
+  <code-pane header="heroes-routing.module.ts" path="router/src/app/heroes/heroes-routing.module.2.ts">
+
+  </code-pane>
+
+  <code-pane header="message.service.ts" path="router/src/app/message.service.ts">
+
+  </code-pane>  
 
 </code-tabs>
 
@@ -3303,29 +3447,27 @@ Begin by imitating the heroes feature:
 
 先从模仿“英雄管理”中的特性开始：
 
-* Delete the placeholder crisis center file.
+* Create a `crisis-center` subfolder in the `src/app` folder.
 
-   删除危机中心的占位文件。
+  在 `src/app` 目录下创建一个 `crisis-center` 子目录。
 
-* Create an `app/crisis-center` folder.
-
-   创建 `app/crisis-center` 文件夹。
-
-* Copy the files from `app/heroes` into the new crisis center folder.
-
-   把 `app/heroes` 中的文件复制到新的危机中心文件夹。
+* Copy the files and folders from `app/heroes` into the new `crisis-center` folder.
+  
+   把 `app/heroes` 中的文件和目录复制到新的 `crisis-center` 文件夹中。
 
 * In the new files, change every mention of "hero" to "crisis", and "heroes" to "crises".
+* Rename the NgModule files to `crisis-center.module.ts` and `crisis-center-routing.module.ts`.
 
    在这些新文件中，把每一个对“hero”替换为“crisis”，并把“heroes”替换为“crises”。
 
-You'll turn the `CrisisService` into a purveyor of mock crises instead of mock heroes:
+You'll use mock crises instead of mock heroes:
 
 你将会把 `CrisisService` 转换成模拟的危机列表，而不再是模拟的英雄列表：
 
-<code-example path="router/src/app/crisis-center/crisis.service.ts" linenums="false" title="src/app/crisis-center/crisis.service.ts (mock-crises)" region="mock-crises">
+<code-example path="router/src/app/crisis-center/mock-crises.ts" header="src/app/crisis-center/mock-crises.ts">
 
 </code-example>
+
 
 The resulting crisis center is a foundation for introducing a new concept&mdash;**child routing**.
 You can leave *Heroes* in its current state as a contrast with the *Crisis Center*
@@ -3391,11 +3533,17 @@ If your app had many feature areas, the app component trees might look like this
 
 ### 子路由组件
 
-Add the following `crisis-center.component.ts` to the `crisis-center` folder:
+Generate a `CrisisCenter` component in the `crisis-center` folder:
 
-往 `crisis-center` 目录下添加下列 `crisis-center.component.ts` 文件：
+在 `crisis-center` 目录下生成一个 `CrisisCenter` 组件：
 
-<code-example path="router/src/app/crisis-center/crisis-center.component.ts" linenums="false" title="src/app/crisis-center/crisis-center.component.ts">
+<code-example language="none" class="code-shell">
+  ng generate component crisis-center/crisis-center
+</code-example>
+
+Update the component template to look like this:
+
+<code-example path="router/src/app/crisis-center/crisis-center/crisis-center.component.html" linenums="false" header="src/app/crisis-center/crisis-center/crisis-center.component.html">
 </code-example>
 
 The `CrisisCenterComponent` has the following in common with the `AppComponent`:
@@ -3414,17 +3562,10 @@ just as the `AppComponent` is a shell to manage the high-level workflow.
 
 Like most shells, the `CrisisCenterComponent` class is very simple, simpler even than `AppComponent`:
 it has no business logic, and its template has no links, just a title and
-`<router-outlet>` for the crisis center child views.
+`<router-outlet>` for the crisis center child component.
 
 就像大多数的壳一样，`CrisisCenterComponent` 类也非常简单，甚至比 `AppComponent` 更简单：
-它没有业务逻辑，它的模板中没有链接，只有一个标题和用于放置危机中心的子视图的 `<router-outlet>`。
-
-Unlike `AppComponent`, and most other components, it _lacks a selector_.
-It doesn't _need_ one since you don't *embed* this component in a parent template,
-instead you use the router to *navigate* to it.
-
-与 `AppComponent` 和大多数其它组件不同的是，它甚至都*没有指定选择器 `selector`*。
-它不*需要*选择器，因为你不会把这个组件嵌入到某个父模板中，而是使用路由器*导航*到它。
+它没有业务逻辑，它的模板中没有链接，只有一个标题和用于放置危机中心的子组件的 `<router-outlet>`。
 
 {@a child-route-config}
 
@@ -3432,20 +3573,26 @@ instead you use the router to *navigate* to it.
 
 ### 子路由配置
 
-As a host page for the "Crisis Center" feature, add the following `crisis-center-home.component.ts` to the `crisis-center` folder.
+As a host page for the "Crisis Center" feature, generate a `CrisisCenterHome` component in the `crisis-center` folder.
 
-把下面这个 `crisis-center-home.component.ts` 添加到 `crisis-center` 目录下，作为 "危机中心" 特性区的宿主页面。
-
-<code-example path="router/src/app/crisis-center/crisis-center-home.component.ts" linenums="false" title="src/app/crisis-center/crisis-center-home.component.ts" >
+<code-example language="none" class="code-shell">
+  ng generate component crisis-center/crisis-center-home
 </code-example>
 
-Create a `crisis-center-routing.module.ts` file as you did the `heroes-routing.module.ts` file.
+Update the template with a welcome message to the `Crisis Center`.
+
+用一条欢迎信息修改 `Crisis Center` 中的模板。
+
+<code-example path="router/src/app/crisis-center/crisis-center-home/crisis-center-home.component.html" linenums="false" header="src/app/crisis-center/crisis-center-home/crisis-center-home.component.html">
+</code-example>
+
+Update the `crisis-center-routing.module.ts` you renamed after copying it from `heroes-routing.module.ts` file.
 This time, you define **child routes** *within* the parent `crisis-center` route.
 
 像 `heroes-routing.module.ts` 文件一样，你也创建一个 `crisis-center-routing.module.ts`。
 但这次，你要把**子路由**定义在父路由 `crisis-center` 中。
 
-<code-example path="router/src/app/crisis-center/crisis-center-routing.module.1.ts" linenums="false" title="src/app/crisis-center/crisis-center-routing.module.ts (Routes)" region="routes">
+<code-example path="router/src/app/crisis-center/crisis-center-routing.module.1.ts" linenums="false" header="src/app/crisis-center/crisis-center-routing.module.ts (Routes)" region="routes">
 </code-example>
 
 Notice that the parent `crisis-center` route has a `children` property
@@ -3474,8 +3621,8 @@ display the `Crisis Center Home` and `Crisis Detail` route components.
 
 `CrisisListComponent` 包含危机列表和一个 `RouterOutlet`，用以显示 `Crisis Center Home` 和 `Crisis Detail` 这两个路由组件。
 
-The `Crisis Detail` route is a child of the `Crisis List`. Since the router [reuses components](#reuse)
-by default, the `Crisis Detail` component will be re-used as you select different crises.
+The `Crisis Detail` route is a child of the `Crisis List`. The router [reuses components](#reuse)
+by default, so the `Crisis Detail` component will be re-used as you select different crises.
 In contrast, back in the `Hero Detail` route, the component was recreated each time you selected a different hero.
 
 `Crisis Detail` 路由是 `Crisis List` 的子路由。由于路由器默认会[复用组件](#reuse)，因此当你选择了另一个危机时，`CrisisDetailComponent` 会被复用。  
@@ -3509,7 +3656,7 @@ The absolute URL for the latter example, including the `localhost` origin, is
 本例子中包含站点部分的绝对 URL，就是：
 
 <code-example>
-  localhost:3000/crisis-center/2
+  localhost:4200/crisis-center/2
 
 </code-example>
 
@@ -3517,7 +3664,7 @@ Here's the complete `crisis-center-routing.module.ts` file with its imports.
 
 这里是完整的 `crisis-center.routing.ts` 及其导入语句。
 
-<code-example path="router/src/app/crisis-center/crisis-center-routing.module.1.ts" linenums="false" title="src/app/crisis-center/crisis-center-routing.module.ts (excerpt)">
+<code-example path="router/src/app/crisis-center/crisis-center-routing.module.1.ts" linenums="false" header="src/app/crisis-center/crisis-center-routing.module.ts (excerpt)">
 
 </code-example>
 
@@ -3532,9 +3679,17 @@ _before_ the `AppRoutingModule`:
 
 就像 `HeroesModule` 模块中一样，你必须把 `CrisisCenterModule` 添加到 `AppModule` 的 `imports` 数组中，就在 `AppRoutingModule` 前面：
 
-<code-example path="router/src/app/app.module.4.ts" linenums="false" title="src/app/app.module.ts (import CrisisCenterModule)" region="crisis-center-module">
+<code-tabs>
 
-</code-example>
+  <code-pane path="router/src/app/crisis-center/crisis-center.module.ts"header="src/app/crisis-center/crisis-center.module.ts">
+
+  </code-pane> 
+
+  <code-pane path="router/src/app/app.module.4.ts" linenums="false" header="src/app/app.module.ts (import CrisisCenterModule)" region="crisis-center-module">
+
+  </code-pane>
+
+</code-tabs>
 
 Remove the initial crisis center route from the `app-routing.module.ts`.
 The feature routes are now provided by the `HeroesModule` and the `CrisisCenter` modules.
@@ -3546,7 +3701,7 @@ The `app-routing.module.ts` file retains the top-level application routes such a
 
 `app-routing.module.ts` 文件中只有应用的顶级路由，比如默认路由和通配符路由。
 
-<code-example path="router/src/app/app-routing.module.3.ts" linenums="false" title="src/app/app-routing.module.ts (v3)" region="v3">
+<code-example path="router/src/app/app-routing.module.3.ts" linenums="false" header="src/app/app-routing.module.ts (v3)" region="v3">
 
 </code-example>
 
@@ -3645,7 +3800,7 @@ Update the `gotoCrises` method of the `CrisisDetailComponent` to navigate back t
 
 修改 `CrisisDetailComponent` 的 `gotoCrises` 方法，来使用相对路径返回*危机中心*列表。
 
-<code-example path="router/src/app/crisis-center/crisis-detail.component.ts" linenums="false" title="src/app/crisis-center/crisis-detail.component.ts (relative navigation)" region="gotoCrises-navigate">
+<code-example path="router/src/app/crisis-center/crisis-detail/crisis-detail.component.ts" linenums="false" header="src/app/crisis-center/crisis-detail/crisis-detail.component.ts (relative navigation)" region="gotoCrises-navigate">
 
 </code-example>
 
@@ -3693,7 +3848,7 @@ Add an outlet named "popup" in the `AppComponent`, directly below the unnamed ou
 
 在 `AppComponent` 中添加一个名叫“popup”的出口，就在无名出口的下方。
 
-<code-example path="router/src/app/app.component.4.ts" linenums="false" title="src/app/app.component.ts (outlets)" region="outlets">
+<code-example path="router/src/app/app.component.4.html" linenums="false" header="src/app/app.component.html (outlets)" region="outlets">
 
 </code-example>
 
@@ -3728,7 +3883,14 @@ They differ in a few key respects.
 
    它们显示在命名出口中。
 
-Create a new component named `ComposeMessageComponent` in `src/app/compose-message.component.ts`.
+Generate a new component to compose the message.
+
+生成一个新的组件来组合这个消息。
+
+<code-example language="none" class="code-shell">
+  ng generate component compose-message
+</code-example>
+
 It displays a simple form with a header, an input box for the message,
 and two buttons, "Send" and "Cancel".
 
@@ -3739,17 +3901,21 @@ and two buttons, "Send" and "Cancel".
   <img src='generated/images/guide/router/contact-popup.png' alt="Contact popup">
 </figure>
 
-Here's the component and its template:
+Here's the component, its template and styles:
 
 下面是该组件及其模板：
 
 <code-tabs>
 
-  <code-pane title="src/app/compose-message.component.ts" path="router/src/app/compose-message.component.ts">
+  <code-pane header="src/app/compose-message/compose-message.component.css" path="router/src/app/compose-message/compose-message.component.css">
 
   </code-pane>
 
-  <code-pane title="src/app/compose-message.component.html" path="router/src/app/compose-message.component.html">
+  <code-pane header="src/app/compose-message/compose-message.component.html" path="router/src/app/compose-message/compose-message.component.html">
+
+  </code-pane>
+
+  <code-pane header="src/app/compose-message/compose-message.component.ts" path="router/src/app/compose-message/compose-message.component.ts">
 
   </code-pane>
 
@@ -3767,13 +3933,9 @@ Note that the `send()` method simulates latency by waiting a second before "send
 The `closePopup()` method closes the popup view by navigating to the popup outlet with a `null`.
 That's a peculiarity covered [below](#clear-secondary-routes).
 
+
 `closePopup()` 方法用把 `popup` 出口导航到 `null` 的方式关闭了弹出框。
 这个奇怪的用法在[稍后的部分](guide/router#clear-secondary-routes)有讲解。
-
-As with other application components, you add the `ComposeMessageComponent` to the `declarations` of an `NgModule`.
-Do so in the `AppModule`.
-
-像其它组件一样，你还要把 `ComposeMessageComponent` 添加到 `AppModule` 的 `declarations` 中。
 
 {@a add-secondary-route}
 
@@ -3785,7 +3947,7 @@ Open the `AppRoutingModule` and add a new `compose` route to the `appRoutes`.
 
 打开 `AppRoutingModule`，并把一个新的 `compose` 路由添加到 `appRoutes` 中。
 
-<code-example path="router/src/app/app-routing.module.3.ts" linenums="false" title="src/app/app-routing.module.ts (compose route)" region="compose">
+<code-example path="router/src/app/app-routing.module.3.ts" linenums="false" header="src/app/app-routing.module.ts (compose route)" region="compose">
 
 </code-example>
 
@@ -3803,7 +3965,7 @@ Open the `AppComponent` and add a "Contact" link.
 用户需要某种途径来打开这个弹出框。
 打开 `AppComponent`，并添加一个“Contact”链接。
 
-<code-example path="router/src/app/app.component.4.ts" linenums="false" title="src/app/app.component.ts (contact-link)" region="contact-link">
+<code-example path="router/src/app/app.component.4.html" linenums="false" header="src/app/app.component.html (contact-link)" region="contact-link">
 
 </code-example>
 
@@ -3939,7 +4101,7 @@ To see how, look at the `closePopup()` method again:
 点击“send”或“cancel”按钮，则*会*清除弹出框视图。
 为何如此？再看看 `closePopup()` 方法：
 
-<code-example path="router/src/app/compose-message.component.ts" linenums="false" title="src/app/compose-message.component.ts (closePopup)" region="closePopup">
+<code-example path="router/src/app/compose-message/compose-message.component.ts" linenums="false" header="src/app/compose-message/compose-message.component.ts (closePopup)" region="closePopup">
 
 </code-example>
 
@@ -3995,7 +4157,7 @@ That's not always the right thing to do.
 
    你可能要询问用户：你是否要放弃本次更改，而不用保存它们？
 
-You can add _guards_ to the route configuration to handle these scenarios.
+You add _guards_ to the route configuration to handle these scenarios.
 
 你可以往路由配置中添加***守卫***，来处理这些场景。
 
@@ -4013,7 +4175,7 @@ A guard's return value controls the router's behavior:
 
 <div class="alert is-helpful">
 
-The guard can also tell the router to navigate elsewhere, effectively canceling the current navigation.
+**Note:**The guard can also tell the router to navigate elsewhere, effectively canceling the current navigation.
 
 守卫还可以告诉路由器导航到别处，这样也取消当前的导航。
 
@@ -4031,6 +4193,14 @@ Accordingly, a routing guard can return an `Observable<boolean>` or a `Promise<b
 router will wait for the observable to resolve to `true` or `false`.
 
 因此，路由的守卫可以返回一个 `Observable<boolean>` 或 `Promise<boolean>`，并且路由器会等待这个可观察对象被解析为 `true` 或 `false`。
+
+<div class="alert is-critical">
+
+**Note:** The observable provided to the Router _must_ also complete. If the observable does not complete, the navigation will not continue.
+
+**注意：** 提供给路由器的可观察对象还*必须*能结束（complete）。否则，导航就不会继续。
+
+</div>
 
 The router supports multiple guard interfaces:
 
@@ -4101,9 +4271,33 @@ But you can start by adding a new feature module named `AdminModule`.
 在下一节，你将会使用一些新的*管理*特性来扩展危机中心。
 那些特性尚未定义，但是你可以先从添加一个名叫 `AdminModule` 的特性模块开始。
 
-Create an `admin` folder with a feature module file, a routing configuration file, and supporting components.
+Generate an `admin` folder with a feature module file and a routing configuration file.
 
-创建一个 `admin` 目录，它带有一个特性模块文件、一个路由配置文件和一些支持性组件。
+生成一个带有特性模块文件和路由配置文件的 `admin` 目录。
+
+<code-example language="none" class="code-shell">
+  ng generate module admin --routing
+</code-example>
+
+Next, generate the supporting components.
+
+接下来，生成一些支持性组件。
+
+<code-example language="none" class="code-shell">
+  ng generate component admin/admin-dashboard
+</code-example>
+
+<code-example language="none" class="code-shell">
+  ng generate component admin/admin
+</code-example>
+
+<code-example language="none" class="code-shell">
+  ng generate component admin/manage-crises
+</code-example>
+
+<code-example language="none" class="code-shell">
+  ng generate component admin/manage-heroes
+</code-example>
 
 The admin feature file structure looks like this:
 
@@ -4121,25 +4315,61 @@ The admin feature file structure looks like this:
 
     <div class='file'>
 
-      admin-dashboard.component.ts
+admin
+    </div>
+
+      <div class='children'>
+
+        <div class='file'>
+          admin.component.css
+        </div>
+
+        <div class='file'>
+          admin.component.html
+        </div>
+
+        <div class='file'>
+          admin.component.ts
+        </div>
+
+      </div>
+
+    <div class='file'>
+      admin-dashboard
+    </div>
+
+      <div class='children'>
+
+        <div class='file'>
+          admin-dashboard.component.css
+        </div>
+
+        <div class='file'>
+          admin-dashboard.component.html
+        </div>
+
+        <div class='file'>      admin-dashboard.component.ts
+
+    </div>
+
+      </div>
+
+    <div class='file'>
+
+      manage-crises
+    </div>
+
+      <div class='children'>
+
+        <div class='file'>
+
+      manage-crises.component.css
 
     </div>
 
     <div class='file'>
 
-      admin.component.ts
-
-    </div>
-
-    <div class='file'>
-
-      admin.module.ts
-
-    </div>
-
-    <div class='file'>
-
-      admin-routing.module.ts
+      manage-crises.component.html
 
     </div>
 
@@ -4149,10 +4379,35 @@ The admin feature file structure looks like this:
 
     </div>
 
+      </div>
+
     <div class='file'>
 
-      manage-heroes.component.ts
+manage-heroes
+    </div>
 
+      <div class='children'>
+
+        <div class='file'>
+          manage-heroes.component.css
+        </div>
+
+        <div class='file'>
+          manage-heroes.component.html
+        </div>
+
+        <div class='file'>
+          manage-heroes.component.ts
+        </div>
+
+      </div>
+
+    <div class='file'>
+      admin.module.ts
+    </div>
+
+    <div class='file'>
+      admin-routing.module.ts
     </div>
 
   </div>
@@ -4166,23 +4421,23 @@ feature module, a dashboard route and two unfinished components to manage crises
 
 <code-tabs>
 
-  <code-pane title="src/app/admin/admin-dashboard.component.ts" path="router/src/app/admin/admin-dashboard.component.1.ts">
+  <code-pane header="src/app/admin/admin/admin.component.html" linenums="false"  path="router/src/app/admin/admin/admin.component.html">
 
   </code-pane>
 
-  <code-pane title="src/app/admin/admin.component.ts" path="router/src/app/admin/admin.component.ts">
+  <code-pane header="src/app/admin/admin-dashboard/admin-dashboard.component.html" linenums="false" path="router/src/app/admin/admin-dashboard/admin-dashboard.component.1.html">
 
   </code-pane>
 
-  <code-pane title="src/app/admin/admin.module.ts" path="router/src/app/admin/admin.module.ts">
+  <code-pane header="src/app/admin/admin.module.ts" path="router/src/app/admin/admin.module.ts">
 
   </code-pane>
 
-  <code-pane title="src/app/admin/manage-crises.component.ts" path="router/src/app/admin/manage-crises.component.ts">
+  <code-pane header="src/app/admin/manage-crises/manage-crises.component.html" linenums="false" path="router/src/app/admin/manage-crises/manage-crises.component.html">
 
   </code-pane>
 
-  <code-pane title="src/app/admin/manage-heroes.component.ts" path="router/src/app/admin/manage-heroes.component.ts">
+  <code-pane header="src/app/admin/manage-heroes/manage-heroes.component.html" linenums="false"  path="router/src/app/admin/manage-heroes/manage-heroes.component.html">
 
   </code-pane>
 
@@ -4190,12 +4445,8 @@ feature module, a dashboard route and two unfinished components to manage crises
 
 <div class="alert is-helpful">
 
-Since the admin dashboard `RouterLink` is an empty path route in the `AdminComponent`, it
-is considered a match to any route within the admin feature area.
-You only want the `Dashboard` link to be active when the user visits that route.
-Adding an additional binding to the `Dashboard` routerLink,
-`[routerLinkActiveOptions]="{ exact: true }"`, marks the `./` link as active when
-the user navigates to the `/admin` URL and not when navigating to any of the child routes.
+Although the admin dashboard `RouterLink` only contains a relative slash without an additional URL segment, it
+is considered a match to any route within the admin feature area. You only want the `Dashboard` link to be active when the user visits that route. Adding an additional binding to the `Dashboard` routerLink,`[routerLinkActiveOptions]="{ exact: true }"`, marks the `./` link as active when the user navigates to the `/admin` URL and not when navigating to any of the child routes.
 
 由于 `AdminModule` 中 `AdminComponent` 中的 `RouterLink` 是一个空路径的路由，所以它会匹配到管理特性区的任何路由。
 但你只有在访问 `Dashboard` 路由时才希望该链接被激活。
@@ -4204,19 +4455,21 @@ the user navigates to the `/admin` URL and not when navigating to any of the chi
 
 </div>
 
+
+{@a component-less-route}
+
+
+##### Component-less route: grouping routes without a component
+
+##### 无组件路由：分组路由，而不需要组件
+
 The initial admin routing configuration:
 
 最初的管理路由配置如下：
 
-<code-example path="router/src/app/admin/admin-routing.module.1.ts" linenums="false" title="src/app/admin/admin-routing.module.ts (admin routing)" region="admin-routes">
+<code-example path="router/src/app/admin/admin-routing.module.1.ts" linenums="false" header="src/app/admin/admin-routing.module.ts (admin routing)" region="admin-routes">
 
 </code-example>
-
-{@a component-less-route}
-
-### Component-less route: grouping routes without a component
-
-### 无组件路由: 不借助组件对路由进行分组
 
 Looking at the child route under the `AdminComponent`, there is a `path` and a `children`
 property but it's not using a `component`.
@@ -4238,7 +4491,7 @@ to register the admin routes.
 
 接下来，把 `AdminModule` 导入到 `app.module.ts` 中，并把它加入 `imports` 数组中来注册这些管理类路由。
 
-<code-example path="router/src/app/app.module.4.ts" linenums="false" title="src/app/app.module.ts (admin module)" region="admin-module">
+<code-example path="router/src/app/app.module.4.ts" linenums="false" header="src/app/app.module.ts (admin module)" region="admin-module">
 
 </code-example>
 
@@ -4246,7 +4499,7 @@ Add an "Admin" link to the `AppComponent` shell so that users can get to this fe
 
 然后往壳组件 `AppComponent` 中添加一个链接，让用户能点击它，以访问该特性。
 
-<code-example path="router/src/app/app.component.5.ts" linenums="false" title="src/app/app.component.ts (template)" region="template">
+<code-example path="router/src/app/app.component.5.html" linenums="false" header="src/app/app.component.html (template)">
 
 </code-example>
 
@@ -4271,8 +4524,12 @@ login page when they try to enter the admin area.
 你可以换种方式：写一个 `CanActivate()` 守卫，将正在尝试访问管理组件匿名用户重定向到登录页。
 
 This is a general purpose guard&mdash;you can imagine other features
-that require authenticated users&mdash;so you create an
-`auth-guard.service.ts` in the application root folder.
+that require authenticated users&mdash;so you generate an
+`AuthGuard` in the `auth` folder.
+
+<code-example language="none" class="code-shell">
+  ng generate guard auth/auth
+</code-example>
 
 这是一种具有通用性的守护目标（通常会有其它特性需要登录用户才能访问），所以你要在应用的根目录下创建一个 `auth-guard.ts` 文件。
 
@@ -4281,7 +4538,7 @@ It simply logs to console and `returns` true immediately, allowing navigation to
 
 此刻，你的兴趣在于看看守卫是如何工作的，所以第一个版本没做什么有用的事情。它只是往控制台写日志，并且立即返回 `true`，让导航继续：
 
-<code-example path="router/src/app/auth-guard.service.1.ts" linenums="false" title="src/app/auth-guard.service.ts (excerpt)">
+<code-example path="router/src/app/auth/auth.guard.1.ts" linenums="false" header="src/app/auth/auth.guard.ts (excerpt)">
 
 </code-example>
 
@@ -4290,10 +4547,12 @@ update the admin route with a `canActivate` guard property that references it:
 
 接下来，打开 `crisis-center.routes.ts`，导入 `AuthGuard` 类，修改管理路由并通过 `CanActivate()` 守卫来引用 `AuthGuard`：
 
-<code-example path="router/src/app/admin/admin-routing.module.2.ts" linenums="false" title="src/app/admin/admin-routing.module.ts (guarded admin route)" region="admin-route">
+<code-example path="router/src/app/admin/admin-routing.module.2.ts" linenums="false" header="src/app/admin/admin-routing.module.ts (guarded admin route)" region="admin-route">
 
 </code-example>
 
+
+ 
 The admin feature is now protected by the guard, albeit protected poorly.
 
 管理特性区现在受此守卫保护了，不过这样的保护还不够。
@@ -4308,12 +4567,17 @@ Make the `AuthGuard` at least pretend to authenticate.
 
 先让 `AuthGuard` 至少能“假装”进行认证。
 
-The `AuthGuard` should call an application service that can login a user and retain information about the current user.
-Here's a demo `AuthService`:
+The `AuthGuard` should call an application service that can login a user and retain information about the current user. Generate a new `AuthService` in the `admin` folder:
 
-`AuthGuard` 可以调用应用中的一项服务，该服务能让用户登录，并且保存当前用户的信息。下面是一个 `AuthService` 的示范：
+`AuthGuard` 可以调用应用中的一项服务，该服务能让用户登录，并且保存当前用户的信息。在 `admin` 目录下生成一个新的 `AuthService`：
 
-<code-example path="router/src/app/auth.service.ts" linenums="false" title="src/app/auth.service.ts (excerpt)">
+<code-example language="none" class="code-shell">
+  ng generate service admin/auth
+</code-example>
+
+Update the `AuthService` to log in the user:
+
+<code-example path="router/src/app/auth/auth.service.ts" linenums="false" header="src/app/auth/auth.service.ts (excerpt)">
 
 </code-example>
 
@@ -4332,7 +4596,7 @@ Revise the `AuthGuard` to call it.
 
 这就修改 `AuthGuard` 来调用它。
 
-<code-example path="router/src/app/auth-guard.service.2.ts" linenums="false" title="src/app/auth-guard.service.ts (v2)">
+<code-example path="router/src/app/auth/auth.guard.2.ts" linenums="false" header="src/app/auth/auth.guard.ts (v2)">
 
 </code-example>
 
@@ -4374,40 +4638,34 @@ There is nothing new about this component or the way you wire it into the router
 你需要一个 `LoginComponent` 来让用户登录进这个应用。在登录之后，你就会跳转到前面保存的 URL，如果没有，就跳转到默认 URL。
   该组件没有什么新内容，你把它放进路由配置的方式也没什么新意。
 
-Register a `/login` route in the `login-routing.module.ts` and add the necessary providers to the `providers`
-array. In `app.module.ts`, import the `LoginComponent` and add it to the `AppModule` `declarations`.
-Import and add the `LoginRoutingModule` to the `AppModule` imports as well.
+<code-example language="none" class="code-shell">
+  ng generate component auth/login
+</code-example>
 
-在 `login-routing.module.ts` 中注册一个 `/login` 路由，并把必要的提供商添加 `providers` 数组中。
-在 `app.module.ts` 中，导入 `LoginComponent` 并把它加入根模块的 `declarations` 中。
-同时在 `AppModule` 中导入并添加 `LoginRoutingModule`。
+Register a `/login` route in the `auth/auth-routing.module.ts`. In `app.module.ts`, import and add the `AuthModule` to the `AppModule` imports.
+
+在 `auth/auth-routing.module.ts` 文件中注册一个 `/login` 路由。在 `app.module.ts` 中，导入 `AuthModule` 并且添加到 `AppModule` 的 `imports` 中。
 
 <code-tabs>
 
-  <code-pane title="src/app/app.module.ts" path="router/src/app/app.module.ts">
+  <code-pane header="src/app/app.module.ts" path="router/src/app/app.module.ts" region="auth">
 
   </code-pane>
 
-  <code-pane title="src/app/login.component.ts" path="router/src/app/login.component.1.ts">
+  <code-pane header="src/app/auth/login/login.component.html" path="router/src/app/auth/login/login.component.html">
+
+  </code-pane>  
+
+  <code-pane header="src/app/auth/login/login.component.ts" path="router/src/app/auth/login/login.component.1.ts">
 
   </code-pane>
 
-  <code-pane title="src/app/login-routing.module.ts" path="router/src/app/login-routing.module.ts">
+  <code-pane header="src/app/auth/auth.module.ts" path="router/src/app/auth/auth.module.ts">
 
   </code-pane>
 
 </code-tabs>
 
-<div class="alert is-helpful">
-
-Guards and the service providers they require _must_ be provided at the module-level. This allows
-the Router access to retrieve these services from the `Injector` during the navigation process.
-The same rule applies for feature modules loaded [asynchronously](#asynchronous-routing).
-
-它们所需的守卫和服务提供商**必须**在模块一级提供。这让路由器在导航过程中可以通过 `Injector` 来取得这些服务。
-    同样的规则也适用于[异步加载](guide/router#asynchronous-routing)的特性模块。
-
-</div>
 
 {@a can-activate-child-guard}
 
@@ -4429,7 +4687,7 @@ You should also protect child routes _within_ the feature module.
 你要保护管理特性模块，防止它被非授权访问，还要保护这个特性模块*内部*的那些子路由。
 
 Extend the `AuthGuard` to protect when navigating between the `admin` routes.
-Open `auth-guard.service.ts` and add the `CanActivateChild` interface to the imported tokens from the router package.
+Open `auth.guard.ts` and add the `CanActivateChild` interface to the imported tokens from the router package.
 
 扩展 `AuthGuard` 以便在 `admin` 路由之间导航时提供保护。
 打开 `auth-guard.service.ts` 并从路由库中导入 `CanActivateChild` 接口。
@@ -4444,7 +4702,7 @@ This one returns a `boolean`:
 `CanActivateChild` 方法可以返回 `Observable<boolean>` 或 `Promise<boolean>` 来支持异步检查，或 `boolean` 来支持同步检查。
 这里返回的是 `boolean`：
 
-<code-example path="router/src/app/auth-guard.service.3.ts" linenums="false" title="src/app/auth-guard.service.ts (excerpt)" region="can-activate-child">
+<code-example path="router/src/app/auth/auth.guard.3.ts" linenums="false" header="src/app/auth/auth.guard.ts (excerpt)" region="can-activate-child">
 
 </code-example>
 
@@ -4453,7 +4711,7 @@ instead of adding the `AuthGuard` to each route individually.
 
 同样把这个 `AuthGuard` 添加到“无组件的”管理路由，来同时保护它的所有子路由，而不是为每个路由单独添加这个 `AuthGuard`。
 
-<code-example path="router/src/app/admin/admin-routing.module.3.ts" linenums="false" title="src/app/admin/admin-routing.module.ts (excerpt)" region="can-activate-child">
+<code-example path="router/src/app/admin/admin-routing.module.3.ts" linenums="false" header="src/app/admin/admin-routing.module.ts (excerpt)" region="can-activate-child">
 
 </code-example>
 
@@ -4509,7 +4767,7 @@ You need the `CanDeactivate` guard.
 
 {@a cancel-save}
 
-### Cancel and save
+#### Cancel and save
 
 ### 取消与保存
 
@@ -4531,7 +4789,7 @@ Both buttons navigate back to the crisis list after save or cancel.
 
 这两个按钮都会在保存或取消之后导航回危机列表。
 
-<code-example path="router/src/app/crisis-center/crisis-detail.component.ts" linenums="false" title="src/app/crisis-center/crisis-detail.component.ts (cancel and save methods)" region="cancel-save">
+<code-example path="router/src/app/crisis-center/crisis-detail/crisis-detail.component.ts" linenums="false" header="src/app/crisis-center/crisis-detail/crisis-detail.component.ts (cancel and save methods)" region="cancel-save">
 
 </code-example>
 
@@ -4561,7 +4819,17 @@ is like waiting for the server asynchronously.
 
 </div>
 
-The `DialogService`, provided in the `AppModule` for app-wide use, does the asking.
+Generate a `Dialog` service to handle user confirmation.
+
+<code-example language="none" class="code-shell">
+  ng generate service dialog
+</code-example>
+
+Add a `confirm()` method to the `DialogService` to prompt the user to confirm their intent. The `window.confirm` is a _blocking_ action that displays a modal dialog and waits for user interaction.
+
+<code-example path="router/src/app/dialog.service.ts" header="src/app/dialog.service.ts">
+
+</code-example>
 
 `DialogService`（为了在应用级使用，已经注入到了 `AppModule`）就可以做到这些。
 
@@ -4572,7 +4840,11 @@ to discard changes and navigate away (`true`) or to preserve the pending changes
 
 {@a CanDeactivate}
 
-Create a _guard_ that checks for the presence of a `canDeactivate()` method in a component&mdash;any component.
+Generate a _guard_ that checks for the presence of a `canDeactivate()` method in a component&mdash;any component.
+
+<code-example language="none" class="code-shell">
+  ng generate guard can-deactivate
+</code-example>
 The `CrisisDetailComponent` will have this method.
 But the guard doesn't have to know that.
 The guard shouldn't know the details of any component's deactivation method.
@@ -4585,7 +4857,7 @@ This approach makes the guard reusable.
 它只需要检查该组件是否有一个 `canDeactivate()` 方法，并调用它。
 这就让该守卫可以复用。
 
-<code-example path="router/src/app/can-deactivate-guard.service.ts" title="src/app/can-deactivate-guard.service.ts">
+<code-example path="router/src/app/can-deactivate.guard.ts" header="src/app/can-deactivate.guard.ts">
 
 </code-example>
 
@@ -4601,7 +4873,7 @@ the component's properties or confirm whether the router should allow navigation
 在需要访问外部信息时，`canDeactivate()` 方法为你提供了组件、`ActivatedRoute` 和 `RouterStateSnapshot` 的当前实例。
 如果只想为这个组件使用该守卫，并且需要获取该组件属性或确认路由器是否允许从该组件导航出去时，这会非常有用。
 
-<code-example path="router/src/app/can-deactivate-guard.service.1.ts" linenums="false" title="src/app/can-deactivate-guard.service.ts (component-specific)">
+<code-example path="router/src/app/can-deactivate.guard.1.ts" linenums="false" header="src/app/can-deactivate.guard.ts (component-specific)">
 
 </code-example>
 
@@ -4609,7 +4881,7 @@ Looking back at the `CrisisDetailComponent`, it implements the confirmation work
 
 看看 `CrisisDetailComponent` 组件，它已经实现了对未保存的更改进行确认的工作流。
 
-<code-example path="router/src/app/crisis-center/crisis-detail.component.ts" linenums="false" title="src/app/crisis-center/crisis-detail.component.ts (excerpt)" region="canDeactivate">
+<code-example path="router/src/app/crisis-center/crisis-detail/crisis-detail.component.ts" linenums="false" header="src/app/crisis-center/crisis-detail/crisis-detail.component.ts (excerpt)" region="canDeactivate">
 
 </code-example>
 
@@ -4624,18 +4896,10 @@ Add the `Guard` to the crisis detail route in `crisis-center-routing.module.ts` 
 
 往 `crisis-center.routing.module.ts` 的危机详情路由中用 `canDeactivate` 数组添加一个 `Guard`（守卫）。
 
-<code-example path="router/src/app/crisis-center/crisis-center-routing.module.3.ts" linenums="false" title="src/app/crisis-center/crisis-center-routing.module.ts (can deactivate guard)">
+<code-example path="router/src/app/crisis-center/crisis-center-routing.module.3.ts" linenums="false" header="src/app/crisis-center/crisis-center-routing.module.ts (can deactivate guard)">
 
 </code-example>
 
-Add the `Guard` to the main `AppRoutingModule` `providers` array so the
-`Router` can inject it during the navigation process.
-
-还要把这个 `Guard` 添加到 `AppRoutingModule` 的 `providers` 中去，以便 `Router` 可以在导航过程中注入它。
-
-<code-example path="router/src/app/app-routing.module.4.ts">
-
-</code-example>
 
 Now you have given the user a safeguard against unsaved changes.
 
@@ -4681,7 +4945,7 @@ You need a *resolver*.
 
 {@a fetch-before-navigating}
 
-### Fetch data before navigating
+#### Fetch data before navigating
 
 ### 导航前预先加载路由信息
 
@@ -4698,16 +4962,21 @@ _before_ activating the route and creating the `CrisisDetailComponent`.
 如果能在该路由将要激活时提前处理了这个问题，那么用户体验会更好。
 `CrisisDetailResolver` 服务可以接收一个 `Crisis`，而如果这个 `Crisis` 不存在，就会在激活该路由并创建 `CrisisDetailComponent` 之前先行离开。
 
-Create the `crisis-detail-resolver.service.ts` file within the `Crisis Center` feature area.
+Generate a `CrisisDetailResolver` service file within the `Crisis Center` feature area.
 
-在“危机中心”特性区中创建 `crisis-detail-resolver.service.ts` 文件。
+在 `Crisis Center` 特性区生成一个 `CrisisDetailResolver` 服务文件。
 
-<code-example path="router/src/app/crisis-center/crisis-detail-resolver.service.ts" title="src/app/crisis-center/crisis-detail-resolver.service.ts">
+<code-example language="none" class="code-shell">
+  ng generate service crisis-center/crisis-detail-resolver
+</code-example>
+
+
+<code-example path="router/src/app/crisis-center/crisis-detail-resolver.service.1.ts" header="src/app/crisis-center/crisis-detail-resolver.service.ts (generated)">
 
 </code-example>
 
 Take the relevant parts of the crisis retrieval logic in `CrisisDetailComponent.ngOnInit`
-and move them into the `CrisisDetailResolver`.
+and move them into the `CrisisDetailResolverService`.
 Import the `Crisis` model, `CrisisService`, and the `Router`
 so you can navigate elsewhere if you can't fetch the crisis.
 
@@ -4727,9 +4996,14 @@ That method could return a `Promise`, an `Observable`, or a synchronous return v
 The `CrisisService.getCrisis` method returns an observable, in order to prevent the route from loading until the data is fetched.
 The `Router` guards require an observable to `complete`, meaning it has emitted all
 of its values. You use the `take` operator with an argument of `1` to ensure that the
-observable completes after retrieving the first value from the observable returned by the
-`getCrisis` method. If it doesn't return a valid `Crisis`, navigate the user back to the `CrisisListComponent`,
-canceling the previous in-flight navigation to the `CrisisDetailComponent`.
+Observable completes after retrieving the first value from the Observable returned by the
+`getCrisis` method.
+
+If it doesn't return a valid `Crisis`, return an empty `Observable`, canceling the previous in-flight navigation to the `CrisisDetailComponent` and navigate the user back to the `CrisisListComponent`. The update resolver service looks like this:
+
+<code-example path="router/src/app/crisis-center/crisis-detail-resolver.service.ts" header="src/app/crisis-center/crisis-detail-resolver.service.ts">
+
+</code-example>
 
 `CrisisService.getCrisis` 方法返回了一个可观察对象，这是为了防止在数据获取完毕前加载路由。
 如果它没有返回一个有效的 `Crisis`，就把用户导航回 `CrisisListComponent`，并取消以前到 `CrisisDetailComponent` 尚未完成的导航。
@@ -4739,11 +5013,7 @@ and add a `resolve` object to the `CrisisDetailComponent` route configuration.
 
 把这个解析器（resolver）导入到 `crisis-center-routing.module.ts` 中，并往 `CrisisDetailComponent` 的路由配置中添加一个 `resolve` 对象。
 
-Remember to add the `CrisisDetailResolver` service to the `CrisisCenterRoutingModule`'s `providers` array.
-
-别忘了把 `CrisisDetailResolver` 服务添加到 `CrisisCenterRoutingModule` 的 `providers` 数组中。
-
-<code-example path="router/src/app/crisis-center/crisis-center-routing.module.4.ts" linenums="false" title="src/app/crisis-center/crisis-center-routing.module.ts (resolver)" region="crisis-detail-resolver">
+<code-example path="router/src/app/crisis-center/crisis-center-routing.module.4.ts" linenums="false" header="src/app/crisis-center/crisis-center-routing.module.ts (resolver)">
 
 </code-example>
 
@@ -4756,16 +5026,16 @@ It will be there when the `CrisisDetailComponent` ask for it.
 把 `CrisisDetailComponent` 改成从 `ActivatedRoute.data.crisis` 属性中获取危机详情，这正是你重新配置路由的恰当时机。
 当 `CrisisDetailComponent` 要求取得危机详情时，它就已经在那里了。
 
-<code-example path="router/src/app/crisis-center/crisis-detail.component.ts" linenums="false" title="src/app/crisis-center/crisis-detail.component.ts (ngOnInit v2)" region="ngOnInit">
+<code-example path="router/src/app/crisis-center/crisis-detail/crisis-detail.component.ts" linenums="false" header="src/app/crisis-center/crisis-detail/crisis-detail.component.ts (ngOnInit v2)" region="ngOnInit">
 
 </code-example>
 
-**Three critical points**
+**Two critical points**
 
 **两个关键点**
 
 1. The router's `Resolve` interface is optional.
-The `CrisisDetailResolver` doesn't inherit from a base class.
+The `CrisisDetailResolverService` doesn't inherit from a base class.
 The router looks for that method and calls it if found.
 
    路由器的这个 `Resolve` 接口是可选的。`CrisisDetailResolver` 没有继承自某个基类。路由器只要找到了这个方法，就会调用它。
@@ -4776,58 +5046,69 @@ That's the router's job. Write this class and let the router take it from there.
 
    要依赖路由器调用此守卫。不必关心用户用哪种方式导航离开，这是路由器的工作。你只要写出这个类，等路由器从那里取出它就可以了。
 
-1. The observable provided to the Router _must_ complete.
-If the observable does not complete, the navigation will not continue.
-
-   由路由器提供的 Observable *必须* 完成（complete），否则导航不会继续。
-
 The relevant *Crisis Center* code for this milestone follows.
 
 本里程碑中与*危机中心*有关的代码如下：
 
 <code-tabs>
 
-  <code-pane title="app.component.ts" path="router/src/app/app.component.6.ts">
+  <code-pane header="app.component.html" path="router/src/app/app.component.html">
 
   </code-pane>
 
-  <code-pane title="crisis-center-home.component.ts" path="router/src/app/crisis-center/crisis-center-home.component.ts">
+  <code-pane header="crisis-center-home.component.html" path="router/src/app/crisis-center/crisis-center-home/crisis-center-home.component.html">
 
   </code-pane>
 
-  <code-pane title="crisis-center.component.ts" path="router/src/app/crisis-center/crisis-center.component.ts">
+  <code-pane header="crisis-center.component.html" path="router/src/app/crisis-center/crisis-center/crisis-center.component.html">
 
   </code-pane>
 
-  <code-pane title="crisis-center-routing.module.ts" path="router/src/app/crisis-center/crisis-center-routing.module.4.ts">
+  <code-pane header="crisis-center-routing.module.ts" path="router/src/app/crisis-center/crisis-center-routing.module.4.ts">
 
   </code-pane>
 
-  <code-pane title="crisis-list.component.ts" path="router/src/app/crisis-center/crisis-list.component.ts">
+  <code-pane header="crisis-list.component.html" path="router/src/app/crisis-center/crisis-list/crisis-list.component.html">
 
   </code-pane>
 
-  <code-pane title="crisis-detail.component.ts" path="router/src/app/crisis-center/crisis-detail.component.ts">
+  <code-pane header="crisis-list.component.ts" path="router/src/app/crisis-center/crisis-list/crisis-list.component.ts">
 
   </code-pane>
 
-  <code-pane title="crisis-detail-resolver.service.ts" path="router/src/app/crisis-center/crisis-detail-resolver.service.ts">
+  <code-pane header="crisis-detail.component.html" path="router/src/app/crisis-center/crisis-detail/crisis-detail.component.html">
 
   </code-pane>
 
-  <code-pane title="crisis.service.ts" path="router/src/app/crisis-center/crisis.service.ts">
+  <code-pane header="crisis-detail.component.html" path="router/src/app/crisis-center/crisis-detail/crisis-detail.component.html">
+
+  </code-pane>
+
+  <code-pane header="crisis-detail-resolver.service.ts" path="router/src/app/crisis-center/crisis-detail-resolver.service.ts">
+
+  </code-pane>
+
+  <code-pane header="crisis.service.ts" path="router/src/app/crisis-center/crisis.service.ts">
+
+  </code-pane>
+
+  <code-pane header="dialog.service.ts" path="router/src/app/dialog.service.ts">
 
   </code-pane>
 
 </code-tabs>
 
+Guards
+
+路由守卫
+
 <code-tabs>
 
-  <code-pane title="auth-guard.service.ts" path="router/src/app/auth-guard.service.3.ts">
+  <code-pane header="auth.guard.ts" path="router/src/app/auth/auth.guard.3.ts">
 
   </code-pane>
 
-  <code-pane title="can-deactivate-guard.service.ts" path="router/src/app/can-deactivate-guard.service.ts">
+  <code-pane header="can-deactivate.guard.ts" path="router/src/app/can-deactivate.guard.ts">
 
   </code-pane>
 
@@ -4865,7 +5146,7 @@ Add the `NavigationExtras` object to the `router.navigate` method that navigates
 
 为 `router.navigate` 方法添加一个 `NavigationExtras` 对象，用来导航到 `/login` 路由。
 
-<code-example path="router/src/app/auth-guard.service.4.ts" linenums="false" title="src/app/auth-guard.service.ts (v3)">
+<code-example path="router/src/app/auth/auth.guard.4.ts" linenums="false" header="src/app/auth/auth.guard.ts (v3)">
 
 </code-example>
 
@@ -4877,7 +5158,7 @@ and fragment to the next route.
 
 还可以再导航之间**保留**查询参数和片段，而无需再次再导航中提供。在 `LoginComponent` 中的 `router.navigate` 方法中，添加第二个参数，该**对象**提供了 `preserveQueryParams` 和 `preserveFragment`，用于传递到当前的查询参数中并为下一个路由提供片段。
 
-<code-example path="router/src/app/login.component.ts" linenums="false" title="src/app/login.component.ts (preserve)" region="preserve">
+<code-example path="router/src/app/auth/login/login.component.ts" linenums="false" header="src/app/auth/login/login.component.ts (preserve)" region="preserve">
 
 </code-example>
 
@@ -4890,12 +5171,12 @@ when navigating.
 
 </div>
 
-Since you'll be navigating to the *Admin Dashboard* route after logging in, you'll update it to handle the
+As you'll be navigating to the *Admin Dashboard* route after logging in, you'll update it to handle the
 query parameters and fragment.
 
 由于要在登录后导航到*危机管理*特征区的路由，所以你还得修改它，来处理这些全局查询参数和片段。
 
-<code-example path="router/src/app/admin/admin-dashboard.component.2.ts" linenums="false" title="src/app/admin/admin-dashboard.component.ts (v2)">
+<code-example path="router/src/app/admin/admin-dashboard/admin-dashboard.component.1.ts" linenums="false" header="src/app/admin/admin-dashboard/admin-dashboard.component.ts (v2)">
 
 </code-example>
 
@@ -4936,7 +5217,7 @@ the `queryParamsHandling` and `preserveFragment` bindings respectively.
 
 As you've worked through the milestones, the application has naturally gotten larger.
 As you continue to build out feature areas, the overall application size will continue to grow.
-At some point you'll reach a tipping point where the application takes long time to load.
+At some point you'll reach a tipping point where the application takes a long time to load.
 
 完成上面的里程碑后，应用程序很自然地长大了。在继续构建特征区的过程中，应用的尺寸将会变得更大。在某一个时间点，你将达到一个顶点，应用将会需要过多的时间来加载。
 
@@ -4995,17 +5276,25 @@ Open the `AppRoutingModule` and add a new `admin` route to its `appRoutes` array
 
 打开 `AppRoutingModule`，并把一个新的 `admin` 路由添加到它的 `appRoutes` 数组中。
 
-Give it a `loadChildren` property (not a `children` property!), set to the address of the `AdminModule`.
+Give it a `loadChildren` property instead of a `children` property, set to the address of the `AdminModule`.
 The address is the `AdminModule` file location (relative to the app root),
-followed by a `#` separator,
-followed by the name of the exported module class, `AdminModule`.
+followed by a `#` separator, followed by the name of the exported module class, `AdminModule`.
 
 给它一个 `loadChildren` 属性（注意不是 `children` 属性），把它设置为 `AdminModule` 的地址。
 该地址是 `AdminModule` 的文件路径（相对于 `app` 目录的），加上一个 `#` 分隔符，再加上导出模块的类名 `AdminModule`。
 
-<code-example path="router/src/app/app-routing.module.5.ts" region="admin-1" title="app-routing.module.ts (load children)">
+<code-example path="router/src/app/app-routing.module.5.ts" region="admin-1" header="app-routing.module.ts (load children)">
 
 </code-example>
+
+<div class="alert is-important">
+
+*Note*: When using absolute paths, the `NgModule` file location must begin with `src/app` in order to resolve correctly. For custom [path mapping with absolute paths](https://www.typescriptlang.org/docs/handbook/module-resolution.html#path-mapping), the `baseUrl` and `paths` properties in the project `tsconfig.json` must be configured.
+
+**注意**： 当使用绝对路径时，`NgModule` 的文件位置必须以 `src/app` 开头，以便正确解析。对于自定义的 [使用绝对路径的路径映射表](https://www.typescriptlang.org/docs/handbook/module-resolution.html#path-mapping)，项目的 `tsconfig.json` 中必须配置好 `baseUrl` 和 `paths` 属性。
+
+</div>
+
 
 When the router navigates to this route, it uses the `loadChildren` string to dynamically load the `AdminModule`.
 Then it adds the `AdminModule` routes to its current route configuration.
@@ -5066,7 +5355,7 @@ its `checkLogin()` method to support the `CanLoad` guard.
 
 现有的 `AuthGuard` 的 `checkLogin()` 方法中已经有了支持 `CanLoad` 守卫的基础逻辑。
 
-Open `auth-guard.service.ts`.
+Open `auth.guard.ts`.
 Import the `CanLoad` interface from `@angular/router`.
 Add it to the `AuthGuard` class's `implements` list.
 Then implement `canLoad()` as follows:
@@ -5075,7 +5364,7 @@ Then implement `canLoad()` as follows:
 把它添加到 `AuthGuard` 类的 `implements` 列表中。
 然后实现 `canLoad`，代码如下：
 
-<code-example path="router/src/app/auth-guard.service.ts" linenums="false" title="src/app/auth-guard.service.ts (CanLoad guard)" region="canLoad">
+<code-example path="router/src/app/auth/auth.guard.ts" linenums="false" header="src/app/auth/auth.guard.ts (CanLoad guard)" region="canLoad">
 
 </code-example>
 
@@ -5092,7 +5381,7 @@ The completed admin route looks like this:
 现在，把 `AuthGuard` 导入到 `AppRoutingModule` 中，并把 `AuthGuard` 添加到 `admin` 路由的 `canLoad` 数组中。
 完整的 `admin` 路由是这样的：
 
-<code-example path="router/src/app/app-routing.module.5.ts" region="admin" title="app-routing.module.ts (lazy admin route)">
+<code-example path="router/src/app/app-routing.module.5.ts" region="admin" header="app-routing.module.ts (lazy admin route)">
 
 </code-example>
 
@@ -5213,15 +5502,15 @@ Here are the updated modules _before enabling preload_:
 
 <code-tabs>
 
-  <code-pane title="app.module.ts" path="router/src/app/app.module.ts">
+  <code-pane header="app.module.ts" path="router/src/app/app.module.ts" region="preload">
 
   </code-pane>
 
-  <code-pane title="app-routing.module.ts" path="router/src/app/app-routing.module.6.ts" region="preload-v1">
+  <code-pane header="app-routing.module.ts" path="router/src/app/app-routing.module.6.ts" region="preload-v1">
 
   </code-pane>
 
-  <code-pane title="crisis-center-routing.module.ts" path="router/src/app/crisis-center/crisis-center-routing.module.ts">
+  <code-pane header="crisis-center-routing.module.ts" path="router/src/app/crisis-center/crisis-center-routing.module.ts">
 
   </code-pane>
 
@@ -5243,7 +5532,7 @@ Add the `PreloadAllModules` token to the `forRoot` call:
 `preloadingStrategy` 就是其中之一。
 把 `PreloadAllModules` 添加到 `forRoot` 调用中：
 
-<code-example path="router/src/app/app-routing.module.6.ts" linenums="false" title="src/app/app-routing.module.ts (preload all)" region="forRoot">
+<code-example path="router/src/app/app-routing.module.6.ts" linenums="false" header="src/app/app-routing.module.ts (preload all)" region="forRoot">
 
 </code-example>
 
@@ -5251,7 +5540,7 @@ This tells the `Router` preloader to immediately load _all_ lazy loaded routes (
 
 这会让 `Router` 预加载器立即加载*所有*惰性加载路由（带 `loadChildren` 属性的路由）。
 
-When you visit `http://localhost:3000`, the `/heroes` route loads immediately upon launch
+When you visit `http://localhost:4200`, the `/heroes` route loads immediately upon launch
 and the router starts loading the `CrisisCenterModule` right after the `HeroesModule` loads.
 
 当访问 `http://localhost:3000` 时，`/heroes` 路由立即随之启动，并且路由器在加载了 `HeroesModule` 之后立即开始加载 `CrisisCenterModule`。
@@ -5310,20 +5599,25 @@ Set the `data.preload` flag in the `crisis-center` route in the `AppRoutingModul
 
 在 `AppRoutingModule` 的 `crisis-center` 路由中设置 `data.preload` 标志。
 
-<code-example path="router/src/app/app-routing.module.ts" linenums="false" title="src/app/app-routing.module.ts (route data preload)" region="preload-v2">
+<code-example path="router/src/app/app-routing.module.ts" linenums="false" header="src/app/app-routing.module.ts (route data preload)" region="preload-v2">
 
 </code-example>
 
-Add a new file to the project called `selective-preloading-strategy.ts`
-and define a `SelectivePreloadingStrategy` service class as follows:
+Generate a new `SelectivePreloadingStrategy` service.
 
-往项目中添加一个新的名叫 `selective-preloading-strategy.ts` 的文件，并在其中定义一个服务类 `SelectivePreloadingStrategy`，代码如下：
+生成一个新的 `SelectivePreloadingStrategy` 服务。
 
-<code-example path="router/src/app/selective-preloading-strategy.ts" linenums="false" title="src/app/selective-preloading-strategy.ts (excerpt)">
+<code-example language="none" class="code-shell">
+  ng generate service selective-preloading-strategy
+</code-example>
+
+<code-example path="router/src/app/selective-preloading-strategy.service.ts" linenums="false" header="src/app/selective-preloading-strategy.service.ts (excerpt)">
 
 </code-example>
 
-`SelectivePreloadingStrategy` implements the `PreloadingStrategy`, which has one method, `preload`.
+
+
+`SelectivePreloadingStrategyService` implements the `PreloadingStrategy`, which has one method, `preload`.
 
 `SelectivePreloadingStrategy` 实现了 `PreloadingStrategy`，它只有一个方法 `preload`。
 
@@ -5352,7 +5646,7 @@ In this sample, the  `preload` method loads the route if the route's `data.prelo
 在这个例子中，`preload` 方法只有在路由的 `data.preload` 标识为真时才会加载该路由。
 
 It also has a side-effect.
-`SelectivePreloadingStrategy` logs the `path` of a selected route in its public `preloadedModules` array.
+`SelectivePreloadingStrategyService` logs the `path` of a selected route in its public `preloadedModules` array.
 
 它还有一个副作用。
 `SelectivePreloadingStrategy` 会把所选路由的 `path` 记录在它的公共数组 `preloadedModules` 中。
@@ -5365,15 +5659,15 @@ But first, make a few changes to the `AppRoutingModule`.
 
 但是首先，要对 `AppRoutingModule` 做少量修改。
 
-1. Import `SelectivePreloadingStrategy` into `AppRoutingModule`.
+1. Import `SelectivePreloadingStrategyService` into `AppRoutingModule`.
 
    把 `SelectivePreloadingStrategy` 导入到 `AppRoutingModule` 中。
 
-1. Replace the `PreloadAllModules` strategy in the call to `forRoot` with this `SelectivePreloadingStrategy`.
+1. Replace the `PreloadAllModules` strategy in the call to `forRoot` with this `SelectivePreloadingStrategyService`.
 
    把 `PreloadAllModules` 策略替换成对 `forRoot` 的调用，并且传入这个 `SelectivePreloadingStrategy`。
 
-1. Add the `SelectivePreloadingStrategy` strategy to the `AppRoutingModule` providers array so it can be injected
+1. Add the `SelectivePreloadingStrategyService` strategy to the `AppRoutingModule` providers array so it can be injected
 elsewhere in the app.
 
    把 `SelectivePreloadingStrategy` 策略添加到 `AppRoutingModule` 的 `providers` 数组中，以便它可以注入到应用中的任何地方。
@@ -5382,10 +5676,9 @@ Now edit the `AdminDashboardComponent` to display the log of preloaded routes.
 
 现在，编辑 `AdminDashboardComponent` 以显示这些预加载路由的日志。
 
-1. Import the `SelectivePreloadingStrategy` (it's a service).
+1. Import the `SelectivePreloadingStrategyService`.
 
    导入 `SelectivePreloadingStrategy`（它是一个服务）。
-
 1. Inject it into the dashboard's constructor.
 
    把它注入到仪表盘的构造函数中。
@@ -5398,7 +5691,7 @@ When you're done it looks like this.
 
 当完成时，代码如下：
 
-<code-example path="router/src/app/admin/admin-dashboard.component.ts" linenums="false" title="src/app/admin/admin-dashboard.component.ts (preloaded modules)">
+<code-example path="router/src/app/admin/admin-dashboard/admin-dashboard.component.ts" linenums="false" header="src/app/admin/admin-dashboard/admin-dashboard.component.ts (preloaded modules)">
 
 </code-example>
 
@@ -5433,7 +5726,7 @@ Let's take the `Hero` routes and migrate them to new URLs. The `Router` checks f
 
 先取得 `Hero` 路由，并把它们迁移到新的 URL。`Router`（路由器）会在开始导航之前先在配置中检查所有重定向语句，以便将来按需触发重定向。要支持这种修改，你就要在 `heroes-routing.module` 文件中把老的路由重定向到新的路由。
 
-<code-example path="router/src/app/heroes/heroes-routing.module.ts" linenums="false" title="src/app/heroes/heroes-routing.module.ts (heroes redirects)">
+<code-example path="router/src/app/heroes/heroes-routing.module.ts" linenums="false" header="src/app/heroes/heroes-routing.module.ts (heroes redirects)">
 
 </code-example>
 
@@ -5468,15 +5761,21 @@ So instead, you'll update the empty path route in `app-routing.module.ts` to red
 
 所以，你要在 `app-routing.module.ts` 中修改空路径路由，让它重定向到 `/superheroes`。
 
-<code-example path="router/src/app/app-routing.module.ts" linenums="false" title="src/app/app-routing.module.ts (superheroes redirect)">
+<code-example path="router/src/app/app-routing.module.ts" linenums="false" header="src/app/app-routing.module.ts (superheroes redirect)">
 
 </code-example>
 
-Since `RouterLink`s aren't tied to route configuration, you'll need to update the associated router links so they remain active when the new route is active. You'll update the `app.component.ts` template for the `/heroes` routerLink.
+`RouterLink`s aren't tied to route configuration, so you'll need to update the associated router links so they remain active when the new route is active. You'll update the `app.component.ts` template for the `/heroes` routerLink.
 
 由于 `RouterLink` 指令没有关联到路由配置，所以你需要修改相关的路由链接，以便在新的路由激活时，它们也能保持激活状态。你要修改 `app.component.ts` 模板中的 `/heroes` 路由链接。
 
-<code-example path="router/src/app/app.component.ts" linenums="false" title="src/app/app.component.ts (superheroes active routerLink)">
+<code-example path="router/src/app/app.component.html" linenums="false" header="src/app/app.component.html (superheroes active routerLink)">
+
+</code-example>
+
+Update the `goToHeroes()` method in the `hero-detail.component.ts` to navigate back to `/superheroes` with the optional route parameters.
+
+<code-example path="router/src/app/heroes/hero-detail/hero-detail.component.ts" linenums="false" region="redirect" header="src/app/heroes/hero-detail/hero-detail.component.ts (goToHeroes)">
 
 </code-example>
 
@@ -5507,7 +5806,7 @@ to see the finished route configuration.
 通过注入它（Router）并检查它的 `config` 属性，你可以随时审查路由器的当前配置。
 例如，把 `AppModule` 修改为这样，并在浏览器的控制台窗口中查看最终的路由配置。
 
-<code-example path="router/src/app/app.module.ts" linenums="false" title="src/app/app.module.ts (inspect the router config)" region="inspect-config">
+<code-example path="router/src/app/app.module.7.ts" linenums="false" header="src/app/app.module.ts (inspect the router config)" region="inspect-config">
 
 </code-example>
 
@@ -5560,7 +5859,7 @@ You can bind the `RouterLink` directive to such an array like this:
 
 你可以把 `RouterLink` 指令绑定到一个数组，就像这样：
 
-<code-example path="router/src/app/app.component.3.ts" linenums="false" title="src/app/app.component.ts (h-anchor)" region="h-anchor">
+<code-example path="router/src/app/app.component.3.ts" linenums="false" header="src/app/app.component.ts (h-anchor)" region="h-anchor">
 
 </code-example>
 
@@ -5568,7 +5867,7 @@ You've written a two element array when specifying a route parameter like this:
 
 在指定路由参数时，你写过一个双元素的数组，就像这样：
 
-<code-example path="router/src/app/heroes/hero-list.component.1.ts" linenums="false" title="src/app/heroes/hero-list.component.ts (nav-to-detail)" region="nav-to-detail">
+<code-example path="router/src/app/heroes/hero-list/hero-list.component.1.html" linenums="false" header="src/app/heroes/hero-list/hero-list.component.html (nav-to-detail)" region="nav-to-detail">
 
 </code-example>
 
@@ -5576,7 +5875,7 @@ You can provide optional route parameters in an object like this:
 
 你可以在对象中提供可选的路由参数，就像这样：
 
-<code-example path="router/src/app/app.component.3.ts" linenums="false" title="src/app/app.component.ts (cc-query-params)" region="cc-query-params">
+<code-example path="router/src/app/app.component.3.ts" linenums="false" header="src/app/app.component.ts (cc-query-params)" region="cc-query-params">
 
 </code-example>
 
@@ -5589,7 +5888,7 @@ Recall that you specified a default child route for the crisis center so this si
 
 回忆一下，你曾为*危机中心*指定过一个默认的子路由，以便能使用这种简单的 `RouterLink`。
 
-<code-example path="router/src/app/app.component.3.ts" linenums="false" title="src/app/app.component.ts (cc-anchor-w-default)" region="cc-anchor-w-default">
+<code-example path="router/src/app/app.component.3.ts" linenums="false" header="src/app/app.component.ts (cc-anchor-w-default)" region="cc-anchor-w-default">
 
 </code-example>
 
@@ -5622,7 +5921,7 @@ navigates from the root of the application down to the *Dragon Crisis*:
 
 更进一步。这次要构建一个从根组件往下导航到“巨龙危机”时的链接参数数组：
 
-<code-example path="router/src/app/app.component.3.ts" linenums="false" title="src/app/app.component.ts (Dragon-anchor)" region="Dragon-anchor">
+<code-example path="router/src/app/app.component.3.ts" linenums="false" header="src/app/app.component.ts (Dragon-anchor)" region="Dragon-anchor">
 
 </code-example>
 
@@ -5654,7 +5953,7 @@ If you wanted to, you could redefine the `AppComponent` template with *Crisis Ce
 
 只要想，你也可以用*危机中心*路由单独重定义 `AppComponent` 的模板：
 
-<code-example path="router/src/app/app.component.3.ts" linenums="false" title="src/app/app.component.ts (template)" region="template">
+<code-example path="router/src/app/app.component.3.ts" linenums="false" header="src/app/app.component.ts (template)" region="template">
 
 </code-example>
 
@@ -5774,6 +6073,47 @@ resort to hash routes.
 
 除非你有强烈的理由不得不使用 hash 路由，否则就应该坚决使用默认的 HTML 5 路由风格。
 
+
+#### The *&lt;base href>*
+
+The router uses the browser's
+<a href="https://developer.mozilla.org/en-US/docs/Web/API/History_API#Adding_and_modifying_history_entries" title="HTML5 browser history push-state">history.pushState</a>
+for navigation. Thanks to `pushState`, you can make in-app URL paths look the way you want them to
+look, e.g. `localhost:4200/crisis-center`. The in-app URLs can be indistinguishable from server URLs.
+
+Modern HTML5 browsers were the first to support `pushState` which is why many people refer to these URLs as
+"HTML5 style" URLs.
+
+
+<div class="alert is-helpful">
+
+
+
+HTML5 style navigation is the router default.
+In the [LocationStrategy and browser URL styles](#browser-url-styles) Appendix,
+learn why HTML5 style is preferred, how to adjust its behavior, and how to switch to the
+older hash (#) style, if necessary.
+
+
+</div>
+
+
+
+You must **add a
+<a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/base" title="base href">&lt;base href&gt; element</a>**
+to the app's `index.html` for `pushState` routing to work.
+The browser uses the `<base href>` value to prefix *relative* URLs when referencing
+CSS files, scripts, and images.
+
+Add the `<base>` element just after the  `<head>` tag.
+If the `app` folder is the application root, as it is for this application,
+set the `href` value in **`index.html`** *exactly* as shown here.
+
+
+<code-example path="router/src/index.html" linenums="false" header="src/index.html (base-href)" region="base-href">
+
+</code-example>
+
 #### HTML5 URLs and the  *&lt;base href>*
 
 #### HTML 5 URL 与*&lt;base href>*
@@ -5790,7 +6130,7 @@ tag in the `<head>` of the `index.html`.
 
 配置该策略的首选方式是往 `index.html` 的 `<head>` 中添加一个[&lt;base href> element](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/base)标签。
 
-<code-example path="router/src/index.html" linenums="false" title="src/index.html (base-href)" region="base-href">
+<code-example path="router/src/index.html" linenums="false" header="src/index.html (base-href)" region="base-href">
 
 </code-example>
 
@@ -5830,6 +6170,6 @@ in the `AppModule`.
 
 你可以在根模块的 `RouterModule.forRoot` 的第二个参数中传入一个带有 `useHash: true` 的对象，以回到基于 `HashLocationStrategy` 的传统方式。
 
-<code-example path="router/src/app/app.module.6.ts" linenums="false" title="src/app/app.module.ts (hash URL strategy)">
+<code-example path="router/src/app/app.module.6.ts" linenums="false" header="src/app/app.module.ts (hash URL strategy)">
 
 </code-example>

@@ -181,7 +181,7 @@ so you can easily navigate to your modules in the browser:
 虽然你也可以在地址栏中输入 URL，不过导航菜单会更好用，而且更常见。
 把 `app.component.html` 中的占位脚本替换成一个自定义的导航，以便你在浏览器中能轻松地在模块之间导航。
 
-<code-example path="lazy-loading-ngmodules/src/app/app.component.html" region="app-component-template" title="src/app/app.component.html" linenums="false">
+<code-example path="lazy-loading-ngmodules/src/app/app.component.html" region="app-component-template" header="src/app/app.component.html" linenums="false">
 
 </code-example>
 
@@ -235,11 +235,11 @@ In `AppRoutingModule`, update the `routes` array with the following:
 
 在 `AppRoutingModule` 中，把 `routes` 数组修改成这样：
 
-<code-example path="lazy-loading-ngmodules/src/app/app-routing.module.ts" region="const-routes" title="src/app/app-routing.module.ts" linenums="false">
+<code-example path="lazy-loading-ngmodules/src/app/app-routing.module.ts" region="const-routes" header="src/app/app-routing.module.ts" linenums="false">
 
 </code-example>
 
-The import statements stay the same. The first two paths are the routes to the `CustomersModule` and the `OrdersModule` respectively. Notice that the lazy loading syntax uses `loadChildren` followed by a string that is the path to the module, a hash mark or `#`, and the module’s class name.
+The import statements stay the same. The first two paths are the routes to the `CustomersModule` and the `OrdersModule` respectively. Notice that the lazy loading syntax uses `loadChildren` followed by a string that is the relative path to the module, a hash mark or `#`, and the module’s class name.
 
 这些 `import` 语句没有变化。前两个路径分别路由到了 `CustomersModule` 和 `OrdersModule`。注意看惰性加载的语法：`loadChildren` 后面紧跟着一个字符串，它指向模块路径，然后是一个 `#`，然后是该模块的类名。
 
@@ -253,7 +253,7 @@ Next, take a look at `customers.module.ts`. If you’re using the CLI and follow
 特性模块就像是 `AppRoutingModule` 和该特性自己的路由模块之间的连接器。
 `AppRoutingModule` 导入了特性模块 `CustomersModule`，而 `CustomersModule` 又导入了 `CustomersRoutingModule`。
 
-<code-example path="lazy-loading-ngmodules/src/app/customers/customers.module.ts" region="customers-module" title="src/app/customers/customers.module.ts" linenums="false">
+<code-example path="lazy-loading-ngmodules/src/app/customers/customers.module.ts" region="customers-module" header="src/app/customers/customers.module.ts" linenums="false">
 
 </code-example>
 
@@ -270,7 +270,7 @@ The next step is in `customers-routing.module.ts`. First, import the component a
 
 接下来的步骤位于 `customers-routing.module.ts` 中。首先，在文件的顶部使用 JS 的 `import` 语句导入该组件。然后添加指向 `CustomerListComponent` 的路由。
 
-<code-example path="lazy-loading-ngmodules/src/app/customers/customers-routing.module.ts" region="customers-routing-module" title="src/app/customers/customers-routing.module.ts" linenums="false">
+<code-example path="lazy-loading-ngmodules/src/app/customers/customers-routing.module.ts" region="customers-routing-module" header="src/app/customers/customers-routing.module.ts" linenums="false">
 
 </code-example>
 
@@ -282,7 +282,7 @@ Repeat this last step of importing the `OrdersListComponent` and configuring the
 
 重复这个步骤以导入 `OrdersListComponent`，并为 `orders-routing.module.ts` 配置路由树组：
 
-<code-example path="lazy-loading-ngmodules/src/app/orders/orders-routing.module.ts" region="orders-routing-module-detail" title="src/app/orders/orders-routing.module.ts (excerpt)" linenums="false">
+<code-example path="lazy-loading-ngmodules/src/app/orders/orders-routing.module.ts" region="orders-routing-module-detail" header="src/app/orders/orders-routing.module.ts (excerpt)" linenums="false">
 
 </code-example>
 

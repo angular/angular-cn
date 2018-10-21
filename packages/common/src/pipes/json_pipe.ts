@@ -22,9 +22,8 @@ import {Pipe, PipeTransform} from '@angular/core';
  * to JSON format, and displays the string in both formats for comparison.
  *
  * 下列组件使用了一个 `JSON` 管道来把对象转换成 JSON 格式，并以两种格式显示字符串供对比。
-
- * {@example common/pipes/ts/json_pipe.ts region='JsonPipe'}
  *
+ * {@example common/pipes/ts/json_pipe.ts region='JsonPipe'}
  *
  */
 @Pipe({name: 'json', pure: false})

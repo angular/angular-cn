@@ -11,30 +11,64 @@ import * as path from 'path';
 import * as ts from 'typescript';
 
 import * as api from '../transformers/api';
+import {nocollapseHack} from '../transformers/nocollapse_hack';
 
 import {ComponentDecoratorHandler, DirectiveDecoratorHandler, InjectableDecoratorHandler, NgModuleDecoratorHandler, PipeDecoratorHandler, ResourceLoader, SelectorScopeRegistry} from './annotations';
+import {BaseDefDecoratorHandler} from './annotations/src/base_def';
+import {FactoryGenerator, FactoryInfo, GeneratedFactoryHostWrapper, generatedFactoryTransform} from './factories';
 import {TypeScriptReflectionHost} from './metadata';
 import {FileResourceLoader, HostResourceLoader} from './resource_loader';
 import {IvyCompilation, ivyTransformFactory} from './transform';
+import {TypeCheckContext, TypeCheckProgramHost} from './typecheck';
 
 export class NgtscProgram implements api.Program {
   private tsProgram: ts.Program;
   private resourceLoader: ResourceLoader;
   private compilation: IvyCompilation|undefined = undefined;
-
+  private factoryToSourceInfo: Map<string, FactoryInfo>|null = null;
+  private sourceToFactorySymbols: Map<string, Set<string>>|null = null;
+  private host: ts.CompilerHost;
   private _coreImportsFrom: ts.SourceFile|null|undefined = undefined;
   private _reflector: TypeScriptReflectionHost|undefined = undefined;
   private _isCore: boolean|undefined = undefined;
+  private rootDirs: string[];
+  private closureCompilerEnabled: boolean;
+
 
   constructor(
       rootNames: ReadonlyArray<string>, private options: api.CompilerOptions,
-      private host: api.CompilerHost, oldProgram?: api.Program) {
+      host: api.CompilerHost, oldProgram?: api.Program) {
+    this.rootDirs = [];
+    if (options.rootDirs !== undefined) {
+      this.rootDirs.push(...options.rootDirs);
+    } else if (options.rootDir !== undefined) {
+      this.rootDirs.push(options.rootDir);
+    } else {
+      this.rootDirs.push(host.getCurrentDirectory());
+    }
+    this.closureCompilerEnabled = !!options.annotateForClosureCompiler;
     this.resourceLoader = host.readResource !== undefined ?
         new HostResourceLoader(host.readResource.bind(host)) :
         new FileResourceLoader();
+    const shouldGenerateFactories = options.allowEmptyCodegenFiles || false;
+    this.host = host;
+    let rootFiles = [...rootNames];
+    if (shouldGenerateFactories) {
+      const generator = new FactoryGenerator();
+      const factoryFileMap = generator.computeFactoryFileMap(rootNames);
+      rootFiles.push(...Array.from(factoryFileMap.keys()));
+      this.factoryToSourceInfo = new Map<string, FactoryInfo>();
+      this.sourceToFactorySymbols = new Map<string, Set<string>>();
+      factoryFileMap.forEach((sourceFilePath, factoryPath) => {
+        const moduleSymbolNames = new Set<string>();
+        this.sourceToFactorySymbols !.set(sourceFilePath, moduleSymbolNames);
+        this.factoryToSourceInfo !.set(factoryPath, {sourceFilePath, moduleSymbolNames});
+      });
+      this.host = new GeneratedFactoryHostWrapper(host, generator, factoryFileMap);
+    }
 
     this.tsProgram =
-        ts.createProgram(rootNames, options, host, oldProgram && oldProgram.getTsProgram());
+        ts.createProgram(rootFiles, options, this.host, oldProgram && oldProgram.getTsProgram());
   }
 
   getTsProgram(): ts.Program { return this.tsProgram; }
@@ -67,9 +101,16 @@ export class NgtscProgram implements api.Program {
   }
 
   getNgSemanticDiagnostics(
-      fileName?: string|undefined,
-      cancellationToken?: ts.CancellationToken|undefined): ReadonlyArray<api.Diagnostic> {
-    return [];
+      fileName?: string|undefined, cancellationToken?: ts.CancellationToken|
+                                   undefined): ReadonlyArray<ts.Diagnostic|api.Diagnostic> {
+    const compilation = this.ensureAnalyzed();
+    const diagnostics = [...compilation.diagnostics];
+    if (!!this.options.fullTemplateTypeCheck) {
+      const ctx = new TypeCheckContext();
+      compilation.typeCheck(ctx);
+      diagnostics.push(...this.compileTypeCheckProgram(ctx));
+    }
+    return diagnostics;
   }
 
   async loadNgStructureAsync(): Promise<void> {
@@ -96,6 +137,16 @@ export class NgtscProgram implements api.Program {
     throw new Error('Method not implemented.');
   }
 
+  private ensureAnalyzed(): IvyCompilation {
+    if (this.compilation === undefined) {
+      this.compilation = this.makeCompilation();
+      this.tsProgram.getSourceFiles()
+          .filter(file => !file.fileName.endsWith('.d.ts'))
+          .forEach(file => this.compilation !.analyzeSync(file));
+    }
+    return this.compilation;
+  }
+
   emit(opts?: {
     emitFlags?: api.EmitFlags,
     cancellationToken?: ts.CancellationToken,
@@ -105,12 +156,7 @@ export class NgtscProgram implements api.Program {
   }): ts.EmitResult {
     const emitCallback = opts && opts.emitCallback || defaultEmitCallback;
 
-    if (this.compilation === undefined) {
-      this.compilation = this.makeCompilation();
-      this.tsProgram.getSourceFiles()
-          .filter(file => !file.fileName.endsWith('.d.ts'))
-          .forEach(file => this.compilation !.analyzeSync(file));
-    }
+    this.ensureAnalyzed();
 
     // Since there is no .d.ts transformation API, .d.ts files are transformed during write.
     const writeFile: ts.WriteFileCallback =
@@ -119,13 +165,18 @@ export class NgtscProgram implements api.Program {
          sourceFiles: ReadonlyArray<ts.SourceFile>) => {
           if (fileName.endsWith('.d.ts')) {
             data = sourceFiles.reduce(
-                (data, sf) => this.compilation !.transformedDtsFor(sf.fileName, data, fileName),
-                data);
+                (data, sf) => this.compilation !.transformedDtsFor(sf.fileName, data), data);
+          } else if (this.closureCompilerEnabled && fileName.endsWith('.ts')) {
+            data = nocollapseHack(data);
           }
           this.host.writeFile(fileName, data, writeByteOrderMark, onError, sourceFiles);
         };
 
-
+    const transforms =
+        [ivyTransformFactory(this.compilation !, this.reflector, this.coreImportsFrom)];
+    if (this.factoryToSourceInfo !== null) {
+      transforms.push(generatedFactoryTransform(this.factoryToSourceInfo, this.coreImportsFrom));
+    }
     // Run the emit, including a custom transformer that will downlevel the Ivy decorators in code.
     const emitResult = emitCallback({
       program: this.tsProgram,
@@ -133,10 +184,21 @@ export class NgtscProgram implements api.Program {
       options: this.options,
       emitOnlyDtsFiles: false, writeFile,
       customTransformers: {
-        before: [ivyTransformFactory(this.compilation !, this.reflector, this.coreImportsFrom)],
+        before: transforms,
       },
     });
     return emitResult;
+  }
+
+  private compileTypeCheckProgram(ctx: TypeCheckContext): ReadonlyArray<ts.Diagnostic> {
+    const host = new TypeCheckProgramHost(this.tsProgram, this.host, ctx);
+    const auxProgram = ts.createProgram({
+      host,
+      rootNames: this.tsProgram.getRootFileNames(),
+      oldProgram: this.tsProgram,
+      options: this.options,
+    });
+    return auxProgram.getSemanticDiagnostics();
   }
 
   private makeCompilation(): IvyCompilation {
@@ -145,15 +207,17 @@ export class NgtscProgram implements api.Program {
 
     // Set up the IvyCompilation, which manages state for the Ivy transformer.
     const handlers = [
+      new BaseDefDecoratorHandler(checker, this.reflector),
       new ComponentDecoratorHandler(
-          checker, this.reflector, scopeRegistry, this.isCore, this.resourceLoader),
+          checker, this.reflector, scopeRegistry, this.isCore, this.resourceLoader, this.rootDirs),
       new DirectiveDecoratorHandler(checker, this.reflector, scopeRegistry, this.isCore),
       new InjectableDecoratorHandler(this.reflector, this.isCore),
       new NgModuleDecoratorHandler(checker, this.reflector, scopeRegistry, this.isCore),
       new PipeDecoratorHandler(checker, this.reflector, scopeRegistry, this.isCore),
     ];
 
-    return new IvyCompilation(handlers, checker, this.reflector, this.coreImportsFrom);
+    return new IvyCompilation(
+        handlers, checker, this.reflector, this.coreImportsFrom, this.sourceToFactorySymbols);
   }
 
   private get reflector(): TypeScriptReflectionHost {

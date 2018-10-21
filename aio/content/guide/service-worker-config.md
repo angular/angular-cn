@@ -18,7 +18,7 @@ A basic understanding of the following:
 
 The `src/ngsw-config.json` configuration file specifies which files and data URLs the Angular
 service worker should cache and how it should update the cached files and data. The
-CLI processes the configuration file during `ng build --prod`. Manually, you can process
+[Angular CLI](cli) processes the configuration file during `ng build --prod`. Manually, you can process
 it with the `ngsw-config` tool:
 
 配置文件 `src/ngsw-config.json` 指定了 Angular Service Worker 应该缓存哪些文件和数据的 URL，以及如何更新缓存的文件和数据。

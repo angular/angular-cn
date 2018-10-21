@@ -55,7 +55,7 @@ NgModule 是一些带有 `@NgModule` 装饰器的类。`@NgModule` 装饰器的 
 `imports` 数组中的这些模块与 JavaScript 模块不同，它们都是 NgModule 而不是常规的 JavaScript 模块。
 带有 `@NgModule` 装饰器的类通常会习惯性地放在单独的文件中，但单独的文件并不像 JavaScript 模块那样作为必要条件，而是因为它带有 `@NgModule` 装饰器及其元数据。
 
-The `AppModule` generated from the Angular CLI demonstrates both kinds of modules in action:
+The `AppModule` generated from the [Angular CLI](cli) demonstrates both kinds of modules in action:
 
 Angular CLI 生成的 `AppModule` 实际演示了这两种模块：
 

@@ -13,10 +13,10 @@ export {devModeEqual as ɵdevModeEqual} from './change_detection/change_detectio
 export {isListLikeIterable as ɵisListLikeIterable} from './change_detection/change_detection_util';
 export {ChangeDetectorStatus as ɵChangeDetectorStatus, isDefaultChangeDetectionStrategy as ɵisDefaultChangeDetectionStrategy} from './change_detection/constants';
 export {Console as ɵConsole} from './console';
-export {InjectableDef as ɵInjectableDef, InjectorDef as ɵInjectorDef} from './di/defs';
+export {InjectableDef as ɵInjectableDef, InjectorDef as ɵInjectorDef, getInjectableDef as ɵgetInjectableDef} from './di/defs';
 export {inject as ɵinject, setCurrentInjector as ɵsetCurrentInjector} from './di/injector';
 export {APP_ROOT as ɵAPP_ROOT} from './di/scope';
-export {ivyEnabled as ɵivyEnabled} from './ivy_switch';
+export {ivyEnabled as ɵivyEnabled} from './ivy_switch/compiler/index';
 export {ComponentFactory as ɵComponentFactory} from './linker/component_factory';
 export {CodegenComponentFactoryResolver as ɵCodegenComponentFactoryResolver} from './linker/component_factory_resolver';
 export {resolveComponentResources as ɵresolveComponentResources} from './metadata/resource_loading';

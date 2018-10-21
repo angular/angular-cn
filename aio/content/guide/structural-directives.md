@@ -42,7 +42,7 @@ An asterisk (*) precedes the directive attribute name as in this example.
 结构型指令非常容易识别。
 在这个例子中，星号（*）被放在指令的属性名之前。
 
-<code-example path="structural-directives/src/app/app.component.html" linenums="false" title="src/app/app.component.html (ngif)" region="ngif">
+<code-example path="structural-directives/src/app/app.component.html" linenums="false" header="src/app/app.component.html (ngif)" region="ngif">
 
 </code-example>
 
@@ -69,7 +69,7 @@ Here's an example of them in a template:
 三个常用的内置结构型指令 —— [NgIf](guide/template-syntax#ngIf)、[NgFor](guide/template-syntax#ngFor)和[NgSwitch...](guide/template-syntax#ngSwitch)。
 你在[*模板语法*](guide/template-syntax)一章中学过它，并且在 Angular 文档的例子中到处都在用它。下面是模板中的例子：
 
-<code-example path="structural-directives/src/app/app.component.html" linenums="false" title="src/app/app.component.html (built-in)" region="built-in">
+<code-example path="structural-directives/src/app/app.component.html" linenums="false" header="src/app/app.component.html (built-in)" region="built-in">
 
 </code-example>
 
@@ -141,7 +141,7 @@ It takes a boolean expression and makes an entire chunk of the DOM appear or dis
 
 `NgIf` 是一个很好的结构型指令案例：它接受一个布尔值，并据此让一整块 DOM 树出现或消失。
 
-<code-example path="structural-directives/src/app/app.component.html" linenums="false" title="src/app/app.component.html (ngif-true)" region="ngif-true">
+<code-example path="structural-directives/src/app/app.component.html" linenums="false" header="src/app/app.component.html (ngif-true)" region="ngif-true">
 
 </code-example>
 
@@ -176,7 +176,7 @@ A directive could hide the unwanted paragraph instead by setting its `display` s
 
 指令也可以通过把它的 `display` 风格设置为 `none` 而隐藏不需要的段落。
 
-<code-example path="structural-directives/src/app/app.component.html" linenums="false" title="src/app/app.component.html (display-none)" region="display-none">
+<code-example path="structural-directives/src/app/app.component.html" linenums="false" header="src/app/app.component.html (display-none)" region="display-none">
 
 </code-example>
 
@@ -244,7 +244,7 @@ Here is `*ngIf` displaying the hero's name if `hero` exists.
 
 这里的 `*ngIf` 会在 `hero` 存在时显示英雄的名字。
 
-<code-example path="structural-directives/src/app/app.component.html" linenums="false" title="src/app/app.component.html (asterisk)" region="asterisk">
+<code-example path="structural-directives/src/app/app.component.html" linenums="false" header="src/app/app.component.html (asterisk)" region="asterisk">
 
 </code-example>
 
@@ -254,7 +254,7 @@ Internally, Angular translates the `*ngIf` _attribute_ into a `<ng-template>` _e
 星号是一个用来简化更复杂语法的“语法糖”。
 从内部实现来说，Angular 把 `*ngIf` *属性* 翻译成一个 `<ng-template>` *元素* 并用它来包裹宿主元素，代码如下：
 
-<code-example path="structural-directives/src/app/app.component.html" linenums="false" title="src/app/app.component.html (ngif-template)" region="ngif-template">
+<code-example path="structural-directives/src/app/app.component.html" linenums="false" header="src/app/app.component.html (ngif-template)" region="ngif-template">
 
 </code-example>
 
@@ -298,7 +298,7 @@ Here's a full-featured application of `NgFor`, written both ways:
 
 这里有一个 `NgFor` 的全特性应用，同时用了这三种写法：
 
-<code-example path="structural-directives/src/app/app.component.html" linenums="false" title="src/app/app.component.html (inside-ngfor)" region="inside-ngfor">
+<code-example path="structural-directives/src/app/app.component.html" linenums="false" header="src/app/app.component.html (inside-ngfor)" region="inside-ngfor">
 
 </code-example>
 
@@ -478,7 +478,7 @@ Here's an example.
 
 例子如下：
 
-<code-example path="structural-directives/src/app/app.component.html" linenums="false" title="src/app/app.component.html (ngswitch)" region="ngswitch">
+<code-example path="structural-directives/src/app/app.component.html" linenums="false" header="src/app/app.component.html (ngswitch)" region="ngswitch">
 
 </code-example>
 
@@ -521,7 +521,7 @@ can be desugared into the `<ng-template>` element form.
 
 像其它的结构型指令一样，`NgSwitchCase` 和 `NgSwitchDefault` 也可以解开语法糖，变成 `<ng-template>` 的形式。
 
-<code-example path="structural-directives/src/app/app.component.html" linenums="false" title="src/app/app.component.html (ngswitch-template)" region="ngswitch-template">
+<code-example path="structural-directives/src/app/app.component.html" linenums="false" header="src/app/app.component.html (ngswitch-template)" region="ngswitch-template">
 
 </code-example>
 
@@ -566,7 +566,7 @@ That's the fate of the middle "Hip!" in the phrase "Hip! Hip! Hooray!".
 如果没有使用结构型指令，而仅仅把一些别的元素包装进 `<ng-template>` 中，那些元素就是不可见的。
 在下面的这个短语"Hip! Hip! Hooray!"中，中间的这个 "Hip!"（欢呼声） 就是如此。
 
-<code-example path="structural-directives/src/app/app.component.html" linenums="false" title="src/app/app.component.html (template-tag)" region="template-tag">
+<code-example path="structural-directives/src/app/app.component.html" linenums="false" header="src/app/app.component.html (template-tag)" region="template-tag">
 
 </code-example>
 
@@ -597,7 +597,7 @@ The list element (`<li>`) is a typical host element of an `NgFor` repeater.
 通常都要有一个*根*元素作为结构型指令的数组。
 列表元素（`<li>`）就是一个典型的供 `NgFor` 使用的宿主元素。
 
-<code-example path="structural-directives/src/app/app.component.html" linenums="false" title="src/app/app.component.html (ngfor-li)" region="ngfor-li">
+<code-example path="structural-directives/src/app/app.component.html" linenums="false" header="src/app/app.component.html (ngfor-li)" region="ngfor-li">
 
 </code-example>
 
@@ -606,7 +606,7 @@ such as a `<div>`, and attach the directive to that wrapper.
 
 当没有这样一个单一的宿主元素时，你就可以把这些内容包裹在一个原生的 HTML 容器元素中，比如 `<div>`，并且把结构型指令附加到这个"包裹"上。
 
-<code-example path="structural-directives/src/app/app.component.html" linenums="false" title="src/app/app.component.html (ngif)" region="ngif">
+<code-example path="structural-directives/src/app/app.component.html" linenums="false" header="src/app/app.component.html (ngif)" region="ngif">
 
 </code-example>
 
@@ -623,7 +623,7 @@ For example, suppose you have the following paragraph layout.
 这种用于分组的元素可能会破坏模板的外观表现，因为 CSS 的样式既不曾期待也不会接受这种新的元素布局。
 比如，假设你有下列分段布局。
 
-<code-example path="structural-directives/src/app/app.component.html" linenums="false" title="src/app/app.component.html (ngif-span)" region="ngif-span">
+<code-example path="structural-directives/src/app/app.component.html" linenums="false" header="src/app/app.component.html (ngif-span)" region="ngif-span">
 
 </code-example>
 
@@ -631,7 +631,7 @@ You also have a CSS style rule that happens to apply to a `<span>` within a `<p>
 
 而你的 CSS 样式规则是应用于 `<p>` 元素下的 `<span>` 的。
 
-<code-example path="structural-directives/src/app/app.component.css" linenums="false" title="src/app/app.component.css (p-span)" region="p-span">
+<code-example path="structural-directives/src/app/app.component.css" linenums="false" header="src/app/app.component.css (p-span)" region="p-span">
 
 </code-example>
 
@@ -658,7 +658,7 @@ When you try this,
 
 如果这样做：
 
-<code-example path="structural-directives/src/app/app.component.html" linenums="false" title="src/app/app.component.html (select-span)" region="select-span">
+<code-example path="structural-directives/src/app/app.component.html" linenums="false" header="src/app/app.component.html (select-span)" region="select-span">
 
 </code-example>
 
@@ -687,7 +687,7 @@ Here's the conditional paragraph again, this time using `<ng-container>`.
 
 下面是重新实现的条件化段落，这次使用 `<ng-container>`。
 
-<code-example path="structural-directives/src/app/app.component.html" linenums="false" title="src/app/app.component.html (ngif-ngcontainer)" region="ngif-ngcontainer">
+<code-example path="structural-directives/src/app/app.component.html" linenums="false" header="src/app/app.component.html (ngif-ngcontainer)" region="ngif-ngcontainer">
 
 </code-example>
 
@@ -703,7 +703,7 @@ Now conditionally exclude a _select_ `<option>` with `<ng-container>`.
 
 现在用 `<ng-container>` 来根据条件排除选择框中的某个 `<option>`。
 
-<code-example path="structural-directives/src/app/app.component.html" linenums="false" title="src/app/app.component.html (select-ngcontainer)" region="select-ngcontainer">
+<code-example path="structural-directives/src/app/app.component.html" linenums="false" header="src/app/app.component.html (select-ngcontainer)" region="select-ngcontainer">
 
 </code-example>
 
@@ -752,7 +752,7 @@ that does the opposite of `NgIf`.
 在本节中，你会写一个名叫 `UnlessDirective` 的结构型指令，它是 `NgIf` 的反义词。
 `NgIf` 在条件为 `true` 的时候显示模板内容，而 `UnlessDirective` 则会在条件为 `false` 时显示模板内容。
 
-<code-example path="structural-directives/src/app/app.component.html" linenums="false" title="src/app/app.component.html (appUnless-1)" region="appUnless-1">
+<code-example path="structural-directives/src/app/app.component.html" linenums="false" header="src/app/app.component.html (appUnless-1)" region="appUnless-1">
 
 </code-example>
 
@@ -780,7 +780,7 @@ Here's how you might begin:
 
 这里是起点：
 
-<code-example path="structural-directives/src/app/unless.directive.ts" linenums="false" title="src/app/unless.directive.ts (skeleton)" region="skeleton">
+<code-example path="structural-directives/src/app/unless.directive.ts" linenums="false" header="src/app/unless.directive.ts (skeleton)" region="skeleton">
 
 </code-example>
 
@@ -830,7 +830,7 @@ You inject both in the directive constructor as private variables of the class.
 
 你可以把它们都注入到指令的构造函数中，作为该类的私有属性。
 
-<code-example path="structural-directives/src/app/unless.directive.ts" linenums="false" title="src/app/unless.directive.ts (ctor)" region="ctor">
+<code-example path="structural-directives/src/app/unless.directive.ts" linenums="false" header="src/app/unless.directive.ts (ctor)" region="ctor">
 
 </code-example>
 
@@ -852,7 +852,7 @@ Read about `@Input` in the [_Template Syntax_](guide/template-syntax#inputs-outp
 
 </div>
 
-<code-example path="structural-directives/src/app/unless.directive.ts" linenums="false" title="src/app/unless.directive.ts (set)" region="set">
+<code-example path="structural-directives/src/app/unless.directive.ts" linenums="false" header="src/app/unless.directive.ts (set)" region="set">
 
 </code-example>
 
@@ -879,7 +879,7 @@ The completed directive code looks like this:
 
 完整的指令代码如下：
 
-<code-example path="structural-directives/src/app/unless.directive.ts" linenums="false" title="src/app/unless.directive.ts (excerpt)" region="no-docs">
+<code-example path="structural-directives/src/app/unless.directive.ts" linenums="false" header="src/app/unless.directive.ts (excerpt)" region="no-docs">
 
 </code-example>
 
@@ -891,7 +891,7 @@ Then create some HTML to try it.
 
 然后创建一些 HTML 来试用一下。
 
-<code-example path="structural-directives/src/app/app.component.html" linenums="false" title="src/app/app.component.html (appUnless)" region="appUnless">
+<code-example path="structural-directives/src/app/app.component.html" linenums="false" header="src/app/app.component.html (appUnless)" region="appUnless">
 
 </code-example>
 
@@ -921,31 +921,31 @@ Here is the source from the `src/app/` folder.
 
 <code-tabs>
 
-  <code-pane title="app.component.ts" path="structural-directives/src/app/app.component.ts">
+  <code-pane header="app.component.ts" path="structural-directives/src/app/app.component.ts">
 
   </code-pane>
 
-  <code-pane title="app.component.html" path="structural-directives/src/app/app.component.html">
+  <code-pane header="app.component.html" path="structural-directives/src/app/app.component.html">
 
   </code-pane>
 
-  <code-pane title="app.component.css" path="structural-directives/src/app/app.component.css">
+  <code-pane header="app.component.css" path="structural-directives/src/app/app.component.css">
 
   </code-pane>
 
-  <code-pane title="app.module.ts" path="structural-directives/src/app/app.module.ts">
+  <code-pane header="app.module.ts" path="structural-directives/src/app/app.module.ts">
 
   </code-pane>
 
-  <code-pane title="hero.ts" path="structural-directives/src/app/hero.ts">
+  <code-pane header="hero.ts" path="structural-directives/src/app/hero.ts">
 
   </code-pane>
 
-  <code-pane title="hero-switch.components.ts" path="structural-directives/src/app/hero-switch.components.ts">
+  <code-pane header="hero-switch.components.ts" path="structural-directives/src/app/hero-switch.components.ts">
 
   </code-pane>
 
-  <code-pane title="unless.directive.ts" path="structural-directives/src/app/unless.directive.ts">
+  <code-pane header="unless.directive.ts" path="structural-directives/src/app/unless.directive.ts">
 
   </code-pane>
 

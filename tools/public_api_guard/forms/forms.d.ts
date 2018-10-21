@@ -104,11 +104,11 @@ export declare class AbstractFormGroupDirective extends ControlContainer impleme
 
 /** @experimental */
 export interface AsyncValidator extends Validator {
-    validate(c: AbstractControl): Promise<ValidationErrors | null> | Observable<ValidationErrors | null>;
+    validate(control: AbstractControl): Promise<ValidationErrors | null> | Observable<ValidationErrors | null>;
 }
 
 export interface AsyncValidatorFn {
-    (c: AbstractControl): Promise<ValidationErrors | null> | Observable<ValidationErrors | null>;
+    (control: AbstractControl): Promise<ValidationErrors | null> | Observable<ValidationErrors | null>;
 }
 
 export declare class CheckboxControlValueAccessor implements ControlValueAccessor {
@@ -123,7 +123,7 @@ export declare class CheckboxControlValueAccessor implements ControlValueAccesso
 
 /** @experimental */
 export declare class CheckboxRequiredValidator extends RequiredValidator {
-    validate(c: AbstractControl): ValidationErrors | null;
+    validate(control: AbstractControl): ValidationErrors | null;
 }
 
 /** @experimental */
@@ -156,7 +156,7 @@ export declare class DefaultValueAccessor implements ControlValueAccessor {
 export declare class EmailValidator implements Validator {
     email: boolean | string;
     registerOnValidatorChange(fn: () => void): void;
-    validate(c: AbstractControl): ValidationErrors | null;
+    validate(control: AbstractControl): ValidationErrors | null;
 }
 
 export interface Form {
@@ -330,20 +330,22 @@ export declare class FormGroupName extends AbstractFormGroupDirective implements
 }
 
 export declare class FormsModule {
+    static withConfig(opts: { warnOnDeprecatedNgFormSelector?: 'never' | 'once' | 'always';
+    }): ModuleWithProviders<FormsModule>;
 }
 
 export declare class MaxLengthValidator implements Validator, OnChanges {
     maxlength: string;
     ngOnChanges(changes: SimpleChanges): void;
     registerOnValidatorChange(fn: () => void): void;
-    validate(c: AbstractControl): ValidationErrors | null;
+    validate(control: AbstractControl): ValidationErrors | null;
 }
 
 export declare class MinLengthValidator implements Validator, OnChanges {
     minlength: string;
     ngOnChanges(changes: SimpleChanges): void;
     registerOnValidatorChange(fn: () => void): void;
-    validate(c: AbstractControl): ValidationErrors | null;
+    validate(control: AbstractControl): ValidationErrors | null;
 }
 
 export declare const NG_ASYNC_VALIDATORS: InjectionToken<(Function | Validator)[]>;
@@ -398,6 +400,11 @@ export declare class NgForm extends ControlContainer implements Form, AfterViewI
     updateModel(dir: NgControl, value: any): void;
 }
 
+/** @deprecated */
+export declare class NgFormSelectorWarning {
+    constructor(ngFormWarning: string | null);
+}
+
 export declare class NgModel extends NgControl implements OnChanges, OnDestroy {
     readonly asyncValidator: AsyncValidatorFn | null;
     readonly control: FormControl;
@@ -437,7 +444,7 @@ export declare class PatternValidator implements Validator, OnChanges {
     pattern: string | RegExp;
     ngOnChanges(changes: SimpleChanges): void;
     registerOnValidatorChange(fn: () => void): void;
-    validate(c: AbstractControl): ValidationErrors | null;
+    validate(control: AbstractControl): ValidationErrors | null;
 }
 
 export declare class RadioControlValueAccessor implements ControlValueAccessor, OnDestroy, OnInit {
@@ -464,7 +471,7 @@ export declare class ReactiveFormsModule {
 export declare class RequiredValidator implements Validator {
     required: boolean | string;
     registerOnValidatorChange(fn: () => void): void;
-    validate(c: AbstractControl): ValidationErrors | null;
+    validate(control: AbstractControl): ValidationErrors | null;
 }
 
 export declare class SelectControlValueAccessor implements ControlValueAccessor {
@@ -498,11 +505,11 @@ export declare type ValidationErrors = {
 
 export interface Validator {
     registerOnValidatorChange?(fn: () => void): void;
-    validate(c: AbstractControl): ValidationErrors | null;
+    validate(control: AbstractControl): ValidationErrors | null;
 }
 
 export interface ValidatorFn {
-    (c: AbstractControl): ValidationErrors | null;
+    (control: AbstractControl): ValidationErrors | null;
 }
 
 export declare class Validators {
@@ -514,7 +521,7 @@ export declare class Validators {
     static maxLength(maxLength: number): ValidatorFn;
     static min(min: number): ValidatorFn;
     static minLength(minLength: number): ValidatorFn;
-    static nullValidator(c: AbstractControl): ValidationErrors | null;
+    static nullValidator(control: AbstractControl): ValidationErrors | null;
     static pattern(pattern: string | RegExp): ValidatorFn;
     static required(control: AbstractControl): ValidationErrors | null;
     static requiredTrue(control: AbstractControl): ValidationErrors | null;

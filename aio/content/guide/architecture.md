@@ -3,18 +3,18 @@
 # 架构概览
 
 Angular is a platform and framework for building client applications in HTML and TypeScript.
-Angular is itself written in TypeScript. It implements core and optional functionality as a set of TypeScript libraries that you import into your apps.
+Angular is written in TypeScript. It implements core and optional functionality as a set of TypeScript libraries that you import into your apps.
 
 Angular 是一个用 HTML 和 TypeScript 构建客户端应用的平台与框架。
 Angular 本身使用 TypeScript 写成的。它将核心功能和可选功能作为一组 TypeScript 库进行实现，你可以把它们导入你的应用中。
 
-The basic building blocks of an Angular application are _NgModules_, which provide a compilation context for _components_. NgModules collect related code into functional sets; an Angular app is defined by a set of NgModules. An app always has at least a _root module_ that enables bootstrapping, and typically has many more _feature modules_.
+The basic building blocks of an Angular application are *NgModules*, which provide a compilation context for *components*. NgModules collect related code into functional sets; an Angular app is defined by a set of NgModules. An app always has at least a *root module* that enables bootstrapping, and typically has many more *feature modules*.
 
 Angular 的基本构造块是 *NgModule*，它为*组件*提供了编译的上下文环境。
 NgModule 会把相关的代码收集到一些功能集中。Angular 应用就是由一组 NgModule 定义出的。
 应用至少会有一个用于引导应用的*根模块*，通常还会有很多*特性模块*。
 
-* Components define *views*, which are sets of screen elements that Angular can choose among and modify according to your program logic and data. Every app has at least a root component.
+* Components define *views*, which are sets of screen elements that Angular can choose among and modify according to your program logic and data. 
 
    组件定义*视图*。视图是一组可见的屏幕元素，Angular 可以根据你的程序逻辑和数据来选择和修改它们。
   每个应用都至少有一个根组件。
@@ -33,7 +33,7 @@ Both components and services are simply classes, with *decorators* that mark the
    组件类的元数据将组件类和一个用来定义视图的*模板*关联起来。
   模板把普通的 HTML 和*指令*与*绑定标记（markup）*组合起来，这样 Angular 就可以在呈现 HTML 之前先修改这些 HTML。
 
-* The metadata for a service class provides the information Angular needs to make it available to components through *Dependency Injection (DI)*.
+* The metadata for a service class provides the information Angular needs to make it available to components through *dependency injection (DI)*.
 
    服务的元数据提供了一些信息，Angular 要用这些信息来让组件可以通过*依赖注入（DI）*使用该服务。
 
@@ -46,13 +46,13 @@ An app's components typically define many views, arranged hierarchically. Angula
 
 ## 模块
 
-Angular defines the `NgModule`, which differs from and complements the JavaScript (ES2015) module. An NgModule declares a compilation context for a set of components that is dedicated to an application domain, a workflow, or a closely related set of capabilities. An NgModule can associate its components with related code, such as services, to form functional units.
+Angular *NgModules* differ from and complement JavaScript (ES2015) modules. An NgModule declares a compilation context for a set of components that is dedicated to an application domain, a workflow, or a closely related set of capabilities. An NgModule can associate its components with related code, such as services, to form functional units.
 
 Angular 定义了 `NgModule`，它和 JavaScript（ES2015） 的模块不同而且有一定的互补性。
 NgModule 为一个组件集声明了编译的上下文环境，它专注于某个应用领域、某个工作流或一组紧密相关的能力。
 NgModule 可以将其组件和一组相关代码（如服务）关联起来，形成功能单元。
 
-Every Angular app has a _root module_, conventionally named `AppModule`, which provides the bootstrap mechanism that launches the application. An app typically contains many functional modules.
+Every Angular app has a *root module*, conventionally named `AppModule`, which provides the bootstrap mechanism that launches the application. An app typically contains many functional modules.
 
 每个 Angular 应用都有一个*根模块*，通常命名为 `AppModule`。根模块提供了用来启动应用的引导机制。
 一个应用通常会包含很多功能模块。
@@ -62,7 +62,7 @@ Like JavaScript modules, NgModules can import functionality from other NgModules
 像 JavaScript 模块一样，NgModule 也可以从其它 NgModule 中导入功能，并允许导出它们自己的功能供其它 NgModule 使用。
 比如，要在你的应用中使用路由器（Router）服务，就要导入 `Router` 这个 NgModule。
 
-Organizing your code into distinct functional modules helps in managing development of complex applications, and in designing for reusability. In addition, this technique lets you take advantage of _lazy-loading_&mdash;that is, loading modules on demand&mdash;in order to minimize the amount of code that needs to be loaded at startup.
+Organizing your code into distinct functional modules helps in managing development of complex applications, and in designing for reusability. In addition, this technique lets you take advantage of *lazy-loading*&mdash;that is, loading modules on demand&mdash;to minimize the amount of code that needs to be loaded at startup.
 
 把你的代码组织成一些清晰的功能模块，可以帮助管理复杂应用的开发工作并实现可复用性设计。
 另外，这项技术还能让你获得*惰性加载*（也就是按需加载模块）的优点，以尽可能减小启动时需要加载的代码体积。
@@ -79,18 +79,18 @@ Organizing your code into distinct functional modules helps in managing developm
 
 ## 组件
 
-Every Angular application has at least one component, the *root component* that connects a component hierarchy with the page DOM. Each component defines a class that contains application data and logic, and is associated with an HTML *template* that defines a view to be displayed in a target environment.
+Every Angular application has at least one component, the *root component* that connects a component hierarchy with the page document object model (DOM). Each component defines a class that contains application data and logic, and is associated with an HTML *template* that defines a view to be displayed in a target environment.
 
 每个 Angular 应用都至少有一个组件，也就是*根组件*，它会把组件树和页面中的 DOM 连接起来。
 每个组件都会定义一个类，其中包含应用的数据和逻辑，并与一个 HTML *模板*相关联，该模板定义了一个供目标环境下显示的视图。
 
-The `@Component` decorator identifies the class immediately below it as a component, and provides the template and related component-specific metadata.
+The `@Component()` decorator identifies the class immediately below it as a component, and provides the template and related component-specific metadata.
 
 `@Component` 装饰器表明紧随它的那个类是一个组件，并提供模板和该组件专属的元数据。
 
 <div class="alert is-helpful">
 
-   Decorators are functions that modify JavaScript classes. Angular defines a number of such decorators that attach specific kinds of metadata to classes, so that it knows what those classes mean and how they should work.
+   Decorators are functions that modify JavaScript classes. Angular defines a number of decorators that attach specific kinds of metadata to classes, so that the system knows what those classes mean and how they should work.
 
    装饰器是一些用于修饰 JavaScript 类的函数。Angular 定义了许多装饰器，这些装饰器会把一些特定种类的元数据附加到类上，以便 Angular 了解这些这些类的含义以及该如何使用它们。
 
@@ -104,8 +104,9 @@ The `@Component` decorator identifies the class immediately below it as a compon
 
 ### 模板、指令和数据绑定
 
-A template combines HTML with Angular markup that can modify the HTML elements before they are displayed.
-Template *directives* provide program logic, and *binding markup* connects your application data and the document object model (DOM).
+A template combines HTML with Angular markup that can modify HTML elements before they are displayed.
+Template *directives* provide program logic, and *binding markup* connects your application data and the DOM.
+There are two types of data binding:
 
 模板会把 HTML 和 Angular 的标记（markup）组合起来，这些标记可以在 HTML 元素显示出来之前修改它们。
 模板中的*指令*会提供程序逻辑，而*绑定标记*会把你应用中的数据和 DOM 连接在一起。
@@ -118,12 +119,14 @@ Template *directives* provide program logic, and *binding markup* connects your 
 
    *属性绑定*让你将从应用数据中计算出来的值插入到 HTML 中。
 
-Before a view is displayed, Angular evaluates the directives and resolves the binding syntax in the template to modify the HTML elements and the DOM, according to your program data and logic. Angular supports *two-way data binding*, meaning that changes in the DOM, such as user choices, can also be reflected back into your program data.
+Before a view is displayed, Angular evaluates the directives and resolves the binding syntax in the template to modify the HTML elements and the DOM, according to your program data and logic. Angular supports *two-way data binding*, meaning that changes in the DOM, such as user choices, are also reflected in your program data.
 
 在视图显示出来之前，Angular 会先根据你的应用数据和逻辑来运行模板中的指令并解析绑定表达式，以修改 HTML 元素和 DOM。
 Angular 支持*双向数据绑定*，这意味着 DOM 中发生的变化（比如用户的选择）同样可以反映回你的程序数据中。
 
-Your templates can also use *pipes* to improve the user experience by transforming values for display. Use pipes to display, for example, dates and currency values in a way appropriate to the user's locale. Angular provides predefined pipes for common transformations, and you can also define your own.
+Your templates can use *pipes* to improve the user experience by transforming values for display. 
+For example, use pipes to display dates and currency values that are appropriate for a user's locale.
+Angular provides predefined pipes for common transformations, and you can also define your own pipes.
 
 你的模板也可以用*管道*转换要显示的值以增强用户体验。比如，可以使用管道来显示适合用户所在地区的日期和货币格式。
 Angular 为一些通用的转换提供了预定义管道，你还可以定义自己的管道。
@@ -142,18 +145,18 @@ Angular 为一些通用的转换提供了预定义管道，你还可以定义自
 
 ## 服务与依赖注入
 
-For data or logic that is not associated with a specific view, and that you want to share across components, you create a *service* class. A service class definition is immediately preceded by the `@Injectable` decorator. The decorator provides the metadata that allows your service to be *injected* into client components as a dependency.
+For data or logic that isn't associated with a specific view, and that you want to share across components, you create a *service* class. A service class definition is immediately preceded by the `@Injectable()` decorator. The decorator provides the metadata that allows your service to be *injected* into client components as a dependency.
 
 对于与特定视图无关并希望跨组件共享的数据或逻辑，可以创建*服务*类。
 服务类的定义通常紧跟在 “@Injectable” 装饰器之后。该装饰器提供的元数据可以让你的服务作为依赖*被注入到*客户组件中。
 
- *Dependency injection* (or DI) lets you keep your component classes lean and efficient. They don't fetch data from the server, validate user input, or log directly to the console; they delegate such tasks to services.
+ *Dependency injection* (DI) lets you keep your component classes lean and efficient. They don't fetch data from the server, validate user input, or log directly to the console; they delegate such tasks to services.
 
  *依赖注入*（或 DI）让你可以保持组件类的精简和高效。有了 DI，组件就不用从服务器获取数据、验证用户输入或直接把日志写到控制台，而是会把这些任务委托给服务。
 
 <div class="alert is-helpful">
 
-  For a more detailed discusssion, see [Introduction to services and DI](guide/architecture-services).
+  For a more detailed discussion, see [Introduction to services and DI](guide/architecture-services).
 
   更深入的讨论，参见[服务和 DI 简介](guide/architecture-services)。
 
@@ -185,11 +188,11 @@ The router maps URL-like paths to views instead of pages. When a user performs a
 不过路由器会把类似 URL 的路径映射到视图而不是页面。
 当用户执行一个动作时（比如点击链接），本应该在浏览器中加载一个新页面，但是路由器拦截了浏览器的这个行为，并显示或隐藏一个视图层次结构。
 
-If the router determines that the current application state requires particular functionality, and the module that defines it has not been loaded, the router can _lazy-load_ the module on demand.
+If the router determines that the current application state requires particular functionality, and the module that defines it hasn't been loaded, the router can *lazy-load* the module on demand.
 
 如果路由器认为当前的应用状态需要某些特定的功能，而定义此功能的模块尚未加载，路由器就会按需*惰性加载*此模块。
 
-The router interprets a link URL according to your app's view navigation rules and data state. You can navigate to new views when the user clicks a button, selects from a drop box, or in response to some other stimulus from any source. The Router logs activity in the browser's history journal, so the back and forward buttons work as well.
+The router interprets a link URL according to your app's view navigation rules and data state. You can navigate to new views when the user clicks a button or selects from a drop box, or in response to some other stimulus from any source. The router logs activity in the browser's history, so the back and forward buttons work as well.
 
 路由器会根据你应用中的导航规则和数据状态来拦截 URL。
 当用户点击按钮、选择下拉框或收到其它任何来源的输入时，你可以导航到一个新视图。
@@ -244,37 +247,38 @@ Each of these subjects is introduced in more detail in the following pages.
 
 这些主题的详情在下列页面中有介绍：
 
-* [Modules](guide/architecture-modules)
 
-   [模块](guide/architecture-modules)
+* [Introduction to Modules](guide/architecture-modules)
 
-* [Components](guide/architecture-components)
+  [模块简介](guide/architecture-modules)
 
-   [组件](guide/architecture-components)
+* [Introduction to Components](guide/architecture-components)
 
-  * [Templates](guide/architecture-components#templates-and-views)
+  [组件简介](guide/architecture-components)
 
-     [模板](guide/architecture-components#templates-and-views)
+  * [Templates and views](guide/architecture-components#templates-and-views)
+  
+    [模板与视图](guide/architecture-components#templates-and-views)
 
-  * [Metadata](guide/architecture-components#component-metadata)
-
-     [元数据](guide/architecture-components#component-metadata)
+  * [Component metadata](guide/architecture-components#component-metadata)
+  
+    [组件元数据](guide/architecture-components#component-metadata)
 
   * [Data binding](guide/architecture-components#data-binding)
-
-     [绑定](guide/architecture-components#data-binding)
+  
+    [数据绑定](guide/architecture-components#data-binding)
 
   * [Directives](guide/architecture-components#directives)
-
-     [指令](guide/architecture-components#directives)
+  
+    [指令](guide/architecture-components#directives)
 
   * [Pipes](guide/architecture-components#pipes)
+  
+    [管道](guide/architecture-components#pipes)
 
-     [管道](guide/architecture-components#pipes)
+* [Introduction to services and dependency injection](guide/architecture-services)
 
-* [Services and dependency injection](guide/architecture-services)
-
-   [服务于依赖注入](guide/architecture-services)
+   [服务与依赖注入简介](guide/architecture-services)
 
 <div class="alert is-helpful">
 
@@ -284,9 +288,8 @@ Each of these subjects is introduced in more detail in the following pages.
 
 </div>
 
-When you are familiar with these fundamental building blocks, you can explore them in more detail in the documentation. To learn about more tools and techniques that are available to help you build and deploy Angular applications, see [Next steps](guide/architecture-next-steps).
+When you're familiar with these fundamental building blocks, you can explore them in more detail in the documentation. To learn about more tools and techniques that are available to help you build and deploy Angular applications, see [Next steps: tools and techniques](guide/architecture-next-steps).
 
 当你熟悉了这些基础构造块之后，就可以在本文档中进一步查看它们的详情了。
 要学习能帮你构建和发布应用的更多工具和技巧，参见[后续步骤](guide/architecture-next-steps)。
-
 </div>

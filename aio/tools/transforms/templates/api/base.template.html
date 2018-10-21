@@ -1,6 +1,6 @@
-{% import "lib/githubLinks.html" as github -%}
+{% import "../lib/githubLinks.html" as github -%}
 {% set comma = joiner(',') %}
-{% set slash = joiner('/') %}
+{% set breadcrumbDelimiter = joiner('&gt;') %}
 <article>
   {$ github.githubLinks(doc, versionInfo) $}
   <div class="breadcrumb">
@@ -14,16 +14,17 @@
         ]
       }
     </script>
-    {% for crumb in doc.breadCrumbs %}{% if not loop.last %} {$ slash() $} {% if crumb.path %}<a href="{$ crumb.path $}">{$ crumb.text $}</a>{% else %}{$ crumb.text $}{% endif %}{% endif %}{% endfor %}
+    {% for crumb in doc.breadCrumbs %}{% if not loop.last %} {$ breadcrumbDelimiter() $} {% if crumb.path %}<a href="{$ crumb.path $}">{$ crumb.text $}</a>{% else %}{$ crumb.text $}{% endif %}{% endif %}{% endfor %}
   </div>
+  {% block header %}
   <header class="api-header">
     <h1>{$ doc.name $}</h1>
     <label class="api-type-label {$ doc.docType $}">{$ doc.docType $}</label>
     {% if doc.deprecated !== undefined %}<label class="api-status-label deprecated">已弃用</label>{% endif %}
-    {% if doc.experimental !== undefined %}<label class="api-status-label experimental">试验性的</label>{% endif %}
-    {% if doc.stable !== undefined %}<label class="api-status-label stable">稳定</label>{% endif %}
+    {% if doc.security !== undefined %}<label class="api-status-label security">安全性</label>{% endif %}
     {% if doc.pipeOptions.pure === 'false' %}<label class="api-status-label impure-pipe">非纯管道</label>{% endif %}
   </header>
+  {% endblock %}
   <aio-toc class="embedded"></aio-toc>
 
   <div class="api-body">

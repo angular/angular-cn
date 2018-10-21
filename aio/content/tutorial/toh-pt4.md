@@ -62,7 +62,7 @@ The `HeroService` class should look like the following example.
 `HeroService` 类的代码如下：
 
 <code-example path="toh-pt4/src/app/hero.service.1.ts" region="new"
- title="src/app/hero.service.ts (new service)" linenums="false">
+ header="src/app/hero.service.ts (new service)" linenums="false">
 </code-example>
 
 ### _@Injectable()_ services
@@ -156,20 +156,11 @@ Registering the provider in the `@Injectable` metadata also allows Angular to op
 
 <div class="alert is-helpful">
 
-If you need to, you can register providers at different levels: 
-in the `HeroesComponent`, in the `AppComponent`, in the `AppModule`. 
-For instance, you could have told the CLI to provide the service at the module level automatically by appending `--module=app`.
+To learn more about providers, see the [Providers section](guide/providers).
+To learn more about injectors, see the [Dependency Injection guide](guide/dependency-injection).
 
-如果需要，你也可以在不同的层次上注册提供商 —— 在 `HeroesComponent` 中、在 `AppComponent` 中，或在 `AppModule` 中。
-比如，你可以通过附加 `--module=app` 参数来告诉 CLI 要自动在模块级提供该服务。
-
-<code-example language="sh" class="code-shell">
-  ng generate service hero --module=app
-</code-example>
-
-To learn more about providers and injectors, see the [Dependency Injection guide](guide/dependency-injection).
-
-要了解更多，参见[依赖注入指南](guide/dependency-injection)。
+要了解关于提供商的更多知识，参见[提供商部分](guide/providers)。
+要了解关于注入器的更多知识，参见[依赖注入指南](guide/dependency-injection)。
 
 </div>
 
@@ -179,7 +170,7 @@ The `HeroService` is now ready to plug into the `HeroesComponent`.
 
 <div class="alert is-important">
 
-This is a interim code sample that will allow you to provide and use the `HeroService`.  At this point, the code will differ from the `HeroService` in the ["final code review"](#final-code-review).
+This is an interim code sample that will allow you to provide and use the `HeroService`.  At this point, the code will differ from the `HeroService` in the ["final code review"](#final-code-review).
 
 这是一个过渡性的代码范例，它将会允许你提供并使用 `HeroService`。此刻的代码和[最终代码](#final-code-review)相差很大。
 
@@ -199,7 +190,7 @@ Import the `HeroService` instead.
 删除 `HEROES` 的导入语句，因为你以后不会再用它了。
 转而导入 `HeroService`。
 
-<code-example path="toh-pt4/src/app/heroes/heroes.component.ts" title="src/app/heroes/heroes.component.ts (import HeroService)" region="hero-service-import">
+<code-example path="toh-pt4/src/app/heroes/heroes.component.ts" header="src/app/heroes/heroes.component.ts (import HeroService)" region="hero-service-import">
 </code-example>
 
 Replace the definition of the `heroes` property with a simple declaration.
@@ -343,7 +334,7 @@ Open the `HeroService` file and import the `Observable` and `of` symbols from Rx
 打开 `HeroService` 文件，并从 RxJS 中导入 `Observable` 和 `of` 符号。
 
 <code-example path="toh-pt4/src/app/hero.service.ts" 
-title="src/app/hero.service.ts (Observable imports)" region="import-observable">
+header="src/app/hero.service.ts (Observable imports)" region="import-observable">
 </code-example>
 
 Replace the `getHeroes` method with this one.
@@ -385,11 +376,11 @@ Find the `getHeroes` method and replace it with the following code
 
 <code-tabs>
 
-  <code-pane title="heroes.component.ts (Observable)" 
+  <code-pane header="heroes.component.ts (Observable)" 
     path="toh-pt4/src/app/heroes/heroes.component.ts" region="getHeroes">
   </code-pane>
 
-  <code-pane title="heroes.component.ts (Original)" 
+  <code-pane header="heroes.component.ts (Original)" 
     path="toh-pt4/src/app/heroes/heroes.component.1.ts" region="getHeroes">
   </code-pane>
 
@@ -468,7 +459,7 @@ Modify the `AppComponent` template to display the generated `MessagesComponent`
 修改 `AppComponent` 的模板来显示所生成的 `MessagesComponent`：
 
 <code-example
-  title = "/src/app/app.component.html"
+  header = "/src/app/app.component.html"
   path="toh-pt4/src/app/app.component.html">
 </code-example>
 
@@ -493,7 +484,7 @@ Open `MessageService` and replace its contents with the following.
 打开 `MessageService`，并把它的内容改成这样：
 
 <code-example
-  title = "/src/app/message.service.ts"
+  header = "/src/app/message.service.ts"
   path="toh-pt4/src/app/message.service.ts">
 </code-example>
 
@@ -512,7 +503,7 @@ Re-open the `HeroService` and import the `MessageService`.
 重新打开 `HeroService`，并且导入 `MessageService`。
 
 <code-example
-  title = "/src/app/hero.service.ts (import MessageService)"
+  header = "/src/app/hero.service.ts (import MessageService)"
   path="toh-pt4/src/app/hero.service.ts" region="import-message-service">
 </code-example>
 
@@ -563,7 +554,7 @@ Open `MessagesComponent` and import the `MessageService`.
 打开 `MessagesComponent`，并且导入 `MessageService`。
 
 <code-example
-  title = "/src/app/messages/messages.component.ts (import MessageService)"
+  header = "/src/app/messages/messages.component.ts (import MessageService)"
   path="toh-pt4/src/app/messages/messages.component.ts" region="import-message-service">
 </code-example>
 
@@ -599,7 +590,7 @@ Replace the CLI-generated `MessagesComponent` template with the following.
 把 CLI 生成的 `MessagesComponent` 的模板改成这样：
 
 <code-example
-  title = "src/app/messages/messages.component.html"
+  header = "src/app/messages/messages.component.html"
   path="toh-pt4/src/app/messages/messages.component.html">
 </code-example>
 
@@ -645,35 +636,35 @@ Here are the code files discussed on this page and your app should look like thi
 
 <code-tabs>
 
-  <code-pane title="src/app/hero.service.ts" 
+  <code-pane header="src/app/hero.service.ts" 
   path="toh-pt4/src/app/hero.service.ts">
   </code-pane>
 
-  <code-pane title="src/app/message.service.ts" 
+  <code-pane header="src/app/message.service.ts" 
   path="toh-pt4/src/app/message.service.ts">
   </code-pane>
 
-  <code-pane title="src/app/heroes/heroes.component.ts"
+  <code-pane header="src/app/heroes/heroes.component.ts"
   path="toh-pt4/src/app/heroes/heroes.component.ts">
   </code-pane>
 
-  <code-pane title="src/app/messages/messages.component.ts"
+  <code-pane header="src/app/messages/messages.component.ts"
   path="toh-pt4/src/app/messages/messages.component.ts">
   </code-pane>
 
-  <code-pane title="src/app/messages/messages.component.html"
+  <code-pane header="src/app/messages/messages.component.html"
   path="toh-pt4/src/app/messages/messages.component.html">
   </code-pane>
 
-  <code-pane title="src/app/messages/messages.component.css"
+  <code-pane header="src/app/messages/messages.component.css"
   path="toh-pt4/src/app/messages/messages.component.css">
   </code-pane>
 
-  <code-pane title="src/app/app.module.ts"
+  <code-pane header="src/app/app.module.ts"
   path="toh-pt4/src/app/app.module.ts">
   </code-pane>
 
-  <code-pane title="src/app/app.component.html"
+  <code-pane header="src/app/app.component.html"
   path="toh-pt4/src/app/app.component.html">
   </code-pane>
 

@@ -109,7 +109,7 @@ gets the correct content.
 
 To ensure resource integrity, the Angular service worker validates
 the hashes of all resources for which it has a hash. Typically for
-a CLI app, this is everything in the `dist` directory covered by
+an app created with the [Angular CLI](cli), this is everything in the `dist` directory covered by
 the user's `src/ngsw-config.json` configuration.
 
 为了确保资源的整体性，Angular Service Worker 会验证所有带哈希的资源的哈希值。

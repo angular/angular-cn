@@ -35,7 +35,7 @@ The following example shows an event binding that implements a click handler:
 
 下例展示了一个事件绑定，它实现了一个点击事件处理器：
 
-<code-example path="user-input/src/app/click-me.component.ts" region="click-me-button" title="src/app/click-me.component.ts" linenums="false">
+<code-example path="user-input/src/app/click-me.component.ts" region="click-me-button" header="src/app/click-me.component.ts" linenums="false">
 
 </code-example>
 
@@ -59,7 +59,7 @@ The example above shows a single line of HTML, but that HTML belongs to a larger
 这个对象通常都是控制此模板的 Angular 组件。
 上例中只显示了一行 HTML，那段 HTML 片段属于下面这个组件：
 
-<code-example path="user-input/src/app/click-me.component.ts" region="click-me-component" title="src/app/click-me.component.ts" linenums="false">
+<code-example path="user-input/src/app/click-me.component.ts" region="click-me-component" header="src/app/click-me.component.ts" linenums="false">
 
 </code-example>
 
@@ -81,7 +81,7 @@ The following code listens to the `keyup` event and passes the entire event payl
 
 下面的代码监听 `keyup` 事件，并将整个事件载荷 (`$event`) 传递给组件的事件处理器。
 
-<code-example path="user-input/src/app/keyup.components.ts" region="key-up-component-1-template" title="src/app/keyup.components.ts (template v.1)" linenums="false">
+<code-example path="user-input/src/app/keyup.components.ts" region="key-up-component-1-template" header="src/app/keyup.components.ts (template v.1)" linenums="false">
 
 </code-example>
 
@@ -91,7 +91,7 @@ DOM event object in the `$event` variable which this code passes as a parameter 
 当用户按下并释放一个按键时，触发 `keyup` 事件，Angular 在 `$event` 变量提供一个相应的 DOM
 事件对象，上面的代码将它作为参数传递给 `onKey()` 方法。
 
-<code-example path="user-input/src/app/keyup.components.ts" region="key-up-component-1-class-no-type" title="src/app/keyup.components.ts (class v.1)" linenums="false">
+<code-example path="user-input/src/app/keyup.components.ts" region="key-up-component-1-class-no-type" header="src/app/keyup.components.ts (class v.1)" linenums="false">
 
 </code-example>
 
@@ -165,7 +165,7 @@ The following example rewrites the method with types:
 
 下面的例子，使用了带类型方法：
 
-<code-example path="user-input/src/app/keyup.components.ts" region="key-up-component-1-class" title="src/app/keyup.components.ts (class v.1 - typed )" linenums="false">
+<code-example path="user-input/src/app/keyup.components.ts" region="key-up-component-1-class" header="src/app/keyup.components.ts (class v.1 - typed )" linenums="false">
 
 </code-example>
 
@@ -213,7 +213,7 @@ to implement a keystroke loopback in a simple template.
 
 下面的例子使用了局部模板变量，在一个超简单的模板中实现按键反馈功能。
 
-<code-example path="user-input/src/app/loop-back.component.ts" region="loop-back-component" title="src/app/loop-back.component.ts" linenums="false">
+<code-example path="user-input/src/app/loop-back.component.ts" region="loop-back-component" header="src/app/loop-back.component.ts" linenums="false">
 
 </code-example>
 
@@ -264,7 +264,7 @@ variable than to go through the `$event` object. Here's a rewrite of the previou
 从模板变量获得输入框比通过 `$event` 对象更加简单。
 下面的代码重写了之前 `keyup` 示例，它使用变量来获得用户输入。
 
-<code-example path="user-input/src/app/keyup.components.ts" region="key-up-component-2" title="src/app/keyup.components.ts (v2)" linenums="false">
+<code-example path="user-input/src/app/keyup.components.ts" region="key-up-component-2" header="src/app/keyup.components.ts (v2)" linenums="false">
 
 </code-example>
 
@@ -293,7 +293,7 @@ Then Angular calls the event handler only when the user presses _Enter_.
 更简单的方法是：绑定到 Angular 的 `keyup.enter` 模拟事件。
 然后，只有当用户敲*回车*键时，Angular 才会调用事件处理器。
 
-<code-example path="user-input/src/app/keyup.components.ts" region="key-up-component-3" title="src/app/keyup.components.ts (v3)" linenums="false">
+<code-example path="user-input/src/app/keyup.components.ts" region="key-up-component-3" header="src/app/keyup.components.ts (v3)" linenums="false">
 
 </code-example>
 
@@ -321,7 +321,7 @@ To fix this issue, listen to both the _Enter_ key and the _blur_ event.
 
 下面通过同时监听输入框的回车键和失去焦点事件来修正这个问题。
 
-<code-example path="user-input/src/app/keyup.components.ts" region="key-up-component-4" title="src/app/keyup.components.ts (v4)" linenums="false">
+<code-example path="user-input/src/app/keyup.components.ts" region="key-up-component-4" header="src/app/keyup.components.ts (v4)" linenums="false">
 
 </code-example>
 
@@ -351,7 +351,7 @@ Below is the "Little Tour of Heroes"  component.
 
 下面就是“简版英雄指南”组件。
 
-<code-example path="user-input/src/app/little-tour.component.ts" region="little-tour" title="src/app/little-tour.component.ts" linenums="false">
+<code-example path="user-input/src/app/little-tour.component.ts" region="little-tour" header="src/app/little-tour.component.ts" linenums="false">
 
 </code-example>
 
@@ -392,19 +392,19 @@ Following is all the code discussed in this page.
 
 <code-tabs>
 
-  <code-pane title="click-me.component.ts" path="user-input/src/app/click-me.component.ts">
+  <code-pane header="click-me.component.ts" path="user-input/src/app/click-me.component.ts">
 
   </code-pane>
 
-  <code-pane title="keyup.components.ts" path="user-input/src/app/keyup.components.ts">
+  <code-pane header="keyup.components.ts" path="user-input/src/app/keyup.components.ts">
 
   </code-pane>
 
-  <code-pane title="loop-back.component.ts" path="user-input/src/app/loop-back.component.ts">
+  <code-pane header="loop-back.component.ts" path="user-input/src/app/loop-back.component.ts">
 
   </code-pane>
 
-  <code-pane title="little-tour.component.ts" path="user-input/src/app/little-tour.component.ts">
+  <code-pane header="little-tour.component.ts" path="user-input/src/app/little-tour.component.ts">
 
   </code-pane>
 

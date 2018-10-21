@@ -49,6 +49,7 @@ export class ApiListComponent implements OnInit {
     { value: 'function', title: '函数' },
     { value: 'interface', title: '接口' },
     { value: 'pipe', title: '管道'},
+    { value: 'ngmodule', title: 'NgModule'},
     { value: 'type-alias', title: '类型别名' },
     { value: 'package', title: '包'}
   ];

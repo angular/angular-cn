@@ -145,13 +145,7 @@ const resolvedPromise = Promise.resolve(null);
  *
  *   下拉框：`SelectControlValueAccessor`
  *
- * **npm package**: `@angular/forms`
- *
- * **npm 包**: `@angular/forms`
- *
- * **NgModule**: `FormsModule`
- *
- *
+ * @ngModule FormsModule
  */
 @Directive({
   selector: '[ngModel]:not([formControlName]):not([formControl])',

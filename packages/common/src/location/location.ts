@@ -31,11 +31,13 @@ export interface PopStateEvent {
  *
  * 这取决于使用了哪个 {@link LocationStrategy}，`Location` 可能会使用 URL 的路径进行持久化，也可能使用 URL 的哈希片段（`#`）进行持久化。
  *
- * Note: it's better to use {@link Router#navigate} service to trigger route changes. Use
+ * @usageNotes
+ *
+ * It's better to use {@link Router#navigate} service to trigger route changes. Use
  * `Location` only if you need to interact with or create normalized URLs outside of
  * routing.
  *
- * 注意：最好使用 {@link Router#navigate} 服务来触发路由变更。只有当你要在路由体系之外创建规范化 URL 或与之交互时才会用到 `Location`。
+ * 最好使用 {@link Router#navigate} 服务来触发路由变更。只有当你要在路由体系之外创建规范化 URL 或与之交互时才会用到 `Location`。
  *
  * `Location` is responsible for normalizing the URL against the application's base href.
  * A normalized URL is absolute from the URL host, includes the application's base href, and has no
@@ -57,6 +59,7 @@ export interface PopStateEvent {
  *   `/my/app/user/123/` 不是标准化的
  *
  * ### Example
+ *
  * {@example common/location/ts/path_location_component.ts region='LocationComponent'}
  *
  */

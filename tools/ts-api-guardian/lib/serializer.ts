@@ -19,7 +19,7 @@ export interface SerializationOptions {
   /**
    * Removes all exports matching the regular expression.
    */
-  stripExportPattern?: RegExp;
+  stripExportPattern?: RegExp|RegExp[];
   /**
    * Whitelists these identifiers as modules in the output. For example,
    * ```
@@ -42,7 +42,9 @@ export function publicApi(fileName: string, options: SerializationOptions = {}):
 export function publicApiInternal(
     host: ts.CompilerHost, fileName: string, tsOptions: ts.CompilerOptions,
     options: SerializationOptions = {}): string {
-  const entrypoint = path.normalize(fileName);
+  // Since the entry point will be compared with the source files from the TypeScript program,
+  // the path needs to be normalized with forward slashes in order to work within Windows.
+  const entrypoint = path.normalize(fileName).replace(/\\/g, '/');
 
   if (!entrypoint.match(/\.d\.ts$/)) {
     throw new Error(`Source file "${fileName}" is not a declaration file`);
@@ -86,7 +88,7 @@ class ResolvedDeclarationEmitter {
     resolvedSymbols.sort(symbolCompareFunction);
 
     for (const symbol of resolvedSymbols) {
-      if (this.options.stripExportPattern && symbol.name.match(this.options.stripExportPattern)) {
+      if (this.isExportPatternStripped(symbol.name)) {
         continue;
       }
 
@@ -143,6 +145,10 @@ class ResolvedDeclarationEmitter {
     return output;
   }
 
+  private isExportPatternStripped(symbolName: string): boolean {
+    return [].concat(this.options.stripExportPattern).some(p => !!(p && symbolName.match(p)));
+  }
+
   private getResolvedSymbols(sourceFile: ts.SourceFile): ts.Symbol[] {
     const ms = (<any>sourceFile).symbol;
     const rawSymbols = ms ? (this.typeChecker.getExportsOfModule(ms) || []) : [];
@@ -155,7 +161,7 @@ class ResolvedDeclarationEmitter {
           return s;
         }
         if (resolvedSymbol.name !== s.name) {
-          if (this.options.stripExportPattern && s.name.match(this.options.stripExportPattern)) {
+          if (this.isExportPatternStripped(s.name)) {
             return s;
           }
           throw new Error(

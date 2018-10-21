@@ -6,6 +6,8 @@
  * found in the LICENSE file at https://angular.io/license
  */
 
+import {R3_CHANGE_DETECTOR_REF_FACTORY} from '../ivy_switch/runtime/index';
+
 /**
  * Base class for Angular Views, provides change detection functionality.
  * A change-detection tree collects all views that are to be checked for changes.
@@ -66,7 +68,7 @@
  * 下面的例子创建了一个用来显示活动数据的组件。
  * 当 `live` 属性为 `false` 时，该组件就把它的变更检测器从主变更检测器树中分离出来，当该属性变为 `true` 时，则重新附加上它。
  *
- * <code-example path="core/ts/change_detect/change-detection.ts" region="detach"></code-example>
+ * <code-example path="core/ts/change_detect/change-detection.ts" region="reattach"></code-example>
  *
  */
 export abstract class ChangeDetectorRef {
@@ -144,4 +146,7 @@ export abstract class ChangeDetectorRef {
    *
    */
   abstract reattach(): void;
+
+  /** @internal */
+  static __NG_ELEMENT_ID__: () => ChangeDetectorRef = () => R3_CHANGE_DETECTOR_REF_FACTORY();
 }

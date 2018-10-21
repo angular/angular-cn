@@ -278,6 +278,8 @@ export function provideForRootGuard(router: Router): any {
  *
  * 注册路由。
  *
+ * @usageNotes
+ *
  * ### Example
  *
  * ### 例子
@@ -424,9 +426,9 @@ export interface ExtraOptions {
    *
    *   'enabled' - 把滚动位置设置为以前保存的位置。将来这个选项会变成默认值。
    *
-   * When enabled, the router store store scroll positions when navigating forward, and will
-   * restore the stored positions whe navigating back (popstate). When navigating forward,
-   * the scroll position will be set to [0, 0], or to the anchor if one is provided.
+   * When enabled, the router stores and restores scroll positions during navigation.
+   * When navigating forward, the scroll position will be set to [0, 0], or to the anchor
+   * if one is provided.
    *
    * 当启用时，路由器会在向前导航时保存滚动位置，导航回来（popstate）时则恢复所保存的位置。当向前导航时，滚动位置会设置为 [0, 0]，如果指定了锚点，则跳转到那个锚点。
    *

@@ -823,6 +823,8 @@ export abstract class AbstractControl {
    *
    * 调用 `setErrors` 还会更新父控件的有效性状态。
    *
+   * @usageNotes
+   *
    * ### Manually set the errors for a control
    *
    * ### 手动设置控件上的错误信息。
@@ -855,6 +857,8 @@ export abstract class AbstractControl {
    * control.
    *
    * 一个由点号（`.`）分隔的字符串或 "字符串/数字" 数组定义的控件路径。
+   *
+   * @usageNotes
    *
    * ### Retrieve a nested control
    *
@@ -1063,8 +1067,8 @@ export abstract class AbstractControl {
  * 用一个初始值初始化 `FormControl`。
  *
  * ```ts
- * const ctrl = new FormControl('some value');
- * console.log(ctrl.value);     // 'some value'
+ * const control = new FormControl('some value');
+ * console.log(control.value);     // 'some value'
  *```
  *
  * The following example initializes the control with a form state object. The `value`
@@ -1073,9 +1077,9 @@ export abstract class AbstractControl {
  * 下面的例子用一个表单状态对象初始化控件。这里用到的是 `value` 和 `disabled` 键。
  *
  * ```ts
- * const ctrl = new FormControl({ value: 'n/a', disabled: true });
- * console.log(ctrl.value);     // 'n/a'
- * console.log(ctrl.status);    // 'DISABLED'
+ * const control = new FormControl({ value: 'n/a', disabled: true });
+ * console.log(control.value);     // 'n/a'
+ * console.log(control.status);    // 'DISABLED'
  * ```
  *
  * The following example initializes the control with a sync validator.
@@ -1083,9 +1087,9 @@ export abstract class AbstractControl {
  * 下面的例子使用一个同步验证器初始化了该控件。
  *
  * ```ts
- * const ctrl = new FormControl('', Validators.required);
- * console.log(ctrl.value);      // ''
- * console.log(ctrl.status);     // 'INVALID'
+ * const control = new FormControl('', Validators.required);
+ * console.log(control.value);      // ''
+ * console.log(control.status);     // 'INVALID'
  * ```
  *
  * The following example initializes the control using an options object.
@@ -1093,7 +1097,7 @@ export abstract class AbstractControl {
  * 下面的例子使用一个配置对象初始化了该控件。
  *
  * ```ts
- * const ctrl = new FormControl('', {
+ * const control = new FormControl('', {
  *    validators: Validators.required,
  *    asyncValidators: myAsyncValidator
  * });
@@ -1108,7 +1112,7 @@ export abstract class AbstractControl {
  * 把 `updateOn` 选项设置为 `'blur'`，可以在发生 `blur` 事件时更新。
  *
  * ```ts
- * const ctrl = new FormControl('', { updateOn: 'blur' });
+ * const control = new FormControl('', { updateOn: 'blur' });
  * ```
  *
  * ### Configure the control to update on a submit event
@@ -1120,7 +1124,7 @@ export abstract class AbstractControl {
  * 把 `updateOn` 选项设置为 `'submit'`，可以在发生 `submit` 事件时更新。
 
  * ```ts
- * const ctrl = new FormControl('', { updateOn: 'submit' });
+ * const control = new FormControl('', { updateOn: 'submit' });
  * ```
  *
  * ### Reset the control back to an initial value
@@ -1135,7 +1139,7 @@ export abstract class AbstractControl {
  * 通过传递包含值和禁用状态的独立值或表单状态对象，可以将其重置为特定的表单状态（这是所支持的仅有的两个非计算状态）。
  *
  * ```ts
- * const ctrl = new FormControl('Nancy');
+ * const control = new FormControl('Nancy');
  *
  * console.log(control.value); // 'Nancy'
  *
@@ -1149,15 +1153,15 @@ export abstract class AbstractControl {
  * ### 把该控件重置回初始值并禁用。
  *
  * ```
- * const ctrl = new FormControl('Nancy');
+ * const control = new FormControl('Nancy');
  *
  * console.log(control.value); // 'Nancy'
- * console.log(this.control.status); // 'DISABLED'
+ * console.log(control.status); // 'VALID'
  *
  * control.reset({ value: 'Drew', disabled: true });
  *
- * console.log(this.control.value); // 'Drew'
- * console.log(this.control.status); // 'DISABLED'
+ * console.log(control.value); // 'Drew'
+ * console.log(control.status); // 'DISABLED'
  *
 */
 export class FormControl extends AbstractControl {
@@ -1651,6 +1655,8 @@ export class FormGroup extends AbstractControl {
    *
    * 设置此 `FormGroup` 的值。它接受一个与组结构对应的对象，以控件名作为 key。
    *
+   * @usageNotes
+   *
    * ### Set the complete value for the form group
    *
    * ### 设置表单组的完整值
@@ -1665,8 +1671,8 @@ export class FormGroup extends AbstractControl {
    *
    * form.setValue({first: 'Nancy', last: 'Drew'});
    * console.log(form.value);   // {first: 'Nancy', last: 'Drew'}
-   *
    * ```
+   *
    * @throws When strict checks fail, such as setting the value of a control
    * that doesn't exist or if you excluding the value of a control.
    *
@@ -1680,7 +1686,7 @@ export class FormGroup extends AbstractControl {
    * and emits events after the value changes.
    * The configuration options are passed to the {@link AbstractControl#updateValueAndValidity
    * updateValueAndValidity} method.
-   * 
+   *
    * 当值变化时，此配置项会决定该控件会如何传播变更以及发出事件。该配置项会被传给 {@link AbstractControl#updateValueAndValidity
    * updateValueAndValidity} 方法。
    *
@@ -1719,6 +1725,8 @@ export class FormGroup extends AbstractControl {
    *
    * 它能接受组的超集和子集，而不会抛出错误。
    *
+   * @usageNotes
+   *
    * ### Patch the value for a form group
    *
    * ### 修补表单组的值
@@ -1730,17 +1738,16 @@ export class FormGroup extends AbstractControl {
    *  });
    *  console.log(form.value);   // {first: null, last: null}
    *
-   *  form.patchValue({first: 'Nancy'});
-   *  console.log(form.value);   // {first: 'Nancy', last: null}
+   * form.patchValue({first: 'Nancy'});
+   * console.log(form.value);   // {first: 'Nancy', last: null}
+   * ```
    *
-   *  ```
+   * @param value The object that matches the structure of the group.
    *
-   * @param value The object that matches the structure of the group
+   * 与该组的结构匹配的对象。
    *
-   * 与该组的结构匹配的对象
-   *
-   * @param options Configure options that determines how the control propagates changes and
-   * emits events after the value is patched
+   * @param options Configuration options that determine how the control propagates changes and
+   * emits events after the value is patched.
    *
    * 在修补了该值之后，此配置项会决定控件如何传播变更以及发出事件。
    *
@@ -2061,7 +2068,7 @@ export class FormArray extends AbstractControl {
    * 创建一个新的 `FormArray` 实例
   *
   * @param controls An array of child controls. Each child control is given an index
-  * wheh it is registered.
+  * where it is registered.
   *
    * 一个子控件数组。在注册后，每个子控件都会有一个指定的索引。
    *
@@ -2199,6 +2206,8 @@ export class FormArray extends AbstractControl {
    *
    * 该方法会执行严格检查，如果你视图设置不存在或被排除出去的控件的值，就会抛出错误。
    *
+   * @usageNotes
+   *
    * ### Set the values for the controls in the form array
    *
    * ### 设置表单数组中各个控件的值
@@ -2260,6 +2269,8 @@ export class FormArray extends AbstractControl {
    * It accepts both super-sets and sub-sets of the array without throwing an error.
    *
    * 它能接受数组的超集和子集，而不会抛出错误。
+   *
+   * @usageNotes
    *
    * ### Patch the values for controls in a form array
    *
@@ -2324,6 +2335,8 @@ export class FormArray extends AbstractControl {
    *
    * 你可以通过传入一个与表单结构相匹配的状态数组，来把表单重置为特定的状态。
    * 每个状态可以是一个单独的值，也可以是一个同时具有值和禁用状态的表单状态对象。
+   *
+   * @usageNotes
    *
    * ### Reset the values in a form array
    *

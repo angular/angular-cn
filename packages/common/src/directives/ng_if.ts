@@ -27,9 +27,11 @@ import {Directive, EmbeddedViewRef, Input, TemplateRef, ViewContainerRef, ɵstri
  *
  *    `else` 模板是空白的 —— 除非你另行指定了。
  *
- * ## Most common usage
+ * @usageNotes
  *
- * ## 常见用法
+ * ### Most common usage
+ *
+ * ### 常见用法
  *
  * The most common usage of the `ngIf` directive is to conditionally show the inline template as
  * seen in this example:
@@ -38,9 +40,9 @@ import {Directive, EmbeddedViewRef, Input, TemplateRef, ViewContainerRef, ɵstri
  *
  * {@example common/ngIf/ts/module.ts region='NgIfSimple'}
  *
- * ## Showing an alternative template using `else`
+ * ### Showing an alternative template using `else`
  *
- * ## 通过 `else` 显示另一个模板
+ * ### 通过 `else` 显示另一个模板
  *
  * If it is necessary to display a template when the `expression` is falsy use the `else` template
  * binding as shown. Note that the `else` binding points to a `<ng-template>` labeled `#elseBlock`.
@@ -53,9 +55,9 @@ import {Directive, EmbeddedViewRef, Input, TemplateRef, ViewContainerRef, ɵstri
  *
  * {@example common/ngIf/ts/module.ts region='NgIfElse'}
  *
- * ## Using non-inlined `then` template
+ * ### Using non-inlined `then` template
  *
- * ## 使用非内联的 `then` 模板
+ * ### 使用非内联的 `then` 模板
  *
  * Usually the `then` template is the inlined template of the `ngIf`, but it can be changed using
  * a binding (just like `else`). Because `then` and `else` are bindings, the template references can
@@ -66,9 +68,9 @@ import {Directive, EmbeddedViewRef, Input, TemplateRef, ViewContainerRef, ɵstri
  *
  * {@example common/ngIf/ts/module.ts region='NgIfThenElse'}
  *
- * ## Storing conditional result in a variable
+ * ### Storing conditional result in a variable
  *
- * ## 把条件结果保存在变量中
+ * ### 把条件结果保存在变量中
  *
  * A common pattern is that we need to show a set of properties from the same object. If the
  * object is undefined, then we have to use the safe-traversal-operator `?.` to guard against
@@ -174,7 +176,7 @@ import {Directive, EmbeddedViewRef, Input, TemplateRef, ViewContainerRef, ɵstri
  * <ng-template #elseBlock>...</ng-template>
  * ```
  *
- *
+ * @ngModule CommonModule
  */
 @Directive({selector: '[ngIf]'})
 export class NgIf {
@@ -234,6 +236,16 @@ export class NgIf {
 
   /** @internal */
   public static ngIfUseIfTypeGuard: void;
+
+  /**
+   * Assert the correct type of the expression bound to the `ngIf` input within the template.
+   *
+   * The presence of this method is a signal to the Ivy template type check compiler that when the
+   * `NgIf` structural directive renders its template, the type of the expression bound to `ngIf`
+   * should be narrowed in some way. For `NgIf`, it is narrowed to be non-null, which allows the
+   * strictNullChecks feature of TypeScript to work with `NgIf`.
+   */
+  static ngTemplateGuard_ngIf<E>(dir: NgIf, expr: E): expr is NonNullable<E> { return true; }
 }
 
 export class NgIfContext {

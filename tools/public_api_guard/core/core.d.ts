@@ -23,12 +23,10 @@ export declare const APP_BOOTSTRAP_LISTENER: InjectionToken<((compRef: Component
 /** @experimental */
 export declare const APP_ID: InjectionToken<string>;
 
-/** @experimental */
 export declare const APP_INITIALIZER: InjectionToken<(() => void)[]>;
 
-/** @experimental */
 export declare class ApplicationInitStatus {
-    readonly done: boolean;
+    readonly done = false;
     readonly donePromise: Promise<any>;
     constructor(appInits: (() => any)[]);
 }
@@ -269,6 +267,10 @@ export interface DirectiveDecorator {
     new (obj: Directive): Directive;
 }
 
+export interface DoBootstrap {
+    ngDoBootstrap(appRef: ApplicationRef): void;
+}
+
 export interface DoCheck {
     ngDoCheck(): void;
 }
@@ -504,7 +506,7 @@ export declare class ModuleWithComponentFactories<T> {
     constructor(ngModuleFactory: NgModuleFactory<T>, componentFactories: ComponentFactory<any>[]);
 }
 
-export interface ModuleWithProviders<T = any> {
+export interface ModuleWithProviders<T = any /** TODO(alxhub): remove default when callers pass explicit type param */> {
     ngModule: Type<T>;
     providers?: Provider[];
 }
@@ -548,7 +550,7 @@ export declare class NgZone {
     readonly onStable: EventEmitter<any>;
     readonly onUnstable: EventEmitter<any>;
     constructor({ enableLongStackTrace }: {
-        enableLongStackTrace?: boolean;
+        enableLongStackTrace?: boolean | undefined;
     });
     run<T>(fn: (...args: any[]) => T, applyThis?: any, applyArgs?: any[]): T;
     runGuarded<T>(fn: (...args: any[]) => T, applyThis?: any, applyArgs?: any[]): T;
@@ -622,7 +624,7 @@ export declare abstract class Query {
 
 export declare class QueryList<T> {
     readonly changes: Observable<any>;
-    readonly dirty: boolean;
+    readonly dirty = true;
     readonly first: T;
     readonly last: T;
     readonly length: number;
@@ -690,10 +692,10 @@ export declare abstract class Renderer {
     abstract projectNodes(parentElement: any, nodes: any[]): void;
     abstract selectRootElement(selectorOrNode: string | any, debugInfo?: RenderDebugInfo): any;
     abstract setBindingDebugInfo(renderElement: any, propertyName: string, propertyValue: string): void;
-    abstract setElementAttribute(renderElement: any, attributeName: string, attributeValue: string): void;
+    abstract setElementAttribute(renderElement: any, attributeName: string, attributeValue?: string): void;
     abstract setElementClass(renderElement: any, className: string, isAdd: boolean): void;
     abstract setElementProperty(renderElement: any, propertyName: string, propertyValue: any): void;
-    abstract setElementStyle(renderElement: any, styleName: string, styleValue: string): void;
+    abstract setElementStyle(renderElement: any, styleName: string, styleValue?: string): void;
     abstract setText(renderNode: any, text: string): void;
 }
 
@@ -717,7 +719,7 @@ export declare abstract class Renderer2 {
     abstract removeChild(parent: any, oldChild: any): void;
     abstract removeClass(el: any, name: string): void;
     abstract removeStyle(el: any, style: string, flags?: RendererStyleFlags2): void;
-    abstract selectRootElement(selectorOrNode: string | any): any;
+    abstract selectRootElement(selectorOrNode: string | any, preserveContent?: boolean): any;
     abstract setAttribute(el: any, name: string, value: string, namespace?: string | null): void;
     abstract setProperty(el: any, name: string, value: any): void;
     abstract setStyle(el: any, style: string, value: any, flags?: RendererStyleFlags2): void;
@@ -922,7 +924,7 @@ export declare abstract class ViewContainerRef {
     abstract readonly element: ElementRef;
     abstract readonly injector: Injector;
     abstract readonly length: number;
-    abstract readonly parentInjector: Injector;
+    /** @deprecated */ abstract readonly parentInjector: Injector;
     abstract clear(): void;
     abstract createComponent<C>(componentFactory: ComponentFactory<C>, index?: number, injector?: Injector, projectableNodes?: any[][], ngModule?: NgModuleRef<any>): ComponentRef<C>;
     abstract createEmbeddedView<C>(templateRef: TemplateRef<C>, context?: C, index?: number): EmbeddedViewRef<C>;

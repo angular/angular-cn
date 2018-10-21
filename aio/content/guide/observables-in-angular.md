@@ -36,7 +36,7 @@ Here is the component definition:
 
 组件的定义如下：
 
-<code-example path="observables-in-angular/src/main.ts" title="EventEmitter" region="eventemitter"></code-example>
+<code-example path="observables-in-angular/src/main.ts" header="EventEmitter" region="eventemitter"></code-example>
 
 ## HTTP
 
@@ -72,7 +72,7 @@ The following example binds the `time` observable to the component's view. The o
 
 下面的例子把 `time` 这个可观察对象绑定到了组件的视图中。这个可观察对象会不断使用当前时间更新组件的视图。
 
-<code-example path="observables-in-angular/src/main.ts" title="Using async pipe" region="pipe"></code-example>
+<code-example path="observables-in-angular/src/main.ts" header="Using async pipe" region="pipe"></code-example>
 
 ## Router
 
@@ -84,13 +84,13 @@ The following example binds the `time` observable to the component's view. The o
 你可以使用 RxJS 中的 `filter()` 操作符来找到感兴趣的事件，并且订阅它们，以便根据浏览过程中产生的事件序列作出决定。
 例子如下：
 
-<code-example path="observables-in-angular/src/main.ts" title="Router events" region="router"></code-example>
+<code-example path="observables-in-angular/src/main.ts" header="Router events" region="router"></code-example>
 
 The [ActivatedRoute](https://angular.io/api/router/ActivatedRoute) is an injected router service that makes use of observables to get information about a route path and parameters. For example, `ActivateRoute.url` contains an observable that reports the route path or paths. Here's an example:
 
 [ActivatedRoute](https://angular.cn/api/router/ActivatedRoute) 是一个可注入的路由器服务，它使用可观察对象来获取关于路由路径和路由参数的信息。比如，`ActivateRoute.url` 包含一个用于汇报路由路径的可观察对象。例子如下：
 
-<code-example path="observables-in-angular/src/main.ts" title="ActivatedRoute" region="activated_route"></code-example>
+<code-example path="observables-in-angular/src/main.ts" header="ActivatedRoute" region="activated_route"></code-example>
 
 ## Reactive forms
 
@@ -101,4 +101,4 @@ Reactive forms have properties that use observables to monitor form control valu
 响应式表单具有一些属性，它们使用可观察对象来监听表单控件的值。
 [`FormControl`](https://angular.cn/api/forms/FormControl) 的 `valueChanges` 属性和 `statusChanges` 属性包含了会发出变更事件的可观察对象。订阅可观察的表单控件属性是在组件类中触发应用逻辑的途径之一。比如：
 
-<code-example path="observables-in-angular/src/main.ts" title="Reactive forms" region="forms"></code-example>
+<code-example path="observables-in-angular/src/main.ts" header="Reactive forms" region="forms"></code-example>

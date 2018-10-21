@@ -19,34 +19,28 @@ if [[ ${CI_MODE:-} == "bazel" || ${CI_MODE:-} == "docs_test" ]]; then
   exit 0;
 fi
 
-# Build angular.io, then exit (no Angular build required)
-if [[ ${CI_MODE:-} == "aio" ]]; then
+# Build the Angular packages
+if [[ ${CI_MODE:-} == "aio_local" || ${CI_MODE:-} == "aio_e2e" || ${CI_MODE:-} == "aio_tools_test" ]]; then
+  travisFoldStart "build.packages.$CI_MODE"
+  (
+    ./build.sh --examples=false
+  )
+  travisFoldEnd "build.packages.$CI_MODE"
+
+  # Exit if no further build required
+  if [[ ${CI_MODE:-} == "aio_e2e" || ${CI_MODE:-} == "aio_tools_test" ]]; then
+    exit 0;
+  fi
+fi
+
+# Build angular.io, then exit (no further build required)
+if [[ ${CI_MODE:-} == "aio" || ${CI_MODE:-} == "aio_local" ]]; then
   travisFoldStart "build.aio"
   (
     cd "`dirname $0`/../../aio"
-    yarn build
-
-    # If this is a PR for angular/angular@master or angular/angular@<stable-branch>, deploy a
-    # snapshot for previewing early (if preconditions are met) regardless of the test outcome.
-    if [[ ${TRAVIS_REPO_SLUG} == "angular/angular" ]] &&
-       ([[ $TRAVIS_BRANCH == "master" ]] || [[ $TRAVIS_BRANCH == $STABLE_BRANCH ]]) &&
-       [[ $TRAVIS_PULL_REQUEST != "false" ]]; then
-      travisFoldStart "deploy.aio.pr-preview"
-        yarn deploy-preview --skip-build
-      travisFoldEnd "deploy.aio.pr-preview"
-    fi
+    yarn $([[ ${CI_MODE} == "aio" ]] && echo "build" || echo "build-local")
   )
   travisFoldEnd "build.aio"
-  exit 0;
-fi
-
-# Build the Angular packages then exit (no further build required)
-if [[ ${CI_MODE:-} == "aio_e2e" || ${CI_MODE:-} == "aio_tools_test" ]]; then
-  travisFoldStart "build.$CI_MODE"
-  (
-    ./build.sh
-  )
-  travisFoldEnd "build.$CI_MODE"
   exit 0;
 fi
 

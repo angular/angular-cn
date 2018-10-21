@@ -46,6 +46,8 @@ function _extractId(valueString: string): string {
  * 如果你已经导入了 `FormsModule` 或 `ReactiveFormsModule`，该"值访问器"（`ValueAccessor`）将会自动在任何具有表单指令的 `select` 元素上激活。
  * 你**不用**添加特殊的选择器来激活它。
  *
+ * @usageNotes
+ *
  * ### How to use select controls with form directives
  *
  * ### 如何与表单指令一起使用 `select` 控件
@@ -92,7 +94,7 @@ function _extractId(valueString: string): string {
  * `compareWith` 接受一个**函数**，它具有两个参数：`option1` 和 `option2`。
  * 如果指定了 `compareWith`，则 Angular 会根据该函数的返回值来选取一个选项。
  *
- * #### Syntax
+ * ### Syntax
  *
  * #### 语法
  *
@@ -118,8 +120,6 @@ function _extractId(valueString: string): string {
  * https://developer.microsoft.com/en-us/microsoft-edge/platform/issues/4660045/
  *
  * * **npm package**: `@angular/forms`
- *
- *   **npm 包**: `@angular/forms`
  *
  *
  */
@@ -200,7 +200,7 @@ export class SelectControlValueAccessor implements ControlValueAccessor {
  *
  * See docs for `SelectControlValueAccessor` for usage examples.
  *
- * 参见 `SelectControlValueAccessor` 的文档查看使用范例。
+ *
  */
 @Directive({selector: 'option'})
 export class NgSelectOption implements OnDestroy {

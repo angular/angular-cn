@@ -8,16 +8,19 @@
 
 import {ModuleWithProviders, NgModule} from '@angular/core';
 
-import {InternalFormsSharedModule, NG_MODEL_WITH_FORM_CONTROL_WARNING, REACTIVE_DRIVEN_DIRECTIVES, TEMPLATE_DRIVEN_DIRECTIVES} from './directives';
+import {InternalFormsSharedModule, NG_FORM_SELECTOR_WARNING, NG_MODEL_WITH_FORM_CONTROL_WARNING, REACTIVE_DRIVEN_DIRECTIVES, TEMPLATE_DRIVEN_DIRECTIVES} from './directives';
 import {RadioControlRegistry} from './directives/radio_control_value_accessor';
 import {FormBuilder} from './form_builder';
 
-
-
 /**
- * The ng module for forms.
+ * Exports the required providers and directives for template-driven forms,
+ * making them available for import by NgModules that import this module.
  *
- * 模板驱动表单的 NgModule。
+ * 导出模板驱动表单所需的提供商和指令，使其可用于导入了该模块的 NgModule 中。
+ *
+ * @see [Forms](guide/forms)
+ *
+ * [表单](guide/forms)
  *
  */
 @NgModule({
@@ -26,10 +29,31 @@ import {FormBuilder} from './form_builder';
   exports: [InternalFormsSharedModule, TEMPLATE_DRIVEN_DIRECTIVES]
 })
 export class FormsModule {
+  /**
+   * @description
+   * Provides options for configuring the template-driven forms module.
+   *
+   * @param opts An object of configuration options
+   * * `warnOnDeprecatedNgFormSelector` Configures when to emit a warning when the deprecated
+   * `ngForm` selector is used.
+   */
+  static withConfig(opts: {
+    /** @deprecated as of v6 */ warnOnDeprecatedNgFormSelector?: 'never' | 'once' | 'always',
+  }): ModuleWithProviders<FormsModule> {
+    return {
+      ngModule: FormsModule,
+      providers:
+          [{provide: NG_FORM_SELECTOR_WARNING, useValue: opts.warnOnDeprecatedNgFormSelector}]
+    };
+  }
 }
 
 /**
- * The ng module for reactive forms.
+ * Exports the required infrastructure and directives for reactive forms,
+ * making them available for import by NgModules that import this module.
+ * @see [Forms](guide/reactive-forms)
+ *
+ * @see [Reactive Forms Guide](/guide/reactive-forms)
  *
  * 响应式表单的 NgModule。
  *
@@ -40,6 +64,14 @@ export class FormsModule {
   exports: [InternalFormsSharedModule, REACTIVE_DRIVEN_DIRECTIVES]
 })
 export class ReactiveFormsModule {
+  /**
+   * @description
+   * Provides options for configuring the reactive forms module.
+   *
+   * @param opts An object of configuration options
+   * * `warnOnNgModelWithFormControl` Configures when to emit a warning when an `ngModel`
+   * binding is used with reactive form directives.
+   */
   static withConfig(opts: {
     /** @deprecated as of v6 */ warnOnNgModelWithFormControl: 'never' | 'once' | 'always'
   }): ModuleWithProviders<ReactiveFormsModule> {

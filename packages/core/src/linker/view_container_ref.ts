@@ -7,6 +7,8 @@
  */
 
 import {Injector} from '../di/injector';
+import {R3_VIEW_CONTAINER_REF_FACTORY} from '../ivy_switch/runtime/index';
+
 import {ComponentFactory, ComponentRef} from './component_factory';
 import {ElementRef} from './element_ref';
 import {NgModuleRef} from './ng_module_factory';
@@ -15,31 +17,23 @@ import {EmbeddedViewRef, ViewRef} from './view_ref';
 
 
 /**
- * Represents a container where one or more Views can be attached.
+ * Represents a container where one or more views can be attached to a component.
  *
  * 代表一个容器，可以在里面附加一个或多个视图。
  *
- * The container can contain two kinds of Views. Host Views, created by instantiating a
- * {@link Component} via {@link #createComponent}, and Embedded Views, created by instantiating an
- * {@link TemplateRef Embedded Template} via {@link #createEmbeddedView}.
+ * Can contain *host views* (created by instantiating a
+ * component with the `createComponent()` method), and *embedded views*
+ * (created by instantiating a `TemplateRef` with the `createEmbeddedView()` method).
  *
- * 此容器可以包含两种不同的视图。宿主视图，在通过 {@link #createComponent} 实例化 {@link Component} 时创建；
- * 内嵌视图，在通过 {@link #createEmbeddedView} 实例化 {@link TemplateRef 内嵌模板} 时创建。
+ * 可以包含*宿主视图*（当用 `createComponent()` 方法实例化组件时创建）和*内嵌视图*（当用 `createEmbeddedView()` 方法实例化 `TemplateRef` 时创建）。
  *
- * The location of the View Container within the containing View is specified by the Anchor
- * `element`. Each View Container can have only one Anchor Element and each Anchor Element can only
- * have a single View Container.
+ * A view container instance can contain other view containers,
+ * creating a [view hierarchy](guide/glossary#view-tree).
  *
- * ViewContainer（视图容器）在父容器视图中的位置由锚点元素 `element` 决定。
- * 每个 ViewContainer  只能有一个锚点元素，而且每个锚点元素中只能有一个 ViewContainer。
+ * 视图容器的实例还可以包含其它视图容器，以创建[层次化视图](guide/glossary#view-tree)。
  *
- * Root elements of Views attached to this container become siblings of the Anchor Element in
- * the Rendered View.
- *
- * 在渲染出的视图中，这些附加到该容器中的视图的根元素会成为锚点元素的兄弟。
- *
- * To access a `ViewContainerRef` of an Element, you can either place a {@link Directive} injected
- * with `ViewContainerRef` on the Element, or you obtain it via a {@link ViewChild} query.
+ * @see `ComponentRef`
+ * @see `EmbeddedViewRef`
  *
  * 要想访问元素的 `ViewContainerRef`，你可以放一个 {@link Directive}，并把该元素的 `ViewContainerRef` 注入进去，
  * 也可以通过 {@link ViewChild} 查询来取到它。
@@ -47,135 +41,204 @@ import {EmbeddedViewRef, ViewRef} from './view_ref';
  */
 export abstract class ViewContainerRef {
   /**
-   * Anchor element that specifies the location of this container in the containing View.
+   * Anchor element that specifies the location of this container in the containing view.
+   * Each view container can have only one anchor element, and each anchor element
+   * can have only a single view container.
    *
    * 锚点元素用来指定本容器在父容器视图中的位置。
+   * 每个视图容器都只能有一个锚点元素，每个锚点元素也只能属于一个视图容器。
+   *
+   * Root elements of views attached to this container become siblings of the anchor element in
+   * the rendered view.
+   *
+   * 视图的根元素会附着到该容器上，在渲染好的视图中会变成锚点元素的兄弟。
+   *
+   * Access the `ViewContainerRef` of an element by placing a `Directive` injected
+   * with `ViewContainerRef` on the element, or use a `ViewChild` query.
+   *
+   * 可以在元素上放置注入了 `ViewContainerRef` 的 `Directive` 来访问元素的 `ViewContainerRef`。也可以使用 `ViewChild` 进行查询。
+   *
    * <!-- TODO: rename to anchorElement -->
    */
   abstract get element(): ElementRef;
 
+  /**
+   * The [dependency injector](guide/glossary#injector) for this view container.
+   */
   abstract get injector(): Injector;
 
+  /** @deprecated No replacement */
   abstract get parentInjector(): Injector;
 
   /**
-   * Destroys all Views in this container.
+   * Destroys all views in this container.
    *
    * 销毁本容器中的所有视图。
    */
   abstract clear(): void;
 
   /**
-   * Returns the {@link ViewRef} for the View located in this container at the specified index.
+   * Retrieves a view from this container.
+   * @param index The 0-based index of the view to retrieve.
+   * @returns The `ViewRef` instance, or null if the index is out of range.
    *
    * 返回本容器中指定序号的视图的 {@link ViewRef}。
    */
   abstract get(index: number): ViewRef|null;
 
   /**
-   * Returns the number of Views currently attached to this container.
+   * Reports how many views are currently attached to this container.
    *
-   * 返回目前附加到本容器的视图的数量。
+   * 报告目前附加到本容器的视图的数量。
+   *
+   * @returns The number of views.
+   *
+   * 视图的数量。
    */
   abstract get length(): number;
 
   /**
-   * Instantiates an Embedded View based on the {@link TemplateRef `templateRef`} and inserts it
-   * into this container at the specified `index`.
+   * Instantiates an embedded view and inserts it
+   * into this container.
    *
-   * 根据 {@link TemplateRef `templateRef`} 实例化一个内嵌视图，并把它插入在本容器的指定 `index` 处。
+   * 实例化一个内嵌视图，并把它插入到该容器中。
    *
-   * If `index` is not specified, the new View will be inserted as the last View in the container.
+   * @param templateRef The HTML template that defines the view.
    *
-   * 如果没有指定 `index`，则这个新视图将会被插入在本容器的末尾处。
+   * 用来定义视图的 HTML 模板。
    *
-   * Returns the {@link ViewRef} for the newly created View.
+   * @param index The 0-based index at which to insert the new view into this container.
+   * If not specified, appends the new view as the last entry.
    *
-   * 返回新建视图的 {@link ViewRef}。
+   * 从 0 开始的索引，表示新视图要插入到当前容器的哪个位置。
+   * 如果没有指定，就把新的视图追加到最后。
+   *
+   * @returns The `ViewRef` instance for the newly created view.
+   *
+   * 新创建的这个视图的 `ViewRef` 实例。
    */
   abstract createEmbeddedView<C>(templateRef: TemplateRef<C>, context?: C, index?: number):
       EmbeddedViewRef<C>;
 
   /**
-   * Instantiates a single {@link Component} and inserts its Host View into this container at the
-   * specified `index`.
+   * Instantiates a single component and inserts its host view into this container.
    *
    * 实例化一个 {@link Component} 并把它的宿主视图插入到本容器的指定 `index` 处。
    *
-   * The component is instantiated using its {@link ComponentFactory} which can be obtained via
-   * {@link ComponentFactoryResolver#resolveComponentFactory resolveComponentFactory}.
+   * @param componentFactory The factory to use.
    *
-   * 该组件使用它的 {@link ComponentFactory} 进行实例化。`ComponentFactory` 可以通过 {@link ComponentFactoryResolver#resolveComponentFactory resolveComponentFactory} 拿到。
+   * 要使用的工厂。
    *
-   * If `index` is not specified, the new View will be inserted as the last View in the container.
+   * @param index The index at which to insert the new component's host view into this container.
+   * If not specified, appends the new view as the last entry.
    *
-   * 如果没有指定 `index` 则这个新视图将会被插入在本容器的末尾处。
+   * 从 0 开始的索引，表示新组件的宿主视图要插入到当前容器的哪个位置。
+   * 如果没有指定，就把新的视图追加到最后。
    *
-   * You can optionally specify the {@link Injector} that will be used as parent for the Component.
+   * @param injector The injector to use as the parent for the new component.
    *
-   * 你还可以指定一个可选的 {@link Injector}，它将被用作本组件的父注入器。
+   * 一个注入器，将用作新组件的父注入器。
    *
-   * Returns the {@link ComponentRef} of the Host View created for the newly instantiated Component.
+   * @param projectableNodes
+   * @param ngModule
    *
-   * 返回新实例化的组件的宿主视图的 {@link ComponentRef}。
+   * @returns The new component instance, containing the host view.
+   *
+   * 新组件的实例，包含宿主视图。
+   *
+   *
    */
   abstract createComponent<C>(
       componentFactory: ComponentFactory<C>, index?: number, injector?: Injector,
       projectableNodes?: any[][], ngModule?: NgModuleRef<any>): ComponentRef<C>;
 
   /**
-   * Inserts a View identified by a {@link ViewRef} into the container at the specified `index`.
+   * Inserts a view into this container.
    *
-   * 把一个由 {@link ViewRef} 标识的视图插入到容器中的指定 `index` 处。
+   * 把一个视图插入到当前容器中。
    *
-   * If `index` is not specified, the new View will be inserted as the last View in the container.
+   * @param viewRef The view to insert.
    *
-   * 如果没有指定 `index` 则这个新视图将会被插入在本容器的末尾处。
+   * 要插入的视图。
    *
-   * Returns the inserted {@link ViewRef}.
+   * @param index The 0-based index at which to insert the view.
+   * If not specified, appends the new view as the last entry.
    *
-   * 返回所插入的 {@link ViewRef}。
+   * 从 0 开始的索引，表示该视图要插入到当前容器的哪个位置。
+   * 如果没有指定，就把新的视图追加到最后。
+   *
+   * @returns The inserted `ViewRef` instance.
+   *
+   * 插入后的 `ViewRef` 实例。
+   *
    */
   abstract insert(viewRef: ViewRef, index?: number): ViewRef;
 
   /**
-   * Moves a View identified by a {@link ViewRef} into the container at the specified `index`.
+   * Moves a view to a new location in this container.
    *
-   * 把一个由 {@link ViewRef} 标记的视图移入容器中指定的 `index` 处。
+   * 把一个视图移到容器中的新位置。
    *
-   * Returns the inserted {@link ViewRef}.
+   * @param viewRef The view to move.
    *
-   * 返回所插入的 {@link ViewRef}。
+   * 要移动的视图。
+   *
+   * @param index The 0-based index of the new location.
+   *
+   * 从 0 开始索引，用于表示新位置。
+   *
+   * @returns The moved `ViewRef` instance.
+   *
+   * 移动后的 `ViewRef` 实例。
+   *
    */
   abstract move(viewRef: ViewRef, currentIndex: number): ViewRef;
 
   /**
-   * Returns the index of the View, specified via {@link ViewRef}, within the current container or
-   * `-1` if this container doesn't contain the View.
+   * Returns the index of a view within the current container.
    *
-   * 返回本视图在其容器中的索引，如果没找到，则返回 `-1`。
+   * 返回某个视图在当前容器中的索引。
+   *
+   * @param viewRef The view to query.
+   *
+   * 要查询的视图。
+   *
+   * @returns The 0-based index of the view's position in this container,
+   * or `-1` if this container doesn't contain the view.
+   *
+   * 本视图在其容器中的从 0 开始的索引，如果没找到，则返回 `-1`。
    */
   abstract indexOf(viewRef: ViewRef): number;
 
   /**
-   * Destroys a View attached to this container at the specified `index`.
+   * Destroys a view attached to this container
    *
-   * 销毁一个位于容器中指定 `index` 处的视图。
+   * 销毁附着在该容器中的某个视图
    *
-   * If `index` is not specified, the last View in the container will be removed.
+   * @param index The 0-based index of the view to destroy.
+   * If not specified, the last view in the container is removed.
    *
+   * 要销毁的视图的从 0 开始的索引。
    * 如果不指定 `index`，则移除容器中的最后一个视图。
    */
   abstract remove(index?: number): void;
 
   /**
-   * Use along with {@link #insert} to move a View within the current container.
+   * Detaches a view from this container without destroying it.
+   * Use along with `insert()` to move a view within the current container.
    *
-   * 和 {@link #insert} 一起使用，把某个视图移入当前容器。
+   * 从当前容器中分离某个视图，但不会销毁它。
+   * 通常会和 `insert()` 一起使用，在当前容器中移动一个视图。
    *
-   * If the `index` param is omitted, the last {@link ViewRef} is detached.
+   * @param index The 0-based index of the view to detach.
+   * If not specified, the last view in the container is detached.
    *
+   * 要分离的视图的从 0 开始的索引。
    * 如果省略 `index` 参数，则拆出最后一个 {@link ViewRef}。
    */
   abstract detach(index?: number): ViewRef|null;
+
+  /** @internal */
+  static __NG_ELEMENT_ID__:
+      () => ViewContainerRef = () => R3_VIEW_CONTAINER_REF_FACTORY(ViewContainerRef, ElementRef)
 }

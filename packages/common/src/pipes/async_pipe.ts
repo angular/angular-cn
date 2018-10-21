@@ -56,7 +56,9 @@ const _observableStrategy = new ObservableStrategy();
  * `async` 管道会订阅一个 `Observable` 或 `Promise`，并返回它发出的最近一个值。
  * 当新值到来时，`async` 管道就会把该组件标记为需要进行变更检测。当组件被销毁时，`async` 管道就会自动取消订阅，以消除潜在的内存泄露问题。
  *
- * ## Examples
+ * @usageNotes
+ *
+ * ### Examples
  *
  * ## 例子
  *
@@ -73,7 +75,6 @@ const _observableStrategy = new ObservableStrategy();
  * 还可以把 `async` 用于 `Observable`。下面的例子就把 `time` 这个 `Observable` 绑定到了视图上。这个 `Observable` 会不断使用当前时间更新视图。
  *
  * {@example common/pipes/ts/async_pipe.ts region='AsyncPipeObservable'}
- *
  *
  */
 @Pipe({name: 'async', pure: false})

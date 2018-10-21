@@ -38,13 +38,13 @@ RxJS offers a number of functions that can be used to create new observables. Th
 
 RxJS 提供了一些用来创建可观察对象的函数。这些函数可以简化根据某些东西创建可观察对象的过程，比如事件、定时器、承诺等等。比如：
 
-<code-example path="rx-library/src/simple-creation.ts" region="promise" title="Create an observable from a promise"></code-example>
+<code-example path="rx-library/src/simple-creation.ts" region="promise" header="Create an observable from a promise"></code-example>
 
-<code-example path="rx-library/src/simple-creation.ts" region="interval" title="Create an observable from a counter"></code-example>
+<code-example path="rx-library/src/simple-creation.ts" region="interval" header="Create an observable from a counter"></code-example>
 
-<code-example path="rx-library/src/simple-creation.ts" region="event" title="Create an observable from an event"></code-example>
+<code-example path="rx-library/src/simple-creation.ts" region="event" header="Create an observable from an event"></code-example>
 
-<code-example path="rx-library/src/simple-creation.ts" region="ajax" title="Create an observable that creates an AJAX request"></code-example>
+<code-example path="rx-library/src/simple-creation.ts" region="ajax" header="Create an observable that creates an AJAX request"></code-example>
 
 ## Operators
 
@@ -58,7 +58,7 @@ Operators take configuration options, and they return a function that takes a so
 
 操作符接受一些配置项，然后返回一个以来源可观察对象为参数的函数。当执行这个返回的函数时，这个操作符会观察来源可观察对象中发出的值，转换它们，并返回由转换后的值组成的新的可观察对象。下面是一个简单的例子：
 
-<code-example path="rx-library/src/operators.ts" title="Map operator"></code-example>
+<code-example path="rx-library/src/operators.ts" header="Map operator"></code-example>
 
 You can use _pipes_ to link operators together. Pipes let you combine multiple functions into a single function. The `pipe()` function takes as its arguments the functions you want to combine, and returns a new function that, when executed, runs the composed functions in sequence.
 
@@ -72,13 +72,13 @@ Here’s an example:
 
 例子如下：
 
-<code-example path="rx-library/src/operators.1.ts" title="Standalone pipe function"></code-example>
+<code-example path="rx-library/src/operators.1.ts" header="Standalone pipe function"></code-example>
 
 The `pipe()` function is also a method on the RxJS `Observable`, so you use this shorter form to define the same operation:
 
 `pipe()` 函数也同时是 RxJS 的 `Observable` 上的一个方法，所以你可以用下列简写形式来达到同样的效果：
 
-<code-example path="rx-library/src/operators.2.ts" title="Observable.pipe function"></code-example>
+<code-example path="rx-library/src/operators.2.ts" header="Observable.pipe function"></code-example>
 
 ### Common operators
 
@@ -121,7 +121,7 @@ Here's an example of using the `catchError` operator to do this:
 
 下面是使用 `catchError` 操作符实现这种效果的例子：
 
-<code-example path="rx-library/src/error-handling.ts" title="catchError operator"></code-example>
+<code-example path="rx-library/src/error-handling.ts" header="catchError operator"></code-example>
 
 ### Retry failed observable
 
@@ -139,7 +139,7 @@ The following converts the previous example to retry the request before catching
 
 下列代码为前面的例子加上了捕获错误前重发请求的逻辑：
 
-<code-example path="rx-library/src/retry-on-error.ts" title="retry operator"></code-example>
+<code-example path="rx-library/src/retry-on-error.ts" header="retry operator"></code-example>
 
 <div class="alert is-helpful">
 
@@ -165,4 +165,4 @@ For example:
 
 比如：
 
-<code-example path="rx-library/src/naming-convention.ts" title="Naming observables"></code-example>
+<code-example path="rx-library/src/naming-convention.ts" header="Naming observables"></code-example>

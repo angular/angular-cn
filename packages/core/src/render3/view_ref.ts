@@ -11,10 +11,11 @@ import {ChangeDetectorRef as viewEngine_ChangeDetectorRef} from '../change_detec
 import {ViewContainerRef as viewEngine_ViewContainerRef} from '../linker/view_container_ref';
 import {EmbeddedViewRef as viewEngine_EmbeddedViewRef, InternalViewRef as viewEngine_InternalViewRef} from '../linker/view_ref';
 
-import {checkNoChanges, detectChanges, markViewDirty, storeCleanupFn, viewAttached} from './instructions';
-import {LViewNode} from './interfaces/node';
-import {FLAGS, LViewData, LViewFlags} from './interfaces/view';
+import {checkNoChanges, checkNoChangesInRootView, detectChanges, detectChangesInRootView, getRendererFactory, markViewDirty, storeCleanupFn, viewAttached} from './instructions';
+import {TViewNode} from './interfaces/node';
+import {FLAGS, LViewData, LViewFlags, PARENT} from './interfaces/view';
 import {destroyLView} from './node_manipulation';
+
 
 // Needed due to tsickle downleveling where multiple `implements` with classes creates
 // multiple @extends in Closure annotations, which is illegal. This workaround fixes
@@ -29,19 +30,21 @@ export class ViewRef<T> implements viewEngine_EmbeddedViewRef<T>, viewEngine_Int
   /**
    * @internal
    */
-  _lViewNode: LViewNode|null = null;
+  _view: LViewData;
 
-  context: T;
+  /**
+   * @internal
+   */
+  _tViewNode: TViewNode|null = null;
+
   // TODO(issue/24571): remove '!'.
   rootNodes !: any[];
 
-  constructor(protected _view: LViewData, context: T|null) { this.context = context !; }
-
-  /** @internal */
-  _setComponentContext(view: LViewData, context: T) {
-    this._view = view;
-    this.context = context;
+  constructor(_view: LViewData, private _context: T|null, private _componentIndex: number) {
+    this._view = _view;
   }
+
+  get context(): T { return this._context ? this._context : this._lookUpContext(); }
 
   get destroyed(): boolean {
     return (this._view[FLAGS] & LViewFlags.Destroyed) === LViewFlags.Destroyed;
@@ -227,7 +230,16 @@ export class ViewRef<T> implements viewEngine_EmbeddedViewRef<T>, viewEngine_Int
    *
    * See {@link ChangeDetectorRef#detach detach} for more information.
    */
-  detectChanges(): void { detectChanges(this.context); }
+  detectChanges(): void {
+    const rendererFactory = getRendererFactory();
+    if (rendererFactory.begin) {
+      rendererFactory.begin();
+    }
+    detectChanges(this.context);
+    if (rendererFactory.end) {
+      rendererFactory.end();
+    }
+  }
 
   /**
    * Checks the change detector and its children, and throws if any changes are detected.
@@ -242,4 +254,17 @@ export class ViewRef<T> implements viewEngine_EmbeddedViewRef<T>, viewEngine_Int
   detachFromAppRef() { this._appRef = null; }
 
   attachToAppRef(appRef: ApplicationRef) { this._appRef = appRef; }
+
+  private _lookUpContext(): T {
+    return this._context = this._view[PARENT] ![this._componentIndex] as T;
+  }
+}
+
+/** @internal */
+export class RootViewRef<T> extends ViewRef<T> {
+  constructor(public _view: LViewData) { super(_view, null, -1); }
+
+  detectChanges(): void { detectChangesInRootView(this._view); }
+
+  checkNoChanges(): void { checkNoChangesInRootView(this._view); }
 }

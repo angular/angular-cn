@@ -88,7 +88,7 @@ export function jsonpCallbackContext(): Object {
 }
 
 /**
- * An NgModule that adds XSRF protection support to outgoing requests.
+ * Configures XSRF protection support for outgoing requests.
  *
  * 一个NgModule，用于给外发请求添加 XSRF 保护。
  *
@@ -119,7 +119,7 @@ export class HttpClientXsrfModule {
    *
    * 禁用默认的 XSRF 保护。
    */
-  static disable(): ModuleWithProviders {
+  static disable(): ModuleWithProviders<HttpClientXsrfModule> {
     return {
       ngModule: HttpClientXsrfModule,
       providers: [
@@ -150,7 +150,7 @@ export class HttpClientXsrfModule {
   static withOptions(options: {
     cookieName?: string,
     headerName?: string,
-  } = {}): ModuleWithProviders {
+  } = {}): ModuleWithProviders<HttpClientXsrfModule> {
     return {
       ngModule: HttpClientXsrfModule,
       providers: [
@@ -162,15 +162,16 @@ export class HttpClientXsrfModule {
 }
 
 /**
- * An NgModule that provides the `HttpClient` and associated services.
+ * Configures the [dependency injector](guide/glossary#injector) for `HttpClient`
+ * with supporting services for XSRF. Automatically imported by `HttpClientModule`.
  *
- * 一个 NgModule，可以提供 `HttpClient` 及其相关服务。
+ * 为支持 XSRF 的 `HttpClient` 配置[依赖注入器](guide/glossary#injector)。它会被 `HttpClientModule` 自动导入。
  *
- * Interceptors can be added to the chain behind `HttpClient` by binding them
- * to the multiprovider for `HTTP_INTERCEPTORS`.
+ * You can add interceptors to the chain behind `HttpClient` by binding them to the
+ * multiprovider for built-in [DI token](guide/glossary#di-token) `HTTP_INTERCEPTORS`.
  *
  *
- * 通过把拦截器提供为 `HTTP_INTERCEPTORS`（允许有多个），可以把它们添加到 `HttpClient` 调用链的后面。
+ * 通过把拦截器提供为内置的 [DI 令牌](guide/glossary#di-token) `HTTP_INTERCEPTORS`（允许有多个），你可以把它们添加到 `HttpClient` 调用链的后面。
  *
  */
 @NgModule({
@@ -186,7 +187,8 @@ export class HttpClientXsrfModule {
     }),
   ],
   /**
-   * The module provides `HttpClient` itself, and supporting services.
+   * Configures the [dependency injector](guide/glossary#injector) where it is imported
+   * with supporting services for HTTP communications.
    *
    * 该模块提供 `HttpClient` 自身，以及用来支持它的那些服务。
    */
@@ -203,15 +205,19 @@ export class HttpClientModule {
 }
 
 /**
- * An NgModule that enables JSONP support in `HttpClient`.
+ * Configures the [dependency injector](guide/glossary#injector) for `HttpClient`
+ * with supporting services for JSONP.
+ * Without this module, Jsonp requests reach the backend
+ * with method JSONP, where they are rejected.
  *
- * 一个 NgModule，用来为 `HttpClient` 启用 JSONP 支持。
+ * 为支持 JSONP 的 `HttpClient` 配置[依赖注入器](guide/glossary#injector)。
+ * 如果没有该模块，Jsonp 请求就会被发送到后端，然后被后端拒绝。
  *
- * Without this module, Jsonp requests will reach the backend
- * with method JSONP, where they'll be rejected.
+ * You can add interceptors to the chain behind `HttpClient` by binding them to the
+ * multiprovider for built-in [DI token](guide/glossary#di-token) `HTTP_INTERCEPTORS`.
  *
+ * 通过把拦截器提供为内置的 [DI 令牌](guide/glossary#di-token) `HTTP_INTERCEPTORS`（允许有多个），你可以把它们添加到 `HttpClient` 调用链的后面。
  *
- * 如果没有该模块，则 Jsonp 请求会通过 `JSONP` 方法传给后端，它们通常会被服务器拒绝。
  */
 @NgModule({
   providers: [

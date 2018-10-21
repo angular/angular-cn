@@ -115,7 +115,6 @@ describe('ApiListComponent', () => {
 
       component.filteredSections.subscribe(filtered => {
         filtered = filtered.filter(s => s.items);
-        console.log(filtered);
         expect(filtered.length).toBe(1, 'sections');
         expect(filtered[0].name).toBe(section, 'section name');
         const items = filtered[0].items!;
@@ -227,6 +226,7 @@ const apiSections: ApiSection[] = [
     "name": "common",
     "title": "common",
     "path": "api/common",
+    "deprecated": false,
     "items": [
       {
         "name": "class_1",
@@ -234,7 +234,7 @@ const apiSections: ApiSection[] = [
         "path": "api/common/class_1",
         "docType": "class",
         "stability": "experimental",
-        "securityRisk": false
+        "securityRisk": false,
       },
       {
         "name": "class_2",
@@ -242,7 +242,7 @@ const apiSections: ApiSection[] = [
         "path": "api/common/class_2",
         "docType": "class",
         "stability": "stable",
-        "securityRisk": false
+        "securityRisk": false,
       },
       {
         "name": "directive_1",
@@ -250,7 +250,7 @@ const apiSections: ApiSection[] = [
         "path": "api/common/directive_1",
         "docType": "directive",
         "stability": "stable",
-        "securityRisk": true
+        "securityRisk": true,
       },
       {
         "name": "pipe_1",
@@ -258,7 +258,7 @@ const apiSections: ApiSection[] = [
         "path": "api/common/pipe_1",
         "docType": "pipe",
         "stability": "stable",
-        "securityRisk": true
+        "securityRisk": true,
       },
     ]
   },
@@ -266,6 +266,7 @@ const apiSections: ApiSection[] = [
     "name": "core",
     "title": "core",
     "path": "api/core",
+    "deprecated": false,
     "items": [
       {
         "name": "class_3",
@@ -273,7 +274,7 @@ const apiSections: ApiSection[] = [
         "path": "api/core/class_3",
         "docType": "class",
         "stability": "experimental",
-        "securityRisk": false
+        "securityRisk": false,
       },
       {
         "name": "function_1",
@@ -281,7 +282,7 @@ const apiSections: ApiSection[] = [
         "path": "api/core/function 1",
         "docType": "function",
         "stability": "deprecated",
-        "securityRisk": true
+        "securityRisk": true,
       },
       {
         "name": "const_1",
@@ -289,7 +290,7 @@ const apiSections: ApiSection[] = [
         "path": "api/core/const_1",
         "docType": "const",
         "stability": "stable",
-        "securityRisk": false
+        "securityRisk": false,
       }
     ]
   }

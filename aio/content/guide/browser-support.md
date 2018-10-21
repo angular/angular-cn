@@ -207,7 +207,7 @@ Note that polyfills cannot magically transform an old, slow browser into a moder
 
 ## 启用腻子脚本
 
-[Angular CLI](https://github.com/angular/angular-cli/wiki) users enable polyfills through the `src/polyfills.ts` file that
+[Angular CLI](cli) users enable polyfills through the `src/polyfills.ts` file that
 the CLI created with your project.
 
 [Angular CLI](https://github.com/angular/angular-cli/wiki) 的用户可以通过自动创建的 `src/polyfills.ts` 文件来启用这些腻子脚本。
@@ -239,7 +239,7 @@ Then open the `polyfills.ts` file and un-comment the corresponding `import` stat
 
 然后打开 `polyfills.ts` 文件，并反注释对应的 `import` 语句，就像这样：
 
-<code-example title="src/polyfills.ts">
+<code-example header="src/polyfills.ts">
   /**
 
   * Required to support Web Animations `@angular/platform-browser/animations`.
@@ -789,7 +789,7 @@ If you are not using the CLI, you should add your polyfill scripts directly to t
 
 如果你不使用 CLI，就要直接把腻子脚本添加到宿主页（`index.html`）中，就像这样：
 
-<code-example title="src/index.html">
+<code-example header="src/index.html">
   &lt;!-- pre-zone polyfills -->
   &lt;script src="node_modules/core-js/client/shim.min.js">&lt;/script>
   &lt;script src="node_modules/web-animations-js/web-animations.min.js">&lt;/script>

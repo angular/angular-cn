@@ -25,7 +25,7 @@ NgModule 用于描述应用的各个部分如何组织在一起。
 每个应用又至少一个 Angular 模块，*根*模块就是你用来启动此应用的模块。
 按照惯例，它通常命名为 `AppModule`。
 
-If you use the CLI to generate an app, the default `AppModule` is as follows:
+If you use the [Angular CLI](cli) to generate an app, the default `AppModule` is as follows:
 
 如果你使用 CLI 来生成一个应用，其默认的 `AppModule` 是这样的：
 
@@ -35,7 +35,7 @@ If you use the CLI to generate an app, the default `AppModule` is as follows:
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { HttpModule } from '@angular/http';
+import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 
@@ -47,7 +47,7 @@ import { AppComponent } from './app.component';
   imports: [
     BrowserModule,
     FormsModule,
-    HttpModule
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
@@ -84,7 +84,7 @@ into the `index.html` host web page.
 
    **_bootstrap_** —— *根*组件，Angular 创建它并插入 `index.html` 宿主页面。
 
-The default CLI application only has one component, `AppComponent`, so it
+The default application created by the Angular CLI only has one component, `AppComponent`, so it
 is in both the `declarations` and the `bootstrap` arrays.
 
 默认的 CLI 应用只有一个组件 `AppComponent`，所以它会同时出现在 `declarations` 和 `bootstrap` 数组中。
@@ -175,7 +175,7 @@ The following example, named `ItemDirective` is the default directive structure 
 这三步的结果如下所示。在你创建指令的文件中导出它。
 下面的例子中，`item.directive.ts` 中的 `ItemDirective` 是 CLI 自动生成的默认指令结构。
 
-<code-example path="bootstrapping/src/app/item.directive.ts" region="directive" title="src/app/item.directive.ts" linenums="false">
+<code-example path="bootstrapping/src/app/item.directive.ts" region="directive" header="src/app/item.directive.ts" linenums="false">
 </code-example>
 
 The key point here is that you have to export it so you can import it elsewhere. Next, import it
@@ -183,14 +183,14 @@ into the NgModule, in this example `app.module.ts`, with a JavaScript import sta
 
 重点在于你要先在这里导出它才能在别处导入它。接下来，使用 JavaScript 的 `import` 语句把它导入到 NgModule 中（这里是 `app.module.ts`）。
 
-<code-example path="bootstrapping/src/app/app.module.ts" region="directive-import" title="src/app/app.module.ts" linenums="false">
+<code-example path="bootstrapping/src/app/app.module.ts" region="directive-import" header="src/app/app.module.ts" linenums="false">
 </code-example>
 
 And in the same file, add it to the `@NgModule` `declarations` array:
 
 同样在这个文件中，把它添加到 `@NgModule` 的 `declarations` 数组中：
 
-<code-example path="bootstrapping/src/app/app.module.ts" region="declarations" title="src/app/app.module.ts" linenums="false">
+<code-example path="bootstrapping/src/app/app.module.ts" region="declarations" header="src/app/app.module.ts" linenums="false">
 </code-example>
 
 Now you could use your `ItemDirective` in a component. This example uses `AppModule`, but you'd do it the same way for a feature module. For more about directives, see [Attribute Directives](guide/attribute-directives) and [Structural Directives](guide/structural-directives). You'd also use the same technique for [pipes](guide/pipes) and components.
@@ -218,18 +218,13 @@ It tells Angular about other NgModules that this particular module needs to func
 This list of modules are those that export components, directives, or pipes
 that the component templates in this module reference. In this case, the component is
 `AppComponent`, which references components, directives, or pipes in `BrowserModule`,
-`FormsModule`, or  `HttpModule`.
+`FormsModule`, or  `HttpClientModule`.
 A component template can reference another component, directive,
 or pipe when the referenced class is declared in this module or
 the class was imported from another module.
 
 列表中的模块导出了本模块中的各个组件模板中所引用的各个组件、指令或管道。在这个例子中，当前组件是 `AppComponent`，它引用了导出自 `BrowserModule`、`FormsModule` 或 `HttpModule` 的组件、指令或管道。
 总之，组件的模板中可以引用在当前模块中声明的或从其它模块中导入的组件、指令、管道。
-
-You don't have any services to provide yet.
-But you will create some before long and you may chose to provide many of them here.
-
-你还没有提供任何服务，但是很快就会创建一些，而且可能也会选择在这里提供它们。
 
 {@a bootstrap-array}
 

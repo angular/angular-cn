@@ -6,34 +6,45 @@
  * found in the LICENSE file at https://angular.io/license
  */
 
-import {ConstantPool, Expression, R3ComponentMetadata, R3DirectiveMetadata, WrappedNodeExpr, compileComponentFromMetadata, makeBindingParser, parseTemplate} from '@angular/compiler';
+import {ConstantPool, CssSelector, Expression, R3ComponentMetadata, R3DirectiveMetadata, SelectorMatcher, TmplAstNode, WrappedNodeExpr, compileComponentFromMetadata, makeBindingParser, parseTemplate} from '@angular/compiler';
 import * as path from 'path';
 import * as ts from 'typescript';
 
+import {ErrorCode, FatalDiagnosticError} from '../../diagnostics';
 import {Decorator, ReflectionHost} from '../../host';
-import {filterToMembersWithDecorator, reflectObjectLiteral, staticallyResolve} from '../../metadata';
+import {AbsoluteReference, Reference, ResolvedReference, filterToMembersWithDecorator, reflectObjectLiteral, staticallyResolve} from '../../metadata';
 import {AnalysisOutput, CompileResult, DecoratorHandler} from '../../transform';
+import {TypeCheckContext, TypeCheckableDirectiveMeta} from '../../typecheck';
 
 import {ResourceLoader} from './api';
-import {extractDirectiveMetadata, extractQueriesFromDecorator, queriesFromFields} from './directive';
-import {SelectorScopeRegistry} from './selector_scope';
-import {isAngularCore, unwrapExpression} from './util';
+import {extractDirectiveMetadata, extractQueriesFromDecorator, parseFieldArrayValue, queriesFromFields} from './directive';
+import {ScopeDirective, SelectorScopeRegistry} from './selector_scope';
+import {extractDirectiveGuards, isAngularCore, unwrapExpression} from './util';
 
 const EMPTY_MAP = new Map<string, Expression>();
+
+export interface ComponentHandlerData {
+  meta: R3ComponentMetadata;
+  parsedTemplate: TmplAstNode[];
+}
 
 /**
  * `DecoratorHandler` which handles the `@Component` annotation.
  */
-export class ComponentDecoratorHandler implements DecoratorHandler<R3ComponentMetadata> {
+export class ComponentDecoratorHandler implements
+    DecoratorHandler<ComponentHandlerData, Decorator> {
   constructor(
       private checker: ts.TypeChecker, private reflector: ReflectionHost,
       private scopeRegistry: SelectorScopeRegistry, private isCore: boolean,
-      private resourceLoader: ResourceLoader) {}
+      private resourceLoader: ResourceLoader, private rootDirs: string[]) {}
 
   private literalCache = new Map<Decorator, ts.ObjectLiteralExpression>();
 
 
-  detect(decorators: Decorator[]): Decorator|undefined {
+  detect(node: ts.Declaration, decorators: Decorator[]|null): Decorator|undefined {
+    if (!decorators) {
+      return undefined;
+    }
     return decorators.find(
         decorator => decorator.name === 'Component' && (this.isCore || isAngularCore(decorator)));
   }
@@ -43,10 +54,11 @@ export class ComponentDecoratorHandler implements DecoratorHandler<R3ComponentMe
     const component = reflectObjectLiteral(meta);
 
     if (this.resourceLoader.preload !== undefined && component.has('templateUrl')) {
-      const templateUrl =
-          staticallyResolve(component.get('templateUrl') !, this.reflector, this.checker);
+      const templateUrlExpr = component.get('templateUrl') !;
+      const templateUrl = staticallyResolve(templateUrlExpr, this.reflector, this.checker);
       if (typeof templateUrl !== 'string') {
-        throw new Error(`templateUrl should be a string`);
+        throw new FatalDiagnosticError(
+            ErrorCode.VALUE_HAS_WRONG_TYPE, templateUrlExpr, 'templateUrl must be a string');
       }
       const url = path.posix.resolve(path.dirname(node.getSourceFile().fileName), templateUrl);
       return this.resourceLoader.preload(url);
@@ -54,7 +66,7 @@ export class ComponentDecoratorHandler implements DecoratorHandler<R3ComponentMe
     return undefined;
   }
 
-  analyze(node: ts.ClassDeclaration, decorator: Decorator): AnalysisOutput<R3ComponentMetadata> {
+  analyze(node: ts.ClassDeclaration, decorator: Decorator): AnalysisOutput<ComponentHandlerData> {
     const meta = this._resolveLiteral(decorator);
     this.literalCache.delete(decorator);
 
@@ -74,10 +86,11 @@ export class ComponentDecoratorHandler implements DecoratorHandler<R3ComponentMe
 
     let templateStr: string|null = null;
     if (component.has('templateUrl')) {
-      const templateUrl =
-          staticallyResolve(component.get('templateUrl') !, this.reflector, this.checker);
+      const templateUrlExpr = component.get('templateUrl') !;
+      const templateUrl = staticallyResolve(templateUrlExpr, this.reflector, this.checker);
       if (typeof templateUrl !== 'string') {
-        throw new Error(`templateUrl should be a string`);
+        throw new FatalDiagnosticError(
+            ErrorCode.VALUE_HAS_WRONG_TYPE, templateUrlExpr, 'templateUrl must be a string');
       }
       const url = path.posix.resolve(path.dirname(node.getSourceFile().fileName), templateUrl);
       templateStr = this.resourceLoader.load(url);
@@ -85,26 +98,41 @@ export class ComponentDecoratorHandler implements DecoratorHandler<R3ComponentMe
       const templateExpr = component.get('template') !;
       const resolvedTemplate = staticallyResolve(templateExpr, this.reflector, this.checker);
       if (typeof resolvedTemplate !== 'string') {
-        throw new Error(`Template must statically resolve to a string: ${node.name!.text}`);
+        throw new FatalDiagnosticError(
+            ErrorCode.VALUE_HAS_WRONG_TYPE, templateExpr, 'template must be a string');
       }
       templateStr = resolvedTemplate;
     } else {
-      throw new Error(`Component has no template or templateUrl`);
+      throw new FatalDiagnosticError(
+          ErrorCode.COMPONENT_MISSING_TEMPLATE, decorator.node, 'component is missing a template');
     }
 
     let preserveWhitespaces: boolean = false;
     if (component.has('preserveWhitespaces')) {
-      const value =
-          staticallyResolve(component.get('preserveWhitespaces') !, this.reflector, this.checker);
+      const expr = component.get('preserveWhitespaces') !;
+      const value = staticallyResolve(expr, this.reflector, this.checker);
       if (typeof value !== 'boolean') {
-        throw new Error(`preserveWhitespaces must resolve to a boolean if present`);
+        throw new FatalDiagnosticError(
+            ErrorCode.VALUE_HAS_WRONG_TYPE, expr, 'preserveWhitespaces must be a boolean');
       }
       preserveWhitespaces = value;
     }
 
+    // Go through the root directories for this project, and select the one with the smallest
+    // relative path representation.
+    const filePath = node.getSourceFile().fileName;
+    const relativeFilePath = this.rootDirs.reduce<string|undefined>((previous, rootDir) => {
+      const candidate = path.posix.relative(rootDir, filePath);
+      if (previous === undefined || candidate.length < previous.length) {
+        return candidate;
+      } else {
+        return previous;
+      }
+    }, undefined) !;
+
     const template = parseTemplate(
         templateStr, `${node.getSourceFile().fileName}#${node.name!.text}/template.html`,
-        {preserveWhitespaces});
+        {preserveWhitespaces}, relativeFilePath);
     if (template.errors !== undefined) {
       throw new Error(
           `Errors parsing template: ${template.errors.map(e => e.toString()).join(', ')}`);
@@ -113,7 +141,18 @@ export class ComponentDecoratorHandler implements DecoratorHandler<R3ComponentMe
     // If the component has a selector, it should be registered with the `SelectorScopeRegistry` so
     // when this component appears in an `@NgModule` scope, its selector can be determined.
     if (metadata.selector !== null) {
-      this.scopeRegistry.registerSelector(node, metadata.selector);
+      const ref = new ResolvedReference(node, node.name !);
+      this.scopeRegistry.registerDirective(node, {
+        ref,
+        name: node.name !.text,
+        directive: ref,
+        selector: metadata.selector,
+        exportAs: metadata.exportAs,
+        inputs: metadata.inputs,
+        outputs: metadata.outputs,
+        queries: metadata.queries.map(query => query.propertyName),
+        isComponent: true, ...extractDirectiveGuards(node, this.reflector),
+      });
     }
 
     // Construct the list of view queries.
@@ -132,38 +171,76 @@ export class ComponentDecoratorHandler implements DecoratorHandler<R3ComponentMe
       viewQueries.push(...queriesFromDecorator.view);
     }
 
+    let styles: string[]|null = null;
+    if (component.has('styles')) {
+      styles = parseFieldArrayValue(component, 'styles', this.reflector, this.checker);
+    }
+
+    let encapsulation: number = 0;
+    if (component.has('encapsulation')) {
+      encapsulation = parseInt(staticallyResolve(
+          component.get('encapsulation') !, this.reflector, this.checker) as string);
+    }
+
+    let animations: Expression|null = null;
+    if (component.has('animations')) {
+      animations = new WrappedNodeExpr(component.get('animations') !);
+    }
+
     return {
       analysis: {
-        ...metadata,
-        template,
-        viewQueries,
+        meta: {
+          ...metadata,
+          template,
+          viewQueries,
+          encapsulation,
+          styles: styles || [],
 
-        // These will be replaced during the compilation step, after all `NgModule`s have been
-        // analyzed and the full compilation scope for the component can be realized.
-        pipes: EMPTY_MAP,
-        directives: EMPTY_MAP,
-      }
+          // These will be replaced during the compilation step, after all `NgModule`s have been
+          // analyzed and the full compilation scope for the component can be realized.
+          pipes: EMPTY_MAP,
+          directives: EMPTY_MAP,
+          wrapDirectivesInClosure: false,  //
+          animations,
+        },
+        parsedTemplate: template.nodes,
+      },
+      typeCheck: true,
     };
   }
 
-  compile(node: ts.ClassDeclaration, analysis: R3ComponentMetadata): CompileResult {
-    const pool = new ConstantPool();
+  typeCheck(ctx: TypeCheckContext, node: ts.Declaration, meta: ComponentHandlerData): void {
+    const scope = this.scopeRegistry.lookupCompilationScopeAsRefs(node);
+    const matcher = new SelectorMatcher<ScopeDirective<any>>();
+    if (scope !== null) {
+      scope.directives.forEach(
+          (meta, selector) => { matcher.addSelectables(CssSelector.parse(selector), meta); });
+      ctx.addTemplate(node as ts.ClassDeclaration, meta.parsedTemplate, matcher);
+    }
+  }
 
+  compile(node: ts.ClassDeclaration, analysis: ComponentHandlerData, pool: ConstantPool):
+      CompileResult {
     // Check whether this component was registered with an NgModule. If so, it should be compiled
     // under that module's compilation scope.
     const scope = this.scopeRegistry.lookupCompilationScope(node);
+    let metadata = analysis.meta;
     if (scope !== null) {
       // Replace the empty components and directives from the analyze() step with a fully expanded
       // scope. This is possible now because during compile() the whole compilation unit has been
       // fully analyzed.
-      analysis = {...analysis, ...scope};
+      const {pipes, containsForwardDecls} = scope;
+      const directives = new Map<string, Expression>();
+      scope.directives.forEach((meta, selector) => directives.set(selector, meta.directive));
+      const wrapDirectivesInClosure: boolean = !!containsForwardDecls;
+      metadata = {...metadata, directives, pipes, wrapDirectivesInClosure};
     }
 
-    const res = compileComponentFromMetadata(analysis, pool, makeBindingParser());
+    const res = compileComponentFromMetadata(metadata, pool, makeBindingParser());
     return {
       name: 'ngComponentDef',
       initializer: res.expression,
-      statements: pool.statements,
+      statements: res.statements,
       type: res.type,
     };
   }
@@ -173,12 +250,15 @@ export class ComponentDecoratorHandler implements DecoratorHandler<R3ComponentMe
       return this.literalCache.get(decorator) !;
     }
     if (decorator.args === null || decorator.args.length !== 1) {
-      throw new Error(`Incorrect number of arguments to @Component decorator`);
+      throw new FatalDiagnosticError(
+          ErrorCode.DECORATOR_ARITY_WRONG, decorator.node,
+          `Incorrect number of arguments to @Component decorator`);
     }
     const meta = unwrapExpression(decorator.args[0]);
 
     if (!ts.isObjectLiteralExpression(meta)) {
-      throw new Error(`Decorator argument must be literal.`);
+      throw new FatalDiagnosticError(
+          ErrorCode.DECORATOR_ARG_NOT_LITERAL, meta, `Decorator argument must be literal.`);
     }
 
     this.literalCache.set(decorator, meta);

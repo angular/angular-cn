@@ -1,8 +1,21 @@
 {%- if doc.exportAs %}
 <section class="export-as">
-  <h2 id="exported-as">导出为</h2>
-  <div>
-    <code>{$ doc.exportAs $}</code>
-  </div>
+  <h2>模板变量参考手册</h2>
+  <table class="is-full-width list-table export-as-table">
+    <thead>
+      <tr>
+        <th>标识符</th>
+        <th>用途</th>
+      </tr>
+    </thead>
+    <tbody>
+      {%- for exportAs in doc.exportAsArray %}
+      <tr class="export-as">
+        <td><code>{$ exportAs $}</code></td>
+        <td><code>#myTemplateVar="{$ exportAs $}"</code></td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
 </section>
 {% endif %}

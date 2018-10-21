@@ -43,6 +43,8 @@ export const controlNameBinding: any = {
  * 该指令会确保通过程序写入到该 `FormControl` 实例的任何值都会被写入到 DOM 元素上（模型 -> 视图）。
  * 反过来，任何通过用户输入写入 DOM 元素上的值也会被反映到这个 `FormControl` 实例上（视图 -> 模型）。
  *
+ * @usageNotes
+ *
  * This directive is designed to be used with a parent `FormGroupDirective` (selector:
  * `[formGroup]`).
  *
@@ -103,12 +105,6 @@ export const controlNameBinding: any = {
  * * Selects: `SelectControlValueAccessor`
  *
  *   单选下拉框: `SelectControlValueAccessor`
- *
- * **npm package**: `@angular/forms`
- *
- * **npm 包**: `@angular/forms`
- *
- * **NgModule**: `ReactiveFormsModule`
  *
  * ### Use with ngModel
  *
@@ -210,6 +206,7 @@ export const controlNameBinding: any = {
  * 或者，你也可以选择指定一个配置值 `"always"` 来为每个符合这种模式的实例都单独显示一个警告。
  * 这会帮助你在修改代码时追踪代码中用到这种模式的所有位置。
  *
+ * @ngModule ReactiveFormsModule
  */
 @Directive({selector: '[formControlName]', providers: [controlNameBinding]})
 export class FormControlName extends NgControl implements OnChanges, OnDestroy {

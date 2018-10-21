@@ -125,7 +125,7 @@ Open a terminal window in the project folder and enter the following commands fo
 The **QuickStart seed** contains the same application as the QuickStart playground.
 But its true purpose is to provide a solid foundation for _local_ development.
 Consequently, there are _many more files_ in the project folder on your machine,
-most of which you can [learn about later](guide/setup-systemjs-anatomy "Setup Anatomy").
+most of which you can [learn about later](guide/file-structure).
 
 **《快速上手》种子** 包含了与《快速上手》游乐场一样的应用，但是，它真正的目的是提供坚实的*本地*开发基础。
 所以你的电脑里的项目目录里面有*更多文件*，参见[搭建剖析](guide/setup-systemjs-anatomy "Setup Anatomy")。
@@ -180,15 +180,15 @@ Focus on the following three TypeScript (`.ts`) files in the **`/src`** folder.
 
 <code-tabs>
 
-  <code-pane title="src/app/app.component.ts" path="setup/src/app/app.component.ts">
+  <code-pane header="src/app/app.component.ts" path="setup/src/app/app.component.ts">
 
   </code-pane>
 
-  <code-pane title="src/app/app.module.ts" path="setup/src/app/app.module.ts">
+  <code-pane header="src/app/app.module.ts" path="setup/src/app/app.module.ts">
 
   </code-pane>
 
-  <code-pane title="src/main.ts" path="setup/src/main.ts">
+  <code-pane header="src/main.ts" path="setup/src/main.ts">
 
   </code-pane>
 
@@ -380,7 +380,7 @@ You can play with the sample code, share your changes with friends, and download
 几乎每章文档里面的链接都在浏览器中打开完整的例子。
 你可以用这些代码做实验，或者与朋友共享你的修改，或者下载并在你自己的电脑上运行这些代码。
 
-The [QuickStart](guide/quickstart "Angular QuickStart Playground") shows just the `AppComponent` file.
+The [Getting Started](guide/quickstart "Angular QuickStart Playground") shows just the `AppComponent` file.
 It creates the equivalent of `app.module.ts` and `main.ts` internally _for the playground only_.
 so the reader can discover Angular without distraction.
 The other samples are based on the QuickStart seed.
@@ -438,3 +438,36 @@ So if IE was refreshed manunally or automatically by `ng serve`, sometimes, the 
 
 在 Windows 中，默认情况下一个应用只能有六个 WebSocket 连接，参见 <a href="https://msdn.microsoft.com/library/ee330736%28v=vs.85%29.aspx?f=255&MSPPError=-2147217396#websocket_maxconn" title="MSDN WebSocket settings">MSDN 中的 WebSocket 设置部分</a>。
 所以，如果 IE 手动刷新或被 `ng serve` 触发了自动刷新，有时候 WebSocket 可能无法正常关闭，当 WebSocket 的连接数超限时，就会抛出 `SecurityError` 异常。请放心，这个异常对 Angular 应用没什么影响，你重启一下 IE 就能消除这个错误，或者修改 Windows 注册表来修改这个上限。
+
+## Appendix: test using `fakeAsync()/async()`
+
+## 附录：使用 `fakeAsync()/async()` 进行测试
+
+If you use the `fakeAsync()/async()` helper function to run unit tests (for details, read [testing guide](guide/testing#async-test-with-fakeasync)), you need to import `zone.js/dist/zone-testing` in your test setup file.
+
+如果你使用 `fakeAsync()/async()` 辅助函数来运行单元测试（详情参见[测试指南](guide/testing#async-test-with-fakeasync)），就要在测试的准备文件中导入 `zone.js/dist/zone-testing`。
+
+<div class="alert is-important">
+
+If you create project with `Angular/CLI`, it is already imported in `src/test.ts`.
+
+如果你是用 `Angular/CLI` 创建的项目，那么它已经在 `src/test.ts` 中导入过了。
+
+</div>
+
+And in the earlier versions of `Angular`, the following files were imported or added in your html file:
+
+在以前版本的 `Angular` 中，下列文件曾被导入或添加到 html 文件中：
+
+```
+import 'zone.js/dist/long-stack-trace-zone';
+import 'zone.js/dist/proxy';
+import 'zone.js/dist/sync-test';
+import 'zone.js/dist/jasmine-patch';
+import 'zone.js/dist/async-test';
+import 'zone.js/dist/fake-async-test';
+```
+
+You can still load those files separately, but the order is important, you must import `proxy` before `sync-test`, `async-test`, `fake-async-test` and `jasmine-patch`. And you also need to import `sync-test` before `jasmine-patch`, so it is recommended to just import `zone-testing` instead of loading those separated files.
+
+你仍然可以分别导入这些文件，不过导入顺序很重要，你必须在 `sync-test`、`async-test`、`fake-async-test` 和 `jasmine-patch` 之前导入 `proxy`。还要注意在 `jasmine-patch` 之前导入`sync-test`。所以，建议你只导入 `zone-testing` 而不要分别加载那些文件。

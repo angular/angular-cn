@@ -8,10 +8,9 @@
 
 import * as ts from 'typescript';
 
-import {relativePathBetween} from '../../util/src/path';
+import {ImportManager, translateType} from '../../translator';
 
 import {CompileResult} from './api';
-import {ImportManager, translateType} from './translator';
 
 
 
@@ -22,8 +21,8 @@ export class DtsFileTransformer {
   private ivyFields = new Map<string, CompileResult[]>();
   private imports: ImportManager;
 
-  constructor(private coreImportsFrom: ts.SourceFile|null) {
-    this.imports = new ImportManager(coreImportsFrom !== null);
+  constructor(private coreImportsFrom: ts.SourceFile|null, importPrefix?: string) {
+    this.imports = new ImportManager(coreImportsFrom !== null, importPrefix);
   }
 
   /**

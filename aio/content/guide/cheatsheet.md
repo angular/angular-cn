@@ -142,10 +142,12 @@ is available to <code>declarations</code> of this module.</p>
 
 </tr><tr>
 
+<td><code><b>entryComponents:</b> [SomeComponent, OtherComponent]</code></td>
+<td><p>List of components not referenced in any reachable template, for example dynamically created from code.</p></td>
+</tr><tr>
 <td>
 
     <code><b>bootstrap:</b> [MyAppComponent]</code>
-
 </td>
 
 <td>

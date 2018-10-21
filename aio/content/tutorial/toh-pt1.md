@@ -21,7 +21,7 @@ Using the Angular CLI, generate a new component named `heroes`.
   ng generate component heroes
 </code-example>
 
-The CLI creates a new folder, `src/app/heroes/` and generates
+The CLI creates a new folder, `src/app/heroes/`, and generates
 the three files of the  `HeroesComponent`.
 
 CLI 创建了一个新的文件夹 `src/app/heroes/`，并生成了 `HeroesComponent` 的三个文件。
@@ -32,7 +32,7 @@ The `HeroesComponent` class file is as follows:
 
 <code-example 
   path="toh-pt1/src/app/heroes/heroes.component.ts" region="v1" 
-  title="app/heroes/heroes.component.ts (initial version)" linenums="false">
+  header="app/heroes/heroes.component.ts (initial version)" linenums="false">
 </code-example>
 
 You always import the `Component` symbol from the Angular core library
@@ -67,7 +67,7 @@ The [CSS element selector](https://developer.mozilla.org/en-US/docs/Web/CSS/Type
 
 [CSS 元素选择器](https://developer.mozilla.org/en-US/docs/Web/CSS/Type_selectors) `app-heroes` 用来在父组件的模板中匹配 HTML 元素的名称，以识别出该组件。
 
-The `ngOnInit` is a [lifecycle hook](guide/lifecycle-hooks#oninit) 
+The `ngOnInit` is a [lifecycle hook](guide/lifecycle-hooks#oninit). 
 Angular calls `ngOnInit` shortly after creating a component.
 It's a good place to put initialization logic.
 
@@ -85,7 +85,7 @@ Add a `hero` property to the `HeroesComponent` for a hero named "Windstorm."
 
 往 `HeroesComponent` 中添加一个 `hero` 属性，用来表示一个名叫 “Windstorm” 的英雄。
 
-<code-example path="toh-pt1/src/app/heroes/heroes.component.ts" region="add-hero" title="heroes.component.ts (hero property)" linenums="false">
+<code-example path="toh-pt1/src/app/heroes/heroes.component.ts" region="add-hero" header="heroes.component.ts (hero property)" linenums="false">
 </code-example>
 
 ### Show the hero
@@ -98,7 +98,7 @@ replace it with a data binding to the new `hero` property.
 
 打开模板文件 `heroes.component.html`。删除 Angular CLI 自动生成的默认内容，改为到 `hero` 属性的数据绑定。
 
-<code-example path="toh-pt1/src/app/heroes/heroes.component.1.html" title="heroes.component.html" region="show-hero-1" linenums="false">
+<code-example path="toh-pt1/src/app/heroes/heroes.component.1.html" header="heroes.component.html" region="show-hero-1" linenums="false">
 </code-example>
 
 ## Show the _HeroesComponent_ view
@@ -115,7 +115,7 @@ So add an `<app-heroes>` element to the `AppComponent` template file, just below
 别忘了，`app-heroes` 就是 `HeroesComponent` 的 [元素选择器](#selector)。
 所以，只要把 `<app-heroes>` 元素添加到 `AppComponent` 的模板文件中就可以了，就放在标题下方。
 
-<code-example path="toh-pt1/src/app/app.component.html" title="src/app/app.component.html" linenums="false">
+<code-example path="toh-pt1/src/app/app.component.html" header="src/app/app.component.html" linenums="false">
 </code-example>
 
 Assuming that the CLI `ng serve` command is still running,
@@ -136,7 +136,7 @@ Give it `id` and `name` properties.
 
 在 `src/app` 文件夹中为 `Hero` 类创建一个文件，并添加 `id` 和 `name` 属性。
 
-<code-example path="toh-pt1/src/app/hero.ts"  title="src/app/hero.ts" linenums="false">
+<code-example path="toh-pt1/src/app/hero.ts"  header="src/app/hero.ts" linenums="false">
 </code-example>
 
 Return to the `HeroesComponent` class and import the `Hero` class.
@@ -154,7 +154,7 @@ The revised `HeroesComponent` class file should look like this:
 修改后的 `HeroesComponent` 类应该是这样的：
 
 <code-example path="toh-pt1/src/app/heroes/heroes.component.ts" linenums="false"
-  title= "src/app/heroes/heroes.component.ts">
+  header= "src/app/heroes/heroes.component.ts">
 </code-example>
 
 The page no longer displays properly because you changed the hero from a string to an object.
@@ -173,10 +173,10 @@ and show both `id` and `name` in a details layout like this:
 <code-example 
   path="toh-pt1/src/app/heroes/heroes.component.1.html"
   region="show-hero-2" 
-  title="heroes.component.html (HeroesComponent's template)" linenums="false">
+  header="heroes.component.html (HeroesComponent's template)" linenums="false">
 </code-example>
 
-The browser refreshes and display's the hero's information.
+The browser refreshes and displays the hero's information.
 
 浏览器自动刷新，并显示这位英雄的信息。
 
@@ -237,7 +237,7 @@ Refactor the details area in the `HeroesComponent` template so it looks like thi
 
 把模板中的英雄名字重构成这样：
 
-<code-example path="toh-pt1/src/app/heroes/heroes.component.1.html" region="name-input" title="src/app/heroes/heroes.component.html (HeroesComponent's template)" linenums="false">
+<code-example path="toh-pt1/src/app/heroes/heroes.component.1.html" region="name-input" header="src/app/heroes/heroes.component.html (HeroesComponent's template)" linenums="false">
 
 </code-example>
 
@@ -308,7 +308,7 @@ Open `AppModule` (`app.module.ts`) and import the `FormsModule` symbol from the 
 
 打开 `AppModule` (`app.module.ts`) 并从 `@angular/forms` 库中导入 `FormsModule` 符号。
 
-<code-example path="toh-pt1/src/app/app.module.ts" title="app.module.ts (FormsModule symbol import)"
+<code-example path="toh-pt1/src/app/app.module.ts" header="app.module.ts (FormsModule symbol import)"
  region="formsmodule-js-import">
 </code-example>
 
@@ -316,7 +316,7 @@ Then add `FormsModule` to the `@NgModule` metadata's `imports` array, which cont
 
 然后把 `FormsModule` 添加到 `@NgModule` 元数据的 `imports` 数组中，这里是该应用所需外部模块的列表。
 
-<code-example path="toh-pt1/src/app/app.module.ts" title="app.module.ts ( @NgModule imports)"
+<code-example path="toh-pt1/src/app/app.module.ts" header="app.module.ts ( @NgModule imports)"
 region="ng-imports">
 </code-example>
 
@@ -369,23 +369,23 @@ Your app should look like this <live-example></live-example>. Here are the code 
 
 <code-tabs>
 
-  <code-pane title="src/app/heroes/heroes.component.ts" path="toh-pt1/src/app/heroes/heroes.component.ts">
+  <code-pane header="src/app/heroes/heroes.component.ts" path="toh-pt1/src/app/heroes/heroes.component.ts">
   </code-pane>
 
-  <code-pane title="src/app/heroes/heroes.component.html" path="toh-pt1/src/app/heroes/heroes.component.html">
+  <code-pane header="src/app/heroes/heroes.component.html" path="toh-pt1/src/app/heroes/heroes.component.html">
   </code-pane>
 
-  <code-pane title="src/app/app.module.ts" 
+  <code-pane header="src/app/app.module.ts" 
   path="toh-pt1/src/app/app.module.ts">
   </code-pane>
 
-  <code-pane title="src/app/app.component.ts" path="toh-pt1/src/app/app.component.ts">
+  <code-pane header="src/app/app.component.ts" path="toh-pt1/src/app/app.component.ts">
   </code-pane>
 
-  <code-pane title="src/app/app.component.html" path="toh-pt1/src/app/app.component.html">
+  <code-pane header="src/app/app.component.html" path="toh-pt1/src/app/app.component.html">
   </code-pane>
 
-  <code-pane title="src/app/hero.ts" 
+  <code-pane header="src/app/hero.ts" 
   path="toh-pt1/src/app/hero.ts">
   </code-pane>
 

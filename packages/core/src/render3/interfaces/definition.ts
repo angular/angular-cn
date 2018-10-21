@@ -6,13 +6,13 @@
  * found in the LICENSE file at https://angular.io/license
  */
 
-import {Provider} from '../../core';
-import {RendererType2} from '../../render/api';
+import {Provider, ViewEncapsulation} from '../../core';
 import {Type} from '../../type';
 import {CssSelectorList} from './projection';
 
+
 /**
- * Definition of what a template rendering function should look like.
+ * Definition of what a template rendering function should look like for a component.
  */
 export type ComponentTemplate<T> = {
   (rf: RenderFlags, ctx: T): void; ngPrivateData?: never;
@@ -59,36 +59,20 @@ export const enum DirectiveDefFlags {ContentQuery = 0b10}
  */
 export interface PipeType<T> extends Type<T> { ngPipeDef: never; }
 
-/**
- * A version of {@link DirectiveDef} that represents the runtime type shape only, and excludes
- * metadata parameters.
- */
-export type DirectiveDefInternal<T> = DirectiveDef<T, string>;
+export type DirectiveDefWithMeta<
+    T, Selector extends string, ExportAs extends string, InputMap extends{[key: string]: string},
+    OutputMap extends{[key: string]: string}, QueryFields extends string[]> = DirectiveDef<T>;
 
 /**
- * Runtime link information for Directives.
+ * Runtime information for classes that are inherited by components or directives
+ * that aren't defined as components or directives.
  *
- * This is internal data structure used by the render to link
- * directives into templates.
+ * This is an internal data structure used by the render to determine what inputs
+ * and outputs should be inherited.
  *
- * NOTE: Always use `defineDirective` function to create this object,
- * never create the object directly since the shape of this object
- * can change between versions.
- *
- * @param Selector type metadata specifying the selector of the directive or component
- *
- * See: {@link defineDirective}
+ * See: {@link defineBase}
  */
-export interface DirectiveDef<T, Selector extends string> {
-  /** Token representing the directive. Used by DI. */
-  type: Type<T>;
-
-  /** Function that makes a directive public to the DI system. */
-  diPublic: ((def: DirectiveDef<T, string>) => void)|null;
-
-  /** The selectors that will be used to match nodes to this directive. */
-  selectors: CssSelectorList;
-
+export interface BaseDef<T> {
   /**
    * A dictionary mapping the inputs' minified property names to their public API names, which
    * are their aliases if any, or their original unminified property names
@@ -108,6 +92,31 @@ export interface DirectiveDef<T, Selector extends string> {
    * (as in `@Output('alias') propertyName: any;`).
    */
   readonly outputs: {[P in keyof T]: P};
+}
+
+/**
+ * Runtime link information for Directives.
+ *
+ * This is internal data structure used by the render to link
+ * directives into templates.
+ *
+ * NOTE: Always use `defineDirective` function to create this object,
+ * never create the object directly since the shape of this object
+ * can change between versions.
+ *
+ * @param Selector type metadata specifying the selector of the directive or component
+ *
+ * See: {@link defineDirective}
+ */
+export interface DirectiveDef<T> extends BaseDef<T> {
+  /** Token representing the directive. Used by DI. */
+  type: Type<T>;
+
+  /** Function that makes a directive public to the DI system. */
+  diPublic: ((def: DirectiveDef<T>) => void)|null;
+
+  /** The selectors that will be used to match nodes to this directive. */
+  selectors: CssSelectorList;
 
   /**
    * Name under which the directive is exported (for use with local references in template)
@@ -116,11 +125,8 @@ export interface DirectiveDef<T, Selector extends string> {
 
   /**
    * Factory function used to create a new directive instance.
-   *
-   * Usually returns the directive instance, but if the directive has a content query,
-   * it instead returns an array that contains the instance as well as content query data.
    */
-  factory(): T|[T];
+  factory(): T;
 
   /**
    * Function to create instances of content queries associated with a given directive.
@@ -130,8 +136,16 @@ export interface DirectiveDef<T, Selector extends string> {
   /** Refreshes content queries associated with directives in a given view */
   contentQueriesRefresh: ((directiveIndex: number, queryIndex: number) => void)|null;
 
+  /**
+   * The number of host bindings (including pure fn bindings) in this directive/component.
+   *
+   * Used to calculate the length of the LViewData array for the *parent* component
+   * of this directive/component.
+   */
+  hostVars: number;
+
   /** Refreshes host bindings on the associated directive. */
-  hostBindings: ((directiveIndex: number, elementIndex: number) => void)|null;
+  hostBindings: HostBindingsFunction|null;
 
   /**
    * Static attributes to set on host element.
@@ -156,11 +170,9 @@ export interface DirectiveDef<T, Selector extends string> {
   features: DirectiveDefFeature[]|null;
 }
 
-/**
- * A version of {@link ComponentDef} that represents the runtime type shape only, and excludes
- * metadata parameters.
- */
-export type ComponentDefInternal<T> = ComponentDef<T, string>;
+export type ComponentDefWithMeta<
+    T, Selector extends String, ExportAs extends string, InputMap extends{[key: string]: string},
+    OutputMap extends{[key: string]: string}, QueryFields extends string[]> = ComponentDef<T>;
 
 /**
  * Runtime link information for Components.
@@ -174,21 +186,60 @@ export type ComponentDefInternal<T> = ComponentDef<T, string>;
  *
  * See: {@link defineComponent}
  */
-export interface ComponentDef<T, Selector extends string> extends DirectiveDef<T, Selector> {
+export interface ComponentDef<T> extends DirectiveDef<T> {
+  /**
+   * Runtime unique component ID.
+   */
+  readonly id: string;
+
   /**
    * The View template of the component.
    */
   readonly template: ComponentTemplate<T>;
 
   /**
-   * Query-related instructions for a component.
+   * A set of styles that the component needs to be present for component to render correctly.
    */
-  readonly viewQuery: ComponentQuery<T>|null;
+  readonly styles: string[];
 
   /**
-   * Renderer type data of the component.
+   * The number of nodes, local refs, and pipes in this component template.
+   *
+   * Used to calculate the length of the component's LViewData array, so we
+   * can pre-fill the array and set the binding start index.
    */
-  readonly rendererType: RendererType2|null;
+  // TODO(kara): remove queries from this count
+  readonly consts: number;
+
+  /**
+   * The number of bindings in this component template (including pure fn bindings).
+   *
+   * Used to calculate the length of the component's LViewData array, so we
+   * can pre-fill the array and set the host binding start index.
+   */
+  readonly vars: number;
+
+  /**
+   * Query-related instructions for a component.
+   */
+  viewQuery: ComponentQuery<T>|null;
+
+  /**
+   * The view encapsulation type, which determines how styles are applied to
+   * DOM elements. One of
+   * - `Emulated` (default): Emulate native scoping of styles.
+   * - `Native`: Use the native encapsulation mechanism of the renderer.
+   * - `ShadowDom`: Use modern [ShadowDOM](https://w3c.github.io/webcomponents/spec/shadow/) and
+   *   create a ShadowRoot for component's host element.
+   * - `None`: Do not provide any template or style encapsulation.
+   */
+  readonly encapsulation: ViewEncapsulation;
+
+  /**
+   * Defines arbitrary developer-defined data to be stored on a renderer instance.
+   * This is useful for renderers that delegate to other renderers.
+   */
+  readonly data: {[kind: string]: any};
 
   /** Whether or not this component's ChangeDetectionStrategy is OnPush */
   readonly onPush: boolean;
@@ -197,13 +248,13 @@ export interface ComponentDef<T, Selector extends string> extends DirectiveDef<T
    * Defines the set of injectable providers that are visible to a Directive and its content DOM
    * children.
    */
-  readonly providers?: Provider[];
+  readonly providers: Provider[]|null;
 
   /**
    * Defines the set of injectable providers that are visible to a Directive and its view DOM
    * children only.
    */
-  readonly viewProviders?: Provider[];
+  readonly viewProviders: Provider[]|null;
 
   /**
    * Registry of directives and components that may be found in this view.
@@ -220,6 +271,12 @@ export interface ComponentDef<T, Selector extends string> extends DirectiveDef<T
    * `PipeDefs`s. The function is necessary to be able to support forward declarations.
    */
   pipeDefs: PipeDefListOrFactory|null;
+
+  /**
+   * Used to store the result of `noSideEffects` function so that it is not removed by closure
+   * compiler. The property should never be read.
+   */
+  readonly _?: never;
 }
 
 /**
@@ -234,13 +291,13 @@ export interface ComponentDef<T, Selector extends string> extends DirectiveDef<T
  *
  * See: {@link definePipe}
  */
-export interface PipeDef<T, S extends string> {
+export interface PipeDef<T> {
   /**
    * Pipe name.
    *
    * Used to resolve pipe in templates.
    */
-  name: S;
+  name: string;
 
   /**
    * Factory function used to create a new pipe instance.
@@ -259,10 +316,10 @@ export interface PipeDef<T, S extends string> {
   onDestroy: (() => void)|null;
 }
 
-export type PipeDefInternal<T> = PipeDef<T, string>;
+export type PipeDefWithMeta<T, Name extends string> = PipeDef<T>;
 
-export type DirectiveDefFeature = <T>(directiveDef: DirectiveDef<T, string>) => void;
-export type ComponentDefFeature = <T>(componentDef: ComponentDef<T, string>) => void;
+export type DirectiveDefFeature = <T>(directiveDef: DirectiveDef<T>) => void;
+export type ComponentDefFeature = <T>(componentDef: ComponentDef<T>) => void;
 
 /**
  * Type used for directiveDefs on component definition.
@@ -271,13 +328,15 @@ export type ComponentDefFeature = <T>(componentDef: ComponentDef<T, string>) => 
  */
 export type DirectiveDefListOrFactory = (() => DirectiveDefList) | DirectiveDefList;
 
-export type DirectiveDefList = (DirectiveDef<any, string>| ComponentDef<any, string>)[];
+export type DirectiveDefList = (DirectiveDef<any>| ComponentDef<any>)[];
 
 export type DirectiveTypesOrFactory = (() => DirectiveTypeList) | DirectiveTypeList;
 
 export type DirectiveTypeList =
-    (DirectiveDef<any, string>| ComponentDef<any, string>|
+    (DirectiveDef<any>| ComponentDef<any>|
      Type<any>/* Type as workaround for: Microsoft/TypeScript/issues/4881 */)[];
+
+export type HostBindingsFunction = (directiveIndex: number, elementIndex: number) => void;
 
 /**
  * Type used for PipeDefs on component definition.
@@ -286,13 +345,12 @@ export type DirectiveTypeList =
  */
 export type PipeDefListOrFactory = (() => PipeDefList) | PipeDefList;
 
-export type PipeDefList = PipeDefInternal<any>[];
+export type PipeDefList = PipeDef<any>[];
 
 export type PipeTypesOrFactory = (() => DirectiveTypeList) | DirectiveTypeList;
 
 export type PipeTypeList =
-    (PipeDefInternal<any>|
-     Type<any>/* Type as workaround for: Microsoft/TypeScript/issues/4881 */)[];
+    (PipeDef<any>| Type<any>/* Type as workaround for: Microsoft/TypeScript/issues/4881 */)[];
 
 
 // Note: This hack is necessary so we don't erroneously get a circular dependency

@@ -26,6 +26,7 @@ import {Tree, TreeNode} from './utils/tree';
  * RouterState is a tree of activated routes. Every node in this tree knows about the "consumed" URL
  * segments, the extracted parameters, and the resolved data.
  *
+ * @usageNotes
  * ### Example
  *
  * ```
@@ -429,6 +430,8 @@ export class ActivatedRouteSnapshot {
  * the "consumed" URL segments, the extracted parameters, and the resolved data.
  *
  * 这是一个由活动路由的快照组成的树。本树中的每个节点都会知道 "已消费的" URL 片段、已提取出的参数和已解析出的数据。
+ *
+ * @usageNotes
  *
  * ### Example
  *

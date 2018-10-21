@@ -336,7 +336,38 @@ export interface ViewChildDecorator {
    *
    *   **read** - 从查询到的元素中读取另一个令牌。
    *
+   * Supported selectors include:
+   *
+   * 所支持的选择器包括：
+   *
+   *   * any class with the `@Component` or `@Directive` decorator
+   *
+   *     任何带有 `@Component` 或 `@Directive` 装饰器的类
+   *
+   *   * a template reference variable as a string (e.g. query `<my-component #cmp></my-component>
+   * with `@ViewChild('cmp')`)
+   *
+   *     字符串形式的模板引用变量（比如可以使用 `@ViewChild('cmp')` 来查询 `<my-component #cmp></my-component>`
+   *
+   *   * any provider defined in the child component tree of the current component (e.g.
+   * `@ViewChild(SomeService) someService: SomeService`)
+   *
+   *     组件树中任何当前组件的子组件所定义的提供商（比如 `@ViewChild(SomeService) someService: SomeService` ）
+   *
+   *   * any provider defined through a string token (e.g. `@ViewChild('someToken') someTokenVal:
+   * any`)
+   *
+   *     任何通过字符串令牌定义的提供商（比如 `@ViewChild('someToken') someTokenVal:
+   * any` ）
+   *
+   *   * a `TemplateRef` (e.g. query `<ng-template></ng-template>` with `@ViewChild(TemplateRef)
+   * template;`)
+   *
+   *     `TemplateRef`（比如可以用 `@ViewChild(TemplateRef) template;` 来查询 `<ng-template></ng-template>`）
+   *
    * @usageNotes
+   *
+   * {@example core/di/ts/viewChild/view_child_example.ts region='Component'}
    *
    * ### Example
    *

@@ -1,56 +1,61 @@
 # The Application Shell
 
-# 应用的“外壳”
+You begin by creating an initial application using the Angular CLI. Throughout this tutorial, you’ll modify and extend that starter application to create the Tour of Heroes app.
 
-## Install the Angular CLI
+In this part of the tutorial, you'll do the following:
 
-## 安装 Angular CLI 命令行工具
+1. Set up your environment.
+2. Create a new workspace and initial app project.
+3. Serve the application.
+4. Make changes to the application.
 
- Install the [Angular CLI](https://github.com/angular/angular-cli), if you haven't already done so.
 
- 如果还没有安装 [Angular CLI](https://github.com/angular/angular-cli)，请执行：
+## Set up your environment
 
-<code-example language="sh" class="code-shell">
-  npm install -g @angular/cli
-</code-example>  
+To set up your development environment, follow these instructions in [Getting Started](guide/quickstart):
 
-## Create a new application
+* [Prerequisites](guide/quickstart#prerequisites)
+* [Install the Angular CLI](guide/quickstart#install-cli)
 
-## 创建新应用
+<div class="alert is-helpful">
 
-Create a new project named `angular-tour-of-heroes` with this CLI command.
+**Note:**: You do not need to complete the entire Getting Started. After you complete the above two sections of Getting Started, your environment is set up. Continue below to create the Tour of Heroes workspace and an initial app project.
+</div>
 
-使用 CLI 命令创建一个名叫 `angular-tour-of-heroes` 的新项目。
+
+## Create a new workspace and an initial application
+
+You develop apps in the context of an Angular [workspace](guide/glossary#workspace). A workspace contains the files for one or more [projects](guide/glossary#project). A project is the set of files that comprise an app, a library, or end-to-end (e2e) tests. For this tutorial, you will create a new workspace.
+
+To create a new workspace and an initial app project:
+
+  1. Ensure that you are not already in an Angular workspace folder. For example, if you have previously created the Getting Started workspace, change to the parent of that folder.
+  2. Run the CLI command `ng new` and provide the name `angular-tour-of-heroes`, as shown here:
+
+  使用 CLI 命令创建一个名叫 `angular-tour-of-heroes` 的新项目。
 
 <code-example language="sh" class="code-shell">
   ng new angular-tour-of-heroes
 </code-example> 
 
-The Angular CLI generated a new project with a default application and supporting files. 
+  3. The `ng new` command prompts you for information about features to include in the initial app project. Accept the defaults by pressing the Enter or Return key.
 
-这样 Angular CLI 就创建了一个带默认应用及其支持文件的新项目。
+The Angular CLI installs the necessary Angular `npm` packages and other dependencies. This can take a few minutes.
 
-<div class="alert is-helpful">
+It also creates the following workspace and starter project files:
 
-You can add pre-packaged functionality to a new project by using the `ng add` command. The `ng add` command transforms a project by applying the schematics in the specified package. 
-For more information, see the [Angular CLI documentation.](https://github.com/angular/angular-cli/wiki/add "Angular CLI documentation") 
+  * A new workspace, with a root folder named `angular-tour-of-heroes`.
+  * An initial skeleton app project, also called `angular-tour-of-heroes` (in the `src` subfolder).
+  * An end-to-end test project (in the e2e subfolder).
+  * Related configuration files.
 
-你可以使用 `ng add` 命令往新项目中添加一些预先打包好的功能。
-`ng add` 命令会通过应用来自特定 NPM 包中的图纸（schematic）来转换此项目。
-要了解更多，参见 [Angular CLI 文档](https://github.com/angular/angular-cli/wiki/add "Angular CLI documentation")。
-
-Angular Material provides schematics for typical app layouts. 
-See the [Angular Material documentation](https://material.angular.io/guides "Angular Material documentation") for details.
-
-比如 Angular Material 就为一些典型布局提供了图纸。参见 [Angular Material 文档](https://material.angular.cn/guides "Angular Material documentation")。
-
-</div>
+The initial app project contains a simple Welcome app, ready to run.
 
 ## Serve the application
 
 ## 启动应用服务器
 
-Go to the project directory and launch the application.
+Go to the workspace directory and launch the application.
 
 进入项目目录，并启动这个应用。
 
@@ -92,11 +97,11 @@ They display data on the screen, listen for user input, and take action based on
 *组件*是 Angular 应用中的基本构造块。
 它们在屏幕上显示数据，监听用户输入，并且根据这些输入执行相应的动作。
 
-## Change the application title
+## Make changes to the application
 
 ## 修改应用标题
 
-Open the project in your favorite editor or IDE and navigate to the `src/app` folder.
+Open the project in your favorite editor or IDE and navigate to the `src/app` folder to make some changes to the starter app.
 
 用你最喜欢的编辑器或 IDE 打开这个项目，并访问 `src/app` 目录。
 
@@ -107,7 +112,6 @@ You'll find the implementation of the shell `AppComponent` distributed over thre
 1. `app.component.ts`&mdash; the component class code, written in TypeScript. 
 
    `app.component.ts`&mdash; 组件的类代码，这是用 TypeScript 写的。
-
 1. `app.component.html`&mdash; the component template, written in HTML.
 
    `app.component.html`&mdash; 组件的模板，这是用 HTML 写的。
@@ -116,11 +120,15 @@ You'll find the implementation of the shell `AppComponent` distributed over thre
 
    `app.component.css`&mdash; 组件的私有 CSS 样式。
 
+### Change the application title
+
+### 更改应用标题
+
 Open the component class file (`app.component.ts`) and change the value of the `title` property to 'Tour of Heroes'.
 
 打开组件的类文件 (`app.component.ts`)，并把 `title` 属性的值修改为 'Tour of Heroes' （英雄指南）。
 
-<code-example path="toh-pt0/src/app/app.component.ts" region="set-title" title="app.component.ts (class title property)" linenums="false">
+<code-example path="toh-pt0/src/app/app.component.ts" region="set-title" header="app.component.ts (class title property)" linenums="false">
 </code-example>
 
 Open the component template file (`app.component.html`) and
@@ -129,12 +137,12 @@ Replace it with the following line of HTML.
 
 打开组件的模板文件 `app.component.html` 并清空 Angular CLI 自动生成的默认模板。改为下列 HTML 内容：
 
-<code-example path="toh-pt0/src/app/app.component.html" 
-  title="app.component.html (template)" linenums="false">
+<code-example path="toh-pt0/src/app/app.component.html"
+  header="app.component.html (template)" linenums="false">
 </code-example>
 
-The double curly braces are Angular's *interpolation binding* syntax. 
-This interpolation binding presents the component's `title` property value 
+The double curly braces are Angular's *interpolation binding* syntax.
+This interpolation binding presents the component's `title` property value
 inside the HTML header tag.
 
 双花括号语法是 Angular 的*插值绑定*语法。
@@ -146,7 +154,7 @@ The browser refreshes and displays the new application title.
 
 {@a app-wide-styles}
 
-## Add application styles
+### Add application styles
 
 ## 添加应用样式
 
@@ -162,32 +170,32 @@ Here's an excerpt from the `styles.css` for the _Tour of Heroes_ sample app.
 
 下面是这个*英雄指南*范例应用中 `styles.css` 文件的片段。
 
-<code-example path="toh-pt0/src/styles.1.css" title="src/styles.css (excerpt)">
+<code-example path="toh-pt0/src/styles.1.css" header="src/styles.css (excerpt)">
 </code-example>
 
 ## Final code review
 
 ## 查看最终代码
 
-The source code for this tutorial and the complete _Tour of Heroes_ global styles 
-are available in the <live-example></live-example>. 
+The source code for this tutorial and the complete _Tour of Heroes_ global styles
+are available in the <live-example></live-example>.
 
 本教程的源文件以及*英雄指南*的完整全局样式可以在 <live-example></live-example> 中看到。
 
-Here are the code files discussed on this page. 
+Here are the code files discussed on this page.
 
 下面是本页所提到的源代码：
 
 <code-tabs>
 
-  <code-pane title="src/app/app.component.ts" path="toh-pt0/src/app/app.component.ts">
+  <code-pane header="src/app/app.component.ts" path="toh-pt0/src/app/app.component.ts">
   </code-pane>
 
-  <code-pane title="src/app/app.component.html" path="toh-pt0/src/app/app.component.html">
+  <code-pane header="src/app/app.component.html" path="toh-pt0/src/app/app.component.html">
   </code-pane>
 
-  <code-pane 
-    title="src/styles.css (excerpt)" 
+  <code-pane
+    header="src/styles.css (excerpt)"
     path="toh-pt0/src/styles.1.css">
   </code-pane>
 </code-tabs>

@@ -6,10 +6,9 @@
  * found in the LICENSE file at https://angular.io/license
  */
 
-import {InjectorDef, InjectorType, defineInjector} from '../di/defs';
-import {convertInjectableProviderToFactory} from '../di/injectable';
+import {ApplicationRef} from '../application_ref';
 import {Provider} from '../di/provider';
-import {R3_COMPILE_NGMODULE} from '../ivy_switch';
+import {R3_COMPILE_NGMODULE} from '../ivy_switch/compiler/index';
 import {Type} from '../type';
 import {TypeDecorator, makeDecorator} from '../util/decorators';
 
@@ -33,13 +32,7 @@ export interface NgModuleTransitiveScopes {
   exported: {directives: Set<any>; pipes: Set<any>;};
 }
 
-/**
- * A version of {@link NgModuleDef} that represents the runtime type shape only, and excludes
- * metadata parameters.
- *
- * 一个 {@link NgModuleDef} 版本只表示其运行时形态，而不包括元数据中的各个参数。
- */
-export type NgModuleDefInternal<T> = NgModuleDef<T, any, any, any>;
+export type NgModuleDefWithMeta<T, Declarations, Imports, Exports> = NgModuleDef<T>;
 
 /**
  * Runtime link information for NgModules.
@@ -57,7 +50,7 @@ export type NgModuleDefInternal<T> = NgModuleDef<T, any, any, any>;
  *
  * 注意：总是使用 `defineNgModule` 函数来创建该对象，永远不要直接创建它，因为该对象的结构在不同版本间可能会不一样。
  */
-export interface NgModuleDef<T, Declarations, Imports, Exports> {
+export interface NgModuleDef<T> {
   /** Token representing the module. Used by DI.
    *
    * 用于表示该模块的一个令牌。供 DI 系统使用。
@@ -112,7 +105,8 @@ export interface NgModuleDef<T, Declarations, Imports, Exports> {
  *
  * 模块类型。在 Ivy 应用中，它必须显式提供。
  */
-export interface ModuleWithProviders<T = any> {
+export interface ModuleWithProviders<
+    T = any /** TODO(alxhub): remove default when callers pass explicit type param */> {
   ngModule: Type<T>;
   providers?: Provider[];
 }
@@ -329,7 +323,7 @@ export interface NgModule {
    * ```
    *
    */
-  imports?: Array<Type<any>|ModuleWithProviders|any[]>;
+  imports?: Array<Type<any>|ModuleWithProviders<{}>|any[]>;
 
   /**
    * The set of components, directives, and pipes declared in this
@@ -451,19 +445,6 @@ export interface NgModule {
   jit?: true;
 }
 
-function preR3NgModuleCompile(moduleType: InjectorType<any>, metadata: NgModule): void {
-  let imports = (metadata && metadata.imports) || [];
-  if (metadata && metadata.exports) {
-    imports = [...imports, metadata.exports];
-  }
-
-  moduleType.ngInjectorDef = defineInjector({
-    factory: convertInjectableProviderToFactory(moduleType, {useClass: moduleType}),
-    providers: metadata && metadata.providers,
-    imports: imports,
-  });
-}
-
 /**
  * @Annotation
  */
@@ -491,4 +472,25 @@ export const NgModule: NgModuleDecorator = makeDecorator(
    *   `imports` 选项用于从其它模块中带入成员，`exports` 选项用于把本模块的成员带给其它模块。
    *
    */
-  (type: Type<any>, meta: NgModule) => (R3_COMPILE_NGMODULE || preR3NgModuleCompile)(type, meta));
+  (type: Type<any>, meta: NgModule) => R3_COMPILE_NGMODULE(type, meta));
+
+/**
+ * @description
+ * Hook for manual bootstrapping of the application instead of using bootstrap array in @NgModule
+ * annotation.
+ *
+ * Reference to the current application is provided as a parameter.
+ *
+ * See ["Bootstrapping"](guide/bootstrapping) and ["Entry components"](guide/entry-components).
+ *
+ * @usageNotes
+ * ```typescript
+ * class AppModule implements DoBootstrap {
+ *   ngDoBootstrap(appRef: ApplicationRef) {
+ *     appRef.bootstrap(AppComponent); // Or some other component
+ *   }
+ * }
+ * ```
+ *
+ */
+export interface DoBootstrap { ngDoBootstrap(appRef: ApplicationRef): void; }

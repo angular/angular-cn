@@ -2,7 +2,7 @@
 
 # 主从组件
 
-At the moment, the `HeroesComponent` displays both the list of heroes and the selected hero's details. 
+At the moment, the `HeroesComponent` displays both the list of heroes and the selected hero's details.
 
 此刻，`HeroesComponent` 同时显示了英雄列表和所选英雄的详情。
 
@@ -34,7 +34,19 @@ Use the Angular CLI to generate a new component named `hero-detail`.
   ng generate component hero-detail
 </code-example>
 
-The command scaffolds the `HeroDetailComponent` files and declares the component in `AppModule`.
+The command scaffolds the following:
+
+* Creates a directory `src/app/hero-detail`.
+
+Inside that directory four files are generated:
+
+* A CSS file for the component styles.
+* An HTML file for the component template.
+* A TypeScript file with a component class named `HeroDetailComponent`.
+* A test file for the `HeroDetailComponent` class.
+
+The command also adds the `HeroDetailComponent` as a declaration in the `@NgModule` decorator of the `src/app/app.module.ts` file.
+
 
 该命令会生成 `HeroDetailComponent` 文件的脚手架，并把它声明在 `AppModule` 中。
 
@@ -48,7 +60,7 @@ Cut the HTML for the hero detail from the bottom of the `HeroesComponent` templa
 
 The pasted HTML refers to a `selectedHero`.
 The new `HeroDetailComponent` can present _any_ hero, not just a selected hero.
-So replace "selectedHero" with "hero" everywhere in the template. 
+So replace "selectedHero" with "hero" everywhere in the template.
 
 所粘贴的 HTML 引用了 `selectedHero`。
 新的 `HeroDetailComponent` 可以展示*任意*英雄，而不仅仅所选的。因此还要把模板中的所有 `selectedHero` 替换为 `hero`。
@@ -57,7 +69,7 @@ When you're done, the `HeroDetailComponent` template should look like this:
 
 完工之后，`HeroDetailComponent` 的模板应该是这样的：
 
-<code-example path="toh-pt3/src/app/hero-detail/hero-detail.component.html" title="src/app/hero-detail/hero-detail.component.html" linenums="false">
+<code-example path="toh-pt3/src/app/hero-detail/hero-detail.component.html" header="src/app/hero-detail/hero-detail.component.html" linenums="false">
 
 </code-example>
 
@@ -74,11 +86,11 @@ Open the `HeroDetailComponent` class file and import the `Hero` symbol.
 
 打开 `HeroDetailComponent` 类文件，并导入 `Hero` 符号。
 
-<code-example path="toh-pt3/src/app/hero-detail/hero-detail.component.ts" 
-region="import-hero" title="src/app/hero-detail/hero-detail.component.ts (import Hero)">
+<code-example path="toh-pt3/src/app/hero-detail/hero-detail.component.ts"
+region="import-hero" header="src/app/hero-detail/hero-detail.component.ts (import Hero)">
 </code-example>
 
-The `hero` property 
+The `hero` property
 [must be an _Input_ property](guide/template-syntax#inputs-outputs "Input and Output properties"),
 annotated with the `@Input()` decorator,
 because the _external_ `HeroesComponent` [will bind to it](#heroes-component-template) like this.
@@ -92,7 +104,7 @@ Amend the `@angular/core` import statement to include the `Input` symbol.
 
 修改 `@angular/core` 的导入语句，导入 `Input` 符号。
 
-<code-example path="toh-pt3/src/app/hero-detail/hero-detail.component.ts" region="import-input" title="src/app/hero-detail/hero-detail.component.ts (import Input)" linenums="false">
+<code-example path="toh-pt3/src/app/hero-detail/hero-detail.component.ts" region="import-input" header="src/app/hero-detail/hero-detail.component.ts (import Input)" linenums="false">
 </code-example>
 
 Add a `hero` property, preceded by the `@Input()` decorator.
@@ -103,7 +115,7 @@ Add a `hero` property, preceded by the `@Input()` decorator.
 </code-example>
 
 That's the only change you should make to the `HeroDetailComponent` class.
-There are no more properties. There's no presentation logic. 
+There are no more properties. There's no presentation logic.
 This component simply receives a hero object through its `hero` property and displays it.
 
 这就是你要对 `HeroDetailComponent` 类做的唯一一项修改。
@@ -113,7 +125,7 @@ This component simply receives a hero object through its `hero` property and dis
 
 ## 显示 `HeroDetailComponent`
 
-The `HeroesComponent` is still a master/detail view. 
+The `HeroesComponent` is still a master/detail view.
 
 `HeroesComponent` 仍然是主从视图。
 
@@ -122,7 +134,7 @@ It used to display the hero details on its own, before you cut that portion of t
 在你从模板中剪切走代码之前，它自己负责显示英雄的详情。现在它要把这个职责委托给 `HeroDetailComponent` 了。
 
 The two components will have a parent/child relationship.
-The parent `HeroesComponent` will control the child `HeroDetailComponent` 
+The parent `HeroesComponent` will control the child `HeroDetailComponent`
 by sending it a new hero to display whenever
 the user selects a hero from the list.
 
@@ -149,7 +161,7 @@ Bind the `HeroesComponent.selectedHero` to the element's `hero` property like th
 
 把 `HeroesComponent.selectedHero` 绑定到该元素的 `hero` 属性，就像这样：
 
-<code-example path="toh-pt3/src/app/heroes/heroes.component.html" region="hero-detail-binding" title="heroes.component.html (HeroDetail binding)">
+<code-example path="toh-pt3/src/app/heroes/heroes.component.html" region="hero-detail-binding" header="heroes.component.html (HeroDetail binding)">
 
 </code-example>
 
@@ -174,7 +186,7 @@ The revised `HeroesComponent` template should look like this:
 修改后的 `HeroesComponent` 的模板是这样的：
 
 <code-example path="toh-pt3/src/app/heroes/heroes.component.html"
-  title="heroes.component.html" linenums="false">
+  header="heroes.component.html" linenums="false">
 </code-example>
 
 The browser refreshes and the app starts working again as it did before.
@@ -223,16 +235,16 @@ Here are the code files discussed on this page and your app should look like thi
 
 <code-tabs>
 
-  <code-pane title="src/app/hero-detail/hero-detail.component.ts" path="toh-pt3/src/app/hero-detail/hero-detail.component.ts">
+  <code-pane header="src/app/hero-detail/hero-detail.component.ts" path="toh-pt3/src/app/hero-detail/hero-detail.component.ts">
   </code-pane>
 
-  <code-pane title="src/app/hero-detail/hero-detail.component.html" path="toh-pt3/src/app/hero-detail/hero-detail.component.html">
+  <code-pane header="src/app/hero-detail/hero-detail.component.html" path="toh-pt3/src/app/hero-detail/hero-detail.component.html">
   </code-pane>
 
-  <code-pane title="src/app/heroes/heroes.component.html" path="toh-pt3/src/app/heroes/heroes.component.html">
+  <code-pane header="src/app/heroes/heroes.component.html" path="toh-pt3/src/app/heroes/heroes.component.html">
   </code-pane>
 
-  <code-pane title="src/app/app.module.ts" path="toh-pt3/src/app/app.module.ts">
+  <code-pane header="src/app/app.module.ts" path="toh-pt3/src/app/app.module.ts">
   </code-pane>
 
 </code-tabs>
@@ -249,7 +261,7 @@ Here are the code files discussed on this page and your app should look like thi
 
    你用[属性绑定](guide/template-syntax#property-binding)语法来让父组件 `HeroesComponent` 可以控制子组件 `HeroDetailComponent`。
 
-* You used the [`@Input` decorator](guide/template-syntax#inputs-outputs) 
+* You used the [`@Input` decorator](guide/template-syntax#inputs-outputs)
 to make the `hero` property available for binding
 by the external `HeroesComponent`.
 

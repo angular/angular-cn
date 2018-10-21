@@ -63,7 +63,7 @@ pipes that it shares.
 
 ## 如何制作特性模块
 
-Assuming you already have a CLI generated app, create a feature
+Assuming you already have an app that you created with the [Angular CLI](cli), create a feature
 module using the CLI by entering the following command in the
 root project directory. Replace `CustomerDashboard` with the
 name of your module. You can omit the "Module" suffix from the name because the CLI appends it:
@@ -117,7 +117,7 @@ This generates a folder for the new component within the customer-dashboard fold
 
 这会在 `customer-dashboard` 中为新组件生成一个目录，并使用 `CustomerDashboardComponent` 的信息修改这个特性模块：
 
-<code-example path="feature-modules/src/app/customer-dashboard/customer-dashboard.module.ts" region="customer-dashboard-component" title="src/app/customer-dashboard/customer-dashboard.module.ts" linenums="false">
+<code-example path="feature-modules/src/app/customer-dashboard/customer-dashboard.module.ts" region="customer-dashboard-component" header="src/app/customer-dashboard/customer-dashboard.module.ts" linenums="false">
 </code-example>
 
 The `CustomerDashboardComponent` is now in the JavaScript import list at the top and added to the `declarations` array, which lets Angular know to associate this new component with this feature module.
@@ -132,7 +132,7 @@ To incorporate the feature module into your app, you have to let the root module
 
 要想把这个特性模块包含进应用中，你还得让根模块 `app.module.ts` 知道它。注意，在 `customer-dashboard.module.ts` 的底部导出了 `CustomerDashboardModule`。这样就把它暴露出来，以便其它模块可以拿到它。要想把它导入到 `AppModule` 中，就把它加入 `app.module.ts` 的导入表中，并将其加入 `imports` 数组：
 
-<code-example path="feature-modules/src/app/app.module.ts" region="app-module" title="src/app/app.module.ts" linenums="false">
+<code-example path="feature-modules/src/app/app.module.ts" region="app-module" header="src/app/app.module.ts" linenums="false">
 </code-example>
 
 Now the `AppModule` knows about the feature module. If you were to add any service providers to the feature module, `AppModule` would know about those too, as would any other feature modules. However, NgModules don’t expose their components.
@@ -147,7 +147,7 @@ When the CLI generated the `CustomerDashboardComponent` for the feature module, 
 
 当 CLI 为这个特性模块生成 `CustomerDashboardComponent` 时，还包含一个模板 `customer-dashboard.component.html`，它带有如下页面脚本：
 
-<code-example path="feature-modules/src/app/customer-dashboard/customer-dashboard/customer-dashboard.component.html" region="feature-template" title="src/app/customer-dashboard/customer-dashboard/customer-dashboard.component.html" linenums="false">
+<code-example path="feature-modules/src/app/customer-dashboard/customer-dashboard/customer-dashboard.component.html" region="feature-template" header="src/app/customer-dashboard/customer-dashboard/customer-dashboard.component.html" linenums="false">
 </code-example>
 
 To see this HTML in the `AppComponent`, you first have to export the `CustomerDashboardComponent` in the `CustomerDashboardModule`. In `customer-dashboard.module.ts`, just beneath the `declarations` array, add an `exports` array containing `CustomerDashboardModule`:
@@ -155,14 +155,14 @@ To see this HTML in the `AppComponent`, you first have to export the `CustomerDa
 要想在 `AppComponent` 中查看这些 HTML，你首先要在 `CustomerDashboardModule` 中导出 `CustomerDashboardComponent`。
 在 `customer-dashboard.module.ts` 中，`declarations` 数组的紧下方，加入一个包含 `CustomerDashboardModule` 的 `exports` 数组：
 
-<code-example path="feature-modules/src/app/customer-dashboard/customer-dashboard.module.ts" region="component-exports" title="src/app/customer-dashboard/customer-dashboard.module.ts" linenums="false">
+<code-example path="feature-modules/src/app/customer-dashboard/customer-dashboard.module.ts" region="component-exports" header="src/app/customer-dashboard/customer-dashboard.module.ts" linenums="false">
 </code-example>
 
 Next, in the `AppComponent`, `app.component.html`, add the tag `<app-customer-dashboard>`:
 
 然后，在 `AppComponent` 的 `app.component.html` 中，加入标签 `<app-customer-dashboard>`：
 
-<code-example path="feature-modules/src/app/app.component.html" region="app-component-template" title="src/app/app.component.html" linenums="false">
+<code-example path="feature-modules/src/app/app.component.html" region="app-component-template" header="src/app/app.component.html" linenums="false">
 </code-example>
 
 Now, in addition to the title that renders by default, the `CustomerDashboardComponent` template renders too:

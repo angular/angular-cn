@@ -11,11 +11,6 @@ import {Directive, EmbeddedViewRef, Input, OnChanges, SimpleChange, SimpleChange
 /**
  * @ngModule CommonModule
  *
- * @usageNotes
- * ```
- * <ng-container *ngTemplateOutlet="templateRefExp; context: contextExp"></ng-container>
- * ```
- *
  * @description
  *
  * Inserts an embedded view from a prepared `TemplateRef`.
@@ -29,16 +24,21 @@ import {Directive, EmbeddedViewRef, Input, OnChanges, SimpleChange, SimpleChange
  * 你可以通过设置 `[ngTemplateOutletContext]` 来给 `EmbeddedViewRef` 附加一个上下文对象。
  * `[ngTemplateOutletContext]` 是一个对象，该对象的 key 可在模板中使用 `let` 语句进行绑定。
  *
- * Note: using the key `$implicit` in the context object will set its value as default.
+ * @usageNotes
  *
- * 注意：在上下文对象中使用 `$implicit` 这个 key 会把对应的值设置为默认值。
+ * ```
+ * <ng-container *ngTemplateOutlet="templateRefExp; context: contextExp"></ng-container>
+ * ```
  *
- * ## Example
+ * Using the key `$implicit` in the context object will set its value as default.
  *
- * ## 例子
+ * 在上下文对象中使用 `$implicit` 这个 key 会把对应的值设置为默认值。
+ *
+ * ### Example
+ *
+ * ### 例子
  *
  * {@example common/ngTemplateOutlet/ts/module.ts region='NgTemplateOutlet'}
- *
  *
  */
 @Directive({selector: '[ngTemplateOutlet]'})

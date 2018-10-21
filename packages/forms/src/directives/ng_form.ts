@@ -72,16 +72,38 @@ const resolvedPromise = Promise.resolve(null);
  * 这样标签就不会在 `<form>` 上创建 `NgForm` 指令了。
  * 在响应式表单中，则不需要用 `ngNoForm`，因为 `NgForm` 指令不会自动应用到 `<form>` 标签上，你只要别主动添加 `formGroup` 指令就可以了。
  *
+ * Support for using `ngForm` element selector has been deprecated in Angular v6 and will be removed
+ * in Angular v9.
+ *
+ * 对 `ngForm` 元素选择器的支持已经在 Angular v6 中废弃，并将在 Angular v9 中移除。
+ *
+ * This has been deprecated to keep selectors consistent with other core Angular selectors,
+ * as element selectors are typically written in kebab-case.
+ *
+ * 之所以弃用它，是我们要让所有选择器都跟其它核心 Angular 选择器保持统一，而元素选择器通常写作中线格式。
+ *
+ * Now deprecated:
+ *
+ * 已废弃的写法：
+ *
+ * ```html
+ * <ngForm #myForm="ngForm">
+ * ```
+ *
+ * After:
+ *
+ * 以后的写法：
+ *
+ * ```html
+ * <ng-form #myForm="ngForm">
+ * ```
+ *
  * {@example forms/ts/simpleForm/simple_form_example.ts region='Component'}
  *
- * * **npm package**: `@angular/forms`
- *
- * * **NgModule**: `FormsModule`
- *
- *
+ * @ngModule FormsModule
  */
 @Directive({
-  selector: 'form:not([ngNoForm]):not([formGroup]),ngForm,[ngForm]',
+  selector: 'form:not([ngNoForm]):not([formGroup]),ngForm,ng-form,[ngForm]',
   providers: [formDirectiveProvider],
   host: {'(submit)': 'onSubmit($event)', '(reset)': 'onReset()'},
   outputs: ['ngSubmit'],

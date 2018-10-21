@@ -148,7 +148,7 @@ content, and once by binding it to the `innerHTML` property of an element:
 
 下面的例子绑定了 `htmlSnippet` 的值，一次把它放进插值表达式里，另一次把它绑定到元素的 `innerHTML` 属性上。
 
-<code-example path="security/src/app/inner-html-binding.component.html" title="src/app/inner-html-binding.component.html">
+<code-example path="security/src/app/inner-html-binding.component.html" header="src/app/inner-html-binding.component.html">
 
 </code-example>
 
@@ -164,7 +164,7 @@ vulnerability. For example, code contained in a `<script>` tag is executed:
 如果希望这段 HTML 被正常解释，就必须绑定到一个 HTML 属性上，比如 `innerHTML`。但是如果把一个可能被攻击者控制的值绑定到 `innerHTML` 就会导致 XSS 漏洞。
 比如，包含在 `<script>` 标签的代码就会被执行：
 
-<code-example path="security/src/app/inner-html-binding.component.ts" linenums="false" title="src/app/inner-html-binding.component.ts (class)" region="class">
+<code-example path="security/src/app/inner-html-binding.component.ts" linenums="false" header="src/app/inner-html-binding.component.ts (class)" region="class">
 
 </code-example>
 
@@ -283,7 +283,7 @@ your intended use of the value. Imagine that the following template needs to bin
 
 记住，一个值是否安全取决于它所在的环境，所以你要为这个值按预定的用法选择正确的环境。假设下面的模板需要把 `javascript.alert(...)` 方法绑定到 URL。
 
-<code-example path="security/src/app/bypass-security.component.html" linenums="false" title="src/app/bypass-security.component.html (URL)" region="URL">
+<code-example path="security/src/app/bypass-security.component.html" linenums="false" header="src/app/bypass-security.component.html (URL)" region="URL">
 
 </code-example>
 
@@ -293,7 +293,7 @@ this, mark the URL value as a trusted URL using the `bypassSecurityTrustUrl` cal
 
 通常，Angular 会自动无害化这个 URL 并禁止危险的代码。为了防止这种行为，可以调用 `bypassSecurityTrustUrl` 把这个 URL 值标记为一个可信任的 URL：
 
-<code-example path="security/src/app/bypass-security.component.ts" linenums="false" title="src/app/bypass-security.component.ts (trust-url)" region="trust-url">
+<code-example path="security/src/app/bypass-security.component.ts" linenums="false" header="src/app/bypass-security.component.ts (trust-url)" region="trust-url">
 
 </code-example>
 
@@ -312,11 +312,11 @@ Angular to allow binding into `<iframe src>`:
   然后把相应的视频加载到 `<iframe>` 中。`<iframe src>` 是一个“资源 URL”的安全环境，因为不可信的源码可能作为文件下载到本地，被毫无防备的用户执行。
   所以要调用一个控制器方法来构造一个新的、可信任的视频 URL，然后把它绑定到 `<iframe src>`。
 
-<code-example path="security/src/app/bypass-security.component.html" linenums="false" title="src/app/bypass-security.component.html (iframe)" region="iframe">
+<code-example path="security/src/app/bypass-security.component.html" linenums="false" header="src/app/bypass-security.component.html (iframe)" region="iframe">
 
 </code-example>
 
-<code-example path="security/src/app/bypass-security.component.ts" linenums="false" title="src/app/bypass-security.component.ts (trust-video-url)" region="trust-video-url">
+<code-example path="security/src/app/bypass-security.component.ts" linenums="false" header="src/app/bypass-security.component.ts (trust-video-url)" region="trust-video-url">
 
 </code-example>
 

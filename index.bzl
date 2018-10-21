@@ -4,7 +4,7 @@
 # found in the LICENSE file at https://angular.io/license
 """ Public API surface is re-exported here.
 
-This API is exported for user's building angular from source in downstream
+This API is exported for users building angular from source in downstream
 projects. The rules from packages/bazel are re-exported here as well
 as the ng_setup_workspace repository rule needed when building angular
 from source downstream. Alternately, this API is available from the
@@ -12,11 +12,13 @@ from source downstream. Alternately, this API is available from the
 used in a downstream project.
 """
 
-load("//packages/bazel:index.bzl",
+load(
+    "//packages/bazel:index.bzl",
     _ng_module = "ng_module",
     _ng_package = "ng_package",
     _protractor_web_test = "protractor_web_test",
-    _protractor_web_test_suite = "protractor_web_test_suite")
+    _protractor_web_test_suite = "protractor_web_test_suite",
+)
 load("//tools:ng_setup_workspace.bzl", _ng_setup_workspace = "ng_setup_workspace")
 
 ng_module = _ng_module

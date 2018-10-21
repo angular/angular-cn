@@ -67,7 +67,7 @@ The most recent stable released version of Angular appears in the [Angular docum
 
 在 [Angular 文档站](https://angular.io/docs "Angular documentation")左侧导航栏的底部可以看到 Angular 最新的稳定版版本号。比如 `stable (v5.2.9)`。
 
-You can also find the most current version of Angular by using the [CLI command `ng update`](https://github.com/angular/angular-cli/wiki/update "Angular CLI update documentation"). By default, `ng update` (without additional arguments) lists the updates that are available to you.  
+You can also find the most current version of Angular by using the CLI command [`ng update`](cli/update). By default, `ng update` (without additional arguments) lists the updates that are available to you.  
 
 你还可以使用 [CLI 命令 `ng update`](https://github.com/angular/angular-cli/wiki/update "Angular CLI update documentation") 发现 Angular 的最新版本。默认情况下，`ng update`（不需要其它参数）会列出你可用的所有更新。
 
@@ -85,7 +85,7 @@ The Angular Update Guide provides customized update instructions, based on the c
 
 Angular 升级指南提供了自定义的升级指令，基于当前版本和你指定的目标版本。它包括简单的和高级的升级路径，以适应你应用中的各种复杂情况。它还包括诊断信息和建议的手动修改动作，以帮助你获得最新版本。
 
-For simple updates, the [CLI command `ng update`](https://github.com/angular/angular-cli/wiki/update "Angular CLI update documentation") is all you need. Without additional arguments, `ng update` lists the updates that are available to you and provides recommended steps to update your application to the most current version. 
+For simple updates, the CLI command [`ng update`](cli/update) is all you need. Without additional arguments, `ng update` lists the updates that are available to you and provides recommended steps to update your application to the most current version. 
 
 对于简单的升级工作，执行[CLI 命令 `ng update`](https://github.com/angular/angular-cli/wiki/update "Angular CLI update documentation")就是你所要做的一切。不带额外参数时，`ng update` 会列出你可用的更新版本，并提供建议的升级步骤，来把你的应用升级到最新版本上来。
 
@@ -111,7 +111,7 @@ For simple updates, the [CLI command `ng update`](https://github.com/angular/ang
 
    升级指南：[Angular 升级向导](https://update.angular.io/ "Angular Update Guide")
 
-* Update command reference: [Angular CLI update documentation](https://github.com/angular/angular-cli/wiki/update "Angular CLI update documentation")
+* Update command reference: [Angular CLI `ng update` command reference](cli/update)
 
    升级命令参考文档：[Angular CLI 升级文档](https://github.com/angular/angular-cli/wiki/update "Angular CLI update documentation")
 

@@ -8,6 +8,7 @@
 
 // clang-format off
 export {
+  defineBase as ɵdefineBase,
   defineComponent as ɵdefineComponent,
   defineDirective as ɵdefineDirective,
   definePipe as ɵdefinePipe,
@@ -15,105 +16,139 @@ export {
   detectChanges as ɵdetectChanges,
   renderComponent as ɵrenderComponent,
   ComponentType as ɵComponentType,
+  ComponentFactory as ɵRender3ComponentFactory,
+  ComponentRef as ɵRender3ComponentRef,
   DirectiveType as ɵDirectiveType,
   RenderFlags as ɵRenderFlags,
   directiveInject as ɵdirectiveInject,
-  injectElementRef as ɵinjectElementRef,
-  injectTemplateRef as ɵinjectTemplateRef,
-  injectViewContainerRef as ɵinjectViewContainerRef,
-  injectChangeDetectorRef as ɵinjectChangeDetectorRef,
   injectAttribute as ɵinjectAttribute,
+  getFactoryOf as ɵgetFactoryOf,
+  getInheritedFactory as ɵgetInheritedFactory,
+  templateRefExtractor as ɵtemplateRefExtractor,
   PublicFeature as ɵPublicFeature,
   InheritDefinitionFeature as ɵInheritDefinitionFeature,
   NgOnChangesFeature as ɵNgOnChangesFeature,
   NgModuleType as ɵNgModuleType,
+  NgModuleRef as ɵRender3NgModuleRef,
   CssSelectorList as ɵCssSelectorList,
   markDirty as ɵmarkDirty,
   NgModuleFactory as ɵNgModuleFactory,
-  NC as ɵNC,
-  C as ɵC,
-  E as ɵE,
-  NH as ɵNH,
-  NM as ɵNM,
-  NS as ɵNS,
-  Ee as ɵEe,
-  L as ɵL,
-  T as ɵT,
-  V as ɵV,
-  Q as ɵQ,
-  Qr as ɵQr,
-  d as ɵd,
-  P as ɵP,
-  b as ɵb,
-  i1 as ɵi1,
-  i2 as ɵi2,
-  i3 as ɵi3,
-  i4 as ɵi4,
-  i5 as ɵi5,
-  i6 as ɵi6,
-  i7 as ɵi7,
-  i8 as ɵi8,
-  iV as ɵiV,
-  pb1 as ɵpb1,
-  pb2 as ɵpb2,
-  pb3 as ɵpb3,
-  pb4 as ɵpb4,
-  pbV as ɵpbV,
-  f0 as ɵf0,
-  f1 as ɵf1,
-  f2 as ɵf2,
-  f3 as ɵf3,
-  f4 as ɵf4,
-  f5 as ɵf5,
-  f6 as ɵf6,
-  f7 as ɵf7,
-  f8 as ɵf8,
-  fV as ɵfV,
-  cR as ɵcR,
-  cr as ɵcr,
-  qR as ɵqR,
-  ql as ɵql,
-  e as ɵe,
-  p as ɵp,
-  pD as ɵpD,
-  rS as ɵrS,
-  a as ɵa,
-  s as ɵs,
-  sm as ɵsm,
-  sp as ɵsp,
-  sa as ɵsa,
-  cp as ɵcp,
-  t as ɵt,
-  v as ɵv,
-  st as ɵst,
-  ld as ɵld,
-  Pp as ɵPp,
+  NO_CHANGE as ɵNO_CHANGE,
+  container as ɵcontainer,
+  nextContext as ɵnextContext,
+  elementStart as ɵelementStart,
+  namespaceHTML as ɵnamespaceHTML,
+  namespaceMathML as ɵnamespaceMathML,
+  namespaceSVG as ɵnamespaceSVG,
+  element as ɵelement,
+  listener as ɵlistener,
+  text as ɵtext,
+  embeddedViewStart as ɵembeddedViewStart,
+  query as ɵquery,
+  registerContentQuery as ɵregisterContentQuery,
+  projection as ɵprojection,
+  bind as ɵbind,
+  interpolation1 as ɵinterpolation1,
+  interpolation2 as ɵinterpolation2,
+  interpolation3 as ɵinterpolation3,
+  interpolation4 as ɵinterpolation4,
+  interpolation5 as ɵinterpolation5,
+  interpolation6 as ɵinterpolation6,
+  interpolation7 as ɵinterpolation7,
+  interpolation8 as ɵinterpolation8,
+  interpolationV as ɵinterpolationV,
+  pipeBind1 as ɵpipeBind1,
+  pipeBind2 as ɵpipeBind2,
+  pipeBind3 as ɵpipeBind3,
+  pipeBind4 as ɵpipeBind4,
+  pipeBindV as ɵpipeBindV,
+  pureFunction0 as ɵpureFunction0,
+  pureFunction1 as ɵpureFunction1,
+  pureFunction2 as ɵpureFunction2,
+  pureFunction3 as ɵpureFunction3,
+  pureFunction4 as ɵpureFunction4,
+  pureFunction5 as ɵpureFunction5,
+  pureFunction6 as ɵpureFunction6,
+  pureFunction7 as ɵpureFunction7,
+  pureFunction8 as ɵpureFunction8,
+  pureFunctionV as ɵpureFunctionV,
+  getCurrentView as ɵgetCurrentView,
+  restoreView as ɵrestoreView,
+  containerRefreshStart as ɵcontainerRefreshStart,
+  containerRefreshEnd as ɵcontainerRefreshEnd,
+  queryRefresh as ɵqueryRefresh,
+  loadQueryList as ɵloadQueryList,
+  elementEnd as ɵelementEnd,
+  elementProperty as ɵelementProperty,
+  projectionDef as ɵprojectionDef,
+  reference as ɵreference,
+  enableBindings as ɵenableBindings,
+  disableBindings as ɵdisableBindings,
+  elementAttribute as ɵelementAttribute,
+  elementStyling as ɵelementStyling,
+  elementStylingMap as ɵelementStylingMap,
+  elementStyleProp as ɵelementStyleProp,
+  elementStylingApply as ɵelementStylingApply,
+  elementClassProp as ɵelementClassProp,
+  textBinding as ɵtextBinding,
+  template as ɵtemplate,
+  embeddedViewEnd as ɵembeddedViewEnd,
+  store as ɵstore,
+  load as ɵload,
+  pipe as ɵpipe,
+  BaseDef as ɵBaseDef,
   ComponentDef as ɵComponentDef,
+  ComponentDefWithMeta as ɵComponentDefWithMeta,
   DirectiveDef as ɵDirectiveDef,
+  DirectiveDefWithMeta as ɵDirectiveDefWithMeta,
   PipeDef as ɵPipeDef,
+  PipeDefWithMeta as ɵPipeDefWithMeta,
   whenRendered as ɵwhenRendered,
-  iA as ɵiA,
-  iEM as ɵiEM,
-  iI1 as ɵiI1,
-  iI2 as ɵiI2,
-  iI3 as ɵiI3,
-  iI4 as ɵiI4,
-  iI5 as ɵiI5,
-  iI6 as ɵiI6,
-  iI7 as ɵiI7,
-  iI8 as ɵiI8,
-  iIV as ɵIV,
-  iM as ɵiM,
+  i18nAttribute as ɵi18nAttribute,
+  i18nExp as ɵi18nExp,
+  i18nStart as ɵi18nStart,
+  i18nEnd as ɵi18nEnd,
+  i18nApply as ɵi18nApply,
+  i18nExpMapping as ɵi18nExpMapping,
+  i18nInterpolation1 as ɵi18nInterpolation1,
+  i18nInterpolation2 as ɵi18nInterpolation2,
+  i18nInterpolation3 as ɵi18nInterpolation3,
+  i18nInterpolation4 as ɵi18nInterpolation4,
+  i18nInterpolation5 as ɵi18nInterpolation5,
+  i18nInterpolation6 as ɵi18nInterpolation6,
+  i18nInterpolation7 as ɵi18nInterpolation7,
+  i18nInterpolation8 as ɵi18nInterpolation8,
+  i18nInterpolationV as ɵi18nInterpolationV,
+  i18nMapping as ɵi18nMapping,
   I18nInstruction as ɵI18nInstruction,
   I18nExpInstruction as ɵI18nExpInstruction,
+  WRAP_RENDERER_FACTORY2 as ɵWRAP_RENDERER_FACTORY2
 } from './render3/index';
-export {NgModuleDef as ɵNgModuleDef} from './metadata/ng_module';
+
+export {  Render3DebugRendererFactory2 as ɵRender3DebugRendererFactory2 } from './render3/debug';
+
+
+export {
+  R3_COMPILE_NGMODULE_DEFS as ɵcompileNgModuleDefs,
+  R3_PATCH_COMPONENT_DEF_WTIH_SCOPE as ɵpatchComponentDefWithScope,
+  R3_COMPILE_COMPONENT as ɵcompileComponent,
+  R3_COMPILE_DIRECTIVE as ɵcompileDirective,
+  R3_COMPILE_PIPE as ɵcompilePipe,
+} from './ivy_switch/compiler/ivy_switch_on';
+
+export {
+  NgModuleDef as ɵNgModuleDef,
+  NgModuleDefWithMeta as ɵNgModuleDefWithMeta,
+  NgModuleTransitiveScopes as ɵNgModuleTransitiveScopes,
+} from './metadata/ng_module';
+
 export {
   sanitizeHtml as ɵsanitizeHtml,
   sanitizeStyle as ɵsanitizeStyle,
   sanitizeUrl as ɵsanitizeUrl,
   sanitizeResourceUrl as ɵsanitizeResourceUrl,
 } from './sanitization/sanitization';
+
 export {
   bypassSanitizationTrustHtml as ɵbypassSanitizationTrustHtml,
   bypassSanitizationTrustStyle as ɵbypassSanitizationTrustStyle,
@@ -121,4 +156,54 @@ export {
   bypassSanitizationTrustUrl as ɵbypassSanitizationTrustUrl,
   bypassSanitizationTrustResourceUrl as ɵbypassSanitizationTrustResourceUrl,
 } from './sanitization/bypass';
+
+export {
+  getContext as ɵgetContext
+} from './render3/context_discovery';
+
+export {
+  Player as ɵPlayer,
+  PlayerFactory as ɵPlayerFactory,
+  PlayState as ɵPlayState,
+  PlayerHandler as ɵPlayerHandler,
+} from './render3/interfaces/player';
+
+export {
+  LContext as ɵLContext,
+} from './render3/interfaces/context';
+
+export {
+  bindPlayerFactory as ɵbindPlayerFactory,
+} from './render3/styling/player_factory';
+
+export {
+  addPlayer as ɵaddPlayer,
+  getPlayers as ɵgetPlayers,
+} from './render3/players';
+
+// we reexport these symbols just so that they are retained during the dead code elimination
+// performed by rollup while it's creating fesm files.
+//
+// no code actually imports these symbols from the @angular/core entry point
+export {
+  compileNgModuleFactory__POST_NGCC__ as ɵcompileNgModuleFactory__POST_NGCC__
+} from './application_ref';
+export {
+  R3_COMPILE_COMPONENT__POST_NGCC__ as ɵR3_COMPILE_COMPONENT__POST_NGCC__,
+  R3_COMPILE_DIRECTIVE__POST_NGCC__ as ɵR3_COMPILE_DIRECTIVE__POST_NGCC__,
+  R3_COMPILE_INJECTABLE__POST_NGCC__ as ɵR3_COMPILE_INJECTABLE__POST_NGCC__,
+  R3_COMPILE_NGMODULE__POST_NGCC__ as ɵR3_COMPILE_NGMODULE__POST_NGCC__,
+  R3_COMPILE_PIPE__POST_NGCC__ as ɵR3_COMPILE_PIPE__POST_NGCC__,
+  ivyEnable__POST_NGCC__ as ɵivyEnable__POST_NGCC__,
+} from './ivy_switch/compiler/legacy';
+
+export {
+  R3_ELEMENT_REF_FACTORY__POST_NGCC__ as ɵR3_ELEMENT_REF_FACTORY__POST_NGCC__,
+  R3_TEMPLATE_REF_FACTORY__POST_NGCC__ as ɵR3_TEMPLATE_REF_FACTORY__POST_NGCC__,
+  R3_CHANGE_DETECTOR_REF_FACTORY__POST_NGCC__ as ɵR3_CHANGE_DETECTOR_REF_FACTORY__POST_NGCC__,
+  R3_VIEW_CONTAINER_REF_FACTORY__POST_NGCC__ as ɵR3_VIEW_CONTAINER_REF_FACTORY__POST_NGCC__,
+  R3_RENDERER2_FACTORY__POST_NGCC__ as ɵR3_RENDERER2_FACTORY__POST_NGCC__,
+} from './ivy_switch/runtime/legacy';
+
+
 // clang-format on

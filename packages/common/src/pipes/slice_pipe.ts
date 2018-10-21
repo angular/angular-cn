@@ -17,6 +17,8 @@ import {invalidPipeArgumentError} from './invalid_pipe_argument_error';
  *
  * 从一个 `Array` 或 `String` 中创建其元素一个新子集（slice）。
  *
+ * @usageNotes
+ *
  * All behavior is based on the expected behavior of the JavaScript API `Array.prototype.slice()`
  * and `String.prototype.slice()`.
  *
@@ -43,17 +45,18 @@ import {invalidPipeArgumentError} from './invalid_pipe_argument_error';
  *
  * produces the following:
  *
- * 生成下列内容：
+ *  * 生成下列内容：
  *
- *     <li>b</li>
- *     <li>c</li>
+ * ```html
+ * <li>b</li>
+ * <li>c</li>
+ * ```
  *
- * ## String Examples
+ * ### String Examples
  *
  * ## 字符串范例
  *
  * {@example common/pipes/ts/slice_pipe.ts region='SlicePipe_string'}
- *
  *
  */
 

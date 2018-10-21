@@ -38,7 +38,7 @@ Writing this in full JavaScript can be quite involved. With observables, you can
 
 完全用 JavaScript 的传统写法实现这个功能可能需要大量的工作。使用可观察对象，你可以使用这样一个 RxJS 操作符的简单序列：
 
-<code-example path="practical-observable-usage/src/typeahead.ts" title="Typeahead"></code-example>
+<code-example path="practical-observable-usage/src/typeahead.ts" header="Typeahead"></code-example>
 
 ## Exponential backoff
 
@@ -49,4 +49,4 @@ Exponential backoff is a technique in which you retry an API after failure, maki
 指数化退避是一种失败后重试 API 的技巧，它会在每次连续的失败之后让重试时间逐渐变长，超过最大重试次数之后就会彻底放弃。
 如果使用承诺和其它跟踪 AJAX 调用的方法会非常复杂，而使用可观察对象，这非常简单：
 
-<code-example path="practical-observable-usage/src/backoff.ts" title="Exponential backoff"></code-example>
+<code-example path="practical-observable-usage/src/backoff.ts" header="Exponential backoff"></code-example>

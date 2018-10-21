@@ -1,9 +1,14 @@
 {%- if doc.selector %}
-<section class="selectors">
-  <h2 id="selectors">选择器</h2>
-  <code-example hideCopy="true" class="no-box api-heading selector">
-  {%- for selector in doc.selector.split(',') %}
-  {$ selector $}{% endfor %}
-  </code-example>
+<section class="selector-list">
+  <h2>选择器</h2>
+  {% if doc.selectors %}
+    {$ doc.selectors | marked $}
+  {% else %}
+  <ul>
+    {%- for selector in doc.selectorArray %}
+    <li><code>{$ selector | replace(r/(:not\([^()]+\))/g, '<i>$1</i>') $}</code></li>
+    {% endfor %}
+  </ul>
+  {% endif %}
 </section>
 {% endif %}

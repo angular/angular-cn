@@ -31,7 +31,7 @@ The file should look like this.
 该文件是这样的。
 
 <code-example path="toh-pt2/src/app/mock-heroes.ts" linenums="false"
-title="src/app/mock-heroes.ts">
+header="src/app/mock-heroes.ts">
 </code-example>
 
 ## Displaying heroes
@@ -46,14 +46,14 @@ Open the `HeroesComponent` class file and import the mock `HEROES`.
 
 打开 `HeroesComponent` 类文件，并导入模拟的 `HEROES`。
 
-<code-example path="toh-pt2/src/app/heroes/heroes.component.ts" region="import-heroes" title="src/app/heroes/heroes.component.ts (import HEROES)">
+<code-example path="toh-pt2/src/app/heroes/heroes.component.ts" region="import-heroes" header="src/app/heroes/heroes.component.ts (import HEROES)">
 </code-example>
 
-Add a `heroes` property to the class that exposes these heroes for binding.
+In the same file (`HeroesComponent` class), define a component property called `heroes` to expose `HEROES` array for binding.
 
 往类中添加一个 `heroes` 属性，这样可以暴露出这些英雄，以供绑定。
 
-<code-example path="toh-pt2/src/app/heroes/heroes.component.ts" region="heroes">
+<code-example path="toh-pt2/src/app/heroes/heroes.component.ts" region="component">
 </code-example>
 
 ### List heroes with _*ngFor_
@@ -84,7 +84,7 @@ Make it look like this:
 
 做完之后应该是这样的：
 
-<code-example path="toh-pt2/src/app/heroes/heroes.component.1.html" region="list" title="heroes.component.html (heroes template)" linenums="false">
+<code-example path="toh-pt2/src/app/heroes/heroes.component.1.html" region="list" header="heroes.component.html (heroes template)" linenums="false">
 </code-example>
 
 Now change the `<li>` to this:
@@ -170,7 +170,7 @@ and pointed to it in `@Component.styleUrls` like this.
 当 CLI 生成 `HeroesComponent` 时，它也同时为 `HeroesComponent` 创建了空白的 `heroes.component.css` 样式表文件，并且让 `@Component.styleUrls` 指向它，就像这样：
 
 <code-example path="toh-pt2/src/app/heroes/heroes.component.ts" region="metadata"
- title="src/app/heroes/heroes.component.ts (@Component)">
+ header="src/app/heroes/heroes.component.ts (@Component)">
 </code-example>
 
 Open the `heroes.component.css` file and paste in the private CSS styles for the `HeroesComponent`.
@@ -211,7 +211,7 @@ Add a click event binding to the `<li>` like this:
 
 再往 `<li>` 元素上插入一句点击事件的绑定代码：
 
-<code-example path="toh-pt2/src/app/heroes/heroes.component.1.html" region="selectedHero-click" title="heroes.component.html (template excerpt)" linenums="false">
+<code-example path="toh-pt2/src/app/heroes/heroes.component.1.html" region="selectedHero-click" header="heroes.component.html (template excerpt)" linenums="false">
 </code-example>
 
 This is an example of Angular's [event binding](guide/template-syntax#event-binding) syntax.
@@ -246,7 +246,7 @@ to the component's `selectedHero`.
 
 添加如下 `onSelect()` 方法，它会把模板中被点击的英雄赋值给组件的 `selectedHero` 属性。
 
-<code-example path="toh-pt2/src/app/heroes/heroes.component.ts" region="on-select" title="src/app/heroes/heroes.component.ts (onSelect)" linenums="false">
+<code-example path="toh-pt2/src/app/heroes/heroes.component.ts" region="on-select" header="src/app/heroes/heroes.component.ts (onSelect)" linenums="false">
 </code-example>
 
 ### Update the details template
@@ -259,7 +259,7 @@ Rename `hero` to `selectedHero`.
 该模板引用的仍然是老的 `hero` 属性，但它已经不存在了。
 把 `hero` 改名为 `selectedHero`。
 
-<code-example path="toh-pt2/src/app/heroes/heroes.component.html" region="selectedHero-details" title="heroes.component.html (selected hero details)" linenums="false">
+<code-example path="toh-pt2/src/app/heroes/heroes.component.html" region="selectedHero-details" header="heroes.component.html (selected hero details)" linenums="false">
 </code-example>
 
 ### Hide empty details with _*ngIf_
@@ -320,7 +320,7 @@ Don't forget the asterisk (*) in front of `ngIf`. It's a critical part of the sy
 
 </div>
 
-<code-example path="toh-pt2/src/app/heroes/heroes.component.html" region="ng-if" title="src/app/heroes/heroes.component.html (*ngIf)" linenums="false">
+<code-example path="toh-pt2/src/app/heroes/heroes.component.html" region="ng-if" header="src/app/heroes/heroes.component.html (*ngIf)" linenums="false">
 </code-example>
 
 After the browser refreshes, the list of names reappears.
@@ -378,7 +378,7 @@ Add the following `[class.selected]` binding to  the `<li>` in the `HeroesCompon
 
 在 `HeroesComponent` 模板中的 `<li>` 元素上添加 `[class.selected]` 绑定，代码如下：
 
-<code-example path="toh-pt2/src/app/heroes/heroes.component.1.html" region="class-selected" title="heroes.component.html (toggle the 'selected' CSS class)" linenums="false">
+<code-example path="toh-pt2/src/app/heroes/heroes.component.1.html" region="class-selected" header="heroes.component.html (toggle the 'selected' CSS class)" linenums="false">
 </code-example>
 
 When the current row hero is the same as the `selectedHero`, Angular adds the `selected` CSS class. When the two heroes are different, Angular removes the class.
@@ -389,7 +389,7 @@ The finished `<li>` looks like this:
 
 最终的 `<li>` 是这样的：
 
-<code-example path="toh-pt2/src/app/heroes/heroes.component.html" region="li" title="heroes.component.html (list item hero)" linenums="false">
+<code-example path="toh-pt2/src/app/heroes/heroes.component.html" region="li" header="heroes.component.html (list item hero)" linenums="false">
 
 </code-example>
 
@@ -408,14 +408,15 @@ Here are the code files discussed on this page, including the `HeroesComponent` 
 下面是本页面中所提及的代码文件，包括 `HeroesComponent` 的样式。
 
 <code-tabs>
-  <code-pane title="src/app/heroes/heroes.component.ts" path="toh-pt2/src/app/heroes/heroes.component.ts">
+  <code-pane header="src/app/heroes/heroes.component.ts" path="toh-pt2/src/app/heroes/heroes.component.ts">
   </code-pane>
 
-  <code-pane title="src/app/heroes/heroes.component.html" path="toh-pt2/src/app/heroes/heroes.component.html">
+  <code-pane header="src/app/heroes/heroes.component.html" path="toh-pt2/src/app/heroes/heroes.component.html">
   </code-pane>
 
-  <code-pane title="src/app/heroes/heroes.component.css" path="toh-pt2/src/app/heroes/heroes.component.css">
+  <code-pane header="src/app/heroes/heroes.component.css" path="toh-pt2/src/app/heroes/heroes.component.css">
   </code-pane>
+
 </code-tabs>
 
 ## Summary

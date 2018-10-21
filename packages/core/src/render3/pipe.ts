@@ -9,7 +9,7 @@
 import {PipeTransform} from '../change_detection/pipe_transform';
 
 import {getTView, load, store} from './instructions';
-import {PipeDefInternal, PipeDefList} from './interfaces/definition';
+import {PipeDef, PipeDefList} from './interfaces/definition';
 import {HEADER_OFFSET} from './interfaces/view';
 import {pureFunction1, pureFunction2, pureFunction3, pureFunction4, pureFunctionV} from './pure_function';
 
@@ -22,7 +22,7 @@ import {pureFunction1, pureFunction2, pureFunction3, pureFunction4, pureFunction
  */
 export function pipe(index: number, pipeName: string): any {
   const tView = getTView();
-  let pipeDef: PipeDefInternal<any>;
+  let pipeDef: PipeDef<any>;
   const adjustedIndex = index + HEADER_OFFSET;
 
   if (tView.firstTemplatePass) {
@@ -33,7 +33,7 @@ export function pipe(index: number, pipeName: string): any {
        ])).push(adjustedIndex, pipeDef.onDestroy);
     }
   } else {
-    pipeDef = tView.data[adjustedIndex] as PipeDefInternal<any>;
+    pipeDef = tView.data[adjustedIndex] as PipeDef<any>;
   }
 
   const pipeInstance = pipeDef.factory();
@@ -49,7 +49,7 @@ export function pipe(index: number, pipeName: string): any {
  * @param registry Full list of available pipes
  * @returns Matching PipeDef
  */
-function getPipeDef(name: string, registry: PipeDefList | null): PipeDefInternal<any> {
+function getPipeDef(name: string, registry: PipeDefList | null): PipeDef<any> {
   if (registry) {
     for (let i = 0; i < registry.length; i++) {
       const pipeDef = registry[i];
@@ -68,7 +68,7 @@ function getPipeDef(name: string, registry: PipeDefList | null): PipeDefInternal
  * the pipe only when an input to the pipe changes.
  *
  * @param index Pipe index where the pipe was stored on creation.
- * @param slotOffset the offset in the reserved slot space {@link reserveSlots}
+ * @param slotOffset the offset in the reserved slot space
  * @param v1 1st argument to {@link PipeTransform#transform}.
  */
 export function pipeBind1(index: number, slotOffset: number, v1: any): any {
@@ -84,7 +84,7 @@ export function pipeBind1(index: number, slotOffset: number, v1: any): any {
  * the pipe only when an input to the pipe changes.
  *
  * @param index Pipe index where the pipe was stored on creation.
- * @param slotOffset the offset in the reserved slot space {@link reserveSlots}
+ * @param slotOffset the offset in the reserved slot space
  * @param v1 1st argument to {@link PipeTransform#transform}.
  * @param v2 2nd argument to {@link PipeTransform#transform}.
  */
@@ -101,7 +101,7 @@ export function pipeBind2(index: number, slotOffset: number, v1: any, v2: any): 
  * the pipe only when an input to the pipe changes.
  *
  * @param index Pipe index where the pipe was stored on creation.
- * @param slotOffset the offset in the reserved slot space {@link reserveSlots}
+ * @param slotOffset the offset in the reserved slot space
  * @param v1 1st argument to {@link PipeTransform#transform}.
  * @param v2 2nd argument to {@link PipeTransform#transform}.
  * @param v3 4rd argument to {@link PipeTransform#transform}.
@@ -120,7 +120,7 @@ export function pipeBind3(index: number, slotOffset: number, v1: any, v2: any, v
  * the pipe only when an input to the pipe changes.
  *
  * @param index Pipe index where the pipe was stored on creation.
- * @param slotOffset the offset in the reserved slot space {@link reserveSlots}
+ * @param slotOffset the offset in the reserved slot space
  * @param v1 1st argument to {@link PipeTransform#transform}.
  * @param v2 2nd argument to {@link PipeTransform#transform}.
  * @param v3 3rd argument to {@link PipeTransform#transform}.
@@ -141,7 +141,7 @@ export function pipeBind4(
  * the pipe only when an input to the pipe changes.
  *
  * @param index Pipe index where the pipe was stored on creation.
- * @param slotOffset the offset in the reserved slot space {@link reserveSlots}
+ * @param slotOffset the offset in the reserved slot space
  * @param values Array of arguments to pass to {@link PipeTransform#transform} method.
  */
 export function pipeBindV(index: number, slotOffset: number, values: any[]): any {
@@ -151,5 +151,5 @@ export function pipeBindV(index: number, slotOffset: number, values: any[]): any
 }
 
 function isPure(index: number): boolean {
-  return (<PipeDefInternal<any>>getTView().data[index + HEADER_OFFSET]).pure;
+  return (<PipeDef<any>>getTView().data[index + HEADER_OFFSET]).pure;
 }

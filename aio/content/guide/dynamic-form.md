@@ -63,11 +63,11 @@ Bootstrap the `AppModule` in `main.ts`.
 
 <code-tabs>
 
-  <code-pane title="app.module.ts" path="dynamic-form/src/app/app.module.ts">
+  <code-pane header="app.module.ts" path="dynamic-form/src/app/app.module.ts">
 
   </code-pane>
 
-  <code-pane title="main.ts" path="dynamic-form/src/main.ts">
+  <code-pane header="main.ts" path="dynamic-form/src/main.ts">
 
   </code-pane>
 
@@ -89,7 +89,7 @@ The following `QuestionBase` is a fundamental question class.
 
 下面的 `QuestionBase` 是最基础的问卷问题基类。
 
-<code-example path="dynamic-form/src/app/question-base.ts" title="src/app/question-base.ts">
+<code-example path="dynamic-form/src/app/question-base.ts" header="src/app/question-base.ts">
 
 </code-example>
 
@@ -105,7 +105,7 @@ via the `type` property.
 
 `TextboxQuestion` 可以通过 `type` 属性来支持多种 HTML5 元素类型，比如文本、邮件、网址等。
 
-<code-example path="dynamic-form/src/app/question-textbox.ts" title="src/app/question-textbox.ts" linenums="false">
+<code-example path="dynamic-form/src/app/question-textbox.ts" header="src/app/question-textbox.ts" linenums="false">
 
 </code-example>
 
@@ -113,7 +113,7 @@ via the `type` property.
 
 `DropdownQuestion` 表示一个带可选项列表的选择框。
 
-<code-example path="dynamic-form/src/app/question-dropdown.ts" title="src/app/question-dropdown.ts" linenums="false">
+<code-example path="dynamic-form/src/app/question-dropdown.ts" header="src/app/question-dropdown.ts" linenums="false">
 
 </code-example>
 
@@ -124,7 +124,7 @@ allows you to specify default values and validation rules.
 接下来定义了 `QuestionControlService`，一个可以把问卷问题转换为 `FormGroup` 的服务。
 简而言之，这个 `FormGroup` 使用问卷模型的元数据，并允许你指定默认值和验证规则。
 
-<code-example path="dynamic-form/src/app/question-control.service.ts" title="src/app/question-control.service.ts" linenums="false">
+<code-example path="dynamic-form/src/app/question-control.service.ts" header="src/app/question-control.service.ts" linenums="false">
 
 </code-example>
 
@@ -145,11 +145,11 @@ to create components to represent the dynamic form.
 
 <code-tabs>
 
-  <code-pane title="dynamic-form.component.html" path="dynamic-form/src/app/dynamic-form.component.html">
+  <code-pane header="dynamic-form.component.html" path="dynamic-form/src/app/dynamic-form.component.html">
 
   </code-pane>
 
-  <code-pane title="dynamic-form.component.ts" path="dynamic-form/src/app/dynamic-form.component.ts">
+  <code-pane header="dynamic-form.component.ts" path="dynamic-form/src/app/dynamic-form.component.ts">
 
   </code-pane>
 
@@ -165,11 +165,11 @@ question based on values in the data-bound question object.
 
 <code-tabs>
 
-  <code-pane title="dynamic-form-question.component.html" path="dynamic-form/src/app/dynamic-form-question.component.html">
+  <code-pane header="dynamic-form-question.component.html" path="dynamic-form/src/app/dynamic-form-question.component.html">
 
   </code-pane>
 
-  <code-pane title="dynamic-form-question.component.ts" path="dynamic-form/src/app/dynamic-form-question.component.ts">
+  <code-pane header="dynamic-form-question.component.ts" path="dynamic-form/src/app/dynamic-form-question.component.ts">
 
   </code-pane>
 
@@ -215,7 +215,7 @@ directly since you imported `ReactiveFormsModule` from `AppModule`.
  关键是，你完全根据 `QuestionService` 返回的对象来控制英雄的工作申请表。
  要维护这份问卷，只要非常简单地添加、修改和删除 `questions` 数组中的对象就可以了。
 
-<code-example path="dynamic-form/src/app/question.service.ts" title="src/app/question.service.ts">
+<code-example path="dynamic-form/src/app/question.service.ts" header="src/app/question.service.ts">
 
 </code-example>
 
@@ -223,7 +223,7 @@ Finally, display an instance of the form in the `AppComponent` shell.
 
 最后，在 `AppComponent` 里显示出表单。
 
-<code-example path="dynamic-form/src/app/app.component.ts" title="app.component.ts">
+<code-example path="dynamic-form/src/app/app.component.ts" header="app.component.ts">
 
 </code-example>
 

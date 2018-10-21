@@ -72,7 +72,7 @@ You can inject the `Title` service into the root `AppComponent` and expose a bin
 
 你可以把 `Title` 服务注入到根组件 `AppComponent`，并暴露出可供绑定的 `setTitle` 方法让别人来调用该服务：
 
-<code-example path="set-document-title/src/app/app.component.ts" region="class" title="src/app/app.component.ts (class)" linenums="false"></code-example>
+<code-example path="set-document-title/src/app/app.component.ts" region="class" header="src/app/app.component.ts (class)" linenums="false"></code-example>
 
 Bind that method to three anchor tags and voilà!
 
@@ -87,9 +87,9 @@ Here's the complete solution:
 这里是完整的方案(代码)。
 
 <code-tabs>
-  <code-pane title="src/main.ts" path="set-document-title/src/main.ts"></code-pane>
-  <code-pane title="src/app/app.module.ts" path="set-document-title/src/app/app.module.ts"></code-pane>
-  <code-pane title="src/app/app.component.ts" path="set-document-title/src/app/app.component.ts"></code-pane>
+  <code-pane header="src/main.ts" path="set-document-title/src/main.ts"></code-pane>
+  <code-pane header="src/app/app.module.ts" path="set-document-title/src/app/app.module.ts"></code-pane>
+  <code-pane header="src/app/app.component.ts" path="set-document-title/src/app/app.component.ts"></code-pane>
 </code-tabs>
 
 ## Why provide the `Title` service in `bootstrap`

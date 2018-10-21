@@ -821,7 +821,7 @@ Here is a custom constructor for an NgModule called `CoreModule`.
 
 某些 Angular 模块（例如 `BrowserModule`）就实现了一个像 Angular 模块那一章的 `CoreModule` 构造函数那样的守卫。
 
-<code-example path="ngmodule-faq/src/app/core/core.module.ts" region="ctor" title="src/app/core/core.module.ts (Constructor)" linenums="false">
+<code-example path="ngmodule-faq/src/app/core/core.module.ts" region="ctor" header="src/app/core/core.module.ts (Constructor)" linenums="false">
 </code-example>
 
 <hr/>

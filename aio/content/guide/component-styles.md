@@ -41,7 +41,7 @@ Usually you give it one string, as in the following example:
 `styles` 属性可以接受一个包含 CSS 代码的字符串数组。
 通常你只给它一个字符串就行了，如同下例：
 
-<code-example path="component-styles/src/app/hero-app.component.ts" title="src/app/hero-app.component.ts" linenums="false">
+<code-example path="component-styles/src/app/hero-app.component.ts" header="src/app/hero-app.component.ts" linenums="false">
 </code-example>
 
 ## Style scope
@@ -114,7 +114,7 @@ targeting elements *inside* the component's template).
 
 使用 `:host` 伪类选择器，用来选择组件*宿主*元素中的元素（相对于组件模板*内部*的元素）。
 
-<code-example path="component-styles/src/app/hero-details.component.css" region="host" title="src/app/hero-details.component.css" linenums="false">
+<code-example path="component-styles/src/app/hero-details.component.css" region="host" header="src/app/hero-details.component.css" linenums="false">
 </code-example>
 
 The `:host` selector is the only way to target the host element. You can't reach
@@ -133,7 +133,7 @@ The next example targets the host element again, but only when it also has the `
 
 下一个例子再次把宿主元素作为目标，但是只有当它同时带有 `active` CSS 类的时候才会生效。
 
-<code-example path="component-styles/src/app/hero-details.component.css" region="hostfunction" title="src/app/hero-details.component.css" linenums="false">
+<code-example path="component-styles/src/app/hero-details.component.css" region="hostfunction" header="src/app/hero-details.component.css" linenums="false">
 </code-example>
 
 ### :host-context
@@ -159,7 +159,7 @@ if some ancestor element has the CSS class `theme-light`.
 
 在下面的例子中，只有当某个祖先元素有 CSS 类 `theme-light` 时，才会把 `background-color` 样式应用到组件*内部*的所有 `<h2>` 元素中。
 
-<code-example path="component-styles/src/app/hero-details.component.css" region="hostcontext" title="src/app/hero-details.component.css" linenums="false">
+<code-example path="component-styles/src/app/hero-details.component.css" region="hostcontext" header="src/app/hero-details.component.css" linenums="false">
 </code-example>
 
 ### (deprecated) `/deep/`, `>>>`, and `::ng-deep`
@@ -182,7 +182,7 @@ through this component to all of its child elements in the DOM.
 
 这个例子以所有的 `<h3>` 元素为目标，从宿主元素到当前元素再到 DOM 中的所有子元素：
 
-<code-example path="component-styles/src/app/hero-details.component.css" region="deep" title="src/app/hero-details.component.css" linenums="false">
+<code-example path="component-styles/src/app/hero-details.component.css" region="deep" header="src/app/hero-details.component.css" linenums="false">
 
 </code-example>
 
@@ -252,7 +252,7 @@ Each string in the array defines some CSS for this component.
 
 这个数组中的每一个字符串（通常也只有一个）定义一份 CSS。
 
-<code-example path="component-styles/src/app/hero-app.component.ts" title="src/app/hero-app.component.ts (CSS inline)">
+<code-example path="component-styles/src/app/hero-app.component.ts" header="src/app/hero-app.component.ts (CSS inline)">
 </code-example>
 
 <div class="alert is-critical">
@@ -265,7 +265,7 @@ They are _not inherited_ by any components nested within the template nor by any
 
 </div>
 
-The CLI defines an empty `styles` array when you create the component with the `--inline-style` flag.
+The Angular CLI command [`ng generate component`](cli/generate) defines an empty `styles` array when you create the component with the `--inline-style` flag.
 
 当使用 `--inline-styles` 标识创建组件时，CLI 就会定义一个空的 `styles` 数组
 
@@ -283,8 +283,8 @@ to a component's `@Component` decorator:
 你可以通过把外部 CSS 文件添加到 `@Component` 的 `styleUrls` 属性中来加载外部样式。
 
 <code-tabs>
-  <code-pane title="src/app/hero-app.component.ts (CSS in file)" path="component-styles/src/app/hero-app.component.1.ts"></code-pane>
-  <code-pane title="src/app/hero-app.component.css" path="component-styles/src/app/hero-app.component.css"></code-pane>
+  <code-pane header="src/app/hero-app.component.ts (CSS in file)" path="component-styles/src/app/hero-app.component.1.ts"></code-pane>
+  <code-pane header="src/app/hero-app.component.css" path="component-styles/src/app/hero-app.component.css"></code-pane>
 </code-tabs>
 
 <div class="alert is-critical">
@@ -305,7 +305,7 @@ They are _not inherited_ by any components nested within the template nor by any
 
 </div>
 
-The CLI creates an empty styles file for you by default and references that file in the component's generated `styleUrls`.
+When you use the Angular CLI command [`ng generate component`](cli/generate) without the `--inline-style` flag, it creates an empty styles file for you and references that file in the component's generated `styleUrls`.
 
 CLI 会默认为你创建一个空白的样式表文件，并且在所生成组件的 `styleUrls` 中引用该文件。
 
@@ -322,7 +322,7 @@ inside `<style>` tags.
 
 你也可以在组件的 HTML 模板中嵌入 `<style>` 标签。
 
-<code-example path="component-styles/src/app/hero-controls.component.ts" region="inlinestyles" title="src/app/hero-controls.component.ts">
+<code-example path="component-styles/src/app/hero-controls.component.ts" region="inlinestyles" header="src/app/hero-controls.component.ts">
 </code-example>
 
 ### Template link tags
@@ -333,12 +333,13 @@ You can also write `<link>` tags into the component's HTML template.
 
 你也可以在组件的 HTML 模板中写 `<link>` 标签。
 
-<code-example path="component-styles/src/app/hero-team.component.ts" region="stylelink" title="src/app/hero-team.component.ts">
+<code-example path="component-styles/src/app/hero-team.component.ts" region="stylelink" header="src/app/hero-team.component.ts">
 </code-example>
 
 <div class="alert is-critical">
 
-When building with the CLI, be sure to include the linked style file among the assets to be copied to the server as described in the [CLI documentation](https://github.com/angular/angular-cli/wiki/stories-asset-configuration).
+When building with the CLI, be sure to include the linked style file among the assets to be copied to the server as described in the [CLI wiki](https://github.com/angular/angular-cli/wiki/stories-asset-configuration).
+<!-- 2018-10-16: The link above is still the best source for this information. -->
 
 当使用 CLI 进行构建时，要确保这个链接到的样式表文件被复制到了服务器上。参见 [CLI 官方文档](https://github.com/angular/angular-cli/wiki/stories-asset-configuration)。
 
@@ -363,7 +364,7 @@ In this case, the URL is relative to the CSS file into which you're importing.
 
 在*这种*情况下，URL 是相对于你正在导入的 CSS 文件的。
 
-<code-example path="component-styles/src/app/hero-details.component.css" region="import" title="src/app/hero-details.component.css (excerpt)">
+<code-example path="component-styles/src/app/hero-details.component.css" region="import" header="src/app/hero-details.component.css (excerpt)">
 </code-example>
 
 ### External and global style files
@@ -378,7 +379,8 @@ Register **global** style files in the `styles` section which, by default, is pr
 
 在它的 `styles` 区注册这些**全局**样式文件，默认情况下，它会有一个预先配置的全局 `styles.css` 文件。
 
-See the [CLI documentation](https://github.com/angular/angular-cli/wiki/stories-global-styles) to learn more.
+See the [CLI wiki](https://github.com/angular/angular-cli/wiki/stories-global-styles) to learn more.
+<!-- 2018-10-16: The link above is still the best source for this information. -->
 
 要了解更多，参见 [CLI 官方文档](https://github.com/angular/angular-cli/wiki/stories-global-styles)。
 
@@ -406,8 +408,10 @@ CLI 的构建过程会运行相关的预处理器。
 
 When generating a component file with `ng generate component`, the CLI emits an empty CSS styles file (`.css`) by default.
 You can configure the CLI to default to your preferred CSS preprocessor
-as explained in the [CLI documentation](https://github.com/angular/angular-cli/wiki/stories-css-preprocessors
+as explained in the [CLI wiki](https://github.com/angular/angular-cli/wiki/stories-css-preprocessors
 "CSS Preprocessor integration").
+<!-- 2018-10-16: The link above is still the best source for this information. -->
+
 
 当使用 `ng generate component` 命令生成组件文件时，CLI 会默认生成一个空白的 CSS 样式文件（`.css`）。
 你可以配置 CLI，让它默认使用你喜欢的 CSS 预处理器，参见 [CLI 官方文档](https://github.com/angular/angular-cli/wiki/stories-css-preprocessors
@@ -471,7 +475,7 @@ To set the components encapsulation mode, use the `encapsulation` property in th
 
 通过组件元数据中的 `encapsulation` 属性来设置组件封装模式：
 
-<code-example path="component-styles/src/app/quest-summary.component.ts" region="encapsulation.native" title="src/app/quest-summary.component.ts" linenums="false">
+<code-example path="component-styles/src/app/quest-summary.component.ts" region="encapsulation.native" header="src/app/quest-summary.component.ts" linenums="false">
 </code-example>
 
 `ShadowDom` view encapsulation only works on browsers that have native support

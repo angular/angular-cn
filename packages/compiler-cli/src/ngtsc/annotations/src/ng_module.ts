@@ -9,6 +9,7 @@
 import {ConstantPool, Expression, LiteralArrayExpr, R3DirectiveMetadata, R3InjectorMetadata, R3NgModuleMetadata, WrappedNodeExpr, compileInjector, compileNgModule, makeBindingParser, parseTemplate} from '@angular/compiler';
 import * as ts from 'typescript';
 
+import {ErrorCode, FatalDiagnosticError} from '../../diagnostics';
 import {Decorator, ReflectionHost} from '../../host';
 import {Reference, ResolvedValue, reflectObjectLiteral, staticallyResolve} from '../../metadata';
 import {AnalysisOutput, CompileResult, DecoratorHandler} from '../../transform';
@@ -26,19 +27,24 @@ export interface NgModuleAnalysis {
  *
  * TODO(alxhub): handle injector side of things as well.
  */
-export class NgModuleDecoratorHandler implements DecoratorHandler<NgModuleAnalysis> {
+export class NgModuleDecoratorHandler implements DecoratorHandler<NgModuleAnalysis, Decorator> {
   constructor(
       private checker: ts.TypeChecker, private reflector: ReflectionHost,
       private scopeRegistry: SelectorScopeRegistry, private isCore: boolean) {}
 
-  detect(decorators: Decorator[]): Decorator|undefined {
+  detect(node: ts.Declaration, decorators: Decorator[]|null): Decorator|undefined {
+    if (!decorators) {
+      return undefined;
+    }
     return decorators.find(
         decorator => decorator.name === 'NgModule' && (this.isCore || isAngularCore(decorator)));
   }
 
   analyze(node: ts.ClassDeclaration, decorator: Decorator): AnalysisOutput<NgModuleAnalysis> {
     if (decorator.args === null || decorator.args.length > 1) {
-      throw new Error(`Incorrect number of arguments to @NgModule decorator`);
+      throw new FatalDiagnosticError(
+          ErrorCode.DECORATOR_ARITY_WRONG, decorator.node,
+          `Incorrect number of arguments to @NgModule decorator`);
     }
 
     // @NgModule can be invoked without arguments. In case it is, pretend as if a blank object
@@ -47,7 +53,9 @@ export class NgModuleDecoratorHandler implements DecoratorHandler<NgModuleAnalys
                                                ts.createObjectLiteral([]);
 
     if (!ts.isObjectLiteralExpression(meta)) {
-      throw new Error(`Decorator argument must be literal.`);
+      throw new FatalDiagnosticError(
+          ErrorCode.DECORATOR_ARG_NOT_LITERAL, meta,
+          '@NgModule argument must be an object literal');
     }
     const ngModule = reflectObjectLiteral(meta);
 
@@ -57,25 +65,33 @@ export class NgModuleDecoratorHandler implements DecoratorHandler<NgModuleAnalys
     }
 
     // Extract the module declarations, imports, and exports.
-    let declarations: Reference[] = [];
+    let declarations: Reference<ts.Declaration>[] = [];
     if (ngModule.has('declarations')) {
-      const declarationMeta =
-          staticallyResolve(ngModule.get('declarations') !, this.reflector, this.checker);
-      declarations = resolveTypeList(declarationMeta, 'declarations');
+      const expr = ngModule.get('declarations') !;
+      const declarationMeta = staticallyResolve(expr, this.reflector, this.checker);
+      declarations = this.resolveTypeList(expr, declarationMeta, 'declarations');
     }
-    let imports: Reference[] = [];
+    let imports: Reference<ts.Declaration>[] = [];
     if (ngModule.has('imports')) {
+      const expr = ngModule.get('imports') !;
       const importsMeta = staticallyResolve(
-          ngModule.get('imports') !, this.reflector, this.checker,
+          expr, this.reflector, this.checker,
           ref => this._extractModuleFromModuleWithProvidersFn(ref.node));
-      imports = resolveTypeList(importsMeta, 'imports');
+      imports = this.resolveTypeList(expr, importsMeta, 'imports');
     }
-    let exports: Reference[] = [];
+    let exports: Reference<ts.Declaration>[] = [];
     if (ngModule.has('exports')) {
+      const expr = ngModule.get('exports') !;
       const exportsMeta = staticallyResolve(
-          ngModule.get('exports') !, this.reflector, this.checker,
+          expr, this.reflector, this.checker,
           ref => this._extractModuleFromModuleWithProvidersFn(ref.node));
-      exports = resolveTypeList(exportsMeta, 'exports');
+      exports = this.resolveTypeList(expr, exportsMeta, 'exports');
+    }
+    let bootstrap: Reference<ts.Declaration>[] = [];
+    if (ngModule.has('bootstrap')) {
+      const expr = ngModule.get('bootstrap') !;
+      const bootstrapMeta = staticallyResolve(expr, this.reflector, this.checker);
+      bootstrap = this.resolveTypeList(expr, bootstrapMeta, 'bootstrap');
     }
 
     // Register this module's information with the SelectorScopeRegistry. This ensures that during
@@ -86,7 +102,7 @@ export class NgModuleDecoratorHandler implements DecoratorHandler<NgModuleAnalys
 
     const ngModuleDef: R3NgModuleMetadata = {
       type: new WrappedNodeExpr(node.name !),
-      bootstrap: [],
+      bootstrap: bootstrap.map(bootstrap => toR3Reference(bootstrap, context)),
       declarations: declarations.map(decl => toR3Reference(decl, context)),
       exports: exports.map(exp => toR3Reference(exp, context)),
       imports: imports.map(imp => toR3Reference(imp, context)),
@@ -116,6 +132,7 @@ export class NgModuleDecoratorHandler implements DecoratorHandler<NgModuleAnalys
       analysis: {
           ngModuleDef, ngInjectorDef,
       },
+      factorySymbolName: node.name !== undefined ? node.name.text : undefined,
     };
   }
 
@@ -177,39 +194,50 @@ export class NgModuleDecoratorHandler implements DecoratorHandler<NgModuleAnalys
 
     return arg.typeName;
   }
+
+  /**
+   * Compute a list of `Reference`s from a resolved metadata value.
+   */
+  private resolveTypeList(expr: ts.Node, resolvedList: ResolvedValue, name: string):
+      Reference<ts.Declaration>[] {
+    const refList: Reference<ts.Declaration>[] = [];
+    if (!Array.isArray(resolvedList)) {
+      throw new FatalDiagnosticError(
+          ErrorCode.VALUE_HAS_WRONG_TYPE, expr, `Expected array when reading property ${name}`);
+    }
+
+    resolvedList.forEach((entry, idx) => {
+      // Unwrap ModuleWithProviders for modules that are locally declared (and thus static
+      // resolution was able to descend into the function and return an object literal, a Map).
+      if (entry instanceof Map && entry.has('ngModule')) {
+        entry = entry.get('ngModule') !;
+      }
+
+      if (Array.isArray(entry)) {
+        // Recurse into nested arrays.
+        refList.push(...this.resolveTypeList(expr, entry, name));
+      } else if (isDeclarationReference(entry)) {
+        if (!entry.expressable) {
+          throw new FatalDiagnosticError(
+              ErrorCode.VALUE_HAS_WRONG_TYPE, expr, `One entry in ${name} is not a type`);
+        } else if (!this.reflector.isClass(entry.node)) {
+          throw new FatalDiagnosticError(
+              ErrorCode.VALUE_HAS_WRONG_TYPE, entry.node,
+              `Entry is not a type, but is used as such in ${name} array`);
+        }
+        refList.push(entry);
+      } else {
+        // TODO(alxhub): expand ModuleWithProviders.
+        throw new Error(`Value at position ${idx} in ${name} array is not a reference: ${entry}`);
+      }
+    });
+
+    return refList;
+  }
 }
 
-/**
- * Compute a list of `Reference`s from a resolved metadata value.
- */
-function resolveTypeList(resolvedList: ResolvedValue, name: string): Reference[] {
-  const refList: Reference[] = [];
-  if (!Array.isArray(resolvedList)) {
-    throw new Error(`Expected array when reading property ${name}`);
-  }
-
-  resolvedList.forEach((entry, idx) => {
-    // Unwrap ModuleWithProviders for modules that are locally declared (and thus static resolution
-    // was able to descend into the function and return an object literal, a Map).
-    if (entry instanceof Map && entry.has('ngModule')) {
-      entry = entry.get('ngModule') !;
-    }
-
-    if (Array.isArray(entry)) {
-      // Recurse into nested arrays.
-      refList.push(...resolveTypeList(entry, name));
-    } else if (entry instanceof Reference) {
-      if (!entry.expressable) {
-        throw new Error(`Value at position ${idx} in ${name} array is not expressable`);
-      } else if (!ts.isClassDeclaration(entry.node)) {
-        throw new Error(`Value at position ${idx} in ${name} array is not a class declaration`);
-      }
-      refList.push(entry);
-    } else {
-      // TODO(alxhub): expand ModuleWithProviders.
-      throw new Error(`Value at position ${idx} in ${name} array is not a reference: ${entry}`);
-    }
-  });
-
-  return refList;
+function isDeclarationReference(ref: any): ref is Reference<ts.Declaration> {
+  return ref instanceof Reference &&
+      (ts.isClassDeclaration(ref.node) || ts.isFunctionDeclaration(ref.node) ||
+       ts.isVariableDeclaration(ref.node));
 }

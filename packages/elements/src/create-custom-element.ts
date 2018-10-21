@@ -97,7 +97,7 @@ export interface NgElementConfig {
   injector: Injector;
   /**
    * An optional custom strategy factory to use instead of the default.
-   * The strategy controls how the tranformation is performed.
+   * The strategy controls how the transformation is performed.
    */
   strategyFactory?: NgElementStrategyFactory;
 }
@@ -165,7 +165,7 @@ export function createCustomElement<P>(
 
       // Listen for events from the strategy and dispatch them as custom events
       this.ngElementEventsSubscription = this.ngElementStrategy.events.subscribe(e => {
-        const customEvent = createCustomEvent(this.ownerDocument, e.name, e.value);
+        const customEvent = createCustomEvent(this.ownerDocument !, e.name, e.value);
         this.dispatchEvent(customEvent);
       });
     }

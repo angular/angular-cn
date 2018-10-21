@@ -9,19 +9,19 @@ load("@build_bazel_rules_nodejs//:defs.bzl", "yarn_install")
 load("@angular//packages/bazel/src:ng_setup_workspace.bzl", _ng_setup_workspace = "ng_setup_workspace")
 
 def ng_setup_workspace():
-  """This repository rule should be called from your WORKSPACE file.
+    """This repository rule should be called from your WORKSPACE file.
 
-  It creates some additional Bazel external repositories that are used internally
-  to build angular
-  """
-  yarn_install(
-      name = "angular_deps",
-      package_json = "@angular//:package.json",
-      yarn_lock = "@angular//:yarn.lock",
-      data = ["@angular//:tools/yarn/check-yarn.js", "@angular//:tools/postinstall-patches.js"],
-      node_modules_filegroup = """
+    It creates some additional Bazel external repositories that are used internally
+    to build angular
+    """
+    yarn_install(
+        name = "angular_deps",
+        package_json = "@angular//:package.json",
+        yarn_lock = "@angular//:yarn.lock",
+        data = ["@angular//:tools/yarn/check-yarn.js", "@angular//:tools/postinstall-patches.js"],
+        manual_build_file_contents = """package(default_visibility = ["//visibility:public"])
 filegroup(
-    name = "node_modules",  
+    name = "node_modules",
     srcs = glob(["/".join([
         "node_modules",
         pkg,
@@ -32,8 +32,10 @@ filegroup(
         "ajv",
         "angular",
         "angular-1.5",
+        "angular-1.6",
         "angular-mocks",
         "angular-mocks-1.5",
+        "angular-mocks-1.6",
         "anymatch",
         "arr-diff",
         "arr-flatten",
@@ -56,21 +58,27 @@ filegroup(
         "braces",
         "bytebuffer",
         "cache-base",
+        "camelcase",
+        "canonical-path",
         "caseless",
         "chokidar",
         "class-utils",
         "co",
         "collection-visit",
+        "convert-source-map",
         "combined-stream",
         "component-emitter",
         "concat-map",
         "copy-descriptor",
         "core-util-is",
         "debug",
+        "decamelize",
         "decode-uri-component",
         "define-property",
         "delayed-stream",
+        "dependency-graph",
         "domino",
+        "error-ex",
         "expand-brackets",
         "expand-range",
         "extend",
@@ -81,12 +89,15 @@ filegroup(
         "fast-json-stable-stringify",
         "filename-regex",
         "fill-range",
+        "find-up",
         "for-in",
         "for-own",
         "forever-agent",
         "form-data",
         "fragment-cache",
         "fs.realpath",
+        "fs-extra",
+        "get-caller-file",
         "get-value",
         "glob",
         "glob-base",
@@ -101,6 +112,7 @@ filegroup(
         "https-proxy-agent",
         "inflight",
         "inherits",
+        "is-arrayish",
         "is-accessor-descriptor",
         "is-binary-path",
         "is-buffer",
@@ -129,8 +141,10 @@ filegroup(
         "json-stringify-safe",
         "jsprim",
         "kind-of",
+        "locate-path",
         "long",
         "lru-cache",
+        "magic-string",
         "map-cache",
         "map-visit",
         "math-random",
@@ -140,6 +154,8 @@ filegroup(
         "minimatch",
         "minimist",
         "mixin-deep",
+        "mock-fs",
+        "node-uuid",
         "nanomatch",
         "normalize-path",
         "oauth-sign",
@@ -150,12 +166,19 @@ filegroup(
         "once",
         "optimist",
         "options",
+        "os-locale",
         "os-tmpdir",
+        "p-limit",
+        "p-locate",
+        "p-try",
         "parse-glob",
+        "parse-json",
         "pascalcase",
         "path-dirname",
+        "path-exists",
         "path-is-absolute",
         "performance-now",
+        "pify",
         "posix-character-classes",
         "preserve",
         "process-nextick-args",
@@ -163,6 +186,7 @@ filegroup(
         "protractor",
         "qs",
         "randomatic",
+        "read-pkg-up",
         "readable-stream",
         "readdirp",
         "reflect-metadata",
@@ -172,13 +196,17 @@ filegroup(
         "repeat-element",
         "repeat-string",
         "request",
+        "require-directory",
+        "require-main-filename",
         "ret",
         "rimraf",
         "safe-buffer",
         "safe-regex",
         "safer-buffer",
         "sax",
+        "selenium-webdriver",
         "semver",
+        "set-blocking",
         "set-immediate-shim",
         "set-value",
         "shelljs",
@@ -190,10 +218,12 @@ filegroup(
         "source-map-resolve",
         "source-map-support",
         "source-map-url",
+        "sourcemap-codec",
         "split-string",
         "sshpk",
         "static-extend",
         "stringstream",
+        "strip-bom",
         "tmp",
         "to-object-path",
         "to-regex",
@@ -205,6 +235,7 @@ filegroup(
         "tunnel-agent",
         "typescript",
         "union-value",
+        "universalify",
         "unset-value",
         "upath",
         "uri-js",
@@ -220,6 +251,9 @@ filegroup(
         "xhr2",
         "xml2js",
         "xmlbuilder",
+        "y18n",
+        "yargs",
+        "yargs-parser",
         "zone.js",
         "@angular-devkit/core",
         "@angular-devkit/schematics",
@@ -233,6 +267,19 @@ filegroup(
         "node_modules/protractor/**",
         "node_modules/@schematics/angular/**",
     ]))
-""")
+""",
+    )
 
-  _ng_setup_workspace()
+    yarn_install(
+        name = "ts-api-guardian_runtime_deps",
+        package_json = "@angular//tools/ts-api-guardian:package.json",
+        yarn_lock = "@angular//tools/ts-api-guardian:yarn.lock",
+    )
+
+    yarn_install(
+        name = "http-server_runtime_deps",
+        package_json = "@angular//tools/http-server:package.json",
+        yarn_lock = "@angular//tools/http-server:yarn.lock",
+    )
+
+    _ng_setup_workspace()

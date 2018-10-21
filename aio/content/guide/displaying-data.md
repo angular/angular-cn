@@ -43,7 +43,7 @@ With interpolation, you put the property name in the view template, enclosed in 
 要显示组件的属性，最简单的方式就是通过插值表达式 (interpolation) 来绑定属性名。
 要使用插值表达式，就把属性名包裹在双花括号里放进视图模板，如 `{{myHero}}`。
 
-Follow the [quickstart](guide/quickstart) instructions for creating a new project
+Follow the [Getting Started](guide/quickstart) instructions for creating a new project
 named <code>displaying-data</code>.
 
 按照[快速起步](guide/quickstart)的说明，创建一个新项目，名为<code>displaying-data</code>。
@@ -61,7 +61,7 @@ When you're done, it should look like this:
 
 修改完之后，它应该是这样的：
 
-<code-example path="displaying-data/src/app/app.component.1.ts" title="src/app/app.component.ts">
+<code-example path="displaying-data/src/app/app.component.1.ts" header="src/app/app.component.ts">
 
 </code-example>
 
@@ -74,7 +74,7 @@ interpolation:
 
 修改完的模板会使用双花括号形式的插值表达式来显示这两个模板属性：
 
-<code-example path="displaying-data/src/app/app.component.1.ts" linenums="false" title="src/app/app.component.ts (template)" region="template">
+<code-example path="displaying-data/src/app/app.component.1.ts" linenums="false" header="src/app/app.component.ts (template)" region="template">
 
 </code-example>
 
@@ -117,7 +117,7 @@ That element is a placeholder in the body of your `index.html` file:
 注意 `@Component` 装饰器中指定的 CSS 选择器 `selector`，它指定了一个叫 `<app-root>` 的元素。
 该元素是 `index.html` 文件里的一个占位符。
 
-<code-example path="displaying-data/src/index.html" linenums="false" title="src/index.html (body)" region="body">
+<code-example path="displaying-data/src/index.html" linenums="false" header="src/index.html (body)" region="body">
 
 </code-example>
 
@@ -168,7 +168,7 @@ In either style, the template data bindings have the same access to the componen
 
 <div class="alert is-helpful">
 
-  By default, the Angular CLI generates components with a template file. You can override that with:
+  By default, the Angular CLI command [`ng generate component`](cli/generate) generates components with a template file. You can override that with:
 
   默认情况下，Angular CLI 生成组件时会带有模板文件，你可以通过参数覆盖它：
 
@@ -204,7 +204,7 @@ To display a list of heroes, begin by adding an array of hero names to the compo
 
 要显示一个英雄列表，先向组件中添加一个英雄名字数组，然后把 `myHero` 重定义为数组中的第一个名字。
 
-<code-example path="displaying-data/src/app/app.component.2.ts" linenums="false" title="src/app/app.component.ts (class)" region="class">
+<code-example path="displaying-data/src/app/app.component.2.ts" linenums="false" header="src/app/app.component.ts (class)" region="class">
 
 </code-example>
 
@@ -213,7 +213,7 @@ each item in the `heroes` list.
 
 接着，在模板中使用 Angular 的 `ngFor` 指令来显示 `heroes` 列表中的每一项。
 
-<code-example path="displaying-data/src/app/app.component.2.ts" linenums="false" title="src/app/app.component.ts (template)" region="template">
+<code-example path="displaying-data/src/app/app.component.2.ts" linenums="false" header="src/app/app.component.ts (template)" region="template">
 
 </code-example>
 
@@ -224,7 +224,7 @@ It marks that `<li>` element (and its children) as the "repeater template":
 这个界面使用了由 `<ul>` 和 `<li>` 标签组成的无序列表。`<li>` 元素里的 `*ngFor` 是 Angular 的“迭代”指令。
 它将 `<li>` 元素及其子级标记为“迭代模板”：
 
-<code-example path="displaying-data/src/app/app.component.2.ts" linenums="false" title="src/app/app.component.ts (li)" region="li">
+<code-example path="displaying-data/src/app/app.component.2.ts" linenums="false" header="src/app/app.component.ts (li)" region="li">
 
 </code-example>
 
@@ -300,7 +300,7 @@ With the following code:
 
 代码如下：
 
-<code-example path="displaying-data/src/app/hero.ts" linenums="false" title="src/app/hero.ts">
+<code-example path="displaying-data/src/app/hero.ts" linenums="false" header="src/app/hero.ts">
 
 </code-example>
 
@@ -317,7 +317,7 @@ Consider the first parameter:
 
 来看第一个参数：
 
-<code-example path="displaying-data/src/app/hero.ts" linenums="false" title="src/app/hero.ts (id)" region="id">
+<code-example path="displaying-data/src/app/hero.ts" linenums="false" header="src/app/hero.ts (id)" region="id">
 
 </code-example>
 
@@ -346,7 +346,7 @@ of `Hero` objects:
 
 导入了 `Hero` 类之后，组件的 `heroes` 属性就可以返回一个*类型化的*`Hero` 对象数组了。
 
-<code-example path="displaying-data/src/app/app.component.3.ts" linenums="false" title="src/app/app.component.ts (heroes)" region="heroes">
+<code-example path="displaying-data/src/app/app.component.3.ts" linenums="false" header="src/app/app.component.ts (heroes)" region="heroes">
 
 </code-example>
 
@@ -358,7 +358,7 @@ Fix that to display only the hero's `name` property.
 现在它显示的是英雄的 `id` 和 `name`。
 要修复它，只显示英雄的 `name` 属性就行了。
 
-<code-example path="displaying-data/src/app/app.component.3.ts" linenums="false" title="src/app/app.component.ts (template)" region="template">
+<code-example path="displaying-data/src/app/app.component.3.ts" linenums="false" header="src/app/app.component.ts (template)" region="template">
 
 </code-example>
 
@@ -386,7 +386,7 @@ To see it in action, add the following paragraph at the bottom of the template:
 Angular 的 `ngIf` 指令会根据一个布尔条件来显示或移除一个元素。
 来看看实际效果，把下列语句加到模板的底部：
 
-<code-example path="displaying-data/src/app/app.component.ts" linenums="false" title="src/app/app.component.ts (message)" region="message">
+<code-example path="displaying-data/src/app/app.component.ts" linenums="false" header="src/app/app.component.ts (message)" region="message">
 
 </code-example>
 
@@ -423,7 +423,7 @@ Angular 并不是在显示和隐藏这条消息，它是在从 DOM 中添加和�
 </div>
 
 Try it out. Because the array has four items, the message should appear.
-Go back into <code>app.component.ts"</code> and delete or comment out one of the elements from the hero array.
+Go back into <code>app.component.ts</code> and delete or comment out one of the elements from the hero array.
 The browser should refresh automatically and the message should disappear.
 
 试一下。因为这个数组中有四个条目，所以消息应该显示出来。
@@ -460,19 +460,19 @@ Here's the final code:
 
 <code-tabs>
 
-  <code-pane title="src/app/app.component.ts" path="displaying-data/src/app/app.component.ts" region="final">
+  <code-pane header="src/app/app.component.ts" path="displaying-data/src/app/app.component.ts" region="final">
 
   </code-pane>
 
-  <code-pane title="src/app/hero.ts" path="displaying-data/src/app/hero.ts">
+  <code-pane header="src/app/hero.ts" path="displaying-data/src/app/hero.ts">
 
   </code-pane>
 
-  <code-pane title="src/app/app.module.ts" path="displaying-data/src/app/app.module.ts">
+  <code-pane header="src/app/app.module.ts" path="displaying-data/src/app/app.module.ts">
 
   </code-pane>
 
-  <code-pane title="main.ts" path="displaying-data/src/main.ts">
+  <code-pane header="main.ts" path="displaying-data/src/main.ts">
 
   </code-pane>
 

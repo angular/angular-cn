@@ -3,7 +3,7 @@ export declare class ServiceWorkerModule {
     static register(script: string, opts?: {
         scope?: string;
         enabled?: boolean;
-    }): ModuleWithProviders;
+    }): ModuleWithProviders<ServiceWorkerModule>;
 }
 
 /** @experimental */
@@ -26,4 +26,30 @@ export declare class SwUpdate {
     constructor(sw: NgswCommChannel);
     activateUpdate(): Promise<void>;
     checkForUpdate(): Promise<void>;
+}
+
+/** @experimental */
+export interface UpdateActivatedEvent {
+    current: {
+        hash: string;
+        appData?: Object;
+    };
+    previous?: {
+        hash: string;
+        appData?: Object;
+    };
+    type: 'UPDATE_ACTIVATED';
+}
+
+/** @experimental */
+export interface UpdateAvailableEvent {
+    available: {
+        hash: string;
+        appData?: Object;
+    };
+    current: {
+        hash: string;
+        appData?: Object;
+    };
+    type: 'UPDATE_AVAILABLE';
 }

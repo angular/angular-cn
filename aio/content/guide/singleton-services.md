@@ -41,7 +41,7 @@ Beginning with Angular 6.0, the preferred way to create a singleton services is 
 
 从 Angular 6.0 开始，创建单例服务的首选方式是在那个服务类上指定它应该在应用的根上提供。只要在该服务的 `@Injectable` 装饰器上把 `providedIn` 设置为 `root` 就可以了：
 
-<code-example path="providers/src/app/user.service.0.ts"  title="src/app/user.service.0.ts" linenums="false"> </code-example>
+<code-example path="providers/src/app/user.service.0.ts"  header="src/app/user.service.0.ts" linenums="false"> </code-example>
 
 For more detailed information on services, see the [Services](tutorial/toh-pt4) chapter of the
 [Tour of Heroes tutorial](tutorial).
@@ -130,7 +130,7 @@ extends the core `UserService`. If a `UserServiceConfig` exists, the `UserServic
 
 在下面的例子中，可选的注入 `UserServiceConfig` 扩展了 `Core` 模块中的 `UserService`。如果 `UserServiceConfig` 存在，就从这个配置中设置用户名。
 
-<code-example path="ngmodules/src/app/core/user.service.ts" region="ctor" title="src/app/core/user.service.ts (constructor)" linenums="false">
+<code-example path="ngmodules/src/app/core/user.service.ts" region="ctor" header="src/app/core/user.service.ts (constructor)" linenums="false">
 
 </code-example>
 
@@ -138,7 +138,7 @@ Here's `forRoot()` that takes a `UserServiceConfig` object:
 
 下面是一个接受 `UserServiceConfig` 参数的 `forRoot()` 方法：
 
-<code-example path="ngmodules/src/app/core/core.module.ts" region="for-root" title="src/app/core/core.module.ts (forRoot)" linenums="false">
+<code-example path="ngmodules/src/app/core/core.module.ts" region="for-root" header="src/app/core/core.module.ts (forRoot)" linenums="false">
 
 </code-example>
 
@@ -146,7 +146,7 @@ Lastly, call it within the `imports` list of the `AppModule`.
 
 最后，在 `AppModule` 的 `imports`*列表*中调用它。
 
-<code-example path="ngmodules/src/app/app.module.ts" region="import-for-root" title="src/app/app.module.ts (imports)" linenums="false">
+<code-example path="ngmodules/src/app/app.module.ts" region="import-for-root" header="src/app/app.module.ts (imports)" linenums="false">
 
 </code-example>
 
@@ -175,7 +175,7 @@ To guard against a lazy-loaded module re-importing `CoreModule`, add the followi
 
 要想防止惰性加载模块重复导入 `CoreModule`，可以添加如下的 `CoreModule` 构造函数。
 
-<code-example path="ngmodules/src/app/core/core.module.ts" region="ctor" title="src/app/core/core.module.ts" linenums="false">
+<code-example path="ngmodules/src/app/core/core.module.ts" region="ctor" header="src/app/core/core.module.ts" linenums="false">
 
 </code-example>
 
@@ -225,11 +225,11 @@ Here are the two files in their entirety for reference:
 
 <code-tabs linenums="false">
  <code-pane
-   title="app.module.ts"
+   header="app.module.ts"
    path="ngmodules/src/app/app.module.ts">
  </code-pane>
  <code-pane
-   title="core.module.ts"
+   header="core.module.ts"
    region="whole-core-module"
    path="ngmodules/src/app/core/core.module.ts">
  </code-pane>

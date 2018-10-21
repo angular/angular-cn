@@ -8,12 +8,11 @@
 
 import {NgForOfContext} from '@angular/common';
 
-import {RenderFlags, directiveInject} from '../../src/render3';
+import {RenderFlags} from '../../src/render3';
 import {defineComponent} from '../../src/render3/definition';
-import {bind, container, element, elementAttribute, elementEnd, elementProperty, elementStart, elementStyleProp, elementStyling, elementStylingApply, elementStylingMap, interpolation1, renderTemplate, text, textBinding} from '../../src/render3/instructions';
+import {bind, element, elementAttribute, elementEnd, elementProperty, elementStart, elementStyleProp, elementStyling, elementStylingApply, elementStylingMap, interpolation1, renderTemplate, template, text, textBinding} from '../../src/render3/instructions';
 import {InitialStylingFlags} from '../../src/render3/interfaces/definition';
-import {AttributeMarker, LElementNode, LNode} from '../../src/render3/interfaces/node';
-import {RElement, domRendererFactory3} from '../../src/render3/interfaces/renderer';
+import {AttributeMarker} from '../../src/render3/interfaces/node';
 import {bypassSanitizationTrustHtml, bypassSanitizationTrustResourceUrl, bypassSanitizationTrustScript, bypassSanitizationTrustStyle, bypassSanitizationTrustUrl} from '../../src/sanitization/bypass';
 import {defaultStyleSanitizer, sanitizeHtml, sanitizeResourceUrl, sanitizeScript, sanitizeStyle, sanitizeUrl} from '../../src/sanitization/sanitization';
 import {Sanitizer, SecurityContext} from '../../src/sanitization/security';
@@ -36,14 +35,11 @@ describe('instructions', () => {
     elementEnd();
   }
 
-  function createScript() {
-    elementStart(0, 'script');
-    elementEnd();
-  }
+  function createScript() { element(0, 'script'); }
 
   describe('bind', () => {
     it('should update bindings when value changes', () => {
-      const t = new TemplateFixture(createAnchor);
+      const t = new TemplateFixture(createAnchor, () => {}, 1, 1);
 
       t.update(() => elementProperty(0, 'title', bind('Hello')));
       expect(t.html).toEqual('<a title="Hello"></a>');
@@ -53,7 +49,7 @@ describe('instructions', () => {
       expect(ngDevMode).toHaveProperties({
         firstTemplatePass: 1,
         tNode: 2,  // 1 for hostElement + 1 for the template under test
-        tView: 1,
+        tView: 2,  // 1 for rootView + 1 for the template view
         rendererCreateElement: 1,
         rendererSetProperty: 2
       });
@@ -61,7 +57,7 @@ describe('instructions', () => {
 
     it('should not update bindings when value does not change', () => {
       const idempotentUpdate = () => elementProperty(0, 'title', bind('Hello'));
-      const t = new TemplateFixture(createAnchor, idempotentUpdate);
+      const t = new TemplateFixture(createAnchor, idempotentUpdate, 1, 1);
 
       t.update();
       expect(t.html).toEqual('<a title="Hello"></a>');
@@ -71,7 +67,7 @@ describe('instructions', () => {
       expect(ngDevMode).toHaveProperties({
         firstTemplatePass: 1,
         tNode: 2,  // 1 for hostElement + 1 for the template under test
-        tView: 1,
+        tView: 2,  // 1 for rootView + 1 for the template view
         rendererCreateElement: 1,
         rendererSetProperty: 1
       });
@@ -80,22 +76,24 @@ describe('instructions', () => {
 
   describe('element', () => {
     it('should create an element', () => {
-      const t = new TemplateFixture(() => { element(0, 'div', ['id', 'test', 'title', 'Hello']); });
+      const t = new TemplateFixture(() => {
+        element(0, 'div', ['id', 'test', 'title', 'Hello']);
+      }, () => {}, 1);
 
-      const div = (t.hostNode.native as HTMLElement).querySelector('div') !;
+      const div = (t.hostElement as HTMLElement).querySelector('div') !;
       expect(div.id).toEqual('test');
       expect(div.title).toEqual('Hello');
       expect(ngDevMode).toHaveProperties({
         firstTemplatePass: 1,
         tNode: 2,  // 1 for div, 1 for host element
-        tView: 1,
+        tView: 2,  // 1 for rootView + 1 for the template view
         rendererCreateElement: 1,
       });
     });
 
     it('should allow setting namespaced attributes', () => {
       const t = new TemplateFixture(() => {
-        elementStart(0, 'div', [
+        element(0, 'div', [
           // id="test"
           'id',
           'test',
@@ -108,10 +106,9 @@ describe('instructions', () => {
           'title',
           'Hello',
         ]);
-        elementEnd();
-      });
+      }, () => {}, 1);
 
-      const div = (t.hostNode.native as HTMLElement).querySelector('div') !;
+      const div = (t.hostElement as HTMLElement).querySelector('div') !;
       const attrs: any = div.attributes;
 
       expect(attrs['id'].name).toEqual('id');
@@ -129,7 +126,7 @@ describe('instructions', () => {
       expect(ngDevMode).toHaveProperties({
         firstTemplatePass: 1,
         tNode: 2,  // 1 for div, 1 for host element
-        tView: 1,
+        tView: 2,  // 1 for rootView + 1 for the template view
         rendererCreateElement: 1,
         rendererSetAttribute: 3
       });
@@ -138,7 +135,7 @@ describe('instructions', () => {
 
   describe('elementAttribute', () => {
     it('should use sanitizer function', () => {
-      const t = new TemplateFixture(createDiv);
+      const t = new TemplateFixture(createDiv, () => {}, 1);
 
       t.update(() => elementAttribute(0, 'title', 'javascript:true', sanitizeUrl));
       expect(t.html).toEqual('<div title="unsafe:javascript:true"></div>');
@@ -150,7 +147,7 @@ describe('instructions', () => {
       expect(ngDevMode).toHaveProperties({
         firstTemplatePass: 1,
         tNode: 2,  // 1 for div, 1 for host element
-        tView: 1,
+        tView: 2,  // 1 for rootView + 1 for the template view
         rendererCreateElement: 1,
         rendererSetAttribute: 2
       });
@@ -159,7 +156,7 @@ describe('instructions', () => {
 
   describe('elementProperty', () => {
     it('should use sanitizer function when available', () => {
-      const t = new TemplateFixture(createDiv);
+      const t = new TemplateFixture(createDiv, () => {}, 1);
 
       t.update(() => elementProperty(0, 'title', 'javascript:true', sanitizeUrl));
       expect(t.html).toEqual('<div title="unsafe:javascript:true"></div>');
@@ -171,21 +168,21 @@ describe('instructions', () => {
       expect(ngDevMode).toHaveProperties({
         firstTemplatePass: 1,
         tNode: 2,  // 1 for div, 1 for host element
-        tView: 1,
+        tView: 2,  // 1 for rootView + 1 for the template view
         rendererCreateElement: 1,
       });
     });
 
     it('should not stringify non string values', () => {
-      const t = new TemplateFixture(createDiv);
+      const t = new TemplateFixture(createDiv, () => {}, 1);
 
       t.update(() => elementProperty(0, 'hidden', false));
       // The hidden property would be true if `false` was stringified into `"false"`.
-      expect((t.hostNode.native as HTMLElement).querySelector('div') !.hidden).toEqual(false);
+      expect((t.hostElement as HTMLElement).querySelector('div') !.hidden).toEqual(false);
       expect(ngDevMode).toHaveProperties({
         firstTemplatePass: 1,
         tNode: 2,  // 1 for div, 1 for host element
-        tView: 1,
+        tView: 2,  // 1 for rootView + 1 for the template view
         rendererCreateElement: 1,
         rendererSetProperty: 1
       });
@@ -195,7 +192,7 @@ describe('instructions', () => {
   describe('elementStyleProp', () => {
     it('should automatically sanitize unless a bypass operation is applied', () => {
       const t = new TemplateFixture(
-          () => { return createDiv(['background-image'], defaultStyleSanitizer); });
+          () => { return createDiv(['background-image'], defaultStyleSanitizer); }, () => {}, 1);
       t.update(() => {
         elementStyleProp(0, 0, 'url("http://server")');
         elementStylingApply(0);
@@ -214,7 +211,7 @@ describe('instructions', () => {
     it('should not re-apply the style value even if it is a newly bypassed again', () => {
       const sanitizerInterceptor = new MockSanitizerInterceptor();
       const t = createTemplateFixtureWithSanitizer(
-          () => createDiv(['background-image'], sanitizerInterceptor.getStyleSanitizer()),
+          () => createDiv(['background-image'], sanitizerInterceptor.getStyleSanitizer()), 1,
           sanitizerInterceptor);
 
       t.update(() => {
@@ -241,12 +238,12 @@ describe('instructions', () => {
     }
 
     it('should add style', () => {
-      const fixture = new TemplateFixture(createDivWithStyle);
+      const fixture = new TemplateFixture(createDivWithStyle, () => {}, 1);
       fixture.update(() => {
         elementStylingMap(0, null, {'background-color': 'red'});
         elementStylingApply(0);
       });
-      expect(fixture.html).toEqual('<div style="height: 10px; background-color: red;"></div>');
+      expect(fixture.html).toEqual('<div style="background-color: red; height: 10px;"></div>');
     });
 
     it('should sanitize new styles that may contain `url` properties', () => {
@@ -254,7 +251,7 @@ describe('instructions', () => {
       const sanitizerInterceptor =
           new MockSanitizerInterceptor(value => { detectedValues.push(value); });
       const fixture = createTemplateFixtureWithSanitizer(
-          () => createDiv([], sanitizerInterceptor.getStyleSanitizer()), sanitizerInterceptor);
+          () => createDiv([], sanitizerInterceptor.getStyleSanitizer()), 1, sanitizerInterceptor);
 
       fixture.update(() => {
         elementStylingMap(0, null, {
@@ -284,7 +281,7 @@ describe('instructions', () => {
     }
 
     it('should add class', () => {
-      const fixture = new TemplateFixture(createDivWithStyling);
+      const fixture = new TemplateFixture(createDivWithStyling, () => {}, 1);
       fixture.update(() => {
         elementStylingMap(0, 'multiple classes');
         elementStylingApply(0);
@@ -296,6 +293,32 @@ describe('instructions', () => {
   describe('performance counters', () => {
     it('should create tViews only once for each nested level', () => {
       const _c0 = ['ngFor', '', 'ngForOf', ''];
+
+      function ToDoAppComponent_NgForOf_Template_0(rf: RenderFlags, ctx0: NgForOfContext<any>) {
+        if (rf & RenderFlags.Create) {
+          elementStart(0, 'ul');
+          template(1, ToDoAppComponent_NgForOf_NgForOf_Template_1, 2, 1, null, _c0);
+          elementEnd();
+        }
+        if (rf & RenderFlags.Update) {
+          const row_r2 = ctx0.$implicit;
+          elementProperty(1, 'ngForOf', bind(row_r2));
+        }
+      }
+
+      function ToDoAppComponent_NgForOf_NgForOf_Template_1(
+          rf: RenderFlags, ctx1: NgForOfContext<any>) {
+        if (rf & RenderFlags.Create) {
+          elementStart(0, 'li');
+          text(1);
+          elementEnd();
+        }
+        if (rf & RenderFlags.Update) {
+          const col_r3 = ctx1.$implicit;
+          textBinding(1, interpolation1('', col_r3, ''));
+        }
+      }
+
       /**
        * <ul *ngFor="let row of rows">
        *   <li *ngFor="let col of row.cols">{{col}}</li>
@@ -308,36 +331,14 @@ describe('instructions', () => {
           type: NestedLoops,
           selectors: [['nested-loops']],
           factory: function ToDoAppComponent_Factory() { return new NestedLoops(); },
+          consts: 1,
+          vars: 1,
           template: function ToDoAppComponent_Template(rf: RenderFlags, ctx: NestedLoops) {
             if (rf & RenderFlags.Create) {
-              container(0, ToDoAppComponent_NgForOf_Template_0, null, _c0);
+              template(0, ToDoAppComponent_NgForOf_Template_0, 2, 1, null, _c0);
             }
             if (rf & RenderFlags.Update) {
               elementProperty(0, 'ngForOf', bind(ctx.rows));
-            }
-            function ToDoAppComponent_NgForOf_Template_0(
-                rf: RenderFlags, ctx0: NgForOfContext<any>) {
-              if (rf & RenderFlags.Create) {
-                elementStart(0, 'ul');
-                container(1, ToDoAppComponent_NgForOf_NgForOf_Template_1, null, _c0);
-                elementEnd();
-              }
-              if (rf & RenderFlags.Update) {
-                const row_r2 = ctx0.$implicit;
-                elementProperty(1, 'ngForOf', bind(row_r2));
-              }
-              function ToDoAppComponent_NgForOf_NgForOf_Template_1(
-                  rf: RenderFlags, ctx1: NgForOfContext<any>) {
-                if (rf & RenderFlags.Create) {
-                  elementStart(0, 'li');
-                  text(1);
-                  elementEnd();
-                }
-                if (rf & RenderFlags.Update) {
-                  const col_r3 = ctx1.$implicit;
-                  textBinding(1, interpolation1('', col_r3, ''));
-                }
-              }
             }
           },
           directives: [NgForOf]
@@ -355,7 +356,7 @@ describe('instructions', () => {
   describe('sanitization injection compatibility', () => {
     it('should work for url sanitization', () => {
       const s = new LocalMockSanitizer(value => `${value}-sanitized`);
-      const t = new TemplateFixture(createAnchor, undefined, null, null, s);
+      const t = new TemplateFixture(createAnchor, undefined, 1, 0, null, null, s);
       const inputValue = 'http://foo';
       const outputValue = 'http://foo-sanitized';
 
@@ -366,7 +367,7 @@ describe('instructions', () => {
 
     it('should bypass url sanitization if marked by the service', () => {
       const s = new LocalMockSanitizer(value => '');
-      const t = new TemplateFixture(createAnchor, undefined, null, null, s);
+      const t = new TemplateFixture(createAnchor, undefined, 1, 0, null, null, s);
       const inputValue = s.bypassSecurityTrustUrl('http://foo');
       const outputValue = 'http://foo';
 
@@ -377,7 +378,7 @@ describe('instructions', () => {
 
     it('should bypass ivy-level url sanitization if a custom sanitizer is used', () => {
       const s = new LocalMockSanitizer(value => '');
-      const t = new TemplateFixture(createAnchor, undefined, null, null, s);
+      const t = new TemplateFixture(createAnchor, undefined, 1, 0, null, null, s);
       const inputValue = bypassSanitizationTrustUrl('http://foo');
       const outputValue = 'http://foo-ivy';
 
@@ -388,7 +389,7 @@ describe('instructions', () => {
 
     it('should work for style sanitization', () => {
       const s = new LocalMockSanitizer(value => `color:blue`);
-      const t = new TemplateFixture(createDiv, undefined, null, null, s);
+      const t = new TemplateFixture(createDiv, undefined, 1, 0, null, null, s);
       const inputValue = 'color:red';
       const outputValue = 'color:blue';
 
@@ -399,7 +400,7 @@ describe('instructions', () => {
 
     it('should bypass style sanitization if marked by the service', () => {
       const s = new LocalMockSanitizer(value => '');
-      const t = new TemplateFixture(createDiv, undefined, null, null, s);
+      const t = new TemplateFixture(createDiv, undefined, 1, 0, null, null, s);
       const inputValue = s.bypassSecurityTrustStyle('color:maroon');
       const outputValue = 'color:maroon';
 
@@ -410,7 +411,7 @@ describe('instructions', () => {
 
     it('should bypass ivy-level style sanitization if a custom sanitizer is used', () => {
       const s = new LocalMockSanitizer(value => '');
-      const t = new TemplateFixture(createDiv, undefined, null, null, s);
+      const t = new TemplateFixture(createDiv, undefined, 1, 0, null, null, s);
       const inputValue = bypassSanitizationTrustStyle('font-family:foo');
       const outputValue = 'font-family:foo-ivy';
 
@@ -421,7 +422,7 @@ describe('instructions', () => {
 
     it('should work for resourceUrl sanitization', () => {
       const s = new LocalMockSanitizer(value => `${value}-sanitized`);
-      const t = new TemplateFixture(createScript, undefined, null, null, s);
+      const t = new TemplateFixture(createScript, undefined, 1, 0, null, null, s);
       const inputValue = 'http://resource';
       const outputValue = 'http://resource-sanitized';
 
@@ -432,7 +433,7 @@ describe('instructions', () => {
 
     it('should bypass resourceUrl sanitization if marked by the service', () => {
       const s = new LocalMockSanitizer(value => '');
-      const t = new TemplateFixture(createScript, undefined, null, null, s);
+      const t = new TemplateFixture(createScript, undefined, 1, 0, null, null, s);
       const inputValue = s.bypassSecurityTrustResourceUrl('file://all-my-secrets.pdf');
       const outputValue = 'file://all-my-secrets.pdf';
 
@@ -443,7 +444,7 @@ describe('instructions', () => {
 
     it('should bypass ivy-level resourceUrl sanitization if a custom sanitizer is used', () => {
       const s = new LocalMockSanitizer(value => '');
-      const t = new TemplateFixture(createScript, undefined, null, null, s);
+      const t = new TemplateFixture(createScript, undefined, 1, 0, null, null, s);
       const inputValue = bypassSanitizationTrustResourceUrl('file://all-my-secrets.pdf');
       const outputValue = 'file://all-my-secrets.pdf-ivy';
 
@@ -454,7 +455,7 @@ describe('instructions', () => {
 
     it('should work for script sanitization', () => {
       const s = new LocalMockSanitizer(value => `${value} //sanitized`);
-      const t = new TemplateFixture(createScript, undefined, null, null, s);
+      const t = new TemplateFixture(createScript, undefined, 1, 0, null, null, s);
       const inputValue = 'fn();';
       const outputValue = 'fn(); //sanitized';
 
@@ -465,7 +466,7 @@ describe('instructions', () => {
 
     it('should bypass script sanitization if marked by the service', () => {
       const s = new LocalMockSanitizer(value => '');
-      const t = new TemplateFixture(createScript, undefined, null, null, s);
+      const t = new TemplateFixture(createScript, undefined, 1, 0, null, null, s);
       const inputValue = s.bypassSecurityTrustScript('alert("bar")');
       const outputValue = 'alert("bar")';
 
@@ -476,7 +477,7 @@ describe('instructions', () => {
 
     it('should bypass ivy-level script sanitization if a custom sanitizer is used', () => {
       const s = new LocalMockSanitizer(value => '');
-      const t = new TemplateFixture(createScript, undefined, null, null, s);
+      const t = new TemplateFixture(createScript, undefined, 1, 0, null, null, s);
       const inputValue = bypassSanitizationTrustScript('alert("bar")');
       const outputValue = 'alert("bar")-ivy';
 
@@ -487,7 +488,7 @@ describe('instructions', () => {
 
     it('should work for html sanitization', () => {
       const s = new LocalMockSanitizer(value => `${value} <!--sanitized-->`);
-      const t = new TemplateFixture(createDiv, undefined, null, null, s);
+      const t = new TemplateFixture(createDiv, undefined, 1, 0, null, null, s);
       const inputValue = '<header></header>';
       const outputValue = '<header></header> <!--sanitized-->';
 
@@ -498,7 +499,7 @@ describe('instructions', () => {
 
     it('should bypass html sanitization if marked by the service', () => {
       const s = new LocalMockSanitizer(value => '');
-      const t = new TemplateFixture(createDiv, undefined, null, null, s);
+      const t = new TemplateFixture(createDiv, undefined, 1, 0, null, null, s);
       const inputValue = s.bypassSecurityTrustHtml('<div onclick="alert(123)"></div>');
       const outputValue = '<div onclick="alert(123)"></div>';
 
@@ -509,7 +510,7 @@ describe('instructions', () => {
 
     it('should bypass ivy-level script sanitization if a custom sanitizer is used', () => {
       const s = new LocalMockSanitizer(value => '');
-      const t = new TemplateFixture(createDiv, undefined, null, null, s);
+      const t = new TemplateFixture(createDiv, undefined, 1, 0, null, null, s);
       const inputValue = bypassSanitizationTrustHtml('<div onclick="alert(123)"></div>');
       const outputValue = '<div onclick="alert(123)"></div>-ivy';
 
@@ -572,6 +573,7 @@ function stripStyleWsCharacters(value: string): string {
   return value.replace(/;/g, '').replace(/:\s+/g, ':');
 }
 
-function createTemplateFixtureWithSanitizer(buildFn: () => any, sanitizer: Sanitizer) {
-  return new TemplateFixture(buildFn, () => {}, null, null, sanitizer);
+function createTemplateFixtureWithSanitizer(
+    buildFn: () => any, consts: number, sanitizer: Sanitizer) {
+  return new TemplateFixture(buildFn, () => {}, consts, 0, null, null, sanitizer);
 }

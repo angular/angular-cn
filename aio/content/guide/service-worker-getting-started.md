@@ -2,7 +2,7 @@
 
 # Service Worker 快速起步
 
-This document explains how to enable Angular service worker support in your CLI projects. It then uses a simple example to show you a service worker in action, demonstrating loading and basic caching. 
+This document explains how to enable Angular service worker support in projects that you created with the [Angular CLI](cli). It then uses a simple example to show you a service worker in action, demonstrating loading and basic caching. 
 
 本文档解释了如何在 CLI 项目中启用对 Angular Service Worker 的支持。稍后它会用一个简单的范例来向你展示 Service Worker 实践，包括加载和基础的缓存功能。
 
@@ -10,19 +10,9 @@ This document explains how to enable Angular service worker support in your CLI 
 
 #### 前提条件
 
-A basic understanding of the following:
+A basic understanding of the information in [Introduction to Angular service workers](guide/service-worker-intro).
 
-对下列知识有基本的了解：
-
-* [Introduction to Angular service workers](guide/service-worker-intro).
-
-   [Angular Service Worker 简介](guide/service-worker-intro).
-
-* Angular v6, including Angular CLI v6.
-
-   Angular v6，也包括 Angular CLI v6。
-
-<hr />
+对 [Angular Service Worker 简介](guide/service-worker-intro)中的信息有了基本的了解。
 
 ## Adding a service worker to your project
 
@@ -35,8 +25,7 @@ with setting up the necessary support files.
 
 ```sh
 
-ng add  @angular/pwa --project *project-name* 
-
+ng add @angular/pwa --project *project-name* 
 ```
 
 The above command completes the following actions:
@@ -102,21 +91,21 @@ using an example application.
 
 ### 用 `http-server` 启动开发服务器
 
-Because `ng serve` does not work with service workers, you must use a separate HTTP server to test your project locally. You can use any HTTP server. The example below uses the [http-server](https://www.npmjs.com/package/http-server) package from npm. To reduce the possibility of conflicts, test on a dedicated port.
+Because `ng serve` does not work with service workers, you must use a separate HTTP server to test your project locally. You can use any HTTP server. The example below uses the [http-server](https://www.npmjs.com/package/http-server) package from npm. To reduce the possibility of conflicts and avoid serving stale content, test on a dedicated port and disable caching.
 
 由于 `ng serve` 对 Service Worker 无效，所以必须用一个独立的 HTTP 服务器在本地测试你的项目。
 你可以使用任何 HTTP 服务器。下面这个例子使用来自 npm 中的 [http-server](https://www.npmjs.com/package/http-server) 包。
 为了减小端口冲突的可能性，我们在一个专用端口上进行测试。
 
-To serve with `http-server`, change to the directory containing your web files and start the web server: 
+To serve the directory containing your web files with `http-server`, run the following command:
 
 要想使用 `http-server` 服务器，进入包含这些 web 文件的目录，并启动开发服务器：
 
 ```sh
 
-cd dist/*project-name*
-http-server -p 8080
 
+http-server -p 8080
+-c-1 dist/<project-name>
 ```
 
 ### Initial load
@@ -241,9 +230,9 @@ next step is understanding how updates work.
 ```sh
 
 ng build --prod
-cd dist
-http-server -p 8080
 
+http-server -p 8080
+-c-1 dist/<project-name>
 ```
 
 ### Updating your application in the browser

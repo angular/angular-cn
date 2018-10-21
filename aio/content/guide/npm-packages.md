@@ -130,13 +130,13 @@ Typically you don’t interact with the compiler directly; rather, you use it in
 
 **@angular/forms**：支持 [template-driven](guide/forms) 和 [reactive forms](guide/reactive-forms)。
 
-**@angular/http**: Angular's old, soon-to-be-deprecated, HTTP client.
+**@angular/http**: Angular's old, deprecated, HTTP client.
 
 **@angular/http**：Angular 的老的、很快就会废弃的 HTTP 客户端库。
 
 **@angular/platform-browser**: Everything DOM and browser related, especially
 the pieces that help render into the DOM.
-This package also includes the `bootstrapStatic()` method
+This package also includes the `bootstrapModuleFactory()` method
 for bootstrapping applications for production builds that pre-compile with [AOT](guide/aot-compiler).
 
 **@angular/platform-browser**：与 DOM 和浏览器相关的每样东西，特别是帮助往 DOM 中渲染的那部分。

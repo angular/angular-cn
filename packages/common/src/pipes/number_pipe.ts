@@ -39,7 +39,7 @@ import {invalidPipeArgumentError} from './invalid_pipe_argument_error';
  * Math.round(-2.5)
  * > -2
  * ```
- * 
+ *
  * @see `formatNumber()`
  *
  * @usageNotes
@@ -54,7 +54,6 @@ import {invalidPipeArgumentError} from './invalid_pipe_argument_error';
  * ### 例子
  *
  * <code-example path="common/pipes/ts/number_pipe.ts" region='NumberPipe'></code-example>
- *
  *
  */
 @Pipe({name: 'number'})
@@ -253,8 +252,10 @@ export class CurrencyPipe implements PipeTransform {
    *     比如，加拿大元的符号是 `CA$`，而其窄化符号是 `$`。如果该区域没有窄化符号，则使用它的标准符号。
    *
    *   - String: Use the given string value instead of a code or a symbol.
+   * For example, an empty string will suppress the currency & symbol.
    *
    *     String: 使用指定的字符串值代替货币代码或符号。
+   *     比如，空字符串将会去掉货币代码或符号。
    *
    *   - Boolean (marked deprecated in v5): `true` for symbol and false for `code`.
    *

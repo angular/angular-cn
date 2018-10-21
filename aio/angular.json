@@ -33,7 +33,6 @@
               "src/assets",
               "src/generated",
               "src/app/search/search-worker.js",
-              "src/favicon.ico",
               "src/pwa-manifest.json",
               "src/google44a5c950a9a9b940.html",
               "src/baidu_verify_AD8wvnfKCx.html",
@@ -63,7 +62,8 @@
                   "src": "src/environments/environment.ts",
                   "replaceWith": "src/environments/environment.next.ts"
                 }
-              ]
+              ],
+              "serviceWorker": true
             },
             "stable": {
               "fileReplacements": [
@@ -71,7 +71,8 @@
                   "src": "src/environments/environment.ts",
                   "replaceWith": "src/environments/environment.stable.ts"
                 }
-              ]
+              ],
+              "serviceWorker": true
             },
             "archive": {
               "fileReplacements": [
@@ -79,7 +80,8 @@
                   "src": "src/environments/environment.ts",
                   "replaceWith": "src/environments/environment.archive.ts"
                 }
-              ]
+              ],
+              "serviceWorker": true
             }
           }
         },
@@ -124,7 +126,6 @@
               "src/assets",
               "src/generated",
               "src/app/search/search-worker.js",
-              "src/favicon.ico",
               "src/pwa-manifest.json",
               "src/google44a5c950a9a9b940.html",
               "src/baidu_verify_AD8wvnfKCx.html",

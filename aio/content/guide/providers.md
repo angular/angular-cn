@@ -30,7 +30,7 @@ A provider is an instruction to the DI system on how to obtain a value for a dep
 
 ## 提供服务
 
-If you already have a CLI generated app, create a service using the following CLI command in the root project directory. Replace _User_ with the name of your service.
+If you already have an app that was created with the [Angular CLI](cli), you can create a service using the [`ng generate`](cli/generate) CLI command in the root project directory. Replace _User_ with the name of your service.
 
 如果你是用 CLI 创建的应用，那么可以使用下列 CLI 命令在项目根目录下创建一个服务。把其中的 `User` 替换成你的服务名。
 
@@ -44,7 +44,7 @@ This command creates the following `UserService` skeleton:
 
 该命令会创建下列 `UserService` 骨架：
 
-<code-example path="providers/src/app/user.service.0.ts"  title="src/app/user.service.0.ts" linenums="false"> </code-example>
+<code-example path="providers/src/app/user.service.0.ts"  header="src/app/user.service.0.ts" linenums="false"> </code-example>
 
 You can now inject `UserService` anywhere in your application. 
 
@@ -75,19 +75,19 @@ It's also possible to specify that a service should be provided in a particular 
 
 也可以规定某个服务只有在特定的 `@NgModule` 中提供。比如，如果你你希望只有当消费方导入了你创建的 `UserModule` 时才让 `UserService` 在应用中生效，那就可以指定该服务要在该模块中提供：
 
-<code-example path="providers/src/app/user.service.1.ts"  title="src/app/user.service.1.ts" linenums="false">  </code-example>
+<code-example path="providers/src/app/user.service.1.ts"  header="src/app/user.service.1.ts" linenums="false">  </code-example>
 
 The example above shows the preferred way to provide a service in a module. This method is preferred because it enables tree-shaking of the service if nothing injects it. If it's not possible to specify in the service which module should provide it, you can also declare a provider for the service within the module:
 
 上面的例子展示的就是在模块中提供服务的首选方式。之所以推荐该方式，是因为当没有人注入它时，该服务就可以被摇树优化掉。如果没办法指定哪个模块该提供这个服务，你也可以在那个模块中为该服务声明一个提供商：
 
-<code-example path="providers/src/app/user.module.ts"  title="src/app/user.module.ts" linenums="false">  </code-example>
+<code-example path="providers/src/app/user.module.ts"  header="src/app/user.module.ts" linenums="false">  </code-example>
 
 ## Limiting provider scope by lazy loading modules
 
 ## 使用惰性加载模块限制提供商的作用域
 
-In the basic CLI generated app, modules are eagerly loaded which means that they are all loaded when the app launches. Angular uses an injector system to make things available between modules. In an eagerly loaded app, the root application injector makes all of the providers in all of the modules available throughout the app.
+In the basic CLI-generated app, modules are eagerly loaded which means that they are all loaded when the app launches. Angular uses an injector system to make things available between modules. In an eagerly loaded app, the root application injector makes all of the providers in all of the modules available throughout the app.
 
 在 CLI 生成的基本应用中，模块是立即加载的，这意味着它们都是由本应用启动的，Angular 会使用一个依赖注入体系来让一切服务都在模块间有效。对于立即加载式应用，应用中的根注入器会让所有服务提供商都对整个应用有效。
 
@@ -125,7 +125,7 @@ the same module can’t access it.)
 当你要立即加载一个自带了全部所需服务的模块时，这种方式是有帮助的。
 在组件中提供服务，会限定该服务只能在该组件中有效（同一模块中的其它组件不能访问它）。
 
-<code-example path="providers/src/app/app.component.ts" region="component-providers" title="src/app/app.component.ts" linenums="false">
+<code-example path="providers/src/app/app.component.ts" region="component-providers" header="src/app/app.component.ts" linenums="false">
 </code-example>
 
 ## Providing services in modules vs. components
@@ -166,10 +166,9 @@ You may also be interested in:
 
    [惰性加载模块](guide/lazy-loading-ngmodules)。
 
-* [Tree-shakable Providers](guide/dependency-injection#tree-shakable-providers).
+* [Tree-shakable Providers](guide/dependency-injection-providers#tree-shakable-providers).
 
    [可摇树优化的服务提供商](guide/dependency-injection#tree-shakable-providers)。
-
 * [NgModule FAQ](guide/ngmodule-faq).
 
    [NgModule 常见问题](guide/ngmodule-faq)。

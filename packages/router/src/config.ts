@@ -92,6 +92,7 @@ import {UrlSegment, UrlSegmentGroup} from './url_tree';
  *
  *   `loadChildren` 是一个用于惰性加载子路由的引用。欲知详情，参见 `LoadChildren`。
  *
+ * @usageNotes
  * ### Simple Configuration
  *
  * ### 简单配置

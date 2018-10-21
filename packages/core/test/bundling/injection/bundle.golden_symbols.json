@@ -3,13 +3,13 @@
     "name": "APP_ROOT"
   },
   {
-    "name": "CIRCULAR$1"
+    "name": "CIRCULAR$2"
   },
   {
-    "name": "EMPTY_ARRAY$1"
+    "name": "EMPTY_ARRAY$2"
   },
   {
-    "name": "GET_PROPERTY_NAME"
+    "name": "EmptyErrorImpl"
   },
   {
     "name": "INJECTOR"
@@ -21,13 +21,22 @@
     "name": "InjectionToken"
   },
   {
+    "name": "NG_INJECTABLE_DEF"
+  },
+  {
+    "name": "NG_INJECTOR_DEF"
+  },
+  {
     "name": "NOT_YET"
   },
   {
-    "name": "NULL_INJECTOR$1"
+    "name": "NULL_INJECTOR$2"
   },
   {
     "name": "NullInjector"
+  },
+  {
+    "name": "ObjectUnsubscribedErrorImpl"
   },
   {
     "name": "Optional"
@@ -52,6 +61,9 @@
   },
   {
     "name": "USE_VALUE"
+  },
+  {
+    "name": "UnsubscriptionErrorImpl"
   },
   {
     "name": "_THROW_IF_NOT_FOUND"
@@ -84,7 +96,13 @@
     "name": "forwardRef"
   },
   {
-    "name": "getClosureSafeProperty$1"
+    "name": "getClosureSafeProperty"
+  },
+  {
+    "name": "getInjectableDef"
+  },
+  {
+    "name": "getInjectorDef"
   },
   {
     "name": "getNullInjector"

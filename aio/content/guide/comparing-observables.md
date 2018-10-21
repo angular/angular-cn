@@ -39,7 +39,7 @@ Observables are often compared to promises. Here are some key differences:
 
 ### 创建与订阅
 
-* Observables are not executed until a consumer subcribes. The `subscribe()` executes the defined behavior once, and it can be called again. Each subscription has its own computation. Resubscription causes recomputation of values.
+* Observables are not executed until a consumer subscribes. The `subscribe()` executes the defined behavior once, and it can be called again. Each subscription has its own computation. Resubscription causes recomputation of values.
 
    在有消费者订阅之前，可观察对象不会执行。`subscribe()` 会执行一次定义好的行为，并且可以再次调用它。每次订阅都是单独计算的。重新订阅会导致重新计算这些值。
 
@@ -131,7 +131,8 @@ The following code snippets illustrate how the same kind of operation is defined
 下列代码片段揭示了同样的操作要如何分别使用可观察对象和承诺进行实现。
 
 <table>
-  <tr>
+  <thead>
+    <tr>
 
     <th>
 
@@ -157,7 +158,8 @@ The following code snippets illustrate how the same kind of operation is defined
 
     </th>
 
-  </tr>
+  </tr></thead>
+  <tbody>
   <tr>
 
     <td>
@@ -259,7 +261,7 @@ The following code snippets illustrate how the same kind of operation is defined
 
     </td>
 
-  </tr>
+  </tr></tbody>
 </table>
 
 ## Observables compared to events API
