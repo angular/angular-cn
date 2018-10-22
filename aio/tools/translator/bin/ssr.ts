@@ -29,7 +29,8 @@ function composePage(url) {
   const ssrContent = contents.replace(/href="(?!http)(.{2,}?)"/gi, 'href="/$1"');
   const pageContent = pageTemplate
     .replace('<title>Angular Docs</title>', `<title>${title} - Angular 官方文档</title>`)
-    .replace('<aio-page-content-placeholder></aio-page-content-placeholder>', ssrContent);
+    .replace('<section class="sidenav-content" role="content" id="docs"></section>',
+      `<section class="sidenav-content" role="content" id="docs">${ssrContent}</section>`);
   mkdirp.sync(path.dirname(`./dist/${url}`));
   fs.writeFileSync(`./dist/${url}.html`, minify(pageContent, minifyOptions), 'utf-8');
 }
