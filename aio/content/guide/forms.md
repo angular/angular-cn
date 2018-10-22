@@ -285,11 +285,11 @@ template with a `<app-hero-form>` tag.
 
 * The `templateUrl` property points to a separate file for the template HTML.
 
-   `moduleId: module.id` 属性设置了基地址，用于从相对模块路径加载 `templateUrl`。
+   `templateUrl` 属性指向一个独立的 HTML 模板文件。
 
 * You defined dummy data for `model` and `powers`, as befits a demo.
 
-   `templateUrl` 属性指向一个独立的 HTML 模板文件。
+   你定义了一些用来演示的，关于 `model` 和 `powers` 的模拟数据。
 
 Down the road, you can inject a data service to get and save real data
 or perhaps expose these properties as inputs and outputs
@@ -995,7 +995,7 @@ Now you'll add a new hero in this form.
 Place a *New Hero* button at the bottom of the form and bind its click event to a `newHero` component method.
 
 现在，你要在这个表单中添加新的英雄。
-  在表单的底部放置“New Hero（新增英雄）”按钮，并把它的点击事件绑定到 `newHero` 组件。
+  在表单的底部放置“New Hero（新增英雄）”按钮，并把它的点击事件绑定到组件上的 `newHero` 方法。
 
 <code-example path="forms/src/app/hero-form/hero-form.component.html" region="new-hero-button-no-reset" header="src/app/hero-form/hero-form.component.html (New Hero button)">
 
