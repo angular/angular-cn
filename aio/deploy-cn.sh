@@ -2,7 +2,7 @@
 
 . ~/.nvm/nvm.sh
 
-nvm use 8
+nvm use 10
 
 set -x
 
