@@ -9,12 +9,12 @@
 
 {% macro renderArguments(arguments, level = 2) %}
 {% if arguments.length %}
-<h{$ level $} class="no-anchor">Arguments</h{$ level $}>
+<h{$ level $} class="no-anchor" id="arguments">参数</h{$ level $}>
 <table class="is-full-width list-table property-table">
   <thead>
     <tr>
-      <th>Argument</th>
-      <th>Description</th>
+      <th>参数</th>
+      <th>说明</th>
     </tr>
   </thead>
   <tbody>
@@ -41,12 +41,12 @@
 
 {% macro renderNamedOptions(options, level = 2) %}
 {% if options.length %}
-<h{$ level $} class="no-anchor">Options</h{$ level $}>
+<h{$ level $} class="no-anchor" id="options">选项</h{$ level $}>
 <table class="is-full-width list-table property-table">
   <thead>
     <tr>
-      <th>Option</th>
-      <th>Description</th>
+      <th>选项</th>
+      <th>说明</th>
     </tr>
   </thead>
   <tbody>
@@ -96,7 +96,7 @@
 
 {%- macro renderSubcommands(container) -%}
 {% for command in container.positionalOptions %}{% if command.subcommands.length %}
-<h2><a id="{$ command.name $}-commands"></a>{$ command.name | title $} commands</h2>
+<h2><a id="{$ command.name $}-commands"></a>{$ command.name | title $} 命令</h2>
 {% for subcommand in command.subcommands %}
 <h3><code><a id="{$ subcommand.name $}-command"></a>{$ subcommand.name $}</code></h3>
 {% for name in container.names %}
