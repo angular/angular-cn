@@ -13,7 +13,7 @@
 
   {% if doc.description or doc.usageNotes %}
   <section class="description">
-    <h2>Description</h2>
+    <h2 id="description">说明</h2>
     {$ (doc.description or '') | trimBlankLines | marked $}
     {$ (doc.usageNotes or '') | trimBlankLines | marked $}
   </section>

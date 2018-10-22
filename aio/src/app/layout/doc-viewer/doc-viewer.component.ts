@@ -1,5 +1,5 @@
 import { Component, ElementRef, EventEmitter, HostListener, Input, OnDestroy, Output } from '@angular/core';
-import { Meta, Title } from '@angular/platform-browser';
+import { Title } from '@angular/platform-browser';
 
 import { Observable, of, timer } from 'rxjs';
 import { catchError, switchMap, takeUntil, tap } from 'rxjs/operators';
@@ -65,7 +65,6 @@ export class DocViewerComponent implements OnDestroy {
     elementRef: ElementRef,
     private  logger: Logger,
     private titleService: Title,
-    private metaService: Meta,
     private tocService: TocService,
     private elementsLoader: ElementsLoader) {
     this.hostElement = elementRef.nativeElement;

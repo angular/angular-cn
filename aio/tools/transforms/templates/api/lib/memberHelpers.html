@@ -53,17 +53,17 @@
   {$ ('**Deprecated** ' + overload.deprecated) | marked $}
 </div>{% endif %}
 
-<h4 class="no-anchor">参数</h4>
+<h4 id="parameters" class="no-anchor">参数</h4>
 {$ params.renderParameters(overload.parameterDocs, cssClass + '-parameters', cssClass + '-parameter') $}
 
 {% if overload.type or overload.returns.type %}
-<h4 class="no-anchor">返回值</h4>
+<h4 id="returns" class="no-anchor">返回值</h4>
 {% marked %}`{$ (overload.type or overload.returns.type) $}`{% if overload.returns %}: {$ overload.returns.description $}{% endif %}{% endmarked %}
 {% endif %}
 
 
 {% if overload.throws.length %}
-<h4 class="no-anchor">异常</h4>
+<h4 id="throws" class="no-anchor">异常</h4>
 {% for error in overload.throws %}
 {% marked %}`{$ (error.typeList or '错误') $}` {$ error.description $}{% endmarked %}
 {% endfor %}

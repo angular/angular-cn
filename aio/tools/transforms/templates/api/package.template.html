@@ -37,12 +37,16 @@
   {% include "includes/see-also.html" %}
 
   {% if doc.isPrimaryPackage %}
-  <h2>入口点</h2>
+  <h2 id="entry-points">入口点</h2>
   {$ listItems([doc.packageInfo.primary], '主要', '#primary-entry-point-exports') $}
   {$ listItems(doc.packageInfo.secondary, '次要') $}
   {% endif %}
 
-  <h2>{% if doc.isPrimaryPackage %}主入口{% else %}入口{% endif %}点的导出</h2>
+  {% if doc.isPrimaryPackage %}
+  <h2 id="primary-entry-point-exports">主入口点的导出</h2>
+  {% else %}
+  <h2 id="entry-point-exports">入口点的导出</h2>
+  {% endif %}
   {% include "includes/deprecation.html" %}
   {$ listItems(doc.ngmodules, '模块') $}
   {$ listItems(doc.classes, '类') $}
