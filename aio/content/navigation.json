@@ -317,8 +317,8 @@
             },
             {
               "url": "guide/singleton-services",
-              "title": "单例应用",
-              "tooltip": "创建单例应用"
+              "title": "单例服务",
+              "tooltip": "创建单例服务"
             },
             {
               "url": "guide/lazy-loading-ngmodules",
