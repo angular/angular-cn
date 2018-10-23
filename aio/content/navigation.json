@@ -499,6 +499,93 @@
       "children": [
 
         {
+          "title": "CLI 命令参考手册",
+          "tooltip": "CLI 简介与命令列表",
+          "children": [
+            {
+              "url": "cli",
+              "title": "CLI 简介",
+              "tooltip": "CLI 简介"
+            },
+            {
+              "url": "cli/add",
+              "title": "add",
+              "tooltip": "为项目添加外部库支持。"
+            },
+            {
+              "url": "cli/build",
+              "title": "build    ( b )",
+              "tooltip": "把 Angular 应用编译到指定路径下一个名为 dist/ 的输出目录下。必须在工作空间目录下执行它。"
+            },
+            {
+              "url": "cli/config",
+              "title": "config",
+              "tooltip": "接收或设置 Angular CLI 参数"
+            },
+            {
+              "url": "cli/doc",
+              "title": "doc    ( d )",
+              "tooltip": "在浏览器中打开 Angular 官方网站（angular.io），并搜索指定的关键字。"
+            },
+            {
+              "url": "cli/e2e",
+              "title": "e2e    ( e )",
+              "tooltip": "构建并启动 Angular 应用，然后使用 Protractor 运行端到端测试。"
+            },
+            {
+              "url": "cli/generate",
+              "title": "generate    ( g )",
+              "tooltip": "根据原理图（schematic）生成或修改文件。"
+            },
+            {
+              "url": "cli/help",
+              "title": "help",
+              "tooltip": "列出可用的命令及其简写形式。"
+            },
+            {
+              "url": "cli/lint",
+              "title": "lint    ( l )",
+              "tooltip": "对指定项目目录下的 Angular 应用代码运行风格检查工具。"
+            },
+            {
+              "url": "cli/new",
+              "title": "new    ( n )",
+              "tooltip": "创建新的工作空间，并初始化 Angular 项目。"
+            },
+            {
+              "url": "cli/run",
+              "title": "run",
+              "tooltip": "执行项目中定义的定制化目标。"
+            },
+            {
+              "url": "cli/serve",
+              "title": "serve    ( s )",
+              "tooltip": "构建并运行应用，每当文件变化时都重新构建。"
+            },
+            {
+              "url": "cli/test",
+              "title": "test    ( t )",
+              "tooltip": "在项目中运行单元测试。"
+            },
+            {
+              "url": "cli/update",
+              "title": "update",
+              "tooltip": "升级你的应用及其依赖，参见 https://update.angular.io/。"
+            },
+            {
+              "url": "cli/version",
+              "title": "version    ( v )",
+              "tooltip": "输出 Angular CLI 的版本。"
+            },
+            {
+              "url": "cli/xi18n",
+              "title": "xi18n",
+              "tooltip": "从源码中提取出 i18n 信息。"
+            }
+          ]
+        },
+
+        {
           "url": "guide/setup",
           "title": "搭建本地开发环境",
           "tooltip": "安装 Angular 快速起步种子工程，以便在你的电脑上更快、更高效的开发。",
