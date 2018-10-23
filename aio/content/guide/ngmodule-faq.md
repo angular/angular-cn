@@ -50,7 +50,7 @@ Declarables are the class types&mdash;components, directives, and pipes&mdash;th
 you can add to a module's `declarations` list.
 They're the only classes that you can add to `declarations`.
 
-*可声明的*就是组件、指令和管道等可以被加到模块的 `declarations` 列表中的类。它们也是*所有*能被加到 `declarations` 中的类。
+*可声明的*就是组件、指令和管道这些可以被加到模块的 `declarations` 列表中的类。它们也是*所有*能被加到 `declarations` 中的类。
 
 <hr/>
 
