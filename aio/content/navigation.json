@@ -368,7 +368,7 @@
             },
             {
               "url": "guide/dependency-injection-navtree",
-              "title": "在组件树中导航",
+              "title": "浏览组件树",
               "tooltip": "使用注入器树来查找父组件。"
             }
           ]
