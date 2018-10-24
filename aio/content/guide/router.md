@@ -4917,7 +4917,7 @@ Add a `confirm()` method to the `DialogService` to prompt the user to confirm th
 It returns an `Observable` that *resolves* when the user eventually decides what to do: either
 to discard changes and navigate away (`true`) or to preserve the pending changes and stay in the crisis editor (`false`).
 
-它返回[promise](http://exploringjs.com/es6/ch_promises.html)，当用户最终决定了如何去做时，它就会被*解析* —— 或者决定放弃更改直接导航离开（`true`），或者保留未完成的修改，留在危机编辑器中（`false`）。
+它返回*observable*，当用户最终决定了如何去做时，它就会被*解析* —— 或者决定放弃更改直接导航离开（`true`），或者保留未完成的修改，留在危机编辑器中（`false`）。
 
 {@a CanDeactivate}
 
