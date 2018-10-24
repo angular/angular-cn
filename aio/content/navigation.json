@@ -480,7 +480,7 @@
             },
             {
               "url": "guide/upgrade-performance",
-              "title": "提高升级效率",
+              "title": "更关注性能的升级方式",
               "tooltip": "用更灵活的方式把 AngularJS 升级到 Angular"
             },
             {
