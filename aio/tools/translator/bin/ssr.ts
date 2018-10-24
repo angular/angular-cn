@@ -37,7 +37,7 @@ function composePage(url) {
 
 function buildGuidePages(): void {
   const navigation = fs.readFileSync('./content/navigation.json', 'utf-8');
-  navigation.match(/"url": "(.*?)"/g)
+  (navigation.match(/"url": "(.*?)"/g) || [])
     .map((entry) => entry.replace(/^"url": "(.*?)".*$/, '$1'))
     .filter(url => url.slice(0, 4) !== 'http')
     .forEach(url => composePage(url));
