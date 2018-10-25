@@ -1,10 +1,7 @@
 #!/usr/bin/env bash
 
-. ~/.nvm/nvm.sh
-
-nvm use 10
-
 set -x
+set -e
 
 commitSha=$(git rev-parse --short HEAD)
 commitMessage=$(git log --oneline -n 1)
