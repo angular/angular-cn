@@ -1965,7 +1965,7 @@ to load the actual application:
 You also need to make a couple of adjustments
 to the `systemjs.config.js` file installed during [setup](guide/setup).
 
-你还需要对[环境设置](guide/setup)期间安装的 `systemjs.config.js` 文件做一些调整。
+你还需要对[搭建环境](guide/setup)期间安装的 `systemjs.config.js` 文件做一些调整。
 
 Point the browser to the project root when loading things through SystemJS,
 instead of using the  `<base>` URL.

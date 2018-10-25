@@ -1497,7 +1497,7 @@ There are also tests of an application data service that call `HttpClient` in
 
 ### Setup
 
-### 环境设置
+### 搭建环境
 
 To begin testing calls to `HttpClient`, 
 import the `HttpClientTestingModule` and the mocking controller, `HttpTestingController`,

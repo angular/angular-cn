@@ -181,7 +181,7 @@ Added two plunkers that each test _one simple component_ so you can write a comp
 Linked to these plunkers in "Testing" and "Setup anatomy" guides.
 
 添加了两个 plunker 例子，每个都测试一个简单的组件，以便你可以自己在 plunker 中写组件测试：<live-example name="setup" plnkr="quickstart-specs">一个</live-example>用于测试快速起步中的 `AppComponent`，<live-example name="testing" plnkr="banner-specs">另一个</live-example>用于测试“测试”章节的 `BannerComponent`。
-并在“测试”和“环境设置剖析”中链接到它们。
+并在“测试”和“搭建环境剖析”中链接到它们。
 
 ## Internationalization: pluralization and _select_ (2016-11-30)
 
