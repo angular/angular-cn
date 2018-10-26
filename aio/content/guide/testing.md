@@ -1837,6 +1837,9 @@ In this case, it waits for the error handler's `setTimeout()`;
 
 The `tick()` function accepts milliseconds as parameter (defaults to 0 if not provided). The parameter represents how much the virtual clock advances. For example, if you have a `setTimeout(fn, 100)` in a `fakeAsync()` test, you need to use tick(100) to trigger the fn callback.
 
+`tick()` 函数接受一个毫秒值作为参数（如果没有提供则默认为 0）。该参数表示虚拟时钟要前进多少。
+比如，如果你的 `fakeAsync()` 测试中有一个 `setTimeout(fn, 100)` 函数，你就需要用 `tick(100)` 来触发它的 fn 回调。 
+
 <code-example
   path="testing/src/app/demo/async-helper.spec.ts"
   region="fake-async-test-tick">
@@ -1845,9 +1848,16 @@ The `tick()` function accepts milliseconds as parameter (defaults to 0 if not pr
 The `tick()` function is one of the Angular testing utilities that you import with `TestBed`.
 It's a companion to `fakeAsync()` and you can only call it within a `fakeAsync()` body.
 
+`tick()` 函数是你从 `TestBed` 中导入的 Angular 测试实用工具之一。
+它和 `fakeAsync()` 一同使用，并且你只能在 `fakeAsync()` 体中调用它。
+
 #### Comparing dates inside fakeAsync()
 
+#### 在 `fakeAsync()` 中比较日期（date）
+
 `fakeAsync()` simulates passage of time, which allows you to calculate the difference between dates inside `fakeAsync()`.
+
+`fakeAsync()` 可以模拟时光的流逝，它允许你在 `fakeAsync()` 中计算日期之间的差异。
 
 <code-example
   path="testing/src/app/demo/async-helper.spec.ts"
@@ -1856,12 +1866,20 @@ It's a companion to `fakeAsync()` and you can only call it within a `fakeAsync()
 
 #### jasmine.clock with fakeAsync()
 
+#### `jasmine.clock` 与 `fakeAsync()`
+
 Jasmine also provides a `clock` feature to mock dates. Angular automatically runs tests that are run after
 `jasmine.clock().install()` is called inside a `fakeAsync()` method until `jasmine.clock().uninstall()` is called. `fakeAsync()` is not needed and throws an error if nested.
 
+Jasmine 也提供了 `clock` 特性来模拟日期。在 `fakeAsync()` 方法内，Angular 会自动运行那些调用 `jasmine.clock().install()` 和调用 `jasmine.clock().uninstall()` 之间的测试。`fakeAsync()` 不是必须的，而且如果嵌套它会抛出错误。
+
 By default, this feature is disabled. To enable it, set a global flag before import `zone-testing`.
 
+默认情况下，该特性是禁用的。要启用它，请在导入 `zone-testing` 之前设置一个全局标志。
+
 If you use the Angular CLI, configure this flag in `src/test.ts`.
+
+如果你使用 Angular CLI，请在 `src/test.ts` 中配置此标志。
 
 ```
 (window as any)['__zone_symbol__fakeAsyncPatchLock'] = true;
@@ -1875,7 +1893,12 @@ import 'zone.js/dist/zone-testing';
 
 #### Using the RxJS scheduler inside fakeAsync()
 
+#### 在 `fakeAsync()` 内使用 RxJS 调度器（scheduler）
+
 You can also use RxJS scheduler in `fakeAsync()` just like using `setTimeout()` or `setInterval()`, but you need to import `zone.js/dist/zone-patch-rxjs-fake-async` to patch RxJS scheduler.
+
+你还可以在 `fakeAsync()` 中使用 RxJS 调度器，就像 `setTimeout()` 或 `setInterval()` 一样，但是你要导入 `zone.js/dist/zone-patch-rxjs-fake-async` 来 patch 掉 RxJS 的调度器。
+
 <code-example
   path="testing/src/app/demo/async-helper.spec.ts"
   region="fake-async-test-rxjs">
@@ -1883,7 +1906,11 @@ You can also use RxJS scheduler in `fakeAsync()` just like using `setTimeout()` 
 
 #### Support more macroTasks
 
+#### 支持更多宏任务（macroTasks）
+
 By default `fakeAsync()` supports the following `macroTasks`.
+
+默认情况下，`fakeAsync()` 支持下列 `macroTasks`。
 
 - setTimeout
 - setInterval
@@ -1892,6 +1919,8 @@ By default `fakeAsync()` supports the following `macroTasks`.
 - mozRequestAnimationFrame
 
 If you run other `macroTask` such as `HTMLCanvasElement.toBlob()`, `Unknown macroTask scheduled in fake async test` error will be thrown.
+
+如果你运行其它 `macroTasks`（比如 `HTMLCanvasElement.toBlob()`）就会抛出一条 `Unknown macroTask scheduled in fake async test` 错误。
 
 <code-tabs>
   <code-pane
@@ -1906,6 +1935,8 @@ If you run other `macroTask` such as `HTMLCanvasElement.toBlob()`, `Unknown macr
 
 If you want to support such case, you need to define the `macroTask` you want to support in `beforeEach()`.
 For example:
+
+如果你要支持这种情况，就要在 `beforeEach()` 中定义你要支持的 `macroTask`。比如：
 
 ```javascript
 beforeEach(() => {
@@ -1928,9 +1959,6 @@ it('toBlob should be able to run in fakeAsync', fakeAsync(() => {
   })
 );
 ```
-
-`tick` 函数是你通过 `TestBed` 中引入的 Angular 测试工具集之一。
-它总是和 `fakeAsync` 一起使用，你也只能在 `fakeAsync` 的函数体中调用它。
 
 #### Async observables
 
