@@ -15,7 +15,7 @@ This guide explains how to specify metadata and apply available compiler options
 
 本指南中解释了如何指定元数据，并通过一些编译器选项来借助 AOT 编译器来更有效的编译应用。
 
-<div class="alert is-helpful"
+<div class="alert is-helpful">
 
   <a href="https://www.youtube.com/watch?v=kW9cJsvcsGo">Watch compiler author Tobias Bosch explain the Angular compiler</a> at AngularConnect 2016.
 

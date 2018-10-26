@@ -143,7 +143,13 @@ is available to <code>declarations</code> of this module.</p>
 </tr><tr>
 
 <td><code><b>entryComponents:</b> [SomeComponent, OtherComponent]</code></td>
-<td><p>List of components not referenced in any reachable template, for example dynamically created from code.</p></td>
+<td>
+
+<p>List of components not referenced in any reachable template, for example dynamically created from code.</p>
+
+<p>任何未在可达模板中引用过的组件列表，比如从代码中动态创建的。</p>
+
+</td>
 </tr><tr>
 <td>
 
