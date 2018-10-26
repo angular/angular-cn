@@ -160,22 +160,39 @@ Adopt these two conventions in your own projects for _every kind_ of test file.
 
 ## Set up continuous integration
 
+## 建立持续集成环境
+
 One of the best ways to keep your project bug free is through a test suite, but it's easy to forget to run tests all the time. 
 Continuous integration (CI) servers let you set up your project repository so that your tests run on every commit and pull request.
+
+避免项目出 BUG 的最佳方式之一，就是使用测试套件。但是很容易忘了一直运行它。
+持续集成（CI）服务器让你可以配置项目的代码仓库，以便每次提交和收到 Pull Request 时就会运行你的测试。
 
 There are paid CI services like Circle CI and Travis CI, and you can also host your own for free using Jenkins and others. 
 Although Circle CI and Travis CI are paid services, they are provided free for open source projects. 
 You can create a public project on GitHub and add these services without paying. 
 Contributions to the Angular repo are automatically run through a whole suite of Circle CI and Travis CI tests.
 
+已经有一些像 Circle CI 和 Travis CI 这样的付费 CI 服务器，你还可以使用 Jenkins 或其它软件来搭建你自己的免费 CI 服务器。
+虽然 Circle CI 和 Travis CI 是收费服务，但是它们也会为开源项目提供免费服务。
+你可以在 GitHub 上创建公开项目，并免费享受这些服务。
+当你为 Angular 仓库贡献代码时，就会自动用  Circle CI 和 Travis CI 运行整个测试套件。
+
 This article explains how to configure your project to run Circle CI and Travis CI, and also update your test configuration to be able to run tests in the Chrome browser in either environment.
 
+本文档解释了如何配置你的项目，来运行  Circle CI 和 Travis CI，以及如何修改你的测试配置，以便能在这两个环境下用 Chrome 浏览器来运行测试。
 
 ### Configure project for Circle CI
 
+### 为 Circle CI 配置项目
+
 Step 1: Create a folder called `.circleci` at the project root.
 
+步骤一：在项目的根目录下创建一个名叫 `.circleci` 的目录。
+
 Step 2: In the new folder, create a file called `config.yml` with the following content:
+
+步骤二：在这个新建的目录下，创建一个名为 `config.yml` 的文件，内容如下：
 
 ```
 version: 2
@@ -200,16 +217,29 @@ jobs:
 This configuration caches `node_modules/` and uses [`npm run`](https://docs.npmjs.com/cli/run-script) to run CLI commands, because `@angular/cli` is not installed globally. 
 The double dash (`--`) is needed to pass arguments into the `npm` script.
 
+该配置会缓存 `node_modules/` 并使用 [`npm run`](https://docs.npmjs.com/cli/run-script) 来运行 CLI 命令，因为 `@angular/cli` 并没有装到全局。
+要把参数传给 `npm` 脚本，这个单独的双中线（`--`）是必须的。
+
 Step 3: Commit your changes and push them to your repository.
+
+步骤三：提交你的修改，并把它们推送到你的代码仓库中。
 
 Step 4: [Sign up for Circle CI](https://circleci.com/docs/2.0/first-steps/) and [add your project](https://circleci.com/add-projects). 
 Your project should start building.
 
+步骤四：[注册 Circle CI](https://circleci.com/docs/2.0/first-steps/)，并[添加你的项目](https://circleci.com/add-projects)。你的项目将会开始构建。
+
 * Learn more about Circle CI from [Circle CI documentation](https://circleci.com/docs/2.0/).
+
+  欲知详情，参见 [Circle CI 文档](https://circleci.com/docs/2.0/)。
 
 ### Configure project for Travis CI
 
+### 为 Travis CI 配置项目
+
 Step 1: Create a file called `.travis.yml` at the project root, with the following content:
+
+步骤一：在项目根目录下创建一个名叫 `.travis.yml` 的文件，内容如下：
 
 ```
 dist: trusty
@@ -240,24 +270,44 @@ script:
 
 This does the same things as the Circle CI configuration, except that Travis doesn't come with Chrome, so we use Chromium instead.
 
+它做的事情和 Circle CI 的配置文件一样，只是 Travis 不用 Chrome，而是用 Chromium 代替。
+
 Step 2: Commit your changes and push them to your repository.
+
+步骤二：提交你的更改，并把它们推送到你的代码仓库。
 
 Step 3: [Sign up for Travis CI](https://travis-ci.org/auth) and [add your project](https://travis-ci.org/profile). 
 You'll need to push a new commit to trigger a build.
 
+步骤三：[注册 Travis CI](https://travis-ci.org/auth) 并[添加你的项目](https://travis-ci.org/profile)。
+你需要推送一个新的提交，以触发构建。
+
 * Learn more about Travis CI testing from [Travis CI documentation](https://docs.travis-ci.com/).
+
+  欲知详情，参见 [Travis CI 文档](https://docs.travis-ci.com/)。
 
 ### Configure CLI for CI testing in Chrome
 
+### 为在 Chrome 中运行 CI 测试而配置 CLI
+
 When the CLI commands `ng test` and `ng e2e` are generally running the CI tests in your environment, you might still need to adjust your configuration to run the Chrome browser tests.
+
+当 CLI 命令 `ng test` 和 `ng e2e` 经常要在你的环境中运行 CI 测试时，你可能需要再调整一下配置，以运行 Chrome 浏览器测试。
 
 There are configuration files for both the [Karma JavaScript test runner](https://karma-runner.github.io/latest/config/configuration-file.html) 
 and [Protractor](https://www.protractortest.org/#/api-overview) end-to-end testing tool, 
 which  you must adjust to start Chrome without sandboxing.
 
+有一些文件是给 [Karma（直译 "报应"）](https://karma-runner.github.io/latest/config/configuration-file.html)测试运行器和 [Protractor（直译 "量角器"）](https://www.protractortest.org/#/api-overview) 端到端测试运行器使用的，你必须改为不用沙箱的 Chrome 启动方式。
+
 We'll be using [Headless Chrome](https://developers.google.com/web/updates/2017/04/headless-chrome#cli) in these examples.
 
+这个例子中我们将使用[无头 Chrome](https://developers.google.com/web/updates/2017/04/headless-chrome#cli)。
+
 * In the Karma configuration file, `karma.conf.js`, add a custom launcher called ChromeNoSandbox below browsers:
+
+  在 Karma 配置文件 `karma.conf.js` 中，浏览器的紧下方，添加自定义的启动器，名叫 ChromeNoSandbox。 
+
 ```
 browsers: ['Chrome'],
 customLaunchers: {
@@ -269,6 +319,9 @@ customLaunchers: {
 ```
 
 * Create a new file, `protractor-ci.conf.js`, in the root folder of your project, which extends the original `protractor.conf.js`:
+
+  在位于项目的根目录下创建一个新文件 `protractor-ci.conf.js`，它扩展了原始的 `protractor.conf.js`：
+
 ```
 const config = require('./protractor.conf').config;
 
@@ -284,6 +337,8 @@ exports.config = config;
 
 Now you can run the following commands to use the `--no-sandbox` flag:
 
+现在你可以运行下列带有 `--no-sandbox` 标志的命令了：
+
 <code-example language="sh" class="code-shell">
   ng test --single-run --no-progress --browser=ChromeHeadlessCI
   ng e2e --no-progress --config=protractor-ci.conf.js
@@ -293,16 +348,25 @@ Now you can run the following commands to use the `--no-sandbox` flag:
 
    **Note:** Right now, you'll also want to include the `--disable-gpu` flag if you're running on Windows. See [crbug.com/737678](https://crbug.com/737678).
 
+   **注意：**目前，如果你正运行在 Windows 中，还要包含 `--disable-gpu` 标志。参见 [crbug.com/737678](https://crbug.com/737678)。
+
 </div>
 
 {@a code-coverage}
 
 ## Enable code coverage reports
 
+## 启用代码覆盖率报告
+
 The CLI can run unit tests and create code coverage reports. 
 Code coverage reports show you  any parts of our code base that may not be properly tested by your unit tests.
 
+CLI 可以运行单元测试，并创建代码覆盖率报告。
+代码覆盖率报告会向你展示代码库中有哪些可能未使用单元测试正常测试过的代码。
+
 To generate a coverage report run the following command in the root of your project.
+
+要生成覆盖率报告，请在项目的根目录下运行下列命令。
 
 <code-example language="sh" class="code-shell">
   ng test --watch=false --code-coverage
@@ -310,7 +374,11 @@ To generate a coverage report run the following command in the root of your proj
 
 When  the tests are complete, the command creates a new `/coverage` folder in the project. Open the `index.html` file to see a report with your source code and code coverage values.
 
+当测试完成时，该命令会在项目中创建一个新的 `/coverage` 目录。打开其 `index.html` 文件以查看带有源码和代码覆盖率值的报告。
+
 If you want to create code-coverage reports every time you test, you can set the following option in the CLI configuration file, `angular.json`:
+
+如果你要在每次运行测试时都创建代码覆盖率报告，可以在 CLI 的配置文件 `angular.json` 中设置下列选项：
 
 ```
   "test": {
@@ -322,11 +390,19 @@ If you want to create code-coverage reports every time you test, you can set the
 
 ### Code coverage enforcement
 
+### 代码覆盖率实施
+
 The code coverage percentages let you estimate how much of your code is tested.  
 If your team decides on a set minimum amount to be unit tested, you can enforce this minimum with the Angular CLI. 
 
+代码覆盖率能让你估计要测试的代码量。
+如果你的开发组决定要设置单元测试的最小数量，就可以使用 Angular CLI 来守住这条底线。
+
 For example, suppose you want the code base to have a minimum of 80% code coverage. 
 To enable this, open the [Karma](https://karma-runner.github.io) test platform configuration file, `karma.conf.js`, and add the following in the `coverageIstanbulReporter:` key.
+
+比如，假设你希望代码有最少 80% 的代码覆盖率。
+要启用它，请打开 [Karma](https://karma-runner.github.io) 测试平台的配置文件 `karma.conf.js`，并添加键 `coverageIstanbulReporter:` 如下。
 
 ```
 coverageIstanbulReporter: {
@@ -342,6 +418,8 @@ coverageIstanbulReporter: {
 ```
 
 The `thresholds` property causes the tool to enforce a minimum of 80% code coverage when the unit tests are run in the project.
+
+这里的 `thresholds` 属性会让此工具在项目中运行单元测试时强制保证至少达到 80% 的测试覆盖率。
 
 ## Service Tests
 
