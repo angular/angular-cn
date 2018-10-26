@@ -99,7 +99,7 @@ without deep knowledge of animation techniques or CSS.
 
 * [Building and Serving](guide/build): Learn to define different build and proxy server configurations for your project, such as development, staging, and production.
 
-  [构建与启动开发服务器](guide/build)：学习为项目定义不同的构建和代理服务器设置的配置方式，比如开发、预生产和生产。
+  [构建与运行](guide/build)：学习为项目定义不同的构建和代理服务器设置的配置方式，比如开发、预生产和生产。
 
 * [Deployment](guide/deployment): Learn techniques for deploying your Angular application to a remote server.
 

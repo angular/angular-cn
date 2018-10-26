@@ -69,7 +69,7 @@ The `ng build` command with the `--prod` meta-flag (`ng build --prod`) compiles 
 
 See the [CLI command reference](cli) and [Building and serving Angular apps](guide/build) for more information.
 
-要了解更多，请参见[CLI 文档](cli)，和 [构建与启动开发服务器](guide/build)。
+要了解更多，请参见[CLI 文档](cli)，和 [构建与运行](guide/build)。
 
 </div>
 

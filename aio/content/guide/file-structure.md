@@ -1,6 +1,10 @@
 # Workspace and project file structure
 
+# 工作空间与项目文件的结构
+
 You develop apps in the context of an Angular [workspace](guide/glossary#workspace). A workspace contains the files for one or more [projects](guide/glossary#project). A project is the set of files that comprise a standalone app, a library, or a set of end-to-end (e2e) tests. 
+
+你要在 Angular [工作空间](guide/glossary#workspace)的上下文环境中开发应用。每个工作空间中包括一个或多个[项目](guide/glossary#project)的文件。每个项目是一组文件，由标准应用、库或一组端到端（e2e）测试组成。
 
 The Angular CLI command `ng new <project_name>` gets you started. 
 When you run this command, the CLI installs the necessary Angular npm packages and other dependencies in a new workspace, with a root folder named *project_name*. 
