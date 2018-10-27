@@ -208,6 +208,8 @@ A [decorator](guide/glossary#decorator) statement immediately before a field in 
 
 ## command-line interface (CLI)
 
+## 命令行界面（CLI）
+
 The [Angular CLI](cli) is a command-line tool for managing the Angular development cycle. Use it to create the initial filesystem scaffolding for a [workspace](guide/glossary#workspace) or [project](guide/glossary#project), and to run [schematics](guide/glossary#schematic) that add and modify code for initial generic versions of various elements. The CLI supports all stages of the development cycle, including building, testing, bundling, and deployment.
 
 [Angular CLI](cli) 是一个命令行工具，用于管理 Angular 的开发周期。它用于为[工作空间](guide/glossary#workspace)或[项目](guide/glossary#project)创建初始的脚手架，并且运行[生成器（schematics）](guide/glossary#schematic)来为初始生成的版本添加或修改各类代码。
