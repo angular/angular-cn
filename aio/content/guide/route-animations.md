@@ -30,7 +30,7 @@ Routing enables users to navigate between different routes in an application. Wh
 
 The Angular router comes with high-level animation functions that let you animate the transitions between views when a route changes. To produce an animation sequence when switching between routes, you need to define nested animation sequences. Start with the top-level component that hosts the view, and nest additional animations in the components that host the embedded views.
 
-Angular 路由器天生带有高级动画功能，它可以让你为路由变化时为视图之间设置转场动画。要想在路由切换时生成动画序列，你需要首先定义出嵌套的动画序列。从宿主视图的顶级组件开始，在这些内嵌视图的宿主组件中嵌套添加其它动画。
+Angular 路由器天生带有高级动画功能，它可以让你为在路由变化时为视图之间设置转场动画。要想在路由切换时生成动画序列，你需要首先定义出嵌套的动画序列。从宿主视图的顶级组件开始，在这些内嵌视图的宿主组件中嵌套添加其它动画。
 
 To enable routing transition animation, do the following:
 
