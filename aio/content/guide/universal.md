@@ -579,7 +579,6 @@ In your app root directory, create a webpack configuration file (`webpack.server
 在应用的根目录下，创建一个 Webpack 配置文件 `webpack.server.config.js`，它会把 `server.ts` 及其依赖编译到 `dist/server.js` 中。
 
 <code-example format="." language="typescript" linenums="false">
-@NgModule({
 const path = require('path');
 const webpack = require('webpack');
 
