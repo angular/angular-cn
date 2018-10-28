@@ -65,7 +65,7 @@ To check your app's version of Angular: From within your project directory, use 
 
 The most recent stable released version of Angular appears in the [Angular documentation](https://angular.io/docs "Angular documentation") at the bottom of the left side navigation. For example, `stable (v5.2.9)`.
 
-在 [Angular 文档站](https://angular.io/docs "Angular documentation")左侧导航栏的底部可以看到 Angular 最新的稳定版版本号。比如 `stable (v5.2.9)`。
+在 [Angular 文档站](https://angular.cn/docs "Angular documentation")左侧导航栏的底部可以看到 Angular 最新的稳定版版本号。比如 `stable (v5.2.9)`。
 
 You can also find the most current version of Angular by using the CLI command [`ng update`](cli/update). By default, `ng update` (without additional arguments) lists the updates that are available to you.  
 

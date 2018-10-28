@@ -258,7 +258,7 @@ You can define more than one animation trigger for a component. You can attach a
 
 Each time an animation is triggered in Angular, the parent animation always get priority and child animations are blocked. In order for a child animation to run, the parent animation must query each of the elements containing child animations and then allow the animations to run using the [`animateChild()`](https://angular.io/api/animations/animateChild) function.
 
-每次在 Angular 中触发动画时，父动画始终会优先，而子动画会被阻塞。为了运行子动画，父动画必须查询出包含子动画的每个元素，然后使用 [`animateChild()`](/api/animations/animateChild) 函数来运行它们。
+每次在 Angular 中触发动画时，父动画始终会优先，而子动画会被阻塞。为了运行子动画，父动画必须查询出包含子动画的每个元素，然后使用 [`animateChild()`](https://angular.cn/api/animations/animateChild) 函数来运行它们。
 
 #### Disabling an animation on an HTML element
 
@@ -296,7 +296,7 @@ However, selective child animations can still be run on a disabled parent in one
 
 * A parent animation can use the [`query()`](https://angular.io/api/animations/query) function to collect inner elements located in disabled areas of the HTML template. Those elements can still animate.
 
-  父动画可以使用 [`query()`](/api/animations/query) 函数来收集 HTML 模板中位于禁止动画区域内部的元素。这些元素仍然可以播放动画。
+  父动画可以使用 [`query()`](https://angular.cn/api/animations/query) 函数来收集 HTML 模板中位于禁止动画区域内部的元素。这些元素仍然可以播放动画。
 
 * A subanimation can be queried by a parent and then later animated with the `animateChild()` function.
 
