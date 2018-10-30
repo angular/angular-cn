@@ -96,7 +96,7 @@ If you click "Heroes," the app displays the "Heroes" master list view.
 
 点击“Back（后退）”按钮将返回到“Dashboard（仪表盘）”。
 顶部的链接可以把你带到任何一个主视图。
-如果你点击“Heroes（英雄列表）”链接，应用将把你带到“英雄”主列表视图。
+如果你点击“Heroes（英雄列表）”链接，应用将把你带到“英雄”列表主视图。
 
 <figure>
   <img src='generated/images/guide/toh/heroes-list-2.png' alt="Output of heroes list app">
