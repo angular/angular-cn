@@ -19,7 +19,7 @@ maintained [on github](https://github.com/angular/quickstart "Install the github
 
 Make sure you have [Node.js® and npm installed](guide/setup#install-prerequisites "What if you don't have Node.js and npm?").
 
-确定你已经安装了 [Node.js® 和 npm](guide/setup#install-prerequisites "如果你没有 Node.js 和 npm？")。
+请确保你已经安装了 [Node.js® 和 npm](guide/setup#install-prerequisites "如果你没有 Node.js 和 npm？")。
 
 {@a clone}
 
