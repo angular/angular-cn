@@ -275,7 +275,7 @@ It has many of the features you'd expect to find in a data-driven application:
 
   - Acquiring and displaying a list of items
 
-    获取与现实条目的列表
+    获取与显示条目的列表
 
   - Editing a selected item's detail
 

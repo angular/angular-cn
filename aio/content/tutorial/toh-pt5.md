@@ -671,7 +671,7 @@ The _"id"_ parameter is the `id` of the hero to display.
 
 [`ActivatedRoute`](api/router/ActivatedRoute) 保存着到这个 `HeroDetailComponent` 实例的路由信息。
 这个组件对从 URL 中提取的路由参数感兴趣。
-其中的 *`id`* 参数就是要现实的英雄的 `id`。
+其中的 *`id`* 参数就是要显示的英雄的 `id`。
 
 The [`HeroService`](tutorial/toh-pt4) gets hero data from the remote server
 and this component will use it to get the _hero-to-display_.
@@ -756,7 +756,7 @@ It returns a _mock hero_ as an `Observable`, using the RxJS `of()` function.
 You'll be able to re-implement `getHero()` as a real `Http` request
 without having to change the `HeroDetailComponent` that calls it.
 
-你将来可以用一个真实的 `Http` 请求来重现实现 `getHero()`，而不用修改调用了它的 `HeroDetailComponent`。
+你将来可以用一个真实的 `Http` 请求来重新实现 `getHero()`，而不用修改调用了它的 `HeroDetailComponent`。
 
 #### Try it
 
