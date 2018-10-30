@@ -3,11 +3,11 @@
 {%- endmacro %}
 
 {% macro githubViewHref(doc, versionInfo) -%}
-https://github.com/{$ versionInfo.gitRepoInfo.owner $}/{$ versionInfo.gitRepoInfo.repo $}/tree/{$ versionInfo.currentVersion.isSnapshot and versionInfo.currentVersion.SHA or versionInfo.currentVersion.raw $}/packages/{$ doc.fileInfo.realProjectRelativePath $}#L{$ doc.startingLine + 1 $}-L{$ doc.endingLine + 1 $}
+https://github.com/anguluar/angular-cn/tree/{$ versionInfo.currentVersion.isSnapshot and versionInfo.currentVersion.SHA or versionInfo.currentVersion.raw $}/packages/{$ doc.fileInfo.realProjectRelativePath $}#L{$ doc.startingLine + 1 $}-L{$ doc.endingLine + 1 $}
 {%- endmacro %}
 
 {% macro githubEditHref(doc, versionInfo) -%}
-https://github.com/{$ versionInfo.gitRepoInfo.owner $}/{$ versionInfo.gitRepoInfo.repo $}/edit/master{$ '/packages' if doc.docType !== 'content' $}/{$ projectRelativePath(doc.fileInfo) $}?message=docs
+https://github.com/angular/angular-cn/edit/aio{$ '/packages' if doc.docType !== 'content' $}/{$ projectRelativePath(doc.fileInfo) $}?message=docs
   {%- if doc.moduleDoc %}({$ doc.moduleDoc.id.split('/')[0] $})
   {%- elseif doc.docType === 'module' %}({$ doc.id.split('/')[0] $})
   {%- elseif doc.docType === 'content' %}
@@ -16,11 +16,11 @@ https://github.com/{$ versionInfo.gitRepoInfo.owner $}/{$ versionInfo.gitRepoInf
 {%- endmacro %}
 
 {% macro githubEditLink(doc, versionInfo) -%}
-<a href="{$ githubEditHref(doc, versionInfo) $}" aria-label="Suggest Edits" title="Suggest Edits"><i class="material-icons" aria-hidden="true" role="img">mode_edit</i></a>
+<a href="{$ githubEditHref(doc, versionInfo) $}" aria-label="提供编辑建议" title="提供编辑建议"><i class="material-icons" aria-hidden="true" role="img">mode_edit</i></a>
 {%- endmacro %}
 
 {% macro githubViewLink(doc, versionInfo) -%}
-<a href="{$ githubViewHref(doc, versionInfo) $}" aria-label="View Source" title="View Source"><i class="material-icons" aria-hidden="true" role="img">code</i></a>
+<a href="{$ githubViewHref(doc, versionInfo) $}" aria-label="查看源码" title="查看源码"><i class="material-icons" aria-hidden="true" role="img">code</i></a>
 {%- endmacro %}
 
 {% macro githubLinks(doc, versionInfo) -%}
