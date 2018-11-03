@@ -2292,7 +2292,7 @@ can give you that information and make assertions about the state of the view.
 
 ### Component marble tests
 
-### 组件的宝石测试
+### 组件的弹珠测试
 
 The previous `TwainComponent` tests simulated an asynchronous observable response
 from the `TwainService` with the `asyncData` and `asyncError` utilities.
@@ -2317,14 +2317,14 @@ that illustrate how observables work.
 Marble testing uses a similar marble language to
 specify the observable streams and expectations in your tests.
 
-**RxJS 的宝石测试**是测试各种可观察对象场景的最佳方式 —— 无论简单还是复杂。
-你可以看看[宝石图](http://rxmarbles.com/)，它揭示了可观察对象的工作原理。
-宝石测试使用类似的宝石语言来在你的测试中指定可观察对象流和对它们的期待。
+**RxJS 的弹珠测试**是测试各种可观察对象场景的最佳方式 —— 无论简单还是复杂。
+你可以看看[弹珠图](http://rxmarbles.com/)，它揭示了可观察对象的工作原理。
+弹珠测试使用类似的弹珠语言来在你的测试中指定可观察对象流和对它们的期待。
 
 The following examples revisit two of the `TwainComponent` tests
 with marble testing.
 
-下面的例子使用宝石测试重写了 `TwainComponent` 的两个测试。
+下面的例子使用弹珠测试重写了 `TwainComponent` 的两个测试。
 
 Start by installing the `jasmine-marbles` npm package.
 Then import the symbols you need.
@@ -2351,7 +2351,7 @@ Marble testing uses a test scheduler to simulate the passage of time
 in a synchronous test.
 
 注意，这个 Jasmine 测试是同步的。没有调用 `fakeAsync()`。
-宝石测试使用了一个测试调度程序来用同步的方式模拟时间的流逝。
+弹珠测试使用了一个测试调度程序来用同步的方式模拟时间的流逝。
 
 The beauty of marble testing is in the visual definition of the observable streams.
 This test defines a [_cold_ observable](#cold-observable) that waits
@@ -2359,7 +2359,7 @@ three [frames](#marble-frame) (`---`),
 emits a value (`x`), and completes (`|`).
 In the second argument you map the value marker (`x`) to the emitted value (`testQuote`).
 
-宝石测试的美妙之处在于它给出了可观察对象流的可视化定义。
+弹珠测试的美妙之处在于它给出了可观察对象流的可视化定义。
 这个测试定义了一个[*冷的*可观察对象](#cold-observable)，它等待三[帧](#marble-frame) (`---`)，然后发出一个值（`x`），然后结束（`|`）。
 在第二个参数中，你把值标记（`x`）换成了实际发出的值（`testQuote`）。
 
@@ -2371,12 +2371,12 @@ In the second argument you map the value marker (`x`) to the emitted value (`tes
 The marble library constructs the corresponding observable, which the
 test sets as the `getQuote` spy's return value.
 
-这个宝石库会构造出相应的可观察对象，测试代码会把它当做 `getQuote` 间谍的返回值。
+这个弹珠库会构造出相应的可观察对象，测试代码会把它当做 `getQuote` 间谍的返回值。
 
 When you're ready to activate the marble observables,
 you tell the `TestScheduler` to _flush_ its queue of prepared tasks like this.
 
-当你已经准备好激活这个宝石库构造出的可观察对象时，只要让 `TestScheduler` 去*刷新*准备好的任务队列就可以了。代码如下：
+当你已经准备好激活这个弹珠库构造出的可观察对象时，只要让 `TestScheduler` 去*刷新*准备好的任务队列就可以了。代码如下：
 
 <code-example
   path="testing/src/app/twain/twain.component.marbles.spec.ts"
@@ -2392,11 +2392,11 @@ The balance of the test is the same as those examples.
 
 #### Marble error testing
 
-#### 宝石错误测试
+#### 弹珠错误测试
 
 Here's the marble testing version of the `getQuote()` error test.
 
-下面是 `getQuote()` 错误测试的宝石测试版本。
+下面是 `getQuote()` 错误测试的弹珠测试版本。
 
 <code-example
   path="testing/src/app/twain/twain.component.marbles.spec.ts"
@@ -2410,7 +2410,7 @@ calls `setTimeout()` when processing errors.
 
 Look at the marble observable definition.
 
-看看宝石库生成的可观察对象的定义。
+看看弹珠库生成的可观察对象的定义。
 
 <code-example
   path="testing/src/app/twain/twain.component.marbles.spec.ts"
@@ -2427,14 +2427,14 @@ The second argument is null because the observable never emits a value.
 
 #### Learn about marble testing
 
-#### 深入学习宝石测试
+#### 深入学习弹珠测试
 
 {@a marble-frame}
 
 A _marble frame_ is a virtual unit of testing time.
 Each symbol (`-`, `x`, `|`, `#`) marks the passing of one frame.
 
-*宝石帧*是测试时序中的虚拟单元。
+*弹珠帧*是测试时序中的虚拟单元。
 每个符号（`-`，`x`，`|`，`#`）都表示一帧过去了。
 
 {@a cold-observable}
@@ -2458,7 +2458,7 @@ RxJS marble testing is a rich subject, beyond the scope of this guide.
 Learn about it on the web, starting with the
 [official documentation](https://github.com/ReactiveX/rxjs/blob/master/doc/writing-marble-tests.md).
 
-RxJS 的宝石测试是一个内容丰富的主题，超出了本章的范围。
+RxJS 的弹珠测试是一个内容丰富的主题，超出了本章的范围。
 要想在网络上进一步学习它，可以从 [official documentation](https://github.com/ReactiveX/rxjs/blob/master/doc/writing-marble-tests.md) 开始。
 
 <hr>
@@ -3049,7 +3049,7 @@ This sample puts `ActivatedRouteStub` in `testing/activated-route-stub.ts`.
 Consider writing a more capable version of this stub class with
 the [_marble testing library_](#marble-testing).
 
-  可以考虑使用[宝石测试库](#marble-testing)来为此测试桩编写一个更强力的版本。
+  可以考虑使用[弹珠测试库](#marble-testing)来为此测试桩编写一个更强力的版本。
 
 </div>
 
