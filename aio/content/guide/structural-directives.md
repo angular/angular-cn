@@ -382,7 +382,7 @@ describes additional `NgFor` directive properties and context properties.
 
 * `NgFor` is implemented by the `NgForOf` directive. Read more about additional `NgForOf` directive properties and context properties [NgForOf API reference](api/common/NgForOf).
 
-   `NgFor` 是由 `NgForOf` 指令来实现的。请参阅[NgForOf API reference](api/common/NgForOf)来了解 `NgForOf` 指令的更多属性及其上下文属性。
+   `NgFor` 是由 `NgForOf` 指令来实现的。请参阅 [NgForOf API 参考手册](api/common/NgForOf)来了解 `NgForOf` 指令的更多属性及其上下文属性。
 
 These microsyntax mechanisms are available to you when you write your own structural directives.
 Studying the
@@ -390,8 +390,8 @@ Studying the
 and [`NgForOf`](https://github.com/angular/angular/blob/master/packages/common/src/directives/ng_for_of.ts "Source: NgForOf")
 is a great way to learn more.
 
-这些微语法机制在你写自己的结构型指令时也同样有效，参考[`NgIf` 的源码](https://github.com/angular/angular/blob/master/packages/common/src/directives/ng_if.ts "Source: NgIf")
-和[`NgFor` 的源码](https://github.com/angular/angular/blob/master/packages/common/src/directives/ng_for_of.ts "Source: NgFor") 可以学到更多。
+这些微语法机制在你写自己的结构型指令时也同样有效，参考 [`NgIf` 的源码](https://github.com/angular/angular/blob/master/packages/common/src/directives/ng_if.ts "Source: NgIf")
+和 [`NgFor` 的源码](https://github.com/angular/angular/blob/master/packages/common/src/directives/ng_for_of.ts "Source: NgFor") 可以学到更多。
 
 {@a template-input-variable}
 
