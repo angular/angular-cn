@@ -23,6 +23,10 @@
     {
       "url": "translations/cn/home",
       "title": "关于中文版"
+    },
+    {
+      "url": "https://ng-china.org/",
+      "title": "**** 2018 ngChina @ 杭州！****"
     }
   ],
   "TopBarNarrow": [
