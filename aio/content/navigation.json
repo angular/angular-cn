@@ -725,6 +725,11 @@
       "divider": true
     },
     {
+      "title": "2018 ngChina @ 杭州",
+      "tooltip": "2018 ngChina 开发者大会",
+      "url": "https://ng-china.org"
+    },
+    {
       "title": "互助问答",
       "tooltip": "github 上的中文互助问答区",
       "url": "https://github.com/ng-docs/ng-docs.github.io/issues"
