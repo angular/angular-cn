@@ -436,7 +436,7 @@ export interface NgModule {
    * If true, this module will be skipped by the AOT compiler and so will always be compiled
    * using JIT.
    *
-   * 如果为 `true`，则该模块将会被 AOT 编译器忽略，因此永远不会用 JIT 编译它。
+   * 如果为 `true`，则该模块将会被 AOT 编译器忽略，因此始终会使用 JIT 编译。
    *
    * This exists to support future Ivy work and has no effect currently.
    *
