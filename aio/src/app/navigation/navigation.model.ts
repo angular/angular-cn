@@ -8,6 +8,7 @@ export interface NavigationNode {
   tooltip?: string;
   hidden?: boolean;
   divider?: boolean;
+  highlight?: boolean;
   children?: NavigationNode[];
 }
 

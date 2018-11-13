@@ -26,7 +26,8 @@
     },
     {
       "url": "https://ng-china.org/",
-      "title": "**** 2018 ngChina @ 杭州！****"
+      "title": "**** 2018 ngChina @ 杭州！****",
+      "highlight": true
     }
   ],
   "TopBarNarrow": [
