@@ -553,7 +553,7 @@ The following example displays the graph for the _main_ bundle.
 The `source-map-explorer` analyzes the source map generated with the bundle and draws a map of all dependencies,
 showing exactly which classes are included in the bundle.
 
-`source-map-explorer` 会分析与包一期生成的 source map，并画出所有依赖的地图，精确展示哪些类包含在哪个包中。
+`source-map-explorer` 会分析与包一起生成的 source map，并画出所有依赖的地图，精确展示哪些类包含在哪个包中。
 
 Here's the output for the _main_ bundle of the QuickStart.
 
