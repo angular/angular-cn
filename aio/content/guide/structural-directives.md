@@ -594,7 +594,7 @@ as you'll see when you [write your own structural directive](guide/structural-di
 There's often a _root_ element that can and should host the structural directive.
 The list element (`<li>`) is a typical host element of an `NgFor` repeater.
 
-通常都要有一个*根*元素作为结构型指令的数组。
+通常都需要一个*根*元素作为结构型指令的宿主。
 列表元素（`<li>`）就是一个典型的供 `NgFor` 使用的宿主元素。
 
 <code-example path="structural-directives/src/app/app.component.html" linenums="false" header="src/app/app.component.html (ngfor-li)" region="ngfor-li">
