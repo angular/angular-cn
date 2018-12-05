@@ -436,7 +436,7 @@ Look at the CLI-generated `main.ts` to see how this works.
 You can dramatically reduce launch time by only loading the application modules that
 absolutely must be present when the app starts.
 
-通过只加载应用启动时绝对必须的那些模块，你可以戏剧性的缩短应用启动时间。
+通过只加载应用启动时绝对必须的那些模块，你可以极大缩短应用启动的时间。
 
 Configure the Angular Router to defer loading of all other modules (and their associated code), either by
 [waiting until the app has launched](guide/router#preloading  "Preloading")
