@@ -749,7 +749,7 @@ In this example, the dependency object is a string of the names of the runners u
 to the "Hero of the Month" contest.
 
 这个依赖对象（由工厂函数返回的）通常是一个类实例，不过也可以是任何其它东西。
-在这个例子中，以来对象是一个表示 "月度英雄" 参赛者名称的字符串。
+在这个例子中，依赖对象是一个表示 "月度英雄" 参赛者名称的字符串。
 
 In the example, the local state is the number `2`, the number of runners up that the component should show.
 The state value is passed as an argument to `runnersUpFactory()`.
