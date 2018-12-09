@@ -261,7 +261,7 @@ The host component is typically the component requesting the dependency.
 However, when this component is projected into a *parent* component, 
 that parent component becomes the host. The following example covers this second case.
 
-  `@Host` 属性装饰器会禁止在*宿主组件*上搜索。宿主组件通常就是请求该依赖的那个组件。
+  `@Host` 属性装饰器会禁止在*宿主组件*以上的搜索。宿主组件通常就是请求该依赖的那个组件。
   不过，当该组件投影进某个*父*组件时，那个父组件就会变成宿主。下面的例子中介绍了第二种情况。
 
 These decorators can be used individually or together, as shown in the example.
