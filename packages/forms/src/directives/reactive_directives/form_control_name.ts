@@ -113,7 +113,7 @@ export const controlNameBinding: any = {
  * Support for using the `ngModel` input property and `ngModelChange` event with reactive
  * form directives has been deprecated in Angular v6 and will be removed in Angular v7.
  *
- * 从 Angular v6 开始，已经废弃了在响应式表单中使用使用输入属性 `ngModel` 和事件 `ngModelChange` 的方式，并将在 Angular v7 中移除。
+ * 从 Angular v6 开始，已经废弃了在响应式表单中使用输入属性 `ngModel` 和事件 `ngModelChange` 的方式，并将在 Angular v7 中移除。
  *
  * Now deprecated:
  *
