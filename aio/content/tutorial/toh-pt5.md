@@ -43,7 +43,7 @@ Angular 的最佳实践之一就是在一个独立的顶级模块中加载和配
 
 By convention, the module class name is `AppRoutingModule` and it belongs in the `app-routing.module.ts` in the `src/app` folder.
 
-按照惯例，这个模块类的名字叫做 `APPRoutingModule`，并且位于 `src/app` 下的 `app-routing.module.ts` 文件中。
+按照惯例，这个模块类的名字叫做 `AppRoutingModule`，并且位于 `src/app` 下的 `app-routing.module.ts` 文件中。
 
 Use the CLI to generate it.
 
