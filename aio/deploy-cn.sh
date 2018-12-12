@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+. /Users/twer/.nvm/nvm.sh
+
 set -x
 set -e
 
