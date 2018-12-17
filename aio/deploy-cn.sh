@@ -2,6 +2,8 @@
 
 . /Users/twer/.nvm/nvm.sh
 
+nvm use 10
+
 set -x
 set -e
 
