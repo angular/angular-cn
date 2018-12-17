@@ -2453,7 +2453,7 @@ Here it is referenced first in an interpolation
 and then passed in a binding to the `hero` property of the `<hero-detail>` component.
 
 你可以在 `ngFor` 的宿主元素（及其子元素）中引用模板输入变量 `hero`，从而访问该英雄的属性。
-这里它首先在一个插值表达式中被引用到，然后通过一个绑定把它传给了 `<hero-detail>` 组件的 `hero` 属性。
+这里的第一个语句示范了如何在一个插值表达式中引用它，第二个语句则示范了如何用一个输入绑定把它传给 `<hero-detail>` 组件的 `hero` 属性。
 
 <code-example path="template-syntax/src/app/app.component.html" region="NgFor-1-2" header="src/app/app.component.html" linenums="false">
 </code-example>
