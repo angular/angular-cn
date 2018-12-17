@@ -1836,7 +1836,7 @@ Here are the files discussed in this milestone.
 
 ## Milestone 2: *Routing module*
 
-## 里程碑 #2：**路由模块**
+## 里程碑 2：**路由模块**
 
 In the initial route configuration, you provided a simple setup with two routes used
 to configure the application for routing. This is perfectly fine for simple routing.
@@ -1998,7 +1998,7 @@ It is where developers expect to find and expand routing configuration.
 
 ## Milestone 3: Heroes feature
 
-## 里程碑 #2 英雄特征区
+## 里程碑 3: 英雄特征区
 
 You've seen how to navigate using the `RouterLink` directive.
 Now you'll learn the following:
@@ -3184,7 +3184,7 @@ When switching between the two routes, the `HeroDetailComponent` and `HeroListCo
 
 ### Milestone 3 wrap up
 
-### 里程碑#3 的总结
+### 里程碑 3 的总结
 
 You've learned how to do the following:
 
@@ -3509,7 +3509,7 @@ Here are the relevant files for this version of the sample application.
 
 ## Milestone 4: Crisis center feature
 
-## 里程碑#4：危机中心
+## 里程碑 4：危机中心
 
 It's time to add real features to the app's current placeholder crisis center.
 
