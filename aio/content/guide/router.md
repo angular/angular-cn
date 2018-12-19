@@ -3847,7 +3847,7 @@ to give the router knowledge of where you are in the current route tree.
 After the _link parameters array_, add an object with a `relativeTo` property set to the `ActivatedRoute`.
 The router then calculates the target URL based on the active route's location.
 
-在*链接参数数组*中，添加一个带有 `relativeTo` 属性的对象，并把它设置为当前的 `ActivatedRoute`。
+在*链接参数数组*后面，添加一个带有 `relativeTo` 属性的对象，并把它设置为当前的 `ActivatedRoute`。
 这样路由器就会基于当前激活路由的位置来计算出目标 URL。
 
 <div class="alert is-helpful">
