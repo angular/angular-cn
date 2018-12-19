@@ -175,7 +175,7 @@ component tree into all the child component views.
 The `/deep/` combinator works to any depth of nested components, and it applies to both the view
 children and content children of the component.
 
-可以使用 `/deep/` 选择器来强制一个样式对各级子组件的视图也生效，它*不但作用于组件的子视图，也会作用于组件的内容*。
+可以使用 `/deep/` 选择器来强制一个样式对各级子组件的视图也生效，它不但会作用于组件的子视图，也会作用于投影进来的内容(`ng-content`)。
 
 The following example targets all `<h3>` elements, from the host element down
 through this component to all of its child elements in the DOM.
