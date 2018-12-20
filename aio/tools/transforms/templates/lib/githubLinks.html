@@ -3,7 +3,7 @@
 {%- endmacro %}
 
 {% macro githubViewHref(doc, versionInfo) -%}
-https://github.com/angluar/angular-cn/tree/{$ versionInfo.currentVersion.isSnapshot and versionInfo.currentVersion.SHA or versionInfo.currentVersion.raw $}/packages/{$ doc.fileInfo.realProjectRelativePath $}#L{$ doc.startingLine + 1 $}-L{$ doc.endingLine + 1 $}
+https://github.com/angular/angular-cn/tree/{$ versionInfo.currentVersion.isSnapshot and versionInfo.currentVersion.SHA or versionInfo.currentVersion.raw $}/packages/{$ doc.fileInfo.realProjectRelativePath $}#L{$ doc.startingLine + 1 $}-L{$ doc.endingLine + 1 $}
 {%- endmacro %}
 
 {% macro githubEditHref(doc, versionInfo) -%}
