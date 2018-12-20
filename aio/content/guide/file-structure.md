@@ -75,9 +75,9 @@ When the workspace file structure is in place, you can use the `ng generate` com
 
 <div class="alert is-helpful>
 
- Besides using the CLI on the command line, You can also use an interactive development environment like [Angular Console](https://angular.console.com), or manipulate files directly in the app's source folder and configuration files.
+Besides using the CLI on the command line, You can also use an interactive development environment like [Angular Console](https://angular.console.com), or manipulate files directly in the app's source folder and configuration files.
 
- 除了在命令行上使用 CLI 之外，你还可以使用像 [Angular Console](https://angular.console.com) 这样的交互开发环境，或者直接操纵应用的源码目录中的源码文件和配置文件。
+除了在命令行上使用 CLI 之外，你还可以使用像 [Angular Console](https://angular.console.com) 这样的交互开发环境，或者直接操纵应用的源码目录中的源码文件和配置文件。
 
 </div>
 
@@ -90,9 +90,9 @@ Workspace-wide `node_modules` dependencies are visible to this project.
 | <t>APP SOURCE & CONFIG FILES</t><t>应用源码与配置文件</t>    | <t>PURPOSE</t><t>用途</t> |
 | :--------------------- | :------------------------------------------|
 | `app/`                  | <t>Contains the component files in which your app logic and data are defined. See details in [App source folder](#app-src) below. </t><t>包含组件文件，其中定义了应用逻辑和数据。详情参见稍后的[应用源码目录](#app-src)。</t> |
-| `assets/`               | <t>Contains image files and other asset files to be copied as-is when you build your application. </t>包含图像文件和其它文件，当构建应用时会被原样赋值到构建目标中。<t></t> |
+| `assets/`               | <t>Contains image files and other asset files to be copied as-is when you build your application. </t><t>包含图像文件和其它文件，当构建应用时会被原样赋值到构建目标中。</t> |
 | `environments/`         | <t>Contains build configuration options for particular target environments. By default there is an unnamed standard development environment and a production ("prod") environment. You can define additional target environment configurations. </t><t>包含针对特定目标环境的配置选项。默认情况下有一个未命名的标准开发环境和一个名叫 "prod" 的产品环境。你可以定义一些额外的目标环境配置。</t> |
-| `browserlist`           | <t>Configures sharing of target browsers and Node.js versions among various front-end tools. See [Browserlist on GitHub](https://github.com/browserslist/browserslist) for more information.  </t>配置各个目标浏览器和 Node.js 版本之间的市场占有率，供各种前端工具使用。详情参见 [GitHub 上的 Browserlist](https://github.com/browserslist/browserslist)。<t></t> |
+| `browserlist`           | <t>Configures sharing of target browsers and Node.js versions among various front-end tools. See [Browserlist on GitHub](https://github.com/browserslist/browserslist) for more information.  </t><t>配置各个目标浏览器和 Node.js 版本之间的市场占有率，供各种前端工具使用。详情参见 [GitHub 上的 Browserlist](https://github.com/browserslist/browserslist)。</t> |
 | `favicon.ico`           | <t>An icon to use for this app in the bookmark bar. </t><t>一个用在书签栏上的应用图标。</t> |
 | `index.html`            | <t>The main HTML page that is served when someone visits your site. The CLI automatically adds all JavaScript and CSS files when building your app, so you typically don't need to add any `<script>` or` <link>` tags here manually. </t><t>当有人访问你的应用时给出的主 HTML 文件，你通常不用手动在这里添加任何 `<script>` 或` <link>` 标签。</t> |
 | `main.ts`               | <t>The main entry point for your app. Compiles the application with the [JIT compiler](https://angular.io/guide/glossary#jit) and bootstraps the application's root module (AppModule) to run in the browser. You can also use the [AOT compiler](https://angular.io/guide/aot-compiler) without changing any code by appending the `--aot` flag to the CLI `build` and `serve` commands. </t><t>应用的主入口点。使用 [JIT 编译器](https://angular.cn/guide/glossary#jit)编译应用，并引导应用的根模块 AppModule 来运行在浏览器中。你也可以为 CLI 的 `build` 和 `serve` 命令添加 `--aot` 标志，来使用 [AOT 编译器](https://angular.cn/guide/aot-compiler) 而不必修改任何代码。</t> |
