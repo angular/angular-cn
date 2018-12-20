@@ -3533,7 +3533,7 @@ Begin by imitating the heroes feature:
 
 * Rename the NgModule files to `crisis-center.module.ts` and `crisis-center-routing.module.ts`.
 
-   在这些新文件中，把每一个对“hero”替换为“crisis”，并把“heroes”替换为“crises”。
+  把这些 NgModule 文件改名为 `crisis-center.module.ts` 和 `crisis-center-routing.module.ts`。
 
 You'll use mock crises instead of mock heroes:
 
