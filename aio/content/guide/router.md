@@ -1363,6 +1363,8 @@ Replace the contents of each component with the sample HTML below.
 
 ### Register Router and Routes
 
+### 注册路由器与路由定义
+
 In order to use the Router, you must first register the `RouterModule` from the `@angular/router` package. Define an array of routes, `appRoutes`, and pass them to the `RouterModule.forRoot()` method. It returns a module, containing the configured `Router` service provider, plus other providers that the routing library requires. Once the application is bootstrapped, the `Router` performs the initial navigation based on the current browser URL.
 
 要使用路由器，必须先注册来自 `@angular/router` 包中的 `RouterModule`。
