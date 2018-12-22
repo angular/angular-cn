@@ -5218,7 +5218,7 @@ In the [route parameters](#optional-route-parameters) example, you only dealt wi
 the route, but what if you wanted optional parameters available to all routes?
 This is where query parameters come into play.
 
-在这个[查询参数](guide/router#query-parameters)例子中，你只为路由指定了参数，但是该如何定义一些所有路由中都可用的可选参数呢？
+在这个[查询参数](#optional-route-parameters)例子中，你只为路由指定了参数，但是该如何定义一些所有路由中都可用的可选参数呢？
 这就该“查询参数”登场了。
 
 [Fragments](https://en.wikipedia.org/wiki/Fragment_identifier) refer to certain elements on the page
