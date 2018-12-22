@@ -5248,7 +5248,7 @@ second argument in the `router.navigate` function
 and provide the `queryParamsHandling` and `preserveFragment` to pass along the current query parameters
 and fragment to the next route.
 
-还可以再导航之间**保留**查询参数和片段，而无需再次再导航中提供。在 `LoginComponent` 中的 `router.navigate` 方法中，添加第二个参数，该**对象**提供了 `preserveQueryParams` 和 `preserveFragment`，用于传递到当前的查询参数中并为下一个路由提供片段。
+还可以再导航之间**保留**查询参数和片段，而无需再次再导航中提供。在 `LoginComponent` 中的 `router.navigate` 方法中，添加第二个参数，该**对象**提供了 `queryParamsHandling` 和 `preserveFragment`，用于传递到当前的查询参数中并为下一个路由提供片段。
 
 <code-example path="router/src/app/auth/login/login.component.ts" linenums="false" header="src/app/auth/login/login.component.ts (preserve)" region="preserve">
 
@@ -5297,7 +5297,7 @@ authentication tokens or session ids.
 The `query params` and `fragment` can also be preserved using a `RouterLink` with
 the `queryParamsHandling` and `preserveFragment` bindings respectively.
 
-“查询参数”和“片段”也可以分别用 `RouterLink` 中的 **preserveQueryParams** 和 **preserveFragment** 保存。
+“查询参数”和“片段”也可以分别用 `RouterLink` 中的 **queryParamsHandling** 和 **preserveFragment** 保存。
 
 </div>
 
