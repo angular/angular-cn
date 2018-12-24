@@ -5793,7 +5793,7 @@ Verify this by logging in to the `Admin` feature area and noting that the `crisi
 It's also logged to the browser's console.
 
 一旦应用加载完了初始路由，`CrisisCenterModule` 也被预加载了。
-通过 `Admin` 特性区中的记录就可以验证它，“Preloaded Modules”中没有列出 `crisis-center`。
+通过 `Admin` 特性区中的记录就可以验证它，“Preloaded Modules”中列出了 `crisis-center`。
 它也被记录到了浏览器的控制台。
 
 {@a redirect-advanced}
