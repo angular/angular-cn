@@ -22,7 +22,7 @@ that you bootstrap to launch the application.
 By convention, it is usually called `AppModule`.
 
 NgModule 用于描述应用的各个部分如何组织在一起。
-每个应用又至少一个 Angular 模块，*根*模块就是你用来启动此应用的模块。
+每个应用有至少一个 Angular 模块，*根*模块就是你用来启动此应用的模块。
 按照惯例，它通常命名为 `AppModule`。
 
 If you use the [Angular CLI](cli) to generate an app, the default `AppModule` is as follows:
