@@ -75,9 +75,7 @@ When the workspace file structure is in place, you can use the `ng generate` com
 
 <div class="alert is-helpful>
 
-<p>Besides using the CLI on the command line, You can also use an interactive development environment like [Angular Console](https://angular.console.com), or manipulate files directly in the app's source folder and configuration files.</p>
-
-除了在命令行上使用 CLI 之外，你还可以使用像 [Angular Console](https://angular.console.com) 这样的交互开发环境，或者直接操纵应用的源码目录中的源码文件和配置文件。
+除了在命令行上使用 CLI 之外，你还可以使用像 [Angular Console](https://angularconsole.com) 这样的交互开发环境，或者直接操纵应用的源码目录中的源码文件和配置文件。
 
 </div>
 
