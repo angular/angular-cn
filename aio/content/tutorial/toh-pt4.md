@@ -152,7 +152,7 @@ When you provide the service at the root level, Angular creates a single, shared
 Registering the provider in the `@Injectable` metadata also allows Angular to optimize an app by removing the service if it turns out not to be used after all. 
 
 当你在顶层提供该服务时，Angular 就会为 `HeroService` 创建一个单一的、共享的实例，并把它注入到任何想要它的类上。
-在 `@Injectable` 元数据中注册该提供商，还能让 Angular 可以通过移除那些完全没有用过的服务，来进行优化。
+在 `@Injectable` 元数据中注册该提供商，还能允许 Angular 通过移除那些完全没有用过的服务来进行优化。
 
 <div class="alert is-helpful">
 
