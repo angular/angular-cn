@@ -21,6 +21,7 @@ const minifyOptions = {
 };
 
 function composePage(url) {
+  console.log(`pre-rendering ${url}...`);
   const { title, contents } = JSON.parse(fs.readFileSync(`./dist/generated/docs/${url}.json`, 'utf-8'));
 
   if (!contents) {
