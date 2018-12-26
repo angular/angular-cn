@@ -73,7 +73,9 @@ When the workspace file structure is in place, you can use the `ng generate` com
 新生成的应用包含根模块和一个根组件及其模板的代码。
 当工作空间的文件结构就绪之后，你可以在命令行上运行 `ng generate` 命令，来给这个初始应用添加功能和数据。
 
-<div class="alert is-helpful>
+<div class="alert is-helpful">
+
+Besides using the CLI on the command line, you can also use an interactive development environment like [Angular Console](https://angularconsole.com/), or manipulate files directly in the app's source folder and configuration files.</p>
 
 除了在命令行上使用 CLI 之外，你还可以使用像 [Angular Console](https://angularconsole.com/) 这样的交互开发环境，或者直接操纵应用的源码目录中的源码文件和配置文件。
 
