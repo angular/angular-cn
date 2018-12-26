@@ -75,7 +75,7 @@ When the workspace file structure is in place, you can use the `ng generate` com
 
 <div class="alert is-helpful>
 
-除了在命令行上使用 CLI 之外，你还可以使用像 [Angular Console](https://angularconsole.com) 这样的交互开发环境，或者直接操纵应用的源码目录中的源码文件和配置文件。
+除了在命令行上使用 CLI 之外，你还可以使用像 <a href="https://angularconsole.com" target="_blank">Angular Console</a> 这样的交互开发环境，或者直接操纵应用的源码目录中的源码文件和配置文件。
 
 </div>
 
