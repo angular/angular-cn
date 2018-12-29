@@ -6,8 +6,8 @@
  * found in the LICENSE file at https://angular.io/license
  */
 
-import {runBenchmark, verifyNoBrowserErrors} from 'e2e_util/perf_util';
-import {$} from 'protractor';
+import { runBenchmark, verifyNoBrowserErrors } from 'e2e_util/perf_util';
+import { $ } from 'protractor';
 
 interface Worker {
   id: string;
@@ -52,15 +52,6 @@ describe('largetable benchmark perf', () => {
         runTableBenchmark({
           id: `largeTable.ng2_switch.${worker.id}`,
           url: 'all/benchmarks/src/largetable/ng2_switch/index.html',
-          worker: worker
-        }).then(done, done.fail);
-      });
-
-      it('should run for render3', done => {
-        runTableBenchmark({
-          id: `largeTable.render3.${worker.id}`,
-          url: 'all/benchmarks/src/largetable/render3/index.html',
-          ignoreBrowserSynchronization: true,
           worker: worker
         }).then(done, done.fail);
       });

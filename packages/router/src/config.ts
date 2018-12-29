@@ -8,9 +8,12 @@
 
 import {NgModuleFactory, NgModuleRef, Type} from '@angular/core';
 import {Observable} from 'rxjs';
+
 import {EmptyOutletComponent} from './components/empty_outlet';
+import {ActivatedRouteSnapshot} from './router_state';
 import {PRIMARY_OUTLET} from './shared';
 import {UrlSegment, UrlSegmentGroup} from './url_tree';
+
 
 /**
  * @description
@@ -77,8 +80,21 @@ import {UrlSegment, UrlSegmentGroup} from './url_tree';
  *   `resolve` 是一个 DI 令牌的映射表，用于查阅数据解析器。欲知详情，参见 `Resolve`。
  *
  * - `runGuardsAndResolvers` defines when guards and resolvers will be run. By default they run only
- *    when the matrix parameters of the route change. When set to `paramsOrQueryParamsChange` they
- *    will also run when query params change. And when set to `always`, they will run every time.
+ *    when the matrix parameters of the route change. Options include:
+ *    - `paramsChange` (default) - Run guards and resolvers when path or matrix params change. This
+ *      mode ignores query param changes.
+ *    - `paramsOrQueryParamsChange` - Guards and resolvers will run when any parameters change. This
+ *      includes path, matrix, and query params.
+ *    - `pathParamsChange` - Run guards and resolvers path or any path params change. This mode is
+ *      useful if you want to ignore changes to all optional parameters such as query *and* matrix
+ *      params.
+ *    - `pathParamsOrQueryParamsChange` - Same as `pathParamsChange`, but also rerun when any query
+ *      param changes
+ *    - `always` - Run guards and resolvers on every navigation.
+ *    - (from: ActivatedRouteSnapshot, to: ActivatedRouteSnapshot) => boolean - Use a predicate
+ *      function when none of the pre-configured modes fit the needs of the application. An example
+ *      might be when you need to ignore updates to a param such as `sortDirection`, but need to
+ *      reload guards and resolvers when changing the `searchRoot` param.
  *
  *   `runGuardsAndResolvers` 定义了路由守卫和解析器的运行时机。默认情况下，它们只会在路由的矩阵参数（`#`）变化时才会执行。
  *   当设置为 `paramsOrQueryParamsChange` 时，它们在查询参数（`?`）变化时也会执行。当设置为 `always` 时，它们每次都会执行。
@@ -370,6 +386,7 @@ import {UrlSegment, UrlSegmentGroup} from './url_tree';
  * 路由器会使用已注册的 `NgModuleFactoryLoader` 来获取与 `team` 相关的 NgModule。
  * 然后，它就会提取出那个 NgModule 中定义的一组路由，并透明的把那些路由添加到主路由配置中。
  *
+ * @publicApi
  */
 export type Routes = Route[];
 
@@ -386,7 +403,7 @@ export type Routes = Route[];
  *
  *   `posParams` 是位置参数的映射表。
  *
- * @experimental
+ * @publicApi
  */
 export type UrlMatchResult = {
   consumed: UrlSegment[]; posParams?: {[name: string]: UrlSegment};
@@ -416,7 +433,7 @@ export type UrlMatchResult = {
  * export const routes = [{ matcher: htmlFiles, component: AnyComponent }];
  * ```
  *
- * @experimental
+ * @publicApi
  */
 export type UrlMatcher = (segments: UrlSegment[], group: UrlSegmentGroup, route: Route) =>
     UrlMatchResult;
@@ -432,6 +449,7 @@ export type UrlMatcher = (segments: UrlSegment[], group: UrlSegmentGroup, route:
  *
  * 欲知详情，参见 `Routes`。
  *
+ * @publicApi
  */
 export type Data = {
   [name: string]: any
@@ -448,6 +466,7 @@ export type Data = {
  *
  * 欲知详情，参见 `Routes`。
  *
+ * @publicApi
  */
 export type ResolveData = {
   [name: string]: any
@@ -464,6 +483,7 @@ export type ResolveData = {
  *
  * 欲知详情，参见 `Routes`。
  *
+ * @publicApi
  */
 export type LoadChildrenCallback = () =>
     Type<any>| NgModuleFactory<any>| Promise<Type<any>>| Observable<Type<any>>;
@@ -478,6 +498,7 @@ export type LoadChildrenCallback = () =>
  * See `Routes` for more details.
  *
  * 欲知详情，参见 `Routes`。
+ * @publicApi
  */
 export type LoadChildren = string | LoadChildrenCallback;
 
@@ -505,15 +526,18 @@ export type QueryParamsHandling = 'merge' | 'preserve' | '';
  *
  * 欲知详情，参见 `Routes`。
  *
- * @experimental
+ * @publicApi
  */
-export type RunGuardsAndResolvers = 'paramsChange' | 'paramsOrQueryParamsChange' | 'always';
+export type RunGuardsAndResolvers = 'pathParamsChange' | 'pathParamsOrQueryParamsChange' |
+    'paramsChange' | 'paramsOrQueryParamsChange' | 'always' |
+    ((from: ActivatedRouteSnapshot, to: ActivatedRouteSnapshot) => boolean);
 
 /**
  * See `Routes` for more details.
  *
  * 欲知详情，参见 `Routes`。
  *
+ * @publicApi
  */
 export interface Route {
   path?: string;

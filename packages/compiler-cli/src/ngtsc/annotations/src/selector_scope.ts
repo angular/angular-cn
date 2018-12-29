@@ -14,7 +14,7 @@ import {AbsoluteReference, Reference, ResolvedReference, reflectTypeEntityToDecl
 import {reflectIdentifierOfDeclaration, reflectNameOfDeclaration} from '../../metadata/src/reflector';
 import {TypeCheckableDirectiveMeta} from '../../typecheck';
 
-import {extractDirectiveGuards, toR3Reference} from './util';
+import {extractDirectiveGuards} from './util';
 
 
 /**
@@ -31,7 +31,7 @@ export interface ModuleData {
  * context of some module.
  */
 export interface CompilationScope<T> {
-  directives: Map<string, ScopeDirective<T>>;
+  directives: ScopeDirective<T>[];
   pipes: Map<string, T>;
   containsForwardDecls?: boolean;
 }
@@ -153,28 +153,38 @@ export class SelectorScopeRegistry {
     }
 
     // This is the first time the scope for this module is being computed.
-    const directives = new Map<string, ScopeDirective<Reference<ts.Declaration>>>();
-    const pipes = new Map<string, Reference>();
+    const directives: ScopeDirective<Reference<ts.Declaration>>[] = [];
+    const pipes = new Map<string, Reference<ts.Declaration>>();
+
+    // Tracks which declarations already appear in the `CompilationScope`.
+    const seenSet = new Set<ts.Declaration>();
 
     // Process the declaration scope of the module, and lookup the selector of every declared type.
     // The initial value of ngModuleImportedFrom is 'null' which signifies that the NgModule
     // was not imported from a .d.ts source.
-    this.lookupScopesOrDie(module !, /* ngModuleImportedFrom */ null).compilation.forEach(ref => {
+    for (const ref of this.lookupScopesOrDie(module !, /* ngModuleImportedFrom */ null)
+             .compilation) {
       const node = ts.getOriginalNode(ref.node) as ts.Declaration;
+
+      // Track whether this `ts.Declaration` has been seen before.
+      if (seenSet.has(node)) {
+        continue;
+      } else {
+        seenSet.add(node);
+      }
 
       // Either the node represents a directive or a pipe. Look for both.
       const metadata = this.lookupDirectiveMetadata(ref);
       // Only directives/components with selectors get added to the scope.
-      if (metadata != null) {
-        directives.set(metadata.selector, {...metadata, directive: ref});
-        return;
+      if (metadata !== null) {
+        directives.push({...metadata, directive: ref});
+      } else {
+        const name = this.lookupPipeName(node);
+        if (name !== null) {
+          pipes.set(name, ref);
+        }
       }
-
-      const name = this.lookupPipeName(node);
-      if (name != null) {
-        pipes.set(name, ref);
-      }
-    });
+    }
 
     const scope: CompilationScope<Reference> = {directives, pipes};
 
@@ -198,7 +208,7 @@ export class SelectorScopeRegistry {
       SelectorScopes {
     const result = this.lookupScopes(node, ngModuleImportedFrom);
     if (result === null) {
-      throw new Error(`Module not found: ${reflectIdentifierOfDeclaration(node)}`);
+      throw new Error(`Module not found: ${reflectNameOfDeclaration(node)}`);
     }
     return result;
   }
@@ -418,33 +428,40 @@ function absoluteModuleName(ref: Reference): string|null {
   return ref.moduleName;
 }
 
-function convertDirectiveReferenceMap(
-    map: Map<string, ScopeDirective<Reference>>,
-    context: ts.SourceFile): Map<string, ScopeDirective<Expression>> {
-  const newMap = new Map<string, ScopeDirective<Expression>>();
-  map.forEach((meta, selector) => {
-    newMap.set(selector, {...meta, directive: toR3Reference(meta.directive, context).value});
+function convertDirectiveReferenceList(
+    input: ScopeDirective<Reference>[], context: ts.SourceFile): ScopeDirective<Expression>[] {
+  return input.map(meta => {
+    const directive = meta.directive.toExpression(context);
+    if (directive === null) {
+      throw new Error(`Could not write expression to reference ${meta.directive.node}`);
+    }
+    return {...meta, directive};
   });
-  return newMap;
 }
 
 function convertPipeReferenceMap(
     map: Map<string, Reference>, context: ts.SourceFile): Map<string, Expression> {
   const newMap = new Map<string, Expression>();
-  map.forEach((meta, selector) => { newMap.set(selector, toR3Reference(meta, context).value); });
+  map.forEach((meta, selector) => {
+    const pipe = meta.toExpression(context);
+    if (pipe === null) {
+      throw new Error(`Could not write expression to reference ${meta.node}`);
+    }
+    newMap.set(selector, pipe);
+  });
   return newMap;
 }
 
 function convertScopeToExpressions(
     scope: CompilationScope<Reference>, context: ts.Declaration): CompilationScope<Expression> {
   const sourceContext = ts.getOriginalNode(context).getSourceFile();
-  const directives = convertDirectiveReferenceMap(scope.directives, sourceContext);
+  const directives = convertDirectiveReferenceList(scope.directives, sourceContext);
   const pipes = convertPipeReferenceMap(scope.pipes, sourceContext);
   const declPointer = maybeUnwrapNameOfDeclaration(context);
   let containsForwardDecls = false;
-  directives.forEach(expr => {
+  directives.forEach(meta => {
     containsForwardDecls = containsForwardDecls ||
-        isExpressionForwardReference(expr.directive, declPointer, sourceContext);
+        isExpressionForwardReference(meta.directive, declPointer, sourceContext);
   });
   !containsForwardDecls && pipes.forEach(expr => {
     containsForwardDecls =

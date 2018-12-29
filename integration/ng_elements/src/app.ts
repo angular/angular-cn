@@ -1,8 +1,8 @@
-import {Injector, NgModule} from '@angular/core';
-import {createCustomElement} from '@angular/elements';
-import {BrowserModule} from '@angular/platform-browser';
+import { Injector, NgModule } from '@angular/core';
+import { createCustomElement } from '@angular/elements';
+import { BrowserModule } from '@angular/platform-browser';
 
-import {HelloWorldComponent, HelloWorldShadowComponent, TestCardComponent} from './elements';
+import { HelloWorldComponent, HelloWorldShadowComponent, TestCardComponent } from './elements';
 
 
 @NgModule({
@@ -19,5 +19,3 @@ export class AppModule {
   }
   ngDoBootstrap() {}
 }
-
-export {HelloWorldComponent};

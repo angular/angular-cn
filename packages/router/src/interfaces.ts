@@ -10,13 +10,17 @@ import {Observable} from 'rxjs';
 
 import {Route} from './config';
 import {ActivatedRouteSnapshot, RouterStateSnapshot} from './router_state';
-import {UrlSegment} from './url_tree';
+import {UrlSegment, UrlTree} from './url_tree';
 
 
 /**
  * @description
  *
  * Interface that a class can implement to be a guard deciding if a route can be activated.
+ * If all guards return `true`, navigation will continue. If any guard returns `false`,
+ * navigation will be cancelled. If any guard returns a `UrlTree`, current navigation will
+ * be cancelled and a new navigation will be kicked off to the `UrlTree` returned from the
+ * guard.
  *
  * 一个接口，某些类可以实现它以扮演一个守卫，来决定该路由能否激活。
  *
@@ -35,7 +39,7 @@ import {UrlSegment} from './url_tree';
  *   canActivate(
  *     route: ActivatedRouteSnapshot,
  *     state: RouterStateSnapshot
- *   ): Observable<boolean>|Promise<boolean>|boolean {
+ *   ): Observable<boolean|UrlTree>|Promise<boolean|UrlTree>|boolean|UrlTree {
  *     return this.permissions.canActivate(this.currentUser, route.params.id);
  *   }
  * }
@@ -80,17 +84,24 @@ import {UrlSegment} from './url_tree';
  * class AppModule {}
  * ```
  *
- *
+ * @publicApi
  */
 export interface CanActivate {
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot):
-      Observable<boolean>|Promise<boolean>|boolean;
+      Observable<boolean|UrlTree>|Promise<boolean|UrlTree>|boolean|UrlTree;
 }
+
+export type CanActivateFn = (route: ActivatedRouteSnapshot, state: RouterStateSnapshot) =>
+    Observable<boolean|UrlTree>| Promise<boolean|UrlTree>| boolean | UrlTree;
 
 /**
  * @description
  *
  * Interface that a class can implement to be a guard deciding if a child route can be activated.
+ * If all guards return `true`, navigation will continue. If any guard returns `false`,
+ * navigation will be cancelled. If any guard returns a `UrlTree`, current navigation will
+ * be cancelled and a new navigation will be kicked off to the `UrlTree` returned from the
+ * guard.
  *
  * 一个接口，某些类可以实现它以扮演一个守卫，来决定该路由的子路由能否激活。
  *
@@ -109,7 +120,7 @@ export interface CanActivate {
  *   canActivateChild(
  *     route: ActivatedRouteSnapshot,
  *     state: RouterStateSnapshot
- *   ): Observable<boolean>|Promise<boolean>|boolean {
+ *   ): Observable<boolean|UrlTree>|Promise<boolean|UrlTree>|boolean|UrlTree {
  *     return this.permissions.canActivate(this.currentUser, route.params.id);
  *   }
  * }
@@ -164,17 +175,24 @@ export interface CanActivate {
  * class AppModule {}
  * ```
  *
- *
+ * @publicApi
  */
 export interface CanActivateChild {
   canActivateChild(childRoute: ActivatedRouteSnapshot, state: RouterStateSnapshot):
-      Observable<boolean>|Promise<boolean>|boolean;
+      Observable<boolean|UrlTree>|Promise<boolean|UrlTree>|boolean|UrlTree;
 }
+
+export type CanActivateChildFn = (childRoute: ActivatedRouteSnapshot, state: RouterStateSnapshot) =>
+    Observable<boolean|UrlTree>| Promise<boolean|UrlTree>| boolean | UrlTree;
 
 /**
  * @description
  *
  * Interface that a class can implement to be a guard deciding if a route can be deactivated.
+ * If all guards return `true`, navigation will continue. If any guard returns `false`,
+ * navigation will be cancelled. If any guard returns a `UrlTree`, current navigation will
+ * be cancelled and a new navigation will be kicked off to the `UrlTree` returned from the
+ * guard.
  *
  * 一个接口，某些类可以实现它以扮演一个守卫，来决定该路由能否停用。
  *
@@ -195,7 +213,7 @@ export interface CanActivateChild {
  *     currentRoute: ActivatedRouteSnapshot,
  *     currentState: RouterStateSnapshot,
  *     nextState: RouterStateSnapshot
- *   ): Observable<boolean>|Promise<boolean>|boolean {
+ *   ): Observable<boolean|UrlTree>|Promise<boolean|UrlTree>|boolean|UrlTree {
  *     return this.permissions.canDeactivate(this.currentUser, route.params.id);
  *   }
  * }
@@ -241,13 +259,19 @@ export interface CanActivateChild {
  * class AppModule {}
  * ```
  *
- *
+ * @publicApi
  */
 export interface CanDeactivate<T> {
   canDeactivate(
       component: T, currentRoute: ActivatedRouteSnapshot, currentState: RouterStateSnapshot,
-      nextState?: RouterStateSnapshot): Observable<boolean>|Promise<boolean>|boolean;
+      nextState?: RouterStateSnapshot): Observable<boolean|UrlTree>|Promise<boolean|UrlTree>|boolean
+      |UrlTree;
 }
+
+export type CanDeactivateFn<T> =
+    (component: T, currentRoute: ActivatedRouteSnapshot, currentState: RouterStateSnapshot,
+     nextState?: RouterStateSnapshot) =>
+        Observable<boolean|UrlTree>| Promise<boolean|UrlTree>| boolean | UrlTree;
 
 /**
  * @description
@@ -319,6 +343,7 @@ export interface CanDeactivate<T> {
  * class AppModule {}
  * ```
  *
+ * @publicApi
  */
 export interface Resolve<T> {
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<T>|Promise<T>|T;
@@ -391,8 +416,11 @@ export interface Resolve<T> {
  * class AppModule {}
  * ```
  *
- *
+ * @publicApi
  */
 export interface CanLoad {
   canLoad(route: Route, segments: UrlSegment[]): Observable<boolean>|Promise<boolean>|boolean;
 }
+
+export type CanLoadFn = (route: Route, segments: UrlSegment[]) =>
+    Observable<boolean>| Promise<boolean>| boolean;

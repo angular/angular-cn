@@ -560,11 +560,46 @@ Within Angular, use [NgModules](guide/glossary#ngmodule) to make public parts av
 
 {@a F}
 
+{@a form-control}
+
+## form control
+
+<!--TODO: translate-->
+
+A instance of `FormControl`, which is a fundamental building block for Angular forms. Together with `FormGroup` and `FormArray`, tracks the value, validation, and status of a form input element.
+
+Read more forms in the [Introduction to forms in Angular](guide/forms-overview).
+
+{@a form-model}
+
+## form model
+
+The "source of truth" for the value and validation status of a form input element at a given point in time. When using [reactive forms](guide/glossary#reactive-forms), the form model is created explicitly in the component class. When using [template-driven forms](guide/glossary#template-driven-forms), the form model is implicitly created by directives.
+
+Learn more about reactive and template-driven forms in the [Introduction to forms in Angular](guide/forms-overview).
+
+{@a form-validation}
+
+## form validation
+
+A check that runs when form values change and reports whether the given values are correct and complete, according to the defined constraints. Reactive forms apply [validator functions](guide/form-validation#adding-to-reactive-forms). Template-driven forms use [validator directives](guide/form-validation#adding-to-template-driven-forms).
+
+
+To learn more, see [Form Validation](guide/form-validation).
+
 {@a G}
 
 {@a H}
 
 {@a I}
+
+
+{@a immutability}
+
+## immutability
+
+The ability to alter the state of a value after its creation. [Reactive forms](guide/glossary#reactive-forms) perform immutable changes in that
+each change to the data model produces a new data model rather than modifying the existing one. [Template-driven forms](guide/glossary#template-driven-forms) perform mutable changes with `NgModel` and [two-way data binding](guide/glossary#data-binding) to modify the existing data model in place.
 
 {@a injectable}
 
@@ -976,29 +1011,29 @@ The alternative is a [template-driven form](guide/glossary#template-driven-forms
 通过组件中代码构建 Angular 表单的一个框架。
 另一种技术是[模板驱动表单](guide/glossary#template-driven-forms)
 
-When building reactive forms:
+When using reactive forms:
 
 构建响应式表单时：
 
-* The "source of truth" is the component. The validation is defined using code in the component.
+* The "source of truth", the form model, is defined in the component class.
+* Validation is set up through validation functions rather than valdation directives.
 
    组件是“真理之源”。表单验证在组件代码中定义。
 
-* Each control is explicitly created in the component class with `new FormControl()` or with `FormBuilder`.
+* Each control is explicitly created in the component class by creating a `FormControl` instance manually or with `FormBuilder`.
 
    在组件类中，使用 `new FormControl()` 或者 `FormBuilder` 显性地创建每个控件。
-
 * The template input elements do *not* use `ngModel`.
 
    模板中的 `input` 元素**不**使用 `ngModel`。
 
-* The associated Angular directives are prefixed with `Form`, such as `FormGroup()`, `FormControl()`, and `FormControlName()`.
+* The associated Angular directives are prefixed with `form`, such as `formControl`, `formGroup`, and `formControlName`.
 
    相关联的 Angular 指令全部以 `Form` 开头，例如 `FormGroup()`、`FormControl()` 和 `FormControlName()`。
 
-Reactive forms are powerful, flexible, and a good choice for more complex data-entry form scenarios, such as dynamic generation of form controls.
+The alternative is a template-driven form. For an introduction and comparison of both forms approaches, see [Introduction to Angular Forms](guide/forms-overview).
 
-动态表单非常强大、灵活，它在复杂数据输入的场景下尤其好用，例如动态的生成表单控制器。
+另一种方式是模板驱动表单。模板驱动表单的简介和这两种方式的比较，参见 [Angular 表单简介](guide/forms-overview)。
 
 {@a router}
 {@a router-module}
@@ -1194,7 +1229,7 @@ The alternative format uses the [reactive forms](guide/glossary#reactive-forms) 
 一种在视图中使用 HTML 表单和输入类元素构建 Angular 表单的格式。
 它的替代方案是[响应式表单](guide/glossary#reactive-forms)框架。
 
-When building template-driven forms:
+When using template-driven forms:
 
 当构建模板驱动表单时：
 
@@ -1214,13 +1249,9 @@ When building template-driven forms:
 
    相关的 Angular 指令都带有 `ng` 前缀，例如 `ngForm`、`ngModel` 和 `ngModelGroup`。
 
-Template-driven forms are convenient, quick, and simple. They are a good choice for many basic data-entry form scenarios.
+The alternative is a reactive form. For an introduction and comparison of both forms approaches, see [Introduction to Angular Forms](guide/forms-overview).
 
-模板驱动表单便捷、快速、简单，是很多基础型数据输入表单的最佳选择。
-
-Read about how to build template-driven forms in [Forms](guide/forms).
-
-要了解如何构建模板驱动表单的更多信息，参见[表单](guide/forms)页。
+另一种方式是响应式表单。响应式表单的简介和两种方式的比较参见 [Angular 表单简介](guide/forms-overview)。
 
 {@a template-expression}
 

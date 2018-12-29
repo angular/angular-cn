@@ -8,8 +8,8 @@
 
 import {Type} from '../../type';
 import {fillProperties} from '../../util/property';
-import {EMPTY, EMPTY_ARRAY} from '../definition';
-import {ComponentDef, ComponentTemplate, DirectiveDef, DirectiveDefFeature, RenderFlags} from '../interfaces/definition';
+import {EMPTY_ARRAY, EMPTY_OBJ} from '../empty';
+import {ComponentDef, DirectiveDef, DirectiveDefFeature, RenderFlags} from '../interfaces/definition';
 
 
 
@@ -72,9 +72,9 @@ export function InheritDefinitionFeature(definition: DirectiveDef<any>| Componen
       const superHostBindings = superDef.hostBindings;
       if (superHostBindings) {
         if (prevHostBindings) {
-          definition.hostBindings = (directiveIndex: number, elementIndex: number) => {
-            superHostBindings(directiveIndex, elementIndex);
-            prevHostBindings(directiveIndex, elementIndex);
+          definition.hostBindings = (rf: RenderFlags, ctx: any, elementIndex: number) => {
+            superHostBindings(rf, ctx, elementIndex);
+            prevHostBindings(rf, ctx, elementIndex);
           };
         } else {
           definition.hostBindings = superHostBindings;
@@ -102,9 +102,9 @@ export function InheritDefinitionFeature(definition: DirectiveDef<any>| Componen
       const superContentQueries = superDef.contentQueries;
       if (superContentQueries) {
         if (prevContentQueries) {
-          definition.contentQueries = () => {
-            superContentQueries();
-            prevContentQueries();
+          definition.contentQueries = (dirIndex: number) => {
+            superContentQueries(dirIndex);
+            prevContentQueries(dirIndex);
           };
         } else {
           definition.contentQueries = superContentQueries;
@@ -146,7 +146,7 @@ export function InheritDefinitionFeature(definition: DirectiveDef<any>| Componen
       const features = superDef.features;
       if (features) {
         for (const feature of features) {
-          if (feature && feature !== InheritDefinitionFeature) {
+          if (feature && feature.ngInherit) {
             (feature as DirectiveDefFeature)(definition);
           }
         }
@@ -178,7 +178,7 @@ export function InheritDefinitionFeature(definition: DirectiveDef<any>| Componen
 function maybeUnwrapEmpty<T>(value: T[]): T[];
 function maybeUnwrapEmpty<T>(value: T): T;
 function maybeUnwrapEmpty(value: any): any {
-  if (value === EMPTY) {
+  if (value === EMPTY_OBJ) {
     return {};
   } else if (value === EMPTY_ARRAY) {
     return [];

@@ -3,19 +3,22 @@
     "name": "APP_ROOT"
   },
   {
-    "name": "CIRCULAR$2"
+    "name": "CIRCULAR$1"
   },
   {
-    "name": "EMPTY_ARRAY$2"
+    "name": "EMPTY_ARRAY$1"
   },
   {
     "name": "EmptyErrorImpl"
   },
   {
-    "name": "INJECTOR"
+    "name": "INJECTOR$1"
   },
   {
     "name": "Inject"
+  },
+  {
+    "name": "InjectFlags"
   },
   {
     "name": "InjectionToken"
@@ -33,6 +36,9 @@
     "name": "NULL_INJECTOR$2"
   },
   {
+    "name": "NgOnChangesFeature"
+  },
+  {
     "name": "NullInjector"
   },
   {
@@ -45,6 +51,9 @@
     "name": "PARAMETERS"
   },
   {
+    "name": "PRIVATE_PREFIX"
+  },
+  {
     "name": "R3Injector"
   },
   {
@@ -52,6 +61,9 @@
   },
   {
     "name": "Self"
+  },
+  {
+    "name": "SimpleChange"
   },
   {
     "name": "SkipSelf"
@@ -67,6 +79,9 @@
   },
   {
     "name": "_THROW_IF_NOT_FOUND"
+  },
+  {
+    "name": "__forward_ref__"
   },
   {
     "name": "__read"
@@ -120,7 +135,13 @@
     "name": "injectArgs"
   },
   {
-    "name": "injectableDefRecord"
+    "name": "injectInjectorOnly"
+  },
+  {
+    "name": "injectRootLimpMode"
+  },
+  {
+    "name": "injectableDefOrInjectorDefFactory"
   },
   {
     "name": "isExistingProvider"
@@ -142,6 +163,12 @@
   },
   {
     "name": "makeRecord"
+  },
+  {
+    "name": "onChangesWrapper"
+  },
+  {
+    "name": "providerToFactory"
   },
   {
     "name": "providerToRecord"

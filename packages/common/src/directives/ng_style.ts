@@ -38,6 +38,7 @@ import {Directive, DoCheck, ElementRef, Input, KeyValueChanges, KeyValueDiffer, 
  *
  *   value 是一些与这些属性相关的值（以指定的单位表示）。
  *
+ * @publicApi
  */
 @Directive({selector: '[ngStyle]'})
 export class NgStyle implements DoCheck {

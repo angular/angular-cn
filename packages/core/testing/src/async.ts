@@ -28,7 +28,7 @@ import {asyncFallback} from './async_fallback';
  * });
  * ```
  *
- *
+ * @publicApi
  */
 export function async(fn: Function): (done: any) => any {
   const _Zone: any = typeof Zone !== 'undefined' ? Zone : null;

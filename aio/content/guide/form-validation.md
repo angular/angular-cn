@@ -502,7 +502,7 @@ A common UI pattern is to show a spinner while the async validation is being per
 常见的 UI 处理模式是在执行异步验证时显示一个旋转指示标（spinner）。下面的例子展示了在模板驱动表单中该怎么做：
 
 ```html
-<input [(ngModel)}="name" #model="ngModel" appSomeAsyncValidator>
+<input [(ngModel)]="name" #model="ngModel" appSomeAsyncValidator>
 <app-spinner *ngIf="model.pending"></app-spinner>
 ```
 

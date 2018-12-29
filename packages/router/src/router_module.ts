@@ -47,6 +47,7 @@ const ROUTER_DIRECTIVES =
  * Is used in DI to configure the router.
  *
  * DI 用它来配置路由器。
+ * @publicApi
  */
 export const ROUTER_CONFIGURATION = new InjectionToken<ExtraOptions>('ROUTER_CONFIGURATION');
 
@@ -152,6 +153,7 @@ export function routerNgProbeToken() {
  *
  * [阅读开发指南](/guide/router) 以获得如何使用路由器的全景图。
  *
+ * @publicApi
  */
 @NgModule({
   declarations: ROUTER_DIRECTIVES,
@@ -292,7 +294,7 @@ export function provideForRootGuard(router: Router): any {
  * class MyNgModule {}
  * ```
  *
- *
+ * @publicApi
  */
 export function provideRoutes(routes: Routes): any {
   return [
@@ -347,7 +349,7 @@ export function provideRoutes(routes: Routes): any {
  *
  * 新的应用中不应该再使用 'legacy_enabled' 和 'legacy_disabled'。
  *
- * @experimental
+ * @publicApi
  */
 export type InitialNavigation =
     true | false | 'enabled' | 'disabled' | 'legacy_enabled' | 'legacy_disabled';
@@ -359,6 +361,7 @@ export type InitialNavigation =
  *
  * 表示路由器的配置项。
  *
+ * @publicApi
  */
 export interface ExtraOptions {
   /**
@@ -778,7 +781,7 @@ export function getBootstrapListener(r: RouterInitializer) {
  *
  * 一个代表路由器初始化器的令牌，应用引导完毕后就会调用它。
  *
- * @experimental
+ * @publicApi
  */
 export const ROUTER_INITIALIZER =
     new InjectionToken<(compRef: ComponentRef<any>) => void>('Router Initializer');

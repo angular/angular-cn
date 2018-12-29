@@ -89,6 +89,7 @@ export class SwitchView {
  * 在表达式求值完成之后，`ngSwitchCase` 指令会告诉付指令 `NgSwitch` 要显示哪个视图。
  * 如果 `ngSwitchCase` 中没有找到匹配的表达式，就会显示 `ngSwitchDefault` 视图。
  *
+ * @publicApi
  */
 @Directive({selector: '[ngSwitch]'})
 export class NgSwitch {
@@ -172,6 +173,7 @@ export class NgSwitch {
  * See {@link NgSwitch} for more details and example.
  *
  * 参见 {@link NgSwitch} 了解详情并查看例子。
+ * @publicApi
  */
 @Directive({selector: '[ngSwitchCase]'})
 export class NgSwitchCase implements DoCheck {
@@ -216,6 +218,7 @@ export class NgSwitchCase implements DoCheck {
  *
  * 参见 {@link NgSwitch} 了解详情并查看例子。
  *
+ * @publicApi
  */
 @Directive({selector: '[ngSwitchDefault]'})
 export class NgSwitchDefault {

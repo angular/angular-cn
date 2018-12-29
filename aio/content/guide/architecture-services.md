@@ -81,7 +81,7 @@ Similarly, use the `@Injectable()` decorator to indicate that a component or oth
 
   该注入器会创建依赖、维护一个*容器*来管理这些依赖，并尽可能复用它们。
 
-* A *provider* is an object that tell an injector how to obtain or create a dependency.
+* A *provider* is an object that tells an injector how to obtain or create a dependency.
 
   *提供商*是一个对象，用来告诉注入器应该如何获取或创建依赖。
 

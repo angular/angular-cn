@@ -27,6 +27,7 @@ import {HttpEvent} from './response';
  *
  * 在 `HttpInterceptor` 中，`HttpHandler` 参数就表示链中的下一个拦截器。
  *
+ * @publicApi
  */
 export abstract class HttpHandler {
   abstract handle(req: HttpRequest<any>): Observable<HttpEvent<any>>;
@@ -46,6 +47,7 @@ export abstract class HttpHandler {
  *
  * 当它被注入时，`HttpBackend` 会把请求直接发给后端，而不会经过拦截器链。
  *
+ * @publicApi
  */
 export abstract class HttpBackend implements HttpHandler {
   abstract handle(req: HttpRequest<any>): Observable<HttpEvent<any>>;

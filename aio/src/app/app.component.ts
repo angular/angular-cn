@@ -1,9 +1,17 @@
-import { Component, ElementRef, HostBinding, HostListener, OnInit,
-         QueryList, ViewChild, ViewChildren } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  HostBinding,
+  HostListener,
+  OnInit,
+  QueryList,
+  ViewChild,
+  ViewChildren,
+} from '@angular/core';
 import { MatSidenav } from '@angular/material/sidenav';
 
-import { CurrentNodes, NavigationService, NavigationNode, VersionInfo } from 'app/navigation/navigation.service';
-import { DocumentService, DocumentContents } from 'app/documents/document.service';
+import { CurrentNodes, NavigationNode, NavigationService, VersionInfo } from 'app/navigation/navigation.service';
+import { DocumentContents, DocumentService } from 'app/documents/document.service';
 import { Deployment } from 'app/shared/deployment.service';
 import { LocationService } from 'app/shared/location.service';
 import { NotificationComponent } from 'app/layout/notification/notification.component';
@@ -389,7 +397,10 @@ export class AppComponent implements OnInit {
 
   hideSearchResults() {
     this.showSearchResults = false;
-    this.locationService.setSearch('', { ...this.locationService.search(), search: undefined });
+    const oldSearch = this.locationService.search();
+    if (oldSearch.search !== undefined) {
+      this.locationService.setSearch('', { ...oldSearch, search: undefined });
+    }
   }
 
   focusSearchBox() {

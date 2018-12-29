@@ -103,24 +103,27 @@ export type FormHooks = 'change' | 'blur' | 'submit';
  *
  * 提供给 `AbstractControl` 的配置项接口。
  *
- * @experimental
+ * @publicApi
  */
 export interface AbstractControlOptions {
   /**
-   * List of validators applied to control.
+   * @description
+   * The list of validators applied to a control.
    *
    * 应用于该控件的验证器列表。
    *
    */
   validators?: ValidatorFn|ValidatorFn[]|null;
   /**
-   * List of async validators applied to control.
+   * @description
+   * The list of async validators applied to control.
    *
    * 应用于该控件的异步验证器列表。
    *
    */
   asyncValidators?: AsyncValidatorFn|AsyncValidatorFn[]|null;
   /**
+   * @description
    * The event name for control to update upon.
    *
    * 会导致更新控件的事件名称。
@@ -162,6 +165,7 @@ function isOptionsObj(
  *
  * [动态表单](/guide/dynamic-form)
  *
+ * @publicApi
  */
 export abstract class AbstractControl {
   /** @internal */
@@ -518,7 +522,7 @@ export abstract class AbstractControl {
 
   /**
    * Marks the control as `dirty`. A control becomes dirty when
-   * the control's is changed through the UI; compare `markAsTouched`.
+   * the control's value is changed through the UI; compare `markAsTouched`.
    *
    * 把控件标记为 `dirty`。当控件通过 UI 修改过时控件会变成 `dirty` 的；与 `markAsTouched` 相对。
    *
@@ -1162,8 +1166,10 @@ export abstract class AbstractControl {
  *
  * console.log(control.value); // 'Drew'
  * console.log(control.status); // 'DISABLED'
+ * ```
  *
-*/
+ * @publicApi
+ */
 export class FormControl extends AbstractControl {
   /** @internal */
   _onChange: Function[] = [];
@@ -1500,6 +1506,8 @@ export class FormControl extends AbstractControl {
  *   one: new FormControl()
  * }, { updateOn: 'blur' });
  * ```
+ *
+ * @publicApi
  */
 export class FormGroup extends AbstractControl {
   /**
@@ -2060,6 +2068,7 @@ export class FormGroup extends AbstractControl {
  * 要改变数组中的控件列表，可以使用 `FormArray` 本身的 `push`、`insert` 或 `removeAt` 方法。这些方法能确保表单数组正确的跟踪这些子控件。
  * 不要直接修改实例化 `FormArray` 时传入的那个 `AbstractControl` 数组，否则会导致奇怪的、非预期的行为，比如破坏变更检测机制。
  *
+ * @publicApi
  */
 export class FormArray extends AbstractControl {
   /**

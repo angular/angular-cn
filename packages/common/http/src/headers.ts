@@ -17,6 +17,7 @@ interface Update {
  *
  * Http 头的不可变集合，惰性解析。
  *
+ * @publicApi
  */
 export class HttpHeaders {
   /**

@@ -29,68 +29,28 @@ export const controlNameBinding: any = {
 
 /**
  * @description
- *
  * Syncs a `FormControl` in an existing `FormGroup` to a form control
  * element by name.
  *
  * 根据名字将现有 `FormGroup` 中的 `FormControl` 与一个表单控件进行同步。
  *
- * This directive ensures that any values written to the `FormControl`
- * instance programmatically will be written to the DOM element (model -> view). Conversely,
- * any values written to the DOM element through user input will be reflected in the
- * `FormControl` instance (view -> model).
+ * @see [Reactive Forms Guide](guide/reactive-forms)
+ * @see `FormControl`
+ * @see `AbstractControl`
  *
  * 该指令会确保通过程序写入到该 `FormControl` 实例的任何值都会被写入到 DOM 元素上（模型 -> 视图）。
  * 反过来，任何通过用户输入写入 DOM 元素上的值也会被反映到这个 `FormControl` 实例上（视图 -> 模型）。
  *
  * @usageNotes
  *
- * This directive is designed to be used with a parent `FormGroupDirective` (selector:
- * `[formGroup]`).
+ * ### Register `FormControl` within a group
  *
- * 该指令旨在与父级 `FormGroupDirective`（选择器：`[formGroup]`）协同使用。
+ * ### 把 `FormControl` 注册进一个组
  *
- * It accepts the string name of the `FormControl` instance you want to
- * link, and will look for a `FormControl` registered with that name in the
- * closest `FormGroup` or `FormArray` above it.
+ * The following example shows how to register multiple form controls within a form group
+ * and set their value.
  *
- * 它接受一个想要链接的 `FormControl` 实例的字符串名称，它会在最近的父级 `FormGroup`、`FormArray` 上根据该名称查找这个 `FormControl`。
- *
- * **Access the control**: You can access the `FormControl` associated with
- * this directive by using the {@link AbstractControl#get get} method.
- * Ex: `this.form.get('first');`
- *
- * **访问控件**：你可以使用 {@link AbstractControl#get get} 方法访问与此指令关联的`FormControl`。
- * 例如：`this.form.get('first');`
- *
- * **Get value**: the `value` property is always synced and available on the `FormControl`.
- * See a full list of available properties in `AbstractControl`.
- *
- * **获取值**：这个 `value` 属性会一直和这个 `FormControl` 保持同步，并一直可用。
- * 参见 `AbstractControl` 的所有可用属性的列表。
- *
- *  **Set value**: You can set an initial value for the control when instantiating the
- *  `FormControl`, or you can set it programmatically later using
- *  {@link AbstractControl#setValue setValue} or {@link AbstractControl#patchValue patchValue}.
- *
- *  **设置值**：当初始化 `FormControl` 时，可以为该控件设置一个初始值；
- *  或者稍后也可以使用 {@link AbstractControl#setValue setValue} 或 {@link AbstractControl#patchValue patchValue} 来通过代码设置它。
- *
- * **Listen to value**: If you want to listen to changes in the value of the control, you can
- * subscribe to the {@link AbstractControl#valueChanges valueChanges} event.  You can also listen to
- * {@link AbstractControl#statusChanges statusChanges} to be notified when the validation status is
- * re-calculated.
- *
- * **监听值的变化**：如果想监听控件值的变化，你可以订阅 {@link AbstractControl#valueChanges valueChanges} 事件。
- * 你还可以监听 {@link AbstractControl#statusChanges statusChanges} 以便在验证状态重新计算时得到通知。
- *
- * ### Example
- *
- * ### 例子
- *
- * In this example, we create form controls for first name and last name.
- *
- * 在这个例子中，我们为名和姓创建了两个表单控件。
+ * 下面的例子演示了如何把多个表单控件注册进一个表单组，并设置它们的值。
  *
  * {@example forms/ts/simpleFormGroup/simple_form_group_example.ts region='Component'}
  *
@@ -207,18 +167,37 @@ export const controlNameBinding: any = {
  * 这会帮助你在修改代码时追踪代码中用到这种模式的所有位置。
  *
  * @ngModule ReactiveFormsModule
+ * @publicApi
  */
 @Directive({selector: '[formControlName]', providers: [controlNameBinding]})
 export class FormControlName extends NgControl implements OnChanges, OnDestroy {
   private _added = false;
-  /** @internal */
+  /**
+   * @description
+   * Internal reference to the view model value.
+   * @internal
+   */
   viewModel: any;
+
+  /**
+   * @description
+   * Tracks the `FormControl` instance bound to the directive.
+   */
   // TODO(issue/24571): remove '!'.
   readonly control !: FormControl;
 
+  /**
+   * @description
+   * Tracks the name of the `FormControl` bound to the directive. The name corresponds
+   * to a key in the parent `FormGroup` or `FormArray`.
+   */
   // TODO(issue/24571): remove '!'.
   @Input('formControlName') name !: string;
 
+  /**
+   * @description
+   * Triggers a warning that this input should not be used with reactive forms.
+   */
   @Input('disabled')
   set isDisabled(isDisabled: boolean) { ReactiveErrors.disabledAttrWarning(); }
 
@@ -231,6 +210,7 @@ export class FormControlName extends NgControl implements OnChanges, OnDestroy {
   @Output('ngModelChange') update = new EventEmitter();
 
   /**
+   * @description
    * Static property used to track whether any ngModel warnings have been sent across
    * all instances of FormControlName. Used to support warning config of "once".
    *
@@ -241,6 +221,7 @@ export class FormControlName extends NgControl implements OnChanges, OnDestroy {
   static _ngModelWarningSentOnce = false;
 
   /**
+   * @description
    * Instance property used to track whether an ngModel warning has been sent out for this
    * particular FormControlName instance. Used to support warning config of "always".
    *
@@ -264,6 +245,12 @@ export class FormControlName extends NgControl implements OnChanges, OnDestroy {
     this.valueAccessor = selectValueAccessor(this, valueAccessors);
   }
 
+  /**
+   * @description
+   * A lifecycle method called when the directive's inputs change. For internal use only.
+   *
+   * @param changes A object of key/value pairs for the set of changed inputs.
+   */
   ngOnChanges(changes: SimpleChanges) {
     if (!this._added) this._setUpControl();
     if (isPropertyUpdated(changes, this.viewModel)) {
@@ -273,23 +260,52 @@ export class FormControlName extends NgControl implements OnChanges, OnDestroy {
     }
   }
 
+  /**
+   * @description
+   * Lifecycle method called before the directive's instance is destroyed. For internal use only.
+   */
   ngOnDestroy(): void {
     if (this.formDirective) {
       this.formDirective.removeControl(this);
     }
   }
 
+  /**
+   * @description
+   * Sets the new value for the view model and emits an `ngModelChange` event.
+   *
+   * @param newValue The new value for the view model.
+   */
   viewToModelUpdate(newValue: any): void {
     this.viewModel = newValue;
     this.update.emit(newValue);
   }
 
+  /**
+   * @description
+   * Returns an array that represents the path from the top-level form to this control.
+   * Each index is the string name of the control on that level.
+   */
   get path(): string[] { return controlPath(this.name, this._parent !); }
 
+  /**
+   * @description
+   * The top-level directive for this group if present, otherwise null.
+   */
   get formDirective(): any { return this._parent ? this._parent.formDirective : null; }
 
+  /**
+   * @description
+   * Synchronous validator function composed of all the synchronous validators
+   * registered with this directive.
+   */
   get validator(): ValidatorFn|null { return composeValidators(this._rawValidators); }
 
+  /**
+   * @description
+   * Async validator function composed of all the async validators registered with this
+   * directive.
+   */
   get asyncValidator(): AsyncValidatorFn {
     return composeAsyncValidators(this._rawAsyncValidators) !;
   }

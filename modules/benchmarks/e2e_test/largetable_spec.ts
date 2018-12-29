@@ -6,8 +6,8 @@
  * found in the LICENSE file at https://angular.io/license
  */
 
-import {openBrowser, verifyNoBrowserErrors} from 'e2e_util/e2e_util';
-import {$} from 'protractor';
+import { openBrowser, verifyNoBrowserErrors } from 'e2e_util/e2e_util';
+import { $ } from 'protractor';
 
 describe('largetable benchmark spec', () => {
 
@@ -22,13 +22,6 @@ describe('largetable benchmark spec', () => {
   it('should work for ng2 switch', () => {
     testTableBenchmark({
       url: 'all/benchmarks/src/largetable/ng2_switch/index.html',
-    });
-  });
-
-  it('should work for render3', () => {
-    testTableBenchmark({
-      url: 'all/benchmarks/src/largetable/render3/index.html',
-      ignoreBrowserSynchronization: true,
     });
   });
 

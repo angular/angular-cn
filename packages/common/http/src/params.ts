@@ -15,6 +15,7 @@
  *
  * 由 `HttpParams` 使用。
  *
+ * @publicApi
  **/
 export interface HttpParameterCodec {
   encodeKey(key: string): string;
@@ -30,6 +31,7 @@ export interface HttpParameterCodec {
  *
  * 一个 `HttpParameterCodec`，它使用 `encodeURIComponent` 和 `decodeURIComponent` 来序列化和解析 URL 参数的 key 和 value。
  *
+ * @publicApi
  */
 export class HttpUrlEncodingCodec implements HttpParameterCodec {
   encodeKey(key: string): string { return standardEncoding(key); }
@@ -113,6 +115,7 @@ export interface HttpParamsOptions {
  *
  * 这个类是不可变的 - 每个修改类的操作都会返回一个新实例。
  *
+ * @publicApi
  */
 export class HttpParams {
   private map: Map<string, string[]>|null;

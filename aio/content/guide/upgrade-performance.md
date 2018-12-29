@@ -411,9 +411,12 @@ See [Upgrading from AngularJS](guide/upgrade) to learn about:
 `downgradeModule()` 和 `UpgradeModule` 之间的区别就是这些。
 其余的 `upgrade/static` API 和概念的工作方式在不同的混合式应用中都完全一样了。
 
-- [Using Angular Components from AngularJS Code](guide/upgrade#using-angular-components-from-angularjs-code).
+- [Using Angular Components from AngularJS Code](guide/upgrade#using-angular-components-from-angularjs-code).<br />
+  _NOTE: If you are downgrading multiple modules, you need to specify the name of the downgraded
+  module each component belongs to, when calling `downgradeComponent()`._
 
-  [从 AngularJS 代码中使用 Angular 组件](guide/upgrade#using-angular-components-from-angularjs-code)。
+  [从 AngularJS 代码中使用 Angular 组件](guide/upgrade#using-angular-components-from-angularjs-code)。<br />
+  *注意：如果你要降级多个模块，就要在调用 `downgradeComponent()` 时为每个组件所属的降级后模块指定一个模块名。*
 
 - [Using AngularJS Component Directives from Angular Code](guide/upgrade#using-angularjs-component-directives-from-angular-code).
 
@@ -431,22 +434,26 @@ See [Upgrading from AngularJS](guide/upgrade) to learn about:
 
   [让 AngularJS 的依赖可注入到 Angular 中](guide/upgrade#making-angularjs-dependencies-injectable-to-angular)。
 
-- [Making Angular Dependencies Injectable to AngularJS](guide/upgrade#making-angular-dependencies-injectable-to-angularjs).
+- [Making Angular Dependencies Injectable to AngularJS](guide/upgrade#making-angular-dependencies-injectable-to-angularjs).<br />
+  _NOTE: If you are downgrading multiple modules, you need to specify the name of the downgraded
+  module each injectable belongs to, when calling `downgradeInjectable()`._
 
   [让 Angular 的依赖可注入到 AngularJS 中](guide/upgrade#making-angular-dependencies-injectable-to-angularjs)。
 
 <div class="alert is-important">
 
   While it is possible to downgrade injectables, downgraded injectables will not be available until
-  the Angular module is instantiated. In order to be safe, you need to ensure that the downgraded
-  injectables are not used anywhere _outside_ the part of the app that is controlled by Angular.
+  the Angular module that provides them is instantiated. In order to be safe, you need to ensure
+  that the downgraded injectables are not used anywhere _outside_ the part of the app where it is
+  guaranteed that their module has been instantiated.
 
   虽然可以降级可注入对象，但在实例化 Angular 模块之前，无法使用降级后的可注入对象。
   安全起见，你需要确保降级后的可注入对象不会用于应用中*不受* Angular 控制的任何地方。
 
   For example, it is _OK_ to use a downgraded service in an upgraded component that is only used
-  from Angular components, but it is _not OK_ to use it in an AngularJS component that may be used
-  independently of Angular.
+  from a downgraded Angular component provided by the same Angular module as the injectable, but it
+  is _not OK_ to use it in an AngularJS component that may be used independently of Angular or use
+  it in a downgraded Angular component from a different module.
 
   比如，在只使用 Angular 组件的升级过的组件中*可以*使用降级后的服务，但是，*不能*在那些不依赖 Angular 就能用的 AngularJS 组件中使用。
 

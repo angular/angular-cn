@@ -38,7 +38,7 @@ import {PRIMARY_OUTLET} from '../shared';
  * ```
  * @ngModule RouterModule
  *
- *
+ * @publicApi
  */
 @Directive({selector: 'router-outlet', exportAs: 'outlet'})
 export class RouterOutlet implements OnDestroy, OnInit {

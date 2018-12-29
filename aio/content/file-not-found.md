@@ -6,8 +6,7 @@
 
     <div class="nf-response l-flex-wrap">
 
-        <h1 class="no-toc">Page Not Found</h1>
-
+        <h1 class="no-anchor no-toc">Page Not Found</h1>
         <p>We're sorry. The page you are looking for cannot be found.</p>
 
     </div>

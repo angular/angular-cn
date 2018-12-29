@@ -96,6 +96,7 @@ function isFormData(value: any): value is FormData {
  * `HttpRequest` 表示一个外发请求，包括 URL、方法、请求头、请求体和其它请求配置项。
  * 它的实例都是不可变的。要修改 `HttpRequest`，应该使用 `clone` 方法。
  *
+ * @publicApi
  */
 export class HttpRequest<T> {
   /**

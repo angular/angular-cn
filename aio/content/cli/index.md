@@ -23,7 +23,7 @@ Install the CLI using the `npm` package manager:
 npm install -g @angular/cli
 </code-example>
 
-For details about changes between versions, and information about updating from previous releases, 
+For details about changes between versions, and information about updating from previous releases,
 see the Releases tab on GitHub: https://github.com/angular/angular-cli/releases
 
 有关版本变更的详情，以及如何从以前版本升级的信息，参见 GitHub 上的 Releases 页：<https://github.com/angular/angular-cli/releases>
@@ -32,8 +32,8 @@ see the Releases tab on GitHub: https://github.com/angular/angular-cli/releases
 
 ## 基本工作流
 
-Invoke the tool on the command line through the `ng` executable. 
-Online help is available on the command line. 
+Invoke the tool on the command line through the `ng` executable.
+Online help is available on the command line.
 Enter the following to list commands or options for a given command (such as [generate](cli/generate)) with a short description.
 
 通过 `ng` 可执行文件可以在命令行上调用此工具。
@@ -56,6 +56,7 @@ ng serve
 </code-example>
 
 In your browser, open http://localhost:4200/ to see the new app run.
+When you use the [ng serve](cli/serve) command to build an app and serve it locally, the server automatically rebuilds the app and reloads the page when you change any of the source files.
 
 在浏览器中，打开 <http://localhost:4200/> 查看运行效果。
 
@@ -63,9 +64,9 @@ In your browser, open http://localhost:4200/ to see the new app run.
 
 ## 工作空间与项目文件
 
-The [ng new](cli/new) command creates an *Angular workspace* folder and generates a new app skeleton. 
+The [ng new](cli/new) command creates an *Angular workspace* folder and generates a new app skeleton.
 A workspace can contain multiple apps and libraries.
-The initial app created by the [ng new](cli/new) command is at the top level of the workspace. 
+The initial app created by the [ng new](cli/new) command is at the top level of the workspace.
 When you generate an additional app or library in a workspace, it goes into a `projects/` subfolder.
 
 [ng new](cli/new) 命令会创建一个 *Angular 工作空间*目录，并生成一个新的应用骨架。
@@ -73,44 +74,46 @@ When you generate an additional app or library in a workspace, it goes into a `p
 由 [ng new](cli/new) 命令创建的初始应用位于工作空间的顶层。
 你在工作区中生成的其它应用或库，会放在 `projects/` 子目录下。
 
-A newly generated app contains the source files for a root module, with a root component and template. 
+A newly generated app contains the source files for a root module, with a root component and template.
 Each app has a `src` folder that contains the logic, data, and assets.
 
 新生成的应用中包含根模块的源码，还有根组件和模板。
 每个应用都有一个 `src` 目录，其中包含逻辑、数据和静态文件。
 
-You can edit the generated files directly, or add to and modify them using CLI commands. 
-Use the [ng generate](cli/generate) command to add new files for additional components and services, and code for new pipes, directives, and so on. 
+You can edit the generated files directly, or add to and modify them using CLI commands.
+Use the [ng generate](cli/generate) command to add new files for additional components and services, and code for new pipes, directives, and so on.
 Commands such as [add](cli/add) and [generate](cli/generate), which create or operate on apps and libraries, must be executed from within a workspace or project folder.
 
 你可以直接编辑这些生成的文件，也可以使用 CLI 命令来添加或修改它们。
 使用 [ng generate](cli/generate) 命令也可以添加其它组件和服务，以及管道、指令的源码等。
 必须在工作空间或项目目录下才能执行 [add](cli/add) 或 [generate](cli/generate) 之类的命令，因为这些命令需要在应用或库上进行创建或其它操作。
 
-When you use the [ng serve](cli/serve) command to build an app and serve it locally, the server automatically rebuilds the app and reloads the page when you change any of the source files.
-
-当你使用 [ng serve](cli/serve) 命令构建应用，并在本地启动它时，服务器会自动重新构建应用，并在你修改了任何源码时都自动刷新页面。
-
 * See more about the [Workspace file structure](guide/file-structure).
 
   欲知详情，参见[工作空间的文件结构](guide/file-structure)。
+  
+### Workspace and project configuration
 
-A single workspace configuration file, `angular.json`, is created at the top level of the workspace. 
-This is where you can set workspace-wide defaults, and specify configurations to use when the CLI builds a project for different targets.
+### 工作空间与项目的配置
+
+A single workspace configuration file, `angular.json`, is created at the top level of the workspace.
+This is where you can set per-project defaults for CLI command options, and specify configurations to use when the CLI builds a project for different targets.
 
 工作空间的配置文件 `angular.json` 位于此工作空间的顶层。
 在这里，你可以设置全工作空间范围的默认值，并指定当 CLI 为不同目标构建项目时要用到的配置。
 
 The [ng config](cli/config) command lets you set and retrieve configuration values from the command line, or you can edit the `angular.json` file directly.
+Note that option names in the configuration file must use [camelCase](guide/glossary#case-types), while option names supplied to commands can use either camelCase or dash-case.
 
 [ng config](cli/config) 让你可以从命令行中设置和获取配置项的值。你也可以直接编辑 `angular.json` 文件。
+
+* See more about [Workspace Configuration](guide/workspace-config).
+
+  参见 [工作空间配置](guide/workspace-config)。
 
 * See the [complete schema](https://github.com/angular/angular-cli/wiki/angular-workspace) for `angular.json`.
 
   参见 `angular.json` 的[完整 schema](https://github.com/angular/angular-cli/wiki/angular-workspace)。
-
-<!-- * Learn more about *configuration options for Angular(links to new guide or topics TBD)*. -->
-
 
 ## CLI command-language syntax
 
@@ -126,22 +129,29 @@ Command syntax is shown as follows:
 
   大多数命令以及少量选项，会有别名。别名会显示在每个命令的语法描述中。
 
-* option names are prefixed with a double dash (--). 
-    option aliases are prefixed with a single dash (-). 
-    arguments are not prefixed.
-    for example: `ng build my-app -c production`
+* Option names are prefixed with a double dash (--).
+    Option aliases are prefixed with a single dash (-).
+    Arguments are not prefixed.
+    For example: 
+    <code-example format="." language="bash">
+        ng build my-app -c production
+    </code-example>
+
 
   选项名带有双中线前缀（--）。
   选项别名带有单中线前缀（-）。
   参数没有前缀。
-  比如：`ng build my-app -c production`
-
-* Typically, the name of a generated artifact can be given as an argument to the command or specified with the --name option. 
+  比如：
+  <code-example format="." language="bash">
+      ng build my-app -c production
+  </code-example>
+  
+* Typically, the name of a generated artifact can be given as an argument to the command or specified with the --name option.
 
   通常，生成的工件（artifact）名称可以作为命令的参数进行指定，也可以使用 --name 选项。
 
-* Argument and option names can be given in either 
-[camelCase or dash-case](guide/glossary#case-types). 
+* Argument and option names can be given in either
+[camelCase or dash-case](guide/glossary#case-types).
 `--myOptionName` is equivalent to `--my-option-name`.
 
   参数和选项的名称可以用[小驼峰或中线分隔的格式](guide/glossary#case-types)给出。
@@ -151,7 +161,7 @@ Command syntax is shown as follows:
 
 ### 逻辑型与枚举型选项
 
-Boolean options have two forms: `--thisOption` sets the flag, `--noThisOption` clears it.  
+Boolean options have two forms: `--thisOption` sets the flag, `--noThisOption` clears it.
 If neither option is supplied, the flag remains in its default state, as listed in the reference documentation.
 
 逻辑型选项有两种形式：`--thisOption` 可以设置标志，而 `--noThisOption` 可以清除标志。
@@ -173,9 +183,9 @@ Options that specify files can be given as absolute paths, or as paths relative 
 
 ### 原理图（schematics）
 
-The [ng generate](cli/generate) and  [ng add](cli/add) commands take as an argument the artifact or library to be generated or added to the current project. 
-In addition to any general options, each artifact or library defines its own options in a *schematic*. 
-Schematic options are supplied to the command in the same format as immediate command options. 
+The [ng generate](cli/generate) and  [ng add](cli/add) commands take as an argument the artifact or library to be generated or added to the current project.
+In addition to any general options, each artifact or library defines its own options in a *schematic*.
+Schematic options are supplied to the command in the same format as immediate command options.
 
 [ng generate](cli/generate) 和 [ng add](cli/add) 命令会把要生成或要添加到当前项目中的工件或库作为参数。
 除了通用选项之外，每个工件或库还可以用*原理图*定义自己的选项。

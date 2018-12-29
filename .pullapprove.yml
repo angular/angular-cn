@@ -87,10 +87,10 @@ groups:
       files:
         include:
           - "WORKSPACE"
+          - ".bazel*"
           - "*.bazel"
           - "*.bzl"
           - "packages/bazel/*"
-          - "tools/bazel.rc"
           - "/docs/BAZEL.md"
     users:
       - alexeagle #primary
@@ -98,6 +98,7 @@ groups:
       - IgorMinar #fallback
       - mhevery
       - vikerman #fallback
+      - kara
 
   build-and-ci:
     conditions:
@@ -108,9 +109,9 @@ groups:
           - "*.lock"
           - "tools/*"
         exclude:
-          - "tools/bazel.rc"
-          - "tools/public_api_guard/*"
           - "aio/*"
+          - "packages/core/test/bundling/*"
+          - "tools/public_api_guard/*"
     users:
       - IgorMinar #primary
       - alexeagle
@@ -211,6 +212,7 @@ groups:
       - mhevery #fallback
       - IgorMinar #fallback
       - jenniferfell #docs only
+      - kara
 
   compiler/i18n:
     conditions:
@@ -223,6 +225,7 @@ groups:
       - IgorMinar #fallback
       - mhevery #fallback
       - jenniferfell #docs only
+      - kara
 
   compiler:
     conditions:
@@ -234,6 +237,7 @@ groups:
       - mhevery
       - IgorMinar #fallback
       - jenniferfell #docs only
+      - kara
 
   compiler-cli/ngtools:
     conditions:
@@ -243,13 +247,13 @@ groups:
       - hansl
       - filipesilva #fallback
       - IgorMinar #fallback
+      - kara
 
   compiler-cli:
     conditions:
       files:
         include:
           - "packages/compiler-cli/*"
-          - "packages/bazel/*"
         exclude:
           - "packages/compiler-cli/src/ngtools*"
     users:
@@ -257,6 +261,7 @@ groups:
       - alxhub
       - IgorMinar #fallback
       - mhevery #fallback
+      - kara
 
   common:
     conditions:
@@ -269,6 +274,7 @@ groups:
       - pkozlowski-opensource #primary
       - IgorMinar #fallback
       - mhevery #fallback
+      - kara
 
   forms:
     conditions:
@@ -334,6 +340,7 @@ groups:
       - IgorMinar #fallback
       - mhevery #fallback
       - jenniferfell #docs only
+      - kara
 
   testing:
     conditions:
@@ -367,6 +374,7 @@ groups:
       - IgorMinar #fallback
       - mhevery #fallback
       - jenniferfell #docs only
+      - kara
 
   platform-browser:
     conditions:
@@ -376,6 +384,7 @@ groups:
       - mhevery #primary
       # needs secondary
       - IgorMinar #fallback
+      - kara
 
   platform-server:
     conditions:
@@ -398,6 +407,7 @@ groups:
       - mhevery #primary
       # needs secondary
       - IgorMinar #fallback
+      - kara
 
   service-worker:
     conditions:
@@ -431,6 +441,7 @@ groups:
       - IgorMinar #fallback
       - mhevery #fallback
       - jenniferfell #docs only
+      - kara
 
   benchpress:
     conditions:

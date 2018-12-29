@@ -18,6 +18,7 @@ import {UrlSegment, UrlSegmentGroup} from './url_tree';
  *
  * 主路由出口的名字。
  *
+ * @publicApi
  */
 export const PRIMARY_OUTLET = 'primary';
 
@@ -26,6 +27,7 @@ export const PRIMARY_OUTLET = 'primary';
  *
  *
  * 参数的集合。
+ * @publicApi
  */
 export type Params = {
   [key: string]: any
@@ -51,6 +53,7 @@ export type Params = {
  * 参见 https://developer.mozilla.org/en-US/docs/Web/API/URLSearchParams
  *
  *
+ * @publicApi
  */
 export interface ParamMap {
   has(name: string): boolean;
@@ -124,6 +127,7 @@ class ParamsAsMap implements ParamMap {
  *
  *
  * 把 `Params` 实例转换成 `ParamMap` 实例。
+ * @publicApi
  */
 export function convertToParamMap(params: Params): ParamMap {
   return new ParamsAsMap(params);

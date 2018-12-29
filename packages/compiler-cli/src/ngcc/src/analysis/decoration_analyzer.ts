@@ -6,31 +6,36 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import {ConstantPool} from '@angular/compiler';
+import * as path from 'canonical-path';
 import * as fs from 'fs';
 import * as ts from 'typescript';
 
-import {BaseDefDecoratorHandler, ComponentDecoratorHandler, DirectiveDecoratorHandler, InjectableDecoratorHandler, NgModuleDecoratorHandler, PipeDecoratorHandler, ResourceLoader, SelectorScopeRegistry} from '../../../ngtsc/annotations';
+import {BaseDefDecoratorHandler, ComponentDecoratorHandler, DirectiveDecoratorHandler, InjectableDecoratorHandler, NgModuleDecoratorHandler, PipeDecoratorHandler, ReferencesRegistry, ResourceLoader, SelectorScopeRegistry} from '../../../ngtsc/annotations';
 import {CompileResult, DecoratorHandler} from '../../../ngtsc/transform';
-
 import {DecoratedClass} from '../host/decorated_class';
-import {DecoratedFile} from '../host/decorated_file';
 import {NgccReflectionHost} from '../host/ngcc_host';
 import {isDefined} from '../utils';
 
-export interface AnalyzedClass<A = any, M = any> extends DecoratedClass {
-  handler: DecoratorHandler<A, M>;
-  analysis: any;
-  diagnostics?: ts.Diagnostic[];
-  compilation: CompileResult[];
+export interface AnalyzedFile {
+  sourceFile: ts.SourceFile;
+  analyzedClasses: AnalyzedClass[];
 }
 
-export interface DecorationAnalysis {
-  analyzedClasses: AnalyzedClass[];
+export interface AnalyzedClass extends DecoratedClass {
+  diagnostics?: ts.Diagnostic[];
+  handler: DecoratorHandler<any, any>;
+  analysis: any;
+}
+
+export interface CompiledClass extends AnalyzedClass { compilation: CompileResult[]; }
+
+export interface CompiledFile {
+  compiledClasses: CompiledClass[];
   sourceFile: ts.SourceFile;
   constantPool: ConstantPool;
 }
 
-export type DecorationAnalyses = Map<ts.SourceFile, DecorationAnalysis>;
+export type DecorationAnalyses = Map<ts.SourceFile, CompiledFile>;
 export const DecorationAnalyses = Map;
 
 export interface MatchingHandler<A, M> {
@@ -42,7 +47,10 @@ export interface MatchingHandler<A, M> {
  * `ResourceLoader` which directly uses the filesystem to resolve resources synchronously.
  */
 export class FileResourceLoader implements ResourceLoader {
-  load(url: string): string { return fs.readFileSync(url, 'utf8'); }
+  load(url: string, containingFile: string): string {
+    url = path.resolve(path.dirname(containingFile), url);
+    return fs.readFileSync(url, 'utf8');
+  }
 }
 
 /**
@@ -55,16 +63,18 @@ export class DecorationAnalyzer {
     new BaseDefDecoratorHandler(this.typeChecker, this.host),
     new ComponentDecoratorHandler(
         this.typeChecker, this.host, this.scopeRegistry, this.isCore, this.resourceLoader,
-        this.rootDirs),
+        this.rootDirs, /* defaultPreserveWhitespaces */ false, /* i18nUseExternalIds */ true),
     new DirectiveDecoratorHandler(this.typeChecker, this.host, this.scopeRegistry, this.isCore),
     new InjectableDecoratorHandler(this.host, this.isCore),
-    new NgModuleDecoratorHandler(this.typeChecker, this.host, this.scopeRegistry, this.isCore),
+    new NgModuleDecoratorHandler(
+        this.typeChecker, this.host, this.scopeRegistry, this.referencesRegistry, this.isCore),
     new PipeDecoratorHandler(this.typeChecker, this.host, this.scopeRegistry, this.isCore),
   ];
 
   constructor(
       private typeChecker: ts.TypeChecker, private host: NgccReflectionHost,
-      private rootDirs: string[], private isCore: boolean) {}
+      private referencesRegistry: ReferencesRegistry, private rootDirs: string[],
+      private isCore: boolean) {}
 
   /**
    * Analyze a program to find all the decorated files should be transformed.
@@ -72,58 +82,59 @@ export class DecorationAnalyzer {
    * @returns a map of the source files to the analysis for those files.
    */
   analyzeProgram(program: ts.Program): DecorationAnalyses {
-    const analyzedFiles = new DecorationAnalyses();
-    program.getRootFileNames().forEach(fileName => {
-      const entryPoint = program.getSourceFile(fileName) !;
-      const decoratedFiles = this.host.findDecoratedFiles(entryPoint);
-      decoratedFiles.forEach(
-          decoratedFile =>
-              analyzedFiles.set(decoratedFile.sourceFile, this.analyzeFile(decoratedFile)));
-    });
-    return analyzedFiles;
+    const decorationAnalyses = new DecorationAnalyses();
+    const analysedFiles =
+        program.getSourceFiles().map(sourceFile => this.analyzeFile(sourceFile)).filter(isDefined);
+    const compiledFiles = analysedFiles.map(analysedFile => this.compileFile(analysedFile));
+    compiledFiles.forEach(
+        compiledFile => decorationAnalyses.set(compiledFile.sourceFile, compiledFile));
+    return decorationAnalyses;
   }
 
-  /**
-   * Analyze a decorated file to generate the information about decorated classes that
-   * should be converted to use ivy definitions.
-   * @param file The file to be analysed for decorated classes.
-   * @returns the analysis of the file
-   */
-  protected analyzeFile(file: DecoratedFile): DecorationAnalysis {
-    const constantPool = new ConstantPool();
-    const analyzedClasses =
-        file.decoratedClasses.map(clazz => this.analyzeClass(constantPool, clazz))
-            .filter(isDefined);
-
-    return {
-      analyzedClasses,
-      sourceFile: file.sourceFile, constantPool,
-    };
+  protected analyzeFile(sourceFile: ts.SourceFile): AnalyzedFile|undefined {
+    const decoratedClasses = this.host.findDecoratedClasses(sourceFile);
+    return decoratedClasses.length ? {
+      sourceFile,
+      analyzedClasses: decoratedClasses.map(clazz => this.analyzeClass(clazz)).filter(isDefined)
+    } :
+                                     undefined;
   }
 
-  protected analyzeClass(pool: ConstantPool, clazz: DecoratedClass): AnalyzedClass|undefined {
+  protected analyzeClass(clazz: DecoratedClass): AnalyzedClass|null {
     const matchingHandlers = this.handlers
-                                 .map(handler => ({
-                                        handler,
-                                        match: handler.detect(clazz.declaration, clazz.decorators),
-                                      }))
+                                 .map(handler => {
+                                   const match =
+                                       handler.detect(clazz.declaration, clazz.decorators);
+                                   return {handler, match};
+                                 })
                                  .filter(isMatchingHandler);
 
     if (matchingHandlers.length > 1) {
       throw new Error('TODO.Diagnostic: Class has multiple Angular decorators.');
     }
-
     if (matchingHandlers.length === 0) {
-      return undefined;
+      return null;
     }
-
     const {handler, match} = matchingHandlers[0];
     const {analysis, diagnostics} = handler.analyze(clazz.declaration, match);
-    let compilation = handler.compile(clazz.declaration, analysis, pool);
+    return {...clazz, handler, analysis, diagnostics};
+  }
+
+  protected compileFile(analyzedFile: AnalyzedFile): CompiledFile {
+    const constantPool = new ConstantPool();
+    const compiledClasses: CompiledClass[] = analyzedFile.analyzedClasses.map(analyzedClass => {
+      const compilation = this.compileClass(analyzedClass, constantPool);
+      return {...analyzedClass, compilation};
+    });
+    return {constantPool, sourceFile: analyzedFile.sourceFile, compiledClasses};
+  }
+
+  protected compileClass(clazz: AnalyzedClass, constantPool: ConstantPool): CompileResult[] {
+    let compilation = clazz.handler.compile(clazz.declaration, clazz.analysis, constantPool);
     if (!Array.isArray(compilation)) {
       compilation = [compilation];
     }
-    return {...clazz, handler, analysis, diagnostics, compilation};
+    return compilation;
   }
 }
 

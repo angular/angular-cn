@@ -28,6 +28,7 @@ import {HttpEvent} from './response';
  *
  * 极少量情况下，拦截器也可能希望自己完全处理一个请求，而不再委托给拦截器链中的其它部分。这种行为也是允许的。
  *
+ * @publicApi
  */
 export interface HttpInterceptor {
   /**
@@ -79,6 +80,7 @@ export class HttpInterceptorHandler implements HttpHandler {
  *
  * 一个多重提供商（multi-provider）令牌，它代表所有已注册的 `HttpInterceptor` 构成的数组。
  *
+ * @publicApi
  */
 export const HTTP_INTERCEPTORS = new InjectionToken<HttpInterceptor[]>('HTTP_INTERCEPTORS');
 

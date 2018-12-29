@@ -6,7 +6,8 @@
  * found in the LICENSE file at https://angular.io/license
  */
 
-import {R3_TEMPLATE_REF_FACTORY} from '../ivy_switch/runtime/index';
+import {injectTemplateRef as render3InjectTemplateRef} from '../render3/view_engine_compatibility';
+import {noop} from '../util/noop';
 
 import {ElementRef} from './element_ref';
 import {EmbeddedViewRef} from './view_ref';
@@ -38,6 +39,7 @@ import {EmbeddedViewRef} from './view_ref';
  *
  * [使用 DI 在组件树中导航](guide/dependency-injection-navtree)
  *
+ * @publicApi
  */
 export abstract class TemplateRef<C> {
   /**
@@ -79,5 +81,10 @@ export abstract class TemplateRef<C> {
 
   /** @internal */
   static __NG_ELEMENT_ID__:
-      () => TemplateRef<any> = () => R3_TEMPLATE_REF_FACTORY(TemplateRef, ElementRef)
+      () => TemplateRef<any>| null = () => SWITCH_TEMPLATE_REF_FACTORY(TemplateRef, ElementRef)
 }
+
+export const SWITCH_TEMPLATE_REF_FACTORY__POST_R3__ = render3InjectTemplateRef;
+const SWITCH_TEMPLATE_REF_FACTORY__PRE_R3__ = noop;
+const SWITCH_TEMPLATE_REF_FACTORY: typeof render3InjectTemplateRef =
+    SWITCH_TEMPLATE_REF_FACTORY__PRE_R3__;

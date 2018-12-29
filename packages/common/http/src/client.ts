@@ -56,6 +56,7 @@ export type HttpObserve = 'body' | 'events' | 'response';
  * `HttpClient` 是一个可供注入的类，具有一些用来执行 HTTP 请求的方法。
  * 每个请求方法都有多重签名，并根据签名返回不同的数据类型（主要取决于 `observe` 和 `responseType` 的值）。
  *
+ * @publicApi
  */
 @Injectable()
 export class HttpClient {

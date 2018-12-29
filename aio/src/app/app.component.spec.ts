@@ -1,10 +1,9 @@
-import { NO_ERRORS_SCHEMA, DebugElement } from '@angular/core';
-import { inject, ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
-import { Title } from '@angular/platform-browser';
+import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
+import { ComponentFixture, fakeAsync, inject, TestBed, tick } from '@angular/core/testing';
+import { By, Title } from '@angular/platform-browser';
 import { APP_BASE_HREF } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { MatProgressBar, MatSidenav } from '@angular/material';
-import { By } from '@angular/platform-browser';
 
 import { of, timer } from 'rxjs';
 import { first, mapTo } from 'rxjs/operators';
@@ -742,7 +741,7 @@ describe('AppComponent', () => {
           expect(component.showSearchResults).toBe(true);
         });
 
-        it('should not intercept clicks om the searchBox', () => {
+        it('should not intercept clicks on the searchBox', () => {
           component.showSearchResults = true;
           fixture.detectChanges();
 
@@ -751,6 +750,11 @@ describe('AppComponent', () => {
           fixture.detectChanges();
 
           expect(component.showSearchResults).toBe(true);
+        });
+
+        it('should not call `locationService.setSearch` when searchResults are not shown', () => {
+          docViewer.click();
+          expect(locationService.setSearch).not.toHaveBeenCalled();
         });
       });
 

@@ -7,8 +7,11 @@
  */
 
 import {ApplicationRef} from '../application_ref';
+import {InjectorType, defineInjector} from '../di/defs';
 import {Provider} from '../di/provider';
-import {R3_COMPILE_NGMODULE} from '../ivy_switch/compiler/index';
+import {convertInjectableProviderToFactory} from '../di/util';
+import {NgModuleType} from '../render3';
+import {compileNgModule as render3CompileNgModule} from '../render3/jit/module';
 import {Type} from '../type';
 import {TypeDecorator, makeDecorator} from '../util/decorators';
 
@@ -104,6 +107,8 @@ export interface NgModuleDef<T> {
  * provided.
  *
  * 模块类型。在 Ivy 应用中，它必须显式提供。
+ *
+ * @publicApi
  */
 export interface ModuleWithProviders<
     T = any /** TODO(alxhub): remove default when callers pass explicit type param */> {
@@ -122,7 +127,7 @@ export interface ModuleWithProviders<
  *
  * 已定义的 schema 的名字。
  *
- * @experimental
+ * @publicApi
  */
 export interface SchemaMetadata { name: string; }
 
@@ -143,6 +148,7 @@ export interface SchemaMetadata { name: string; }
  *
  * 中线格式是对自定义元素的命名约定。
  *
+ * @publicApi
  */
 export const CUSTOM_ELEMENTS_SCHEMA: SchemaMetadata = {
   name: 'custom-elements'
@@ -153,7 +159,7 @@ export const CUSTOM_ELEMENTS_SCHEMA: SchemaMetadata = {
  *
  * 定义了一个允许任何元素上的任何属性的 schema。
  *
- * @experimental
+ * @publicApi
  */
 export const NO_ERRORS_SCHEMA: SchemaMetadata = {
   name: 'no-errors-schema'
@@ -181,6 +187,7 @@ export interface NgModuleDecorator {
  *
  * NgModule 元数据的类型。
  *
+ * @publicApi
  */
 export interface NgModule {
   /**
@@ -447,6 +454,7 @@ export interface NgModule {
 
 /**
  * @Annotation
+ * @publicApi
  */
 export const NgModule: NgModuleDecorator = makeDecorator(
   'NgModule', (ngModule: NgModule) => ngModule, undefined, undefined,
@@ -472,7 +480,7 @@ export const NgModule: NgModuleDecorator = makeDecorator(
    *   `imports` 选项用于从其它模块中带入成员，`exports` 选项用于把本模块的成员带给其它模块。
    *
    */
-  (type: Type<any>, meta: NgModule) => R3_COMPILE_NGMODULE(type, meta));
+  (type: NgModuleType, meta: NgModule) => SWITCH_COMPILE_NGMODULE(type, meta));
 
 /**
  * @description
@@ -492,5 +500,24 @@ export const NgModule: NgModuleDecorator = makeDecorator(
  * }
  * ```
  *
+ * @publicApi
  */
 export interface DoBootstrap { ngDoBootstrap(appRef: ApplicationRef): void; }
+
+function preR3NgModuleCompile(moduleType: InjectorType<any>, metadata: NgModule): void {
+  let imports = (metadata && metadata.imports) || [];
+  if (metadata && metadata.exports) {
+    imports = [...imports, metadata.exports];
+  }
+
+  moduleType.ngInjectorDef = defineInjector({
+    factory: convertInjectableProviderToFactory(moduleType, {useClass: moduleType}),
+    providers: metadata && metadata.providers,
+    imports: imports,
+  });
+}
+
+
+export const SWITCH_COMPILE_NGMODULE__POST_R3__ = render3CompileNgModule;
+const SWITCH_COMPILE_NGMODULE__PRE_R3__ = preR3NgModuleCompile;
+const SWITCH_COMPILE_NGMODULE: typeof render3CompileNgModule = SWITCH_COMPILE_NGMODULE__PRE_R3__;

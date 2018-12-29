@@ -62,46 +62,57 @@ const resolvedPromise = Promise.resolve(null);
 
 /**
  * @description
- *
  * Creates a `FormControl` instance from a domain model and binds it
  * to a form control element.
  *
  * 根据领域对象创建一个 `FormControl` 实例，并把它绑定到一个表单控件元素上。
  *
- * The `FormControl` instance will track the value, user interaction, and
- * validation status of the control and keep the view synced with the model. If used
- * within a parent form, the directive will also register itself with the form as a child
+ * The `FormControl` instance tracks the value, user interaction, and
+ * validation status of the control and keeps the view synced with the model. If used
+ * within a parent form, the directive also registers itself with the form as a child
  * control.
  *
  * 这个 `FormControl` 实例将会跟踪值、用户交互和控件的验证状态，以保持视图与模型的同步。
  * 如果用在某个父表单中，该指令还会把自己注册为这个父表单的子控件。
  *
- * This directive can be used by itself or as part of a larger form. All you need is the
+ * This directive is used by itself or as part of a larger form. Use the
  * `ngModel` selector to activate it.
  *
  * 这个指令可以单独使用，也可以用作一个大表单的一部分。你所要做的一切就是用 `ngModel` 选择器来激活它。
  *
  * It accepts a domain model as an optional `Input`. If you have a one-way binding
  * to `ngModel` with `[]` syntax, changing the value of the domain model in the component
- * class will set the value in the view. If you have a two-way binding with `[()]` syntax
- * (also known as 'banana-box syntax'), the value in the UI will always be synced back to
- * the domain model in your class as well.
+ * class sets the value in the view. If you have a two-way binding with `[()]` syntax
+ * (also known as 'banana-box syntax'), the value in the UI always syncs back to
+ * the domain model in your class.
  *
  * 它可以接受一个领域模型作为可选的 `Input`。如果使用 `[]` 语法来单向绑定到 `ngModel`，那么在组件类中修改领域模型将会更新视图中的值。
- * 如果使用 `[()]` 语法来双向绑定到 `ngModel`，那么视图中值的变化同样会随时同步回组件类中的领域模型。
+ * 如果使用 `[()]` 语法来双向绑定到 `ngModel`，那么视图中值的变化会随时同步回组件类中的领域模型。
  *
- * If you wish to inspect the properties of the associated `FormControl` (like
- * validity state), you can also export the directive into a local template variable using
- * `ngModel` as the key (ex: `#myVar="ngModel"`). You can then access the control using the
- * directive's `control` property, but most properties you'll need (like `valid` and `dirty`)
- * will fall through to the control anyway, so you can access them directly. You can see a
- * full list of properties directly available in `AbstractControlDirective`.
+ * To inspect the properties of the associated `FormControl` (like validity state),
+ * export the directive into a local template variable using `ngModel` as the key (ex: `#myVar="ngModel"`).
+ * You then access the control using the directive's `control` property,
+ * but most properties used (like `valid` and `dirty`) fall through to the control anyway for direct access.
+ * See a full list of properties directly available in `AbstractControlDirective`.
  *
  * 如果你希望查看与 `FormControl` 相关的属性（比如校验状态），你也可以使用 `ngModel` 作为键，把该指令导出到一个局部模板变量中（如：`#myVar="ngModel"`）。
  * 你也可以使用该指令的 `control` 属性来访问此控件，实际上你要用到的大多数属性（如 `valid` 和 `dirty`）都会委托给该控件，这样你就可以直接访问这些属性了。
  * 你可以在 `AbstractControlDirective` 中直接查看这些属性的完整列表。
  *
- * The following is an example of a simple standalone control using `ngModel`:
+ * @see `RadioControlValueAccessor`
+ * @see `SelectControlValueAccessor`
+ *
+ * @usageNotes
+ *
+ * ### Using ngModel on a standalone control
+ *
+ * ### 在独立控件模式下使用 ngModel
+ *
+ * 如果你希望查看与 `FormControl` 相关的属性（比如校验状态），你也可以使用 `ngModel` 作为键，把该指令导出到一个局部模板变量中（如：`#myVar="ngModel"`）。
+ * 你也可以使用该指令的 `control` 属性来访问此控件，实际上你要用到的大多数属性（如 `valid` 和 `dirty`）都会委托给该控件，这样你就可以直接访问这些属性了。
+ * 你可以在 `AbstractControlDirective` 中直接查看这些属性的完整列表。
+ *
+ * The following examples show a simple standalone control using `ngModel`:
  *
  * 下面是一个在简单的独立控件中使用 `ngModel` 的例子：
  *
@@ -112,14 +123,14 @@ const resolvedPromise = Promise.resolve(null);
  *
  * 当在 `<form>` 标签中使用 `ngModel` 时，你还需要提供一个 `name` 属性，以便该控件可以使用这个名字把自己注册到父表单中。
  *
- * It's worth noting that in the context of a parent form, you often can skip one-way or
- * two-way binding because the parent form will sync the value for you. You can access
- * its properties by exporting it into a local template variable using `ngForm` (ex:
- * `#f="ngForm"`). Then you can pass it where it needs to go on submit.
+ * In the context of a parent form, it's often unnecessary to include one-way or two-way binding,
+ * as the parent form syncs the value for you. You access its properties by exporting it into a
+ * local template variable using `ngForm` such as (`#f="ngForm"`). Use the variable where
+ * needed on form submission.
  *
- * 不用太关注父表单的上下文，你通常可以忽略它的单向或双向绑定，因为这个父表单将会为你同步该值。
+ * 在父表单的上下文中，通常不用包含单向或双向绑定，因为这个父表单将会为你同步该值。
  * 你可以使用 `ngForm` 把它导出给一个模板局部变量（如 `#f="ngForm"`），以访问它的属性。
- * 然后你就可以在提交时把它传给任何需要它的地方了。
+ * 可以在任何需要提交表单的地方使用它。
  *
  * If you do need to populate initial values into your form, using a one-way binding for
  * `ngModel` tends to be sufficient as long as you use the exported form's value rather
@@ -127,25 +138,52 @@ const resolvedPromise = Promise.resolve(null);
  *
  * 如果你只是要为表单设置初始值，对 `ngModel` 使用单向绑定就够了。在提交时，你可以使用从表单导出的值，而不必使用领域模型的值。
  *
- * Take a look at an example of using `ngModel` within a form:
+ * ### Using ngModel within a form
  *
- * 来看一个在表单中使用 `ngModel` 的例子：
+ * ### 在表单中使用 ngModel
+ *
+ * The following example shows controls using `ngModel` within a form:
+ *
+ * 下面的例子展示了如何在表单中使用 `ngModel`：
  *
  * {@example forms/ts/simpleForm/simple_form_example.ts region='Component'}
  *
- * To see `ngModel` examples with different form control types, see:
+ * ### Using a standalone ngModel within a group
  *
- * 要查看不同空间类型的 `ngModel` 范例，参见：
+ * ### 在表单组中使用独立 ngModel
  *
- * * Radio buttons: `RadioControlValueAccessor`
+ * The following example shows you how to use a standalone ngModel control
+ * within a form. This controls the display of the form, but doesn't contain form data.
  *
- *   单选按钮组：`RadioControlValueAccessor`
+ * 下面的例子演示了如何在表单中使用独立 ngModel 控件。它控制表单的显示，但并不包含表单数据。
  *
- * * Selects: `SelectControlValueAccessor`
+ * ```html
+ * <form>
+ *   <input name="login" ngModel placeholder="Login">
+ *   <input type="checkbox" ngModel [ngModelOptions]="{standalone: true}"> Show more options?
+ * </form>
+ * <!-- form value: {login: ''} -->
+ * ```
  *
- *   下拉框：`SelectControlValueAccessor`
+ * ### Setting the ngModel name attribute through options
+ *
+ * ### 通过选项设置 ngModel 的 name 属性
+ *
+ * The following example shows you an alternate way to set the name attribute. The name attribute is used
+ * within a custom form component, and the name `@Input` property serves a different purpose.
+ *
+ * 下面的例子展示了设置 name 属性的另一种方式。该 name 属性要和自定义表单组件一起使用，而该自定义组件的 `@Input` 属性 name 已用作其它用途。
+ *
+ * ```html
+ * <form>
+ *   <my-person-control name="Nancy" ngModel [ngModelOptions]="{name: 'user'}">
+ *   </my-person-control>
+ * </form>
+ * <!-- form value: {user: ''} -->
+ * ```
  *
  * @ngModule FormsModule
+ * @publicApi
  */
 @Directive({
   selector: '[ngModel]:not([formControlName]):not([formControl])',
@@ -157,65 +195,66 @@ export class NgModel extends NgControl implements OnChanges,
   public readonly control: FormControl = new FormControl();
   /** @internal */
   _registered = false;
+
+  /**
+   * @description
+   * Internal reference to the view model value.
+   */
   viewModel: any;
 
+  /**
+   * @description
+   * Tracks the name bound to the directive. The parent form
+   * uses this name as a key to retrieve this control's value.
+   */
   // TODO(issue/24571): remove '!'.
   @Input() name !: string;
+
+  /**
+   * @description
+   * Tracks whether the control is disabled.
+   */
   // TODO(issue/24571): remove '!'.
   @Input('disabled') isDisabled !: boolean;
+
+  /**
+   * @description
+   * Tracks the value bound to this directive.
+   */
   @Input('ngModel') model: any;
 
   /**
-   * Options object for this `ngModel` instance. You can configure the following properties:
+   * @description
+   * Tracks the configuration options for this `ngModel` instance.
    *
-   * 当前 `ngModel` 实例的配置对象。你可以配置下列属性：
+   * 跟踪该 `ngModel` 实例的配置项。
    *
-   * **name**: An alternative to setting the name attribute on the form control element.
-   * Sometimes, especially with custom form components, the name attribute might be used
-   * as an `@Input` property for a different purpose. In cases like these, you can configure
-   * the `ngModel` name through this option.
+   * **name**: An alternative to setting the name attribute on the form control element. See
+   * the [example](api/forms/NgModel#using-ngmodel-on-a-standalone-control) for using `NgModel`
+   * as a standalone control.
    *
-   * **name**：设置这个表单控件元素名的一个替代方案。有时候，特别是在自定义表单控件上，name 属性可能被作为 `@Input` 属性用作其它目的。
-   * 这时，你就可以通过该选项来配置 `ngModel` 的名字。
+   * **name**：用来设置表单控件元素的 `name` 属性的另一种方式。参见把 `ngModel` 用作独立控件的那个[例子](api/forms/NgModel#using-ngmodel-on-a-standalone-control)。
    *
-   * ```html
-   * <form>
-   *   <my-person-control name="Nancy" ngModel [ngModelOptions]="{name: 'user'}">
-   *   </my-person-control>
-   * </form>
-   * <!-- form value: {user: ''} -->
-   * ```
+   * **standalone**: When set to true, the `ngModel` will not register itself with its parent form,
+   * and acts as if it's not in the form. Defaults to false.
    *
-   * **standalone**: Defaults to false. If this is set to true, the `ngModel` will not
-   * register itself with its parent form, and will act as if it's not in the form. This
-   * can be handy if you have form meta-controls, a.k.a. form elements nested in
-   * the `<form>` tag that control the display of the form, but don't contain form data.
+   * **standalone**：如果为 true，则此 `ngModel` 不会把自己注册进它的父表单中，其行为就像没在表单中一样。默认为 false。
    *
-   * **standalone**：默认为 `false`。如果设置为 `true`，那么 `ngModel` 就不会把自己注册到它的父表单上，其行为就像它没有在表单中一样。
-   * 如果要使用表单元控件，这会很方便。表单元控件是指嵌在 `<form>` 标签中的表单元素，它控制表单的显示，但不包含表单数据。
+   * **updateOn**: Defines the event upon which the form control value and validity update.
+   * Defaults to 'change'. Possible values: `'change'` | `'blur'` | `'submit'`.
    *
-   * ```html
-   * <form>
-   *   <input name="login" ngModel placeholder="Login">
-   *   <input type="checkbox" ngModel [ngModelOptions]="{standalone: true}"> Show more options?
-   * </form>
-   * <!-- form value: {login: ''} -->
-   * ```
-   *
-   * **updateOn**: Defaults to `'change'`. Defines the event upon which the form control
-   * value and validity will update. Also accepts `'blur'` and `'submit'`.
-   *
-   * **updateOn**：默认为 `'change'`。用来定义该何时更新表单控件的值和有效性。其它有效值为：`'blur'` 和 `'submit'`。
-   *
-   * ```html
-   * <input [(ngModel)]="firstName" [ngModelOptions]="{updateOn: 'blur'}">
-   * ```
+   * **updateOn**: 用来定义该何时更新表单控件的值和有效性。默认为 `'change'`。可能的取值为：`'change'` | `'blur'` | `'submit'`。
    *
    */
   // TODO(issue/24571): remove '!'.
   @Input('ngModelOptions')
   options !: {name?: string, standalone?: boolean, updateOn?: FormHooks};
 
+  /**
+   * @description
+   * Event emitter for producing the `ngModelChange` event after
+   * the view model updates.
+   */
   @Output('ngModelChange') update = new EventEmitter();
 
   constructor(@Optional() @Host() parent: ControlContainer,
@@ -230,6 +269,13 @@ export class NgModel extends NgControl implements OnChanges,
                 this.valueAccessor = selectValueAccessor(this, valueAccessors);
               }
 
+              /**
+               * @description
+               * A lifecycle method called when the directive's inputs change. For internal use
+               * only.
+               *
+               * @param changes A object of key/value pairs for the set of changed inputs.
+               */
               ngOnChanges(changes: SimpleChanges) {
                 this._checkForErrors();
                 if (!this._registered) this._setUpControl();
@@ -243,20 +289,50 @@ export class NgModel extends NgControl implements OnChanges,
                 }
               }
 
+              /**
+               * @description
+               * Lifecycle method called before the directive's instance is destroyed. For internal
+               * use only.
+               */
               ngOnDestroy(): void { this.formDirective && this.formDirective.removeControl(this); }
 
+              /**
+               * @description
+               * Returns an array that represents the path from the top-level form to this control.
+               * Each index is the string name of the control on that level.
+               */
               get path(): string[] {
                 return this._parent ? controlPath(this.name, this._parent) : [this.name];
               }
 
+              /**
+               * @description
+               * The top-level directive for this control if present, otherwise null.
+               */
               get formDirective(): any { return this._parent ? this._parent.formDirective : null; }
 
+              /**
+               * @description
+               * Synchronous validator function composed of all the synchronous validators
+               * registered with this directive.
+               */
               get validator(): ValidatorFn|null { return composeValidators(this._rawValidators); }
 
+              /**
+               * @description
+               * Async validator function composed of all the async validators registered with this
+               * directive.
+               */
               get asyncValidator(): AsyncValidatorFn|null {
                 return composeAsyncValidators(this._rawAsyncValidators);
               }
 
+              /**
+               * @description
+               * Sets the new value for the view model and emits an `ngModelChange` event.
+               *
+               * @param newValue The new value emitted by `ngModelChange`.
+               */
               viewToModelUpdate(newValue: any): void {
                 this.viewModel = newValue;
                 this.update.emit(newValue);

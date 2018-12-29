@@ -83,7 +83,7 @@ Installing the Angular service worker is as simple as including an `NgModule`. I
 
 ## 前提条件
 
-Your application must run in a web browser that supports service workers. Currently, the latest versions of Chrome and Firefox are supported. To learn about other browsers that are service worker ready, see the [Can I Use](http://caniuse.com/#feat=serviceworkers) page.
+Your application must run in a web browser that supports service workers. Currently, service workers are supported in the latest versions of Chrome, Firefox, Edge, Safari, Opera, UC Browser (Android version) and Samsung Internet. Browsers like IE and Opera Mini do not provide the support. To learn more about other browsers that are service worker ready, see the [Can I Use](https://caniuse.com/#feat=serviceworkers) page and [MDN docs](https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API).
 
 你的应用必须运行在支持 Service Worker 的 Web 浏览器中。目前，Chrome 和 Firefox 的最新版本 都已经支持了。
 要想知道其它浏览器是否支持，参见 [Can I Use](http://caniuse.com/#feat=serviceworkers) 页。

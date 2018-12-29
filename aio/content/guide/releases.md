@@ -121,9 +121,9 @@ The following table contains our current target release dates for the next two m
 下表中包含下面两个 Angular 主版本的目标发布日期：
 
  <t>Date</t><t>日期</t>  | <t>Stable Release</t><t>稳定版</t> | <t>Compatibility</t><t>兼容性</t>
- ---------------------- | -------------- | ----------------
- <t>September/October 2018</t><t>2018-09/10</t> | 7.0.0          | ^6.0.0
- <t>March/April 2019</t><t>2019-03/04</t>       | 8.0.0          | ^7.0.0
+ ---------------------- | -------------- | -------------
+ March/April 2019       | 8.0.0          | ^7.0.0
+ September/October 2019 | 9.0.0          | ^8.0.0
 
  Compatibility note: The primary goal of the backward compatibility promise is to ensure that changes in the core framework and tooling don't break the existing ecosystem of components and applications and don't put undue upgrade/migration burden on Angular application and component authors.
 
@@ -131,7 +131,7 @@ The following table contains our current target release dates for the next two m
 
 {@a lts}
 {@a support}
-## Support policy
+## Support policy and schedule
 
 ## 支持策略
 
@@ -139,61 +139,27 @@ All of our major releases are supported for 18 months.
 
 所有主版本的支持周期都是 18 个月。
 
-* 6 months of active support, during which regularly-scheduled updates and patches are released, as described above in [Release frequency](#frequency "Release frequency").
+* 6 months of *active support*, during which regularly-scheduled updates and patches are released.
 
-   6 个月的活跃支持，在此期间我们会定期发布更新和补丁，正如前面的[发布频率](#frequency "Release frequency")中所说的。
+   6 个月的*活跃支持*，在此期间我们会定期发布更新和补丁
 
-* 12 months of long-term support(LTS). During the LTS period, only critical fixes and security patches will be released.
+* 12 months of *long-term support (LTS)*, during which only critical fixes and security patches are released.
 
-   12 个月的长期支持（LTS）。在 LTS 期间，只会发布关键性修复和安全补丁。
+   12 个月的*长期支持（LTS）*，在 LTS 期间，只会发布关键性修复和安全补丁。
 
-The following table provides the support status and key dates for Angular version 4.0.0 and higher.
+The following table provides the support status and key dates for Angular version 5.0.0 and higher. 
 
-下表中提供了 Angular 4.0.0 以上的支持状态和一些关键时间点。
+下表中提供了 Angular 5.0.0 以上的支持状态和一些关键时间点。
 
-<style>
+Version | Status | Released     | Active Ends  | LTS Ends
+------- | ------ | ------------ | ------------ | ------------ 
+^7.0.0  | Active | Oct 18, 2018 | Apr 18, 2019 | Apr 18, 2020
+^6.0.0  | LTS    | May 3, 2018  | Nov 3, 2018  | Nov 3, 2019
+^5.0.0  | LTS    | Nov 1, 2017  | May 1, 2018  | May 1, 2019
 
-    td, th {vertical-align: top}
+LTS for Angular version ^4.0.0 ended on September 23, 2018.
 
-</style>
-
-<table>
-
-    <tr>
-        <th><t>Version</t><t>版本</t></th>
-        <th><t>Status</t><t>状态</t></th>
-        <th><t>Release Date</t><t>发布日期</t></th>
-        <th><t>LTS Start Date</t><t>LTS 起始日期</t></th>
-        <th><t>LTS End Date</t><t>LTS 结束日期</t></th>
-    </tr>
-
-    <tr>
-        <td>^4.0.0</td>
-        <td>LTS</td>
-        <td><t>March 23, 2017</t><t>2017-03-23</t></td>
-        <td><t>September 23, 2017</t><t>2017-09-23</t></td>
-        <td><t>September 23, 2018</t><t>2018-09-23</t></td>
-    </tr>
-
-    <tr>
-        <td>^5.0.0</td>
-        <td>LTS</td>
-        <td><t>November 1, 2017</t><t>2017-11-01</t></td>
-        <td><t>May 1, 2018</t><t>2018-05-01</t></td>
-        <td><t>May 1, 2019</t><t>2019-05-01</t></td>
-    </tr>
-
-    <tr>
-        <td>^6.0.0</td>
-        <td>Active</td>
-        <td><t>May 3, 2018</t><t>2018-05-03</t></td>
-        <td><t>November 3, 2018</t><t>2018-11-03</t></td>
-        <td><t>November 3, 2019</t><t>2019-11-03</t></td>
-    </tr>
-
-</table>
-
-
+Angular ^4.0.0 版本的 LTS 支持将结束于 2018-09-23。
 
 {@a deprecation}
 

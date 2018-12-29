@@ -40,5 +40,6 @@
  *
  * 在模板中调用 `{{ 'ok' | repeat:3 }}` 的结果是 `okokok`。
  *
+ * @publicApi
  */
 export interface PipeTransform { transform(value: any, ...args: any[]): any; }

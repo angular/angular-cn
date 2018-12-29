@@ -177,6 +177,7 @@ import {Directive, EmbeddedViewRef, Input, TemplateRef, ViewContainerRef, ɵstri
  * ```
  *
  * @ngModule CommonModule
+ * @publicApi
  */
 @Directive({selector: '[ngIf]'})
 export class NgIf {
@@ -248,6 +249,9 @@ export class NgIf {
   static ngTemplateGuard_ngIf<E>(dir: NgIf, expr: E): expr is NonNullable<E> { return true; }
 }
 
+/**
+ * @publicApi
+ */
 export class NgIfContext {
   public $implicit: any = null;
   public ngIf: any = null;

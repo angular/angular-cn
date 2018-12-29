@@ -1,170 +1,153 @@
-# Npm Packages
+# Workspace npm dependencies
 
 # Npm 包
 
- The [**Angular CLI**](https://cli.angular.io/), Angular applications, and Angular itself depend upon features and functionality provided by libraries that are available as [**npm**](https://docs.npmjs.com/) packages.
+ The Angular Framework, Angular CLI, and components used by Angular applications are packaged as [npm packages](https://docs.npmjs.com/getting-started/what-is-npm "What is npm?") and distributed via the [npm registry](https://docs.npmjs.com/).
 
- [**Angular CLI**](https://cli.angular.io/)、Angular 应用程序以及 Angular 本身都依赖于很多第三方包(包括 Angular 自己)提供的特性和功能。这些都是 [**npm**](https://docs.npmjs.com/) 包。
+ Angular 框架、[**Angular CLI**](https://cli.angular.io/)、Angular 应用程序所用到的组件都打包成 [npm packages](https://docs.npmjs.com/getting-started/what-is-npm "What is npm?")，并通过 [npm registry](https://docs.npmjs.com/) 进行分发。
 
-You can download and install these npm packages with the [**npm client**](https://docs.npmjs.com/cli/install), which runs as a Node.js® application.
+You can download and install these npm packages by using the [npm CLI client](https://docs.npmjs.com/cli/install), which is installed with and runs as a [Node.js®](https://nodejs.org "Nodejs.org") application. By default, the Angular CLI uses the npm client.
 
-你可以使用 [**npm**](https://docs.npmjs.com/cli/install) 来安装这些 npm 包，npm 命令也是一个 Node.js® 应用。
+你可以使用 [npm CLI client](https://docs.npmjs.com/cli/install) 来下载并安装这些 npm 包，它通过 [Node.js®](https://nodejs.org "Nodejs.org") 安装并运行。默认情况下，Angular CLI 会使用 npm 客户端。
 
-The [**yarn client**](https://yarnpkg.com/en/) is a popular alternative for downloading and installing npm packages.
-The Angular CLI uses `yarn` by default to install npm packages when you create a new project.
+Alternatively, you can use the [yarn client](https://yarnpkg.com/) for downloading and installing npm packages. 
 
-[**yarn**](https://yarnpkg.com/en/) 是另一个下载和安装 npm 包的工具。
-当创建新项目时，Angular CLI 默认使用 `yarn` 来安装 npm 包。
+另外，你还可以使用 [**yarn** 客户端](https://yarnpkg.com/en/) 来下载并安装 npm 包。
 
 <div class="alert is-helpful">
 
-Node.js and npm are essential to Angular development.
+See [Getting Started](guide/quickstart#prerequisites) for information about the required versions and installation of Node.js and npm.
 
-Node.js 和 npm 是做 Angular 开发的基础。
+参见[快速起步](guide/quickstart#prerequisites)，以了解所需的 Node.js 和 npm 版本。
 
-[Get them now](https://docs.npmjs.com/getting-started/installing-node "Installing Node.js and updating npm")
-if they're not already installed on your machine.
+If you already have projects running on your machine that use other versions of Node.js and npm, consider using [nvm](https://github.com/creationix/nvm) to manage the multiple versions of Node.js and npm. 
 
-如果你的电脑上还没有装过，请 [立即获取它们](https://docs.npmjs.com/getting-started/installing-node "Installing Node.js and updating npm")！
-
-**Verify that you are running Node.js `v8.x` or higher and npm `5.x` or higher**
-by running the commands `node -v` and `npm -v` in a terminal/console window.
-Older versions produce errors.
-
-在终端/控制器窗口运行命令 `node -v` 和 `npm -v`，来**确认你运行的 node 是 `v8.x` 或更高，npm 为 `5.x` 或更高。**
-老版本会产生错误。
-
-Consider using [nvm](https://github.com/creationix/nvm) for managing multiple
-versions of Node.js and npm. You may need [nvm](https://github.com/creationix/nvm) if
-you already have projects running on your machine that use other versions of Node.js and npm.
-
-建议使用[nvm](https://github.com/creationix/nvm)来管理 node 和 npm 的多个版本。如果你机器上已经有某些项目运行了 Node.js 和 npm 的其它版本，你就会需要[nvm](https://github.com/creationix/nvm)了。
+如果你的电脑上已经有了使用其它 Node.js 和 npm 版本的项目，可考虑使用 [nvm](https://github.com/creationix/nvm) 来管理 Node.js 和 npm 的多个版本。
 
 </div>
 
-## _package.json_
 
-Both `npm` and `yarn` install packages that are identified in a [**package.json**](https://docs.npmjs.com/files/package.json) file.
+## `package.json`
 
-无论是 `npm` 还是 `yarn`，所安装的包都记录在 [**package.json**](https://docs.npmjs.com/files/package.json) 文件中。
+Both `npm` and `yarn` install the packages that are identified in a [`package.json`](https://docs.npmjs.com/files/package.json) file.
 
-The CLI `ng new` command creates a default `package.json` file for your project.
-This `package.json` specifies _a starter set of packages_ that work well together and 
-jointly support many common application scenarios.
+无论使用 `npm` 还是 `yarn` 安装的包，都会记录在 [`package.json`](https://docs.npmjs.com/files/package.json) 文件中。
 
-CLI 的 `ng new` 命令会给项目创建一个默认的 `package.json` 文件。
-这个 `package.json` 中带有一些起步包，这些包可以很好地协同，并可用于大量常见的应用场景。
+The CLI command `ng new` creates a `package.json` file when it creates the new workspace. 
+This `package.json` is used by all projects in the workspace, including the initial app project that is  created by the CLI when it creates the workspace.   
 
-You will add packages to `package.json` as your application evolves.
-You may even remove some.
+CLI 的 `ng new` 命令会在创建新的工作空间的同时创建一个 `package.json`。
+这个 `package.json` 用于此工作空间中的所有项目，包括由 CLI 在创建工作空间时创建的那个初始项目。
 
-随着应用的成长，你还会往 `package.json` 中添加更多包，甚至可能会移除一些。
+Initially, this `package.json` includes _a starter set of packages_, some of which are required by Angular and others that support common application scenarios.
+You add packages to `package.json` as your application evolves. 
+You may even remove some. 
 
-This guide focuses on the most important packages in the starter set.
+最初，这个 `package.json` 包括*一组初始包*，其中有些是 Angular 自身需要的，另一些是用来支持一些常见的应用场景。
+随着应用的演化，你可能会往 `package.json` 中添加甚至移除一些包。
 
-本指南中会集中讲解这些初始包中的重点部分。
+The `package.json` is organized into two groups of packages:
 
-#### *dependencies* and *devDependencies*
+`package.json` 文件中的包被分成了两组：
 
-#### *dependencies* 和 *devDependencies*
+* [Dependencies](guide/npm-packages#dependencies) are essential to *running* applications.
 
-The `package.json` includes two sets of packages,
-[dependencies](guide/npm-packages#dependencies) and [devDependencies](guide/npm-packages#dev-dependencies).
+  [dependencies](guide/npm-packages#dependencies) 是*运行*应用的基础。
 
-`package.json` 包括两组包：[dependencies](guide/npm-packages#dependencies) 和 [devDependencies](guide/npm-packages#dev-dependencies)
+* [DevDependencies](guide/npm-packages#dev-dependencies) are only necessary to *develop* applications.
 
-The *dependencies* are essential to *running* the application.
-The *devDependencies* are only necessary to *develop* the application.
+  [devDependencies](guide/npm-packages#dev-dependencies) 只有在*开发*应用时才会用到。
 
-**dependencies** 是**运行**应用的基础，而 **devDependencies** 只有在**开发**应用时才会用到。
+<div class="alert is-helpful">
+
+**Library developers:** By default, the CLI command [`ng generate library`](cli/generate) creates a `package.json` for the new library. That `package.json` is used when publishing the library to npm.
+For more information, see the CLI wiki page [Library Support](https://github.com/angular/angular-cli/wiki/stories-create-library). 
+
+**代码库开发者：**默认情况下，CLI 命令 [`ng generate library`](cli/generate) 会为新的代码库项目创建一个 `package.json`。这个 `package.json` 会在把该代码库发布到 npm 时用到。
+要了解更多信息，参见 CLI 的 wiki 页面[代码库支持](https://github.com/angular/angular-cli/wiki/stories-create-library)。
+
+</div>
+
 
 {@a dependencies}
+## Dependencies
 
-## *Dependencies*
-
+The packages listed in the `dependencies` section of `package.json` are essential to *running* applications.
 The `dependencies` section of `package.json` contains:
 
 应用程序的 `package.json` 文件中，`dependencies` 下包括：
 
-* **Angular packages**: Angular core and optional modules; their package names begin `@angular/`.
+* [**Angular packages**](#angular-packages): Angular core and optional modules; their package names begin `@angular/`.
 
-   **Angular 包**：Angular 的核心和可选模块，它们的包名以 `@angular/` 开头。
+   *[*Angular 包**：Angular 的核心和可选模块，它们的包名以 `@angular/` 开头。
 
-* **Support packages**: 3rd party libraries that must be present for Angular apps to run.
+* **Support packages**](#support-packages): 3rd party libraries that must be present for Angular apps to run.
 
-   **支持包**：那些 Angular 应用运行时必需的第三方库。
+   *[*支持包**：那些 Angular 应用运行时必需的第三方库。
 
-* **Polyfill packages**: Polyfills plug gaps in a browser's JavaScript implementation.
+* **Polyfill packages**](#polyfills): Polyfills plug gaps in a browser's JavaScript implementation.
 
    **腻子脚本**：腻子脚本负责抹平不同浏览器的 JavaScript 实现之间的差异。
 
-### Angular Packages
+To add a new dependency, use the [`ng add`](cli/add) command.
+
+要想添加新的依赖，请使用 [`ng add`](cli/add) 命令。
+
+{@a angular-packages}
+### Angular packages
 
 ### Angular 包
 
-**@angular/animations**: Angular's animations library makes it easy to define and apply animation effects such as page and list transitions.
-Read about it in the [Animations guide](guide/animations).
+The following Angular packages are included as dependencies in the default `package.json` file for a new Angular workspace.
+For a complete list of Angular packages, see the [API reference](http://angular.io/api?type=package). 
 
-**@angular/animations**：Angular 的动画库，它能让你更容易定义和使用动画效果，比如页面和列表的转场动画。要了解更多，请参见 [动画指南](guide/animations)。
+新的 Angular 工作空间的 `package.json` 文件中默认包含下列 Angular 包。
+要了解 Angular 包的完整列表，参见 [API 参考手册](http://angular.io/api?type=package)。
 
-**@angular/common**: The commonly needed services, pipes, and directives provided by the Angular team.
-The [`HttpClientModule`](guide/http) is also here, in the '@angular/common/http' subfolder.
-
-**@angular/common**：由 Angular 开发组提供的常用服务、管道和指令。
+Package name                               | Description
+----------------------------------------   | --------------------------------------------------
+[**@angular/animations**](api/animations) | Angular's animations library makes it easy to define and apply animation effects such as page and list transitions. For more information, see the [Animations guide](guide/animations).
+[**@angular/common**](api/common) | The commonly-needed services, pipes, and directives provided by the Angular team. The [`HttpClientModule`](api/common/http/HttpClientModule) is also here, in the [`@angular/common/http`](api/common/http) subfolder. For more information, see the [HttpClient guide](guide/http).
+**@angular/compiler** | Angular's template compiler. It understands templates and can convert them to code that makes the application run and render. Typically you don’t interact with the compiler directly; rather, you use it indirectly via `platform-browser-dynamic` when JIT compiling in the browser. For more information, see the [Ahead-of-time Compilation guide](guide/aot-compiler).
+[**@angular/common**：由 Angular 开发组提供的常用服务、管道和指令。
 [`HttpClientModule`](guide/http)也在这里，位于'@angular/common/http'子目录下。
 
-**@angular/core**: Critical runtime parts of the framework needed by every application.
-Includes all metadata decorators, `Component`, `Directive`,  dependency injection, and the component lifecycle hooks.
+**@angular/core**](api/core) | Critical runtime parts of the framework that are needed by every application. Includes all metadata decorators, `Component`, `Directive`,  dependency injection, and the component lifecycle hooks.
+[**@angular/forms**](api/forms) | Support for both [template-driven](guide/forms) and [reactive forms](guide/reactive-forms). For information about choosing the best forms approach for your app, see [Introduction to forms](guide/forms-overview).
+[**@angular/http**](api/http) | Angular's legacy HTTP client, which was deprecated in version 5.0 in favor of [@angular/common/http](api/common/http).
+[**@angular/<br />platform&#8209;browser**](api/platform-browser) | Everything DOM and browser related, especially the pieces that help render into the DOM. This package also includes the `bootstrapModuleFactory()` method for bootstrapping applications for production builds that pre-compile with [AOT](guide/aot-compiler).
+[**@angular/<br />platform&#8209;browser&#8209;dynamic**](api/platform-browser-dynamic) | Includes [providers](api/core/Provider) and methods to compile and run the app on the client using the [JIT compiler](guide/aot-compiler).
+[**@angular/router**](api/router) | The router module navigates among your app pages when the browser URL changes. For more information, see [Routing and Navigation](guide/router).
 
-**@angular/core**：本框架的每个应用都需要的关键运行部件。包括元数据装饰器，如 `Component` 和 `Directive`、依赖注入以及组件生命周期钩子。
 
-**@angular/compiler**: Angular's *Template Compiler*.
-It understands templates and can convert them to code that makes the application run and render.
-Typically you don’t interact with the compiler directly; rather, you use it indirectly via `platform-browser-dynamic` when [JIT compiling](guide/aot-compiler) in the browser.
+{@a support-packages}
+### Support packages
 
-**@angular/compiler**：Angular 的*模板编译器*。
-它会理解模板，并且把模板转化成代码，以供应用程序运行和渲染。
-开发人员通常不会直接跟这个编译器打交道，而是当在浏览器中使用 [JIT 编译](guide/aot-compiler) 时通过 `platform-browser-dynamic` 间接使用它。
+### 支持包
 
-**@angular/forms**: support for both [template-driven](guide/forms) and [reactive forms](guide/reactive-forms).
+The following support packages are included as dependencies in the default `package.json` file for a new Angular workspace. 
 
-**@angular/forms**：支持 [template-driven](guide/forms) 和 [reactive forms](guide/reactive-forms)。
+新的 Angular 工作空间的 `package.json` 文件中默认包含下列支持包。
 
-**@angular/http**: Angular's old, deprecated, HTTP client.
-
-**@angular/http**：Angular 的老的、已废弃的 HTTP 客户端库。
-
-**@angular/platform-browser**: Everything DOM and browser related, especially
-the pieces that help render into the DOM.
-This package also includes the `bootstrapModuleFactory()` method
-for bootstrapping applications for production builds that pre-compile with [AOT](guide/aot-compiler).
-
-**@angular/platform-browser**：与 DOM 和浏览器相关的每样东西，特别是帮助往 DOM 中渲染的那部分。
-这个包还包含 `bootstrapModuleFactory()` 方法，用来引导那些在产品构建时要用 [AOT](guide/aot-compiler) 进行编译的应用程序。
-
-**@angular/platform-browser-dynamic**: Includes [Providers](api/core/Provider)
-and methods to compile and run the app on the client 
-using the [JIT compiler](guide/aot-compiler).
-
-**@angular/platform-browser-dynamic**： 为应用程序提供一些[提供商](api/core/Provider)和方法，以便在客户端使用 [JIT 编译器](guide/aot-compiler)运行本应用。
+Package name                               | Description
+----------------------------------------   | --------------------------------------------------
+[**rxjs**](https://github.com/ReactiveX/rxjs) | Many Angular APIs return [_observables_](guide/glossary#observable). RxJS is an implementation of the proposed [Observables specification](https://github.com/tc39/proposal-observable) currently before the [TC39](https://www.ecma-international.org/memento/tc39-m.htm) committee, which determines standards for the JavaScript language.
+[**zone.js**](https://github.com/angular/zone.js) | Angular relies on zone.js to run Angular's change detection processes when native JavaScript operations raise events.  Zone.js is an implementation of a [specification](https://gist.github.com/mhevery/63fdcdf7c65886051d55) currently before the [TC39](http://www.ecma-international.org/memento/TC39.htm) committee that determines standards for the JavaScript language.
 
 **@angular/router**: The [router module](/guide/router) navigates among your app pages when the browser URL changes.
-
-**@angular/router**: [router 模块](/guide/router) 可以在浏览器的 URL 变化时在应用的页面之间导航。
 
 **@angular/upgrade**: Set of utilities for upgrading AngularJS applications to Angular.
 
 **@angular/upgrade**: 一组用来把 AngularJS 应用升级到 Angular 的工具。
 
 {@a polyfills}
-
 ### Polyfill packages
 
 ### 腻子脚本包
 
 Many browsers lack native support for some features in the latest HTML standards,
 features that Angular requires.
-"[Polyfills](https://en.wikipedia.org/wiki/Polyfill)" can emulate the missing features.
+[_Polyfills_](https://en.wikipedia.org/wiki/Polyfill) can emulate the missing features.
 The [Browser Support](guide/browser-support) guide explains which browsers need polyfills and 
 how you can add them.
 
@@ -172,112 +155,63 @@ how you can add them.
 [腻子脚本](https://en.wikipedia.org/wiki/Polyfill) 可以模拟这些缺失的特性。
 [浏览器支持](guide/browser-support)一章中解释了哪些浏览器分别需要哪些腻子脚本，以及如何添加它们。
 
-The default `package.json` installs the **[core-js](https://github.com/zloirock/core-js)** package
+The `package.json` for a new Angular workspace installs the [core-js](https://github.com/zloirock/core-js) package, 
 which polyfills missing features for several popular browser.
 
 默认的 `package.json` 会安装 **[core-js](https://github.com/zloirock/core-js)** 包，它会弥补很多常用浏览器缺失的特性。
 
-### Support packages
-
-### 支持包
-
-**[rxjs](https://github.com/benlesh/RxJS)**: Many Angular APIs return _observables_. RxJS is an implementation of the proposed [Observables specification](https://github.com/zenparsing/es-observable) currently before the
-[TC39](http://www.ecma-international.org/memento/TC39.htm) committee that determines standards for the JavaScript language.
-
-**[rxjs](https://github.com/benlesh/RxJS)**：很多 Angular API 都会返回**可观察对象（Observable）**。RxJS 是个对[Observables 规范](https://github.com/zenparsing/es-observable)的当前实现。[TC39](http://www.ecma-international.org/memento/TC39.htm)委员会将来会决定它是否成为 JavaScript 语言标准的一部分。
-
-**[zone.js](https://github.com/angular/zone.js)**: Angular relies on zone.js to run Angular's change detection processes when native JavaScript operations raise events.  Zone.js is an implementation of a [specification](https://gist.github.com/mhevery/63fdcdf7c65886051d55) currently before the
-[TC39](http://www.ecma-international.org/memento/TC39.htm) committee that determines standards for the JavaScript language.
-
-**[zone.js](https://github.com/angular/zone.js)**：Angular 依赖 zone.js，以便在原生 JavaScript 操作触发事件时运行 Angular 的变更检测过程。Zone.js 是对 [这个规范](https://gist.github.com/mhevery/63fdcdf7c65886051d55) 的当前实现。[TC39](http://www.ecma-international.org/memento/TC39.htm)委员会将来会决定它是否成为 JavaScript 语言标准的一部分。
-
 {@a dev-dependencies}
 
-## *DevDependencies*
+## DevDependencies
 
-The packages listed in the *devDependencies* section of the `package.json` help you develop the application on your local machine.
+The packages listed in the `devDependencies` section of `package.json` help you develop the application on your local machine. You don't deploy them with the production application.
 
 `package.json` 的 *devDependencies* 区列出的这些包可以帮助你在本机开发应用。
+你不必把它们部署到生产环境中。
 
-You don't deploy them with the production application although there is no harm in doing so.
+To add a new `devDependency`, use either one of the following commands:
 
-你不必在生产环境的应用中部署它们，当然，就算部署了也没什么坏处。
+要想添加新的 `devDependency`，请使用下列命令之一：
 
-**[@angular/cli](https://github.com/angular/angular-cli/)**: The Angular CLI tools.
+<code-example language="sh" class="code-shell">
+  npm install --dev &lt;package-name&gt;
+</code-example>
 
-**[@angular/cli](https://github.com/angular/angular-cli/)**：Angular 的命令行工具。
+<code-example language="sh" class="code-shell">
+  yarn add --dev &lt;package-name&gt;
+</code-example>
 
-**[@angular/compiler-cli](https://github.com/angular/angular/blob/master/packages/compiler-cli/README.md)**: The Angular compiler, which is invoked by the Angular CLI's `build` and `serve` commands.
+The following `devDependencies` are provided in the default `package.json` file for a new Angular workspace. 
 
-**[@angular/compiler-cli](https://github.com/angular/angular/blob/master/packages/compiler-cli/README.md)**：Angular 的编译器，它会被 Angular CLI 的 `build` 和 `serve` 命令调用。
+新 Angular 工作空间的默认 `package.json` 中包含下列 `devDependencies` 
 
-**[@angular/language-service](https://github.com/angular/angular-cli/)**: The Angular language service analyzes component templates and provides type and error information that TypeScript-aware editors can use to improve the developer's experience.
-For example, see the [Angular language service extension for VS Code](https://marketplace.visualstudio.com/items?itemName=Angular.ng-template)
+Package name                               | Description
+----------------------------------------   | -----------------------------------
+[**@angular&#8209;devkit/<br />build&#8209;angular**](https://github.com/angular/angular-cli/) | The Angular build tools.
+[**@angular/cli**](https://github.com/angular/angular-cli/) | The Angular CLI tools.
+**@angular/<br />compiler&#8209;cli** | The Angular compiler, which is invoked by the Angular CLI's `ng build` and `ng serve` commands.
+**@angular/<br />language&#8209;service** | The [Angular language service](guide/language-service) analyzes component templates and provides type and error information that TypeScript-aware editors can use to improve the developer's experience. For example, see the [Angular language service extension for VS Code](https://marketplace.visualstudio.com/items?itemName=Angular.ng-template).
+**@types/... ** | TypeScript definition files for 3rd party libraries such as Jasmine and Node.js.
+[**codelyzer**](https://www.npmjs.com/package/codelyzer) | A linter for Angular apps whose rules conform to the Angular [style guide](guide/styleguide).
+**jasmine/... ** | Packages to support the [Jasmine](https://jasmine.github.io/) test library.
+**karma/... ** | Packages to support the [karma](https://www.npmjs.com/package/karma) test runner.
+[**protractor**](https://www.npmjs.com/package/protractor) | An end-to-end (e2e) framework for Angular apps. Built on top of [WebDriverJS](https://github.com/SeleniumHQ/selenium/wiki/WebDriverJs).
+[**ts-node**](https://www.npmjs.com/package/ts-node) | TypeScript execution environment and REPL for Node.js.
+[**tslint**](https://www.npmjs.com/package/tslint) | A static analysis tool that checks TypeScript code for readability, maintainability, and functionality errors.
+[**typescript**](https://www.npmjs.com/package/typescript) | The TypeScript language server, including the *tsc* TypeScript compiler.
 
-**[@angular/language-service](https://github.com/angular/angular-cli/)**：Angular 的语言服务会分析组件模板，并且提供类型信息和错误信息，那些支持 TypeScript 的编辑机器可以使用它们来提升开发体验。比如这个：[VS Code 的 Angular 语言服务扩展包](https://marketplace.visualstudio.com/items?itemName=Angular.ng-template)
+## Related information
 
-**@types/... **: TypeScript definition files for 3rd party libraries such as Jasmine and Node.js.
+## 相关信息
 
-**@types/... **：第三方库（比如 Jasmine 和 Node.js）的 TypeScript 类型定义文件。
+ For information about how the Angular CLI handles packages see the following guides: 
+ 
+ 要了解 Angular CLI 如何处理包的更多信息，请参见下列章节：
+ 
+ * [Building and serving](guide/build) describes how packages come together to create a development build.
+ 
+   [Building and serving](guide/build) 描述了这些包如何协作，以进行开发期构建。
+ 
+ * [Deployment](guide/deployment) describes how packages come together to create a production build.
 
-**[codelyzer](https://www.npmjs.com/package/codelyzer)**: A linter for Angular apps whose rules conform to the Angular [style guide](guide/styleguide).
-
-**[codelyzer](https://www.npmjs.com/package/codelyzer)**：专用于 Angular 应用的 linter，它的规则适用于 Angular 的[风格指南](guide/styleguide)。
-
-**jasmine/... **: packages to support the [Jasmine](https://jasmine.github.io/) test library.
-
-**jasmine/... **：[Jasmine](https://jasmine.github.io/) 测试库的支持包。
-
-**karma/... **: packages to support the [karma](https://www.npmjs.com/package/karma) test runner.
-
-**karma/... **：[karma](https://www.npmjs.com/package/karma) 测试运行器的支持包。
-
-**[protractor](https://www.npmjs.com/package/protractor)**: an end-to-end (e2e) framework for Angular apps. 
-Built on top of [WebDriverJS](https://github.com/SeleniumHQ/selenium/wiki/WebDriverJs).
-
-**[protractor](https://www.npmjs.com/package/protractor)**：适用于 Angular 应用的端到端（e2e）框架。基于 [WebDriverJS](https://github.com/SeleniumHQ/selenium/wiki/WebDriverJs) 构建。
-
-**[ts-node](https://www.npmjs.com/package/ts-node)**: TypeScript execution environment and REPL for Node.js.
-
-**[ts-node](https://www.npmjs.com/package/ts-node)**：TypeScript 的运行环境以及在 Node.js 环境下用的 REPL。
-
-**[tslint](https://www.npmjs.com/package/tslint)**: a static analysis tool that checks TypeScript code for readability, maintainability, and functionality errors.
-
-**[tslint](https://www.npmjs.com/package/tslint)**：一个静态分析器，用来检查 TypeScript 代码的可读性、可维护性和功能方面的错误。
-
-**[typescript](https://www.npmjs.com/package/typescript)**:
-the TypeScript language server, including the *tsc* TypeScript compiler.
-
-**[typescript](https://www.npmjs.com/package/typescript)**：TypeScript 语言服务，包括 TypeScript 编译器 *tsc*。
-
-## So many packages! So many files!
-
-## 那么多包！那么多文件！
-
-The default `package.json` installs more packages than you'll need for your project.
-
-默认的 `package.json` 所安装的包比项目实际需要的多。
-
-A given package may contain tens, hundreds, even thousands of files,
-all of them in your local machine's `node_modules` directory.
-The sheer volume of files is intimidating, 
-
-某个指定的包可能包含十个、上百个甚至上千个文件，它们都位于本机的 `node_modules` 目录下。简直令人生畏。
-
-You can remove packages that you don't need but how can you be sure that you won't need it?
-As a practical matter, it's better to install a package you don't need than worry about it.
-Extra packages and package files on your local development machine are harmless.
-
-你可以移除这些不需要的包，不过你怎么知道哪些是不需要的呢？
-实际上，安装不需要的包好过担心缺少某个包。
-在你本机开发环境下存在无用的包和文件并没有害处。
-
-By default the Angular CLI build process bundles into a single file just the few "vendor" library files that your application actually needs.
-The browser downloads this bundle, not the original package files.
-
-默认情况下，Angular CLI 的构建过程只会把应用程序中实际用到的那些第三方库文件打包到结果中。
-浏览器要下载的是这个包，而不是原始的包文件。
-
-See the [Deployment](guide/deployment) to learn more.
-
-参见[部署](guide/deployment)一章了解详情。
+   [Deployment](guide/deployment) 中描述了这些包如何协作，以创建一个生产环境构建。

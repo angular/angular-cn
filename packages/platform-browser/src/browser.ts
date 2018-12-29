@@ -39,13 +39,16 @@ export const INTERNAL_BROWSER_PLATFORM_PROVIDERS: StaticProvider[] = [
  * 攻击者所控制的数据如果没经过净化就直接引入，则会让你的应用暴露于 XSS 风险之下。
  * 欲知详情，参见[安全](http://g.co/ng/security)。
  *
- * @experimental
+ * @publicApi
  */
 export const BROWSER_SANITIZATION_PROVIDERS: StaticProvider[] = [
   {provide: Sanitizer, useExisting: DomSanitizer},
   {provide: DomSanitizer, useClass: DomSanitizerImpl, deps: [DOCUMENT]},
 ];
 
+/**
+ * @publicApi
+ */
 export const platformBrowser: (extraProviders?: StaticProvider[]) => PlatformRef =
     createPlatformFactory(platformCore, 'browser', INTERNAL_BROWSER_PLATFORM_PROVIDERS);
 
@@ -103,6 +106,7 @@ export const BROWSER_MODULE_PROVIDERS: StaticProvider[] = [
  * 导出所有 Angular 应用都需要的基础设施。默认包含在用 CLI 的 `new` 命令创建的所有 Angular 应用中。
  * 它二次导出了 `CommonModule` 和 `ApplicationModule`，以便它们的导出物和提供商能用于所有应用中。
  *
+ * @publicApi
  */
 @NgModule({providers: BROWSER_MODULE_PROVIDERS, exports: [CommonModule, ApplicationModule]})
 export class BrowserModule {
@@ -129,7 +133,6 @@ export class BrowserModule {
    *
    * 重新配置过的 `BrowserModule`，可供导入到应用的根模块 `AppModule` 中。
    *
-   * @experimental
    */
   static withServerTransition(params: {appId: string}): ModuleWithProviders<BrowserModule> {
     return {

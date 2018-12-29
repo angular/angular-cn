@@ -227,19 +227,13 @@ The recently-developed [custom elements](https://developer.mozilla.org/en-US/doc
 
 </tr>
 <tr>
-
+  <td>Firefox</td>
   <td>
-
-      Firefox
-
-  </td>
-
-  <td>
-
-       Set the <code>dom.webcomponents.enabled</code> and <code>dom.webcomponents.customelements.enabled</code> preferences to true. Planned to be enabled by default in version 63.
-
-       把 <code>dom.webcomponents.enabled</code> 和 <code>dom.webcomponents.customelements.enabled</code> 首选项设置为 true。计划在版本 60/61 中提供原生支持。
-
+  
+  Supported natively as of version 63. In older versions: Set the <code>dom.webcomponents.enabled</code> and <code>dom.webcomponents.customelements.enabled</code> preferences to true.
+  
+  在 63 版中原生支持。对于老版本，可以把 <code>dom.webcomponents.enabled</code> 和 <code>dom.webcomponents.customelements.enabled</code> 首选项设置为 true。
+  
   </td>
 </tr>
 <tr>
@@ -337,16 +331,27 @@ For comparison, the demo shows both methods. One button adds the popup using the
 -->
 You can download the full code for the example <live-example downloadOnly>here</live-example>.
 
+你可以到 <live-example downloadOnly>这里</live-example> 下载本例子的完整代码。
 
 ## Typings for custom elements
 
+## 为自定义元素添加类型支持
+
 Generic DOM APIs, such as `document.createElement()` or `document.querySelector()`, return an element type that is appropriate for the specified arguments. For example, calling `document.createElement('a')` will return an `HTMLAnchorElement`, which TypeScript knows has an `href` property. Similarly, `document.createElement('div')` will return an `HTMLDivElement`, which TypeScript knows has no `href` property.
+
+一般的 DOM API，比如 `document.createElement()` 或 `document.querySelector()`，会返回一个与指定的参数相匹配的元素类型。比如，调用 `document.createElement('a')` 会返回 `HTMLAnchorElement`，这样 TypeScript 就会知道它有一个 `href` 属性，而 `document.createElement('div')` 会返回 `HTMLDivElement`，这样 TypeScript 就会知道它没有 `href` 属性。
 
 When called with unknown elements, such as a custom element name (`popup-element` in our example), the methods will return a generic type, such as `HTMLELement`, since TypeScript can't infer the correct type of the returned element.
 
+当调用未知元素（比如自定义的元素名 `popup-element`）时，该方法会返回泛化类型，比如 `HTMLELement`，这时候 TypeScript 就无法推断出所返回元素的正确类型。
+
 Custom elements created with Angular extend `NgElement` (which in turn extends `HTMLElement`). Additionally, these custom elements will have a property for each input of the corresponding component. For example, our `popup-element` will have a `message` property of type `string`.
 
+用 Angular 创建的自定义元素会扩展 `NgElement` 类型（而它扩展了 `HTMLElement`）。除此之外，这些自定义元素还拥有相应组件的每个输入属性。比如，`popup-element` 元素具有一个 `string` 型的 `message` 属性。
+
 There are a few options if you want to get correct types for your custom elements. Let's assume you create a `my-dialog` custom element based on the following component:
+
+如果你要让你的自定义元素获得正确的类型，还可使用一些选项。假设你要创建一个基于下列组件的自定义元素 `my-dialog`：
 
 ```ts
 @Component(...)
@@ -357,6 +362,8 @@ class MyDialog {
 
 The most straight forward way to get accurate typings is to cast the return value of the relevant DOM methods to the correct type. For that, you can use the `NgElement` and `WithProperties` types (both exported from `@angular/elements`):
 
+获得精确类型的最简单方式是把相关 DOM 方法的返回值转换成正确的类型。要做到这一点，你可以使用 `NgElement` 和 `WithProperties` 类型（都导出自 `@angular/elements`）：
+
 ```ts
 const aDialog = document.createElement('my-dialog') as NgElement & WithProperties<{content: string}>;
 aDialog.content = 'Hello, world!';
@@ -366,7 +373,11 @@ aDialog.body = 'News';  // <-- ERROR: TypeScript knows there is no `body` proper
 
 This is a good way to quickly get TypeScript features, such as type checking and autocomplete support, for you custom element. But it can get cumbersome if you need it in several places, because you have to cast the return type on every occurrence.
 
+这是一种让你的自定义元素快速获得 TypeScript 特性（比如类型检查和自动完成支持）的好办法，不过如果你要在多个地方使用它，可能会有点啰嗦，因为不得不在每个地方对返回类型做转换。
+
 An alternative way, that only requires defining each custom element's type once, is augmenting the `HTMLELementTagNameMap`, which TypeScript uses to infer the type of a returned element based on its tag name (for DOM methods such as `document.createElement()`, `document.querySelector()`, etc.):
+
+另一种方式可以对每个自定义元素的类型只声明一次。你可以扩展 `HTMLELementTagNameMap`，TypeScript 会在 DOM 方法（如 `document.createElement()`、`document.querySelector()` 等）中用它来根据标签名推断返回元素的类型。
 
 ```ts
 declare global {
@@ -379,6 +390,8 @@ declare global {
 ```
 
 Now, TypeScript can infer the correct type the same way it does for built-in elements:
+
+现在，TypeScript 就可以像内置元素一样推断出它的正确类型了：
 
 ```ts
 document.createElement('div')               //--> HTMLDivElement (built-in element)

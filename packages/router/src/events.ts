@@ -28,7 +28,7 @@ import {ActivatedRouteSnapshot, RouterStateSnapshot} from './router_state';
  *
  *   'hashchange' —— 由 hashchange 事件触发。
  *
- * @experimental
+ * @publicApi
  */
 export type NavigationTrigger = 'imperative' | 'popstate' | 'hashchange';
 
@@ -47,14 +47,16 @@ export type NavigationTrigger = 'imperative' | 'popstate' | 'hashchange';
  * ```
  * class MyService {
  *   constructor(public router: Router, logger: Logger) {
- *     router.events.filter(e => e instanceof RouterEvent).subscribe(e => {
+ *     router.events.pipe(
+ *       filter(e => e instanceof RouterEvent)
+ *     ).subscribe(e => {
  *       logger.log(e.id, e.url);
  *     });
  *   }
  * }
  * ```
  *
- * @experimental
+ * @publicApi
  */
 export class RouterEvent {
   constructor(
@@ -71,6 +73,7 @@ export class RouterEvent {
  *
  * 代表导航开始时触发的事件。
  *
+ * @publicApi
  */
 export class NavigationStart extends RouterEvent {
   /**
@@ -94,8 +97,8 @@ export class NavigationStart extends RouterEvent {
   navigationTrigger?: 'imperative'|'popstate'|'hashchange';
 
   /**
-   * This contains the navigation id that pushed the history record that the router navigates
-   * back to. This is not null only when the navigation is triggered by a popstate event.
+   * This reflects the state object that was previously supplied to the pushState call. This is
+   * not null only when the navigation is triggered by a popstate event.
    *
    * 这里包含的 `navigationId` 会被用于保存历史记录，以供浏览器导航回来。只有当这次导航是被 popstate 事件触发时，它才不为空。
    *
@@ -110,8 +113,12 @@ export class NavigationStart extends RouterEvent {
    * 路由器会把一个 `navigationId` 赋予每一次路由器过渡/导航。即使用户点击了浏览器的后退按钮，也会创建一个新的 `navigationId`。
    * 所以，从路由器的视角来看，路由器永远不会 "后退"。借助 `restoredState` 及其 navigationId，你可以区分开创建新状态和 `popstate` 事件的行为。
    * 在 `popstate` 时，你可以恢复一些以前记录的状态（如滚动到的位置）。
+   *
+   * See {@link NavigationExtras} for more information.
+   *
+   * 欲知详情，参见 {@link NavigationExtras}。
    */
-  restoredState?: {navigationId: number}|null;
+  restoredState?: {[k: string]: any, navigationId: number}|null;
 
   constructor(
       /** @docsNotRequired */
@@ -121,7 +128,7 @@ export class NavigationStart extends RouterEvent {
       /** @docsNotRequired */
       navigationTrigger: 'imperative'|'popstate'|'hashchange' = 'imperative',
       /** @docsNotRequired */
-      restoredState: {navigationId: number}|null = null) {
+      restoredState: {[k: string]: any, navigationId: number}|null = null) {
     super(id, url);
     this.navigationTrigger = navigationTrigger;
     this.restoredState = restoredState;
@@ -138,6 +145,7 @@ export class NavigationStart extends RouterEvent {
  *
  * 表示当导航成功结束时触发的事件。
  *
+ * @publicApi
  */
 export class NavigationEnd extends RouterEvent {
   constructor(
@@ -163,6 +171,7 @@ export class NavigationEnd extends RouterEvent {
  *
  * 表示当导航被取消时触发的事件。
  *
+ * @publicApi
  */
 export class NavigationCancel extends RouterEvent {
   constructor(
@@ -186,6 +195,7 @@ export class NavigationCancel extends RouterEvent {
  *
  * 表示当导航出错时触发的事件。
  *
+ * @publicApi
  */
 export class NavigationError extends RouterEvent {
   constructor(
@@ -211,6 +221,7 @@ export class NavigationError extends RouterEvent {
  *
  * 表示当路由被识别出来时触发的事件。
  *
+ * @publicApi
  */
 export class RoutesRecognized extends RouterEvent {
   constructor(
@@ -238,7 +249,7 @@ export class RoutesRecognized extends RouterEvent {
  *
  * 表示路由的守卫（`Guard`）阶段的开始。
  *
- * @experimental
+ * @publicApi
  */
 export class GuardsCheckStart extends RouterEvent {
   constructor(
@@ -265,7 +276,7 @@ export class GuardsCheckStart extends RouterEvent {
  *
  * 表示路由的守卫（`Guard`）阶段的结束。
  *
- * @experimental
+ * @publicApi
  */
 export class GuardsCheckEnd extends RouterEvent {
   constructor(
@@ -299,7 +310,7 @@ export class GuardsCheckEnd extends RouterEvent {
  * 在当前的迭代中，它将会在 `resolve` 阶段执行，而不管有没有东西要 `resolve`。
  * 将来，这种行为可能会修改成只有当有东西要 `resolve` 时才执行。
  *
- * @experimental
+ * @publicApi
  */
 export class ResolveStart extends RouterEvent {
   constructor(
@@ -327,7 +338,7 @@ export class ResolveStart extends RouterEvent {
  *
  * 表示路由解析（`Resolve`）阶段的结束。参见 `ResolveStart` 上的注释以了解这个试验性 API 的用法。
  *
- * @experimental
+ * @publicApi
  */
 export class ResolveEnd extends RouterEvent {
   constructor(
@@ -354,7 +365,7 @@ export class ResolveEnd extends RouterEvent {
  *
  * 表示在惰性加载某个路由配置前触发的事件。
  *
- * @experimental
+ * @publicApi
  */
 export class RouteConfigLoadStart {
   constructor(
@@ -370,7 +381,7 @@ export class RouteConfigLoadStart {
  *
  * 表示当某个路由被惰性加载时触发的事件。
  *
- * @experimental
+ * @publicApi
  */
 export class RouteConfigLoadEnd {
   constructor(
@@ -385,7 +396,7 @@ export class RouteConfigLoadEnd {
  * Represents the start of end of the Resolve phase of routing. See note on
  * `ChildActivationEnd` for use of this experimental API.
  *
- * @experimental
+ * @publicApi
  */
 export class ChildActivationStart {
   constructor(
@@ -403,7 +414,7 @@ export class ChildActivationStart {
  * Represents the start of end of the Resolve phase of routing. See note on
  * `ChildActivationStart` for use of this experimental API.
  *
- * @experimental
+ * @publicApi
  */
 export class ChildActivationEnd {
   constructor(
@@ -421,7 +432,7 @@ export class ChildActivationEnd {
  * Represents the start of end of the Resolve phase of routing. See note on
  * `ActivationEnd` for use of this experimental API.
  *
- * @experimental
+ * @publicApi
  */
 export class ActivationStart {
   constructor(
@@ -439,7 +450,7 @@ export class ActivationStart {
  * Represents the start of end of the Resolve phase of routing. See note on
  * `ActivationStart` for use of this experimental API.
  *
- * @experimental
+ * @publicApi
  */
 export class ActivationEnd {
   constructor(
@@ -457,6 +468,8 @@ export class ActivationEnd {
  * Represents a scrolling event.
  *
  * 表示一个滚动事件。
+ *
+ * @publicApi
  */
 export class Scroll {
   constructor(
@@ -503,7 +516,7 @@ export class Scroll {
  * - `NavigationError`
  * - `Scroll`
  *
- *
+ * @publicApi
  */
 export type Event = RouterEvent | RouteConfigLoadStart | RouteConfigLoadEnd | ChildActivationStart |
     ChildActivationEnd | ActivationStart | ActivationEnd | Scroll;

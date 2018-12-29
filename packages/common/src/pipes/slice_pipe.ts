@@ -58,8 +58,8 @@ import {invalidPipeArgumentError} from './invalid_pipe_argument_error';
  *
  * {@example common/pipes/ts/slice_pipe.ts region='SlicePipe_string'}
  *
+ * @publicApi
  */
-
 @Pipe({name: 'slice', pure: false})
 export class SlicePipe implements PipeTransform {
   /**

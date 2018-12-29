@@ -213,6 +213,7 @@ import {invalidPipeArgumentError} from './invalid_pipe_argument_error';
  * }
  * ```
  *
+ * @publicApi
  */
 // clang-format on
 @Pipe({name: 'date', pure: true})

@@ -6,19 +6,21 @@
  * found in the LICENSE file at https://angular.io/license
  */
 
-import {R3_COMPILE_INJECTABLE} from '../ivy_switch/compiler/index';
+import {compileInjectable as render3CompileInjectable} from '../render3/jit/injectable';
 import {Type} from '../type';
-import {makeDecorator} from '../util/decorators';
+import {TypeDecorator, makeDecorator} from '../util/decorators';
 
-import {InjectableDef, InjectableType} from './defs';
-import {ClassSansProvider, ConstructorSansProvider, ExistingSansProvider, FactorySansProvider, StaticClassSansProvider, ValueProvider, ValueSansProvider} from './provider';
+import {InjectableDef, InjectableType, defineInjectable, getInjectableDef} from './defs';
+import {ClassSansProvider, ConstructorSansProvider, ExistingSansProvider, FactorySansProvider, StaticClassSansProvider, ValueSansProvider} from './provider';
+import {convertInjectableProviderToFactory} from './util';
+
 
 /**
  * Injectable providers used in `@Injectable` decorator.
  *
  * `@Injectable` 装饰器中使用的可注入对象提供商。
  *
- * @experimental
+ * @publicApi
  */
 export type InjectableProvider = ValueSansProvider | ExistingSansProvider |
     StaticClassSansProvider | ConstructorSansProvider | FactorySansProvider | ClassSansProvider;
@@ -27,6 +29,8 @@ export type InjectableProvider = ValueSansProvider | ExistingSansProvider |
  * Type of the Injectable decorator / constructor function.
  *
  * Injectable 装饰器的类型和构造函数
+ *
+ * @publicApi
  */
 export interface InjectableDecorator {
   /**
@@ -53,8 +57,8 @@ export interface InjectableDecorator {
    * {@example core/di/ts/metadata_spec.ts region='InjectableThrows'}
    *
    */
-  (): any;
-  (options?: {providedIn: Type<any>| 'root' | null}&InjectableProvider): any;
+  (): TypeDecorator;
+  (options?: {providedIn: Type<any>| 'root' | null}&InjectableProvider): TypeDecorator;
   new (): Injectable;
   new (options?: {providedIn: Type<any>| 'root' | null}&InjectableProvider): Injectable;
 }
@@ -64,26 +68,46 @@ export interface InjectableDecorator {
  *
  * Injectable 元数据的类型。
  *
- * @experimental
+ * @publicApi
  */
 export interface Injectable { providedIn?: Type<any>|'root'|null; }
 
 /**
-* Injectable decorator and metadata.
-*
-* Injectable 的装饰器和元数据。
+ * Injectable decorator and metadata.
+ *
+ * Injectable 的装饰器和元数据。
 *
 * @Annotation
-*/
+ * @publicApi
+ */
 export const Injectable: InjectableDecorator = makeDecorator(
     'Injectable', undefined, undefined, undefined,
-    (type: Type<any>, meta: Injectable) => R3_COMPILE_INJECTABLE(type, meta));
+    (type: Type<any>, meta: Injectable) => SWITCH_COMPILE_INJECTABLE(type as any, meta));
 
 /**
  * Type representing injectable service.
  *
  * 表示可注入服务的类型。
  *
- * @experimental
+ * @publicApi
  */
 export interface InjectableType<T> extends Type<T> { ngInjectableDef: InjectableDef<T>; }
+
+/**
+ * Supports @Injectable() in JIT mode for Render2.
+ */
+function render2CompileInjectable(
+    injectableType: InjectableType<any>,
+    options: {providedIn?: Type<any>| 'root' | null} & InjectableProvider): void {
+  if (options && options.providedIn !== undefined && !getInjectableDef(injectableType)) {
+    injectableType.ngInjectableDef = defineInjectable({
+      providedIn: options.providedIn,
+      factory: convertInjectableProviderToFactory(injectableType, options),
+    });
+  }
+}
+
+export const SWITCH_COMPILE_INJECTABLE__POST_R3__ = render3CompileInjectable;
+const SWITCH_COMPILE_INJECTABLE__PRE_R3__ = render2CompileInjectable;
+const SWITCH_COMPILE_INJECTABLE: typeof render3CompileInjectable =
+    SWITCH_COMPILE_INJECTABLE__PRE_R3__;

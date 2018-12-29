@@ -9,9 +9,10 @@
 import {ResourceLoader} from '@angular/compiler';
 import {CompileMetadataResolver} from '@angular/compiler/src/metadata_resolver';
 import {MockResourceLoader} from '@angular/compiler/testing/src/resource_loader_mock';
-import {Component, Directive, Injectable, NgModule, OnDestroy, Pipe, Type} from '@angular/core';
+import {Component, Directive, Injectable, NgModule, OnDestroy, Pipe} from '@angular/core';
 import {TestBed, async, getTestBed} from '@angular/core/testing';
 import {expect} from '@angular/platform-browser/testing/src/matchers';
+import {fixmeIvy} from '@angular/private/testing';
 
 {
   describe('Jit Summaries', () => {
@@ -136,146 +137,160 @@ import {expect} from '@angular/platform-browser/testing/src/matchers';
 
     afterEach(() => { resetTestEnvironmentWithSummaries(); });
 
-    it('should use directive metadata from summaries', () => {
-      resetTestEnvironmentWithSummaries(summaries);
+    fixmeIvy('FW-838: ivy testbed doesn\'t support jit summaries')
+        .it('should use directive metadata from summaries', () => {
+          resetTestEnvironmentWithSummaries(summaries);
 
-      @Component({template: '<div someDir></div>'})
-      class TestComp {
-      }
+          @Component({template: '<div someDir></div>'})
+          class TestComp {
+          }
 
-      TestBed
-          .configureTestingModule({providers: [SomeDep], declarations: [TestComp, SomeDirective]})
-          .createComponent(TestComp);
-      expectInstanceCreated(SomeDirective);
-    });
+          TestBed
+              .configureTestingModule(
+                  {providers: [SomeDep], declarations: [TestComp, SomeDirective]})
+              .createComponent(TestComp);
+          expectInstanceCreated(SomeDirective);
+        });
 
-    it('should use pipe metadata from summaries', () => {
-      resetTestEnvironmentWithSummaries(summaries);
+    fixmeIvy('FW-838: ivy testbed doesn\'t support jit summaries')
+        .it('should use pipe metadata from summaries', () => {
+          resetTestEnvironmentWithSummaries(summaries);
 
-      @Component({template: '{{1 | somePipe}}'})
-      class TestComp {
-      }
+          @Component({template: '{{1 | somePipe}}'})
+          class TestComp {
+          }
 
-      TestBed.configureTestingModule({providers: [SomeDep], declarations: [TestComp, SomePipe]})
-          .createComponent(TestComp);
-      expectInstanceCreated(SomePipe);
-    });
+          TestBed.configureTestingModule({providers: [SomeDep], declarations: [TestComp, SomePipe]})
+              .createComponent(TestComp);
+          expectInstanceCreated(SomePipe);
+        });
 
-    it('should use Service metadata from summaries', () => {
-      resetTestEnvironmentWithSummaries(summaries);
+    fixmeIvy('FW-838: ivy testbed doesn\'t support jit summaries')
+        .it('should use Service metadata from summaries', () => {
+          resetTestEnvironmentWithSummaries(summaries);
 
-      TestBed.configureTestingModule({
-        providers: [SomeService, SomeDep],
-      });
-      TestBed.get(SomeService);
-      expectInstanceCreated(SomeService);
-    });
+          TestBed.configureTestingModule({
+            providers: [SomeService, SomeDep],
+          });
+          TestBed.get(SomeService);
+          expectInstanceCreated(SomeService);
+        });
 
-    it('should use NgModule metadata from summaries', () => {
-      resetTestEnvironmentWithSummaries(summaries);
+    fixmeIvy('FW-838: ivy testbed doesn\'t support jit summaries')
+        .it('should use NgModule metadata from summaries', () => {
+          resetTestEnvironmentWithSummaries(summaries);
 
-      TestBed
-          .configureTestingModule(
-              {providers: [SomeDep], declarations: [TestComp3], imports: [SomeModule]})
-          .createComponent(TestComp3);
+          TestBed
+              .configureTestingModule(
+                  {providers: [SomeDep], declarations: [TestComp3], imports: [SomeModule]})
+              .createComponent(TestComp3);
 
-      expectInstanceCreated(SomeModule);
-      expectInstanceCreated(SomeDirective);
-      expectInstanceCreated(SomePipe);
-      expectInstanceCreated(SomeService);
-    });
+          expectInstanceCreated(SomeModule);
+          expectInstanceCreated(SomeDirective);
+          expectInstanceCreated(SomePipe);
+          expectInstanceCreated(SomeService);
+        });
 
-    it('should allow to create private components from imported NgModule summaries', () => {
-      resetTestEnvironmentWithSummaries(summaries);
+    fixmeIvy('FW-838: ivy testbed doesn\'t support jit summaries')
+        .it('should allow to create private components from imported NgModule summaries', () => {
+          resetTestEnvironmentWithSummaries(summaries);
 
-      TestBed.configureTestingModule({providers: [SomeDep], imports: [SomeModule]})
-          .createComponent(SomePrivateComponent);
-      expectInstanceCreated(SomePrivateComponent);
-    });
+          TestBed.configureTestingModule({providers: [SomeDep], imports: [SomeModule]})
+              .createComponent(SomePrivateComponent);
+          expectInstanceCreated(SomePrivateComponent);
+        });
 
-    it('should throw when trying to mock a type with a summary', () => {
-      resetTestEnvironmentWithSummaries(summaries);
+    fixmeIvy('FW-838: ivy testbed doesn\'t support jit summaries')
+        .it('should throw when trying to mock a type with a summary', () => {
+          resetTestEnvironmentWithSummaries(summaries);
 
-      TestBed.resetTestingModule();
-      expect(() => TestBed.overrideComponent(SomePrivateComponent, {add: {}}).compileComponents())
-          .toThrowError(
-              'SomePrivateComponent was AOT compiled, so its metadata cannot be changed.');
-      TestBed.resetTestingModule();
-      expect(() => TestBed.overrideDirective(SomeDirective, {add: {}}).compileComponents())
-          .toThrowError('SomeDirective was AOT compiled, so its metadata cannot be changed.');
-      TestBed.resetTestingModule();
-      expect(() => TestBed.overridePipe(SomePipe, {add: {name: 'test'}}).compileComponents())
-          .toThrowError('SomePipe was AOT compiled, so its metadata cannot be changed.');
-      TestBed.resetTestingModule();
-      expect(() => TestBed.overrideModule(SomeModule, {add: {}}).compileComponents())
-          .toThrowError('SomeModule was AOT compiled, so its metadata cannot be changed.');
-    });
+          TestBed.resetTestingModule();
+          expect(
+              () => TestBed.overrideComponent(SomePrivateComponent, {add: {}}).compileComponents())
+              .toThrowError(
+                  'SomePrivateComponent was AOT compiled, so its metadata cannot be changed.');
+          TestBed.resetTestingModule();
+          expect(() => TestBed.overrideDirective(SomeDirective, {add: {}}).compileComponents())
+              .toThrowError('SomeDirective was AOT compiled, so its metadata cannot be changed.');
+          TestBed.resetTestingModule();
+          expect(() => TestBed.overridePipe(SomePipe, {add: {name: 'test'}}).compileComponents())
+              .toThrowError('SomePipe was AOT compiled, so its metadata cannot be changed.');
+          TestBed.resetTestingModule();
+          expect(() => TestBed.overrideModule(SomeModule, {add: {}}).compileComponents())
+              .toThrowError('SomeModule was AOT compiled, so its metadata cannot be changed.');
+        });
 
-    it('should return stack trace and component data on resetTestingModule when error is thrown',
-       () => {
-         resetTestEnvironmentWithSummaries();
+    fixmeIvy('FW-838: ivy testbed doesn\'t support jit summaries')
+        .it('should return stack trace and component data on resetTestingModule when error is thrown',
+            () => {
+              resetTestEnvironmentWithSummaries();
 
-         const fixture = TestBed.configureTestingModule({declarations: [TestCompErrorOnDestroy]})
-                             .createComponent<TestCompErrorOnDestroy>(TestCompErrorOnDestroy);
+              const fixture =
+                  TestBed.configureTestingModule({declarations: [TestCompErrorOnDestroy]})
+                      .createComponent<TestCompErrorOnDestroy>(TestCompErrorOnDestroy);
 
-         const expectedError = 'Error from ngOnDestroy';
+              const expectedError = 'Error from ngOnDestroy';
 
-         const component: TestCompErrorOnDestroy = fixture.componentInstance;
+              const component: TestCompErrorOnDestroy = fixture.componentInstance;
 
-         spyOn(console, 'error');
-         spyOn(component, 'ngOnDestroy').and.throwError(expectedError);
+              spyOn(console, 'error');
+              spyOn(component, 'ngOnDestroy').and.throwError(expectedError);
 
-         const expectedObject = {
-           stacktrace: new Error(expectedError),
-           component,
-         };
+              const expectedObject = {
+                stacktrace: new Error(expectedError),
+                component,
+              };
 
-         TestBed.resetTestingModule();
+              TestBed.resetTestingModule();
 
-         expect(console.error)
-             .toHaveBeenCalledWith('Error during cleanup of component', expectedObject);
-       });
+              expect(console.error)
+                  .toHaveBeenCalledWith('Error during cleanup of component', expectedObject);
+            });
 
-    it('should allow to add summaries via configureTestingModule', () => {
-      resetTestEnvironmentWithSummaries();
+    fixmeIvy('FW-838: ivy testbed doesn\'t support jit summaries')
+        .it('should allow to add summaries via configureTestingModule', () => {
+          resetTestEnvironmentWithSummaries();
 
-      @Component({template: '<div someDir></div>'})
-      class TestComp {
-      }
+          @Component({template: '<div someDir></div>'})
+          class TestComp {
+          }
 
-      TestBed
-          .configureTestingModule({
-            providers: [SomeDep],
-            declarations: [TestComp, SomeDirective],
-            aotSummaries: summaries
-          })
-          .createComponent(TestComp);
-      expectInstanceCreated(SomeDirective);
-    });
+          TestBed
+              .configureTestingModule({
+                providers: [SomeDep],
+                declarations: [TestComp, SomeDirective],
+                aotSummaries: summaries
+              })
+              .createComponent(TestComp);
+          expectInstanceCreated(SomeDirective);
+        });
 
-    it('should allow to override a provider', () => {
-      resetTestEnvironmentWithSummaries(summaries);
+    fixmeIvy('FW-838: ivy testbed doesn\'t support jit summaries')
+        .it('should allow to override a provider', () => {
+          resetTestEnvironmentWithSummaries(summaries);
 
-      const overwrittenValue = {};
+          const overwrittenValue = {};
 
-      const fixture =
-          TestBed.overrideProvider(SomeDep, {useFactory: () => overwrittenValue, deps: []})
-              .configureTestingModule({providers: [SomeDep], imports: [SomeModule]})
-              .createComponent<SomePublicComponent>(SomePublicComponent);
+          const fixture =
+              TestBed.overrideProvider(SomeDep, {useFactory: () => overwrittenValue, deps: []})
+                  .configureTestingModule({providers: [SomeDep], imports: [SomeModule]})
+                  .createComponent<SomePublicComponent>(SomePublicComponent);
 
-      expect(fixture.componentInstance.dep).toBe(overwrittenValue);
-    });
+          expect(fixture.componentInstance.dep).toBe(overwrittenValue);
+        });
 
-    it('should allow to override a template', () => {
-      resetTestEnvironmentWithSummaries(summaries);
+    fixmeIvy('FW-838: ivy testbed doesn\'t support jit summaries')
+        .it('should allow to override a template', () => {
+          resetTestEnvironmentWithSummaries(summaries);
 
-      TestBed.overrideTemplateUsingTestingModule(SomePublicComponent, 'overwritten');
+          TestBed.overrideTemplateUsingTestingModule(SomePublicComponent, 'overwritten');
 
-      const fixture = TestBed.configureTestingModule({providers: [SomeDep], imports: [SomeModule]})
-                          .createComponent(SomePublicComponent);
-      expectInstanceCreated(SomePublicComponent);
+          const fixture =
+              TestBed.configureTestingModule({providers: [SomeDep], imports: [SomeModule]})
+                  .createComponent(SomePublicComponent);
+          expectInstanceCreated(SomePublicComponent);
 
-      expect(fixture.nativeElement).toHaveText('overwritten');
-    });
+          expect(fixture.nativeElement).toHaveText('overwritten');
+        });
   });
 }

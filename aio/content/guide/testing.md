@@ -210,8 +210,8 @@ jobs:
           key: my-project-{{ .Branch }}-{{ checksum "package-lock.json" }}
           paths:
             - "node_modules"
-      - run: npm run test -- --single-run --no-progress --browser=ChromeHeadlessCI
-      - run: npm run e2e -- --no-progress --config=protractor-ci.conf.js
+      - run: npm run test -- --no-watch --no-progress --browsers=ChromeHeadlessCI
+      - run: npm run e2e -- --protractor-config=e2e/protractor-ci.conf.js
 ```
 
 This configuration caches `node_modules/` and uses [`npm run`](https://docs.npmjs.com/cli/run-script) to run CLI commands, because `@angular/cli` is not installed globally. 
@@ -264,8 +264,8 @@ install:
   - npm install
 
 script:
-  - npm run test -- --single-run --no-progress --browser=ChromeHeadlessCI
-  - npm run e2e -- --no-progress --config=protractor-ci.conf.js
+  - npm run test -- --no-watch --no-progress --browsers=ChromeHeadlessCI
+  - npm run e2e -- --protractor-config=e2e/protractor-ci.conf.js
 ```
 
 This does the same things as the Circle CI configuration, except that Travis doesn't come with Chrome, so we use Chromium instead.
@@ -304,10 +304,9 @@ We'll be using [Headless Chrome](https://developers.google.com/web/updates/2017/
 
 这个例子中我们将使用[无头 Chrome](https://developers.google.com/web/updates/2017/04/headless-chrome#cli)。
 
-* In the Karma configuration file, `karma.conf.js`, add a custom launcher called ChromeNoSandbox below browsers:
+* In the Karma configuration file, `karma.conf.js`, add a custom launcher called ChromeHeadlessCI below browsers:
 
   在 Karma 配置文件 `karma.conf.js` 中，浏览器的紧下方，添加自定义的启动器，名叫 ChromeNoSandbox。 
-
 ```
 browsers: ['Chrome'],
 customLaunchers: {
@@ -318,9 +317,9 @@ customLaunchers: {
 },
 ```
 
-* Create a new file, `protractor-ci.conf.js`, in the root folder of your project, which extends the original `protractor.conf.js`:
+* In the root folder of your e2e tests project, create a new file named `protractor-ci.conf.js`. This new file extends the original `protractor.conf.js`.
 
-  在位于项目的根目录下创建一个新文件 `protractor-ci.conf.js`，它扩展了原始的 `protractor.conf.js`：
+  在 e2e 测试项目的根目录下创建一个新文件 `protractor-ci.conf.js`，它扩展了原始的 `protractor.conf.js`：
 
 ```
 const config = require('./protractor.conf').config;
@@ -340,8 +339,8 @@ Now you can run the following commands to use the `--no-sandbox` flag:
 现在你可以运行下列带有 `--no-sandbox` 标志的命令了：
 
 <code-example language="sh" class="code-shell">
-  ng test --single-run --no-progress --browser=ChromeHeadlessCI
-  ng e2e --no-progress --config=protractor-ci.conf.js
+  ng test -- --no-watch --no-progress --browsers=ChromeHeadlessCI
+  ng e2e -- --protractor-config=e2e/protractor-ci.conf.js
 </code-example>
 
 <div class="alert is-helpful">
@@ -369,7 +368,7 @@ To generate a coverage report run the following command in the root of your proj
 要生成覆盖率报告，请在项目的根目录下运行下列命令。
 
 <code-example language="sh" class="code-shell">
-  ng test --watch=false --code-coverage
+  ng test --no-watch --code-coverage
 </code-example>
 
 When  the tests are complete, the command creates a new `/coverage` folder in the project. Open the `index.html` file to see a report with your source code and code coverage values.
@@ -1034,7 +1033,7 @@ Do not re-configure `TestBed` after calling `createComponent`.
 
 在调用了 `createComponent` 之后就不能再重新配置 `TestBed` 了。
 
-The `createComponent` method freezes the current `TestBed`definition,
+The `createComponent` method freezes the current `TestBed` definition,
 closing it to further configuration.
 
 `createComponent` 方法冻结了当前的 `TestBed` 定义，关闭它才能再进行后续配置。

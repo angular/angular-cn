@@ -43,14 +43,14 @@ import {makeParamDecorator, makePropDecorator} from '../util/decorators';
  * class ModuleWithRoutes {}
  * ```
  *
- * @experimental
+ * @publicApi
  */
 export const ANALYZE_FOR_ENTRY_COMPONENTS = new InjectionToken<any>('AnalyzeForEntryComponents');
 
 /**
  * Type of the Attribute decorator / constructor function.
  *
- *
+ * @publicApi
  */
 export interface AttributeDecorator {
   /**
@@ -90,7 +90,7 @@ export interface AttributeDecorator {
    * ]
    * ```
    *
-   *
+   * @publicApi
    */
   (name: string): any;
   new (name: string): Attribute;
@@ -99,6 +99,8 @@ export interface AttributeDecorator {
 
 /**
  * Type of the Attribute metadata.
+ *
+ * @publicApi
  */
 export interface Attribute { attributeName?: string; }
 
@@ -106,12 +108,15 @@ export interface Attribute { attributeName?: string; }
  * Attribute decorator and metadata.
  *
  * @Annotation
+ * @publicApi
  */
 export const Attribute: AttributeDecorator =
     makeParamDecorator('Attribute', (attributeName?: string) => ({attributeName}));
 
 /**
  * Type of the Query metadata.
+ *
+ * @publicApi
  */
 export interface Query {
   descendants: boolean;
@@ -128,6 +133,8 @@ export interface Query {
  * @see `ContentChild`.
  * @see `ViewChildren`.
  * @see `ViewChild`.
+ *
+ * @publicApi
  */
 export abstract class Query {}
 
@@ -135,6 +142,7 @@ export abstract class Query {}
  * Type of the ContentChildren decorator / constructor function.
  *
  * @see `ContentChildren`.
+ * @publicApi
  */
 export interface ContentChildrenDecorator {
   /**
@@ -177,6 +185,7 @@ export interface ContentChildrenDecorator {
  *
  *
  * @Annotation
+ * @publicApi
  */
 export type ContentChildren = Query;
 
@@ -184,7 +193,8 @@ export type ContentChildren = Query;
  * ContentChildren decorator and metadata.
  *
  *
- *  @Annotation
+ * @Annotation
+ * @publicApi
  */
 export const ContentChildren: ContentChildrenDecorator = makePropDecorator(
     'ContentChildren',
@@ -195,8 +205,7 @@ export const ContentChildren: ContentChildrenDecorator = makePropDecorator(
 /**
  * Type of the ContentChild decorator / constructor function.
  *
- *
- *
+ * @publicApi
  */
 export interface ContentChildDecorator {
   /**
@@ -233,7 +242,7 @@ export interface ContentChildDecorator {
  *
  * @see `ContentChild`.
  *
- *
+ * @publicApi
  */
 export type ContentChild = Query;
 
@@ -242,6 +251,8 @@ export type ContentChild = Query;
  *
  *
  * @Annotation
+ *
+ * @publicApi
  */
 export const ContentChild: ContentChildDecorator = makePropDecorator(
     'ContentChild', (selector?: any, data: any = {}) =>
@@ -253,7 +264,7 @@ export const ContentChild: ContentChildDecorator = makePropDecorator(
  *
  * @see `ViewChildren`.
  *
- *
+ * @publicApi
  */
 export interface ViewChildrenDecorator {
   /**
@@ -288,6 +299,8 @@ export interface ViewChildrenDecorator {
 
 /**
  * Type of the ViewChildren metadata.
+ *
+ * @publicApi
  */
 export type ViewChildren = Query;
 
@@ -295,6 +308,7 @@ export type ViewChildren = Query;
  * ViewChildren decorator and metadata.
  *
  * @Annotation
+ * @publicApi
  */
 export const ViewChildren: ViewChildrenDecorator = makePropDecorator(
     'ViewChildren', (selector?: any, data: any = {}) =>
@@ -307,6 +321,7 @@ export const ViewChildren: ViewChildrenDecorator = makePropDecorator(
  * ViewChild 的装饰器类型和构造函数
  *
  * @see `ViewChild`.
+ * @publicApi
  */
 export interface ViewChildDecorator {
   /**
@@ -391,6 +406,8 @@ export interface ViewChildDecorator {
  * Type of the ViewChild metadata.
  *
  * ViewChild 元数据的类型。
+ *
+ * @publicApi
  */
 export type ViewChild = Query;
 
@@ -400,6 +417,7 @@ export type ViewChild = Query;
  * ViewChild 装饰器和元数据。
  *
  * @Annotation
+ * @publicApi
  */
 export const ViewChild: ViewChildDecorator = makePropDecorator(
     'ViewChild', (selector: any, data: any) =>

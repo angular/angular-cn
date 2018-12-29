@@ -42,16 +42,15 @@ The top level of the workspace contains a number of workspace-wide configuration
 | :--------------------- | :------------------------------------------|
 | `.editorconfig`         | <t>Configuration for code editors. See [EditorConfig](https://editorconfig.org/). </t><t>代码编辑器配置。参见 [EditorConfig](https://editorconfig.org/)</t> |
 | `.gitignore`            | <t>Specifies intentionally untracked files that [Git](https://git-scm.com/) should ignore. </t><t>指定 [Git](https://git-scm.com/) 要忽略的非跟踪的文件。</t> |
-| `angular.json`         | <t>CLI configuration for all projects in the workspace, including configuration options for build, serve, and test tools that the CLI uses, such as [Karma](https://karma-runner.github.io/) and [Protractor](http://www.protractortest.org/).  </t><t>工作区中所有项目的 CLI 配置，包括 CLI 使用的构建选项、运行选项、测试工具选项（比如 [Karma](https://karma-runner.github.io/)、[Protractor](http://www.protractortest.org/)）等</t> |
+| `angular.json`         | <t>CLI configuration defaults for all projects in the workspace, including configuration options for build, serve, and test tools that the CLI uses, such as [TSLint](https://palantir.github.io/tslint/), [Karma](https://karma-runner.github.io/), and [Protractor](http://www.protractortest.org/). For details, see [Angular Workspace Configuration](guide/workspace-config). </t><t>工作区中所有项目的默认 CLI 配置，包括 CLI 使用的构建选项、运行选项、测试工具选项（比如 [TSLint](https://palantir.github.io/tslint/)、[Karma](https://karma-runner.github.io/)、[Protractor](http://www.protractortest.org/)）等。欲知详情，参见 [Angular 工作空间配置](guide/workspace-config)。</t> |
 | `node_modules`          | <t>Provides [npm packages](guide/npm-packages) to the entire workspace. </t><t>提供给整个工作空间的 [npm 包](guide/npm-packages)。</t> |
-| `package.json`         | <t>Lists package dependencies. See [npm documentation](https://docs.npmjs.com/files/package.json) for the specific format and contents of this file.</t><t>列出包依赖项。有关此文件的特有格式和内容，参见 [npm 文档](https://docs.npmjs.com/files/package.json)。</t> |
-| `tsconfig.app.json`    | <t>Default [TypeScript](https://www.typescriptlang.org/) configuration for apps in the workspace. </t><t>工作空间中所有应用的默认 [TypeScript](https://www.typescriptlang.org/) 配置。</t> |
-| `tsconfig.spec.json`   | <t>Default TypeScript configuration for e2e test apps in the workspace. </t><t>工作空间中所有端到端测试类应用的默认 TypeScript 配置。</t> |
+| `package.json`         | <t>Configures [npm package dependencies](guide/npm-packages) that are available to all projects in the workspace. See [npm documentation](https://docs.npmjs.com/files/package.json) for the specific format and contents of this file.</t><t>配置用于工作空间中所有项目的包依赖项。有关此文件的特有格式和内容，参见 [npm 文档](https://docs.npmjs.com/files/package.json)。</t> |
+| `package-lock.json`     | <t>Provides version information for all packages installed into `node_modules` by the npm client. See [npm documentation](https://docs.npmjs.com/files/package-lock.json) for details. If you use the yarn client, this file will be [yarn.lock](https://yarnpkg.com/lang/en/docs/yarn-lock/) instead. </t><t>为 npm 客户端安装到 `node_modules` 中的所有软件包提供版本信息。详情参见 [npm documentation](https://docs.npmjs.com/files/package-lock.json)。如果你使用 yarn 客户端，此文件会由 [yarn.lock](https://yarnpkg.com/lang/en/docs/yarn-lock/) 代替。</t> |
+| `tsconfig.json`    | <t>Default [TypeScript](https://www.typescriptlang.org/) configuration for apps in the workspace, including TypeScript and Angular template compiler options. See [TypeScript Configuration](guide/typescript-configuration). </t><t>工作空间中所有应用的默认 [TypeScript](https://www.typescriptlang.org/) 配置。包括 TypeScript 选项和 Angular 模板编译器选项。参见 [TypeScript 配置](guide/typescript-configuration)。</t> |
 | `tslint.json`          | <t>Default [TSLint](https://palantir.github.io/tslint/) configuration for apps in the workspace. </t><t>工作空间中所有应用的默认 [TSLint](https://palantir.github.io/tslint/) 配置。</t> |
 | `README.md`             | <t>Introductory documentation. </t><t>介绍文档</t> |
-| `package-lock.json`     | <t>Provides version information for all packages installed into `node_modules` by the npm client. See [npm documentation](https://docs.npmjs.com/files/package-lock.json) for details. If you use the yarn client, this file will be [yarn.lock](https://yarnpkg.com/lang/en/docs/yarn-lock/) instead. </t><t>为 npm 客户端安装到 `node_modules` 中的所有软件包提供版本信息。详情参见 [npm documentation](https://docs.npmjs.com/files/package-lock.json)。如果你使用 yarn 客户端，此文件会由 [yarn.lock](https://yarnpkg.com/lang/en/docs/yarn-lock/) 代替。</t> |
 
-All projects within a workspace share this configuration context. 
+All projects within a workspace share a [CLI configuration context](guide/workspace-config). 
 Project-specific [TypeScript](https://www.typescriptlang.org/) configuration files inherit from the workspace-wide `tsconfig.*.json`, and app-specific [TSLint](https://palantir.github.io/tslint/) configuration files inherit from the workspace-wide `tslint.json`.
 
 工作空间中的所有项目都共享这个配置上下文。
@@ -156,18 +155,6 @@ Inside the `src/` folder, the `app/` folder contains your app's logic and data. 
 
 在 `src/` 目录下，`app/` 目录包含你的应用逻辑和数据。Angular 组件、模板和样式都在这里。
 `assets/` 子目录包含图片和应用所需的其它文件。`src/` 顶层的文件用于支持测试和运行你的应用。
-
-<code-example language="none" linenums="false">
-   src/
-    app/
-        app.component.css
-        app.component.html
-        app.component.spec.ts
-        app.component.ts
-        app.module.ts
-        assets/...
-    ...
-</code-example>
 
 | <t>APP SOURCE FILES</t><t>应用源文件</t> | <t>PURPOSE</t><t>用途</t> |
 | :-------------------------- | :------------------------------------------|

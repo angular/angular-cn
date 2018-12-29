@@ -13,6 +13,7 @@ import {HttpHeaders} from './headers';
  *
  * 不同种类的 `HttpEvent` 的枚举类型。
  *
+ * @publicApi
  */
 export enum HttpEventType {
   /**
@@ -63,6 +64,7 @@ export enum HttpEventType {
  *
  *
  * 进度事件的基础接口。
+ * @publicApi
  */
 export interface HttpProgressEvent {
   /**
@@ -93,6 +95,7 @@ export interface HttpProgressEvent {
  *
  * 下载进度事件。
  *
+ * @publicApi
  */
 export interface HttpDownloadProgressEvent extends HttpProgressEvent {
   type: HttpEventType.DownloadProgress;
@@ -127,6 +130,7 @@ export interface HttpUploadProgressEvent extends HttpProgressEvent {
  * 用于表示请求已经发到服务器的事件。
  * 当请求可能被多次接受时很有用，以区分出最终事件流上的重试行为。
  *
+ * @publicApi
  */
 export interface HttpSentEvent { type: HttpEventType.Sent; }
 
@@ -140,6 +144,7 @@ export interface HttpSentEvent { type: HttpEventType.Sent; }
  *
  * 把所有自定义事件都分组在此类型下，以确保它们会被所有的拦截器所处理和转发。
  *
+ * @publicApi
  */
 export interface HttpUserEvent<T> { type: HttpEventType.User; }
 
@@ -168,6 +173,7 @@ export interface HttpJsonParseError {
  *
  * 其类型取决于所期待的响应类型。
  *
+ * @publicApi
  */
 export type HttpEvent<T> =
     HttpSentEvent | HttpHeaderResponse | HttpResponse<T>| HttpProgressEvent | HttpUserEvent<T>;
@@ -177,6 +183,7 @@ export type HttpEvent<T> =
  *
  * `HttpResponse` 和 `HttpHeaderResponse` 的共同基类。
  *
+ * @publicApi
  */
 export abstract class HttpResponseBase {
   /**
@@ -267,6 +274,7 @@ export abstract class HttpResponseBase {
  *
  * `HttpHeaderResponse` 是一个可用于响应事件流的 `HttpEvent`，只有在要求了进度事件时才有效。
  *
+ * @publicApi
  */
 export class HttpHeaderResponse extends HttpResponseBase {
   /**
@@ -315,6 +323,7 @@ export class HttpHeaderResponse extends HttpResponseBase {
  *
  *
  * `HttpResponse` 是一个用于事件响应流的 `HttpEvent`。
+ * @publicApi
  */
 export class HttpResponse<T> extends HttpResponseBase {
   /**
@@ -373,6 +382,8 @@ export class HttpResponse<T> extends HttpResponseBase {
  *
  * 任何从 `Observable` 响应流中返回的错误都会被包装成 `HttpErrorResponse` 对象，以便在发生错误时，提供关于 HTTP 层状态的额外上下文信息。
  * 该错误或者包含一个包装好的错误对象，或者包含一个从服务端返回的错误响应体。
+ *
+ * @publicApi
  */
 export class HttpErrorResponse extends HttpResponseBase implements Error {
   readonly name = 'HttpErrorResponse';

@@ -150,7 +150,7 @@ When the CLI generated the `CustomerDashboardComponent` for the feature module, 
 <code-example path="feature-modules/src/app/customer-dashboard/customer-dashboard/customer-dashboard.component.html" region="feature-template" header="src/app/customer-dashboard/customer-dashboard/customer-dashboard.component.html" linenums="false">
 </code-example>
 
-To see this HTML in the `AppComponent`, you first have to export the `CustomerDashboardComponent` in the `CustomerDashboardModule`. In `customer-dashboard.module.ts`, just beneath the `declarations` array, add an `exports` array containing `CustomerDashboardModule`:
+To see this HTML in the `AppComponent`, you first have to export the `CustomerDashboardComponent` in the `CustomerDashboardModule`. In `customer-dashboard.module.ts`, just beneath the `declarations` array, add an `exports` array containing `CustomerDashboardComponent`:
 
 要想在 `AppComponent` 中查看这些 HTML，你首先要在 `CustomerDashboardModule` 中导出 `CustomerDashboardComponent`。
 在 `customer-dashboard.module.ts` 中，`declarations` 数组的紧下方，加入一个包含 `CustomerDashboardModule` 的 `exports` 数组：

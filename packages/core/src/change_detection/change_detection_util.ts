@@ -48,6 +48,7 @@ export function devModeEqual(a: any, b: any): boolean {
  *  }
  * ```
  *
+ * @publicApi
  */
 export class WrappedValue {
   /** @deprecated from 5.3, use `unwrap()` instead - will switch to protected
@@ -83,6 +84,8 @@ export class WrappedValue {
  * Represents a basic change from a previous to a new value.
  *
  * 表示从旧值到新值的一次变更。
+ *
+ * @publicApi
  */
 export class SimpleChange {
   constructor(public previousValue: any, public currentValue: any, public firstChange: boolean) {}

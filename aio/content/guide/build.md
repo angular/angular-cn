@@ -54,11 +54,11 @@ The base file `environment.ts`, contains the default environment settings. For e
 
 基础环境 `environment.ts` 包含了默认的环境设置。比如：
 
-<code-example language="none" class="code-shell">
+```
 export const environment = {
   production: false
 };
-</code-example>
+```
 
 The `build` command uses this as the build target when no environment is specified. 
 You can add further variables, either as additional properties on the environment object, or as separate objects. 
@@ -198,7 +198,11 @@ Any option that your build supports can be overridden in a build target configur
 你还可以往目标环境中添加更多配置项。
 你的构建目标支持的任何选项都可以在构建目标配置中进行覆盖。
 
-To build using the staging configuration, run `ng build --configuration=staging`.
+To build using the staging configuration, run the following command:
+
+<code-example language="sh" class="code-shell">
+ ng build --configuration=staging
+</code-example>
 
 要想使用预生产环境进行构建，请运行 `ng build --configuration=staging`。
 

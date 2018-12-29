@@ -603,9 +603,15 @@
           "tooltip": "Angular 工作空间在文件系统中是怎样的。"
         },
         {
+          "url": "guide/workspace-config",
+          "title": "Workspace Configuration",
+          "tooltip": "The \"angular.json\" file contains workspace and project configuration defaults for Angular CLI commands."
+        },
+
+        {
           "url": "guide/npm-packages",
           "title": "npm 包",
-          "tooltip": "会默认安装到项目中的 npm 包的说明。"
+          "tooltip": "开发期间和运行期间所需的 npm 包的说明。"
         },
         {
           "url": "guide/typescript-configuration",
@@ -664,30 +670,14 @@
       "tooltip": "Angular 的版本发布实践、更新与升级。",
       "children": [
         {
+          "url": "guide/updating",
+          "title": "保持最新",
+          "tooltip": "如何把 Angular 应用和库升级到最新版本。"
+        },
+        {
           "url": "guide/releases",
           "title": "Angular 发布策略与实践",
           "tooltip": "Angular 的版本、发布、支持、弃用策略与实践。"
-        },
-        {
-           "url": "guide/updating",
-            "title": "保持最新",
-            "tooltip": "如何把 Angular 应用和库升级到最新版本。"
-        },
-        {
-          "title": "从 AngularJS 升级",
-          "tooltip": "逐渐把 AngularJS 应用升级成 Angular。",
-          "children": [
-            {
-              "url": "guide/upgrade",
-              "title": "升级指南",
-              "tooltip": "逐渐把 AngularJS 应用升级成 Angular。"
-            },
-            {
-              "url": "guide/ajs-quick-reference",
-              "title": "AngularJS 与 Angular 的概念对照",
-              "tooltip": "学习如何把 AngularJS 的概念映射到 Angular 中。"
-            }
-          ]
         }
       ]
     },
@@ -850,11 +840,7 @@
   "docVersions": [
     { "title": "v6", "url": "https://v6.angular.io" },
     { "title": "v5", "url": "https://v5.angular.io" },
-    { "title": "v4 ", "url": "https://v4.angular.io"
-    },
-    { "title": "v2", "url": "https://v2.angular.cn"
-    },
-    {
-     "title": "AngularDart", "url": "https://webdev.dartlang.org/angular" }
+    { "title": "v4", "url": "https://v4.angular.io" },
+    { "title": "v2", "url": "https://v2.angular.io" }
   ]
 }

@@ -8,6 +8,9 @@
 
 import {ChangeDetectorRef, Directive, DoCheck, EmbeddedViewRef, Input, IterableChangeRecord, IterableChanges, IterableDiffer, IterableDiffers, NgIterable, TemplateRef, TrackByFunction, ViewContainerRef, forwardRef, isDevMode} from '@angular/core';
 
+/**
+ * @publicApi
+ */
 export class NgForOfContext<T> {
   constructor(
       public $implicit: T, public ngForOf: NgIterable<T>, public index: number,
@@ -155,6 +158,7 @@ export class NgForOfContext<T> {
  * 参见[在线例子](http://plnkr.co/edit/KVuXxDp0qinGDyo307QW?p=preview)了解详情。
  *
  * @ngModule CommonModule
+ * @publicApi
  */
 @Directive({selector: '[ngFor][ngForOf]'})
 export class NgForOf<T> implements DoCheck {

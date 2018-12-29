@@ -14,12 +14,14 @@
 export interface ɵStyleData { [key: string]: string|number; }
 
 /**
-* Represents animation-step timing parameters for an animation step.
+ * Represents animation-step timing parameters for an animation step.
  *
  * 表示一个动画步骤中的动画时序参数。
  *
 * @see `animate()`
-*/
+ *
+ * @publicApi
+ */
 export declare type AnimateTimings = {
   /**
    * The full duration of an animation step. A number and optional time unit,
@@ -73,6 +75,8 @@ export declare type AnimateTimings = {
  * make use of `AnimationOptions`.
  *
  * 利用 `AnimationBuilder` 服务构建程序化动画时也会用到 `AnimationBuilder`。
+ *
+ * @publicApi
  */
 export declare interface AnimationOptions {
   /**
@@ -104,6 +108,8 @@ export declare interface AnimationOptions {
  * 添加持续时间选项，以控制子动画的动画样式和时序。
  *
  * @see `animateChild()`
+ *
+ * @publicApi
  */
 export declare interface AnimateChildOptions extends AnimationOptions { duration?: number|string; }
 
@@ -116,6 +122,8 @@ export declare interface AnimateChildOptions extends AnimationOptions { duration
  * collects them into a corresponding `AnimationMetadata` object.
  *
  * 相应的函数为每个类别定义了一组参数，并把它们汇集进相应的 `AnimationMetadata` 对象中。
+ *
+ * @publicApi
  */
 export const enum AnimationMetadataType {
   /**
@@ -228,6 +236,8 @@ export const enum AnimationMetadataType {
  * Specifies automatic styling.
  *
  * 用于指定自动化样式。
+ *
+ * @publicApi
  */
 export const AUTO_STYLE = '*';
 
@@ -235,6 +245,8 @@ export const AUTO_STYLE = '*';
  * Base for animation data structures.
  *
  * 动画数据结构的基类。
+ *
+ * @publicApi
  */
 export interface AnimationMetadata { type: AnimationMetadataType; }
 
@@ -243,6 +255,8 @@ export interface AnimationMetadata { type: AnimationMetadataType; }
  * `trigger()` function.
  *
  * 包含一个动画触发器。由 `trigger()` 函数实例化并返回。
+ *
+ * @publicApi
  */
 export interface AnimationTriggerMetadata extends AnimationMetadata {
   /**
@@ -274,6 +288,8 @@ export interface AnimationTriggerMetadata extends AnimationMetadata {
  *
  * 通过将状态名称和一组 CSS 样式相关联来封装一个动画状态。
  * 由 `state()` 函数实例化并返回。
+ *
+ * @publicApi
  */
 export interface AnimationStateMetadata extends AnimationMetadata {
   /**
@@ -303,11 +319,13 @@ export interface AnimationStateMetadata extends AnimationMetadata {
  * `transition()` function.
  *
  * 封装一个转场动画。由 `transition()` 函数实例化并返回。
+ *
+ * @publicApi
  */
 export interface AnimationTransitionMetadata extends AnimationMetadata {
   /**
    * An expression that describes a state change.
-   * 
+   *
    * 用于描述状态变更的表达式。
    */
   expr: string|
@@ -336,6 +354,8 @@ export interface AnimationTransitionMetadata extends AnimationMetadata {
  * passed to the `useAnimation()` function.
  *
  * 封装一个可复用的动画，包括一组独立的动画步骤。由 `animation()` 函数返回，并传给 `useAnimation()` 函数。
+ *
+ * @publicApi
  */
 export interface AnimationReferenceMetadata extends AnimationMetadata {
   /**
@@ -360,6 +380,8 @@ export interface AnimationReferenceMetadata extends AnimationMetadata {
  * the `query()` function.
  *
  * 封装一个动画查询。由 `query()` 函数实例化并返回。
+ *
+ * @publicApi
  */
 export interface AnimationQueryMetadata extends AnimationMetadata {
   /**
@@ -387,6 +409,8 @@ export interface AnimationQueryMetadata extends AnimationMetadata {
  * the `keyframes()` function.
  *
  * 封装一个关键帧序列。由 `keyframes()` 函数进行实例化并返回。
+ *
+ * @publicApi
  */
 export interface AnimationKeyframesSequenceMetadata extends AnimationMetadata {
   /**
@@ -402,6 +426,8 @@ export interface AnimationKeyframesSequenceMetadata extends AnimationMetadata {
  * the `style()` function.
  *
  * 封装一个动画样式。由 `style()` 函数实例化并返回。
+ *
+ * @publicApi
  */
 export interface AnimationStyleMetadata extends AnimationMetadata {
   /**
@@ -423,6 +449,8 @@ export interface AnimationStyleMetadata extends AnimationMetadata {
  * the `animate()` function.
  *
  * 封装一个动画步骤。由 `animate()` 函数进行实例化并返回。
+ *
+ * @publicApi
  */
 export interface AnimationAnimateMetadata extends AnimationMetadata {
   /**
@@ -445,6 +473,8 @@ export interface AnimationAnimateMetadata extends AnimationMetadata {
  *
  * 封装一个子动画，父动画可以显式的运行它。
  * 由 `animateChild` 函数进行初始化和返回。
+ *
+ * @publicApi
  */
 export interface AnimationAnimateChildMetadata extends AnimationMetadata {
   /**
@@ -464,6 +494,8 @@ export interface AnimationAnimateChildMetadata extends AnimationMetadata {
  *
  * 封装一个可复用的动画。
  * 由 `useAnimation()` 函数实例化并返回。
+ *
+ * @publicApi
  */
 export interface AnimationAnimateRefMetadata extends AnimationMetadata {
   /**
@@ -489,6 +521,8 @@ export interface AnimationAnimateRefMetadata extends AnimationMetadata {
  *
  * 封装一个动画序列。
  * 由 `sequence()` 函数进行实例化并返回。
+ *
+ * @publicApi
  */
 export interface AnimationSequenceMetadata extends AnimationMetadata {
   /**
@@ -514,6 +548,8 @@ export interface AnimationSequenceMetadata extends AnimationMetadata {
  *
  * 封装一个动画组。
  * 由 `{@link animations/group group()}` 函数实例化并返回。
+ *
+ * @publicApi
  */
 export interface AnimationGroupMetadata extends AnimationMetadata {
   /**
@@ -539,6 +575,8 @@ export interface AnimationGroupMetadata extends AnimationMetadata {
  *
  * 封装一些动画查询选项。
  * 传给 `query()` 函数。
+ *
+ * @publicApi
  */
 export declare interface AnimationQueryOptions extends AnimationOptions {
   /**
@@ -569,6 +607,8 @@ export declare interface AnimationQueryOptions extends AnimationOptions {
  * 封装一组动画步骤的起始时间的交错参数。
  * 由 `stagger()` 函数实例化并返回。
  *
+ *
+ * @publicApi
  **/
 export interface AnimationStaggerMetadata extends AnimationMetadata {
   /**
@@ -604,7 +644,7 @@ export interface AnimationStaggerMetadata extends AnimationMetadata {
  * @return An object that encapsulates the trigger data.
  *
  * 用于包装该触发器数据的对象。
- * 
+ *
  * @usageNotes
  * Define an animation trigger in the `animations` section of `@Component` metadata.
  * In the template, reference the trigger by name and bind it to a trigger expression that
@@ -625,7 +665,7 @@ export interface AnimationStaggerMetadata extends AnimationMetadata {
  * ### Usage Example
  *
  * ### 用法范例
- * 
+ *
  * The following example creates an animation trigger reference based on the provided
  * name value.
  * The provided animation value is expected to be an array consisting of state and
@@ -741,7 +781,7 @@ export interface AnimationStaggerMetadata extends AnimationMetadata {
  *
  * ### 在整个应用中禁用动画
  *
- * When an area of the template is set to have animations disabled, 
+ * When an area of the template is set to have animations disabled,
  * **all** inner components have their animations disabled as well.
  * This means that you can disable all animations for an app
  * by placing a host binding set on `@.disabled` on the topmost Angular component.
@@ -767,8 +807,8 @@ export interface AnimationStaggerMetadata extends AnimationMetadata {
  * ### 改写内部动画的禁用状态
  *
  * Despite inner animations being disabled, a parent animation can `query()`
- * for inner elements located in disabled areas of the template and still animate 
- * them if needed. This is also the case for when a sub animation is 
+ * for inner elements located in disabled areas of the template and still animate
+ * them if needed. This is also the case for when a sub animation is
  * queried by a parent and then later animated using `animateChild()`.
  *
  * 不管内部动画禁用与否，父动画总能 `query()` 模板里已禁用区域中的内部元素，如果需要，也可以播放它们。
@@ -789,6 +829,7 @@ export interface AnimationStaggerMetadata extends AnimationMetadata {
  * @experimental Animation support is experimental.
  *
  * 动画支持尚处于试验阶段。
+ * @publicApi
  */
 export function trigger(name: string, definitions: AnimationMetadata[]): AnimationTriggerMetadata {
   return {type: AnimationMetadataType.Trigger, name, definitions, options: {}};
@@ -906,6 +947,8 @@ export function trigger(name: string, definitions: AnimationMetadata[]): Animati
  *   style({ background: "red" }))
  *  ])
  * ```
+ *
+ * @publicApi
  */
 export function animate(
     timings: string | number, styles: AnimationStyleMetadata | AnimationKeyframesSequenceMetadata |
@@ -935,7 +978,7 @@ export function animate(
  * For example:
  *
  * 例如：
- * 
+ *
  * ```typescript
  * group([
  *   animate("1s", { background: "black" }))
@@ -964,6 +1007,8 @@ export function animate(
  * instruction until all of the inner animation steps have completed.
  *
  * 当在 `sequence()` 或 `transition()` 中调用它时，除非完成所有内部动画步骤，否则不会执行后续步骤。
+ *
+ * @publicApi
  */
 export function group(
     steps: AnimationMetadata[], options: AnimationOptions | null = null): AnimationGroupMetadata {
@@ -1019,6 +1064,7 @@ export function group(
  *
  * 当在 `{@link animations/group group()}` 或 `transition()` 调用中应用动画序列时，
  * 只有当每个内部动画步骤都完成之后，才会继续执行下一个指令。
+ * @publicApi
  **/
 export function sequence(steps: AnimationMetadata[], options: AnimationOptions | null = null):
     AnimationSequenceMetadata {
@@ -1051,7 +1097,7 @@ export function sequence(steps: AnimationMetadata[], options: AnimationOptions |
  *
  *   一个星号（`*`），表示自动样式，其样式值会在应用此样式的时刻从目标元素中取得，并用作动画参数。
  *
- * Auto-styling can be used to define a state that depends on layout or other 
+ * Auto-styling can be used to define a state that depends on layout or other
  * environmental factors.
  *
  * 自动样式可用于定义一个需要依赖布局或其它环境因素的状态。
@@ -1084,6 +1130,7 @@ export function sequence(steps: AnimationMetadata[], options: AnimationOptions |
  * animate("1s", style({ height: "*" }))
  * ```
  *
+ * @publicApi
  **/
 export function style(
     tokens: '*' | {[key: string]: string | number} |
@@ -1142,6 +1189,8 @@ export function style(
  * 使用 `transition()` 函数来在状态之间执行动画。
  * 当某个状态在组件中激活时，它所关联的样式会永久性的作用在该元素上 —— 即使该动画已经结束了。
  *
+ *
+ * @publicApi
  **/
 export function state(
     name: string, styles: AnimationStyleMetadata,
@@ -1208,6 +1257,8 @@ export function state(
  *   style({ backgroundColor: "black" }) // offset = 1
  * ]))
  *```
+
+ * @publicApi
  */
 export function keyframes(steps: AnimationStyleMetadata[]): AnimationKeyframesSequenceMetadata {
   return {type: AnimationMetadataType.Keyframes, steps};
@@ -1449,6 +1500,8 @@ export function keyframes(steps: AnimationStyleMetadata[]): AnimationKeyframesSe
  *   transition('false <=> true', animate(500))
  * ])
  * ```
+ *
+ * @publicApi
  **/
 export function transition(
     stateChangeExpr: string | ((fromState: string, toState: string, element?: any,
@@ -1520,6 +1573,8 @@ export function transition(
  * 如果本调用传入的参数中缺少了任何一个参数值，则会使用其默认值代替。
  * 如果在某个动画步骤开始播放前缺少了一个或多个参数值，则会抛出一个错误。
  *
+ *
+ * @publicApi
  */
 export function animation(
     steps: AnimationMetadata | AnimationMetadata[],
@@ -1556,6 +1611,8 @@ export function animation(
  *
  * 注意，设计该特性是为了和 `query()` 一起使用的，所以它只处理使用 Angular 动画库生成的动画。
  * 本 API 不会处理 CSS 关键帧动画和转场动画。
+ *
+ * @publicApi
  */
 export function animateChild(options: AnimateChildOptions | null = null):
     AnimationAnimateChildMetadata {
@@ -1580,6 +1637,8 @@ export function animateChild(options: AnimateChildOptions | null = null):
  *
  * 一个包含动画参数的对象。
  *
+ *
+ * @publicApi
  */
 export function useAnimation(
     animation: AnimationReferenceMetadata,
@@ -1589,7 +1648,7 @@ export function useAnimation(
 
 /**
  * Finds one or more inner elements within the current element that is
- * being animated within a sequence. Use with `animateChild()`.
+ * being animated within a sequence. Use with `animate()`.
  *
  * 在动画序列中正在播放的元素中查找一个或多个内部元素。和 `animateChild()` 一起使用。
  *
@@ -1672,7 +1731,7 @@ export function useAnimation(
  * ### 使用范例
  *
  * The following example queries for inner elements and animates them
- * individually using `animateChild()`. 
+ * individually using `animate()`.
  *
  * 下面的例子查询内部元素，并用 `animateChild()` 来独立控制它们的动画。
  *
@@ -1709,6 +1768,8 @@ export function useAnimation(
  *   }
  * }
  * ```
+ *
+ * @publicApi
  */
 export function query(
     selector: string, animation: AnimationMetadata | AnimationMetadata[],
@@ -1813,6 +1874,8 @@ export function query(
  *   ])
  * ])
  * ```
+ *
+ * @publicApi
  */
 export function stagger(
     timings: string | number,

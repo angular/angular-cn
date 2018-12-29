@@ -17,7 +17,7 @@ import * as ts from 'typescript';
 
 import {ClassMemberKind, ReflectionHost} from '../../host';
 
-const TS_DTS_JS_EXTENSION = /(\.d)?\.ts|\.js$/;
+const TS_DTS_JS_EXTENSION = /(?:\.d)?\.ts$|\.js$/;
 
 /**
  * Represents a value which cannot be determined statically.
@@ -54,7 +54,7 @@ export function isDynamicValue(value: any): value is DynamicValue {
  * available statically.
  */
 export type ResolvedValue = number | boolean | string | null | undefined | Reference | EnumValue |
-    ResolvedValueArray | ResolvedValueMap | DynamicValue;
+    ResolvedValueArray | ResolvedValueMap | BuiltinFn | DynamicValue;
 
 /**
  * An array of `ResolvedValue`s.
@@ -79,6 +79,23 @@ export interface ResolvedValueArray extends Array<ResolvedValue> {}
  */
 export class EnumValue {
   constructor(readonly enumRef: Reference<ts.EnumDeclaration>, readonly name: string) {}
+}
+
+/**
+ * An implementation of a builtin function, such as `Array.prototype.slice`.
+ */
+export abstract class BuiltinFn { abstract evaluate(args: ResolvedValueArray): ResolvedValue; }
+
+class ArraySliceBuiltinFn extends BuiltinFn {
+  constructor(private lhs: ResolvedValueArray) { super(); }
+
+  evaluate(args: ResolvedValueArray): ResolvedValue {
+    if (args.length === 0) {
+      return this.lhs;
+    } else {
+      return DYNAMIC_VALUE;
+    }
+  }
 }
 
 /**
@@ -336,7 +353,7 @@ class StaticInterpreter {
       return this.visitExpression(node.expression, context);
     } else if (ts.isNonNullExpression(node)) {
       return this.visitExpression(node.expression, context);
-    } else if (isPossibleClassDeclaration(node) && this.host.isClass(node)) {
+    } else if (this.host.isClass(node)) {
       return this.visitDeclaration(node, context);
     } else {
       return DYNAMIC_VALUE;
@@ -536,6 +553,8 @@ class StaticInterpreter {
     } else if (Array.isArray(lhs)) {
       if (rhs === 'length') {
         return lhs.length;
+      } else if (rhs === 'slice') {
+        return new ArraySliceBuiltinFn(lhs);
       }
       if (typeof rhs !== 'number' || !Number.isInteger(rhs)) {
         return DYNAMIC_VALUE;
@@ -546,7 +565,7 @@ class StaticInterpreter {
       return lhs[rhs];
     } else if (lhs instanceof Reference) {
       const ref = lhs.node;
-      if (isPossibleClassDeclaration(ref) && this.host.isClass(ref)) {
+      if (this.host.isClass(ref)) {
         let absoluteModuleName = context.absoluteModuleName;
         if (lhs instanceof NodeReference || lhs instanceof AbsoluteReference) {
           absoluteModuleName = lhs.moduleName || absoluteModuleName;
@@ -571,6 +590,15 @@ class StaticInterpreter {
 
   private visitCallExpression(node: ts.CallExpression, context: Context): ResolvedValue {
     const lhs = this.visitExpression(node.expression, context);
+    if (isDynamicValue(lhs)) {
+      return DYNAMIC_VALUE;
+    }
+
+    // If the call refers to a builtin function, attempt to evaluate the function.
+    if (lhs instanceof BuiltinFn) {
+      return lhs.evaluate(node.arguments.map(arg => this.visitExpression(arg, context)));
+    }
+
     if (!(lhs instanceof Reference)) {
       throw new Error(`attempting to call something that is not a function: ${lhs}`);
     } else if (!isFunctionOrMethodReference(lhs)) {
@@ -731,10 +759,6 @@ function identifierOfDeclaration(decl: ts.Declaration): ts.Identifier|undefined 
   } else {
     return undefined;
   }
-}
-
-function isPossibleClassDeclaration(node: ts.Node): node is ts.Declaration {
-  return ts.isClassDeclaration(node) || ts.isVariableDeclaration(node);
 }
 
 function isVariableDeclarationDeclared(node: ts.VariableDeclaration): boolean {

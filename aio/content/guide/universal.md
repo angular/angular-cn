@@ -121,7 +121,7 @@ Your app may have to launch faster to engage these users before they decide to d
 
 With Angular Universal, you can generate landing pages for the app that look like the complete app.
 The pages are pure HTML, and can display even if JavaScript is disabled.
-The pages don't handle browser events, but they _do_ support navigation through the site using `[routerLink](guide/router#router-link)`.
+The pages don't handle browser events, but they _do_ support navigation through the site using [`routerLink`](guide/router#router-link).
 
 使用 Angular Universal，你可以为应用生成“着陆页”，它们看起来就和完整的应用一样。
 这些着陆页是纯 HTML，并且即使 JavaScript 被禁用了也能显示。

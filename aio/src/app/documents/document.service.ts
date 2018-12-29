@@ -15,13 +15,13 @@ export const FETCHING_ERROR_ID = 'fetching-error';
 
 export const CONTENT_URL_PREFIX = 'generated/';
 export const DOC_CONTENT_URL_PREFIX = CONTENT_URL_PREFIX + 'docs/';
-const FETCHING_ERROR_CONTENTS = `
+const FETCHING_ERROR_CONTENTS = (path: string) => `
   <div class="nf-container l-flex-wrap flex-center">
     <div class="nf-icon material-icons">error_outline</div>
     <div class="nf-response l-flex-wrap">
       <h1 class="no-toc">请求文档失败</h1>
       <p>
-      抱歉，这次我们没能取到 "<current-location></current-location>" 页。请检查你的网络连接，稍后再试。
+      抱歉，这次我们没能取到 "${path}" 页。请检查你的网络连接，稍后再试。
       </p>
     </div>
   </div>
@@ -90,7 +90,7 @@ export class DocumentService {
     this.cache.delete(id);
     return of({
       id: FETCHING_ERROR_ID,
-      contents: FETCHING_ERROR_CONTENTS,
+      contents: FETCHING_ERROR_CONTENTS(id),
     });
   }
 }

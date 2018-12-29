@@ -55,6 +55,7 @@ import {invalidPipeArgumentError} from './invalid_pipe_argument_error';
  *
  * <code-example path="common/pipes/ts/number_pipe.ts" region='NumberPipe'></code-example>
  *
+ * @publicApi
  */
 @Pipe({name: 'number'})
 export class DecimalPipe implements PipeTransform {
@@ -133,7 +134,7 @@ export class DecimalPipe implements PipeTransform {
  *
  * <code-example path="common/pipes/ts/percent_pipe.ts" region='PercentPipe'></code-example>
  *
- *
+ * @publicApi
  */
 @Pipe({name: 'percent'})
 export class PercentPipe implements PipeTransform {
@@ -164,7 +165,7 @@ export class PercentPipe implements PipeTransform {
    *     `minFractionDigits`：小数点后的最小位数。默认为 `0`。
    *
    *   - `maxFractionDigits`: The maximum number of digits after the decimal point.
-   * Default is `3`.
+   * Default is `0`.
    *
    *     `maxFractionDigits`：小数点后的最大为数，默认为 `3`。
    *
@@ -214,7 +215,7 @@ export class PercentPipe implements PipeTransform {
  *
  * <code-example path="common/pipes/ts/currency_pipe.ts" region='CurrencyPipe'></code-example>
  *
- *
+ * @publicApi
  */
 @Pipe({name: 'currency'})
 export class CurrencyPipe implements PipeTransform {
@@ -275,12 +276,12 @@ export class CurrencyPipe implements PipeTransform {
    *     `minIntegerDigits`：在小数点前的最小位数。默认为 `1`。
    *
    *   - `minFractionDigits`: The minimum number of digits after the decimal point.
-   * Default is `0`.
+   * Default is `2`.
    *
    *     `minFractionDigits`：小数点后的最小位数。默认为 `0`。
    *
    *   - `maxFractionDigits`: The maximum number of digits after the decimal point.
-   * Default is `3`.
+   * Default is `2`.
    * If not provided, the number will be formatted with the proper amount of digits,
    * depending on what the [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) specifies.
    * For example, the Canadian dollar has 2 digits, whereas the Chilean peso has none.

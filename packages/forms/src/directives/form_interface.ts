@@ -22,6 +22,8 @@ import {NgControl} from './ng_control';
  * Only used by the `ReactiveFormsModule` and `FormsModule`.
  *
  * 只用于 `ReactiveFormsModule` 和 `FormsModule` 中。
+ *
+ * @publicApi
  */
 export interface Form {
   /**

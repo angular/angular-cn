@@ -9,7 +9,14 @@
 import {Injectable} from '@angular/core';
 
 import {AsyncValidatorFn, ValidatorFn} from './directives/validators';
-import {AbstractControl, FormArray, FormControl, FormGroup} from './model';
+import {AbstractControl, AbstractControlOptions, FormArray, FormControl, FormGroup, FormHooks} from './model';
+
+function isAbstractControlOptions(options: AbstractControlOptions | {[key: string]: any}):
+    options is AbstractControlOptions {
+  return (<AbstractControlOptions>options).asyncValidators !== undefined ||
+      (<AbstractControlOptions>options).validators !== undefined ||
+      (<AbstractControlOptions>options).updateOn !== undefined;
+}
 
 /**
  * @description
@@ -28,6 +35,7 @@ import {AbstractControl, FormArray, FormControl, FormGroup} from './model';
  *
  * [响应式表单](/guide/reactive-forms)
  *
+ * @publicApi
  */
 @Injectable()
 export class FormBuilder {
@@ -42,9 +50,31 @@ export class FormBuilder {
    *
    * 一组子控件。每个 key 就是注册进来的控件的名字。
    *
-   * @param extra An object of configuration options for the `FormGroup`.
+   * @param options Configuration options object for the `FormGroup`. The object can
+   * have two shapes:
    *
-   * 一个对象，表示 `FormGroup` 的配置项。
+   * `FormGroup` 的配置项对象。该对象可以有两种形态：
+   *
+   * 1) `AbstractControlOptions` object (preferred), which consists of:
+   *
+   * 1) `AbstractControlOptions` 对象（首选），它包括如下属性：
+   *
+   * * `validators`: A synchronous validator function, or an array of validator functions
+   *
+   *   `validators`：一个同步验证器函数或其数组
+   *
+   * * `asyncValidators`: A single async validator or array of async validator functions
+   *
+   *   `asyncValidators`：一个异步验证器函数或其数组
+   *
+   * * `updateOn`: The event upon which the control should be updated (options: 'change' | 'blur' |
+   * submit')
+   *
+   *   `updateOn`：当发生哪个事件时该控件要被更新（选项）'change' | 'blur' | submit'
+   *
+   * 2) Legacy configuration object, which consists of:
+   *
+   * 2) 传统的配置对象，它包括如下属性：
    *
    * * `validator`: A synchronous validator function, or an array of validator functions
    *
@@ -55,30 +85,50 @@ export class FormBuilder {
    *   `asyncValidator`：一个异步验证器函数或其数组
    *
    */
-  group(controlsConfig: {[key: string]: any}, extra: {[key: string]: any}|null = null): FormGroup {
+  group(
+      controlsConfig: {[key: string]: any},
+      options: AbstractControlOptions|{[key: string]: any}|null = null): FormGroup {
     const controls = this._reduceControls(controlsConfig);
-    const validator: ValidatorFn = extra != null ? extra['validator'] : null;
-    const asyncValidator: AsyncValidatorFn = extra != null ? extra['asyncValidator'] : null;
-    return new FormGroup(controls, validator, asyncValidator);
+
+    let validators: ValidatorFn|ValidatorFn[]|null = null;
+    let asyncValidators: AsyncValidatorFn|AsyncValidatorFn[]|null = null;
+    let updateOn: FormHooks|undefined = undefined;
+
+    if (options != null) {
+      if (isAbstractControlOptions(options)) {
+        // `options` are `AbstractControlOptions`
+        validators = options.validators != null ? options.validators : null;
+        asyncValidators = options.asyncValidators != null ? options.asyncValidators : null;
+        updateOn = options.updateOn != null ? options.updateOn : undefined;
+      } else {
+        // `options` are legacy form group options
+        validators = options.validator != null ? options.validator : null;
+        asyncValidators = options.asyncValidator != null ? options.asyncValidator : null;
+      }
+    }
+
+    return new FormGroup(controls, {asyncValidators, updateOn, validators});
   }
 
   /**
    * @description
-   * Construct a new `FormControl` instance.
+   * Construct a new `FormControl` with the given state, validators and options.
    *
    * 构建一个新的 `FormControl` 实例。
    *
-   * @param formState Initializes the control with an initial value,
-   * or an object that defines the initial value and disabled state.
+   * @param formState Initializes the control with an initial state value, or
+   * with an object that contains both a value and a disabled status.
    *
    * 使用一个初始值或一个定义了初始值和禁用状态的对象初始化该控件。
    *
-   * @param validator A synchronous validator function, or an array of synchronous validator
+   * @param validatorOrOpts A synchronous validator function, or an array of
+   * such functions, or an `AbstractControlOptions` object that contains
+   * validation functions and a validation trigger.
+   *
+   * 一个同步验证器函数或其数组，或者一个包含验证器函数和验证触发器的 `AbstractControlOptions` 对象。
+   *
+   * @param asyncValidator A single async validator or array of async validator
    * functions.
-   *
-   * 一个同步验证器函数或其数组。
-   *
-   * @param asyncValidator A single async validator or array of async validator functions
    *
    * 一个异步验证器函数或其数组。
    *
@@ -95,40 +145,41 @@ export class FormBuilder {
    * <code-example path="forms/ts/formBuilder/form_builder_example.ts"
    *   linenums="false" region="disabled-control">
    * </code-example>
-   *
    */
   control(
-      formState: any, validator?: ValidatorFn|ValidatorFn[]|null,
+      formState: any, validatorOrOpts?: ValidatorFn|ValidatorFn[]|AbstractControlOptions|null,
       asyncValidator?: AsyncValidatorFn|AsyncValidatorFn[]|null): FormControl {
-    return new FormControl(formState, validator, asyncValidator);
+    return new FormControl(formState, validatorOrOpts, asyncValidator);
   }
 
   /**
-   * @description
-   * Construct a new `FormArray` instance.
+   * Constructs a new `FormArray` from the given array of configurations,
+   * validators and options.
    *
    * 构造一个新的 `FormArray` 实例。
    *
-   * @param controlsConfig An array of child controls. The key for each child control is its index
-   * in the array.
+   * @param controlsConfig An array of child controls or control configs. Each
+   * child control is given an index when it is registered.
    *
    * 一个子控件数组。每个子控件的 key 都是它在数组中的索引。
    *
-   * @param validator A synchronous validator function, or an array of synchronous validator
+   * @param validatorOrOpts A synchronous validator function, or an array of
+   * such functions, or an `AbstractControlOptions` object that contains
+   * validation functions and a validation trigger.
+   *
+   * 一个同步验证器函数或其数组，或者一个包含验证器函数和验证触发器的 `AbstractControlOptions` 对象。
+   *
+   * @param asyncValidator A single async validator or array of async validator
    * functions.
    *
-   * 一个同步验证器函数或其数组。
-   *
-   * @param asyncValidator A single async validator or array of async validator functions
-   *
-   * 一个异步验证器数组或其数组。
-   *
+   * 一个异步验证器函数或其数组。
    */
   array(
-      controlsConfig: any[], validator?: ValidatorFn|ValidatorFn[]|null,
+      controlsConfig: any[],
+      validatorOrOpts?: ValidatorFn|ValidatorFn[]|AbstractControlOptions|null,
       asyncValidator?: AsyncValidatorFn|AsyncValidatorFn[]|null): FormArray {
     const controls = controlsConfig.map(c => this._createControl(c));
-    return new FormArray(controls, validator, asyncValidator);
+    return new FormArray(controls, validatorOrOpts, asyncValidator);
   }
 
   /** @internal */

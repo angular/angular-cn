@@ -76,6 +76,8 @@ enum TranslationType {
  * See {@link DatePipe} for more details.
  *
  * 欲知详情，参见 {@link DatePipe}。
+ *
+ * @publicApi
  */
 export function formatDate(
     value: string | number | Date, format: string, locale: string, timezone?: string): string {

@@ -47,6 +47,7 @@ import {Directive, DoCheck, ElementRef, Input, IterableChanges, IterableDiffer, 
  *
  *   `Object` - 每个 key 都是要处理的 CSS 类，当表达式求值为真的时候则添加，为假则移除。
  *
+ * @publicApi
  */
 @Directive({selector: '[ngClass]'})
 export class NgClass implements DoCheck {

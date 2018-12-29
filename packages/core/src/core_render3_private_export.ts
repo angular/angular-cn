@@ -15,6 +15,7 @@ export {
   defineNgModule as ɵdefineNgModule,
   detectChanges as ɵdetectChanges,
   renderComponent as ɵrenderComponent,
+  AttributeMarker as ɵAttributeMarker,
   ComponentType as ɵComponentType,
   ComponentFactory as ɵRender3ComponentFactory,
   ComponentRef as ɵRender3ComponentRef,
@@ -25,9 +26,10 @@ export {
   getFactoryOf as ɵgetFactoryOf,
   getInheritedFactory as ɵgetInheritedFactory,
   templateRefExtractor as ɵtemplateRefExtractor,
-  PublicFeature as ɵPublicFeature,
+  ProvidersFeature as ɵProvidersFeature,
   InheritDefinitionFeature as ɵInheritDefinitionFeature,
   NgOnChangesFeature as ɵNgOnChangesFeature,
+  LifecycleHooksFeature as ɵLifecycleHooksFeature,
   NgModuleType as ɵNgModuleType,
   NgModuleRef as ɵRender3NgModuleRef,
   CssSelectorList as ɵCssSelectorList,
@@ -73,6 +75,7 @@ export {
   pureFunction8 as ɵpureFunction8,
   pureFunctionV as ɵpureFunctionV,
   getCurrentView as ɵgetCurrentView,
+  getHostElement as ɵgetHostElement,
   restoreView as ɵrestoreView,
   containerRefreshStart as ɵcontainerRefreshStart,
   containerRefreshEnd as ɵcontainerRefreshEnd,
@@ -84,8 +87,12 @@ export {
   reference as ɵreference,
   enableBindings as ɵenableBindings,
   disableBindings as ɵdisableBindings,
+  allocHostVars as ɵallocHostVars,
   elementAttribute as ɵelementAttribute,
+  elementContainerStart as ɵelementContainerStart,
+  elementContainerEnd as ɵelementContainerEnd,
   elementStyling as ɵelementStyling,
+  elementHostAttrs as ɵelementHostAttrs,
   elementStylingMap as ɵelementStylingMap,
   elementStyleProp as ɵelementStyleProp,
   elementStylingApply as ɵelementStylingApply,
@@ -104,37 +111,30 @@ export {
   PipeDef as ɵPipeDef,
   PipeDefWithMeta as ɵPipeDefWithMeta,
   whenRendered as ɵwhenRendered,
-  i18nAttribute as ɵi18nAttribute,
+  i18n as ɵi18n,
+  i18nAttributes as ɵi18nAttributes,
   i18nExp as ɵi18nExp,
   i18nStart as ɵi18nStart,
   i18nEnd as ɵi18nEnd,
   i18nApply as ɵi18nApply,
-  i18nExpMapping as ɵi18nExpMapping,
-  i18nInterpolation1 as ɵi18nInterpolation1,
-  i18nInterpolation2 as ɵi18nInterpolation2,
-  i18nInterpolation3 as ɵi18nInterpolation3,
-  i18nInterpolation4 as ɵi18nInterpolation4,
-  i18nInterpolation5 as ɵi18nInterpolation5,
-  i18nInterpolation6 as ɵi18nInterpolation6,
-  i18nInterpolation7 as ɵi18nInterpolation7,
-  i18nInterpolation8 as ɵi18nInterpolation8,
-  i18nInterpolationV as ɵi18nInterpolationV,
-  i18nMapping as ɵi18nMapping,
-  I18nInstruction as ɵI18nInstruction,
-  I18nExpInstruction as ɵI18nExpInstruction,
-  WRAP_RENDERER_FACTORY2 as ɵWRAP_RENDERER_FACTORY2
+  i18nPostprocess as ɵi18nPostprocess,
+  setClassMetadata as ɵsetClassMetadata,
 } from './render3/index';
-
-export {  Render3DebugRendererFactory2 as ɵRender3DebugRendererFactory2 } from './render3/debug';
 
 
 export {
-  R3_COMPILE_NGMODULE_DEFS as ɵcompileNgModuleDefs,
-  R3_PATCH_COMPONENT_DEF_WTIH_SCOPE as ɵpatchComponentDefWithScope,
-  R3_COMPILE_COMPONENT as ɵcompileComponent,
-  R3_COMPILE_DIRECTIVE as ɵcompileDirective,
-  R3_COMPILE_PIPE as ɵcompilePipe,
-} from './ivy_switch/compiler/ivy_switch_on';
+  compileComponent as ɵcompileComponent,
+  compileDirective as ɵcompileDirective,
+} from './render3/jit/directive';
+export {
+  compileNgModule as ɵcompileNgModule,
+  compileNgModuleDefs as ɵcompileNgModuleDefs,
+  patchComponentDefWithScope as ɵpatchComponentDefWithScope,
+  resetCompiledComponents as ɵresetCompiledComponents,
+} from './render3/jit/module';
+export {
+  compilePipe as ɵcompilePipe,
+} from './render3/jit/pipe';
 
 export {
   NgModuleDef as ɵNgModuleDef,
@@ -158,7 +158,7 @@ export {
 } from './sanitization/bypass';
 
 export {
-  getContext as ɵgetContext
+  getLContext as ɵgetLContext
 } from './render3/context_discovery';
 
 export {
@@ -186,24 +186,55 @@ export {
 //
 // no code actually imports these symbols from the @angular/core entry point
 export {
-  compileNgModuleFactory__POST_NGCC__ as ɵcompileNgModuleFactory__POST_NGCC__
+  compileNgModuleFactory__POST_R3__ as ɵcompileNgModuleFactory__POST_R3__
 } from './application_ref';
 export {
-  R3_COMPILE_COMPONENT__POST_NGCC__ as ɵR3_COMPILE_COMPONENT__POST_NGCC__,
-  R3_COMPILE_DIRECTIVE__POST_NGCC__ as ɵR3_COMPILE_DIRECTIVE__POST_NGCC__,
-  R3_COMPILE_INJECTABLE__POST_NGCC__ as ɵR3_COMPILE_INJECTABLE__POST_NGCC__,
-  R3_COMPILE_NGMODULE__POST_NGCC__ as ɵR3_COMPILE_NGMODULE__POST_NGCC__,
-  R3_COMPILE_PIPE__POST_NGCC__ as ɵR3_COMPILE_PIPE__POST_NGCC__,
-  ivyEnable__POST_NGCC__ as ɵivyEnable__POST_NGCC__,
-} from './ivy_switch/compiler/legacy';
+  SWITCH_COMPILE_COMPONENT__POST_R3__ as ɵSWITCH_COMPILE_COMPONENT__POST_R3__,
+  SWITCH_COMPILE_DIRECTIVE__POST_R3__ as ɵSWITCH_COMPILE_DIRECTIVE__POST_R3__,
+  SWITCH_COMPILE_PIPE__POST_R3__ as ɵSWITCH_COMPILE_PIPE__POST_R3__,
+} from './metadata/directives';
+export {
+  SWITCH_COMPILE_NGMODULE__POST_R3__ as ɵSWITCH_COMPILE_NGMODULE__POST_R3__,
+} from './metadata/ng_module';
+export {
+  getDebugNode__POST_R3__ as ɵgetDebugNode__POST_R3__,
+} from './debug/debug_node';
+export {
+  SWITCH_COMPILE_INJECTABLE__POST_R3__ as ɵSWITCH_COMPILE_INJECTABLE__POST_R3__,
+} from './di/injectable';
+export {
+  SWITCH_IVY_ENABLED__POST_R3__ as ɵSWITCH_IVY_ENABLED__POST_R3__,
+} from './ivy_switch';
+export {
+  SWITCH_CHANGE_DETECTOR_REF_FACTORY__POST_R3__ as ɵSWITCH_CHANGE_DETECTOR_REF_FACTORY__POST_R3__,
+} from './change_detection/change_detector_ref';
+export {
+  Compiler_compileModuleSync__POST_R3__ as ɵCompiler_compileModuleSync__POST_R3__,
+  Compiler_compileModuleAsync__POST_R3__ as ɵCompiler_compileModuleAsync__POST_R3__,
+  Compiler_compileModuleAndAllComponentsSync__POST_R3__ as ɵCompiler_compileModuleAndAllComponentsSync__POST_R3__,
+  Compiler_compileModuleAndAllComponentsAsync__POST_R3__ as ɵCompiler_compileModuleAndAllComponentsAsync__POST_R3__,
+} from './linker/compiler';
+export {
+  SWITCH_ELEMENT_REF_FACTORY__POST_R3__ as ɵSWITCH_ELEMENT_REF_FACTORY__POST_R3__,
+} from './linker/element_ref';
+export {
+  SWITCH_TEMPLATE_REF_FACTORY__POST_R3__ as ɵSWITCH_TEMPLATE_REF_FACTORY__POST_R3__,
+} from './linker/template_ref';
+export {
+  SWITCH_VIEW_CONTAINER_REF_FACTORY__POST_R3__ as ɵSWITCH_VIEW_CONTAINER_REF_FACTORY__POST_R3__,
+} from './linker/view_container_ref';
+export {
+  SWITCH_RENDERER2_FACTORY__POST_R3__ as ɵSWITCH_RENDERER2_FACTORY__POST_R3__,
+} from './render/api';
+
+export {getModuleFactory__POST_R3__ as ɵgetModuleFactory__POST_R3__} from './linker/ng_module_factory_loader';
 
 export {
-  R3_ELEMENT_REF_FACTORY__POST_NGCC__ as ɵR3_ELEMENT_REF_FACTORY__POST_NGCC__,
-  R3_TEMPLATE_REF_FACTORY__POST_NGCC__ as ɵR3_TEMPLATE_REF_FACTORY__POST_NGCC__,
-  R3_CHANGE_DETECTOR_REF_FACTORY__POST_NGCC__ as ɵR3_CHANGE_DETECTOR_REF_FACTORY__POST_NGCC__,
-  R3_VIEW_CONTAINER_REF_FACTORY__POST_NGCC__ as ɵR3_VIEW_CONTAINER_REF_FACTORY__POST_NGCC__,
-  R3_RENDERER2_FACTORY__POST_NGCC__ as ɵR3_RENDERER2_FACTORY__POST_NGCC__,
-} from './ivy_switch/runtime/legacy';
-
+  publishGlobalUtil as ɵpublishGlobalUtil,
+  publishDefaultGlobalUtils as ɵpublishDefaultGlobalUtils
+} from './render3/global_utils';
+export {
+  SWITCH_INJECTOR_FACTORY__POST_R3__ as ɵSWITCH_INJECTOR_FACTORY__POST_R3__,
+} from './di/injector';
 
 // clang-format on

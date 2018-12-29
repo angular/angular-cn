@@ -36,10 +36,10 @@ When you’re done, users will be able to navigate the app like this:
 
 ## 添加 `AppRoutingModule`
 
-An Angular best practice is to load and configure the router in a separate, top-level module
+In Angular, the best practice is to load and configure the router in a separate, top-level module
 that is dedicated to routing and imported by the root `AppModule`.
 
-Angular 的最佳实践之一就是在一个独立的顶级模块中加载和配置路由器，它专注于路由功能，然后由根模块 `AppModule` 导入它。
+在 Angular 中，最好在一个独立的顶级模块中加载和配置路由器，它专注于路由功能，然后由根模块 `AppModule` 导入它。
 
 By convention, the module class name is `AppRoutingModule` and it belongs in the `app-routing.module.ts` in the `src/app` folder.
 

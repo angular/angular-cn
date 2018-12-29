@@ -104,7 +104,6 @@ When you create a component, it's associated directly with a single view, called
   **Note:** The hierarchical structure of views is a key factor in the way Angular detects and responds to changes in the DOM and app data. 
 
   **注意：** 视图的这种层次结构是 Angular 在 DOM 和应用数据中检测与响应变更时的关键因素。
-
 </div>
 
 ## NgModules and JavaScript modules

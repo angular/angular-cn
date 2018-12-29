@@ -21,6 +21,11 @@ export interface Decorator {
   name: string;
 
   /**
+   * Identifier which refers to the decorator in source.
+   */
+  identifier: ts.Identifier;
+
+  /**
    * `Import` by which the decorator was brought into the module in which it was invoked, or `null`
    * if the decorator was declared in the same module and not imported.
    */
@@ -167,12 +172,22 @@ export interface CtorParameter {
   nameNode: ts.BindingName;
 
   /**
-   * TypeScript `ts.Expression` representing the type of the parameter, if the type is a simple
-   * expression type.
+   * TypeScript `ts.Expression` representing the type value of the parameter, if the type is a
+   * simple
+   * expression type that can be converted to a value.
    *
    * If the type is not present or cannot be represented as an expression, `type` is `null`.
    */
-  type: ts.Expression|null;
+  typeExpression: ts.Expression|null;
+
+  /**
+   * TypeScript `ts.TypeNode` representing the type node found in the type position.
+   *
+   * This field can be used for diagnostics reporting if `typeExpression` is `null`.
+   *
+   * Can be null, if the param has no type declared.
+   */
+  typeNode: ts.TypeNode|null;
 
   /**
    * Any `Decorator`s which are present on the parameter, or `null` if none are present.
@@ -408,7 +423,7 @@ export interface ReflectionHost {
   /**
    * Check whether the given node actually represents a class.
    */
-  isClass(node: ts.Node): boolean;
+  isClass(node: ts.Node): node is ts.NamedDeclaration;
 
   hasBaseClass(node: ts.Declaration): boolean;
 
@@ -431,4 +446,18 @@ export interface ReflectionHost {
    * if the value cannot be computed.
    */
   getVariableValue(declaration: ts.VariableDeclaration): ts.Expression|null;
+
+  /**
+   * Take an exported declaration (maybe a class down-leveled to a variable) and look up the
+   * declaration of its type in a separate .d.ts tree.
+   *
+   * This function is allowed to return `null` if the current compilation unit does not have a
+   * separate .d.ts tree. When compiling TypeScript code this is always the case, since .d.ts files
+   * are produced only during the emit of such a compilation. When compiling .js code, however,
+   * there is frequently a parallel .d.ts tree which this method exposes.
+   *
+   * Note that the `ts.Declaration` returned from this function may not be from the same
+   * `ts.Program` as the input declaration.
+   */
+  getDtsDeclaration(declaration: ts.Declaration): ts.Declaration|null;
 }

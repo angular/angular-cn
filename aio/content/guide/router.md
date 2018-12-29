@@ -4251,12 +4251,14 @@ A guard's return value controls the router's behavior:
    如果它返回 `true`，导航过程会继续
 
 * If it returns `false`, the navigation process stops and the user stays put.
+* If it returns a `UrlTree`, the current navigation cancels and a new navigation is initiated to the `UrlTree` returned.
 
    如果它返回 `false`，导航过程会终止，且用户会留在原地。
 
 <div class="alert is-helpful">
 
-**Note:**The guard can also tell the router to navigate elsewhere, effectively canceling the current navigation.
+**Note:**The guard can also tell the router to navigate elsewhere, effectively canceling the current navigation. When
+doing so inside a guard, the guard should return `false`;
 
 **注意**：守卫还可以告诉路由器导航到别处，这样也取消当前的导航。
 

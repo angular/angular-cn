@@ -8,10 +8,12 @@
 
 import {ChangeDetectionStrategy} from '../change_detection/constants';
 import {Provider} from '../di';
-import {R3_COMPILE_COMPONENT, R3_COMPILE_DIRECTIVE, R3_COMPILE_PIPE} from '../ivy_switch/compiler/index';
 import {NG_BASE_DEF} from '../render3/fields';
+import {compileComponent as render3CompileComponent, compileDirective as render3CompileDirective} from '../render3/jit/directive';
+import {compilePipe as render3CompilePipe} from '../render3/jit/pipe';
 import {Type} from '../type';
 import {TypeDecorator, makeDecorator, makePropDecorator} from '../util/decorators';
+import {noop} from '../util/noop';
 import {fillProperties} from '../util/property';
 
 import {ViewEncapsulation} from './view';
@@ -22,6 +24,7 @@ import {ViewEncapsulation} from './view';
  * Type of the Directive decorator / constructor function.
  *
  * 指令装饰器的类型和构造函数。
+ * @publicApi
  */
 export interface DirectiveDecorator {
   /**
@@ -93,9 +96,16 @@ export interface DirectiveDecorator {
   new (obj: Directive): Directive;
 }
 
+/**
+ * Directive decorator and metadata.
+ *
+ * @Annotation
+ * @publicApi
+ */
 export interface Directive {
   /**
-   * The CSS selector that triggers the instantiation of a directive.
+   * The CSS selector that identifies this directive in a template
+   * and triggers instantiation of the directive.
    *
    * 这个 CSS 选择器用于触发指令的实例化。
    *
@@ -103,34 +113,35 @@ export interface Directive {
    *
    * 可使用下列形式之一：
    *
-   * - `element-name`: select by element name.
+   * - `element-name`: Select by element name.
    *
    *   `element-name`：根据元素名选取。
    *
-   * - `.class`: select by class name.
+   * - `.class`: Select by class name.
    *
    *   `.class`：根据类名选取。
    *
-   * - `[attribute]`: select by attribute name.
+   * - `[attribute]`: Select by attribute name.
    *
    *   `[attribute]`：根据属性名选取。
    *
-   * - `[attribute=value]`: select by attribute name and value.
+   * - `[attribute=value]`: Select by attribute name and value.
    *
    *   `[attribute=value]`：根据属性名和属性值选取。
    *
-   * - `:not(sub_selector)`: select only if the element does not match the `sub_selector`.
+   * - `:not(sub_selector)`: Select only if the element does not match the `sub_selector`.
    *
    *   `:not(sub_selector)`：只有当元素不匹配子选择器 `sub_selector` 的时候才选取。
    *
-   * - `selector1, selector2`: select if either `selector1` or `selector2` matches.
+   * - `selector1, selector2`: Select if either `selector1` or `selector2` matches.
    *
    *   `selector1, selector2`：无论 `selector1` 还是 `selector2` 匹配时都选取。
    *
-   * Angular only allows directives to trigger on CSS selectors that do not cross element
-   * boundaries. For example, consider a directive with an `input[type=text]` selector.
-   * For the following HTML, the directive is instantiated only on the
-   * `<input type="text">` element.
+   * Angular only allows directives to apply on CSS selectors that do not cross
+   * element boundaries.
+   *
+   * For the following template HTML, a directive with an `input[type=text]` selector,
+   * would be instantiated only on the `<input type="text">` element.
    *
    * Angular 的指令只允许那些不跨元素边界的 CSS 选择器。比如，考虑一个带有 `input[type=text]` 选择器的指令。
    * 对于下列 HTML，该指令只会在 `<input type="text">` 元素上实例化。
@@ -192,6 +203,7 @@ export interface Directive {
    *   id: string;
    *
    * ```
+   *
    */
   inputs?: string[];
 
@@ -239,12 +251,14 @@ export interface Directive {
    * class MainComponent {
    * }
    * ```
+   *
    */
   outputs?: string[];
 
   /**
-   * A set of injection tokens that allow the DI system to
-   * provide a dependency to this directive or component.
+   * Configures the [injector](guide/glossary#injector) of this
+   * directive or component with a [token](guide/glossary#di-token)
+   * that maps to a [provider](guide/glossary#provider) of a dependency.
    *
    * 一组依赖注入令牌，它允许 DI 系统为这个指令或组件提供依赖。
    */
@@ -276,6 +290,7 @@ export interface Directive {
    * class MainComponent {
    * }
    * ```
+   *
    */
   exportAs?: string;
 
@@ -329,103 +344,6 @@ export interface Directive {
   queries?: {[key: string]: any};
 
   /**
-   * If true, this directive/component will be skipped by the AOT compiler and so will always be
-   * compiled using JIT.
-   *
-   * 如果为 `true`，则该指令/组件将会被 AOT 编译器忽略，因此永远只会被 JIT 编译。
-   *
-   * This exists to support future Ivy work and has no effect currently.
-   *
-   * 这个选项是为了支持未来的 Ivy 编译器，目前还没有效果。
-   */
-  jit?: true;
-}
-
-/**
- * Directive decorator and metadata.
- *
- * 指令的装饰器和元数据
- *
- * @Annotation
- */
-export interface Directive {
-  /**
-   * The CSS selector that identifies this directive in a template
-   * and triggers instantiation of the directive.
-   *
-   * 这个 CSS 选择器用于在模板中标记出该指令，并触发该指令的实例化。
-   *
-   * Declare as one of the following:
-   *
-   * 可使用下列形式之一：
-   *
-   * - `element-name`: Select by element name.
-   *
-   *   `element-name`：根据元素名选取。
-   *
-   * - `.class`: Select by class name.
-   *
-   *   `.class`：根据类名选取。
-   *
-   * - `[attribute]`: Select by attribute name.
-   *
-   *   `[attribute]`：根据属性名选取。
-   *
-   * - `[attribute=value]`: Select by attribute name and value.
-   *
-   *   `[attribute=value]`：根据属性名和属性值选取。
-   *
-   * - `:not(sub_selector)`: Select only if the element does not match the `sub_selector`.
-   *
-   *   `:not(sub_selector)`：只有当元素不匹配子选择器 `sub_selector` 的时候才选取。
-   *
-   * - `selector1, selector2`: Select if either `selector1` or `selector2` matches.
-   *
-   *   `selector1, selector2`：无论 `selector1` 还是 `selector2` 匹配时都选取。
-   *
-   * Angular only allows directives to apply on CSS selectors that do not cross
-   * element boundaries.
-   *
-   * Angular 只允许指令使用那些不跨元素边界的 CSS 选择器。
-   *
-   * For the following template HTML, a directive with an `input[type=text]` selector,
-   * would be instantiated only on the `<input type="text">` element.
-   *
-   * 对于下列模板 HTML，具有 `input[type=text]` 选择器的指令只会在 `<input type="text">` 元素上实例化。
-   *
-   * ```html
-   * <form>
-   *   <input type="text">
-   *   <input type="radio">
-   * <form>
-   * ```
-   *
-   */
-  selector?: string;
-
-  /**
-   * The set of event-bound output properties.
-   * When an output property emits an event, an event handler attached
-   * to that event in the template is invoked.
-   *
-   * 一组可供事件绑定的输出属性。当输出属性发出事件时，就会调用模板中一个附加到该事件的处理器。
-   *
-   * Each output property maps a `directiveProperty` to a `bindingProperty`:
-   *
-   * 每个输出属性都会把 `directiveProperty` 映射到 `bindingProperty`：
-   *
-   * - `directiveProperty` specifies the component property that emits events.
-   *
-   *   `directiveProperty` 指定要发出事件的组件属性。
-   *
-   * - `bindingProperty` specifies the HTML attribute the event handler is attached to.
-   *
-   *   `bindingProperty` 指定要附加事件处理器的 HTML 属性。
-   *
-   */
-  outputs?: string[];
-
-  /**
    * Maps class properties to host element bindings for properties,
    * attributes, and events, using a set of key-value pairs.
    *
@@ -470,51 +388,34 @@ export interface Directive {
   host?: {[key: string]: string};
 
   /**
-   * Configures the [injector](guide/glossary#injector) of this
-   * directive or component with a [token](guide/glossary#di-token)
-   * that maps to a [provider](guide/glossary#provider) of a dependency.
+   * If true, this directive/component will be skipped by the AOT compiler and so will always be
+   * compiled using JIT.
    *
-   * 使用一个 [令牌](guide/glossary#di-token) 配置该指令或组件的 [注入器](guide/glossary#injector)，该令牌会映射到一个依赖项的[提供商](guide/glossary#provider)。
+   * 如果为 true，则该指令/组件将会被 AOT 编译器忽略，始终使用 JIT 编译。
+   *
+   * This exists to support future Ivy work and has no effect currently.
+   *
+   * 该属性用来支持未来的 Ivy 工作。
    */
-  providers?: Provider[];
-
-  /**
-   * The name or names that can be used in the template to assign this directive to a variable.
-   * For multiple names, use a comma-separated string.
-   *
-   * 一个或多个名字，可以用来在模板中把该指令赋值给一个变量。当有多个名字时，请使用逗号分隔它们。
-   *
-   */
-  exportAs?: string;
-
-  /**
-   * Configures the queries that will be injected into the directive.
-   *
-   * 配置将要注入到该指令中的一些查询。
-   *
-   * Content queries are set before the `ngAfterContentInit` callback is called.
-   * View queries are set before the `ngAfterViewInit` callback is called.
-   *
-   * 内容查询会在调用 `ngAfterContentInit` 回调之前设置好。
-   * 试图查询会在调用 `ngAfterViewInit` 回调之前设置好。
-   *
-   */
-  queries?: {[key: string]: any};
+  jit?: true;
 }
 
 /**
  * Type of the Directive metadata.
  *
  * 指令元数据的类型。
+ *
+ * @publicApi
  */
 export const Directive: DirectiveDecorator = makeDecorator(
     'Directive', (dir: Directive = {}) => dir, undefined, undefined,
-    (type: Type<any>, meta: Directive) => R3_COMPILE_DIRECTIVE(type, meta));
+    (type: Type<any>, meta: Directive) => SWITCH_COMPILE_DIRECTIVE(type, meta));
 
 /**
  * Component decorator interface
  * 组件装饰器的接口
  *
+ * @publicApi
  */
 export interface ComponentDecorator {
   /**
@@ -614,6 +515,67 @@ export interface ComponentDecorator {
    *
    * ```
    *
+   * ### Preserving whitespace
+   *
+   * Removing whitespace can greatly reduce AOT-generated code size and speed up view creation.
+   * As of Angular 6, the default for `preserveWhitespaces` is false (whitespace is removed).
+   * To change the default setting for all components in your application, set
+   * the `preserveWhitespaces` option of the AOT compiler.
+   *
+   * By default, the AOT compiler removes whitespace characters as follows:
+   * * Trims all whitespaces at the beginning and the end of a template.
+   * * Removes whitespace-only text nodes. For example,
+   *
+   * ```
+   * <button>Action 1</button>  <button>Action 2</button>
+   * ```
+   *
+   * becomes:
+   *
+   * ```
+   * <button>Action 1</button><button>Action 2</button>
+   * ```
+   *
+   * * Replaces a series of whitespace characters in text nodes with a single space.
+   * For example, `<span>\n some text\n</span>` becomes `<span> some text </span>`.
+   * * Does NOT alter text nodes inside HTML tags such as `<pre>` or `<textarea>`,
+   * where whitespace characters are significant.
+   *
+   * Note that these transformations can influence DOM nodes layout, although impact
+   * should be minimal.
+   *
+   * You can override the default behavior to preserve whitespace characters
+   * in certain fragments of a template. For example, you can exclude an entire
+   * DOM sub-tree by using the `ngPreserveWhitespaces` attribute:
+   *
+   * ```html
+   * <div ngPreserveWhitespaces>
+   *     whitespaces are preserved here
+   *     <span>    and here </span>
+   * </div>
+   * ```
+   *
+   * You can force a single space to be preserved in a text node by using `&ngsp;`,
+   * which is replaced with a space character by Angular's template
+   * compiler:
+   *
+   * ```html
+   * <a>Spaces</a>&ngsp;<a>between</a>&ngsp;<a>links.</a>
+   * <!-->compiled to be equivalent to:</>
+   *  <a>Spaces</a> <a>between</a> <a>links.</a>
+   * ```
+   *
+   * Note that sequences of `&ngsp;` are still collapsed to just one space character when
+   * the `preserveWhitespaces` option is set to `false`.
+   *
+   * ```html
+   * <a>before</a>&ngsp;&ngsp;&ngsp;<a>after</a>
+   * <!-->compiled to be equivalent to:</>
+   *  <a>Spaces</a> <a>between</a> <a>links.</a>
+   * ```
+   *
+   * To preserve sequences of whitespace characters, use the
+   * `ngPreserveWhitespaces` attribute.
    *
    * @Annotation
    */
@@ -630,6 +592,8 @@ export interface ComponentDecorator {
  * Supplies configuration metadata for an Angular component.
  *
  * 为 Angular 组件提供配置元数据。
+ *
+ * @publicApi
  */
 export interface Component extends Directive {
   /**
@@ -782,136 +746,20 @@ export interface Component extends Directive {
  *
  * 组件装饰器与元数据
  *
- * @usageNotes
- *
- * ### Using animations
- *
- * ### 使用动画
- *
- * The following snippet shows an animation trigger in a component's
- * metadata. The trigger is attached to an element in the component's
- * template, using "@_trigger_name_", and a state expression that is evaluated
- * at run time to determine whether the animation should start.
- *
- * 下列代码片段展示了组件元数据中的一些动画触发器。
- * 该触发器会附加到组件模板中的某个元素上（使用 "@_trigger_name_"），并在运行期间计算一个状态表达式，以决定该启动哪个动画。
- *
- * ```typescript
- * @Component({
- *   selector: 'animation-cmp',
- *   templateUrl: 'animation-cmp.html',
- *   animations: [
- *     trigger('myTriggerName', [
- *       state('on', style({ opacity: 1 }),
- *       state('off', style({ opacity: 0 }),
- *       transition('on => off', [
- *         animate("1s")
- *       ])
- *     ])
- *   ]
- * })
- * ```
- *
- * ```html
- * <!-- animation-cmp.html -->
- * <div @myTriggerName="expression">...</div>
- * ```
- *
- * ### Preserving whitespace
- *
- * ### 保留空白
- *
- * Removing whitespace can greatly reduce AOT-generated code size, and speed up view creation.
- * As of Angular 6, default for `preserveWhitespaces` is false (whitespace is removed).
- * To change the default setting for all components in your application, set
- * the `preserveWhitespaces` option of the AOT compiler.
- *
- * 移除空白可以大幅减小 AOT 生成的代码的体积，并能更快速的创建视图。
- * 对于 Angular 6，`preserveWhitespaces` 的默认值是 `false`（也就是说将移除空白）。
- * 如果要修改应用中所有组件的默认设置，请设置 AOT 编译器的 `preserveWhitespaces` 选项。
- *
- * Current implementation removes whitespace characters as follows:
- *
- * 当前的实现会按照下列规则移除空白字符：
- *
- * - Trims all whitespaces at the beginning and the end of a template.
- *
- *   移除模板开头和结尾处的所有空白。
- *
- * - Removes whitespace-only text nodes. For example,
- * `<button>Action 1</button>  <button>Action 2</button>` becomes
- * `<button>Action 1</button><button>Action 2</button>`.
- *
- *   移除只有空白字符的文本节点。比如：
- * `<button>Action 1</button>  <button>Action 2</button>` 会变成
- * `<button>Action 1</button><button>Action 2</button>`.
- *
- * - Replaces a series of whitespace characters in text nodes with a single space.
- * For example, `<span>\n some text\n</span>` becomes `<span> some text </span>`.
- *
- *   把文本节点内部的一系列空白字符替换为单个空格。比如`<span>\n some text\n</span>` 会变成 `<span> some text </span>`。
- *
- * - Does NOT alter text nodes inside HTML tags such as `<pre>` or `<textarea>`,
- * where whitespace characters are significant.
- *
- *   不会修改某些 HTML 标签（如 `<pre>` 或 `<textarea>`）内部的文本节点 —— 它们的空白字符是有意义的。
- *
- * Note that these transformations can influence DOM nodes layout, although impact
- * should be minimal.
- *
- * 注意，这些转换可能会影响 DOM 节点的布局，但是这种影响很小。
- *
- * You can override the default behavior to preserve whitespace characters
- * in certain fragments of a template. For example, you can exclude an entire
- * DOM sub-tree by using the `ngPreserveWhitespaces` attribute:
- *
- * 你可以改写它的默认行为，以在模板中的特定片段中保留空白字符。比如，你可以使用 `ngPreserveWhitespaces` 属性来豁免整个 DOM 子树：
- *
- * ```html
- * <div ngPreserveWhitespaces>
- *     whitespaces are preserved here
- *     <span>    and here </span>
- * </div>
- * ```
- *
- * You can force a single space to be preserved in a text node by using `&ngsp;`,
- * which is replaced with a space character by Angular's template
- * compiler:
- *
- * 你还可以使用 `&ngsp;` 来强制在文本节点中保留单个空格，`&ngsp;` 会被 Angular 的模板编译器替换为单个空格：
- *
- * ```html
- * <a>Spaces</a>&ngsp;<a>between</a>&ngsp;<a>links.</a>
- * <!-->compiled to be equivalent to:</>
- *  <a>Spaces</a> <a>between</a> <a>links.</a>
- * ```
- *
- * Note that sequences of `&ngsp;` are still collapsed to just one space character when
- * the `preserveWhitespaces` option is set to `false`.
- *
- * 注意，即使把 `preserveWhitespaces` 选项设置为 `false`，`&ngsp;` 序列也仍然会被压缩成单个空格字符。
- *
- * ```html
- * <a>before</a>&ngsp;&ngsp;&ngsp;<a>after</a>
- * <!-->compiled to be equivalent to:</>
- *  <a>Spaces</a> <a>between</a> <a>links.</a>
- * ```
- *
- * To preserve sequences of whitespace characters, use the
- * `ngPreserveWhitespaces` attribute.
- *
- * 要想完整的保留空白字符序列，请使用 `ngPreserveWhitespaces` 属性。
- *
  * @Annotation
+ * @publicApi
  */
 export const Component: ComponentDecorator = makeDecorator(
     'Component', (c: Component = {}) => ({changeDetection: ChangeDetectionStrategy.Default, ...c}),
-    Directive, undefined, (type: Type<any>, meta: Component) => R3_COMPILE_COMPONENT(type, meta));
+    Directive, undefined,
+    (type: Type<any>, meta: Component) => SWITCH_COMPILE_COMPONENT(type, meta));
 
 /**
  * Type of the Pipe decorator / constructor function.
  *
  * Pipe 装饰器的类型和构造函数。
+ *
+ * @publicApi
  */
 export interface PipeDecorator {
   /**
@@ -933,6 +781,8 @@ export interface PipeDecorator {
  * Type of the Pipe metadata.
  *
  * Pipe 元数据的类型。
+ *
+ * @publicApi
  */
 export interface Pipe {
   /**
@@ -961,17 +811,16 @@ export interface Pipe {
 }
 
 /**
- *
- *
  * @Annotation
+ * @publicApi
  */
 export const Pipe: PipeDecorator = makeDecorator(
     'Pipe', (p: Pipe) => ({pure: true, ...p}), undefined, undefined,
-    (type: Type<any>, meta: Pipe) => R3_COMPILE_PIPE(type, meta));
+    (type: Type<any>, meta: Pipe) => SWITCH_COMPILE_PIPE(type, meta));
 
 
 /**
- *
+ * @publicApi
  */
 export interface InputDecorator {
   /**
@@ -1009,6 +858,7 @@ export interface InputDecorator {
  *
  * `Input` 属性的元数据类型。
  *
+ * @publicApi
  */
 export interface Input {
   /**
@@ -1062,6 +912,7 @@ export interface Input {
    *
    * class App {}
    * ```
+   *
    */
   bindingPropertyName?: string;
 }
@@ -1101,8 +952,8 @@ const updateBaseDefFromIOProp = (getProp: (baseDef: {inputs?: any, outputs?: any
     };
 
 /**
- *
  * @Annotation
+ * @publicApi
  */
 export const Input: InputDecorator = makePropDecorator(
     'Input', (bindingPropertyName?: string) => ({bindingPropertyName}), undefined,
@@ -1112,6 +963,8 @@ export const Input: InputDecorator = makePropDecorator(
  * Type of the Output decorator / constructor function.
  *
  * `Output` 装饰器的类型和构造函数。
+ *
+ * @publicApi
  */
 export interface OutputDecorator {
   /**
@@ -1144,12 +997,14 @@ export interface OutputDecorator {
  * Type of the Output metadata.
  *
  * `Output` 元数据的类型。
+ *
+ * @publicApi
  */
 export interface Output { bindingPropertyName?: string; }
 
 /**
- *
  * @Annotation
+ * @publicApi
  */
 export const Output: OutputDecorator = makePropDecorator(
     'Output', (bindingPropertyName?: string) => ({bindingPropertyName}), undefined,
@@ -1162,6 +1017,8 @@ export const Output: OutputDecorator = makePropDecorator(
  *
  * HostBinding 装饰器的类型和构造函数。
  *
+ *
+ * @publicApi
  */
 export interface HostBindingDecorator {
   /**
@@ -1196,6 +1053,7 @@ export interface HostBindingDecorator {
    *   prop;
    * }
    * ```
+   *
    */
   (hostPropertyName?: string): any;
   new (hostPropertyName?: string): any;
@@ -1206,12 +1064,13 @@ export interface HostBindingDecorator {
  *
  * HostBinding 元数据的类型。
  *
+ * @publicApi
  */
 export interface HostBinding { hostPropertyName?: string; }
 
 /**
- *
  * @Annotation
+ * @publicApi
  */
 export const HostBinding: HostBindingDecorator =
     makePropDecorator('HostBinding', (hostPropertyName?: string) => ({hostPropertyName}));
@@ -1221,6 +1080,8 @@ export const HostBinding: HostBindingDecorator =
  * Type of the HostListener decorator / constructor function.
  *
  * HostListener 装饰器的类型和构造函数。
+ *
+ * @publicApi
  */
 export interface HostListenerDecorator {
   (eventName: string, args?: string[]): any;
@@ -1231,6 +1092,8 @@ export interface HostListenerDecorator {
  * Type of the HostListener metadata.
  *
  * HostListener 元数据的类型。
+ *
+ * @publicApi
  */
 export interface HostListener {
   /**
@@ -1283,6 +1146,21 @@ export interface HostListener {
  * ```
  *
  * @Annotation
+ * @publicApi
  */
 export const HostListener: HostListenerDecorator =
     makePropDecorator('HostListener', (eventName?: string, args?: string[]) => ({eventName, args}));
+
+
+
+export const SWITCH_COMPILE_COMPONENT__POST_R3__ = render3CompileComponent;
+export const SWITCH_COMPILE_DIRECTIVE__POST_R3__ = render3CompileDirective;
+export const SWITCH_COMPILE_PIPE__POST_R3__ = render3CompilePipe;
+
+const SWITCH_COMPILE_COMPONENT__PRE_R3__ = noop;
+const SWITCH_COMPILE_DIRECTIVE__PRE_R3__ = noop;
+const SWITCH_COMPILE_PIPE__PRE_R3__ = noop;
+
+const SWITCH_COMPILE_COMPONENT: typeof render3CompileComponent = SWITCH_COMPILE_COMPONENT__PRE_R3__;
+const SWITCH_COMPILE_DIRECTIVE: typeof render3CompileDirective = SWITCH_COMPILE_DIRECTIVE__PRE_R3__;
+const SWITCH_COMPILE_PIPE: typeof render3CompilePipe = SWITCH_COMPILE_PIPE__PRE_R3__;

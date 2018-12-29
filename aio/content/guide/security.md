@@ -169,7 +169,7 @@ vulnerability. For example, code contained in a `<script>` tag is executed:
 </code-example>
 
 Angular recognizes the value as unsafe and automatically sanitizes it, which removes the `<script>`
-tag but keeps safe content such as the text content of the `<script>` tag and the `<b>` element.
+tag but keeps safe content such as the `<b>` element.
 
 Angular 认为这些值是不安全的，并自动进行无害化处理。它会移除 `<script>` 标签，但保留安全的内容，比如该片段中的文本内容或 `<b>` 元素。
 

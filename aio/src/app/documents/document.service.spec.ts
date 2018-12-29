@@ -7,8 +7,7 @@ import { LocationService } from 'app/shared/location.service';
 import { MockLocationService } from 'testing/location.service';
 import { Logger } from 'app/shared/logger.service';
 import { MockLogger } from 'testing/logger.service';
-import { DocumentService, DocumentContents,
-         FETCHING_ERROR_ID, FILE_NOT_FOUND_ID } from './document.service';
+import { DocumentContents, DocumentService, FETCHING_ERROR_ID, FILE_NOT_FOUND_ID } from './document.service';
 
 
 const CONTENT_URL_PREFIX = 'generated/docs/';
@@ -113,6 +112,7 @@ describe('DocumentService', () => {
 
       httpMock.expectOne({}).flush(null, {status: 500, statusText: 'Server Error'});
       expect(latestDocument.id).toEqual(FETCHING_ERROR_ID);
+      expect(latestDocument.contents).toContain('We are unable to retrieve the "initial/doc" page at this time.');
       expect(logger.output.error).toEqual([
         [jasmine.any(Error)]
       ]);

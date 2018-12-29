@@ -34,6 +34,7 @@ import {COMMON_PIPES} from './pipes/index';
  *
  *   `exports` 选项让这里声明的指令和管道可以被导入到其它 NgModule 中。
  *
+ * @publicApi
  */
 @NgModule({
   declarations: [COMMON_DIRECTIVES, COMMON_PIPES],
@@ -53,6 +54,7 @@ export class CommonModule {
  * @deprecated from v5
  *
  * 从 Angular v5 开始
+ * @publicApi
  */
 @NgModule({
   declarations: [COMMON_DEPRECATED_I18N_PIPES],

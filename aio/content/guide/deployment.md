@@ -3,7 +3,7 @@
 # 部署
 
 When you are ready to deploy your Angular application to a remote server, you have various options for
-deployment. 
+deployment.
 
 当你准备把 Angular 应用部署到远程服务器上时，有很多关于部署的选项。
 
@@ -15,16 +15,16 @@ deployment.
 
 ## 最简化的部署方式
 
-For the simplest deployment, build for development and copy the output directory to a web server.
+For the simplest deployment, create a production build and copy the output directory to a web server.
 
 最简化的部署方式就是为开发环境构建，并把其输出复制到 Web 服务器上。
 
-1. Start with the development build:
+1. Start with the production build:
 
    使用开发环境进行构建
 
   <code-example language="none" class="code-shell">
-    ng build
+    ng build --prod
   </code-example>
 
 2. Copy _everything_ within the output folder (`dist/` by default) to a folder on the server.
@@ -37,8 +37,7 @@ Learn more about server-side redirects [below](#fallback).
    配置服务器，让缺失的文件都重定向到 `index.html` 上。
    欲知详情，参见[稍后](#fallback)的服务端重定向部分。
 
-This is _not_ a production deployment. It's not optimized, and it won't be fast for users.
-It might be good enough for sharing your progress and ideas internally with managers, teammates, and other stakeholders. For the next steps in deployment, see [Optimize for production](#optimize).
+This is the simplest production-ready deployment of your application.
 
 这*不是*生产环境部署。它没有优化过，对最终用户来说也不快。
 但是，这足够用来跟管理者、团队成员和其它涉众在内部分享你的进度和想法了。
@@ -54,7 +53,7 @@ Another simple way to deploy your Angular app is to use [GitHub Pages](https://h
 
 另一种发布 Angular 应用的简单途径是使用 [GitHub Pages](https://help.github.com/articles/what-is-github-pages/)。
 
-1. You need to [create a GitHub account](https://github.com/join) if you don't have one, and then [create a repository](https://help.github.com/articles/create-a-repo/) for your project. 
+1. You need to [create a GitHub account](https://github.com/join) if you don't have one, and then [create a repository](https://help.github.com/articles/create-a-repo/) for your project.
 Make a note of the user name and project name in GitHub.
 
    你需要[创建一个 GitHub 账号](https://github.com/join)（如果没有的话），然后为你的项目[创建一个仓库](https://help.github.com/articles/create-a-repo/)。记下 GitHub 中的用户名和项目名。
@@ -67,11 +66,11 @@ Make a note of the user name and project name in GitHub.
      ng build --prod --output-path docs --base-href <project_name>
     </code-example>
 
-1. When the build is complete, make a copy of `docs/index.html` and name it `docs/404.html`. 
+1. When the build is complete, make a copy of `docs/index.html` and name it `docs/404.html`.
 
    当构建完成时，把 `docs/index.html` 复制为 `docs/404.html`。
 
-1. Commit your changes and push. 
+1. Commit your changes and push.
 
    提交你的更改，并推送。
 
@@ -164,82 +163,6 @@ The list is by no means exhaustive, but should provide you with a good starting 
 没有一种配置可以适用于所有服务器。
 后面这些部分会描述对常见服务器的配置方式。
 这个列表虽然不够详尽，但可以为你提供一个良好的起点。
-
-#### Development servers
-
-#### 开发服务器
-
-During development, the [`ng serve`](cli/serve) CLI command lets you run your app in a local browser. 
-The CLI recompiles the application each time you save a file, 
-and reloads the browser with the newly compiled application. 
-
-在开发期间，CLI 命令 [`ng serve`](cli/serve) 能让你在本地浏览器中运行你的应用。
-每当你保存文件时，CLI 就会重新编译该应用，并刷新浏览器，来加载最新编译的应用。
-
-The app is hosted in local memory and served on `http://localhost:4200/`, using [webpack-dev-server](https://webpack.js.org/guides/development/#webpack-dev-server).
-
-该应用运行在本地内存里，并使用 [webpack-dev-server](https://webpack.js.org/guides/development/#webpack-dev-server) 来在 `http://localhost:4200/` 端口上提供服务。
-
-{@a serve-from-disk}
-
-Later in development, you might want a closer approximation of how your app will behave when deployed. 
-You can output your distribution folder (`dist`) to disk, but you need to install a different web server. 
-Try installing  [lite-server](https://github.com/johnpapa/lite-server); like `webpack-dev-server`, it can automatically reload your browser when you write new files.
-
-在开发的后期阶段，你可能会希望让应用更接近部署后的行为方式。
-这时，你可以把发布目录（`dist`）输出到磁盘上，但还要安装另一个 Web 服务器。
-可以尝试安装 [lite-server](https://github.com/johnpapa/lite-server)，像 `webpack-dev-server` 一样，当你修改了文件时，它可以自动刷新浏览器。
-
-To get the live-reload experience, you will need to run two terminals. 
-The first runs the build in a watch mode and compiles the application to the `dist` folder. 
-The second runs the web server against the `dist` folder. 
-The combination of these two processes provides the same behavior as `ng serve`.
-
-要想获得实时刷新（live-reload）的体验，你需要运行两个终端。
-第一个在监视模式下运行 `build` 命令，把应用随时编译到 `dist` 目录下。
-第二个针对 `dist` 目录运行 Web 服务器。
-这两个过程组合起来，提供了与 `ng serve` 相同的行为。
-
-1. Start the build in terminal A:
-
-   在终端 A 中启动构建：
-
-<code-example language="none" class="code-shell">
-ng build --watch
-</code-example>
-
-1. Start the web server in terminal B:
-
-   在终端 B 中启动 Web 服务器：
-
-<code-example language="none" class="code-shell">
-lite-server --baseDir="dist"
-</code-example>
-
-The default browser opens to the appropriate URL.
-
-默认的浏览器会打开相应的 URL。
-
-* [Lite-Server](https://github.com/johnpapa/lite-server): the default dev server installed with the
-[Quickstart repo](https://github.com/angular/quickstart) is pre-configured to fallback to `index.html`.
-
-   [Lite-Server](https://github.com/johnpapa/lite-server)是["快速上手"仓库](https://github.com/angular/quickstart)中安装的默认开发服务器，它被预先配置为回退到 `index.html`。
-
-* [Webpack-Dev-Server](https://github.com/webpack/webpack-dev-server):  setup the
-`historyApiFallback` entry in the dev server options as follows:
-
-   [Webpack-Dev-Server](https://github.com/webpack/webpack-dev-server)在开发服务器的配置中设置了 `historyApiFallback`，代码如下：
-
-  <code-example>
-    historyApiFallback: {
-      disableDotRule: true,
-      htmlAcceptHeaders: ['text/html', 'application/xhtml+xml']
-    }
-  </code-example>
-
-#### Production servers
-
-#### 生产服务器
 
 * [Apache](https://httpd.apache.org/): add a
 [rewrite rule](http://httpd.apache.org/docs/current/mod/mod_rewrite.html) to the `.htaccess` file as shown
@@ -348,25 +271,11 @@ Read about how to enable CORS for specific servers at
 
 {@a optimize}
 
-## Optimize for production
+## Production optimizations
 
-## 为生产环境优化
+## 未生产环境优化
 
-Although deploying directly from the development environment works, 
-you can generate an optimized build with additional CLI command line flags,
-starting with `--prod`.
-
-虽然也可以直接用开发环境部署，但也可以使用其它的 CLI 命令行标志来生成优化过的构建成果，我们先从 `--prod` 开始讲。
-
-### Build with _--prod_
-
-### 使用*--prod*构建
-
-<code-example language="none" class="code-shell">
-  ng build --prod
-</code-example>
-
-The `--prod` _meta-flag_ engages the following optimization features.
+The `--prod` _meta-flag_ engages the following build optimization features.
 
 `--prod` 标志具有如下优化特性。
 
@@ -394,38 +303,31 @@ The `--prod` _meta-flag_ engages the following optimization features.
 
   消除死代码：删除未引用过的模块和很多未用到的代码。
 
-The remaining [copy deployment steps](#copy-files) are the same as before.
-
-其余的[复制等部署步骤](#copy-files)步骤和以前的一样。
-
 See [`ng build`](cli/build) for more about CLI build options and what they do.
 
 要了解关于 CLI 构建选项及其作用的更多知识，参见 [`ng build`](cli/build)。
 
 {@a enable-prod-mode}
 
-### Enable production mode
+### Enable runtime production mode
 
 ### 启用生产模式
 
-Angular apps run in development mode by default, as you can see by the following message on the browser
-console:
+In addition to build optimizations, Angular also has a runtime production mode. Angular apps run in development mode by default, as you can see by the following message on the browser console:
 
-Angular 应用默认运行在开发模式下，你可以在浏览器的控制台中看到如下信息：
+除了构建期优化之外，Angular 还支持运行期生产模式。Angular 应用默认运行在开发模式下，你可以在浏览器的控制台中看到如下信息：
 
 <code-example format="nocode">
   Angular is running in the development mode. Call enableProdMode() to enable the production mode.
 </code-example>
 
-Switching to _production mode_ can make it run faster by disabling development specific checks such as the dual change detection cycles.
+Switching to _production mode_ makes it run faster by disabling development specific checks such as the dual change detection cycles.
 
 切换到*生产模式*可以通过禁用开发阶段特有的检查（比如双重变更检测周期）来让它运行得更快。
 
-Building for production (or appending the `--environment=prod` flag) enables _production mode_
-Look at the CLI-generated `main.ts` to see how this works.
+When you enable production builds via `--prod` command line flag, the runtime production mode is enabled as well.
 
-为生产环境构建（添加 `--environment=prod` 标识）可以启用*生产模式*。
-阅读 CLI 生成的 `main.ts` 以了解它的工作原理。
+如果在构建时添加了 `--prod` 标识，也会同时启用*运行期生产模式*。
 
 {@a lazy-loading}
 
@@ -460,7 +362,7 @@ If you do that, the module will be loaded immediately.
 
 The bundling configuration must take lazy loading into consideration.
 Because lazy-loaded modules aren't imported in JavaScript, bundlers exclude them by default.
-Bundlers don't know about the router configuration and can't create separate bundles for lazy-loaded modules. 
+Bundlers don't know about the router configuration and can't create separate bundles for lazy-loaded modules.
 You would have to create these bundles manually.
 
 配置打包方式时必须考虑惰性加载。
@@ -609,7 +511,7 @@ for the missing files. Look at where it _tried_ to find those files and adjust t
 
 ## 为部署而构建和启动服务器
 
-When you are designing and developing applications, you typically use `ng serve` to build your app for fast, local, iterative development. 
+When you are designing and developing applications, you typically use `ng serve` to build your app for fast, local, iterative development.
 When you are ready to deploy, however, you must use the `ng build` command to build the app and deploy the build artifacts elsewhere.
 
 在设计和开发应用程序时，通常使用 `ng serve` 来构建应用，已进行快速的、本地的、迭代式的开发。
@@ -630,7 +532,7 @@ To output to a different folder, change the `outputPath` in `angular.json`.
 </div>
 
 The `ng serve` command builds, watches, and serves the application from local memory, using a local development server.
-When you have deployed your app to another server, however, you might still want to serve the app so that you can continue to see changes that you make in it. 
+When you have deployed your app to another server, however, you might still want to serve the app so that you can continue to see changes that you make in it.
 You can do this by adding the `--watch` option to the `ng build` command.
 
 `ng serve` 命令会构建、监视并使用本地开发服务器从内存中提供网站服务。
@@ -639,7 +541,7 @@ You can do this by adding the `--watch` option to the `ng build` command.
 ```
 ng build --watch
 ```
-Like the `ng serve` command, this regenerates output files when source files change. 
+Like the `ng serve` command, this regenerates output files when source files change.
 
 像 `ng serve` 命令一样，当源码文件发生变化时，它会重新生成输出文件。
 

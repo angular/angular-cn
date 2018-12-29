@@ -31,7 +31,7 @@ function isEmptyInputValue(value: any): boolean {
  *
  * ### 提供自定义验证器
  *
- * The following example registers a custom validator directive. Adding the validator to the 
+ * The following example registers a custom validator directive. Adding the validator to the
  * existing collection of validators requires the `multi: true` option.
  *
  * 下面的例子注册了一个自定义验证器指令。要把该验证器添加到现存的验证器集合中，需要使用 `multi: true` 选项。
@@ -48,6 +48,7 @@ function isEmptyInputValue(value: any): boolean {
  * }
  * ```
  *
+ * @publicApi
  */
 export const NG_VALIDATORS = new InjectionToken<Array<Validator|Function>>('NgValidators');
 
@@ -59,6 +60,7 @@ export const NG_VALIDATORS = new InjectionToken<Array<Validator|Function>>('NgVa
  *
  * @see `NG_VALIDATORS`
  *
+ * @publicApi
  */
 export const NG_ASYNC_VALIDATORS =
     new InjectionToken<Array<Validator|Function>>('NgAsyncValidators');
@@ -80,6 +82,7 @@ const EMAIL_REGEXP =
  * @see [Form Validation](/guide/form-validation)
  *
  * [表单验证](/guide/form-validation)
+ * @publicApi
  */
 export class Validators {
   /**
@@ -326,8 +329,12 @@ export class Validators {
   /**
    * @description
    * Validator that requires the control's value to match a regex pattern. This validator is also
-   * provided
-   * by default if you use the HTML5 `pattern` attribute.
+   * provided by default if you use the HTML5 `pattern` attribute.
+   *
+   * Note that if a Regexp is provided, the Regexp is used as is to test the values. On the other
+   * hand, if a string is passed, the `^` character is prepended and the `$` character is
+   * appended to the provided string (if not already present), and the resulting regular
+   * expression is used to test the values.
    *
    * 此验证器要求控件的值匹配某个正则表达式。当使用 HTML5 的 `pattern` 属性时，它也会生效。
    *
