@@ -4773,7 +4773,7 @@ Extend the `AuthGuard` to protect when navigating between the `admin` routes.
 Open `auth.guard.ts` and add the `CanActivateChild` interface to the imported tokens from the router package.
 
 扩展 `AuthGuard` 以便在 `admin` 路由之间导航时提供保护。
-打开 `auth.guard.service.ts` 并从路由库中导入 `CanActivateChild` 接口。
+打开 `auth.guard.ts` 并从路由库中导入 `CanActivateChild` 接口。
 
 Next, implement the `canActivateChild()` method which takes the same arguments as the `canActivate()` method:
 an `ActivatedRouteSnapshot` and `RouterStateSnapshot`.
@@ -5454,7 +5454,7 @@ Import the `CanLoad` interface from `@angular/router`.
 Add it to the `AuthGuard` class's `implements` list.
 Then implement `canLoad()` as follows:
 
-打开 `auth.guard.service.ts`，从 `@angular/router` 中导入 `CanLoad` 接口。
+打开 `auth.guard.ts`，从 `@angular/router` 中导入 `CanLoad` 接口。
 把它添加到 `AuthGuard` 类的 `implements` 列表中。
 然后实现 `canLoad`，代码如下：
 
