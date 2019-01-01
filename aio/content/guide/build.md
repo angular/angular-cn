@@ -289,28 +289,21 @@ Each budget entry is a JSON object with the following properties:
 
 <table>
   <tr>
-    <th>
-    
-    Property
-    
-    属性
-    
-    </th>
-    <th>
-    
-    Value
-    
-    值
-    
-    </th>
+    <th>Property</th>
+    <th>Value</th>
+  </tr>
+
+  <tr>
+    <th>属性</th>
+    <th>值</th>
   </tr>
 
   <tr>
     <td>type</td>
     <td>
-    
+
     The type of budget. One of:
-    
+
     限制的类型。有效值为：
 
         * bundle - The size of a specific bundle.
@@ -342,21 +335,21 @@ Each budget entry is a JSON object with the following properties:
    <tr>
     <td>name</td>
     <td>
-    
+
     The name of the bundle (for `type=bundle`).
-    
+
     要限制的包的名字（当 `type=bundle` 时）。
-    
+
     </td>
   </tr>
   <tr>
     <td>baseline</td>
     <td>
-    
+
     An absolute baseline size for percentage values. 
-    
+
     一个表示基准大小的绝对值，用做比例值的基数。
-    
+
     </td>
   </tr>
   <tr>
