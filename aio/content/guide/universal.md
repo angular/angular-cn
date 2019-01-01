@@ -236,9 +236,9 @@ The following sections go into each of these main steps in more detail.
 <div class="alert is-helpful">
 
   **Note:** The [Universal tutorial](#the-example) below walks you through the steps using the Tour of Heroes sample app, and goes into more detail about what you can do and why you might want to do it. 
-  
+
   **注意：稍后的 **[Universal 教程](#the-example)将引导你基于 "英雄指南" 应用来完成各个步骤，并详细介绍你能做什么以及为什么要那么做。
- 
+
   To see a working version of an app with server-side rendering, clone the [Angular Universal starter](https://github.com/angular/universal-starter). 
 
   要亲自体验带服务端渲染功能的应用，请把 [Angular Universal starter](https://github.com/angular/universal-starter) 克隆下来试试。
@@ -390,7 +390,7 @@ Copy `tsconfig.app.json` to `tsconfig.server.json` and modify it as follows:
 * Add a section for `"angularCompilerOptions"` and set `"entryModule"` to point to your `AppServerModule` instance. Use the format `importPath#symbolName`. In this example, the entry module is `app/app.server.module#AppServerModule`.
 
   添加一个 `"angularCompilerOptions"` 节，并把 `"entryModule"`（入口模块）指向你的 `AppServerModule` 实例，格式为 `importPath#symbolName`。在这个例子中，这个入口模块是 `app/app.server.module#AppServerModule`。
-  
+
 
 <code-example format="." language="none" linenums="false">
 {

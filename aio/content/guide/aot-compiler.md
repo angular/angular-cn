@@ -142,7 +142,7 @@ When you use the Angular AOT compiler, you can control your app compilation in t
   在 `tsconfig.json` 文件中提供模板编译选项。
 
   For more information, see [Angular template compiler options](#compiler-options).
-  
+
   欲知详情，参见 [Angular 模板编译器选项](#compiler-options)。
 
 * By [specifying Angular metadata](#metadata-aot).
@@ -287,7 +287,7 @@ Define metadata objects with the following limited syntax:
   <td>
 
   Literal object 
-  
+
   对象字面量
 
   </td>
@@ -803,7 +803,7 @@ The following table describes which expressions the _collector_ can and cannot f
   <td>
 
   Calls
-  
+
   函数调用
 
   </td>
@@ -819,7 +819,7 @@ The following table describes which expressions the _collector_ can and cannot f
   <td>
 
   New
-  
+
   新建对象
 
   </td>
@@ -835,14 +835,14 @@ The following table describes which expressions the _collector_ can and cannot f
   <td>
 
   Property access
-  
+
   属性访问
 
   </td>
   <td>
 
   yes, if target is foldable
-  
+
   如果目标对象也是可折叠的，则是
 
   </td>
@@ -851,14 +851,14 @@ The following table describes which expressions the _collector_ can and cannot f
   <td>
 
   Array index
-  
+
   数组索引访问
 
   </td>
   <td>
 
    yes, if target and index are foldable
-   
+
    如果目标数组和索引都是可折叠的，则是
 
   </td>
@@ -867,7 +867,7 @@ The following table describes which expressions the _collector_ can and cannot f
   <td>
 
   Identity reference
-  
+
   引用标识符
 
   </td>
@@ -906,7 +906,7 @@ The following table describes which expressions the _collector_ can and cannot f
   <td>
 
   yes, if the substitutions are foldable
-  
+
   如果替换表达式是可折叠的，则是
 
   </td>
@@ -979,14 +979,14 @@ The following table describes which expressions the _collector_ can and cannot f
   <td>
 
   Supported prefix operator 
-  
+
   受支持的前缀运算符
 
   </td>
   <td>
 
   yes, if operand is foldable
-  
+
   如果操作数是可折叠的，则是
 
   </td>
@@ -1027,7 +1027,7 @@ The following table describes which expressions the _collector_ can and cannot f
   <td>
 
   Parentheses
-  
+
   括号
 
   </td>
@@ -1116,18 +1116,18 @@ The compiler only supports metadata for these Angular decorators.
 <table>
   <tr>
   <th>
-  
+
   Decorator
 
   装饰器
-  
+
   </th>
   <th>
-  
+
   Module
-  
+
   模块
-  
+
   </th>
   </tr>
     <tr>
@@ -2274,12 +2274,12 @@ Similar to TypeScript Compiler, Angular Compiler also supports `extends` in the 
  The `extends` is a top level property parallel to `compilerOptions` and `angularCompilerOptions`. 
  The configuration from the base file are loaded first, then overridden by those in the inheriting config file.
  Example:
- 
+
 像 TypeScript 编译器相似，Angular 编译器也支持在 `tsconfig.json` 的 `angularCompilerOptions` 中使用 `extends` 语法。
 tsconfig 文件可以 使用 `extends` 属性从其它文件中继承配置。
 `extends` 位于顶级，和 `compilerOptions`、`angularCompilerOptions` 同级。
 首先加载 base 文件中的配置，然后用当前配置文件中的选项进行覆盖。比如：
- 
+
 ```json
 {
   "extends": "../tsconfig.base.json",
@@ -2498,39 +2498,39 @@ annotations and decorators are unaffected. Default is `static fields`.
 <table>
   <tr>
   <th>
-  
+
   Value
-  
+
   值
-  
+
   </th>
   <th>
-  
+
   Description
-  
+
   说明
-  
+
   </th>
   </tr>
   <tr>
     <td><code>decorators</code></td>
   <td>
-  
+
   Leave the decorators in place. This makes compilation faster. TypeScript will emit calls to the __decorate helper.  Use <code>--emitDecoratorMetadata</code> for runtime reflection.  However, the resulting code will not properly tree-shake.
-  
+
   把装饰器留在原地。这会让编译更快。TypeScript 会调用 __decorate 助手。使用 <code>--emitDecoratorMetadata</code> 来支持运行时反射。但是，这会导致代码无法被正确的摇树优化。
-  
+
   </td>
   </tr>
   <tr>
     <td><code>static fields</code></td>
   <td>
-  
+
   Replace decorators with a static field in the class. Allows advanced tree-shakers like
   <a href="https://github.com/google/closure-compiler">Closure compiler</a> to remove unused classes.
-  
+
   用类中的静态字段替换装饰器，允许使用 <a href="https://github.com/google/closure-compiler">Closure compiler</a> 等高级摇树优化器来删除未使用的类。
-  
+
   </td>
   </tr>
   </table>

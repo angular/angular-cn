@@ -229,7 +229,7 @@ The animation code does the following after styling the views:
 
     * Slides in the new view by animating the view with an easing function and duration. <br />
     This animation results in the `about` view sliding from the left to right.
-    
+
       使用缓动函数和持续时间定义的动画，让这个新视图滑入。<br />
       此动画将导致 `about` 视图从左向右滑动。
 

@@ -1712,7 +1712,7 @@ The starter app's structure looks like this:
             hero-list.component.ts
 
           </div>
-          
+
         </div>
 
         <div class='file'>
@@ -1738,7 +1738,7 @@ The starter app's structure looks like this:
             page-not-found.component.ts
 
           </div>
-          
+
         </div>
 
         <div class='file'>
@@ -1869,7 +1869,7 @@ The **Routing Module** has several characteristics:
 * Does **not** declare components.
 
    **不要**声明组件。
- 
+
 {@a integrate-routing}
 
 ### Integrate routing with your app
@@ -2077,7 +2077,7 @@ Follow these steps:
 
 * Copy the contents of the `heroes/heroes.component.html` from
   the <live-example name="toh-pt4" title="Tour of Heroes: Services example code">"Services" tutorial</live-example> into the `hero-list.component.html` template.
-  
+
   从 <live-example name="toh-pt4" title="Tour of Heroes: Services example code">教程的 "服务" 部分</live-example>把 `heroes/heroes.component.html` 的内容复制到 `hero-list.component.html` 模板中。
 
   * Relabel the `<h2>` to `<h2>HEROES</h2>`.
@@ -2098,17 +2098,17 @@ Follow these steps:
   把在线例子中 `heroes/heroes.component.ts` 文件的内容复制到 `hero-list.component.ts` 文件中。
 
   * Change the component class name to `HeroListComponent`.
-  
+
     把组件类名改为 `HeroListComponent`。
-  
+
   * Change the `selector` to `app-hero-list`.
-  
+
     把 `selector` 改为 `app-hero-list`。
-  
+
 <div class="alert is-helpful">
 
    Selectors are **not required** for _routed components_ due to the components are dynamically inserted when the page is rendered, but are useful for identifying and targeting them in your HTML element tree.
-   
+
    对于**路由组件**来说，这些选择器**不是必须的**，因为这些组件是在渲染页面时动态插入的，不过选择器对于在 HTML 元素树中标记和选中它们是很有用的。
 
 </div>
@@ -3359,7 +3359,7 @@ hero-list
             page-not-found.component.ts
 
           </div>
-          
+
         </div>
 
       </div>
@@ -3398,7 +3398,7 @@ hero-list
 
           main.ts
 
-        
+
       </div>
 
       <div class='file'>
@@ -3526,7 +3526,7 @@ Begin by imitating the heroes feature:
   在 `src/app` 目录下创建一个 `crisis-center` 子目录。
 
 * Copy the files and folders from `app/heroes` into the new `crisis-center` folder.
-  
+
    把 `app/heroes` 中的文件和目录复制到新的 `crisis-center` 文件夹中。
 
 * In the new files, change every mention of "hero" to "crisis", and "heroes" to "crises".
@@ -4635,7 +4635,7 @@ update the admin route with a `canActivate` guard property that references it:
 </code-example>
 
 
- 
+
 The admin feature is now protected by the guard, albeit protected poorly.
 
 管理特性区现在受此守卫保护了，不过这样的保护还不够。

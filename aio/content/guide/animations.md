@@ -586,15 +586,15 @@ You may also be interested in the following:
 * [Transition and triggers](guide/transition-and-triggers)
 
   [转场与触发器](guide/transition-and-triggers)
-  
+
 * [Complex animation sequences](guide/complex-animation-sequences)
 
   [复杂动画序列](guide/complex-animation-sequences)
-  
+
 * [Reusable animations](guide/reusable-animations)
 
   [可复用动画](guide/reusable-animations)
-  
+
 * [Route transition animations](guide/route-animations)
 
   [路由转场动画](guide/route-animations)

@@ -91,7 +91,7 @@ Commands such as [add](cli/add) and [generate](cli/generate), which create or op
 * See more about the [Workspace file structure](guide/file-structure).
 
   欲知详情，参见[工作空间的文件结构](guide/file-structure)。
-  
+
 ### Workspace and project configuration
 
 ### 工作空间与项目的配置
@@ -145,7 +145,7 @@ Command syntax is shown as follows:
   <code-example format="." language="bash">
       ng build my-app -c production
   </code-example>
-  
+
 * Typically, the name of a generated artifact can be given as an argument to the command or specified with the --name option.
 
   通常，生成的工件（artifact）名称可以作为命令的参数进行指定，也可以使用 --name 选项。

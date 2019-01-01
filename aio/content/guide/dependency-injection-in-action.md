@@ -851,9 +851,9 @@ But they did neither.
 `MinimalLogger` 在这里仅仅被用作一个 "依赖注入令牌"。
 
 When you use a class this way, it's called a *class interface*.
-  
+
 当你通过这种方式使用类时，它称作*类接口*。
-  
+
 As mentioned in [DI Providers](guide/dependency-injection-providers#interface-not-valid-token), an interface is not a valid DI token because it is a TypeScript artifact that doesn't exist at run time. Use this abstract class interface to get the strong typing of an interface, and also use it as a provider token in the way you would a normal class.
 
 就像 [DI 提供商](guide/dependency-injection-providers#interface-not-valid-token)中提到的那样，接口不是有效的 DI 令牌，因为它是 TypeScript 自己用的，在运行期间不存在。使用这种抽象类接口不但可以获得像接口一样的强类型，而且可以像普通类一样把它用作提供商令牌。

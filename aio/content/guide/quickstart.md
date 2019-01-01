@@ -215,7 +215,7 @@ As part of the initial app, the CLI created the first Angular component for you.
     <code-example path="cli-quickstart/src/app/app.component.ts" region="component" header="src/app/app.component.ts" linenums="false"></code-example>
 
     The browser reloads automatically with the revised title. That's nice, but it could look better.
-    
+
     浏览器将会用修改过的标题自动刷新。不错，但是还可以更好看。
 
 3. Open `./src/app/app.component.css` and give the component some style.

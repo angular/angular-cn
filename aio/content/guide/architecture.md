@@ -258,23 +258,23 @@ Each of these subjects is introduced in more detail in the following pages.
   [组件简介](guide/architecture-components)
 
   * [Templates and views](guide/architecture-components#templates-and-views)
-  
+
     [模板与视图](guide/architecture-components#templates-and-views)
 
   * [Component metadata](guide/architecture-components#component-metadata)
-  
+
     [组件元数据](guide/architecture-components#component-metadata)
 
   * [Data binding](guide/architecture-components#data-binding)
-  
+
     [数据绑定](guide/architecture-components#data-binding)
 
   * [Directives](guide/architecture-components#directives)
-  
+
     [指令](guide/architecture-components#directives)
 
   * [Pipes](guide/architecture-components#pipes)
-  
+
     [管道](guide/architecture-components#pipes)
 
 * [Introduction to services and dependency injection](guide/architecture-services)

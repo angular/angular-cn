@@ -66,9 +66,9 @@ To create a new workspace and an initial app project:
 要想创建一个新的工作空间和一个初始应用项目，需要：
 
   1. Ensure that you are not already in an Angular workspace folder. For example, if you have previously created the Getting Started workspace, change to the parent of that folder.
-  
+
      确保你现在没有位于 Angular 工作区的文件夹中。例如，如果你之前已经创建过 "快速上手" 工作空间，请回到其父目录中。
-  
+
   2. Run the CLI command `ng new` and provide the name `angular-tour-of-heroes`, as shown here:
 
      运行 CLI 命令 `ng new`，空间名请使用 `angular-tour-of-heroes`，如下所示： 
@@ -90,19 +90,19 @@ It also creates the following workspace and starter project files:
 它还会创建下列工作空间和初始项目的文件：
 
   * A new workspace, with a root folder named `angular-tour-of-heroes`.
-  
+
     新的工作空间，其根目录名叫 `angular-tour-of-heroes`。
-  
+
   * An initial skeleton app project, also called `angular-tour-of-heroes` (in the `src` subfolder).
-  
+
     一个最初的骨架应用项目，同样叫做 `angular-tour-of-heroes`（位于 `src` 子目录下）。
-  
+
   * An end-to-end test project (in the e2e subfolder).
-  
+
     一个端到端测试项目（位于 e2e 子目录下）。
-  
+
   * Related configuration files.
-  
+
     相关的配置文件。
 
 The initial app project contains a simple Welcome app, ready to run.

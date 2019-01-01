@@ -307,29 +307,29 @@ Each budget entry is a JSON object with the following properties:
     限制的类型。有效值为：
 
         * bundle - The size of a specific bundle.
-        
+
           bundle - 特定包的大小。
-        
+
         * initial - The initial size of the app.
-        
+
           initial -  应用的初始大小。
-        
+
         * allScript - The size of all scripts.
-        
+
           allScript - 所有脚本的总大小。
-        
+
         * all - The size of the entire app.
-        
+
           all - 整个应用的总大小。
-        
+
         * anyScript - The size of any one script.
-        
+
           anyScript - 任何一个脚本的大小。
-        
+
         * any - The size of any file.
-        
+
           any - 任何一个文件的大小。
-          
+
     </td>
   </tr>
    <tr>

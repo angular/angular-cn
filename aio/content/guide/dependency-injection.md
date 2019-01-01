@@ -376,9 +376,9 @@ The `@Injectable()` decorator is the standard decorator for service classes.
 <div class="alert is-helpful">
 
  The decorator requirement is imposed by TypeScript. TypeScript normally discards parameter type information when it [transpiles](guide/glossary#transpile) the code to JavaScript. TypeScript preserves this information if the class has a decorator and the `emitDecoratorMetadata` compiler option is set `true` in TypeScript's `tsconfig.json` configuration file. The CLI configures `tsconfig.json` with `emitDecoratorMetadata: true`.
- 
+
  对装饰器的需求是 TypeScript 强制要求的。当 TypeScript 把代码[转译](guide/glossary#transpile)成 JavaScript 时，一般会丢弃参数的类型信息。只有当类具有装饰器，并且 `tsconfig.json` 中的编译器选项 `emitDecoratorMetadata` 为 `true` 时，TypeScript 才会保留这些信息。CLI 所配置的 `tsconfig.json` 就带有 `emitDecoratorMetadata: true`。
- 
+
  This means you're responsible for putting `@Injectable()` on your service classes.
 
  这意味着你有责任给所有服务类加上 `@Injectable()`。

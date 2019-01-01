@@ -75,7 +75,7 @@ upgrade/static} utilities remain the same. For more information, see the
 
   [从 AngularJS 升级](guide/upgrade)中的[变更检测](guide/upgrade#change-detection)部分仅仅适用于使用 `UpgradeModule` 的应用。
   虽然你处理变更检测的方式和 `downgradeModule()`（本章的重点）不同，不过读一下[变更检测](guide/upgrade#change-detection)部分还是能为后续内容提供一些有用的上下文知识。
-  
+
 </div>
 
 
@@ -165,14 +165,14 @@ other. This is known as "upgrading" and "downgrading".
 <div class="alert is-helpful">
 
   <b>Definitions:</b>
-  
+
   <b>定义：</b>
 
   - _Upgrading_: The act of making an AngularJS asset, such as a component or service, available to
     the Angular part of the app.
-    
+
     *升级*：让 AngularJS 中的资产，比如组件或服务，可用于应用中的 Angular 部分。
-    
+
   - _Downgrading_: The act of making an Angular asset, such as a component or service, available to
     the AngularJS part of the app.
 
@@ -304,9 +304,9 @@ A few examples are:
 - You use Angular for features that are only visible to specific types of users; for example,
   logged-in users, administrators, or VIP members. You don't need to load Angular until a user is
   authenticated.
-  
+
   你可以将 Angular 用于仅对特定类型的用户可见的特性，比如：登录用户、管理员或 VIP 成员。这样在用户通过了身份验证之前，你都无需加载 Angular。
-  
+
 - You use Angular for a feature that is not critical for the initial rendering of the app and you
   can afford a small delay in favor of better initial load performance.
 
@@ -519,14 +519,14 @@ To summarize, the key differentiating factors of `downgradeModule()` are:
 
 1. It allows instantiating or even loading the Angular part lazily, which improves the initial
    loading time. In some cases this may waive the cost of running a second framework altogether.
-   
+
    它允许实例化甚至惰性加载 Angular 部分，这能改善初始加载时间。某些情况下，这可能会完全免除启动第二个框架的成本。
-   
+
 2. It improves performance by avoiding unnecessary change detection runs while giving the developer
    greater ability to customize.
-   
+
    通过避免运行不必要的变更检测，它提高了性能，给开发人员提供了更大的自定义能力。
-   
+
 3. It does not require you to change how you bootstrap your AngularJS app.
 
    它不需要你更改引导 AngularJS 应用的方式。

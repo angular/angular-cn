@@ -33,7 +33,7 @@ Creating a custom element is simple and straightforward, and automatically conne
     我们正在持续开发自定义元素功能，让它们可以用在由其它框架所构建的 Web 应用中。
     Angular 框架的一个小型的、自包含的版本将会作为服务注入进去，以提供组件的变更检测和数据绑定功能。
     要了解这个开发方向的更多内容，参见[这个视频演讲](https://www.youtube.com/watch?v=Z1gLFPLVJjY&t=4s)。
-    
+
 </div>
 
 把组件转换成自定义元素会让所需的 Angular 基础设施也可用在浏览器中。创建自定义元素非常简单直接，它会自动把你的组件视图对接到变更检测和数据绑定机制，会把 Angular 的功能映射到原生 HTML 中的等价物。
@@ -229,11 +229,11 @@ The recently-developed [custom elements](https://developer.mozilla.org/en-US/doc
 <tr>
   <td>Firefox</td>
   <td>
-  
+
   Supported natively as of version 63. In older versions: Set the <code>dom.webcomponents.enabled</code> and <code>dom.webcomponents.customelements.enabled</code> preferences to true.
-  
+
   在 63 版中原生支持。对于老版本，可以把 <code>dom.webcomponents.enabled</code> 和 <code>dom.webcomponents.customelements.enabled</code> 首选项设置为 true。
-  
+
   </td>
 </tr>
 <tr>

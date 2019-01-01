@@ -1,7 +1,7 @@
 # Nice Angular 社区简介
 
 ## Nice Angular 社区：QQ 群
-  
+
 - 278252889（ Nice Angular 社区，2000 人已满）
 - 305739270（ Nice Angular 社区二群，2000 人）
 - 207542263（ Nice Angular 社区三群，1000 人）

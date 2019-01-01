@@ -169,7 +169,7 @@ You may also be interested in:
 * [Tree-shakable Providers](guide/dependency-injection-providers#tree-shakable-providers).
 
    [可摇树优化的服务提供商](guide/dependency-injection-providers#tree-shakable-providers)。
-   
+
 * [NgModule FAQ](guide/ngmodule-faq).
 
    [NgModule 常见问题](guide/ngmodule-faq)。

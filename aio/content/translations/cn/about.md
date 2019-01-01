@@ -120,7 +120,7 @@ Angular 和 Grails 开发高校[教务管理系统](http://www.github.com/jwgl)�
 - **严清**
 
   AngularJS 中文社区的早期耕耘者，也是 AngularJS 1.x 的早期传道者之一。虽然他已经不再使用 AngularJS 技术栈，但其对社区的贡献和影响力不应忘记。
-  
+
 - **格茸扎西（破狼）**
 
   AngularJS 中文社区系列 QQ 群的群主，从严清手里接下 QQ 群并长期维护。他还与译者之一的汪志成（雪狼）合著过一本书《 AngularJS 深度剖析与最佳实践》，这本书的成功让我们看到了中文社区对 Angular 的热情支持，最终激发了我们翻译 Angular 官网的行动。我们还共同完成了对国外新书 ng-book2（中译本《Angular 权威教程》） 的翻译工作。

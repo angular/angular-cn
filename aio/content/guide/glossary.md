@@ -162,7 +162,7 @@ For example, "convert_link_mode".
 
   下划线形式（underscore_case）或叫蛇形形式（snake_case）：在 Angular 中没有典型用法。蛇形形式使用下划线连接各个单词。
   比如 "convert_link_mode"。
-  
+
 
 * UPPER_UNDERSCORE_CASE (or UPPER_SNAKE_CASE, or SCREAMING_SNAKE_CASE): Traditional for constants (acceptable, but prefer camelCase).
 Upper snake case uses words in all capital letters connected with underscores. For example, "FIX_ME".
@@ -754,7 +754,7 @@ A library isn't a complete Angular app and can't run independently.
 * App developers can use the [CLI](guide/glossary#cli) to `add` a published library for use with an app in the same [workspace](guide/glossary#workspace). 
 
    应用开发者可以使用 [CLI](guide/glossary#cli) 来把一个已发布的库 `add` 进这个应用所在的[工作空间](guide/glossary#workspace)。
-   
+
 {@a lifecycle-hook}
 
 ## lifecycle hook

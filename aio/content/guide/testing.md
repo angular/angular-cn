@@ -248,7 +248,7 @@ sudo: false
 language: node_js
 node_js:
   - "8"
-  
+
 addons:
   apt:
     sources:

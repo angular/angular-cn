@@ -53,7 +53,7 @@ The above command completes the following actions:
        包含要添加到 `manifest.json` 文件中的链接。
 
     * Adds meta tags for `theme-color`.
-    
+
        为 `theme-color` 添加 meta 标签。
 
 5. Installs icon files to support the installed Progressive Web App (PWA).

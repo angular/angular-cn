@@ -207,13 +207,13 @@ Package name                               | Description
 ## 相关信息
 
  For information about how the Angular CLI handles packages see the following guides: 
- 
+
  要了解 Angular CLI 如何处理包的更多信息，请参见下列章节：
- 
+
  * [Building and serving](guide/build) describes how packages come together to create a development build.
- 
+
    [Building and serving](guide/build) 描述了这些包如何协作，以进行开发期构建。
- 
+
  * [Deployment](guide/deployment) describes how packages come together to create a production build.
 
    [Deployment](guide/deployment) 中描述了这些包如何协作，以创建一个生产环境构建。
