@@ -4,7 +4,7 @@
 var path = require('canonical-path');
 var Q = require('q');
 var _ = require('lodash');
-var jsdom = require("jsdom");
+var JSDOM = require("jsdom").JSDOM;
 var fs = require("fs-extra");
 var globby = require('globby');
 
@@ -207,7 +207,7 @@ class StackblitzBuilder {
 
   _createStackblitzHtml(config, postData) {
     var baseHtml = this._createBaseStackblitzHtml(config);
-    var doc = jsdom.jsdom(baseHtml);
+    var doc = new JSDOM(baseHtml).window.document;
     var form = doc.querySelector('form');
     _.forEach(postData, (value, key) => {
       var ele = this._htmlToElement(doc, '<input type="hidden" name="' + key + '">');

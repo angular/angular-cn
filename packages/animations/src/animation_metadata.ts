@@ -621,6 +621,7 @@ export interface AnimationStaggerMetadata extends AnimationMetadata {
    * One or more animation steps.
    *
    * 一个或多个动画步骤。
+   *
    */
   animation: AnimationMetadata|AnimationMetadata[];
 }
@@ -826,9 +827,6 @@ export interface AnimationStaggerMetadata extends AnimationMetadata {
  * 如果 DOM 中的某个区域（或整个应用程序）的动画被禁用时，动画触发器的回调仍然会触发，但持续 0 秒。
  * 当回调被触发时，它会提供一个 `AnimationEvent` 的例子。如果动画被禁用了，则该事件上的 `.disabled` 标志为 `true`。
  *
- * @experimental Animation support is experimental.
- *
- * 动画支持尚处于试验阶段。
  * @publicApi
  */
 export function trigger(name: string, definitions: AnimationMetadata[]): AnimationTriggerMetadata {
