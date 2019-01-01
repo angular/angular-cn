@@ -82,7 +82,7 @@ You can see your deployed page at `https://<user_name>.github.io/<project_name>/
 
 你可以到 `https://<user_name>.github.io/<project_name>/` 中查看部署好的页面。
 
-<div class="alert is-helpful>
+<div class="alert is-helpful">
 
  Check out [angular-cli-ghpages](https://github.com/angular-buch/angular-cli-ghpages), a full featured package that does all this for you and has extra functionality.
 
@@ -347,7 +347,7 @@ them on demand.
 
 可以配置 Angular 的路由器，来推迟所有其它模块（及其相关代码）的加载时机，方法有[一直等到应用启动完毕](guide/router#preloading  "Preloading")，或者当用到时才按需[*惰性加载*](guide/router#asynchronous-routing "Lazy loading")。
 
-<div class="alert is-helpful>
+<div class="alert is-helpful">
 
 #### Don't eagerly import something from a lazy-loaded module
 

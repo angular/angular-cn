@@ -456,7 +456,7 @@ the [ROUTES](api/router/ROUTES) token combines all the different provided sets o
 路由器也同样用多个提供商关联到了一个令牌。
 当你在单个模块中用 [RouterModule.forRoot](api/router/RouterModule#forroot) 和 [RouterModule.forChild](api/router/RouterModule#forchild) 提供了多组路由时，[ROUTES](api/router/ROUTES) 令牌会把这些不同的路由组都合并成一个单一值。
 
-<div class="alert is-helpful>
+<div class="alert is-helpful">
 
 Search for [Constants in API documentation](api?type=const) to find more built-in tokens. 
 
