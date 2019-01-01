@@ -1,5 +1,4 @@
 const rehype = require('rehype');
-const {mark} = require('./translator');
 
 /**
  * @dgProcessor postProcessHtml
@@ -36,7 +35,7 @@ module.exports = function postProcessHtml(log, createDocMessage) {
         .forEach(doc => {
           try {
             vFile = engine.processSync(doc.renderedContent);
-            doc.renderedContent = mark(vFile.contents);
+            doc.renderedContent = vFile.contents;
             vFile.messages.forEach(m => {
               log.warn(createDocMessage(m.message, doc));
             });

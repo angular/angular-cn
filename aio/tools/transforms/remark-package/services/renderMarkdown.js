@@ -3,6 +3,8 @@ const html = require('remark-html');
 const code = require('./handlers/code');
 const mapHeadings = require('./plugins/mapHeadings');
 
+const {mark} = require('./translator');
+
 /**
  * @dgService renderMarkdown
  * @description
@@ -24,7 +26,7 @@ module.exports = function renderMarkdown() {
       .use(mapHeadings(headingMap))
       .use(html, { handlers: { code } });
 
-    return renderer.processSync(content).toString();
+    return mark(renderer.processSync(content).toString());
   };
 
   /**
