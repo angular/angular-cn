@@ -104,6 +104,7 @@ For a complete list of Angular packages, see the [API reference](http://angular.
 新的 Angular 工作空间的 `package.json` 文件中默认包含下列 Angular 包。
 要了解 Angular 包的完整列表，参见 [API 参考手册](http://angular.io/api?type=package)。
 
+<!-- TODO: Translate -->
 Package name                               | Description
 ----------------------------------------   | --------------------------------------------------
 [**@angular/animations**](api/animations) | Angular's animations library makes it easy to define and apply animation effects such as page and list transitions. For more information, see the [Animations guide](guide/animations).
@@ -187,6 +188,7 @@ The following `devDependencies` are provided in the default `package.json` file 
 
 Package name                               | Description
 ----------------------------------------   | -----------------------------------
+包名                               | 说明
 [**@angular&#8209;devkit/<br />build&#8209;angular**](https://github.com/angular/angular-cli/) | The Angular build tools.
 [**@angular/cli**](https://github.com/angular/angular-cli/) | The Angular CLI tools.
 **@angular/<br />compiler&#8209;cli** | The Angular compiler, which is invoked by the Angular CLI's `ng build` and `ng serve` commands.

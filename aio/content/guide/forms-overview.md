@@ -54,14 +54,21 @@ The table below summarizes the key differences between reactive and template-dri
   td, th {vertical-align: top};
 </style>
 
-||<t>Reactive</t><t>响应式</t>|<t>Template-driven</t><t>模板驱动</t>|
+|| Reactive | Template-driven |
 |--- |--- |--- |
-|<t>Setup (form model)</t><t>建立（表单模式）</t>|<t>More explicit, created in component class</t><t>显式，在组件类中创建。</t>|<t>Less explicit, created by directives</t><t>隐式，由组件创建。</t>|
-|<t>Data model</t><t>数据模式</t>|<t>Structured</t><t>结构化</t>|<t>Unstructured</t><t>非结构化</t>|
-|<t>Predictability</t><t>可预测性</t>|<t>Synchronous</t><t>同步</t>|<t>Asynchronous</t><t>异步</t>|
-|<t>Form validation</t><t>表单验证</t>|<t>Functions</t><t>函数</t>|<t>Directives</t><t>指令</t>|
-|<t>Mutability</t><t>可变性</t>|<t>Immutable</t><t>不可变</t>|<t>Mutable</t><t>可变</t>|
-|<t>Scalability</t><t>可伸缩性</t>|<t>Low-level API access</t><t>访问底层 API</t>|<t>Abstraction on top of APIs</t><t>在 API 之上的抽象</t>|
+|| 响应式 | 模板驱动 |
+| Setup (form model) | More explicit, created in component class | Less explicit, created by directives |
+| 建立（表单模式） | 显式，在组件类中创建。 | 隐式，由组件创建。 |
+| Data model | Structured | Unstructured |
+| 数据模式 | 结构化 | 非结构化 |
+| Predictability | Synchronous | Asynchronous |
+| 可预测性 | 同步 | 异步 |
+| Form validation | Functions | Directives |
+| 表单验证 | 函数 | 指令 |
+| Mutability | Immutable | Mutable |
+| 可变性 | 不可变 | 可变 |
+| Scalability | Low-level API access | Abstraction on top of APIs |
+| 可伸缩性 | 访问底层 API | 在 API 之上的抽象 |
 
 ## Common foundation
 

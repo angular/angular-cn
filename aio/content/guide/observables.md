@@ -53,11 +53,15 @@ A handler for receiving observable notifications implements the `Observer` inter
 
 用于接收可观察对象通知的处理器要实现 `Observer` 接口。这个对象定义了一些回调函数来处理可观察对象可能会发来的三种通知：
 
-| <t>Notification type</t><t>通知类型</t> | <t>Description</t><t>说明</t> |
+| Notification type | Description |
 |:---------|:-------------------------------------------|
-| `next`  | <t>Required. A handler for each delivered value. Called zero or more times after execution starts.</t><t>必要。用来处理每个送达值。在开始执行后可能执行零次或多次。</t>|
-| `error` | <t>Optional. A handler for an error notification. An error halts execution of the observable instance.</t><t> 可选。用来处理错误通知。错误会中断这个可观察对象实例的执行过程。 </t>|
-| `complete` | <t>Optional. A handler for the execution-complete notification. Delayed values can continue to be delivered to the next handler after execution is complete.</t><t> 可选。用来处理执行完毕（complete）通知。当执行完毕后，这些值就会继续传给下一个处理器。 </t>|
+| 通知类型 | 说明 |
+| `next` | Required. A handler for each delivered value. Called zero or more times after execution starts. |
+| `next` | 必要。用来处理每个送达值。在开始执行后可能执行零次或多次。 |
+| `error` | Optional. A handler for an error notification. An error halts execution of the observable instance. |
+| `error` |  可选。用来处理错误通知。错误会中断这个可观察对象实例的执行过程。  |
+| `complete` | Optional. A handler for the execution-complete notification. Delayed values can continue to be delivered to the next handler after execution is complete. |
+| `complete` |  可选。用来处理执行完毕（complete）通知。当执行完毕后，这些值就会继续传给下一个处理器。  |
 
 An observer object can define any combination of these handlers. If you don't supply a handler for a notification type, the observer ignores notifications of that type.
 

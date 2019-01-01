@@ -289,8 +289,20 @@ Each budget entry is a JSON object with the following properties:
 
 <table>
   <tr>
-    <th><t>Property</t><t>属性</t></th>
-    <th><t>Value</t><t>值</t></th>
+    <th>
+    
+    Property
+    
+    属性
+    
+    </th>
+    <th>
+    
+    Value
+    
+    值
+    
+    </th>
   </tr>
 
   <tr>

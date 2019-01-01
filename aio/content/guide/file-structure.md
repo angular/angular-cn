@@ -38,17 +38,27 @@ The top level of the workspace contains a number of workspace-wide configuration
 
 工作空间的顶级包含一系列工作空间级的配置文件。
 
-| <t>WORKSPACE CONFIG FILES</t><t>工作空间配置文件</t>    | <t>PURPOSE</t><t>用途</t> |
+| WORKSPACE CONFIG FILES | PURPOSE |
 | :--------------------- | :------------------------------------------|
-| `.editorconfig`         | <t>Configuration for code editors. See [EditorConfig](https://editorconfig.org/). </t><t>代码编辑器配置。参见 [EditorConfig](https://editorconfig.org/)</t> |
-| `.gitignore`            | <t>Specifies intentionally untracked files that [Git](https://git-scm.com/) should ignore. </t><t>指定 [Git](https://git-scm.com/) 要忽略的非跟踪的文件。</t> |
-| `angular.json`         | <t>CLI configuration defaults for all projects in the workspace, including configuration options for build, serve, and test tools that the CLI uses, such as [TSLint](https://palantir.github.io/tslint/), [Karma](https://karma-runner.github.io/), and [Protractor](http://www.protractortest.org/). For details, see [Angular Workspace Configuration](guide/workspace-config). </t><t>工作区中所有项目的默认 CLI 配置，包括 CLI 使用的构建选项、运行选项、测试工具选项（比如 [TSLint](https://palantir.github.io/tslint/)、[Karma](https://karma-runner.github.io/)、[Protractor](http://www.protractortest.org/)）等。欲知详情，参见 [Angular 工作空间配置](guide/workspace-config)。</t> |
-| `node_modules`          | <t>Provides [npm packages](guide/npm-packages) to the entire workspace. </t><t>提供给整个工作空间的 [npm 包](guide/npm-packages)。</t> |
-| `package.json`         | <t>Configures [npm package dependencies](guide/npm-packages) that are available to all projects in the workspace. See [npm documentation](https://docs.npmjs.com/files/package.json) for the specific format and contents of this file.</t><t>配置用于工作空间中所有项目的包依赖项。有关此文件的特有格式和内容，参见 [npm 文档](https://docs.npmjs.com/files/package.json)。</t> |
-| `package-lock.json`     | <t>Provides version information for all packages installed into `node_modules` by the npm client. See [npm documentation](https://docs.npmjs.com/files/package-lock.json) for details. If you use the yarn client, this file will be [yarn.lock](https://yarnpkg.com/lang/en/docs/yarn-lock/) instead. </t><t>为 npm 客户端安装到 `node_modules` 中的所有软件包提供版本信息。详情参见 [npm documentation](https://docs.npmjs.com/files/package-lock.json)。如果你使用 yarn 客户端，此文件会由 [yarn.lock](https://yarnpkg.com/lang/en/docs/yarn-lock/) 代替。</t> |
-| `tsconfig.json`    | <t>Default [TypeScript](https://www.typescriptlang.org/) configuration for apps in the workspace, including TypeScript and Angular template compiler options. See [TypeScript Configuration](guide/typescript-configuration). </t><t>工作空间中所有应用的默认 [TypeScript](https://www.typescriptlang.org/) 配置。包括 TypeScript 选项和 Angular 模板编译器选项。参见 [TypeScript 配置](guide/typescript-configuration)。</t> |
-| `tslint.json`          | <t>Default [TSLint](https://palantir.github.io/tslint/) configuration for apps in the workspace. </t><t>工作空间中所有应用的默认 [TSLint](https://palantir.github.io/tslint/) 配置。</t> |
-| `README.md`             | <t>Introductory documentation. </t><t>介绍文档</t> |
+| 工作空间配置文件 | 用途 |
+| `.editorconfig` | Configuration for code editors. See [EditorConfig](https://editorconfig.org/).  |
+| `.editorconfig` | 代码编辑器配置。参见 [EditorConfig](https://editorconfig.org/) |
+| `.gitignore` | Specifies intentionally untracked files that [Git](https://git-scm.com/) should ignore.  |
+| `.gitignore` | 指定 [Git](https://git-scm.com/) 要忽略的非跟踪的文件。 |
+| `angular.json` | CLI configuration defaults for all projects in the workspace, including configuration options for build, serve, and test tools that the CLI uses, such as [TSLint](https://palantir.github.io/tslint/), [Karma](https://karma-runner.github.io/), and [Protractor](http://www.protractortest.org/). For details, see [Angular Workspace Configuration](guide/workspace-config).  |
+| `angular.json` | 工作区中所有项目的默认 CLI 配置，包括 CLI 使用的构建选项、运行选项、测试工具选项（比如 [TSLint](https://palantir.github.io/tslint/)、[Karma](https://karma-runner.github.io/)、[Protractor](http://www.protractortest.org/)）等。欲知详情，参见 [Angular 工作空间配置](guide/workspace-config)。 |
+| `node_modules` | Provides [npm packages](guide/npm-packages) to the entire workspace.  |
+| `node_modules` | 提供给整个工作空间的 [npm 包](guide/npm-packages)。 |
+| `package.json` | Configures [npm package dependencies](guide/npm-packages) that are available to all projects in the workspace. See [npm documentation](https://docs.npmjs.com/files/package.json) for the specific format and contents of this file. |
+| `package.json` | 配置用于工作空间中所有项目的包依赖项。有关此文件的特有格式和内容，参见 [npm 文档](https://docs.npmjs.com/files/package.json)。 |
+| `package-lock.json` | Provides version information for all packages installed into `node_modules` by the npm client. See [npm documentation](https://docs.npmjs.com/files/package-lock.json) for details. If you use the yarn client, this file will be [yarn.lock](https://yarnpkg.com/lang/en/docs/yarn-lock/) instead.  |
+| `package-lock.json` | 为 npm 客户端安装到 `node_modules` 中的所有软件包提供版本信息。详情参见 [npm documentation](https://docs.npmjs.com/files/package-lock.json)。如果你使用 yarn 客户端，此文件会由 [yarn.lock](https://yarnpkg.com/lang/en/docs/yarn-lock/) 代替。 |
+| `tsconfig.json` | Default [TypeScript](https://www.typescriptlang.org/) configuration for apps in the workspace, including TypeScript and Angular template compiler options. See [TypeScript Configuration](guide/typescript-configuration).  |
+| `tsconfig.json` | 工作空间中所有应用的默认 [TypeScript](https://www.typescriptlang.org/) 配置。包括 TypeScript 选项和 Angular 模板编译器选项。参见 [TypeScript 配置](guide/typescript-configuration)。 |
+| `tslint.json` | Default [TSLint](https://palantir.github.io/tslint/) configuration for apps in the workspace.  |
+| `tslint.json` | 工作空间中所有应用的默认 [TSLint](https://palantir.github.io/tslint/) 配置。 |
+| `README.md` | Introductory documentation.  |
+| `README.md` | 介绍文档 |
 
 All projects within a workspace share a [CLI configuration context](guide/workspace-config). 
 Project-specific [TypeScript](https://www.typescriptlang.org/) configuration files inherit from the workspace-wide `tsconfig.*.json`, and app-specific [TSLint](https://palantir.github.io/tslint/) configuration files inherit from the workspace-wide `tslint.json`.
@@ -86,21 +96,35 @@ Workspace-wide `node_modules` dependencies are visible to this project.
 `src/` 子目录包含该初始应用的源文件（应用逻辑、数据和资源）以及配置文件。
 工作空间级的 `node_modules` 依赖，对于这个项目也是可见的。
 
-| <t>APP SOURCE & CONFIG FILES</t><t>应用源码与配置文件</t>    | <t>PURPOSE</t><t>用途</t> |
+| APP SOURCE & CONFIG FILES | PURPOSE |
 | :--------------------- | :------------------------------------------|
-| `app/`                  | <t>Contains the component files in which your app logic and data are defined. See details in [App source folder](#app-src) below. </t><t>包含组件文件，其中定义了应用逻辑和数据。详情参见稍后的[应用源码目录](#app-src)。</t> |
-| `assets/`               | <t>Contains image files and other asset files to be copied as-is when you build your application. </t><t>包含图像文件和其它文件，当构建应用时会被原样赋值到构建目标中。</t> |
-| `environments/`         | <t>Contains build configuration options for particular target environments. By default there is an unnamed standard development environment and a production ("prod") environment. You can define additional target environment configurations. </t><t>包含针对特定目标环境的配置选项。默认情况下有一个未命名的标准开发环境和一个名叫 "prod" 的产品环境。你可以定义一些额外的目标环境配置。</t> |
-| `browserlist`           | <t>Configures sharing of target browsers and Node.js versions among various front-end tools. See [Browserlist on GitHub](https://github.com/browserslist/browserslist) for more information.  </t><t>配置各个目标浏览器和 Node.js 版本之间的市场占有率，供各种前端工具使用。详情参见 [GitHub 上的 Browserlist](https://github.com/browserslist/browserslist)。</t> |
-| `favicon.ico`           | <t>An icon to use for this app in the bookmark bar. </t><t>一个用在书签栏上的应用图标。</t> |
-| `index.html`            | <t>The main HTML page that is served when someone visits your site. The CLI automatically adds all JavaScript and CSS files when building your app, so you typically don't need to add any `<script>` or` <link>` tags here manually. </t><t>当有人访问你的应用时给出的主 HTML 文件，你通常不用手动在这里添加任何 `<script>` 或` <link>` 标签。</t> |
-| `main.ts`               | <t>The main entry point for your app. Compiles the application with the [JIT compiler](https://angular.io/guide/glossary#jit) and bootstraps the application's root module (AppModule) to run in the browser. You can also use the [AOT compiler](https://angular.io/guide/aot-compiler) without changing any code by appending the `--aot` flag to the CLI `build` and `serve` commands. </t><t>应用的主入口点。使用 [JIT 编译器](https://angular.cn/guide/glossary#jit)编译应用，并引导应用的根模块 AppModule 来运行在浏览器中。你也可以为 CLI 的 `build` 和 `serve` 命令添加 `--aot` 标志，来使用 [AOT 编译器](https://angular.cn/guide/aot-compiler) 而不必修改任何代码。</t> |
-| `polyfills.ts`          | <t>Provides polyfill scripts for browser support. </t><t>为浏览器支持提供腻子脚本（polyfill）。</t> |
-| `styles.sass`           | <t>Lists CSS files that supply styles for a project. The extension reflects the style preprocessor you have configured for the project. </t><t>列出为项目提供样式的 CSS 文件。其扩展名和你为项目配置的样式预处理器保持一致。</t> |
-| `test.ts`               | <t>The main entry point for your unit tests, with some Angular-specific configuration. You don't typically need to edit this file. </t><t>单元测试的主入口点，其中带有一些特定于 Angular 的配置。一般来说你不必编辑这个问题。</t> |
-| `tsconfig.app.json`    | <t>Inherits from the workspace-wide `tsconfig.json` file. </t><t>继承自工作空间级的 `tsconfig.json` 文件。</t> |
-| `tsconfig.spec.json`   | <t>Inherits from the workspace-wide `tsconfig.json` file. </t><t>继承自工作空间级的 `tsconfig.json` 文件。</t> |
-| `tslint.json`          | <t>Inherits from the workspace-wide `tslint.json` file. </t><t>继承自工作空间级的 `tsconfig.json` 文件。</t> |
+| 应用源码与配置文件 | 用途 |
+| `app/` | Contains the component files in which your app logic and data are defined. See details in [App source folder](#app-src) below.  |
+| `app/` | 包含组件文件，其中定义了应用逻辑和数据。详情参见稍后的[应用源码目录](#app-src)。 |
+| `assets/` | Contains image files and other asset files to be copied as-is when you build your application.  |
+| `assets/` | 包含图像文件和其它文件，当构建应用时会被原样赋值到构建目标中。 |
+| `environments/` | Contains build configuration options for particular target environments. By default there is an unnamed standard development environment and a production ("prod") environment. You can define additional target environment configurations.  |
+| `environments/` | 包含针对特定目标环境的配置选项。默认情况下有一个未命名的标准开发环境和一个名叫 "prod" 的产品环境。你可以定义一些额外的目标环境配置。 |
+| `browserlist` | Configures sharing of target browsers and Node.js versions among various front-end tools. See [Browserlist on GitHub](https://github.com/browserslist/browserslist) for more information.   |
+| `browserlist` | 配置各个目标浏览器和 Node.js 版本之间的市场占有率，供各种前端工具使用。详情参见 [GitHub 上的 Browserlist](https://github.com/browserslist/browserslist)。 |
+| `favicon.ico` | An icon to use for this app in the bookmark bar.  |
+| `favicon.ico` | 一个用在书签栏上的应用图标。 |
+| `index.html` | The main HTML page that is served when someone visits your site. The CLI automatically adds all JavaScript and CSS files when building your app, so you typically don't need to add any `<script>` or` <link>` tags here manually.  |
+| `index.html` | 当有人访问你的应用时给出的主 HTML 文件，你通常不用手动在这里添加任何 `<script>` 或` <link>` 标签。 |
+| `main.ts` | The main entry point for your app. Compiles the application with the [JIT compiler](https://angular.io/guide/glossary#jit) and bootstraps the application's root module (AppModule) to run in the browser. You can also use the [AOT compiler](https://angular.io/guide/aot-compiler) without changing any code by appending the `--aot` flag to the CLI `build` and `serve` commands.  |
+| `main.ts` | 应用的主入口点。使用 [JIT 编译器](https://angular.cn/guide/glossary#jit)编译应用，并引导应用的根模块 AppModule 来运行在浏览器中。你也可以为 CLI 的 `build` 和 `serve` 命令添加 `--aot` 标志，来使用 [AOT 编译器](https://angular.cn/guide/aot-compiler) 而不必修改任何代码。 |
+| `polyfills.ts` | Provides polyfill scripts for browser support.  |
+| `polyfills.ts` | 为浏览器支持提供腻子脚本（polyfill）。 |
+| `styles.sass` | Lists CSS files that supply styles for a project. The extension reflects the style preprocessor you have configured for the project.  |
+| `styles.sass` | 列出为项目提供样式的 CSS 文件。其扩展名和你为项目配置的样式预处理器保持一致。 |
+| `test.ts` | The main entry point for your unit tests, with some Angular-specific configuration. You don't typically need to edit this file.  |
+| `test.ts` | 单元测试的主入口点，其中带有一些特定于 Angular 的配置。一般来说你不必编辑这个问题。 |
+| `tsconfig.app.json` | Inherits from the workspace-wide `tsconfig.json` file.  |
+| `tsconfig.app.json` | 继承自工作空间级的 `tsconfig.json` 文件。 |
+| `tsconfig.spec.json` | Inherits from the workspace-wide `tsconfig.json` file.  |
+| `tsconfig.spec.json` | 继承自工作空间级的 `tsconfig.json` 文件。 |
+| `tslint.json` | Inherits from the workspace-wide `tslint.json` file.  |
+| `tslint.json` | 继承自工作空间级的 `tsconfig.json` 文件。 |
 
 ### Default app project e2e files
 
@@ -156,11 +180,18 @@ Inside the `src/` folder, the `app/` folder contains your app's logic and data. 
 在 `src/` 目录下，`app/` 目录包含你的应用逻辑和数据。Angular 组件、模板和样式都在这里。
 `assets/` 子目录包含图片和应用所需的其它文件。`src/` 顶层的文件用于支持测试和运行你的应用。
 
-| <t>APP SOURCE FILES</t><t>应用源文件</t> | <t>PURPOSE</t><t>用途</t> |
+| APP SOURCE FILES | PURPOSE |
 | :-------------------------- | :------------------------------------------|
-| `app/app.component.ts`       | <t>Defines the logic for the app's root component, named `AppComponent`. The view associated with this root component becomes the root of the [view hierarchy](guide/glossary#view-hierarchy) as you add components and services to your app. </t><t>定义应用程序根组件（名叫 `AppComponent`）的逻辑代码。当你往应用中添加组件和服务时，根组件所关联的视图会作为 [view hierarchy](guide/glossary#view-hierarchy) 视图树的根。</t> |
-| `app/app.component.html`     | <t>Defines the HTML template associated with the root `AppComponent`. </t><t>定义与根组件 `AppComponent` 关联的模板。</t> |
-| `app/app.component.css`      | <t>Defines the base CSS stylesheet for the root `AppComponent`. </t><t>定义根组件 `AppComponent` 的 CSS 样式表。</t> |
-| `app/app.component.spec.ts`  | <t>Defines a unit test for the root `AppComponent`. </t><t>定义根组件 `AppComponent` 的单元测试文件。</t> |
-| `app/app.module.ts`          | <t>Defines the root module, named `AppModule`, that tells Angular how to assemble the application. Initially declares only the `AppComponent`. As you add more components to the app, they must be declared here. </t><t>定义根模块（名叫 `AppModule`），它告诉 Angular 如何组装应用。其初始声明中只有 `AppComponent`。当你往应用中添加更多组件时，它们必须声明在这里。</t> |
-| `assets/*`                   | <t>Contains image files and other asset files to be copied as-is when you build your application. </t><t>包含图片文件和其它资源，当构建应用时，它们将被原样复制到目标目录中。</t> |
+| 应用源文件 | 用途 |
+| `app/app.component.ts` | Defines the logic for the app's root component, named `AppComponent`. The view associated with this root component becomes the root of the [view hierarchy](guide/glossary#view-hierarchy) as you add components and services to your app.  |
+| `app/app.component.ts` | 定义应用程序根组件（名叫 `AppComponent`）的逻辑代码。当你往应用中添加组件和服务时，根组件所关联的视图会作为 [view hierarchy](guide/glossary#view-hierarchy) 视图树的根。 |
+| `app/app.component.html` | Defines the HTML template associated with the root `AppComponent`.  |
+| `app/app.component.html` | 定义与根组件 `AppComponent` 关联的模板。 |
+| `app/app.component.css` | Defines the base CSS stylesheet for the root `AppComponent`.  |
+| `app/app.component.css` | 定义根组件 `AppComponent` 的 CSS 样式表。 |
+| `app/app.component.spec.ts` | Defines a unit test for the root `AppComponent`.  |
+| `app/app.component.spec.ts` | 定义根组件 `AppComponent` 的单元测试文件。 |
+| `app/app.module.ts` | Defines the root module, named `AppModule`, that tells Angular how to assemble the application. Initially declares only the `AppComponent`. As you add more components to the app, they must be declared here.  |
+| `app/app.module.ts` | 定义根模块（名叫 `AppModule`），它告诉 Angular 如何组装应用。其初始声明中只有 `AppComponent`。当你往应用中添加更多组件时，它们必须声明在这里。 |
+| `assets/*` | Contains image files and other asset files to be copied as-is when you build your application.  |
+| `assets/*` | 包含图片文件和其它资源，当构建应用时，它们将被原样复制到目标目录中。 |

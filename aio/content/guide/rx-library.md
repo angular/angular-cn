@@ -96,14 +96,21 @@ RxJS 提供了很多操作符，不过只有少数是常用的。
 
 </div>
 
-| <t>Area</t><t>类别</t> | <t>Operators</t><t>操作</t>  |
+| Area | Operators |
 | :------------ | :---------- |
-| <t>Creation</t><t>创建</t> | `from`, `fromPromise`,`fromEvent`, `of`  |
-| <t>Combination</t><t>组合</t> | `combineLatest`, `concat`, `merge`, `startWith` , `withLatestFrom`, `zip`  |
-| <t>Filtering</t><t>过滤</t> | `debounceTime`, `distinctUntilChanged`, `filter`, `take`, `takeUntil`  |
-| <t>Transformation</t><t>转换</t> | `bufferTime`, `concatMap`, `map`, `mergeMap`, `scan`, `switchMap`  |
-| <t>Utility</t><t>工具</t> | `tap`  |
-| <t>Multicasting</t><t>多播</t> | `share`  |
+| 类别 | 操作 |
+| Creation | `from`, `fromPromise`,`fromEvent`, `of`  |
+| 创建 | `from`, `fromPromise`,`fromEvent`, `of`  |
+| Combination | `combineLatest`, `concat`, `merge`, `startWith` , `withLatestFrom`, `zip`  |
+| 组合 | `combineLatest`, `concat`, `merge`, `startWith` , `withLatestFrom`, `zip`  |
+| Filtering | `debounceTime`, `distinctUntilChanged`, `filter`, `take`, `takeUntil`  |
+| 过滤 | `debounceTime`, `distinctUntilChanged`, `filter`, `take`, `takeUntil`  |
+| Transformation | `bufferTime`, `concatMap`, `map`, `mergeMap`, `scan`, `switchMap` |
+| 转换 | `bufferTime`, `concatMap`, `map`, `mergeMap`, `scan`, `switchMap`  |
+| Utility | `tap`  |
+| 工具 | `tap`  |
+| Multicasting | `share`  |
+| 多播 | `share`  |
 
 ## Error handling
 
