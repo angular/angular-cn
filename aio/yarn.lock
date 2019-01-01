@@ -224,10 +224,10 @@
   dependencies:
     tslib "^1.9.0"
 
-"@awesome-fe/translate@^0.0.8":
-  version "0.0.8"
-  resolved "https://registry.yarnpkg.com/@awesome-fe/translate/-/translate-0.0.8.tgz#3f75c731aec8d3e00610dce90e1805e68ffd4f2e"
-  integrity sha512-U+8fdQig6H7UYwDNYTF2uKsphCwyQsVq7nZD+IHgSoIOjh+OR60SBz18stNhj26wZJsrwOx2E82FF0RWDLLVKQ==
+"@awesome-fe/translate@^0.0.11":
+  version "0.0.11"
+  resolved "https://registry.yarnpkg.com/@awesome-fe/translate/-/translate-0.0.11.tgz#d394239f13261ba458c4b7d06f8f8baf0fa360ac"
+  integrity sha512-Y57+SYDSHjKCBwKLf0LlNXIIH3lClFMhNXwF+o5CYWfaUPfB/G9+zO3Wv4Tnlmrgyp/XiOciS5sYn+jSRIK/kQ==
 
 "@google-cloud/common@^0.17.0":
   version "0.17.0"
