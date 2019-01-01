@@ -11,15 +11,15 @@ cd `dirname $0`
 yarn build
 ts-node ./tools/translator/bin/ssr.ts
 
-rm -fr ng-docs.github.io
+if [[ ! -d "/tmp/angular-cn" ]]
+then
+    git clone git@github.com:ng-docs/ng-docs.github.io.git /tmp/angular-cn
+fi
 
-git clone git@github.com:ng-docs/ng-docs.github.io.git
+cp -r dist/* /tmp/angular-cn/
 
-cp -r dist/* ./ng-docs.github.io/
+cd /tmp/angular-cn/
 
-cd ./ng-docs.github.io
-
-cp index.html 404.html
 git add .
 git commit --allow-empty -am "${commitMessage}"
 
