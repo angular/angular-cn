@@ -19,7 +19,7 @@ const initialDocViewerContent = initialDocViewerElement ? initialDocViewerElemen
 
 @Component({
   selector: 'aio-doc-viewer',
-  template: ''
+  template: '',
   // TODO(robwormald): shadow DOM and emulated don't work here (?!)
   // encapsulation: ViewEncapsulation.Native
 })
@@ -70,7 +70,6 @@ export class DocViewerComponent implements OnDestroy {
     this.hostElement = elementRef.nativeElement;
     // Security: the initialDocViewerContent comes from the prerendered DOM and is considered to be secure
     this.hostElement.innerHTML = initialDocViewerContent;
-    swapOriginAndResult(this.hostElement);
 
     if (this.hostElement.firstElementChild) {
       this.currViewContainer = this.hostElement.firstElementChild as HTMLElement;
@@ -134,7 +133,6 @@ export class DocViewerComponent implements OnDestroy {
       // Security: `doc.contents` is always authored by the documentation team
       //           and is considered to be safe.
       tap(() => this.nextViewContainer.innerHTML = doc.contents || ''),
-      tap(() => swapOriginAndResult(this.nextViewContainer)),
       tap(() => addTitleAndToc = this.prepareTitleAndToc(this.nextViewContainer, doc.id)),
       switchMap(() => this.elementsLoader.loadContainedCustomElements(this.nextViewContainer)),
       tap(() => this.docReady.emit())
@@ -261,15 +259,4 @@ function findTranslationResult(element: Element | null): Element | null {
     element = element.parentElement;
   }
   return element;
-}
-
-function swapOriginAndResult(root: Element): void {
-  const results = root.querySelectorAll('[translation-result]');
-  for (let i = 0; i < results.length; ++i) {
-    const result = results.item(i);
-    const origin = result.previousElementSibling;
-    if (origin && origin.hasAttribute('translation-origin') && origin.parentElement) {
-      origin.parentElement.insertBefore(result, origin);
-    }
-  }
 }
