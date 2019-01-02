@@ -102,7 +102,7 @@ Workspace-wide `node_modules` dependencies are visible to this project.
 | `app/` | Contains the component files in which your app logic and data are defined. See details in [App source folder](#app-src) below.  |
 | `app/` | 包含组件文件，其中定义了应用逻辑和数据。详情参见稍后的[应用源码目录](#app-src)。 |
 | `assets/` | Contains image files and other asset files to be copied as-is when you build your application.  |
-| `assets/` | 包含图像文件和其它文件，当构建应用时会被原样赋值到构建目标中。 |
+| `assets/` | 包含图像文件和其它文件，当构建应用时会被原样复制到构建目标中。 |
 | `environments/` | Contains build configuration options for particular target environments. By default there is an unnamed standard development environment and a production ("prod") environment. You can define additional target environment configurations.  |
 | `environments/` | 包含针对特定目标环境的配置选项。默认情况下有一个未命名的标准开发环境和一个名叫 "prod" 的产品环境。你可以定义一些额外的目标环境配置。 |
 | `browserlist` | Configures sharing of target browsers and Node.js versions among various front-end tools. See [Browserlist on GitHub](https://github.com/browserslist/browserslist) for more information.   |
