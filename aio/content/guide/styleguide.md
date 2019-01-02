@@ -879,11 +879,11 @@ As always, strive for consistency.
 
 ### Component selectors
 
-### 指令选择器
+### 组件选择器
 
 #### Style 05-02
 
-#### 风格 02-06
+#### 风格 05-02
 
 <div class="s-rule do">
 
@@ -899,7 +899,7 @@ As always, strive for consistency.
 
 **Why?** Keeps the element names consistent with the specification for [Custom Elements](https://www.w3.org/TR/custom-elements/).
 
-**为何？**Angular HTML 解析器是大小写敏感的，它识别小写驼峰写法。
+**为何？**让元素名和[自定义元素](https://www.w3.org/TR/custom-elements/)规范保持一致。
 
 </div>
 
