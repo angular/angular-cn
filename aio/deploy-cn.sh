@@ -13,7 +13,7 @@ ts-node ./tools/translator/bin/ssr.ts
 
 if [[ ! -d "./ng-docs.github.io" ]]
 then
-    git clone git@github.com:ng-docs/ng-docs.github.io.git ./ng-docs.github.io
+    git clone https://asnowwolf:${GITHUB_ACCESS_TOKEN}@github.com/ng-docs/ng-docs.github.io.git ./ng-docs.github.io
 fi
 
 cp -r dist/* ./ng-docs.github.io
