@@ -16,9 +16,9 @@ then
     git clone git@github.com:ng-docs/ng-docs.github.io.git ./ng-docs.github.io
 fi
 
-cd ./ng-docs.github.io
+cp -r dist/* ./ng-docs.github.io
 
-cp -r dist/* .
+cd ./ng-docs.github.io
 
 git add .
 git commit --allow-empty -am "${commitMessage}"
