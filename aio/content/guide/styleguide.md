@@ -2063,7 +2063,7 @@ Use the naming conventions for files in this guide.
 keep the **F**lattest structure you can, and
 **T**ry to be DRY.
 
-**坚持**组织应用的结构，达到这些目的：快速定位 (`L`ocate) 代码、一眼识别 (`I`dentify) 代码、 尽量保持扁平结构 (`F`lattest) 和尝试 (`T`ry) 遵循 DRY (Do Not Repeat Yourself, 不重复自己) 原则。
+**坚持**组织应用的结构，力求：快速定位 (`L`ocate) 代码、一眼识别 (`I`dentify) 代码、 尽量保持扁平结构 (`F`lattest) 和尝试 (`T`ry) 遵循 DRY (Do Not Repeat Yourself, 不重复自己) 原则。
 
 </div>
 
