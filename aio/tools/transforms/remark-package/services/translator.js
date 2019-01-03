@@ -2,7 +2,7 @@ const {markAndSwapAll} = require('@awesome-fe/translate');
 
 const {JSDOM} = require('jsdom');
 
-const selectorGroups = ['p,h1,h2,h3,h4,h5,h6,header,section', 't,span,a'];
+const selectorGroups = ['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'header', 'section', 'p', 't', 'span', 'a'];
 
 function mark(text) {
   const dom = new JSDOM(text);
