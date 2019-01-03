@@ -64,7 +64,7 @@ The `build` command uses this as the build target when no environment is specifi
 You can add further variables, either as additional properties on the environment object, or as separate objects. 
 For example, the following adds a default for a variable to the default environment:
 
-当没有制定环境时，`build` 命令就会用它作为构建目标。
+当没有指定环境时，`build` 命令就会用它作为构建目标。
 你可以添加其它变量，可以用该环境对象附加属性的形式，也可以用独立对象的形式。
 比如：以下内容将会把一个变量添加到默认环境中：
 

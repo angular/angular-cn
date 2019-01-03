@@ -310,7 +310,6 @@ A few examples are:
 - You use Angular for a feature that is not critical for the initial rendering of the app and you
   can afford a small delay in favor of better initial load performance.
 
-
   你可以把 Angular 用于应用中那些在初始呈现时不太重要的特性，并且愿意为了更好地初始加载性能，而忍受加载该特性时的一点延迟。
 
 ### Bootstrapping with `downgradeModule()`
