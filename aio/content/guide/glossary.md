@@ -44,7 +44,7 @@ By compiling your application using the `ngc` command-line tool, you can bootstr
 
 ## Angular element
 
-## Angular 元素
+## Angular 元素（element）
 
 An Angular [component](guide/glossary#component) packaged as a [custom element](guide/glossary#custom-element). 
 
@@ -58,6 +58,8 @@ Learn more in [Angular Elements Overview](guide/elements).
 
 ## Annotation
 
+## 注解（Annotation）
+
 A structure that provides metadata for a class. See [decorator](guide/glossary#decorator).
 
 一种为类提供元数据的结构。参见 [装饰器](guide/glossary#decorator)。
@@ -68,7 +70,7 @@ A structure that provides metadata for a class. See [decorator](guide/glossary#d
 
 ## attribute directives
 
-## 属性型指令
+## 属性型指令（attribute directives）
 
 A category of [directive](guide/glossary#directive) that can listen to and modify the behavior of
 other HTML elements, attributes, properties, and components. They are usually represented
@@ -135,7 +137,7 @@ Learn more in [Bootstrapping](guide/bootstrapping).
 
 ## case types
 
-## 大小写类型
+## 大小写类型（case types）
 
 Angular uses capitalization conventions to distinguish the names of various types, as described in the [naming guidelines section](guide/styleguide#02-01) of the Style Guide. Here's a summary of the case types: 
 
@@ -174,7 +176,7 @@ Upper snake case uses words in all capital letters connected with underscores. F
 
 ## class decorator
 
-## 类装饰器
+## 类装饰器（class decorator）
 
 A [decorator](guide/glossary#decorator) that appears immediately before a class definition, which declares the class to be of the given type, and provides metadata suitable to the type.
 
@@ -198,7 +200,7 @@ The following decorators can declare Angular class types:
 
 ## class field decorator
 
-## 类字段装饰器
+## 类字段装饰器（class field decorator）
 
 A [decorator](guide/glossary#decorator) statement immediately before a field in a class definition that declares the type of that field. Some examples are `@Input` and `@Output`. 
 
@@ -327,7 +329,7 @@ Read about the following forms of binding in [Template Syntax](guide/template-sy
 
 ## declarable
 
-## 可声明对象
+## 可声明对象（declarable）
 
 A class type that you can add to the `declarations` list of an [NgModule](guide/glossary#ngmodule). 
 You can declare [components](guide/glossary#component), [directives](guide/glossary#directive), and [pipes](guide/glossary#pipe).
@@ -478,7 +480,7 @@ Angular 在一些相关的应用领域中用领域特定语言扩展了 TypeScri
 
 ## dynamic component loading
 
-## 动态组件加载
+## 动态组件加载（dynamic component loading）
 
 A technique for adding a component to the DOM at run time. Requires that you exclude the component from compilation and then connect it to Angular's change-detection and event-handling framework when you add it to the DOM.
 
@@ -564,28 +566,43 @@ Within Angular, use [NgModules](guide/glossary#ngmodule) to make public parts av
 
 ## form control
 
-<!--TODO: translate-->
+## 表单控件（form control）
 
 A instance of `FormControl`, which is a fundamental building block for Angular forms. Together with `FormGroup` and `FormArray`, tracks the value, validation, and status of a form input element.
 
+一个 `FormControl` 实例，它是 Angular 表单的基本构造块。它会和 `FormGroup` 和 `FormArray` 一起，跟踪表单输入元素的值、有效性和状态。
+
 Read more forms in the [Introduction to forms in Angular](guide/forms-overview).
+
+欲知详情，参见 [Angular 表单简介](guide/forms-overview)。
 
 {@a form-model}
 
 ## form model
 
+## 表单模型（form model）
+
 The "source of truth" for the value and validation status of a form input element at a given point in time. When using [reactive forms](guide/glossary#reactive-forms), the form model is created explicitly in the component class. When using [template-driven forms](guide/glossary#template-driven-forms), the form model is implicitly created by directives.
 
+是指在指定的时间点，表单输入元素的值和验证状态的"权威数据源"。当使用[响应式表单](guide/glossary#reactive-forms)时，表单模型会在组件类中显式创建。当使用[模板驱动表单](guide/glossary#template-driven-forms)时，表单模型是由一些指令隐式创建的。
+
 Learn more about reactive and template-driven forms in the [Introduction to forms in Angular](guide/forms-overview).
+
+要深入了解响应式表单和模板驱动表单，参见 [Angular 表单简介](guide/forms-overview)。
 
 {@a form-validation}
 
 ## form validation
 
+## 表单验证（form validation）
+
 A check that runs when form values change and reports whether the given values are correct and complete, according to the defined constraints. Reactive forms apply [validator functions](guide/form-validation#adding-to-reactive-forms). Template-driven forms use [validator directives](guide/form-validation#adding-to-template-driven-forms).
 
+一种检查，当表单值发生变化时运行，并根据预定义的约束来汇报指定的这些值是否正确并完全。响应式表单使用[验证器函数](guide/form-validation#adding-to-reactive-forms)，而模板驱动表单则使用[验证器指令](guide/form-validation#adding-to-template-driven-forms)。
 
 To learn more, see [Form Validation](guide/form-validation).
+
+要了解更多，参见[表单验证器](guide/form-validation)。
 
 {@a G}
 
@@ -598,8 +615,13 @@ To learn more, see [Form Validation](guide/form-validation).
 
 ## immutability
 
+## 不可变性（immutability）
+
 The ability to alter the state of a value after its creation. [Reactive forms](guide/glossary#reactive-forms) perform immutable changes in that
 each change to the data model produces a new data model rather than modifying the existing one. [Template-driven forms](guide/glossary#template-driven-forms) perform mutable changes with `NgModel` and [two-way data binding](guide/glossary#data-binding) to modify the existing data model in place.
+
+是否能够在创建之后修改值的状态。[响应式表单](guide/glossary#reactive-forms)会执行不可变性的更改，每次更改数据模型都会生成一个新的数据模型，而不是修改现有的数据模型。
+[模板驱动表单](guide/glossary#template-driven-forms)则会执行可变的更改，它通过 `NgModel` 和[双向数据绑定](guide/glossary#data-binding)来就地修改现有的数据模型。
 
 {@a injectable}
 
@@ -814,6 +836,8 @@ To learn more, see [Lifecycle Hooks](guide/lifecycle-hooks).
 
 {@a module}
 
+## module
+
 ## 模块 (module)
 
 In general, a module collects a block of code dedicated to a single purpose. Angular uses standard JavaScript modules and also defines an Angular module, `NgModule`. 
@@ -866,6 +890,8 @@ To learn more, see [NgModules](guide/ngmodules).
 
 ## npm package 
 
+## npm 包
+
 The [npm package manager](https://docs.npmjs.com/getting-started/what-is-npm) is used to distribute and load Angular modules and libraries. 
 
 [npm 包管理器](https://docs.npmjs.com/getting-started/what-is-npm)用于分发与加载 Angular 的模块和库。
@@ -880,7 +906,7 @@ Learn more about how Angular uses [Npm Packages](guide/npm-packages).
 
 ## observable
 
-## Observable（可观察对象）
+## 可观察对象（Observable）
 
 A producer of multiple values, which it pushes to [subscribers](guide/glossary#subscriber). Used for asynchronous event handling throughout Angular. You execute an observable by subscribing to it with its `subscribe()` method, passing callbacks for notifications of new values, errors, or completion. 
 
@@ -1018,7 +1044,7 @@ When using reactive forms:
 * The "source of truth", the form model, is defined in the component class.
 * Validation is set up through validation functions rather than valdation directives.
 
-   组件是“真理之源”。表单验证在组件代码中定义。
+   组件是“权威数据源”。表单验证在组件代码中定义。
 
 * Each control is explicitly created in the component class by creating a `FormControl` instance manually or with `FormBuilder`.
 
@@ -1223,6 +1249,8 @@ Additional templates, represented by `TemplateRef` objects, can define alternati
 
 ## template-driven forms
 
+## 模板驱动表单（template-driven forms）
+
 A format for building Angular forms using HTML forms and input elements in the view.
 The alternative format uses the [reactive forms](guide/glossary#reactive-forms) framework.
 
@@ -1235,7 +1263,7 @@ When using template-driven forms:
 
 * The "source of truth" is the template. The validation is defined using attributes on the individual input elements.
 
-   模板是“真理之源”。使用属性 (attribute) 在单个输入元素上定义验证规则。
+   模板是“权威数据源”。使用属性 (attribute) 在单个输入元素上定义验证规则。
 
 * [Two-way binding](guide/glossary#data-binding) with `ngModel` keeps the component model synchronized with the user's entry into the input elements.
 
@@ -1312,6 +1340,7 @@ TypeScript 是 Angular 的首选语言。要了解更多，参见 [typescriptlan
 {@a view}
 
 ## view
+
 ## 视图 (view)
 
 The smallest grouping of display elements that can be created and destroyed together. 

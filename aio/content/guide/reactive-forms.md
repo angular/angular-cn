@@ -191,7 +191,7 @@ Update the template with a button to simulate a name update. When you click the 
 
 The form model is the source of truth for the control, so when you click the button, the value of the input is changed within the component class, overriding its current value.
 
-由于表单模型中才是该控件真正的源头，因此当你单击该按钮时，组件中该输入框的值也变化了，覆盖掉它的当前值。
+由于表单模型是该控件的权威数据源，因此当你单击该按钮时，组件中该输入框的值也变化了，覆盖掉它的当前值。
 
 <figure>
   <img src="generated/images/guide/reactive-forms/name-editor-2.png" alt="Name Editor Update">
@@ -263,7 +263,7 @@ A form group tracks the status and changes for each of its controls, so if one o
 Note that just as a form group contains a group of controls, the *profile form* `FormGroup` is bound to the `form` element with the `FormGroup` directive, creating a communication layer between the model and the form containing the inputs. The `formControlName` input provided by the `FormControlName` directive binds each individual input to the form control defined in `FormGroup`. The form controls communicate with their respective elements. They also communicate changes to the form group instance, which provides the source of truth for the model value.
 
 注意，就像 `FormGroup` 所包含的那控件一样，*profileForm* 这个 `FormGroup` 也通过 `FormGroup` 指令绑定到了 `form` 元素，在该模型和表单中的输入框之间创建了一个通讯层。
-由 `FormControlName` 指令提供的 `formControlName` 属性把每个输入框和 `FormGroup` 中定义的表单控件绑定起来。这些表单控件会和相应的元素通讯，它们还把更改传递给 `FormGroup`，这个 `FormGroup` 是模型值的真正源头。
+由 `FormControlName` 指令提供的 `formControlName` 属性把每个输入框和 `FormGroup` 中定义的表单控件绑定起来。这些表单控件会和相应的元素通讯，它们还把更改传递给 `FormGroup`，这个 `FormGroup` 是模型值的权威数据源。
 
 ### Saving form data
 
