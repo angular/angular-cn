@@ -1,18 +1,40 @@
 # Angular Workspace Configuration
 
+# Angular 工作空间配置
+
 A file named `angular.json` at the root level of an Angular [workspace](guide/glossary#workspace) provides workspace-wide and project-specific configuration defaults for build and development tools provided by the Angular CLI. 
 Path values given in the configuration are relative to the root workspace folder. 
 
+Angular [工作空间](guide/glossary#workspace)根目录下的 `angular.json` 文件提供了全工作空间级的配置和具体项目的默认配置，供 Angular CLI 中的构建工具和开发工具使用。
+此配置中所提供的路径值都是相对于工作空间根目录的。
+
 ## Overall JSON structure
+
+## JSON 的总体结构
 
 At the top level of `angular.json`, a few properties configure the workspace, and a `projects` section contains the remaining per-project configuration options. 
 
+在 `angular.json` 的顶级，一些属性用于配置工作空间，其中的 `projects` 区则包含其余的针对每个项目的配置项。
+
 * `version`: The configuration-file version.
+
+  `version`：该配置文件的版本。
+
 * `newProjectRoot`: Path where new projects are created. Absolute or relative to the workspace folder.
+
+  `newProjectRoot`：用来创建新工程的位置。绝对路径或相对于工作空间目录的路径。
+
 * `defaultProject`: Default project name to use in commands, where not provided as an argument. When you use `ng new` to create a new app in a new workspace, that app is the default project for the workspace until you change it here.
+
+  `defaultProject`：当命令中没有指定参数时，要使用的默认工程名。当你用 `ng new` 在新的工作空间中创建新应用时，该应用就会一直作为此工作空间的默认项目，除非你到这里修改它。
+
 * `projects` : Contains a subsection for each project (library, app, e2e test app) in the workspace, with the per-project configuration options. 
 
+  `projects`：对于工作空间中的每个项目（库、应用、e2e 测试）都会包含一个子分区，子分区中是每个项目的配置项。
+
 The initial app that you create with `ng new app_name` is listed under "projects", along with its corresponding end-to-end test app: 
+
+你通过 `ng new app_name` 命令创建的初始应用及其对应的端到端测试应用都会列在 `projects` 下：
 
 <code-example format="." language="none" linenums="false">
 projects
