@@ -744,7 +744,7 @@ Now you can bootstrap `AppModule` using the `platformBrowserDynamic.bootstrapMod
 Congratulations! You're running a hybrid application! The
 existing AngularJS code works as before _and_ you're ready to start adding Angular code.
 
-恭喜！你就要开始运行 AngularJS+2 的混合式应用程序了！所有现存的 AngularJS 代码会像以前一样正常工作，但是你现在也同样可以运行 Angular 代码了。
+恭喜！你就要开始运行这个混合式应用了！所有现存的 AngularJS 代码会像以前一样正常工作，但是你现在也同样可以运行 Angular 代码了。
 
 ### Using Angular Components from AngularJS Code
 
