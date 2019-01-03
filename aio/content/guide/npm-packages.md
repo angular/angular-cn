@@ -104,15 +104,11 @@ For a complete list of Angular packages, see the [API reference](http://angular.
 新的 Angular 工作空间的 `package.json` 文件中默认包含下列 Angular 包。
 要了解 Angular 包的完整列表，参见 [API 参考手册](http://angular.io/api?type=package)。
 
-<!-- TODO: Translate -->
 Package name                               | Description
 ----------------------------------------   | --------------------------------------------------
 [**@angular/animations**](api/animations) | Angular's animations library makes it easy to define and apply animation effects such as page and list transitions. For more information, see the [Animations guide](guide/animations).
 [**@angular/common**](api/common) | The commonly-needed services, pipes, and directives provided by the Angular team. The [`HttpClientModule`](api/common/http/HttpClientModule) is also here, in the [`@angular/common/http`](api/common/http) subfolder. For more information, see the [HttpClient guide](guide/http).
 **@angular/compiler** | Angular's template compiler. It understands templates and can convert them to code that makes the application run and render. Typically you don’t interact with the compiler directly; rather, you use it indirectly via `platform-browser-dynamic` when JIT compiling in the browser. For more information, see the [Ahead-of-time Compilation guide](guide/aot-compiler).
-[**@angular/common**：由 Angular 开发组提供的常用服务、管道和指令。
-[`HttpClientModule`](guide/http)也在这里，位于'@angular/common/http'子目录下。
-
 **@angular/core**](api/core) | Critical runtime parts of the framework that are needed by every application. Includes all metadata decorators, `Component`, `Directive`,  dependency injection, and the component lifecycle hooks.
 [**@angular/forms**](api/forms) | Support for both [template-driven](guide/forms) and [reactive forms](guide/reactive-forms). For information about choosing the best forms approach for your app, see [Introduction to forms](guide/forms-overview).
 [**@angular/http**](api/http) | Angular's legacy HTTP client, which was deprecated in version 5.0 in favor of [@angular/common/http](api/common/http).
@@ -134,12 +130,6 @@ Package name                               | Description
 ----------------------------------------   | --------------------------------------------------
 [**rxjs**](https://github.com/ReactiveX/rxjs) | Many Angular APIs return [_observables_](guide/glossary#observable). RxJS is an implementation of the proposed [Observables specification](https://github.com/tc39/proposal-observable) currently before the [TC39](https://www.ecma-international.org/memento/tc39-m.htm) committee, which determines standards for the JavaScript language.
 [**zone.js**](https://github.com/angular/zone.js) | Angular relies on zone.js to run Angular's change detection processes when native JavaScript operations raise events.  Zone.js is an implementation of a [specification](https://gist.github.com/mhevery/63fdcdf7c65886051d55) currently before the [TC39](http://www.ecma-international.org/memento/TC39.htm) committee that determines standards for the JavaScript language.
-
-**@angular/router**: The [router module](/guide/router) navigates among your app pages when the browser URL changes.
-
-**@angular/upgrade**: Set of utilities for upgrading AngularJS applications to Angular.
-
-**@angular/upgrade**: 一组用来把 AngularJS 应用升级到 Angular 的工具。
 
 {@a polyfills}
 ### Polyfill packages
