@@ -126,8 +126,8 @@
             <div class="icon-action-header">
                 <h4 class="no-anchor">{$ method.overloads.length $} 个重载形式...</h4>
                 <a>
-                  <span class="show-all">Show All</span>
-                  <span class="collapse-all">Hide All</span>
+                  <span class="show-all">显示所有</span>
+                  <span class="collapse-all">隐藏所有</span>
                   <i class="material-icons expand">expand_more</i>
                 </a>
               </div>
@@ -159,7 +159,7 @@
   {% if method.usageNotes -%}
     <tr>
       <td class="usage-notes">
-        <h4 id="{$ method.anchor $}-usage-notes">Usage Notes</h4>
+        <h4 id="{$ method.anchor $}-usage-notes">使用说明</h4>
         {$ method.usageNotes | marked({ h3: 'h5' }) $}
       </td>
     </tr>
