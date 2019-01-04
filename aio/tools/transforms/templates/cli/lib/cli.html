@@ -24,7 +24,7 @@
     <td>
       {$ option.description | marked $}
       {% if option.subcommands.length -%}
-      <p>This option can take one of the following <a href="#{$ option.name $}-commands">sub-commands</a>:<p>
+      <p>该选项可以接受下列<a href="#{$ option.name $}-commands">子命令</a>之一:<p>
       <ul>
         {% for subcommand in option.subcommands %}
         <li><code class="no-auto-link"><a class="code-anchor" href="#{$ subcommand.name $}-command">{$ subcommand.name $}</a></code></li>
@@ -57,8 +57,8 @@
       </td>
       <td>
         {$ option.description | marked $}
-        {% if option.default !== undefined %}<p><span class="cli-default">Default:</span> <code class="no-auto-link">{$ option.default $}</code></p>{% endif %}
-        {% if option.aliases.length %}<p><span class="cli-aliases">Aliases:</span> {% for alias in option.aliases %}{$ renderOptionName(alias) $}{% if not loop.last %}, {% endif %}{% endfor %}</p>{% endif %}
+        {% if option.default !== undefined %}<p><span class="cli-default">默认值：</span> <code class="no-auto-link">{$ option.default $}</code></p>{% endif %}
+        {% if option.aliases.length %}<p><span class="cli-aliases">别名：</span> {% for alias in option.aliases %}{$ renderOptionName(alias) $}{% if not loop.last %}, {% endif %}{% endfor %}</p>{% endif %}
       </td>
     </tr>
   {% endfor %}
