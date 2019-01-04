@@ -87,7 +87,7 @@
     "@angular/platform-browser-dynamic": "^7.0.0",
     "@angular/router": "^7.0.0",
     "@angular/service-worker": "^7.0.0",
-    "@awesome-fe/translate": "^0.0.13",
+    "@awesome-fe/translate": "^0.0.14",
     "@webcomponents/custom-elements": "^1.2.0",
     "chai": "^4.1.2",
     "classlist.js": "^1.1.20150312",

@@ -224,10 +224,12 @@
   dependencies:
     tslib "^1.9.0"
 
-"@awesome-fe/translate@^0.0.13":
-  version "0.0.13"
-  resolved "https://registry.yarnpkg.com/@awesome-fe/translate/-/translate-0.0.13.tgz#62fee414fc781185f1251e66fd653103931cff2d"
-  integrity sha512-yITFyDkwyFS0BHZzwU6MTMNXdIDiCfzF/lSzcOeQOSGNrqHo/jqK0B+9TY6RhzNTWAKLqI07oGoL/ba0VnImUg==
+"@awesome-fe/translate@^0.0.14":
+  version "0.0.14"
+  resolved "https://registry.yarnpkg.com/@awesome-fe/translate/-/translate-0.0.14.tgz#d438f9c2e571e8cb3edc3ff529772c314429f651"
+  integrity sha512-NufXS+t3uuoDu1MKVi6gpKIhNjAt8agRyl/PbD24TZbo8G8RRcltviM7ArPwL5MIOxJ17wGFrHoN822wdsQvdg==
+  dependencies:
+    github-slugger "^1.2.0"
 
 "@google-cloud/common@^0.17.0":
   version "0.17.0"
@@ -4141,7 +4143,7 @@ getpass@^0.1.1:
   dependencies:
     assert-plus "^1.0.0"
 
-github-slugger@^1.1.1:
+github-slugger@^1.1.1, github-slugger@^1.2.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/github-slugger/-/github-slugger-1.2.0.tgz#8ada3286fd046d8951c3c952a8d7854cfd90fd9a"
   dependencies:
