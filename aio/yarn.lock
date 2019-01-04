@@ -224,10 +224,10 @@
   dependencies:
     tslib "^1.9.0"
 
-"@awesome-fe/translate@^0.0.14":
-  version "0.0.14"
-  resolved "https://registry.yarnpkg.com/@awesome-fe/translate/-/translate-0.0.14.tgz#d438f9c2e571e8cb3edc3ff529772c314429f651"
-  integrity sha512-NufXS+t3uuoDu1MKVi6gpKIhNjAt8agRyl/PbD24TZbo8G8RRcltviM7ArPwL5MIOxJ17wGFrHoN822wdsQvdg==
+"@awesome-fe/translate@^0.0.16":
+  version "0.0.16"
+  resolved "https://registry.yarnpkg.com/@awesome-fe/translate/-/translate-0.0.16.tgz#cfeb545b609a044f154c80248e39ed5cdfb07418"
+  integrity sha512-T1/vEtiBBHD2tLnbFjp2bXw71aEbtHrirtYdkXL97eF47c05ETK/Dy8imUkB2JIrziugTM9Kj/FKO7stcZjCsw==
   dependencies:
     github-slugger "^1.2.0"
 
