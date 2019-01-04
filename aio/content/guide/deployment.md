@@ -39,9 +39,7 @@ Learn more about server-side redirects [below](#fallback).
 
 This is the simplest production-ready deployment of your application.
 
-这*不是*生产环境部署。它没有优化过，对最终用户来说也不快。
-但是，这足够用来跟管理者、团队成员和其它涉众在内部分享你的进度和想法了。
-部署的下一个步骤，参见[为生产环境优化](#optimize)。
+这是对应用进行生产环境部署的最简方式。
 
 {@a deploy-to-github}
 
