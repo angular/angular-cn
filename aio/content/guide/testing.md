@@ -2235,11 +2235,13 @@ you can still fall back to the traditional technique
 and pass `it` a function that takes a
 [`done` callback](https://jasmine.github.io/2.0/introduction.html#section-Asynchronous_Support).
 
+虽然 `async` 和 `fakeAsync` 函数极大地简化了 Angular 的异步测试，不过你仍然可以回退到传统的技术中。
+也就是说给 `it` 额外传入一个函数型参数，这个函数接受一个 [`done` 回调](http://jasmine.github.io/2.0/introduction.html#section-Asynchronous_Support)。
+
 You can't call `done()` in `async()` or `fakeAsync()` functions, because the `done parameter`
 is `undefined`.
 
-虽然 `async` 和 `fakeAsync` 函数极大地简化了 Angular 的异步测试，不过你仍然可以回退到传统的技术中。
-也就是说给 `it` 额外传入一个函数型参数，这个函数接受一个 [`done` 回调](http://jasmine.github.io/2.0/introduction.html#section-Asynchronous_Support)。
+但你不能在 `async()` 或 `fakeAsync()` 函数中调用 `done()`，因为它的 `done` 参数是 `undefined`。
 
 Now you are responsible for chaining promises, handling errors, and calling `done()` at the appropriate moments.
 
@@ -4884,6 +4886,7 @@ Here are the most important static methods, in order of likely utility.
 
   </tr>
 </table>
+
 A few of the `TestBed` instance methods are not covered by static `TestBed` _class_ methods.
 These are rarely needed.
 

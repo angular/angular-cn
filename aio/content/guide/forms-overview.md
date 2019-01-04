@@ -521,7 +521,7 @@ Choosing a strategy begins with understanding the strengths and weaknesses of th
 
 ## Next steps
 
-后续步骤
+## 后续步骤
 
 To learn more about reactive forms, see the following guides:
 
@@ -546,4 +546,7 @@ To learn more about template-driven forms, see the following guides:
 * [Template-driven Forms](guide/forms#template-driven-forms)
 
   [模板驱动表单](guide/forms)
+  
 * [Form Validation](guide/form-validation#template-driven-validation)
+
+  [表单验证](guide/form-validation#template-driven-validation)

@@ -40,8 +40,6 @@ By compiling your application using the `ngc` command-line tool, you can bootstr
 
 {@a angular-element} 
 
-可以与[即时(JIT)编译](guide/glossary#jit)对比一下。
-
 ## Angular element
 
 ## Angular 元素（element）
@@ -360,9 +358,6 @@ Don't declare the following:
 * Non-Angular classes and objects, such as strings, numbers, functions, entity models, configurations, business logic, and helper classes
 
    非 Angular 的类和对象，比如：字符串、数字、函数、实体模型、配置、业务逻辑和辅助类
-
-
-   非 Angular 的类和对象，比如：字符串、数字、函数、实体模型、配置、业务逻辑和辅助类。
 
 {@a decorator}
 
@@ -1042,13 +1037,17 @@ When using reactive forms:
 构建响应式表单时：
 
 * The "source of truth", the form model, is defined in the component class.
+
+  "权威数据源"（表单模型）定义在组件类中。
+
 * Validation is set up through validation functions rather than valdation directives.
 
-   组件是“权威数据源”。表单验证在组件代码中定义。
+  表单验证在组件代码而不是验证器指令中定义。
 
 * Each control is explicitly created in the component class by creating a `FormControl` instance manually or with `FormBuilder`.
 
    在组件类中，使用 `new FormControl()` 或者 `FormBuilder` 显性地创建每个控件。
+
 * The template input elements do *not* use `ngModel`.
 
    模板中的 `input` 元素**不**使用 `ngModel`。

@@ -393,12 +393,14 @@ You should measure the app's actual behavior when running in the environments th
 你可能花费了大量的时间和金钱来优化一些实际上无关紧要的东西，甚至可能让应用变得更慢。
 你应该测量应用在运行环境中的实际行为，这才是最重要的。
 
+<p>
 The
 <a href="https://developers.google.com/web/tools/chrome-devtools/network-performance/understanding-resource-timing" title="Chrome DevTools Network Performance">
 Chrome DevTools Network Performance page</a> is a good place to start learning about measuring performance.
+</p>
 
-<a href="https://developers.google.com/web/tools/chrome-devtools/network-performance/understanding-resource-timing" title="Chrome DevTools Network Performance">
-Chrome DevTools 的网络和性能页</a>是你开始学习如何测量性能的好地方。
+<p><a href="https://developers.google.com/web/tools/chrome-devtools/network-performance/understanding-resource-timing" title="Chrome DevTools Network Performance">
+Chrome DevTools 的网络和性能页</a>是你开始学习如何测量性能的好地方。</p>
 
 The [WebPageTest](https://www.webpagetest.org/) tool is another good choice
 that can also help verify that your deployment was successful.

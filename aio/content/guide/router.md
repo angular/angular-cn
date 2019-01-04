@@ -1302,7 +1302,7 @@ Generate a sample application to follow the walkthrough.
 
 ### Define Routes
 
-#### 定义路由
+### 定义路由
 
 A router must be configured with a list of route definitions.
 
@@ -1348,6 +1348,8 @@ The first configuration defines an array of two routes with simple paths leading
 </code-example>
 
 Replace the contents of each component with the sample HTML below.
+
+把每个组件的内容都替换成下列范例 HTML。
 
 <code-tabs>
 
@@ -4251,9 +4253,12 @@ A guard's return value controls the router's behavior:
    如果它返回 `true`，导航过程会继续
 
 * If it returns `false`, the navigation process stops and the user stays put.
+
+   如果它返回 `false`，导航过程就会终止，且用户留在原地。
+
 * If it returns a `UrlTree`, the current navigation cancels and a new navigation is initiated to the `UrlTree` returned.
 
-   如果它返回 `false`，导航过程会终止，且用户会留在原地。
+  如果它返回 `UrlTree`，则取消当前的导航，并且开始导航到返回的这个 `UrlTree`.
 
 <div class="alert is-helpful">
 
@@ -4659,6 +4664,8 @@ The `AuthGuard` should call an application service that can login a user and ret
 </code-example>
 
 Update the `AuthService` to log in the user:
+
+修改 `AuthService` 以登入此用户：
 
 <code-example path="router/src/app/auth/auth.service.ts" linenums="false" header="src/app/auth/auth.service.ts (excerpt)">
 
@@ -5098,9 +5105,6 @@ If it doesn't return a valid `Crisis`, return an empty `Observable`, canceling t
 <code-example path="router/src/app/crisis-center/crisis-detail-resolver.service.ts" header="src/app/crisis-center/crisis-detail-resolver.service.ts">
 
 </code-example>
-
-`CrisisService.getCrisis` 方法返回了一个可观察对象，这是为了防止在数据获取完毕前加载路由。
-如果它没有返回一个有效的 `Crisis`，就把用户导航回 `CrisisListComponent`，并取消以前到 `CrisisDetailComponent` 尚未完成的导航。
 
 Import this resolver in the `crisis-center-routing.module.ts`
 and add a `resolve` object to the `CrisisDetailComponent` route configuration.

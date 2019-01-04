@@ -22,7 +22,7 @@ Transforming a component to a custom element makes all of the required Angular i
 Creating a custom element is simple and straightforward, and automatically connects your component-defined view with change detection and data binding, mapping Angular functionality to the corresponding native HTML equivalents.
 
 把组件转换成自定义元素可以让所有所需的 Angular 基础设施都在浏览器中可用。
-创建自定义元素的方式简单直接，并且会自动把你组件定义的视图连同变更检测与数据绑定等 Anuglar 的功能映射为相应的原生 HTML 等价物。
+创建自定义元素的方式简单直接，并且会自动把你组件定义的视图连同变更检测与数据绑定等 Angular 的功能映射为相应的原生 HTML 等价物。
 
 <div class="alert is-helpful">
 
@@ -35,8 +35,6 @@ Creating a custom element is simple and straightforward, and automatically conne
     要了解这个开发方向的更多内容，参见[这个视频演讲](https://www.youtube.com/watch?v=Z1gLFPLVJjY&t=4s)。
 
 </div>
-
-把组件转换成自定义元素会让所需的 Angular 基础设施也可用在浏览器中。创建自定义元素非常简单直接，它会自动把你的组件视图对接到变更检测和数据绑定机制，会把 Angular 的功能映射到原生 HTML 中的等价物。
 
 ## Using custom elements
 

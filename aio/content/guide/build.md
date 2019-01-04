@@ -200,11 +200,11 @@ Any option that your build supports can be overridden in a build target configur
 
 To build using the staging configuration, run the following command:
 
+要想使用预生产环境（staging）的配置进行构建，请运行下列命令：
+
 <code-example language="sh" class="code-shell">
  ng build --configuration=staging
 </code-example>
-
-要想使用预生产环境进行构建，请运行 `ng build --configuration=staging`。
 
 You can also configure the `serve` command to use the targeted build configuration if you add it to the "serve:configurations" section of `angular.json`:
 

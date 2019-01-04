@@ -44,7 +44,7 @@ Meanwhile, the browser downloads the full client version and switches to it auto
 
 ## Why use server-side rendering?
 
-### 为何需要 Universal
+## 为何需要服务端渲染？
 
 There are three main reasons to create a Universal version of your app.
 
@@ -73,6 +73,7 @@ There are three main reasons to create a Universal version of your app.
 Google, Bing, Facebook, Twitter, and other social media sites rely on web crawlers to index your application content and make that content searchable on the web.
 
 Google、Bing、Facebook、Twitter 和其它社交媒体网站都依赖网络爬虫去索引你的应用内容，并且让它的内容可以通过网络搜索到。
+
 These web crawlers may be unable to navigate and index your highly interactive Angular application as a human user could do.
 
 这些网络爬虫可能不会像人类那样导航到你的具有高度交互性的 Angular 应用，并为其建立索引。
@@ -765,10 +766,11 @@ This guide covers them in the sections below.
 
 ### Using absolute URLs for server requests
 
-#### 在 HTTP 中使用绝对地址
+### 在 HTTP 中使用绝对地址
 
 The tutorial's `HeroService` and `HeroSearchService` delegate to the Angular `HttpClient` module to fetch application data.
 These services send requests to _relative_ URLs such as `api/heroes`.
+
 教程中的 `HeroService` 和 `HeroSearchService` 都委托了 Angular 的 `HttpClient` 模块来获取应用数据。
 那些服务都把请求发送到了*相对* URL，比如 `api/heroes`。
 
@@ -863,7 +865,7 @@ which then forwards it to the client in the HTTP response.
 
 ### Filtering request URLs
 
-#### 过滤请求的 URL
+### 过滤请求的 URL
 
 The web server must distinguish _app page requests_ from other kinds of requests.
 
@@ -913,6 +915,8 @@ Node Express 服务器是一系列中间件构成的管道，它会挨个对 URL
 <div class="alert is-helpful">
 
   **Note:** This sample server doesn't handle data requests.
+  
+  **注意：**这个范例服务器不会处理数据请求。
 
   The tutorial's "in-memory web API" module, a demo and development tool, intercepts all HTTP calls and
   simulates the behavior of a remote data server.
@@ -932,7 +936,7 @@ The following code filters for request URLs with no extensions and treats them a
 
 ### Serving static files safely
 
-#### 安全的提供静态文件
+### 安全的提供静态文件
 
 A single `app.use()` treats all other URLs as requests for static assets
 such as JavaScript, image, and style files.

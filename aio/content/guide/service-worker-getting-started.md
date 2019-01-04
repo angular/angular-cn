@@ -64,7 +64,7 @@ The above command completes the following actions:
 
    创建一个名叫 [`ngsw-config.json`](/guide/service-worker-config) 的 Service Worker 配置文件，它会用来指定缓存的行为以及其它设定。
 
- Now, build the project: 
+Now, build the project: 
 
 现在，构建本项目：
 

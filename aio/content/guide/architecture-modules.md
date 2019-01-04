@@ -101,9 +101,11 @@ When you create a component, it's associated directly with a single view, called
 树中的视图可以嵌套到任意深度。
 
 <div class="alert is-helpful">
+
   **Note:** The hierarchical structure of views is a key factor in the way Angular detects and responds to changes in the DOM and app data. 
 
   **注意：** 视图的这种层次结构是 Angular 在 DOM 和应用数据中检测与响应变更时的关键因素。
+
 </div>
 
 ## NgModules and JavaScript modules
@@ -128,6 +130,7 @@ JavaScript 中，每个*文件*是一个模块，文件中定义的所有对象�
 <code-example path="architecture/src/app/app.module.ts" region="export" linenums="false"></code-example>
 
 <div class="alert is-helpful">
+
   <a href="http://exploringjs.com/es6/ch_modules.html">Learn more about the JavaScript module system on the web.</a>
 
   <a href="http://exploringjs.com/es6/ch_modules.html">学习更多关于 JavaScript 模块的知识。</a>

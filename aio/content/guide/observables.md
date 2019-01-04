@@ -185,6 +185,7 @@ Notice that if you subscribe twice, there will be two separate streams, each emi
 <code-example path="observables/src/multicasting.ts" region="multicast_sequence" header="Create a multicast subscriber"></code-example>
 
 <div class="alert is-helpful">
+
    Multicasting observables take a bit more setup, but they can be useful for certain applications. Later we will look at tools that simplify the process of multicasting, allowing you to take any observable and make it multicasting.
 
    虽然支持多播的可观察对象需要做更多的准备工作，但对某些应用来说，这非常有用。稍后我们会介绍一些简化多播的工具，它们让你能接收任何可观察对象，并把它变成支持多播的。

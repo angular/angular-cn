@@ -139,12 +139,12 @@ The following support packages are included as dependencies in the default `pack
 新的 Angular 工作空间的 `package.json` 文件中默认包含下列支持包。
 
 Package name                               | Description
-包名                               | 说明
 ----------------------------------------   | --------------------------------------------------
+包名                               | 说明
 [**rxjs**](https://github.com/ReactiveX/rxjs) | Many Angular APIs return [_observables_](guide/glossary#observable). RxJS is an implementation of the proposed [Observables specification](https://github.com/tc39/proposal-observable) currently before the [TC39](https://www.ecma-international.org/memento/tc39-m.htm) committee, which determines standards for the JavaScript language.
-[**rxjs**](https://github.com/ReactiveX/rxjs) | 很多 Angular API 都会返回[*可观察对象*](guide/glossary#observable)。RxJS 是对计划中的 [Observable 规范的实现](https://github.com/tc39/proposal-observable) currently before the [TC39](https://www.ecma-international.org/memento/tc39-m.htm) committee, which determines standards for the JavaScript language.
+[**rxjs**](https://github.com/ReactiveX/rxjs) | 很多 Angular API 都会返回[*可观察对象*](guide/glossary#observable)。RxJS 是对计划中的 [Observable 规范的实现](https://github.com/tc39/proposal-observable)，它正在等待 [TC39](http://www.ecma-international.org/memento/TC39.htm) 委员会来决定是否将其纳入语言规范。
 [**zone.js**](https://github.com/angular/zone.js) | Angular relies on zone.js to run Angular's change detection processes when native JavaScript operations raise events.  Zone.js is an implementation of a [specification](https://gist.github.com/mhevery/63fdcdf7c65886051d55) currently before the [TC39](http://www.ecma-international.org/memento/TC39.htm) committee that determines standards for the JavaScript language.
-[**zone.js**](https://github.com/angular/zone.js) | 当原生 JavaScript 操作发生事件时，Angular 要依靠 zone.js 来运行 Angular 的变更检测过程。 Zone.js 是对一个[规范](https://gist.github.com/mhevery/63fdcdf7c65886051d55)的实现，它正在等待 [TC39](http://www.ecma-international.org/memento/TC39.htm) 委员会来决定是否将其纳入语言规范.
+[**zone.js**](https://github.com/angular/zone.js) | 当原生 JavaScript 操作发生事件时，Angular 要依靠 zone.js 来运行 Angular 的变更检测过程。 Zone.js 是对一个[规范](https://gist.github.com/mhevery/63fdcdf7c65886051d55)的实现，它正在等待 [TC39](http://www.ecma-international.org/memento/TC39.htm) 委员会来决定是否将其纳入语言规范。
 
 {@a polyfills}
 ### Polyfill packages

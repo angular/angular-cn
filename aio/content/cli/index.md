@@ -137,7 +137,6 @@ Command syntax is shown as follows:
         ng build my-app -c production
     </code-example>
 
-
   选项名带有双中线前缀（--）。
   选项别名带有单中线前缀（-）。
   参数没有前缀。

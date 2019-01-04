@@ -90,6 +90,7 @@ RxJS 提供了很多操作符，不过只有少数是常用的。
 下面是一个常用操作符的列表和用法范例，参见 [RxJS API 文档](https://rxjs-dev.firebaseapp.com/api)。
 
 <div class="alert is-helpful">
+
   Note that, for Angular apps, we prefer combining operators with pipes, rather than chaining. Chaining is used in many RxJS examples.
 
   注意，对于 Angular 应用来说，我们提倡使用管道来组合操作符，而不是使用链式写法。链式写法仍然在很多 RxJS 中使用着。

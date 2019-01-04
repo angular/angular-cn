@@ -251,7 +251,6 @@ When you configure a provider for a component or directive using the `providers`
 
 * Learn more about [Element Injectors in Angular](https://blog.angularindepth.com/a-curios-case-of-the-host-decorator-and-element-injectors-in-angular-582562abcf0a).
 
-
   欲知详情，参见[Angular 中的元素注入器](https://blog.angularindepth.com/a-curios-case-of-the-host-decorator-and-element-injectors-in-angular-582562abcf0a)。
 
 ## Injector bubbling
