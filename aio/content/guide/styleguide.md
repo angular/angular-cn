@@ -85,7 +85,7 @@ Apply the
 to all components, services, and other symbols.
 This helps make the app cleaner, easier to read and maintain, and more testable.
 
-对所有的组件、服务等等应用<a href="https://wikipedia.org/wiki/Single_responsibility_principle" target="_blank"><i>单一职责原则</i> (SRP)</a>
+对所有的组件、服务等等应用<a href="https://wikipedia.org/wiki/Single_responsibility_principle" target="_blank"><i>单一职责原则</i> (SRP)</a>。这样可以让应用更干净、更易读、更易维护、更易测试。
 
 {@a 01-01}
 
