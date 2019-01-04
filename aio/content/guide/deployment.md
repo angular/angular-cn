@@ -273,7 +273,7 @@ Read about how to enable CORS for specific servers at
 
 ## Production optimizations
 
-## 未生产环境优化
+## 为生产环境优化
 
 The `--prod` _meta-flag_ engages the following build optimization features.
 
