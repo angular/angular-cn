@@ -68,7 +68,9 @@
     "post~~build": "yarn build-404-page",
     "~~build-ie-polyfills": "webpack-cli src/ie-polyfills.js -o src/generated/ie-polyfills.min.js --mode production",
     "~~http-server": "http-server",
-    "~~minify-lunr": "uglifyjs node_modules/lunr/lunr.js -c -m -o src/generated/lunr.min.js --source-map"
+    "~~minify-lunr": "uglifyjs node_modules/lunr/lunr.js -c -m -o src/generated/lunr.min.js --source-map",
+    "ssr-server": "node ./tools/translator/ssr/ssr-server.js",
+    "ssr": "ts-node ./tools/translator/ssr/ssr.ts"
   },
   "engines": {
     "node": ">=10.9.0 <11.0.0",
@@ -93,6 +95,8 @@
     "classlist.js": "^1.1.20150312",
     "core-js": "^2.4.1",
     "klaw-sync": "^6.0.0",
+    "node-fetch": "^2.3.0",
+    "prerender": "^5.4.5",
     "rxjs": "^6.3.0",
     "tslib": "^1.9.0",
     "web-animations-js": "^2.2.5",

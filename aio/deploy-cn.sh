@@ -9,7 +9,16 @@ commitMessage=$(git log --oneline -n 1)
 cd `dirname $0`
 
 yarn build
-ts-node ./tools/translator/bin/ssr.ts
+
+yarn start &
+
+node ./tools/translator/ssr/ssr-server.js &
+
+sleep 3;
+
+ts-node ./tools/translator/ssr/ssr.ts
+
+killall -9 node
 
 if [[ ! -d "./ng-docs.github.io" ]]
 then
