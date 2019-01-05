@@ -1,5 +1,4 @@
 import * as fs from 'fs';
-// import * as http from 'http';
 import * as klawSync from 'klaw-sync';
 import { concat, defer, Observable } from 'rxjs';
 import * as fetch from 'node-fetch';
@@ -47,7 +46,7 @@ const tasks = urls.map(url => renderPage(url));
 concat(...tasks).subscribe((url) => {
 }, () => {
 }, () => {
-  process.exit(1);
+  process.exit(0);
 });
 
 // 不自动退出
