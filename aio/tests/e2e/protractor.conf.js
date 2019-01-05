@@ -3,8 +3,9 @@
 
 const { SpecReporter } = require('jasmine-spec-reporter');
 
+const MaxInt32 = Math.pow(2, 31) - 1;
 exports.config = {
-  allScriptsTimeout: 11000,
+  allScriptsTimeout: MaxInt32,
   specs: [
     './*.e2e-spec.ts'
   ],
@@ -12,7 +13,6 @@ exports.config = {
     browserName: 'chrome',
     // For Travis
     chromeOptions: {
-      binary: process.env.CHROME_BIN,
       args: ['--no-sandbox']
     }
   },
@@ -21,7 +21,7 @@ exports.config = {
   framework: 'jasmine',
   jasmineNodeOpts: {
     showColors: true,
-    defaultTimeoutInterval: 30000,
+    defaultTimeoutInterval: MaxInt32,
     print: function() {}
   },
   beforeLaunch: function() {

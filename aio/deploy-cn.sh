@@ -9,7 +9,14 @@ commitMessage=$(git log --oneline -n 1)
 cd `dirname $0`
 
 yarn build
-ts-node ./tools/translator/bin/ssr.ts
+
+yarn start &
+
+sleep 10
+
+yarn update-webdriver
+
+yarn prerender
 
 if [[ ! -d "./ng-docs.github.io" ]]
 then
