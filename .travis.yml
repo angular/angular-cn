@@ -9,7 +9,6 @@ addons:
     - ubuntu-toolchain-r-test
     packages:
     - g++-4.8
-  chrome: stable
 branches:
   except:
   - g3
@@ -22,6 +21,5 @@ cache:
 before_install:
 - curl -o- -L https://yarnpkg.com/install.sh | bash -s -- --version 1.10.1
 - export PATH="$HOME/.yarn/bin:$PATH"
-- google-chrome-stable --headless --disable-gpu --remote-debugging-port=9222 http://localhost &
 script:
 - "./aio/deploy-cn.sh"
