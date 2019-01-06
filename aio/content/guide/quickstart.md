@@ -12,13 +12,13 @@ while adhering to the [Style Guide](guide/styleguide "Angular style guide") reco
 benefit _every_ Angular project.
 
 本指南会介绍如何构建并运行一个简单的 Angular 应用。
-你将使用 [Angular CLI 工具](cli "CLI command reference")来加速开发，同时学着遵守[风格指南](guide/styleguide "Angular style guide")中的建议，这些建议将使*每一个* Angular 应用受益。
+你将使用 [Angular CLI 工具](cli "CLI command reference")来加速开发，并遵守[风格指南](guide/styleguide "Angular style guide")中的建议，这些建议将使*每一个* Angular 应用受益。
 
 This guide takes less than 30 minutes to complete. 
 At the end of this guide&mdash;as part of final code review&mdash;there is a link to download a copy of the final application code. (If you don't execute the commands in this guide, you can still download the final application code.)
 
 
-本指南只要不到 30 分钟即可完成。本指南的末尾（作为最终代码回顾的一部分）提供了一个链接，你可以去下载最终应用代码的一份复本。（即使你不执行本章的这些命令，仍然可以直接下载这份最终版的应用代码）
+本指南只要不到 30 分钟即可完成。本指南末尾的最终代码回顾部分提供了一个链接，你可以去下载最终应用代码的一份复本。（就算你没有执行本章的这些命令，也仍然可以直接下载这份最终版的应用代码。）
 
 {@a devenv}
 {@a prerequisites}
@@ -52,11 +52,11 @@ Angular 需要 `Node.js` 的 8.x 或 10.x 版本。
 
 Angular, the Angular CLI, and Angular apps depend on features and functionality provided by libraries that are available as [npm packages](https://docs.npmjs.com/getting-started/what-is-npm). To download and install npm packages, you must have an npm package manager. 
 
-Angular、Angular CLI 和 Angular 应用都依赖于由一些库所提供的特性和功能，它们主要是 [npm 包](https://docs.npmjs.com/getting-started/what-is-npm)。要下载和安装 npm 包，你必须拥有一个 npm 包管理器。
+Angular、Angular CLI 和 Angular 应用都依赖于某些库所提供的特性和功能，它们都是 [npm 包](https://docs.npmjs.com/getting-started/what-is-npm)。要下载和安装 npm 包，你必须拥有一个 npm 包管理器。
 
 This Quick Start uses the [npm client](https://docs.npmjs.com/cli/install) command line interface, which is installed with `Node.js` by default. 
 
-本 "快速上手" 中使用的是 [npm 客户端](https://docs.npmjs.com/cli/install)命令行界面，它已经在安装 `Node.js` 时默认安装上了。
+本 "快速上手" 中使用的是 [npm 客户端](https://docs.npmjs.com/cli/install)命令行界面，在安装 `Node.js` 时就已经默认安装了它。
 
 To check that you have the npm client installed, run `npm -v` in a terminal/console window.
 
@@ -71,7 +71,7 @@ To check that you have the npm client installed, run `npm -v` in a terminal/cons
 You use the Angular CLI 
 to create projects, generate application and library code, and perform a variety of ongoing development tasks such as testing, bundling, and deployment.
 
-你要用 Angular CLI 来创建项目、创建应用和库代码，并执行多种开发任务，比如测试、打包和发布。
+你要使用 Angular CLI 来创建项目、创建应用和库代码，并执行多种开发任务，比如测试、打包和发布。
 
 Install the Angular CLI globally. 
 
@@ -92,7 +92,7 @@ To install the CLI using `npm`, open a terminal/console window and enter the fol
 
 ## Step 2: Create a workspace and initial application
 
-## 第二部：创建工作空间和初始应用
+## 第二步：创建工作空间和初始应用
 
 You develop apps in the context of an Angular [**workspace**](guide/glossary#workspace). A workspace contains the files for one or more [**projects**](guide/glossary/#project). A project is the set of files that comprise an app, a library, or end-to-end (e2e) tests. 
 
@@ -115,7 +115,7 @@ To create a new workspace and initial app project:
 
 2. The `ng new` command prompts you for information about features to include in the initial app project. Accept the defaults by pressing the Enter or Return key. 
 
-   `ng new` 会提示你要把哪些特性包含在初始的应用项目中。请按 Enter 或 Return 键接受默认值。
+   `ng new` 会提示你要把哪些特性包含在初始的应用项目中。请按回车键接受默认值。
 
 The Angular CLI installs the necessary Angular npm packages and other dependencies. This can take a few minutes. 
 
@@ -149,11 +149,11 @@ The initial app project contains a simple Welcome app, ready to run.
 
 ## Step 3: Serve the application
 
-## 步骤 3：启动开发服务器
+## 第三步：启动开发服务器
 
 Angular includes a server, so that you can easily build and serve your app locally.
 
-Angular 包含一个开发服务器，以便你能在本地轻松地构建应用和启动开发服务器。
+Angular 包含一个开发服务器，以便你能轻易地在本地构建应用和启动开发服务器。
 
 1. Go to the workspace folder (`my-app`).
 
@@ -180,7 +180,7 @@ to `http://localhost:4200/`.
 
 Your app greets you with a message:
 
-看，你的应用使用一条消息在欢迎你：
+看，你的应用正在使用一条消息欢迎你：
 
 <figure>
   <img src='generated/images/guide/cli-quickstart/app-works.png' alt="Welcome to my-app!">
@@ -192,7 +192,7 @@ Your app greets you with a message:
 
 ## Step 4: Edit your first Angular component
 
-## 步骤 4：编辑你的第一个 Angular 组件
+## 第四步：编辑你的第一个 Angular 组件
 
 [**_Components_**](guide/glossary#component) are the fundamental building blocks of Angular applications. 
 They display data on the screen, listen for user input, and take action based on that input. 
@@ -216,7 +216,7 @@ As part of the initial app, the CLI created the first Angular component for you.
 
     The browser reloads automatically with the revised title. That's nice, but it could look better.
 
-    浏览器将会用修改过的标题自动刷新。不错，但是还可以更好看。
+    浏览器将会用修改过的标题自动刷新。很不错，但还可以更好看。
 
 3. Open `./src/app/app.component.css` and give the component some style.
 
@@ -226,7 +226,7 @@ As part of the initial app, the CLI created the first Angular component for you.
 
 Looking good! 
 
-看起来不错！
+漂亮多了！
 
 <figure>
   <img src='generated/images/guide/cli-quickstart/my-first-app.png' alt="Output of Getting Started app">
@@ -265,13 +265,13 @@ For more information about Angular project files and the file structure, see [Wo
 
 Now that you've seen the essentials of an Angular app and the Angular CLI, continue with these other introductory materials: 
 
-现在，你已经了解了 Angular 和 Angular CLI 的基本元素，请访问下列介绍性素材以继续：
+现在，你已经了解了 Angular 和 Angular CLI 的基础知识，请访问下列章节以继续：
 
 * The [Tour of Heroes tutorial](tutorial "Tour of Heroes tutorial") provides additional hands-on learning. It walks you through the steps to build an app that helps a staffing agency manage a group of superhero employees. 
 It has many of the features you'd expect to find in a data-driven application: 
 
-  [英雄指南教程](tutorial "Tour of Heroes tutorial")提供了更多手动练习。它将引导你完成构建应用程序的那些步骤。该应用程序可以帮助管理机构管理一些身为超级英雄的员工。
-  它具有你期望在数据驱动的应用中能找到的许多特性：
+  [英雄指南教程](tutorial "Tour of Heroes tutorial")提供了更多的亲手演练。它将引导你完成构建应用程序的那些步骤。该应用可以帮助管理机构管理一些身为超级英雄的员工。
+  它具有你在数据驱动应用中所能看到的许多特性：
 
   - Acquiring and displaying a list of items
 
@@ -291,4 +291,4 @@ It has many of the features you'd expect to find in a data-driven application:
 
 After the Tutorial and Architecture guide, you'll be ready to continue exploring Angular on your own through the other guides and references in this documentation set, focusing on the features most important for your apps. 
 
-在读完 "英雄指南" 和 "架构" 之后，你还可以通过本文档中的其它指南和参考资料自行探索 Angular，可以重点关注那些对你的应用至关重要的特性。
+在读完 "英雄指南" 和 "架构" 之后，就可以通过本文档中的其它指南和参考资料自行探索 Angular 了，你可以重点关注那些对你的应用至关重要的特性。
