@@ -3042,7 +3042,7 @@ The unit test files themselves also need to be switched to Angular when their pr
 counterparts are switched. The specs for the checkmark pipe are probably the most straightforward,
 as the pipe has no dependencies:
 
-如果产品代码被切换到了 Angular，单元测试文件本身也需要切换过来。对勾(checkmark)管道的规约可能是最简单的，因为它没有任何依赖：
+如果产品代码被切换到了 Angular，单元测试文件本身也需要切换过来。对勾(checkmark)管道的规约可能是最直观的，因为它没有任何依赖：
 
 <code-example path="upgrade-phonecat-2-hybrid/app/core/checkmark/checkmark.pipe.spec.ts" header="app/core/checkmark/checkmark.pipe.spec.ts">
 </code-example>

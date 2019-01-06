@@ -516,7 +516,7 @@ If forms are a central part of your application, scalability is very important. 
 
 Choosing a strategy begins with understanding the strengths and weaknesses of the options presented. Low-level API and form model access, predictability, mutability, straightforward validation and testing strategies, and scalability are all important considerations in choosing the infrastructure you use to build your forms in Angular. Template-driven forms are similar to patterns in AngularJS, but they have limitations given the criteria of many modern, large-scale Angular apps. Reactive forms minimize these limitations. Reactive forms integrate with reactive patterns already present in other areas of the Angular architecture, and complement those requirements well. 
 
-要选择一项策略就要先了解所提供选项的优缺点。当决定在 Angular 中构建表单要选择哪种基础设施时，底层 API 访问、表单模型访问、可预测性、可变性、直截了当的验证方式和测试策略以及可伸缩性都是重要的考虑因素。
+要选择一项策略就要先了解所提供选项的优缺点。当决定在 Angular 中构建表单要选择哪种基础设施时，底层 API 访问、表单模型访问、可预测性、可变性、直观的验证方式和测试策略以及可伸缩性都是重要的考虑因素。
 模板驱动表单和 AngularJS 中的传统模式相似，但它们具有局限性。响应式表单已经和 Angular 架构的其它部分存在的响应式模式相整合，并很好地弥补了这些需求。
 
 ## Next steps

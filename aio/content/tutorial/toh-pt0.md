@@ -9,7 +9,7 @@ You begin by creating an initial application using the Angular CLI. Throughout t
 
 In this part of the tutorial, you'll do the following:
 
-在教程的这个部分，你要做下列工作：
+在教程的这个部分，你将完成下列工作：
 
 1. Set up your environment.
 
