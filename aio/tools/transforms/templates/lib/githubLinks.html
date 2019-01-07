@@ -17,7 +17,7 @@
   {%- elseif doc.docType === 'module' %}({$ doc.id.split('/')[0] $})
   {%- elseif doc.docType === 'content' %}
   {%- else %}(...){%- endif -%}
-%3A%20describe%20your%20change...{$ lineInfo $}
+%3A%20请简述你的修改...{$ lineInfo $}
 {%- endmacro %}
 
 {% macro githubEditLink(doc, versionInfo) -%}
