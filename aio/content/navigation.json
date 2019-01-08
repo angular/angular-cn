@@ -23,11 +23,6 @@
     {
       "url": "translations/cn/home",
       "title": "关于中文版"
-    },
-    {
-      "url": "https://ng-china.org/",
-      "title": "**** 2018 ngChina @ 杭州！****",
-      "highlight": true
     }
   ],
   "TopBarNarrow": [
@@ -66,7 +61,6 @@
       "tooltip": "给文档作者的风格指南。",
       "hidden": true
     },
-
     {
       "url": "guide/quickstart",
       "title": "快速上手",
@@ -244,8 +238,8 @@
               "tooltip": "使用 FormGroup 渲染动态表单。"
             }
           ]
-       },
-       {
+        },
+        {
           "title": "Observable 与 RxJS",
           "tooltip": "Observable 与 RxJS",
           "children": [
@@ -421,12 +415,10 @@
         }
       ]
     },
-
     {
       "title": "其它技术",
       "tooltip": "把 Angular 用到你的实际工作中的一些技巧",
       "children": [
-
         {
           "url": "guide/security",
           "title": "安全",
@@ -437,7 +429,6 @@
           "title": "国际化 (i18n)",
           "tooltip": "把应用模板中的文本翻译成多种语言。"
         },
-
         {
           "title": "Service Worker 与 PWA",
           "tooltip": "Angular Service Worker: 控制应用资源的缓存。",
@@ -497,12 +488,10 @@
         }
       ]
     },
-
     {
       "title": "环境搭建与部署",
       "tooltip": "关于环境搭建、构建、测试、部署环境与工具的信息。",
       "children": [
-
         {
           "title": "CLI 命令参考手册",
           "tooltip": "CLI 简介与命令列表",
@@ -589,14 +578,12 @@
             }
           ]
         },
-
         {
           "url": "guide/setup",
           "title": "搭建本地开发环境",
           "tooltip": "安装 Angular 快速起步种子工程，以便在你的电脑上更快、更高效的开发。",
           "hidden": true
         },
-
         {
           "url": "guide/file-structure",
           "title": "项目文件结构",
@@ -607,7 +594,6 @@
           "title": "Workspace Configuration",
           "tooltip": "The \"angular.json\" file contains workspace and project configuration defaults for Angular CLI commands."
         },
-
         {
           "url": "guide/npm-packages",
           "title": "npm 包",
@@ -643,28 +629,25 @@
           "title": "浏览器支持",
           "tooltip": "浏览器支持与腻子脚本指南。"
         },
-
         {
           "title": "开发工具集成",
           "tooltip": "整合开发环境和工具。",
           "children": [
-           {
-             "url": "guide/language-service",
-             "title": "语言服务",
-             "tooltip": "使用 Angular 语言服务加速开发。"
-           },
-           {
-             "url": "guide/visual-studio-2015",
-             "title": "Visual Studio 2015",
-             "tooltip": "在 Visual Studio 2015 中使用 Angular。",
-             "hidden": true
-           }
+            {
+              "url": "guide/language-service",
+              "title": "语言服务",
+              "tooltip": "使用 Angular 语言服务加速开发。"
+            },
+            {
+              "url": "guide/visual-studio-2015",
+              "title": "Visual Studio 2015",
+              "tooltip": "在 Visual Studio 2015 中使用 Angular。",
+              "hidden": true
+            }
           ]
         }
-     ]
+      ]
     },
-
-
     {
       "title": "发布信息",
       "tooltip": "Angular 的版本发布实践、更新与升级。",
@@ -681,12 +664,10 @@
         }
       ]
     },
-
     {
       "title": "快捷手册",
       "tooltip": "Angular 语法、编码、术语汇总。",
       "children": [
-
         {
           "url": "guide/cheatsheet",
           "title": "速查表",
@@ -704,7 +685,6 @@
         }
       ]
     },
-
     {
       "title": "API 参考手册",
       "tooltip": "关于 Angular 中类和值的详细信息。",
@@ -734,6 +714,11 @@
       "title": "ng-zorro 组件库",
       "tooltip": "Ant Design 的 Angular 实现，服务于企业级后台产品。",
       "url": "https://ng.ant.design/"
+    },
+    {
+      "title": "ng-zorro mobile 组件库",
+      "tooltip": "Ant Design Mobile 的 Angular 实现，服务于无线产品。",
+      "url": "https://ng.mobile.ant.design/"
     },
     {
       "url": "guide/change-log",
@@ -838,9 +823,21 @@
     }
   ],
   "docVersions": [
-    { "title": "v6", "url": "https://v6.angular.io" },
-    { "title": "v5", "url": "https://v5.angular.io" },
-    { "title": "v4", "url": "https://v4.angular.io" },
-    { "title": "v2", "url": "https://v2.angular.io" }
+    {
+      "title": "v6",
+      "url": "https://v6.angular.io"
+    },
+    {
+      "title": "v5",
+      "url": "https://v5.angular.io"
+    },
+    {
+      "title": "v4",
+      "url": "https://v4.angular.io"
+    },
+    {
+      "title": "v2",
+      "url": "https://v2.angular.io"
+    }
   ]
 }
