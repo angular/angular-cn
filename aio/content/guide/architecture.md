@@ -35,7 +35,7 @@ Both components and services are simply classes, with *decorators* that mark the
 
 * The metadata for a service class provides the information Angular needs to make it available to components through *dependency injection (DI)*.
 
-   服务的元数据提供了一些信息，Angular 要用这些信息来让组件可以通过*依赖注入（DI）*使用该服务。
+   服务类的元数据提供了一些信息，Angular 要用这些信息来让组件可以通过*依赖注入（DI）*使用该服务。
 
 An app's components typically define many views, arranged hierarchically. Angular provides the `Router` service to help you define navigation paths among views. The router provides sophisticated in-browser navigational capabilities.
 
