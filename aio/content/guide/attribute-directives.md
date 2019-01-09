@@ -363,7 +363,7 @@ That's a crisp, compact syntax.
 
 You'll have to rename the directive's `highlightColor` property to `appHighlight` because that's now the color property binding name.
 
-你还要把该指令的 `highlightColor` 改名为 `myHighlight`，因为它是颜色属性目前的绑定名。
+你还要把该指令的 `highlightColor` 改名为 `appHighlight`，因为它是颜色属性目前的绑定名。
 
 <code-example path="attribute-directives/src/app/highlight.directive.2.ts" linenums="false" header="src/app/highlight.directive.ts (renamed to match directive selector)" region="color-2"></code-example>
 
