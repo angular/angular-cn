@@ -256,7 +256,7 @@ It's another of the public directives in the `RouterModule`.
 
 [`routerLink` 属性](#routerlink)的值为 `"/heroes"`，路由器会用它来匹配出指向 `HeroesComponent` 的路由。
 `routerLink` 是 [`RouterLink` 指令](#routerlink)的选择器，它会把用户的点击转换为路由器的导航操作。
-它是 `RouterModule` 中公开的另一个指令。
+它是 `RouterModule` 中的另一个公共指令。
 
 The browser refreshes and displays the app title and heroes link, 
 but not the heroes list.
