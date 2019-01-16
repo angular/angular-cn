@@ -184,7 +184,7 @@ You removed `<app-heroes>` because you will only display the `HeroesComponent` w
 
 The `<router-outlet>` tells the router where to display routed views.
 
-`<router-outlet>` 会告诉路由器要在哪里显示路由到的视图。
+`<router-outlet>` 会告诉路由器要在哪里显示路由的视图。
 
 <div class="alert is-helpful">
 
