@@ -134,7 +134,7 @@ You are registering it with an _injector_, which is the object that is responsib
 
 By default, the Angular CLI command `ng generate service` registers a provider with the _root injector_ for your service by including provider metadata in the `@Injectable` decorator. 
 
-默认情况下，Angular CLI 命令 `ng generate service` 会通过给 `@Injectable` 装饰器添加元数据的形式，为该服务把提供商注册到*根注入器*上。
+默认情况下，Angular CLI 命令 `ng generate service` 会通过给 `@Injectable` 装饰器添加元数据的形式，用*根注入器*将你的服务注册成为提供商。
 
 If you look at the `@Injectable()` statement right before the `HeroService` class definition, you can see that the `providedIn` metadata value is 'root':    
 
@@ -249,7 +249,7 @@ It certainly shouldn't call a function that makes HTTP requests to a remote serv
 
 让构造函数保持简单，只做初始化操作，比如把构造函数的参数赋值给属性。
 构造函数不应该*做任何事*。
-它肯定不能调用某个函数来向远端服务（比如真实的数据服务）发起 HTTP 请求。
+它当然不应该调用某个函数来向远端服务（比如真实的数据服务）发起 HTTP 请求。
 
 Instead, call `getHeroes()` inside the [*ngOnInit lifecycle hook*](guide/lifecycle-hooks) and
 let Angular call `ngOnInit` at an appropriate time _after_ constructing a `HeroesComponent` instance.
