@@ -1105,7 +1105,7 @@ export interface HostListener {
   /**
    * A set of arguments to pass to the handler method when the event occurs.
    *
- * 当该事件发生时传给处理器方法的一组事件。
+ * 当该事件发生时传给处理器方法的一组参数。
    */
   args?: string[];
 }
