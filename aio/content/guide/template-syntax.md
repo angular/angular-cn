@@ -298,7 +298,7 @@ Change detection cycles are triggered by many asynchronous activities such as
 promise resolutions, http results, timer events, keypresses and mouse moves.
 
 Angular 会在每个变更检测周期后执行模板表达式。
-它们可能在每一次按键或鼠标移动后被调用。
+变更检测周期会被多种异步活动触发，比如 Promise 解析、HTTP 结果、定时器时间、按键或鼠标移动。
 
 Expressions should finish quickly or the user experience may drag, especially on slower devices.
 Consider caching values when their computation is expensive.

@@ -1679,6 +1679,7 @@ export function useAnimation(
  * An array is treated as an animation sequence.
  *
  * 要应用到所查询到的单个或一组元素上的一个或多个动画步骤。
+ * 该数组会被视为一个动画序列。
  *
  * @param options An options object. Use the 'limit' field to limit the total number of
  * items to collect.

@@ -392,9 +392,9 @@ For information about CSRF at the Open Web Application Security Project (OWASP),
 The Stanford University paper
 <a href="https://seclab.stanford.edu/websec/csrf/csrf.pdf">Robust Defenses for Cross-Site Request Forgery</a> is a rich source of detail.
 
-到开放式 Web 应用程序安全项目(OWASP)的[这里](https://www.owasp.org/index.php/Cross-Site_Request_Forgery_%28CSRF%29)
-和[这里](https://www.owasp.org/index.php/CSRF_Prevention_Cheat_Sheet)学习更多关于跨站请求伪造（XSRF）的知识。
-这个[斯坦福大学论文](https://seclab.stanford.edu/websec/csrf/csrf.pdf)有详尽的细节。
+可到 "开放式 Web 应用程序安全项目 (OWASP) " 深入了解 CSRF，参见[Cross-Site Request Forgery (CSRF)](https://www.owasp.org/index.php/Cross-Site_Request_Forgery_%28CSRF%29)
+和[Cross-Site Request Forgery (CSRF) Prevention Cheat Sheet](https://www.owasp.org/index.php/CSRF_Prevention_Cheat_Sheet)。
+这个斯坦福大学论文 [Robust Defenses for Cross-Site Request Forgery](https://seclab.stanford.edu/websec/csrf/csrf.pdf) 有详尽的细节。
 
 See also Dave Smith's easy-to-understand
 <a href="https://www.youtube.com/watch?v=9inczw6qtpY" title="Cross Site Request Funkery Securing Your Angular Apps From Evil Doers">talk on XSRF at AngularConnect 2016</a>.

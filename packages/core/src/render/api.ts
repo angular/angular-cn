@@ -322,7 +322,7 @@ export abstract class Renderer2 {
    *
    * @param refChild The existing child node that should precede the new node.
    *
-   * 将位于新节点之前的现有节点。
+   * 将会插入在这个新节点之前的现有节点。
    */
   abstract insertBefore(parent: any, newChild: any, refChild: any): void;
   /**

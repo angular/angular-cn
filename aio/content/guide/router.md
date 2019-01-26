@@ -3977,7 +3977,6 @@ Generate a new component to compose the message.
 It displays a simple form with a header, an input box for the message,
 and two buttons, "Send" and "Cancel".
 
-在 `src/app/compose-message.component.ts` 中创建一个名叫 `ComposeMessageComponent` 的新组件。
 它显示一个简单的表单，包括一个头、一个消息输入框和两个按钮：“Send”和“Cancel”。
 
 <figure>
@@ -4265,7 +4264,7 @@ A guard's return value controls the router's behavior:
 **Note:**The guard can also tell the router to navigate elsewhere, effectively canceling the current navigation. When
 doing so inside a guard, the guard should return `false`;
 
-**注意**：守卫还可以告诉路由器导航到别处，这样也取消当前的导航。
+**注意**：守卫还可以告诉路由器导航到别处，这样也会取消当前的导航。要想在守卫中这么做，就要返回 `false`；
 
 </div>
 

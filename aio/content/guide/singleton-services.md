@@ -1,6 +1,6 @@
 # Singleton services
 
-# 单例应用
+# 单例服务
 
 #### Prerequisites:
 

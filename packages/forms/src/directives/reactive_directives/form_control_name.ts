@@ -38,9 +38,6 @@ export const controlNameBinding: any = {
  * @see `FormControl`
  * @see `AbstractControl`
  *
- * 该指令会确保通过程序写入到该 `FormControl` 实例的任何值都会被写入到 DOM 元素上（模型 -> 视图）。
- * 反过来，任何通过用户输入写入 DOM 元素上的值也会被反映到这个 `FormControl` 实例上（视图 -> 模型）。
- *
  * @usageNotes
  *
  * ### Register `FormControl` within a group

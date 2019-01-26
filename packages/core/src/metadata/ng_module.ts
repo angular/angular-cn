@@ -354,6 +354,7 @@ export interface NgModule {
    * ModuleA can use UserComponent.
    *
    * 默认情况下，可声明对象是私有的。
+   * 如果 ModuleA 不导出 UserComponent，那么只有这个 ModuleA 中的组件才能使用 UserComponent。
    *
    * ModuleA can import ModuleB and also export it, making exports from ModuleB
    * available to an NgModule that imports ModuleA.

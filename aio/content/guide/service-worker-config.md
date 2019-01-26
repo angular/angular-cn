@@ -195,8 +195,7 @@ This section describes the resources to cache, broken up into three groups.
 
 * `versionedFiles` has been deprecated. As of v6 `versionedFiles` and `files` options have the same behavior. Use `files` instead.
 
-   `versionedFiles` 和 `files` 相似，但是它用来对工件进行构建，这些工件已经在文件名中包含了一个散列，用于让其缓存失效。
-  如果 Angular Service Worker 能假定这些文件在文件名不变时其内容也不会变，那它就可以从某些方面优化这种操作。
+   `versionedFiles` 已经废弃，因为 v6 版本的 `versionedFiles` 和 `files` 选项具有相同的行为。请改用 `files`。
 
 * `urls` includes both URLs and URL patterns that will be matched at runtime. These resources are not fetched directly and do not have content hashes, but they will be cached according to their HTTP headers. This is most useful for CDNs such as the Google Fonts service.<br>
   _(Negative glob patterns are not supported and `?` will be matched literally; i.e. it will not match any character other than `?`.)_
@@ -204,7 +203,7 @@ This section describes the resources to cache, broken up into three groups.
    `urls` 包括要在运行时进行匹配的 URL 和 URL 模式。
   这些资源不是直接获取的，也没有内容散列，但它们会根据 HTTP 标头进行缓存。
   这对于像 Google Fonts 服务这样的 CDN 非常有用。<br>
-  **（不支持 glob 的逆模式）**
+  **（不支持 glob 的逆模式，`?` 将会按字面匹配；也就是说它不会匹配除了 `?` 之外的任何字符。）**
 
 ## `dataGroups`
 

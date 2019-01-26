@@ -107,7 +107,7 @@ export interface Directive {
    * The CSS selector that identifies this directive in a template
    * and triggers instantiation of the directive.
    *
-   * 这个 CSS 选择器用于触发指令的实例化。
+   * 这个 CSS 选择器用于在模板中标记出该指令，并触发该指令的实例化。
    *
    * Declare as one of the following:
    *
@@ -434,6 +434,7 @@ export interface ComponentDecorator {
    * Unlike other directives, only one component can be instantiated per an element in a template.
    *
    * Angular 的组件是指令的一个子集，它总是有一个与之关联的模板。
+   * 和其它指令不同，模板中的每个元素只能具有一个组件实例。
    *
    * A component must belong to an NgModule in order for it to be available
    * to another component or application. To make it a member of an NgModule,

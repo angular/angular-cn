@@ -641,6 +641,7 @@ Now let's create a few handy scripts to help us do all of this in the future.
 You can add these in the `"server"` section of the Angular configuration file, `angular.json`.
 
 现在，来创建一些便利脚本，在以后帮助我们完成这些琐事。
+你可以在 Angular 配置文件 `angular.json` 的 `"server"` 区添加这些脚本。
 
 <code-example format="." language="none" linenums="false">
 "architect": {

@@ -331,12 +331,12 @@ export class Validators {
    * Validator that requires the control's value to match a regex pattern. This validator is also
    * provided by default if you use the HTML5 `pattern` attribute.
    *
-   * Note that if a Regexp is provided, the Regexp is used as is to test the values. On the other
-   * hand, if a string is passed, the `^` character is prepended and the `$` character is
-   * appended to the provided string (if not already present), and the resulting regular
-   * expression is used to test the values.
-   *
    * 此验证器要求控件的值匹配某个正则表达式。当使用 HTML5 的 `pattern` 属性时，它也会生效。
+   *
+   * Note that if a Regexp is provided, the Regexp is used as is to test the values. On the other hand, if a string is passed, the `^` character is prepended and the `$` character is appended to the provided string (if not already present), and the resulting regular expression is used to test the values.
+   *
+   * 注意，如果提供了 Regexp，则使用 Regexp 来测试值。另一方面，如果传给它一个字符串，则会自动添加 `^` 前缀和 `$` 后缀（如果没有），
+   * 并使用所生成的正则表达式来测试那些值。
    *
    * @usageNotes
    *

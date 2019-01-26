@@ -54,7 +54,7 @@ export class SwitchView {
  *
  * Adds / removes DOM sub-trees when the nest match expressions matches the switch expression.
  *
- * 根据内嵌的 match（匹配）表达式（`match_express_*`）与 switch（多路开关）表达式（`switch_expression`）的匹配结果，添加 / 删除 DOM 子树。
+ * 根据内嵌的匹配表达式和 switch 表达式的匹配结果，添加或删除子树。
  *
  * `NgSwitch` stamps out nested views when their match expression value matches the value of the
  * switch expression.

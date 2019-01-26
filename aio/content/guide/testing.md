@@ -5448,6 +5448,7 @@ Here are the most useful `DebugElement` members for testers, in approximate orde
       See [above](#trigger-event-handler).
 
       如果在该元素的 `listeners` 集合中有相应的监听器，就根据名字触发这个事件。
+      第二个参数是该处理器函数所需的*事件对象*。参见[前面](#trigger-event-handler)。
 
       If the event lacks a listener or there's some other problem,
       consider calling `nativeElement.dispatchEvent(eventObject)`.

@@ -286,7 +286,9 @@ export class CurrencyPipe implements PipeTransform {
    * depending on what the [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) specifies.
    * For example, the Canadian dollar has 2 digits, whereas the Chilean peso has none.
    *
-   *     `maxFractionDigits`：小数点后的最大为数，默认为 `3`。如果没有提供，
+   *     `maxFractionDigits`：小数点后的最大为数，默认为 `3`。
+   *     如果没有提供，该数字就会根据 [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) 规范进行适当的格式化。
+   *     比如，加拿大元具有 2 位数字，而智利比索则没有。
    *
    * @param locale A locale code for the locale format rules to use.
    * When not supplied, uses the value of `LOCALE_ID`, which is `en-US` by default.
