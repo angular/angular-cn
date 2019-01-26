@@ -33,6 +33,7 @@ and runs that code.
 This is the best compilation mode for production environments, with decreased load time and increased performance compared to [just-in-time (JIT) compilation](guide/glossary#jit).
 
 Angular 的预先（AOT）编译器可以在编译期间把你的 HTML 代码和 TypeScript 代码转换成高效的 JavaScript 代码，这样浏览器就可以直接下载和运行它们。
+对于产品环境，这是最好的编译模式，相对于[即时 (JIT) 编译](guide/glossary#jit)而言，它能减小加载时间，并提高性能。
 
 By compiling your application using the `ngc` command-line tool, you can bootstrap directly to a module factory, so you don't need to include the Angular compiler in your JavaScript bundle.
 
@@ -1087,7 +1088,7 @@ To learn more, see [Routing and Navigation](guide/router).
 
 ## router outlet
 
-## 路由器模块 (router module)
+## 路由出口（router outlet）
 
 A [directive](guide/glossary#directive) that acts as a placeholder in a routing component's template. Angular dynamically renders the template based on the current router state.
 

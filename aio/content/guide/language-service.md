@@ -72,8 +72,6 @@ Angular 语言服务目前在[Visual Studio Code](https://code.visualstudio.com/
 
 ### Visual Studio Code
 
-### Visual Studio Code 中
-
 In Visual Studio Code, install Angular Language Service from the store,
 which is accessible from the bottom icon on the left menu pane.
 You can also use the VS Quick Open (⌘+P) to search for the extension. When you've opened it,
@@ -93,8 +91,6 @@ Then click the install button to install the Angular Language Service.
 然后点击安装按钮来安装 Angular 语言服务。
 
 ### WebStorm
-
-### WebStorm 中
 
 In webstorm, you have to install the language service as a dev dependency.
 When Angular sees this dev dependency, it provides the
@@ -146,8 +142,6 @@ yarn install
 ```
 
 ### Sublime Text
-
-### Sublime Text 编辑器
 
 In [Sublime Text](https://www.sublimetext.com/), you first need an extension to allow Typescript.
 Install the latest version of typescript in a local `node_modules` directory:

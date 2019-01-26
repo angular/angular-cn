@@ -89,11 +89,11 @@ The example above shows the preferred way to provide a service in a module. This
 
 In the basic CLI-generated app, modules are eagerly loaded which means that they are all loaded when the app launches. Angular uses an injector system to make things available between modules. In an eagerly loaded app, the root application injector makes all of the providers in all of the modules available throughout the app.
 
-在 CLI 生成的基本应用中，模块是立即加载的，这意味着它们都是由本应用启动的，Angular 会使用一个依赖注入体系来让一切服务都在模块间有效。对于立即加载式应用，应用中的根注入器会让所有服务提供商都对整个应用有效。
+在 CLI 生成的基本应用中，模块是急性加载的，这意味着它们都是由本应用启动的，Angular 会使用一个依赖注入体系来让一切服务都在模块间有效。对于急性加载式应用，应用中的根注入器会让所有服务提供商都对整个应用有效。
 
 This behavior necessarily changes when you use lazy loading. Lazy loading is when you load modules only when you need them; for example, when routing. They aren’t loaded right away like with eagerly loaded modules. This means that any services listed in their provider arrays aren’t available because the root injector doesn’t know about these modules.
 
-当使用惰性加载时，这种行为需要进行改变。惰性加载就是只有当需要时才加载模块，比如路由中。它们没办法像立即加载模块那样进行加载。这意味着，在它们的 `providers` 数组中列出的服务都是不可用的，因为根注入器并不知道这些模块。
+当使用惰性加载时，这种行为需要进行改变。惰性加载就是只有当需要时才加载模块，比如路由中。它们没办法像急性加载模块那样进行加载。这意味着，在它们的 `providers` 数组中列出的服务都是不可用的，因为根注入器并不知道这些模块。
 
 <!-- KW--Make diagram here -->
 
@@ -122,7 +122,7 @@ Providing a service in the component limits the service only to that component (
 the same module can’t access it.)
 
 另一种限定提供商作用域的方式是把要限定的服务添加到组件的 `providers` 数组中。组件中的提供商和 NgModule 中的提供商是彼此独立的。
-当你要立即加载一个自带了全部所需服务的模块时，这种方式是有帮助的。
+当你要急性加载一个自带了全部所需服务的模块时，这种方式是有帮助的。
 在组件中提供服务，会限定该服务只能在该组件中有效（同一模块中的其它组件不能访问它）。
 
 <code-example path="providers/src/app/app.component.ts" region="component-providers" header="src/app/app.component.ts" linenums="false">

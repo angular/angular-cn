@@ -633,8 +633,6 @@ The `ngOnInit()` and `ngOnDestroy()` methods have more vital roles to play in re
 
 ### _OnInit()_
 
-### _OnInit()钩子_
-
 Use `ngOnInit()` for two main reasons:
 
 使用 `ngOnInit()` 有两个原因：
@@ -704,8 +702,6 @@ That's where the heavy initialization logic belongs.
 
 ### _OnDestroy()_
 
-### _OnDestroy()钩子_
-
 Put cleanup logic in `ngOnDestroy()`, the logic that *must* run before Angular destroys the directive.
 
 一些清理逻辑*必须*在 Angular 销毁指令之前运行，把它们放在 `ngOnDestroy()` 中。
@@ -726,8 +722,6 @@ You risk memory leaks if you neglect to do so.
 {@a onchanges}
 
 ## _OnChanges()_
-
-## _OnChanges()_ 钩子
 
 Angular calls its `ngOnChanges()` method whenever it detects changes to ***input properties*** of the component (or directive).
 This example monitors the `OnChanges` hook.
@@ -786,8 +780,6 @@ Angular 不会关注这个英雄对象的 `name` 属性的变化。
 
 ## _DoCheck()_
 
-## _DoCheck()_ 钩子
-
 Use the `DoCheck` hook to detect and act upon changes that Angular doesn't catch on its own.
 
 使用 `DoCheck` 钩子来检测那些 Angular 自身无法捕获的变更并采取行动。
@@ -840,8 +832,6 @@ Clearly our implementation must be very lightweight or the user experience suffe
 {@a afterview}
 
 ## AfterView
-
-## AfterView 钩子
 
 The *AfterView* sample explores the `AfterViewInit()` and `AfterViewChecked()` hooks that Angular calls
 *after* it creates a component's child views.
@@ -914,8 +904,6 @@ Write lean hook methods to avoid performance problems.
 {@a aftercontent}
 
 ## AfterContent
-
-## AfterContent 钩子
 
 The *AfterContent* sample explores the `AfterContentInit()` and `AfterContentChecked()` hooks that Angular calls
 *after* Angular projects external content into the component.

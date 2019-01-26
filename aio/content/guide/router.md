@@ -5513,7 +5513,7 @@ you should eagerly load the `AppModule` and the `HeroesModule`.
 来看看*危机中心*。
 用户第一眼不会看到它。
 默认情况下，*英雄管理*才是第一视图。
-为了获得尽可能小的初始加载体积和最快的加载速度，你应该对 `AppModule` 和 `HeroesModule` 进行立即加载。
+为了获得尽可能小的初始加载体积和最快的加载速度，你应该对 `AppModule` 和 `HeroesModule` 进行急性加载。
 
 You could lazy load the _Crisis Center_.
 But you're almost certain that the user will visit the _Crisis Center_ within minutes of launching the app.

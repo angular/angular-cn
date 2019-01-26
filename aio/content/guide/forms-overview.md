@@ -238,7 +238,7 @@ In template-driven forms, each form element is linked to a directive that manage
 
 The steps below outline the data flow from view to model when the input value changes from *Red* to *Blue*.
 
-下面这些步骤列出了 "从视图到模型" 数据流的梗概。
+下面这些步骤列出了当输入框的值从 *Red* 变成 *Blue* 时 "从视图到模型" 的数据流梗概。
 
 1. The user types *Blue* into the input element.
 
@@ -274,7 +274,7 @@ is updated to the value emitted  by the `ngModelChange` event (*Blue*).
 
 The steps below outline the data flow from model to view when the `favoriteColor` changes from *Blue* to *Red*.
 
-下面这些步骤列出了从模型到视图的数据流的梗概。
+下面这些步骤列出了当 `favoriteColor` 从 *Blue* 变为 *Red* 时，"从模型到视图" 的数据流梗概。
 
 1. The `favoriteColor` value is updated in the component.
 
@@ -362,7 +362,7 @@ The following test verifies the data flow from view to model.
 
 Here are the steps performed in the view to model test.
 
-这个测试中执行的步骤如下。
+这个 "视图到模型" 测试中执行的步骤如下。
 
 1. Query the view for the form input element, and create a custom "input" event for the test.
 
@@ -385,7 +385,7 @@ The following test verifies the data flow from model to view.
 
 Here are the steps performed in the model to view test.
 
-这个测试中执行的步骤如下。
+这个 "从模型到视图" 测试的执行步骤如下。
 
 1. Use the `favoriteColorControl`, a `FormControl` instance, to set the new value.
 
@@ -419,7 +419,7 @@ The following test verifies the data flow from view to model.
 
 Here are the steps performed in the view to model test.
 
-执行的测试步骤如下：
+这个 "视图到模型" 测试的执行步骤如下：
 
 1. Query the view for the form input element, and create a custom "input" event for the test.
 
@@ -445,7 +445,7 @@ The following test verifies the data flow from model to view.
 
 Here are the steps performed in the model to view test.
 
-执行的测试步骤如下：
+这个 "模型到视图" 测试的执行步骤如下：
 
 1. Use the component instance to set the value of the `favoriteColor` property.
 

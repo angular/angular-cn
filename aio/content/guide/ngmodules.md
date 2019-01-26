@@ -75,7 +75,7 @@ Such services might be internally developed, like something you'd develop yourse
 
 Modules can be loaded eagerly when the application starts or lazy loaded asynchronously by the router.
 
-模块可以在应用启动时立即加载，也可以由路由器进行异步的惰性加载。
+模块可以在应用启动时急性加载，也可以由路由器进行异步的惰性加载。
 
 NgModule metadata does the following:
 

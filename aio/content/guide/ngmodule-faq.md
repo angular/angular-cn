@@ -699,13 +699,13 @@ not the root `AppComponent`.
 
 ### The eagerly loaded scenario
 
-### 立即加载的场景
+### 急性加载的场景
 
 When an eagerly loaded module provides a service, for example a `UserService`, that service is available application-wide. If the root module provides `UserService` and
 imports another module that provides the same `UserService`, Angular registers one of
 them in the root app injector (see [What if I import the same module twice?](guide/ngmodule-faq#q-reimport)).
 
-当立即加载的模块提供了服务时，比如 `UserService`，该服务是在全应用级可用的。如果根模块提供了 `UserService`，并导入了另一个也提供了同一个 `UserService` 的模块，Angular 就会把它们中的一个注册进应用的根注入器中（参见[如果两次导入了同一个模块会怎样？](guide/ngmodule-faq#q-reimport)）。
+当急性加载的模块提供了服务时，比如 `UserService`，该服务是在全应用级可用的。如果根模块提供了 `UserService`，并导入了另一个也提供了同一个 `UserService` 的模块，Angular 就会把它们中的一个注册进应用的根注入器中（参见[如果两次导入了同一个模块会怎样？](guide/ngmodule-faq#q-reimport)）。
 
 Then, when some component injects `UserService`, Angular finds it in the app root injector,
 and delivers the app-wide singleton service. No problem.

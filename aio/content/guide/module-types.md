@@ -141,9 +141,9 @@ typical characteristics, in real world apps, you may see hybrids.
 
      A lazy-loaded routed feature module should not be imported by any module. Doing so would trigger an eager load, defeating the purpose of lazy loading.That means you won’t see them mentioned among the `AppModule` imports. An eager loaded routed feature module must be imported by another module so that the compiler learns about its components.
 
-     惰性加载的路由特性模块不应该被任何模块导入。如果那样做就会导致它被立即加载，破坏了惰性加载的设计用途。
+     惰性加载的路由特性模块不应该被任何模块导入。如果那样做就会导致它被急性加载，破坏了惰性加载的设计用途。
      也就是说你应该永远不会看到它们在 `AppModule` 的 `imports` 中被引用。
-     立即加载的路由特性模块必须被其它模块导入，以便编译器能了解它所包含的组件。
+     急性加载的路由特性模块必须被其它模块导入，以便编译器能了解它所包含的组件。
 
      Routed feature modules rarely have providers for reasons explained in [Lazy Loading Feature Modules](/guide/lazy-loading-ngmodules). When they do, the lifetime of the provided services should be the same as the lifetime of the module. Don't provide application-wide singleton services in a routed feature module or in a module that the routed module imports.
 

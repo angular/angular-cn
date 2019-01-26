@@ -83,7 +83,7 @@ The next step is to define an object model that can describe all scenarios neede
 The hero application process involves a form with a lot of questions.
 The _question_ is the most fundamental object in the model.
 
-第一步是定义一个对象模型，用来描述所有表单功能需要的场景。英雄的申请流程涉及到一个包含很多问卷问题的表单。问卷问题是最基础的对象模型。
+下一步是定义一个对象模型，用来描述所有表单功能需要的场景。英雄的申请流程涉及到一个包含很多问卷问题的表单。问卷问题是最基础的对象模型。
 
 The following `QuestionBase` is a fundamental question class.
 
