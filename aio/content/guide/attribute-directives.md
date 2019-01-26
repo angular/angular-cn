@@ -167,7 +167,7 @@ You use the `ElementRef` in the directive's constructor
 to [inject](guide/dependency-injection) a reference to the host DOM element, 
 the element to which you applied `appHighlight`.
 
-你可以在指令的构造函数中注入 `ElementRef`，来引用宿主 DOM 元素，
+你可以在指令的构造函数中使用 `ElementRef` 来[注入](guide/dependency-injection)宿主 DOM 元素的引用，也就是你放置 `appHighlight` 的那个元素。
 
 `ElementRef` grants direct access to the host DOM element
 through its `nativeElement` property.

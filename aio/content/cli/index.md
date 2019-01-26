@@ -59,6 +59,7 @@ In your browser, open http://localhost:4200/ to see the new app run.
 When you use the [ng serve](cli/serve) command to build an app and serve it locally, the server automatically rebuilds the app and reloads the page when you change any of the source files.
 
 在浏览器中，打开 <http://localhost:4200/> 查看运行效果。
+当你使用 [ng serve](cli/serve) 命令来构建应用并在本地启动开发服务器时，服务器会自动重新构建此应用，并在修改源码时重新加载此页面。
 
 ## Workspaces and project files
 
@@ -106,6 +107,7 @@ The [ng config](cli/config) command lets you set and retrieve configuration valu
 Note that option names in the configuration file must use [camelCase](guide/glossary#case-types), while option names supplied to commands can use either camelCase or dash-case.
 
 [ng config](cli/config) 让你可以从命令行中设置和获取配置项的值。你也可以直接编辑 `angular.json` 文件。
+注意，此配置文件中的选项名称必须使用[小驼峰(camelCase)形式](guide/glossary#case-types)，不过当在命令行中提供它是可以使用小驼峰和中线分隔(dash-case)两种形式。
 
 * See more about [Workspace Configuration](guide/workspace-config).
 

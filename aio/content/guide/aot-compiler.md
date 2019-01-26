@@ -1339,18 +1339,18 @@ The following are metadata errors you may encounter, with explanations and sugge
 
 你可能遇到一些元数据错误，下面是对它们的解释和纠正建议。
 
-[<t>Expression form not supported</t><t>【不支持此表达式格式】</t>](#expression-form-not-supported)<br>
-[<t>Reference to a local (non-exported) symbol</t><t>【引用了局部（未导出的）符号】</t>](#reference-to-a-local-symbol)<br>
-[<t>Only initialized variables and constants</t><t>【只允许初始化过的变量和常量】</t>](#only-initialized-variables)<br>
-[<t>Reference to a non-exported class</t><t>【引用了未导出的类】</t>](#reference-to-a-non-exported-class)<br>
-[<t>Reference to a non-exported function</t><t>【引用了未导出的函数】</t>](#reference-to-a-non-exported-function)<br>
-[<t>Function calls are not supported</t><t>【不支持函数调用】</t>](#function-calls-not-supported)<br>
-[<t>Destructured variable or constant not supported</t><t>【不支持解构变量或常量】</t>](#destructured-variable-not-supported)<br>
-[<t>Could not resolve type</t><t>【不能解析此类型】</t>](#could-not-resolve-type)<br>
-[<t>Name expected</t><t>【期待是名字】</t>](#name-expected)<br>
-[<t>Unsupported enum member name</t><t>【不支持的枚举成员名】</t>](#unsupported-enum-member-name)<br>
-[<t>Tagged template expressions are not supported</t><t>【不支持带标签函数的模板表达式】</t>](#tagged-template-expressions-not-supported)<br>
-[<t>Symbol reference expected</t><t>【期待是符号引用】</t>](#symbol-reference-expected)<br>
+[<t>Expression form not supported</t><t>不支持此表达式格式</t>](#expression-form-not-supported)<br>
+[<t>Reference to a local (non-exported) symbol</t><t>引用了局部（未导出的）符号</t>](#reference-to-a-local-symbol)<br>
+[<t>Only initialized variables and constants</t><t>只允许初始化过的变量和常量</t>](#only-initialized-variables)<br>
+[<t>Reference to a non-exported class</t><t>引用了未导出的类</t>](#reference-to-a-non-exported-class)<br>
+[<t>Reference to a non-exported function</t><t>引用了未导出的函数</t>](#reference-to-a-non-exported-function)<br>
+[<t>Function calls are not supported</t><t>不支持函数调用</t>](#function-calls-not-supported)<br>
+[<t>Destructured variable or constant not supported</t><t>不支持解构变量或常量</t>](#destructured-variable-not-supported)<br>
+[<t>Could not resolve type</t><t>不能解析此类型</t>](#could-not-resolve-type)<br>
+[<t>Name expected</t><t>期待是名字</t>](#name-expected)<br>
+[<t>Unsupported enum member name</t><t>不支持的枚举成员名</t>](#unsupported-enum-member-name)<br>
+[<t>Tagged template expressions are not supported</t><t>不支持带标签函数的模板表达式</t>](#tagged-template-expressions-not-supported)<br>
+[<t>Symbol reference expected</t><t>期待是符号引用</t>](#symbol-reference-expected)<br>
 
 <hr>
 
@@ -1935,6 +1935,7 @@ The compiler expected a name in an expression it was evaluating.
 This can happen if you use a number as a property name as in the following example.
 
 编译器期待它正在求值的表达式中是一个名字。
+如果你像下面的例子中这样用一个数字作为属性名，就会导致这个问题。
 
 ```
 

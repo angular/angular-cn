@@ -23,6 +23,8 @@ import {UrlSegment, UrlTree} from './url_tree';
  * guard.
  *
  * 一个接口，某些类可以实现它以扮演一个守卫，来决定该路由能否激活。
+ * 如果所有守卫都返回 `true`，就会继续导航。如果任何一个守卫返回了 `false`，就会取消导航。
+ * 如果任何一个守卫返回了 `UrlTree`，就会取消当前导航，并开始导航到这个守卫所返回的 `UrlTree`。
  *
  * ```
  * class UserToken {}
@@ -104,6 +106,8 @@ export type CanActivateFn = (route: ActivatedRouteSnapshot, state: RouterStateSn
  * guard.
  *
  * 一个接口，某些类可以实现它以扮演一个守卫，来决定该路由的子路由能否激活。
+ * 如果所有守卫都返回 `true`，就会继续导航。如果任何一个守卫返回了 `false`，就会取消导航。
+ * 如果任何一个守卫返回了 `UrlTree`，就会取消当前导航，并开始导航到这个守卫所返回的 `UrlTree`。
  *
  * ```
  * class UserToken {}
@@ -195,6 +199,8 @@ export type CanActivateChildFn = (childRoute: ActivatedRouteSnapshot, state: Rou
  * guard.
  *
  * 一个接口，某些类可以实现它以扮演一个守卫，来决定该路由能否停用。
+ * 如果所有守卫都返回 `true`，就会继续导航。如果任何一个守卫返回了 `false`，就会取消导航。
+ * 如果任何一个守卫返回了 `UrlTree`，就会取消当前导航，并开始导航到这个守卫所返回的 `UrlTree`。
  *
  * ```
  * class UserToken {}

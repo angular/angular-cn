@@ -107,8 +107,6 @@ The following sections describe these selectors.
 
 ### :host
 
-### :host 选择器
-
 Use the `:host` pseudo-class selector to target styles in the element that *hosts* the component (as opposed to
 targeting elements *inside* the component's template).
 
@@ -137,8 +135,6 @@ The next example targets the host element again, but only when it also has the `
 </code-example>
 
 ### :host-context
-
-### :host-context 选择器
 
 Sometimes it's useful to apply styles based on some condition *outside* of a component's view.
 For example, a CSS theme class could be applied to the document `<body>` element, and
@@ -307,7 +303,7 @@ They are _not inherited_ by any components nested within the template nor by any
 
 When you use the Angular CLI command [`ng generate component`](cli/generate) without the `--inline-style` flag, it creates an empty styles file for you and references that file in the component's generated `styleUrls`.
 
-CLI 会默认为你创建一个空白的样式表文件，并且在所生成组件的 `styleUrls` 中引用该文件。
+当你使用 Angular CLI 的 [`ng generate component`](cli/generate) 命令但不带 `--inline-style` 标志时，CLI 会为你创建一个空白的样式表文件，并且在所生成组件的 `styleUrls` 中引用该文件。
 
 <code-example language="sh" class="code-shell">
 ng generate component hero-app
@@ -429,7 +425,7 @@ Style strings added to the `@Component.styles` array _must be written in CSS_ be
 
 ## View encapsulation
 
-## 控制视图的封装模式：原生 (Native)、仿真 (Emulated) 和无 (None)
+## 视图封装模式
 
 As discussed earlier, component CSS styles are encapsulated into the component's view and don't
 affect the rest of the application.
@@ -491,7 +487,7 @@ in most cases.
 
 ## Inspecting generated CSS
 
-## 查看仿真 (Emulated) 模式下生成的 CSS
+## 查看生成的 CSS
 
 When using emulated view encapsulation, Angular preprocesses
 all component styles so that they approximate the standard shadow CSS scoping rules.

@@ -103,4 +103,4 @@ without deep knowledge of animation techniques or CSS.
 
 * [Deployment](guide/deployment): Learn techniques for deploying your Angular application to a remote server.
 
-  [发布](guide/deployment)：学习把你的应用发布到远端服务器的技巧。
+  [部署](guide/deployment)：学习把你的应用发布到远端服务器的技巧。
