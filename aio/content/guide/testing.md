@@ -11,7 +11,7 @@ This guide offers tips and techniques for unit and integration testing Angular a
 The guide presents tests of a sample application created with the [Angular CLI](cli). This sample application is much like the one created in the [_Tour of Heroes_ tutorial](tutorial).
 The sample application and all tests in this guide are available for inspection and experimentation:
 
-该指南中的测试面向的是一个很像[《英雄指南》教程](tutorial)的 [Angular CLI](cli) 范例应用。
+该指南中的测试针对的是一个很像[《英雄指南》教程](tutorial)的 [Angular CLI](cli) 范例应用。
 这个范例应用及其所有测试都可以在下面的链接中进行查看和试用：
 
 - <live-example embedded-style>Sample app</live-example>

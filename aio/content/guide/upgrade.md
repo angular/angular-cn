@@ -317,7 +317,7 @@ exact [equivalents in Angular](guide/lifecycle-hooks), so organizing component l
 logic around them will ease the eventual Angular upgrade process.
 
 控制器的生命周期钩子 `$onInit()`、`$onDestroy()` 和 `$onChanges()` 是 AngularJS 1.5 引入的另一些便利特性。
-它们都很像[Angular 中的等价物](guide/lifecycle-hooks)，所以，围绕它们组织组件生命周期的逻辑会更容易升级。
+它们都很像[Angular 中的等价物](guide/lifecycle-hooks)，所以，围绕它们组织组件生命周期的逻辑在升级到 Angular 时会更容易。
 
 ## Upgrading with ngUpgrade
 
@@ -350,7 +350,7 @@ framework, and AngularJS code in the AngularJS framework. Both of these are the
 actual, fully featured versions of the frameworks. There is no emulation going on,
 so you can expect to have all the features and natural behavior of both frameworks.
 
-当使用 `UpgradeModule` 时，你实际上在*同时运行两个版本的 Angular*。所有 Angular 的代码运行在 Angular 框架中，而 AngularJS 的代码运行在 AngularJS 框架中。所有这些都是真实的、全功能的框架版本。
+当使用 ngUpgrade 时，你实际上在*同时运行 AngularJS 和 Angular*。所有 Angular 的代码运行在 Angular 框架中，而 AngularJS 的代码运行在 AngularJS 框架中。所有这些都是真实的、全功能的框架版本。
 没有进行任何仿真，所以你可以认为同时存在着这两个框架的所有特性和自然行为。
 
 What happens on top of this is that components and services managed by one
@@ -569,8 +569,9 @@ AngularJS and Angular approaches. Here's what happens:
   This is true whether the event originated in AngularJS or Angular code.
   The zone triggers Angular change detection after every event.
 
-   应用中发生的每件事都运行在 Angular 的 zone 里。
+  应用中发生的每件事都运行在 Angular 的 zone 里。
   无论事件发生在 AngularJS 还是 Angular 的代码中，都是如此。
+  这个 zone 会在每个事件之后触发 Angular 的变更检测。
 
 * The `UpgradeModule` will invoke the AngularJS `$rootScope.$apply()` after
   every turn of the Angular zone. This also triggers AngularJS change
@@ -1075,11 +1076,10 @@ observing the following rules:
     <td>
 
       As a two-way binding: `<my-component [(myValue)]="anExpression">`.
-      Since most AngularJS two-way bindings actually only need a one-way binding
-      in practice, `<my-component [myValue]="anExpression">` is often enough.
+      Since most AngularJS two-way bindings actually only need a one-way binding in practice, `<my-component [myValue]="anExpression">` is often enough.
 
-      用作输入：`<my-component [myValue]="anExpression">` 或
-      用作双向绑定：`<my-component [(myValue)]="anExpression"`
+      用作双向绑定：`<my-component [(myValue)]="anExpression">`。
+      由于大多数 AngularJS 的双向绑定实际上只是单向绑定，因此通常写成 `<my-component [myValue]="anExpression">` 也够用了。
 
     </td>
 
@@ -1203,8 +1203,8 @@ code. For example, you might have a service called `HeroesService` in AngularJS:
 You can upgrade the service using a Angular [factory provider](guide/dependency-injection-providers#factory-providers)
 that requests the service from the AngularJS `$injector`.
 
-你可以 Angular 的[工厂提供商](guide/dependency-injection-providers#factory-providers)升级该服务，
-它从 AngularJS 的 `$injector` 请求服务。Angular 依赖的名称由你确定：
+你可以用 Angular 的[工厂提供商](guide/dependency-injection-providers#factory-providers)升级该服务，
+它从 AngularJS 的 `$injector` 请求服务。
 
 Many developers prefer to declare the factory provider in a separate `ajs-upgraded-providers.ts` file
 so that they are all together, making it easier to reference them, create new ones and
@@ -1240,7 +1240,7 @@ You can then provide the service to Angular by adding it to the `@NgModule`:
 
 Then use the service inside your component by injecting it in the component constructor using its class as a type annotation:
 
-然后你就可以用它的类作为类型注解把它在 Angular 中进行注入了：
+然后在组件的构造函数中使用该服务的类名作为类型注解注入到组件中，从而在组件中使用它：
 
 <code-example path="upgrade-module/src/app/ajs-to-a-providers/hero-detail.component.ts" header="hero-detail.component.ts">
 </code-example>
@@ -1632,8 +1632,8 @@ component API and the organization follows the
 which is an important [preparation step](guide/upgrade#follow-the-angular-styleguide) before
 a successful upgrade.
 
-这确实是一个很好地起点。特别是，该结构遵循了[AngularJS 风格指南](https://github.com/johnpapa/angular-styleguide/blob/master/a1/README.md)，
-要想成功升级，这是一个很重要的[准备步骤](guide/upgrade#follow-the-angular-styleguide)。
+这确实是一个很好地起点。这些代码使用了 AngularJS 1.5 的组件 API，并遵循了 [AngularJS 风格指南](https://github.com/johnpapa/angular-styleguide/blob/master/a1/README.md)进行组织，
+在成功升级之前，这是一个很重要的[准备步骤](guide/upgrade#follow-the-angular-styleguide)。
 
 * Each component, service, and filter is in its own source file, as per the
   [Rule of 1](https://github.com/johnpapa/angular-styleguide/blob/master/a1/README.md#single-responsibility).
@@ -2020,7 +2020,7 @@ attached to the `<html>` element of the host page. This will no longer work in t
 app. Switch to the [ngUpgrade bootstrap](#bootstrapping-hybrid-applications) method
 instead.
 
-本应用现在是使用宿主页面中附加到 `<html>` 元素上的 `ng-app` 指令引导的。
+本应用现在是使用宿主页面中附加到 `<html>` 元素上的 AngularJS 指令 `ng-app` 引导的。
 但在混合式应用中，不能再这么用了。你得用[ngUpgrade bootstrap](#bootstrapping-hybrid-applications)方法代替。
 
 First, remove the `ng-app` attribute from `index.html`.
@@ -2183,8 +2183,8 @@ Here's the full, final code for the service:
 Notice that you're importing the `map` operator of the RxJS `Observable` separately.
 Do this for every RxJS operator.
 
-注意，你单独导入了 RxJS `Observable` 中的 `map` 操作符。
-你需要对想用的所有 RxJS 操作符这么做，因为 Angular 默认不会加载所有 RxJS 操作符。
+注意，你要单独导入了 RxJS `Observable` 中的 `map` 操作符。
+对每个 RxJS 操作符都要这么做。
 
 The new `Phone` service has the same features as the original, `ngResource`-based service.
 Because it's an Angular service, you register it with the `NgModule` providers:
@@ -2479,7 +2479,7 @@ as shown in [the Ahead-of-time Compilation chapter](guide/aot-compiler).
 Then change `main-aot.ts` to bootstrap the `AppComponentFactory` that was generated
 by the AOT compiler:
 
-然后修改 `main-aot.ts` 的引导代码，通过所生成的 `AppComponentFactory` 来引导 AngularJS 应用：
+然后修改 `main-aot.ts` 的引导代码，来引导 AOT 编译器所生成的 `AppComponentFactory`：
 
 <code-example path="upgrade-phonecat-2-hybrid/app/main-aot.ts" header="app/main-aot.ts">
 </code-example>
@@ -2542,10 +2542,10 @@ Create a new `app.component.ts` file with the following `AppComponent` class:
 <code-example path="upgrade-phonecat-3-final/app/app.component.ts" header="app/app.component.ts">
 </code-example>
 
-It has a simple template that only includes the `<router-outlet>.
+It has a simple template that only includes the `<router-outlet>`.
 This component just renders the contents of the active route and nothing else.
 
-它有一个很简单的模板，只包含 Angular 路由的 `<router-outlet>` 和 AngularJS 路由的 `ng-view` 指令。
+它有一个很简单的模板，只包含 Angular 路由的 `<router-outlet>`。
 该组件只负责渲染活动路由的内容，此外啥也不干。
 
 The selector tells Angular to plug this root component into the `<phonecat-app>`
@@ -2773,7 +2773,7 @@ working. But when you change the bootstrap to that of a Hybrid app,
 you must make a few changes.
 
 在转成 TypeScript 期间，你不用做什么就能让 E2E 测试正常工作。
-只有当你想做些修改而把组件及其模板升级到 Angular 时才需要做些处理。
+但是当你想改成按照混合式应用进行引导时，必须做一些修改。
 
 Update the `protractor-conf.js` to sync with hybrid apps:
 
@@ -2959,7 +2959,7 @@ service is no longer present after the upgrade, replace those calls with ones
 that use WebDriver's generic URL APIs instead. The first of these is
 the redirection spec:
 
-同样，`PhoneCat` 的测试代码中有两个 Protractor API 调用内部使用了 `$location`。该服务没有了，
+同样，`PhoneCat` 的测试代码中有两个 Protractor API 调用内部使用了 AngularJS 的 `$location`。该服务没有了，
 你就得把这些调用用一个 WebDriver 的通用 URL API 代替。第一个 API 是“重定向(redirect)”规约：
 
 <code-example path="upgrade-phonecat-3-final/e2e-spec.ts" region="redirect" header="e2e-tests/scenarios.ts">

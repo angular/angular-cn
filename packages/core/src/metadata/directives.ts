@@ -140,11 +140,12 @@ export interface Directive {
    * Angular only allows directives to apply on CSS selectors that do not cross
    * element boundaries.
    *
+   * Angular 的指令只允许那些不跨元素边界的 CSS 选择器。
+   *
    * For the following template HTML, a directive with an `input[type=text]` selector,
    * would be instantiated only on the `<input type="text">` element.
    *
-   * Angular 的指令只允许那些不跨元素边界的 CSS 选择器。比如，考虑一个带有 `input[type=text]` 选择器的指令。
-   * 对于下列 HTML，该指令只会在 `<input type="text">` 元素上实例化。
+   * 对于下列模板 HTML，带有 `input[type=text]` 选择器的指令只会在 `<input type="text">` 元素上实例化。
    *
    * ```html
    * <form>
@@ -643,7 +644,7 @@ export interface Component extends Directive {
    * The URL of a template file for an Angular component. If provided,
    * do not supply an inline template using `template`.
    *
-   * 组件模板文件的 URL。如果提供了它，就不要再用 `template` 来提供内联模板了。
+   * Angular 组件模板文件的 URL。如果提供了它，就不要再用 `template` 来提供内联模板了。
    */
   templateUrl?: string;
 
@@ -651,7 +652,7 @@ export interface Component extends Directive {
    * An inline template for an Angular component. If provided,
    * do not supply a template file using `templateUrl`.
    *
-   * 组件的内联模板。如果提供了它，就不要再用 `templateUrl` 提供模板了。
+   * Angular 组件的内联模板。如果提供了它，就不要再用 `templateUrl` 提供模板了。
    */
   template?: string;
 

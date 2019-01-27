@@ -106,8 +106,7 @@ export interface SafeResourceUrl extends SafeValue {}
  * into this call. Make sure any user data is appropriately escaped for this security context.
  * For more detail, see the [Security Guide](http://g.co/ng/security).
  *
- *
- * 调用任何 `bypassSecurityTrust...` API 都会禁用 Anuglar 对传入的值的内置净化机制。
+ * 调用任何 `bypassSecurityTrust...` API 都会禁用 Angular 对传入的值的内置净化机制。
  * 要小心翼翼的检查和审计所有的值和到该调用的代码执行路径。
  * 要确保任何一个用户数据都针对这个安全上下文进行过适当的转义（escape）。
  * 欲知详情，参见[安全](http://g.co/ng/security)。

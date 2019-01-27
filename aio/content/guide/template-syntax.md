@@ -1302,7 +1302,6 @@ The following binding pairs do the same thing:
 _Interpolation_ is a convenient alternative to _property binding_ in many cases.
 
 在多数情况下，插值表达式是更方便的备选项。
-实际上，在渲染视图之前，Angular 把这些插值表达式翻译成相应的属性绑定。
 
 When rendering data values as strings, there is no technical reason to prefer one form to the other.
 You lean toward readability, which tends to favor interpolation.

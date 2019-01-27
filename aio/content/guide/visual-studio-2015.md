@@ -144,11 +144,11 @@ restart it to make sure everything is clean.
 
 <h2 id='download'>Step 1: Download the Angular Getting Started app</h2>
 
-<h2 id='download'>第一步: 现在“快速上手”文件</h2>
+<h2 id='download'>第一步: 下载“ Angular 快速上手”文件</h2>
 
 Go to the final code review in [Getting Started](guide/quickstart) and download the solution app project. These files contain a starter Angular app.
 
-从 GitHub[下载“快速上手”的源代码](https://github.com/angular/quickstart)。如果下载的是一个压缩的 zip 文件，解压它。
+到 [Getting Started](guide/quickstart) 中查看最终代码，并下载这个解决方案的应用项目。这些文件包含一个起步级 Angular 应用。
 
 <h2 id='create-project'>Step 2: Create the Visual Studio ASP.NET project</h2>
 

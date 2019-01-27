@@ -335,7 +335,7 @@ export class AppModule {}
 
 Create a module named `AppServerModule` to act as the root module when running on the server. This example places it alongside `app.module.ts` in a file named `app.server.module.ts`. The new module  imports everything from the root `AppModule`, and adds `ServerModule`. It also adds `ModuleMapLoaderModule` to help make lazy-loaded routes possible during server-side renders with the Angular CLI.
 
-在服务器上运行时，要创建一个名叫 `AppServerModule` 的模块作为根模块。这个例子中把它放在了 `app.module.ts` 附近的 `app.server.module.ts` 文件中。这个新模块从 `AppModule` 中导入了所有东西，并且导入了 `ServerModule`。它还导入了 `ModuleMapLoaderModule` 以帮助在服务端渲染时也能使用惰性加载路由。
+在服务器上运行时，要创建一个名叫 `AppServerModule` 的模块作为根模块。这个例子中把它放在了 `app.module.ts` 附近的 `app.server.module.ts` 文件中。这个新模块从 `AppModule` 中导入了所有东西，并且导入了 `ServerModule`。它还添加了 `ModuleMapLoaderModule` 以便在通过 Angular CLI 进行服务端渲染时也能使用惰性加载路由。
 
 Here's an example in `src/app/app.server.module.ts`.
 

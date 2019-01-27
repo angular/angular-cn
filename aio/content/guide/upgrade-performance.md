@@ -409,6 +409,7 @@ See [Upgrading from AngularJS](guide/upgrade) to learn about:
 
 `downgradeModule()` 和 `UpgradeModule` 之间的区别就是这些。
 其余的 `upgrade/static` API 和概念的工作方式在不同的混合式应用中都完全一样了。
+欲知详情，参见[从 AngularJS 升级](guide/upgrade)。
 
 - [Using Angular Components from AngularJS Code](guide/upgrade#using-angular-components-from-angularjs-code).<br />
   _NOTE: If you are downgrading multiple modules, you need to specify the name of the downgraded
@@ -454,7 +455,7 @@ See [Upgrading from AngularJS](guide/upgrade) to learn about:
   is _not OK_ to use it in an AngularJS component that may be used independently of Angular or use
   it in a downgraded Angular component from a different module.
 
-  比如，在只使用 Angular 组件的升级过的组件中*可以*使用降级后的服务，但是，*不能*在那些不依赖 Angular 就能用的 AngularJS 组件中使用。
+  比如，在只使用 Angular 组件的已升级组件中*可以*使用降级后的服务，但是，*不能*在那些不依赖 Angular 的 AngularJS 组件中使用它，也不能从其它模块中使用降级过的 Angular 组件。
 
 </div>
 
@@ -494,7 +495,7 @@ angular.module('mainAngularJsModule', [
 
 And that is all you need to do to get the full benefit of AOT for hybrid Angular apps.
 
-这就是你想让混合式应用从 AOT 中受益时，所要做的一切。 
+这就是当你想让混合式应用受益于 AOT 时所要做的一切。 
 
 ## Conclusion
 

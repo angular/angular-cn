@@ -33,9 +33,9 @@ Even across a fast reliable network, round-trip delays can introduce significant
 
 Angular applications, as single-page applications, are in a prime position to benefit from the advantages of service workers. Starting with version 5.0.0, Angular ships with a service worker implementation. Angular developers can take advantage of this service worker and benefit from the increased reliability and performance it provides, without needing to code against low-level APIs.
 
-作为单页面应用，Angular 应用位于从 Service Worker 中受益的首要位置。
+作为单页面应用，Angular 应用可以受益于 Service Worker 的优势。
 从 Angular v5.0.0 开始，Angular 提供了一份 Service Worker 的实现。
-Angular 开发人员可以从这个 Service Worker 加强的可靠性和性能中获益，而不用再针对底层 API 写代码。
+Angular 开发人员可以利用 Service Worker，并受益于其增强的可靠性和性能，而无需再针对底层 API 写代码。
 
 Angular's service worker is designed to optimize the end user experience of using an application over a slow or unreliable network connection, while also minimizing the risks of serving outdated content. 
 
@@ -103,7 +103,7 @@ For more information about browser support, see the [browser support](https://de
 
 The remainder of this Angular documentation specifically addresses the Angular implementation of service workers. 
 
-本文档的其余部分会专注于讲 Angular 中的 Service Worker 实现。
+这份 Angular 文档的其它部分全都专注于讲 Angular 中的 Service Worker 实现。
 
 ## More on Angular service workers
 
