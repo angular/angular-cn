@@ -1925,8 +1925,8 @@ and routing configuration, including `RouterModule.forRoot`, into this routing m
 Re-export the Angular `RouterModule` by adding it to the module `exports` array.
 By re-exporting the `RouterModule` here the components declared in `AppModule` will have access to router directives such as `RouterLink` and `RouterOutlet`.
 
-把`RouterModule`添加到该模块的 `exports` 数组中，以再次导出它 。
-通过再次导出`RouterModule`，当在 `AppModule` 中导入了 `AppRoutingModule`之后，那些声明在 `AppModule` 中的组件就可以访问路由指令了，比如 `RouterLink` 和 `RouterOutlet`。
+把 Angular 的 `RouterModule`添加到该模块的 `exports` 数组中，以便再次导出它 。
+通过再次导出 `RouterModule`，当在 `AppModule` 中导入了 `AppRoutingModule` 之后，那些声明在 `AppModule` 中的组件就可以访问路由指令了，比如 `RouterLink` 和 `RouterOutlet`。
 
 After these steps, the file should look like this.
 

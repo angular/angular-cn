@@ -272,7 +272,7 @@ nothing to distinguish it from any component you've written before.
 
 Understanding this component requires only the Angular concepts covered in previous pages.
 
-只需要前面章节中学过的概念，就可以完全理解这个组件：
+只要用前面章节中学过的 Angular 概念，就可以完全理解这个组件：
 
 * The code imports the Angular core library and the `Hero` model you just created.
 
@@ -628,8 +628,8 @@ Defining a `name` attribute is a requirement when using `[(ngModel)]` in combina
   Each `FormControl` is registered under the name you assigned to the `name` attribute.
   Read more in the previous section, [The NgForm directive](guide/forms#ngForm).
 
-  在内部，Angular 创建了一些 `FormControl`，并把它们注册到 `NgForm` 指令，再将该指令附加到 `<form>` 标签。
-注册每个 `FormControl` 时，使用 `name` 属性值作为键值。[本章后面](guide/forms#ngForm)会讨论 `NgForm`。
+  在内部，Angular 创建了一些 `FormControl`，并把它们注册到 Angular 附加到 `<form>` 标签上的 `NgForm` 指令。
+注册每个 `FormControl` 时，使用 `name` 属性值作为键值。欲知详情，参见前面的 [NgForm 指令](guide/forms#ngForm)。
 
 </div>
 
@@ -1102,7 +1102,7 @@ wire the button's enable/disabled state to the form's validity without Angular's
 
 For you, it was as simple as this:
 
-有了 Angular，它就是这么简单：
+对你来说，它就是这么简单：
 
 1. Define a template reference variable on the (enhanced) form element.
 

@@ -116,7 +116,7 @@ You then import these modules into the root module.
 
 The [Angular CLI](cli) generates the following basic app module when creating a new app.
 
-CLI 在创建新应用时会生成下列基本的应用模块。
+[Angular CLI](cli) 在创建新应用时会生成下列基本的应用模块。
 
 <code-example path="bootstrapping/src/app/app.module.ts" region="whole-ngmodule" header="src/app/app.module.ts" linenums="false">
 </code-example>

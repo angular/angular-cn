@@ -32,7 +32,7 @@ into efficient JavaScript code during the build phase, before the browser downlo
 and runs that code. 
 This is the best compilation mode for production environments, with decreased load time and increased performance compared to [just-in-time (JIT) compilation](guide/glossary#jit).
 
-Angular 的预先（AOT）编译器可以在编译期间把你的 HTML 代码和 TypeScript 代码转换成高效的 JavaScript 代码，这样浏览器就可以直接下载和运行它们。
+Angular 的预先（AOT）编译器可以在编译期间把 Angular 的 HTML 代码和 TypeScript 代码转换成高效的 JavaScript 代码，这样浏览器就可以直接下载并运行它们。
 对于产品环境，这是最好的编译模式，相对于[即时 (JIT) 编译](guide/glossary#jit)而言，它能减小加载时间，并提高性能。
 
 By compiling your application using the `ngc` command-line tool, you can bootstrap directly to a module factory, so you don't need to include the Angular compiler in your JavaScript bundle.
@@ -377,7 +377,7 @@ TypeScript adds support for decorators.
 Angular defines decorators that attach metadata to classes or properties
 so that it knows what those classes or properties mean and how they should work. 
 
-Angular 定义了一些装饰器，用来为类或属性附加元数据，以便 Angular 了解那些类或属性的含义，以及要如何处理它们。
+Angular 定义了一些装饰器，用来为类或属性附加元数据，来让自己知道那些类或属性的含义，以及该如何处理它们。
 
 See [class decorator](guide/glossary#class-decorator), [class field decorator](guide/glossary#class-field-decorator). 
 
@@ -470,7 +470,7 @@ A special-purpose library or API; see [Domain-specific language](https://en.wiki
 
 Angular extends TypeScript with domain-specific languages for a number of domains relevant to Angular apps, defined in NgModules such as [animations](guide/animations), [forms](guide/forms), and [routing and navigation](guide/router).
 
-Angular 在一些相关的应用领域中用领域特定语言扩展了 TypeScript，这些 DSL 都定义在 NgModule 中，比如 [动画](guide/animations)、[表单](guide/forms)和[路由与导航](guide/router)。
+Angular 使用领域特定语言扩展了 TypeScript，用于与 Angular 应用相关的许多领域。这些 DSL 都定义在 NgModule 中，比如 [动画](guide/animations)、[表单](guide/forms)和[路由与导航](guide/router)。
 
 {@a dynamic-components}
 
@@ -721,7 +721,7 @@ See [ECMAScript](guide/glossary#ecma), [TypeScript](guide/glossary#typescript).
 The Angular just-in-time (JIT) compiler converts your Angular HTML and TypeScript code into 
 efficient JavaScript code at run time, as part of bootstrapping.
 
-在启动期间，Angular 的即时编译器（JIT)会在运行期间把你的 HTML 和 TypeScript 代码转换成高效的 JavaScript 代码。
+在启动期间，Angular 的即时编译器（JIT)会在运行期间把你的 Angular HTML 和 TypeScript 代码转换成高效的 JavaScript 代码。
 
 JIT compilation is the default (as opposed to AOT compilation) when you run Angular's `ng build` and `ng serve` CLI commands, and is a good choice during development. 
 JIT mode is strongly discouraged for production use 
@@ -851,7 +851,7 @@ Angular 就是用一组 JavaScript 模块（也叫库）的形式发布的。每
 
 Compare to [NgModule](guide/glossary#ngmodule).
 
-参见 Angular [NgModule](guide/glossary#ngmodule)。
+参见 [NgModule](guide/glossary#ngmodule)。
 
 {@a N}
 
@@ -988,7 +988,7 @@ In Angular, a folder within a [workspace](guide/glossary#workspace) that contain
 A workspace can contain multiple projects. 
 All apps in a workspace can use libraries in the same workspace.
 
-在 Angular 中，是指[工作空间](guide/glossary#workspace)中的一个文件夹，它包含 Anuglar 应用或[库](guide/glossary#library)。
+在 Angular 中，是指[工作空间](guide/glossary#workspace)中的一个文件夹，它包含 Angular 应用或[库](guide/glossary#library)。
 每个工作空间中可以包含多个项目。工作空间中的每个应用都可以使用同一工作空间中的任意库。
 
 {@a provider}
@@ -1007,7 +1007,7 @@ for a class that requires it.
 Angular registers its own providers with every injector, for services that Angular defines. 
 You can register your own providers for services that your app needs.
 
-Angular 会为其自带的服务在每个注入器中注册它自己的提供商。你也可以自己注册应用所需的自己的服务提供商。
+Angular 会为每个注入器注册一些 Angular 自己的服务。你也可以注册应用自己所需的服务提供商。
 
 See also [service](guide/glossary#service), [dependency injection](guide/glossary#di).
 

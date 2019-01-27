@@ -164,7 +164,7 @@ how you can add them.
 The `package.json` for a new Angular workspace installs the [core-js](https://github.com/zloirock/core-js) package, 
 which polyfills missing features for several popular browser.
 
-默认的 `package.json` 会安装 **[core-js](https://github.com/zloirock/core-js)** 包，它会弥补很多常用浏览器缺失的特性。
+默认的 `package.json` 会为新的 Angular 工作空间安装 **[core-js](https://github.com/zloirock/core-js)** 包，它会弥补很多常用浏览器缺失的特性。
 
 {@a dev-dependencies}
 

@@ -136,8 +136,8 @@ Angular sanitizes untrusted values for HTML, styles, and URLs; sanitizing resour
 possible because they contain arbitrary code. In development mode, Angular prints a console warning
 when it has to change a value during sanitization.
 
-Angular 会对前三项中种不可信的值进行无害化处理。但 Angular 无法对第四种资源 URL 进行无害化，因为它们可能包含任何代码。在开发模式下，
-如果 Angular 在进行无害化处理时需要被迫改变一个值，它就会在控制台上输出一个警告。
+Angular 会对前三项中种不可信的值进行无害化处理，但不能对第四种资源 URL 进行无害化，因为它们可能包含任何代码。在开发模式下，
+如果在进行无害化处理时需要被迫改变一个值，Angular 就会在控制台上输出一个警告。
 
 ### Sanitization example
 
@@ -310,7 +310,7 @@ Angular to allow binding into `<iframe src>`:
 
 如果需要把用户输入转换为一个可信任的值，可以在控制器方法中处理。下面的模板允许用户输入一个 YouTube 视频的 ID，
   然后把相应的视频加载到 `<iframe>` 中。`<iframe src>` 是一个“资源 URL”的安全环境，因为不可信的源码可能作为文件下载到本地，被毫无防备的用户执行。
-  所以要调用一个控制器方法来构造一个新的、可信任的视频 URL，然后把它绑定到 `<iframe src>`。
+  所以要调用一个控制器方法来构造一个新的、可信任的视频 URL，这样 Angular 就会允许把它绑定到 `<iframe src>`。
 
 <code-example path="security/src/app/bypass-security.component.html" linenums="false" header="src/app/bypass-security.component.html (iframe)" region="iframe">
 

@@ -249,7 +249,7 @@ You can <a href="generated/zips/cli-quickstart/cli-quickstart.zip" target="_blan
 
 **Tip:** Most Angular guides include links to download example files and run live examples in [Stackblitz](http://www.stackblitz.com), so that you can see Angular concepts and code in action. 
 
-**提示：** 这里的大多数章节中都包含同时下载范例文件和通过 [Stackblitz](http://www.stackblitz.com) 在线运行它的链接，这样你就能在实战中观察这些 Angular 的概念和代码。
+**提示：** 这里的大多数 Angular 章节中都包含同时下载范例文件和通过 [Stackblitz](http://www.stackblitz.com) 在线运行它的链接，这样你就能在实战中观察这些 Angular 的概念和代码。
 
 </div>
 

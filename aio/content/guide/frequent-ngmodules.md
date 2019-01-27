@@ -190,7 +190,7 @@ or your feature module as appropriate, and list them in the `@NgModule`
 `BrowserModule` is the first import at the top of the `AppModule`,
 `app.module.ts`.
 
-当你使用这些 Angular 模块时，在 `AppModule`（或适当的特性模块）中导入它们，并把它们列在当前 `@NgModule` 的 `imports` 数组中。比如，在 CLI 生成的基本应用中，`BrowserModule` 会在 `app.module.ts` 中 `AppModule` 的顶部最先导入。
+当你使用这些 Angular 模块时，在 `AppModule`（或适当的特性模块）中导入它们，并把它们列在当前 `@NgModule` 的 `imports` 数组中。比如，在 [Angular CLI](cli) 生成的基本应用中，`BrowserModule` 会在 `app.module.ts` 中 `AppModule` 的顶部最先导入。
 
 ```typescript
 

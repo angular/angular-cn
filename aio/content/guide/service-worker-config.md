@@ -22,7 +22,7 @@ service worker should cache and how it should update the cached files and data. 
 it with the `ngsw-config` tool:
 
 配置文件 `src/ngsw-config.json` 指定了 Angular Service Worker 应该缓存哪些文件和数据的 URL，以及如何更新缓存的文件和数据。
-CLI 会在 `ng build --prod` 期间处理配置文件。
+[Angular CLI](cli) 会在 `ng build --prod` 期间处理配置文件。
 如果想手动处理，你可以使用 `ngsw-config` 工具：
 
 ```sh

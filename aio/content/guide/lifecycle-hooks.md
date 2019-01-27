@@ -31,7 +31,7 @@ as Angular creates, updates, and destroys them.
 Developers can tap into key moments in that lifecycle by implementing
 one or more of the *lifecycle hook* interfaces in the Angular `core` library.
 
-指令和组件的实例有一个生命周期：新建、更新和销毁。
+指令和组件的实例有一个生命周期：当 Angular 新建、更新和销毁它们时触发。
 通过实现一个或多个 Angular `core` 库里定义的*生命周期钩子*接口，开发者可以介入该生命周期中的这些关键时刻。
 
 Each interface has a single hook method whose name is the interface name prefixed with `ng`.
@@ -142,7 +142,7 @@ calls the lifecycle hook methods in the following sequence at specific moments:
 
       Called during every change detection run, immediately after `ngOnChanges()` and `ngOnInit()`.
 
-      在每个 Angular 变更检测周期中调用，`ngOnChanges()` 和 `ngOnInit()` 之后。
+      在每个变更检测周期中调用，`ngOnChanges()` 和 `ngOnInit()` 之后。
 
     </td>
 
@@ -159,7 +159,7 @@ calls the lifecycle hook methods in the following sequence at specific moments:
 
       Respond after Angular projects external content into the component's view / the view that a directive is in.
 
-      当把内容投影进组件之后调用。
+      没当 Angular 把外部内容投影进组件/指令的视图之后调用。
 
       Called _once_ after the first `ngDoCheck()`.
 
@@ -180,7 +180,7 @@ calls the lifecycle hook methods in the following sequence at specific moments:
 
       Respond after Angular checks the content projected into the directive/component.
 
-      每次完成被投影组件内容的变更检测之后调用。
+      每当 Angular 完成被投影组件内容的变更检测之后调用。
 
       Called after the `ngAfterContentInit()` and every subsequent `ngDoCheck()`.
 
@@ -201,7 +201,7 @@ calls the lifecycle hook methods in the following sequence at specific moments:
 
       Respond after Angular initializes the component's views and child views / the view that a directive is in.
 
-      初始化完组件视图及其子视图之后调用。
+      每当 Angular 初始化完组件视图及其子视图之后调用。
 
       Called _once_ after the first `ngAfterContentChecked()`.
 
@@ -222,7 +222,7 @@ calls the lifecycle hook methods in the following sequence at specific moments:
 
       Respond after Angular checks the component's views and child views / the view that a directive is in.
 
-      每次做完组件视图和子视图的变更检测之后调用。
+      每当 Angular 做完组件视图和子视图的变更检测之后调用。
 
       Called after the `ngAfterViewInit` and every subsequent `ngAfterContentChecked()`.
 
@@ -244,7 +244,7 @@ calls the lifecycle hook methods in the following sequence at specific moments:
       Cleanup just before Angular destroys the directive/component.
       Unsubscribe Observables and detach event handlers to avoid memory leaks.
 
-      当 Angular 每次销毁指令/组件之前调用并清扫。
+      没当 Angular 每次销毁指令/组件之前调用并清扫。
       在这儿反订阅可观察对象和分离事件处理器，以防内存泄漏。
 
       Called _just before_ Angular destroys the directive/component.
@@ -290,7 +290,7 @@ in order to benefit from strong typing and editor tooling.
 
 ## Other Angular lifecycle hooks
 
-## 其它生命周期钩子
+## 其它 Angular 生命周期钩子
 
 Other Angular sub-systems may have their own lifecycle hooks apart from these component hooks.
 
@@ -687,8 +687,7 @@ They'll have been set when `ngOnInit()` runs.
   Angular calls `ngOnChanges()` before `ngOnInit()` and many times after that.
   It only calls `ngOnInit()` once.
 
-  `ngOnChanges()` 方法是你访问这些属性的第一次机会，Angular 会在 `ngOnInit()` 之前调用它。
-但是在那之后，Angular 还会调用 `ngOnChanges()` 很多次。而 `ngOnInit()` 只会被调用一次。
+  `ngOnChanges()` 方法是你访问这些属性的第一次机会。Angular 会在 `ngOnInit()` 之前调用 `ngOnChanges()`，之后还会调用很多次。但只会调用一次 `ngOnInit()`。
 
 </div>
 

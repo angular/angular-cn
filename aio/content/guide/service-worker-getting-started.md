@@ -4,7 +4,7 @@
 
 This document explains how to enable Angular service worker support in projects that you created with the [Angular CLI](cli). It then uses a simple example to show you a service worker in action, demonstrating loading and basic caching. 
 
-本文档解释了如何在 CLI 项目中启用对 Angular Service Worker 的支持。稍后它会用一个简单的范例来向你展示 Service Worker 实践，包括加载和基础的缓存功能。
+本文档解释了如何在 [Angular CLI](cli) 项目中启用对 Angular Service Worker 的支持。稍后它会用一个简单的范例来向你展示 Service Worker 实践，包括加载和基础的缓存功能。
 
 #### Prerequisites
 

@@ -89,7 +89,7 @@ NgModule 类与 JavaScript 模块有下列关键性的不同：
 * An NgModule bounds [declarable classes](guide/ngmodule-faq#q-declarable) only.
 Declarables are the only classes that matter to the [Angular compiler](guide/ngmodule-faq#q-angular-compiler).
 
-   NgModule 只绑定了[*可声明的类*](guide/ngmodule-faq#q-declarable)，这些可声明的类只是供[Angular 编译器](guide/ngmodule-faq#q-angular-compiler)用的。
+   NgModule 只绑定了[*可声明的类*](guide/ngmodule-faq#q-declarable)，这些可声明的类只是供 [Angular 编译器](guide/ngmodule-faq#q-angular-compiler)用的。
 
 * Instead of defining all member classes in one giant file as in a JavaScript module,
 you list the module's classes in the `@NgModule.declarations` list.

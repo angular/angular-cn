@@ -280,7 +280,7 @@ If it runs out of ancestors, Angular throws an error.
 当一个组件申请获得一个依赖时，Angular 先尝试用该组件自己的注入器来满足它。
 如果该组件的注入器没有找到对应的提供商，它就把这个申请转给它父组件的注入器来处理。
 如果那个注入器也无法满足这个申请，它就继续转给它在注入器树中的父注入器。
-这个申请继续往上冒泡 —— 直到找到了一个能处理此申请的注入器或者超出了组件树中的祖先位置为止。
+这个申请继续往上冒泡 —— 直到 Angular 找到一个能处理此申请的注入器或者超出了组件树中的祖先位置为止。
 如果超出了组件树中的祖先还未找到，Angular 就会抛出一个错误。
 
 If you have registered a provider for the same DI token at different levels, the first one Angular encounters is the one it uses to provide the dependency. If, for example, a provider is registered locally in the component that needs a service, Angular doesn't look for another provider of the same service.  

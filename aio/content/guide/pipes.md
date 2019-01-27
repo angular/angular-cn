@@ -395,7 +395,7 @@ You add the hero into the `heroes` array.  The reference to the array hasn't cha
 It's the same array. That's all Angular cares about. From its perspective, *same array, no change, no display update*.
 
 当你往 `heroes` 数组中添加一个新的英雄时，这个数组的引用并没有改变。它还是那个数组。而引用却是 Angular 所关心的一切。
-  从 Angular 的角度来看，*这是同一个数组，没有变化，也就不需要更新显示*。
+在它看来，*这是同一个数组，没有变化，也就不需要更新显示*。
 
 To fix that, create an array with the new hero appended and assign that to `heroes`.
 This time Angular detects that the array reference has changed.
@@ -479,7 +479,7 @@ Angular ignores changes within (composite) objects.
 It won't call a pure pipe if you change an input month, add to an input array, or update an input object property.
 
 Angular 会忽略(复合)对象*内部*的更改。
-如果你更改了输入日期(`Date`)中的月份、往一个输入数组(`Array`)中添加新值或者更新了一个输入对象(`Object`)的属性，Angular 都不会调用纯管道。
+如果你更改了输入日期(`Date`)中的月份、往一个输入数组(`Array`)中添加新值或者更新了一个输入对象(`Object`)的属性，它都不会调用纯管道。
 
 This may seem restrictive but it's also fast.
 An object reference check is fast&mdash;much faster than a deep check for

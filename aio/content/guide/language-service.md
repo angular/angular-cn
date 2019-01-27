@@ -10,8 +10,8 @@ opening an Angular file, reads your `tsconfig.json` file, finds all the
 templates you have in your application, and then provides language
 services for any templates that you open.
 
-Angular 语言服务让你能在模板内获得自动完成、错误检查、给出提示和内部导航等功能，而不用管这些模板位于外部 HTML 文件中还是内嵌在注解/装饰器的字符串中。
-Angular 语言服务会自动检测你要打开的文件（从你的 `tsconfig.json` 中读取），找出应用中所需的所有模板，然后为你打开的这些模板提供语言服务。
+Angular 语言服务让你能在 Angular 模板内获得自动完成、错误检查、给出提示和内部导航等功能，而不用管这些模板位于外部 HTML 文件中还是内嵌在注解/装饰器的字符串中。
+Angular 语言服务会自动检测你要打开的 Angular 文件（从你的 `tsconfig.json` 中读取），找出应用中所需的所有模板，然后为你打开的这些模板提供语言服务。
 
 ## Autocompletion
 
@@ -77,7 +77,7 @@ which is accessible from the bottom icon on the left menu pane.
 You can also use the VS Quick Open (⌘+P) to search for the extension. When you've opened it,
 enter the following command:
 
-Visual Studio Code 可以从商店中安装语言服务，这个功能就在左侧菜单面板最底下的那个图标。
+Visual Studio Code 可以从商店中安装 Angular 语言服务，这个功能就在左侧菜单面板最底下的那个图标。
 你也可以使用 VS 的快速打开（⌘+P）功能来查找这个扩展插件。打开它之后就输入下列命令：
 
 ```sh

@@ -409,8 +409,8 @@ Merging NgModule providers into the application injector
 makes it easy for a module library to enrich the entire application with new services.
 By adding the `HttpClientModule` once, every application component can make HTTP requests.
 
-通过模块导入来实现可扩展性是 NgModule 体系的主要设计目标。
-把模块的提供商并入应用程序的注入器可以让库模块使用新的服务来强化应用程序变得更容易。
+通过 NgModule 导入来实现可扩展性是 NgModule 体系的主要设计目标。
+把 NgModule 的提供商并入应用程序的注入器可以让库模块使用新的服务来强化应用程序变得更容易。
 只要添加一次 `HttpClientModule`，那么应用中的每个组件就都可以发起 Http 请求了。
 
 However, this might feel like an unwelcome surprise if you expect the module's services
@@ -757,7 +757,7 @@ Angular adds `@NgModule.providers` to the application root injector, unless the 
 For a lazy-loaded NgModule, Angular creates a _child injector_ and adds the module's providers to the child injector.
 
 Angular 会把 `@NgModule.providers` 中的提供商添加到应用的根注入器中……
-除非该模块是惰性加载的，这种情况下，它会创建一*子注入器*，并且把该模块的提供商添加到这个子注入器中。
+除非该模块是惰性加载的，这种情况下，Angular 会创建一*子注入器*，并且把该模块的提供商添加到这个子注入器中。
 
 This means that an NgModule behaves differently depending on whether it's loaded during application start
 or lazy-loaded later. Neglecting that difference can lead to [adverse consequences](guide/ngmodule-faq#q-why-bad).
@@ -843,8 +843,8 @@ Angular loads a component declaratively when
 using the component's selector to locate the element in the template.
 Angular then creates the HTML representation of the component and inserts it into the DOM at the selected element. These aren't entry components.
 
-大多数应用组件都是声明式加载的。
-Angular 使用该组件的选择器在模板中定位元素，然后创建表现该组件的 HTML，并把它插入 DOM 中所选元素的内部。它们不是入口组件。
+Angular 会声明式的加载组件，它使用组件的选择器在模板中定位元素。
+然后，Angular 会创建该组件的 HTML 表示，并把它插入 DOM 中所选元素的内部。它们不是入口组件。
 
 The bootstrapped root `AppComponent` is an _entry component_.
 True, its selector matches an element tag in `index.html`.
