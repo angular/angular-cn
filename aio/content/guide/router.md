@@ -892,7 +892,7 @@ Here are the key `Router` terms and their meanings:
       A separate NgModule that provides the necessary service providers
       and directives for navigating through application views.
 
-      一个独立的 Angular 模块，用于提供所需的服务提供商，以及用来在应用视图之间进行导航的指令。
+      一个独立的 NgModule，用于提供所需的服务提供商，以及用来在应用视图之间进行导航的指令。
 
     </td>
 
@@ -5423,7 +5423,7 @@ The root `AppModule` must neither load nor reference the `AdminModule` or its fi
 In `app.module.ts`, remove the `AdminModule` import statement from the top of the file
 and remove the `AdminModule` from the NgModule's `imports` array.
 
-在 `app.module.ts` 中，从顶部移除 `AdminModule` 的导入语句，并且从 Angular 模块的 `imports` 数组中移除 `AdminModule`。
+在 `app.module.ts` 中，从顶部移除 `AdminModule` 的导入语句，并且从 NgModule 的 `imports` 数组中移除 `AdminModule`。
 
 {@a can-load-guard}
 

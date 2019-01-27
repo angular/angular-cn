@@ -31,7 +31,7 @@ Both components and services are simply classes, with *decorators* that mark the
 * The metadata for a component class associates it with a *template* that defines a view. A template combines ordinary HTML with Angular *directives* and *binding markup* that allow Angular to modify the HTML before rendering it for display.
 
    组件类的元数据将组件类和一个用来定义视图的*模板*关联起来。
-  模板把普通的 HTML 和*指令*与*绑定标记（markup）*组合起来，这样 Angular 就可以在呈现 HTML 之前先修改这些 HTML。
+  模板把普通的 HTML 和 Angular *指令*与*绑定标记（markup）*组合起来，这样 Angular 就可以在呈现 HTML 之前先修改这些 HTML。
 
 * The metadata for a service class provides the information Angular needs to make it available to components through *dependency injection (DI)*.
 
@@ -292,5 +292,5 @@ Each of these subjects is introduced in more detail in the following pages.
 When you're familiar with these fundamental building blocks, you can explore them in more detail in the documentation. To learn about more tools and techniques that are available to help you build and deploy Angular applications, see [Next steps: tools and techniques](guide/architecture-next-steps).
 
 当你熟悉了这些基础构造块之后，就可以在本文档中进一步查看它们的详情了。
-要学习能帮你构建和发布应用的更多工具和技巧，参见[后续步骤：工具与技巧](guide/architecture-next-steps)。
+要学习能帮你构建和发布 Angular 应用的更多工具和技巧，参见[后续步骤：工具与技巧](guide/architecture-next-steps)。
 </div>

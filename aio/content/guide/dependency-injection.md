@@ -7,7 +7,7 @@ Angular has its own DI framework, which is typically
 used in the design of Angular applications to increase their efficiency and modularity.
 
 依赖注入（DI）是一种重要的应用设计模式。
-Angular 有自己的 DI 框架，在设计应用时通常会用到它，以提升它们的开发效率和模块化程度。
+Angular 有自己的 DI 框架，在设计应用时常会用到它，以提升它们的开发效率和模块化程度。
 
 Dependencies are services or objects that a class needs to perform its function.
 DI is a coding pattern in which a class asks for dependencies from external sources rather than creating them itself. 

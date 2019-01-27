@@ -498,7 +498,7 @@ Thus, services provided at the NgModule or component level are not tree-shakable
 
 The following example of non-tree-shakable providers in Angular configures a service provider for the injector of an NgModule.
 
-下面这个不可摇树优化提供商的例子为 NgModule 注入器配置了一个服务提供商。
+下面这个不可摇树优化的 Angular 提供商的例子为 NgModule 注入器配置了一个服务提供商。
 
 <code-example path="dependency-injection/src/app/tree-shaking/service-and-module.ts"  header="src/app/tree-shaking/service-and-modules.ts" linenums="false"> </code-example>
 

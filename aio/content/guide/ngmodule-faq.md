@@ -1,6 +1,6 @@
 # NgModule FAQs
 
-# Angular 模块常见问题
+# NgModule 常见问题
 
 #### Prerequisites:
 
@@ -12,8 +12,6 @@ A basic understanding of the following concepts:
 
 * [NgModules](guide/ngmodules).
 
-   [Angular 模块](guide/ngmodules).
-
 <hr />
 
 NgModules help organize an application into cohesive blocks of functionality.
@@ -22,7 +20,7 @@ NgModules 可以帮你把应用组织成一些紧密相关的代码块。
 
 This page answers the questions many developers ask about NgModule design and implementation.
 
-这里回答的是开发者常问起的关于 Angular 模块的设计与实现问题。
+这里回答的是开发者常问起的关于 NgModule 的设计与实现问题。
 
 ## What classes should I add to the `declarations` array?
 
@@ -411,7 +409,7 @@ Merging NgModule providers into the application injector
 makes it easy for a module library to enrich the entire application with new services.
 By adding the `HttpClientModule` once, every application component can make HTTP requests.
 
-通过模块导入来实现可扩展性是 Angular 模块系统的主要设计目标。
+通过模块导入来实现可扩展性是 NgModule 体系的主要设计目标。
 把模块的提供商并入应用程序的注入器可以让库模块使用新的服务来强化应用程序变得更容易。
 只要添加一次 `HttpClientModule`，那么应用中的每个组件就都可以发起 Http 请求了。
 
@@ -819,7 +817,8 @@ You can throw an error or take other remedial action.
 Certain NgModules, such as `BrowserModule`, implement such a guard.
 Here is a custom constructor for an NgModule called `CoreModule`.
 
-某些 Angular 模块（例如 `BrowserModule`）就实现了一个像 Angular 模块那一章的 `CoreModule` 构造函数那样的守卫。
+某些 NgModule（例如 `BrowserModule`）就实现了那样一个守卫。
+下面是一个名叫 `CoreModule` 的 NgModule 的 自定义构造函数。
 
 <code-example path="ngmodule-faq/src/app/core/core.module.ts" region="ctor" header="src/app/core/core.module.ts (Constructor)" linenums="false">
 </code-example>
@@ -1078,8 +1077,8 @@ Angular 的 `NgModule` 有自己的 `imports` 和 `exports` 来达到类似的�
 You _import_ other NgModules so you can use their exported classes in component templates.
 You _export_ this NgModule's classes so they can be imported and used by components of _other_ NgModules.
 
-你可以*导入*其它 Angular 模块，以便在当前模块的组件模板中使用它们导出的类。
-你可以*导出*当前 Angular 模块中的类，以便其它模块可以导入它们，并用在自己的组件模板中。
+你可以*导入*其它 NgModules，以便在当前模块的组件模板中使用它们导出的类。
+你可以*导出*当前 NgModules 中的类，以便*其它* NgModules 可以导入它们，并用在自己的组件模板中。
 
 For more information, see [JavaScript Modules vs. NgModules](guide/ngmodule-vs-jsmodule).
 

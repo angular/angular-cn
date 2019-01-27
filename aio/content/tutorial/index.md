@@ -19,7 +19,7 @@ By the end of the tutorial you will be able to do the following:
 
 * Use built-in Angular directives to show and hide elements and display lists of hero data.
 
-   使用内置指令来显示 / 隐藏元素，并显示英雄数据的列表。
+   使用Angular 的内置指令来显示 / 隐藏元素，并显示英雄数据的列表。
 
 * Create Angular components to display hero details and show an array of heroes.
 

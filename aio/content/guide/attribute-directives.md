@@ -590,7 +590,7 @@ Only then can it be bound by some other component or directive.
 
 但组件或指令不应该盲目的信任其它组件或指令。
 因此组件或指令的属性默认是不能被绑定的。
-从 Angular 绑定机制的角度来看，它们是*私有*的，而当添加了 `@Input` 时，它们变成了*公共*的
+从 Angular 绑定机制的角度来看，它们是*私有*的，而当添加了 `@Input` 时，Angular 绑定机制才会把它们当成*公共*的。
 只有这样，它们才能被其它组件或属性绑定。
 
 You can tell if `@Input` is needed by the position of the property name in a binding.

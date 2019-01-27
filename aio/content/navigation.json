@@ -276,7 +276,7 @@
           "tooltip": "在应用的根模块（AppModule）中告诉 Angular 如何构造并引导引用。"
         },
         {
-          "title": "Angular 模块",
+          "title": "NgModule",
           "tooltip": "Angular 中的模块",
           "children": [
             {
@@ -292,7 +292,7 @@
             {
               "url": "guide/frequent-ngmodules",
               "title": "常用模块",
-              "tooltip": "介绍最常用的 Angular 模块"
+              "tooltip": "介绍最常用的 NgModule"
             },
             {
               "url": "guide/module-types",
@@ -312,7 +312,7 @@
             {
               "url": "guide/providers",
               "title": "服务提供商",
-              "tooltip": "服务提供商与 Angular 模块"
+              "tooltip": "服务提供商与 NgModule"
             },
             {
               "url": "guide/singleton-services",
@@ -326,8 +326,8 @@
             },
             {
               "url": "guide/sharing-ngmodules",
-              "title": "共享 Angular 模块",
-              "tooltip": "共享 Angular 模块让你的应用现代化。"
+              "title": "共享 NgModule",
+              "tooltip": "共享 NgModule 让你的应用现代化。"
             },
             {
               "url": "guide/ngmodule-api",

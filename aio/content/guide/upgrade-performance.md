@@ -186,7 +186,7 @@ as a dependency in your main AngularJS module&mdash;that will bootstrap your mai
 kick off the Angular part of the hybrid app. In a sense, it "downgrades" an Angular module to an
 AngularJS module.
 
-依赖互联中最重要的部分之一是把两个主模块联结在一起。这就是 `downgradeModule()` 的用武之地。使用它来创建 AngularJS 模块（你可以在 AngularJS 主模块中把这个模块用作依赖项），该模块将引导你的 Angular 主模块，并启动混合式应用中的 Angular 部分。从某种意义上说，它把 Angular 模块将集成了 AngularJS 模块。
+依赖互联中最重要的部分之一是把两个主模块联结在一起。这就是 `downgradeModule()` 的用武之地。使用它来创建 AngularJS 模块（你可以在 AngularJS 主模块中把这个模块用作依赖项），该模块将引导你的 Angular 主模块，并启动混合式应用中的 Angular 部分。从某种意义上说，它把 NgModule "降级"成了 AngularJS 模块。
 
 There are a few things to note, though:
 

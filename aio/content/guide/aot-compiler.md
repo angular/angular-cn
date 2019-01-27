@@ -69,7 +69,7 @@ The `ng build` command with the `--prod` meta-flag (`ng build --prod`) compiles 
 
 See the [CLI command reference](cli) and [Building and serving Angular apps](guide/build) for more information.
 
-要了解更多，请参见[CLI 文档](cli)，和 [构建与运行](guide/build)。
+要了解更多，请参见[CLI 文档](cli)，和 [构建与运行 Angular 应用](guide/build)。
 
 </div>
 
@@ -135,7 +135,7 @@ AOT 方式会在发给客户端之前就把 HTML 模板和组件编译成 JavaSc
 
 When you use the Angular AOT compiler, you can control your app compilation in two ways:
 
-当使用 AOT 编译器时，你可以通过两种方式来控制应用的编译方式：
+当使用 Angular 的 AOT 编译器时，你可以通过两种方式来控制应用的编译方式：
 
 * By providing template compiler options in the `tsconfig.json` file.
 
@@ -545,7 +545,7 @@ piece of metadata to generate the application code.
 
 Angular libraries have this option to ensure that all Angular `.metadata.json` files are clean and it is a best practice to do the same when building your own libraries.
 
-Angular 库通过这个选项来确保所有的 `.metadata.json` 文件都是干净的。当你要构建自己的代码库时，这也同样是一项最佳实践。
+Angular 库通过这个选项来确保所有的 Angular `.metadata.json` 文件都是干净的。当你要构建自己的代码库时，这也同样是一项最佳实践。
 
 </div>
 

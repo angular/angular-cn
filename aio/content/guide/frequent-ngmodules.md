@@ -231,7 +231,7 @@ re-exports `CommonModule` making all of its directives available
 to any module that imports `BrowserModule`.
 
 `BrowserModule` 导入了 `CommonModule`，它贡献了很多通用的指令，比如 `ngIf` 和 `ngFor`。
-另外，`BrowserModule` 重新导出了 `CommonModule`，以便它所有的指令在任何导入了 `BrowserModule` 的 Angular 模块中都可以使用。
+另外，`BrowserModule` 重新导出了 `CommonModule`，以便它所有的指令在任何导入了 `BrowserModule` 的模块中都可以使用。
 
 For apps that run in the browser, import `BrowserModule` in the
 root `AppModule` because it provides services that are essential
@@ -267,9 +267,6 @@ You may also be interested in the following:
    [引导启动](guide/bootstrapping)。
 
 * [NgModules](guide/ngmodules).
-
-   [Angular 模块](guide/ngmodules).
-
 * [JavaScript Modules vs. NgModules](guide/ngmodule-vs-jsmodule).
 
    [JavaScript 模块与 NgModules](guide/ngmodule-vs-jsmodule)。

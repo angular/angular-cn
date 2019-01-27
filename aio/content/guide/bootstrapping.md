@@ -87,7 +87,7 @@ into the `index.html` host web page.
 The default application created by the Angular CLI only has one component, `AppComponent`, so it
 is in both the `declarations` and the `bootstrap` arrays.
 
-CLI 创建的默认应用只有一个组件 `AppComponent`，所以它会同时出现在 `declarations` 和 `bootstrap` 数组中。
+Angular CLI 创建的默认应用只有一个组件 `AppComponent`，所以它会同时出现在 `declarations` 和 `bootstrap` 数组中。
 
 {@a declarations}
 

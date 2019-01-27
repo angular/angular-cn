@@ -37,7 +37,7 @@ Angular doesn't *enforce* these principles. Angular does help you *follow* these
 by making it easy to factor your application logic into services and make those services
 available to components through *dependency injection*.
 
-Angular 不会*强制*你遵循这些原则。它只会通过*依赖注入*让你能更容易地将应用逻辑分解为服务，并让这些服务可用于各个组件中。
+Angular 不会*强迫*你遵循这些原则。Angular 只会通过*依赖注入*来帮你更容易地将应用逻辑分解为服务，并让这些服务可用于各个组件中。
 
 ## Service examples
 
@@ -75,7 +75,7 @@ Similarly, use the `@Injectable()` decorator to indicate that a component or oth
 
 * The *injector* is the main mechanism. Angular creates an application-wide injector for you during the bootstrap process, and additional injectors as needed. You don't have to create injectors.
 
-  *注入器*是主要的机制。你不用自己创建 Angular 注入器。Angular 会在启动过程中为你创建全应用级注入器以及所需的其它注入器。你不用自己创建注入器。
+  *注入器*是主要的机制。Angular 会在启动过程中为你创建全应用级注入器以及所需的其它注入器。你不用自己创建注入器。
 
 * An injector creates dependencies, and maintains a *container* of dependency instances that it reuses if possible.
 

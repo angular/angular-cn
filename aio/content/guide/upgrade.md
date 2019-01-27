@@ -102,7 +102,7 @@ There are a few rules in particular that will make it much easier to do
   rules define similar principles on a higher level of abstraction: Different parts of the
   application should reside in different directories and NgModules.
 
-   [按特性分目录的结构](https://github.com/johnpapa/angular-styleguide/blob/master/a1/README.md#folders-by-feature-structure)和[模块化](https://github.com/johnpapa/angular-styleguide/blob/master/a1/README.md#modularity)规则在较高的抽象层定义了一些相似的原则：应用程序中的不同部分应该被分到不同的目录和 Angular 模块中。
+   [按特性分目录的结构](https://github.com/johnpapa/angular-styleguide/blob/master/a1/README.md#folders-by-feature-structure)和[模块化](https://github.com/johnpapa/angular-styleguide/blob/master/a1/README.md#modularity)规则在较高的抽象层定义了一些相似的原则：应用程序中的不同部分应该被分到不同的目录和 NgModule 中。
 
 When an application is laid out feature per feature in this way, it can also be
 migrated one feature at a time. For applications that don't already look like
@@ -787,7 +787,7 @@ the Angular application, you must add it to the `entryComponents` for the
 NgModule.
 
 并且由于这个组件在 AngularJS 模块中使用，也是你 Angular 应用的一个入口点，你还需要
-将它加入到 Angular 模块的 `entryComponents` 列表中。
+将它加入到 NgModule 的 `entryComponents` 列表中。
 
 <code-example path="upgrade-module/src/app/downgrade-static/app.module.ts" region="ngmodule" header="app.module.ts">
 </code-example>

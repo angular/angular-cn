@@ -73,7 +73,7 @@ To get started with adding Angular animations to your project, import the animat
 
 Import `BrowserAnimationsModule`, which introduces the animation capabilities into your Angular root application module.
 
-导入 `BrowserAnimationsModule`，它能把动画能力引入应用的根模块中。
+导入 `BrowserAnimationsModule`，它能把动画能力引入 Angular 应用的根模块中。
 
 <code-example path="animations/src/app/app.module.1.ts" header="src/app/app.module.ts" language="typescript" linenums="false">
 </code-example>
@@ -237,7 +237,7 @@ The third argument, `easing`, controls how the animation [accelerates and decele
 
 **Note:** See the Angular Material Design website's topic on [Natural easing curves](https://material.io/design/motion/speed.html#easing) for general information on easing curves.
 
-**注意：**要了解缓动曲线的更多信息，请参阅 Material Design 网站下的[自然缓动曲线](https://material.io/design/motion/speed.html#easing)主题。
+**注意：**要了解缓动曲线的更多信息，请参阅 Angular Material Design 网站下的[自然缓动曲线](https://material.io/design/motion/speed.html#easing)主题。
 
 </div>
 
@@ -327,7 +327,7 @@ region="component" linenums="false">
 
 When you've defined an animation trigger for a component, you can attach it to an element in that component's template by wrapping the trigger name in brackets and preceding it with an `@` symbol. Then, you can bind the trigger to a template expression using standard Angular property binding syntax as shown below, where `triggerName` is the name of the trigger, and `expression` evaluates to a defined animation state.
 
-为组件定义好这些动画触发器之后，你可以给触发器名称加上 `@` 前缀并包在方括号里，来把它附加到组件模板中的元素上。然后，你可以使用如下所示的标准属性绑定语法，来把这个触发器绑定到模板表达式上。这里的 `triggerName` 就是触发器的名称，而 `expression` 的求值结果是前面定义过的动画状态之一。
+为组件定义好这些动画触发器之后，你可以给触发器名称加上 `@` 前缀并包在方括号里，来把它附加到组件模板中的元素上。然后，你可以使用 Angular 的标准属性绑定语法（如下所示），来把这个触发器绑定到模板表达式上。这里的 `triggerName` 就是触发器的名称，而 `expression` 的求值结果是前面定义过的动画状态之一。
 
 ```
 <div [@triggerName]="expression">...</div>;
@@ -398,7 +398,7 @@ You learned to add animation to a simple transition between two states, using `s
 
 You can learn about more advanced features in Angular animations under the Animation section, beginning with advanced techniques in [transition and triggers](guide/transition-and-triggers).
 
-你还可以到 "动画" 组下学习更多高级特性，不妨先从[转场与触发器](guide/transition-and-triggers)中讲述的高级技巧开始。
+你还可以到 "动画" 组下学习 Angular 动画的高级特性，不妨先从[转场与触发器](guide/transition-and-triggers)中讲述的高级技巧开始。
 
 {@a animation-api-summary}
 ## Animations API summary

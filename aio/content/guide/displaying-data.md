@@ -4,7 +4,7 @@
 
 You can display data by binding controls in an HTML template to properties of an Angular component.
 
-在 Angular 中最典型的数据显示方式，就是把 HTML 模板中的控件绑定到 Angular 组件的属性。
+你可以通过把 HTML 模板中的控件绑定到 Angular 组件的属性来显示数据。
 
 In this page, you'll create a component with a list of heroes.
 You'll display the list of hero names and
@@ -409,7 +409,8 @@ see the [template expressions](guide/template-syntax#template-expressions) secti
 [Template Syntax](guide/template-syntax) page.
 
 双引号中的模板表达式 `*ngIf="heros.length > 3"`，外观和行为很象 TypeScript 。
-当组件中的英雄列表有三个以上的条目时，Angular 把这个段落添加到 DOM 中，于是消息显示了出来。
+当组件中的英雄列表有三个以上的条目时，Angular 就会把这个段落添加到 DOM 中，于是消息显示了出来。
+如果有三个或更少的条目，则 Angular 会省略这些段落，所以不显示消息。
 更多信息，见[模板语法](guide/template-syntax)中的[模板表达式](guide/template-syntax#template-expressions)。
 
 <div class="alert is-helpful">

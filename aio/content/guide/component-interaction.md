@@ -243,7 +243,7 @@ payload `$event` and updates a counter.
 The framework passes the event argument&mdash;represented by `$event`&mdash;to the handler method,
 and the method processes it:
 
-框架(Angular)把事件参数(用 `$event` 表示)传给事件处理方法，这个方法会处理：
+本框架把事件参数(用 `$event` 表示)传给事件处理方法，这个方法会处理：
 
 <figure>
   <img src="generated/images/guide/component-interaction/child-to-parent.gif" alt="Child-to-parent">

@@ -1948,7 +1948,7 @@ and the [`FormsModule`](guide/forms "Forms") define their own attribute directiv
 This section is an introduction to the most commonly used attribute directives:
 
 更多的细节参见[*属性型指令*](guide/attribute-directives)一章。
-很多 Angular 模块，比如[`RouterModule`](guide/router "Routing and Navigation")和[`FormsModule`](guide/forms "Forms")都定义了自己的属性型指令。
+很多 NgModules，比如[`RouterModule`](guide/router "Routing and Navigation")和[`FormsModule`](guide/forms "Forms")都定义了自己的属性型指令。
 本节将会介绍几个最常用的属性型指令：
 
 * [`NgClass`](guide/template-syntax#ngClass) - add and remove a set of CSS classes
@@ -2098,7 +2098,7 @@ you must import the `FormsModule` and add it to the NgModule's `imports` list.
 Learn more about the `FormsModule` and `ngModel` in the
 [Forms](guide/forms#ngModel) guide.
 
-在使用 `ngModel` 指令进行双向数据绑定之前，你必须导入 `FormsModule` 并把它添加到 Angular 模块的 `imports` 列表中。
+在使用 `ngModel` 指令进行双向数据绑定之前，你必须导入 `FormsModule` 并把它添加到 NgModule 的 `imports` 列表中。
 要了解 `FormsModule` 和 `ngModel` 的更多知识，参见[表单](guide/forms#ngModel)一章。
 
 Here's how to import the `FormsModule` to make `[(ngModel)]` available.

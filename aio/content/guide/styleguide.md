@@ -2022,7 +2022,7 @@ discourage the `I` prefix.
 
 ## Application structure and NgModules
 
-## 应用程序结构与 Angular 模块
+## 应用程序结构与 NgModule
 
 Have a near-term view of implementation and a long-term vision. Start small but keep in mind where the app is heading down the road.
 
@@ -2032,7 +2032,7 @@ All of the app's code goes in a folder named `src`.
 All feature areas are in their own folder, with their own NgModule.
 
 所有应用程序的源代码都放到名叫 `src` 的目录里。
-所有特性区都在自己的文件夹中，带有它们自己的 Angular 模块。
+所有特性区都在自己的文件夹中，带有它们自己的 NgModule。
 
 All content is one asset per file. Each component, service, and pipe is in its own file.
 All third party vendor scripts are stored in another folder and not in the `src` folder.
@@ -2738,7 +2738,7 @@ and more difficult in a flat structure.
 
 **Do** create an NgModule for each feature area.
 
-**坚持**为每个特性区创建一个 Angular 模块。
+**坚持**为每个特性区创建一个 NgModule。
 
 </div>
 
@@ -2746,7 +2746,7 @@ and more difficult in a flat structure.
 
 **Why?** NgModules make it easy to lazy load routable features.
 
-**为何？** Angular 模块使惰性加载可路由的特性变得更容易。
+**为何？** NgModule 使惰性加载可路由的特性变得更容易。
 
 </div>
 
@@ -2754,7 +2754,7 @@ and more difficult in a flat structure.
 
 **Why?** NgModules make it easier to isolate, test, and reuse features.
 
-**为何？**Angular 模块隔离、测试和复用特性更容易。
+**为何？** NgModule 隔离、测试和复用特性更容易。
 
 </div>
 
@@ -2785,7 +2785,7 @@ and more difficult in a flat structure.
 **Do** create an NgModule in the app's root folder,
 for example, in `/src/app`.
 
-**坚持**在应用的根目录创建一个 Angular 模块（例如 `/src/app`）。
+**坚持**在应用的根目录创建一个 NgModule（例如 `/src/app`）。
 
 </div>
 
@@ -2793,7 +2793,7 @@ for example, in `/src/app`.
 
 **Why?** Every app requires at least one root NgModule.
 
-**为何？**每个应用都至少需要一个根 Angular 模块。
+**为何？**每个应用都至少需要一个根 NgModule。
 
 </div>
 
@@ -2836,7 +2836,7 @@ for example, in `/src/app`.
 **Do** create an NgModule for all distinct features in an application;
 for example, a `Heroes` feature.
 
-**坚持**为应用中每个明显的特性创建一个 Angular 模块。
+**坚持**为应用中每个明显的特性创建一个 NgModule。
 
 </div>
 

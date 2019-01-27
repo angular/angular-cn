@@ -278,7 +278,7 @@ Non-CLI users should follow the instructions [below](#non-cli).
 
 These are the polyfills required to run an Angular application on each supported browser:
 
-下表中的腻子脚本是每个浏览器都要用到的：
+下表中的腻子脚本是每个浏览器中运行 Angular 应用时要用到哪些：
 
 <table>
 
@@ -365,7 +365,8 @@ Some features of Angular may require additional polyfills.
 For example, the animations library relies on the standard web animation API, which is only available in Chrome and Firefox today.
 (note that the dependency of web-animations-js in Angular is only necessary if `AnimationBuilder` is used.)
 
-例如，动画库依赖于标准的 web 动画 API，目前它只在 Chrome 和 Firefox 上可用。你可能需要一个腻子脚本来在其它浏览器上使用动画功能。
+例如，动画库依赖于标准的 web 动画 API，目前它只能用在 Chrome 和 Firefox 上。
+（注意，在 Angular 中，只有当用到了 `AnimationBuilder` 时，对 web-animations-js 的依赖才是必要的。）
 
 Here are the features which may require additional polyfills:
 

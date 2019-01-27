@@ -322,7 +322,7 @@ you get a reference to the cache service from the parent `HeroBioComponent`.
 Angular throws an error if the parent lacks that service, even if a component higher
 in the component tree includes it.
 
-`@Host()` 函数是构造函数属性 `heroCache` 的装饰器，确保从其父组件 `HeroBioComponent` 得到一个缓存服务。如果该父组件不存在这个服务，Angular 就会抛出错误，即使组件树里的再上级有某个组件拥有这个服务，Angular 也会抛出错误。
+`@Host()` 函数是构造函数属性 `heroCache` 的装饰器，确保从其父组件 `HeroBioComponent` 得到一个缓存服务。如果该父组件中没有该服务，Angular 就会抛出错误，即使组件树里的再上级有某个组件拥有这个服务，还是会抛出错误。
 
 A second `@Host()` function decorates the `loggerService` constructor property.
 The only `LoggerService` instance in the app is provided at the `AppComponent` level.

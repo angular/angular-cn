@@ -152,7 +152,7 @@ Angular 会作为一组 JavaScript 模块进行加载，你可以把它们看成
 
 For example, import Angular's `Component` decorator from the `@angular/core` library like this.
 
-例如，像下面这样，从 `@angular/core` 库中导入 `Component` 装饰器：
+例如，像下面这样，从 `@angular/core` 库中导入 Angular 的 `Component` 装饰器：
 
 <code-example path="architecture/src/app/app.component.ts" region="import" linenums="false"></code-example>
 

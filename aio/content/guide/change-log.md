@@ -365,7 +365,7 @@ All guided samples with routing use the _Routing Module_ and prose content has b
 most conspicuously in the
 [NgModule](guide/ngmodules) guide and [NgModule FAQ](guide/ngmodule-faq) guide.
 
-所有使用路由的例子都使用**路由模块**，相关内容也被更新。更新最多的是[Angular 模块（NgModule）](guide/ngmodules)章和[Angular 模块常见问题](guide/ngmodule-faq)指南。
+所有使用路由的例子都使用**路由模块**，相关内容也被更新。更新最多的是 [NgModule](guide/ngmodules)章和 [NgModule 常见问题](guide/ngmodule-faq)指南。
 
 ## New "Internationalization" guide (2016-09-30)
 
@@ -403,7 +403,7 @@ Barrels now are far less useful and have been removed from the style guide;
 they remain valuable but are not a matter of Angular style.
 Also relaxed the rule that discouraged use of the `@Component.host` property.
 
-[StyleGuide](guide/styleguide)解释了 Angular 模块（NgModule）推荐的约定。
+[StyleGuide](guide/styleguide)解释了 NgModule 推荐的约定。
 现在，封装桶不再那么重要，风格指南已经移除了它们。
 它们仍然很有价值，但是它们与 Angular 风格无关。
 同时，**不推荐使用 `@Component.host` 属性**的规则也有所放宽。
