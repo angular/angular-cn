@@ -4041,7 +4041,7 @@ This example resets the component's `providers` metadata.
 
 The type parameter, `T`, is the kind of metadata you'd pass to the `@Component` decorator:
 
-这个类型参数，`T`，是你会传递给 `@Component` 装饰器的元数据的类型。
+这个类型参数 `T` 就是你传给 `@Component` 装饰器的元数据：
 
 <code-example format="." language="javascript">
   selector?: string;

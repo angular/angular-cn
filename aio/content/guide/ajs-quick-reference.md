@@ -608,7 +608,7 @@ AngularJS 为模板提供了七十多个内置指令。
       In AngularJS, the `ng-model` directive binds a form control to a property in the controller associated with the template.
       This provides **two-way binding**, whereby any change made to the value in the view is synchronized with the model, and any change to the model is synchronized with the value in the view.
 
-      在 Angular1 中，`ng-model` 指令把一个表单控件绑定到了模板相关控制器的一个属性上。
+      在 AngularJS 中，`ng-model` 指令把一个表单控件绑定到了模板相关控制器的一个属性上。
       这提供了**双向绑定**功能，因此，任何对视图中值的改动，都会同步到模型中，对模型的改动，也会同步到视图中。
 
     </td>
@@ -648,7 +648,7 @@ AngularJS 为模板提供了七十多个内置指令。
       In AngularJS, the `ng-repeat` directive repeats the associated DOM element
       for each item in the specified collection.
 
-      在 Angular1 中，`ng-repeat` 指令会为指定集合中的每一个条目重复渲染相关的 DOM 元素。
+      在 AngularJS 中，`ng-repeat` 指令会为指定集合中的每一个条目重复渲染相关的 DOM 元素。
 
       In this example, the table row (`<tr>`) element repeats for each movie object in the collection of movies.
 
@@ -863,7 +863,7 @@ AngularJS 为模板提供了七十多个内置指令。
       In AngularJS, the `ng-switch` directive swaps the contents of
       an element by selecting one of the templates based on the current value of an expression.
 
-      在 Angular1 中，`ng-switch` 指令根据一个表达式的当前值把元素的内容替换成几个模板之一。
+      在 AngularJS 中，`ng-switch` 指令根据一个表达式的当前值把元素的内容替换成几个模板之一。
 
       In this example, if `favoriteHero` is not set, the template displays "Please enter ...".
       If `favoriteHero` is set, it checks the movie hero by calling a controller method.
@@ -1421,7 +1421,7 @@ The Angular code is shown using TypeScript.
 
       In AngularJS, you write the code for the model and methods in a controller function.
 
-      在 Angular1 中，你在控制器函数中编写模型和方法的代码。
+      在 AngularJS 中，你在控制器函数中编写模型和方法的代码。
 
     </td>
 

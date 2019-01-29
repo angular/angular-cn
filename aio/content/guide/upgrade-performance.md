@@ -439,6 +439,7 @@ See [Upgrading from AngularJS](guide/upgrade) to learn about:
   module each injectable belongs to, when calling `downgradeInjectable()`._
 
   [让 Angular 的依赖可注入到 AngularJS 中](guide/upgrade#making-angular-dependencies-injectable-to-angularjs)。
+  *注意：如果你正在降级多个模块，就要在调用 `downgradeInjectable()` 时为每个包含可注入对象的模块指定降级后的模块名。*
 
 <div class="alert is-important">
 

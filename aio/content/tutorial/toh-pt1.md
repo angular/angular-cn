@@ -235,7 +235,7 @@ To automate that data flow, setup a two-way data binding between the `<input>` f
 
 Refactor the details area in the `HeroesComponent` template so it looks like this:
 
-把模板中的英雄名字重构成这样：
+把模板中的英雄详情区重构成这样：
 
 <code-example path="toh-pt1/src/app/heroes/heroes.component.1.html" region="name-input" header="src/app/heroes/heroes.component.html (HeroesComponent's template)" linenums="false">
 
