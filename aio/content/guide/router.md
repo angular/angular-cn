@@ -1017,7 +1017,7 @@ Here are the key `Router` terms and their meanings:
       A service that is provided to each route component that contains route specific
       information such as route parameters, static data, resolve data, global query params, and the global fragment.
 
-      为每个路由组件提供提供的一个服务，它包含特定于路由的信息，比如路由参数、静态数据、解析数据、全局查询参数和全局碎片（fragment）。
+      为每个路由组件提供的一个服务，它包含特定于路由的信息，比如路由参数、静态数据、解析数据、全局查询参数和全局碎片（fragment）。
 
     </td>
 
