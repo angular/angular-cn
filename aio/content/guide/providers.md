@@ -89,7 +89,7 @@ The example above shows the preferred way to provide a service in a module. This
 
 In the basic CLI-generated app, modules are eagerly loaded which means that they are all loaded when the app launches. Angular uses an injector system to make things available between modules. In an eagerly loaded app, the root application injector makes all of the providers in all of the modules available throughout the app.
 
-在 CLI 生成的基本应用中，模块是立即加载的，这意味着它们都是由本应用启动的，Angular 会使用一个依赖注入体系来让一切服务都在模块间有效。对于立即加载式应用，应用中的根注入器会让所有服务提供商都对整个应用有效。
+在 CLI 生成的基本应用中，模块是立即加载的，这意味着它们都是由本应用启动的，Angular 会使用一个依赖注入体系来让一切服务都在模块间有效。对于一次性加载式应用，应用中的根注入器会让所有服务提供商都对整个应用有效。
 
 This behavior necessarily changes when you use lazy loading. Lazy loading is when you load modules only when you need them; for example, when routing. They aren’t loaded right away like with eagerly loaded modules. This means that any services listed in their provider arrays aren’t available because the root injector doesn’t know about these modules.
 
