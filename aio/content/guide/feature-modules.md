@@ -130,7 +130,7 @@ The `CustomerDashboardComponent` is now in the JavaScript import list at the top
 
 To incorporate the feature module into your app, you have to let the root module, `app.module.ts`, know about it. Notice the `CustomerDashboardModule` export at the bottom of `customer-dashboard.module.ts`. This exposes it so that other modules can get to it. To import it into the `AppModule`, add it to the imports in `app.module.ts` and to the `imports` array:
 
-要想把这个特性模块包含进应用中，你还得让根模块 `app.module.ts` 知道它。注意，在 `customer-dashboard.module.ts` 的底部导出了 `CustomerDashboardModule`。这样就把它暴露出来，以便其它模块可以拿到它。要想把它导入到 `AppModule` 中，就把它加入 `app.module.ts` 的导入表中，并将其加入 `imports` 数组：
+要想把这个特性模块包含进应用中，你还得让根模块 `app.module.ts` 知道它。注意，在 `customer-dashboard.module.ts` 文件底部 `CustomerDashboardModule` 的导出部分。这样就把它暴露出来，以便其它模块可以拿到它。要想把它导入到 `AppModule` 中，就把它加入 `app.module.ts` 的导入表中，并将其加入 `imports` 数组：
 
 <code-example path="feature-modules/src/app/app.module.ts" region="app-module" header="src/app/app.module.ts" linenums="false">
 </code-example>
