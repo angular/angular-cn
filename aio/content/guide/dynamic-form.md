@@ -200,7 +200,7 @@ directly since you imported `ReactiveFormsModule` from `AppModule`.
 
 `DynamicFormComponent` expects the list of questions in the form of an array bound to `@Input() questions`.
 
-`DynamicForm` 期望得到一个问题列表，该列表被绑定到 `@Input() questions` 属性。
+`DynamicFormComponent` 期望得到一个问题列表，该数组被绑定到 `@Input() questions` 属性。
 
  The set of questions you've defined for the job application is returned from the `QuestionService`.
  In a real app you'd retrieve these questions from storage.

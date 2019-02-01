@@ -6,7 +6,7 @@
 
 Some developers prefer Visual Studio as their Integrated Development Environment (IDE).
 
-有些开发者喜欢用 Visual Studio。
+有些开发者喜欢用 Visual Studio 作为他们的集成开发环境。
 
 This cookbook describes the steps required to set up and use the
 Angular [Getting Started](guide/quickstart) files in Visual Studio 2015 within an ASP.NET 4.x project.
@@ -91,7 +91,7 @@ Configure Visual Studio to use the global external web tools instead of the tool
 
   * In the tree on the left, select `Projects and Solutions` | `External Web Tools`.
 
-     在左边树型项目中，选择 `Projects and Solutions` | `External Web Tools`。
+     在左边的树中，选择 `Projects and Solutions` | `External Web Tools`。
 
   * On the right, move the `$(PATH)` entry above the `$(DevEnvDir`) entries. This tells Visual Studio to
     use the external tools (such as npm) found in the global path before using its own version of the external tools.

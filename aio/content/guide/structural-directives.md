@@ -961,7 +961,7 @@ You learned
 
 * to use [`<ng-container>`](guide/structural-directives#ngcontainer) as a grouping element when there is no suitable host element.
 
-   当没有合适的容器元素时，可以使用[`<ng-container>`](guide/structural-directives#ngcontainer)对元素进行分组。
+   当没有合适的宿主元素时，可以使用[`<ng-container>`](guide/structural-directives#ngcontainer)对元素进行分组。
 
 * that the Angular desugars [asterisk (*) syntax](guide/structural-directives#asterisk) into a `<ng-template>`.
 

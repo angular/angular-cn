@@ -777,7 +777,7 @@ AngularJS 为模板提供了七十多个内置指令。
       For more information on property binding, see the [Property binding](guide/template-syntax#property-binding)
       section of the [Template Syntax](guide/template-syntax) page.
 
-      要了解属性绑定的更多知识，参见[模板语法](guide/template-syntax)中的[属性绑定](guide/template-syntax#property-binding)部分。
+      要了解关于属性绑定的更多知识，参见[模板语法](guide/template-syntax)中的[属性绑定](guide/template-syntax#property-binding)部分。
 
     </td>
 
@@ -828,7 +828,7 @@ AngularJS 为模板提供了七十多个内置指令。
       For more information on style binding, see the [Style binding](guide/template-syntax#style-binding) section of the
       [Template Syntax](guide/template-syntax) page.
 
-      要了解样式绑定的更多知识，参见[模板语法](guide/template-syntax)中的[样式绑定](guide/template-syntax#style-binding)部分。
+      要了解关于样式绑定的更多知识，参见[模板语法](guide/template-syntax)中的[样式绑定](guide/template-syntax#style-binding)部分。
 
       For more information on the `ngStyle` directive, see [NgStyle](guide/template-syntax#ngStyle)
       section of the [Template Syntax](guide/template-syntax) page.
@@ -1028,7 +1028,7 @@ AngularJS 中的很多内置过滤器在 Angular 中都有对应的管道。
 
       Selects a subset of items from the defined collection, based on the filter criteria.
 
-      基于过滤条件从指定的集合中选取出一个子集。
+      根据过滤条件从指定的集合中选取出一个子集。
 
     </td>
 
@@ -1227,7 +1227,7 @@ AngularJS 中的很多内置过滤器在 Angular 中都有对应的管道。
 
 In both AngularJS and Angular, modules help you organize your application into cohesive blocks of functionality.
 
-无论在 AngularJS 还是 Angular 中，你都要借助“模块”来把应用拆分成一些紧密相关的功能块。
+无论在 AngularJS 还是 Angular 中，“模块”都会帮你把应用拆分成一些内聚的功能块。
 
 In AngularJS, you write the code that provides the model and the methods for the view in a **controller**.
 In Angular, you build a **component**.
@@ -1593,7 +1593,7 @@ also encapsulate a style sheet within a specific component.
       This allows you to set appropriate styles for individual components that won’t leak into
       other parts of the application.
 
-      这让你可以为各个组件设置合适的样式，而不用担心它被泄漏到程序中的其它部分。
+      这让你可以为各个组件设置合适的样式，而不用担心它泄漏到程序中的其它部分。
 
     </td>
 

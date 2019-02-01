@@ -145,7 +145,7 @@ Use the `retry` operator before the `catchError` operator. It resubscribes to th
 
 The following converts the previous example to retry the request before catching the error:
 
-下列代码为前面的例子加上了捕获错误前重发请求的逻辑：
+下列代码把前面的例子改成了在捕获错误之前重发请求：
 
 <code-example path="rx-library/src/retry-on-error.ts" header="retry operator"></code-example>
 

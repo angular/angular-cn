@@ -104,7 +104,7 @@ sub.unsubscribe();
 
 * Observable execution errors are delivered to the subscriber's error handler, and the subscriber automatically unsubscribes from the observable.
 
-   可观察对象的错误处理是交给订阅者的错误处理器的，并且该订阅者会自动取消对这个可观察对象的订阅。
+   可观察对象的错误处理工作交给了订阅者的错误处理器，并且该订阅者会自动取消对这个可观察对象的订阅。
 
 <code-example hideCopy>
 obs.subscribe(() => {

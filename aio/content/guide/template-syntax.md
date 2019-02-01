@@ -11,7 +11,7 @@
 The Angular application manages what the user sees and can do, achieving this through the interaction of a
 component class instance (the *component*) and its user-facing template.
 
-Angular 应用管理着用户之所见和所为，并通过 Component 类的实例（*组件*）和面向用户的模板来与用户交互。
+Angular 应用管理着用户之所见和所为，并通过 Component 类的实例（*组件*）和面向用户的模板交互来实现这一点。
 
 You may be familiar with the component/template duality from your experience with model-view-controller (MVC) or model-view-viewmodel (MVVM).
 In Angular, the component plays the part of the controller/viewmodel, and the template represents the view.
@@ -1222,7 +1222,7 @@ Return an object if the target property expects an object.
 
 The `hero` property of the `HeroDetail` component expects a `Hero` object, which is exactly what you're sending in the property binding:
 
-`HeroDetail` 组件的 `hero` 属性想要一个 `Hero` 对象，那就在属性绑定中精确地给它一个 `Hero` 对象：
+`HeroDetail` 组件的 `hero` 属性想要一个 `Hero` 对象，也就是你在属性绑定时发给它的那个：
 
 <code-example path="template-syntax/src/app/app.component.html" region="property-binding-4" header="src/app/app.component.html" linenums="false">
 </code-example>
@@ -2012,7 +2012,7 @@ Adding an `ngClass` property binding to `currentClasses` sets the element's clas
 
 It's up to you to call `setCurrentClasses()`, both initially and when the dependent properties change.
 
-你既可以在初始化时调用 `setCurrentClassess()`，也可以在所依赖的属性变化时调用。
+你既可以在初始化时调用 `setCurrentClasses()`，也可以在所依赖的属性变化时调用。
 
 </div>
 
@@ -2055,7 +2055,7 @@ with an object that defines three styles, based on the state of three other comp
 
 Adding an `ngStyle` property binding to `currentStyles` sets the element's styles accordingly:
 
-把 `NgStyle` 属性绑定到 `currentStyles`，以据此设置此元素的样式：
+把 `ngStyle` 属性绑定到 `currentStyles`，来根据它设置此元素的样式：
 
 <code-example path="template-syntax/src/app/app.component.html" region="NgStyle-2" header="src/app/app.component.html" linenums="false">
 </code-example>
@@ -2386,7 +2386,7 @@ Here is an example of `NgForOf` applied to a simple `<div>`:
 
 You can also apply an `NgForOf` to a component element, as in this example:
 
-也可以把 `NgFor` 应用在一个组件元素上，就下例这样：
+也可以把 `NgForOf` 应用在一个组件元素上，就下例这样：
 
 <code-example path="template-syntax/src/app/app.component.html" region="NgFor-2" header="src/app/app.component.html" linenums="false">
 </code-example>
@@ -2760,7 +2760,7 @@ Values flow _out_ of the component as events bound with an [event binding](#even
 
 You can only bind to _another_ component or directive through its _Input_ and _Output_ properties.
 
-你只能通过它的**输入**和**输出**属性将其绑定到**其它**组件。
+你只能通过它的**输入**和**输出**属性将其绑定到**其它**组件或指令。
 
 <div class="alert is-important">
 
@@ -3160,7 +3160,7 @@ You could code around that problem with [*ngIf](guide/template-syntax#ngIf).
 You could try to chain parts of the property path with `&&`, knowing that the expression bails out
 when it encounters the first null.
 
-或者可以尝试通过 `&&` 来把属性路径的各部分串起来，让它在遇到第一个空值的时候，就返回空。
+还可以尝试通过 `&&` 来把属性路径的各部分串起来，让它在遇到第一个空值的时候，就返回空。
 
 <code-example path="template-syntax/src/app/app.component.html" region="safe-5" header="src/app/app.component.html" linenums="false">
 </code-example>

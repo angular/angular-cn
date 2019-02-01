@@ -549,7 +549,7 @@ This script can be used both to deactivate `@angular/service-worker`
 as well as any other Service Workers which might have been served in
 the past on your site.
 
-这个脚本可以用来停用 `@angular/service-worker` 以及任何其它以前在你的站点上提供过的 Service Worker。
+这个脚本可以用来停用 `@angular/service-worker` 以及任何其它曾在你的站点上提供过的 Service Worker。
 
 ## More on Angular service workers
 

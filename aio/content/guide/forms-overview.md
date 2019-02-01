@@ -212,6 +212,7 @@ The steps below outline the data flow from model to view.
 1. The user calls the `favoriteColorControl.setValue()` method, which updates the `FormControl` value.
 
    `favoriteColorControl.setValue()` 方法被调用，它会更新这个 `FormControl` 的值。
+
 1. The `FormControl` instance emits the new value through the `valueChanges` observable.
 
    `FormControl` 实例会通过 `valueChanges` 这个可观察对象发出新值。
@@ -238,7 +239,7 @@ In template-driven forms, each form element is linked to a directive that manage
 
 The steps below outline the data flow from view to model when the input value changes from *Red* to *Blue*.
 
-下面这些步骤列出了当输入框的值从 *Red* 变成 *Blue* 时 "从视图到模型" 的数据流梗概。
+下面这些步骤列出了当输入框的值从 *Red* 变成 *Blue* 时 "从视图到模型" 的数据流概况。
 
 1. The user types *Blue* into the input element.
 
@@ -274,7 +275,7 @@ is updated to the value emitted  by the `ngModelChange` event (*Blue*).
 
 The steps below outline the data flow from model to view when the `favoriteColor` changes from *Blue* to *Red*.
 
-下面这些步骤列出了当 `favoriteColor` 从 *Blue* 变为 *Red* 时，"从模型到视图" 的数据流梗概。
+下面这些步骤列出了当 `favoriteColor` 从 *Blue* 变为 *Red* 时，"从模型到视图" 的数据流概况。
 
 1. The `favoriteColor` value is updated in the component.
 
@@ -374,7 +375,7 @@ Here are the steps performed in the view to model test.
 
 1. Assert that the component's `favoriteColorControl` value matches the value from the input.
 
-   断言 `favoriteColor` 这个 `FormControl` 实例的值与来自输入框的值是匹配的。
+   断言该组件的 `favoriteColorControl` 的值与来自输入框的值是匹配的。
 
 The following test verifies the data flow from model to view.
 
@@ -389,7 +390,8 @@ Here are the steps performed in the model to view test.
 
 1. Use the `favoriteColorControl`, a `FormControl` instance, to set the new value.
 
-   使用 `favoriteColor` 这个 `FormControl` 实例来设置新值。
+   使用 `favoriteColorControl` 这个 `FormControl` 实例来设置新值。
+
 1. Query the view for the form input element.
 
    查询表单中输入框的视图。
@@ -471,7 +473,7 @@ Here are the steps performed in the model to view test.
 
 The change tracking method plays a role in the efficiency of your application.
 
-追踪变更的方法对于应用的运行效率有着重要影响。
+追踪变更的方法对于应用的运行效率有着重要作用。
 
 * **Reactive forms** keep the data model pure by providing it as an immutable data structure. Each time a change is triggered on the data model, the `FormControl` instance returns a new data model rather than updating the existing data model. This gives you the ability to track unique changes to the data model through the control's observable. This provides one way for change detection to be more efficient because it only needs to update on unique changes. It also follows reactive patterns that integrate with observable operators to transform data.
 

@@ -21,7 +21,7 @@ If you specify the service class itself as the provider token, the default behav
 
 In the following typical example, the `Logger` class itself provides a `Logger` instance. 
 
-在下面这个典型的例子中，由 `Logger` 类本身提供 `Logger` 的实例。
+在下面这个典型的例子中，`Logger` 类资深提供了 `Logger` 的实例。
 
 <code-example path="dependency-injection/src/app/providers.component.ts" region="providers-logger">
 </code-example>
@@ -285,7 +285,7 @@ the help of an `@Inject()` parameter decorator.
 Although the `AppConfig` interface plays no role in dependency injection,
 it supports typing of the configuration object within the class.
 
-虽然 `AppConfig` 接口对依赖注入本身没有任何作用，但是它可以在这个组件类中提供类型信息。
+虽然 `AppConfig` 接口在依赖注入时没有任何作用，但它可以为该组件类中的这个配置对象指定类型信息。
 
 </div>
 

@@ -99,7 +99,7 @@ calls the lifecycle hook methods in the following sequence at specific moments:
 
       Called before `ngOnInit()` and whenever one or more data-bound input properties change.
 
-      当被绑定的输入属性的值发生变化时调用，首次调用一定会发生在 `ngOnInit()` 之前。
+      在 `ngOnInit()` 之前以及所绑定的一个或多个输入属性的值发生变化时都会调用。
 
     </td>
 
@@ -142,7 +142,7 @@ calls the lifecycle hook methods in the following sequence at specific moments:
 
       Called during every change detection run, immediately after `ngOnChanges()` and `ngOnInit()`.
 
-      在每个变更检测周期中调用，`ngOnChanges()` 和 `ngOnInit()` 之后。
+      在每个变更检测周期中，紧跟在 `ngOnChanges()` 和 `ngOnInit()` 后面调用。
 
     </td>
 
@@ -591,7 +591,7 @@ The heroes will never know they're being watched.
 The sneaky spy directive is simple, consisting almost entirely of `ngOnInit()` and `ngOnDestroy()` hooks
 that log messages to the parent via an injected `LoggerService`.
 
-这个鬼鬼祟祟的侦探指令很简单，几乎完全由 `ngOnInit()` 和 `ngOnDestroy()` 钩子组成，它通过一个注入进来的 `LoggerService` 来把消息记录到父组件中去。
+这个鬼鬼祟祟的侦探指令很简单，几乎完全由 `ngOnInit()` 和 `ngOnDestroy()` 钩子组成，它通过一个注入进来的 `LoggerService` 把消息记录到父组件中去。
 
 <code-example path="lifecycle-hooks/src/app/spy.directive.ts" region="spy-directive" header="src/app/spy.directive.ts" linenums="false"></code-example>
 
@@ -647,7 +647,7 @@ Use `ngOnInit()` for two main reasons:
 
 Experienced developers agree that components should be cheap and safe to construct.
 
-有经验的开发者会认同组件的构建应该很便宜和安全。
+有经验的开发者会认同组件应该能很便宜和安全的构造出来。
 
 <div class="alert is-helpful">
 
@@ -793,7 +793,7 @@ Use the `DoCheck` hook to detect and act upon changes that Angular doesn't catch
 
 The *DoCheck* sample extends the *OnChanges* sample with the following `ngDoCheck()` hook:
 
-*DoCheck* 范例通过下面的 `ngDoCheck()` 实现扩展了 *OnChanges* 范例：
+*DoCheck* 范例通过下面的 `ngDoCheck()` 钩子扩展了 *OnChanges* 范例：
 
 <code-example path="lifecycle-hooks/src/app/do-check.component.ts" region="ng-do-check" header="DoCheckComponent (ngDoCheck)" linenums="false"></code-example>
 

@@ -113,12 +113,12 @@ Membership in one list doesn't imply membership in another list.
 
 * A component could be imported from another app module (so you can't declare it) and re-exported by this module.
 
-   `HeroComponent` 可能是从另一个应用模块中导入的（所以你没法声明它）并且被当前模块重新导出。
+   某个组件可能是从另一个应用模块中导入的（所以你没法声明它）并且被当前模块重新导出。
 
 * A component could be exported for inclusion in an external component's template
 as well as dynamically loaded in a pop-up dialog.
 
-   `HeroComponent` 可能被导入，以便用在外部组件的模板中，但也可能同时被一个弹出式对话框加载。
+   某个组件可能被导出，以便用在外部组件的模板中，也可能同时被一个弹出式对话框加载。
 
 <hr/>
 
@@ -716,7 +716,7 @@ and delivers the app-wide singleton service. No problem.
 
 Now consider a lazy loaded module that also provides a service called `UserService`.
 
-现在，该考虑 `HeroModule` 了，*它是惰性加载的！*。
+现在，考虑一个惰性加载的模块，它也提供了一个名叫 `UserService` 的服务。
 
 When the router lazy loads a module, it creates a child injector and registers the `UserService`
 provider with that child injector. The child injector is _not_ the root injector.
@@ -1145,7 +1145,7 @@ the HTML, the binding instructions, the attached styles.
 Because directives and pipes appear in component templates,
 the Angular compiler incorporates them into compiled component code too.
 
-由于**指令**和**管道**都出现在组件模板中，*Angular 编译器**也同样会把它们组合到编译成的组件代码中。
+由于**指令**和**管道**都出现在组件模板中，*Angular 编译器**也同样会把它们组合进编译后的组件代码中。
 
 `@NgModule` metadata tells the Angular compiler what components to compile for this module and
 how to link this module with other modules.

@@ -220,7 +220,7 @@ through the injector tree until it reaches the root injector.
 
 * The first injector configured with a provider supplies the dependency (a service instance or value) to the constructor.  
 
-  第一个配置了该提供商的注入器就会把依赖（服务实例或值）提供给这个构造函数。
+  第一个配置过该提供商的注入器就会把依赖（服务实例或值）提供给这个构造函数。
 
 * If no provider is found in the root injector, the DI framework returns null to the constructor.
 
@@ -410,7 +410,7 @@ As a result, you might need to access a component's DOM element.
 To illustrate, here's a simplified version of `HighlightDirective` from
 the [Attribute Directives](guide/attribute-directives) page.
 
-要说明这一点，请在[属性型指令](guide/attribute-directives)`HighlightDirective` 的基础上，编写一个简化版。
+为了说明这一点，请看[属性型指令](guide/attribute-directives)中那个 `HighlightDirective` 的简化版。
 
 <code-example path="dependency-injection-in-action/src/app/highlight.directive.ts" header="src/app/highlight.directive.ts">
 
@@ -439,7 +439,7 @@ first without a value (yielding the default color) and then with an assigned col
 
 The following image shows the effect of mousing over the `<hero-bios-and-contacts>` tag.
 
-下图显示了鼠标移到 `<hero-bios-and-contacts>` 标签的效果：
+下图显示了鼠标移到 `<hero-bios-and-contacts>` 标签上的效果：
 
 <figure>
   <img src="generated/images/guide/dependency-injection-in-action/highlight.png" alt="Highlighted bios">
@@ -693,7 +693,7 @@ The following example puts `MinimalLogger` to use in a simplified version of  `H
 
 The `HeroOfTheMonthComponent` constructor's `logger` parameter is typed as `MinimalLogger`, so only the `logs` and `logInfo` members are visible in a TypeScript-aware editor.
 
-`HeroOfTheMonthComponent` 构造函数的 `logger` 参数是一个 `MinimalLogger` 类型，支持 TypeScript 的编辑器里，只能看到它的两个成员 `logs` 和 `logInfo`：
+`HeroOfTheMonthComponent` 构造函数的 `logger` 参数是一个 `MinimalLogger` 类型，在支持 TypeScript 感知的编辑器里，只能看到它的两个成员 `logs` 和 `logInfo`：
 
 <figure>
   <img src="generated/images/guide/dependency-injection-in-action/minimal-logger-intellisense.png" alt="MinimalLogger restricted API">
@@ -776,7 +776,7 @@ the string of names.
 Angular supplies these arguments from injected values identified by
 the two *tokens* in the `deps` array.
 
-Angular 根据 `deps` 数组中指定的两个*令牌*来获得这些注入参数。
+Angular 根据 `deps` 数组中指定的两个*令牌*来提供这些注入参数。
 
 * The function returns the string of names, which Angular than injects into
 the `runnersUp` parameter of `HeroOfTheMonthComponent`.

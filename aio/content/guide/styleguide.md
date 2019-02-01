@@ -140,7 +140,7 @@ collisions with teams in source control.
 
 The key is to make the code more reusable, easier to read, and less mistake prone.
 
-最关键的是，可以增强代码可重用性和阅读性，减少出错的可能性。
+最关键的是，可以让代码更加可复用、更容易阅读，减少出错的可能性。
 
 The following *negative* example defines the `AppComponent`, bootstraps the app,
 defines the `Hero` model object, and loads heroes from the server all in the same file.
@@ -259,7 +259,7 @@ As the app grows, this rule becomes even more important.
 
 **Why?** Small functions help avoid hidden bugs that come with large functions that share variables with external scope, create unwanted closures, or unwanted coupling with dependencies.
 
-**为何？**简单函数可避免易在大函数中产生的隐蔽性错误，例如与外界共享变量、创建意外的闭包或与依赖之间产生意外耦合等。
+**为何？**小函数可避免易在大函数中产生的隐蔽性错误，例如与外界共享变量、创建意外的闭包或与依赖之间产生意外耦合等。
 
 </div>
 
@@ -387,7 +387,7 @@ Invent additional type names if you must but take care not to create too many.
 
 **Why?** Type names make it easy to find a specific file type using an editor or IDE's fuzzy search techniques.
 
-**为何？** 利用编辑器或者 IDE 的模糊搜索功能，可以很容易地找到特定文件。
+**为何？** 类型名可以让你轻松利用编辑器或者 IDE 的模糊搜索功能找到特定文件类型。
 
 </div>
 
@@ -1138,7 +1138,7 @@ For example, the prefix `toh` represents from **T**our **o**f **H**eroes and the
 
 **Why?** Provides a consistent way to quickly identify and reference pipes.
 
-**为何？**提供一致方式快速识别和引用管道。
+**为何？**提供一致的方式快速识别和引用管道。
 
 </div>
 
@@ -3289,7 +3289,7 @@ Yet they're too big and messy to leave loose in the root folder.
 
 **Why?** `CoreModule` exists to make commonly used singleton services available for use in the many other modules.
 
-**为何？**`CoreModule` 的存在就让常用的单例服务在所有其它模块中可用。
+**为何？**`CoreModule` 的存在就要让常用的单例服务在所有其它模块中可用。
 
 </div>
 
@@ -4001,7 +4001,7 @@ helps instantly identify which members of the component serve which purpose.
 
 **Why?** Removes dependencies and hides implementation details from the component.
 
-**为何？**从组件移除依赖并隐藏实施细节。
+**为何？**从组件移除依赖并隐藏实现细节。
 
 </div>
 
@@ -4310,7 +4310,7 @@ Compare with the less preferred `host` metadata alternative.
 
 **Do** create services with a single responsibility that is encapsulated by its context.
 
-**坚持**创建单一职责的服务，用职责封装在它的上下文中。
+**坚持**创建封装在上下文中的单一职责的服务。
 
 </div>
 

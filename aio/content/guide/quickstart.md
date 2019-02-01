@@ -265,7 +265,7 @@ For more information about Angular project files and the file structure, see [Wo
 
 Now that you've seen the essentials of an Angular app and the Angular CLI, continue with these other introductory materials: 
 
-现在，你已经了解了 Angular 和 Angular CLI 的基础知识，请访问下列章节以继续：
+现在，你已经了解了 Angular 和 Angular CLI 的基础知识，请继续访问下列介绍性材料：
 
 * The [Tour of Heroes tutorial](tutorial "Tour of Heroes tutorial") provides additional hands-on learning. It walks you through the steps to build an app that helps a staffing agency manage a group of superhero employees. 
 It has many of the features you'd expect to find in a data-driven application: 

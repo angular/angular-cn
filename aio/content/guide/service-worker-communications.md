@@ -46,7 +46,7 @@ The `SwUpdate` service supports four separate operations:
 
 * Asking the service worker to activate the latest version of the app for the current tab.
 
-   要求 Service Worker 为当前页面激活该应用的最新版本。
+   要求 Service Worker 为当前标签页激活该应用的最新版本。
 
 ### Available and activated updates
 
@@ -87,7 +87,7 @@ This method returns a `Promise` which indicates that the update check has comple
 
 If the current tab needs to be updated to the latest app version immediately, it can ask to do so with the `activateUpdate()` method:
 
-如果当前页需要立即更新到最新的应用版本，可以通过 `activateUpdate()` 方法来要求立即这么做：
+如果当前标签页需要立即更新到最新的应用版本，可以通过 `activateUpdate()` 方法来要求立即这么做：
 
 <code-example path="service-worker-getting-started/src/app/prompt-update.service.ts" linenums="false" header="prompt-update.service.ts" region="sw-activate"> </code-example>
 

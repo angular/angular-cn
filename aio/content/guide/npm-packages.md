@@ -84,13 +84,13 @@ The `dependencies` section of `package.json` contains:
 
    *[*Angular 包**：Angular 的核心和可选模块，它们的包名以 `@angular/` 开头。
 
-* **Support packages**](#support-packages): 3rd party libraries that must be present for Angular apps to run.
+* **[Support packages**](#support-packages): 3rd party libraries that must be present for Angular apps to run.
 
-   *[*支持包**：那些 Angular 应用运行时必需的第三方库。
+   [**支持包**](#support-packages)：那些 Angular 应用运行时必需的第三方库。
 
-* **Polyfill packages**](#polyfills): Polyfills plug gaps in a browser's JavaScript implementation.
+* [**Polyfill packages**](#polyfills): Polyfills plug gaps in a browser's JavaScript implementation.
 
-   **腻子脚本**：腻子脚本负责抹平不同浏览器的 JavaScript 实现之间的差异。
+   [**腻子脚本**](#polyfills)：腻子脚本负责抹平不同浏览器的 JavaScript 实现之间的差异。
 
 To add a new dependency, use the [`ng add`](cli/add) command.
 

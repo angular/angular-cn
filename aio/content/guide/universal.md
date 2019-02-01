@@ -195,7 +195,7 @@ Each request results in the appropriate view for the requested route.
 The `renderModuleFactory()` function renders the view within the `<app>` tag of the template, 
 creating a finished HTML page for the client. 
 
-`renderModuleFactory()` 在模板中的 `<app>` 标记中渲染出哪个视图，并为客户端创建一个完成的 HTML 页面。
+`renderModuleFactory()` 在模板中的 `<app>` 标记中渲染出这个视图，并为客户端创建一个完成的 HTML 页面。
 
 Finally, the server returns the rendered page to the client.
 
@@ -674,7 +674,7 @@ npm run build:ssr && npm run serve:ssr
 
 Because a Universal `platform-server` app doesn't execute in the browser, you may have to work around some of the browser APIs and capabilities that are missing on the server.
 
-由于 Universal 的 `platform-server` 应用并没有运行在浏览器中，因此那些与浏览器 API 有关的工作都没法在这个服务器中使用。
+由于 Universal 的 `platform-server` 应用并没有运行在浏览器中，因此你不得不在该服务器中缺少某些浏览器 API 和能力的情况下工作。
 
 
 For example, your server-side page can't reference browser-only native objects such as `window`, `document`, `navigator`, or `location`. 

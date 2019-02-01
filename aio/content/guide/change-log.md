@@ -422,7 +422,7 @@ Added the `moduleId: module.id` property-and-value to their `@Component` metadat
 This change is a requirement for compilation with AOT compiler when the app loads
 modules with SystemJS as the samples currently do.
 
-当应用像例子当前使用的方法一样 - 使用 SystemJS 加载模块时，本更新是 AOT 编译器的前提条件。
+当应用像这个例子一样使用 SystemJS 方式加载模块时，这种修改是进行 AOT 编译器的前提。
 
 ## "Lifecycle Hooks" guide simplified (2016-09-24)
 

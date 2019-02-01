@@ -11,7 +11,7 @@ schedule a meeting, and perform countless other data-entry tasks.
 In developing a form, it's important to create a data-entry experience that guides the
 user efficiently and effectively through the workflow.
 
-在开发表单时，创建数据方面的体验是非常重要的，它能指引用户明细、高效的完成工作流程。
+在开发表单时，创建数据方面的体验是非常重要的，它能指引用户明晰、高效的完成工作流程。
 
 ## Introduction to Template-driven forms
 
@@ -959,7 +959,7 @@ In this example, you hide the message when the control is valid or pristine;
 "pristine" means the user hasn't changed the value since it was displayed in this form.
 
 上例中，当控件是有效的 (valid) 或全新的 (pristine) 时，隐藏消息。
-“全新的”意味着从它被显示在表单中开始，用户还从未修改过它的值。
+“全新的”意味着从它显示在表单中开始，用户还从未修改过它的值。
 
 This user experience is the developer's choice. Some developers want the message to display at all times.
 If you ignore the `pristine` state, you would hide the message only when the value is valid.
@@ -1138,7 +1138,7 @@ For a more strikingly visual effect,
 hide the data entry area and display something else.
 
 来实现一些更炫的视觉效果吧。
-  隐藏掉数据输入框，显示一些其它东西。
+隐藏掉数据输入框，显示一些别的东西。
 
 Wrap the form in a `<div>` and bind
 its `hidden` property to the `HeroFormComponent.submitted` property.
@@ -1184,7 +1184,7 @@ This `<div>` appears only while the component is in the submitted state.
 The HTML includes an *Edit* button whose click event is bound to an expression
 that clears the `submitted` flag.
 
-这段 HTML 包含一个 “Edit（编辑）”按钮，将 click 事件绑定到表达式，用于清除 `submitted` 标志。
+这段 HTML 包含一个 “Edit（编辑）”按钮，它的 click 事件绑定到了一个用于清除 `submitted` 标志的表达式。
 
 When you click the *Edit* button, this block disappears and the editable form reappears.
 

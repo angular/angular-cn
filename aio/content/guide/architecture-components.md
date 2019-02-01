@@ -302,7 +302,7 @@ The example template uses two built-in structural directives to add application 
 
   * [`*ngFor`](guide/displaying-data#ngFor) is an iterative; it tells Angular to stamp out one `<li>` per hero in the `heroes` list.
 
-     [`*ngFor`](guide/displaying-data#ngFor) 是一个迭代器，它要求 Angular 为 `heroes` 列表中的每个 `<li>` 渲染出一个 `<li>`。
+     [`*ngFor`](guide/displaying-data#ngFor) 是一个迭代器，它要求 Angular 为 `heroes` 列表中的每个英雄渲染出一个 `<li>`。
 
   * [`*ngIf`](guide/displaying-data#ngIf) is a conditional; it includes the `HeroDetail` component only if a selected hero exists.
 

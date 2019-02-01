@@ -358,7 +358,7 @@ is available to <code>declarations</code> of this module.</p>
 
     <p>Transforms the current value of expression <code>cardNumber</code> via the pipe called <code>myCardNumberFormatter</code>.</p>
 
-    <p>使用名叫<code>myCardNumberFormatter</code>的管道对表达式<code>cardNumber</code>的当前值进行变幻</p>
+    <p>使用名叫<code>myCardNumberFormatter</code>的管道对表达式<code>cardNumber</code>的当前值进行转换。</p>
 
 </td>
 
@@ -476,7 +476,7 @@ is available to <code>declarations</code> of this module.</p>
 
     <p>Conditionally swaps the contents of the div by selecting one of the embedded templates based on the current value of <code>conditionExpression</code>.</p>
 
-    <p>根据<code>conditionExpression</code>的当前值选择一个嵌入式模板，并用它替换这个 div 的内容。</p>
+    <p>根据<code>conditionExpression</code>的当前值选择一个嵌入式模板，并据此决定是否替换掉这个 div 的内容。</p>
 
 </td>
 

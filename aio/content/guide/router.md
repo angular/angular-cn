@@ -1957,7 +1957,7 @@ you must import those routing modules [in the correct order](#routing-module-ord
 The application continues to work just the same, and you can use `AppRoutingModule` as
 the central place to maintain future routing configuration.
 
-应用继续正常运行，你可以把路由模块作为为每个特性模块维护路由配置的中心地方。
+应用继续照常运行，你可以把路由模块作为将来每个模块维护路由配置的中心位置。
 
 {@a why-routing-module}
 
@@ -4010,7 +4010,7 @@ There are two noteworthy differences.
 
 Note that the `send()` method simulates latency by waiting a second before "sending" the message and closing the popup.
 
-主要 `send()` 方法在发送消息和关闭弹出框之前通过等待模拟了一秒钟的延迟。
+注意，`send()` 方法在发送消息和关闭弹出框之前通过等待模拟了一秒钟的延迟。
 
 The `closePopup()` method closes the popup view by navigating to the popup outlet with a `null`.
 That's a peculiarity covered [below](#clear-secondary-routes).
@@ -4073,7 +4073,7 @@ You are in effect saying, _when the user clicks this link, display the component
 This `outlets` object within an outer object was completely unnecessary
 when there was only one route and one _unnamed_ outlet to think about.
 
-当有且只有一个*无名*出口时，外部对象中的这个 `outlets` 对象并不是必须的。
+当只需要考虑一个路由和一个*无名*出口时，外部对象中的这个 `outlets` 对象是完全不必要的。
 
 The router assumed that your route specification targeted the _unnamed_ primary outlet
 and created these objects for you.

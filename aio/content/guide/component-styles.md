@@ -76,7 +76,7 @@ This scoping restriction is a ***styling modularity feature***.
 * Class names and selectors are local to the component and don't collide with
   classes and selectors used elsewhere in the application.
 
-   类名和选择器是仅属于组件内部的，它不会和应用中其它地方的类名和选择器出现冲突。
+   类名和选择器是局限于该组件的，它不会和应用中其它地方的类名和选择器冲突。
 
 * Changes to styles elsewhere in the application don't affect the component's styles.
 
@@ -90,7 +90,7 @@ This scoping restriction is a ***styling modularity feature***.
 * You can change or remove component CSS code without searching through the
   whole application to find where else the code is used.
 
-   将来你可以修改或移除组件的 CSS 代码，而不用遍历整个应用来看它有没有被别处用到，只要看看当前组件就可以了。
+   将来你可以修改或移除组件的 CSS 代码，而不用遍历整个应用来看它有没有在别处用到。
 
 {@a special-selectors}
 
@@ -316,7 +316,7 @@ ng generate component hero-app
 You can embed CSS styles directly into the HTML template by putting them
 inside `<style>` tags.
 
-你也可以在组件的 HTML 模板中嵌入 `<style>` 标签。
+你也可以直接在组件的 HTML 模板中写 `<style>` 标签来内嵌 CSS 样式。
 
 <code-example path="component-styles/src/app/hero-controls.component.ts" region="inlinestyles" header="src/app/hero-controls.component.ts">
 </code-example>
@@ -523,7 +523,7 @@ There are two kinds of generated attributes:
 * An element within a component's view has a `_ngcontent` attribute
 that identifies to which host's emulated shadow DOM this element belongs.
 
-   组件视图中的每一个元素，都有一个 `_ngcontent` 属性，它会标记出该元素是哪个宿主的模拟 Shadow DOM。
+   组件视图中的每一个元素，都有一个 `_ngcontent` 属性，它会标记出该元素属于哪个宿主的模拟 Shadow DOM。
 
 The exact values of these attributes aren't important. They are automatically
 generated and you never refer to them in application code. But they are targeted

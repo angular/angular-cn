@@ -424,7 +424,7 @@ Here's an example of using keyframes to create a pulse effect:
 
 * The original `open` and `closed` states, with the original changes in height, color, and opacity, occurring over a timeframe of 1 second
 
-  原始的 `open` 和 `closed` 状态会从其原始的高度、颜色和透明度开始，在一秒钟内逐渐发生变化。
+  原始的 `open` 和 `closed` 状态（包括其原始的高度、颜色和透明度）会在一秒钟内逐渐发生变化。
 
 * A keyframes sequence inserted in the middle that causes the button to appear to pulsate irregularly over the course of that same 1-second timeframe
 
@@ -479,7 +479,7 @@ Sometimes you don't know the value of a dimensional style property until runtime
 
 In these cases, you can use a special wildcard `*` property value under `style()`, so that the value of that particular style property is computed at runtime and then plugged into the animation.
 
-这种情况下，你可以在 `style()` 中指定通配符 `*` 属性，以便在运行期间计算该属性的值，然后把它插入到动画中。
+这些情况下，你可以在 `style()` 中指定通配符 `*` 属性，以便在运行期间计算该属性的值，然后把它插入到动画中。
 
 In this example, we have a trigger called `shrinkOut`, used when an HTML element leaves the page. The animation takes whatever height the element has before it leaves, and animates from that height to zero.
 

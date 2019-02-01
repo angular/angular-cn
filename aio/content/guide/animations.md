@@ -269,7 +269,7 @@ region="transition2">
 
 * Use `state()` to define styles that are applied at the end of each transition, they persist after the animation has completed.
 
-  请用 `state()` 来定义那些在每个转场结束时样式，这些样式在动画结束时会保留。
+  请用 `state()` 来定义那些每个转场结束时的样式，这些样式在动画完成后仍会保留。
 
 * Use `transition()` to define intermediate styles, which create the illusion of motion during the animation.
 

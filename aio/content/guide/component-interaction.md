@@ -86,7 +86,7 @@ The running application displays three heroes:
 
 E2E test that all children were instantiated and displayed as expected:
 
-端到端测试，用于确保所有的子组件都像所期待的那样被初始化并显示出来。
+端到端测试，用于确保所有的子组件都如预期般初始化并显示出来：
 
 <code-example path="component-interaction/e2e/src/app.e2e-spec.ts" region="parent-to-child" header="component-interaction/e2e/src/app.e2e-spec.ts">
 
@@ -243,7 +243,7 @@ payload `$event` and updates a counter.
 The framework passes the event argument&mdash;represented by `$event`&mdash;to the handler method,
 and the method processes it:
 
-本框架把事件参数(用 `$event` 表示)传给事件处理方法，这个方法会处理：
+本框架把事件参数(用 `$event` 表示)传给事件处理方法，该方法会处理它：
 
 <figure>
   <img src="generated/images/guide/component-interaction/child-to-parent.gif" alt="Child-to-parent">
@@ -394,7 +394,7 @@ It takes a bit more work to get the child view into the parent component *class*
 
 First, you have to import references to the `ViewChild` decorator and the `AfterViewInit` lifecycle hook.
 
-首先，你要使用 `ViewChild` 装饰器导入这个引用，并挂上 `AfterViewInit` 生命周期钩子。
+首先，你必须导入对装饰器 `ViewChild` 以及生命周期钩子 `AfterViewInit` 的引用。
 
 Next, inject the child `CountdownTimerComponent` into the private `timerComponent` property
 via the `@ViewChild` property decoration.
@@ -450,7 +450,7 @@ Use [the same countdown timer tests](guide/component-interaction#countdown-tests
 A parent component and its children share a service whose interface enables bi-directional communication
 *within the family*.
 
-父组件和它的子组件共享同一个服务，利用该服务*在家庭内部*实现双向通讯。
+父组件和它的子组件共享同一个服务，利用该服务*在组件家族内部*实现双向通讯。
 
 The scope of the service instance is the parent component and its children.
 Components outside this component subtree have no access to the service or their communications.

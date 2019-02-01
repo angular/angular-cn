@@ -155,7 +155,7 @@ The `HttpClient.get()` method parsed the JSON server response into the anonymous
 
 You can tell `HttpClient` the type of the response to make consuming the output easier and more obvious.
 
-你可以告诉 `HttpClient` 该响应体的类型，以便让对这种输出的消费更容易、更明确。
+你可以告诉 `HttpClient` 该响应体的类型，以便在消费这种输出时更容易、更明确。
 
 First, define an interface with the correct shape:
 
@@ -630,7 +630,7 @@ We have discussed the basic HTTP functionality in `@angular/common/http`, but so
 Other aspects of an outgoing request can be configured via the options object
 passed as the last argument to the `HttpClient` method.
 
-待发送请求的其它方面可以通过传给 `HttpClient` 方法最后一个参数中的配置对象进行配置。
+待发送请求的其它方面可以通过传给 `HttpClient` 方法的最后一个参数指定的配置对象进行配置。
 
 You [saw earlier](#adding-headers) that the `HeroesService` sets the default headers by
 passing an options object (`httpOptions`) to its save methods.
@@ -787,7 +787,7 @@ The `switchMap()` operator has three important characteristics.
 2. If a previous search request is still _in-flight_ (as when the connection is poor),
 it cancels that request and sends a new one.
 
-   如果以前的搜索结果仍然是*在途*状态（这会出现在慢速网络中），它会取消那个请求，并发起这个新的搜索。
+   如果以前的搜索结果仍然是*在途*状态（这会出现在慢速网络中），它会取消那个请求，并发起一次新的搜索。
 
 3. It returns service responses in their original request order, even if the
 server returns them out of order. 
@@ -1026,7 +1026,7 @@ the `HttpRequest` and `HttpResponse` instance properties are `readonly`,
 rendering them largely immutable.
 
 虽然拦截器有能力改变请求和响应，但 `HttpRequest` 和 `HttpResponse` 实例的属性却是只读（`readonly`）的，
-因此，它们在很大意义上说是不可变对象。
+因此让它们基本上是不可变的。
 
 They are immutable for a good reason: the app may retry a request several times before it succeeds, which means that the interceptor chain may re-process the same request multiple times.
 If an interceptor could modify the original request object, the re-tried operation would start from the modified request rather than the original. Immutability ensures that interceptors see the same request for each try.
@@ -1349,7 +1349,7 @@ Give the users a better experience by providing feedback on the progress of such
 To make a request with progress events enabled, you can create an instance of `HttpRequest` 
 with the `reportProgress` option set true to enable tracking of progress events.
 
-要想开启进度事件的响应，你可以创建一个把 `reportProgress` 选项设置为 `true` 的 `HttpRequest` 实例，以开启进度跟踪事件。
+要想发起带有进度事件的请求，你可以创建一个把 `reportProgress` 选项设置为 `true` 的 `HttpRequest` 实例，以开启进度跟踪事件。
 
 <code-example 
   path="http/src/app/uploader/uploader.service.ts"
@@ -1524,7 +1524,7 @@ the setup of the _service-under-test_.
 
 Now requests made in the course of your tests will hit the testing backend instead of the normal backend.
 
-现在，在测试中发起的这些请求将会被这些测试后端（testing backend）处理，而不是标准的后端。
+现在，在测试中发起的这些请求会发给这些测试用的后端（testing backend），而不是标准的后端。
 
 This setup also calls `TestBed.get()` to inject the `HttpClient` service and the mocking controller
 so they can be referenced during the tests.
@@ -1574,7 +1574,7 @@ For example, you could look for an outgoing request that has an authorization he
 As with the previous `expectOne()`, 
 the test will fail if 0 or 2+ requests satisfy this predicate.
 
-和前面根据 URL 进行测试时一样，如果零或两个以上的请求匹配上了这个期待，它就会抛出异常。
+像前面的 `expectOne()` 测试一样，如果零或两个以上的请求满足了这个断言，它就会抛出异常。
 
 #### Handling more than one request
 

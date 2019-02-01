@@ -56,7 +56,7 @@ Its only purpose is to display `HeroListComponent`, which displays a list of her
 This version of the `HeroListComponent` gets heroes from the `HEROES` array, an in-memory collection
 defined in a separate `mock-heroes` file.
 
-`HeroListComponent` 的这个版本从 `HEROES` 数组（它通过一个独立的 `mock-heroes` 文件定义了一个内存集合）中获取英雄。
+`HeroListComponent` 的这个版本从 `HEROES` 数组（它在一个独立的 `mock-heroes` 文件中定义了一个内存集合）中获取英雄。
 
 <code-example header="src/app/heroes/hero-list.component.ts (class)" path="dependency-injection/src/app/heroes/hero-list.component.1.ts" region="class">
 </code-example>
@@ -182,7 +182,7 @@ from the injector of its parent NgModule, or from the `root` injector.
 
 You can configure injectors with providers at different levels of your app, by setting a metadata value in one of three places:
 
-你可以用三种方式之一来设置元数据，以便在应用的不同层级使用提供商来配置各个注入器：
+你可以在三种位置之一设置元数据，以便在应用的不同层级使用提供商来配置注入器：
 
 * In the `@Injectable()` decorator for the service itself.
 

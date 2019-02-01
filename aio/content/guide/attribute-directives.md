@@ -237,7 +237,7 @@ each adorned by the `HostListener` decorator.
 The `@HostListener` decorator lets you subscribe to events of the DOM
 element that hosts an attribute directive, the `<p>` in this case.
 
-`@HostListener` 装饰器引用属性型指令的宿主元素，在这个例子中就是 `<p>`。
+`@HostListener` 装饰器让你订阅某个属性型指令所在的宿主 DOM 元素的事件，在这个例子中就是 `<p>`。
 
 <div class="alert is-helpful">
 
@@ -282,7 +282,7 @@ Here's the updated directive in full:
 Run the app and confirm that the background color appears when
 the mouse hovers over the `p` and disappears as it moves out.
 
-运行本应用并确认：当把鼠标移到 `p` 上的时候，背景色就出现了，而移开的时候，它消失了。
+运行本应用并确认：当把鼠标移到 `p` 上的时候，背景色就出现了，而移开时就消失了。
 
 <figure>
   <img src="generated/images/guide/attribute-directives/highlight-directive-anim.gif" alt="Second Highlight">
@@ -383,7 +383,7 @@ Fortunately you can name the directive property whatever you want _and_ **_alias
 
 Restore the original property name and specify the selector as the alias in the argument to `@Input`.
 
-恢复原始属性名，并在 `@Input` 的参数中把选择器 `myHighlight` 指定为别名。
+恢复原始属性名，并在 `@Input` 的参数中把该选择器指定为别名。
 
 <code-example path="attribute-directives/src/app/highlight.directive.ts" linenums="false" header="src/app/highlight.directive.ts (color property with alias)" region="color"></code-example>
 

@@ -130,7 +130,7 @@ Angular 定义了四个安全环境 - HTML，样式，URL，和资源 URL：
 
 * **Resource URL** is a URL that will be loaded and executed as code, for example, in `<script src>`.
 
-   **资源 URL**：值需要被当做代码而加载并执行时使用，比如 `<script src>` 中的 URL。
+   **资源 URL**的值需要作为代码进行加载并执行，比如 `<script src>` 中的 URL。
 
 Angular sanitizes untrusted values for HTML, styles, and URLs; sanitizing resource URLs isn't
 possible because they contain arbitrary code. In development mode, Angular prints a console warning
@@ -171,7 +171,7 @@ vulnerability. For example, code contained in a `<script>` tag is executed:
 Angular recognizes the value as unsafe and automatically sanitizes it, which removes the `<script>`
 tag but keeps safe content such as the `<b>` element.
 
-Angular 认为这些值是不安全的，并自动进行无害化处理。它会移除 `<script>` 标签，但保留安全的内容，比如该片段中的文本内容或 `<b>` 元素。
+Angular 认为这些值是不安全的，并自动进行无害化处理。它会移除 `<script>` 标签，但保留安全的内容，比如该片段中的 `<b>` 元素。
 
 <figure>
   <img src='generated/images/guide/security/binding-inner-html.png' alt='A screenshot showing interpolated and bound HTML values'>
@@ -422,7 +422,7 @@ well-known string `")]}',\n"`.
 Angular's `HttpClient` library recognizes this convention and automatically strips the string
 `")]}',\n"` from all responses before further parsing.
 
-Angular 的 `Http` 库会识别这种约定，并在进一步解析之前，自动把字符串 `")]}',\n"` 从所有响应中去掉。
+Angular 的 `HttpClient` 库会识别这种约定，并在进一步解析之前，自动把字符串 `")]}',\n"` 从所有响应中去掉。
 
 For more information, see the XSSI section of this [Google web security blog
 post](https://security.googleblog.com/2011/05/website-security-for-webmasters.html).

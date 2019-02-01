@@ -13,7 +13,7 @@ This glossary lists the most prominent terms
 and a few less familiar ones with unusual or
 unexpected definitions.
 
-本词汇表列出了常用术语和少量具有独特或反直觉含义的罕用术语。
+本词汇表列出了常用术语和少量具有反常或意外含义的不常用术语。
 
 [A](guide/glossary#A) [B](guide/glossary#B) [C](guide/glossary#C) [D](guide/glossary#D) [E](guide/glossary#E) [F](guide/glossary#F) [G](guide/glossary#G) [H](guide/glossary#H) [I](guide/glossary#I)
 [J](guide/glossary#J) [K](guide/glossary#K) [L](guide/glossary#L) [M](guide/glossary#M) [N](guide/glossary#N) [O](guide/glossary#O) [P](guide/glossary#P) [Q](guide/glossary#Q) [R](guide/glossary#R)
@@ -484,7 +484,7 @@ A technique for adding a component to the DOM at run time. Requires that you exc
 
 See also [custom element](guide/glossary#custom-element), which provides an easier path with the same result.
 
-参见[自定义组件](guide/glossary#custom-element)，它提供了一种更简单的方式来达到相同的效果。
+参见[自定义元素](guide/glossary#custom-element)，它提供了一种更简单的方式来达到相同的效果。
 
 {@a E}
 
@@ -656,7 +656,7 @@ Angular [依赖注入系统](guide/glossary#dependency-injection)中可以在缓
 
 * You can configure injectors with different providers that can provide different implementations of the same dependency.
 
-   你可以为同一个依赖使用不同的提供商来配置这些注入器，这些提供商可以为依赖提供不同的实现。
+   你可以为同一个依赖使用不同的提供商来配置这些注入器，这些提供商可以为同一个依赖提供不同的实现。
 
 Learn more about the injector hierarchy in [Hierarchical Dependency Injectors](guide/hierarchical-dependency-injection).
 

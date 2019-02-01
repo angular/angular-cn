@@ -192,7 +192,7 @@ injector, above me in the injector hierarchy."
 If the constructor executes as intended in the `AppModule`,
 there would be no ancestor injector that could provide an instance of `CoreModule` and the injector should give up.
 
-如果构造函数在 `AppModule` 中执行，那就没有祖先注入器能提供 `CoreModule` 的实例，于是注入器就会放弃查找。
+如果构造函数如预期般在 `AppModule` 中执行，那就没有祖先注入器能提供 `CoreModule` 的实例，于是注入器就会放弃查找。
 
 By default, the injector throws an error when it can't
 find a requested provider.

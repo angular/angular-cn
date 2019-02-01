@@ -34,7 +34,7 @@ an NgModule, directive-level injectors follow the structure of the component hie
 
 The choices you make about where to configure providers lead to differences in the final bundle size, service _scope_, and service _lifetime_.
 
-关于在哪里配置提供商的不同选择将导致一些差异：最终包的大小、服务的*范围*和服务的*生命周期*。
+对于在哪里配置提供商的不同选择会带来一些差异：最终包的大小、服务的*范围*和服务的*生命周期*。
 
 When you specify providers in the `@Injectable()` decorator of the service itself (typically at the app root level), optimization tools such as those used by the CLI's production builds can perform *tree shaking*, which removes services that aren't used by your app. Tree shaking results in smaller bundle sizes. 
 
@@ -87,7 +87,7 @@ Use the `@NgModule()` `provides` option if a module is [lazy loaded](guide/lazy-
 
 For both root-level and module-level injectors, a service instance lives for the life of the app or module, and Angular injects this one service instance in every class that needs it.
 
-无论对于根级注入器还是模块级注入器，服务实例的生命周期都和应用或模块本身相同。Angular 可以把服务实例注入给任何需要它的类中。
+无论对于根级注入器还是模块级注入器，服务实例的生存期都和应用或模块本身相同。Angular 可以把这个服务实例注入到任何需要它的类中。
 
 *Component-level* providers configure each component instance's own injector. 
 Angular can only inject the corresponding services in that component instance or one of its descendant component instances. 
@@ -331,7 +331,7 @@ The guide sample offers some scenarios where you might want to do so.
 
 Architectural reasons may lead you to restrict access to a service to the application domain where it belongs.
 
-出于架构方面的考虑，可能会让你决定把一个服务限制到只能在它所属的特定领域中访问。
+出于架构方面的考虑，可能会让你决定把一个服务限制到只能在它所属的那个应用域中访问。
 
 For example, the guide sample includes a `VillainsListComponent` that displays a list of villains.
 It gets those villains from a `VillainsService`.
@@ -501,7 +501,7 @@ You create a car component (A) that displays a car constructed from these three 
 Then you create a child component (B) that defines its own, _specialized_ providers for `CarService` and `EngineService`
 that have special capabilities suitable for whatever is going on in component (B).
 
-然后，你创建一个子组件（B），它为 `CarService` 和 `EngineService` 定义了自己的*特殊的*提供商，它们具有更特殊的能力，适用于组件 B 的。
+然后，你创建一个子组件（B），它为 `CarService` 和 `EngineService` 定义了自己*特有的*提供商，它们具有适用于组件 B 的特有能力。
 
 Component (B) is the parent of another component (C) that defines its own, even _more specialized_ provider for `CarService`.
 

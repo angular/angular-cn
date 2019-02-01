@@ -118,7 +118,7 @@ Disclaimer: The dates are offered as general guidance and may be adjusted by us 
 
 The following table contains our current target release dates for the next two major versions of Angular: 
 
-下表中包含下面两个 Angular 主版本的目标发布日期：
+下表中包含 Angular 接下来两个主版本的目标发布日期：
 
 Date | Stable Release | Compatibility
  ---------------------- | -------------- | -------------

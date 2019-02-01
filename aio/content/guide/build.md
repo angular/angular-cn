@@ -4,7 +4,7 @@
 
 This page discusses build-specific configuration options for Angular projects.
 
-本文讨论的是 Angular 应用中与构建相关的配置项。
+本文讨论的是 Angular 项目中与构建有关的配置项。
 
 {@a app-environments}
 
@@ -398,7 +398,7 @@ Each budget entry is a JSON object with the following properties:
 
     Warns when the size ??reaches or exceeds?? this threshold percentage of the baseline.
 
-    当大小小于或超过基线的这个阈值百分比时都给出警告。
+    当大小达到或小于基线的这个阈值百分比时都给出警告。
 
     </td>
   </tr>
@@ -408,7 +408,7 @@ Each budget entry is a JSON object with the following properties:
 
     Reports an error when the size ??reaches or exceeds?? this threshold percentage of the baseline.
 
-    当大小小于或超过基线的这个阈值百分比时都报错。
+    当大小达到或小于基线的这个阈值百分比时都报错。
 
     </td>
   </tr>

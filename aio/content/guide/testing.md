@@ -714,7 +714,7 @@ While the _code sample_ accompanying this guide demonstrates `HttpClientTestingM
 this page defers to the [Http guide](guide/http#testing-http-requests),
 which covers testing with the `HttpClientTestingModule` in detail.
 
-本章的*代码范例*要示范的是 `HttpClientTestingModule`，所以把部分内容移到了 [HttpClient 中](guide/http#testing-http-requests)，那里会详细讲解如何用 `HttpClientTestingModule` 进行测试。
+本章的*代码范例*要示范的是 `HttpClientTestingModule`，所以把部分内容移到了 [Http](guide/http#testing-http-requests) 一章，那里会详细讲解如何用 `HttpClientTestingModule` 进行测试。
 
 <div class="alert is-helpful">
 
@@ -774,7 +774,7 @@ Consider this `LightswitchComponent` which toggles a light on and off
 You might decide only to test that the `clicked()` method
 toggles the light's _on/off_ state and sets the message appropriately.
 
-你可能要测试 `clicked()` 方法能否正确切换灯的开关状态。
+你可能要测试 `clicked()` 方法能否正确切换灯的开关状态并设置合适的消息。
 
 This component class has no dependencies.
 To test a service with no dependencies, you create it with `new`, poke at its API,
@@ -845,7 +845,7 @@ You might start by creating a mock of the `UserService` that meets the minimum n
 
 Then provide and inject _both the_ **component** _and the service_ in the `TestBed` configuration.
 
-然后在 `TestBed` 的配置中提供并注入该**组件**和该**服务**。
+然后在 `TestBed` 的配置中提供并同时注入该**组件**和该**服务**。
 
 <code-example
   path="testing/src/app/welcome/welcome.component.spec.ts"
@@ -939,7 +939,7 @@ generate a new component.
 
 For example, the following CLI command generates a `BannerComponent` in the `app/banner` folder (with inline template and styles):
 
-比如，下列 CLI 命令会在 `app/banner` 文件夹中创建带有内联模板和内联样式的 `BannerComponent`：
+比如，下列 CLI 命令会在 `app/banner` 文件夹中生成带有内联模板和内联样式的 `BannerComponent`：
 
 <code-example language="sh" class="code-shell">
 ng generate component banner --inline-template --inline-style --module app
@@ -1113,7 +1113,7 @@ The tests in this guide are designed to run in a browser so a
 `nativeElement` value will always be an `HTMLElement` or
 one of its derived classes.
 
-本指南中的例子都是为运行在浏览器中而设计的，因此 `nativeElement` 的值一定会是 `HTMLElement` 及其派生类。
+本指南中的测试都是为运行在浏览器中而设计的，因此 `nativeElement` 的值一定会是 `HTMLElement` 或其派生类。
 
 Knowing that it is an `HTMLElement` of some sort, you can use
 the standard HTML `querySelector` to dive deeper into the element tree.
@@ -1428,7 +1428,7 @@ Then add it to the `providers` array of the testing module configuration:
 
 Here are three tests that illustrate how automatic change detection works.
 
-下列测试阐明了自动变更检测的工作原理。
+这三个测试阐明了自动变更检测的工作原理。
 
 <code-example path="testing/src/app/banner/banner.component.detect-changes.spec.ts" region="auto-detect-tests" header="app/banner/banner.component.detect-changes.spec.ts (AutoDetect Tests)" linenums="false"></code-example>
 
@@ -2789,7 +2789,7 @@ and it starts interacting with those services right away.
 Imagine the effort to disable these distractions, just to prove a point
 that can be made satisfactorily with a _test host_ like this one:
 
-想出这么多需要努力排除的干扰，只是为了证明一点 —— 可以像这样造出一个令人满意的*测试宿主*：
+想出这么多需要努力排除的干扰，只是为了证明一点 —— 可以造出这样一个令人满意的*测试宿主*：
 
 <code-example
   path="testing/src/app/dashboard/dashboard-hero.component.spec.ts"
@@ -2919,7 +2919,7 @@ and care only if the component navigates with the right address under the given 
 Providing a router spy for _this component_ test suite happens to be as easy
 as providing a `HeroService` spy.
 
-为*这个组件*的测试套件提供路由器的间谍就像它提供 `HeroService` 的间谍一样简单。
+为*这个组件*的测试套件提供路由器的间谍就像提供 `HeroService` 的间谍一样简单。
 
 <code-example
   path="testing/src/app/dashboard/dashboard.component.spec.ts"
@@ -3460,7 +3460,7 @@ That's not the fault of the `AppComponent` and no change to that component could
 A _different_ battery of tests can explore whether the application navigates as expected
 in the presence of conditions that influence guards such as whether the user is authenticated and authorized.
 
-不同的测试程序可以探索在不同条件下（比如像检查用户是否认证），该应用是否和期望的那样导航。
+一组不同的测试程序可以探索当存在影响守卫的条件时（比如用户是否已认证和授权），该应用是否如期望般导航。
 
 <div class="alert is-helpful">
 
@@ -3544,7 +3544,7 @@ Now the important hooks for component manipulation and inspection are neatly org
 
 A `createComponent` method creates a `page` object and fills in the blanks once the `hero` arrives.
 
-`createComponent` 方法创建 `page`，在 `hero` 到来时，自动填补空白。
+`createComponent` 方法会创建一个 `page` 对象，并在 `hero` 到来时自动填补空白。
 
 <code-example
   path="testing/src/app/hero/hero-detail.component.spec.ts"
@@ -3600,7 +3600,7 @@ The root of the problem is at least one of the components involved in the test
 specifies an external template or CSS file as
 the following version of the `BannerComponent` does.
 
-问题的根源在于这个测试中至少有一个组件引用了外部模板或外部 CSS 文件，就像下面这个 `BannerComponent` 所示：
+问题的根源在于这个测试中至少有一个组件引用了外部模板或外部 CSS 文件，就像下面这个版本的 `BannerComponent` 所示：
 
 <code-example
   path="testing/src/app/banner/banner-external.component.ts"
@@ -3700,7 +3700,7 @@ Write the first async `beforeEach` like this.
 
 The `async()` helper function takes a parameterless function with the body of the setup.
 
-`async()` 辅助函数接受一个无参函数，其内容是准备代码。
+`async()` 辅助函数接受一个无参函数，其内容是环境准备代码。
 
 The `TestBed.configureTestingModule()` method returns the `TestBed` class so you can chain
 calls to other `TestBed` static methods such as `compileComponents()`.
@@ -3854,7 +3854,7 @@ In addition to the support it receives from the default testing module `CommonMo
 
 One approach is to configure the testing module from the individual pieces as in this example:
 
-一种方法是在测试模块中一一配置，就像这样：
+一种方法是从各个部分配置测试模块，就像这样：
 
 <code-example
   path="testing/src/app/hero/hero-detail.component.spec.ts"
@@ -4087,7 +4087,7 @@ Accordingly, the stub implements its methods as spies:
 Now the tests can control the component's hero directly by manipulating the spy-stub's `testHero`
 and confirm that service methods were called.
 
-现在，测试程序可以通过操控 stub 的 `testHero`，直接控制组件的英雄，并确保服务的方法被调用过。
+现在，测试程序可以通过操控这个 spy-stub 的 `testHero`，直接控制组件的英雄，并确认那个服务方法被调用过。
 
 <code-example path="testing/src/app/hero/hero-detail.component.spec.ts" region="override-tests" header="app/hero/hero-detail.component.spec.ts (override tests)" linenums="false"></code-example>
 
@@ -4291,7 +4291,7 @@ Debug specs in the browser in the same way that you debug an application.
 
   1. Open the browser's “Developer Tools” (`Ctrl-Shift-I` on windows; `Command-Option-I` in OSX).
 
-     打开浏览器的“Developer Tools”(Windows 上的 Ctrl-Shift-I 或者 OSX 上的 `Command-Option-I)。
+     打开浏览器的“Developer Tools”(Windows 上的 Ctrl-Shift-I 或者 OSX 上的 Command-Option-I)。
 
   1. Pick the "sources" section.
 
@@ -4613,7 +4613,7 @@ which is also returned by the `getTestBed()` function.
 
 Call `TestBed` methods _within_ a `beforeEach()` to ensure a fresh start before each individual test.
 
-在 `BeforeEach()` 内调用 `TestBed` 方法，这样确保在运行每个单独测试时，都有崭新的开始。
+在 `BeforeEach()` 内调用 `TestBed` 方法，以确保在运行每个单独测试时，都有崭新的开始。
 
 Here are the most important static methods, in order of likely utility.
 
@@ -5105,7 +5105,7 @@ Here are the most useful methods for testers.
 
       Set this to `true` when you want the fixture to detect changes automatically.
 
-      设置 fixture 是否应该自动试图检测变化。
+      如果你希望这个夹具自动检测变更，就把这个设置为 `true`。
 
       When autodetect is `true`, the test fixture calls `detectChanges` immediately
       after creating the component. Then it listens for pertinent zone events
@@ -5277,7 +5277,7 @@ Here are the most useful `DebugElement` members for testers, in approximate orde
       Calling `query(predicate: Predicate<DebugElement>)` returns the first `DebugElement`
       that matches the [predicate](#query-predicate) at any depth in the subtree.
 
-      调用 `query(predicate: Predicate<DebugElement>)` 会在子树的任意深度中查找能和[谓词函数](#query-predicate)匹配的第一个 `DebugElement`。
+      调用 `query(predicate: Predicate<DebugElement>)` 会在子树的任意深度中查找并返回能和[谓词函数](#query-predicate)匹配的第一个 `DebugElement`。
 
     </td>
 

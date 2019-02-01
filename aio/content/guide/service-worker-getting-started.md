@@ -99,7 +99,7 @@ Because `ng serve` does not work with service workers, you must use a separate H
 
 To serve the directory containing your web files with `http-server`, run the following command:
 
-要想使用 `http-server` 服务器，进入包含这些 web 文件的目录，并启动开发服务器：
+要想使用 `http-server` 在包含这些 web 文件的目录上启动服务，运行下列命令：
 
 ```sh
 http-server -p 8080 -c-1 dist/<project-name>

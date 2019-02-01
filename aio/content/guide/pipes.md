@@ -28,7 +28,7 @@ In fact, you might like to apply them in your HTML templates as you do styles.
 
 Introducing Angular pipes, a way to write display-value transformations that you can declare in your HTML.
 
-通过引入 Angular 管道，你可以把这种简单的“显示-值”转换器声明在 HTML 中。
+通过引入 Angular 管道（一种编写"从显示到值"转换逻辑的途径），你可以把它声明在 HTML 中。
 
 You can run the <live-example></live-example> in Stackblitz and download the code from there.
 
@@ -143,7 +143,7 @@ As you click the button, the displayed date alternates between
 "**<samp>04/15/1988</samp>**" and
 "**<samp>Friday, April 15, 1988</samp>**".
 
-当你点击按钮的时候，显示的日志会在“**<samp>04/15/1988</samp>**”和“**<samp>Friday, April 15, 1988</samp>**”之间切换。
+当你点击此按钮的时候，所显示的日期会在“**<samp>04/15/1988</samp>**”和“**<samp>Friday, April 15, 1988</samp>**”之间切换。
 
 <figure>
   <img src='generated/images/guide/pipes/date-format-toggle-anim.gif' alt="Date Format Toggle">

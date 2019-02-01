@@ -306,7 +306,7 @@ AngularJS 1.5 引入了[组件 API](https://docs.angularjs.org/api/ng/type/angul
 The component directive example from above looks like this when expressed
 using the component API:
 
-如果使用这个组件 API 进行快捷定义，那么上面看到的组件型指令就变成了这样：
+如果使用这个组件 API 进行表示，那么上面看到的组件型指令就变成了这样：
 
 <code-example path="upgrade-module/src/app/upgrade-io/hero-detail.component.ts" region="hero-detail-io" header="hero-detail.component.ts">
 </code-example>

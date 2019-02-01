@@ -40,7 +40,7 @@ The metadata falls into three categories:
 
 * **Composability/Grouping:** Bringing NgModules together and making them available via the `imports` and `exports` arrays.
 
-   **组合/分组：**通过 `imports` 和 `exports` 数组来把多个 NgModule 放在一起，并彼此可用。
+   **组合/分组：**通过 `imports` 和 `exports` 数组来把多个 NgModule 放在一起，并让它们可用。
 
 ```typescript
 
@@ -319,7 +319,7 @@ The following table summarizes the `@NgModule` metadata properties.
       Angular can launch with multiple bootstrap components,
       each with its own location in the host web page.
 
-      Angular 也可以引导多个引导组件，它们每一个都在宿主页面中有自己的位置。
+      Angular 也可以用多个引导组件进行启动，它们每一个在宿主页面中都有自己的位置。
 
       A bootstrap component is automatically added to `entryComponents`.
 

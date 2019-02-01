@@ -13,7 +13,7 @@ The Angular Ahead-of-Time (AOT) compiler converts your Angular HTML and TypeScri
 
 This guide explains how to specify metadata and apply available compiler options to compile your applications efficiently using the AOT compiler.
 
-本指南中解释了如何指定元数据，并通过一些编译器选项来借助 AOT 编译器来更有效的编译应用。
+本指南中解释了如何指定元数据，并使用一些编译器选项以借助 AOT 编译器来更有效的编译应用。
 
 <div class="alert is-helpful">
 
@@ -54,7 +54,7 @@ JIT compilation is the default when you run the [`ng build`](cli/build) (build o
 
 For AOT compilation, include the `--aot` option with the `ng build` or `ng serve` command:
 
-要进行 AOT 编译只要给 `ng build` 或 `ng serve` 命令添加 `--aot` 标志就行了：
+要进行 AOT 编译，只要让 `ng build` 或 `ng serve` 命令中包含 `--aot` 标志就行了：
 
 <code-example language="sh" class="code-shell">
   ng build --aot
