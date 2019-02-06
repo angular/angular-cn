@@ -30,7 +30,7 @@ Its `selectHero()` method sets a `selectedHero` property when the user clicks to
 The component acquires the heroes from a service, which is a TypeScript [parameter property](http://www.typescriptlang.org/docs/handbook/classes.html#parameter-properties) on the constructor. 
 The service is provided to the component through the dependency injection system.
 
-比如，`HeroListComponent` 有一个 `heroes` 属性，它会返回一个从服务中取到的英雄数组。
+比如，`HeroListComponent` 中有一个 名为`heroes`的属性，它储存着一个数组的英雄数据。
 `HeroListComponent` 还有一个 `selectHero()` 方法，当用户从列表中选择一个英雄时，它会设置 `selectedHero` 属性的值。
 该组件会从服务获取英雄列表，它是一个 TypeScript 的构造器[参数型属性](http://www.typescriptlang.org/docs/handbook/classes.html#parameter-properties)。本服务通过依赖注入系统提供给该组件。
 
