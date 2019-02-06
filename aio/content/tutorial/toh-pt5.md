@@ -12,7 +12,7 @@ There are new requirements for the Tour of Heroes app:
 
 * Add the ability to navigate between the *Heroes* and *Dashboard* views.
 
-   在*英雄列表*和*仪表盘*视图之间导航。
+   添加在*英雄列表*和*仪表盘*视图之间导航的能力。
 
 * When users click a hero name in either view, navigate to a detail view of the selected hero.
 

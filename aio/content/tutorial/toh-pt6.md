@@ -502,7 +502,7 @@ That header is in the `httpOptions` constant defined in the `HeroService`.
 Refresh the browser, change a hero name and save your change. Navigating to the previous view is implemented in the `save()` method defined in `HeroDetailComponent`.
 The hero now appears in the list with the changed name.
 
-刷新浏览器，修改英雄名，保存这些修改，然后点击“后退”按钮。
+刷新浏览器，修改英雄名，保存这些修改。在 `HeroDetailComponent` 的 `save()` 方法中实现了 "导航到前一个视图" 的逻辑。
 现在，改名后的英雄已经显示在列表中了。
 
 ## Add a new hero
