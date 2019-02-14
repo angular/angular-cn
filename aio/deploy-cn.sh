@@ -10,7 +10,7 @@ cd `dirname $0`
 
 yarn build
 
-yarn preview &
+yarn preview > /tmp/preview.log &
 
 sleep 3;
 
