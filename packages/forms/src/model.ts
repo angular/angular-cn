@@ -267,7 +267,7 @@ export abstract class AbstractControl {
    *
    * 当控件的 `status` 为 `VALID` 时，它就是 `valid` 的。
    *
-   * @see `status`
+   * @see {@link AbstractControl.status}
    *
    * @returns True if the control has passed all of its validation tests,
    * false otherwise.
@@ -281,7 +281,7 @@ export abstract class AbstractControl {
    *
    * 当控件的 `status` 为 `INVALID` 时，它就是 `invalid` 的。
    *
-   * @see `status`
+   * @see {@link AbstractControl.status}
    *
    * @returns True if this control has failed one or more of its validation checks,
    * false otherwise.
@@ -295,7 +295,7 @@ export abstract class AbstractControl {
    *
    * 当控件的 `status` 为 `PENDING` 时，它就是 `pending` 的。
    *
-   * @see `status`
+   * @see {@link AbstractControl.status}
    *
    * @returns True if this control is in the process of conducting a validation check,
    * false otherwise.
@@ -308,13 +308,14 @@ export abstract class AbstractControl {
    * A control is `disabled` when its `status` is `DISABLED`.
    *
    * 当控件的 `status` 为 `DISABLED` 时，它就是 `disabled`。
-   * @see `status`
    *
    * Disabled controls are exempt from validation checks and
    * are not included in the aggregate value of their ancestor
    * controls.
    *
    * 被禁用的控件会豁免有效性检查，并且它的值不会聚合进其祖先控件中。
+   *
+   * @see {@link AbstractControl.status}
    *
    * @returns True if the control is disabled, false otherwise.
    *
@@ -327,12 +328,12 @@ export abstract class AbstractControl {
    *
    * 如果控件的 `status` 不是 `DISABLED` 时，它就是 `enabled`。
    *
-   * @see `status`
-   *
    * @returns True if the control has any status other than 'DISABLED',
    * false if the status is 'DISABLED'.
    *
    * 如果该控件处于 'DISABLED' 之外的任何状态，则为 `true`，否则为 `false`。
+   *
+   * @see {@link AbstractControl.status}
    *
    */
   get enabled(): boolean { return this.status !== DISABLED; }
@@ -412,6 +413,9 @@ export abstract class AbstractControl {
    * recalculates.
    *
    * 一个多播 Observable（可观察对象），每当控件的验证 `status` 被重新计算时，就会发出一个事件。
+   *
+   * @see {@link AbstractControl.status}
+   *
    */
   // TODO(issue/24571): remove '!'.
   public readonly statusChanges !: Observable<any>;
@@ -465,7 +469,11 @@ export abstract class AbstractControl {
 
   /**
    * Marks the control as `touched`. A control is touched by focus and
-   * blur events that do not change the value; compare `markAsDirty`;
+   * blur events that do not change the value.
+   *
+   * @see `markAsUntouched()`
+   * @see `markAsDirty()`
+   * @see `markAsPristine()`
    *
    * 把该控件标记为 `touched`。控件获得焦点并失去焦点不会修改这个值。与 `markAsDirty` 相对。
    *
@@ -488,6 +496,16 @@ export abstract class AbstractControl {
   }
 
   /**
+   * Marks the control and all its descendant controls as `touched`.
+   * @see `markAsTouched()`
+   */
+  markAllAsTouched(): void {
+    this.markAsTouched({onlySelf: true});
+
+    this._forEachChild((control: AbstractControl) => control.markAllAsTouched());
+  }
+
+  /**
    * Marks the control as `untouched`.
    *
    * 把该控件标记为 `untouched`。
@@ -497,7 +515,11 @@ export abstract class AbstractControl {
    *
    * 如果该控件有任何子控件，还会把所有子控件标记为 `untouched`，并重新计算所有父控件的 `touched` 状态。
    *
-   *  @param opts Configuration options that determine how the control propagates changes
+   *  @see `markAsTouched()`
+   * @see `markAsDirty()`
+   * @see `markAsPristine()`
+   *
+   * @param opts Configuration options that determine how the control propagates changes
    * and emits events after the marking is applied.
    *
    * 在应用完此标记后，该配置项会决定控件如何传播变更及发出事件。
@@ -526,7 +548,11 @@ export abstract class AbstractControl {
    *
    * 把控件标记为 `dirty`。当控件通过 UI 修改过时控件会变成 `dirty` 的；与 `markAsTouched` 相对。
    *
-   *  @param opts Configuration options that determine how the control propagates changes
+   *  @see `markAsTouched()`
+   * @see `markAsUntouched()`
+   * @see `markAsPristine()`
+   *
+   * @param opts Configuration options that determine how the control propagates changes
    * and emits events after marking is applied.
    *
    * 在应用完此标记后，该配置项会决定控件如何传播变更以及发出事件。
@@ -556,7 +582,11 @@ export abstract class AbstractControl {
    *
    * 如果该控件有任何子控件，则把所有子控件标记为 `pristine`，并重新计算所有父控件的 `pristine` 状态。
    *
-   *  @param opts Configuration options that determine how the control emits events after
+   *  @see `markAsTouched()`
+   * @see `markAsUntouched()`
+   * @see `markAsDirty()`
+   *
+   * @param opts Configuration options that determine how the control emits events after
    * marking is applied.
    *
    * 在应用完此标记后，该配置项会决定控件如何传播更改以及发出事件。
@@ -587,7 +617,9 @@ export abstract class AbstractControl {
    *
    * 当控件正在执行异步验证时，该控件是 `pending` 的。
    *
-   *  @param opts Configuration options that determine how the control propagates changes and
+   *  @see {@link AbstractControl.status}
+   *
+   * @param opts Configuration options that determine how the control propagates changes and
    * emits events after marking is applied.
    *
    * 在应用完此标记后，该配置项会决定控件如何传播变更以及发出事件。
@@ -627,7 +659,9 @@ export abstract class AbstractControl {
    *
    * 如果该控件有子控件，则所有子控件也会被禁用。
    *
-   *  @param opts Configuration options that determine how the control propagates
+   *  @see {@link AbstractControl.status}
+   *
+   * @param opts Configuration options that determine how the control propagates
    * changes and emits events after the control is disabled.
    *
    * 在该控件被禁用之后，该配置项决定如何传播更改以及发出事件。
@@ -647,6 +681,10 @@ export abstract class AbstractControl {
    *
    */
   disable(opts: {onlySelf?: boolean, emitEvent?: boolean} = {}): void {
+    // If parent has been marked artificially dirty we don't want to re-calculate the
+    // parent's dirtiness based on the children.
+    const skipPristineCheck = this._parentMarkedDirty(opts.onlySelf);
+
     (this as{status: string}).status = DISABLED;
     (this as{errors: ValidationErrors | null}).errors = null;
     this._forEachChild(
@@ -658,7 +696,7 @@ export abstract class AbstractControl {
       (this.statusChanges as EventEmitter<string>).emit(this.status);
     }
 
-    this._updateAncestors(opts);
+    this._updateAncestors({...opts, skipPristineCheck});
     this._onDisabledChange.forEach((changeFn) => changeFn(true));
   }
 
@@ -673,7 +711,9 @@ export abstract class AbstractControl {
    *
    * 默认情况下，如果该控件具有子控件，则所有子控件都会被启用。
    *
-   *  @param opts Configure options that control how the control propagates changes and
+   *  @see {@link AbstractControl.status}
+   *
+   * @param opts Configure options that control how the control propagates changes and
    * emits events when marked as untouched
    *
    * 当标记为 `untouched` 时，该配置项会决定该控件如何传播变更以及发出事件。
@@ -692,19 +732,26 @@ export abstract class AbstractControl {
    *   如果为 `false`，则不会发出事件。
    */
   enable(opts: {onlySelf?: boolean, emitEvent?: boolean} = {}): void {
+    // If parent has been marked artificially dirty we don't want to re-calculate the
+    // parent's dirtiness based on the children.
+    const skipPristineCheck = this._parentMarkedDirty(opts.onlySelf);
+
     (this as{status: string}).status = VALID;
     this._forEachChild(
         (control: AbstractControl) => { control.enable({...opts, onlySelf: true}); });
     this.updateValueAndValidity({onlySelf: true, emitEvent: opts.emitEvent});
 
-    this._updateAncestors(opts);
+    this._updateAncestors({...opts, skipPristineCheck});
     this._onDisabledChange.forEach((changeFn) => changeFn(false));
   }
 
-  private _updateAncestors(opts: {onlySelf?: boolean, emitEvent?: boolean}) {
+  private _updateAncestors(
+      opts: {onlySelf?: boolean, emitEvent?: boolean, skipPristineCheck?: boolean}) {
     if (this._parent && !opts.onlySelf) {
       this._parent.updateValueAndValidity(opts);
-      this._parent._updatePristine();
+      if (!opts.skipPristineCheck) {
+        this._parent._updatePristine();
+      }
       this._parent._updateTouched();
     }
   }
@@ -883,48 +930,101 @@ export abstract class AbstractControl {
   get(path: Array<string|number>|string): AbstractControl|null { return _find(this, path, '.'); }
 
   /**
-   * Reports error data for a specific error occurring in this control or in another control.
+   * @description
+   * Reports error data for the control with the given path.
    *
-   * 获取发生在该控件或其他控件中发生的指定错误的出错数据。
+   * 报告具有指定路径的控件的错误数据。
    *
-   * @param errorCode The error code for which to retrieve data
+   * @param errorCode The code of the error to check
    *
-   * 要获取的数据的错误码
+   * 所查出的错误的错误码
    *
-   * @param path The path to a control to check. If not supplied, checks for the error in this
-   * control.
+   * @param path A list of control names that designates how to move from the current control
+   * to the control that should be queried for errors.
    *
-   * 要检查的控件的路径。如果没有提供该参数，则检查该控件中的错误。
+   * 一个控件名列表，用于指定要如何从当前控件移动到要查询错误的那个控件。
    *
-   * @returns The error data if the control with the given path has the given error, otherwise null
-   * or undefined.
+   * @usageNotes
+   * For example, for the following `FormGroup`:
    *
-   * 如果指定路径下的控件具有指定的错误，则返回出错数据，否则为 `null` 或 `undefined`。
+   * 比如，对于下列 `FormGroup`：
+   *
+   * ```
+   * form = new FormGroup({
+   *   address: new FormGroup({ street: new FormControl() })
+   * });
+   * ```
+   *
+   * The path to the 'street' control from the root form would be 'address' -> 'street'.
+   *
+   * 从根表单移动到这个 'street' 控件的路径应该是 'address' -> 'street'。
+   *
+   * It can be provided to this method in one of two formats:
+   *
+   * 可以用两种格式把它提供给此方法：
+   *
+   * 1. An array of string control names, e.g. `['address', 'street']`
+   *
+   *    一个表示控件名的字符串数组，比如 `['address', 'street']`
+   *
+   * 1. A period-delimited list of control names in one string, e.g. `'address.street'`
+   *
+   *    一个点号分隔的控件名列表构成的单一字符串，比如 `'address.street'`
+   *
+   * @returns error data for that particular error. If the control or error is not present,
+   * null is returned.
+   *
+   * 特定错误的数据，如果该控件不存在或没有错误，则返回 null。
+   *
    */
-  getError(errorCode: string, path?: string[]): any {
+  getError(errorCode: string, path?: Array<string|number>|string): any {
     const control = path ? this.get(path) : this;
     return control && control.errors ? control.errors[errorCode] : null;
   }
 
   /**
+   * @description
    * Reports whether the control with the given path has the error specified.
    *
    * 报告指定路径下的控件上是否有指定的错误。
    *
-   * @param errorCode The error code for which to retrieve data
+   * @param errorCode The code of the error to check
    *
    * 要获取的数据的错误码
    *
-   * @param path The path to a control to check. If not supplied, checks for the error in this
-   * control.
+   * @param path A list of control names that designates how to move from the current control
+   * to the control that should be queried for errors.
+   *
+   * @usageNotes
+   * For example, for the following `FormGroup`:
+   *
+   * ```
+   * form = new FormGroup({
+   *   address: new FormGroup({ street: new FormControl() })
+   * });
+   * ```
+   *
+   * The path to the 'street' control from the root form would be 'address' -> 'street'.
+   *
+   * It can be provided to this method in one of two formats:
+   *
+   * 1. An array of string control names, e.g. `['address', 'street']`
+   * 1. A period-delimited list of control names in one string, e.g. `'address.street'`
+   *
+   * If no path is given, this method checks for the error on the current control.
+   *
    *
    * 要检查的控件的路径。如果没有提供该参数，则检查该控件中的错误。
    *
-   * @returns True when the control with the given path has the error, otherwise false.
+   * @returns whether the given error is present in the control at the given path.
+   *
+   * If the control is not present, false is returned.
    *
    * 如果指定路径下的控件有这个错误则返回 `true`，否则返回 `false`。
    */
-  hasError(errorCode: string, path?: string[]): boolean { return !!this.getError(errorCode, path); }
+  hasError(errorCode: string, path?: Array<string|number>|string): boolean {
+    return !!this.getError(errorCode, path);
+  }
 
   /**
    * Retrieves the top-level ancestor of this control.
@@ -1035,6 +1135,16 @@ export abstract class AbstractControl {
     if (isOptionsObj(opts) && (opts as AbstractControlOptions).updateOn != null) {
       this._updateOn = (opts as AbstractControlOptions).updateOn !;
     }
+  }
+
+  /**
+   * Check to see if parent has been marked artificially dirty.
+   *
+   * @internal
+   */
+  private _parentMarkedDirty(onlySelf?: boolean): boolean {
+    const parentDirty = this._parent && this._parent.dirty;
+    return !onlySelf && parentDirty && !this._parent._anyControlsDirty();
   }
 }
 
@@ -1870,9 +1980,9 @@ export class FormGroup extends AbstractControl {
     this._forEachChild((control: AbstractControl, name: string) => {
       control.reset(value[name], {onlySelf: true, emitEvent: options.emitEvent});
     });
-    this.updateValueAndValidity(options);
     this._updatePristine(options);
     this._updateTouched(options);
+    this.updateValueAndValidity(options);
   }
 
   /**
@@ -2406,9 +2516,9 @@ export class FormArray extends AbstractControl {
     this._forEachChild((control: AbstractControl, index: number) => {
       control.reset(value[index], {onlySelf: true, emitEvent: options.emitEvent});
     });
-    this.updateValueAndValidity(options);
     this._updatePristine(options);
     this._updateTouched(options);
+    this.updateValueAndValidity(options);
   }
 
   /**

@@ -167,6 +167,10 @@ The `installMode` determines how these resources are initially cached. The `inst
   这是一种按需缓存模式。永远不会请求的资源也永远不会被缓存。
   这对于像为不同分辨率提供的图片之类的资源很有用，那样 Service Worker 就只会为特定的屏幕和设备方向缓存正确的资源。
 
+Defaults to `prefetch`.
+
+默认为 `prefetch`。
+
 ### `updateMode`
 
 For resources already in the cache, the `updateMode` determines the caching behavior when a new version of the app is discovered. Any resources in the group that have changed since the previous version are updated in accordance with `updateMode`.
@@ -182,6 +186,10 @@ For resources already in the cache, the `updateMode` determines the caching beha
 
    `lazy` 告诉 Service Worker 不要缓存这些资源，而是先把它们看作未被请求的，等到它们再次被请求时才进行更新。
   `lazy` 这个 `updateMode` 只有在 `installMode` 也同样是 `lazy` 时才有效。
+
+Defaults to the value `installMode` is set to.
+
+其默认值为 `installMode` 的值。
 
 ### `resources`
 
@@ -257,7 +265,7 @@ API 有时可能会以不向后兼容的方式更改格式。
 
 `version` 提供了一种机制，用于指出这些被缓存的资源已经通过不向后兼容的方式进行了更新，并且旧的缓存条目（即来自以前版本的缓存条目）应该被丢弃。
 
-`version` is an integer field and defaults to `0`.
+`version` is an integer field and defaults to `1`.
 
 `version` 是个整型字段，默认为 `0`。
 

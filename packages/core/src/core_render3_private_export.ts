@@ -25,6 +25,7 @@ export {
   injectAttribute as ɵinjectAttribute,
   getFactoryOf as ɵgetFactoryOf,
   getInheritedFactory as ɵgetInheritedFactory,
+  setComponentScope as ɵsetComponentScope,
   templateRefExtractor as ɵtemplateRefExtractor,
   ProvidersFeature as ɵProvidersFeature,
   InheritDefinitionFeature as ɵInheritDefinitionFeature,
@@ -46,8 +47,6 @@ export {
   listener as ɵlistener,
   text as ɵtext,
   embeddedViewStart as ɵembeddedViewStart,
-  query as ɵquery,
-  registerContentQuery as ɵregisterContentQuery,
   projection as ɵprojection,
   bind as ɵbind,
   interpolation1 as ɵinterpolation1,
@@ -75,14 +74,20 @@ export {
   pureFunction8 as ɵpureFunction8,
   pureFunctionV as ɵpureFunctionV,
   getCurrentView as ɵgetCurrentView,
+  getDirectives as ɵgetDirectives,
   getHostElement as ɵgetHostElement,
   restoreView as ɵrestoreView,
   containerRefreshStart as ɵcontainerRefreshStart,
   containerRefreshEnd as ɵcontainerRefreshEnd,
   queryRefresh as ɵqueryRefresh,
-  loadQueryList as ɵloadQueryList,
+  viewQuery as ɵviewQuery,
+  loadViewQuery as ɵloadViewQuery,
+  contentQuery as ɵcontentQuery,
+  loadContentQuery as ɵloadContentQuery,
   elementEnd as ɵelementEnd,
   elementProperty as ɵelementProperty,
+  componentHostSyntheticProperty as ɵcomponentHostSyntheticProperty,
+  componentHostSyntheticListener as ɵcomponentHostSyntheticListener,
   projectionDef as ɵprojectionDef,
   reference as ɵreference,
   enableBindings as ɵenableBindings,
@@ -119,6 +124,9 @@ export {
   i18nApply as ɵi18nApply,
   i18nPostprocess as ɵi18nPostprocess,
   setClassMetadata as ɵsetClassMetadata,
+  resolveWindow as ɵresolveWindow,
+  resolveDocument as ɵresolveDocument,
+  resolveBody as ɵresolveBody,
 } from './render3/index';
 
 
@@ -131,6 +139,8 @@ export {
   compileNgModuleDefs as ɵcompileNgModuleDefs,
   patchComponentDefWithScope as ɵpatchComponentDefWithScope,
   resetCompiledComponents as ɵresetCompiledComponents,
+  flushModuleScopingQueueAsMuchAsPossible as ɵflushModuleScopingQueueAsMuchAsPossible,
+  transitiveScopesFor as ɵtransitiveScopesFor,
 } from './render3/jit/module';
 export {
   compilePipe as ɵcompilePipe,
@@ -145,8 +155,11 @@ export {
 export {
   sanitizeHtml as ɵsanitizeHtml,
   sanitizeStyle as ɵsanitizeStyle,
+  defaultStyleSanitizer as ɵdefaultStyleSanitizer,
+  sanitizeScript as ɵsanitizeScript,
   sanitizeUrl as ɵsanitizeUrl,
   sanitizeResourceUrl as ɵsanitizeResourceUrl,
+  sanitizeUrlOrResourceUrl as ɵsanitizeUrlOrResourceUrl,
 } from './sanitization/sanitization';
 
 export {
@@ -160,6 +173,20 @@ export {
 export {
   getLContext as ɵgetLContext
 } from './render3/context_discovery';
+
+export {
+  NG_ELEMENT_ID as ɵNG_ELEMENT_ID,
+  NG_COMPONENT_DEF as ɵNG_COMPONENT_DEF,
+  NG_DIRECTIVE_DEF as ɵNG_DIRECTIVE_DEF,
+  NG_PIPE_DEF as ɵNG_PIPE_DEF,
+  NG_MODULE_DEF as ɵNG_MODULE_DEF,
+  NG_BASE_DEF as ɵNG_BASE_DEF
+} from './render3/fields';
+
+export {
+  NG_INJECTABLE_DEF as ɵNG_INJECTABLE_DEF,
+  NG_INJECTOR_DEF as ɵNG_INJECTOR_DEF,
+} from './di/interface/defs';
 
 export {
   Player as ɵPlayer,
@@ -186,7 +213,8 @@ export {
 //
 // no code actually imports these symbols from the @angular/core entry point
 export {
-  compileNgModuleFactory__POST_R3__ as ɵcompileNgModuleFactory__POST_R3__
+  compileNgModuleFactory__POST_R3__ as ɵcompileNgModuleFactory__POST_R3__,
+  isBoundToModule__POST_R3__ as ɵisBoundToModule__POST_R3__
 } from './application_ref';
 export {
   SWITCH_COMPILE_COMPONENT__POST_R3__ as ɵSWITCH_COMPILE_COMPONENT__POST_R3__,
@@ -233,8 +261,7 @@ export {
   publishGlobalUtil as ɵpublishGlobalUtil,
   publishDefaultGlobalUtils as ɵpublishDefaultGlobalUtils
 } from './render3/global_utils';
-export {
-  SWITCH_INJECTOR_FACTORY__POST_R3__ as ɵSWITCH_INJECTOR_FACTORY__POST_R3__,
-} from './di/injector';
+
+export {createInjector as ɵcreateInjector} from './di/r3_injector';
 
 // clang-format on

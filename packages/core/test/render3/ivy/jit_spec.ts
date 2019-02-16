@@ -7,10 +7,10 @@
  */
 import 'reflect-metadata';
 
-import {ElementRef, QueryList} from '@angular/core';
-import {InjectorDef, defineInjectable} from '@angular/core/src/di/defs';
+import {ElementRef, QueryList, ɵsetComponentScope as setComponentScope} from '@angular/core';
 import {Injectable} from '@angular/core/src/di/injectable';
 import {inject, setCurrentInjector} from '@angular/core/src/di/injector_compatibility';
+import {InjectorDef, defineInjectable} from '@angular/core/src/di/interface/defs';
 import {ivyEnabled} from '@angular/core/src/ivy_switch';
 import {ContentChild, ContentChildren, ViewChild, ViewChildren} from '@angular/core/src/metadata/di';
 import {Component, Directive, HostBinding, HostListener, Input, Output, Pipe} from '@angular/core/src/metadata/directives';
@@ -313,7 +313,6 @@ ivyEnabled && describe('render3 jit', () => {
     }
 
     expect((TestDirective as any).ngDirectiveDef.contentQueries).not.toBeNull();
-    expect((TestDirective as any).ngDirectiveDef.contentQueriesRefresh).not.toBeNull();
   });
 
   it('should compile ContentChild query with string predicate on a directive', () => {
@@ -323,7 +322,6 @@ ivyEnabled && describe('render3 jit', () => {
     }
 
     expect((TestDirective as any).ngDirectiveDef.contentQueries).not.toBeNull();
-    expect((TestDirective as any).ngDirectiveDef.contentQueriesRefresh).not.toBeNull();
   });
 
   it('should compile ContentChildren query with type predicate on a directive', () => {
@@ -335,7 +333,6 @@ ivyEnabled && describe('render3 jit', () => {
     }
 
     expect((TestDirective as any).ngDirectiveDef.contentQueries).not.toBeNull();
-    expect((TestDirective as any).ngDirectiveDef.contentQueriesRefresh).not.toBeNull();
   });
 
   it('should compile ContentChild query with type predicate on a directive', () => {
@@ -347,7 +344,6 @@ ivyEnabled && describe('render3 jit', () => {
     }
 
     expect((TestDirective as any).ngDirectiveDef.contentQueries).not.toBeNull();
-    expect((TestDirective as any).ngDirectiveDef.contentQueriesRefresh).not.toBeNull();
   });
 
   it('should not pick up view queries from directives', () => {

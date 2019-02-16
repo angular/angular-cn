@@ -7,20 +7,21 @@
  */
 
 import {ComponentType} from '..';
+import {R3DirectiveMetadataFacade, getCompilerFacade} from '../../compiler/compiler_facade';
+import {R3ComponentMetadataFacade, R3QueryMetadataFacade} from '../../compiler/compiler_facade_interface';
+import {resolveForwardRef} from '../../di/forward_ref';
+import {getReflect, reflectDependencies} from '../../di/jit/util';
+import {Type} from '../../interface/type';
 import {Query} from '../../metadata/di';
-import {Component, Directive} from '../../metadata/directives';
+import {Component, Directive, Input} from '../../metadata/directives';
 import {componentNeedsResolution, maybeQueueResolutionOfComponentResources} from '../../metadata/resource_loading';
 import {ViewEncapsulation} from '../../metadata/view';
-import {Type} from '../../type';
 import {EMPTY_ARRAY, EMPTY_OBJ} from '../empty';
 import {NG_COMPONENT_DEF, NG_DIRECTIVE_DEF} from '../fields';
-import {stringify} from '../util';
+import {renderStringify} from '../util';
 
-import {R3DirectiveMetadataFacade, getCompilerFacade} from './compiler_facade';
-import {R3ComponentMetadataFacade, R3QueryMetadataFacade} from './compiler_facade_interface';
 import {angularCoreEnv} from './environment';
 import {flushModuleScopingQueueAsMuchAsPossible, patchComponentDefWithScope, transitiveScopesFor} from './module';
-import {getReflect, reflectDependencies} from './util';
 
 
 
@@ -42,9 +43,9 @@ export function compileComponent(type: Type<any>, metadata: Component): void {
       const compiler = getCompilerFacade();
       if (ngComponentDef === null) {
         if (componentNeedsResolution(metadata)) {
-          const error = [`Component '${stringify(type)}' is not resolved:`];
+          const error = [`Component '${renderStringify(type)}' is not resolved:`];
           if (metadata.templateUrl) {
-            error.push(` - templateUrl: ${stringify(metadata.templateUrl)}`);
+            error.push(` - templateUrl: ${renderStringify(metadata.templateUrl)}`);
           }
           if (metadata.styleUrls && metadata.styleUrls.length) {
             error.push(` - styleUrls: ${JSON.stringify(metadata.styleUrls)}`);
@@ -53,8 +54,11 @@ export function compileComponent(type: Type<any>, metadata: Component): void {
           throw new Error(error.join('\n'));
         }
 
+        const templateUrl = metadata.templateUrl || `ng:///${renderStringify(type)}/template.html`;
         const meta: R3ComponentMetadataFacade = {
           ...directiveMetadata(type, metadata),
+          typeSourceSpan:
+              compiler.createParseSourceSpan('Component', renderStringify(type), templateUrl),
           template: metadata.template || '',
           preserveWhitespaces: metadata.preserveWhitespaces || false,
           styles: metadata.styles || EMPTY_ARRAY,
@@ -67,8 +71,7 @@ export function compileComponent(type: Type<any>, metadata: Component): void {
           interpolation: metadata.interpolation,
           viewProviders: metadata.viewProviders || null,
         };
-        ngComponentDef = compiler.compileComponent(
-            angularCoreEnv, `ng://${stringify(type)}/template.html`, meta);
+        ngComponentDef = compiler.compileComponent(angularCoreEnv, templateUrl, meta);
 
         // When NgModule decorator executed, we enqueued the module definition such that
         // it would only dequeue and add itself as module scope to all of its declarations,
@@ -110,9 +113,13 @@ export function compileDirective(type: Type<any>, directive: Directive): void {
   Object.defineProperty(type, NG_DIRECTIVE_DEF, {
     get: () => {
       if (ngDirectiveDef === null) {
+        const name = type && type.name;
+        const sourceMapUrl = `ng://${name}/ngDirectiveDef.js`;
+        const compiler = getCompilerFacade();
         const facade = directiveMetadata(type as ComponentType<any>, directive);
-        ngDirectiveDef = getCompilerFacade().compileDirective(
-            angularCoreEnv, `ng://${type && type.name}/ngDirectiveDef.js`, facade);
+        facade.typeSourceSpan =
+            compiler.createParseSourceSpan('Directive', renderStringify(type), sourceMapUrl);
+        ngDirectiveDef = compiler.compileDirective(angularCoreEnv, sourceMapUrl, facade);
       }
       return ngDirectiveDef;
     },
@@ -144,18 +151,16 @@ function directiveMetadata(type: Type<any>, metadata: Directive): R3DirectiveMet
     inputs: metadata.inputs || EMPTY_ARRAY,
     outputs: metadata.outputs || EMPTY_ARRAY,
     queries: extractQueriesMetadata(type, propMetadata, isContentQuery),
-    lifecycle: {
-      usesOnChanges: type.prototype.ngOnChanges !== undefined,
-    },
+    lifecycle: {usesOnChanges: type.prototype.hasOwnProperty('ngOnChanges')},
     typeSourceSpan: null !,
     usesInheritance: !extendsDirectlyFromObject(type),
-    exportAs: metadata.exportAs || null,
+    exportAs: extractExportAs(metadata.exportAs),
     providers: metadata.providers || null,
   };
 }
 
 function convertToR3QueryPredicate(selector: any): any|string[] {
-  return typeof selector === 'string' ? splitByComma(selector) : selector;
+  return typeof selector === 'string' ? splitByComma(selector) : resolveForwardRef(selector);
 }
 
 export function convertToR3QueryMetadata(propertyName: string, ann: Query): R3QueryMetadataFacade {
@@ -173,12 +178,16 @@ function extractQueriesMetadata(
   const queriesMeta: R3QueryMetadataFacade[] = [];
   for (const field in propMetadata) {
     if (propMetadata.hasOwnProperty(field)) {
-      propMetadata[field].forEach(ann => {
+      const annotations = propMetadata[field];
+      annotations.forEach(ann => {
         if (isQueryAnn(ann)) {
           if (!ann.selector) {
             throw new Error(
                 `Can't construct a query for the property "${field}" of ` +
-                `"${stringify(type)}" since the query selector wasn't defined.`);
+                `"${renderStringify(type)}" since the query selector wasn't defined.`);
+          }
+          if (annotations.some(isInputAnn)) {
+            throw new Error(`Cannot combine @Input decorators with query decorators`);
           }
           queriesMeta.push(convertToR3QueryMetadata(field, ann));
         }
@@ -186,6 +195,14 @@ function extractQueriesMetadata(
     }
   }
   return queriesMeta;
+}
+
+function extractExportAs(exportAs: string | undefined): string[]|null {
+  if (exportAs === undefined) {
+    return null;
+  }
+
+  return exportAs.split(',').map(part => part.trim());
 }
 
 function isContentQuery(value: any): value is Query {
@@ -196,6 +213,10 @@ function isContentQuery(value: any): value is Query {
 function isViewQuery(value: any): value is Query {
   const name = value.ngMetadataName;
   return name === 'ViewChild' || name === 'ViewChildren';
+}
+
+function isInputAnn(value: any): value is Input {
+  return value.ngMetadataName === 'Input';
 }
 
 function splitByComma(value: string): string[] {

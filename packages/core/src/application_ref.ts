@@ -14,7 +14,7 @@ import {APP_BOOTSTRAP_LISTENER, PLATFORM_INITIALIZER} from './application_tokens
 import {Console} from './console';
 import {Injectable, InjectionToken, Injector, StaticProvider} from './di';
 import {ErrorHandler} from './error_handler';
-import {isDevMode} from './is_dev_mode';
+import {Type} from './interface/type';
 import {CompilerFactory, CompilerOptions} from './linker/compiler';
 import {ComponentFactory, ComponentRef} from './linker/component_factory';
 import {ComponentFactoryBoundToModule, ComponentFactoryResolver} from './linker/component_factory_resolver';
@@ -22,11 +22,13 @@ import {InternalNgModuleRef, NgModuleFactory, NgModuleRef} from './linker/ng_mod
 import {InternalViewRef, ViewRef} from './linker/view_ref';
 import {WtfScopeFn, wtfCreateScope, wtfLeave} from './profile/profile';
 import {assertNgModuleType} from './render3/assert';
+import {ComponentFactory as R3ComponentFactory} from './render3/component_ref';
 import {NgModuleFactory as R3NgModuleFactory} from './render3/ng_module_ref';
 import {Testability, TestabilityRegistry} from './testability/testability';
-import {Type} from './type';
-import {scheduleMicroTask, stringify} from './util';
+import {isDevMode} from './util/is_dev_mode';
 import {isPromise} from './util/lang';
+import {scheduleMicroTask} from './util/microtask';
+import {stringify} from './util/stringify';
 import {NgZone, NoopNgZone} from './zone/ng_zone';
 
 let _platform: PlatformRef;
@@ -48,6 +50,16 @@ export function compileNgModuleFactory__POST_R3__<M>(
     moduleType: Type<M>): Promise<NgModuleFactory<M>> {
   ngDevMode && assertNgModuleType(moduleType);
   return Promise.resolve(new R3NgModuleFactory(moduleType));
+}
+
+let isBoundToModule: <C>(cf: ComponentFactory<C>) => boolean = isBoundToModule__PRE_R3__;
+
+export function isBoundToModule__PRE_R3__<C>(cf: ComponentFactory<C>): boolean {
+  return cf instanceof ComponentFactoryBoundToModule;
+}
+
+export function isBoundToModule__POST_R3__<C>(cf: ComponentFactory<C>): boolean {
+  return (cf as R3ComponentFactory<C>).isBoundToModule;
 }
 
 export const ALLOW_MULTIPLE_PLATFORMS = new InjectionToken<boolean>('AllowMultipleToken');
@@ -347,6 +359,94 @@ function optionsReducer<T extends Object>(dst: any, objs: T | T[]): T {
 /**
  * A reference to an Angular application running on a page.
  *
+ * @usageNotes
+ *
+ * {@a is-stable-examples}
+ * ### isStable examples and caveats
+ *
+ * Note two important points about `isStable`, demonstrated in the examples below:
+ * - the application will never be stable if you start any kind
+ * of recurrent asynchronous task when the application starts
+ * (for example for a polling process, started with a `setInterval`, a `setTimeout`
+ * or using RxJS operators like `interval`);
+ * - the `isStable` Observable runs outside of the Angular zone.
+ *
+ * Let's imagine that you start a recurrent task
+ * (here incrementing a counter, using RxJS `interval`),
+ * and at the same time subscribe to `isStable`.
+ *
+ * ```
+ * constructor(appRef: ApplicationRef) {
+ *   appRef.isStable.pipe(
+ *      filter(stable => stable)
+ *   ).subscribe(() => console.log('App is stable now');
+ *   interval(1000).subscribe(counter => console.log(counter));
+ * }
+ * ```
+ * In this example, `isStable` will never emit `true`,
+ * and the trace "App is stable now" will never get logged.
+ *
+ * If you want to execute something when the app is stable,
+ * you have to wait for the application to be stable
+ * before starting your polling process.
+ *
+ * ```
+ * constructor(appRef: ApplicationRef) {
+ *   appRef.isStable.pipe(
+ *     first(stable => stable),
+ *     tap(stable => console.log('App is stable now')),
+ *     switchMap(() => interval(1000))
+ *   ).subscribe(counter => console.log(counter));
+ * }
+ * ```
+ * In this example, the trace "App is stable now" will be logged
+ * and then the counter starts incrementing every second.
+ *
+ * Note also that this Observable runs outside of the Angular zone,
+ * which means that the code in the subscription
+ * to this Observable will not trigger the change detection.
+ *
+ * Let's imagine that instead of logging the counter value,
+ * you update a field of your component
+ * and display it in its template.
+ *
+ * ```
+ * constructor(appRef: ApplicationRef) {
+ *   appRef.isStable.pipe(
+ *     first(stable => stable),
+ *     switchMap(() => interval(1000))
+ *   ).subscribe(counter => this.value = counter);
+ * }
+ * ```
+ * As the `isStable` Observable runs outside the zone,
+ * the `value` field will be updated properly,
+ * but the template will not be refreshed!
+ *
+ * You'll have to manually trigger the change detection to update the template.
+ *
+ * ```
+ * constructor(appRef: ApplicationRef, cd: ChangeDetectorRef) {
+ *   appRef.isStable.pipe(
+ *     first(stable => stable),
+ *     switchMap(() => interval(1000))
+ *   ).subscribe(counter => {
+ *     this.value = counter;
+ *     cd.detectChanges();
+ *   });
+ * }
+ * ```
+ *
+ * Or make the subscription callback run inside the zone.
+ *
+ * ```
+ * constructor(appRef: ApplicationRef, zone: NgZone) {
+ *   appRef.isStable.pipe(
+ *     first(stable => stable),
+ *     switchMap(() => interval(1000))
+ *   ).subscribe(counter => zone.run(() => this.value = counter));
+ * }
+ * ```
+ *
  * @publicApi
  */
 @Injectable()
@@ -372,6 +472,8 @@ export class ApplicationRef {
 
   /**
    * Returns an Observable that indicates when the application is stable or unstable.
+   *
+   * @see  [Usage notes](#is-stable-examples) for examples and caveats when using this API.
    */
   // TODO(issue/24571): remove '!'.
   public readonly isStable !: Observable<boolean>;
@@ -466,9 +568,7 @@ export class ApplicationRef {
     this.componentTypes.push(componentFactory.componentType);
 
     // Create a factory associated with the current module if it's not bound to some other
-    const ngModule = componentFactory instanceof ComponentFactoryBoundToModule ?
-        null :
-        this._injector.get(NgModuleRef);
+    const ngModule = isBoundToModule(componentFactory) ? null : this._injector.get(NgModuleRef);
     const selectorOrNode = rootSelectorOrNode || componentFactory.selector;
     const compRef = componentFactory.create(Injector.NULL, [], selectorOrNode, ngModule);
 

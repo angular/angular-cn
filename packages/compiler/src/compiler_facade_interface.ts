@@ -38,6 +38,8 @@ export interface CompilerFacade {
   compileComponent(
       angularCoreEnv: CoreEnvironment, sourceMapUrl: string, meta: R3ComponentMetadataFacade): any;
 
+  createParseSourceSpan(kind: string, typeName: string, sourceUrl: string): ParseSourceSpan;
+
   R3ResolvedDependencyType: typeof R3ResolvedDependencyType;
 }
 
@@ -95,6 +97,7 @@ export interface R3NgModuleMetadataFacade {
   imports: Function[];
   exports: Function[];
   emitInline: boolean;
+  schemas: {name: string}[]|null;
 }
 
 export interface R3InjectorMetadataFacade {
@@ -109,7 +112,7 @@ export interface R3DirectiveMetadataFacade {
   name: string;
   type: any;
   typeArgumentCount: number;
-  typeSourceSpan: null;
+  typeSourceSpan: ParseSourceSpan;
   deps: R3DependencyMetadataFacade[]|null;
   selector: string|null;
   queries: R3QueryMetadataFacade[];
@@ -119,7 +122,7 @@ export interface R3DirectiveMetadataFacade {
   inputs: string[];
   outputs: string[];
   usesInheritance: boolean;
-  exportAs: string|null;
+  exportAs: string[]|null;
   providers: Provider[]|null;
 }
 
@@ -147,4 +150,10 @@ export interface R3QueryMetadataFacade {
   predicate: any|string[];
   descendants: boolean;
   read: any|null;
+}
+
+export interface ParseSourceSpan {
+  start: any;
+  end: any;
+  details: any;
 }

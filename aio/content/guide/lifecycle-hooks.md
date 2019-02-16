@@ -224,7 +224,7 @@ calls the lifecycle hook methods in the following sequence at specific moments:
 
       每当 Angular 做完组件视图和子视图的变更检测之后调用。
 
-      Called after the `ngAfterViewInit` and every subsequent `ngAfterContentChecked()`.
+      Called after the `ngAfterViewInit()` and every subsequent `ngAfterContentChecked()`.
 
       `ngAfterViewInit()` 和每次 `ngAfterContentChecked()` 之后调用。
 

@@ -8,14 +8,13 @@
 
 import {noop} from '../../../compiler/src/render3/view/util';
 import {Component as _Component} from '../../src/core';
-import {defineComponent} from '../../src/render3/definition';
+import {defineComponent, defineDirective} from '../../src/render3/definition';
 import {getTranslationForTemplate, i18n, i18nApply, i18nAttributes, i18nEnd, i18nExp, i18nPostprocess, i18nStart} from '../../src/render3/i18n';
 import {RenderFlags} from '../../src/render3/interfaces/definition';
+import {AttributeMarker} from '../../src/render3/interfaces/node';
 import {getNativeByIndex} from '../../src/render3/util';
-
 import {NgIf} from './common_with_def';
-
-import {element, elementEnd, elementStart, template, text, bind, elementProperty, projectionDef, projection} from '../../src/render3/instructions';
+import {allocHostVars, element, elementEnd, elementStart, template, text, nextContext, bind, elementProperty, projectionDef, projection, elementContainerStart, elementContainerEnd} from '../../src/render3/instructions';
 import {COMMENT_MARKER, ELEMENT_MARKER, I18nMutateOpCode, I18nUpdateOpCode, I18nUpdateOpCodes, TI18n} from '../../src/render3/interfaces/i18n';
 import {HEADER_OFFSET, LView, TVIEW} from '../../src/render3/interfaces/view';
 import {ComponentFixture, TemplateFixture} from './render_util';
@@ -83,9 +82,10 @@ describe('Runtime i18n', () => {
 
       expect(opCodes).toEqual({
         vars: 1,
-        expandoStartIndex: nbConsts,
-        create:
-            ['simple text', index << I18nMutateOpCode.SHIFT_PARENT | I18nMutateOpCode.AppendChild],
+        create: [
+          'simple text', nbConsts,
+          index << I18nMutateOpCode.SHIFT_PARENT | I18nMutateOpCode.AppendChild
+        ],
         update: [],
         icus: null
       });
@@ -103,23 +103,27 @@ describe('Runtime i18n', () => {
 
       expect(opCodes).toEqual({
         vars: 5,
-        expandoStartIndex: nbConsts,
         create: [
           'Hello ',
+          nbConsts,
           index << I18nMutateOpCode.SHIFT_PARENT | I18nMutateOpCode.AppendChild,
           elementIndex << I18nMutateOpCode.SHIFT_REF | I18nMutateOpCode.Select,
           index << I18nMutateOpCode.SHIFT_PARENT | I18nMutateOpCode.AppendChild,
           'world',
+          nbConsts + 1,
           elementIndex << I18nMutateOpCode.SHIFT_PARENT | I18nMutateOpCode.AppendChild,
           elementIndex << I18nMutateOpCode.SHIFT_REF | I18nMutateOpCode.ElementEnd,
           ' and ',
+          nbConsts + 2,
           index << I18nMutateOpCode.SHIFT_PARENT | I18nMutateOpCode.AppendChild,
           elementIndex2 << I18nMutateOpCode.SHIFT_REF | I18nMutateOpCode.Select,
           index << I18nMutateOpCode.SHIFT_PARENT | I18nMutateOpCode.AppendChild,
           'universe',
+          nbConsts + 3,
           elementIndex2 << I18nMutateOpCode.SHIFT_PARENT | I18nMutateOpCode.AppendChild,
           elementIndex2 << I18nMutateOpCode.SHIFT_REF | I18nMutateOpCode.ElementEnd,
           '!',
+          nbConsts + 4,
           index << I18nMutateOpCode.SHIFT_PARENT | I18nMutateOpCode.AppendChild,
         ],
         update: [],
@@ -135,8 +139,8 @@ describe('Runtime i18n', () => {
 
       expect(opCodes).toEqual({
         vars: 1,
-        expandoStartIndex: nbConsts,
-        create: ['', index << I18nMutateOpCode.SHIFT_PARENT | I18nMutateOpCode.AppendChild],
+        create:
+            ['', nbConsts, index << I18nMutateOpCode.SHIFT_PARENT | I18nMutateOpCode.AppendChild],
         update: [
           0b1,  // bindings mask
           4,    // if no update, skip 4
@@ -156,8 +160,8 @@ describe('Runtime i18n', () => {
 
       expect(opCodes).toEqual({
         vars: 1,
-        expandoStartIndex: nbConsts,
-        create: ['', index << I18nMutateOpCode.SHIFT_PARENT | I18nMutateOpCode.AppendChild],
+        create:
+            ['', nbConsts, index << I18nMutateOpCode.SHIFT_PARENT | I18nMutateOpCode.AppendChild],
         update: [
           0b11,  // bindings mask
           8,     // if no update, skip 8
@@ -189,13 +193,14 @@ describe('Runtime i18n', () => {
 
       expect(opCodes).toEqual({
         vars: 2,
-        expandoStartIndex: nbConsts,
         create: [
           '',
+          nbConsts,
           index << I18nMutateOpCode.SHIFT_PARENT | I18nMutateOpCode.AppendChild,
           2 << I18nMutateOpCode.SHIFT_REF | I18nMutateOpCode.Select,
           index << I18nMutateOpCode.SHIFT_PARENT | I18nMutateOpCode.AppendChild,
           '!',
+          nbConsts + 1,
           index << I18nMutateOpCode.SHIFT_PARENT | I18nMutateOpCode.AppendChild,
         ],
         update: [
@@ -218,15 +223,16 @@ describe('Runtime i18n', () => {
 
       expect(opCodes).toEqual({
         vars: 2,
-        expandoStartIndex: nbConsts,
         create: [
           spanElement << I18nMutateOpCode.SHIFT_REF | I18nMutateOpCode.Select,
           index << I18nMutateOpCode.SHIFT_PARENT | I18nMutateOpCode.AppendChild,
           'before',
+          nbConsts,
           spanElement << I18nMutateOpCode.SHIFT_PARENT | I18nMutateOpCode.AppendChild,
           bElementSubTemplate << I18nMutateOpCode.SHIFT_REF | I18nMutateOpCode.Select,
           spanElement << I18nMutateOpCode.SHIFT_PARENT | I18nMutateOpCode.AppendChild,
           'after',
+          nbConsts + 1,
           spanElement << I18nMutateOpCode.SHIFT_PARENT | I18nMutateOpCode.AppendChild,
           spanElement << I18nMutateOpCode.SHIFT_REF | I18nMutateOpCode.ElementEnd,
         ],
@@ -244,11 +250,11 @@ describe('Runtime i18n', () => {
 
       expect(opCodes).toEqual({
         vars: 1,
-        expandoStartIndex: nbConsts,
         create: [
           bElement << I18nMutateOpCode.SHIFT_REF | I18nMutateOpCode.Select,
           index << I18nMutateOpCode.SHIFT_PARENT | I18nMutateOpCode.AppendChild,
           'middle',
+          nbConsts,
           bElement << I18nMutateOpCode.SHIFT_PARENT | I18nMutateOpCode.AppendChild,
           bElement << I18nMutateOpCode.SHIFT_REF | I18nMutateOpCode.ElementEnd,
         ],
@@ -268,7 +274,7 @@ describe('Runtime i18n', () => {
       const opCodes = getOpCodes(() => { i18nStart(index, MSG_DIV); }, null, nbConsts, index);
       const tIcuIndex = 0;
       const icuCommentNodeIndex = index + 1;
-      const firstTextNode = index + 2;
+      const firstTextNodeIndex = index + 2;
       const bElementNodeIndex = index + 3;
       const iElementNodeIndex = index + 3;
       const spanElementNodeIndex = index + 3;
@@ -277,9 +283,8 @@ describe('Runtime i18n', () => {
 
       expect(opCodes).toEqual({
         vars: 5,
-        expandoStartIndex: nbConsts,
         create: [
-          COMMENT_MARKER, 'ICU 1',
+          COMMENT_MARKER, 'ICU 1', icuCommentNodeIndex,
           index << I18nMutateOpCode.SHIFT_PARENT | I18nMutateOpCode.AppendChild
         ],
         update: [
@@ -294,55 +299,58 @@ describe('Runtime i18n', () => {
         icus: [{
           type: 1,
           vars: [4, 3, 3],
-          expandoStartIndex: icuCommentNodeIndex + 1,
           childIcus: [[], [], []],
           cases: ['0', '1', 'other'],
           create: [
             [
               'no ',
+              firstTextNodeIndex,
               icuCommentNodeIndex << I18nMutateOpCode.SHIFT_PARENT | I18nMutateOpCode.AppendChild,
               ELEMENT_MARKER,
               'b',
+              bElementNodeIndex,
               icuCommentNodeIndex << I18nMutateOpCode.SHIFT_PARENT | I18nMutateOpCode.AppendChild,
               bElementNodeIndex << I18nMutateOpCode.SHIFT_REF | I18nMutateOpCode.Attr,
               'title',
               'none',
               'emails',
+              innerTextNode,
               bElementNodeIndex << I18nMutateOpCode.SHIFT_PARENT | I18nMutateOpCode.AppendChild,
               '!',
+              lastTextNode,
               icuCommentNodeIndex << I18nMutateOpCode.SHIFT_PARENT | I18nMutateOpCode.AppendChild,
             ],
             [
-              'one ',
+              'one ', firstTextNodeIndex,
               icuCommentNodeIndex << I18nMutateOpCode.SHIFT_PARENT | I18nMutateOpCode.AppendChild,
-              ELEMENT_MARKER, 'i',
+              ELEMENT_MARKER, 'i', iElementNodeIndex,
               icuCommentNodeIndex << I18nMutateOpCode.SHIFT_PARENT | I18nMutateOpCode.AppendChild,
-              'email',
+              'email', innerTextNode,
               iElementNodeIndex << I18nMutateOpCode.SHIFT_PARENT | I18nMutateOpCode.AppendChild
             ],
             [
-              '',
+              '', firstTextNodeIndex,
               icuCommentNodeIndex << I18nMutateOpCode.SHIFT_PARENT | I18nMutateOpCode.AppendChild,
-              ELEMENT_MARKER, 'span',
+              ELEMENT_MARKER, 'span', spanElementNodeIndex,
               icuCommentNodeIndex << I18nMutateOpCode.SHIFT_PARENT | I18nMutateOpCode.AppendChild,
-              'emails',
+              'emails', innerTextNode,
               spanElementNodeIndex << I18nMutateOpCode.SHIFT_PARENT | I18nMutateOpCode.AppendChild
             ]
           ],
           remove: [
             [
-              firstTextNode << I18nMutateOpCode.SHIFT_REF | I18nMutateOpCode.Remove,
+              firstTextNodeIndex << I18nMutateOpCode.SHIFT_REF | I18nMutateOpCode.Remove,
               innerTextNode << I18nMutateOpCode.SHIFT_REF | I18nMutateOpCode.Remove,
               bElementNodeIndex << I18nMutateOpCode.SHIFT_REF | I18nMutateOpCode.Remove,
               lastTextNode << I18nMutateOpCode.SHIFT_REF | I18nMutateOpCode.Remove,
             ],
             [
-              firstTextNode << I18nMutateOpCode.SHIFT_REF | I18nMutateOpCode.Remove,
+              firstTextNodeIndex << I18nMutateOpCode.SHIFT_REF | I18nMutateOpCode.Remove,
               innerTextNode << I18nMutateOpCode.SHIFT_REF | I18nMutateOpCode.Remove,
               iElementNodeIndex << I18nMutateOpCode.SHIFT_REF | I18nMutateOpCode.Remove,
             ],
             [
-              firstTextNode << I18nMutateOpCode.SHIFT_REF | I18nMutateOpCode.Remove,
+              firstTextNodeIndex << I18nMutateOpCode.SHIFT_REF | I18nMutateOpCode.Remove,
               innerTextNode << I18nMutateOpCode.SHIFT_REF | I18nMutateOpCode.Remove,
               spanElementNodeIndex << I18nMutateOpCode.SHIFT_REF | I18nMutateOpCode.Remove,
             ]
@@ -354,7 +362,7 @@ describe('Runtime i18n', () => {
               3,    // skip 3 if not changed
               -1,   // binding index
               ' ',  // text string to concatenate to the binding value
-              firstTextNode << I18nUpdateOpCode.SHIFT_REF | I18nUpdateOpCode.Text,
+              firstTextNodeIndex << I18nUpdateOpCode.SHIFT_REF | I18nUpdateOpCode.Text,
               0b10,  // mask for the title attribute binding
               4,     // skip 4 if not changed
               -2,    // binding index
@@ -380,18 +388,17 @@ describe('Runtime i18n', () => {
       const index = 0;
       const opCodes = getOpCodes(() => { i18nStart(index, MSG_DIV); }, null, nbConsts, index);
       const icuCommentNodeIndex = index + 1;
-      const firstTextNode = index + 2;
+      const firstTextNodeIndex = index + 2;
       const nestedIcuCommentNodeIndex = index + 3;
-      const lastTextNode = index + 4;
-      const nestedTextNode = index + 5;
+      const lastTextNodeIndex = index + 4;
+      const nestedTextNodeIndex = index + 5;
       const tIcuIndex = 1;
       const nestedTIcuIndex = 0;
 
       expect(opCodes).toEqual({
         vars: 6,
-        expandoStartIndex: nbConsts,
         create: [
-          COMMENT_MARKER, 'ICU 1',
+          COMMENT_MARKER, 'ICU 1', icuCommentNodeIndex,
           index << I18nMutateOpCode.SHIFT_PARENT | I18nMutateOpCode.AppendChild
         ],
         update: [
@@ -407,55 +414,56 @@ describe('Runtime i18n', () => {
           {
             type: 0,
             vars: [1, 1, 1],
-            expandoStartIndex: lastTextNode + 1,
             childIcus: [[], [], []],
             cases: ['cat', 'dog', 'other'],
             create: [
               [
-                'cats', nestedIcuCommentNodeIndex << I18nMutateOpCode.SHIFT_PARENT |
+                'cats', nestedTextNodeIndex, nestedIcuCommentNodeIndex
+                        << I18nMutateOpCode.SHIFT_PARENT |
                     I18nMutateOpCode.AppendChild
               ],
               [
-                'dogs', nestedIcuCommentNodeIndex << I18nMutateOpCode.SHIFT_PARENT |
+                'dogs', nestedTextNodeIndex, nestedIcuCommentNodeIndex
+                        << I18nMutateOpCode.SHIFT_PARENT |
                     I18nMutateOpCode.AppendChild
               ],
               [
-                'animals', nestedIcuCommentNodeIndex << I18nMutateOpCode.SHIFT_PARENT |
+                'animals', nestedTextNodeIndex, nestedIcuCommentNodeIndex
+                        << I18nMutateOpCode.SHIFT_PARENT |
                     I18nMutateOpCode.AppendChild
               ]
             ],
             remove: [
-              [nestedTextNode << I18nMutateOpCode.SHIFT_REF | I18nMutateOpCode.Remove],
-              [nestedTextNode << I18nMutateOpCode.SHIFT_REF | I18nMutateOpCode.Remove],
-              [nestedTextNode << I18nMutateOpCode.SHIFT_REF | I18nMutateOpCode.Remove]
+              [nestedTextNodeIndex << I18nMutateOpCode.SHIFT_REF | I18nMutateOpCode.Remove],
+              [nestedTextNodeIndex << I18nMutateOpCode.SHIFT_REF | I18nMutateOpCode.Remove],
+              [nestedTextNodeIndex << I18nMutateOpCode.SHIFT_REF | I18nMutateOpCode.Remove]
             ],
             update: [[], [], []]
           },
           {
             type: 1,
             vars: [1, 4],
-            expandoStartIndex: icuCommentNodeIndex + 1,
             childIcus: [[], [0]],
             cases: ['0', 'other'],
             create: [
               [
-                'zero',
+                'zero', firstTextNodeIndex,
                 icuCommentNodeIndex << I18nMutateOpCode.SHIFT_PARENT | I18nMutateOpCode.AppendChild
               ],
               [
-                '',
+                '', firstTextNodeIndex,
                 icuCommentNodeIndex << I18nMutateOpCode.SHIFT_PARENT | I18nMutateOpCode.AppendChild,
-                COMMENT_MARKER, 'nested ICU 0',
+                COMMENT_MARKER, 'nested ICU 0', nestedIcuCommentNodeIndex,
                 icuCommentNodeIndex << I18nMutateOpCode.SHIFT_PARENT | I18nMutateOpCode.AppendChild,
-                '!',
+                '!', lastTextNodeIndex,
                 icuCommentNodeIndex << I18nMutateOpCode.SHIFT_PARENT | I18nMutateOpCode.AppendChild
               ]
             ],
             remove: [
-              [firstTextNode << I18nMutateOpCode.SHIFT_REF | I18nMutateOpCode.Remove],
+              [firstTextNodeIndex << I18nMutateOpCode.SHIFT_REF | I18nMutateOpCode.Remove],
               [
-                firstTextNode << I18nMutateOpCode.SHIFT_REF | I18nMutateOpCode.Remove,
-                lastTextNode << I18nMutateOpCode.SHIFT_REF | I18nMutateOpCode.Remove,
+                firstTextNodeIndex << I18nMutateOpCode.SHIFT_REF | I18nMutateOpCode.Remove,
+                lastTextNodeIndex << I18nMutateOpCode.SHIFT_REF | I18nMutateOpCode.Remove,
                 0 << I18nMutateOpCode.SHIFT_REF | I18nMutateOpCode.RemoveNestedIcu,
                 nestedIcuCommentNodeIndex << I18nMutateOpCode.SHIFT_REF | I18nMutateOpCode.Remove,
               ]
@@ -467,7 +475,7 @@ describe('Runtime i18n', () => {
                 3,    // skip 3 if not changed
                 -1,   // binding index
                 ' ',  // text string to concatenate to the binding value
-                firstTextNode << I18nUpdateOpCode.SHIFT_REF | I18nUpdateOpCode.Text,
+                firstTextNodeIndex << I18nUpdateOpCode.SHIFT_REF | I18nUpdateOpCode.Text,
                 0b10,  // mask for inner ICU main binding
                 3,     // skip 3 if not changed
                 -2,    // inner ICU main binding
@@ -654,6 +662,130 @@ describe('Runtime i18n', () => {
 
       // Template should be empty because there is no update template function
       expect(fixture.html).toEqual('<div><!--ICU 2--></div>');
+    });
+
+    it('for multiple ICU expressions', () => {
+      const MSG_DIV = `{�0�, plural, 
+        =0 {no <b title="none">emails</b>!} 
+        =1 {one <i>email</i>} 
+        other {�0� <span title="�1�">emails</span>}
+      } - {�0�, select, 
+        other {(�0�)}
+      }`;
+      const fixture = prepareFixture(() => {
+        elementStart(0, 'div');
+        i18n(1, MSG_DIV);
+        elementEnd();
+      }, null, 2);
+
+      // Template should be empty because there is no update template function
+      expect(fixture.html).toEqual('<div><!--ICU 2--> - <!--ICU 8--></div>');
+    });
+
+    it('for multiple ICU expressions inside html', () => {
+      const MSG_DIV = `�#2�{�0�, plural, 
+        =0 {no <b title="none">emails</b>!} 
+        =1 {one <i>email</i>} 
+        other {�0� <span title="�1�">emails</span>}
+      }�/#2��#3�{�0�, select, 
+        other {(�0�)}
+      }�/#3�`;
+      const fixture = prepareFixture(() => {
+        elementStart(0, 'div');
+        i18nStart(1, MSG_DIV);
+        element(2, 'span');
+        element(3, 'span');
+        i18nEnd();
+        elementEnd();
+      }, null, 4);
+
+      // Template should be empty because there is no update template function
+      expect(fixture.html).toEqual('<div><span><!--ICU 4--></span><span><!--ICU 9--></span></div>');
+    });
+
+    it('for ICU expressions inside templates', () => {
+      const MSG_DIV = `�*2:1��#1:1�{�0:1�, plural,
+        =0 {no <b title="none">emails</b>!}
+        =1 {one <i>email</i>}
+        other {�0:1� <span title="�1:1�">emails</span>}
+      }�/#1:1��/*2:1�`;
+
+      function subTemplate_1(rf: RenderFlags, ctx: any) {
+        if (rf & RenderFlags.Create) {
+          i18nStart(0, MSG_DIV, 1);
+          element(1, 'span');
+          i18nEnd();
+        }
+        if (rf & RenderFlags.Update) {
+          const ctx = nextContext();
+          i18nExp(bind(ctx.value0));
+          i18nExp(bind(ctx.value1));
+          i18nApply(0);
+        }
+      }
+
+      class MyApp {
+        value0 = 0;
+        value1 = 'emails label';
+
+        static ngComponentDef = defineComponent({
+          type: MyApp,
+          selectors: [['my-app']],
+          directives: [NgIf],
+          factory: () => new MyApp(),
+          consts: 3,
+          vars: 1,
+          template: (rf: RenderFlags, ctx: MyApp) => {
+            if (rf & RenderFlags.Create) {
+              elementStart(0, 'div');
+              i18nStart(1, MSG_DIV);
+              template(2, subTemplate_1, 2, 2, 'span', [3, 'ngIf']);
+              i18nEnd();
+              elementEnd();
+            }
+            if (rf & RenderFlags.Update) {
+              elementProperty(2, 'ngIf', true);
+            }
+          }
+        });
+      }
+
+      const fixture = new ComponentFixture(MyApp);
+      expect(fixture.html)
+          .toEqual('<div><span>no <b title="none">emails</b>!<!--ICU 4--></span></div>');
+
+      // Update the value
+      fixture.component.value0 = 3;
+      fixture.update();
+      expect(fixture.html)
+          .toEqual(
+              '<div><span>3 <span title="emails label">emails</span><!--ICU 4--></span></div>');
+    });
+
+    it('for ICU expressions inside <ng-container>', () => {
+      const MSG_DIV = `{�0�, plural, 
+        =0 {no <b title="none">emails</b>!} 
+        =1 {one <i>email</i>} 
+        other {�0� <span title="�1�">emails</span>}
+      }`;
+      const fixture = prepareFixture(
+          () => {
+            elementStart(0, 'div');
+            {
+              elementContainerStart(1);
+              { i18n(2, MSG_DIV); }
+              elementContainerEnd();
+            }
+            elementEnd();
+          },
+          () => {
+            i18nExp(bind(0));
+            i18nExp(bind('more than one'));
+            i18nApply(2);
+          },
+          3, 2);
+
+      expect(fixture.html).toEqual('<div>no <b title="none">emails</b>!<!--ICU 5--></div>');
     });
 
     it('for nested ICU expressions', () => {
@@ -929,6 +1061,118 @@ describe('Runtime i18n', () => {
       expect(fixture.html).toEqual('<div>no <b title="none">emails</b>!<!--ICU 4--></div>');
     });
 
+    it('for multiple ICU expressions', () => {
+      const MSG_DIV = `{�0�, plural, 
+        =0 {no <b title="none">emails</b>!} 
+        =1 {one <i>email</i>} 
+        other {�0� <span title="�1�">emails</span>}
+      } - {�0�, select, 
+        other {(�0�)}
+      }`;
+      const ctx = {value0: 0, value1: 'emails label'};
+
+      const fixture = prepareFixture(
+          () => {
+            elementStart(0, 'div');
+            i18n(1, MSG_DIV);
+            elementEnd();
+          },
+          () => {
+            i18nExp(bind(ctx.value0));
+            i18nExp(bind(ctx.value1));
+            i18nApply(1);
+          },
+          2, 2);
+      expect(fixture.html)
+          .toEqual('<div>no <b title="none">emails</b>!<!--ICU 4--> - (0)<!--ICU 10--></div>');
+
+      // Change detection cycle, no model changes
+      fixture.update();
+      expect(fixture.html)
+          .toEqual('<div>no <b title="none">emails</b>!<!--ICU 4--> - (0)<!--ICU 10--></div>');
+
+      ctx.value0 = 1;
+      fixture.update();
+      expect(fixture.html).toEqual('<div>one <i>email</i><!--ICU 4--> - (1)<!--ICU 10--></div>');
+
+      ctx.value0 = 10;
+      fixture.update();
+      expect(fixture.html)
+          .toEqual(
+              '<div>10 <span title="emails label">emails</span><!--ICU 4--> - (10)<!--ICU 10--></div>');
+
+      ctx.value1 = '10 emails';
+      fixture.update();
+      expect(fixture.html)
+          .toEqual(
+              '<div>10 <span title="10 emails">emails</span><!--ICU 4--> - (10)<!--ICU 10--></div>');
+
+      ctx.value0 = 0;
+      fixture.update();
+      expect(fixture.html)
+          .toEqual('<div>no <b title="none">emails</b>!<!--ICU 4--> - (0)<!--ICU 10--></div>');
+    });
+
+    it('for multiple ICU expressions', () => {
+      const MSG_DIV = `�#2�{�0�, plural, 
+        =0 {no <b title="none">emails</b>!} 
+        =1 {one <i>email</i>} 
+        other {�0� <span title="�1�">emails</span>}
+      }�/#2��#3�{�0�, select, 
+        other {(�0�)}
+      }�/#3�`;
+      const ctx = {value0: 0, value1: 'emails label'};
+
+      const fixture = prepareFixture(
+          () => {
+            elementStart(0, 'div');
+            i18nStart(1, MSG_DIV);
+            element(2, 'span');
+            element(3, 'span');
+            i18nEnd();
+            elementEnd();
+          },
+          () => {
+            i18nExp(bind(ctx.value0));
+            i18nExp(bind(ctx.value1));
+            i18nApply(1);
+          },
+          4, 2);
+      expect(fixture.html)
+          .toEqual(
+              '<div><span>no <b title="none">emails</b>!<!--ICU 6--></span><span>(0)<!--ICU 11--></span></div>');
+
+      // Change detection cycle, no model changes
+      fixture.update();
+      expect(fixture.html)
+          .toEqual(
+              '<div><span>no <b title="none">emails</b>!<!--ICU 6--></span><span>(0)<!--ICU 11--></span></div>');
+
+      ctx.value0 = 1;
+      fixture.update();
+      expect(fixture.html)
+          .toEqual(
+              '<div><span>one <i>email</i><!--ICU 6--></span><span>(1)<!--ICU 11--></span></div>');
+
+      ctx.value0 = 10;
+      fixture.update();
+      expect(fixture.html)
+          .toEqual(
+              '<div><span>10 <span title="emails label">emails</span><!--ICU 6--></span><span>(10)<!--ICU 11--></span></div>');
+
+      ctx.value1 = '10 emails';
+      fixture.update();
+      expect(fixture.html)
+          .toEqual(
+              '<div><span>10 <span title="10 emails">emails</span><!--ICU 6--></span><span>(10)<!--ICU 11--></span></div>');
+
+      ctx.value0 = 0;
+      fixture.update();
+      expect(fixture.html)
+          .toEqual(
+              '<div><span>no <b title="none">emails</b>!<!--ICU 6--></span><span>(0)<!--ICU 11--></span></div>');
+    });
+
     it('for nested ICU expressions', () => {
       const MSG_DIV = `{�0�, plural,
         =0 {zero} 
@@ -1091,6 +1335,105 @@ describe('Runtime i18n', () => {
 
       const fixture = new ComponentFixture(MyApp);
       expect(fixture.html).toEqual(`<div title="start 2 middle 1 end">trad 1</div>`);
+    });
+
+    it('should work with directives and host bindings', () => {
+      let directiveInstances: Directive[] = [];
+
+      class Directive {
+        // @HostBinding('className')
+        klass = 'foo';
+
+        static ngDirectiveDef = defineDirective({
+          type: Directive,
+          selectors: [['', 'dir', '']],
+          factory: () => {
+            const instance = new Directive();
+            directiveInstances.push(instance);
+            return instance;
+          },
+          hostBindings: (rf: RenderFlags, ctx: any, elementIndex: number) => {
+            if (rf & RenderFlags.Create) {
+              allocHostVars(1);
+            }
+            if (rf & RenderFlags.Update) {
+              elementProperty(elementIndex, 'className', bind(ctx.klass), null, true);
+            }
+          }
+        });
+      }
+
+      // Translated template:
+      // <div i18n [test]="false" i18n-title title="start {{exp2}} middle {{exp1}} end">
+      //    trad {�0�, plural,
+      //         =0 {no <b title="none">emails</b>!}
+      //         =1 {one <i>email</i>}
+      //         other {�0� emails}
+      //       }
+      // </div>
+
+      const MSG_DIV_1 = `trad {�0�, plural, 
+        =0 {no <b title="none">emails</b>!} 
+        =1 {one <i>email</i>} 
+        other {�0� emails}
+      }`;
+      const MSG_DIV_1_ATTR_1 = ['title', `start �1� middle �0� end`];
+
+      class MyApp {
+        exp1 = 1;
+        exp2 = 2;
+
+        static ngComponentDef = defineComponent({
+          type: MyApp,
+          selectors: [['my-app']],
+          factory: () => new MyApp(),
+          consts: 6,
+          vars: 5,
+          directives: [Directive],
+          template: (rf: RenderFlags, ctx: MyApp) => {
+            if (rf & RenderFlags.Create) {
+              elementStart(0, 'div', [AttributeMarker.SelectOnly, 'dir']);
+              {
+                i18nAttributes(1, MSG_DIV_1_ATTR_1);
+                i18nStart(2, MSG_DIV_1);
+                {
+                  elementStart(3, 'b', [AttributeMarker.SelectOnly, 'dir']);  // Will be removed
+                  { i18nAttributes(4, MSG_DIV_1_ATTR_1); }
+                  elementEnd();
+                }
+                i18nEnd();
+              }
+              elementEnd();
+              element(5, 'div', [AttributeMarker.SelectOnly, 'dir']);
+            }
+            if (rf & RenderFlags.Update) {
+              i18nExp(bind(ctx.exp1));
+              i18nExp(bind(ctx.exp2));
+              i18nApply(1);
+              i18nExp(bind(ctx.exp1));
+              i18nApply(2);
+              i18nExp(bind(ctx.exp1));
+              i18nExp(bind(ctx.exp2));
+              i18nApply(4);
+            }
+          }
+        });
+      }
+
+      const fixture = new ComponentFixture(MyApp);
+      // the "test" attribute should not be reflected in the DOM as it is here only for directive
+      // matching purposes
+      expect(fixture.html)
+          .toEqual(
+              `<div class="foo" title="start 2 middle 1 end">trad one <i>email</i><!--ICU 23--></div><div class="foo"></div>`);
+
+      directiveInstances.forEach(instance => instance.klass = 'bar');
+      fixture.component.exp1 = 2;
+      fixture.component.exp2 = 3;
+      fixture.update();
+      expect(fixture.html)
+          .toEqual(
+              `<div class="bar" title="start 3 middle 2 end">trad 2 emails<!--ICU 23--></div><div class="bar"></div>`);
     });
 
     describe('projection', () => {
@@ -1274,6 +1617,23 @@ describe('Runtime i18n', () => {
         expect(fixture.html)
             .toEqual(
                 '<div><child><p><any></any><b title="Enfant de Parent">Je suis projeté depuis Parent</b><any></any></p></child></div>');
+
+        // it should be able to render a new component with the same template code
+        const fixture2 = new ComponentFixture(Parent);
+        expect(fixture2.html).toEqual(fixture.html);
+
+        // Updating the fixture should work
+        fixture2.component.name = 'Parent 2';
+        fixture.update();
+        fixture2.update();
+        expect(fixture2.html)
+            .toEqual(
+                '<div><child><p><any></any><b title="Enfant de Parent 2">Je suis projeté depuis Parent 2</b><any></any></p></child></div>');
+
+        // The first fixture should not have changed
+        expect(fixture.html)
+            .toEqual(
+                '<div><child><p><any></any><b title="Enfant de Parent">Je suis projeté depuis Parent</b><any></any></p></child></div>');
       });
 
       it('should re-project translations when multiple projections', () => {
@@ -1411,7 +1771,7 @@ describe('Runtime i18n', () => {
             selectors: [['parent']],
             directives: [Child],
             factory: () => new Parent(),
-            consts: 2,
+            consts: 3,
             vars: 0,
             template: (rf: RenderFlags, cmp: Parent) => {
               if (rf & RenderFlags.Create) {
@@ -1503,7 +1863,7 @@ describe('Runtime i18n', () => {
 
   describe('i18nPostprocess', () => {
     it('should handle valid cases', () => {
-      const arr = ['�*1:1��#2:1�', '�#4:2�', '�6:4�', '�/#2:1��/*1:1�'];
+      const arr = ['�*1:1��#2:1�', '�#4:1�', '�6:1�', '�/#2:1��/*1:1�'];
       const str = `[${arr.join('|')}]`;
 
       const cases = [
@@ -1579,6 +1939,57 @@ describe('Runtime i18n', () => {
       cases.forEach(([input, replacements, output]) => {
         expect(i18nPostprocess(input as string, replacements as any)).toEqual(output as string);
       });
+    });
+
+    it('should handle nested template represented by multi-value placeholders', () => {
+      /**
+       * <div i18n>
+       *   <span>
+       *     Hello - 1
+       *   </span>
+       *   <span *ngIf="visible">
+       *     Hello - 2
+       *     <span *ngIf="visible">
+       *       Hello - 3
+       *       <span *ngIf="visible">
+       *         Hello - 4
+       *       </span>
+       *     </span>
+       *   </span>
+       *   <span>
+       *     Hello - 5
+       *   </span>
+       * </div>
+       */
+      const generated = `
+        [�#2�|�#4�] Bonjour - 1 [�/#2�|�/#1:3��/*2:3�|�/#1:2��/*2:2�|�/#1:1��/*3:1�|�/#4�]
+        [�*3:1��#1:1�|�*2:2��#1:2�|�*2:3��#1:3�]
+          Bonjour - 2
+          [�*3:1��#1:1�|�*2:2��#1:2�|�*2:3��#1:3�]
+            Bonjour - 3
+            [�*3:1��#1:1�|�*2:2��#1:2�|�*2:3��#1:3�] Bonjour - 4 [�/#2�|�/#1:3��/*2:3�|�/#1:2��/*2:2�|�/#1:1��/*3:1�|�/#4�]
+          [�/#2�|�/#1:3��/*2:3�|�/#1:2��/*2:2�|�/#1:1��/*3:1�|�/#4�]
+        [�/#2�|�/#1:3��/*2:3�|�/#1:2��/*2:2�|�/#1:1��/*3:1�|�/#4�]
+        [�#2�|�#4�] Bonjour - 5 [�/#2�|�/#1:3��/*2:3�|�/#1:2��/*2:2�|�/#1:1��/*3:1�|�/#4�]
+      `;
+      const final = `
+        �#2� Bonjour - 1 �/#2�
+        �*3:1�
+          �#1:1�
+            Bonjour - 2
+            �*2:2�
+              �#1:2�
+                Bonjour - 3
+                �*2:3�
+                  �#1:3� Bonjour - 4 �/#1:3�
+                �/*2:3�
+              �/#1:2�
+            �/*2:2�
+          �/#1:1�
+        �/*3:1�
+        �#4� Bonjour - 5 �/#4�
+      `;
+      expect(i18nPostprocess(generated.replace(/\s+/g, ''))).toEqual(final.replace(/\s+/g, ''));
     });
 
     it('should throw in case we have invalid string', () => {

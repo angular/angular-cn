@@ -6,13 +6,15 @@
  * found in the LICENSE file at https://angular.io/license
  */
 
-import {ElementRef} from '@angular/core';
+import {ElementRef, QueryList, ViewContainerRef} from '@angular/core';
 
-import {AttributeMarker, defineComponent, template, defineDirective, InheritDefinitionFeature, ProvidersFeature, NgOnChangesFeature, QueryList} from '../../src/render3/index';
-import {allocHostVars, bind, directiveInject, element, elementEnd, elementProperty, elementStyleProp, elementStyling, elementStylingApply, elementStart, listener, load, text, textBinding, loadQueryList, registerContentQuery, elementHostAttrs} from '../../src/render3/instructions';
-import {query, queryRefresh} from '../../src/render3/query';
+import {AttributeMarker, defineComponent, template, defineDirective, InheritDefinitionFeature, ProvidersFeature, NgOnChangesFeature} from '../../src/render3/index';
+import {allocHostVars, bind, directiveInject, element, elementAttribute, elementEnd, elementProperty, elementStyleProp, elementStyling, elementStylingApply, elementStart, listener, load, text, textBinding, elementHostAttrs} from '../../src/render3/instructions';
+import {loadContentQuery, contentQuery, queryRefresh} from '../../src/render3/query';
 import {RenderFlags} from '../../src/render3/interfaces/definition';
 import {pureFunction1, pureFunction2} from '../../src/render3/pure_function';
+import {sanitizeUrl, sanitizeUrlOrResourceUrl, sanitizeHtml} from '../../src/sanitization/sanitization';
+import {bypassSanitizationTrustHtml, bypassSanitizationTrustResourceUrl, bypassSanitizationTrustUrl} from '../../src/sanitization/bypass';
 
 import {ComponentFixture, TemplateFixture, createComponent, createDirective} from './render_util';
 import {NgForOf} from './common_with_def';
@@ -355,7 +357,7 @@ describe('host bindings', () => {
         template: (rf: RenderFlags, ctx: InitHookComp) => {},
         consts: 0,
         vars: 0,
-        features: [NgOnChangesFeature],
+        features: [NgOnChangesFeature()],
         hostBindings: (rf: RenderFlags, ctx: InitHookComp, elIndex: number) => {
           if (rf & RenderFlags.Create) {
             allocHostVars(1);
@@ -964,7 +966,11 @@ describe('host bindings', () => {
         selectors: [['', 'hostAttributeDir', '']],
         type: HostAttributeDir,
         factory: () => new HostAttributeDir(),
-        attributes: ['role', 'listbox']
+        hostBindings: function(rf, ctx, elIndex) {
+          if (rf & RenderFlags.Create) {
+            elementHostAttrs(ctx, ['role', 'listbox']);
+          }
+        }
       });
     }
 
@@ -1003,11 +1009,14 @@ describe('host bindings', () => {
             elementProperty(elIndex, 'id', bind(ctx.foos.length), null, true);
           }
         },
-        contentQueries: (dirIndex) => { registerContentQuery(query(null, ['foo']), dirIndex); },
-        contentQueriesRefresh: (dirIndex: number, queryStartIdx: number) => {
-          let tmp: any;
-          const instance = load<HostBindingWithContentChildren>(dirIndex);
-          queryRefresh(tmp = loadQueryList<ElementRef>(queryStartIdx)) && (instance.foos = tmp);
+        contentQueries: (rf: RenderFlags, ctx: any, dirIndex: number) => {
+          if (rf & RenderFlags.Create) {
+            contentQuery(dirIndex, ['foo']);
+          }
+          if (rf & RenderFlags.Update) {
+            let tmp: any;
+            queryRefresh(tmp = loadContentQuery<ElementRef>()) && (ctx.foos = tmp);
+          }
         },
         template: (rf: RenderFlags, cmp: HostBindingWithContentChildren) => {}
       });
@@ -1126,6 +1135,58 @@ describe('host bindings', () => {
       expect(hostBindingEl.style.width).toEqual('5px');
     });
 
+    it('should bind to host styles on containers', () => {
+      let hostBindingDir !: HostBindingToStyles;
+      /**
+       * host: {
+       *   '[style.width.px]': 'width'
+       * }
+       */
+      class HostBindingToStyles {
+        width = 2;
+
+        static ngDirectiveDef = defineDirective({
+          type: HostBindingToStyles,
+          selectors: [['', 'hostStyles', '']],
+          factory: () => hostBindingDir = new HostBindingToStyles(),
+          hostBindings: (rf: RenderFlags, ctx: HostBindingToStyles, elIndex: number) => {
+            if (rf & RenderFlags.Create) {
+              elementStyling(null, ['width'], null, ctx);
+            }
+            if (rf & RenderFlags.Update) {
+              elementStyleProp(0, 0, ctx.width, 'px', ctx);
+              elementStylingApply(0, ctx);
+            }
+          }
+        });
+      }
+
+      class ContainerDir {
+        constructor(public vcr: ViewContainerRef) {}
+
+        static ngDirectiveDef = defineDirective({
+          type: ContainerDir,
+          selectors: [['', 'containerDir', '']],
+          factory: () => new ContainerDir(directiveInject(ViewContainerRef as any)),
+        });
+      }
+
+      /** <div hostStyles containerDir></div> */
+      const App = createComponent('app', (rf: RenderFlags, ctx: any) => {
+        if (rf & RenderFlags.Create) {
+          element(0, 'div', ['containerDir', '', 'hostStyles', '']);
+        }
+      }, 1, 0, [ContainerDir, HostBindingToStyles]);
+
+      const fixture = new ComponentFixture(App);
+      const hostBindingEl = fixture.hostElement.querySelector('div') as HTMLElement;
+      expect(hostBindingEl.style.width).toEqual('2px');
+
+      hostBindingDir.width = 5;
+      fixture.update();
+      expect(hostBindingEl.style.width).toEqual('5px');
+    });
+
     it('should apply static host classes', () => {
       /**
        * host: {
@@ -1163,5 +1224,61 @@ describe('host bindings', () => {
       const hostBindingEl = fixture.hostElement.querySelector('static-host-class') as HTMLElement;
       expect(hostBindingEl.className).toEqual('mat-toolbar');
     });
+  });
+
+  describe('sanitization', () => {
+    function verify(
+        tag: string, prop: string, value: any, expectedSanitizedValue: any, sanitizeFn: any,
+        bypassFn: any, isAttribute: boolean = true) {
+      it('should sanitize potentially unsafe properties and attributes', () => {
+        let hostBindingDir: UnsafeUrlHostBindingDir;
+        class UnsafeUrlHostBindingDir {
+          // val: any = value;
+          static ngDirectiveDef = defineDirective({
+            type: UnsafeUrlHostBindingDir,
+            selectors: [['', 'unsafeUrlHostBindingDir', '']],
+            factory: () => hostBindingDir = new UnsafeUrlHostBindingDir(),
+            hostBindings: (rf: RenderFlags, ctx: any, elementIndex: number) => {
+              if (rf & RenderFlags.Create) {
+                allocHostVars(1);
+              }
+              if (rf & RenderFlags.Update) {
+                const fn = isAttribute ? elementAttribute : elementProperty;
+                (fn as any)(elementIndex, prop, bind(ctx[prop]), sanitizeFn, true);
+              }
+            }
+          });
+        }
+
+        const fixture = new TemplateFixture(() => {
+          element(0, tag, ['unsafeUrlHostBindingDir', '']);
+        }, () => {}, 1, 0, [UnsafeUrlHostBindingDir]);
+
+        const el = fixture.hostElement.querySelector(tag) !;
+        const current = () => isAttribute ? el.getAttribute(prop) : (el as any)[prop];
+
+        (hostBindingDir !as any)[prop] = value;
+        fixture.update();
+        expect(current()).toEqual(expectedSanitizedValue);
+
+        (hostBindingDir !as any)[prop] = bypassFn(value);
+        fixture.update();
+        expect(current()).toEqual(value);
+      });
+    }
+
+    verify(
+        'a', 'href', 'javascript:alert(1)', 'unsafe:javascript:alert(1)', sanitizeUrlOrResourceUrl,
+        bypassSanitizationTrustUrl);
+    verify(
+        'script', 'src', bypassSanitizationTrustResourceUrl('javascript:alert(2)'),
+        'javascript:alert(2)', sanitizeUrlOrResourceUrl, bypassSanitizationTrustResourceUrl);
+    verify(
+        'blockquote', 'cite', 'javascript:alert(3)', 'unsafe:javascript:alert(3)', sanitizeUrl,
+        bypassSanitizationTrustUrl);
+    verify(
+        'b', 'innerHTML', '<img src="javascript:alert(4)">',
+        '<img src="unsafe:javascript:alert(4)">', sanitizeHtml, bypassSanitizationTrustHtml,
+        /* isAttribute */ false);
   });
 });

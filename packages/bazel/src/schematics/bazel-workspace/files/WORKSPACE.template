@@ -12,8 +12,15 @@ workspace(name = "<%= utils.underscore(name) %>")
 
 load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 
+RULES_NODEJS_VERSION = "<%= RULES_NODEJS_VERSION %>"
+RULES_NODEJS_SHA256 = "<%= RULES_NODEJS_SHA256 %>"
+http_archive(
+    name = "build_bazel_rules_nodejs",
+    sha256 = "%s" % RULES_NODEJS_SHA256,
+    url = "https://github.com/bazelbuild/rules_nodejs/releases/download/%s/rules_nodejs-%s.tar.gz" % (RULES_NODEJS_VERSION, RULES_NODEJS_VERSION),
+)
+
 # The @angular repo contains rule for building Angular applications
-# Provides "build_bazel_rules_typescript"
 ANGULAR_VERSION = "<%= ANGULAR_VERSION %>"
 http_archive(
     name = "angular",
@@ -28,7 +35,7 @@ http_archive(
     url = "https://registry.yarnpkg.com/rxjs/-/rxjs-%s.tgz" % RXJS_VERSION,
     strip_prefix = "package/src",
 )
-
+<% if (sass) { %>
 # Rules for compiling sass
 RULES_SASS_VERSION = "<%= RULES_SASS_VERSION %>"
 http_archive(
@@ -36,19 +43,9 @@ http_archive(
     url = "https://github.com/bazelbuild/rules_sass/archive/%s.zip" % RULES_SASS_VERSION,
     strip_prefix = "rules_sass-%s" % RULES_SASS_VERSION,
 )
-
+<% } %>
 ####################################
 # Load and install our dependencies downloaded above.
-
-load("@angular//packages/bazel:package.bzl", "rules_angular_dependencies")
-rules_angular_dependencies()
-
-load("@build_bazel_rules_typescript//:package.bzl", "rules_typescript_dependencies")
-rules_typescript_dependencies()
-# build_bazel_rules_nodejs is loaded transitively through rules_typescript_dependencies.
-
-load("@build_bazel_rules_nodejs//:package.bzl", "rules_nodejs_dependencies")
-rules_nodejs_dependencies()
 
 load("@build_bazel_rules_nodejs//:defs.bzl", "check_bazel_version", "node_repositories", "yarn_install")
 # 0.18.0 is needed for .bazelignore
@@ -56,13 +53,18 @@ check_bazel_version("0.18.0")
 node_repositories()
 yarn_install(
     name = "npm",
+    # Need a reference to @angular here so that Bazel sets up the
+    # external repository before calling yarn_install
+    data = ["@angular//:LICENSE"],
     package_json = "//:package.json",
     yarn_lock = "//:yarn.lock",
 )
 
-load("@io_bazel_rules_go//go:def.bzl", "go_rules_dependencies", "go_register_toolchains")
-go_rules_dependencies()
-go_register_toolchains()
+load("@npm//:install_bazel_dependencies.bzl", "install_bazel_dependencies")
+install_bazel_dependencies()
+
+load("@build_bazel_rules_karma//:package.bzl", "rules_karma_dependencies")
+rules_karma_dependencies()
 
 load("@io_bazel_rules_webtesting//web:repositories.bzl", "browser_repositories", "web_test_repositories")
 web_test_repositories()
@@ -71,11 +73,11 @@ browser_repositories(
     firefox = True,
 )
 
-load("@build_bazel_rules_typescript//:defs.bzl", "ts_setup_workspace", "check_rules_typescript_version")
+load("@build_bazel_rules_typescript//:defs.bzl", "ts_setup_workspace")
 ts_setup_workspace()
-
+<% if (sass) { %>
 load("@io_bazel_rules_sass//sass:sass_repositories.bzl", "sass_repositories")
 sass_repositories()
-
+<% } %>
 load("@angular//:index.bzl", "ng_setup_workspace")
 ng_setup_workspace()

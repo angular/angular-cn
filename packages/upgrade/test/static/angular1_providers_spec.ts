@@ -6,7 +6,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 
-import {Ng1Token} from '@angular/upgrade/static/src/common/angular1';
+import {IInjectorService, Ng1Token} from '@angular/upgrade/static/src/common/angular1';
 import {compileFactory, injectorFactory, parseFactory, rootScopeFactory, setTempInjectorRef} from '@angular/upgrade/static/src/static/angular1_providers';
 
 {
@@ -22,19 +22,25 @@ import {compileFactory, injectorFactory, parseFactory, rootScopeFactory, setTemp
 
     describe('injectorFactory', () => {
       it('should return the injector value that was previously set', () => {
-        const mockInjector = {get: () => {}, has: () => false};
+        const mockInjector = {get: () => undefined, has: () => false};
         setTempInjectorRef(mockInjector);
         const injector = injectorFactory();
         expect(injector).toBe(mockInjector);
       });
 
-      it('should throw if the injector value has not been set yet', () => {
-        const mockInjector = {get: () => {}, has: () => false};
+      it('should throw if the injector value is not set', () => {
+        // Ensure the injector is not set. This shouldn't be necessary, but on CI there seems to be
+        // some race condition with previous tests not being cleaned up properly.
+        // Related:
+        //   - https://github.com/angular/angular/pull/28045
+        //   - https://github.com/angular/angular/pull/28181
+        setTempInjectorRef(null as any);
+
         expect(injectorFactory).toThrowError();
       });
 
       it('should unset the injector after the first call (to prevent memory leaks)', () => {
-        const mockInjector = {get: () => {}, has: () => false};
+        const mockInjector = {get: () => undefined, has: () => false};
         setTempInjectorRef(mockInjector);
         injectorFactory();
         expect(injectorFactory).toThrowError();  // ...because it has been unset

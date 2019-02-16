@@ -66,46 +66,64 @@ Begin with the first form of data binding&mdash;interpolation&mdash;to see how m
 
 {@a interpolation}
 
-## Interpolation ( <span class="syntax">{&#xfeff;{...}}</span> )
+## Interpolation and Template Expressions
 
-## 插值表达式 ( <span class="syntax">{&#xfeff;{...}}</span> )
+Interpolation allows you to incorporate calculated strings into the text
+between HTML element tags and within attribute assignments. Template
+expressions are what you use to calculate those strings.
 
-You met the double-curly braces of interpolation, `{{` and `}}`, early in your Angular education.
+The interpolation <live-example></live-example> demonstrates all of
+the syntax and code snippets described in this section.
 
-在以前的 Angular 教程中，你遇到过由双花括号括起来的插值表达式，`{{` 和 `}}`。
+### Interpolation `{{...}}`
 
-<code-example path="template-syntax/src/app/app.component.html" region="first-interpolation" header="src/app/app.component.html" linenums="false">
+### 插值表达式 `{{...}}`
+
+Interpolation refers to embedding expressions into marked up text.
+By default, interpolation uses as its delimiter the double curly braces, `{{` and `}}`.
+
+所谓 "插值" 是指将表达式嵌入到标记文本中。
+默认情况下，插值表达式会用双花括号 `{{`和 `}}` 作为分隔符。
+
+In the following snippet, `{{ currentCustomer }}` is an example of interpolation.
+
+在下面的代码片段中，`{{ currentCustomer }}` 就是插值表达式的例子。
+
+<code-example path="interpolation/src/app/app.component.html" region="interpolation-example1" header="src/app/app.component.html" linenums="false">
 </code-example>
 
-You use interpolation to weave calculated strings into the text between HTML element tags and within attribute assignments.
+The text between the braces is often the name of a component
+property. Angular replaces that name with the
+string value of the corresponding component property.
 
 插值表达式可以把计算后的字符串插入到 HTML 元素标签内的文本或对标签的属性进行赋值。
 
-<code-example path="template-syntax/src/app/app.component.html" region="title+image" header="src/app/app.component.html" linenums="false">
+<code-example path="interpolation/src/app/app.component.html" region="component-property" header="src/app/app.component.html" linenums="false">
 </code-example>
 
-The text between the braces is often the name of a component property. Angular replaces that name with the
-string value of the corresponding component property. In the example above, Angular evaluates the `title` and `heroImageUrl` properties
-and "fills in the blanks", first displaying a bold application title and then a heroic image.
+In the example above, Angular evaluates the `title` and `itemImageUrl` properties
+and fills in the blanks, first displaying some title text and then an image.
 
 在括号之间的“素材”，通常是组件属性的名字。Angular 会用组件中相应属性的字符串值，替换这个名字。
   上例中，Angular 计算 `title` 和 `heroImageUrl` 属性的值，并把它们填在空白处。
   首先显示粗体的应用标题，然后显示英雄的图片。
 
-More generally, the text between the braces is a **template expression** that Angular first **evaluates**
-and then **converts to a string**. The following interpolation illustrates the point by adding the two numbers:
+More generally, the text between the braces is a **template expression**
+that Angular first **evaluates** and then **converts to a string**.
+The following interpolation illustrates the point by adding two numbers:
 
 一般来说，括号间的素材是一个**模板表达式**，Angular 先**对它求值**，再把它**转换成字符串**。
   下列插值表达式通过把括号中的两个数字相加说明了这一点：
 
-<code-example path="template-syntax/src/app/app.component.html" region="sum-1" header="src/app/app.component.html" linenums="false">
+<code-example path="interpolation/src/app/app.component.html" region="convert-string" header="src/app/app.component.html" linenums="false">
 </code-example>
 
-The expression can invoke methods of the host component such as `getVal()`, seen here:
+The expression can invoke methods of the host component such as `getVal()` in
+the following example:
 
 这个表达式可以调用宿主组件的方法，就像下面用的 `getVal()`：
 
-<code-example path="template-syntax/src/app/app.component.html" region="sum-2" header="src/app/app.component.html" linenums="false">
+<code-example path="interpolation/src/app/app.component.html" region="invoke-method" header="src/app/app.component.html" linenums="false">
 </code-example>
 
 Angular evaluates all expressions in double curly braces,
@@ -115,103 +133,115 @@ it assigns this composite interpolated result to an **element or directive prope
 Angular 对所有双花括号中的表达式求值，把求值的结果转换成字符串，并把它们跟相邻的字符串字面量连接起来。最后，把这个组合出来的插值结果赋给**元素或指令的属性**。
 
 You appear to be inserting the result between element tags and assigning it to attributes.
-It's convenient to think so, and you rarely suffer for this mistake.
-Though this is not exactly true. Interpolation is a special syntax that Angular converts into a
-[property binding](guide/template-syntax#property-binding), as is explained [below](guide/template-syntax#property-binding-or-interpolation).
 
-表面上看，你在元素标签之间插入了结果和对标签的属性进行了赋值。
-这样思考起来很方便，并且这个误解很少给你带来麻烦。
-但严格来讲，这是不对的。插值表达式是一个特殊的语法，Angular 把它转换成了[属性绑定](guide/template-syntax#property-binding)，[后面](guide/template-syntax#property-binding-or-interpolation)将会解释这一点。
+从表面上看，你就像是在元素标签之间插入了结果并对标签的属性进行了赋值。
 
-But first, let's take a closer look at template expressions and statements.
+<div class="alert is-helpful">
 
-讲解属性绑定之前，先深入了解一下模板表达式和模板语句。
+However, interpolation is a special syntax that Angular converts into a
+property binding.
 
-<hr/>
+但是，插值表达式其实是一个特殊语法，Angular 会把它转换为属性绑定。
 
-{@a template-expressions}
+If you'd like to use something other than `{{` and `}}`, you can
+configure the interpolation delimiter via the
+[interpolation](api/core/Component#interpolation)
+option in the `Component` metadata.
 
-## Template expressions
+如果你想用别的分隔符来代替 `{{` 和 `}}`，也可以通过 `Component` 元数据中的 [interpolation](api/core/Component#interpolation) 选项来配置插值分隔符。
 
-## 模板表达式
+</div>
 
-A template **expression** produces a value.
+### Template expressions
+
+### 模板表达式
+
+a template **expression** produces a value and appears within the double
+curly braces, `{{ }}`.
 Angular executes the expression and assigns it to a property of a binding target;
-the target might be an HTML element, a component, or a directive.
+the target could be an HTML element, a component, or a directive.
 
-模板**表达式**产生一个值。
+模板**表达式**会产生一个值，并出现在双花括号 `{{ }}` 中。
   Angular 执行这个表达式，并把它赋值给绑定目标的属性，这个绑定目标可能是 HTML 元素、组件或指令。
 
 The interpolation braces in `{{1 + 1}}` surround the template expression `1 + 1`.
-In the [property binding](guide/template-syntax#property-binding) section below,
+In the property binding,
 a template expression appears in quotes to the right of the&nbsp;`=` symbol as in `[property]="expression"`.
 
 `{{1 + 1}}` 中所包含的模板表达式是 `1 + 1`。
-  在[属性绑定](guide/template-syntax#property-binding)中会再次看到模板表达式，它出现在 `=` 右侧的引号中，就像这样：`[property]="expression"`。
+  在属性绑定中会再次看到模板表达式，它出现在 `=` 右侧的引号中，就像这样：`[property]="expression"`。
 
-You write these template expressions in a language that looks like JavaScript.
-Many JavaScript expressions are legal template expressions, but not all.
+In terms of syntax, template expressions are similar to JavaScript.
+Many JavaScript expressions are legal template expressions, with a few exceptions.
 
-编写模板表达式所用的语言看起来很像 JavaScript。
-  很多 JavaScript 表达式也是合法的模板表达式，但不是全部。
+在语法上，模板表达式与 JavaScript 很像。很多 JavaScript 表达式都是合法的模板表达式，但也有一些例外。
 
-JavaScript expressions that have or promote side effects are prohibited,
+You can't use JavaScript expressions that have or promote side effects,
 including:
 
-JavaScript 中那些具有或可能引发副作用的表达式是被禁止的，包括：
+你不能使用那些具有或可能引发副作用的 JavaScript 表达式，包括： 
 
-* assignments (`=`, `+=`, `-=`, ...)
+* Assignments (`=`, `+=`, `-=`, `...`)
 
-   赋值 (`=`, `+=`, `-=`, ...)
+  赋值 (`=`, `+=`, `-=`, `...`)
 
-* <code>new</code>
+* Operators such as `new`, `typeof`, `instanceof`, etc.
 
-   `new` 运算符
+  `new`、`typeof`、`instanceof` 等操作符。
 
-* chaining expressions with <code>;</code> or <code>,</code>
+* Chaining expressions with <code>;</code> or <code>,</code>
 
-   使用 `;` 或 `,` 的链式表达式
+  使用 <code>;</code> 或 <code>,</code> 串联起来的表达式
 
-* increment and decrement operators (`++` and `--`)
+* The increment and decrement operators `++` and `--`
 
-   自增和自减运算符：`++` 和 `--`
+  自增和自减运算符：`++` 和 `--`
+
+* Some of the ES2015+ operators
+
+  一些 ES2015+ 版本的操作符
 
 Other notable differences from JavaScript syntax include:
 
-和 JavaScript 语 法的其它显著不同包括：
+和 JavaScript 语法的其它显著差异包括：
 
-* no support for the bitwise operators `|` and `&`
+* No support for the bitwise operators such as `|` and `&`
 
-   不支持位运算 `|` 和 `&`
+  不支持位运算，比如 `|` 和 `&`
 
-* new [template expression operators](guide/template-syntax#expression-operators), such as `|`, `?.` and `!`.
+* New template expression operators, such as `|`, `?.` and `!`
 
-   具有新的[模板表达式运算符](guide/template-syntax#expression-operators)，比如 `|`、`?.` 和 `!`。
+  新的[模板表达式运算符](guide/template-syntax#expression-operators)，比如 `|`、`?.` 和 `!`。
 
-{@a expression-context}
+<!-- link to: guide/template-syntax#expression-operators -->
 
 ### Expression context
 
 ### 表达式上下文
 
 The *expression context* is typically the _component_ instance.
-In the following snippets, the `title`  within double-curly braces and the
-`isUnchanged` in quotes refer to properties of the `AppComponent`.
+In the following snippets, the `recommended` within double curly braces and the
+`itemImageUrl2` in quotes refer to properties of the `AppComponent`.
 
 典型的*表达式上下文*就是这个**组件实例**，它是各种绑定值的来源。
 在下面的代码片段中，双花括号中的 `title` 和引号中的 `isUnchanged` 所引用的都是 `AppComponent` 中的属性。
 
-<code-example path="template-syntax/src/app/app.component.html" region="context-component-expression" header="src/app/app.component.html" linenums="false">
+<code-example path="interpolation/src/app/app.component.html" region="component-context" header="src/app/app.component.html" linenums="false">
 </code-example>
 
 An expression may also refer to properties of the _template's_ context
-such as a [template input variable](guide/template-syntax#template-input-variable) (`let hero`)
-or a [template reference variable](guide/template-syntax#ref-vars) (`#heroInput`).
+such as a template input variable,
+<!-- link to built-in-directives#template-input-variables -->
+`let customer`, or a template reference variable, `#customerInput`.
+<!-- link to guide/template-ref-variables -->
 
 表达式的上下文可以包括组件之外的对象。
   比如[模板输入变量](guide/template-syntax#template-input-variable) (`let hero`)和[模板引用变量](guide/template-syntax#ref-vars)(`#heroInput`)就是备选的上下文对象之一。
 
-<code-example path="template-syntax/src/app/app.component.html" region="context-var" header="src/app/app.component.html" linenums="false">
+<code-example path="interpolation/src/app/app.component.html" region="template-input-variable" header="src/app/app.component.html (template input variable)" linenums="false">
+</code-example>
+
+<code-example path="interpolation/src/app/app.component.html" region="template-reference-variable" header="src/app/app.component.html (template reference variable)" linenums="false">
 </code-example>
 
 The context for terms in an expression is a blend of the _template variables_,
@@ -223,34 +253,35 @@ and, lastly, the component's member names.
 表达式中的上下文变量是由*模板变量*、指令的*上下文变量*（如果有）和组件的*成员*叠加而成的。
 如果你要引用的变量名存在于一个以上的命名空间中，那么，模板变量是最优先的，其次是指令的上下文变量，最后是组件的成员。
 
-The previous example presents such a name collision. The component has a `hero`
-property and the `*ngFor` defines a `hero` template variable.
-The `hero` in `{{hero.name}}`
+The previous example presents such a name collision. The component has a `customer`
+property and the `*ngFor` defines a `customer` template variable.
+
+<div class="alert is-helpful">
+
+The `customer` in `{{customer.name}}`
 refers to the template input variable, not the component's property.
 
 上一个例子中就体现了这种命名冲突。组件具有一个名叫 `hero` 的属性，而 `*ngFor` 声明了一个也叫 `hero` 的模板变量。
 在 `{{hero.name}}` 表达式中的 `hero` 实际引用的是模板变量，而不是组件的属性。
 
 Template expressions cannot refer to anything in
-the global namespace (except `undefined`). They can't refer to `window` or `document`. They
-can't call `console.log` or `Math.max`. They are restricted to referencing
+the global namespace, except `undefined`. They can't refer to
+`window` or `document`. Additionally, they
+can't call `console.log()` or `Math.max()` and they are restricted to referencing
 members of the expression context.
 
 模板表达式不能引用全局命名空间中的任何东西，比如 `window` 或 `document`。它们也不能调用 `console.log` 或 `Math.max`。
 它们只能引用表达式上下文中的成员。
 
-{@a no-side-effects}
-
-{@a expression-guidelines}
+</div>
 
 ### Expression guidelines
 
-### 表达式指南
+### 表达式使用指南
 
-Template expressions can make or break an application.
-Please follow these guidelines:
+When using template expressions follow these guidelines:
 
-模板表达式能成就或毁掉一个应用。请遵循下列指南：
+当使用模板表达式时，请遵循下列指南：
 
 * [No visible side effects](guide/template-syntax#no-visible-side-effects)
 
@@ -264,15 +295,7 @@ Please follow these guidelines:
 
    [非常简单](guide/template-syntax#simplicity)
 
-* [Idempotence](guide/template-syntax#idempotence)
-
-   [幂等性](guide/template-syntax#idempotence)
-
-The only exceptions to these guidelines should be in specific circumstances that you thoroughly understand.
-
-超出上面指南外的情况应该只出现在那些你确信自己已经彻底理解的特定场景中。
-
-#### No visible side effects
+### No visible side effects
 
 #### 没有可见的副作用
 
@@ -289,13 +312,43 @@ The view should be stable throughout a single rendering pass.
 永远不用担心读取组件值可能改变另外的显示值。
 在一次单独的渲染过程中，视图应该总是稳定的。
 
-#### Quick execution
+An [idempotent](https://en.wikipedia.org/wiki/Idempotence) expression is ideal because
+it is free of side effects and improves Angular's change detection performance.
 
-#### 执行迅速
+最好使用[幂等的](https://en.wikipedia.org/wiki/Idempotence)表达式，因为它没有副作用，并且能提升 Angular 变更检测的性能。
+
+In Angular terms, an idempotent expression always returns
+*exactly the same thing* until
+one of its dependent values changes.
+
+在 Angular 的术语中，幂等的表达式应该总是返回*完全相同的东西*，直到某个依赖值发生改变。
+
+Dependent values should not change during a single turn of the event loop.
+If an idempotent expression returns a string or a number, it returns the same string or number when called twice in a row. If the expression returns an object, including an `array`, it returns the same object *reference* when called twice in a row.
+
+在单独的一次事件循环中，被依赖的值不应该改变。
+  如果幂等的表达式返回一个字符串或数字，连续调用它两次，也应该返回相同的字符串或数字。
+  如果幂等的表达式返回一个对象（包括 `Date` 或 `Array`），连续调用它两次，也应该返回同一个对象的*引用*。
+
+<div class="alert is-helpful">
+
+There is one exception to this behavior that applies to `*ngFor`. `*ngFor` has `trackBy` functionality that can deal with referential inequality of objects that when iterating over them.
+
+当用于 `*ngFor` 时，这种行为有一个例外。`*ngFor` 具有一个 `trackBy` 功能，它可以在迭代时把两个引用不等的对象视作同一个。
+
+For more information, see the [*ngFor with `trackBy`](guide/template-syntax#ngfor-with-trackby) section of this guide.
+
+欲知详情，参见[带 `trackBy` 的 *ngFor](guide/template-syntax#ngfor-with-trackby) 部分。
+
+</div>
+
+### Quick execution
+
+### 执行迅速
 
 Angular executes template expressions after every change detection cycle.
 Change detection cycles are triggered by many asynchronous activities such as
-promise resolutions, http results, timer events, keypresses and mouse moves.
+promise resolutions, HTTP results, timer events, key presses and mouse moves.
 
 Angular 会在每个变更检测周期后执行模板表达式。
 变更检测周期会被多种异步活动触发，比如 Promise 解析、HTTP 结果、定时器时间、按键或鼠标移动。
@@ -306,44 +359,23 @@ Consider caching values when their computation is expensive.
 表达式应该快速结束，否则用户就会感到拖沓，特别是在较慢的设备上。
 当计算代价较高时，应该考虑缓存那些从其它值计算得出的值。
 
-#### Simplicity
+### Simplicity
 
-#### 非常简单
+### 非常简单
 
-Although it's possible to write quite complex template expressions, you should avoid them.
+Although it's possible to write complex template expressions, it's a better
+practice to avoid them.
 
-虽然也可以写出相当复杂的模板表达式，但不要那么写。
+虽然也可以写复杂的模板表达式，不过最好避免那样做。
 
-A property name or method call should be the norm.
-An occasional Boolean negation (`!`) is OK.
-Otherwise, confine application and business logic to the component itself,
-where it will be easier to develop and test.
+A property name or method call should be the norm, but an occasional Boolean negation, `!`, is OK.
+Otherwise, confine application and business logic to the component,
+where it is easier to develop and test.
 
-常规是属性名或方法调用。偶尔的逻辑取反 (`!`) 也还凑合。
-其它情况下，应在组件中实现应用和业务逻辑，使开发和测试变得更容易。
+属性名或方法调用应该是常态，但偶然使用逻辑取反 `!` 也是可以的。
+其它情况下，应该把应用程序和业务逻辑限制在组件中，这样它才能更容易开发和测试。
 
-#### Idempotence
-
-#### 幂等性
-
-An [idempotent](https://en.wikipedia.org/wiki/Idempotence) expression is ideal because
-it is free of side effects and improves Angular's change detection performance.
-
-最好使用[幂等的](https://en.wikipedia.org/wiki/Idempotence)表达式，因为它没有副作用，并且能提升 Angular 变更检测的性能。
-
-In Angular terms, an idempotent expression always returns *exactly the same thing* until
-one of its dependent values changes.
-
-在 Angular 的术语中，幂等的表达式应该总是返回*完全相同的东西*，直到某个依赖值发生改变。
-
-Dependent values should not change during a single turn of the event loop.
-If an idempotent expression returns a string or a number, it returns the same string or number
-when called twice in a row. If the expression returns an object (including an `array`),
-it returns the same object *reference* when called twice in a row.
-
-在单独的一次事件循环中，被依赖的值不应该改变。
-  如果幂等的表达式返回一个字符串或数字，连续调用它两次，也应该返回相同的字符串或数字。
-  如果幂等的表达式返回一个对象（包括 `Date` 或 `Array`），连续调用它两次，也应该返回同一个对象的*引用*。
+<!-- end of Interpolation doc -->
 
 <hr/>
 
@@ -1350,7 +1382,6 @@ content harmlessly.
 </figure>
 
 <hr/>
-
 {@a other-bindings}
 
 ## Attribute, class, and style bindings
@@ -1585,57 +1616,45 @@ Note that a _style property_ name can be written in either
 
 {@a event-binding}
 
-## Event binding  ( <span class="syntax">(event)</span> )
+## Event binding `(event)`
 
-## 事件绑定  ( <span class="syntax">(事件名)</span> )
+## 事件绑定 `(event)`
 
-The bindings directives you've met so far flow data in one direction: **from a component to an element**.
+Event binding allows you to listen for certain events such as
+keystrokes, mouse movements, clicks, and touches. For an example
+demonstrating all of the points in this section, see the <live-example name="event-binding">event binding example</live-example>.
 
-前面遇到的绑定的数据流都是单向的：**从组件到元素**。
+事件绑定允许你侦听某些事件，比如按键、鼠标移动、点击和触屏。要查看本节中所有要点的演示，请参见<live-example name="event-binding">事件绑定范例</live-example>。
 
-Users don't just stare at the screen. They enter text into input boxes. They pick items from lists.
-They click buttons. Such user actions may result in a flow of data in the opposite direction:
-**from an element to a component**.
-
-但用户不会只盯着屏幕看。他们会在输入框中输入文本。他们会从列表中选取条目。
-他们会点击按钮。这类用户动作可能导致反向的数据流：*从元素到组件*。
-
-The only way to know about a user action is to listen for certain events such as
-keystrokes, mouse movements, clicks, and touches.
-You declare your interest in user actions through Angular event binding.
-
-知道用户动作的唯一方式是监听某些事件，如按键、鼠标移动、点击和触摸屏幕。
-可以通过 Angular 事件绑定来声明对哪些用户动作感兴趣。
-
-Event binding syntax consists of a **target event** name
+Angular event binding syntax consists of a **target event** name
 within parentheses on the left of an equal sign, and a quoted
-[template statement](guide/template-syntax#template-statements) on the right.
+template statement on the right.
 The following event binding listens for the button's click events, calling
 the component's `onSave()` method whenever a click occurs:
 
-事件绑定语法由等号左侧带圆括号的**目标事件**和右侧引号中的[模板语句](guide/template-syntax#template-statements)组成。
+Angular 的事件绑定语法由等号左侧带圆括号的**目标事件**和右侧引号中的[模板语句](guide/template-syntax#template-statements)组成。
 下面事件绑定监听按钮的点击事件。每当点击发生时，都会调用组件的 `onSave()` 方法。
 
-<code-example path="template-syntax/src/app/app.component.html" region="event-binding-1" header="src/app/app.component.html" linenums="false">
-</code-example>
+<figure>
+  <img src='generated/images/guide/event-binding/syntax-diagram.svg' alt="Syntax diagram">
+</figure>
 
 ### Target event
 
 ### 目标事件
 
-A **name between parentheses** &mdash; for example, `(click)` &mdash;
-identifies the target event. In the following example, the target is the button's click event.
+As above, the target is the button's click event.
 
-**圆括号中的名称** —— 比如 `(click)` —— 标记出目标事件。在下面例子中，目标是按钮的 click 事件。
+如前所述，其目标就是此按钮的单击事件。
 
-<code-example path="template-syntax/src/app/app.component.html" region="event-binding-1" header="src/app/app.component.html" linenums="false">
+<code-example path="event-binding/src/app/app.component.html" region="event-binding-1" header="src/app/app.component.html" linenums="false">
 </code-example>
 
-Some people prefer the `on-` prefix alternative, known as the **canonical form**:
+Alternatively, use the `on-` prefix, known as the canonical form:
 
 有些人更喜欢带 `on-` 前缀的备选形式，称之为**规范形式**：
 
-<code-example path="template-syntax/src/app/app.component.html" region="event-binding-2" header="src/app/app.component.html" linenums="false">
+<code-example path="event-binding/src/app/app.component.html" region="event-binding-2" header="src/app/app.component.html" linenums="false">
 </code-example>
 
 Element events may be the more common targets, but Angular looks first to see if the name matches an event property
@@ -1643,17 +1662,8 @@ of a known directive, as it does in the following example:
 
 元素事件可能是更常见的目标，但 Angular 会先看这个名字是否能匹配上已知指令的事件属性，就像下面这个例子：
 
-<code-example path="template-syntax/src/app/app.component.html" region="event-binding-3" header="src/app/app.component.html" linenums="false">
+<code-example path="event-binding/src/app/app.component.html" region="custom-directive" header="src/app/app.component.html" linenums="false">
 </code-example>
-
-<div class="alert is-helpful">
-
-The `myClick` directive is further described in the section
-on [aliasing input/output properties](guide/template-syntax#aliasing-io).
-
-更多关于该 `myClick` 指令的解释，见[给输入/输出属性起别名](guide/template-syntax#aliasing-io)。
-
-</div>
 
 If the name fails to match an element event or an output property of a known directive,
 Angular reports an “unknown directive” error.
@@ -1676,12 +1686,11 @@ into a model.
 当事件发生时，这个处理器会执行模板语句。
 典型的模板语句通常涉及到响应事件执行动作的接收器，例如从 HTML 控件中取得值，并存入模型。
 
-The binding conveys information about the event, including data values, through
-an **event object named `$event`**.
+The binding conveys information about the event. This information can include data values such as an event object, string, or number named `$event`.
 
 绑定会通过**名叫 `$event` 的事件对象**传递关于此事件的信息（包括数据值）。
 
-The shape of the event object is determined by the target event.
+The target event determines the shape of the `$event` object.
 If the target event is a native DOM element event, then `$event` is a
 [DOM event object](https://developer.mozilla.org/en-US/docs/Web/Events),
 with properties such as `target` and `target.value`.
@@ -1693,11 +1702,12 @@ Consider this example:
 
 考虑这个范例：
 
-<code-example path="template-syntax/src/app/app.component.html" region="without-NgModel" header="src/app/app.component.html" linenums="false">
+<code-example path="event-binding/src/app/app.component.html" region="event-binding-3" header="src/app/app.component.html" linenums="false">
 </code-example>
 
-This code sets the input box `value` property by binding to the `name` property.
-To listen for changes to the value, the code binds to the input box's `input` event.
+This code sets the `<input>` `value` property by binding to the `name` property.
+To listen for changes to the value, the code binds to the `input`
+event of the `<input>` element.
 When the user makes changes, the `input` event is raised, and the binding executes
 the statement within a context that includes the DOM event object, `$event`.
 
@@ -1709,18 +1719,14 @@ To update the `name` property, the changed text is retrieved by following the pa
 
 要更新 `name` 属性，就要通过路径 `$event.target.value` 来获取更改后的值。
 
-If the event belongs to a directive (recall that components are directives),
-`$event` has whatever shape the directive decides to produce.
+If the event belongs to a directive&mdash;recall that components
+are directives&mdash;`$event` has whatever shape the directive produces.
 
 如果事件属于指令（回想一下，组件是指令的一种），那么 `$event` 具体是什么由指令决定。
 
-{@a eventemitter}
+### Custom events with `EventEmitter`
 
-{@a custom-event}
-
-### Custom events with <span class="syntax">EventEmitter</span>
-
-### 使用 <span class="syntax">EventEmitter</span> 实现自定义事件
+### 使用 `EventEmitter` 实现自定义事件
 
 Directives typically raise custom events with an Angular [EventEmitter](api/core/EventEmitter).
 The directive creates an `EventEmitter` and exposes it as a property.
@@ -1732,40 +1738,43 @@ Parent directives listen for the event by binding to this property and accessing
 指令调用 `EventEmitter.emit(payload)` 来触发事件，可以传入任何东西作为消息载荷。
 父指令通过绑定到这个属性来监听事件，并通过 `$event` 对象来访问载荷。
 
-Consider a `HeroDetailComponent` that presents hero information and responds to user actions.
-Although the `HeroDetailComponent` has a delete button it doesn't know how to delete the hero itself.
-The best it can do is raise an event reporting the user's delete request.
+Consider an `ItemDetailComponent` that presents item information and responds to user actions.
+Although the `ItemDetailComponent` has a delete button, it doesn't know how to delete the hero. It can only raise an event reporting the user's delete request.
 
 假设 `HeroDetailComponent` 用于显示英雄的信息，并响应用户的动作。
 虽然 `HeroDetailComponent` 包含删除按钮，但它自己并不知道该如何删除这个英雄。
 最好的做法是触发事件来报告“删除用户”的请求。
 
-Here are the pertinent excerpts from that `HeroDetailComponent`:
+Here are the pertinent excerpts from that `ItemDetailComponent`:
+
 
 下面的代码节选自 `HeroDetailComponent`：
 
-<code-example path="template-syntax/src/app/hero-detail.component.ts" linenums="false" header="src/app/hero-detail.component.ts (template)" region="template-1">
+<code-example path="event-binding/src/app/item-detail/item-detail.component.html" linenums="false" header="src/app/item-detail/item-detail.component.ts (template)" region="line-through">
 </code-example>
 
-<code-example path="template-syntax/src/app/hero-detail.component.ts" linenums="false" header="src/app/hero-detail.component.ts (deleteRequest)" region="deleteRequest">
+<code-example path="event-binding/src/app/item-detail/item-detail.component.ts" linenums="false" header="src/app/item-detail/item-detail.component.ts (deleteRequest)" region="deleteRequest">
 </code-example>
+
 
 The component defines a `deleteRequest` property that returns an `EventEmitter`.
 When the user clicks *delete*, the component invokes the `delete()` method,
-telling the `EventEmitter` to emit a `Hero` object.
+telling the `EventEmitter` to emit an `Item` object.
 
 组件定义了 `deleteRequest` 属性，它是 `EventEmitter` 实例。
 当用户点击*删除*时，组件会调用 `delete()` 方法，让 `EventEmitter` 发出一个 `Hero` 对象。
 
-Now imagine a hosting parent component that binds to the `HeroDetailComponent`'s `deleteRequest` event.
+Now imagine a hosting parent component that binds to the `deleteRequest` event
+of the `ItemDetailComponent`.
 
 现在，假设有个宿主的父组件，它绑定了 `HeroDetailComponent` 的 `deleteRequest` 事件。
 
-<code-example path="template-syntax/src/app/app.component.html" linenums="false" header="src/app/app.component.html (event-binding-to-component)" region="event-binding-to-component">
+<code-example path="event-binding/src/app/app.component.html" linenums="false" header="src/app/app.component.html (event-binding-to-component)" region="event-binding-to-component">
 </code-example>
 
-When the `deleteRequest` event fires, Angular calls the parent component's `deleteHero` method,
-passing the *hero-to-delete* (emitted by `HeroDetail`) in the `$event` variable.
+When the `deleteRequest` event fires, Angular calls the parent component's
+`deleteItem()` method, passing the *item-to-delete* (emitted by `ItemDetail`)
+in the `$event` variable.
 
 当 `deleteRequest` 事件触发时，Angular 调用父组件的 `deleteHero` 方法，
 在 `$event` 变量中传入*要删除的英雄*（来自 `HeroDetail`）。
@@ -1774,15 +1783,15 @@ passing the *hero-to-delete* (emitted by `HeroDetail`) in the `$event` variable.
 
 ### 模板语句有副作用
 
-The `deleteHero` method has a side effect: it deletes a hero.
-Template statement side effects are not just OK, but expected.
+Though [template expressions](guide/template-syntax#template-expressions) shouldn't have [side effects](guide/template-syntax#avoid-side-effects), template
+statements usually do. The `deleteItem()` method does have
+a side effect: it deletes an item.
 
-`deleteHero` 方法有副作用：它删除了一个英雄。
-模板语句的副作用不仅没问题，反而正是所期望的。
+虽然[模板表达式](guide/template-syntax#template-expressions)不应该有[副作用](guide/template-syntax#avoid-side-effects)，但是模板语句通常会有。这里的 `deleteItem()` 方法就有一个副作用：它删除了一个条目。
 
-Deleting the hero updates the model, perhaps triggering other changes
-including queries and saves to a remote server.
-These changes percolate through the system and are ultimately displayed in this and other views.
+Deleting an item updates the model, and depending on your code, triggers
+other changes including queries and saving to a remote server.
+These changes propagate through the system and ultimately display in this and other views.
 
 删除这个英雄会更新模型，还可能触发其它修改，包括向远端服务器的查询和保存。
 这些变更通过系统进行扩散，并最终显示到当前以及其它视图中。
@@ -2772,7 +2781,6 @@ The following discussion refers to _components_ for brevity and
 because this topic is mostly a concern for component authors. 
 
 为简洁起见，以下讨论会涉及到**组件**，因为这个主题主要是组件作者所关心的问题。
-
 </div>
 
 <h3 class="no-toc">Discussion</h3>
@@ -3247,7 +3255,7 @@ You'll need this template operator when you turn on strict null checks. It's opt
 
 {@a any-type-cast-function}
 
-## The `$any` type cast function (`$any( <expression> )`) 
+## The `$any` type cast function (`$any( <expression> )`)
 
 ## 类型转换函数 `$any` （$any( <表达式> )）
 
@@ -3260,7 +3268,7 @@ the expression to [the `any` type](http://www.typescriptlang.org/docs/handbook/b
 <code-example path="template-syntax/src/app/app.component.html" region="any-type-cast-function-1" header="src/app/app.component.html" linenums="false">
 </code-example>
 
-In this example, when the Angular compiler turns your template into TypeScript code, 
+In this example, when the Angular compiler turns your template into TypeScript code,
 it prevents TypeScript from reporting that `marker` is not a member of the `Hero`
 interface.
 

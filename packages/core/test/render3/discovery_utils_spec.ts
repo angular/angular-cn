@@ -5,11 +5,11 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import {createInjector} from '@angular/core';
-
 import {StaticInjector} from '../../src/di/injector';
+import {createInjector} from '../../src/di/r3_injector';
 import {getComponent, getContext, getDirectives, getInjectionTokens, getInjector, getListeners, getLocalRefs, getRootComponents, getViewComponent, loadLContext} from '../../src/render3/discovery_utils';
 import {ProvidersFeature, RenderFlags, defineComponent, defineDirective, elementContainerEnd, elementContainerStart, getHostElement, i18n, i18nApply, i18nExp} from '../../src/render3/index';
+
 import {element, elementEnd, elementStart, elementStyling, elementStylingApply, template, bind, elementProperty, text, textBinding, markDirty, listener} from '../../src/render3/instructions';
 import {ComponentFixture} from './render_util';
 import {NgIf} from './common_with_def';
@@ -89,12 +89,12 @@ describe('discovery utils', () => {
     static ngDirectiveDef = defineDirective({
       type: DirectiveA,
       selectors: [['', 'dirA', '']],
-      exportAs: 'dirA',
+      exportAs: ['dirA'],
       factory: () => new DirectiveA(),
     });
   }
 
-  const MSG_DIV = `{�0�, select, 
+  const MSG_DIV = `{�0�, select,
         other {ICU expression}
       }`;
 
@@ -509,7 +509,7 @@ describe('discovery utils deprecated', () => {
         static ngDirectiveDef = defineDirective({
           type: MyDir,
           selectors: [['', 'myDir', '']],
-          exportAs: 'myDir',
+          exportAs: ['myDir'],
           factory: () => new MyDir()
         });
       }

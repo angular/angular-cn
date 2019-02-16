@@ -6,10 +6,11 @@
  * found in the LICENSE file at https://angular.io/license
  */
 
-import {Component, Inject, InjectionToken, NgModule, Optional} from '@angular/core';
+import {Component, Directive, Inject, InjectionToken, NgModule, Optional, Pipe} from '@angular/core';
 import {TestBed, getTestBed} from '@angular/core/testing/src/test_bed';
 import {By} from '@angular/platform-browser';
 import {expect} from '@angular/platform-browser/testing/src/matchers';
+import {onlyInIvy} from '@angular/private/testing';
 
 const NAME = new InjectionToken<string>('name');
 
@@ -47,8 +48,46 @@ export class SimpleCmp {
 export class WithRefsCmp {
 }
 
+@Component({selector: 'inherited-cmp', template: 'inherited'})
+export class InheritedCmp extends SimpleCmp {
+}
+
+@Directive({selector: '[hostBindingDir]', host: {'[id]': 'id'}})
+export class HostBindingDir {
+  id = 'one';
+}
+
+@Component({
+  selector: 'component-with-prop-bindings',
+  template: `
+    <div hostBindingDir [title]="title" [attr.aria-label]="label"></div>
+    <p title="( {{ label }} - {{ title }} )" [attr.aria-label]="label" id="[ {{ label }} ] [ {{ title }} ]">
+    </p>
+  `
+})
+export class ComponentWithPropBindings {
+  title = 'some title';
+  label = 'some label';
+}
+
+@Component({
+  selector: 'simple-app',
+  template: `
+    <simple-cmp></simple-cmp> - <inherited-cmp></inherited-cmp>
+  `
+})
+export class SimpleApp {
+}
+
+@Component({selector: 'inline-template', template: '<p>Hello</p>'})
+export class ComponentWithInlineTemplate {
+}
+
 @NgModule({
-  declarations: [HelloWorld, SimpleCmp, WithRefsCmp],
+  declarations: [
+    HelloWorld, SimpleCmp, WithRefsCmp, InheritedCmp, SimpleApp, ComponentWithPropBindings,
+    HostBindingDir
+  ],
   imports: [GreetingModule],
   providers: [
     {provide: NAME, useValue: 'World!'},
@@ -96,6 +135,23 @@ describe('TestBed', () => {
     greetingByCss.componentInstance.name = 'TestBed!';
     hello.detectChanges();
     expect(greetingByCss.nativeElement).toHaveText('Hello TestBed!');
+  });
+
+  it('should give the ability to access property bindings on a node', () => {
+    const fixture = TestBed.createComponent(ComponentWithPropBindings);
+    fixture.detectChanges();
+
+    const divElement = fixture.debugElement.query(By.css('div'));
+    expect(divElement.properties).toEqual({id: 'one', title: 'some title'});
+  });
+
+  it('should give the ability to access interpolated properties on a node', () => {
+    const fixture = TestBed.createComponent(ComponentWithPropBindings);
+    fixture.detectChanges();
+
+    const paragraphEl = fixture.debugElement.query(By.css('p'));
+    expect(paragraphEl.properties)
+        .toEqual({title: '( some label - some title )', id: '[ some label ] [ some title ]'});
   });
 
   it('should give access to the node injector', () => {
@@ -172,4 +228,96 @@ describe('TestBed', () => {
     hello.detectChanges();
     expect(hello.nativeElement).toHaveText('Hello injected World !');
   });
+
+  it('should resolve components that are extended by other components', () => {
+    // SimpleApp uses SimpleCmp in its template, which is extended by InheritedCmp
+    const simpleApp = TestBed.createComponent(SimpleApp);
+    simpleApp.detectChanges();
+    expect(simpleApp.nativeElement).toHaveText('simple - inherited');
+  });
+
+  it('should resolve components without async resources synchronously', (done) => {
+    TestBed
+        .configureTestingModule({
+          declarations: [ComponentWithInlineTemplate],
+        })
+        .compileComponents()
+        .then(done)
+        .catch(error => {
+          // This should not throw any errors. If an error is thrown, the test will fail.
+          // Specifically use `catch` here to mark the test as done and *then* throw the error
+          // so that the test isn't treated as a timeout.
+          done();
+          throw error;
+        });
+
+    // Intentionally call `createComponent` before `compileComponents` is resolved. We want this to
+    // work for components that don't have any async resources (templateUrl, styleUrls).
+    TestBed.createComponent(ComponentWithInlineTemplate);
+  });
+
+  onlyInIvy('patched ng defs should be removed after resetting TestingModule')
+      .describe('resetting ng defs', () => {
+        it('should restore ng defs to their initial states', () => {
+          @Pipe({name: 'somePipe', pure: true})
+          class SomePipe {
+            transform(value: string): string { return `transformed ${value}`; }
+          }
+
+          @Directive({selector: 'someDirective'})
+          class SomeDirective {
+            someProp = 'hello';
+          }
+
+          @Component({selector: 'comp', template: 'someText'})
+          class SomeComponent {
+          }
+
+          @NgModule({declarations: [SomeComponent]})
+          class SomeModule {
+          }
+
+          TestBed.configureTestingModule({imports: [SomeModule]});
+
+          // adding Pipe and Directive via metadata override
+          TestBed.overrideModule(
+              SomeModule, {set: {declarations: [SomeComponent, SomePipe, SomeDirective]}});
+          TestBed.overrideComponent(
+              SomeComponent,
+              {set: {template: `<span someDirective>{{'hello' | somePipe}}</span>`}});
+          TestBed.createComponent(SomeComponent);
+
+          const defBeforeReset = (SomeComponent as any).ngComponentDef;
+          expect(defBeforeReset.pipeDefs().length).toEqual(1);
+          expect(defBeforeReset.directiveDefs().length).toEqual(2);  // directive + component
+
+          TestBed.resetTestingModule();
+
+          const defAfterReset = (SomeComponent as any).ngComponentDef;
+          expect(defAfterReset.pipeDefs().length).toEqual(0);
+          expect(defAfterReset.directiveDefs().length).toEqual(1);  // component
+        });
+
+        it('should cleanup ng defs for classes with no ng annotations (in case of inheritance)',
+           () => {
+             @Component({selector: 'someDirective', template: '...'})
+             class SomeComponent {
+             }
+
+             class ComponentWithNoAnnotations extends SomeComponent {}
+
+             TestBed.configureTestingModule({declarations: [ComponentWithNoAnnotations]});
+             TestBed.createComponent(ComponentWithNoAnnotations);
+
+             expect(ComponentWithNoAnnotations.hasOwnProperty('ngComponentDef')).toBeTruthy();
+             expect(SomeComponent.hasOwnProperty('ngComponentDef')).toBeTruthy();
+
+             TestBed.resetTestingModule();
+
+             expect(ComponentWithNoAnnotations.hasOwnProperty('ngComponentDef')).toBeFalsy();
+
+             // ngComponentDef should be preserved on super component
+             expect(SomeComponent.hasOwnProperty('ngComponentDef')).toBeTruthy();
+           });
+      });
 });

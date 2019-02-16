@@ -4,10 +4,14 @@ import { SitePage } from './site.po';
 describe(browser.baseUrl, () => {
   const page = new SitePage();
 
-  beforeAll(done => page.init().then(done));
+  beforeAll(() => page.init());
 
   beforeEach(() => browser.waitForAngularEnabled(false));
-  afterEach(() => browser.waitForAngularEnabled(true));
+
+  afterEach(async () => {
+    await page.unregisterSw();
+    await browser.waitForAngularEnabled(true);
+  });
 
   describe('(smoke tests)', () => {
     it('should show the home page', () => {

@@ -168,7 +168,7 @@ components, directives, and pipes.
 
 如果当前模块中的组件包含了*共享*模块和*特性*模块中的组件、指令和管道，就导入这些模块。
 
-Import only [BrowserModule](guide/ngmodule-faq#q-browser-vs-common-module) in the root `AppModule`.
+Import [BrowserModule](guide/ngmodule-faq#q-browser-vs-common-module) only in the root `AppModule`.
 
 只能在根模块 `AppModule` 中[导入_BrowserModule_](guide/ngmodule-faq#q-browser-vs-common-module)。
 

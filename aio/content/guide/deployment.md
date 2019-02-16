@@ -61,7 +61,7 @@ Make a note of the user name and project name in GitHub.
    使用 Angular CLI 命令 [`ng build`](cli/build) 来构建这个 GitHub 项目，选项如下：
 
    <code-example language="none" class="code-shell">
-     ng build --prod --output-path docs --base-href <project_name>
+     ng build --prod --output-path docs --base-href /<project_name>/
     </code-example>
 
 1. When the build is complete, make a copy of `docs/index.html` and name it `docs/404.html`.
@@ -82,7 +82,7 @@ You can see your deployed page at `https://<user_name>.github.io/<project_name>/
 
 <div class="alert is-helpful">
 
- Check out [angular-cli-ghpages](https://github.com/angular-buch/angular-cli-ghpages), a full featured package that does all this for you and has extra functionality.
+Check out [angular-cli-ghpages](https://github.com/angular-buch/angular-cli-ghpages), a full featured package that does all this for you and has extra functionality.
 
  参见 [angular-cli-ghpages](https://github.com/angular-buch/angular-cli-ghpages)，这个包用到了全部这些特性，还提供了一些额外功能。
 

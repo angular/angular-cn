@@ -8,10 +8,10 @@
 
 import {ChangeDetectionStrategy} from '../change_detection/constants';
 import {Provider} from '../di';
+import {Type} from '../interface/type';
 import {NG_BASE_DEF} from '../render3/fields';
 import {compileComponent as render3CompileComponent, compileDirective as render3CompileDirective} from '../render3/jit/directive';
 import {compilePipe as render3CompilePipe} from '../render3/jit/pipe';
-import {Type} from '../type';
 import {TypeDecorator, makeDecorator, makePropDecorator} from '../util/decorators';
 import {noop} from '../util/noop';
 import {fillProperties} from '../util/property';
@@ -641,8 +641,8 @@ export interface Component extends Directive {
   moduleId?: string;
 
   /**
-   * The URL of a template file for an Angular component. If provided,
-   * do not supply an inline template using `template`.
+   * The relative path or absolute URL of a template file for an Angular component.
+   * If provided, do not supply an inline template using `template`.
    *
    * Angular 组件模板文件的 URL。如果提供了它，就不要再用 `template` 来提供内联模板了。
    */
@@ -657,7 +657,7 @@ export interface Component extends Directive {
   template?: string;
 
   /**
-   * One or more URLs for files containing CSS stylesheets to use
+   * One or more relative paths or absolute URLs for files containing CSS stylesheets to use
    * in this component.
    *
    * 一个或多个 URL，指向包含本组件 CSS 样式表的文件。
@@ -687,8 +687,7 @@ export interface Component extends Directive {
    *
    * 供模板和 CSS 样式使用的样式封装策略。取值为：
    *
-   * - `ViewEncapsulation.Native`: Use shadow roots. This works
-   * only if natively available on the platform.
+   * - `ViewEncapsulation.Native`: Deprecated. Use `ViewEncapsulation.ShadowDom` instead.
    *
    *   `ViewEncapsulation.Native`：使用 Shadow DOM。它只在原生支持 Shadow DOM 的平台上才能工作。
    *
@@ -699,6 +698,7 @@ export interface Component extends Directive {
    *
    * - `ViewEncapsulation.None`: Use global CSS without any
    * encapsulation.
+   * - `ViewEncapsulation.ShadowDom`: Use Shadow DOM v1 to encapsulate styles.
    *
    *   `ViewEncapsulation.None`：使用全局 CSS，不做任何封装。
    *

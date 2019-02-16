@@ -24,14 +24,26 @@ load(
     "run_uglify",
     "write_rollup_config",
 )
-load("@build_bazel_rules_nodejs//internal:collect_es6_sources.bzl", collect_es2015_sources = "collect_es6_sources")
+load("@build_bazel_rules_nodejs//internal/common:collect_es6_sources.bzl", collect_es2015_sources = "collect_es6_sources")
 load(":esm5.bzl", "esm5_outputs_aspect", "esm5_root_dir", "flatten_esm5")
 
-PACKAGES = ["packages/core/src", "packages/common/src", "packages/compiler/src", "external/rxjs"]
+PACKAGES = [
+    # Generated paths when using ng_rollup_bundle outside this monorepo.
+    "external/angular/packages/core/src",
+    "external/angular/packages/common/src",
+    "external/angular/packages/compiler/src",
+    "external/angular/packages/platform-browser/src",
+    "external/rxjs",
+    # Generated paths when using ng_rollup_bundle inside this monorepo.
+    "packages/core/src",
+    "packages/common/src",
+    "packages/compiler/src",
+    "packages/platform-browser/src",
+]
 PLUGIN_CONFIG = "{sideEffectFreeModules: [\n%s]}" % ",\n".join(
     ["        '.esm5/{0}'".format(p) for p in PACKAGES],
 )
-BO_ROLLUP = "angular_cli/packages/angular_devkit/build_optimizer/src/build-optimizer/rollup-plugin.js"
+BO_ROLLUP = "ngdeps/node_modules/@angular-devkit/build-optimizer/src/build-optimizer/rollup-plugin.js"
 BO_PLUGIN = "require('%s').default(%s)" % (BO_ROLLUP, PLUGIN_CONFIG)
 
 def _use_plain_rollup(ctx):
@@ -95,6 +107,8 @@ def _plain_rollup_bundle(ctx):
     run_uglify(ctx, ctx.outputs.build_es5, ctx.outputs.build_es5_min_debug, debug = True)
     umd_rollup_config = write_rollup_config(ctx, filename = "_%s_umd.rollup.conf.js", output_format = "umd")
     run_rollup(ctx, collect_es2015_sources(ctx), umd_rollup_config, ctx.outputs.build_umd)
+    cjs_rollup_config = write_rollup_config(ctx, filename = "_%s_cjs.rollup.conf.js", output_format = "cjs")
+    run_rollup(ctx, collect_es2015_sources(ctx), cjs_rollup_config, ctx.outputs.build_cjs)
     run_sourcemapexplorer(ctx, ctx.outputs.build_es5_min, source_map, ctx.outputs.explore_html)
 
     run_brotli(ctx, ctx.outputs.build_es5_min, ctx.outputs.build_es5_min_compressed)
@@ -134,6 +148,8 @@ def _ng_rollup_bundle(ctx):
 
     umd_rollup_config = write_rollup_config(ctx, filename = "_%s_umd.rollup.conf.js", output_format = "umd")
     run_rollup(ctx, collect_es2015_sources(ctx), umd_rollup_config, ctx.outputs.build_umd)
+    cjs_rollup_config = write_rollup_config(ctx, filename = "_%s_cjs.rollup.conf.js", output_format = "cjs")
+    run_rollup(ctx, collect_es2015_sources(ctx), cjs_rollup_config, ctx.outputs.build_cjs)
 
     run_brotli(ctx, ctx.outputs.build_es5_min, ctx.outputs.build_es5_min_compressed)
 

@@ -6,7 +6,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 
-import {defineInjectable, defineInjector,} from '../../di/defs';
+import {defineInjectable, defineInjector,} from '../../di/interface/defs';
 import {inject} from '../../di/injector_compatibility';
 import * as r3 from '../index';
 import * as sanitization from '../../sanitization/sanitization';
@@ -40,7 +40,6 @@ export const angularCoreEnv: {[name: string]: Function} = {
   'ɵnextContext': r3.nextContext,
   'ɵcontainerRefreshStart': r3.containerRefreshStart,
   'ɵcontainerRefreshEnd': r3.containerRefreshEnd,
-  'ɵloadQueryList': r3.loadQueryList,
   'ɵnamespaceHTML': r3.namespaceHTML,
   'ɵnamespaceMathML': r3.namespaceMathML,
   'ɵnamespaceSVG': r3.namespaceSVG,
@@ -78,6 +77,8 @@ export const angularCoreEnv: {[name: string]: Function} = {
   'ɵload': r3.load,
   'ɵprojection': r3.projection,
   'ɵelementProperty': r3.elementProperty,
+  'ɵcomponentHostSyntheticProperty': r3.componentHostSyntheticProperty,
+  'ɵcomponentHostSyntheticListener': r3.componentHostSyntheticListener,
   'ɵpipeBind1': r3.pipeBind1,
   'ɵpipeBind2': r3.pipeBind2,
   'ɵpipeBind3': r3.pipeBind3,
@@ -85,9 +86,11 @@ export const angularCoreEnv: {[name: string]: Function} = {
   'ɵpipeBindV': r3.pipeBindV,
   'ɵprojectionDef': r3.projectionDef,
   'ɵpipe': r3.pipe,
-  'ɵquery': r3.query,
   'ɵqueryRefresh': r3.queryRefresh,
-  'ɵregisterContentQuery': r3.registerContentQuery,
+  'ɵviewQuery': r3.viewQuery,
+  'ɵloadViewQuery': r3.loadViewQuery,
+  'ɵcontentQuery': r3.contentQuery,
+  'ɵloadContentQuery': r3.loadContentQuery,
   'ɵreference': r3.reference,
   'ɵelementStyling': r3.elementStyling,
   'ɵelementHostAttrs': r3.elementHostAttrs,
@@ -106,11 +109,16 @@ export const angularCoreEnv: {[name: string]: Function} = {
   'ɵi18nEnd': r3.i18nEnd,
   'ɵi18nApply': r3.i18nApply,
   'ɵi18nPostprocess': r3.i18nPostprocess,
+  'ɵresolveWindow': r3.resolveWindow,
+  'ɵresolveDocument': r3.resolveDocument,
+  'ɵresolveBody': r3.resolveBody,
+  'ɵsetComponentScope': r3.setComponentScope,
 
   'ɵsanitizeHtml': sanitization.sanitizeHtml,
   'ɵsanitizeStyle': sanitization.sanitizeStyle,
   'ɵdefaultStyleSanitizer': sanitization.defaultStyleSanitizer,
   'ɵsanitizeResourceUrl': sanitization.sanitizeResourceUrl,
   'ɵsanitizeScript': sanitization.sanitizeScript,
-  'ɵsanitizeUrl': sanitization.sanitizeUrl
+  'ɵsanitizeUrl': sanitization.sanitizeUrl,
+  'ɵsanitizeUrlOrResourceUrl': sanitization.sanitizeUrlOrResourceUrl
 };

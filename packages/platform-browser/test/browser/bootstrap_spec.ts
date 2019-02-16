@@ -18,7 +18,7 @@ import {platformBrowserDynamic} from '@angular/platform-browser-dynamic';
 import {getDOM} from '@angular/platform-browser/src/dom/dom_adapter';
 import {DOCUMENT} from '@angular/platform-browser/src/dom/dom_tokens';
 import {expect} from '@angular/platform-browser/testing/src/matchers';
-import {fixmeIvy} from '@angular/private/testing';
+import {ivyEnabled, modifiedInIvy, onlyInIvy} from '@angular/private/testing';
 
 @Component({selector: 'non-existent', template: ''})
 class NonExistentComp {
@@ -160,8 +160,8 @@ function bootstrap(
 
     afterEach(destroyPlatform);
 
-    // TODO(misko): can't use `fixmeIvy.it` because the `it` is somehow special here.
-    fixmeIvy('FW-553: TestBed is unaware of async compilation').isEnabled &&
+    // TODO(misko): can't use `modifiedInIvy.it` because the `it` is somehow special here.
+    modifiedInIvy('bootstrapping non-Component throws in View Engine').isEnabled &&
         it('should throw if bootstrapped Directive is not a Component',
            inject([AsyncTestCompleter], (done: AsyncTestCompleter) => {
              const logger = new MockConsole();
@@ -172,6 +172,22 @@ function bootstrap(
                      HelloRootDirectiveIsNotCmp, [{provide: ErrorHandler, useValue: errorHandler}]))
                  .toThrowError(`HelloRootDirectiveIsNotCmp cannot be used as an entry component.`);
              done.done();
+           }));
+
+    // TODO(misko): can't use `onlyInIvy.it` because the `it` is somehow special here.
+    onlyInIvy('bootstrapping non-Component rejects Promise in Ivy').isEnabled &&
+        it('should throw if bootstrapped Directive is not a Component',
+           inject([AsyncTestCompleter], (async: AsyncTestCompleter) => {
+             const logger = new MockConsole();
+             const errorHandler = new ErrorHandler();
+             (errorHandler as any)._console = logger as any;
+             bootstrap(HelloRootDirectiveIsNotCmp, [
+               {provide: ErrorHandler, useValue: errorHandler}
+             ]).catch((error: Error) => {
+               expect(error).toEqual(
+                   new Error(`HelloRootDirectiveIsNotCmp cannot be used as an entry component.`));
+               async.done();
+             });
            }));
 
     it('should throw if no element is found',
@@ -189,43 +205,48 @@ function bootstrap(
          });
        }));
 
-    // TODO(misko): can't use `fixmeIvy.it` because the `it` is somehow special here.
-    fixmeIvy('FW-553: TestBed is unaware of async compilation').isEnabled &&
-        it('should throw if no provider',
-           inject([AsyncTestCompleter], (async: AsyncTestCompleter) => {
-             const logger = new MockConsole();
-             const errorHandler = new ErrorHandler();
-             (errorHandler as any)._console = logger as any;
+    it('should throw if no provider', inject([AsyncTestCompleter], (async: AsyncTestCompleter) => {
+         const logger = new MockConsole();
+         const errorHandler = new ErrorHandler();
+         (errorHandler as any)._console = logger as any;
 
-             class IDontExist {}
+         class IDontExist {}
 
-             @Component({selector: 'cmp', template: 'Cmp'})
-             class CustomCmp {
-               constructor(iDontExist: IDontExist) {}
-             }
+         @Component({selector: 'cmp', template: 'Cmp'})
+         class CustomCmp {
+           constructor(iDontExist: IDontExist) {}
+         }
 
-             @Component({
-               selector: 'hello-app',
-               template: '<cmp></cmp>',
-             })
-             class RootCmp {
-             }
+         @Component({
+           selector: 'hello-app',
+           template: '<cmp></cmp>',
+         })
+         class RootCmp {
+         }
 
-             @NgModule({declarations: [CustomCmp], exports: [CustomCmp]})
-             class CustomModule {
-             }
+         @NgModule({declarations: [CustomCmp], exports: [CustomCmp]})
+         class CustomModule {
+         }
 
-             bootstrap(RootCmp, [{provide: ErrorHandler, useValue: errorHandler}], [], [
-               CustomModule
-             ]).then(null, (e: Error) => {
-               expect(e.message).toContain(
-                   'StaticInjectorError(TestModule)[CustomCmp -> IDontExist]: \n' +
-                   '  StaticInjectorError(Platform: core)[CustomCmp -> IDontExist]: \n' +
-                   '    NullInjectorError: No provider for IDontExist!');
-               async.done();
-               return null;
-             });
-           }));
+         bootstrap(RootCmp, [{provide: ErrorHandler, useValue: errorHandler}], [], [
+           CustomModule
+         ]).then(null, (e: Error) => {
+           let errorMsg: string;
+           if (ivyEnabled) {
+             errorMsg = `R3InjectorError(TestModule)[IDontExist]: \n` +
+                 '  StaticInjectorError(TestModule)[IDontExist]: \n' +
+                 '    StaticInjectorError(Platform: core)[IDontExist]: \n' +
+                 '      NullInjectorError: No provider for IDontExist!';
+           } else {
+             errorMsg = `StaticInjectorError(TestModule)[CustomCmp -> IDontExist]: \n` +
+                 '  StaticInjectorError(Platform: core)[CustomCmp -> IDontExist]: \n' +
+                 '    NullInjectorError: No provider for IDontExist!';
+           }
+           expect(e.message).toContain(errorMsg);
+           async.done();
+           return null;
+         });
+       }));
 
     if (getDOM().supportsDOMEvents()) {
       it('should forward the error to promise when bootstrap fails',

@@ -3,7 +3,7 @@
 # 多级依赖注入器
 
 The Angular dependency injection system is _hierarchical_.
-There is a tree of injectors that parallel an app's component tree.
+There is a tree of injectors that parallels an app's component tree.
 You can reconfigure the injectors at any level of that component tree.
 
 Angular 的依赖注入系统是*多级的*。
@@ -77,7 +77,7 @@ Learn more about dependency resolution through the injector hierarchy:
 
 *NgModule 级*的提供商可以在 `@NgModule()` `providers` 元数据中指定，也可以在 `@Injectable()` 的 `providedIn` 选项中指定某个模块类（但根模块 `AppModule` 除外）。
 
-Use the `@NgModule()` `provides` option if a module is [lazy loaded](guide/lazy-loading-ngmodules). The module's own injector is configured with the provider when that module is loaded, and Angular can inject the corresponding services in any class it creates in that module. If you use the `@Injectable()` option `providedIn: MyLazyloadModule`, the provider could be shaken out at compile time, if it is not used anywhere else in the app. 
+Use the `@NgModule()` `providers` option if a module is [lazy loaded](guide/lazy-loading-ngmodules). The module's own injector is configured with the provider when that module is loaded, and Angular can inject the corresponding services in any class it creates in that module. If you use the `@Injectable()` option `providedIn: MyLazyloadModule`, the provider could be shaken out at compile time, if it is not used anywhere else in the app. 
 
 如果某个模块是[惰性加载](guide/lazy-loading-ngmodules)的，那么请使用 `@NgModule()` 的 `provides` 选项。加载那个模块时，就会用这里的提供商来配置模块本身的注入器，而 Angular 会为该模块中创建的任何类注入相应的服务。如果你使用了 `@Injectable()` 中的 `providedIn: MyLazyloadModule` 选项，那么如果该提供商没有在别处用过，就可以在编译期间把它摇树优化掉。
 

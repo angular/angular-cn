@@ -64,22 +64,27 @@ export abstract class TemplateRef<C> {
   abstract get elementRef(): ElementRef;
 
   /**
-   * Creates a view object and attaches it to the view container of the parent view.
+   * Instantiates an embedded view based on this template,
+   * and attaches it to the view container.
    *
    * 创建一个视图对象，并把它附着到父视图的视图容器上。
    *
-   * @param context The context for the new view, inherited from the anchor element.
+   * @param context The data-binding context of the embedded view, as declared
+   * in the `<ng-template>` usage.
    *
    * 这个新视图的上下文环境，继承自所附着的元素。
    *
-   * @returns The new view object.
+   * @returns The new embedded view object.
    *
    * 这个新的视图对象。
    *
    */
   abstract createEmbeddedView(context: C): EmbeddedViewRef<C>;
 
-  /** @internal */
+  /**
+   * @internal
+   * @nocollapse
+   */
   static __NG_ELEMENT_ID__:
       () => TemplateRef<any>| null = () => SWITCH_TEMPLATE_REF_FACTORY(TemplateRef, ElementRef)
 }

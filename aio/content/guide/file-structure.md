@@ -105,7 +105,7 @@ Workspace-wide `node_modules` dependencies are visible to this project.
 | `assets/` | 包含图像文件和其它文件，当构建应用时会被原样复制到构建目标中。 |
 | `environments/` | Contains build configuration options for particular target environments. By default there is an unnamed standard development environment and a production ("prod") environment. You can define additional target environment configurations.  |
 | `environments/` | 包含针对特定目标环境的配置选项。默认情况下有一个未命名的标准开发环境和一个名叫 "prod" 的产品环境。你可以定义一些额外的目标环境配置。 |
-| `browserlist` | Configures sharing of target browsers and Node.js versions among various front-end tools. See [Browserlist on GitHub](https://github.com/browserslist/browserslist) for more information.   |
+| `browserslist` | Configures sharing of target browsers and Node.js versions among various front-end tools. See [Browserslist on GitHub](https://github.com/browserslist/browserslist) for more information.   |
 | `browserlist` | 配置各个目标浏览器和 Node.js 版本之间的市场占有率，供各种前端工具使用。详情参见 [GitHub 上的 Browserlist](https://github.com/browserslist/browserslist)。 |
 | `favicon.ico` | An icon to use for this app in the bookmark bar.  |
 | `favicon.ico` | 一个用在书签栏上的应用图标。 |

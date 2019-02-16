@@ -22,9 +22,9 @@ import {getDOM} from '@angular/platform-browser/src/dom/dom_adapter';
 import {DOCUMENT} from '@angular/platform-browser/src/dom/dom_tokens';
 import {dispatchEvent, el} from '@angular/platform-browser/testing/src/browser_util';
 import {expect} from '@angular/platform-browser/testing/src/matchers';
-import {fixmeIvy, modifiedInIvy, obsoleteInIvy} from '@angular/private/testing';
+import {modifiedInIvy, obsoleteInIvy, onlyInIvy} from '@angular/private/testing';
 
-import {stringify} from '../../src/util';
+import {stringify} from '../../src/util/stringify';
 
 const ANCHOR_ELEMENT = new InjectionToken('AnchorElement');
 
@@ -347,22 +347,20 @@ function declareTests(config?: {useJit: boolean}) {
         expect(tc.injector.get(EventDir)).not.toBeNull();
       });
 
-      fixmeIvy('FW-680: Throw meaningful error for uninitialized @Output')
-          .it('should display correct error message for uninitialized @Output', () => {
-            @Component({selector: 'my-uninitialized-output', template: '<p>It works!</p>'})
-            class UninitializedOutputComp {
-              @Output() customEvent !: EventEmitter<any>;
-            }
+      it('should display correct error message for uninitialized @Output', () => {
+        @Component({selector: 'my-uninitialized-output', template: '<p>It works!</p>'})
+        class UninitializedOutputComp {
+          @Output() customEvent !: EventEmitter<any>;
+        }
 
-            const template =
-                '<my-uninitialized-output (customEvent)="doNothing()"></my-uninitialized-output>';
-            TestBed.overrideComponent(MyComp, {set: {template}});
+        const template =
+            '<my-uninitialized-output (customEvent)="doNothing()"></my-uninitialized-output>';
+        TestBed.overrideComponent(MyComp, {set: {template}});
 
-            TestBed.configureTestingModule({declarations: [MyComp, UninitializedOutputComp]});
-            expect(() => TestBed.createComponent(MyComp))
-                .toThrowError(
-                    '@Output customEvent not initialized in \'UninitializedOutputComp\'.');
-          });
+        TestBed.configureTestingModule({declarations: [MyComp, UninitializedOutputComp]});
+        expect(() => TestBed.createComponent(MyComp))
+            .toThrowError('@Output customEvent not initialized in \'UninitializedOutputComp\'.');
+      });
 
       it('should read directives metadata from their binding token', () => {
         TestBed.configureTestingModule({declarations: [MyComp, PrivateImpl, NeedsPublicApi]});
@@ -477,20 +475,19 @@ function declareTests(config?: {useJit: boolean}) {
               .toBeAnInstanceOf(ExportDir);
         });
 
-        fixmeIvy('FW-708: Directives with multiple exports are not supported')
-            .it('should assign a directive to a ref when it has multiple exportAs names', () => {
-              TestBed.configureTestingModule(
-                  {declarations: [MyComp, DirectiveWithMultipleExportAsNames]});
+        it('should assign a directive to a ref when it has multiple exportAs names', () => {
+          TestBed.configureTestingModule(
+              {declarations: [MyComp, DirectiveWithMultipleExportAsNames]});
 
-              const template = '<div multiple-export-as #x="dirX" #y="dirY"></div>';
-              TestBed.overrideComponent(MyComp, {set: {template}});
+          const template = '<div multiple-export-as #x="dirX" #y="dirY"></div>';
+          TestBed.overrideComponent(MyComp, {set: {template}});
 
-              const fixture = TestBed.createComponent(MyComp);
-              expect(fixture.debugElement.children[0].references !['x'])
-                  .toBeAnInstanceOf(DirectiveWithMultipleExportAsNames);
-              expect(fixture.debugElement.children[0].references !['y'])
-                  .toBeAnInstanceOf(DirectiveWithMultipleExportAsNames);
-            });
+          const fixture = TestBed.createComponent(MyComp);
+          expect(fixture.debugElement.children[0].references !['x'])
+              .toBeAnInstanceOf(DirectiveWithMultipleExportAsNames);
+          expect(fixture.debugElement.children[0].references !['y'])
+              .toBeAnInstanceOf(DirectiveWithMultipleExportAsNames);
+        });
 
         it('should make the assigned component accessible in property bindings, even if they were declared before the component',
            () => {
@@ -542,18 +539,16 @@ function declareTests(config?: {useJit: boolean}) {
           expect(value.tagName.toLowerCase()).toEqual('div');
         });
 
-        fixmeIvy(
-            'FW-870: DebugNode.references gets comment node instead of TemplateRef for template nodes')
-            .it('should assign the TemplateRef to a user-defined variable', () => {
-              const fixture =
-                  TestBed.configureTestingModule({declarations: [MyComp]})
-                      .overrideComponent(
-                          MyComp, {set: {template: '<ng-template ref-alice></ng-template>'}})
-                      .createComponent(MyComp);
+        it('should assign the TemplateRef to a user-defined variable', () => {
+          const fixture =
+              TestBed.configureTestingModule({declarations: [MyComp]})
+                  .overrideComponent(
+                      MyComp, {set: {template: '<ng-template ref-alice></ng-template>'}})
+                  .createComponent(MyComp);
 
-              const value = fixture.debugElement.childNodes[0].references !['alice'];
-              expect(value.createEmbeddedView).toBeTruthy();
-            });
+          const value = fixture.debugElement.childNodes[0].references !['alice'];
+          expect(value.createEmbeddedView).toBeTruthy();
+        });
 
         it('should preserve case', () => {
           TestBed.configureTestingModule({declarations: [MyComp, ChildComp]});
@@ -642,44 +637,43 @@ function declareTests(config?: {useJit: boolean}) {
              }));
         }
 
-        fixmeIvy('FW-758: OnPush events not marking view dirty when using renderer2')
-            .it('should be checked when an event is fired', () => {
-              TestBed.configureTestingModule(
-                  {declarations: [MyComp, PushCmp, EventCmp], imports: [CommonModule]});
-              const template = '<push-cmp [prop]="ctxProp" #cmp></push-cmp>';
-              TestBed.overrideComponent(MyComp, {set: {template}});
-              const fixture = TestBed.createComponent(MyComp);
+        it('should be checked when an event is fired', () => {
+          TestBed.configureTestingModule(
+              {declarations: [MyComp, PushCmp, EventCmp], imports: [CommonModule]});
+          const template = '<push-cmp [prop]="ctxProp" #cmp></push-cmp>';
+          TestBed.overrideComponent(MyComp, {set: {template}});
+          const fixture = TestBed.createComponent(MyComp);
 
-              const cmpEl = fixture.debugElement.children[0];
-              const cmp = cmpEl.componentInstance;
-              fixture.detectChanges();
-              fixture.detectChanges();
-              expect(cmp.numberOfChecks).toEqual(1);
+          const cmpEl = fixture.debugElement.children[0];
+          const cmp = cmpEl.componentInstance;
+          fixture.detectChanges();
+          fixture.detectChanges();
+          expect(cmp.numberOfChecks).toEqual(1);
 
-              // regular element
-              cmpEl.children[0].triggerEventHandler('click', <Event>{});
-              fixture.detectChanges();
-              fixture.detectChanges();
-              expect(cmp.numberOfChecks).toEqual(2);
+          // regular element
+          cmpEl.children[0].triggerEventHandler('click', <Event>{});
+          fixture.detectChanges();
+          fixture.detectChanges();
+          expect(cmp.numberOfChecks).toEqual(2);
 
-              // element inside of an *ngIf
-              cmpEl.children[1].triggerEventHandler('click', <Event>{});
-              fixture.detectChanges();
-              fixture.detectChanges();
-              expect(cmp.numberOfChecks).toEqual(3);
+          // element inside of an *ngIf
+          cmpEl.children[1].triggerEventHandler('click', <Event>{});
+          fixture.detectChanges();
+          fixture.detectChanges();
+          expect(cmp.numberOfChecks).toEqual(3);
 
-              // element inside a nested component
-              cmpEl.children[2].children[0].triggerEventHandler('click', <Event>{});
-              fixture.detectChanges();
-              fixture.detectChanges();
-              expect(cmp.numberOfChecks).toEqual(4);
+          // element inside a nested component
+          cmpEl.children[2].children[0].triggerEventHandler('click', <Event>{});
+          fixture.detectChanges();
+          fixture.detectChanges();
+          expect(cmp.numberOfChecks).toEqual(4);
 
-              // host element
-              cmpEl.triggerEventHandler('click', <Event>{});
-              fixture.detectChanges();
-              fixture.detectChanges();
-              expect(cmp.numberOfChecks).toEqual(5);
-            });
+          // host element
+          cmpEl.triggerEventHandler('click', <Event>{});
+          fixture.detectChanges();
+          fixture.detectChanges();
+          expect(cmp.numberOfChecks).toEqual(5);
+        });
 
         it('should not affect updating properties on the component', () => {
           TestBed.configureTestingModule({declarations: [MyComp, [[PushCmpWithRef]]]});
@@ -845,52 +839,48 @@ function declareTests(config?: {useJit: boolean}) {
            dir.triggerChange('two');
          }));
 
-      fixmeIvy(
-          'FW-743: Registering events on global objects (document, window, body) is not supported')
-          .it('should support render events', () => {
-            TestBed.configureTestingModule({declarations: [MyComp, DirectiveListeningDomEvent]});
-            const template = '<div listener></div>';
-            TestBed.overrideComponent(MyComp, {set: {template}});
-            const fixture = TestBed.createComponent(MyComp);
+      it('should support render events', () => {
+        TestBed.configureTestingModule({declarations: [MyComp, DirectiveListeningDomEvent]});
+        const template = '<div listener></div>';
+        TestBed.overrideComponent(MyComp, {set: {template}});
+        const fixture = TestBed.createComponent(MyComp);
 
-            const tc = fixture.debugElement.children[0];
-            const listener = tc.injector.get(DirectiveListeningDomEvent);
+        const tc = fixture.debugElement.children[0];
+        const listener = tc.injector.get(DirectiveListeningDomEvent);
 
-            dispatchEvent(tc.nativeElement, 'domEvent');
+        dispatchEvent(tc.nativeElement, 'domEvent');
 
-            expect(listener.eventTypes).toEqual([
-              'domEvent', 'body_domEvent', 'document_domEvent', 'window_domEvent'
-            ]);
+        expect(listener.eventTypes).toEqual([
+          'domEvent', 'body_domEvent', 'document_domEvent', 'window_domEvent'
+        ]);
 
-            fixture.destroy();
-            listener.eventTypes = [];
-            dispatchEvent(tc.nativeElement, 'domEvent');
-            expect(listener.eventTypes).toEqual([]);
-          });
+        fixture.destroy();
+        listener.eventTypes = [];
+        dispatchEvent(tc.nativeElement, 'domEvent');
+        expect(listener.eventTypes).toEqual([]);
+      });
 
-      fixmeIvy(
-          'FW-743: Registering events on global objects (document, window, body) is not supported')
-          .it('should support render global events', () => {
-            TestBed.configureTestingModule({declarations: [MyComp, DirectiveListeningDomEvent]});
-            const template = '<div listener></div>';
-            TestBed.overrideComponent(MyComp, {set: {template}});
-            const fixture = TestBed.createComponent(MyComp);
-            const doc = TestBed.get(DOCUMENT);
+      it('should support render global events', () => {
+        TestBed.configureTestingModule({declarations: [MyComp, DirectiveListeningDomEvent]});
+        const template = '<div listener></div>';
+        TestBed.overrideComponent(MyComp, {set: {template}});
+        const fixture = TestBed.createComponent(MyComp);
+        const doc = TestBed.get(DOCUMENT);
 
-            const tc = fixture.debugElement.children[0];
-            const listener = tc.injector.get(DirectiveListeningDomEvent);
-            dispatchEvent(getDOM().getGlobalEventTarget(doc, 'window'), 'domEvent');
-            expect(listener.eventTypes).toEqual(['window_domEvent']);
+        const tc = fixture.debugElement.children[0];
+        const listener = tc.injector.get(DirectiveListeningDomEvent);
+        dispatchEvent(getDOM().getGlobalEventTarget(doc, 'window'), 'domEvent');
+        expect(listener.eventTypes).toEqual(['window_domEvent']);
 
-            listener.eventTypes = [];
-            dispatchEvent(getDOM().getGlobalEventTarget(doc, 'document'), 'domEvent');
-            expect(listener.eventTypes).toEqual(['document_domEvent', 'window_domEvent']);
+        listener.eventTypes = [];
+        dispatchEvent(getDOM().getGlobalEventTarget(doc, 'document'), 'domEvent');
+        expect(listener.eventTypes).toEqual(['document_domEvent', 'window_domEvent']);
 
-            fixture.destroy();
-            listener.eventTypes = [];
-            dispatchEvent(getDOM().getGlobalEventTarget(doc, 'body'), 'domEvent');
-            expect(listener.eventTypes).toEqual([]);
-          });
+        fixture.destroy();
+        listener.eventTypes = [];
+        dispatchEvent(getDOM().getGlobalEventTarget(doc, 'body'), 'domEvent');
+        expect(listener.eventTypes).toEqual([]);
+      });
 
       it('should support updating host element via hostAttributes on root elements', () => {
         @Component({host: {'role': 'button'}, template: ''})
@@ -933,39 +923,36 @@ function declareTests(config?: {useJit: boolean}) {
         expect(getDOM().getProperty(tc.nativeElement, 'id')).toEqual('newId');
       });
 
-      fixmeIvy('FW-681: not possible to retrieve host property bindings from TView')
-          .it('should not use template variables for expressions in hostProperties', () => {
-            @Directive(
-                {selector: '[host-properties]', host: {'[id]': 'id', '[title]': 'unknownProp'}})
-            class DirectiveWithHostProps {
-              id = 'one';
-            }
+      it('should not use template variables for expressions in hostProperties', () => {
+        @Directive({selector: '[host-properties]', host: {'[id]': 'id', '[title]': 'unknownProp'}})
+        class DirectiveWithHostProps {
+          id = 'one';
+        }
 
-            const fixture =
-                TestBed.configureTestingModule({declarations: [MyComp, DirectiveWithHostProps]})
-                    .overrideComponent(MyComp, {
-                      set: {template: `<div *ngFor="let id of ['forId']" host-properties></div>`}
-                    })
-                    .createComponent(MyComp);
-            fixture.detectChanges();
+        const fixture =
+            TestBed.configureTestingModule({declarations: [MyComp, DirectiveWithHostProps]})
+                .overrideComponent(
+                    MyComp,
+                    {set: {template: `<div *ngFor="let id of ['forId']" host-properties></div>`}})
+                .createComponent(MyComp);
+        fixture.detectChanges();
 
-            const tc = fixture.debugElement.children[0];
-            expect(tc.properties['id']).toBe('one');
-            expect(tc.properties['title']).toBe(undefined);
-          });
+        const tc = fixture.debugElement.children[0];
+        expect(tc.properties['id']).toBe('one');
+        expect(tc.properties['title']).toBe(undefined);
+      });
 
-      fixmeIvy('FW-725: Pipes in host bindings fail with a cryptic error')
-          .it('should not allow pipes in hostProperties', () => {
-            @Directive({selector: '[host-properties]', host: {'[id]': 'id | uppercase'}})
-            class DirectiveWithHostProps {
-            }
+      it('should not allow pipes in hostProperties', () => {
+        @Directive({selector: '[host-properties]', host: {'[id]': 'id | uppercase'}})
+        class DirectiveWithHostProps {
+        }
 
-            TestBed.configureTestingModule({declarations: [MyComp, DirectiveWithHostProps]});
-            const template = '<div host-properties></div>';
-            TestBed.overrideComponent(MyComp, {set: {template}});
-            expect(() => TestBed.createComponent(MyComp))
-                .toThrowError(/Host binding expression cannot contain pipes/);
-          });
+        TestBed.configureTestingModule({declarations: [MyComp, DirectiveWithHostProps]});
+        const template = '<div host-properties></div>';
+        TestBed.overrideComponent(MyComp, {set: {template}});
+        expect(() => TestBed.createComponent(MyComp))
+            .toThrowError(/Host binding expression cannot contain pipes/);
+      });
 
       it('should not use template variables for expressions in hostListeners', () => {
         @Directive({selector: '[host-listener]', host: {'(click)': 'doIt(id, unknownProp)'}})
@@ -990,18 +977,17 @@ function declareTests(config?: {useJit: boolean}) {
         expect(dir.receivedArgs).toEqual(['one', undefined]);
       });
 
-      fixmeIvy('FW-742: Pipes in host listeners should throw a descriptive error')
-          .it('should not allow pipes in hostListeners', () => {
-            @Directive({selector: '[host-listener]', host: {'(click)': 'doIt() | somePipe'}})
-            class DirectiveWithHostListener {
-            }
+      it('should not allow pipes in hostListeners', () => {
+        @Directive({selector: '[host-listener]', host: {'(click)': 'doIt() | somePipe'}})
+        class DirectiveWithHostListener {
+        }
 
-            TestBed.configureTestingModule({declarations: [MyComp, DirectiveWithHostListener]});
-            const template = '<div host-listener></div>';
-            TestBed.overrideComponent(MyComp, {set: {template}});
-            expect(() => TestBed.createComponent(MyComp))
-                .toThrowError(/Cannot have a pipe in an action expression/);
-          });
+        TestBed.configureTestingModule({declarations: [MyComp, DirectiveWithHostListener]});
+        const template = '<div host-listener></div>';
+        TestBed.overrideComponent(MyComp, {set: {template}});
+        expect(() => TestBed.createComponent(MyComp))
+            .toThrowError(/Cannot have a pipe in an action expression/);
+      });
 
 
 
@@ -1027,44 +1013,41 @@ function declareTests(config?: {useJit: boolean}) {
         });
       }
 
-      fixmeIvy(
-          'FW-743: Registering events on global objects (document, window, body) is not supported')
-          .it('should support render global events from multiple directives', () => {
-            TestBed.configureTestingModule({
-              declarations: [MyComp, DirectiveListeningDomEvent, DirectiveListeningDomEventOther]
-            });
-            const template = '<div *ngIf="ctxBoolProp" listener listenerother></div>';
-            TestBed.overrideComponent(MyComp, {set: {template}});
-            const fixture = TestBed.createComponent(MyComp);
-            const doc = TestBed.get(DOCUMENT);
+      it('should support render global events from multiple directives', () => {
+        TestBed.configureTestingModule(
+            {declarations: [MyComp, DirectiveListeningDomEvent, DirectiveListeningDomEventOther]});
+        const template = '<div *ngIf="ctxBoolProp" listener listenerother></div>';
+        TestBed.overrideComponent(MyComp, {set: {template}});
+        const fixture = TestBed.createComponent(MyComp);
+        const doc = TestBed.get(DOCUMENT);
 
-            globalCounter = 0;
-            fixture.componentInstance.ctxBoolProp = true;
-            fixture.detectChanges();
+        globalCounter = 0;
+        fixture.componentInstance.ctxBoolProp = true;
+        fixture.detectChanges();
 
-            const tc = fixture.debugElement.children[0];
+        const tc = fixture.debugElement.children[0];
 
-            const listener = tc.injector.get(DirectiveListeningDomEvent);
-            const listenerother = tc.injector.get(DirectiveListeningDomEventOther);
-            dispatchEvent(getDOM().getGlobalEventTarget(doc, 'window'), 'domEvent');
-            expect(listener.eventTypes).toEqual(['window_domEvent']);
-            expect(listenerother.eventType).toEqual('other_domEvent');
-            expect(globalCounter).toEqual(1);
+        const listener = tc.injector.get(DirectiveListeningDomEvent);
+        const listenerother = tc.injector.get(DirectiveListeningDomEventOther);
+        dispatchEvent(getDOM().getGlobalEventTarget(doc, 'window'), 'domEvent');
+        expect(listener.eventTypes).toEqual(['window_domEvent']);
+        expect(listenerother.eventType).toEqual('other_domEvent');
+        expect(globalCounter).toEqual(1);
 
 
-            fixture.componentInstance.ctxBoolProp = false;
-            fixture.detectChanges();
-            dispatchEvent(getDOM().getGlobalEventTarget(doc, 'window'), 'domEvent');
-            expect(globalCounter).toEqual(1);
+        fixture.componentInstance.ctxBoolProp = false;
+        fixture.detectChanges();
+        dispatchEvent(getDOM().getGlobalEventTarget(doc, 'window'), 'domEvent');
+        expect(globalCounter).toEqual(1);
 
-            fixture.componentInstance.ctxBoolProp = true;
-            fixture.detectChanges();
-            dispatchEvent(getDOM().getGlobalEventTarget(doc, 'window'), 'domEvent');
-            expect(globalCounter).toEqual(2);
+        fixture.componentInstance.ctxBoolProp = true;
+        fixture.detectChanges();
+        dispatchEvent(getDOM().getGlobalEventTarget(doc, 'window'), 'domEvent');
+        expect(globalCounter).toEqual(2);
 
-            // need to destroy to release all remaining global event listeners
-            fixture.destroy();
-          });
+        // need to destroy to release all remaining global event listeners
+        fixture.destroy();
+      });
 
       describe('ViewContainerRef', () => {
         beforeEach(() => {
@@ -1109,129 +1092,124 @@ function declareTests(config?: {useJit: boolean}) {
                    .toHaveText('dynamic greet');
              }));
 
-          fixmeIvy('FW-707: TestBed: No LView in getParentInjectorLocation')
-              .it('should create a component that has been freshly compiled', () => {
-                @Component({template: ''})
-                class RootComp {
-                  constructor(public vc: ViewContainerRef) {}
-                }
+          it('should create a component that has been freshly compiled', () => {
+            @Component({template: ''})
+            class RootComp {
+              constructor(public vc: ViewContainerRef) {}
+            }
 
-                @NgModule({
-                  declarations: [RootComp],
-                  providers: [{provide: 'someToken', useValue: 'someRootValue'}],
-                })
-                class RootModule {
-                }
+            @NgModule({
+              declarations: [RootComp],
+              providers: [{provide: 'someToken', useValue: 'someRootValue'}],
+            })
+            class RootModule {
+            }
 
-                @Component({template: ''})
-                class MyComp {
-                  constructor(@Inject('someToken') public someToken: string) {}
-                }
+            @Component({template: ''})
+            class MyComp {
+              constructor(@Inject('someToken') public someToken: string) {}
+            }
 
-                @NgModule({
-                  declarations: [MyComp],
-                  providers: [{provide: 'someToken', useValue: 'someValue'}],
-                })
-                class MyModule {
-                }
+            @NgModule({
+              declarations: [MyComp],
+              providers: [{provide: 'someToken', useValue: 'someValue'}],
+            })
+            class MyModule {
+            }
 
-                const compFixture = TestBed.configureTestingModule({imports: [RootModule]})
-                                        .createComponent(RootComp);
-                const compiler = <Compiler>TestBed.get(Compiler);
-                const myCompFactory =
-                    <ComponentFactory<MyComp>>compiler.compileModuleAndAllComponentsSync(MyModule)
-                        .componentFactories[0];
+            const compFixture =
+                TestBed.configureTestingModule({imports: [RootModule]}).createComponent(RootComp);
+            const compiler = <Compiler>TestBed.get(Compiler);
+            const myCompFactory =
+                <ComponentFactory<MyComp>>compiler.compileModuleAndAllComponentsSync(MyModule)
+                    .componentFactories[0];
 
-                // Note: the ComponentFactory was created directly via the compiler, i.e. it
-                // does not have an association to an NgModuleRef.
-                // -> expect the providers of the module that the view container belongs to.
-                const compRef = compFixture.componentInstance.vc.createComponent(myCompFactory);
-                expect(compRef.instance.someToken).toBe('someRootValue');
-              });
+            // Note: the ComponentFactory was created directly via the compiler, i.e. it
+            // does not have an association to an NgModuleRef.
+            // -> expect the providers of the module that the view container belongs to.
+            const compRef = compFixture.componentInstance.vc.createComponent(myCompFactory);
+            expect(compRef.instance.someToken).toBe('someRootValue');
+          });
 
-          fixmeIvy('FW-707: TestBed: No LView in getParentInjectorLocation')
-              .it('should create a component with the passed NgModuleRef', () => {
-                @Component({template: ''})
-                class RootComp {
-                  constructor(public vc: ViewContainerRef) {}
-                }
+          it('should create a component with the passed NgModuleRef', () => {
+            @Component({template: ''})
+            class RootComp {
+              constructor(public vc: ViewContainerRef) {}
+            }
 
-                @Component({template: ''})
-                class MyComp {
-                  constructor(@Inject('someToken') public someToken: string) {}
-                }
+            @Component({template: ''})
+            class MyComp {
+              constructor(@Inject('someToken') public someToken: string) {}
+            }
 
-                @NgModule({
-                  declarations: [RootComp, MyComp],
-                  entryComponents: [MyComp],
-                  providers: [{provide: 'someToken', useValue: 'someRootValue'}],
-                })
-                class RootModule {
-                }
+            @NgModule({
+              declarations: [RootComp, MyComp],
+              entryComponents: [MyComp],
+              providers: [{provide: 'someToken', useValue: 'someRootValue'}],
+            })
+            class RootModule {
+            }
 
-                @NgModule({providers: [{provide: 'someToken', useValue: 'someValue'}]})
-                class MyModule {
-                }
+            @NgModule({providers: [{provide: 'someToken', useValue: 'someValue'}]})
+            class MyModule {
+            }
 
-                const compFixture = TestBed.configureTestingModule({imports: [RootModule]})
-                                        .createComponent(RootComp);
-                const compiler = <Compiler>TestBed.get(Compiler);
-                const myModule =
-                    compiler.compileModuleSync(MyModule).create(TestBed.get(NgModuleRef));
-                const myCompFactory =
-                    (<ComponentFactoryResolver>TestBed.get(ComponentFactoryResolver))
-                        .resolveComponentFactory(MyComp);
+            const compFixture =
+                TestBed.configureTestingModule({imports: [RootModule]}).createComponent(RootComp);
+            const compiler = <Compiler>TestBed.get(Compiler);
+            const myModule = compiler.compileModuleSync(MyModule).create(TestBed.get(NgModuleRef));
+            const myCompFactory = (<ComponentFactoryResolver>TestBed.get(ComponentFactoryResolver))
+                                      .resolveComponentFactory(MyComp);
 
-                // Note: MyComp was declared as entryComponent in the RootModule,
-                // but we pass MyModule to the createComponent call.
-                // -> expect the providers of MyModule!
-                const compRef = compFixture.componentInstance.vc.createComponent(
-                    myCompFactory, undefined, undefined, undefined, myModule);
-                expect(compRef.instance.someToken).toBe('someValue');
-              });
+            // Note: MyComp was declared as entryComponent in the RootModule,
+            // but we pass MyModule to the createComponent call.
+            // -> expect the providers of MyModule!
+            const compRef = compFixture.componentInstance.vc.createComponent(
+                myCompFactory, undefined, undefined, undefined, myModule);
+            expect(compRef.instance.someToken).toBe('someValue');
+          });
 
-          fixmeIvy('FW-707: TestBed: No LView in getParentInjectorLocation')
-              .it('should create a component with the NgModuleRef of the ComponentFactoryResolver',
-                  () => {
-                    @Component({template: ''})
-                    class RootComp {
-                      constructor(public vc: ViewContainerRef) {}
-                    }
+          it('should create a component with the NgModuleRef of the ComponentFactoryResolver',
+             () => {
+               @Component({template: ''})
+               class RootComp {
+                 constructor(public vc: ViewContainerRef) {}
+               }
 
-                    @NgModule({
-                      declarations: [RootComp],
-                      providers: [{provide: 'someToken', useValue: 'someRootValue'}],
-                    })
-                    class RootModule {
-                    }
+               @NgModule({
+                 declarations: [RootComp],
+                 providers: [{provide: 'someToken', useValue: 'someRootValue'}],
+               })
+               class RootModule {
+               }
 
-                    @Component({template: ''})
-                    class MyComp {
-                      constructor(@Inject('someToken') public someToken: string) {}
-                    }
+               @Component({template: ''})
+               class MyComp {
+                 constructor(@Inject('someToken') public someToken: string) {}
+               }
 
-                    @NgModule({
-                      declarations: [MyComp],
-                      entryComponents: [MyComp],
-                      providers: [{provide: 'someToken', useValue: 'someValue'}],
-                    })
-                    class MyModule {
-                    }
+               @NgModule({
+                 declarations: [MyComp],
+                 entryComponents: [MyComp],
+                 providers: [{provide: 'someToken', useValue: 'someValue'}],
+               })
+               class MyModule {
+               }
 
-                    const compFixture = TestBed.configureTestingModule({imports: [RootModule]})
-                                            .createComponent(RootComp);
-                    const compiler = <Compiler>TestBed.get(Compiler);
-                    const myModule =
-                        compiler.compileModuleSync(MyModule).create(TestBed.get(NgModuleRef));
-                    const myCompFactory =
-                        myModule.componentFactoryResolver.resolveComponentFactory(MyComp);
+               const compFixture = TestBed.configureTestingModule({imports: [RootModule]})
+                                       .createComponent(RootComp);
+               const compiler = <Compiler>TestBed.get(Compiler);
+               const myModule =
+                   compiler.compileModuleSync(MyModule).create(TestBed.get(NgModuleRef));
+               const myCompFactory =
+                   myModule.componentFactoryResolver.resolveComponentFactory(MyComp);
 
-                    // Note: MyComp was declared as entryComponent in MyModule,
-                    // and we don't pass an explicit ModuleRef to the createComponent call.
-                    // -> expect the providers of MyModule!
-                    const compRef = compFixture.componentInstance.vc.createComponent(myCompFactory);
-                    expect(compRef.instance.someToken).toBe('someValue');
-                  });
+               // Note: MyComp was declared as entryComponent in MyModule,
+               // and we don't pass an explicit ModuleRef to the createComponent call.
+               // -> expect the providers of MyModule!
+               const compRef = compFixture.componentInstance.vc.createComponent(myCompFactory);
+               expect(compRef.instance.someToken).toBe('someValue');
+             });
         });
 
         describe('.insert', () => {
@@ -1434,21 +1412,19 @@ function declareTests(config?: {useJit: boolean}) {
         expect(getDOM().querySelectorAll(fixture.nativeElement, 'script').length).toEqual(0);
       });
 
-      fixmeIvy('FW-662: Components without selector are not supported')
-          .it('should throw when using directives without selector', () => {
-            @Directive({})
-            class SomeDirective {
-            }
+      it('should throw when using directives without selector', () => {
+        @Directive({})
+        class SomeDirective {
+        }
 
-            @Component({selector: 'comp', template: ''})
-            class SomeComponent {
-            }
+        @Component({selector: 'comp', template: ''})
+        class SomeComponent {
+        }
 
-            TestBed.configureTestingModule({declarations: [MyComp, SomeDirective, SomeComponent]});
-            expect(() => TestBed.createComponent(MyComp))
-                .toThrowError(
-                    `Directive ${stringify(SomeDirective)} has no selector, please add it!`);
-          });
+        TestBed.configureTestingModule({declarations: [MyComp, SomeDirective, SomeComponent]});
+        expect(() => TestBed.createComponent(MyComp))
+            .toThrowError(`Directive ${stringify(SomeDirective)} has no selector, please add it!`);
+      });
 
       it('should use a default element name for components without selectors', () => {
         let noSelectorComponentFactory: ComponentFactory<SomeComponent> = undefined !;
@@ -1616,7 +1592,7 @@ function declareTests(config?: {useJit: boolean}) {
     });
 
     describe('Property bindings', () => {
-      fixmeIvy('FW-721: Bindings to unknown properties are not reported as errors')
+      modifiedInIvy('Unknown property error thrown during update mode, not creation mode')
           .it('should throw on bindings to unknown properties', () => {
             TestBed.configureTestingModule({declarations: [MyComp]});
             const template = '<div unknown="{{ctxProp}}"></div>';
@@ -1627,6 +1603,21 @@ function declareTests(config?: {useJit: boolean}) {
             } catch (e) {
               expect(e.message).toMatch(
                   /Template parse errors:\nCan't bind to 'unknown' since it isn't a known property of 'div'. \("<div \[ERROR ->\]unknown="{{ctxProp}}"><\/div>"\): .*MyComp.html@0:5/);
+            }
+          });
+
+      onlyInIvy('Unknown property error thrown during update mode, not creation mode')
+          .it('should throw on bindings to unknown properties', () => {
+            TestBed.configureTestingModule({declarations: [MyComp]});
+            const template = '<div unknown="{{ctxProp}}"></div>';
+            TestBed.overrideComponent(MyComp, {set: {template}});
+            try {
+              const fixture = TestBed.createComponent(MyComp);
+              fixture.detectChanges();
+              throw 'Should throw';
+            } catch (e) {
+              expect(e.message).toMatch(
+                  /Template error: Can't bind to 'unknown' since it isn't a known property of 'div'./);
             }
           });
 
@@ -1851,83 +1842,79 @@ function declareTests(config?: {useJit: boolean}) {
 
     if (getDOM().supportsDOMEvents()) {
       describe('svg', () => {
-        fixmeIvy('FW-672: SVG attribute xlink:href is output as :xlink:href (extra ":")')
-            .it('should support svg elements', () => {
-              TestBed.configureTestingModule({declarations: [MyComp]});
-              const template = '<svg><use xlink:href="Port" /></svg>';
-              TestBed.overrideComponent(MyComp, {set: {template}});
-              const fixture = TestBed.createComponent(MyComp);
+        it('should support svg elements', () => {
+          TestBed.configureTestingModule({declarations: [MyComp]});
+          const template = '<svg><use xlink:href="Port" /></svg>';
+          TestBed.overrideComponent(MyComp, {set: {template}});
+          const fixture = TestBed.createComponent(MyComp);
 
-              const el = fixture.nativeElement;
-              const svg = getDOM().childNodes(el)[0];
-              const use = getDOM().childNodes(svg)[0];
-              expect(getDOM().getProperty(<Element>svg, 'namespaceURI'))
-                  .toEqual('http://www.w3.org/2000/svg');
-              expect(getDOM().getProperty(<Element>use, 'namespaceURI'))
-                  .toEqual('http://www.w3.org/2000/svg');
+          const el = fixture.nativeElement;
+          const svg = getDOM().childNodes(el)[0];
+          const use = getDOM().childNodes(svg)[0];
+          expect(getDOM().getProperty(<Element>svg, 'namespaceURI'))
+              .toEqual('http://www.w3.org/2000/svg');
+          expect(getDOM().getProperty(<Element>use, 'namespaceURI'))
+              .toEqual('http://www.w3.org/2000/svg');
 
-              const firstAttribute = getDOM().getProperty(<Element>use, 'attributes')[0];
-              expect(firstAttribute.name).toEqual('xlink:href');
-              expect(firstAttribute.namespaceURI).toEqual('http://www.w3.org/1999/xlink');
-            });
+          const firstAttribute = getDOM().getProperty(<Element>use, 'attributes')[0];
+          expect(firstAttribute.name).toEqual('xlink:href');
+          expect(firstAttribute.namespaceURI).toEqual('http://www.w3.org/1999/xlink');
+        });
 
-        fixmeIvy('FW-811: Align HTML namespaces between Ivy and Render2')
-            .it('should support foreignObjects with document fragments', () => {
-              TestBed.configureTestingModule({declarations: [MyComp]});
-              const template =
-                  '<svg><foreignObject><xhtml:div><p>Test</p></xhtml:div></foreignObject></svg>';
-              TestBed.overrideComponent(MyComp, {set: {template}});
-              const fixture = TestBed.createComponent(MyComp);
+        it('should support foreignObjects with document fragments', () => {
+          TestBed.configureTestingModule({declarations: [MyComp]});
+          const template =
+              '<svg><foreignObject><xhtml:div><p>Test</p></xhtml:div></foreignObject></svg>';
+          TestBed.overrideComponent(MyComp, {set: {template}});
+          const fixture = TestBed.createComponent(MyComp);
 
-              const el = fixture.nativeElement;
-              const svg = getDOM().childNodes(el)[0];
-              const foreignObject = getDOM().childNodes(svg)[0];
-              const p = getDOM().childNodes(foreignObject)[0];
-              expect(getDOM().getProperty(<Element>svg, 'namespaceURI'))
-                  .toEqual('http://www.w3.org/2000/svg');
-              expect(getDOM().getProperty(<Element>foreignObject, 'namespaceURI'))
-                  .toEqual('http://www.w3.org/2000/svg');
-              expect(getDOM().getProperty(<Element>p, 'namespaceURI'))
-                  .toEqual('http://www.w3.org/1999/xhtml');
-            });
+          const el = fixture.nativeElement;
+          const svg = getDOM().childNodes(el)[0];
+          const foreignObject = getDOM().childNodes(svg)[0];
+          const p = getDOM().childNodes(foreignObject)[0];
+          expect(getDOM().getProperty(<Element>svg, 'namespaceURI'))
+              .toEqual('http://www.w3.org/2000/svg');
+          expect(getDOM().getProperty(<Element>foreignObject, 'namespaceURI'))
+              .toEqual('http://www.w3.org/2000/svg');
+          expect(getDOM().getProperty(<Element>p, 'namespaceURI'))
+              .toEqual('http://www.w3.org/1999/xhtml');
+        });
       });
 
       describe('attributes', () => {
 
-        fixmeIvy('FW-672: SVG attribute xlink:href is output as :xlink:href (extra ":")')
-            .it('should support attributes with namespace', () => {
-              TestBed.configureTestingModule({declarations: [MyComp, SomeCmp]});
-              const template = '<svg:use xlink:href="#id" />';
-              TestBed.overrideComponent(SomeCmp, {set: {template}});
-              const fixture = TestBed.createComponent(SomeCmp);
+        it('should support attributes with namespace', () => {
+          TestBed.configureTestingModule({declarations: [MyComp, SomeCmp]});
+          const template = '<svg:use xlink:href="#id" />';
+          TestBed.overrideComponent(SomeCmp, {set: {template}});
+          const fixture = TestBed.createComponent(SomeCmp);
 
-              const useEl = getDOM().firstChild(fixture.nativeElement);
-              expect(getDOM().getAttributeNS(useEl, 'http://www.w3.org/1999/xlink', 'href'))
-                  .toEqual('#id');
-            });
+          const useEl = getDOM().firstChild(fixture.nativeElement);
+          expect(getDOM().getAttributeNS(useEl, 'http://www.w3.org/1999/xlink', 'href'))
+              .toEqual('#id');
+        });
 
-        fixmeIvy('FW-672: SVG attribute xlink:href is output as :xlink:href (extra ":")')
-            .it('should support binding to attributes with namespace', () => {
-              TestBed.configureTestingModule({declarations: [MyComp, SomeCmp]});
-              const template = '<svg:use [attr.xlink:href]="value" />';
-              TestBed.overrideComponent(SomeCmp, {set: {template}});
-              const fixture = TestBed.createComponent(SomeCmp);
+        it('should support binding to attributes with namespace', () => {
+          TestBed.configureTestingModule({declarations: [MyComp, SomeCmp]});
+          const template = '<svg:use [attr.xlink:href]="value" />';
+          TestBed.overrideComponent(SomeCmp, {set: {template}});
+          const fixture = TestBed.createComponent(SomeCmp);
 
-              const cmp = fixture.componentInstance;
-              const useEl = getDOM().firstChild(fixture.nativeElement);
+          const cmp = fixture.componentInstance;
+          const useEl = getDOM().firstChild(fixture.nativeElement);
 
-              cmp.value = '#id';
-              fixture.detectChanges();
+          cmp.value = '#id';
+          fixture.detectChanges();
 
-              expect(getDOM().getAttributeNS(useEl, 'http://www.w3.org/1999/xlink', 'href'))
-                  .toEqual('#id');
+          expect(getDOM().getAttributeNS(useEl, 'http://www.w3.org/1999/xlink', 'href'))
+              .toEqual('#id');
 
-              cmp.value = null;
-              fixture.detectChanges();
+          cmp.value = null;
+          fixture.detectChanges();
 
-              expect(getDOM().hasAttributeNS(useEl, 'http://www.w3.org/1999/xlink', 'href'))
-                  .toEqual(false);
-            });
+          expect(getDOM().hasAttributeNS(useEl, 'http://www.w3.org/1999/xlink', 'href'))
+              .toEqual(false);
+        });
       });
     }
   });

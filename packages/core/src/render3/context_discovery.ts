@@ -5,8 +5,8 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import './ng_dev_mode';
-import {assertDomNode} from './assert';
+import '../util/ng_dev_mode';
+import {assertDomNode} from '../util/assert';
 import {EMPTY_ARRAY} from './empty';
 import {LContext, MONKEY_PATCH_KEY_NAME} from './interfaces/context';
 import {TNode, TNodeFlags} from './interfaces/node';
@@ -298,11 +298,10 @@ export function discoverLocalRefs(lView: LView, nodeIndex: number): {[key: strin
   const tNode = lView[TVIEW].data[nodeIndex] as TNode;
   if (tNode && tNode.localNames) {
     const result: {[key: string]: any} = {};
+    let localIndex = tNode.index + 1;
     for (let i = 0; i < tNode.localNames.length; i += 2) {
-      const localRefName = tNode.localNames[i];
-      const directiveIndex = tNode.localNames[i + 1] as number;
-      result[localRefName] =
-          directiveIndex === -1 ? getNativeByTNode(tNode, lView) ! : lView[directiveIndex];
+      result[tNode.localNames[i]] = lView[localIndex];
+      localIndex++;
     }
     return result;
   }

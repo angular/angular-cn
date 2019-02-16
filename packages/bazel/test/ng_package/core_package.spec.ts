@@ -10,9 +10,10 @@ import {fixmeIvy, ivyEnabled, obsoleteInIvy} from '@angular/private/testing';
 import * as path from 'path';
 import * as shx from 'shelljs';
 
-const corePackagePath =
-    path.join(process.env['TEST_SRCDIR'] !, 'angular', 'packages', 'core', 'npm_package');
-shx.cd(corePackagePath);
+// Resolve the "npm_package" directory by using the runfile resolution. Note that we need to
+// resolve the "package.json" of the package since otherwise NodeJS would resolve the "main"
+// file, which is not necessarily at the root of the "npm_package".
+shx.cd(path.dirname(require.resolve('angular/packages/core/npm_package/package.json')));
 
 /**
  * Utility functions that allows me to create fs paths
@@ -223,12 +224,13 @@ describe('@angular/core ng_package', () => {
     describe('typings', () => {
       const typingsFile = p `testing/index.d.ts`;
       it('should have a typings file',
-         () => { expect(shx.cat(typingsFile)).toContain('export * from \'./public_api\';'); });
+         () => { expect(shx.cat(typingsFile)).toContain(`export * from './public_api';`); });
 
       obsoleteInIvy(
           'now that we don\'t need metadata files, we don\'t need these redirects to help resolve paths to them')
-          .it('should have an \'redirect\' d.ts file in the parent dir',
-              () => { expect(shx.cat('testing.d.ts')).toContain(`export *`); });
+          .it('should have an \'redirect\' d.ts file in the parent dir', () => {
+            expect(shx.cat('testing.d.ts')).toContain(`export * from './testing/testing';`);
+          });
     });
 
     obsoleteInIvy('metadata files are no longer needed or produced in Ivy')

@@ -225,9 +225,9 @@ Put your application-wide styles there.
 因此，CLI 会生成一个空白的 `styles.css` 文件。
 你可以把全应用级别的样式放进去。
 
-Here's an excerpt from the `styles.css` for the _Tour of Heroes_ sample app.
+Open `src/styles.css` and add the code below to the file.
 
-下面是这个*英雄指南*范例应用中 `styles.css` 文件的片段。
+打开 `src/styles.css` 并把下列代码添加到此文件中。
 
 <code-example path="toh-pt0/src/styles.1.css" header="src/styles.css (excerpt)">
 </code-example>

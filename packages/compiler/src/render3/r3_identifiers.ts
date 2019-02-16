@@ -31,6 +31,12 @@ export class Identifiers {
 
   static elementProperty: o.ExternalReference = {name: 'ɵelementProperty', moduleName: CORE};
 
+  static componentHostSyntheticProperty:
+      o.ExternalReference = {name: 'ɵcomponentHostSyntheticProperty', moduleName: CORE};
+
+  static componentHostSyntheticListener:
+      o.ExternalReference = {name: 'ɵcomponentHostSyntheticListener', moduleName: CORE};
+
   static elementAttribute: o.ExternalReference = {name: 'ɵelementAttribute', moduleName: CORE};
 
   static elementClassProp: o.ExternalReference = {name: 'ɵelementClassProp', moduleName: CORE};
@@ -110,7 +116,6 @@ export class Identifiers {
   static i18nPostprocess: o.ExternalReference = {name: 'ɵi18nPostprocess', moduleName: CORE};
 
   static load: o.ExternalReference = {name: 'ɵload', moduleName: CORE};
-  static loadQueryList: o.ExternalReference = {name: 'ɵloadQueryList', moduleName: CORE};
 
   static pipe: o.ExternalReference = {name: 'ɵpipe', moduleName: CORE};
 
@@ -128,6 +133,10 @@ export class Identifiers {
   static templateRefExtractor:
       o.ExternalReference = {name: 'ɵtemplateRefExtractor', moduleName: CORE};
 
+  static resolveWindow: o.ExternalReference = {name: 'ɵresolveWindow', moduleName: CORE};
+  static resolveDocument: o.ExternalReference = {name: 'ɵresolveDocument', moduleName: CORE};
+  static resolveBody: o.ExternalReference = {name: 'ɵresolveBody', moduleName: CORE};
+
   static defineBase: o.ExternalReference = {name: 'ɵdefineBase', moduleName: CORE};
 
   static BaseDef: o.ExternalReference = {
@@ -136,6 +145,8 @@ export class Identifiers {
   };
 
   static defineComponent: o.ExternalReference = {name: 'ɵdefineComponent', moduleName: CORE};
+
+  static setComponentScope: o.ExternalReference = {name: 'ɵsetComponentScope', moduleName: CORE};
 
   static ComponentDefWithMeta: o.ExternalReference = {
     name: 'ɵComponentDefWithMeta',
@@ -173,10 +184,11 @@ export class Identifiers {
 
   static definePipe: o.ExternalReference = {name: 'ɵdefinePipe', moduleName: CORE};
 
-  static query: o.ExternalReference = {name: 'ɵquery', moduleName: CORE};
   static queryRefresh: o.ExternalReference = {name: 'ɵqueryRefresh', moduleName: CORE};
-  static registerContentQuery:
-      o.ExternalReference = {name: 'ɵregisterContentQuery', moduleName: CORE};
+  static viewQuery: o.ExternalReference = {name: 'ɵviewQuery', moduleName: CORE};
+  static loadViewQuery: o.ExternalReference = {name: 'ɵloadViewQuery', moduleName: CORE};
+  static contentQuery: o.ExternalReference = {name: 'ɵcontentQuery', moduleName: CORE};
+  static loadContentQuery: o.ExternalReference = {name: 'ɵloadContentQuery', moduleName: CORE};
 
   static NgOnChangesFeature: o.ExternalReference = {name: 'ɵNgOnChangesFeature', moduleName: CORE};
 
@@ -206,4 +218,6 @@ export class Identifiers {
       o.ExternalReference = {name: 'ɵsanitizeResourceUrl', moduleName: CORE};
   static sanitizeScript: o.ExternalReference = {name: 'ɵsanitizeScript', moduleName: CORE};
   static sanitizeUrl: o.ExternalReference = {name: 'ɵsanitizeUrl', moduleName: CORE};
+  static sanitizeUrlOrResourceUrl:
+      o.ExternalReference = {name: 'ɵsanitizeUrlOrResourceUrl', moduleName: CORE};
 }

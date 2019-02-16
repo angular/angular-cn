@@ -25,6 +25,7 @@ export enum TokenType {
   CDATA_START,
   CDATA_END,
   ATTR_NAME,
+  ATTR_QUOTE,
   ATTR_VALUE,
   DOC_TYPE,
   EXPANSION_FORM_START,
@@ -36,11 +37,12 @@ export enum TokenType {
 }
 
 export class Token {
-  constructor(public type: TokenType, public parts: string[], public sourceSpan: ParseSourceSpan) {}
+  constructor(
+      public type: TokenType|null, public parts: string[], public sourceSpan: ParseSourceSpan) {}
 }
 
 export class TokenError extends ParseError {
-  constructor(errorMsg: string, public tokenType: TokenType, span: ParseSourceSpan) {
+  constructor(errorMsg: string, public tokenType: TokenType|null, span: ParseSourceSpan) {
     super(span, errorMsg);
   }
 }
@@ -49,14 +51,56 @@ export class TokenizeResult {
   constructor(public tokens: Token[], public errors: TokenError[]) {}
 }
 
+export interface LexerRange {
+  startPos: number;
+  startLine: number;
+  startCol: number;
+  endPos: number;
+}
+
+/**
+ * Options that modify how the text is tokenized.
+ */
+export interface TokenizeOptions {
+  /** Whether to tokenize ICU messages (considered as text nodes when false). */
+  tokenizeExpansionForms?: boolean;
+  /** How to tokenize interpolation markers. */
+  interpolationConfig?: InterpolationConfig;
+  /**
+   * The start and end point of the text to parse within the `source` string.
+   * The entire `source` string is parsed if this is not provided.
+   * */
+  range?: LexerRange;
+  /**
+   * If this text is stored in a JavaScript string, then we have to deal with escape sequences.
+   *
+   * **Example 1:**
+   *
+   * ```
+   * "abc\"def\nghi"
+   * ```
+   *
+   * - The `\"` must be converted to `"`.
+   * - The `\n` must be converted to a new line character in a token,
+   *   but it should not increment the current line for source mapping.
+   *
+   * **Example 2:**
+   *
+   * ```
+   * "abc\
+   *  def"
+   * ```
+   *
+   * The line continuation (`\` followed by a newline) should be removed from a token
+   * but the new line should increment the current line for source mapping.
+   */
+  escapedString?: boolean;
+}
+
 export function tokenize(
     source: string, url: string, getTagDefinition: (tagName: string) => TagDefinition,
-    tokenizeExpansionForms: boolean = false,
-    interpolationConfig: InterpolationConfig = DEFAULT_INTERPOLATION_CONFIG): TokenizeResult {
-  return new _Tokenizer(
-             new ParseSourceFile(source, url), getTagDefinition, tokenizeExpansionForms,
-             interpolationConfig)
-      .tokenize();
+    options: TokenizeOptions = {}): TokenizeResult {
+  return new _Tokenizer(new ParseSourceFile(source, url), getTagDefinition, options).tokenize();
 }
 
 const _CR_OR_CRLF_REGEXP = /\r\n?/g;
@@ -77,17 +121,17 @@ class _ControlFlowError {
 // See http://www.w3.org/TR/html51/syntax.html#writing
 class _Tokenizer {
   private _input: string;
-  private _length: number;
-  // Note: this is always lowercase!
+  private _end: number;
+  private _tokenizeIcu: boolean;
+  private _interpolationConfig: InterpolationConfig;
+  private _escapedString: boolean;
   private _peek: number = -1;
   private _nextPeek: number = -1;
-  private _index: number = -1;
-  private _line: number = 0;
-  private _column: number = -1;
-  // TODO(issue/24571): remove '!'.
-  private _currentTokenStart !: ParseLocation;
-  // TODO(issue/24571): remove '!'.
-  private _currentTokenType !: TokenType;
+  private _index: number;
+  private _line: number;
+  private _column: number;
+  private _currentTokenStart: ParseLocation|null = null;
+  private _currentTokenType: TokenType|null = null;
   private _expansionCaseStack: TokenType[] = [];
   private _inInterpolation: boolean = false;
 
@@ -102,11 +146,31 @@ class _Tokenizer {
    */
   constructor(
       private _file: ParseSourceFile, private _getTagDefinition: (tagName: string) => TagDefinition,
-      private _tokenizeIcu: boolean,
-      private _interpolationConfig: InterpolationConfig = DEFAULT_INTERPOLATION_CONFIG) {
+      options: TokenizeOptions) {
+    this._tokenizeIcu = options.tokenizeExpansionForms || false;
+    this._interpolationConfig = options.interpolationConfig || DEFAULT_INTERPOLATION_CONFIG;
+    this._escapedString = options.escapedString || false;
     this._input = _file.content;
-    this._length = _file.content.length;
-    this._advance();
+    if (options.range) {
+      this._end = options.range.endPos;
+      this._index = options.range.startPos;
+      this._line = options.range.startLine;
+      this._column = options.range.startCol;
+    } else {
+      this._end = this._input.length;
+      this._index = 0;
+      this._line = 0;
+      this._column = 0;
+    }
+    try {
+      this._initPeek();
+    } catch (e) {
+      if (e instanceof _ControlFlowError) {
+        this.errors.push(e.error);
+      } else {
+        throw e;
+      }
+    }
   }
 
   private _processCarriageReturns(content: string): string {
@@ -197,11 +261,21 @@ class _Tokenizer {
   }
 
   private _endToken(parts: string[], end: ParseLocation = this._getLocation()): Token {
+    if (this._currentTokenStart === null) {
+      throw new TokenError(
+          'Programming error - attempted to end a token when there was no start to the token',
+          this._currentTokenType, this._getSpan(end, end));
+    }
+    if (this._currentTokenType === null) {
+      throw new TokenError(
+          'Programming error - attempted to end a token which has no token type', null,
+          this._getSpan(this._currentTokenStart, end));
+    }
     const token =
         new Token(this._currentTokenType, parts, new ParseSourceSpan(this._currentTokenStart, end));
     this.tokens.push(token);
-    this._currentTokenStart = null !;
-    this._currentTokenType = null !;
+    this._currentTokenStart = null;
+    this._currentTokenType = null;
     return token;
   }
 
@@ -215,20 +289,47 @@ class _Tokenizer {
     return new _ControlFlowError(error);
   }
 
-  private _advance() {
-    if (this._index >= this._length) {
+  private _advance(processingEscapeSequence?: boolean) {
+    if (this._index >= this._end) {
       throw this._createError(_unexpectedCharacterErrorMsg(chars.$EOF), this._getSpan());
     }
-    if (this._peek === chars.$LF) {
+    // The actual character in the input might be different to the _peek if we are processing
+    // escape characters. We only want to track "real" new lines.
+    const actualChar = this._input.charCodeAt(this._index);
+    if (actualChar === chars.$LF) {
       this._line++;
       this._column = 0;
-    } else if (this._peek !== chars.$LF && this._peek !== chars.$CR) {
+    } else if (!chars.isNewLine(actualChar)) {
       this._column++;
     }
     this._index++;
-    this._peek = this._index >= this._length ? chars.$EOF : this._input.charCodeAt(this._index);
+    this._initPeek(processingEscapeSequence);
+  }
+
+  /**
+   * Initialize the _peek and _nextPeek properties based on the current _index.
+   * @param processingEscapeSequence whether we are in the middle of processing an escape sequence.
+   */
+  private _initPeek(processingEscapeSequence?: boolean) {
+    this._peek = this._index >= this._end ? chars.$EOF : this._input.charCodeAt(this._index);
     this._nextPeek =
-        this._index + 1 >= this._length ? chars.$EOF : this._input.charCodeAt(this._index + 1);
+        this._index + 1 >= this._end ? chars.$EOF : this._input.charCodeAt(this._index + 1);
+    if (this._peek === chars.$BACKSLASH && processingEscapeSequence !== true &&
+        this._escapedString) {
+      this._processEscapeSequence();
+    }
+  }
+
+  /**
+   * Advance the specific number of characters.
+   * @param count The number of characters to advance.
+   * @param processingEscapeSequence Whether we want `advance()` to process escape sequences.
+   */
+  private _advanceN(count: number, processingEscapeSequence?: boolean) {
+    while (count) {
+      this._advance(processingEscapeSequence);
+      count--;
+    }
   }
 
   private _attemptCharCode(charCode: number): boolean {
@@ -257,7 +358,7 @@ class _Tokenizer {
 
   private _attemptStr(chars: string): boolean {
     const len = chars.length;
-    if (this._index + len > this._length) {
+    if (this._index + len > this._end) {
       return false;
     }
     const initialPosition = this._savePosition();
@@ -313,9 +414,11 @@ class _Tokenizer {
     if (decodeEntities && this._peek === chars.$AMPERSAND) {
       return this._decodeEntity();
     } else {
-      const index = this._index;
+      // Don't rely upon reading directly from `_input` as the actual char value
+      // may have been generated from an escape sequence.
+      const char = String.fromCodePoint(this._peek);
       this._advance();
-      return this._input[index];
+      return char;
     }
   }
 
@@ -334,7 +437,7 @@ class _Tokenizer {
       try {
         const charCode = parseInt(strNum, isHex ? 16 : 10);
         return String.fromCharCode(charCode);
-      } catch (e) {
+      } catch {
         const entity = this._input.substring(start.offset + 1, this._index - 1);
         throw this._createError(_unknownEntityErrorMsg(entity), this._getSpan(start));
       }
@@ -354,6 +457,122 @@ class _Tokenizer {
       return char;
     }
   }
+
+  /**
+   * Process the escape sequence that starts at the current position in the text.
+   *
+   * This method is called from `_advance()` to ensure that escape sequences are
+   * always processed correctly however tokens are being consumed.
+   *
+   * But note that this method also calls `_advance()` (re-entering) to move through
+   * the characters within an escape sequence. In that case it tells `_advance()` not
+   * to attempt to process further escape sequences by passing `true` as its first
+   * argument.
+   */
+  private _processEscapeSequence(): void {
+    this._advance(true);  // advance past the backslash
+
+    // First check for standard control char sequences
+    if (this._peekChar() === chars.$n) {
+      this._peek = chars.$LF;
+    } else if (this._peekChar() === chars.$r) {
+      this._peek = chars.$CR;
+    } else if (this._peekChar() === chars.$v) {
+      this._peek = chars.$VTAB;
+    } else if (this._peekChar() === chars.$t) {
+      this._peek = chars.$TAB;
+    } else if (this._peekChar() === chars.$b) {
+      this._peek = chars.$BSPACE;
+    } else if (this._peekChar() === chars.$f) {
+      this._peek = chars.$FF;
+    }
+
+    // Now consider more complex sequences
+
+    else if (this._peekChar() === chars.$u) {
+      // Unicode code-point sequence
+      this._advance(true);  // advance past the `u` char
+      if (this._peekChar() === chars.$LBRACE) {
+        // Variable length Unicode, e.g. `\x{123}`
+        this._advance(true);  // advance past the `{` char
+        // Advance past the variable number of hex digits until we hit a `}` char
+        const start = this._getLocation();
+        while (this._peekChar() !== chars.$RBRACE) {
+          this._advance(true);
+        }
+        this._decodeHexDigits(start, this._index - start.offset);
+      } else {
+        // Fixed length Unicode, e.g. `\u1234`
+        this._parseFixedHexSequence(4);
+      }
+    }
+
+    else if (this._peekChar() === chars.$x) {
+      // Hex char code, e.g. `\x2F`
+      this._advance(true);  // advance past the `x` char
+      this._parseFixedHexSequence(2);
+    }
+
+    else if (chars.isOctalDigit(this._peekChar())) {
+      // Octal char code, e.g. `\012`,
+      const start = this._index;
+      let length = 1;
+      // Note that we work with `_nextPeek` because, although we check the next character
+      // after the sequence to find the end of the sequence,
+      // we do not want to advance that far to check the character, otherwise we will
+      // have to back up.
+      while (chars.isOctalDigit(this._nextPeek) && length < 3) {
+        this._advance(true);
+        length++;
+      }
+      const octal = this._input.substr(start, length);
+      this._peek = parseInt(octal, 8);
+    }
+
+    else if (chars.isNewLine(this._peekChar())) {
+      // Line continuation `\` followed by a new line
+      this._advance(true);  // advance over the newline
+    }
+
+    // If none of the `if` blocks were executed then we just have an escaped normal character.
+    // In that case we just, effectively, skip the backslash from the character.
+  }
+
+  private _parseFixedHexSequence(length: number) {
+    const start = this._getLocation();
+    this._advanceN(length - 1, true);
+    this._decodeHexDigits(start, length);
+  }
+
+  private _decodeHexDigits(start: ParseLocation, length: number) {
+    const hex = this._input.substr(start.offset, length);
+    const charCode = parseInt(hex, 16);
+    if (!isNaN(charCode)) {
+      this._peek = charCode;
+    } else {
+      throw this._createError(
+          'Invalid hexadecimal escape sequence', this._getSpan(start, this._getLocation()));
+    }
+  }
+
+  /**
+   * This little helper is to solve a problem where the TS compiler will narrow
+   * the type of `_peek` after an `if` statment, even if there is a call to a
+   * method that might mutate the `_peek`.
+   *
+   * For example:
+   *
+   * ```
+   * if (this._peek === 10) {
+   *   this._advance(); // mutates _peek
+   *   if (this._peek === 20) {
+   *     ...
+   * ```
+   *
+   * The second if statement fails TS compilation because the compiler has determined
+   * that `_peek` is `10` and so can never be equal to `20`.
+   */
+  private _peekChar(): number { return this._peek; }
 
   private _consumeRawText(
       decodeEntities: boolean, firstCharOfEnd: number, attemptEndRest: () => boolean): Token {
@@ -491,23 +710,29 @@ class _Tokenizer {
   }
 
   private _consumeAttributeValue() {
-    this._beginToken(TokenType.ATTR_VALUE);
     let value: string;
     if (this._peek === chars.$SQ || this._peek === chars.$DQ) {
+      this._beginToken(TokenType.ATTR_QUOTE);
       const quoteChar = this._peek;
       this._advance();
+      this._endToken([String.fromCodePoint(quoteChar)]);
+      this._beginToken(TokenType.ATTR_VALUE);
       const parts: string[] = [];
       while (this._peek !== quoteChar) {
         parts.push(this._readChar(true));
       }
       value = parts.join('');
+      this._endToken([this._processCarriageReturns(value)]);
+      this._beginToken(TokenType.ATTR_QUOTE);
       this._advance();
+      this._endToken([String.fromCodePoint(quoteChar)]);
     } else {
+      this._beginToken(TokenType.ATTR_VALUE);
       const valueStart = this._index;
       this._requireCharCodeUntilFn(isNameEnd, 1);
       value = this._input.substring(valueStart, this._index);
+      this._endToken([this._processCarriageReturns(value)]);
     }
-    this._endToken([this._processCarriageReturns(value)]);
   }
 
   private _consumeTagOpenEnd() {

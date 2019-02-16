@@ -114,7 +114,7 @@ Displaying the first page quickly can be critical for user engagement.
 
 快速显示第一页对于吸引用户是至关重要的。
 
-[53percent of mobile site visits are abandoned](https://www.doubleclickbygoogle.com/articles/mobile-speed-matters/) if pages take longer than 3 seconds to load.
+[53percent of mobile site visits are abandoned](https://www.thinkwithgoogle.com/marketing-resources/data-measurement/mobile-page-speed-new-industry-benchmarks/) if pages take longer than 3 seconds to load.
 Your app may have to launch faster to engage these users before they decide to do something else.
 
 如果页面加载超过了三秒钟，那么 [53% 的移动网站会被放弃](https://www.doubleclickbygoogle.com/articles/mobile-speed-matters/)。
@@ -217,7 +217,6 @@ Before your app can be rendered on a server, you must make changes in the app it
 1. Prepare your app by modifying both the app code and its configuration.  
 
    通过修改应用代码及其配置进行准备。
-
 1. Add a build target, and build a Universal bundle using the CLI with the `@nguniversal/express-engine` schematic.
 
    添加构建目标，并使用 CLI 中的 `@nguniversal/express-engine` 原理图来构建出 Universal 包。
@@ -274,13 +273,13 @@ Angular Universal 却没办法把这些凭证转发给独立的数据服务器�
 
 ## 步骤一：安装依赖
 
-Install `@angular/platform-server` into your project. Use the same version as the other `@angular` packages in your project. You also need `ts-loader` for your webpack build and `@nguniversal/module-map-ngfactory-loader` to handle lazy-loading in the context of a server-render.
+Install `@angular/platform-server` into your project. Use the same version as the other `@angular` packages in your project. You also need `ts-loader`, `webpack-cli` for your webpack build and `@nguniversal/module-map-ngfactory-loader` to handle lazy-loading in the context of a server-render.
 
 把 `@angular/platform-server` 安装到项目中。在项目中使用与其它 `@angular` 包相同的版本。你还需要 `ts-loader` 供 Webpack 构建时使用，还要安装 `@nguniversal/module-map-ngfactory-loader` 来处理服务端渲染环境下的惰性加载。
 
-```
-$ npm install --save @angular/platform-server @nguniversal/module-map-ngfactory-loader ts-loader
-```
+<code-example language="sh" class="code-shell">
+$ npm install --save @angular/platform-server @nguniversal/module-map-ngfactory-loader ts-loader webpack-cli
+</code-example>
 
 ## Step 2: Prepare your app
 
@@ -514,6 +513,7 @@ import 'reflect-metadata';
 
 import { renderModuleFactory } from '@angular/platform-server';
 import { enableProdMode } from '@angular/core';
+import { provideModuleMap } from '@nguniversal/module-map-ngfactory-loader';
 
 import * as express from 'express';
 import { join } from 'path';
@@ -531,10 +531,8 @@ const DIST_FOLDER = join(process.cwd(), 'dist');
 // Our index.html we'll use as our template
 const template = readFileSync(join(DIST_FOLDER, 'browser', 'index.html')).toString();
 
-// * NOTE :: leave this as require() since this file is built Dynamically from webpack
-const { AppServerModuleNgFactory, LAZY_MODULE_MAP } = require('./dist/server/main.bundle');
+const { AppServerModuleNgFactory, LAZY_MODULE_MAP } = require('./server/main');
 
-const { provideModuleMap } = require('@nguniversal/module-map-ngfactory-loader');
 
 app.engine('html', (_, options, callback) => {
   renderModuleFactory(AppServerModuleNgFactory, {
@@ -638,26 +636,19 @@ node dist/server.js
 ### 创建一些脚本
 
 Now let's create a few handy scripts to help us do all of this in the future.
-You can add these in the `"server"` section of the Angular configuration file, `angular.json`.
+You can add these in the `"scripts"` section of the `package.json`.
 
 现在，来创建一些便利脚本，在以后帮助我们完成这些琐事。
 你可以在 Angular 配置文件 `angular.json` 的 `"server"` 区添加这些脚本。
 
 <code-example format="." language="none" linenums="false">
-"architect": {
-  "build": { ... }
-  "server": {
-    ...
-     "scripts": {
-      // Common scripts
-      "build:ssr": "npm run build:client-and-server-bundles && npm run webpack:server",
-      "serve:ssr": "node dist/server.js",
-
-      // Helpers for the scripts
-      "build:client-and-server-bundles": "ng build --prod && ng build --prod --app 1 --output-hashing=false",
-      "webpack:server": "webpack --config webpack.server.config.js --progress --colors"
-    }
-   ...
+"scripts": {
+  "build:ssr": "npm run build:client-and-server-bundles && npm run webpack:server",
+  "serve:ssr": "node dist/server.js",
+  "build:client-and-server-bundles": "ng build --prod && ng run my-project:server:production",
+  "webpack:server": "webpack --config webpack.server.config.js --progress --colors",
+  ...
+}
 </code-example>
 
 To run a production build of your app with Universal on your local system, use the following command.

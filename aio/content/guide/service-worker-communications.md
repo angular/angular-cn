@@ -74,12 +74,33 @@ Do this with the `checkForUpdate()` method:
 
 通过调用 `checkForUpdate()` 方法来实现：
 
-<code-example path="service-worker-getting-started/src/app/check-for-update.service.ts" linenums="false" header="check-for-update.service.ts" region="sw-check-update"> </code-example>
+<code-example path="service-worker-getting-started/src/app/check-for-update.service.ts" linenums="false" header="check-for-update.service.ts"> </code-example>
 
 This method returns a `Promise` which indicates that the update check has completed successfully, though it does not indicate whether an update was discovered as a result of the check. Even if one is found, the service worker must still successfully download the changed files, which can fail. If successful, the `available` event will indicate availability of a new version of the app.
 
 该方法返回一个用来表示检查更新已经成功完成的 `Promise`，不过它不会指出是否确实发现了一个更新。
 即使找到了一个，Service Worker 还必须成功下载更新过的文件，而这可能会失败。如果成功了，就会通过一个 `available` 事件来表明当前应用有一个可用的新版本。
+
+<div class="alert is-important">
+
+In order to avoid negatively affecting the initial rendering, `ServiceWorkerModule` will by default
+wait for the app to stabilize, before registering the ServiceWorker script. Constantly polling for
+updates, e.g. with `interval()`, will prevent the app from stabilizing and the ServiceWorker
+script will never be registered with the browser.
+
+为了避免影响页面的首次渲染，在注册 ServiceWorker 脚本之前，`ServiceWorkerModule` 默认会等待应用程序达到稳定态。如果不断轮询更新（比如调用 `interval()`）将阻止应用程序达到稳定态，也就永远不会往浏览器中注册 ServiceWorker 脚本。
+
+You can avoid that by waiting for the app to stabilize first, before starting to poll for updates
+(as shown in the example above).
+
+在开始轮询更新之前，你可以先等待应用程序达到稳定态，以避免这种情况（如上例所示）。
+
+Note that this is true for any kind of polling done by your application.
+Check the {@link ApplicationRef#isStable isStable} documentation for more information. 
+
+请注意，应用中所执行的各种轮询都会阻止它达到稳定态。欲知详情，参见 {@link ApplicationRef#isStable isStable} 文档。
+
+</div>
 
 ### Forcing update activation
 

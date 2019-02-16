@@ -36,9 +36,53 @@ export class SwitchView {
 /**
  * @ngModule CommonModule
  *
+ * @description A structural directive that adds or removes templates (displaying or hiding views)
+ * when the next match expression matches the switch expression.
+ *
+ * The `[ngSwitch]` directive on a container specifies an expression to match against.
+ * The expressions to match are provided by `ngSwitchCase` directives on views within the container.
+ * - Every view that matches is rendered.
+ * - If there are no matches, a view with the `ngSwitchDefault` directive is rendered.
+ * - Elements within the `[NgSwitch]` statement but outside of any `NgSwitchCase`
+ * or `ngSwitchDefault` directive are preserved at the location.
+ *
  * @usageNotes
+ * Define a container element for the directive, and specify the switch expression
+ * to match against as an attribute:
+ *
  * ```
- *     <container-element [ngSwitch]="switch_expression">
+ * <container-element [ngSwitch]="switch_expression">
+ * ```
+ *
+ * Within the container, `*ngSwitchCase` statements specify the match expressions
+ * as attributes. Include `*ngSwitchDefault` as the final case.
+ *
+ * ```
+ * <container-element [ngSwitch]="switch_expression">
+ *    <some-element *ngSwitchCase="match_expression_1">...</some-element>
+ * ...
+ *    <some-element *ngSwitchDefault>...</some-element>
+ * </container-element>
+ * ```
+ *
+ * ### Usage Examples
+ *
+ * The following example shows how to use more than one case to display the same view:
+ *
+ * ```
+ * <container-element [ngSwitch]="switch_expression">
+ *   <!-- the same view can be shown in more than one case -->
+ *   <some-element *ngSwitchCase="match_expression_1">...</some-element>
+ *   <some-element *ngSwitchCase="match_expression_2">...</some-element>
+ *   <some-other-element *ngSwitchCase="match_expression_3">...</some-other-element>
+ *   <!--default case when there are no matches -->
+ *   <some-element *ngSwitchDefault>...</some-element>
+ * </container-element>
+ * ```
+ *
+ * The following example shows how cases can be nested:
+ * ```
+ * <container-element [ngSwitch]="switch_expression">
  *       <some-element *ngSwitchCase="match_expression_1">...</some-element>
  *       <some-element *ngSwitchCase="match_expression_2">...</some-element>
  *       <some-other-element *ngSwitchCase="match_expression_3">...</some-other-element>
@@ -50,46 +94,12 @@ export class SwitchView {
  *       <some-element *ngSwitchDefault>...</some-element>
  *     </container-element>
  * ```
- * @description
- *
- * Adds / removes DOM sub-trees when the nest match expressions matches the switch expression.
- *
- * 根据内嵌的匹配表达式和 switch 表达式的匹配结果，添加或删除子树。
- *
- * `NgSwitch` stamps out nested views when their match expression value matches the value of the
- * switch expression.
- *
- * 当 `match` 表达式的值与 `switch` 表达式的值匹配时 `NgSwitch` 就会将其内嵌的视图 "印" 出来。
- *
- * In other words:
- *
- * 换句话说：
- *
- * - you define a container element (where you place the directive with a switch expression on the
- * `[ngSwitch]="..."` attribute)
- *
- *   你定义了一个容器元素（也就是你通过 `[ngSwitch]="..."` 属性来放置 `switch` 表达式的那个元素。
- *
- * - you define inner views inside the `NgSwitch` and place a `*ngSwitchCase` attribute on the view
- * root elements.
- *
- *   你在 `NgSwitch` 中定义了内嵌视图，并把 `*ngSwitchCase` 属性放在了视图的根元素上。
- *
- * Elements within `NgSwitch` but outside of a `NgSwitchCase` or `NgSwitchDefault` directives will
- * be preserved at the location.
- *
- * `NgSwitch` 中位于 `NgSwitchCase` 或 `NgSwitchDefault` 指令之外的那些元素会保留在原地。
- *
- * The `ngSwitchCase` directive informs the parent `NgSwitch` of which view to display when the
- * expression is evaluated.
- * When no matching expression is found on a `ngSwitchCase` view, the `ngSwitchDefault` view is
- * stamped out.
- *
- *
- * 在表达式求值完成之后，`ngSwitchCase` 指令会告诉付指令 `NgSwitch` 要显示哪个视图。
- * 如果 `ngSwitchCase` 中没有找到匹配的表达式，就会显示 `ngSwitchDefault` 视图。
  *
  * @publicApi
+ * @see `NgSwitchCase`
+ * @see `NgSwitchDefault`
+ * @see [Stuctural Directives](guide/structural-directives)
+ *
  */
 @Directive({selector: '[ngSwitch]'})
 export class NgSwitch {
@@ -147,38 +157,42 @@ export class NgSwitch {
 /**
  * @ngModule CommonModule
  *
+ * @description
+ * Provides a switch case expression to match against an enclosing `ngSwitch` expression.
+ * When the expressions match, the given `NgSwitchCase` template is rendered.
+ * If multiple match expressions match the switch expression value, all of them are displayed.
+ *
  * @usageNotes
+ *
+ * Within a switch container, `*ngSwitchCase` statements specify the match expressions
+ * as attributes. Include `*ngSwitchDefault` as the final case.
+ *
  * ```
  * <container-element [ngSwitch]="switch_expression">
  *   <some-element *ngSwitchCase="match_expression_1">...</some-element>
+ *   ...
+ *   <some-element *ngSwitchDefault>...</some-element>
  * </container-element>
- *```
- * @description
+ * ```
  *
- * Creates a view that will be added/removed from the parent {@link NgSwitch} when the
- * given expression evaluate to respectively the same/different value as the switch
- * expression.
+ * Each switch-case statement contains an in-line HTML template or template reference
+ * that defines the subtree to be selected if the value of the match expression
+ * matches the value of the switch expression.
  *
- * 如果指定的表达式的计算结果和 `switch` 表达式相同，就会在父指令 {@link NgSwitch} 中创建一个视图；如果不同，则移除。
+ * Unlike JavaScript, which uses strict equality, Angular uses loose equality.
+ * This means that the empty string, `""` matches 0.
  *
- * Insert the sub-tree when the expression evaluates to the same value as the enclosing switch
- * expression.
- *
- * 当表达式求值的结果与 `switch` 表达式相同，则插入该子树。
- *
- * If multiple match expressions match the switch expression value, all of them are displayed.
- *
- * 如果多个 `match` 表达式都与 `switch` 表达式的结果相匹配，就全都显示它们。
- *
- * See {@link NgSwitch} for more details and example.
- *
- * 参见 {@link NgSwitch} 了解详情并查看例子。
  * @publicApi
+ * @see `NgSwitch`
+ * @see `NgSwitchDefault`
+ *
  */
 @Directive({selector: '[ngSwitchCase]'})
 export class NgSwitchCase implements DoCheck {
   private _view: SwitchView;
-
+  /**
+   * Stores the HTML template to be selected on match.
+   */
   @Input()
   ngSwitchCase: any;
 
@@ -189,36 +203,25 @@ export class NgSwitchCase implements DoCheck {
     this._view = new SwitchView(viewContainer, templateRef);
   }
 
+  /**
+   * Performs case matching. For internal use only.
+   */
   ngDoCheck() { this._view.enforceState(this.ngSwitch._matchCase(this.ngSwitchCase)); }
 }
 
 /**
  * @ngModule CommonModule
- * @usageNotes
- * ```
- * <container-element [ngSwitch]="switch_expression">
- *   <some-element *ngSwitchCase="match_expression_1">...</some-element>
- *   <some-other-element *ngSwitchDefault>...</some-other-element>
- * </container-element>
- * ```
  *
  * @description
  *
- * Creates a view that is added to the parent {@link NgSwitch} when no case expressions
- * match the switch expression.
- *
- * 当没有任何 `case` 表达式匹配 `switch` 表达式的结果时，就会在父指令 {@link NgSwitch} 中创建一个视图。
- *
- * Insert the sub-tree when no case expressions evaluate to the same value as the enclosing switch
- * expression.
- *
- * 当没有任何一个 `case` 表达式与 `switch` 表达式的求值结果相同时，则插入该子树。
- *
- * See {@link NgSwitch} for more details and example.
- *
- * 参见 {@link NgSwitch} 了解详情并查看例子。
+ * Creates a view that is rendered when no `NgSwitchCase` expressions
+ * match the `NgSwitch` expression.
+ * This statement should be the final case in an `NgSwitch`.
  *
  * @publicApi
+ * @see `NgSwitch`
+ * @see `NgSwitchCase`
+ *
  */
 @Directive({selector: '[ngSwitchDefault]'})
 export class NgSwitchDefault {

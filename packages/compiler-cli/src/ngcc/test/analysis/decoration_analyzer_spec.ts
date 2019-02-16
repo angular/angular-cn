@@ -7,13 +7,13 @@
  */
 import * as ts from 'typescript';
 
-import {Decorator} from '../../../ngtsc/host';
-import {DecoratorHandler} from '../../../ngtsc/transform';
+import {AbsoluteFsPath} from '../../../ngtsc/path';
+import {Decorator} from '../../../ngtsc/reflection';
+import {DecoratorHandler, DetectResult} from '../../../ngtsc/transform';
 import {DecorationAnalyses, DecorationAnalyzer} from '../../src/analysis/decoration_analyzer';
 import {NgccReferencesRegistry} from '../../src/analysis/ngcc_references_registry';
 import {Esm2015ReflectionHost} from '../../src/host/esm2015_host';
-
-import {makeTestProgram} from '../helpers/utils';
+import {makeTestBundleProgram} from '../helpers/utils';
 
 const TEST_PROGRAM = {
   name: 'test.js',
@@ -63,15 +63,24 @@ function createTestHandler() {
     'compile',
   ]);
   // Only detect the Component decorator
-  handler.detect.and.callFake((node: ts.Declaration, decorators: Decorator[]) => {
-    if (!decorators) {
-      return undefined;
-    }
-    return decorators.find(d => d.name === 'Component');
-  });
+  handler.detect.and.callFake(
+      (node: ts.Declaration, decorators: Decorator[]): DetectResult<any>| undefined => {
+        if (!decorators) {
+          return undefined;
+        }
+        const metadata = decorators.find(d => d.name === 'Component');
+        if (metadata === undefined) {
+          return undefined;
+        } else {
+          return {
+            metadata,
+            trigger: metadata.node,
+          };
+        }
+      });
   // The "test" analysis is just the name of the decorator being analyzed
   handler.analyze.and.callFake(
-      ((decl: ts.Declaration, dec: Decorator) => ({analysis: dec.name, diagnostics: null})));
+      ((decl: ts.Declaration, dec: Decorator) => ({analysis: dec.name, diagnostics: undefined})));
   // The "test" compilation result is just the name of the decorator being compiled
   handler.compile.and.callFake(((decl: ts.Declaration, analysis: any) => ({analysis})));
   return handler;
@@ -84,14 +93,17 @@ describe('DecorationAnalyzer', () => {
     let result: DecorationAnalyses;
 
     beforeEach(() => {
-      program = makeTestProgram(TEST_PROGRAM);
-      const host = new Esm2015ReflectionHost(false, program.getTypeChecker());
-      const referencesRegistry = new NgccReferencesRegistry(host);
-      const analyzer =
-          new DecorationAnalyzer(program.getTypeChecker(), host, referencesRegistry, [''], false);
+      const {options, host, ...bundle} = makeTestBundleProgram([TEST_PROGRAM]);
+      program = bundle.program;
+
+      const reflectionHost = new Esm2015ReflectionHost(false, program.getTypeChecker());
+      const referencesRegistry = new NgccReferencesRegistry(reflectionHost);
+      const analyzer = new DecorationAnalyzer(
+          program, options, host, program.getTypeChecker(), reflectionHost, referencesRegistry,
+          [AbsoluteFsPath.fromUnchecked('/')], false);
       testHandler = createTestHandler();
       analyzer.handlers = [testHandler];
-      result = analyzer.analyzeProgram(program);
+      result = analyzer.analyzeProgram();
     });
 
     it('should return an object containing a reference to the original source file', () => {
@@ -127,14 +139,15 @@ describe('DecorationAnalyzer', () => {
       // is not yet solved.
       it('should analyze an internally imported component, which is not publicly exported from the entry-point',
          () => {
-           const program = makeTestProgram(...INTERNAL_COMPONENT_PROGRAM);
-           const host = new Esm2015ReflectionHost(false, program.getTypeChecker());
-           const referencesRegistry = new NgccReferencesRegistry(host);
+           const {program, options, host} = makeTestBundleProgram(INTERNAL_COMPONENT_PROGRAM);
+           const reflectionHost = new Esm2015ReflectionHost(false, program.getTypeChecker());
+           const referencesRegistry = new NgccReferencesRegistry(reflectionHost);
            const analyzer = new DecorationAnalyzer(
-               program.getTypeChecker(), host, referencesRegistry, [''], false);
+               program, options, host, program.getTypeChecker(), reflectionHost, referencesRegistry,
+               [AbsoluteFsPath.fromUnchecked('/')], false);
            const testHandler = createTestHandler();
            analyzer.handlers = [testHandler];
-           const result = analyzer.analyzeProgram(program);
+           const result = analyzer.analyzeProgram();
            const file = program.getSourceFile('component.js') !;
            const analysis = result.get(file) !;
            expect(analysis).toBeDefined();
@@ -144,14 +157,15 @@ describe('DecorationAnalyzer', () => {
          });
 
       it('should analyze an internally defined component, which is not exported at all', () => {
-        const program = makeTestProgram(...INTERNAL_COMPONENT_PROGRAM);
-        const host = new Esm2015ReflectionHost(false, program.getTypeChecker());
-        const referencesRegistry = new NgccReferencesRegistry(host);
-        const analyzer =
-            new DecorationAnalyzer(program.getTypeChecker(), host, referencesRegistry, [''], false);
+        const {program, options, host} = makeTestBundleProgram(INTERNAL_COMPONENT_PROGRAM);
+        const reflectionHost = new Esm2015ReflectionHost(false, program.getTypeChecker());
+        const referencesRegistry = new NgccReferencesRegistry(reflectionHost);
+        const analyzer = new DecorationAnalyzer(
+            program, options, host, program.getTypeChecker(), reflectionHost, referencesRegistry,
+            [AbsoluteFsPath.fromUnchecked('/')], false);
         const testHandler = createTestHandler();
         analyzer.handlers = [testHandler];
-        const result = analyzer.analyzeProgram(program);
+        const result = analyzer.analyzeProgram();
         const file = program.getSourceFile('entrypoint.js') !;
         const analysis = result.get(file) !;
         expect(analysis).toBeDefined();

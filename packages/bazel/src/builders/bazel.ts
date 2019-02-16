@@ -17,7 +17,8 @@ export function runBazel(
     projectDir: string, executable: Executable, command: Command, workspaceTarget: string,
     flags: string[]): Observable<void> {
   const doneSubject = new Subject<void>();
-  const buildProcess = spawn(executable, [command, workspaceTarget, ...flags], {
+  const bin = require.resolve(`@bazel/${executable}`);
+  const buildProcess = spawn(bin, [command, workspaceTarget, ...flags], {
     cwd: projectDir,
     stdio: 'inherit',
     shell: false,
@@ -35,7 +36,13 @@ export function runBazel(
 }
 
 export function checkInstallation(executable: Executable, projectDir: string) {
-  const child = spawnSync(executable, ['version'], {
+  let bin: string;
+  try {
+    bin = require.resolve(`@bazel/${executable}`);
+  } catch {
+    return false;
+  }
+  const child = spawnSync(bin, ['version'], {
     cwd: projectDir,
     shell: false,
   });

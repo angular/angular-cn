@@ -6,13 +6,13 @@
  * found in the LICENSE file at https://angular.io/license
  */
 
-import {compileInjectable as render3CompileInjectable} from '../render3/jit/injectable';
-import {Type} from '../type';
+import {Type} from '../interface/type';
 import {TypeDecorator, makeDecorator} from '../util/decorators';
-
-import {InjectableDef, InjectableType, defineInjectable, getInjectableDef} from './defs';
-import {ClassSansProvider, ConstructorSansProvider, ExistingSansProvider, FactorySansProvider, StaticClassSansProvider, ValueSansProvider} from './provider';
+import {InjectableDef, InjectableType, defineInjectable, getInjectableDef} from './interface/defs';
+import {ClassSansProvider, ConstructorSansProvider, ExistingSansProvider, FactorySansProvider, StaticClassSansProvider, ValueSansProvider} from './interface/provider';
+import {compileInjectable as render3CompileInjectable} from './jit/injectable';
 import {convertInjectableProviderToFactory} from './util';
+
 
 
 /**
@@ -34,23 +34,26 @@ export type InjectableProvider = ValueSansProvider | ExistingSansProvider |
  */
 export interface InjectableDecorator {
   /**
-   * A marker metadata that marks a class as available to `Injector` for creation.
+   * Marks a class as available to `Injector` for creation.
    *
    * 标记性元数据，表示一个类可以由 `Injector` 进行创建。
    *
-   * For more details, see the ["Dependency Injection Guide"](guide/dependency-injection).
-   *
-   * 欲知详情，参见["依赖注入"](guide/dependency-injection)。
+   * @see [Introduction to Services and DI](guide/architecture-services)
+   * @see [Dependency Injection Guide](guide/dependency-injection)
    *
    * @usageNotes
-   * ### Example
+   *
+   * The following example shows how service classes are properly marked as
+   * injectable.
+   *
+   * 下面的例子展示了如何正确的把服务类标记为可注入的（Injectable）。
    *
    * ### 范例
    *
    * {@example core/di/ts/metadata_spec.ts region='Injectable'}
    *
-   * `Injector` will throw an error when trying to instantiate a class that
-   * does not have `@Injectable` marker, as shown in the example below.
+   * `Injector` throws an error if it tries to instantiate a class that
+   * is not decorated with `@Injectable`, as shown in the following example.
    *
    * `Injector`在试图实例化一个不带 `@Injectable` 标记的类时，就会抛出一个错误，如下面的例子所示。
    *
@@ -70,7 +73,15 @@ export interface InjectableDecorator {
  *
  * @publicApi
  */
-export interface Injectable { providedIn?: Type<any>|'root'|null; }
+export interface Injectable {
+  /**
+   * Determines which injectors will provide the injectable,
+   * by either associating it with an @NgModule or other `InjectorType`,
+   * or by specifying that this injectable should be provided in the
+   * 'root' injector, which will be the application-level injector in most apps.
+   */
+  providedIn?: Type<any>|'root'|null;
+}
 
 /**
  * Injectable decorator and metadata.

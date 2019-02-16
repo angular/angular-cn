@@ -6,24 +6,29 @@
  * found in the LICENSE file at https://angular.io/license
  */
 
+import {CustomTransformers} from '@angular/compiler-cli';
 import * as fs from 'fs';
 import * as path from 'path';
 import * as ts from 'typescript';
 
-import {main, mainDiagnosticsForTest} from '../../src/main';
-import {TestSupport, isInBazel, setup} from '../test_support';
+import {createCompilerHost, createProgram} from '../../ngtools2';
+import {main, mainDiagnosticsForTest, readNgcCommandLineAndConfiguration} from '../../src/main';
+import {LazyRoute} from '../../src/ngtsc/routing';
+import {resolveNpmTreeArtifact} from '../runfile_helpers';
+import {TestSupport, setup} from '../test_support';
 
 function setupFakeCore(support: TestSupport): void {
   if (!process.env.TEST_SRCDIR) {
     throw new Error('`setupFakeCore` must be run within a Bazel test');
   }
-  const fakeCore = path.join(
-      process.env.TEST_SRCDIR, 'angular/packages/compiler-cli/test/ngtsc/fake_core/npm_package');
+
+  const fakeNpmPackageDir =
+      resolveNpmTreeArtifact('angular/packages/compiler-cli/test/ngtsc/fake_core/npm_package');
 
   const nodeModulesPath = path.join(support.basePath, 'node_modules');
   const angularCoreDirectory = path.join(nodeModulesPath, '@angular/core');
 
-  fs.symlinkSync(fakeCore, angularCoreDirectory);
+  fs.symlinkSync(fakeNpmPackageDir, angularCoreDirectory, 'dir');
 }
 
 /**
@@ -39,10 +44,6 @@ export class NgtscTestEnvironment {
    * Set up a new testing environment.
    */
   static setup(): NgtscTestEnvironment {
-    if (!NgtscTestEnvironment.supported) {
-      throw new Error(`Attempting to setup ngtsc tests in an unsupported environment`);
-    }
-
     const support = setup();
     const outDir = path.join(support.basePath, 'built');
     process.chdir(support.basePath);
@@ -62,6 +63,7 @@ export class NgtscTestEnvironment {
         "baseUrl": ".",
         "declaration": true,
         "target": "es5",
+        "newLine": "lf",
         "module": "es2015",
         "moduleResolution": "node",
         "lib": ["es6", "dom"],
@@ -111,9 +113,9 @@ export class NgtscTestEnvironment {
   /**
    * Run the compiler to completion, and assert that no errors occurred.
    */
-  driveMain(): void {
+  driveMain(customTransformers?: CustomTransformers): void {
     const errorSpy = jasmine.createSpy('consoleError').and.callFake(console.error);
-    const exitCode = main(['-p', this.basePath], errorSpy);
+    const exitCode = main(['-p', this.basePath], errorSpy, undefined, customTransformers);
     expect(errorSpy).not.toHaveBeenCalled();
     expect(exitCode).toBe(0);
   }
@@ -126,5 +128,10 @@ export class NgtscTestEnvironment {
     return mainDiagnosticsForTest(['-p', this.basePath]) as ReadonlyArray<ts.Diagnostic>;
   }
 
-  static get supported(): boolean { return isInBazel(); }
+  driveRoutes(entryPoint?: string): LazyRoute[] {
+    const {rootNames, options} = readNgcCommandLineAndConfiguration(['-p', this.basePath]);
+    const host = createCompilerHost({options});
+    const program = createProgram({rootNames, host, options});
+    return program.listLazyRoutes(entryPoint);
+  }
 }

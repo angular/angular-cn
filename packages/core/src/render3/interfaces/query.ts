@@ -6,9 +6,11 @@
  * found in the LICENSE file at https://angular.io/license
  */
 
+import {Type} from '../../interface/type';
 import {QueryList} from '../../linker';
-import {Type} from '../../type';
+
 import {TContainerNode, TElementContainerNode, TElementNode, TNode} from './node';
+
 
 /** Used for tracking queries (e.g. ViewChild, ContentChild). */
 export interface LQueries {
@@ -33,7 +35,7 @@ export interface LQueries {
    * Notify `LQueries` that a new `TNode` has been created and needs to be added to query results
    * if matching query predicate.
    */
-  addNode(tNode: TElementNode|TContainerNode|TElementContainerNode): LQueries|null;
+  addNode(tNode: TElementNode|TContainerNode|TElementContainerNode): void;
 
   /**
    * Notify `LQueries` that a new LContainer was added to ivy data structures. As a result we need

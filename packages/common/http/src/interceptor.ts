@@ -14,48 +14,59 @@ import {HttpRequest} from './request';
 import {HttpEvent} from './response';
 
 /**
- * Intercepts `HttpRequest` and handles them.
+ * Intercepts `HttpRequest` or `HttpResponse` and handles them.
  *
  * 拦截 `HttpRequest` 并处理它们。
  *
- * Most interceptors will transform the outgoing request before passing it to the
+ * Most interceptors transform the outgoing request before passing it to the
  * next interceptor in the chain, by calling `next.handle(transformedReq)`.
+ * An interceptor may transform the
+ * response event stream as well, by applying additional RxJS operators on the stream
+ * returned by `next.handle()`.
  *
  * 大多数拦截器都会在外发的请求由 `next.handle(transformedReq)` 发给拦截器链中的下一个拦截器之前，对该请求进行转换。
+ * 拦截器还可以通过为 `next.handle()` 返回的流添加额外的 RxJS 操作符，来对响应事件流进行转换。
  *
- * In rare cases, interceptors may wish to completely handle a request themselves,
- * and not delegate to the remainder of the chain. This behavior is allowed.
+ * More rarely, an interceptor may handle the request entirely,
+ * and compose a new event stream instead of invoking `next.handle()`. This is an
+ * acceptable behavior, but keep in mind that further interceptors will be skipped entirely.
  *
- * 极少量情况下，拦截器也可能希望自己完全处理一个请求，而不再委托给拦截器链中的其它部分。这种行为也是允许的。
+ * 极少数情况下，拦截器也可以自己完全处理一个请求，并且组合出新的事件流来而不必调用 `next.handle()`。
+ * 这也是允许的，不过要时刻记住，这将会完全跳过所有后继拦截器。
+ *
+ * It is also rare but valid for an interceptor to return multiple responses on the
+ * event stream for a single request.
+ *
+ * 另一种同样罕见但是有用的拦截器，会为单个请求在事件流上给出多个响应对象。
  *
  * @publicApi
+ *
+ * @see [HTTP Guide](guide/http#intercepting-requests-and-responses)
+ *
+ * [HTTP 一章](guide/http#intercepting-requests-and-responses)
+ *
+ * @usageNotes
+ *
+ * To use the same instance of `HttpInterceptors` for the entire app, import the `HttpClientModule`
+ * only in your `AppModule`, and add the interceptors to the root application injector .
+ * If you import `HttpClientModule` multiple times across different modules (for example, in lazy
+ * loading modules), each import creates a new copy of the `HttpClientModule`, which overwrites the interceptors
+ * provided in the root module.
+ *
+ * 要想在整个应用中使用 `HttpInterceptors` 的同一个实例，就只能在 `AppModule` 模块中导入 `HttpClientModule`，并且把拦截器都添加到应用的根注入器中。
+ * 如果你在不同的模块中多次导入 `HttpClientModule`，则每次导入都会创建 `HttpClientModule` 的一个新复本，它将会覆盖根模块上提供的那些拦截器。
+ *
  */
 export interface HttpInterceptor {
   /**
-   * Intercept an outgoing `HttpRequest` and optionally transform it or the
-   * response.
+   * * **req**: The outgoing request to handle
    *
-   * 拦截外发的 `HttpRequest`，并（可选的）转换它或转换响应对象。
+   *    **req**：要处理的外发请求
    *
-   * Typically an interceptor will transform the outgoing request before returning
-   * `next.handle(transformedReq)`. An interceptor may choose to transform the
-   * response event stream as well, by applying additional Rx operators on the stream
-   * returned by `next.handle()`.
+   * * **next**: The next interceptor in the chain, or the backend if no interceptors in the chain.
    *
-   * 通常，拦截器将会在返回 `next.handle(transformedReq)` 之前转换外发请求。
-   * 选择器也可以选择通过在 `next.handle()` 返回的流上应用 Rx 操作符（operator）来转换响应事件流。
+   *    **next**：拦截器链中的下一个拦截器，如果链中没有其它拦截器了，则为后端 HTTP 调用。
    *
-   * More rarely, an interceptor may choose to completely handle the request itself,
-   * and compose a new event stream instead of invoking `next.handle()`. This is
-   * acceptable behavior, but keep in mind further interceptors will be skipped entirely.
-   *
-   * 更罕见的情况下，拦截器可以选择完全由自己处理该请求，并合成新的事件流而不是调用 `next.handle()`。
-   * 这种方式也是可以接受的，不过要记住这样做会完全忽略所有的后续拦截器。
-   *
-   * It is also rare but valid for an interceptor to return multiple responses on the
-   * event stream for a single request.
-   *
-   * 另一种同样罕见但是有用的拦截器，会为单个请求在事件流上给出多个响应对象。
    */
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>>;
 }

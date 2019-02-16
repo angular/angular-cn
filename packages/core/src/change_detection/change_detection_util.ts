@@ -6,7 +6,8 @@
  * found in the LICENSE file at https://angular.io/license
  */
 
-import {getSymbolIterator, looseIdentical} from '../util';
+import {looseIdentical} from '../util/comparison';
+import {getSymbolIterator} from '../util/symbol';
 
 export function devModeEqual(a: any, b: any): boolean {
   const isListLikeIterableA = isListLikeIterable(a);
@@ -78,24 +79,6 @@ export class WrappedValue {
    * 如果 `value` 是包装过的值，则返回 `true`。
    */
   static isWrapped(value: any): value is WrappedValue { return value instanceof WrappedValue; }
-}
-
-/**
- * Represents a basic change from a previous to a new value.
- *
- * 表示从旧值到新值的一次变更。
- *
- * @publicApi
- */
-export class SimpleChange {
-  constructor(public previousValue: any, public currentValue: any, public firstChange: boolean) {}
-
-  /**
-   * Check whether the new value is the first value assigned.
-   *
-   * 检查该新值是否从首次赋值得来的。
-   */
-  isFirstChange(): boolean { return this.firstChange; }
 }
 
 export function isListLikeIterable(obj: any): boolean {

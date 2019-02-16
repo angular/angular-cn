@@ -12,7 +12,7 @@ import {clean} from './index';
 
 describe('Bazel-workspace Schematic', () => {
   const schematicRunner =
-      new SchematicTestRunner('@angular/bazel', require.resolve('../collection.json'), );
+      new SchematicTestRunner('@angular/bazel', require.resolve('../collection.json'));
   const defaultOptions = {
     name: 'demo',
   };
@@ -21,51 +21,89 @@ describe('Bazel-workspace Schematic', () => {
     const options = {...defaultOptions};
     const host = schematicRunner.runSchematic('bazel-workspace', options);
     const files = host.files;
-    expect(files).toContain('/demo/.bazelignore');
-    expect(files).toContain('/demo/.bazelrc');
-    expect(files).toContain('/demo/BUILD.bazel');
-    expect(files).toContain('/demo/src/BUILD.bazel');
-    expect(files).toContain('/demo/WORKSPACE');
-    expect(files).toContain('/demo/yarn.lock');
+    expect(files).toContain('/.bazelignore');
+    expect(files).toContain('/.bazelrc');
+    expect(files).toContain('/BUILD.bazel');
+    expect(files).toContain('/src/BUILD.bazel');
+    expect(files).toContain('/WORKSPACE');
+    expect(files).toContain('/yarn.lock');
   });
 
-  it('should find existing Angular version', () => {
-    let host = new UnitTestTree(new HostTree);
-    host.create('/demo/node_modules/@angular/core/package.json', JSON.stringify({
-      name: '@angular/core',
-      version: '6.6.6',
-    }));
-    const options = {...defaultOptions};
-    host = schematicRunner.runSchematic('bazel-workspace', options, host);
-    expect(host.files).toContain('/demo/WORKSPACE');
-    const workspace = host.readContent('/demo/WORKSPACE');
-    expect(workspace).toMatch('ANGULAR_VERSION = "6.6.6"');
+  it('should generate empty yarn.lock file', () => {
+    const host = schematicRunner.runSchematic('bazel-workspace', defaultOptions);
+    expect(host.files).toContain('/yarn.lock');
+    expect(host.readContent('/yarn.lock')).toBe('');
+  });
+
+  it('should not replace yarn.lock if it exists', () => {
+    let host = new UnitTestTree(new HostTree());
+    host.create('yarn.lock', 'some content');
+    expect(host.files).toContain('/yarn.lock');
+    host = schematicRunner.runSchematic('bazel-workspace', defaultOptions, host);
+    expect(host.files).toContain('/yarn.lock');
+    expect(host.readContent('/yarn.lock')).toBe('some content');
   });
 
   it('should have the correct entry_module for devserver', () => {
     const options = {...defaultOptions, name: 'demo-app'};
     const host = schematicRunner.runSchematic('bazel-workspace', options);
     const {files} = host;
-    expect(files).toContain('/demo-app/src/BUILD.bazel');
-    const content = host.readContent('/demo-app/src/BUILD.bazel');
+    expect(files).toContain('/src/BUILD.bazel');
+    const content = host.readContent('/src/BUILD.bazel');
     expect(content).toContain('entry_module = "demo_app/src/main.dev"');
+  });
+
+  it('should add router if project contains routing module', () => {
+    let host = new UnitTestTree(new HostTree);
+    host.create('/src/app/app-routing.module.ts', '');
+    expect(host.files).toContain('/src/app/app-routing.module.ts');
+    const options = {...defaultOptions};
+    host = schematicRunner.runSchematic('bazel-workspace', options, host);
+    expect(host.files).toContain('/src/BUILD.bazel');
+    const content = host.readContent('/src/BUILD.bazel');
+    expect(content).toContain('@angular//packages/router');
   });
 
   describe('WORKSPACE', () => {
     it('should contain project name', () => {
       const options = {...defaultOptions};
       const host = schematicRunner.runSchematic('bazel-workspace', options);
-      expect(host.files).toContain('/demo/WORKSPACE');
-      const content = host.readContent('/demo/WORKSPACE');
+      expect(host.files).toContain('/WORKSPACE');
+      const content = host.readContent('/WORKSPACE');
       expect(content).toContain('workspace(name = "demo")');
     });
 
     it('should convert dashes in name to underscore', () => {
       const options = {...defaultOptions, name: 'demo-project'};
       const host = schematicRunner.runSchematic('bazel-workspace', options);
-      expect(host.files).toContain('/demo-project/WORKSPACE');
-      const content = host.readContent('/demo-project/WORKSPACE');
+      expect(host.files).toContain('/WORKSPACE');
+      const content = host.readContent('/WORKSPACE');
       expect(content).toContain('workspace(name = "demo_project"');
+    });
+  });
+
+  describe('SASS', () => {
+    let host = new UnitTestTree(new HostTree);
+    beforeAll(() => {
+      host.create('/src/app/app.component.scss', '');
+      expect(host.files).toContain('/src/app/app.component.scss');
+      const options = {...defaultOptions};
+      host = schematicRunner.runSchematic('bazel-workspace', options, host);
+      expect(host.files).toContain('/WORKSPACE');
+      expect(host.files).toContain('/src/BUILD.bazel');
+    });
+
+    it('should download and load rules_sass in WORKSPACE', () => {
+      const content = host.readContent('/WORKSPACE');
+      expect(content).toContain('RULES_SASS_VERSION');
+      expect(content).toContain(
+          'load("@io_bazel_rules_sass//sass:sass_repositories.bzl", "sass_repositories")');
+    });
+
+    it('should add multi_sass_binary rule in src/BUILD', () => {
+      const content = host.readContent('/src/BUILD.bazel');
+      expect(content).toContain('load("@io_bazel_rules_sass//:defs.bzl", "multi_sass_binary")');
+      expect(content).toContain('glob(["**/*.scss"])');
     });
   });
 });

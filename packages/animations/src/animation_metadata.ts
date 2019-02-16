@@ -979,8 +979,8 @@ export function animate(
  *
  * ```typescript
  * group([
- *   animate("1s", { background: "black" }))
- *   animate("2s", { color: "white" }))
+ *   animate("1s", style({ background: "black" })),
+ *   animate("2s", style({ color: "white" }))
  * ])
  * ```
  *
@@ -1034,7 +1034,7 @@ export function group(
  * ```typescript
  * sequence([
  *   style({ opacity: 0 })),
- *   animate("1s", { opacity: 1 }))
+ *   animate("1s", style({ opacity: 1 }))
  * ])
  * ```
  *
@@ -1603,7 +1603,7 @@ export function animation(
  * 每当 Angular 触发动画时，总是父动画优先，而子动画被阻塞。
  * 为了执行子动画，父动画必须查询每个包含子动画的元素，并使用该函数运行它们。
  *
- * Note that this feature designed to be used with `query()` and it will only work
+ * Note that this feature is designed to be used with `query()` and it will only work
  * with animations that are assigned using the Angular animation library. CSS keyframes
  * and transitions are not handled by this API.
  *

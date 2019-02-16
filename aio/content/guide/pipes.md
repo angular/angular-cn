@@ -418,7 +418,7 @@ code with checkbox switches and additional displays to help you experience these
 </figure>
 
 Replacing the array is an efficient way to signal Angular to update the display.
-When do you replace the array? When the data change.
+When do you replace the array? When the data changes.
 That's an easy rule to follow in *this* example
 where the only way to change the data is by adding a hero.
 
@@ -426,7 +426,7 @@ where the only way to change the data is by adding a hero.
 你该什么时候替换这个数组呢？当数据变化的时候。
 在这个*玩具级*例子中，这是一个简单的规则，因为这里修改数据的唯一途径就是添加新英雄。
 
-More often, you don't know when the data have changed,
+More often, you don't know when the data has changed,
 especially in applications that mutate data in many ways,
 perhaps in application locations far away.
 A component in such an application usually can't know about those changes.
@@ -627,7 +627,7 @@ If you're not careful, this pipe will punish the server with requests.
 时刻记住，非纯管道可能每隔几微秒就会被调用一次。
 如果你不小心点，这个管道就会发起一大堆请求“攻击”服务器。
 
-In the following code, the pipe only calls the server when the request URL changes and it caches the server response.
+In the following code, the pipe only calls the server when the requested URL changes and it caches the server response.
 The code uses the [Angular http](guide/http) client to retrieve data:
 
 下面这个管道只有当所请求的 URL 发生变化时才会向服务器发起请求。它会缓存服务器的响应。

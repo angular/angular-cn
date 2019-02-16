@@ -6,8 +6,9 @@
  * found in the LICENSE file at https://angular.io/license
  */
 
-import {Component as _Component, ComponentFactoryResolver, ElementRef, InjectFlags, Injectable as _Injectable, InjectionToken, InjectorType, Provider, RendererFactory2, ViewContainerRef, createInjector, defineInjectable, defineInjector, inject, ɵNgModuleDef as NgModuleDef} from '../../src/core';
+import {Component as _Component, ComponentFactoryResolver, ElementRef, InjectFlags, Injectable as _Injectable, InjectionToken, InjectorType, Provider, RendererFactory2, ViewContainerRef, defineInjectable, defineInjector, inject, ɵNgModuleDef as NgModuleDef} from '../../src/core';
 import {forwardRef} from '../../src/di/forward_ref';
+import {createInjector} from '../../src/di/r3_injector';
 import {getInjector} from '../../src/render3/discovery_utils';
 import {ProvidersFeature, defineComponent, defineDirective, directiveInject, injectComponentFactoryResolver} from '../../src/render3/index';
 import {bind, container, containerRefreshEnd, containerRefreshStart, element, elementEnd, elementStart, embeddedViewEnd, embeddedViewStart, interpolation1, text, textBinding} from '../../src/render3/instructions';
@@ -1188,7 +1189,11 @@ describe('providers', () => {
       static ngInjectableDef = defineInjectable({factory: () => new SomeInj(inject(String))});
     }
 
-    @Component({template: `<p></p>`, providers: [{provide: String, useValue: 'From my component'}]})
+    @Component({
+      template: `<p></p>`,
+      providers: [{provide: String, useValue: 'From my component'}],
+      viewProviders: [{provide: Number, useValue: 123}]
+    })
     class MyComponent {
       constructor() {}
 
@@ -1204,7 +1209,9 @@ describe('providers', () => {
           }
         },
         features: [
-          ProvidersFeature([{provide: String, useValue: 'From my component'}]),
+          ProvidersFeature(
+              [{provide: String, useValue: 'From my component'}],
+              [{provide: Number, useValue: 123}]),
         ],
       });
     }
@@ -1237,14 +1244,116 @@ describe('providers', () => {
       });
     }
 
-    it('should work', () => {
+    it('should work from within the template', () => {
       const fixture = new ComponentFixture(AppComponent);
       expect(fixture.html).toEqual('<my-cmp><p></p></my-cmp>');
 
       const p = fixture.hostElement.querySelector('p');
       const injector = getInjector(p as any);
+      expect(injector.get(Number)).toEqual(123);
       expect(injector.get(String)).toEqual('From my component');
       expect(injector.get(Some).location).toEqual('From app component');
+    });
+
+    it('should work from the host of the component', () => {
+      const fixture = new ComponentFixture(AppComponent);
+      expect(fixture.html).toEqual('<my-cmp><p></p></my-cmp>');
+
+      const myCmp = fixture.hostElement.querySelector('my-cmp');
+      const injector = getInjector(myCmp as any);
+      expect(injector.get(Number)).toEqual(123);
+      expect(injector.get(String)).toEqual('From my component');
+      expect(injector.get(Some).location).toEqual('From app component');
+    });
+  });
+
+  describe('lifecycles', () => {
+    it('should execute ngOnDestroy hooks on providers (and only this one)', () => {
+      const logs: string[] = [];
+
+      @Injectable()
+      class InjectableWithLifeCycleHooks {
+        ngOnChanges() { logs.push('Injectable OnChanges'); }
+        ngOnInit() { logs.push('Injectable OnInit'); }
+        ngDoCheck() { logs.push('Injectable DoCheck'); }
+        ngAfterContentInit() { logs.push('Injectable AfterContentInit'); }
+        ngAfterContentChecked() { logs.push('Injectable AfterContentChecked'); }
+        ngAfterViewInit() { logs.push('Injectable AfterViewInit'); }
+        ngAfterViewChecked() { logs.push('Injectable gAfterViewChecked'); }
+        ngOnDestroy() { logs.push('Injectable OnDestroy'); }
+      }
+
+      @Component({template: `<span></span>`, providers: [InjectableWithLifeCycleHooks]})
+      class MyComponent {
+        constructor(foo: InjectableWithLifeCycleHooks) {}
+
+        static ngComponentDef = defineComponent({
+          type: MyComponent,
+          selectors: [['my-comp']],
+          factory: () => new MyComponent(directiveInject(InjectableWithLifeCycleHooks)),
+          consts: 1,
+          vars: 0,
+          template: (rf: RenderFlags, ctx: MyComponent) => {
+            if (rf & RenderFlags.Create) {
+              element(0, 'span');
+            }
+          },
+          features: [ProvidersFeature([InjectableWithLifeCycleHooks])]
+        });
+      }
+
+      @Component({
+        template: `
+        <div>
+        % if (ctx.condition) {
+          <my-comp></my-comp>
+        % }
+        </div>
+        `,
+      })
+      class App {
+        public condition = true;
+
+        static ngComponentDef = defineComponent({
+          type: App,
+          selectors: [['app-cmp']],
+          factory: () => new App(),
+          consts: 2,
+          vars: 0,
+          template: (rf: RenderFlags, ctx: App) => {
+            if (rf & RenderFlags.Create) {
+              elementStart(0, 'div');
+              { container(1); }
+              elementEnd();
+            }
+            if (rf & RenderFlags.Update) {
+              containerRefreshStart(1);
+              {
+                if (ctx.condition) {
+                  let rf1 = embeddedViewStart(1, 2, 1);
+                  {
+                    if (rf1 & RenderFlags.Create) {
+                      element(0, 'my-comp');
+                    }
+                  }
+                  embeddedViewEnd();
+                }
+              }
+              containerRefreshEnd();
+            }
+          },
+          directives: [MyComponent]
+        });
+      }
+
+      const fixture = new ComponentFixture(App);
+      fixture.update();
+      expect(fixture.html).toEqual('<div><my-comp><span></span></my-comp></div>');
+
+      fixture.component.condition = false;
+      fixture.update();
+      expect(fixture.html).toEqual('<div></div>');
+      expect(logs).toEqual(['Injectable OnDestroy']);
     });
   });
 });

@@ -103,7 +103,7 @@ the `test.ts` files in the `src/` folder.
 不过你也可以通过编辑 `src/` 目录下的 `karma.conf.js` 和 `test.ts` 文件来微调很多选项。
 
 The `karma.conf.js` file is a partial karma configuration file.
-The CLI constructs the full runtime configuration in memory,based on application structure specified in the `angular.json` file, supplemented by `karma.conf.js`.
+The CLI constructs the full runtime configuration in memory, based on application structure specified in the `angular.json` file, supplemented by `karma.conf.js`.
 
 `karma.conf.js` 文件是 karma 配置文件的一部分。
 CLI 会基于 `angular.json` 文件中指定的项目结构和 `karma.conf.js` 文件，来在内存中构建出完整的运行时配置。
@@ -171,7 +171,7 @@ Continuous integration (CI) servers let you set up your project repository so th
 There are paid CI services like Circle CI and Travis CI, and you can also host your own for free using Jenkins and others. 
 Although Circle CI and Travis CI are paid services, they are provided free for open source projects. 
 You can create a public project on GitHub and add these services without paying. 
-Contributions to the Angular repo are automatically run through a whole suite of Circle CI and Travis CI tests.
+Contributions to the Angular repo are automatically run through a whole suite of Circle CI tests.
 
 已经有一些像 Circle CI 和 Travis CI 这样的付费 CI 服务器，你还可以使用 Jenkins 或其它软件来搭建你自己的免费 CI 服务器。
 虽然 Circle CI 和 Travis CI 是收费服务，但是它们也会为开源项目提供免费服务。
@@ -3334,7 +3334,7 @@ The URL bound to the `[routerLink]` attribute flows in to the directive's `linkP
 
 这个 URL 被绑定到了 `[routerLink]` 属性，它的值流入了该指令的 `linkParams` 属性。
 
-The `host` metadata property wires the click event of the host element
+The `HostListener` wires the click event of the host element
 (the `<a>` anchor elements in `AppComponent`) to the stub directive's `onClick` method.
 
 它的元数据中的 `host` 属性把宿主元素（即 `AppComponent` 中的 `<a>` 元素）的 `click` 事件关联到了这个桩指令的 `onClick` 方法。
@@ -3626,7 +3626,7 @@ So when you call `createComponent()`, the `TestBed` compiles implicitly.
 
 That's not a problem when the source code is in memory.
 But the `BannerComponent` requires external files
-that the compile must read from the file system,
+that the compiler must read from the file system,
 an inherently _asynchronous_ operation.
 
 当它的源码都在内存中的时候，这样做没问题。
@@ -4026,10 +4026,10 @@ The [override metadata object](#metadata-override-object) is a generic defined a
 [用于改写的元数据对象](#metadata-override-object)是一个泛型，其定义如下：
 
 <code-example format="." language="javascript">
-  type MetadataOverride<T> = {
-    add?: Partial<T>;
-    remove?: Partial<T>;
-    set?: Partial<T>;
+  type MetadataOverride&lt;T&gt; = {
+    add?: Partial&lt;T&gt;;
+    remove?: Partial&lt;T&gt;;
+    set?: Partial&lt;T&gt;;
   };
 </code-example>
 
@@ -4591,10 +4591,10 @@ appropriate to the method, that is, the parameter of an `@NgModule`,
 每一个重载方法接受一个 `MetadataOverride<T>`，这里 `T` 是适合这个方法的元数据类型，也就是 `@NgModule`、`@Component`、`@Directive` 或者 `@Pipe` 的参数。
 
 <code-example format="." language="javascript">
-  type MetadataOverride<T> = {
-    add?: Partial<T>;
-    remove?: Partial<T>;
-    set?: Partial<T>;
+  type MetadataOverride&lt;T&gt; = {
+    add?: Partial&lt;T&gt;;
+    remove?: Partial&lt;T&gt;;
+    set?: Partial&lt;T&gt;;
   };
 </code-example>
 

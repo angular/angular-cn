@@ -21,21 +21,15 @@ import {Schema as BazelWorkspaceOptions} from './schema';
  * Look for package.json file for package with `packageName` in node_modules and
  * extract its version.
  */
-function findVersion(projectName: string, packageName: string, host: Tree): string|null {
-  // Need to look in multiple locations because we could be working in a subtree.
-  const candidates = [
-    `node_modules/${packageName}/package.json`,
-    `${projectName}/node_modules/${packageName}/package.json`,
-  ];
-  for (const candidate of candidates) {
-    if (host.exists(candidate)) {
-      try {
-        const packageJson = JSON.parse(host.read(candidate).toString());
-        if (packageJson.name === packageName && packageJson.version) {
-          return packageJson.version;
-        }
-      } catch {
+function findVersion(packageName: string, host: Tree): string|null {
+  const candidate = `node_modules/${packageName}/package.json`;
+  if (host.exists(candidate)) {
+    try {
+      const packageJson = JSON.parse(host.read(candidate).toString());
+      if (packageJson.name === packageName && packageJson.version) {
+        return packageJson.version;
       }
+    } catch {
     }
   }
   return null;
@@ -51,25 +45,38 @@ export function clean(version: string): string|null {
   return matches && matches.pop() || null;
 }
 
+/**
+ * Returns true if project contains routing module, false otherwise.
+ */
+function hasRoutingModule(host: Tree) {
+  let hasRouting = false;
+  host.visit((file: string) => { hasRouting = hasRouting || file.endsWith('-routing.module.ts'); });
+  return hasRouting;
+}
+
+/**
+ * Returns true if project uses SASS stylesheets, false otherwise.
+ */
+function hasSassStylesheet(host: Tree) {
+  let hasSass = false;
+  // The proper extension for SASS is .scss
+  host.visit((file: string) => { hasSass = hasSass || file.endsWith('.scss'); });
+  return hasSass;
+}
+
 export default function(options: BazelWorkspaceOptions): Rule {
   return (host: Tree, context: SchematicContext) => {
-    if (!options.name) {
-      throw new SchematicsException(`Invalid options, "name" is required.`);
+    const name = options.name || getWorkspace(host).defaultProject;
+    if (!name) {
+      throw new Error('Please provide a name for Bazel workspace');
     }
-    validateProjectName(options.name);
-    let newProjectRoot = '';
-    try {
-      const workspace = getWorkspace(host);
-      newProjectRoot = workspace.newProjectRoot || '';
-    } catch {
-    }
-    const appDir = `${newProjectRoot}/${options.name}`;
+    validateProjectName(name);
 
     // If the project already has some deps installed, Bazel should use existing
     // versions.
     const existingVersions = {
-      Angular: findVersion(options.name, '@angular/core', host),
-      RxJs: findVersion(options.name, 'rxjs', host),
+      Angular: findVersion('@angular/core', host),
+      RxJs: findVersion('rxjs', host),
     };
 
     Object.keys(existingVersions).forEach((name: 'Angular' | 'RxJs') => {
@@ -79,20 +86,27 @@ export default function(options: BazelWorkspaceOptions): Rule {
       }
     });
 
+    if (!host.exists('yarn.lock')) {
+      host.create('yarn.lock', '');
+    }
+
     const workspaceVersions = {
+      'RULES_NODEJS_VERSION': '0.18.6',
+      'RULES_NODEJS_SHA256': '1416d03823fed624b49a0abbd9979f7c63bbedfd37890ddecedd2fe25cccebc6',
       'ANGULAR_VERSION': existingVersions.Angular || clean(latestVersions.Angular),
       'RXJS_VERSION': existingVersions.RxJs || clean(latestVersions.RxJs),
       // TODO(kyliau): Consider moving this to latest-versions.ts
-      'RULES_SASS_VERSION': '1.15.1',
+      'RULES_SASS_VERSION': '1.17.0',
     };
 
     return mergeWith(apply(url('./files'), [
       applyTemplates({
         utils: strings,
-        ...options,
+        name,
         'dot': '.', ...workspaceVersions,
+        routing: hasRoutingModule(host),
+        sass: hasSassStylesheet(host),
       }),
-      move(appDir),
     ]));
   };
 }

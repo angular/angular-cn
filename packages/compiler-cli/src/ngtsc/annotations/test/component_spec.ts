@@ -8,20 +8,26 @@
 
 import * as ts from 'typescript';
 
+import {CycleAnalyzer, ImportGraph} from '../../cycles';
 import {ErrorCode, FatalDiagnosticError} from '../../diagnostics';
-import {TypeScriptReflectionHost} from '../../metadata';
+import {ModuleResolver, ReferenceEmitter} from '../../imports';
+import {PartialEvaluator} from '../../partial_evaluator';
+import {TypeScriptReflectionHost} from '../../reflection';
 import {getDeclaration, makeProgram} from '../../testing/in_memory_typescript';
 import {ResourceLoader} from '../src/api';
 import {ComponentDecoratorHandler} from '../src/component';
 import {SelectorScopeRegistry} from '../src/selector_scope';
 
 export class NoopResourceLoader implements ResourceLoader {
-  load(url: string): string { throw new Error('Not implemented'); }
+  resolve(): string { throw new Error('Not implemented.'); }
+  canPreload = false;
+  load(): string { throw new Error('Not implemented'); }
+  preload(): Promise<void>|undefined { throw new Error('Not implemented'); }
 }
 
 describe('ComponentDecoratorHandler', () => {
   it('should produce a diagnostic when @Component has non-literal argument', () => {
-    const {program} = makeProgram([
+    const {program, options, host} = makeProgram([
       {
         name: 'node_modules/@angular/core/index.d.ts',
         contents: 'export const Component: any;',
@@ -37,17 +43,23 @@ describe('ComponentDecoratorHandler', () => {
       },
     ]);
     const checker = program.getTypeChecker();
-    const host = new TypeScriptReflectionHost(checker);
+    const reflectionHost = new TypeScriptReflectionHost(checker);
+    const evaluator = new PartialEvaluator(reflectionHost, checker);
+    const moduleResolver = new ModuleResolver(program, options, host);
+    const importGraph = new ImportGraph(moduleResolver);
+    const cycleAnalyzer = new CycleAnalyzer(importGraph);
+
     const handler = new ComponentDecoratorHandler(
-        checker, host, new SelectorScopeRegistry(checker, host), false, new NoopResourceLoader(),
-        [''], false, true);
+        reflectionHost, evaluator,
+        new SelectorScopeRegistry(checker, reflectionHost, new ReferenceEmitter([])), false,
+        new NoopResourceLoader(), [''], false, true, moduleResolver, cycleAnalyzer);
     const TestCmp = getDeclaration(program, 'entry.ts', 'TestCmp', ts.isClassDeclaration);
-    const detected = handler.detect(TestCmp, host.getDecoratorsOfDeclaration(TestCmp));
+    const detected = handler.detect(TestCmp, reflectionHost.getDecoratorsOfDeclaration(TestCmp));
     if (detected === undefined) {
       return fail('Failed to recognize @Component');
     }
     try {
-      handler.analyze(TestCmp, detected);
+      handler.analyze(TestCmp, detected.metadata);
       return fail('Analysis should have failed');
     } catch (err) {
       if (!(err instanceof FatalDiagnosticError)) {
@@ -56,7 +68,7 @@ describe('ComponentDecoratorHandler', () => {
       const diag = err.toDiagnostic();
       expect(diag.code).toEqual(ivyCode(ErrorCode.DECORATOR_ARG_NOT_LITERAL));
       expect(diag.file.fileName.endsWith('entry.ts')).toBe(true);
-      expect(diag.start).toBe(detected.args ![0].getStart());
+      expect(diag.start).toBe(detected.metadata.args ![0].getStart());
     }
   });
 });

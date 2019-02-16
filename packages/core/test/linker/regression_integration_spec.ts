@@ -6,13 +6,13 @@
  * found in the LICENSE file at https://angular.io/license
  */
 
-import {ANALYZE_FOR_ENTRY_COMPONENTS, ApplicationRef, Component, ComponentRef, ContentChild, Directive, ErrorHandler, EventEmitter, HostListener, InjectionToken, Injector, Input, NgModule, NgModuleRef, NgZone, Output, Pipe, PipeTransform, Provider, QueryList, Renderer2, SimpleChanges, TemplateRef, ViewChildren, ViewContainerRef, destroyPlatform, ɵivyEnabled as ivyEnabled} from '@angular/core';
+import {ANALYZE_FOR_ENTRY_COMPONENTS, ApplicationRef, Component, ComponentRef, ContentChild, Directive, ErrorHandler, EventEmitter, HostListener, InjectionToken, Injector, Input, NgModule, NgModuleRef, NgZone, Output, Pipe, PipeTransform, Provider, QueryList, Renderer2, SimpleChanges, TemplateRef, ViewChild, ViewChildren, ViewContainerRef, destroyPlatform, ɵivyEnabled as ivyEnabled} from '@angular/core';
 import {TestBed, fakeAsync, inject, tick} from '@angular/core/testing';
 import {BrowserModule, By, DOCUMENT} from '@angular/platform-browser';
 import {platformBrowserDynamic} from '@angular/platform-browser-dynamic';
 import {getDOM} from '@angular/platform-browser/src/dom/dom_adapter';
 import {expect} from '@angular/platform-browser/testing/src/matchers';
-import {fixmeIvy, modifiedInIvy} from '@angular/private/testing';
+import {fixmeIvy, modifiedInIvy, onlyInIvy} from '@angular/private/testing';
 
 if (ivyEnabled) {
   describe('ivy', () => { declareTests(); });
@@ -32,16 +32,15 @@ function declareTests(config?: {useJit: boolean}) {
     describe('platform pipes', () => {
       beforeEach(() => { TestBed.configureCompiler({...config}); });
 
-      fixmeIvy('FW-798: Handle pipes with duplicate names')
-          .it('should overwrite them by custom pipes', () => {
-            TestBed.configureTestingModule({declarations: [CustomPipe]});
-            const template = '{{true | somePipe}}';
-            TestBed.overrideComponent(MyComp1, {set: {template}});
-            const fixture = TestBed.createComponent(MyComp1);
+      it('should overwrite them by custom pipes', () => {
+        TestBed.configureTestingModule({declarations: [CustomPipe]});
+        const template = '{{true | somePipe}}';
+        TestBed.overrideComponent(MyComp1, {set: {template}});
+        const fixture = TestBed.createComponent(MyComp1);
 
-            fixture.detectChanges();
-            expect(fixture.nativeElement).toHaveText('someCustomPipe');
-          });
+        fixture.detectChanges();
+        expect(fixture.nativeElement).toHaveText('someCustomPipe');
+      });
     });
 
     describe('expressions', () => {
@@ -318,6 +317,13 @@ function declareTests(config?: {useJit: boolean}) {
       expect(ctx.componentInstance.viewContainers.first).toBe(vc);
     });
 
+    it('should not throw when encountering an empty class attribute', () => {
+      const template = '<div class=""></div>';
+      TestBed.overrideComponent(MyComp1, {set: {template}});
+
+      expect(() => TestBed.createComponent(MyComp1)).not.toThrow();
+    });
+
     describe('empty templates - #15143', () => {
       it('should allow empty components', () => {
         @Component({template: ''})
@@ -349,7 +355,7 @@ function declareTests(config?: {useJit: boolean}) {
           });
     });
 
-    fixmeIvy('FW-797: @ContentChildren results are assigned after @Input bindings')
+    modifiedInIvy('Static ViewChild and ContentChild queries are resolved in update mode')
         .it('should support @ContentChild and @Input on the same property for static queries',
             () => {
               @Directive({selector: 'test'})
@@ -380,6 +386,22 @@ function declareTests(config?: {useJit: boolean}) {
               expect(testDirs[1].tpl).toBeDefined();
               expect(testDirs[2].tpl).toBeDefined();
             });
+
+    onlyInIvy('Ivy does not support @ContentChild and @Input on the same property')
+        .it('should throw if @ContentChild and @Input are on the same property', () => {
+          @Directive({selector: 'test'})
+          class Test {
+            @Input() @ContentChild(TemplateRef) tpl !: TemplateRef<any>;
+          }
+
+          @Component({selector: 'my-app', template: `<test></test>`})
+          class App {
+          }
+
+          expect(() => {
+            TestBed.configureTestingModule({declarations: [App, Test]}).createComponent(App);
+          }).toThrowError(/Cannot combine @Input decorators with query decorators/);
+        });
 
     it('should not add ng-version for dynamically created components', () => {
       @Component({template: ''})
@@ -428,84 +450,97 @@ function declareTestsUsingBootstrap() {
     if (getDOM().supportsDOMEvents()) {
       // This test needs a real DOM....
 
-      fixmeIvy('FW-840: Exceptions thrown in event handlers are not reported to ErrorHandler')
-          .it('should keep change detecting if there was an error', (done) => {
-            @Component({
-              selector: COMP_SELECTOR,
-              template:
-                  '<button (click)="next()"></button><button (click)="nextAndThrow()"></button><button (dirClick)="nextAndThrow()"></button><span>Value:{{value}}</span><span>{{throwIfNeeded()}}</span>'
-            })
-            class ErrorComp {
-              value = 0;
-              thrownValue = 0;
-              next() { this.value++; }
-              nextAndThrow() {
-                this.value++;
-                this.throwIfNeeded();
-              }
-              throwIfNeeded() {
-                NgZone.assertInAngularZone();
-                if (this.thrownValue !== this.value) {
-                  this.thrownValue = this.value;
-                  throw new Error(`Error: ${this.value}`);
-                }
-              }
+      it('should keep change detecting if there was an error', (done) => {
+        @Component({
+          selector: COMP_SELECTOR,
+          template:
+              '<button (click)="next()"></button><button (click)="nextAndThrow()"></button><button (dirClick)="nextAndThrow()"></button><span>Value:{{value}}</span><span>{{throwIfNeeded()}}</span>'
+        })
+        class ErrorComp {
+          value = 0;
+          thrownValue = 0;
+          next() { this.value++; }
+          nextAndThrow() {
+            this.value++;
+            this.throwIfNeeded();
+          }
+          throwIfNeeded() {
+            NgZone.assertInAngularZone();
+            if (this.thrownValue !== this.value) {
+              this.thrownValue = this.value;
+              throw new Error(`Error: ${this.value}`);
             }
+          }
+        }
 
-            @Directive({selector: '[dirClick]'})
-            class EventDir {
-              @Output()
-              dirClick = new EventEmitter();
+        @Directive({selector: '[dirClick]'})
+        class EventDir {
+          @Output()
+          dirClick = new EventEmitter();
 
-              @HostListener('click', ['$event'])
-              onClick(event: any) { this.dirClick.next(event); }
-            }
+          @HostListener('click', ['$event'])
+          onClick(event: any) { this.dirClick.next(event); }
+        }
 
-            @NgModule({
-              imports: [BrowserModule],
-              declarations: [ErrorComp, EventDir],
-              bootstrap: [ErrorComp],
-              providers: [{provide: ErrorHandler, useValue: errorHandler}],
-            })
-            class TestModule {
-            }
+        @NgModule({
+          imports: [BrowserModule],
+          declarations: [ErrorComp, EventDir],
+          bootstrap: [ErrorComp],
+          providers: [{provide: ErrorHandler, useValue: errorHandler}],
+        })
+        class TestModule {
+        }
 
-            platformBrowserDynamic().bootstrapModule(TestModule).then((ref) => {
-              NgZone.assertNotInAngularZone();
-              const appRef = ref.injector.get(ApplicationRef) as ApplicationRef;
-              const compRef = appRef.components[0] as ComponentRef<ErrorComp>;
-              const compEl = compRef.location.nativeElement;
-              const nextBtn = compEl.children[0];
-              const nextAndThrowBtn = compEl.children[1];
-              const nextAndThrowDirBtn = compEl.children[2];
+        platformBrowserDynamic().bootstrapModule(TestModule).then((ref) => {
+          NgZone.assertNotInAngularZone();
+          const appRef = ref.injector.get(ApplicationRef) as ApplicationRef;
+          const compRef = appRef.components[0] as ComponentRef<ErrorComp>;
+          const compEl = compRef.location.nativeElement;
+          const nextBtn = compEl.children[0];
+          const nextAndThrowBtn = compEl.children[1];
+          const nextAndThrowDirBtn = compEl.children[2];
 
-              nextBtn.click();
-              assertValueAndErrors(compEl, 1, 0);
-              nextBtn.click();
-              assertValueAndErrors(compEl, 2, 2);
+          // Note: the amount of events sent to the logger will differ between ViewEngine
+          // and Ivy, because Ivy doesn't attach an error context. This means that the amount
+          // of logged errors increases by 1 for Ivy and 2 for ViewEngine after each event.
+          const errorDelta = ivyEnabled ? 1 : 2;
+          let currentErrorIndex = 0;
 
-              nextAndThrowBtn.click();
-              assertValueAndErrors(compEl, 3, 4);
-              nextAndThrowBtn.click();
-              assertValueAndErrors(compEl, 4, 6);
+          nextBtn.click();
+          assertValueAndErrors(compEl, 1, currentErrorIndex);
+          currentErrorIndex += errorDelta;
+          nextBtn.click();
+          assertValueAndErrors(compEl, 2, currentErrorIndex);
+          currentErrorIndex += errorDelta;
 
-              nextAndThrowDirBtn.click();
-              assertValueAndErrors(compEl, 5, 8);
-              nextAndThrowDirBtn.click();
-              assertValueAndErrors(compEl, 6, 10);
+          nextAndThrowBtn.click();
+          assertValueAndErrors(compEl, 3, currentErrorIndex);
+          currentErrorIndex += errorDelta;
+          nextAndThrowBtn.click();
+          assertValueAndErrors(compEl, 4, currentErrorIndex);
+          currentErrorIndex += errorDelta;
 
-              // Assert that there were no more errors
-              expect(logger.errors.length).toBe(12);
-              done();
-            });
+          nextAndThrowDirBtn.click();
+          assertValueAndErrors(compEl, 5, currentErrorIndex);
+          currentErrorIndex += errorDelta;
+          nextAndThrowDirBtn.click();
+          assertValueAndErrors(compEl, 6, currentErrorIndex);
+          currentErrorIndex += errorDelta;
 
-            function assertValueAndErrors(compEl: any, value: number, errorIndex: number) {
-              expect(compEl).toHaveText(`Value:${value}`);
-              expect(logger.errors[errorIndex][0]).toBe('ERROR');
-              expect(logger.errors[errorIndex][1].message).toBe(`Error: ${value}`);
-              expect(logger.errors[errorIndex + 1][0]).toBe('ERROR CONTEXT');
-            }
-          });
+          // Assert that there were no more errors
+          expect(logger.errors.length).toBe(currentErrorIndex);
+          done();
+        });
+
+        function assertValueAndErrors(compEl: any, value: number, errorIndex: number) {
+          expect(compEl).toHaveText(`Value:${value}`);
+          expect(logger.errors[errorIndex][0]).toBe('ERROR');
+          expect(logger.errors[errorIndex][1].message).toBe(`Error: ${value}`);
+
+          // Ivy doesn't attach an error context.
+          !ivyEnabled && expect(logger.errors[errorIndex + 1][0]).toBe('ERROR CONTEXT');
+        }
+      });
     }
   });
 }

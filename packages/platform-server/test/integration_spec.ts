@@ -17,7 +17,7 @@ import {MockBackend, MockConnection} from '@angular/http/testing';
 import {BrowserModule, DOCUMENT, Title, TransferState, makeStateKey} from '@angular/platform-browser';
 import {getDOM} from '@angular/platform-browser/src/dom/dom_adapter';
 import {BEFORE_APP_SERIALIZED, INITIAL_CONFIG, PlatformState, ServerModule, ServerTransferStateModule, platformDynamicServer, renderModule, renderModuleFactory} from '@angular/platform-server';
-import {fixmeIvy, ivyEnabled} from '@angular/private/testing';
+import {fixmeIvy, ivyEnabled, modifiedInIvy} from '@angular/private/testing';
 import {Observable} from 'rxjs';
 import {first} from 'rxjs/operators';
 
@@ -99,7 +99,7 @@ class TitleApp {
 class TitleAppModule {
 }
 
-@Component({selector: 'app', template: '{{text}}<h1 [innerText]="h1"></h1>'})
+@Component({selector: 'app', template: '{{text}}<h1 [textContent]="h1"></h1>'})
 class MyAsyncServerApp {
   text = '';
   h1 = '';
@@ -274,6 +274,19 @@ class MyHostComponent {
   imports: [ServerModule, BrowserModule.withServerTransition({appId: 'false-attributes'})]
 })
 class FalseAttributesModule {
+}
+
+@Component({selector: 'app', template: '<div [innerText]="foo"></div>'})
+class InnerTextComponent {
+  foo = 'Some text';
+}
+
+@NgModule({
+  declarations: [InnerTextComponent],
+  bootstrap: [InnerTextComponent],
+  imports: [ServerModule, BrowserModule.withServerTransition({appId: 'inner-text'})]
+})
+class InnerTextModule {
 }
 
 @Component({selector: 'app', template: '<input [name]="name">'})
@@ -528,7 +541,7 @@ class HiddenModule {
       let doc: string;
       let called: boolean;
       let expectedOutput =
-          '<html><head></head><body><app ng-version="0.0.0-PLACEHOLDER">Works!<h1 innertext="fine">fine</h1></app></body></html>';
+          '<html><head></head><body><app ng-version="0.0.0-PLACEHOLDER">Works!<h1 textcontent="fine">fine</h1></app></body></html>';
 
       beforeEach(() => {
         // PlatformConfig takes in a parsed document so that it can be cached across requests.
@@ -567,6 +580,15 @@ class HiddenModule {
            });
          }));
 
+      modifiedInIvy('Will not support binding to innerText in Ivy since domino does not')
+          .it('should support binding to innerText', async(() => {
+                renderModule(InnerTextModule, {document: doc}).then(output => {
+                  expect(output).toBe(
+                      '<html><head></head><body><app ng-version="0.0.0-PLACEHOLDER"><div innertext="Some text">Some text</div></app></body></html>');
+                  called = true;
+                });
+              }));
+
       it('using renderModuleFactory should work',
          async(inject([PlatformRef], (defaultPlatform: PlatformRef) => {
            const compilerFactory: CompilerFactory =
@@ -579,15 +601,14 @@ class HiddenModule {
            });
          })));
 
-      fixmeIvy('FW-672: SVG xlink:href is sanitized to :xlink:href (extra ":")')
-          .it('works with SVG elements', async(() => {
-                renderModule(SVGServerModule, {document: doc}).then(output => {
-                  expect(output).toBe(
-                      '<html><head></head><body><app ng-version="0.0.0-PLACEHOLDER">' +
-                      '<svg><use xlink:href="#clear"></use></svg></app></body></html>');
-                  called = true;
-                });
-              }));
+      it('works with SVG elements', async(() => {
+           renderModule(SVGServerModule, {document: doc}).then(output => {
+             expect(output).toBe(
+                 '<html><head></head><body><app ng-version="0.0.0-PLACEHOLDER">' +
+                 '<svg><use xlink:href="#clear"></use></svg></app></body></html>');
+             called = true;
+           });
+         }));
 
       it('works with animation', async(() => {
            renderModule(AnimationServerModule, {document: doc}).then(output => {
@@ -617,15 +638,14 @@ class HiddenModule {
            });
          }));
 
-      fixmeIvy('unknown').it(
-          'should handle false values on attributes', async(() => {
-            renderModule(FalseAttributesModule, {document: doc}).then(output => {
-              expect(output).toBe(
-                  '<html><head></head><body><app ng-version="0.0.0-PLACEHOLDER">' +
-                  '<my-child ng-reflect-attr="false">Works!</my-child></app></body></html>');
-              called = true;
-            });
-          }));
+      it('should handle false values on attributes', async(() => {
+           renderModule(FalseAttributesModule, {document: doc}).then(output => {
+             expect(output).toBe(
+                 '<html><head></head><body><app ng-version="0.0.0-PLACEHOLDER">' +
+                 '<my-child ng-reflect-attr="false">Works!</my-child></app></body></html>');
+             called = true;
+           });
+         }));
 
       it('should handle element property "name"', async(() => {
            renderModule(NameModule, {document: doc}).then(output => {

@@ -83,7 +83,7 @@ The following sets content sets default values for the production build target:
 
 ```
 export const environment = {
-  production: true
+  production: true,
   apiUrl: 'http://my-prod-url'
 };
 ```
@@ -346,7 +346,7 @@ Each budget entry is a JSON object with the following properties:
     <td>baseline</td>
     <td>
 
-    An absolute baseline size for percentage values. 
+    The baseline size for comparison. 
 
     一个表示基准大小的绝对值，用做比例值的基数。
 
@@ -356,7 +356,7 @@ Each budget entry is a JSON object with the following properties:
     <td>maximumWarning</td>
     <td>
 
-    Warns when a size exceeds this threshold percentage of the baseline.
+    The maximum threshold for warning relative to the baseline.
 
     当大小超过基线的这个阈值百分比时给出警告。
 
@@ -366,7 +366,7 @@ Each budget entry is a JSON object with the following properties:
     <td>maximumError</td>
     <td>
 
-    Reports an error when the size exceeds this threshold percentage of the baseline.
+    The maximum threshold for error relative to the baseline.
 
     当大小超过基线的这个阈值百分比时报错。
 
@@ -376,7 +376,7 @@ Each budget entry is a JSON object with the following properties:
     <td>minimumWarning</td>
     <td>
 
-    Warns when the size reaches this threshold percentage of the baseline.
+    The minimum threshold for warning relative to the baseline.
 
     当大小小于基线的这个阈值百分比时给出警告。
 
@@ -386,7 +386,7 @@ Each budget entry is a JSON object with the following properties:
     <td>minimumError</td>
     <td>
 
-    Reports an error when the size reaches this threshold percentage of the baseline.
+    The minimum threshold for error relative to the baseline.
 
     当大小小于基线的这个阈值百分比时报错。
 
@@ -396,7 +396,7 @@ Each budget entry is a JSON object with the following properties:
     <td>warning</td>
     <td>
 
-    Warns when the size ??reaches or exceeds?? this threshold percentage of the baseline.
+    The threshold for warning relative to the baseline (min & max).
 
     当大小达到或小于基线的这个阈值百分比时都给出警告。
 
@@ -406,7 +406,7 @@ Each budget entry is a JSON object with the following properties:
     <td>error</td>
     <td>
 
-    Reports an error when the size ??reaches or exceeds?? this threshold percentage of the baseline.
+    The threshold for error relative to the baseline (min & max).
 
     当大小达到或小于基线的这个阈值百分比时都报错。
 
@@ -429,8 +429,8 @@ CLI 使用 [Autoprefixer](https://github.com/postcss/autoprefixer) 来确保对�
 你会发现当你要从构建中针对特定的目标浏览器或排除指定的浏览器版本时，这是很有必要的。
 
 Internally, Autoprefixer relies on a library called [Browserslist](https://github.com/browserslist/browserslist) to figure out which browsers to support with prefixing. 
-Browserlist looks for configuration options in a `browserlist` property of the package configuration file, or in a configuration file named `.browserslistrc`. 
-Autoprefixer looks for the Browserlist configuration when it prefixes your CSS. 
+Browserlist looks for configuration options in a `browserslist` property of the package configuration file, or in a configuration file named `.browserslistrc`. 
+Autoprefixer looks for the `browserslist` configuration when it prefixes your CSS. 
 
 在内部 Autoprefixer 依赖一个名叫 [Browserslist](https://github.com/browserslist/browserslist) 的库来指出需要为哪些浏览器加前缀。
 Browserlist 会在 `package.json` 的 `browserlist` 属性中或一个名叫 `.browserslistrc` 的配置文件中来配置这些选项。

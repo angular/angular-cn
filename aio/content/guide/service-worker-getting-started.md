@@ -184,6 +184,16 @@ Notice that all of the files the browser needs to render this application are ca
    构建结果（JS 和 CSS 包）。
 
 * Anything under `assets`.
+* Images and fonts directly under the configured `outputPath` (by default `./dist/<project-name>/`) or `resourcesOutputPath`. See [`ng build`](cli/build) for more information about these options.
+
+
+<div class="alert is-helpful">
+Pay attention to two key points:
+
+1. The generated `ngsw-config.json` includes a limited list of cachable fonts and images extentions. In some cases, you might want to modify the glob pattern to suit your needs.
+
+1. If `resourcesOutputPath` or `assets` paths are modified after the generation of configuration file, you need to change the paths manually in `ngsw-config.json`.
+</div>
 
    `assets` 下的所有文件。
 

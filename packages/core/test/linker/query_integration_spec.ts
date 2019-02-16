@@ -7,12 +7,13 @@
  */
 
 import {AfterContentChecked, AfterContentInit, AfterViewChecked, AfterViewInit, Component, ContentChild, ContentChildren, Directive, QueryList, TemplateRef, Type, ViewChild, ViewChildren, ViewContainerRef, asNativeElements} from '@angular/core';
+import {ElementRef} from '@angular/core/src/core';
 import {ComponentFixture, TestBed, async} from '@angular/core/testing';
 import {expect} from '@angular/platform-browser/testing/src/matchers';
-import {fixmeIvy, ivyEnabled, modifiedInIvy} from '@angular/private/testing';
+import {fixmeIvy, ivyEnabled, modifiedInIvy, onlyInIvy} from '@angular/private/testing';
 import {Subject} from 'rxjs';
 
-import {stringify} from '../../src/util';
+import {stringify} from '../../src/util/stringify';
 
 describe('Query API', () => {
 
@@ -45,6 +46,7 @@ describe('Query API', () => {
       NeedsContentChildWithRead,
       NeedsViewChildrenWithRead,
       NeedsViewChildWithRead,
+      NeedsContentChildrenShallow,
       NeedsContentChildTemplateRef,
       NeedsContentChildTemplateRefApp,
       NeedsViewContainerWithRead,
@@ -53,10 +55,8 @@ describe('Query API', () => {
   }));
 
   describe('querying by directive type', () => {
-    fixmeIvy(
-        'FW-781 - Directives invocation sequence on root and nested elements is different in Ivy')
-        .it('should contain all direct child directives in the light dom (constructor)', () => {
-          const template = `
+    it('should contain all direct child directives in the light dom (constructor)', () => {
+      const template = `
             <div text="1"></div>
             <needs-query text="2">
               <div text="3">
@@ -65,10 +65,12 @@ describe('Query API', () => {
             </needs-query>
             <div text="4"></div>
           `;
-          const view = createTestCmpAndDetectChanges(MyComp0, template);
+      const view = createTestCmpAndDetectChanges(MyComp0, template);
 
-          expect(asNativeElements(view.debugElement.children)).toHaveText('2|3|');
-        });
+      // Difference in expected text in ivy comes from the fact that ivy queries don't match host
+      // nodes of a directive that defines a content query.
+      expect(asNativeElements(view.debugElement.children)).toHaveText(ivyEnabled ? '3|' : '2|3|');
+    });
 
     it('should contain all direct child directives in the content dom', () => {
       const template = '<needs-content-children #q><div text="foo"></div></needs-content-children>';
@@ -96,21 +98,19 @@ describe('Query API', () => {
       ]);
     });
 
-    fixmeIvy(
-        'FW-781 - Directives invocation sequence on root and nested elements is different in Ivy')
-        .it('should contain the first content child when target is on <ng-template> with embedded view (issue #16568)',
-            () => {
-              const template =
-                  '<div directive-needs-content-child><ng-template text="foo" [ngIf]="true"><div text="bar"></div></ng-template></div>' +
-                  '<needs-content-child #q><ng-template text="foo" [ngIf]="true"><div text="bar"></div></ng-template></needs-content-child>';
-              const view = createTestCmp(MyComp0, template);
-              view.detectChanges();
-              const q: NeedsContentChild = view.debugElement.children[1].references !['q'];
-              expect(q.child.text).toEqual('foo');
-              const directive: DirectiveNeedsContentChild =
-                  view.debugElement.children[0].injector.get(DirectiveNeedsContentChild);
-              expect(directive.child.text).toEqual('foo');
-            });
+    it('should contain the first content child when target is on <ng-template> with embedded view (issue #16568)',
+       () => {
+         const template =
+             '<div directive-needs-content-child><ng-template text="foo" [ngIf]="true"><div text="bar"></div></ng-template></div>' +
+             '<needs-content-child #q><ng-template text="foo" [ngIf]="true"><div text="bar"></div></ng-template></needs-content-child>';
+         const view = createTestCmp(MyComp0, template);
+         view.detectChanges();
+         const q: NeedsContentChild = view.debugElement.children[1].references !['q'];
+         expect(q.child.text).toEqual('foo');
+         const directive: DirectiveNeedsContentChild =
+             view.debugElement.children[0].injector.get(DirectiveNeedsContentChild);
+         expect(directive.child.text).toEqual('foo');
+       });
 
     it('should contain the first view child', () => {
       const template = '<needs-view-child #q></needs-view-child>';
@@ -168,43 +168,46 @@ describe('Query API', () => {
       expect(q.logs).toEqual([['setter', null], ['check', null]]);
     });
 
-    fixmeIvy(
-        'FW-781 - Directives invocation sequence on root and nested elements is different in Ivy')
-        .it('should contain all directives in the light dom when descendants flag is used', () => {
-          const template = '<div text="1"></div>' +
-              '<needs-query-desc text="2"><div text="3">' +
-              '<div text="4"></div>' +
-              '</div></needs-query-desc>' +
-              '<div text="5"></div>';
-          const view = createTestCmpAndDetectChanges(MyComp0, template);
+    it('should contain all directives in the light dom when descendants flag is used', () => {
+      const template = '<div text="1"></div>' +
+          '<needs-query-desc text="2"><div text="3">' +
+          '<div text="4"></div>' +
+          '</div></needs-query-desc>' +
+          '<div text="5"></div>';
+      const view = createTestCmpAndDetectChanges(MyComp0, template);
 
-          expect(asNativeElements(view.debugElement.children)).toHaveText('2|3|4|');
-        });
+      // Difference in expected text in ivy comes from the fact that ivy queries don't match host
+      // nodes of a directive that defines a content query.
+      expect(asNativeElements(view.debugElement.children))
+          .toHaveText(ivyEnabled ? '3|4|' : '2|3|4|');
+    });
 
-    fixmeIvy(
-        'FW-781 - Directives invocation sequence on root and nested elements is different in Ivy')
-        .it('should contain all directives in the light dom', () => {
-          const template = '<div text="1"></div>' +
-              '<needs-query text="2"><div text="3"></div></needs-query>' +
-              '<div text="4"></div>';
-          const view = createTestCmpAndDetectChanges(MyComp0, template);
+    it('should contain all directives in the light dom', () => {
+      const template = '<div text="1"></div>' +
+          '<needs-query text="2"><div text="3"></div></needs-query>' +
+          '<div text="4"></div>';
+      const view = createTestCmpAndDetectChanges(MyComp0, template);
 
-          expect(asNativeElements(view.debugElement.children)).toHaveText('2|3|');
-        });
+      // Difference in expected text in ivy comes from the fact that ivy queries don't match host
+      // nodes of a directive that defines a content query.
+      expect(asNativeElements(view.debugElement.children)).toHaveText(ivyEnabled ? '3|' : '2|3|');
+    });
 
-    fixmeIvy(
-        'FW-781 - Directives invocation sequence on root and nested elements is different in Ivy')
-        .it('should reflect dynamically inserted directives', () => {
-          const template = '<div text="1"></div>' +
-              '<needs-query text="2"><div *ngIf="shouldShow" [text]="\'3\'"></div></needs-query>' +
-              '<div text="4"></div>';
-          const view = createTestCmpAndDetectChanges(MyComp0, template);
-          expect(asNativeElements(view.debugElement.children)).toHaveText('2|');
+    it('should reflect dynamically inserted directives', () => {
+      const template = '<div text="1"></div>' +
+          '<needs-query text="2"><div *ngIf="shouldShow" [text]="\'3\'"></div></needs-query>' +
+          '<div text="4"></div>';
+      const view = createTestCmpAndDetectChanges(MyComp0, template);
+      // Difference in expected text in ivy comes from the fact that ivy queries don't match host
+      // nodes of a directive that defines a content query.
+      expect(asNativeElements(view.debugElement.children)).toHaveText(ivyEnabled ? '' : '2|');
 
-          view.componentInstance.shouldShow = true;
-          view.detectChanges();
-          expect(asNativeElements(view.debugElement.children)).toHaveText('2|3|');
-        });
+      view.componentInstance.shouldShow = true;
+      view.detectChanges();
+      // Difference in expected text in ivy comes from the fact that ivy queries don't match host
+      // nodes of a directive that defines a content query.
+      expect(asNativeElements(view.debugElement.children)).toHaveText(ivyEnabled ? '3|' : '2|3|');
+    });
 
     it('should be cleanly destroyed when a query crosses view boundaries', () => {
       const template = '<div text="1"></div>' +
@@ -217,19 +220,23 @@ describe('Query API', () => {
       view.destroy();
     });
 
-    fixmeIvy(
-        'FW-781 - Directives invocation sequence on root and nested elements is different in Ivy')
-        .it('should reflect moved directives', () => {
-          const template = '<div text="1"></div>' +
-              '<needs-query text="2"><div *ngFor="let  i of list" [text]="i"></div></needs-query>' +
-              '<div text="4"></div>';
-          const view = createTestCmpAndDetectChanges(MyComp0, template);
-          expect(asNativeElements(view.debugElement.children)).toHaveText('2|1d|2d|3d|');
+    it('should reflect moved directives', () => {
+      const template = '<div text="1"></div>' +
+          '<needs-query text="2"><div *ngFor="let  i of list" [text]="i"></div></needs-query>' +
+          '<div text="4"></div>';
+      const view = createTestCmpAndDetectChanges(MyComp0, template);
+      // Difference in expected text in ivy comes from the fact that ivy queries don't match host
+      // nodes of a directive that defines a content query.
+      expect(asNativeElements(view.debugElement.children))
+          .toHaveText(ivyEnabled ? '1d|2d|3d|' : '2|1d|2d|3d|');
 
-          view.componentInstance.list = ['3d', '2d'];
-          view.detectChanges();
-          expect(asNativeElements(view.debugElement.children)).toHaveText('2|3d|2d|');
-        });
+      view.componentInstance.list = ['3d', '2d'];
+      view.detectChanges();
+      // Difference in expected text in ivy comes from the fact that ivy queries don't match host
+      // nodes of a directive that defines a content query.
+      expect(asNativeElements(view.debugElement.children))
+          .toHaveText(ivyEnabled ? '3d|2d|' : '2|3d|2d|');
+    });
 
     it('should throw with descriptive error when query selectors are not present', () => {
       TestBed.configureTestingModule({declarations: [MyCompBroken0, HasNullQueryCondition]});
@@ -263,8 +270,7 @@ describe('Query API', () => {
   });
 
   describe('read a different token', () => {
-    modifiedInIvy(
-        'Breaking change in Ivy: no longer allow multiple local refs with the same name, all local refs are now unique')
+    modifiedInIvy('Host nodes no longer match in ContentChild queries in Ivy')
         .it('should contain all content children', () => {
           const template =
               '<needs-content-children-read #q text="ca"><div #q text="cb"></div></needs-content-children-read>';
@@ -297,6 +303,68 @@ describe('Query API', () => {
           view.debugElement.children[0].injector.get(NeedsContentChildWithRead);
       expect(comp.textDirChild.text).toEqual('ca');
     });
+
+    it('should contain the first descendant content child for shallow queries', () => {
+      const template = `<needs-content-children-shallow>
+                          <div #q></div>
+                        </needs-content-children-shallow>`;
+      const view = createTestCmpAndDetectChanges(MyComp0, template);
+
+      const comp = view.debugElement.children[0].injector.get(NeedsContentChildrenShallow);
+      expect(comp.children.length).toBe(1);
+    });
+
+    it('should contain the first descendant content child in an embedded template for shallow queries',
+       () => {
+         const template = `<needs-content-children-shallow>
+                          <ng-template [ngIf]="true">
+                            <div #q></div>
+                          </ng-template>                          
+                        </needs-content-children-shallow>`;
+         const view = createTestCmpAndDetectChanges(MyComp0, template);
+
+         const comp = view.debugElement.children[0].injector.get(NeedsContentChildrenShallow);
+         expect(comp.children.length).toBe(1);
+       });
+
+
+    it('should contain the first descendant content child in an embedded template for shallow queries and additional directive',
+       () => {
+         const template = `<needs-content-children-shallow>
+                          <ng-template [ngIf]="true">
+                            <div #q directive-needs-content-child></div>
+                          </ng-template>                          
+                        </needs-content-children-shallow>`;
+         const view = createTestCmpAndDetectChanges(MyComp0, template);
+
+         const comp = view.debugElement.children[0].injector.get(NeedsContentChildrenShallow);
+         expect(comp.children.length).toBe(1);
+       });
+
+    it('should contain the first descendant content child in an embedded template for shallow queries and additional directive (star syntax)',
+       () => {
+         const template = `<needs-content-children-shallow>
+                            <div *ngIf="true" #q directive-needs-content-child></div>
+                        </needs-content-children-shallow>`;
+         const view = createTestCmpAndDetectChanges(MyComp0, template);
+
+         const comp = view.debugElement.children[0].injector.get(NeedsContentChildrenShallow);
+         expect(comp.children.length).toBe(1);
+       });
+
+    onlyInIvy(
+        'Shallow queries don\'t cross ng-container boundaries in ivy (ng-container is treated as a regular element')
+        .it('should not cross ng-container boundaries with shallow queries', () => {
+          const template = `<needs-content-children-shallow>
+                          <ng-container>
+                            <div #q></div>
+                          </ng-container>                             
+                        </needs-content-children-shallow>`;
+          const view = createTestCmpAndDetectChanges(MyComp0, template);
+
+          const comp = view.debugElement.children[0].injector.get(NeedsContentChildrenShallow);
+          expect(comp.children.length).toBe(0);
+        });
 
     it('should contain the first descendant content child templateRef', () => {
       const template = '<needs-content-child-template-ref-app>' +
@@ -472,25 +540,19 @@ describe('Query API', () => {
   });
 
   describe('querying in the view', () => {
-    fixmeIvy(
-        'FW-781 - Directives invocation sequence on root and nested elements is different in Ivy')
-        .it('should contain all the elements in the view with that have the given directive',
-            () => {
-              const template =
-                  '<needs-view-query #q><div text="ignoreme"></div></needs-view-query>';
-              const view = createTestCmpAndDetectChanges(MyComp0, template);
-              const q: NeedsViewQuery = view.debugElement.children[0].references !['q'];
-              expect(q.query.map((d: TextDirective) => d.text)).toEqual(['1', '2', '3', '4']);
-            });
+    it('should contain all the elements in the view with that have the given directive', () => {
+      const template = '<needs-view-query #q><div text="ignoreme"></div></needs-view-query>';
+      const view = createTestCmpAndDetectChanges(MyComp0, template);
+      const q: NeedsViewQuery = view.debugElement.children[0].references !['q'];
+      expect(q.query.map((d: TextDirective) => d.text)).toEqual(['1', '2', '3', '4']);
+    });
 
-    fixmeIvy(
-        'FW-781 - Directives invocation sequence on root and nested elements is different in Ivy')
-        .it('should not include directive present on the host element', () => {
-          const template = '<needs-view-query #q text="self"></needs-view-query>';
-          const view = createTestCmpAndDetectChanges(MyComp0, template);
-          const q: NeedsViewQuery = view.debugElement.children[0].references !['q'];
-          expect(q.query.map((d: TextDirective) => d.text)).toEqual(['1', '2', '3', '4']);
-        });
+    it('should not include directive present on the host element', () => {
+      const template = '<needs-view-query #q text="self"></needs-view-query>';
+      const view = createTestCmpAndDetectChanges(MyComp0, template);
+      const q: NeedsViewQuery = view.debugElement.children[0].references !['q'];
+      expect(q.query.map((d: TextDirective) => d.text)).toEqual(['1', '2', '3', '4']);
+    });
 
     it('should reflect changes in the component', () => {
       const template = '<needs-view-query-if #q></needs-view-query-if>';
@@ -586,7 +648,7 @@ describe('Query API', () => {
     });
 
     // Note: this test is just document our current behavior, which we do for performance reasons.
-    fixmeIvy('FW-853: Query results are cleared if embedded views are detached / moved')
+    modifiedInIvy('Query results from views are reported upon view insert / detach')
         .it('should not affect queries for projected templates if views are detached or moved',
             () => {
               const template = `<manual-projecting #q>
@@ -616,8 +678,43 @@ describe('Query API', () => {
               expect(q.query.map((d: TextDirective) => d.text)).toEqual(['1', '2']);
             });
 
-    fixmeIvy('unknown').it(
-        'should remove manually projected templates if their parent view is destroyed', () => {
+    onlyInIvy('Query results from views are reported upon view insert / detach')
+        .it('should update queries when a view is detached and re-inserted', () => {
+          const template = `<manual-projecting #q>
+              <ng-template let-x="x">
+                 <div [text]="x"></div>
+              </ng-template>
+          </manual-projecting>`;
+          const view = createTestCmpAndDetectChanges(MyComp0, template);
+          const q = view.debugElement.children[0].references !['q'] as ManualProjecting;
+          expect(q.query.length).toBe(0);
+
+          const view1 = q.vc.createEmbeddedView(q.template, {'x': '1'});
+          const view2 = q.vc.createEmbeddedView(q.template, {'x': '2'});
+
+          // 2 views were created and inserted so we've got 2 matching results
+          view.detectChanges();
+          expect(q.query.map((d: TextDirective) => d.text)).toEqual(['1', '2']);
+
+          q.vc.detach(1);
+          q.vc.detach(0);
+
+          // both views were detached so query results from those views should not be reported
+          view.detectChanges();
+          expect(q.query.map((d: TextDirective) => d.text)).toEqual([]);
+
+          q.vc.insert(view2);
+          q.vc.insert(view1);
+
+          // previously detached views are re-inserted in the different order so:
+          // - query results from the inserted views are reported again
+          // - the order results from views reflects orders of views
+          view.detectChanges();
+          expect(q.query.map((d: TextDirective) => d.text)).toEqual(['2', '1']);
+        });
+
+    fixmeIvy('FW-920: Queries in nested views are not destroyed properly')
+        .it('should remove manually projected templates if their parent view is destroyed', () => {
           const template = `
           <manual-projecting #q><ng-template #tpl><div text="1"></div></ng-template></manual-projecting>
           <div *ngIf="shouldShow">
@@ -939,6 +1036,12 @@ class NeedsContentChildWithRead {
   @ContentChild('q', {read: TextDirective}) textDirChild !: TextDirective;
   // TODO(issue/24571): remove '!'.
   @ContentChild('nonExisting', {read: TextDirective}) nonExistingVar !: TextDirective;
+}
+
+@Component({selector: 'needs-content-children-shallow', template: ''})
+class NeedsContentChildrenShallow {
+  @ContentChildren('q', {descendants: false})
+  children !: QueryList<ElementRef>;
 }
 
 @Component({

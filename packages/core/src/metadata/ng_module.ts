@@ -7,13 +7,15 @@
  */
 
 import {ApplicationRef} from '../application_ref';
-import {InjectorType, defineInjector} from '../di/defs';
-import {Provider} from '../di/provider';
+import {InjectorType, defineInjector} from '../di/interface/defs';
+import {Provider} from '../di/interface/provider';
 import {convertInjectableProviderToFactory} from '../di/util';
+import {Type} from '../interface/type';
+import {SchemaMetadata} from '../metadata/schema';
 import {NgModuleType} from '../render3';
 import {compileNgModule as render3CompileNgModule} from '../render3/jit/module';
-import {Type} from '../type';
 import {TypeDecorator, makeDecorator} from '../util/decorators';
+
 
 /**
  * Represents the expansion of an `NgModule` into its scopes.
@@ -33,6 +35,7 @@ import {TypeDecorator, makeDecorator} from '../util/decorators';
 export interface NgModuleTransitiveScopes {
   compilation: {directives: Set<any>; pipes: Set<any>;};
   exported: {directives: Set<any>; pipes: Set<any>;};
+  schemas: SchemaMetadata[]|null;
 }
 
 export type NgModuleDefWithMeta<T, Declarations, Imports, Exports> = NgModuleDef<T>;
@@ -96,6 +99,9 @@ export interface NgModuleDef<T> {
    * 永远不要直接使用它，而是通过 `transitiveScopesFor` 来访问。
    */
   transitiveCompileScopes: NgModuleTransitiveScopes|null;
+
+  /** The set of schemas that declare elements to be allowed in the NgModule. */
+  schemas: SchemaMetadata[]|null;
 }
 
 /**
@@ -115,55 +121,6 @@ export interface ModuleWithProviders<
   ngModule: Type<T>;
   providers?: Provider[];
 }
-
-/**
- * A schema definition associated with an NgModule.
- *
- * 与 NgModule 相关的 schema（HTML架构）定义。
- *
- * @see `@NgModule`, `CUSTOM_ELEMENTS_SCHEMA`, `NO_ERRORS_SCHEMA`
- *
- * @param name The name of a defined schema.
- *
- * 已定义的 schema 的名字。
- *
- * @publicApi
- */
-export interface SchemaMetadata { name: string; }
-
-/**
- * Defines a schema that allows an NgModule to contain the following:
- *
- * 定义一个 schema，它允许 NgModule 包含下列内容：
- *
- * - Non-Angular elements named with dash case (`-`).
- *
- *   中线格式（`-`）的非 Angular 元素名。
- *
- * - Element properties named with dash case (`-`).
- *
- *   中线格式（`-`）的元素属性名。
- *
- * Dash case is the naming convention for custom elements.
- *
- * 中线格式是对自定义元素的命名约定。
- *
- * @publicApi
- */
-export const CUSTOM_ELEMENTS_SCHEMA: SchemaMetadata = {
-  name: 'custom-elements'
-};
-
-/**
- * Defines a schema that allows any property on any element.
- *
- * 定义了一个允许任何元素上的任何属性的 schema。
- *
- * @publicApi
- */
-export const NO_ERRORS_SCHEMA: SchemaMetadata = {
-  name: 'no-errors-schema'
-};
 
 
 /**

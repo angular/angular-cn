@@ -79,8 +79,8 @@ When all dependencies are in place, `AppComponent` displays the user information
 
 ## 把服务的范围限制到某个组件的子树下
 
-An Angular application has multiple injectors, arranged in a tree hierarchy that parallels the component tree. 
-Each injector creates a singleton instance of a dependency. 
+An Angular application has multiple injectors, arranged in a tree hierarchy that parallels the component tree.
+Each injector creates a singleton instance of a dependency.
 That same instance is injected wherever that injector provides that service.
 A particular service can be provided and created at any level of the injector hierarchy,
 which means that there can be multiple instances of a service if it is provided by multiple injectors.
@@ -89,10 +89,10 @@ Angular 应用程序有多个依赖注入器，组织成一个与组件树平行
 每个注入器都会创建依赖的一个单例。在所有该注入器负责提供服务的地方，所提供的都是同一个实例。
 可以在注入器树的任何层级提供和建立特定的服务。这意味着，如果在多个注入器中提供该服务，那么该服务也就会有多个实例。
 
-Dependencies provided by the root injector can be injected into *any* component *anywhere* in the application. 
-In some cases, you might want to restrict service availability to a particular region of the application. 
+Dependencies provided by the root injector can be injected into *any* component *anywhere* in the application.
+In some cases, you might want to restrict service availability to a particular region of the application.
 For instance, you might want to let users explicitly opt in to use a service,
-rather than letting the root injector provide it automatically. 
+rather than letting the root injector provide it automatically.
 
 由根注入器提供的依赖可以注入到应用中任何地方的任何组件中。
 但有时候你可能希望把服务的有效性限制到应用程序的一个特定区域。
@@ -211,14 +211,14 @@ and confirm that the three `HeroBioComponent` instances have their own cached he
 When a class requires a dependency, that dependency is added to the constructor as a parameter.
 When Angular needs to instantiate the class, it calls upon the DI framework to supply the dependency.
 By default, the DI framework searches for a provider in the injector hierarchy,
-starting at the component's local injector of the component, and if necessary bubbling up 
+starting at the component's local injector of the component, and if necessary bubbling up
 through the injector tree until it reaches the root injector.
 
 当类需要某个依赖项时，该依赖项就会作为参数添加到类的构造函数中。
 当 Angular 需要实例化该类时，就会调用 DI 框架来提供该依赖。
 默认情况下，DI 框架会在注入器树中查找一个提供商，从该组件的局部注入器开始，如果需要，则沿着注入器树向上冒泡，直到根注入器。
 
-* The first injector configured with a provider supplies the dependency (a service instance or value) to the constructor.  
+* The first injector configured with a provider supplies the dependency (a service instance or value) to the constructor.
 
   第一个配置过该提供商的注入器就会把依赖（服务实例或值）提供给这个构造函数。
 
@@ -227,7 +227,7 @@ through the injector tree until it reaches the root injector.
   如果在根注入器中也没有找到提供商，则 DI 框架将会给构造函数返回一个 null。
 
 There are a number of options for modifying the default search behavior, using _parameter decorators_
-on the service-valued parameters of a class constructor. 
+on the service-valued parameters of a class constructor.
 
 通过在类的构造函数中对服务参数使用*参数装饰器*，可以提供一些选项来修改默认的搜索行为。
 
@@ -237,9 +237,9 @@ on the service-valued parameters of a class constructor.
 
 ### 用 `@Optional` 来让依赖是可选的，以及使用 `@Host` 来限定搜索方式
 
-Dependencies can be registered at any level in the component hierarchy. 
-When a component requests a dependency, Angular starts with that component's injector 
-and walks up the injector tree until it finds the first suitable provider.  
+Dependencies can be registered at any level in the component hierarchy.
+When a component requests a dependency, Angular starts with that component's injector
+and walks up the injector tree until it finds the first suitable provider.
 Angular throws an error if it can't find the dependency during that walk.
 
 依赖可以注册在组件树的任何层级上。
@@ -247,7 +247,7 @@ Angular throws an error if it can't find the dependency during that walk.
 
 In some cases, you need to limit the search or accommodate a missing dependency.
 You can modify Angular's search behavior with the `@Host` and `@Optional` qualifying
-decorators on a service-valued parameter of the component's constructor. 
+decorators on a service-valued parameter of the component's constructor.
 
 某些情况下，你需要限制搜索，或容忍依赖项的缺失。
 你可以使用组件构造函数参数上的 `@Host` 和 `@Optional` 这两个限定装饰器来修改 Angular 的搜索行为。
@@ -256,9 +256,9 @@ decorators on a service-valued parameter of the component's constructor.
 
   `@Optional` 属性装饰器告诉 Angular 当找不到依赖时就返回 null。
 
-* The `@Host` property decorator stops the upward search at the *host component*. 
-The host component is typically the component requesting the dependency. 
-However, when this component is projected into a *parent* component, 
+* The `@Host` property decorator stops the upward search at the *host component*.
+The host component is typically the component requesting the dependency.
+However, when this component is projected into a *parent* component,
 that parent component becomes the host. The following example covers this second case.
 
   `@Host` 属性装饰器会禁止在*宿主组件*以上的搜索。宿主组件通常就是请求该依赖的那个组件。
@@ -346,8 +346,8 @@ Here's `HeroBiosAndContactsComponent` in action.
 </figure>
 
 If you comment out the `@Host()` decorator, Angular walks up the injector ancestor tree
-until it finds the logger at the `AppComponent` level. 
-The logger logic kicks in and the hero display updates 
+until it finds the logger at the `AppComponent` level.
+The logger logic kicks in and the hero display updates
 with the "!!!" marker to indicate that the logger was found.
 
 如果注释掉 `@Host()` 装饰器，Angular 就会沿着注入器树往上走，直到在 `AppComponent` 中找到该日志服务。日志服务的逻辑加了进来，所显示的英雄信息增加了 "!!!" 标记，这表明确实找到了日志服务。
@@ -366,7 +366,7 @@ the app throws an exception when it cannot find the required logger at the host 
 
 ### 使用 `@Inject` 指定自定义提供商
 
-Using a custom provider allows you to provide a concrete implementation for implicit dependencies, such as built-in browser APIs. The following example uses an `InjectionToken` to provide the [localStorage](https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage) browser API as a dependency in the `BrowserStorageService`. 
+Using a custom provider allows you to provide a concrete implementation for implicit dependencies, such as built-in browser APIs. The following example uses an `InjectionToken` to provide the [localStorage](https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage) browser API as a dependency in the `BrowserStorageService`.
 
 自定义提供商让你可以为隐式依赖提供一个具体的实现，比如内置浏览器 API。下面的例子使用 `InjectionToken` 来提供 [localStorage](https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage)，将其作为 `BrowserStorageService` 的依赖项。
 
@@ -377,6 +377,8 @@ Using a custom provider allows you to provide a concrete implementation for impl
 The `factory` function returns the `localStorage` property that is attached to the browser window object. The `Inject` decorator is a constructor parameter used to specify a custom provider of a dependency. This custom provider can now be overridden during testing with a mock API of `localStorage` instead of interactive with real browser APIs.
 
 `factory` 函数返回 window 对象上的 `localStorage` 属性。`Inject` 装饰器修饰一个构造函数参数，用于为某个依赖提供自定义提供商。现在，就可以在测试期间使用 `localStorage` 的 Mock API 来覆盖这个提供商了，而不必与真实的浏览器 API 进行交互。
+
+{@a skip}
 
 ### Modify the provider search with `@Self` and `@SkipSelf`
 
@@ -422,7 +424,7 @@ DOM element to which the directive is applied.
 当用户把鼠标移到 DOM 元素上时，指令将指令所在的元素的背景设置为一个高亮颜色。
 
 Angular sets the constructor's `el` parameter to the injected `ElementRef`.
-(An `ElementRef` is a wrapper around a DOM element, 
+(An `ElementRef` is a wrapper around a DOM element,
 whose `nativeElement` property exposes the DOM element for the directive to manipulate.)
 
 Angular 把构造函数参数 `el` 设置为注入的 `ElementRef`，该 `ElementRef` 代表了宿主的 DOM 元素， 它的 `nativeElement` 属性把该 DOM 元素暴露给了指令。
@@ -479,7 +481,7 @@ and assigns the returned value to the `logger` parameter.
 Angular 会要求注入器提供与 `LoggerService` 相关的服务，并把返回的值赋给 `logger` 参数。
 
 If the injector has already cached an instance of the service associated with the token,
-it provides that instance. 
+it provides that instance.
 If it doesn't, it needs to make one using the provider associated with the token.
 
 如果注入器已经缓存了与该令牌相关的服务实例，那么它就会直接提供此实例。
@@ -498,7 +500,7 @@ If the search fails, the injector throws an error&mdash;unless the request was [
 
 A new injector has no providers.
 Angular initializes the injectors it creates with a set of preferred providers.
-You have to configure providers for your own app-specific dependencies. 
+You have to configure providers for your own app-specific dependencies.
 
 新的注入器没有提供商。
 Angular 会使用一组首选提供商来初始化它本身的注入器。
@@ -511,7 +513,7 @@ Angular 会使用一组首选提供商来初始化它本身的注入器。
 ### 定义提供商
 
 A dependency can't always be created by the default method of instantiating a class.
-You learned about some other methods in [Dependency Providers](guide/dependency-injection-providers). 
+You learned about some other methods in [Dependency Providers](guide/dependency-injection-providers).
 The following `HeroOfTheMonthComponent` example demonstrates many of the alternatives and why you need them.
 It's visually simple: a few properties and the logs produced by a logger.
 
@@ -561,7 +563,7 @@ The `HeroOfTheMonthComponent` example has two value providers.
 </code-example>
 
 * The first provides an existing instance of the `Hero` class to use for the `Hero` token, rather than
-requiring the injector to create a new instance with `new` or use its own cached instance. 
+requiring the injector to create a new instance with `new` or use its own cached instance.
 Here, the token is the class itself.
 
   第一处提供了用于 `Hero` 令牌的 `Hero` 类的现有实例，而不是要求注入器使用 `new` 来创建一个新实例或使用它自己的缓存实例。这里令牌就是这个类本身。
@@ -569,7 +571,7 @@ Here, the token is the class itself.
 * The second specifies a literal string resource to use for the `TITLE` token.
 The `TITLE` provider token is *not* a class, but is instead a
 special kind of provider lookup key called an [injection token](guide/dependency-injection-in-action#injection-token), represented by
-an `InjectionToken` instance. 
+an `InjectionToken` instance.
 
   第二处为 `TITLE` 令牌指定了一个字符串字面量资源。
 `TITLE` 提供商的令牌*不是一个类*，而是一个特别的提供商查询键，名叫[InjectionToken](guide/dependency-injection-in-action#injection-token)，表示一个 `InjectionToken` 实例。
@@ -599,7 +601,7 @@ Other types of providers can create their values *lazily*; that is, when they're
 
 {@a useclass}
 
-#### Class providers: `useClass` 
+#### Class providers: `useClass`
 
 #### 类提供商：`useClass`
 
@@ -608,7 +610,7 @@ The `useClass` provider key lets you create and return a new instance of the spe
 `useClass` 提供的键让你可以创建并返回指定类的新实例。
 
 You can use this type of provider to substitute an *alternative implementation*
-for a common or default class. 
+for a common or default class.
 The alternative implementation could, for example, implement a different strategy,
 extend the default class, or emulate the behavior of the real class in a test case.
 
@@ -717,7 +719,7 @@ This is illustrated in the following image, which displays the logging date.
 
 {@a usefactory}
 
-#### Factory providers: `useFactory` 
+#### Factory providers: `useFactory`
 
 #### 工厂提供商：`useFactory`
 
@@ -772,7 +774,6 @@ the string of names.
 * The function takes a winning `Hero` and a `HeroService` as arguments.
 
   这个返回的函数需要一个 `Hero` 和一个 `HeroService` 参数。
-
 Angular supplies these arguments from injected values identified by
 the two *tokens* in the `deps` array.
 
@@ -878,7 +879,7 @@ The `MinimalLogger` transpiles to this unoptimized, pre-minified JavaScript for 
 </code-example>
 
 Notice that it doesn't have any members. It never grows no matter how many members you add to the class,
-as long as those members are typed but not implemented. Look again at the TypeScript `MinimalLogger` class to confirm that it has no implementation.
+as long as those members are typed but not implemented.Look again at the TypeScript `MinimalLogger` class to confirm that it has no implementation.
 
 注意，***只要不实现它***，不管添加多少成员，它永远不会增长大小，因为这些成员虽然是有类型的，但却没有实现。你可以再看看 TypeScript 的 `MinimalLogger` 类，确定一下它是没有实现的。
 
@@ -1057,7 +1058,7 @@ Break the circularity with `forwardRef`.
 </code-example>
 
 
-<!--- Waiting for good examples 
+<!--- Waiting for good examples
 
 {@a directive-level-providers}
 
@@ -1065,15 +1066,15 @@ Break the circularity with `forwardRef`.
 
 ## Element-level providers
 
-A component is a specialization of directive, and the `@Component()` decorator inherits the `providers` property from `@Directive`. The injector is at the element level, so a provider configured with any element-level injector is available to any component, directive, or pipe attached to the same element. 
+A component is a specialization of directive, and the `@Component()` decorator inherits the `providers` property from `@Directive`. The injector is at the element level, so a provider configured with any element-level injector is available to any component, directive, or pipe attached to the same element.
 
 Here's a live example that implements a custom form control, taking advantage of an injector that is shared by a component and a directive on the same element.
 
 https://stackblitz.com/edit/basic-form-control
 
-The component, `custom-control`, configures a provider for the DI token `NG_VALUE_ACCESSOR`. 
+The component, `custom-control`, configures a provider for the DI token `NG_VALUE_ACCESSOR`.
 In the template, the `FormControlName` directive is instantiated along with the custom component.
-It can inject the `NG_VALUE_ACCESSOR` dependency because they share the same injector. 
+It can inject the `NG_VALUE_ACCESSOR` dependency because they share the same injector.
 (Notice that this example also makes use of `forwardRef()` to resolve a circularity in the definitions.)
 
 ### Sharing a service among components
@@ -1105,4 +1106,3 @@ If you want to show only one of them, use the directive to make sure __??of what
 `<hero-overview heroCache></hero-overview>`
 
  --->
-

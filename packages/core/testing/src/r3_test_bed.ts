@@ -6,8 +6,56 @@
  * found in the LICENSE file at https://angular.io/license
  */
 
-import {ApplicationInitStatus, Component, Directive, Injector, NgModule, NgZone, Pipe, PlatformRef, Provider, SchemaMetadata, Type, ɵInjectableDef as InjectableDef, ɵNgModuleDef as NgModuleDef, ɵNgModuleTransitiveScopes as NgModuleTransitiveScopes, ɵNgModuleType as NgModuleType, ɵRender3ComponentFactory as ComponentFactory, ɵRender3NgModuleRef as NgModuleRef, ɵcompileComponent as compileComponent, ɵcompileDirective as compileDirective, ɵcompileNgModuleDefs as compileNgModuleDefs, ɵcompilePipe as compilePipe, ɵgetInjectableDef as getInjectableDef, ɵpatchComponentDefWithScope as patchComponentDefWithScope, ɵresetCompiledComponents as resetCompiledComponents, ɵstringify as stringify} from '@angular/core';
+// The formatter and CI disagree on how this import statement should be formatted. Both try to keep
+// it on one line, too, which has gotten very hard to read & manage. So disable the formatter for
+// this statement only.
+// clang-format off
+import {
+  ApplicationInitStatus,
+  Compiler,
+  Component,
+  Directive,
+  ErrorHandler,
+  Injector,
+  ModuleWithComponentFactories,
+  NgModule,
+  NgModuleFactory,
+  NgZone,
+  Pipe,
+  PlatformRef,
+  Provider,
+  SchemaMetadata,
+  Type,
+  resolveForwardRef,
+  ɵInjectableDef as InjectableDef,
+  ɵNG_COMPONENT_DEF as NG_COMPONENT_DEF,
+  ɵNG_DIRECTIVE_DEF as NG_DIRECTIVE_DEF,
+  ɵNG_INJECTOR_DEF as NG_INJECTOR_DEF,
+  ɵNG_MODULE_DEF as NG_MODULE_DEF,
+  ɵNG_PIPE_DEF as NG_PIPE_DEF,
+  ɵNgModuleDef as NgModuleDef,
+  ɵNgModuleFactory as R3NgModuleFactory,
+  ɵNgModuleType as NgModuleType,
+  ɵRender3ComponentFactory as ComponentFactory,
+  ɵRender3NgModuleRef as NgModuleRef,
+  ɵcompileComponent as compileComponent,
+  ɵcompileDirective as compileDirective,
+  ɵcompileNgModuleDefs as compileNgModuleDefs,
+  ɵcompilePipe as compilePipe,
+  ɵgetInjectableDef as getInjectableDef,
+  ɵflushModuleScopingQueueAsMuchAsPossible as flushModuleScopingQueueAsMuchAsPossible,
+  ɵpatchComponentDefWithScope as patchComponentDefWithScope,
+  ɵresetCompiledComponents as resetCompiledComponents,
+  ɵstringify as stringify,
+  ɵtransitiveScopesFor as transitiveScopesFor,
+  CompilerOptions,
+  StaticProvider,
+  COMPILER_OPTIONS,
+} from '@angular/core';
+// clang-format on
+import {ResourceLoader} from '@angular/compiler';
 
+import {clearResolutionOfComponentResourcesQueue, componentNeedsResolution, resolveComponentResources} from '../../src/metadata/resource_loading';
 import {ComponentFixture} from './component_fixture';
 import {MetadataOverride} from './metadata_override';
 import {ComponentResolver, DirectiveResolver, NgModuleResolver, PipeResolver, Resolver} from './resolvers';
@@ -17,6 +65,8 @@ import {ComponentFixtureAutoDetect, ComponentFixtureNoNgZone, TestBedStatic, Tes
 let _nextRootElementId = 0;
 
 const EMPTY_ARRAY: Type<any>[] = [];
+
+const UNDEFINED: Symbol = Symbol('UNDEFINED');
 
 // Resolvers for Angular decorators
 type Resolvers = {
@@ -124,7 +174,11 @@ export class TestBedRender3 implements Injector, TestBed {
   }
 
   overrideTemplateUsingTestingModule(component: Type<any>, template: string): void {
-    throw new Error('Render3TestBed.overrideTemplateUsingTestingModule is not implemented yet');
+    if (this._instantiated) {
+      throw new Error(
+          'Cannot override template when the test module has already been instantiated');
+    }
+    this._templateOverrides.set(component, template);
   }
 
   static overrideProvider(token: any, provider: {
@@ -183,20 +237,32 @@ export class TestBedRender3 implements Injector, TestBed {
   private _directiveOverrides: [Type<any>, MetadataOverride<Directive>][] = [];
   private _pipeOverrides: [Type<any>, MetadataOverride<Pipe>][] = [];
   private _providerOverrides: Provider[] = [];
+  private _compilerProviders: StaticProvider[] = [];
   private _rootProviderOverrides: Provider[] = [];
   private _providerOverridesByToken: Map<any, Provider[]> = new Map();
+  private _templateOverrides: Map<Type<any>, string> = new Map();
+  private _resolvers: Resolvers = null !;
 
   // test module configuration
   private _providers: Provider[] = [];
+  private _compilerOptions: CompilerOptions[] = [];
   private _declarations: Array<Type<any>|any[]|any> = [];
   private _imports: Array<Type<any>|any[]|any> = [];
   private _schemas: Array<SchemaMetadata|any[]> = [];
 
   private _activeFixtures: ComponentFixture<any>[] = [];
 
+  private _compilerInjector: Injector = null !;
   private _moduleRef: NgModuleRef<any> = null !;
+  private _testModuleType: NgModuleType<any> = null !;
 
   private _instantiated: boolean = false;
+  private _globalCompilationChecked = false;
+
+  // Map that keeps initial version of component/directive/pipe defs in case
+  // we compile a Type again, thus overriding respective static fields. This is
+  // required to make sure we restore defs to their initial states between test runs
+  private _initiaNgDefs: Map<Type<any>, [string, PropertyDescriptor|undefined]> = new Map();
 
   /**
    * Initialize the environment for testing with a compiler factory, a PlatformRef, and an
@@ -232,6 +298,7 @@ export class TestBedRender3 implements Injector, TestBed {
   }
 
   resetTestingModule(): void {
+    this._checkGlobalCompilationFinished();
     resetCompiledComponents();
     // reset metadata overrides
     this._moduleOverrides = [];
@@ -241,14 +308,20 @@ export class TestBedRender3 implements Injector, TestBed {
     this._providerOverrides = [];
     this._rootProviderOverrides = [];
     this._providerOverridesByToken.clear();
+    this._templateOverrides.clear();
+    this._resolvers = null !;
 
     // reset test module config
     this._providers = [];
+    this._compilerOptions = [];
+    this._compilerProviders = [];
     this._declarations = [];
     this._imports = [];
     this._schemas = [];
     this._moduleRef = null !;
+    this._testModuleType = null !;
 
+    this._compilerInjector = null !;
     this._instantiated = false;
     this._activeFixtures.forEach((fixture) => {
       try {
@@ -261,6 +334,24 @@ export class TestBedRender3 implements Injector, TestBed {
       }
     });
     this._activeFixtures = [];
+
+    // restore initial component/directive/pipe defs
+    this._initiaNgDefs.forEach((value: [string, PropertyDescriptor], type: Type<any>) => {
+      const [prop, descriptor] = value;
+      if (!descriptor) {
+        // Delete operations are generally undesirable since they have performance implications on
+        // objects they were applied to. In this particular case, situations where this code is
+        // invoked should be quite rare to cause any noticable impact, since it's applied only to
+        // some test cases (for example when class with no annotations extends some @Component) when
+        // we need to clear 'ngComponentDef' field on a given class to restore its original state
+        // (before applying overrides and running tests).
+        delete (type as any)[prop];
+      } else {
+        Object.defineProperty(type, prop, descriptor);
+      }
+    });
+    this._initiaNgDefs.clear();
+    clearResolutionOfComponentResourcesQueue();
   }
 
   configureCompiler(config: {providers?: any[]; useJit?: boolean;}): void {
@@ -270,6 +361,7 @@ export class TestBedRender3 implements Injector, TestBed {
 
     if (config.providers) {
       this._providerOverrides.push(...config.providers);
+      this._compilerProviders.push(...config.providers);
     }
   }
 
@@ -290,9 +382,48 @@ export class TestBedRender3 implements Injector, TestBed {
   }
 
   compileComponents(): Promise<any> {
-    // assume for now that components don't use templateUrl / stylesUrl to unblock further testing
-    // TODO(pk): plug into the ivy's resource fetching pipeline
-    return Promise.resolve();
+    const resolvers = this._getResolvers();
+    const declarations: Type<any>[] = flatten(this._declarations || EMPTY_ARRAY, resolveForwardRef);
+
+    const componentOverrides: [Type<any>, Component][] = [];
+    let hasAsyncResources = false;
+
+    // Compile the components declared by this module
+    declarations.forEach(declaration => {
+      const component = resolvers.component.resolve(declaration);
+      if (component) {
+        // We make a copy of the metadata to ensure that we don't mutate the original metadata
+        const metadata = {...component};
+        compileComponent(declaration, metadata);
+        componentOverrides.push([declaration, metadata]);
+        hasAsyncResources = hasAsyncResources || componentNeedsResolution(component);
+      }
+    });
+
+    const overrideComponents = () => {
+      componentOverrides.forEach((override: [Type<any>, Component]) => {
+        // Override the existing metadata, ensuring that the resolved resources
+        // are only available until the next TestBed reset (when `resetTestingModule` is called)
+        this.overrideComponent(override[0], {set: override[1]});
+      });
+    };
+
+    // If the component has no async resources (templateUrl, styleUrls), we can finish
+    // synchronously. This is important so that users who mistakenly treat `compileComponents`
+    // as synchronous don't encounter an error, as ViewEngine was tolerant of this.
+    if (!hasAsyncResources) {
+      overrideComponents();
+      return Promise.resolve();
+    } else {
+      let resourceLoader: ResourceLoader;
+      return resolveComponentResources(url => {
+               if (!resourceLoader) {
+                 resourceLoader = this.compilerInjector.get(ResourceLoader);
+               }
+               return Promise.resolve(resourceLoader.get(url));
+             })
+          .then(overrideComponents);
+    }
   }
 
   get(token: any, notFoundValue: any = Injector.THROW_IF_NOT_FOUND): any {
@@ -300,7 +431,8 @@ export class TestBedRender3 implements Injector, TestBed {
     if (token === TestBedRender3) {
       return this;
     }
-    return this._moduleRef.injector.get(token, notFoundValue);
+    const result = this._moduleRef.injector.get(token, UNDEFINED);
+    return result === UNDEFINED ? this.compilerInjector.get(token, notFoundValue) : result;
   }
 
   execute(tokens: any[], fn: Function, context?: any): any {
@@ -397,16 +529,17 @@ export class TestBedRender3 implements Injector, TestBed {
   // internal methods
 
   private _initIfNeeded(): void {
+    this._checkGlobalCompilationFinished();
     if (this._instantiated) {
       return;
     }
 
-    const resolvers = this._getResolvers();
-    const testModuleType = this._createTestModule();
-    this._compileNgModule(testModuleType, resolvers);
+    this._resolvers = this._getResolvers();
+    this._testModuleType = this._createTestModule();
+    this._compileNgModule(this._testModuleType);
 
     const parentInjector = this.platform.injector;
-    this._moduleRef = new NgModuleRef(testModuleType, parentInjector);
+    this._moduleRef = new NgModuleRef(this._testModuleType, parentInjector);
 
     // ApplicationInitStatus.runInitializers() is marked @internal
     // to core. Cast it to any before accessing it.
@@ -414,9 +547,16 @@ export class TestBedRender3 implements Injector, TestBed {
     this._instantiated = true;
   }
 
+  private _storeNgDef(prop: string, type: Type<any>) {
+    if (!this._initiaNgDefs.has(type)) {
+      const currentDef = Object.getOwnPropertyDescriptor(type, prop);
+      this._initiaNgDefs.set(type, [prop, currentDef]);
+    }
+  }
+
   // get overrides for a specific provider (if any)
   private _getProviderOverrides(provider: any) {
-    const token = typeof provider === 'object' && provider.hasOwnProperty('provide') ?
+    const token = provider && typeof provider === 'object' && provider.hasOwnProperty('provide') ?
         provider.provide :
         provider;
     return this._providerOverridesByToken.get(token) || [];
@@ -458,8 +598,13 @@ export class TestBedRender3 implements Injector, TestBed {
     }
 
     const ngZone = new NgZone({enableLongStackTrace: true});
-    const providers =
-        [{provide: NgZone, useValue: ngZone}, ...this._providers, ...this._providerOverrides];
+    const providers = [
+      {provide: NgZone, useValue: ngZone},
+      {provide: Compiler, useFactory: () => new R3TestCompiler(this)},
+      {provide: ErrorHandler, useClass: R3TestErrorHandler},
+      ...this._providers,
+      ...this._providerOverrides,
+    ];
 
     const declarations = this._declarations;
     const imports = [RootScopeModule, this.ngModule, this._imports];
@@ -472,148 +617,147 @@ export class TestBedRender3 implements Injector, TestBed {
     return DynamicTestModule as NgModuleType;
   }
 
-  private _getMetaWithOverrides(meta: Component|Directive|NgModule) {
-    if (meta.providers && meta.providers.length) {
-      const overrides =
-          flatten(meta.providers, (provider: any) => this._getProviderOverrides(provider));
-      if (overrides.length) {
-        return {...meta, providers: [...meta.providers, ...overrides]};
-      }
+  get compilerInjector(): Injector {
+    if (this._compilerInjector !== null) {
+      return this._compilerInjector;
     }
-    return meta;
+
+    const providers: StaticProvider[] = [];
+    const compilerOptions = this.platform.injector.get(COMPILER_OPTIONS);
+    compilerOptions.forEach(opts => {
+      if (opts.providers) {
+        providers.push(opts.providers);
+      }
+    });
+    providers.push(...this._compilerProviders);
+
+    // TODO(ocombe): make this work with an Injector directly instead of creating a module for it
+    @NgModule({providers})
+    class CompilerModule {
+    }
+
+    const CompilerModuleFactory = new R3NgModuleFactory(CompilerModule);
+    this._compilerInjector = CompilerModuleFactory.create(this.platform.injector).injector;
+    return this._compilerInjector;
   }
 
-  private _compileNgModule(moduleType: NgModuleType, resolvers: Resolvers): void {
-    const ngModule = resolvers.module.resolve(moduleType);
+  private _getMetaWithOverrides(meta: Component|Directive|NgModule, type?: Type<any>) {
+    const overrides: {providers?: any[], template?: string} = {};
+    if (meta.providers && meta.providers.length) {
+      // There are two flattening operations here. The inner flatten() operates on the metadata's
+      // providers and applies a mapping function which retrieves overrides for each incoming
+      // provider. The outer flatten() then flattens the produced overrides array. If this is not
+      // done, the array can contain other empty arrays (e.g. `[[], []]`) which leak into the
+      // providers array and contaminate any error messages that might be generated.
+      const providerOverrides =
+          flatten(flatten(meta.providers, (provider: any) => this._getProviderOverrides(provider)));
+      if (providerOverrides.length) {
+        overrides.providers = [...meta.providers, ...providerOverrides];
+      }
+    }
+    const hasTemplateOverride = !!type && this._templateOverrides.has(type);
+    if (hasTemplateOverride) {
+      overrides.template = this._templateOverrides.get(type !);
+    }
+    return Object.keys(overrides).length ? {...meta, ...overrides} : meta;
+  }
+
+  /**
+   * @internal
+   */
+  _getModuleResolver() { return this._resolvers.module; }
+
+  /**
+   * @internal
+   */
+  _compileNgModule(moduleType: NgModuleType): void {
+    const ngModule = this._resolvers.module.resolve(moduleType);
 
     if (ngModule === null) {
-      throw new Error(`${stringify(moduleType)} has not @NgModule annotation`);
+      throw new Error(`${stringify(moduleType)} has no @NgModule annotation`);
     }
 
+    this._storeNgDef(NG_MODULE_DEF, moduleType);
+    this._storeNgDef(NG_INJECTOR_DEF, moduleType);
     const metadata = this._getMetaWithOverrides(ngModule);
     compileNgModuleDefs(moduleType, metadata);
 
-    const declarations: Type<any>[] = flatten(ngModule.declarations || EMPTY_ARRAY);
+    const declarations: Type<any>[] =
+        flatten(ngModule.declarations || EMPTY_ARRAY, resolveForwardRef);
     const compiledComponents: Type<any>[] = [];
 
     // Compile the components, directives and pipes declared by this module
     declarations.forEach(declaration => {
-      const component = resolvers.component.resolve(declaration);
+      const component = this._resolvers.component.resolve(declaration);
       if (component) {
-        const metadata = this._getMetaWithOverrides(component);
+        this._storeNgDef(NG_COMPONENT_DEF, declaration);
+        const metadata = this._getMetaWithOverrides(component, declaration);
         compileComponent(declaration, metadata);
         compiledComponents.push(declaration);
         return;
       }
 
-      const directive = resolvers.directive.resolve(declaration);
+      const directive = this._resolvers.directive.resolve(declaration);
       if (directive) {
+        this._storeNgDef(NG_DIRECTIVE_DEF, declaration);
         const metadata = this._getMetaWithOverrides(directive);
         compileDirective(declaration, metadata);
         return;
       }
 
-      const pipe = resolvers.pipe.resolve(declaration);
+      const pipe = this._resolvers.pipe.resolve(declaration);
       if (pipe) {
+        this._storeNgDef(NG_PIPE_DEF, declaration);
         compilePipe(declaration, pipe);
         return;
       }
     });
 
     // Compile transitive modules, components, directives and pipes
-    const transitiveScope = this._transitiveScopesFor(moduleType, resolvers);
-    compiledComponents.forEach(
-        cmp => patchComponentDefWithScope((cmp as any).ngComponentDef, transitiveScope));
+    const calcTransitiveScopesFor = (moduleType: NgModuleType) => transitiveScopesFor(
+        moduleType, (ngModule: NgModuleType) => this._compileNgModule(ngModule));
+    const transitiveScope = calcTransitiveScopesFor(moduleType);
+    compiledComponents.forEach(cmp => {
+      const scope = this._templateOverrides.has(cmp) ?
+          // if we have template override via `TestBed.overrideTemplateUsingTestingModule` -
+          // define Component scope as TestingModule scope, instead of the scope of NgModule
+          // where this Component was declared
+          calcTransitiveScopesFor(this._testModuleType) :
+          transitiveScope;
+      patchComponentDefWithScope((cmp as any).ngComponentDef, scope);
+    });
   }
 
   /**
-   * Compute the pair of transitive scopes (compilation scope and exported scope) for a given
-   * module.
-   *
-   * This operation is memoized and the result is cached on the module's definition. It can be
-   * called on modules with components that have not fully compiled yet, but the result should not
-   * be used until they have.
+   * @internal
    */
-  private _transitiveScopesFor<T>(moduleType: Type<T>, resolvers: Resolvers):
-      NgModuleTransitiveScopes {
-    if (!isNgModule(moduleType)) {
-      throw new Error(`${moduleType.name} does not have an ngModuleDef`);
+  _getComponentFactories(moduleType: NgModuleType): ComponentFactory<any>[] {
+    return moduleType.ngModuleDef.declarations.reduce((factories, declaration) => {
+      const componentDef = (declaration as any).ngComponentDef;
+      componentDef && factories.push(new ComponentFactory(componentDef, this._moduleRef));
+      return factories;
+    }, [] as ComponentFactory<any>[]);
+  }
+
+  /**
+   * Check whether the module scoping queue should be flushed, and flush it if needed.
+   *
+   * When the TestBed is reset, it clears the JIT module compilation queue, cancelling any
+   * in-progress module compilation. This creates a potential hazard - the very first time the
+   * TestBed is initialized (or if it's reset without being initialized), there may be pending
+   * compilations of modules declared in global scope. These compilations should be finished.
+   *
+   * To ensure that globally declared modules have their components scoped properly, this function
+   * is called whenever TestBed is initialized or reset. The _first_ time that this happens, prior
+   * to any other operations, the scoping queue is flushed.
+   */
+  private _checkGlobalCompilationFinished(): void {
+    // !this._instantiated should not be necessary, but is left in as an additional guard that
+    // compilations queued in tests (after instantiation) are never flushed accidentally.
+    if (!this._globalCompilationChecked && !this._instantiated) {
+      flushModuleScopingQueueAsMuchAsPossible();
     }
-    const def = moduleType.ngModuleDef;
-
-    if (def.transitiveCompileScopes !== null) {
-      return def.transitiveCompileScopes;
-    }
-
-    const scopes: NgModuleTransitiveScopes = {
-      compilation: {
-        directives: new Set<any>(),
-        pipes: new Set<any>(),
-      },
-      exported: {
-        directives: new Set<any>(),
-        pipes: new Set<any>(),
-      },
-    };
-
-    def.declarations.forEach(declared => {
-      const declaredWithDefs = declared as Type<any>& { ngPipeDef?: any; };
-
-      if (declaredWithDefs.ngPipeDef !== undefined) {
-        scopes.compilation.pipes.add(declared);
-      } else {
-        scopes.compilation.directives.add(declared);
-      }
-    });
-
-    def.imports.forEach(<I>(imported: NgModuleType) => {
-      const ngModule = resolvers.module.resolve(imported);
-
-      if (ngModule === null) {
-        throw new Error(`Importing ${imported.name} which does not have an @ngModule`);
-      } else {
-        this._compileNgModule(imported, resolvers);
-      }
-
-      // When this module imports another, the imported module's exported directives and pipes are
-      // added to the compilation scope of this module.
-      const importedScope = this._transitiveScopesFor(imported, resolvers);
-      importedScope.exported.directives.forEach(entry => scopes.compilation.directives.add(entry));
-      importedScope.exported.pipes.forEach(entry => scopes.compilation.pipes.add(entry));
-    });
-
-    def.exports.forEach(<E>(exported: Type<E>) => {
-      const exportedTyped = exported as Type<E>& {
-        // Components, Directives, NgModules, and Pipes can all be exported.
-        ngComponentDef?: any;
-        ngDirectiveDef?: any;
-        ngModuleDef?: NgModuleDef<E>;
-        ngPipeDef?: any;
-      };
-
-      // Either the type is a module, a pipe, or a component/directive (which may not have an
-      // ngComponentDef as it might be compiled asynchronously).
-      if (isNgModule(exportedTyped)) {
-        // When this module exports another, the exported module's exported directives and pipes are
-        // added to both the compilation and exported scopes of this module.
-        const exportedScope = this._transitiveScopesFor(exportedTyped, resolvers);
-        exportedScope.exported.directives.forEach(entry => {
-          scopes.compilation.directives.add(entry);
-          scopes.exported.directives.add(entry);
-        });
-        exportedScope.exported.pipes.forEach(entry => {
-          scopes.compilation.pipes.add(entry);
-          scopes.exported.pipes.add(entry);
-        });
-      } else if (exportedTyped.ngPipeDef !== undefined) {
-        scopes.exported.pipes.add(exportedTyped);
-      } else {
-        scopes.exported.directives.add(exportedTyped);
-      }
-    });
-
-    def.transitiveCompileScopes = scopes;
-    return scopes;
+    this._globalCompilationChecked = true;
   }
 }
 
@@ -621,19 +765,6 @@ let testBed: TestBedRender3;
 
 export function _getTestBedRender3(): TestBedRender3 {
   return testBed = testBed || new TestBedRender3();
-}
-
-const OWNER_MODULE = '__NG_MODULE__';
-/**
- * This function clears the OWNER_MODULE property from the Types. This is set in
- * r3/jit/modules.ts. It is common for the same Type to be compiled in different tests. If we don't
- * clear this we will get errors which will complain that the same Component/Directive is in more
- * than one NgModule.
- */
-function clearNgModules(type: Type<any>) {
-  if (type.hasOwnProperty(OWNER_MODULE)) {
-    (type as any)[OWNER_MODULE] = undefined;
-  }
 }
 
 function flatten<T>(values: any[], mapFn?: (value: T) => any): T[] {
@@ -650,4 +781,42 @@ function flatten<T>(values: any[], mapFn?: (value: T) => any): T[] {
 
 function isNgModule<T>(value: Type<T>): value is Type<T>&{ngModuleDef: NgModuleDef<T>} {
   return (value as{ngModuleDef?: NgModuleDef<T>}).ngModuleDef !== undefined;
+}
+
+class R3TestCompiler implements Compiler {
+  constructor(private testBed: TestBedRender3) {}
+
+  compileModuleSync<T>(moduleType: Type<T>): NgModuleFactory<T> {
+    this.testBed._compileNgModule(moduleType as NgModuleType<T>);
+    return new R3NgModuleFactory(moduleType);
+  }
+
+  compileModuleAsync<T>(moduleType: Type<T>): Promise<NgModuleFactory<T>> {
+    return Promise.resolve(this.compileModuleSync(moduleType));
+  }
+
+  compileModuleAndAllComponentsSync<T>(moduleType: Type<T>): ModuleWithComponentFactories<T> {
+    const ngModuleFactory = this.compileModuleSync(moduleType);
+    const componentFactories = this.testBed._getComponentFactories(moduleType as NgModuleType<T>);
+    return new ModuleWithComponentFactories(ngModuleFactory, componentFactories);
+  }
+
+  compileModuleAndAllComponentsAsync<T>(moduleType: Type<T>):
+      Promise<ModuleWithComponentFactories<T>> {
+    return Promise.resolve(this.compileModuleAndAllComponentsSync(moduleType));
+  }
+
+  clearCache(): void {}
+
+  clearCacheFor(type: Type<any>): void {}
+
+  getModuleId(moduleType: Type<any>): string|undefined {
+    const meta = this.testBed._getModuleResolver().resolve(moduleType);
+    return meta && meta.id || undefined;
+  }
+}
+
+/** Error handler used for tests. Rethrows errors rather than logging them out. */
+class R3TestErrorHandler extends ErrorHandler {
+  handleError(error: any) { throw error; }
 }

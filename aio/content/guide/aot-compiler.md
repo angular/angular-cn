@@ -1066,7 +1066,7 @@ The compiler can only reference _exported symbols_.
 
 编译器只能引用*已导出的符号*。
 
-Decorated component class members must be public. You cannot make an `@Input()` property private or internal.
+Decorated component class members must be public. You cannot make an `@Input()` property private or protected.
 
 带有装饰器的类成员必须是公开的。你不可能制作一个私有或内部使用的 `@Input()` 属性。
 
@@ -2570,7 +2570,7 @@ done manually.
 
 When `true`, this option tells the compiler not to check the TypeScript version.
 The compiler will skip checking and will not error out when an unsupported version of TypeScript is used.
-Setting this option to `true` is not recommended because unsupported versions of TypeScript might have undefined behaviour.
+Setting this option to `true` is not recommended because unsupported versions of TypeScript might have undefined behavior.
 
 当为 `true` 时，该选项告诉编译器不要检查 TypeScript 的版本。
 当时用了不支持的 TypeScript 版本时，该选项将会跳过检查，并且不会报错。

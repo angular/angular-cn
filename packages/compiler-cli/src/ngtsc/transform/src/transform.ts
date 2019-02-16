@@ -9,22 +9,23 @@
 import {ConstantPool} from '@angular/compiler';
 import * as ts from 'typescript';
 
-import {Decorator, ReflectionHost} from '../../host';
+import {ImportRewriter} from '../../imports';
+import {Decorator, ReflectionHost} from '../../reflection';
 import {ImportManager, translateExpression, translateStatement} from '../../translator';
-import {relativePathBetween} from '../../util/src/path';
 import {VisitListEntryResult, Visitor, visit} from '../../util/src/visitor';
 
 import {CompileResult} from './api';
 import {IvyCompilation} from './compilation';
+import {addImports} from './utils';
 
 const NO_DECORATORS = new Set<ts.Decorator>();
 
 export function ivyTransformFactory(
-    compilation: IvyCompilation, reflector: ReflectionHost,
-    coreImportsFrom: ts.SourceFile | null): ts.TransformerFactory<ts.SourceFile> {
+    compilation: IvyCompilation, reflector: ReflectionHost, importRewriter: ImportRewriter,
+    isCore: boolean): ts.TransformerFactory<ts.SourceFile> {
   return (context: ts.TransformationContext): ts.Transformer<ts.SourceFile> => {
     return (file: ts.SourceFile): ts.SourceFile => {
-      return transformIvySourceFile(compilation, context, reflector, coreImportsFrom, file);
+      return transformIvySourceFile(compilation, context, reflector, importRewriter, isCore, file);
     };
   };
 }
@@ -67,8 +68,7 @@ class IvyVisitor extends Visitor {
       node = ts.updateClassDeclaration(
           node,
           // Remove the decorator which triggered this compilation, leaving the others alone.
-          maybeFilterDecorator(
-              node.decorators, this.compilation.ivyDecoratorFor(node) !.node as ts.Decorator),
+          maybeFilterDecorator(node.decorators, this.compilation.ivyDecoratorsFor(node)),
           node.modifiers, node.name, node.typeParameters, node.heritageClauses || [],
           // Map over the class members and remove any Angular decorators from them.
           members.map(member => this._stripAngularDecorators(member)));
@@ -189,47 +189,30 @@ class IvyVisitor extends Visitor {
  */
 function transformIvySourceFile(
     compilation: IvyCompilation, context: ts.TransformationContext, reflector: ReflectionHost,
-    coreImportsFrom: ts.SourceFile | null, file: ts.SourceFile): ts.SourceFile {
+    importRewriter: ImportRewriter, isCore: boolean, file: ts.SourceFile): ts.SourceFile {
   const constantPool = new ConstantPool();
-  const importManager = new ImportManager(coreImportsFrom !== null);
+  const importManager = new ImportManager(importRewriter);
 
   // Recursively scan through the AST and perform any updates requested by the IvyCompilation.
-  const visitor =
-      new IvyVisitor(compilation, reflector, importManager, coreImportsFrom !== null, constantPool);
+  const visitor = new IvyVisitor(compilation, reflector, importManager, isCore, constantPool);
   const sf = visit(file, visitor, context);
 
   // Generate the constant statements first, as they may involve adding additional imports
   // to the ImportManager.
   const constants = constantPool.statements.map(stmt => translateStatement(stmt, importManager));
 
-  // Generate the import statements to prepend.
-  const addedImports = importManager.getAllImports(file.fileName, coreImportsFrom).map(i => {
-    return ts.createImportDeclaration(
-        undefined, undefined,
-        ts.createImportClause(undefined, ts.createNamespaceImport(ts.createIdentifier(i.as))),
-        ts.createLiteral(i.name));
-  });
-
-  // Filter out the existing imports and the source file body. All new statements
-  // will be inserted between them.
-  const existingImports = sf.statements.filter(stmt => isImportStatement(stmt));
-  const body = sf.statements.filter(stmt => !isImportStatement(stmt));
-
-  // Prepend imports if needed.
-  if (addedImports.length > 0) {
-    sf.statements =
-        ts.createNodeArray([...existingImports, ...addedImports, ...constants, ...body]);
-  }
-  return sf;
+  // Add new imports for this file.
+  return addImports(importManager, sf, constants);
 }
 
 function maybeFilterDecorator(
     decorators: ts.NodeArray<ts.Decorator>| undefined,
-    toRemove: ts.Decorator): ts.NodeArray<ts.Decorator>|undefined {
+    toRemove: ts.Decorator[]): ts.NodeArray<ts.Decorator>|undefined {
   if (decorators === undefined) {
     return undefined;
   }
-  const filtered = decorators.filter(dec => ts.getOriginalNode(dec) !== toRemove);
+  const filtered = decorators.filter(
+      dec => toRemove.find(decToRemove => ts.getOriginalNode(dec) === decToRemove) === undefined);
   if (filtered.length === 0) {
     return undefined;
   }
@@ -238,9 +221,4 @@ function maybeFilterDecorator(
 
 function isFromAngularCore(decorator: Decorator): boolean {
   return decorator.import !== null && decorator.import.from === '@angular/core';
-}
-
-function isImportStatement(stmt: ts.Statement): boolean {
-  return ts.isImportDeclaration(stmt) || ts.isImportEqualsDeclaration(stmt) ||
-      ts.isNamespaceImport(stmt);
 }

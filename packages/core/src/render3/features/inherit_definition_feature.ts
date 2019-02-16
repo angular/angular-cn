@@ -6,11 +6,13 @@
  * found in the LICENSE file at https://angular.io/license
  */
 
-import {Type} from '../../type';
+import {Type} from '../../interface/type';
+import {Component} from '../../metadata/directives';
 import {fillProperties} from '../../util/property';
 import {EMPTY_ARRAY, EMPTY_OBJ} from '../empty';
 import {ComponentDef, DirectiveDef, DirectiveDefFeature, RenderFlags} from '../interfaces/definition';
 
+import {NgOnChangesFeature} from './ng_onchanges_feature';
 
 
 /**
@@ -102,29 +104,14 @@ export function InheritDefinitionFeature(definition: DirectiveDef<any>| Componen
       const superContentQueries = superDef.contentQueries;
       if (superContentQueries) {
         if (prevContentQueries) {
-          definition.contentQueries = (dirIndex: number) => {
-            superContentQueries(dirIndex);
-            prevContentQueries(dirIndex);
+          definition.contentQueries = <T>(rf: RenderFlags, ctx: T, directiveIndex: number) => {
+            superContentQueries(rf, ctx, directiveIndex);
+            prevContentQueries(rf, ctx, directiveIndex);
           };
         } else {
           definition.contentQueries = superContentQueries;
         }
       }
-
-      // Merge Content Queries Refresh
-      const prevContentQueriesRefresh = definition.contentQueriesRefresh;
-      const superContentQueriesRefresh = superDef.contentQueriesRefresh;
-      if (superContentQueriesRefresh) {
-        if (prevContentQueriesRefresh) {
-          definition.contentQueriesRefresh = (directiveIndex: number, queryIndex: number) => {
-            superContentQueriesRefresh(directiveIndex, queryIndex);
-            prevContentQueriesRefresh(directiveIndex, queryIndex);
-          };
-        } else {
-          definition.contentQueriesRefresh = superContentQueriesRefresh;
-        }
-      }
-
 
       // Merge inputs and outputs
       fillProperties(definition.inputs, superDef.inputs);
@@ -156,18 +143,21 @@ export function InheritDefinitionFeature(definition: DirectiveDef<any>| Componen
     } else {
       // Even if we don't have a definition, check the type for the hooks and use those if need be
       const superPrototype = superType.prototype;
-
       if (superPrototype) {
         definition.afterContentChecked =
-            definition.afterContentChecked || superPrototype.afterContentChecked;
+            definition.afterContentChecked || superPrototype.ngAfterContentChecked;
         definition.afterContentInit =
-            definition.afterContentInit || superPrototype.afterContentInit;
+            definition.afterContentInit || superPrototype.ngAfterContentInit;
         definition.afterViewChecked =
-            definition.afterViewChecked || superPrototype.afterViewChecked;
-        definition.afterViewInit = definition.afterViewInit || superPrototype.afterViewInit;
-        definition.doCheck = definition.doCheck || superPrototype.doCheck;
-        definition.onDestroy = definition.onDestroy || superPrototype.onDestroy;
-        definition.onInit = definition.onInit || superPrototype.onInit;
+            definition.afterViewChecked || superPrototype.ngAfterViewChecked;
+        definition.afterViewInit = definition.afterViewInit || superPrototype.ngAfterViewInit;
+        definition.doCheck = definition.doCheck || superPrototype.ngDoCheck;
+        definition.onDestroy = definition.onDestroy || superPrototype.ngOnDestroy;
+        definition.onInit = definition.onInit || superPrototype.ngOnInit;
+
+        if (superPrototype.ngOnChanges) {
+          NgOnChangesFeature()(definition);
+        }
       }
     }
 

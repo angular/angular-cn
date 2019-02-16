@@ -13,7 +13,8 @@ interface Update {
 }
 
 /**
- * Immutable set of Http headers, with lazy parsing.
+ * `HttpHeaders` class represents the header configuration options for an HTTP request.
+ * Instances should be assumed immutable with lazy parsing.
  *
  * Http 头的不可变集合，惰性解析。
  *
@@ -51,6 +52,8 @@ export class HttpHeaders {
    * 一个队列，用于存储下次初始化时要执行的更新。
    */
   private lazyUpdate: Update[]|null = null;
+
+  /**  Constructs a new HTTP header object with the given values.*/
 
   constructor(headers?: string|{[name: string]: string | string[]}) {
     if (!headers) {
@@ -92,9 +95,18 @@ export class HttpHeaders {
   }
 
   /**
-   * Checks for existence of header by given name.
+   * Checks for existence of a header by a given name.
    *
    * 检查是否存在指定名称的头。
+   *
+   * @param name The header name to check for existence.
+   *
+   * 要检查是否存在的头名称
+   *
+   * @returns Whether the header exits.
+   *
+   * 这个头是否存在。
+   *
    */
   has(name: string): boolean {
     this.init();
@@ -103,9 +115,18 @@ export class HttpHeaders {
   }
 
   /**
-   * Returns first header that matches given name.
+   * Returns the first header value that matches a given name.
    *
    * 返回匹配指定名称的第一个头的值。
+   *
+   * @param name The header name to retrieve.
+   *
+   * 要取的头名称
+   *
+   * @returns A string if the header exists, null otherwise
+   *
+   * 如果头存在则返回一个字符串，否则返回 null
+   *
    */
   get(name: string): string|null {
     this.init();
@@ -115,9 +136,13 @@ export class HttpHeaders {
   }
 
   /**
-   * Returns the names of the headers
+   * Returns the names of the headers.
    *
-   * 返回头中所有的名称。
+   * 返回所有的头名称。
+   *
+   * @returns A list of header names.
+   *
+   * 一个头名称列表。
    */
   keys(): string[] {
     this.init();
@@ -126,9 +151,18 @@ export class HttpHeaders {
   }
 
   /**
-   * Returns list of header values for a given name.
+   * Returns a list of header values for a given header name.
    *
    * 返回头中具有指定名称的值的列表。
+   *
+   * @param name The header name from which to retrieve the values.
+   *
+   * 准备获取值的头名称
+   *
+   * @returns A string of values if the header exists, null otherwise.
+   *
+   * 如果头存在则返回一个字符串数组，否则返回 null。
+   *
    */
   getAll(name: string): string[]|null {
     this.init();
@@ -136,14 +170,38 @@ export class HttpHeaders {
     return this.headers.get(name.toLowerCase()) || null;
   }
 
+  /**
+   * Appends a new header value to the existing set of
+   * header values.
+   *
+   * @param name The header name for which to append the values.
+   *
+   * @returns A clone of the HTTP header object with the value appended.
+   */
+
   append(name: string, value: string|string[]): HttpHeaders {
     return this.clone({name, value, op: 'a'});
   }
-
+  /**
+   * Sets a header value for a given name. If the header name already exists,
+   * its value is replaced with the given value.
+   *
+   * @param name The header name.
+   * @param value Provides the value to set or overide for a given name.
+   *
+   * @returns A clone of the HTTP header object with the newly set header value.
+   */
   set(name: string, value: string|string[]): HttpHeaders {
     return this.clone({name, value, op: 's'});
   }
-
+  /**
+   * Deletes all header values for a given name.
+   *
+   * @param name The header name.
+   * @param value The header values to delete for a given name.
+   *
+   * @returns A clone of the HTTP header object.
+   */
   delete (name: string, value?: string|string[]): HttpHeaders {
     return this.clone({name, value, op: 'd'});
   }

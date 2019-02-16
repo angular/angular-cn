@@ -13,6 +13,7 @@ import {injectRenderer2 as render3InjectRenderer2} from '../render3/view_engine_
 import {noop} from '../util/noop';
 
 
+
 /**
  * @deprecated Use `RendererType2` (and `Renderer2`) instead.
  * @publicApi
@@ -337,8 +338,14 @@ export abstract class Renderer2 {
    * @param oldChild The child node to remove.
    *
    * 要移除的子节点。
+   *
+   * @param isHostElement Optionally signal to the renderer whether this element is a host element
+   * or not
+   *
+   * 可选值，用于告诉渲染器该元素是否宿主元素
+   *
    */
-  abstract removeChild(parent: any, oldChild: any): void;
+  abstract removeChild(parent: any, oldChild: any, isHostElement?: boolean): void;
   /**
    * Implement this callback to prepare an element to be bootstrapped
    * as a root element, and return the element instance.
@@ -574,7 +581,10 @@ export abstract class Renderer2 {
       target: 'window'|'document'|'body'|any, eventName: string,
       callback: (event: any) => boolean | void): () => void;
 
-  /** @internal */
+  /**
+   * @internal
+   * @nocollapse
+   */
   static __NG_ELEMENT_ID__: () => Renderer2 = () => SWITCH_RENDERER2_FACTORY();
 }
 

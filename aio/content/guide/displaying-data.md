@@ -186,7 +186,7 @@ Although this example uses variable assignment to initialize the components, you
 
 虽然这个例子使用了变量赋值的方式初始化组件，你还可以使用构造函数来声明和初始化属性。
 
-<code-example path="displaying-data/src/app/app-ctor.component.ts" linenums="false" region="class">
+<code-example path="displaying-data/src/app/app-ctor.component.1.ts" linenums="false" region="class">
 
 </code-example>
 

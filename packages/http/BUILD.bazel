@@ -10,7 +10,6 @@ ng_module(
             "src/**/*.ts",
         ],
     ),
-    module_name = "@angular/http",
     deps = [
         "//packages/core",
         "//packages/platform-browser",
@@ -30,7 +29,9 @@ ng_package(
     ],
     # Do not add more to this list.
     # Dependencies on the full npm_package cause long re-builds.
-    visibility = ["//visibility:private"],
+    visibility = [
+        "//packages/compiler-cli/integrationtest:__pkg__",
+    ],
     deps = [
         ":http",
         "//packages/http/testing",

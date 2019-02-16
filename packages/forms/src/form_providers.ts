@@ -18,8 +18,6 @@ import {FormBuilder} from './form_builder';
  *
  * 导出模板驱动表单所需的提供商和指令，使其可用于导入了该模块的 NgModule 中。
  *
- * @see [Forms](guide/forms)
- *
  * @see [Forms Guide](/guide/forms)
  *
  * @publicApi

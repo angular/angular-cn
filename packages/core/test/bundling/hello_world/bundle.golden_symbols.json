@@ -3,9 +3,6 @@
     "name": "ACTIVE_INDEX"
   },
   {
-    "name": "ANIMATION_PROP_PREFIX"
-  },
-  {
     "name": "BINDING_INDEX"
   },
   {
@@ -48,9 +45,6 @@
     "name": "HOST"
   },
   {
-    "name": "HOST_NODE"
-  },
-  {
     "name": "INJECTOR"
   },
   {
@@ -78,16 +72,10 @@
     "name": "NG_PIPE_DEF"
   },
   {
-    "name": "NG_PROJECT_AS_ATTR_NAME"
-  },
-  {
     "name": "NO_CHANGE"
   },
   {
     "name": "NO_PARENT_INJECTOR"
-  },
-  {
-    "name": "NgOnChangesFeature"
   },
   {
     "name": "NodeInjectorFactory"
@@ -102,25 +90,22 @@
     "name": "PARENT_INJECTOR"
   },
   {
-    "name": "PRIVATE_PREFIX"
-  },
-  {
     "name": "RENDERER"
   },
   {
     "name": "RENDERER_FACTORY"
   },
   {
-    "name": "RENDER_PARENT"
-  },
-  {
     "name": "SANITIZER"
   },
   {
-    "name": "SimpleChange"
+    "name": "TAIL"
   },
   {
     "name": "TVIEW"
+  },
+  {
+    "name": "T_HOST"
   },
   {
     "name": "UnsubscriptionErrorImpl"
@@ -132,10 +117,7 @@
     "name": "ViewEncapsulation"
   },
   {
-    "name": "__self"
-  },
-  {
-    "name": "__window"
+    "name": "__values"
   },
   {
     "name": "_global"
@@ -144,7 +126,13 @@
     "name": "_renderCompCount"
   },
   {
+    "name": "addToViewTree"
+  },
+  {
     "name": "appendChild"
+  },
+  {
+    "name": "applyOnCreateInstructions"
   },
   {
     "name": "attachPatchData"
@@ -157,15 +145,6 @@
   },
   {
     "name": "callHooks"
-  },
-  {
-    "name": "canInsertNativeChildOfElement"
-  },
-  {
-    "name": "canInsertNativeChildOfView"
-  },
-  {
-    "name": "canInsertNativeNode"
   },
   {
     "name": "checkNoChangesMode"
@@ -204,9 +183,6 @@
     "name": "createViewBlueprint"
   },
   {
-    "name": "createViewQuery"
-  },
-  {
     "name": "defaultScheduler"
   },
   {
@@ -226,6 +202,9 @@
   },
   {
     "name": "executeInitHooks"
+  },
+  {
+    "name": "executeViewQueryFn"
   },
   {
     "name": "extractDirectiveDef"
@@ -258,10 +237,10 @@
     "name": "getDirectiveDef"
   },
   {
-    "name": "getFirstParentNative"
+    "name": "getGlobal"
   },
   {
-    "name": "getHighestElementContainer"
+    "name": "getHighestElementOrICUContainer"
   },
   {
     "name": "getHostNative"
@@ -280,6 +259,9 @@
   },
   {
     "name": "getLViewChild"
+  },
+  {
+    "name": "getNativeAnchorNode"
   },
   {
     "name": "getNativeByTNode"
@@ -304,9 +286,6 @@
   },
   {
     "name": "getParentInjectorViewOffset"
-  },
-  {
-    "name": "getParentNative"
   },
   {
     "name": "getPipeDef"
@@ -345,7 +324,7 @@
     "name": "invertObject"
   },
   {
-    "name": "isAnimationProp"
+    "name": "invokeHostBindingsInCreationMode"
   },
   {
     "name": "isComponentDef"
@@ -372,6 +351,12 @@
     "name": "namespaceHTML"
   },
   {
+    "name": "nativeAppendChild"
+  },
+  {
+    "name": "nativeAppendOrInsertBefore"
+  },
+  {
     "name": "nativeInsertBefore"
   },
   {
@@ -382,9 +367,6 @@
   },
   {
     "name": "noSideEffects"
-  },
-  {
-    "name": "onChangesWrapper"
   },
   {
     "name": "postProcessBaseDirective"
@@ -423,6 +405,9 @@
     "name": "renderEmbeddedTemplate"
   },
   {
+    "name": "renderStringify"
+  },
+  {
     "name": "resetComponentState"
   },
   {
@@ -432,7 +417,7 @@
     "name": "setCurrentDirectiveDef"
   },
   {
-    "name": "setFirstTemplatePass"
+    "name": "setCurrentQueryIndex"
   },
   {
     "name": "setHostBindings"
@@ -453,12 +438,6 @@
     "name": "setTNodeAndViewData"
   },
   {
-    "name": "setUpAttributes"
-  },
-  {
-    "name": "stringify$1"
-  },
-  {
     "name": "syncViewWithBlueprint"
   },
   {
@@ -466,9 +445,6 @@
   },
   {
     "name": "tickRootContext"
-  },
-  {
-    "name": "updateViewQuery"
   },
   {
     "name": "viewAttached"

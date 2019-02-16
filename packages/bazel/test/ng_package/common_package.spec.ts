@@ -6,11 +6,15 @@
  * found in the LICENSE file at https://angular.io/license
  */
 
+import {obsoleteInIvy} from '@angular/private/testing';
 import * as fs from 'fs';
 import * as path from 'path';
 import * as shx from 'shelljs';
 
-shx.cd(path.join(process.env['TEST_SRCDIR'] !, 'angular', 'packages', 'common', 'npm_package'));
+// Resolve the "npm_package" directory by using the runfile resolution. Note that we need to
+// resolve the "package.json" of the package since otherwise NodeJS would resolve the "main"
+// file, which is not necessarily at the root of the "npm_package".
+shx.cd(path.dirname(require.resolve('angular/packages/common/npm_package/package.json')));
 
 describe('@angular/common ng_package', () => {
   describe('should have the locales files', () => {
@@ -87,6 +91,14 @@ describe('@angular/common ng_package', () => {
         .toMatch('//# sourceMappingURL=testing.js.map');
     expect(shx.grep('sourceMappingURL', 'fesm2015/testing.js'))
         .toMatch('//# sourceMappingURL=testing.js.map');
+  });
+
+  describe('secondary entry-point', () => {
+    obsoleteInIvy(
+        `now that we don't need metadata files, we don't need these redirects to help resolve paths to them`)
+        .it('should contain a root type definition re-export', () => {
+          expect(shx.cat('./testing.d.ts')).toContain(`export * from './testing/testing';`);
+        });
   });
 
 

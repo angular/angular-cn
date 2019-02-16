@@ -13,7 +13,6 @@ import {RendererType2, ViewEncapsulation} from '../../src/core';
 import {defineComponent} from '../../src/render3/index';
 import {bind, container, containerRefreshEnd, containerRefreshStart, element, elementEnd, elementProperty, elementStart, embeddedViewEnd, embeddedViewStart, listener, text, tick} from '../../src/render3/instructions';
 import {RenderFlags} from '../../src/render3/interfaces/definition';
-import {createRendererType2} from '../../src/view/index';
 
 import {getAnimationRendererFactory2, getRendererFactory2} from './imported_renderer2';
 import {TemplateFixture, containerEl, document, renderComponent, renderToHtml, toHtml} from './render_util';
@@ -105,7 +104,7 @@ describe('renderer factory lifecycle', () => {
 
   it('should work with a template', () => {
     renderToHtml(Template, {}, 1, 0, null, null, rendererFactory);
-    expect(logs).toEqual(['create', 'begin', 'function create', 'function update', 'end']);
+    expect(logs).toEqual(['create', 'function create', 'function update']);
 
     logs = [];
     renderToHtml(Template, {});
@@ -115,8 +114,8 @@ describe('renderer factory lifecycle', () => {
   it('should work with a template which contains a component', () => {
     renderToHtml(TemplateWithComponent, {}, 2, 0, directives, null, rendererFactory);
     expect(logs).toEqual([
-      'create', 'begin', 'function_with_component create', 'create', 'component create',
-      'function_with_component update', 'component update', 'end'
+      'create', 'function_with_component create', 'create', 'component create',
+      'function_with_component update', 'component update'
     ]);
 
     logs = [];

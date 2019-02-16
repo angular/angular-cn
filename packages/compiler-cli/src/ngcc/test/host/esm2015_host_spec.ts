@@ -8,7 +8,7 @@
 
 import * as ts from 'typescript';
 
-import {ClassMemberKind, Import} from '../../../ngtsc/host';
+import {ClassMemberKind, Import} from '../../../ngtsc/reflection';
 import {Esm2015ReflectionHost} from '../../src/host/esm2015_host';
 import {getDeclaration, makeTestBundleProgram, makeTestProgram} from '../helpers/utils';
 
@@ -48,6 +48,24 @@ const SOME_DIRECTIVE_FILE = {
       "input2": [{ type: Input },],
       "target": [{ type: HostBinding, args: ['attr.target',] }, { type: Input },],
       "onClick": [{ type: HostListener, args: ['click',] },],
+    };
+  `,
+};
+
+const ACCESSORS_FILE = {
+  name: '/accessors.js',
+  contents: `
+    import { Directive, Input, Output } from '@angular/core';
+
+    class SomeDirective {
+      set setterAndGetter(value) { this.value = value; }
+      get setterAndGetter() { return null; }
+    }
+    SomeDirective.decorators = [
+      { type: Directive, args: [{ selector: '[someDirective]' },] }
+    ];
+    SomeDirective.propDecorators = {
+      "setterAndGetter": [{ type: Input },],
     };
   `,
 };
@@ -705,6 +723,27 @@ describe('Fesm2015ReflectionHost', () => {
       expect(instanceProperty.value !.getText()).toEqual(`'instance'`);
     });
 
+    it('should handle equally named getter/setter pairs correctly', () => {
+      const program = makeTestProgram(ACCESSORS_FILE);
+      const host = new Esm2015ReflectionHost(false, program.getTypeChecker());
+      const classNode =
+          getDeclaration(program, ACCESSORS_FILE.name, 'SomeDirective', ts.isClassDeclaration);
+      const members = host.getMembersOfClass(classNode);
+
+      const [combinedSetter, combinedGetter] =
+          members.filter(member => member.name === 'setterAndGetter');
+      expect(combinedSetter.kind).toEqual(ClassMemberKind.Setter);
+      expect(combinedSetter.isStatic).toEqual(false);
+      expect(ts.isSetAccessor(combinedSetter.implementation !)).toEqual(true);
+      expect(combinedSetter.value).toBeNull();
+      expect(combinedSetter.decorators !.map(d => d.name)).toEqual(['Input']);
+      expect(combinedGetter.kind).toEqual(ClassMemberKind.Getter);
+      expect(combinedGetter.isStatic).toEqual(false);
+      expect(ts.isGetAccessor(combinedGetter.implementation !)).toEqual(true);
+      expect(combinedGetter.value).toBeNull();
+      expect(combinedGetter.decorators !.map(d => d.name)).toEqual([]);
+    });
+
     it('should find static methods on a class', () => {
       const program = makeTestProgram(SOME_DIRECTIVE_FILE);
       const host = new Esm2015ReflectionHost(false, program.getTypeChecker());
@@ -978,6 +1017,70 @@ describe('Fesm2015ReflectionHost', () => {
         name: 'arg1',
         decorators: null,
       }));
+    });
+
+    describe('synthesized constructors', () => {
+      function getConstructorParameters(constructor: string) {
+        const file = {
+          name: '/synthesized_constructors.js',
+          contents: `
+            class BaseClass {}
+            class TestClass extends BaseClass {
+              ${constructor}
+            }
+          `,
+        };
+
+        const program = makeTestProgram(file);
+        const host = new Esm2015ReflectionHost(false, program.getTypeChecker());
+        const classNode = getDeclaration(program, file.name, 'TestClass', ts.isClassDeclaration);
+        return host.getConstructorParameters(classNode);
+      }
+
+      it('recognizes super call as first statement', () => {
+        const parameters = getConstructorParameters(`
+          constructor() {
+            super(...arguments);
+            this.synthesizedProperty = null;
+          }`);
+
+        expect(parameters).toBeNull();
+      });
+
+      it('does not consider super call without spread element as synthesized', () => {
+        const parameters = getConstructorParameters(`
+          constructor() {
+            super(arguments);
+          }`);
+
+        expect(parameters !.length).toBe(0);
+      });
+
+      it('does not consider constructors with parameters as synthesized', () => {
+        const parameters = getConstructorParameters(`
+          constructor(arg) {
+            super(...arguments);
+          }`);
+
+        expect(parameters !.length).toBe(1);
+      });
+
+      it('does not consider manual super calls as synthesized', () => {
+        const parameters = getConstructorParameters(`
+          constructor() {
+            super();
+          }`);
+
+        expect(parameters !.length).toBe(0);
+      });
+
+      it('does not consider empty constructors as synthesized', () => {
+        const parameters = getConstructorParameters(`
+          constructor() {
+          }`);
+
+        expect(parameters !.length).toBe(0);
+      });
     });
 
     describe('(returned parameters `decorators`)', () => {

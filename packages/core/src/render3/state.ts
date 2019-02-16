@@ -6,14 +6,12 @@
  * found in the LICENSE file at https://angular.io/license
  */
 
-import {assertDefined} from './assert';
+import {assertDefined} from '../util/assert';
+
 import {executeHooks} from './hooks';
 import {ComponentDef, DirectiveDef} from './interfaces/definition';
-import {TElementNode, TNode, TNodeFlags, TViewNode} from './interfaces/node';
-import {LQueries} from './interfaces/query';
-import {BINDING_INDEX, CONTEXT, DECLARATION_VIEW, FLAGS, HOST_NODE, LView, LViewFlags, OpaqueViewState, QUERIES, TVIEW} from './interfaces/view';
-import {isContentQueryHost} from './util';
-
+import {TElementNode, TNode, TViewNode} from './interfaces/node';
+import {BINDING_INDEX, CONTEXT, DECLARATION_VIEW, FLAGS, InitPhaseState, LView, LViewFlags, OpaqueViewState, TVIEW} from './interfaces/view';
 
 
 /**
@@ -164,27 +162,6 @@ export function setIsParent(value: boolean): void {
   isParent = value;
 }
 
-/**
- * Query instructions can ask for "current queries" in 2 different cases:
- * - when creating view queries (at the root of a component view, before any node is created - in
- * this case currentQueries points to view queries)
- * - when creating content queries (i.e. this previousOrParentTNode points to a node on which we
- * create content queries).
- */
-export function getOrCreateCurrentQueries(
-    QueryType: {new (parent: null, shallow: null, deep: null): LQueries}): LQueries {
-  const lView = getLView();
-  let currentQueries = lView[QUERIES];
-  // if this is the first content query on a node, any existing LQueries needs to be cloned
-  // in subsequent template passes, the cloning occurs before directive instantiation.
-  if (previousOrParentTNode && previousOrParentTNode !== lView[HOST_NODE] &&
-      !isContentQueryHost(previousOrParentTNode)) {
-    currentQueries && (currentQueries = lView[QUERIES] = currentQueries.clone());
-    previousOrParentTNode.flags |= TNodeFlags.hasContentQuery;
-  }
-
-  return currentQueries || (lView[QUERIES] = new QueryType(null, null, null));
-}
 
 /** Checks whether a given view is in creation mode */
 export function isCreationMode(view: LView = lView): boolean {
@@ -228,17 +205,6 @@ export function setCheckNoChangesMode(mode: boolean): void {
   checkNoChangesMode = mode;
 }
 
-/** Whether or not this is the first time the current view has been processed. */
-let firstTemplatePass = true;
-
-export function getFirstTemplatePass(): boolean {
-  return firstTemplatePass;
-}
-
-export function setFirstTemplatePass(value: boolean): void {
-  firstTemplatePass = value;
-}
-
 /**
  * The root index from which pure function instructions should calculate their binding
  * indices. In component views, this is TView.bindingStartIndex. In a host binding
@@ -253,6 +219,21 @@ export function getBindingRoot() {
 
 export function setBindingRoot(value: number) {
   bindingRootIndex = value;
+}
+
+/**
+ * Current index of a View or Content Query which needs to be processed next.
+ * We iterate over the list of Queries and increment current query index at every step.
+ */
+let currentQueryIndex: number = 0;
+
+export function getCurrentQueryIndex(): number {
+  // top level variables should not be exported for performance reasons (PERF_NOTES.md)
+  return currentQueryIndex;
+}
+
+export function setCurrentQueryIndex(value: number): void {
+  currentQueryIndex = value;
 }
 
 /**
@@ -271,7 +252,6 @@ export function enterView(newView: LView, hostTNode: TElementNode | TViewNode | 
   const oldView = lView;
   if (newView) {
     const tView = newView[TVIEW];
-    firstTemplatePass = tView.firstTemplatePass;
     bindingRootIndex = tView.bindingStartIndex;
   }
 
@@ -319,11 +299,15 @@ export function leaveView(newView: LView): void {
   if (isCreationMode(lView)) {
     lView[FLAGS] &= ~LViewFlags.CreationMode;
   } else {
-    executeHooks(lView, tView.viewHooks, tView.viewCheckHooks, checkNoChangesMode);
-    // Views are clean and in update mode after being checked, so these bits are cleared
-    lView[FLAGS] &= ~(LViewFlags.Dirty | LViewFlags.FirstLViewPass);
-    lView[FLAGS] |= LViewFlags.RunInit;
-    lView[BINDING_INDEX] = tView.bindingStartIndex;
+    try {
+      executeHooks(
+          lView, tView.viewHooks, tView.viewCheckHooks, checkNoChangesMode,
+          InitPhaseState.AfterViewInitHooksToBeRun);
+    } finally {
+      // Views are clean and in update mode after being checked, so these bits are cleared
+      lView[FLAGS] &= ~(LViewFlags.Dirty | LViewFlags.FirstLViewPass);
+      lView[BINDING_INDEX] = tView.bindingStartIndex;
+    }
   }
   enterView(newView, null);
 }

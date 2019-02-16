@@ -10,7 +10,6 @@ ng_module(
             "src/**/*.ts",
         ],
     ),
-    module_name = "@angular/forms",
     deps = [
         "//packages/core",
         "//packages/platform-browser",
@@ -28,6 +27,7 @@ ng_package(
     # Do not add more to this list.
     # Dependencies on the full npm_package cause long re-builds.
     visibility = [
+        "//packages/compiler-cli/integrationtest:__pkg__",
         "//packages/compiler-cli/test/diagnostics:__pkg__",
         "//packages/language-service/test:__pkg__",
     ],

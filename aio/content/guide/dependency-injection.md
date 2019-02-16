@@ -250,7 +250,7 @@ Here's the revised component, making use of the injected service, side-by-side w
   </code-pane>
 </code-tabs>
 
-`HeroService` must provided in some parent injector. The code in `HeroListComponent` doesn't depend on where `HeroService` comes from.
+`HeroService` must be provided in some parent injector. The code in `HeroListComponent` doesn't depend on where `HeroService` comes from.
 If you decided to provide `HeroService` in `AppModule`, `HeroListComponent` wouldn't change.
 
 必须在某些父注入器中提供 `HeroService`。`HeroListComponent` 并不关心 `HeroService` 来自哪里。

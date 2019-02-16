@@ -143,7 +143,7 @@ JavaScript 中，每个*文件*是一个模块，文件中定义的所有对象�
 
 <img src="generated/images/guide/architecture/library-module.png" alt="Component" class="left">
 
-Angular loads as a collection of JavaScript modules. You can think of them as library modules. Each Angular library name begins with the `@angular` prefix. Install them with the `npm` package manager and import parts of them with JavaScript `import` statements.
+Angular loads as a collection of JavaScript modules. You can think of them as library modules. Each Angular library name begins with the `@angular` prefix. Install them with the node package manager `npm` and import parts of them with JavaScript `import` statements.
 
 Angular 会作为一组 JavaScript 模块进行加载，你可以把它们看成库模块。每个 Angular 库的名称都带有 `@angular` 前缀。
 使用 `npm` 包管理器安装 Angular 的库，并使用 JavaScript 的 `import` 语句导入其中的各个部分。

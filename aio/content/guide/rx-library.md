@@ -100,7 +100,7 @@ RxJS 提供了很多操作符，不过只有少数是常用的。
 | Area | Operators |
 | :------------ | :---------- |
 | 类别 | 操作 |
-| Creation | `from`, `fromPromise`,`fromEvent`, `of`  |
+| Creation | `from`,`fromEvent`, `of`  |
 | 创建 | `from`, `fromPromise`,`fromEvent`, `of`  |
 | Combination | `combineLatest`, `concat`, `merge`, `startWith` , `withLatestFrom`, `zip`  |
 | 组合 | `combineLatest`, `concat`, `merge`, `startWith` , `withLatestFrom`, `zip`  |

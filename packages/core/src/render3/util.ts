@@ -6,17 +6,19 @@
  * found in the LICENSE file at https://angular.io/license
  */
 
-import {global} from '../util';
+import {assertDataInRange, assertDefined, assertGreaterThan, assertLessThan} from '../util/assert';
+import {global} from '../util/global';
 
-import {assertDataInRange, assertDefined, assertGreaterThan, assertLessThan} from './assert';
-import {ACTIVE_INDEX, LCONTAINER_LENGTH, LContainer} from './interfaces/container';
+import {LCONTAINER_LENGTH, LContainer} from './interfaces/container';
 import {LContext, MONKEY_PATCH_KEY_NAME} from './interfaces/context';
 import {ComponentDef, DirectiveDef} from './interfaces/definition';
 import {NO_PARENT_INJECTOR, RelativeInjectorLocation, RelativeInjectorLocationFlags} from './interfaces/injector';
 import {TContainerNode, TElementNode, TNode, TNodeFlags, TNodeType} from './interfaces/node';
 import {RComment, RElement, RText} from './interfaces/renderer';
 import {StylingContext} from './interfaces/styling';
-import {CONTEXT, DECLARATION_VIEW, FLAGS, HEADER_OFFSET, HOST, HOST_NODE, LView, LViewFlags, PARENT, RootContext, TData, TVIEW, TView} from './interfaces/view';
+import {CONTEXT, DECLARATION_VIEW, FLAGS, HEADER_OFFSET, HOST, LView, LViewFlags, PARENT, RootContext, TData, TVIEW, T_HOST} from './interfaces/view';
+
+
 
 /**
  * Returns whether the values are different from a change detection stand point.
@@ -29,7 +31,10 @@ export function isDifferent(a: any, b: any): boolean {
   return !(a !== a && b !== b) && a !== b;
 }
 
-export function stringify(value: any): string {
+/**
+ * Used for stringify render output in Ivy.
+ */
+export function renderStringify(value: any): string {
   if (typeof value == 'function') return value.name || value;
   if (typeof value == 'string') return value;
   if (value == null) return '';
@@ -231,12 +236,12 @@ export function getParentInjectorTNode(
   let viewOffset = getParentInjectorViewOffset(location);
   // view offset is 1
   let parentView = startView;
-  let parentTNode = startView[HOST_NODE] as TElementNode;
+  let parentTNode = startView[T_HOST] as TElementNode;
 
   // view offset is superior to 1
   while (viewOffset > 1) {
     parentView = parentView[DECLARATION_VIEW] !;
-    parentTNode = parentView[HOST_NODE] as TElementNode;
+    parentTNode = parentView[T_HOST] as TElementNode;
     viewOffset--;
   }
   return parentTNode;
@@ -263,28 +268,67 @@ export function addAllToArray(items: any[], arr: any[]) {
  * Given a current view, finds the nearest component's host (LElement).
  *
  * @param lView LView for which we want a host element node
- * @param declarationMode indicates whether DECLARATION_VIEW or PARENT should be used to climb the
- * tree.
  * @returns The host node
  */
-export function findComponentView(lView: LView, declarationMode?: boolean): LView {
-  let rootTNode = lView[HOST_NODE];
+export function findComponentView(lView: LView): LView {
+  let rootTNode = lView[T_HOST];
 
   while (rootTNode && rootTNode.type === TNodeType.View) {
-    ngDevMode && assertDefined(
-                     lView[declarationMode ? DECLARATION_VIEW : PARENT],
-                     declarationMode ? 'lView.declarationView' : 'lView.parent');
-    lView = lView[declarationMode ? DECLARATION_VIEW : PARENT] !;
-    rootTNode = lView[HOST_NODE];
+    ngDevMode && assertDefined(lView[DECLARATION_VIEW], 'lView[DECLARATION_VIEW]');
+    lView = lView[DECLARATION_VIEW] !;
+    rootTNode = lView[T_HOST];
   }
 
   return lView;
 }
 
+export function resolveWindow(element: RElement & {ownerDocument: Document}) {
+  return {name: 'window', target: element.ownerDocument.defaultView};
+}
+
+export function resolveDocument(element: RElement & {ownerDocument: Document}) {
+  return {name: 'document', target: element.ownerDocument};
+}
+
+export function resolveBody(element: RElement & {ownerDocument: Document}) {
+  return {name: 'body', target: element.ownerDocument.body};
+}
+
 /**
- * Return the host TElementNode of the starting LView
- * @param lView the starting LView.
+ * The special delimiter we use to separate property names, prefixes, and suffixes
+ * in property binding metadata. See storeBindingMetadata().
+ *
+ * We intentionally use the Unicode "REPLACEMENT CHARACTER" (U+FFFD) as a delimiter
+ * because it is a very uncommon character that is unlikely to be part of a user's
+ * property names or interpolation strings. If it is in fact used in a property
+ * binding, DebugElement.properties will not return the correct value for that
+ * binding. However, there should be no runtime effect for real applications.
+ *
+ * This character is typically rendered as a question mark inside of a diamond.
+ * See https://en.wikipedia.org/wiki/Specials_(Unicode_block)
+ *
  */
-export function getHostTElementNode(lView: LView): TElementNode|null {
-  return findComponentView(lView, true)[HOST_NODE] as TElementNode;
+export const INTERPOLATION_DELIMITER = `�`;
+
+/**
+ * Determines whether or not the given string is a property metadata string.
+ * See storeBindingMetadata().
+ */
+export function isPropMetadataString(str: string): boolean {
+  return str.indexOf(INTERPOLATION_DELIMITER) >= 0;
+}
+
+export function applyOnCreateInstructions(tNode: TNode) {
+  // there may be some instructions that need to run in a specific
+  // order because the CREATE block in a directive runs before the
+  // CREATE block in a template. To work around this instructions
+  // can get access to the function array below and defer any code
+  // to run after the element is created.
+  let fns: Function[]|null;
+  if (fns = tNode.onElementCreationFns) {
+    for (let i = 0; i < fns.length; i++) {
+      fns[i]();
+    }
+    tNode.onElementCreationFns = null;
+  }
 }

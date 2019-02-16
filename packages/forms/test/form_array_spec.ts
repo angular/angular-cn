@@ -96,6 +96,58 @@ import {of } from 'rxjs';
       });
     });
 
+    describe('markAllAsTouched', () => {
+      it('should mark all descendants as touched', () => {
+        const formArray: FormArray = new FormArray([
+          new FormControl('v1'), new FormControl('v2'),
+          new FormGroup({'c1': new FormControl('v1')}),
+          new FormArray([new FormGroup({'c2': new FormControl('v2')})])
+        ]);
+
+        expect(formArray.touched).toBe(false);
+
+        const control1 = formArray.at(0) as FormControl;
+
+        expect(control1.touched).toBe(false);
+
+        const group1 = formArray.at(2) as FormGroup;
+
+        expect(group1.touched).toBe(false);
+
+        const group1Control1 = group1.get('c1') as FormControl;
+
+        expect(group1Control1.touched).toBe(false);
+
+        const innerFormArray = formArray.at(3) as FormArray;
+
+        expect(innerFormArray.touched).toBe(false);
+
+        const innerFormArrayGroup = innerFormArray.at(0) as FormGroup;
+
+        expect(innerFormArrayGroup.touched).toBe(false);
+
+        const innerFormArrayGroupControl1 = innerFormArrayGroup.get('c2') as FormControl;
+
+        expect(innerFormArrayGroupControl1.touched).toBe(false);
+
+        formArray.markAllAsTouched();
+
+        expect(formArray.touched).toBe(true);
+
+        expect(control1.touched).toBe(true);
+
+        expect(group1.touched).toBe(true);
+
+        expect(group1Control1.touched).toBe(true);
+
+        expect(innerFormArray.touched).toBe(true);
+
+        expect(innerFormArrayGroup.touched).toBe(true);
+
+        expect(innerFormArrayGroupControl1.touched).toBe(true);
+      });
+    });
+
     describe('setValue', () => {
       let c: FormControl, c2: FormControl, a: FormArray;
 
@@ -534,6 +586,23 @@ import {of } from 'rxjs';
           a.reset();
           expect(logger).toEqual(['control1', 'control2', 'array', 'form']);
         });
+
+        it('should mark as pristine and not dirty before emitting valueChange and statusChange events when resetting',
+           () => {
+             const pristineAndNotDirty = () => {
+               expect(a.pristine).toBe(true);
+               expect(a.dirty).toBe(false);
+             };
+
+             c2.markAsDirty();
+             expect(a.pristine).toBe(false);
+             expect(a.dirty).toBe(true);
+
+             a.valueChanges.subscribe(pristineAndNotDirty);
+             a.statusChanges.subscribe(pristineAndNotDirty);
+
+             a.reset();
+           });
       });
     });
 

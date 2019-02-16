@@ -1353,11 +1353,11 @@ Replace the contents of each component with the sample HTML below.
 
 <code-tabs>
 
-  <code-pane header="src/app/crisis-list/crisis-list.component.html" path="router/src/app/crisis-list/crisis-list.component.html">
+  <code-pane header="src/app/crisis-list/crisis-list.component.html" path="router/src/app/crisis-list/crisis-list.component.1.html">
 
   </code-pane>
 
-  <code-pane header="src/app/hero-list/hero-list.component.html" path="router/src/app/hero-list/hero-list.component.html" region="template">
+  <code-pane header="src/app/hero-list/hero-list.component.html" path="router/src/app/hero-list/hero-list.component.1.html" region="template">
 
   </code-pane>
 
@@ -1466,7 +1466,7 @@ To test this feature, add a button with a `RouterLink` to the `HeroListComponent
 
 要测试本特性，请往 `HeroListComponent` 的模板中添加一个带 `RouterLink` 的按钮，并且把它的链接设置为 `"/sidekicks"`。
 
-<code-example path="router/src/app/hero-list/hero-list.component.html" linenums="false" header="src/app/hero-list/hero-list.component.html (excerpt)">
+<code-example path="router/src/app/hero-list/hero-list.component.1.html" linenums="false" header="src/app/hero-list/hero-list.component.html (excerpt)">
 
 </code-example>
 
@@ -1586,7 +1586,7 @@ Remember to restore the redirect to `pathMatch = 'full'`.
 默认路由应该只有在*整个*URL 等于 `''` 时才重定向到 `HeroListComponent`，别忘了把重定向路由设置为 `pathMatch = 'full'`。
 
 Learn more in Victor Savkin's
-[post on redirects](http://victorsavkin.com/post/146722301646/angular-router-empty-paths-componentless-routes).
+[post on redirects](http://vsavkin.tumblr.com/post/146722301646/angular-router-empty-paths-componentless-routes).
 
 要了解更多，参见 Victor Savkin 的帖子[关于重定向](http://victorsavkin.com/post/146722301646/angular-router-empty-paths-componentless-routes)。
 
@@ -1818,11 +1818,11 @@ Here are the files discussed in this milestone.
 
   </code-pane>
 
-  <code-pane header="hero-list/hero-list.component.html" path="router/src/app/hero-list/hero-list.component.html">
+  <code-pane header="hero-list/hero-list.component.html" path="router/src/app/hero-list/hero-list.component.1.html">
 
   </code-pane>
 
-  <code-pane header="crisis-list/crisis-list.component.html" path="router/src/app/crisis-list/crisis-list.component.html">
+  <code-pane header="crisis-list/crisis-list.component.html" path="router/src/app/crisis-list/crisis-list.component.1.html">
 
   </code-pane>
 
@@ -1916,7 +1916,7 @@ Create an `AppRouting` module in the `/app` folder to contain the routing config
   ng generate module app-routing --module app --flat
 </code-example>
 
-Import the `CrisisListComponent`, `HeroListComponent`, and `PageNotFoundCompponent` symbols
+Import the `CrisisListComponent`, `HeroListComponent`, and `PageNotFoundComponent` symbols
 just like you did in the `app.module.ts`. Then move the `Router` imports
 and routing configuration, including `RouterModule.forRoot`, into this routing module.
 
@@ -3145,12 +3145,12 @@ You could also create more transitions for other routes. This trigger is suffici
 
 你还可以为其它路由组件用不同的转场效果创建更多触发器。现在这个触发器已经足够当前的里程碑用了。
 
-Back in the `AppComponent`, import the `RouterOutlet` token from the `@angular/router` package and the `slideInDownAnimation` from 
+Back in the `AppComponent`, import the `RouterOutlet` token from the `@angular/router` package and the `slideInAnimation` from 
 `'./animations.ts`.
 
 回到 `AppComponent`，从 `@angular/router` 中导入 `RouterOutlet` 令牌，并从 `'./animations.ts` 中导入 `slideInDownAnimation`。
 
-Add an `animations` array to the `@Component` metadata's that contains the `slideInDownAnimation`.
+Add an `animations` array to the `@Component` metadata's that contains the `slideInAnimation`.
 
 把一个包含 `slideInDownAnimation` 的 `animations` 数组添加到 `@Component` 的元数据中。
 
@@ -4654,12 +4654,12 @@ Make the `AuthGuard` at least pretend to authenticate.
 
 先让 `AuthGuard` 至少能“假装”进行认证。
 
-The `AuthGuard` should call an application service that can login a user and retain information about the current user. Generate a new `AuthService` in the `admin` folder:
+The `AuthGuard` should call an application service that can login a user and retain information about the current user. Generate a new `AuthService` in the `auth` folder:
 
 `AuthGuard` 可以调用应用中的一项服务，该服务能让用户登录，并且保存当前用户的信息。在 `admin` 目录下生成一个新的 `AuthService`：
 
 <code-example language="none" class="code-shell">
-  ng generate service admin/auth
+  ng generate service auth/auth
 </code-example>
 
 Update the `AuthService` to log in the user:
@@ -5177,7 +5177,7 @@ The relevant *Crisis Center* code for this milestone follows.
 
   </code-pane>
 
-  <code-pane header="crisis-detail.component.html" path="router/src/app/crisis-center/crisis-detail/crisis-detail.component.html">
+  <code-pane header="crisis-detail.component.ts" path="router/src/app/crisis-center/crisis-detail/crisis-detail.component.ts">
 
   </code-pane>
 

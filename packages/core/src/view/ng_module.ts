@@ -6,13 +6,13 @@
  * found in the LICENSE file at https://angular.io/license
  */
 
-import {InjectableDef, getInjectableDef} from '../di/defs';
 import {resolveForwardRef} from '../di/forward_ref';
 import {INJECTOR, Injector} from '../di/injector';
 import {setCurrentInjector} from '../di/injector_compatibility';
+import {InjectableDef, getInjectableDef} from '../di/interface/defs';
 import {APP_ROOT} from '../di/scope';
 import {NgModuleRef} from '../linker/ng_module_factory';
-import {stringify} from '../util';
+import {stringify} from '../util/stringify';
 
 import {DepDef, DepFlags, NgModuleData, NgModuleDefinition, NgModuleProviderDef, NodeFlags} from './types';
 import {splitDepsDsl, tokenKey} from './util';
@@ -158,7 +158,7 @@ function _createProviderInstance(ngModule: NgModuleData, providerDef: NgModulePr
   // avoided if possible. The sequence of checks here determines whether ngOnDestroy needs to be
   // checked. It might not if the `injectable` isn't an object or if NodeFlags.OnDestroy is already
   // set (ngOnDestroy was detected statically).
-  if (injectable !== UNDEFINED_VALUE && injectable != null && typeof injectable === 'object' &&
+  if (injectable !== UNDEFINED_VALUE && injectable !== null && typeof injectable === 'object' &&
       !(providerDef.flags & NodeFlags.OnDestroy) && typeof injectable.ngOnDestroy === 'function') {
     providerDef.flags |= NodeFlags.OnDestroy;
   }

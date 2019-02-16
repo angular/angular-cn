@@ -22,12 +22,18 @@ test:debug --test_arg=--node_options=--inspect-brk --test_output=streamed --test
 # Filesystem interactions     #
 ###############################
 
-# Don't create symlinks like bazel-out in the project.
-# These cause VSCode to traverse a massive tree, opening file handles and
+# Create symlinks in the project:
+# - dist/bin for outputs
+# - dist/testlogs, dist/genfiles
+# - bazel-out
+# NB: bazel-out should be excluded from the editor configuration.
+# The checked-in /.vscode/settings.json does this for VSCode.
+# Other editors may require manual config to ignore this directory.
+# In the past, we say a problem where VSCode traversed a massive tree, opening file handles and
 # eventually a surprising failure with auto-discovery of the C++ toolchain in
 # MacOS High Sierra.
 # See https://github.com/bazelbuild/bazel/issues/4603
-build --symlink_prefix=/
+build --symlink_prefix=dist/
 
 # Performance: avoid stat'ing input files
 build --watchfs
@@ -36,6 +42,16 @@ build --watchfs
 run --nolegacy_external_runfiles
 test --nolegacy_external_runfiles
 
+# Turn on --incompatible_strict_action_env which was on by default
+# in Bazel 0.21.0 but turned off again in 0.22.0. Follow
+# https://github.com/bazelbuild/bazel/issues/7026 for more details.
+# This flag is needed to so that the bazel cache is not invalidated
+# when running bazel via `yarn bazel`.
+# See https://github.com/angular/angular/issues/27514.
+build --incompatible_strict_action_env
+run --incompatible_strict_action_env
+test --incompatible_strict_action_env
+
 ###############################
 # Release support             #
 # Turn on these settings with #
@@ -43,7 +59,9 @@ test --nolegacy_external_runfiles
 ###############################
 
 # Releases should always be stamped with version control info
-build:release --workspace_status_command=./tools/bazel_stamp_vars.sh
+# This command assumes node on the path and is a workaround for
+# https://github.com/bazelbuild/bazel/issues/4802
+build:release --workspace_status_command="node ./tools/bazel_stamp_vars.js"
 
 ###############################
 # Output                      #
@@ -82,7 +100,9 @@ build --define=compile=legacy
 ###############################
 
 # Load default settings for Remote Build Execution
-import %workspace%/third_party/github.com/bazelbuild/bazel-toolchains/bazelrc/bazel-0.20.0.bazelrc
+# When updating, the URLs of bazel_toolchains in packages/bazel/package.bzl
+# may also need to be updated (see https://github.com/angular/angular/pull/27935)
+import %workspace%/third_party/github.com/bazelbuild/bazel-toolchains/bazelrc/bazel-0.21.0.bazelrc
 
 # Increase the default number of jobs by 50% because our build has lots of
 # parallelism

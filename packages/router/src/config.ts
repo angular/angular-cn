@@ -30,9 +30,10 @@ import {UrlSegment, UrlSegmentGroup} from './url_tree';
  *
  *   `path` 是一个用于路由匹配 DSL 中的字符串。
  *
- * - `pathMatch` is a string that specifies the matching strategy.
+ * - `pathMatch` is a string that specifies the matching strategy. Options are `prefix` (default)
+ *   and `full`. See [Matching Strategy](#matching-strategy) below for more information.
  *
- *   `pathMatch`是一个用来指定路由匹配策略的字符串。
+ *   `pathMatch`是一个用来指定路由匹配策略的字符串。可选项有 `prefix`（默认值）和 `full`。参见[匹配策略](#matching-strategy)部分，以了解更多知识。
  *
  * - `matcher` defines a custom strategy for path matching and supersedes `path` and `pathMatch`.
  *

@@ -469,7 +469,7 @@ export class Router {
     this.resetConfig(config);
     this.currentUrlTree = createEmptyUrlTree();
     this.rawUrlTree = this.currentUrlTree;
-    this.browserUrlTree = this.parseUrl(this.location.path());
+    this.browserUrlTree = this.currentUrlTree;
 
     this.configLoader = new RouterConfigLoader(loader, compiler, onLoadStart, onLoadEnd);
     this.routerState = createEmptyState(this.currentUrlTree, this.rootComponentType);
@@ -573,8 +573,10 @@ export class Router {
 
                       // Update URL if in `eager` update mode
                       tap(t => {
-                        if (this.urlUpdateStrategy === 'eager' && !t.extras.skipLocationChange) {
-                          this.setBrowserUrl(t.urlAfterRedirects, !!t.extras.replaceUrl, t.id);
+                        if (this.urlUpdateStrategy === 'eager') {
+                          if (!t.extras.skipLocationChange) {
+                            this.setBrowserUrl(t.urlAfterRedirects, !!t.extras.replaceUrl, t.id);
+                          }
                           this.browserUrlTree = t.urlAfterRedirects;
                         }
                       }),
@@ -737,8 +739,11 @@ export class Router {
 
                 (this as{routerState: RouterState}).routerState = t.targetRouterState !;
 
-                if (this.urlUpdateStrategy === 'deferred' && !t.extras.skipLocationChange) {
-                  this.setBrowserUrl(this.rawUrlTree, !!t.extras.replaceUrl, t.id, t.extras.state);
+                if (this.urlUpdateStrategy === 'deferred') {
+                  if (!t.extras.skipLocationChange) {
+                    this.setBrowserUrl(
+                        this.rawUrlTree, !!t.extras.replaceUrl, t.id, t.extras.state);
+                  }
                   this.browserUrlTree = t.urlAfterRedirects;
                 }
               }),
@@ -778,9 +783,14 @@ export class Router {
                 /* This error type is issued during Redirect, and is handled as a cancellation
                  * rather than an error. */
                 if (isNavigationCancelingError(e)) {
-                  this.navigated = true;
                   const redirecting = isUrlTree(e.url);
                   if (!redirecting) {
+                    // Set property only if we're not redirecting. If we landed on a page and
+                    // redirect to `/` route, the new navigation is going to see the `/` isn't
+                    // a change from the default currentUrlTree and won't navigate. This is
+                    // only applicable with initial navigation, so setting `navigated` only when
+                    // not redirecting resolves this scenario.
+                    this.navigated = true;
                     this.resetStateAndUrl(t.currentRouterState, t.currentUrlTree, t.rawUrl);
                   }
                   const navCancel =

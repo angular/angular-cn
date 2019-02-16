@@ -12,20 +12,24 @@ import {ConstantPool} from './constant_pool';
 import {HostBinding, HostListener, Input, Output, Type} from './core';
 import {compileInjectable} from './injectable_compiler_2';
 import {DEFAULT_INTERPOLATION_CONFIG, InterpolationConfig} from './ml_parser/interpolation_config';
-import {Expression, LiteralExpr, WrappedNodeExpr} from './output/output_ast';
+import {DeclareVarStmt, Expression, LiteralExpr, Statement, StmtModifier, WrappedNodeExpr} from './output/output_ast';
+import {JitEvaluator} from './output/output_jit';
+import {ParseError, ParseSourceSpan, r3JitTypeSourceSpan} from './parse_util';
 import {R3DependencyMetadata, R3ResolvedDependencyType} from './render3/r3_factory';
-import {jitExpression} from './render3/r3_jit';
+import {R3JitReflector} from './render3/r3_jit';
 import {R3InjectorMetadata, R3NgModuleMetadata, compileInjector, compileNgModule} from './render3/r3_module_compiler';
 import {compilePipeFromMetadata} from './render3/r3_pipe_compiler';
 import {R3Reference} from './render3/util';
 import {R3DirectiveMetadata, R3QueryMetadata} from './render3/view/api';
-import {compileComponentFromMetadata, compileDirectiveFromMetadata, parseHostBindings} from './render3/view/compiler';
+import {compileComponentFromMetadata, compileDirectiveFromMetadata, parseHostBindings, verifyHostBindings} from './render3/view/compiler';
 import {makeBindingParser, parseTemplate} from './render3/view/template';
 import {DomElementSchemaRegistry} from './schema/dom_element_schema_registry';
 
 export class CompilerFacadeImpl implements CompilerFacade {
   R3ResolvedDependencyType = R3ResolvedDependencyType as any;
   private elementSchemaRegistry = new DomElementSchemaRegistry();
+
+  constructor(private jitEvaluator = new JitEvaluator()) {}
 
   compilePipe(angularCoreEnv: CoreEnvironment, sourceMapUrl: string, facade: R3PipeMetadataFacade):
       any {
@@ -36,7 +40,7 @@ export class CompilerFacadeImpl implements CompilerFacade {
       pipeName: facade.pipeName,
       pure: facade.pure,
     });
-    return jitExpression(res.expression, angularCoreEnv, sourceMapUrl, res.statements);
+    return this.jitExpression(res.expression, angularCoreEnv, sourceMapUrl, res.statements);
   }
 
   compileInjectable(
@@ -55,7 +59,7 @@ export class CompilerFacadeImpl implements CompilerFacade {
       userDeps: convertR3DependencyMetadataArray(facade.userDeps) || undefined,
     });
 
-    return jitExpression(expression, angularCoreEnv, sourceMapUrl, statements);
+    return this.jitExpression(expression, angularCoreEnv, sourceMapUrl, statements);
   }
 
   compileInjector(
@@ -69,7 +73,7 @@ export class CompilerFacadeImpl implements CompilerFacade {
       imports: new WrappedNodeExpr(facade.imports),
     };
     const res = compileInjector(meta);
-    return jitExpression(res.expression, angularCoreEnv, sourceMapUrl, res.statements);
+    return this.jitExpression(res.expression, angularCoreEnv, sourceMapUrl, res.statements);
   }
 
   compileNgModule(
@@ -82,9 +86,10 @@ export class CompilerFacadeImpl implements CompilerFacade {
       imports: facade.imports.map(wrapReference),
       exports: facade.exports.map(wrapReference),
       emitInline: true,
+      schemas: facade.schemas ? facade.schemas.map(wrapReference) : null,
     };
     const res = compileNgModule(meta);
-    return jitExpression(res.expression, angularCoreEnv, sourceMapUrl, []);
+    return this.jitExpression(res.expression, angularCoreEnv, sourceMapUrl, []);
   }
 
   compileDirective(
@@ -96,7 +101,7 @@ export class CompilerFacadeImpl implements CompilerFacade {
     const meta: R3DirectiveMetadata = convertDirectiveFacadeToMetadata(facade);
     const res = compileDirectiveFromMetadata(meta, constantPool, bindingParser);
     const preStatements = [...constantPool.statements, ...res.statements];
-    return jitExpression(res.expression, angularCoreEnv, sourceMapUrl, preStatements);
+    return this.jitExpression(res.expression, angularCoreEnv, sourceMapUrl, preStatements);
   }
 
   compileComponent(
@@ -111,7 +116,7 @@ export class CompilerFacadeImpl implements CompilerFacade {
     // Parse the template and check for errors.
     const template = parseTemplate(
         facade.template, sourceMapUrl,
-        {preserveWhitespaces: facade.preserveWhitespaces || false, interpolationConfig});
+        {preserveWhitespaces: facade.preserveWhitespaces, interpolationConfig});
     if (template.errors !== undefined) {
       const errors = template.errors.map(err => err.toString()).join(', ');
       throw new Error(`Errors during JIT compilation of template for ${facade.name}: ${errors}`);
@@ -139,8 +144,37 @@ export class CompilerFacadeImpl implements CompilerFacade {
         },
         constantPool, makeBindingParser(interpolationConfig));
     const preStatements = [...constantPool.statements, ...res.statements];
+    return this.jitExpression(
+        res.expression, angularCoreEnv, `ng:///${facade.name}.js`, preStatements);
+  }
 
-    return jitExpression(res.expression, angularCoreEnv, sourceMapUrl, preStatements);
+  createParseSourceSpan(kind: string, typeName: string, sourceUrl: string): ParseSourceSpan {
+    return r3JitTypeSourceSpan(kind, typeName, sourceUrl);
+  }
+
+  /**
+   * JIT compiles an expression and returns the result of executing that expression.
+   *
+   * @param def the definition which will be compiled and executed to get the value to patch
+   * @param context an object map of @angular/core symbol names to symbols which will be available
+   * in the context of the compiled expression
+   * @param sourceUrl a URL to use for the source map of the compiled expression
+   * @param preStatements a collection of statements that should be evaluated before the expression.
+   */
+  private jitExpression(
+      def: Expression, context: {[key: string]: any}, sourceUrl: string,
+      preStatements: Statement[]): any {
+    // The ConstantPool may contain Statements which declare variables used in the final expression.
+    // Therefore, its statements need to precede the actual JIT operation. The final statement is a
+    // declaration of $def which is set to the expression being compiled.
+    const statements: Statement[] = [
+      ...preStatements,
+      new DeclareVarStmt('$def', def, undefined, [StmtModifier.Exported]),
+    ];
+
+    const res = this.jitEvaluator.evaluateStatements(
+        sourceUrl, statements, new R3JitReflector(context), /* enableSourceMaps */ true);
+    return res['$def'];
   }
 }
 
@@ -189,10 +223,10 @@ function convertDirectiveFacadeToMetadata(facade: R3DirectiveMetadataFacade): R3
 
   return {
     ...facade as R3DirectiveMetadataFacadeNoPropAndWhitespace,
-    typeSourceSpan: null !,
+    typeSourceSpan: facade.typeSourceSpan,
     type: new WrappedNodeExpr(facade.type),
     deps: convertR3DependencyMetadataArray(facade.deps),
-    host: extractHostBindings(facade.host, facade.propMetadata),
+    host: extractHostBindings(facade.host, facade.propMetadata, facade.typeSourceSpan),
     inputs: {...inputsFromMetadata, ...inputsFromType},
     outputs: {...outputsFromMetadata, ...outputsFromType},
     queries: facade.queries.map(convertToR3QueryMetadata),
@@ -244,16 +278,20 @@ function convertR3DependencyMetadataArray(facades: R3DependencyMetadataFacade[] 
   return facades == null ? null : facades.map(convertR3DependencyMetadata);
 }
 
-function extractHostBindings(host: {[key: string]: string}, propMetadata: {[key: string]: any[]}): {
+function extractHostBindings(
+    host: {[key: string]: string}, propMetadata: {[key: string]: any[]},
+    sourceSpan: ParseSourceSpan): {
   attributes: StringMap,
   listeners: StringMap,
   properties: StringMap,
 } {
   // First parse the declarations from the metadata.
-  const {attributes, listeners, properties, animations} = parseHostBindings(host || {});
+  const bindings = parseHostBindings(host || {});
 
-  if (Object.keys(animations).length > 0) {
-    throw new Error(`Animation bindings are as-of-yet unsupported in Ivy`);
+  // After that check host bindings for errors
+  const errors = verifyHostBindings(bindings, sourceSpan);
+  if (errors.length) {
+    throw new Error(errors.map((error: ParseError) => error.msg).join('\n'));
   }
 
   // Next, loop over the properties of the object, looking for @HostBinding and @HostListener.
@@ -261,15 +299,15 @@ function extractHostBindings(host: {[key: string]: string}, propMetadata: {[key:
     if (propMetadata.hasOwnProperty(field)) {
       propMetadata[field].forEach(ann => {
         if (isHostBinding(ann)) {
-          properties[ann.hostPropertyName || field] = field;
+          bindings.properties[ann.hostPropertyName || field] = field;
         } else if (isHostListener(ann)) {
-          listeners[ann.eventName || field] = `${field}(${(ann.args || []).join(',')})`;
+          bindings.listeners[ann.eventName || field] = `${field}(${(ann.args || []).join(',')})`;
         }
       });
     }
   }
 
-  return {attributes, listeners, properties};
+  return bindings;
 }
 
 function isHostBinding(value: any): value is HostBinding {

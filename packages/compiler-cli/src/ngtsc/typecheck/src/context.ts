@@ -9,11 +9,13 @@
 import {R3TargetBinder, SelectorMatcher, TmplAstNode} from '@angular/compiler';
 import * as ts from 'typescript';
 
+import {NoopImportRewriter, ReferenceEmitter} from '../../imports';
 import {ImportManager} from '../../translator';
 
 import {TypeCheckBlockMetadata, TypeCheckableDirectiveMeta, TypeCtorMetadata} from './api';
 import {generateTypeCheckBlock} from './type_check_block';
 import {generateTypeCtor} from './type_constructor';
+
 
 
 /**
@@ -24,6 +26,8 @@ import {generateTypeCtor} from './type_constructor';
  * checking code.
  */
 export class TypeCheckContext {
+  constructor(private refEmitter: ReferenceEmitter) {}
+
   /**
    * A `Set` of classes which will be used to generate type constructors.
    */
@@ -117,7 +121,7 @@ export class TypeCheckContext {
 
     // Imports may need to be added to the file to support type-checking of directives used in the
     // template within it.
-    const importManager = new ImportManager(false, '_i');
+    const importManager = new ImportManager(new NoopImportRewriter(), '_i');
 
     // Each Op has a splitPoint index into the text where it needs to be inserted. Split the
     // original source text into chunks at these split points, where code will be inserted between
@@ -134,12 +138,12 @@ export class TypeCheckContext {
     // Process each operation and use the printer to generate source code for it, inserting it into
     // the source code in between the original chunks.
     ops.forEach((op, idx) => {
-      const text = op.execute(importManager, sf, printer);
+      const text = op.execute(importManager, sf, this.refEmitter, printer);
       code += text + textParts[idx + 1];
     });
 
     // Write out the imports that need to be added to the beginning of the file.
-    let imports = importManager.getAllImports(sf.fileName, null)
+    let imports = importManager.getAllImports(sf.fileName)
                       .map(i => `import * as ${i.as} from '${i.name}';`)
                       .join('\n');
     code = imports + '\n' + code;
@@ -180,7 +184,8 @@ interface Op {
   /**
    * Execute the operation and return the generated code as text.
    */
-  execute(im: ImportManager, sf: ts.SourceFile, printer: ts.Printer): string;
+  execute(im: ImportManager, sf: ts.SourceFile, refEmitter: ReferenceEmitter, printer: ts.Printer):
+      string;
 }
 
 /**
@@ -194,8 +199,9 @@ class TcbOp implements Op {
    */
   get splitPoint(): number { return this.node.end + 1; }
 
-  execute(im: ImportManager, sf: ts.SourceFile, printer: ts.Printer): string {
-    const tcb = generateTypeCheckBlock(this.node, this.meta, im);
+  execute(im: ImportManager, sf: ts.SourceFile, refEmitter: ReferenceEmitter, printer: ts.Printer):
+      string {
+    const tcb = generateTypeCheckBlock(this.node, this.meta, im, refEmitter);
     return printer.printNode(ts.EmitHint.Unspecified, tcb, sf);
   }
 }
@@ -211,7 +217,8 @@ class TypeCtorOp implements Op {
    */
   get splitPoint(): number { return this.node.end - 1; }
 
-  execute(im: ImportManager, sf: ts.SourceFile, printer: ts.Printer): string {
+  execute(im: ImportManager, sf: ts.SourceFile, refEmitter: ReferenceEmitter, printer: ts.Printer):
+      string {
     const tcb = generateTypeCtor(this.node, this.meta);
     return printer.printNode(ts.EmitHint.Unspecified, tcb, sf);
   }

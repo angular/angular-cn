@@ -10,17 +10,20 @@ import {AttributeMarker, TAttributes, TNode, TNodeType} from '../../src/render3/
 
 import {CssSelector, CssSelectorList, NG_PROJECT_AS_ATTR_NAME, SelectorFlags,} from '../../src/render3/interfaces/projection';
 import {getProjectAsAttrValue, isNodeMatchingSelectorList, isNodeMatchingSelector} from '../../src/render3/node_selector_matcher';
+import {initializeStaticContext} from '../../src/render3/styling/class_and_style_bindings';
 import {createTNode} from '@angular/core/src/render3/instructions';
-import {getLView} from '@angular/core/src/render3/state';
 
 function testLStaticData(tagName: string, attrs: TAttributes | null): TNode {
-  return createTNode(getLView(), TNodeType.Element, 0, tagName, attrs, null);
+  return createTNode(null, TNodeType.Element, 0, tagName, attrs);
 }
 
 describe('css selector matching', () => {
-  function isMatching(tagName: string, attrs: TAttributes | null, selector: CssSelector): boolean {
-    return isNodeMatchingSelector(
-        createTNode(getLView(), TNodeType.Element, 0, tagName, attrs, null), selector, false);
+  function isMatching(
+      tagName: string, attrsOrTNode: TAttributes | TNode | null, selector: CssSelector): boolean {
+    const tNode = (!attrsOrTNode || Array.isArray(attrsOrTNode)) ?
+        createTNode(null, TNodeType.Element, 0, tagName, attrsOrTNode as TAttributes) :
+        (attrsOrTNode as TNode);
+    return isNodeMatchingSelector(tNode, selector, false);
   }
 
   describe('isNodeMatchingSimpleSelector', () => {
@@ -298,6 +301,26 @@ describe('css selector matching', () => {
         // <div class="foo">
         expect(isMatching('div', ['class', 'foo'], selector)).toBeFalsy();
       });
+
+      it('should match against a class value before and after the styling context is created',
+         () => {
+           // selector: 'div.abc'
+           const selector = ['div', SelectorFlags.CLASS, 'abc'];
+           const tNode = createTNode(null, TNodeType.Element, 0, 'div', []);
+
+           // <div> (without attrs or styling context)
+           expect(isMatching('div', tNode, selector)).toBeFalsy();
+
+           // <div class="abc"> (with attrs but without styling context)
+           tNode.attrs = ['class', 'abc'];
+           tNode.stylingTemplate = null;
+           expect(isMatching('div', tNode, selector)).toBeTruthy();
+
+           // <div class="abc"> (with styling context but without attrs)
+           tNode.stylingTemplate = initializeStaticContext([AttributeMarker.Classes, 'abc']);
+           tNode.attrs = null;
+           expect(isMatching('div', tNode, selector)).toBeTruthy();
+         });
     });
   });
 

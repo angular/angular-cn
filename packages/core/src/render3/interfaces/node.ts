@@ -6,6 +6,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 
+import {RNode} from './renderer';
 import {StylingContext} from './styling';
 import {LView, TView} from './view';
 
@@ -29,16 +30,19 @@ export const enum TNodeType {
  */
 export const enum TNodeFlags {
   /** This bit is set if the node is a component */
-  isComponent = 0b0001,
+  isComponent = 0b00001,
 
   /** This bit is set if the node has been projected */
-  isProjected = 0b0010,
+  isProjected = 0b00010,
 
-  /** This bit is set if the node has any content queries */
-  hasContentQuery = 0b0100,
+  /** This bit is set if any directive on this node has content queries */
+  hasContentQuery = 0b00100,
 
-  /** This bit is set if the node has any directives that contain [class properties */
-  hasClassInput = 0b1000,
+  /** This bit is set if the node has any "class" inputs */
+  hasClassInput = 0b01000,
+
+  /** This bit is set if the node has any "style" inputs */
+  hasStyleInput = 0b10000,
 }
 
 /**
@@ -169,7 +173,19 @@ export interface TNode {
   directiveEnd: number;
 
   /**
-   * Stores if Node isComponent, isProjected, hasContentQuery and hasClassInput
+   * Stores the first index where property binding metadata is stored for
+   * this node.
+   */
+  propertyMetadataStartIndex: number;
+
+  /**
+   * Stores the exclusive final index where property binding metadata is
+   * stored for this node.
+   */
+  propertyMetadataEndIndex: number;
+
+  /**
+   * Stores if Node isComponent, isProjected, hasContentQuery, hasClassInput and hasStyleInput
    */
   flags: TNodeFlags;
 
@@ -291,12 +307,6 @@ export interface TNode {
    */
   parent: TElementNode|TContainerNode|null;
 
-  /**
-   * If this node is part of an i18n block, it indicates whether this node is part of the DOM.
-   * If this node is not part of an i18n block, this field is null.
-   */
-  detached: boolean|null;
-
   stylingTemplate: StylingContext|null;
   /**
    * List of projected TNodes for a given component host element OR index into the said nodes.
@@ -333,8 +343,24 @@ export interface TNode {
    *     `getHost(currentTNode).projection[currentTNode.projection]`.
    * - When projecting nodes the parent node retrieved may be a `<ng-content>` node, in which case
    *   the process is recursive in nature (not implementation).
+   *
+   * If `projection` is of type `RNode[][]` than we have a collection of native nodes passed as
+   * projectable nodes during dynamic component creation.
    */
-  projection: (TNode|null)[]|number|null;
+  projection: (TNode|RNode[])[]|number|null;
+
+  /**
+   * A buffer of functions that will be called once `elementEnd` (or `element`) completes.
+   *
+   * Due to the nature of how directives work in Angular, some directive code may
+   * need to fire after any template-level code runs. If present, this array will
+   * be flushed (each function will be invoked) once the associated element is
+   * created.
+   *
+   * If an element is created multiple times then this function will be populated
+   * with functions each time the creation block is called.
+   */
+  onElementCreationFns: Function[]|null;
 }
 
 /** Static data for an element  */
@@ -352,10 +378,10 @@ export interface TElementNode extends TNode {
 
   /**
    * If this is a component TNode with projection, this will be an array of projected
-   * TNodes (see TNode.projection for more info). If it's a regular element node or a
-   * component without projection, it will be null.
+   * TNodes or native nodes (see TNode.projection for more info). If it's a regular element node or
+   * a component without projection, it will be null.
    */
-  projection: (TNode|null)[]|null;
+  projection: (TNode|RNode[])[]|null;
 }
 
 /** Static data for a text node */
@@ -464,13 +490,13 @@ export type PropertyAliases = {
 /**
  * Store the runtime input or output names for all the directives.
  *
- * - Even indices: directive index
- * - Odd indices: minified / internal name
+ * i+0: directive instance index
+ * i+1: publicName
+ * i+2: privateName
  *
- * e.g. [0, 'change-minified']
+ * e.g. [0, 'change', 'change-minified']
  */
 export type PropertyAliasValue = (number | string)[];
-
 
 /**
  * This array contains information about input properties that
@@ -480,14 +506,15 @@ export type PropertyAliasValue = (number | string)[];
  *
  * Within each sub-array:
  *
- * Even indices: minified/internal input name
- * Odd indices: initial value
+ * i+0: attribute name
+ * i+1: minified/internal input name
+ * i+2: initial value
  *
  * If a directive on a node does not have any input properties
  * that should be set from attributes, its index is set to null
  * to avoid a sparse array.
  *
- * e.g. [null, ['role-min', 'button']]
+ * e.g. [null, ['role-min', 'minified-input', 'button']]
  */
 export type InitialInputData = (InitialInputs | null)[];
 
@@ -495,10 +522,11 @@ export type InitialInputData = (InitialInputs | null)[];
  * Used by InitialInputData to store input properties
  * that should be set once from attributes.
  *
- * Even indices: minified/internal input name
- * Odd indices: initial value
+ * i+0: attribute name
+ * i+1: minified/internal input name
+ * i+2: initial value
  *
- * e.g. ['role-min', 'button']
+ * e.g. ['role-min', 'minified-input', 'button']
  */
 export type InitialInputs = string[];
 

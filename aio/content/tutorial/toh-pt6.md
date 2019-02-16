@@ -178,7 +178,7 @@ Inject `HttpClient` into the constructor in a private property called `http`.
 </code-example>
 
 Keep injecting the `MessageService`. You'll call it so frequently that
-you'll wrap it in private `log` method.
+you'll wrap it in a private `log()` method.
 
 保留对 `MessageService` 的注入。你将会频繁调用它，因此请把它包裹进一个私有的 `log` 方法中。
 
@@ -560,7 +560,7 @@ Add the following `addHero()` method to the `HeroService` class.
 
    它调用 `HttpClient.post()` 而不是 `put()`。
 
-* it expects the server to generates an id for the new hero, 
+* it expects the server to generate an id for the new hero, 
 which it returns in the `Observable<Hero>` to the caller.
 
    它期待服务器为这个新的英雄生成一个 id，然后把它通过 `Observable<Hero>` 返回给调用者。

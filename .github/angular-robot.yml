@@ -41,6 +41,7 @@ merge:
     exclude:
       - "packages/*"
       - "packages/bazel/*"
+      - "packages/bazel/src/api-extractor/**"
       - "packages/bazel/src/builders/**"
       - "packages/bazel/src/ng_package/**"
       - "packages/bazel/src/protractor/**"
@@ -58,7 +59,6 @@ merge:
       - "**/package.json"
       - "**/tsconfig-build.json"
       - "**/tsconfig.json"
-      - "**/rollup.config.js"
       - "**/BUILD.bazel"
       - "**/*.md"
       - "packages/**/integrationtest/**"
@@ -81,7 +81,7 @@ merge:
     # require that the PR has reviews from all requested reviewers
     #
     # This enables us to request reviews from both eng and tech writers, or multiple eng folks, and prevents accidental merges.
-    # Rather than merging PRs with pending reviews, if all PullApprove requirements are satisfied and additional reviews are not needed pending reviewers should be removed via GitHub UI (this also leaves an audit trail behind these decisions).
+    # Rather than merging PRs with pending reviews, if all approvals are obtained and additional reviews are not needed, any pending reviewers should be removed via GitHub UI (this also leaves an audit trail behind these decisions).
     requireReviews: true,
 
     # whether the PR shouldn't have a conflict with the base branch
@@ -101,10 +101,13 @@ merge:
 
     # list of PR statuses that need to be successful
     requiredStatuses:
-      - "continuous-integration/travis-ci/pr"
-      - "code-review/pullapprove"
       - "ci/circleci: build"
       - "ci/circleci: lint"
+      - "ci/circleci: publish_snapshot"
+      - "ci/angular: size"
+      - "cla/google"
+      - "google3"
+
 
   # the comment that will be added when the merge label is added despite failing checks, leave empty or set to false to disable
   # {{MERGE_LABEL}} will be replaced by the value of the mergeLabel option

@@ -10,13 +10,13 @@ import {LiteralExpr, R3PipeMetadata, Statement, WrappedNodeExpr, compilePipeFrom
 import * as ts from 'typescript';
 
 import {ErrorCode, FatalDiagnosticError} from '../../diagnostics';
-import {Decorator, ReflectionHost} from '../../host';
-import {reflectObjectLiteral, staticallyResolve} from '../../metadata';
-import {AnalysisOutput, CompileResult, DecoratorHandler} from '../../transform';
+import {PartialEvaluator} from '../../partial_evaluator';
+import {Decorator, ReflectionHost, reflectObjectLiteral} from '../../reflection';
+import {AnalysisOutput, CompileResult, DecoratorHandler, DetectResult, HandlerPrecedence} from '../../transform';
 
 import {generateSetClassMetadataCall} from './metadata';
 import {SelectorScopeRegistry} from './selector_scope';
-import {getConstructorDependencies, isAngularCore, unwrapExpression} from './util';
+import {getValidConstructorDependencies, isAngularCore, unwrapExpression} from './util';
 
 export interface PipeHandlerData {
   meta: R3PipeMetadata;
@@ -25,15 +25,25 @@ export interface PipeHandlerData {
 
 export class PipeDecoratorHandler implements DecoratorHandler<PipeHandlerData, Decorator> {
   constructor(
-      private checker: ts.TypeChecker, private reflector: ReflectionHost,
+      private reflector: ReflectionHost, private evaluator: PartialEvaluator,
       private scopeRegistry: SelectorScopeRegistry, private isCore: boolean) {}
 
-  detect(node: ts.Declaration, decorators: Decorator[]|null): Decorator|undefined {
+  readonly precedence = HandlerPrecedence.PRIMARY;
+
+  detect(node: ts.Declaration, decorators: Decorator[]|null): DetectResult<Decorator>|undefined {
     if (!decorators) {
       return undefined;
     }
-    return decorators.find(
+    const decorator = decorators.find(
         decorator => decorator.name === 'Pipe' && (this.isCore || isAngularCore(decorator)));
+    if (decorator !== undefined) {
+      return {
+        trigger: decorator.node,
+        metadata: decorator,
+      };
+    } else {
+      return undefined;
+    }
   }
 
   analyze(clazz: ts.ClassDeclaration, decorator: Decorator): AnalysisOutput<PipeHandlerData> {
@@ -63,7 +73,7 @@ export class PipeDecoratorHandler implements DecoratorHandler<PipeHandlerData, D
           ErrorCode.PIPE_MISSING_NAME, meta, `@Pipe decorator is missing name field`);
     }
     const pipeNameExpr = pipe.get('name') !;
-    const pipeName = staticallyResolve(pipeNameExpr, this.reflector, this.checker);
+    const pipeName = this.evaluator.evaluate(pipeNameExpr);
     if (typeof pipeName !== 'string') {
       throw new FatalDiagnosticError(
           ErrorCode.VALUE_HAS_WRONG_TYPE, pipeNameExpr, `@Pipe.name must be a string`);
@@ -73,7 +83,7 @@ export class PipeDecoratorHandler implements DecoratorHandler<PipeHandlerData, D
     let pure = true;
     if (pipe.has('pure')) {
       const expr = pipe.get('pure') !;
-      const pureValue = staticallyResolve(expr, this.reflector, this.checker);
+      const pureValue = this.evaluator.evaluate(expr);
       if (typeof pureValue !== 'boolean') {
         throw new FatalDiagnosticError(
             ErrorCode.VALUE_HAS_WRONG_TYPE, expr, `@Pipe.pure must be a boolean`);
@@ -87,7 +97,7 @@ export class PipeDecoratorHandler implements DecoratorHandler<PipeHandlerData, D
           name,
           type,
           pipeName,
-          deps: getConstructorDependencies(clazz, this.reflector, this.isCore), pure,
+          deps: getValidConstructorDependencies(clazz, this.reflector, this.isCore), pure,
         },
         metadataStmt: generateSetClassMetadataCall(clazz, this.reflector, this.isCore),
       },

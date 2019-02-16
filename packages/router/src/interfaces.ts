@@ -359,7 +359,7 @@ export interface Resolve<T> {
 /**
  * @description
  *
- * Interface that a class can implement to be a guard deciding if a children can be loaded.
+ * Interface that a class can implement to be a guard deciding if children can be loaded.
  *
  * 一个接口，某些类可以实现它以扮演一个守卫，来决定该路由的子路由能否加载。
  *
