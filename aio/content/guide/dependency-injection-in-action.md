@@ -774,6 +774,7 @@ the string of names.
 * The function takes a winning `Hero` and a `HeroService` as arguments.
 
   这个返回的函数需要一个 `Hero` 和一个 `HeroService` 参数。
+
 Angular supplies these arguments from injected values identified by
 the two *tokens* in the `deps` array.
 

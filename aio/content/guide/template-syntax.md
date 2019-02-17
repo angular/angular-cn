@@ -68,12 +68,18 @@ Begin with the first form of data binding&mdash;interpolation&mdash;to see how m
 
 ## Interpolation and Template Expressions
 
+## 插值与模板表达式
+
 Interpolation allows you to incorporate calculated strings into the text
 between HTML element tags and within attribute assignments. Template
 expressions are what you use to calculate those strings.
 
+插值能让你把计算后的字符串合并到 HTML 元素标签之间和属性赋值语句内的文本中。模板表达式则是用来供你求出这些字符串的。
+
 The interpolation <live-example></live-example> demonstrates all of
 the syntax and code snippets described in this section.
+
+这个关于插值的<live-example></live-example>演示了本节所讲的全部语法和代码片段。
 
 ### Interpolation `{{...}}`
 
@@ -141,7 +147,7 @@ You appear to be inserting the result between element tags and assigning it to a
 However, interpolation is a special syntax that Angular converts into a
 property binding.
 
-但是，插值表达式其实是一个特殊语法，Angular 会把它转换为属性绑定。
+但是，插值其实是一个特殊语法，Angular 会把它转换为属性绑定。
 
 If you'd like to use something other than `{{` and `}}`, you can
 configure the interpolation delimiter via the
@@ -231,9 +237,7 @@ In the following snippets, the `recommended` within double curly braces and the
 
 An expression may also refer to properties of the _template's_ context
 such as a template input variable,
-<!-- link to built-in-directives#template-input-variables -->
 `let customer`, or a template reference variable, `#customerInput`.
-<!-- link to guide/template-ref-variables -->
 
 表达式的上下文可以包括组件之外的对象。
   比如[模板输入变量](guide/template-syntax#template-input-variable) (`let hero`)和[模板引用变量](guide/template-syntax#ref-vars)(`#heroInput`)就是备选的上下文对象之一。
@@ -256,13 +260,14 @@ and, lastly, the component's member names.
 The previous example presents such a name collision. The component has a `customer`
 property and the `*ngFor` defines a `customer` template variable.
 
+上一个例子中就体现了这种命名冲突。组件具有一个名叫 `customer` 的属性，而 `*ngFor` 声明了一个也叫 `customer` 的模板变量。
+
 <div class="alert is-helpful">
 
 The `customer` in `{{customer.name}}`
 refers to the template input variable, not the component's property.
 
-上一个例子中就体现了这种命名冲突。组件具有一个名叫 `hero` 的属性，而 `*ngFor` 声明了一个也叫 `hero` 的模板变量。
-在 `{{hero.name}}` 表达式中的 `hero` 实际引用的是模板变量，而不是组件的属性。
+在 `{{customer.name}}` 表达式中的 `customer` 实际引用的是模板变量，而不是组件的属性。
 
 Template expressions cannot refer to anything in
 the global namespace, except `undefined`. They can't refer to
@@ -297,7 +302,7 @@ When using template expressions follow these guidelines:
 
 ### No visible side effects
 
-#### 没有可见的副作用
+### 没有可见的副作用
 
 A template expression should not change any application state other than the value of the
 target property.
@@ -497,7 +502,7 @@ Now that you have a feel for template expressions and statements,
 you're ready to learn about the varieties of data binding syntax beyond interpolation.
 
 现在，对模板表达式和语句有了一点感觉了吧。
-  除插值表达式外，还有各种各样的数据绑定语法，是学习它们是时候了。
+  除插值外，还有各种各样的数据绑定语法，是学习它们是时候了。
 
 <hr/>
 
@@ -596,7 +601,7 @@ from the _source-to-view_, from _view-to-source_, and in the two-way sequence: _
       Class<br>
       Style
 
-      插值表达式<br>
+      插值<br>
       属性<br>
       Attribute<br>
       CSS 类<br>
@@ -683,7 +688,7 @@ from the _source-to-view_, from _view-to-source_, and in the two-way sequence: _
 Binding types other than interpolation have a **target name** to the left of the equal sign,
 either surrounded by punctuation (`[]`, `()`) or preceded by a prefix (`bind-`, `on-`, `bindon-`).
 
-除了插值表达式之外的绑定类型，在等号左边是**目标名**，
+除了插值之外的绑定类型，在等号左边是**目标名**，
   无论是包在括号中 (`[]`、`()`) 还是用前缀形式 (`bind-`、`on-`、`bindon-`) 。
 
 The target name is the name of a _property_. It may look like the name of an _attribute_ but it never is.
@@ -1320,12 +1325,12 @@ The `[hero]` binding, on the other hand, remains a live binding to the component
 
 ### Property binding or interpolation?
 
-### 属性绑定还是插值表达式？
+### 属性绑定还是插值？
 
 You often have a choice between interpolation and property binding.
 The following binding pairs do the same thing:
 
-你通常得在插值表达式和属性绑定之间做出选择。
+你通常得在插值和属性绑定之间做出选择。
 下列这几对绑定做的事情完全相同：
 
 <code-example path="template-syntax/src/app/app.component.html" region="property-binding-vs-interpolation" header="src/app/app.component.html" linenums="false">
@@ -1333,7 +1338,7 @@ The following binding pairs do the same thing:
 
 _Interpolation_ is a convenient alternative to _property binding_ in many cases.
 
-在多数情况下，插值表达式是更方便的备选项。
+在多数情况下，插值是更方便的备选项。
 
 When rendering data values as strings, there is no technical reason to prefer one form to the other.
 You lean toward readability, which tends to favor interpolation.
@@ -1341,7 +1346,7 @@ You suggest establishing coding style rules and choosing the form that
 both conforms to the rules and feels most natural for the task at hand.
 
 当要渲染的数据类型是字符串时，没有技术上的理由证明哪种形式更好。
-你倾向于可读性，所以倾向于插值表达式。
+你倾向于可读性，所以倾向于插值。
 建议建立代码风格规则，选择一种形式，
 这样，既遵循了规则，又能让手头的任务做起来更自然。
 
@@ -1367,7 +1372,7 @@ nor property binding.
 
 幸运的是，Angular 数据绑定对危险 HTML 有防备。
 在显示它们之前，它对内容先进行*消毒*。
-不管是插值表达式还是属性绑定，都**不会**允许带有 script 标签的 HTML 泄漏到浏览器中。
+不管是插值还是属性绑定，都**不会**允许带有 script 标签的 HTML 泄漏到浏览器中。
 
 <code-example path="template-syntax/src/app/app.component.html" region="property-binding-vs-interpolation-sanitization" header="src/app/app.component.html" linenums="false">
 </code-example>
@@ -1375,7 +1380,7 @@ nor property binding.
 Interpolation handles the script tags differently than property binding but both approaches render the
 content harmlessly.
 
-插值表达式处理 script 标签与属性绑定有所不同，但是二者都只渲染没有危害的内容。
+插值处理 script 标签与属性绑定有所不同，但是二者都只渲染没有危害的内容。
 
 <figure>
   <img src='generated/images/guide/template-syntax/evil-title.png' alt="evil title made safe">
@@ -1450,7 +1455,7 @@ It has the "colspan" *attribute*, but
 interpolation and property binding can set only *properties*, not attributes.
 
 正如提示中所说，`<td>` 元素没有 `colspan` 属性。
-  但是插值表达式和属性绑定只能设置*属性*，不能设置 attribute。
+  但是插值和属性绑定只能设置*属性*，不能设置 attribute。
 
 You need attribute bindings to create and bind to such attributes.
 
@@ -2461,7 +2466,7 @@ Here it is referenced first in an interpolation
 and then passed in a binding to the `hero` property of the `<hero-detail>` component.
 
 你可以在 `ngFor` 的宿主元素（及其子元素）中引用模板输入变量 `hero`，从而访问该英雄的属性。
-这里的第一个语句示范了如何在一个插值表达式中引用它，第二个语句则示范了如何用一个输入绑定把它传给 `<hero-detail>` 组件的 `hero` 属性。
+这里的第一个语句示范了如何在一个插值中引用它，第二个语句则示范了如何用一个输入绑定把它传给 `<hero-detail>` 组件的 `hero` 属性。
 
 <code-example path="template-syntax/src/app/app.component.html" region="NgFor-1-2" header="src/app/app.component.html" linenums="false">
 </code-example>

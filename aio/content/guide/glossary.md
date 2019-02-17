@@ -481,6 +481,7 @@ Angular 提供了一些以 `ng` 为前缀的内置指令。你也可以创建新
 A special-purpose library or API; see [Domain-specific language](https://en.wikipedia.org/wiki/Domain-specific_language).
 
 一种特殊用途的库或 API，参见[领域特定语言](https://en.wikipedia.org/wiki/Domain-specific_language)词条。
+
 Angular extends TypeScript with domain-specific languages for a number of domains relevant to Angular apps, defined in NgModules such as [animations](guide/animations), [forms](guide/forms), and [routing and navigation](guide/router).
 
 Angular 使用领域特定语言扩展了 TypeScript，用于与 Angular 应用相关的许多领域。这些 DSL 都定义在 NgModule 中，比如 [动画](guide/animations)、[表单](guide/forms)和[路由与导航](guide/router)。
@@ -784,9 +785,11 @@ A library isn't a complete Angular app and can't run independently.
 
 * Application developers can use the [Angular CLI](guide/glossary#cli) to `add` a published library for use with an application in the same [workspace](guide/glossary#workspace).
 
+   应用开发者可以使用 [CLI](guide/glossary#cli) 来把一个已发布的库 `add` 进这个应用所在的[工作空间](guide/glossary#workspace)。
+
 See also [schematic](#schematic).
 
-   应用开发者可以使用 [CLI](guide/glossary#cli) 来把一个已发布的库 `add` 进这个应用所在的[工作空间](guide/glossary#workspace)。
+参见 [原理图（schematic）](#schematic)。
 
 {@a lifecycle-hook}
 
@@ -1089,6 +1092,7 @@ A tool that configures and implements navigation among states and [views](guide/
 The `Router` module is an [NgModule](guide/glossary#ngmodule) that provides the necessary service providers and directives for navigating through application views. A [routing component](guide/glossary#routing-component) is one that imports the `Router` module and whose template contains a `RouterOutlet` element where it can display views produced by the router.
 
 `Router` 模块是一个 [NgModule](guide/glossary#ngmodule)，它提供在应用视图间导航时需要的服务提供商和指令。[路由组件](guide/glossary#routing-component)是一种组件，它导入了 `Router` 模块，并且其模板中包含 `RouterOutlet` 元素，路由器生成的视图就会被显示在那里。
+
 The router defines navigation among views on a single page, as opposed to navigation among pages. It interprets URL-like links to determine which views to create or destroy, and which components to load or unload. It allows you to take advantage of [lazy loading](guide/glossary#lazy-load) in your Angular apps.
 
 路由器定义了在单页面中的各个视图之间导航的方式，而不是在页面之间。它会解释类似 URL 的链接，以决定该创建或销毁哪些视图，以及要加载或卸载哪些组件。它让你可以在 Angular 应用中获得[惰性加载](guide/glossary#lazy-load)的好处。
@@ -1147,9 +1151,11 @@ Angular [CLI](guide/glossary#cli) 使用原理图来生成和修改 [Angular 项
 
 * [Library](#library) developers can use the [Schematics CLI](#schematics-cli) to create schematics that enable the Angular CLI to add and update their published libraries, and to generate artifacts the library defines.
 
+  公共库的开发者可以创建原理图，来让 CLI 生成他们自己的发布的库。欲知详情，参见 [devkit 文档](https://www.npmjs.com/package/@angular-devkit/schematics)。
+
    For more information, see [devkit documentation](https://www.npmjs.com/package/@angular-devkit/schematics).
 
-  公共库的开发者可以创建原理图，来让 CLI 生成他们自己的发布的库。欲知详情，参见 [devkit 文档](https://www.npmjs.com/package/@angular-devkit/schematics)。
+   欲知详情，参见 [devkit 文档](https://www.npmjs.com/package/@angular-devkit/schematics)。
 
 {@a schematics-cli}
 

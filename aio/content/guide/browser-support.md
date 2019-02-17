@@ -562,6 +562,8 @@ Here are the features which may require additional polyfills:
       [Router](guide/router) 
       
       when using [hash-based routing](guide/router#appendix-locationstrategy-and-browser-url-styles)
+      
+      当使用[基于 hash 的路由](guide/router#appendix-locationstrategy-and-browser-url-styles)时。
     </td>
 
     <td>
