@@ -638,8 +638,8 @@ node dist/server.js
 Now let's create a few handy scripts to help us do all of this in the future.
 You can add these in the `"scripts"` section of the `package.json`.
 
-现在，来创建一些便利脚本，在以后帮助我们完成这些琐事。
-你可以在 Angular 配置文件 `angular.json` 的 `"server"` 区添加这些脚本。
+现在，来创建一些便利脚本，以便将来帮我们完成这些琐事。
+你可以在 `package.json` 的 `"scripts"` 区添加这些脚本。
 
 <code-example format="." language="none" linenums="false">
 "scripts": {
