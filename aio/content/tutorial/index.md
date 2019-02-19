@@ -27,7 +27,7 @@ By the end of the tutorial you will be able to do the following:
 
 * Use one-way data binding for read-only data.
 
-   为只读数据使用单项数据绑定。
+   为只读数据使用单向数据绑定。
 
 * Add editable fields to update a model with two-way data binding.
 
