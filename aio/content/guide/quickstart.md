@@ -92,17 +92,17 @@ To install the CLI using `npm`, open a terminal/console window and enter the fol
 
 ## Step 2: Create a workspace and initial application
 
-## 第二步：创建工作空间和初始应用
+## 第二步：创建工作区和初始应用
 
 You develop apps in the context of an Angular [**workspace**](guide/glossary#workspace). A workspace contains the files for one or more [**projects**](guide/glossary/#project). A project is the set of files that comprise an app, a library, or end-to-end (e2e) tests. 
 
-Angular [**工作空间**](guide/glossary#workspace)就是你开发应用的上下文环境。
-每个工作空间包含一些供一个或多个[**项目**](guide/glossary/#project)使用的文件。
+Angular [**工作区**](guide/glossary#workspace)就是你开发应用的上下文环境。
+每个工作区包含一些供一个或多个[**项目**](guide/glossary/#project)使用的文件。
 每个项目都是一组由应用、库或端到端（e2e）测试构成的文件。
 
 To create a new workspace and initial app project: 
 
-要想创建工作空间和初始应用项目：
+要想创建工作区和初始应用项目：
 
 1. Run the CLI command `ng new` and provide the name `my-app`, as shown here: 
 
@@ -123,11 +123,11 @@ Angular CLI 会安装必要的 Angular npm 包及其它依赖。这可能要花�
 
 It also creates the following workspace and starter project files: 
 
-还将创建下列工作空间和初始项目文件：
+还将创建下列工作区和初始项目文件：
 
 * A new workspace, with a root folder named `my-app`
 
-  一个新的工作空间，根目录名叫 `my-app`
+  一个新的工作区，根目录名叫 `my-app`
 
 * An initial skeleton app project, also called `my-app` (in the `src` subfolder)
 
@@ -157,7 +157,7 @@ Angular 包含一个开发服务器，以便你能轻易地在本地构建应用
 
 1. Go to the workspace folder (`my-app`).
 
-   进入工作空间目录（`my-app`）。
+   进入工作区目录（`my-app`）。
 
 1. Launch the server by using the CLI command `ng serve`, with the `--open` option.
 
@@ -256,7 +256,7 @@ You can <a href="generated/zips/cli-quickstart/cli-quickstart.zip" target="_blan
 
 For more information about Angular project files and the file structure, see [Workspace and project file struture](guide/file-structure).
 
-要了解关于 Angular 项目文件和文件结构的更多信息，请参见[工作空间与项目的文件结构](guide/file-structure)。
+要了解关于 Angular 项目文件和文件结构的更多信息，请参见[工作区与项目的文件结构](guide/file-structure)。
 
 
 ## Next steps

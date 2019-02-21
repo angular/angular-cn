@@ -83,7 +83,7 @@ without deep knowledge of animation techniques or CSS.
 
 * [Workspace and File Structure](guide/file-structure): Understand the structure of Angular workspace and project folders. 
 
-  [工作空间与文件结构](guide/file-structure)：理解 Angular 工作空间与项目文件夹的结构。
+  [工作区与文件结构](guide/file-structure)：理解 Angular 工作区与项目文件夹的结构。
 
 * [npm Packages](guide/npm-packages): The Angular Framework, Angular CLI, and components used by Angular applications are packaged as [npm](https://docs.npmjs.com/) packages and distributed via the npm registry. The Angular CLI creates a default `package.json` file, which specifies a starter set of packages that work well together and jointly support many common application scenarios.
 

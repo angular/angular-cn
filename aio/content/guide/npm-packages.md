@@ -36,8 +36,8 @@ Both `npm` and `yarn` install the packages that are identified in a [`package.js
 The CLI command `ng new` creates a `package.json` file when it creates the new workspace. 
 This `package.json` is used by all projects in the workspace, including the initial app project that is  created by the CLI when it creates the workspace.   
 
-CLI 的 `ng new` 命令会在创建新的工作空间的同时创建一个 `package.json`。
-这个 `package.json` 用于此工作空间中的所有项目，包括由 CLI 在创建工作空间时创建的那个初始项目。
+CLI 的 `ng new` 命令会在创建新的工作区的同时创建一个 `package.json`。
+这个 `package.json` 用于此工作区中的所有项目，包括由 CLI 在创建工作区时创建的那个初始项目。
 
 Initially, this `package.json` includes _a starter set of packages_, some of which are required by Angular and others that support common application scenarios.
 You add packages to `package.json` as your application evolves. 
@@ -104,7 +104,7 @@ To add a new dependency, use the [`ng add`](cli/add) command.
 The following Angular packages are included as dependencies in the default `package.json` file for a new Angular workspace.
 For a complete list of Angular packages, see the [API reference](http://angular.io/api?type=package). 
 
-新 Angular 工作空间的 `package.json` 文件中默认包含下列 Angular 包。
+新 Angular 工作区的 `package.json` 文件中默认包含下列 Angular 包。
 要了解 Angular 包的完整列表，参见 [API 参考手册](http://angular.io/api?type=package)。
 
 Package name                               | Description
@@ -136,7 +136,7 @@ Package name                               | Description
 
 The following support packages are included as dependencies in the default `package.json` file for a new Angular workspace. 
 
-新的 Angular 工作空间的 `package.json` 文件中默认包含下列支持包。
+新的 Angular 工作区的 `package.json` 文件中默认包含下列支持包。
 
 Package name                               | Description
 ----------------------------------------   | --------------------------------------------------
@@ -164,7 +164,7 @@ how you can add them.
 The `package.json` for a new Angular workspace installs the [core-js](https://github.com/zloirock/core-js) package, 
 which polyfills missing features for several popular browser.
 
-默认的 `package.json` 会为新的 Angular 工作空间安装 **[core-js](https://github.com/zloirock/core-js)** 包，它会弥补很多常用浏览器缺失的特性。
+默认的 `package.json` 会为新的 Angular 工作区安装 **[core-js](https://github.com/zloirock/core-js)** 包，它会弥补很多常用浏览器缺失的特性。
 
 {@a dev-dependencies}
 
@@ -189,7 +189,7 @@ To add a new `devDependency`, use either one of the following commands:
 
 The following `devDependencies` are provided in the default `package.json` file for a new Angular workspace. 
 
-新 Angular 工作空间的默认 `package.json` 中包含下列 `devDependencies` 
+新 Angular 工作区的默认 `package.json` 中包含下列 `devDependencies` 
 
 Package name                               | Description
 ----------------------------------------   | -----------------------------------

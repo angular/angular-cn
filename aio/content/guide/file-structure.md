@@ -1,18 +1,18 @@
 # Workspace and project file structure
 
-# 工作空间与项目文件的结构
+# 工作区与项目文件的结构
 
 You develop apps in the context of an Angular [workspace](guide/glossary#workspace). A workspace contains the files for one or more [projects](guide/glossary#project). A project is the set of files that comprise a standalone app, a library, or a set of end-to-end (e2e) tests. 
 
-你要在 Angular [工作空间](guide/glossary#workspace)的上下文环境中开发应用。每个工作空间中包括一个或多个[项目](guide/glossary#project)的文件。每个项目是一组文件，由标准应用、库或一组端到端（e2e）测试组成。
+你要在 Angular [工作区](guide/glossary#workspace)的上下文环境中开发应用。每个工作区中包括一个或多个[项目](guide/glossary#project)的文件。每个项目是一组文件，由标准应用、库或一组端到端（e2e）测试组成。
 
 The Angular CLI command `ng new <project_name>` gets you started. 
 When you run this command, the CLI installs the necessary Angular npm packages and other dependencies in a new workspace, with a root folder named *project_name*. 
 It also creates the following workspace and starter project files:
 
 Angular CLI 命令 `ng new <project_name>` 可以帮你开始项目。
-当你运行该命令时，CLI 会在新建的工作空间（以 *project_name* 为根目录）中，安装必要的 Angular npm 包和其它依赖。
-它还会创建如下的工作空间和最初的项目文件：
+当你运行该命令时，CLI 会在新建的工作区（以 *project_name* 为根目录）中，安装必要的 Angular npm 包和其它依赖。
+它还会创建如下的工作区和最初的项目文件：
 
 * An initial skeleton app project, also called *project_name* (in the `src/` subfolder).
 
@@ -32,39 +32,39 @@ The initial app project contains a simple Welcome app, ready to run.
 
 ## Workspace files
 
-## 工作空间文件
+## 工作区文件
 
 The top level of the workspace contains a number of workspace-wide configuration files.
 
-工作空间的顶级包含一系列工作空间级的配置文件。
+工作区的顶级包含一系列工作区级的配置文件。
 
 | WORKSPACE CONFIG FILES | PURPOSE |
 | :--------------------- | :------------------------------------------|
-| 工作空间配置文件 | 用途 |
+| 工作区配置文件 | 用途 |
 | `.editorconfig` | Configuration for code editors. See [EditorConfig](https://editorconfig.org/).  |
 | `.editorconfig` | 代码编辑器配置。参见 [EditorConfig](https://editorconfig.org/) |
 | `.gitignore` | Specifies intentionally untracked files that [Git](https://git-scm.com/) should ignore.  |
 | `.gitignore` | 指定 [Git](https://git-scm.com/) 要忽略的非跟踪的文件。 |
 | `angular.json` | CLI configuration defaults for all projects in the workspace, including configuration options for build, serve, and test tools that the CLI uses, such as [TSLint](https://palantir.github.io/tslint/), [Karma](https://karma-runner.github.io/), and [Protractor](http://www.protractortest.org/). For details, see [Angular Workspace Configuration](guide/workspace-config).  |
-| `angular.json` | 工作区中所有项目的默认 CLI 配置，包括 CLI 使用的构建选项、运行选项、测试工具选项（比如 [TSLint](https://palantir.github.io/tslint/)、[Karma](https://karma-runner.github.io/)、[Protractor](http://www.protractortest.org/)）等。欲知详情，参见 [Angular 工作空间配置](guide/workspace-config)。 |
+| `angular.json` | 工作区中所有项目的默认 CLI 配置，包括 CLI 使用的构建选项、运行选项、测试工具选项（比如 [TSLint](https://palantir.github.io/tslint/)、[Karma](https://karma-runner.github.io/)、[Protractor](http://www.protractortest.org/)）等。欲知详情，参见 [Angular 工作区配置](guide/workspace-config)。 |
 | `node_modules` | Provides [npm packages](guide/npm-packages) to the entire workspace.  |
-| `node_modules` | 提供给整个工作空间的 [npm 包](guide/npm-packages)。 |
+| `node_modules` | 提供给整个工作区的 [npm 包](guide/npm-packages)。 |
 | `package.json` | Configures [npm package dependencies](guide/npm-packages) that are available to all projects in the workspace. See [npm documentation](https://docs.npmjs.com/files/package.json) for the specific format and contents of this file. |
-| `package.json` | 配置用于工作空间中所有项目的包依赖项。有关此文件的特有格式和内容，参见 [npm 文档](https://docs.npmjs.com/files/package.json)。 |
+| `package.json` | 配置用于工作区中所有项目的包依赖项。有关此文件的特有格式和内容，参见 [npm 文档](https://docs.npmjs.com/files/package.json)。 |
 | `package-lock.json` | Provides version information for all packages installed into `node_modules` by the npm client. See [npm documentation](https://docs.npmjs.com/files/package-lock.json) for details. If you use the yarn client, this file will be [yarn.lock](https://yarnpkg.com/lang/en/docs/yarn-lock/) instead.  |
 | `package-lock.json` | 为 npm 客户端安装到 `node_modules` 中的所有软件包提供版本信息。详情参见 [npm documentation](https://docs.npmjs.com/files/package-lock.json)。如果你使用 yarn 客户端，此文件会由 [yarn.lock](https://yarnpkg.com/lang/en/docs/yarn-lock/) 代替。 |
 | `tsconfig.json` | Default [TypeScript](https://www.typescriptlang.org/) configuration for apps in the workspace, including TypeScript and Angular template compiler options. See [TypeScript Configuration](guide/typescript-configuration).  |
-| `tsconfig.json` | 工作空间中所有应用的默认 [TypeScript](https://www.typescriptlang.org/) 配置。包括 TypeScript 选项和 Angular 模板编译器选项。参见 [TypeScript 配置](guide/typescript-configuration)。 |
+| `tsconfig.json` | 工作区中所有应用的默认 [TypeScript](https://www.typescriptlang.org/) 配置。包括 TypeScript 选项和 Angular 模板编译器选项。参见 [TypeScript 配置](guide/typescript-configuration)。 |
 | `tslint.json` | Default [TSLint](https://palantir.github.io/tslint/) configuration for apps in the workspace.  |
-| `tslint.json` | 工作空间中所有应用的默认 [TSLint](https://palantir.github.io/tslint/) 配置。 |
+| `tslint.json` | 工作区中所有应用的默认 [TSLint](https://palantir.github.io/tslint/) 配置。 |
 | `README.md` | Introductory documentation.  |
 | `README.md` | 介绍文档 |
 
 All projects within a workspace share a [CLI configuration context](guide/workspace-config). 
 Project-specific [TypeScript](https://www.typescriptlang.org/) configuration files inherit from the workspace-wide `tsconfig.*.json`, and app-specific [TSLint](https://palantir.github.io/tslint/) configuration files inherit from the workspace-wide `tslint.json`.
 
-工作空间中的所有项目都共享这个配置上下文。
-每个项目自己的 [TypeScript](https://www.typescriptlang.org/) 配置文件继承自工作空间级的 `tsconfig.*.json`，而每个项目自己的 [TSLint](https://palantir.github.io/tslint/) 配置文件也继承自工作空间级的 `tslint.json`。
+工作区中的所有项目都共享这个配置上下文。
+每个项目自己的 [TypeScript](https://www.typescriptlang.org/) 配置文件继承自工作区级的 `tsconfig.*.json`，而每个项目自己的 [TSLint](https://palantir.github.io/tslint/) 配置文件也继承自工作区级的 `tslint.json`。
 
 ### Default app project files
 
@@ -73,14 +73,14 @@ Project-specific [TypeScript](https://www.typescriptlang.org/) configuration fil
 The CLI command `ng new my-app` creates a workspace folder named "my-app" and generates a new app skeleton. 
 This initial app is the *default app* for CLI commands (unless you change the default after creating additional apps). 
 
-CLI 命令 `ng new my-app` 创建了一个名叫 "my-app" 的工作空间目录，并生成了一个新应用的骨架。
+CLI 命令 `ng new my-app` 创建了一个名叫 "my-app" 的工作区目录，并生成了一个新应用的骨架。
 这个初始应用是 CLI 命令的*默认应用*（除非你在创建了其它应用之后修改了默认应用）。
 
 A newly generated app contains the source files for a root module, with a root component and template. 
 When the workspace file structure is in place, you can use the `ng generate` command on the command line to add functionality and data to the initial app.
 
 新生成的应用包含根模块和一个根组件及其模板的代码。
-当工作空间的文件结构就绪之后，你可以在命令行上运行 `ng generate` 命令，来给这个初始应用添加功能和数据。
+当工作区的文件结构就绪之后，你可以在命令行上运行 `ng generate` 命令，来给这个初始应用添加功能和数据。
 
 <div class="alert is-helpful">
 
@@ -94,7 +94,7 @@ The `src/` subfolder contains the source files (app logic, data, and assets), al
 Workspace-wide `node_modules` dependencies are visible to this project.
 
 `src/` 子目录包含该初始应用的源文件（应用逻辑、数据和资源）以及配置文件。
-工作空间级的 `node_modules` 依赖，对于这个项目也是可见的。
+工作区级的 `node_modules` 依赖，对于这个项目也是可见的。
 
 | APP SOURCE & CONFIG FILES | PURPOSE |
 | :--------------------- | :------------------------------------------|
@@ -120,11 +120,11 @@ Workspace-wide `node_modules` dependencies are visible to this project.
 | `test.ts` | The main entry point for your unit tests, with some Angular-specific configuration. You don't typically need to edit this file.  |
 | `test.ts` | 单元测试的主入口点，其中带有一些特定于 Angular 的配置。一般来说你不必编辑这个问题。 |
 | `tsconfig.app.json` | Inherits from the workspace-wide `tsconfig.json` file.  |
-| `tsconfig.app.json` | 继承自工作空间级的 `tsconfig.json` 文件。 |
+| `tsconfig.app.json` | 继承自工作区级的 `tsconfig.json` 文件。 |
 | `tsconfig.spec.json` | Inherits from the workspace-wide `tsconfig.json` file.  |
-| `tsconfig.spec.json` | 继承自工作空间级的 `tsconfig.json` 文件。 |
+| `tsconfig.spec.json` | 继承自工作区级的 `tsconfig.json` 文件。 |
 | `tslint.json` | Inherits from the workspace-wide `tslint.json` file.  |
-| `tslint.json` | 继承自工作空间级的 `tsconfig.json` 文件。 |
+| `tslint.json` | 继承自工作区级的 `tsconfig.json` 文件。 |
 
 ### Default app project e2e files
 
@@ -150,7 +150,7 @@ my-app/
 When you generate new projects in a workspace, 
 the CLI creates a new *workspace*`/projects` folder, and adds the generated files there.
 
-当你在工作空间中生成新项目时，CLI 会在*工作空间*目录下创建一个新的 `/projects` 目录，并把生成的文件添加到那里。
+当你在工作区中生成新项目时，CLI 会在*工作区*目录下创建一个新的 `/projects` 目录，并把生成的文件添加到那里。
 
 When you generate an app (`ng generate application my-other-app`), the CLI adds folders under `projects/` for both the app and its corresponding end-to-end tests. Newly generated libraries are also added under `projects/`.
 

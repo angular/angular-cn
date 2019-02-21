@@ -522,7 +522,7 @@
         {
           "url": "guide/file-structure",
           "title": "项目文件结构",
-          "tooltip": "Angular 工作空间在文件系统中是怎样的。"
+          "tooltip": "Angular 工作区在文件系统中是怎样的。"
         },
         {
           "url": "guide/workspace-config",

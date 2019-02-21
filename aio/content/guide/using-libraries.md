@@ -45,7 +45,7 @@ npm install @types/d3 --save-dev
 Types defined in a `@types/` package for a library installed into the workspace are automatically added to the TypeScript configuration for the project that uses that library.
 TypeScript looks for types in the `node_modules/@types` folder by default, so you don't have to add each type package individually.
 
-已安装到工作空间中的 `@types/` 包中所定义的类型，会自动添加到使用该库的项目的 TypeScript 配置文件中。TypeScript 默认就会在 `node_modules/@types` 文件夹中查找类型，所以你不必单独添加每一个类型包。
+已安装到工作区中的 `@types/` 包中所定义的类型，会自动添加到使用该库的项目的 TypeScript 配置文件中。TypeScript 默认就会在 `node_modules/@types` 文件夹中查找类型，所以你不必单独添加每一个类型包。
 
 If a library doesn't have typings available at `@types/`, you can still use it by manually adding typings for it.
 To do this:

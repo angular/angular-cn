@@ -17,7 +17,7 @@ In this part of the tutorial, you'll do the following:
 
 2. Create a new workspace and initial app project.
 
-   创建新的工作空间，并初始化应用项目。
+   创建新的工作区，并初始化应用项目。
 
 3. Serve the application.
 
@@ -47,27 +47,27 @@ To set up your development environment, follow these instructions in [Getting St
 
 **Note:** You do not need to complete the entire Getting Started. After you complete the above two sections of Getting Started, your environment is set up. Continue below to create the Tour of Heroes workspace and an initial app project.
 
-**注意：**你不用做完整个快速上手。只要完成了上面这两个部分，你的环境就已经设置好了。然后继续下面的步骤来创建一个《英雄指南》的工作空间和一个初始应用项目。
+**注意：**你不用做完整个快速上手。只要完成了上面这两个部分，你的环境就已经设置好了。然后继续下面的步骤来创建一个《英雄指南》的工作区和一个初始应用项目。
 </div>
 
 
 ## Create a new workspace and an initial application
 
-## 创建新的工作空间和一个初始应用
+## 创建新的工作区和一个初始应用
 
 You develop apps in the context of an Angular [workspace](guide/glossary#workspace). A workspace contains the files for one or more [projects](guide/glossary#project). A project is the set of files that comprise an app, a library, or end-to-end (e2e) tests. For this tutorial, you will create a new workspace.
 
-Angular 的[工作空间](guide/glossary#workspace)就是你开发应用所在的上下文环境。一个工作空间包含一个或多个[项目](guide/glossary#project)所需的文件。
+Angular 的[工作区](guide/glossary#workspace)就是你开发应用所在的上下文环境。一个工作区包含一个或多个[项目](guide/glossary#project)所需的文件。
 每个项目都是一组由应用、库或端到端（e2e）测试组成的文件集合。
-在本教程中，你将创建一个新的工作空间。
+在本教程中，你将创建一个新的工作区。
 
 To create a new workspace and an initial app project:
 
-要想创建一个新的工作空间和一个初始应用项目，需要：
+要想创建一个新的工作区和一个初始应用项目，需要：
 
   1. Ensure that you are not already in an Angular workspace folder. For example, if you have previously created the Getting Started workspace, change to the parent of that folder.
 
-     确保你现在没有位于 Angular 工作区的文件夹中。例如，如果你之前已经创建过 "快速上手" 工作空间，请回到其父目录中。
+     确保你现在没有位于 Angular 工作区的文件夹中。例如，如果你之前已经创建过 "快速上手" 工作区，请回到其父目录中。
 
   2. Run the CLI command `ng new` and provide the name `angular-tour-of-heroes`, as shown here:
 
@@ -87,11 +87,11 @@ Angular CLI 会安装必要的 Angular `npm` 包和其它依赖项。这可能�
 
 It also creates the following workspace and starter project files:
 
-它还会创建下列工作空间和初始项目的文件：
+它还会创建下列工作区和初始项目的文件：
 
   * A new workspace, with a root folder named `angular-tour-of-heroes`.
 
-    新的工作空间，其根目录名叫 `angular-tour-of-heroes`。
+    新的工作区，其根目录名叫 `angular-tour-of-heroes`。
 
   * An initial skeleton app project, also called `angular-tour-of-heroes` (in the `src` subfolder).
 
@@ -115,7 +115,7 @@ The initial app project contains a simple Welcome app, ready to run.
 
 Go to the workspace directory and launch the application.
 
-进入工作空间目录，并启动这个应用。
+进入工作区目录，并启动这个应用。
 
 <code-example language="sh" class="code-shell">
   cd angular-tour-of-heroes

@@ -63,16 +63,16 @@ When you use the [ng serve](cli/serve) command to build an app and serve it loca
 
 ## Workspaces and project files
 
-## 工作空间与项目文件
+## 工作区与项目文件
 
 The [ng new](cli/new) command creates an *Angular workspace* folder and generates a new app skeleton.
 A workspace can contain multiple apps and libraries.
 The initial app created by the [ng new](cli/new) command is at the top level of the workspace.
 When you generate an additional app or library in a workspace, it goes into a `projects/` subfolder.
 
-[ng new](cli/new) 命令会创建一个 *Angular 工作空间*目录，并生成一个新的应用骨架。
-每个工作空间中可以包含多个应用和库。
-由 [ng new](cli/new) 命令创建的初始应用位于工作空间的顶层。
+[ng new](cli/new) 命令会创建一个 *Angular 工作区*目录，并生成一个新的应用骨架。
+每个工作区中可以包含多个应用和库。
+由 [ng new](cli/new) 命令创建的初始应用位于工作区的顶层。
 你在工作区中生成的其它应用或库，会放在 `projects/` 子目录下。
 
 A newly generated app contains the source files for a root module, with a root component and template.
@@ -87,21 +87,21 @@ Commands such as [add](cli/add) and [generate](cli/generate), which create or op
 
 你可以直接编辑这些生成的文件，也可以使用 CLI 命令来添加或修改它们。
 使用 [ng generate](cli/generate) 命令也可以添加其它组件和服务，以及管道、指令的源码等。
-必须在工作空间或项目目录下才能执行 [add](cli/add) 或 [generate](cli/generate) 之类的命令，因为这些命令需要在应用或库上进行创建或其它操作。
+必须在工作区或项目目录下才能执行 [add](cli/add) 或 [generate](cli/generate) 之类的命令，因为这些命令需要在应用或库上进行创建或其它操作。
 
 * See more about the [Workspace file structure](guide/file-structure).
 
-  欲知详情，参见[工作空间的文件结构](guide/file-structure)。
+  欲知详情，参见[工作区的文件结构](guide/file-structure)。
 
 ### Workspace and project configuration
 
-### 工作空间与项目的配置
+### 工作区与项目的配置
 
 A single workspace configuration file, `angular.json`, is created at the top level of the workspace.
 This is where you can set per-project defaults for CLI command options, and specify configurations to use when the CLI builds a project for different targets.
 
-工作空间的配置文件 `angular.json` 位于此工作空间的顶层。
-在这里，你可以设置全工作空间范围的默认值，并指定当 CLI 为不同目标构建项目时要用到的配置。
+工作区的配置文件 `angular.json` 位于此工作区的顶层。
+在这里，你可以设置全工作区范围的默认值，并指定当 CLI 为不同目标构建项目时要用到的配置。
 
 The [ng config](cli/config) command lets you set and retrieve configuration values from the command line, or you can edit the `angular.json` file directly.
 Note that option names in the configuration file must use [camelCase](guide/glossary#case-types), while option names supplied to commands can use either camelCase or dash-case.
@@ -111,7 +111,7 @@ Note that option names in the configuration file must use [camelCase](guide/glos
 
 * See more about [Workspace Configuration](guide/workspace-config).
 
-  参见 [工作空间配置](guide/workspace-config)。
+  参见 [工作区配置](guide/workspace-config)。
 
 * See the [complete schema](https://github.com/angular/angular-cli/wiki/angular-workspace) for `angular.json`.
 
@@ -178,7 +178,7 @@ Allowed values are given with each enumerated option description, with the defau
 
 Options that specify files can be given as absolute paths, or as paths relative to the current working directory, which is generally either the workspace or project root.
 
-用来指定文件的选项可以用绝对路径，也可以用相对于当前目录的相对路径，当前目录通常是工作空间或项目的根目录。
+用来指定文件的选项可以用绝对路径，也可以用相对于当前目录的相对路径，当前目录通常是工作区或项目的根目录。
 
 ### Schematics
 

@@ -25,7 +25,7 @@ Use the Angular CLI to generate a new library skeleton with the following comman
 This creates the `projects/my-lib` folder in your workspace, which contains a component and a service inside an NgModule.
 The workspace configuration file, `angular.json`, is updated with a project of type 'library'.
 
-这会在你的工作区中创建 `projects/my-lib` 文件夹，里面包含 NgModule 中的一个组件和一个服务。该工作空间的配置文件 `angular.json` 中也添加了一个 'library' 类型的项目。
+这会在你的工作区中创建 `projects/my-lib` 文件夹，里面包含 NgModule 中的一个组件和一个服务。该工作区的配置文件 `angular.json` 中也添加了一个 'library' 类型的项目。
 
 <code-example format="json">
 "projects": {

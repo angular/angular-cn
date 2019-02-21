@@ -32,7 +32,7 @@ These libraries can be used locally in your workspace, or you can publish them a
 These packages can be published to the npm registry, a private npm Enterprise registry, or a private package management system that supports npm packages.
 See [Creating Libraries](guide/creating-libraries).
 
-如果已经开发出了适合重用的功能，你就可以创建自己的库。这些库可以在你的工作空间中本地使用，也可以把它们发布成 [npm 包](guide/npm-packages)，共享给其它项目或其他 Angular 开发者。这些包可以发布到 npm 服务器、一个私有的 npm 企业版服务器，或一个支持 npm 包的私有包管理系统。参见[创建库](guide/creating-libraries) 。
+如果已经开发出了适合重用的功能，你就可以创建自己的库。这些库可以在你的工作区中本地使用，也可以把它们发布成 [npm 包](guide/npm-packages)，共享给其它项目或其他 Angular 开发者。这些包可以发布到 npm 服务器、一个私有的 npm 企业版服务器，或一个支持 npm 包的私有包管理系统。参见[创建库](guide/creating-libraries) 。
 
 Whether you decide to package functionality as a library is an architectural decision, similar to deciding whether a piece of functionality is a component or a service, or deciding on the scope of a component.
 

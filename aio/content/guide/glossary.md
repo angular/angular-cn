@@ -223,7 +223,7 @@ In Angular, a set of related [schematics](#schematic) collected in an [npm packa
 
 The [Angular CLI](cli) is a command-line tool for managing the Angular development cycle. Use it to create the initial filesystem scaffolding for a [workspace](guide/glossary#workspace) or [project](guide/glossary#project), and to run [schematics](guide/glossary#schematic) that add and modify code for initial generic versions of various elements. The CLI supports all stages of the development cycle, including building, testing, bundling, and deployment.
 
-[Angular CLI](cli) 是一个命令行工具，用于管理 Angular 的开发周期。它用于为[工作空间](guide/glossary#workspace)或[项目](guide/glossary#project)创建初始的脚手架，并且运行[生成器（schematics）](guide/glossary#schematic)来为初始生成的版本添加或修改各类代码。
+[Angular CLI](cli) 是一个命令行工具，用于管理 Angular 的开发周期。它用于为[工作区](guide/glossary#workspace)或[项目](guide/glossary#project)创建初始的脚手架，并且运行[生成器（schematics）](guide/glossary#schematic)来为初始生成的版本添加或修改各类代码。
 CLI 支持开发周期中的所有阶段，比如构建、测试、打包和部署。
 
 * To begin using the CLI for a new project, see [Getting Started](guide/quickstart).
@@ -781,11 +781,11 @@ A library isn't a complete Angular app and can't run independently.
 
 * Library developers can use the [Angular CLI](guide/glossary#cli) to `generate` scaffolding for a new library in an existing [workspace](guide/glossary#workspace), and can publish a library as an `npm` package.
 
-  库的开发者可以使用 [CLI](guide/glossary#cli) 在现有的 [工作空间](guide/glossary#workspace) 中 `generate` 新库的脚手架，还能把库发布为 `npm` 包。
+  库的开发者可以使用 [CLI](guide/glossary#cli) 在现有的 [工作区](guide/glossary#workspace) 中 `generate` 新库的脚手架，还能把库发布为 `npm` 包。
 
 * Application developers can use the [Angular CLI](guide/glossary#cli) to `add` a published library for use with an application in the same [workspace](guide/glossary#workspace).
 
-   应用开发者可以使用 [CLI](guide/glossary#cli) 来把一个已发布的库 `add` 进这个应用所在的[工作空间](guide/glossary#workspace)。
+   应用开发者可以使用 [CLI](guide/glossary#cli) 来把一个已发布的库 `add` 进这个应用所在的[工作区](guide/glossary#workspace)。
 
 See also [schematic](#schematic).
 
@@ -1005,8 +1005,8 @@ In Angular, a folder within a [workspace](guide/glossary#workspace) that contain
 A workspace can contain multiple projects.
 All apps in a workspace can use libraries in the same workspace.
 
-在 Angular 中，是指[工作空间](guide/glossary#workspace)中的一个文件夹，它包含 Angular 应用或[库](guide/glossary#library)。
-每个工作空间中可以包含多个项目。工作空间中的每个应用都可以使用同一工作空间中的任意库。
+在 Angular 中，是指[工作区](guide/glossary#workspace)中的一个文件夹，它包含 Angular 应用或[库](guide/glossary#library)。
+每个工作区中可以包含多个项目。工作区中的每个应用都可以使用同一工作区中的任意库。
 
 {@a provider}
 
@@ -1451,14 +1451,14 @@ See [custom element](guide/glossary#custom-element).
 
 ## workspace
 
-## 工作空间（Workspace）
+## 工作区（Workspace）
 
 In Angular, a folder that contains [projects](guide/glossary#project) (that is, apps and libraries).
 The [CLI](guide/glossary#cli) `ng new` command creates a workspace to contain projects.
 Commands that create or operate on apps and libraries (such as `add` and `generate`) must be executed from within a workspace folder.
 
 在 Angular 中，是指一个包含[项目](guide/glossary#project)（即应用和库）的文件夹。
-[CLI](guide/glossary#cli) 的 `ng new` 命令会创建一个包含项目的工作空间。而用来创建或操作应用和库的 `add` 和 `generate` 命令必须在工作空间目录下才能执行。
+[CLI](guide/glossary#cli) 的 `ng new` 命令会创建一个包含项目的工作区。而用来创建或操作应用和库的 `add` 和 `generate` 命令必须在工作区目录下才能执行。
 
 {@a X}
 
