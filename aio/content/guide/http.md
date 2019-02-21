@@ -1080,7 +1080,7 @@ it can't prevent you from modifying a property of a request body object.
 If you must mutate the request body, copy it first, change the copy, 
 `clone()` the request, and set the clone's body with the new body, as in the following example.
 
-如果你必须修改请求体，那么就要先复制它，然后修改这个复本，`clone()` 这个请求，然后把这个请求体的复本作为新的请求体，例子如下：
+如果你必须修改请求体，那么就要先复制它，然后修改这个副本，`clone()` 这个请求，然后把这个请求体的副本作为新的请求体，例子如下：
 
 <code-example 
   path="http/src/app/http-interceptors/trim-name-interceptor.ts"

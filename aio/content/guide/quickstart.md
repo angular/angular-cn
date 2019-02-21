@@ -18,7 +18,7 @@ This guide takes less than 30 minutes to complete.
 At the end of this guide&mdash;as part of final code review&mdash;there is a link to download a copy of the final application code. (If you don't execute the commands in this guide, you can still download the final application code.)
 
 
-本指南只要不到 30 分钟即可完成。本指南末尾的最终代码回顾部分提供了一个链接，你可以去下载最终应用代码的一份复本。（就算你没有执行本章的这些命令，也仍然可以直接下载这份最终版的应用代码。）
+本指南只要不到 30 分钟即可完成。本指南末尾的最终代码回顾部分提供了一个链接，你可以去下载最终应用代码的一份副本。（就算你没有执行本章的这些命令，也仍然可以直接下载这份最终版的应用代码。）
 
 {@a devenv}
 {@a prerequisites}

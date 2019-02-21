@@ -50,7 +50,7 @@ The version number is incremented based on the level of change included in the r
 
 * Minor releases contain new smaller features. Minor releases are fully backward-compatible; no developer assistance is expected during update, but you can optionally modify your apps and libraries to begin using new APIs, features, and capabilities that were added in the release. We update peer dependencies in minor versions by expanding the supported versions, but we do not require projects to update these dependencies. 
 
-   小版本包含新的小型特性。小版本是完全向后兼容的，在升级期间，不需要开发人员提供协助，但是你可以（可选的）修改你的应用和库，来使用本次发布中新增的 API、特性和能力。我们会扩展平级依赖（peer dependency）中的小版本号范围来更新平级依赖，但并不需要你的项目也更新那些依赖。
+   小版本包含新的小型特性。小版本是完全向后兼容的，在升级期间，不需要开发人员提供协助，但是你可以（可选的）修改你的应用和库，来使用本次发布中新增的 API、特性和能力。我们会扩展库同级（peer dependency）中的小版本号范围来更新库同级，但并不需要你的项目也更新那些依赖。
 
 * Patch releases are low risk, bug fix releases. No developer assistance is expected during update.
 
@@ -212,7 +212,7 @@ To help ensure that you have sufficient time and a clear path to update, this is
 
 * We only make peer dependency updates that require changes to your apps in a major release. In minor releases, we update peer dependencies by expanding the supported versions, but we do not require projects to update these dependencies until a future major version. 
 
-   我们只会在主版本中更新你的应用所需的平级依赖。在小版本中，我们通过扩展支持的版本来升级平级依赖。但是我们不需要项目也更新这些依赖 —— 直到下一个主版本为止。
+   我们只会在主版本中更新你的应用所需的库同级。在小版本中，我们通过扩展支持的版本来升级库同级。但是我们不需要项目也更新这些依赖 —— 直到下一个主版本为止。
 
 {@a public-api}
 
