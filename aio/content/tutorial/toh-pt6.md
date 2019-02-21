@@ -113,7 +113,7 @@ Add the `HttpClientInMemoryWebApiModule` to the `@NgModule.imports` array&mdash;
 _after importing the `HttpClientModule`_,
 &mdash;while configuring it with the `InMemoryDataService`.
 
-把 `HttpClientInMemoryWebApiModule` 添加到 `@NgModule.imports` 数组中（放在 `HttpClient` 之后），
+把 `HttpClientInMemoryWebApiModule` 添加到 `@NgModule.imports` 数组中（放在 `HttpClientModule` 之后），
 然后使用 `InMemoryDataService` 来配置它。
 
 <code-example   
