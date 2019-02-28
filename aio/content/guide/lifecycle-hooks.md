@@ -39,7 +39,7 @@ For example, the `OnInit` interface has a hook method named `ngOnInit()`
 that Angular calls shortly after creating the component:
 
 每个接口都有唯一的一个钩子方法，它们的名字是由接口名再加上 `ng` 前缀构成的。比如，`OnInit` 接口的钩子方法叫做 `ngOnInit`，
-Angular 在创建组件后立刻调用它，：
+Angular 在创建组件后立刻调用它：
 
 <code-example path="lifecycle-hooks/src/app/peek-a-boo.component.ts" region="ngOnInit" header="peek-a-boo.component.ts (excerpt)" linenums="false"></code-example>
 
@@ -95,7 +95,7 @@ calls the lifecycle hook methods in the following sequence at specific moments:
       The method receives a `SimpleChanges` object of current and previous property values.
 
       当 Angular（重新）设置数据绑定输入属性时响应。
-      该方法接受当前和上一属性值的 `SimpleChanges` 对象
+      该方法接受当前和上一属性值的 `SimpleChanges` 对象。
 
       Called before `ngOnInit()` and whenever one or more data-bound input properties change.
 
