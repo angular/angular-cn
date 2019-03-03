@@ -159,7 +159,7 @@ calls the lifecycle hook methods in the following sequence at specific moments:
 
       Respond after Angular projects external content into the component's view / the view that a directive is in.
 
-      没当 Angular 把外部内容投影进组件/指令的视图之后调用。
+      当 Angular 把外部内容投影进组件/指令的视图之后调用。
 
       Called _once_ after the first `ngDoCheck()`.
 
@@ -201,7 +201,7 @@ calls the lifecycle hook methods in the following sequence at specific moments:
 
       Respond after Angular initializes the component's views and child views / the view that a directive is in.
 
-      每当 Angular 初始化完组件视图及其子视图之后调用。
+      当 Angular 初始化完组件视图及其子视图之后调用。
 
       Called _once_ after the first `ngAfterContentChecked()`.
 
