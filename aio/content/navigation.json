@@ -23,6 +23,10 @@
     {
       "url": "translations/cn/home",
       "title": "关于中文版"
+    },
+    {
+      "url": "https://flutter-io.cn/",
+      "title": "友站：Flutter CN"
     }
   ],
   "TopBarNarrow": [
@@ -665,6 +669,11 @@
       "title": "ng-zorro mobile 组件库",
       "tooltip": "Ant Design Mobile 的 Angular 实现，服务于无线产品。",
       "url": "https://ng.mobile.ant.design/"
+    },
+    {
+      "url": "https://flutter-io.cn/",
+      "tooltip": "Flutter 中文文档站",
+      "title": "友站：Flutter 中文"
     },
     {
       "url": "guide/change-log",
