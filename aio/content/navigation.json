@@ -23,10 +23,6 @@
     {
       "url": "translations/cn/home",
       "title": "关于中文版"
-    },
-    {
-      "url": "https://flutter-io.cn/",
-      "title": "友站：Flutter CN"
     }
   ],
   "TopBarNarrow": [
