@@ -244,7 +244,7 @@ calls the lifecycle hook methods in the following sequence at specific moments:
       Cleanup just before Angular destroys the directive/component.
       Unsubscribe Observables and detach event handlers to avoid memory leaks.
 
-      没当 Angular 每次销毁指令/组件之前调用并清扫。
+      每当 Angular 每次销毁指令/组件之前调用并清扫。
       在这儿反订阅可观察对象和分离事件处理器，以防内存泄漏。
 
       Called _just before_ Angular destroys the directive/component.
