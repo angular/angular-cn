@@ -106,7 +106,7 @@ typical characteristics, in real world apps, you may see hybrids.
 
      Domain feature modules are typically imported exactly once by a larger feature module.
 
-     领域特性模块通常会由更高一级的特性模块导出且只导出一次。
+     领域特性模块通常会由更高一级的特性模块导入且只导入一次。
 
      They might be imported by the root `AppModule` of a small application that lacks routing.
 
