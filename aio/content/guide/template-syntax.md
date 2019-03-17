@@ -111,7 +111,7 @@ In the example above, Angular evaluates the `title` and `itemImageUrl` propertie
 and fills in the blanks, first displaying some title text and then an image.
 
 在括号之间的“素材”，通常是组件属性的名字。Angular 会用组件中相应属性的字符串值，替换这个名字。
-  上例中，Angular 计算 `title` 和 `heroImageUrl` 属性的值，并把它们填在空白处。
+  上例中，Angular 计算 `title` 和 `itemImageUrl` 属性的值，并把它们填在空白处。
   首先显示粗体的应用标题，然后显示英雄的图片。
 
 More generally, the text between the braces is a **template expression**
@@ -240,7 +240,7 @@ such as a template input variable,
 `let customer`, or a template reference variable, `#customerInput`.
 
 表达式的上下文可以包括组件之外的对象。
-  比如[模板输入变量](guide/template-syntax#template-input-variable) (`let hero`)和[模板引用变量](guide/template-syntax#ref-vars)(`#heroInput`)就是备选的上下文对象之一。
+  比如[模板输入变量](guide/template-syntax#template-input-variable) (`let customer`)和[模板引用变量](guide/template-syntax#ref-vars)(`#customerInput`)就是备选的上下文对象之一。
 
 <code-example path="interpolation/src/app/app.component.html" region="template-input-variable" header="src/app/app.component.html (template input variable)" linenums="false">
 </code-example>
