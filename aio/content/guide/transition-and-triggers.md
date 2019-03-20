@@ -58,7 +58,7 @@ Use a double arrow syntax to specify state-to-state transitions in both directio
 
 In our two-state button example, the wildcard isn't that useful because there are only two possible states, `open` and `closed`. Wildcard states are better when an element in one particular state has multiple potential states that it can change to. If our button can change from `open` to either `closed` or something like `inProgress`, using a wildcard state could reduce the amount of coding needed.
 
-在这个双态按钮的例子中，通配符不是很有用，因为只有两种可能的状态：`open` 和 `closed`。当一个特定状态下的元素可能变更为多个潜在状态时，通配符状态会更好用。如果我们的按钮可以从 `open` 编程 `closed` 或类似 `inProgress` 的状态，则可以使用通配符状态来减少所需的编码量。
+在这个双态按钮的例子中，通配符不是很有用，因为只有两种可能的状态：`open` 和 `closed`。当一个特定状态下的元素可能变更为多个潜在状态时，通配符状态会更好用。如果我们的按钮可以从 `open` 变成 `closed` 或类似 `inProgress` 的状态，则可以使用通配符状态来减少所需的编码量。
 
 <figure>
 <img src="generated/images/guide/animations/wildcard-3-states.png" alt="wildcard state with 3 states">
