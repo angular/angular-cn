@@ -136,7 +136,7 @@ Let's take a look at another animation on the live example page. Under the Filte
 
 The filter works in real time as you type. Elements leave the page as you type each new letter and the filter gets progressively stricter. The heroes list gradually re-enters the page as you delete each letter in the filter box.
 
-过滤器会在你输入时实时工作。没当你键入一个新字母时，就会有一些元素离开页面，并且过滤条件也会逐渐变得更加严格。相反，当你删除过滤器中的每个字母时，英雄列表也会逐渐重新进入页面中。
+过滤器会在你输入时实时工作。每当你键入一个新字母时，就会有一些元素离开页面，并且过滤条件也会逐渐变得更加严格。相反，当你删除过滤器中的每个字母时，英雄列表也会逐渐重新进入页面中。
 
 The HTML template contains a trigger called `filterAnimation`.
 
