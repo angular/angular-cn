@@ -21,7 +21,7 @@ If you specify the service class itself as the provider token, the default behav
 
 In the following typical example, the `Logger` class itself provides a `Logger` instance. 
 
-在下面这个典型的例子中，`Logger` 类资深提供了 `Logger` 的实例。
+在下面这个典型的例子中，`Logger` 类自身提供了 `Logger` 的实例。
 
 <code-example path="dependency-injection/src/app/providers.component.ts" region="providers-logger">
 </code-example>
