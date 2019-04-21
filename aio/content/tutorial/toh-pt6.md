@@ -607,7 +607,7 @@ it remains responsible for updating its own list of heroes.
 The component's `delete()` method immediately removes the _hero-to-delete_ from that list,
 anticipating that the `HeroService` will succeed on the server.
 
-虽然这个组件把删除英雄的逻辑委托给了 `HeroService`，但扔保留了更新它自己的英雄列表的职责。
+虽然这个组件把删除英雄的逻辑委托给了 `HeroService`，但仍保留了更新它自己的英雄列表的职责。
 组件的 `delete()` 方法会在 `HeroService` 对服务器的操作成功之前，先从列表中移除*要删除的英雄*。
 
 There's really nothing for the component to do with the `Observable` returned by
