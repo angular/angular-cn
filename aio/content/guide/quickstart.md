@@ -171,7 +171,7 @@ Angular 包含一个开发服务器，以便你能轻易地在本地构建应用
 The `ng serve` command launches the server, watches your files,
 and rebuilds the app as you make changes to those files.
 
-`ng serve` 命令会自动开发服务器，并监视你的文件变化，当你修改这些文件时，它就会重新构建应用。
+`ng serve` 命令会自动启动服务器，并监视你的文件变化，当你修改这些文件时，它就会重新构建应用。
 
 The `--open` (or just `-o`) option automatically opens your browser
 to `http://localhost:4200/`.
