@@ -68,7 +68,7 @@ This page demonstrates building a simple _appHighlight_ attribute
 directive to set an element's background color
 when the user hovers over that element. You can apply it like this:
 
-本章展示了如何创建一个简单的属性型指令 _myHighlight_ ，当用户把鼠标悬停在一个元素上时，改变它的背景色。你可以这样用它：
+本章展示了如何创建一个简单的属性型指令 _appHighlight_ ，当用户把鼠标悬停在一个元素上时，改变它的背景色。你可以这样用它：
 
 <code-example path="attribute-directives/src/app/app.component.1.html" linenums="false" header="src/app/app.component.html (applied)" region="applied"></code-example>
 
@@ -135,7 +135,7 @@ they don't conflict with standard HTML attributes.
 This also reduces the risk of colliding with third-party directive names.
 The CLI added the `app` prefix for you.
 
-尽管 *highlight* 是一个比 *myHighlight* 更简洁的名字，而且它确实也能工作。
+尽管 *highlight* 是一个比 *appHighlight* 更简洁的名字，而且它确实也能工作。
 但是最佳实践是在选择器名字前面添加前缀，以确保它们不会与标准 HTML 属性冲突。
 它同时减少了与第三方指令名字发生冲突的危险。
 
