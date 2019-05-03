@@ -230,7 +230,7 @@ In the following snippets, the `recommended` within double curly braces and the
 `itemImageUrl2` in quotes refer to properties of the `AppComponent`.
 
 典型的*表达式上下文*就是这个**组件实例**，它是各种绑定值的来源。
-在下面的代码片段中，双花括号中的 `title` 和引号中的 `isUnchanged` 所引用的都是 `AppComponent` 中的属性。
+在下面的代码片段中，双花括号中的 `recommended` 和引号中的 `itemImageUrl2` 所引用的都是 `AppComponent` 中的属性。
 
 <code-example path="interpolation/src/app/app.component.html" region="component-context" header="src/app/app.component.html" linenums="false">
 </code-example>
