@@ -77,7 +77,7 @@ const EMAIL_REGEXP =
  * A validator is a function that processes a `FormControl` or collection of
  * controls and returns an error map or null. A null map means that validation has passed.
  *
- * 验证器就是一个函数，它可以处理单个 `FormControl` 好一组控件，并返回一个错误映射表（map）或 null。null 表示验证已通过了。
+ * 验证器就是一个函数，它可以处理单个 `FormControl` 或一组控件，并返回一个错误映射表（map）或 null。null 表示验证已通过了。
  *
  * @see [Form Validation](/guide/form-validation)
  *
