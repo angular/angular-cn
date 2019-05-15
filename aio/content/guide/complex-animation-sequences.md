@@ -156,7 +156,7 @@ The animation does the following:
 
 * Ignores any animations that are performed when the user first opens or navigates to this page. The filter narrows what is already there, so it assumes that any HTML elements to be animated already exist in the DOM.
 
-  忽略用户首次打开或导航到此页面时执行的任何东华。过滤器窄化了已经存在的内容，因此它可以假设任何需要动画的 HTML 元素都已经存在于 DOM 中了。
+  忽略用户首次打开或导航到此页面时执行的任何动画。过滤器窄化了已经存在的内容，因此它可以假设任何需要动画的 HTML 元素都已经存在于 DOM 中了。
 
 * Performs a filter match for matches.
 
