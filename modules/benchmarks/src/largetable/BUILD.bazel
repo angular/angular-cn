@@ -1,6 +1,6 @@
-package(default_visibility = ["//visibility:public"])
-
 load("//tools:defaults.bzl", "ts_library")
+
+package(default_visibility = ["//visibility:public"])
 
 ts_library(
     name = "util_lib",
@@ -14,6 +14,6 @@ ts_library(
     srcs = ["largetable_perf.spec.ts"],
     deps = [
         "//modules/e2e_util",
-        "@ngdeps//protractor",
+        "@npm//protractor",
     ],
 )

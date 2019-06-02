@@ -9,12 +9,10 @@
 import {ChangeDetectionStrategy} from '../change_detection/constants';
 import {Provider} from '../di';
 import {Type} from '../interface/type';
-import {NG_BASE_DEF} from '../render3/fields';
 import {compileComponent as render3CompileComponent, compileDirective as render3CompileDirective} from '../render3/jit/directive';
 import {compilePipe as render3CompilePipe} from '../render3/jit/pipe';
 import {TypeDecorator, makeDecorator, makePropDecorator} from '../util/decorators';
 import {noop} from '../util/noop';
-import {fillProperties} from '../util/property';
 
 import {ViewEncapsulation} from './view';
 
@@ -379,7 +377,7 @@ export interface Directive {
    *   这个目标可以是 `window`、`document` 或 `body`。
    *
    * - The value is the statement to execute when the event occurs. If the
-   * statement evalueates to `false`, then `preventDefault` is applied on the DOM
+   * statement evaluates to `false`, then `preventDefault` is applied on the DOM
    * event. A handler method can refer to the `$event` local variable.
    *
    *   它的 value 就是当该事件发生时要执行的语句。如果该语句返回 `false`，那么就会调用这个 DOM 事件的 `preventDefault` 函数。
@@ -439,7 +437,7 @@ export interface ComponentDecorator {
    *
    * A component must belong to an NgModule in order for it to be available
    * to another component or application. To make it a member of an NgModule,
-   * list it in the `declarations` field of the `@NgModule` metadata.
+   * list it in the `declarations` field of the `NgModule` metadata.
    *
    * 组件必须从属于某个 NgModule 才能被其它组件或应用使用。
    * 要想让它成为某个 NgModule 中的一员，请把它列在 `@NgModule` 元数据的 `declarations` 字段中。
@@ -583,7 +581,7 @@ export interface ComponentDecorator {
    */
   (obj: Component): TypeDecorator;
   /**
-   * See the `@Component` decorator.
+   * See the `Component` decorator.
    *
    * 参见 `@Component` 装饰器。
    */
@@ -765,7 +763,22 @@ export const Component: ComponentDecorator = makeDecorator(
  */
 export interface PipeDecorator {
   /**
-   * Declares a reusable pipe function, and supplies configuration metadata.
+   *
+   * Decorator that marks a class as pipe and supplies configuration metadata.
+   *
+   * A pipe class must implement the `PipeTransform` interface.
+   * For example, if the name is "myPipe", use a template binding expression
+   * such as the following:
+   *
+   * ```
+   * {{ exp | myPipe }}
+   * ```
+   *
+   * The result of the expression is passed to the pipe's `transform()` method.
+   *
+   * A pipe must belong to an NgModule in order for it to be available
+   * to a template. To make it a member of an NgModule,
+   * list it in the `declarations` field of the `NgModule` metadata.
    *
    * 声明一个可复用的 pipe 函数，并提供配置元数据。
    */
@@ -826,31 +839,56 @@ export const Pipe: PipeDecorator = makeDecorator(
  */
 export interface InputDecorator {
   /**
-   * Decorator that marks a class as pipe and supplies configuration metadata.
+  * Decorator that marks a class field as an input property and supplies configuration metadata.
+  * The input property is bound to a DOM property in the template. During change detection,
+  * Angular automatically updates the data property with the DOM property's value.
+  *
+   * 一个装饰器，用来把某个类字段标记为输入属性，并提供配置元数据。
+   * 该输入属性会绑定到模板中的某个 DOM 属性。当变更检测时，Angular 会自动使用这个 DOM 属性的值来更新此数据属性。
    *
-   * 一个装饰器，用来把某个类标记为管道，并提供配置元数据。
-   *
-   * A pipe class must implement the `PipeTransform` interface.
-   * For example, if the name is "myPipe", use a template binding expression
-   * such as the following:
-   *
-   * 管道类必须实现 `PipeTransform` 接口。
-   * 比如，如果名字是 "myPipe"，则模板绑定表达式的用法如下：
-   *
-   * ```
-   * {{ exp | myPipe }}
-   * ```
-   *
-   * The result of the expression is passed to the pipe's `transform()` method.
-   *
-   * 表达式的计算结果将被传给该管道的 `transform()` 方法。
-   *
-   * A pipe must belong to an NgModule in order for it to be available
-   * to a template. To make it a member of an NgModule,
-   * list it in the `declarations` field of the `@NgModule` metadata.
-   *
-   * 管道必须属于某个 NgModule 才能在模板中使用。要让它成为 NgModule 的一部分，请把它列在 `@NgModule` 元数据中的 `declarations` 字段中。
-   */
+  * @usageNotes
+  *
+  * You can supply an optional name to use in templates when the
+  * component is instantiated, that maps to the
+  * name of the bound property. By default, the original
+  * name of the bound property is used for input binding.
+  *
+  * 你可以提供一个可选的仅供模板中使用的名字，在组件实例化时，会把这个名字映射到可绑定属性上。
+  * 默认情况下，输入绑定的名字就是这个可绑定属性的原始名称。
+  *
+  * The following example creates a component with two input properties,
+  * one of which is given a special binding name.
+  *
+  * 下面的例子创建了一个带有两个输入属性的组件，其中一个还指定了绑定名。
+  *
+  * ```typescript
+  * @Component({
+  *   selector: 'bank-account',
+  *   template: `
+  *     Bank Name: {{bankName}}
+  *     Account Id: {{id}}
+  *   `
+  * })
+  * class BankAccount {
+  *   // This property is bound using its original name.
+  *   @Input() bankName: string;
+  *   // this property value is bound to a different property name
+  *   // when this component is instantiated in a template.
+  *   @Input('account-id') id: string;
+  *
+  *   // this property is not bound, and is not automatically updated by Angular
+  *   normalizedBankName: string;
+  * }
+  *
+  * @Component({
+  *   selector: 'app',
+  *   template: `
+  *     <bank-account bankName="RBC" account-id="4747"></bank-account>
+  *   `
+  * })
+  * class App {}
+  * ```
+  */
   (bindingPropertyName?: string): any;
   new (bindingPropertyName?: string): any;
 }
@@ -864,102 +902,20 @@ export interface InputDecorator {
  */
 export interface Input {
   /**
-   * Decorator that marks a class field as an input property and supplies configuration metadata.
-   * Declares a data-bound input property, which Angular automatically updates
-   * during change detection.
+   * The name of the DOM property to which the input property is bound.
    *
-   * 一个装饰器，用来把某个类字段标记为输入属性，并且提供配置元数据。
-   * 声明一个可供数据绑定的输入属性，在变更检测期间，Angular 会自动更新它。
-   *
-   * @usageNotes
-   *
-   * You can supply an optional name to use in templates when the
-   * component is instantiated, that maps to the
-   * name of the bound property. By default, the original
-   * name of the bound property is used for input binding.
-   *
-   * 你可以提供一个可选的仅供模板中使用的名字，在组件实例化时，会把这个名字映射到可绑定属性上。
-   * 默认情况下，输入绑定的名字就是这个可绑定属性的原始名称。
-   *
-   * The following example creates a component with two input properties,
-   * one of which is given a special binding name.
-   *
-   * 下面的例子创建了一个带有两个输入属性的组件，其中一个还指定了绑定名。
-   *
-   * ```typescript
-   * @Component({
-   *   selector: 'bank-account',
-   *   template: `
-   *     Bank Name: {{bankName}}
-   *     Account Id: {{id}}
-   *   `
-   * })
-   * class BankAccount {
-   *   // This property is bound using its original name.
-   *   @Input() bankName: string;
-   *   // this property value is bound to a different property name
-   *   // when this component is instantiated in a template.
-   *   @Input('account-id') id: string;
-   *
-   *   // this property is not bound, and is not automatically updated by Angular
-   *   normalizedBankName: string;
-   * }
-   *
-   * @Component({
-   *   selector: 'app',
-   *   template: `
-   *     <bank-account bankName="RBC" account-id="4747"></bank-account>
-   *   `
-   * })
-   *
-   * class App {}
-   * ```
+   * 输入属性绑定到的 DOM 属性的名字，
    *
    */
   bindingPropertyName?: string;
 }
 
-const initializeBaseDef = (target: any): void => {
-  const constructor = target.constructor;
-  const inheritedBaseDef = constructor.ngBaseDef;
-
-  const baseDef = constructor.ngBaseDef = {
-    inputs: {},
-    outputs: {},
-    declaredInputs: {},
-  };
-
-  if (inheritedBaseDef) {
-    fillProperties(baseDef.inputs, inheritedBaseDef.inputs);
-    fillProperties(baseDef.outputs, inheritedBaseDef.outputs);
-    fillProperties(baseDef.declaredInputs, inheritedBaseDef.declaredInputs);
-  }
-};
-
-/**
- * Does the work of creating the `ngBaseDef` property for the @Input and @Output decorators.
- * @param key "inputs" or "outputs"
- */
-const updateBaseDefFromIOProp = (getProp: (baseDef: {inputs?: any, outputs?: any}) => any) =>
-    (target: any, name: string, ...args: any[]) => {
-      const constructor = target.constructor;
-
-      if (!constructor.hasOwnProperty(NG_BASE_DEF)) {
-        initializeBaseDef(target);
-      }
-
-      const baseDef = constructor.ngBaseDef;
-      const defProp = getProp(baseDef);
-      defProp[name] = args[0];
-    };
-
 /**
  * @Annotation
  * @publicApi
  */
-export const Input: InputDecorator = makePropDecorator(
-    'Input', (bindingPropertyName?: string) => ({bindingPropertyName}), undefined,
-    updateBaseDefFromIOProp(baseDef => baseDef.inputs || {}));
+export const Input: InputDecorator =
+    makePropDecorator('Input', (bindingPropertyName?: string) => ({bindingPropertyName}));
 
 /**
  * Type of the Output decorator / constructor function.
@@ -971,8 +927,7 @@ export const Input: InputDecorator = makePropDecorator(
 export interface OutputDecorator {
   /**
   * Decorator that marks a class field as an output property and supplies configuration metadata.
-  * Declares a data-bound output property, which Angular automatically updates
-  * during change detection.
+  * The DOM property bound to the output property is automatically updated during change detection.
   *
   * 一个装饰器，用于把一个类字段标记为输出属性，并提供配置元数据。
   * 声明一个可绑定的输出属性，Angular 在变更检测期间会自动更新它。
@@ -987,7 +942,7 @@ export interface OutputDecorator {
   * 你可以提供一个可选的仅供模板中使用的名字，在组件实例化时，会把这个名字映射到可绑定属性上。
   * 默认情况下，输出绑定的名字就是这个可绑定属性的原始名称。
   *
-  * See `@Input` decorator for an example of providing a binding name.
+  * See `Input` decorator for an example of providing a binding name.
   *
   * 参见 `@Input` 的例子了解如何指定一个绑定名。
   */
@@ -1002,15 +957,19 @@ export interface OutputDecorator {
  *
  * @publicApi
  */
-export interface Output { bindingPropertyName?: string; }
+export interface Output {
+  /**
+  * The name of the DOM property to which the output property is bound.
+  */
+  bindingPropertyName?: string;
+}
 
 /**
  * @Annotation
  * @publicApi
  */
-export const Output: OutputDecorator = makePropDecorator(
-    'Output', (bindingPropertyName?: string) => ({bindingPropertyName}), undefined,
-    updateBaseDefFromIOProp(baseDef => baseDef.outputs || {}));
+export const Output: OutputDecorator =
+    makePropDecorator('Output', (bindingPropertyName?: string) => ({bindingPropertyName}));
 
 
 
@@ -1068,7 +1027,12 @@ export interface HostBindingDecorator {
  *
  * @publicApi
  */
-export interface HostBinding { hostPropertyName?: string; }
+export interface HostBinding {
+  /**
+   * The DOM property that is bound to a data property.
+   */
+  hostPropertyName?: string;
+}
 
 /**
  * @Annotation
@@ -1086,6 +1050,10 @@ export const HostBinding: HostBindingDecorator =
  * @publicApi
  */
 export interface HostListenerDecorator {
+  /**
+   * Decorator that declares a DOM event to listen for,
+   * and provides a handler method to run when that event occurs.
+   */
   (eventName: string, args?: string[]): any;
   new (eventName: string, args?: string[]): any;
 }

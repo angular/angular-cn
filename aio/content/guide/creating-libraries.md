@@ -6,9 +6,13 @@ You can create and publish new libraries to extend Angular functionality. If you
 
 你可以创建和发布新库来扩展 Angular 的功能。如果你发现需要在多个应用中解决同样的问题（或者想与其他开发者共享你的解决方案），你就有了一个潜在的库。
 
-An simple example might be a button that sends users to your company website, that would be included in all apps that your company builds.
+A simple example might be a button that sends users to your company website, that would be included in all apps that your company builds.
 
 一个简单的例子就是把用户带到你公司网站上的按钮，该按钮会包含在你公司构建的所有应用中。
+
+<div class="alert is-helpful">
+     <p>For more details on how a library project is structured you can refer the <a href="guide/file-structure#library-project-files">Library Project Files</a></p>
+</div>
 
 ## Getting started
 
@@ -60,7 +64,7 @@ To make library code reusable you must define a public API for it. This "user la
 
 要让库代码可以复用，你必须为它定义一个公共的 API。这个“用户层”定义了库中消费者的可用内容。该库的用户应该可以通过单个的导入路径来访问公共功能（如NgModules、服务提供商和工具函数）。
 
-The public API for your library is maintained in the `index.ts` file of your library folder.
+The public API for your library is maintained in the `public-api.ts` file in your library folder.
 Anything exported from this file is made public when your library is imported into an application.
 Use an NgModule to expose services and components.
 
@@ -138,6 +142,8 @@ In general, the more complex the customization, the more useful the schematic ap
 
 假设你要读取配置文件，然后根据该配置生成表单。如果该表单需要用户进行额外的自定义，它可能最适合用作 schematic。但是，如果这些表单总是一样的，开发人员不需要做太多自定义工作，那么你就可以创建一个动态的组件来获取配置并生成表单。通常，自定义越复杂， schematic 方式就越有用。
 
+{@a integrating-with-the-cli}
+
 ## Integrating with the CLI
 
 ## 与 CLI 集成
@@ -158,7 +164,7 @@ A library can include [schematics](guide/glossary#schematic) that allow it to in
 
     包含一个更新型 schematic ，以便 `ng update` 可以更新此库的依赖，并针对新版本中的破坏性变更提供辅助迁移。
 
-To learn more, see [Schematics — An Introduction](https://blog.angular.io/schematics-an-introduction-dc1dfbc2a2b2).
+To learn more, see [Schematics Overview](guide/schematics) and [Schematics for Libraries](guide/schematics-for-libraries).
 
 要了解更多信息，参见 [Schematic - 简介](https://blog.angular.io/schematics-an-introduction-dc1dfbc2a2b2) 。
 
@@ -200,7 +206,7 @@ For example, `main` should point at a JavaScript file, not a TypeScript file.
 ## 对同级依赖使用 TypeScript 路径映射
 
 Angular libraries should list all `@angular/*` dependencies as peer dependencies.
-This insures that when modules ask for Angular, they all get the exact same module.
+This ensures that when modules ask for Angular, they all get the exact same module.
 If a library lists `@angular/core` in `dependencies` instead of `peerDependencies`, it might get a different Angular module instead, which would cause your application to break.
 
 Angular 库应该把所有 `@angular/*` 依赖项都列为同级依赖。这确保了当各个模块请求 Angular 时，都会得到完全相同的模块。如果某个库在 `dependencies` 列出 `@angular/core` 而不是用 `peerDependencies` ，它可能会得到一个不同的 Angular 模块，这会破坏你的应用。
@@ -212,7 +218,7 @@ However, this can cause problems while building or running your application.
 在开发库的过程中，你必须通过 `devDependencies` 安装所有的同级依赖，以确保库能够正确编译。这样，一个链接过的库就会拥有自己的一组用于构建的 Angular 库，它们位于 `node_modules` 文件夹中。但是，这会在构建或运行应用程序时引发问题。
 
 To get around this problem you can use TypeScript path mapping to tell TypeScript that it should load some modules from a specific location.
-List all the peer dependencies that your library uses in the TypeScript configuration file `./tsconfig.json`, and point them at the local copy in the app's `node_modules` folder.
+List all the peer dependencies that your library uses in the workspace TypeScript configuration file `./tsconfig.json`, and point them at the local copy in the app's `node_modules` folder.
 
 为了解决此问题，你可以使用 TypeScript 路径映射来告诉 TypeScript 它应该从指定的位置加载某些模块。在 TypeScript 配置文件`./tsconfig.json` 中列出该库使用的所有同级依赖，并把它们指向应用的 `node_modules` 文件夹中的本地副本。
 
@@ -223,7 +229,7 @@ List all the peer dependencies that your library uses in the TypeScript configur
     // paths are relative to `baseUrl` path.
     "paths": {
       "@angular/*": [
-        "../node_modules/@angular/*"
+        "./node_modules/@angular/*"
       ]
     }
   }
@@ -259,7 +265,7 @@ To use your own library in an app:
   在你的应用中，按名字从库中导入：
 
  ```
- import { my-export } from 'my-lib';
+ import { myExport } from 'my-lib';
  ```
 ### Building and rebuilding your library
 

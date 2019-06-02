@@ -5,10 +5,10 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-
+import * as path from 'path';
 import * as ts from 'typescript';
 
-import {normalizeSeparators} from './util';
+import {isAbsolutePath, normalizeSeparators} from './util';
 
 /**
  * A `string` representing a specific type of path, with a particular brand `B`.
@@ -41,7 +41,7 @@ export const AbsoluteFsPath = {
    */
   from: function(str: string): AbsoluteFsPath {
     const normalized = normalizeSeparators(str);
-    if (!normalized.startsWith('/')) {
+    if (!isAbsolutePath(normalized)) {
       throw new Error(`Internal Error: AbsoluteFsPath.from(${str}): path is not absolute`);
     }
     return normalized as AbsoluteFsPath;
@@ -62,6 +62,24 @@ export const AbsoluteFsPath = {
     // ts.SourceFile paths are always absolute.
     return sf.fileName as AbsoluteFsPath;
   },
+
+  /**
+   * Wrapper around `path.dirname` that returns an absolute path.
+   */
+  dirname: function(file: AbsoluteFsPath):
+      AbsoluteFsPath { return AbsoluteFsPath.fromUnchecked(path.dirname(file));},
+
+  /**
+   * Wrapper around `path.join` that returns an absolute path.
+   */
+  join: function(basePath: AbsoluteFsPath, ...paths: string[]):
+      AbsoluteFsPath { return AbsoluteFsPath.fromUnchecked(path.posix.join(basePath, ...paths));},
+
+  /**
+   * Wrapper around `path.resolve` that returns an absolute paths.
+   */
+  resolve: function(basePath: string, ...paths: string[]):
+      AbsoluteFsPath { return AbsoluteFsPath.from(path.resolve(basePath, ...paths));},
 };
 
 /**
@@ -73,8 +91,8 @@ export const PathSegment = {
    */
   fromFsPath: function(str: string): PathSegment {
     const normalized = normalizeSeparators(str);
-    if (normalized.startsWith('/')) {
-      throw new Error(`Internal Error: PathSegment.from(${str}): path is not relative`);
+    if (isAbsolutePath(normalized)) {
+      throw new Error(`Internal Error: PathSegment.fromFsPath(${str}): path is not relative`);
     }
     return normalized as PathSegment;
   },
@@ -83,4 +101,13 @@ export const PathSegment = {
    * Convert the path `str` to a `PathSegment`, while assuming that `str` is already normalized.
    */
   fromUnchecked: function(str: string): PathSegment { return str as PathSegment;},
+
+  /**
+   * Wrapper around `path.relative` that returns a `PathSegment`.
+   */
+  relative: function(from: AbsoluteFsPath, to: AbsoluteFsPath):
+      PathSegment { return PathSegment.fromFsPath(path.relative(from, to));},
+
+  basename: function(filePath: string, extension?: string):
+      PathSegment { return path.basename(filePath, extension) as PathSegment;}
 };

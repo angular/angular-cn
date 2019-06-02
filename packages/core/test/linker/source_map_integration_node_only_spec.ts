@@ -17,7 +17,7 @@ import {CompilerFacade, ExportedCompilerFacade} from '@angular/core/src/compiler
 import {getErrorLogger} from '@angular/core/src/errors';
 import {resolveComponentResources} from '@angular/core/src/metadata/resource_loading';
 import {TestBed, fakeAsync, tick} from '@angular/core/testing';
-import {fixmeIvy, modifiedInIvy, onlyInIvy} from '@angular/private/testing';
+import {modifiedInIvy, onlyInIvy} from '@angular/private/testing';
 
 describe('jit source mapping', () => {
   let resourceLoader: MockResourceLoader;
@@ -261,7 +261,7 @@ describe('jit source mapping', () => {
          }));
 
 
-      fixmeIvy('FW-511: Report template typing errors')
+      modifiedInIvy('Unknown binding errors have been moved to runtime in Ivy')
           .it('should use the right source url in template parse errors', fakeAsync(() => {
                 const template = '<div>\n  <div unknown="{{ctxProp}}"></div>';
                 @Component({...templateDecorator(template)})

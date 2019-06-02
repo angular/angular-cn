@@ -715,6 +715,15 @@ The drop down works properly.
   <img src='generated/images/guide/structural-directives/select-ngcontainer-anim.gif' alt="ngcontainer options work properly">
 </figure>
 
+<div class="alert is-helpful">
+
+**Note:** Remember that ngModel directive is defined as a part of Angular FormsModule and you need to include FormsModule in the imports: [...] section of the Angular module metadata, in which you want to use it.
+
+**注意：** 记住，ngModel 指令是在 Angular 的 FormsModule 中定义的，你要在想使用它的模块的 `imports: [...]` 元数据中导入 FormsModule。
+
+</div>
+
+
 The `<ng-container>` is a syntax element recognized by the Angular parser.
 It's not a directive, component, class, or interface.
 It's more like the curly braces in a JavaScript `if`-block:

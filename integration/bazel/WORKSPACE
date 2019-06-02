@@ -5,8 +5,8 @@ load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 # Fetch rules_nodejs so we can install our npm dependencies
 http_archive(
     name = "build_bazel_rules_nodejs",
-    sha256 = "1416d03823fed624b49a0abbd9979f7c63bbedfd37890ddecedd2fe25cccebc6",
-    urls = ["https://github.com/bazelbuild/rules_nodejs/releases/download/0.18.6/rules_nodejs-0.18.6.tar.gz"],
+    sha256 = "3a3efbf223f6de733475602844ad3a8faa02abda25ab8cfe1d1ed0db134887cf",
+    urls = ["https://github.com/bazelbuild/rules_nodejs/releases/download/0.27.12/rules_nodejs-0.27.12.tar.gz"],
 )
 
 # Fetch sass rules for compiling sass files
@@ -17,35 +17,22 @@ http_archive(
     url = "https://github.com/bazelbuild/rules_sass/archive/1.11.0.zip",
 )
 
-# Fetch the angular repository since we build angular from source
-# TODO(gregmagolan): use angular bundles in the Bazel build
-local_repository(
-    name = "angular",
-    path = "../..",
-)
-
-# Fetch the rxjs repository since we build rxjs from source
-# TODO(gregmagolan): use rxjs bundles in the Bazel build
-http_archive(
-    name = "rxjs",
-    sha256 = "72b0b4e517f43358f554c125e40e39f67688cd2738a8998b4a266981ed32f403",
-    strip_prefix = "package/src",
-    url = "https://registry.yarnpkg.com/rxjs/-/rxjs-6.3.3.tgz",
-)
-
 # Check the bazel version and download npm dependencies
 load("@build_bazel_rules_nodejs//:defs.bzl", "check_bazel_version", "node_repositories", "yarn_install")
 
 # Bazel version must be at least v0.21.0 because:
 #   - 0.21.0 Using --incompatible_strict_action_env flag fixes cache when running `yarn bazel`
 #            (see https://github.com/angular/angular/issues/27514#issuecomment-451438271)
-check_bazel_version("0.21.0", """
+check_bazel_version(
+    message = """
 You no longer need to install Bazel on your machine.
 Angular has a dependency on the @bazel/bazel package which supplies it.
 Try running `yarn bazel` instead.
     (If you did run that, check that you've got a fresh `yarn install`)
 
-""")
+""",
+    minimum_bazel_version = "0.21.0",
+)
 
 # Setup the Node.js toolchain
 node_repositories(
@@ -56,9 +43,10 @@ node_repositories(
 # Install our npm dependencies into @npm
 yarn_install(
     name = "npm",
-    # Need a reference to @angular here so that Bazel sets up the
-    # external repository before calling yarn_install
-    data = ["@angular//:LICENSE"],
+    data = [
+        # Needed because this tsconfig file is used in the "postinstall" script.
+        "//:angular-metadata.tsconfig.json",
+    ],
     package_json = "//src:package.json",
     yarn_lock = "//src:yarn.lock",
 )
@@ -69,7 +57,7 @@ load("@npm//:install_bazel_dependencies.bzl", "install_bazel_dependencies")
 install_bazel_dependencies()
 
 # Load karma dependencies
-load("@build_bazel_rules_karma//:package.bzl", "rules_karma_dependencies")
+load("@npm_bazel_karma//:package.bzl", "rules_karma_dependencies")
 
 rules_karma_dependencies()
 
@@ -80,12 +68,12 @@ web_test_repositories()
 
 # Temporary work-around for https://github.com/angular/angular/issues/28681
 # TODO(gregmagolan): go back to @io_bazel_rules_webtesting browser_repositories
-load("@angular//:browser_repositories.bzl", "browser_repositories")
+load("@npm_bazel_karma//:browser_repositories.bzl", "browser_repositories")
 
 browser_repositories()
 
 # Setup the rules_typescript tooolchain
-load("@build_bazel_rules_typescript//:defs.bzl", "ts_setup_workspace")
+load("@npm_bazel_typescript//:index.bzl", "ts_setup_workspace")
 
 ts_setup_workspace()
 
@@ -93,8 +81,3 @@ ts_setup_workspace()
 load("@io_bazel_rules_sass//sass:sass_repositories.bzl", "sass_repositories")
 
 sass_repositories()
-
-# Setup the angular toolchain
-load("@angular//:index.bzl", "ng_setup_workspace")
-
-ng_setup_workspace()

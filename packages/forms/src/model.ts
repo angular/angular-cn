@@ -196,7 +196,9 @@ export abstract class AbstractControl {
    *
    *   对于 `FormControl`，它是当前值。
    *
-   * * For a `FormGroup`, the values of enabled controls as an object
+   * * For an enabled `FormGroup`, the values of enabled controls as an object
+   * with a key-value pair for each member of the group.
+   * * For a disabled `FormGroup`, the values of all controls as an object
    * with a key-value pair for each member of the group.
    *
    *   对于 `FormGroup`，它是由组中的每个已启用的成员控件的名称和值组成的对象。
@@ -1333,7 +1335,7 @@ export class FormControl extends AbstractControl {
    *
    * 控件的新值。
    *
-   * @param options Configuration options that determine how the control proopagates changes
+   * @param options Configuration options that determine how the control propagates changes
    * and emits events when the value changes.
    * The configuration options are passed to the {@link AbstractControl#updateValueAndValidity
    * updateValueAndValidity} method.
@@ -2169,7 +2171,7 @@ export class FormGroup extends AbstractControl {
  *
  * ### 从表单数组中添加或删除控件
  *
- * To change the controls in the array, use the `push`, `insert`, or `removeAt` methods
+ * To change the controls in the array, use the `push`, `insert`, `removeAt` or `clear` methods
  * in `FormArray` itself. These methods ensure the controls are properly tracked in the
  * form's hierarchy. Do not modify the array of `AbstractControl`s used to instantiate
  * the `FormArray` directly, as that result in strange and unexpected behavior such
@@ -2536,6 +2538,43 @@ export class FormArray extends AbstractControl {
     return this.controls.map((control: AbstractControl) => {
       return control instanceof FormControl ? control.value : (<any>control).getRawValue();
     });
+  }
+
+  /**
+   * Remove all controls in the `FormArray`.
+   *
+   * @usageNotes
+   * ### Remove all elements from a FormArray
+   *
+   * ```ts
+   * const arr = new FormArray([
+   *    new FormControl(),
+   *    new FormControl()
+   * ]);
+   * console.log(arr.length);  // 2
+   *
+   * arr.clear();
+   * console.log(arr.length);  // 0
+   * ```
+   *
+   * It's a simpler and more efficient alternative to removing all elements one by one:
+   *
+   * ```ts
+   * const arr = new FormArray([
+   *    new FormControl(),
+   *    new FormControl()
+   * ]);
+   *
+   * while (arr.length) {
+   *    arr.removeAt(0);
+   * }
+   * ```
+   */
+  clear(): void {
+    if (this.controls.length < 1) return;
+    this._forEachChild((control: AbstractControl) => control._registerOnCollectionChange(() => {}));
+    this.controls.splice(0);
+    this.updateValueAndValidity();
   }
 
   /** @internal */

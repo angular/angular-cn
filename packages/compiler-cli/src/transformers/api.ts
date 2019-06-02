@@ -194,9 +194,8 @@ export interface CompilerOptions extends ts.CompilerOptions {
    * Acceptable values are as follows:
    *
    * `false` - run ngc normally
-   * `true` - run ngc with its usual global analysis, but compile decorators to Ivy fields instead
-   *  of running the View Engine compilers
-   * `ngtsc` - run the ngtsc compiler instead of the normal ngc compiler
+   * `true` - run the ngtsc compiler instead of the normal ngc compiler
+   * `ngtsc` - alias for `true`
    * `tsc` - behave like plain tsc as much as possible (used for testing JIT code)
    *
    * @publicApi
@@ -206,6 +205,17 @@ export interface CompilerOptions extends ts.CompilerOptions {
   /** @internal */
   collectAllErrors?: boolean;
 
+  /** An option to enable ngtsc's internal performance tracing.
+   *
+   * This should be a path to a JSON file where trace information will be written. An optional 'ts:'
+   * prefix will cause the trace to be written via the TS host instead of directly to the filesystem
+   * (not all hosts support this mode of operation).
+   *
+   * This is currently not exposed to users as the trace format is still unstable.
+   *
+   * @internal */
+  tracePerformance?: string;
+
   /**
    * Whether NGC should generate re-exports for external symbols which are referenced
    * in Angular metadata (e.g. @Component, @Inject, @ViewChild). This can be enabled in
@@ -214,6 +224,17 @@ export interface CompilerOptions extends ts.CompilerOptions {
    * Read more about this here: https://github.com/angular/angular/issues/25644.
    */
   createExternalSymbolFactoryReexports?: boolean;
+
+  /**
+   * Turn on template type-checking in the Ivy compiler.
+   *
+   * This is an internal flag being used to roll out template type-checking in ngtsc. Turning it on
+   * by default before it's ready might break other users attempting to test the new compiler's
+   * behavior.
+   *
+   * @internal
+   */
+  ivyTemplateTypeCheck?: boolean;
 }
 
 export interface CompilerHost extends ts.CompilerHost {

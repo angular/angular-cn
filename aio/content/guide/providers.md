@@ -44,13 +44,13 @@ This command creates the following `UserService` skeleton:
 
 该命令会创建下列 `UserService` 骨架：
 
-<code-example path="providers/src/app/user.service.0.ts"  header="src/app/user.service.0.ts" linenums="false"> </code-example>
+<code-example path="providers/src/app/user.service.0.ts"  header="src/app/user.service.ts" linenums="false"> </code-example>
 
-You can now inject `UserService` anywhere in your application. 
+You can now inject `UserService` anywhere in your application.
 
 现在，你就可以在应用中到处注入 `UserService` 了。
 
-The service itself is a class that the CLI generated and that's decorated with `@Injectable`. By default, this decorator is configured with a `providedIn` property, which creates a provider for the service. In this case, `providedIn: 'root'` specifies that the service should be provided in the root injector.
+The service itself is a class that the CLI generated and that's decorated with `@Injectable()`. By default, this decorator has a `providedIn` property, which creates a provider for the service. In this case, `providedIn: 'root'` specifies that Angular should provide the service in the root injector.
 
 该服务本身是 CLI 创建的一个类，并且加上了 `@Injectable` 装饰器。默认情况下，该装饰器是用 `providedIn` 属性进行配置的，它会为该服务创建一个提供商。在这个例子中，`providedIn: 'root'` 指定该服务应该在根注入器中提供。
 
@@ -58,7 +58,7 @@ The service itself is a class that the CLI generated and that's decorated with `
 
 ## 提供商的作用域
 
-When you add a service provider to the root application injector, it’s available throughout the app. Additionally, these providers are also available to all the classes in the app as long they have the lookup token. 
+When you add a service provider to the root application injector, it’s available throughout the app. Additionally, these providers are also available to all the classes in the app as long they have the lookup token.
 
 当你把服务提供商添加到应用的根注入器中时，它就在整个应用程序中可用了。
 另外，这些服务提供商也同样对整个应用中的类是可用的 —— 只要它们有供查找用的服务令牌。
@@ -67,7 +67,7 @@ You should always provide your service in the root injector unless there is a ca
 
 你应该始终在根注入器中提供这些服务 —— 除非你希望该服务只有在消费方要导入特定的 `@NgModule` 时才生效。
 
-## providedIn and NgModules
+## `providedIn` and NgModules
 
 ## `providedIn` 与 NgModule
 
@@ -75,7 +75,7 @@ It's also possible to specify that a service should be provided in a particular 
 
 也可以规定某个服务只有在特定的 `@NgModule` 中提供。比如，如果你你希望只有当消费方导入了你创建的 `UserModule` 时才让 `UserService` 在应用中生效，那就可以指定该服务要在该模块中提供：
 
-<code-example path="providers/src/app/user.service.1.ts"  header="src/app/user.service.1.ts" linenums="false">  </code-example>
+<code-example path="providers/src/app/user.service.1.ts"  header="src/app/user.service.ts" linenums="false">  </code-example>
 
 The example above shows the preferred way to provide a service in a module. This method is preferred because it enables tree-shaking of the service if nothing injects it. If it's not possible to specify in the service which module should provide it, you can also declare a provider for the service within the module:
 

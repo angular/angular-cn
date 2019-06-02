@@ -22,7 +22,7 @@ Using the Angular CLI, generate a new component named `heroes`.
 </code-example>
 
 The CLI creates a new folder, `src/app/heroes/`, and generates
-the three files of the  `HeroesComponent`.
+the four files of the  `HeroesComponent`.
 
 CLI 创建了一个新的文件夹 `src/app/heroes/`，并生成了 `HeroesComponent` 的三个文件。
 

@@ -9,6 +9,7 @@
 import '../util/ng_dev_mode';
 
 import {ChangeDetectionStrategy} from '../change_detection/constants';
+import {NG_INJECTABLE_DEF, ɵɵdefineInjectable} from '../di/interface/defs';
 import {Mutable, Type} from '../interface/type';
 import {NgModuleDef} from '../metadata/ng_module';
 import {SchemaMetadata} from '../metadata/schema';
@@ -17,9 +18,11 @@ import {noSideEffects} from '../util/closure';
 import {stringify} from '../util/stringify';
 
 import {EMPTY_ARRAY, EMPTY_OBJ} from './empty';
-import {NG_COMPONENT_DEF, NG_DIRECTIVE_DEF, NG_MODULE_DEF, NG_PIPE_DEF} from './fields';
-import {BaseDef, ComponentDef, ComponentDefFeature, ComponentTemplate, ComponentType, ContentQueriesFunction, DirectiveDef, DirectiveDefFeature, DirectiveType, DirectiveTypesOrFactory, FactoryFn, HostBindingsFunction, PipeDef, PipeType, PipeTypesOrFactory, ViewQueriesFunction} from './interfaces/definition';
-import {CssSelectorList} from './interfaces/projection';
+import {NG_BASE_DEF, NG_COMPONENT_DEF, NG_DIRECTIVE_DEF, NG_MODULE_DEF, NG_PIPE_DEF} from './fields';
+import {ComponentDef, ComponentDefFeature, ComponentTemplate, ComponentType, ContentQueriesFunction, DirectiveDef, DirectiveDefFeature, DirectiveType, DirectiveTypesOrFactory, FactoryFn, HostBindingsFunction, PipeDef, PipeType, PipeTypesOrFactory, ViewQueriesFunction, ɵɵBaseDef} from './interfaces/definition';
+// while SelectorFlags is unused here, it's required so that types don't get resolved lazily
+// see: https://github.com/Microsoft/web-build-tools/issues/1050
+import {CssSelectorList, SelectorFlags} from './interfaces/projection';
 
 let _renderCompCount = 0;
 
@@ -37,8 +40,9 @@ let _renderCompCount = 0;
  *   });
  * }
  * ```
+ * @codeGenApi
  */
-export function defineComponent<T>(componentDefinition: {
+export function ɵɵdefineComponent<T>(componentDefinition: {
   /**
    * Directive type, needed to configure the injector.
    */
@@ -297,11 +301,24 @@ export function defineComponent<T>(componentDefinition: {
     def.pipeDefs = pipeTypes ?
         () => (typeof pipeTypes === 'function' ? pipeTypes() : pipeTypes).map(extractPipeDef) :
         null;
+
+    // Add ngInjectableDef so components are reachable through the module injector by default
+    // (unless it has already been set by the @Injectable decorator). This is mostly to
+    // support injecting components in tests. In real application code, components should
+    // be retrieved through the node injector, so this isn't a problem.
+    if (!type.hasOwnProperty(NG_INJECTABLE_DEF)) {
+      (type as any)[NG_INJECTABLE_DEF] =
+          ɵɵdefineInjectable<T>({factory: componentDefinition.factory as() => T});
+    }
   }) as never;
+
   return def as never;
 }
 
-export function setComponentScope(
+/**
+ * @codeGenApi
+ */
+export function ɵɵsetComponentScope(
     type: ComponentType<any>, directives: Type<any>[], pipes: Type<any>[]): void {
   const def = (type.ngComponentDef as ComponentDef<any>);
   def.directiveDefs = () => directives.map(extractDirectiveDef);
@@ -325,7 +342,31 @@ export function extractPipeDef(type: PipeType<any>): PipeDef<any> {
   return def !;
 }
 
-export function defineNgModule<T>(def: {type: T} & Partial<NgModuleDef<T>>): never {
+/**
+ * @codeGenApi
+ */
+export function ɵɵdefineNgModule<T>(def: {
+  /** Token representing the module. Used by DI. */
+  type: T;
+
+  /** List of components to bootstrap. */
+  bootstrap?: Type<any>[] | (() => Type<any>[]);
+
+  /** List of components, directives, and pipes declared by this module. */
+  declarations?: Type<any>[] | (() => Type<any>[]);
+
+  /** List of modules or `ModuleWithProviders` imported by this module. */
+  imports?: Type<any>[] | (() => Type<any>[]);
+
+  /**
+   * List of modules, `ModuleWithProviders`, components, directives, or pipes exported by this
+   * module.
+   */
+  exports?: Type<any>[] | (() => Type<any>[]);
+
+  /** The set of schemas that declare elements to be allowed in the NgModule. */
+  schemas?: SchemaMetadata[] | null;
+}): never {
   const res: NgModuleDef<T> = {
     type: def.type,
     bootstrap: def.bootstrap || EMPTY_ARRAY,
@@ -336,6 +377,37 @@ export function defineNgModule<T>(def: {type: T} & Partial<NgModuleDef<T>>): nev
     schemas: def.schemas || null,
   };
   return res as never;
+}
+
+/**
+ * Adds the module metadata that is necessary to compute the module's transitive scope to an
+ * existing module definition.
+ *
+ * Scope metadata of modules is not used in production builds, so calls to this function can be
+ * marked pure to tree-shake it from the bundle, allowing for all referenced declarations
+ * to become eligible for tree-shaking as well.
+ *
+ * @codeGenApi
+ */
+export function ɵɵsetNgModuleScope(type: any, scope: {
+  /** List of components, directives, and pipes declared by this module. */
+  declarations?: Type<any>[] | (() => Type<any>[]);
+
+  /** List of modules or `ModuleWithProviders` imported by this module. */
+  imports?: Type<any>[] | (() => Type<any>[]);
+
+  /**
+   * List of modules, `ModuleWithProviders`, components, directives, or pipes exported by this
+   * module.
+   */
+  exports?: Type<any>[] | (() => Type<any>[]);
+}): void {
+  return noSideEffects(() => {
+    const ngModuleDef = getNgModuleDef(type, true);
+    ngModuleDef.declarations = scope.declarations || EMPTY_ARRAY;
+    ngModuleDef.imports = scope.imports || EMPTY_ARRAY;
+    ngModuleDef.exports = scope.exports || EMPTY_ARRAY;
+  }) as never;
 }
 
 /**
@@ -419,15 +491,19 @@ function invertObject<T>(
  * Create a base definition
  *
  * # Example
- * ```
+ * ```ts
  * class ShouldBeInherited {
- *   static ngBaseDef = defineBase({
+ *   static ngBaseDef = ɵɵdefineBase({
  *      ...
  *   })
  * }
+ * ```
+ *
  * @param baseDefinition The base definition parameters
+ *
+ * @codeGenApi
  */
-export function defineBase<T>(baseDefinition: {
+export function ɵɵdefineBase<T>(baseDefinition: {
   /**
    * A map of input names.
    *
@@ -484,12 +560,31 @@ export function defineBase<T>(baseDefinition: {
    * of properties.
    */
   outputs?: {[P in keyof T]?: string};
-}): BaseDef<T> {
+
+  /**
+   * Function to create instances of content queries associated with a given directive.
+   */
+  contentQueries?: ContentQueriesFunction<T>| null;
+
+  /**
+   * Additional set of instructions specific to view query processing. This could be seen as a
+   * set of instructions to be inserted into the template function.
+   */
+  viewQuery?: ViewQueriesFunction<T>| null;
+
+  /**
+   * Function executed by the parent template to allow children to apply host bindings.
+   */
+  hostBindings?: HostBindingsFunction<T>;
+}): ɵɵBaseDef<T> {
   const declaredInputs: {[P in keyof T]: string} = {} as any;
   return {
     inputs: invertObject<T>(baseDefinition.inputs as any, declaredInputs),
     declaredInputs: declaredInputs,
     outputs: invertObject<T>(baseDefinition.outputs as any),
+    viewQuery: baseDefinition.viewQuery || null,
+    contentQueries: baseDefinition.contentQueries || null,
+    hostBindings: baseDefinition.hostBindings || null
   };
 }
 
@@ -497,17 +592,19 @@ export function defineBase<T>(baseDefinition: {
  * Create a directive definition object.
  *
  * # Example
- * ```
+ * ```ts
  * class MyDirective {
  *   // Generated by Angular Template Compiler
  *   // [Symbol] syntax will not be supported by TypeScript until v2.7
- *   static ngDirectiveDef = defineDirective({
+ *   static ngDirectiveDef = ɵɵdefineDirective({
  *     ...
  *   });
  * }
  * ```
+ *
+ * @codeGenApi
  */
-export const defineDirective = defineComponent as any as<T>(directiveDefinition: {
+export const ɵɵdefineDirective = ɵɵdefineComponent as any as<T>(directiveDefinition: {
   /**
    * Directive type, needed to configure the injector.
    */
@@ -596,6 +693,12 @@ export const defineDirective = defineComponent as any as<T>(directiveDefinition:
   contentQueries?: ContentQueriesFunction<T>;
 
   /**
+   * Additional set of instructions specific to view query processing. This could be seen as a
+   * set of instructions to be inserted into the template function.
+   */
+  viewQuery?: ViewQueriesFunction<T>| null;
+
+  /**
    * Defines the name that can be used in the template to assign this directive to a variable.
    *
    * See: {@link Directive.exportAs}
@@ -616,8 +719,10 @@ export const defineDirective = defineComponent as any as<T>(directiveDefinition:
  * }
  * ```
  * @param pipeDef Pipe definition generated by the compiler
+ *
+ * @codeGenApi
  */
-export function definePipe<T>(pipeDef: {
+export function ɵɵdefinePipe<T>(pipeDef: {
   /** Name of the pipe. Used for matching pipes in template to pipe defs. */
   name: string,
 
@@ -654,6 +759,10 @@ export function getDirectiveDef<T>(type: any): DirectiveDef<T>|null {
 
 export function getPipeDef<T>(type: any): PipeDef<T>|null {
   return (type as any)[NG_PIPE_DEF] || null;
+}
+
+export function getBaseDef<T>(type: any): ɵɵBaseDef<T>|null {
+  return (type as any)[NG_BASE_DEF] || null;
 }
 
 export function getNgModuleDef<T>(type: any, throwNotFound: true): NgModuleDef<T>;

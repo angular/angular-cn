@@ -1,4 +1,4 @@
-# Updating your Angular projects
+# Keeping your Angular Projects Up-to-Date
 
 # 升级你的 Angular 项目
 
@@ -88,6 +88,10 @@ Angular 升级指南提供了自定义的升级指令，基于当前版本和你
 For simple updates, the CLI command [`ng update`](cli/update) is all you need. Without additional arguments, `ng update` lists the updates that are available to you and provides recommended steps to update your application to the most current version. 
 
 对于简单的升级工作，你所要做的一切就是执行一下 CLI 命令 [`ng update`](cli/update)。不带额外参数时，`ng update` 会列出你可用的更新版本，并提供建议的升级步骤，来把你的应用升级到最新版本上来。
+
+[Angular Versioning and Releases](guide/releases#versioning "Angular Release Practices, Versioning") describes the level of change that you can expect based a release's version number. It also describes supported update paths. 
+
+[Angular 版本与发布](guide/releases#versioning "Angular Release Practices, Versioning")中描述了你要如何根据版本号来推测所发生的更改等级。它还讲了建议的升级路径。
 
 {@a resources}
 

@@ -9,21 +9,20 @@
 import {ElementRef, TemplateRef, ViewContainerRef} from '@angular/core';
 
 import {RendererType2} from '../../src/render/api';
-import {AttributeMarker, defineComponent, defineDirective, templateRefExtractor} from '../../src/render3/index';
-
-import {allocHostVars, bind, container, containerRefreshEnd, containerRefreshStart, elementStart, elementAttribute, elementClassProp, elementContainerEnd, elementContainerStart, elementEnd, elementProperty, element, elementStyling, elementStylingApply, elementStyleProp, embeddedViewEnd, embeddedViewStart, interpolation1, interpolation2, interpolation3, interpolation4, interpolation5, interpolation6, interpolation7, interpolation8, interpolationV, projection, projectionDef, reference, text, textBinding, template, elementStylingMap, directiveInject, elementHostAttrs} from '../../src/render3/instructions';
+import {getLContext} from '../../src/render3/context_discovery';
+import {AttributeMarker, ɵɵclassMap, ɵɵdefineComponent, ɵɵdefineDirective, ɵɵstyleMap, ɵɵtemplateRefExtractor} from '../../src/render3/index';
+import {ɵɵallocHostVars, ɵɵbind, ɵɵclassProp, ɵɵcontainer, ɵɵcontainerRefreshEnd, ɵɵcontainerRefreshStart, ɵɵdirectiveInject, ɵɵelement, ɵɵelementAttribute, ɵɵelementContainerEnd, ɵɵelementContainerStart, ɵɵelementEnd, ɵɵelementHostAttrs, ɵɵelementProperty, ɵɵelementStart, ɵɵembeddedViewEnd, ɵɵembeddedViewStart, ɵɵinterpolation1, ɵɵinterpolation2, ɵɵinterpolation3, ɵɵinterpolation4, ɵɵinterpolation5, ɵɵinterpolation6, ɵɵinterpolation7, ɵɵinterpolation8, ɵɵinterpolationV, ɵɵprojection, ɵɵprojectionDef, ɵɵreference, ɵɵselect, ɵɵstyleProp, ɵɵstyling, ɵɵstylingApply, ɵɵtemplate, ɵɵtext, ɵɵtextBinding} from '../../src/render3/instructions/all';
+import {MONKEY_PATCH_KEY_NAME} from '../../src/render3/interfaces/context';
 import {RenderFlags} from '../../src/render3/interfaces/definition';
 import {RElement, Renderer3, RendererFactory3, domRendererFactory3} from '../../src/render3/interfaces/renderer';
-import {HEADER_OFFSET, CONTEXT} from '../../src/render3/interfaces/view';
-import {enableBindings, disableBindings} from '../../src/render3/state';
-import {sanitizeUrl} from '../../src/sanitization/sanitization';
+import {StylingIndex} from '../../src/render3/interfaces/styling';
+import {CONTEXT, HEADER_OFFSET} from '../../src/render3/interfaces/view';
+import {ɵɵdisableBindings, ɵɵenableBindings} from '../../src/render3/state';
+import {ɵɵsanitizeUrl} from '../../src/sanitization/sanitization';
 import {Sanitizer, SecurityContext} from '../../src/sanitization/security';
 
 import {NgIf} from './common_with_def';
 import {ComponentFixture, MockRendererFactory, TemplateFixture, createComponent, renderToHtml} from './render_util';
-import {getLContext} from '../../src/render3/context_discovery';
-import {StylingIndex} from '../../src/render3/interfaces/styling';
-import {MONKEY_PATCH_KEY_NAME} from '../../src/render3/interfaces/context';
 
 describe('render3 integration test', () => {
 
@@ -34,9 +33,9 @@ describe('render3 integration test', () => {
 
       function Template(rf: RenderFlags, ctx: any) {
         if (rf & RenderFlags.Create) {
-          elementStart(0, 'span', ['title', 'Hello']);
-          { text(1, 'Greetings'); }
-          elementEnd();
+          ɵɵelementStart(0, 'span', ['title', 'Hello']);
+          { ɵɵtext(1, 'Greetings'); }
+          ɵɵelementEnd();
         }
       }
       expect(ngDevMode).toHaveProperties({
@@ -50,12 +49,12 @@ describe('render3 integration test', () => {
     it('should render and update basic "Hello, World" template', () => {
       const App = createComponent('app', function(rf: RenderFlags, ctx: any) {
         if (rf & RenderFlags.Create) {
-          elementStart(0, 'h1');
-          { text(1); }
-          elementEnd();
+          ɵɵelementStart(0, 'h1');
+          { ɵɵtext(1); }
+          ɵɵelementEnd();
         }
         if (rf & RenderFlags.Update) {
-          textBinding(1, interpolation1('Hello, ', ctx.name, '!'));
+          ɵɵtextBinding(1, ɵɵinterpolation1('Hello, ', ctx.name, '!'));
         }
       }, 2, 1);
 
@@ -74,10 +73,10 @@ describe('render3 integration test', () => {
     it('should render "undefined" as "" when used with `bind()`', () => {
       function Template(rf: RenderFlags, name: string) {
         if (rf & RenderFlags.Create) {
-          text(0);
+          ɵɵtext(0);
         }
         if (rf & RenderFlags.Update) {
-          textBinding(0, bind(name));
+          ɵɵtextBinding(0, ɵɵbind(name));
         }
       }
 
@@ -94,10 +93,10 @@ describe('render3 integration test', () => {
     it('should render "null" as "" when used with `bind()`', () => {
       function Template(rf: RenderFlags, name: string) {
         if (rf & RenderFlags.Create) {
-          text(0);
+          ɵɵtext(0);
         }
         if (rf & RenderFlags.Update) {
-          textBinding(0, bind(name));
+          ɵɵtextBinding(0, ɵɵbind(name));
         }
       }
 
@@ -114,8 +113,8 @@ describe('render3 integration test', () => {
     it('should support creation-time values in text nodes', () => {
       function Template(rf: RenderFlags, value: string) {
         if (rf & RenderFlags.Create) {
-          text(0);
-          textBinding(0, value);
+          ɵɵtext(0);
+          ɵɵtextBinding(0, value);
         }
       }
       expect(renderToHtml(Template, 'once', 1, 1)).toEqual('once');
@@ -141,18 +140,18 @@ describe('render3 integration test', () => {
        */
       const App = createComponent('app', function(rf: RenderFlags, ctx: any) {
         if (rf & RenderFlags.Create) {
-          elementStart(0, 'b', ['id', 'my-id'], ['myRef', '']);
-          disableBindings();
-          elementStart(2, 'i');
-          text(3, 'Hello {{ name }}!');
-          elementEnd();
-          enableBindings();
-          elementEnd();
-          text(4);
+          ɵɵelementStart(0, 'b', ['id', 'my-id'], ['myRef', '']);
+          ɵɵdisableBindings();
+          ɵɵelementStart(2, 'i');
+          ɵɵtext(3, 'Hello {{ name }}!');
+          ɵɵelementEnd();
+          ɵɵenableBindings();
+          ɵɵelementEnd();
+          ɵɵtext(4);
         }
         if (rf & RenderFlags.Update) {
-          const ref = reference(1) as any;
-          textBinding(4, interpolation1(' ', ref.id, ' '));
+          const ref = ɵɵreference(1) as any;
+          ɵɵtextBinding(4, ɵɵinterpolation1(' ', ref.id, ' '));
         }
       }, 5, 1);
 
@@ -166,7 +165,7 @@ describe('render3 integration test', () => {
       class TestDirective {
         ngOnInit() { directiveInvoked = true; }
 
-        static ngDirectiveDef = defineDirective({
+        static ngDirectiveDef = ɵɵdefineDirective({
           type: TestDirective,
           selectors: [['', 'directive', '']],
           factory: () => new TestDirective()
@@ -180,13 +179,13 @@ describe('render3 integration test', () => {
        */
       const App = createComponent('app', function(rf: RenderFlags, ctx: any) {
         if (rf & RenderFlags.Create) {
-          elementStart(0, 'b', ['directive', '']);
-          disableBindings();
-          elementStart(1, 'i');
-          text(2, 'Hello {{ name }}!');
-          elementEnd();
-          enableBindings();
-          elementEnd();
+          ɵɵelementStart(0, 'b', ['directive', '']);
+          ɵɵdisableBindings();
+          ɵɵelementStart(1, 'i');
+          ɵɵtext(2, 'Hello {{ name }}!');
+          ɵɵelementEnd();
+          ɵɵenableBindings();
+          ɵɵelementEnd();
         }
       }, 3, 0, [TestDirective]);
 
@@ -201,7 +200,7 @@ describe('render3 integration test', () => {
       class TestDirective {
         ngOnInit() { directiveInvoked = true; }
 
-        static ngDirectiveDef = defineDirective({
+        static ngDirectiveDef = ɵɵdefineDirective({
           type: TestDirective,
           selectors: [['', 'directive', '']],
           factory: () => new TestDirective()
@@ -215,13 +214,13 @@ describe('render3 integration test', () => {
        */
       const App = createComponent('app', function(rf: RenderFlags, ctx: any) {
         if (rf & RenderFlags.Create) {
-          elementStart(0, 'b');
-          disableBindings();
-          elementStart(1, 'i', ['directive', '']);
-          text(2, 'Hello {{ name }}!');
-          elementEnd();
-          enableBindings();
-          elementEnd();
+          ɵɵelementStart(0, 'b');
+          ɵɵdisableBindings();
+          ɵɵelementStart(1, 'i', ['directive', '']);
+          ɵɵtext(2, 'Hello {{ name }}!');
+          ɵɵelementEnd();
+          ɵɵenableBindings();
+          ɵɵelementEnd();
         }
       }, 3, 0, [TestDirective]);
 
@@ -235,12 +234,12 @@ describe('render3 integration test', () => {
     it('should handle a flat list of static/bound text nodes', () => {
       const App = createComponent('app', function(rf: RenderFlags, ctx: any) {
         if (rf & RenderFlags.Create) {
-          text(0, 'Hello ');
-          text(1);
-          text(2, '!');
+          ɵɵtext(0, 'Hello ');
+          ɵɵtext(1);
+          ɵɵtext(2, '!');
         }
         if (rf & RenderFlags.Update) {
-          textBinding(1, bind(ctx.name));
+          ɵɵtextBinding(1, ɵɵbind(ctx.name));
         }
       }, 3, 1);
 
@@ -257,16 +256,16 @@ describe('render3 integration test', () => {
     it('should handle a list of static/bound text nodes as element children', () => {
       const App = createComponent('app', function(rf: RenderFlags, ctx: any) {
         if (rf & RenderFlags.Create) {
-          elementStart(0, 'b');
+          ɵɵelementStart(0, 'b');
           {
-            text(1, 'Hello ');
-            text(2);
-            text(3, '!');
+            ɵɵtext(1, 'Hello ');
+            ɵɵtext(2);
+            ɵɵtext(3, '!');
           }
-          elementEnd();
+          ɵɵelementEnd();
         }
         if (rf & RenderFlags.Update) {
-          textBinding(2, bind(ctx.name));
+          ɵɵtextBinding(2, ɵɵbind(ctx.name));
         }
       }, 4, 1);
 
@@ -283,24 +282,24 @@ describe('render3 integration test', () => {
     it('should render/update text node as a child of a deep list of elements', () => {
       const App = createComponent('app', function(rf: RenderFlags, ctx: any) {
         if (rf & RenderFlags.Create) {
-          elementStart(0, 'b');
+          ɵɵelementStart(0, 'b');
           {
-            elementStart(1, 'b');
+            ɵɵelementStart(1, 'b');
             {
-              elementStart(2, 'b');
+              ɵɵelementStart(2, 'b');
               {
-                elementStart(3, 'b');
-                { text(4); }
-                elementEnd();
+                ɵɵelementStart(3, 'b');
+                { ɵɵtext(4); }
+                ɵɵelementEnd();
               }
-              elementEnd();
+              ɵɵelementEnd();
             }
-            elementEnd();
+            ɵɵelementEnd();
           }
-          elementEnd();
+          ɵɵelementEnd();
         }
         if (rf & RenderFlags.Update) {
-          textBinding(4, interpolation1('Hello ', ctx.name, '!'));
+          ɵɵtextBinding(4, ɵɵinterpolation1('Hello ', ctx.name, '!'));
         }
       }, 5, 1);
 
@@ -317,17 +316,17 @@ describe('render3 integration test', () => {
     it('should update 2 sibling elements', () => {
       const App = createComponent('app', function(rf: RenderFlags, ctx: any) {
         if (rf & RenderFlags.Create) {
-          elementStart(0, 'b');
+          ɵɵelementStart(0, 'b');
           {
-            element(1, 'span');
-            elementStart(2, 'span', ['class', 'foo']);
+            ɵɵelement(1, 'span');
+            ɵɵelementStart(2, 'span', ['class', 'foo']);
             {}
-            elementEnd();
+            ɵɵelementEnd();
           }
-          elementEnd();
+          ɵɵelementEnd();
         }
         if (rf & RenderFlags.Update) {
-          elementAttribute(2, 'id', bind(ctx.id));
+          ɵɵelementAttribute(2, 'id', ɵɵbind(ctx.id));
         }
       }, 3, 1);
 
@@ -344,10 +343,10 @@ describe('render3 integration test', () => {
     it('should handle sibling text node after element with child text node', () => {
       const App = createComponent('app', function(rf: RenderFlags, ctx: any) {
         if (rf & RenderFlags.Create) {
-          elementStart(0, 'p');
-          { text(1, 'hello'); }
-          elementEnd();
-          text(2, 'world');
+          ɵɵelementStart(0, 'p');
+          { ɵɵtext(1, 'hello'); }
+          ɵɵelementEnd();
+          ɵɵtext(2, 'world');
         }
       }, 3);
 
@@ -361,22 +360,22 @@ describe('render3 integration test', () => {
     class TodoComponent {
       value = ' one';
 
-      static ngComponentDef = defineComponent({
+      static ngComponentDef = ɵɵdefineComponent({
         type: TodoComponent,
         selectors: [['todo']],
         consts: 3,
         vars: 1,
         template: function TodoTemplate(rf: RenderFlags, ctx: any) {
           if (rf & RenderFlags.Create) {
-            elementStart(0, 'p');
+            ɵɵelementStart(0, 'p');
             {
-              text(1, 'Todo');
-              text(2);
+              ɵɵtext(1, 'Todo');
+              ɵɵtext(2);
             }
-            elementEnd();
+            ɵɵelementEnd();
           }
           if (rf & RenderFlags.Update) {
-            textBinding(2, bind(ctx.value));
+            ɵɵtextBinding(2, ɵɵbind(ctx.value));
           }
         },
         factory: () => new TodoComponent
@@ -388,7 +387,7 @@ describe('render3 integration test', () => {
     it('should support a basic component template', () => {
       const App = createComponent('app', function(rf: RenderFlags, ctx: any) {
         if (rf & RenderFlags.Create) {
-          element(0, 'todo');
+          ɵɵelement(0, 'todo');
         }
       }, 1, 0, defs);
 
@@ -399,8 +398,8 @@ describe('render3 integration test', () => {
     it('should support a component template with sibling', () => {
       const App = createComponent('app', function(rf: RenderFlags, ctx: any) {
         if (rf & RenderFlags.Create) {
-          element(0, 'todo');
-          text(1, 'two');
+          ɵɵelement(0, 'todo');
+          ɵɵtext(1, 'two');
         }
       }, 2, 0, defs);
 
@@ -415,8 +414,8 @@ describe('render3 integration test', () => {
        */
       const App = createComponent('app', function(rf: RenderFlags, ctx: any) {
         if (rf & RenderFlags.Create) {
-          element(0, 'todo');
-          element(1, 'todo');
+          ɵɵelement(0, 'todo');
+          ɵɵelement(1, 'todo');
         }
       }, 2, 0, defs);
 
@@ -429,7 +428,7 @@ describe('render3 integration test', () => {
 
       class TodoComponentHostBinding {
         title = 'one';
-        static ngComponentDef = defineComponent({
+        static ngComponentDef = ɵɵdefineComponent({
           type: TodoComponentHostBinding,
           selectors: [['todo']],
           consts: 1,
@@ -437,20 +436,20 @@ describe('render3 integration test', () => {
           template: function TodoComponentHostBindingTemplate(
               rf: RenderFlags, ctx: TodoComponentHostBinding) {
             if (rf & RenderFlags.Create) {
-              text(0);
+              ɵɵtext(0);
             }
             if (rf & RenderFlags.Update) {
-              textBinding(0, bind(ctx.title));
+              ɵɵtextBinding(0, ɵɵbind(ctx.title));
             }
           },
           factory: () => cmptInstance = new TodoComponentHostBinding,
           hostBindings: function(rf: RenderFlags, ctx: any, elementIndex: number): void {
             if (rf & RenderFlags.Create) {
-              allocHostVars(1);
+              ɵɵallocHostVars(1);
             }
             if (rf & RenderFlags.Update) {
               // host bindings
-              elementProperty(elementIndex, 'title', bind(ctx.title));
+              ɵɵelementProperty(elementIndex, 'title', ɵɵbind(ctx.title));
             }
           }
         });
@@ -458,7 +457,7 @@ describe('render3 integration test', () => {
 
       const App = createComponent('app', function(rf: RenderFlags, ctx: any) {
         if (rf & RenderFlags.Create) {
-          element(0, 'todo');
+          ɵɵelement(0, 'todo');
         }
       }, 1, 0, [TodoComponentHostBinding]);
 
@@ -472,7 +471,7 @@ describe('render3 integration test', () => {
 
     it('should support root component with host attribute', () => {
       class HostAttributeComp {
-        static ngComponentDef = defineComponent({
+        static ngComponentDef = ɵɵdefineComponent({
           type: HostAttributeComp,
           selectors: [['host-attr-comp']],
           factory: () => new HostAttributeComp(),
@@ -480,7 +479,7 @@ describe('render3 integration test', () => {
           vars: 0,
           hostBindings: function(rf, ctx, elIndex) {
             if (rf & RenderFlags.Create) {
-              elementHostAttrs(ctx, ['role', 'button']);
+              ɵɵelementHostAttrs(['role', 'button']);
             }
           },
           template: (rf: RenderFlags, ctx: HostAttributeComp) => {},
@@ -495,19 +494,19 @@ describe('render3 integration test', () => {
       /** <p> {{ name }} </p>*/
       class MyComp {
         name = 'Bess';
-        static ngComponentDef = defineComponent({
+        static ngComponentDef = ɵɵdefineComponent({
           type: MyComp,
           selectors: [['comp']],
           consts: 2,
           vars: 1,
           template: function MyCompTemplate(rf: RenderFlags, ctx: any) {
             if (rf & RenderFlags.Create) {
-              elementStart(0, 'p');
-              { text(1); }
-              elementEnd();
+              ɵɵelementStart(0, 'p');
+              { ɵɵtext(1); }
+              ɵɵelementEnd();
             }
             if (rf & RenderFlags.Update) {
-              textBinding(1, bind(ctx.name));
+              ɵɵtextBinding(1, ɵɵbind(ctx.name));
             }
           },
           factory: () => new MyComp
@@ -516,7 +515,7 @@ describe('render3 integration test', () => {
 
       const App = createComponent('app', function(rf: RenderFlags, ctx: any) {
         if (rf & RenderFlags.Create) {
-          element(0, 'comp');
+          ɵɵelement(0, 'comp');
         }
       }, 1, 0, [MyComp]);
 
@@ -533,29 +532,29 @@ describe('render3 integration test', () => {
       class MyComp {
         // TODO(issue/24571): remove '!'.
         condition !: boolean;
-        static ngComponentDef = defineComponent({
+        static ngComponentDef = ɵɵdefineComponent({
           type: MyComp,
           selectors: [['comp']],
           consts: 1,
           vars: 0,
           template: function MyCompTemplate(rf: RenderFlags, ctx: any) {
             if (rf & RenderFlags.Create) {
-              container(0);
+              ɵɵcontainer(0);
             }
             if (rf & RenderFlags.Update) {
-              containerRefreshStart(0);
+              ɵɵcontainerRefreshStart(0);
               {
                 if (ctx.condition) {
-                  let rf1 = embeddedViewStart(0, 2, 0);
+                  let rf1 = ɵɵembeddedViewStart(0, 2, 0);
                   if (rf1 & RenderFlags.Create) {
-                    elementStart(0, 'div');
-                    { text(1, 'text'); }
-                    elementEnd();
+                    ɵɵelementStart(0, 'div');
+                    { ɵɵtext(1, 'text'); }
+                    ɵɵelementEnd();
                   }
-                  embeddedViewEnd();
+                  ɵɵembeddedViewEnd();
                 }
               }
-              containerRefreshEnd();
+              ɵɵcontainerRefreshEnd();
             }
           },
           factory: () => new MyComp,
@@ -566,10 +565,10 @@ describe('render3 integration test', () => {
       /** <comp [condition]="condition"></comp> */
       const App = createComponent('app', function(rf: RenderFlags, ctx: any) {
         if (rf & RenderFlags.Create) {
-          element(0, 'comp');
+          ɵɵelement(0, 'comp');
         }
         if (rf & RenderFlags.Update) {
-          elementProperty(0, 'condition', bind(ctx.condition));
+          ɵɵelementProperty(0, 'condition', ɵɵbind(ctx.condition));
         }
       }, 1, 1, [MyComp]);
 
@@ -592,18 +591,18 @@ describe('render3 integration test', () => {
        * <div>before|<ng-container>Greetings<span></span></ng-container>|after</div>
        */
       function Template() {
-        elementStart(0, 'div');
+        ɵɵelementStart(0, 'div');
         {
-          text(1, 'before|');
-          elementContainerStart(2);
+          ɵɵtext(1, 'before|');
+          ɵɵelementContainerStart(2);
           {
-            text(3, 'Greetings');
-            element(4, 'span');
+            ɵɵtext(3, 'Greetings');
+            ɵɵelement(4, 'span');
           }
-          elementContainerEnd();
-          text(5, '|after');
+          ɵɵelementContainerEnd();
+          ɵɵtext(5, '|after');
         }
-        elementEnd();
+        ɵɵelementEnd();
       }
 
       const fixture = new TemplateFixture(Template, () => {}, 6);
@@ -620,26 +619,26 @@ describe('render3 integration test', () => {
        */
       const TestCmpt = createComponent('test-cmpt', function(rf: RenderFlags, ctx: {value: any}) {
         if (rf & RenderFlags.Create) {
-          container(0);
+          ɵɵcontainer(0);
         }
         if (rf & RenderFlags.Update) {
-          containerRefreshStart(0);
+          ɵɵcontainerRefreshStart(0);
           if (ctx.value) {
-            let rf1 = embeddedViewStart(0, 3, 0);
+            let rf1 = ɵɵembeddedViewStart(0, 3, 0);
             {
               if (rf1 & RenderFlags.Create) {
-                elementStart(0, 'div');
+                ɵɵelementStart(0, 'div');
                 {
-                  elementContainerStart(1);
-                  { text(2, 'content'); }
-                  elementContainerEnd();
+                  ɵɵelementContainerStart(1);
+                  { ɵɵtext(2, 'content'); }
+                  ɵɵelementContainerEnd();
                 }
-                elementEnd();
+                ɵɵelementEnd();
               }
             }
-            embeddedViewEnd();
+            ɵɵembeddedViewEnd();
           }
-          containerRefreshEnd();
+          ɵɵcontainerRefreshEnd();
         }
       }, 1);
 
@@ -665,22 +664,22 @@ describe('render3 integration test', () => {
          const TestCmpt =
              createComponent('test-cmpt', function(rf: RenderFlags, ctx: {value: any}) {
                if (rf & RenderFlags.Create) {
-                 container(0);
+                 ɵɵcontainer(0);
                }
                if (rf & RenderFlags.Update) {
-                 containerRefreshStart(0);
+                 ɵɵcontainerRefreshStart(0);
                  if (ctx.value) {
-                   let rf1 = embeddedViewStart(0, 2, 0);
+                   let rf1 = ɵɵembeddedViewStart(0, 2, 0);
                    {
                      if (rf1 & RenderFlags.Create) {
-                       elementContainerStart(0);
-                       { text(1, 'content'); }
-                       elementContainerEnd();
+                       ɵɵelementContainerStart(0);
+                       { ɵɵtext(1, 'content'); }
+                       ɵɵelementContainerEnd();
                      }
                    }
-                   embeddedViewEnd();
+                   ɵɵembeddedViewEnd();
                  }
-                 containerRefreshEnd();
+                 ɵɵcontainerRefreshEnd();
                }
              }, 1);
 
@@ -701,9 +700,9 @@ describe('render3 integration test', () => {
 
          function ngIfTemplate(rf: RenderFlags, ctx: any) {
            if (rf & RenderFlags.Create) {
-             elementContainerStart(0);
-             { text(1, 'content'); }
-             elementContainerEnd();
+             ɵɵelementContainerStart(0);
+             { ɵɵtext(1, 'content'); }
+             ɵɵelementContainerEnd();
            }
          }
 
@@ -721,11 +720,11 @@ describe('render3 integration test', () => {
          const TestCmpt =
              createComponent('test-cmpt', function(rf: RenderFlags, ctx: {value: any}) {
                if (rf & RenderFlags.Create) {
-                 template(
-                     0, ngIfTemplate, 2, 0, 'ng-template', [AttributeMarker.SelectOnly, 'ngIf']);
+                 ɵɵtemplate(
+                     0, ngIfTemplate, 2, 0, 'ng-template', [AttributeMarker.Bindings, 'ngIf']);
                }
                if (rf & RenderFlags.Update) {
-                 elementProperty(0, 'ngIf', bind(ctx.value));
+                 ɵɵelementProperty(0, 'ngIf', ɵɵbind(ctx.value));
                }
              }, 1, 1, [NgIf]);
 
@@ -752,21 +751,21 @@ describe('render3 integration test', () => {
 
            clear() { this._vcRef.clear(); }
 
-           static ngDirectiveDef = defineDirective({
+           static ngDirectiveDef = ɵɵdefineDirective({
              type: TestDirective,
              selectors: [['', 'testDirective', '']],
-             factory:
-                 () => testDirective = new TestDirective(
-                     directiveInject(TemplateRef as any), directiveInject(ViewContainerRef as any)),
+             factory: () => testDirective = new TestDirective(
+                          ɵɵdirectiveInject(TemplateRef as any),
+                          ɵɵdirectiveInject(ViewContainerRef as any)),
            });
          }
 
 
          function embeddedTemplate(rf: RenderFlags, ctx: any) {
            if (rf & RenderFlags.Create) {
-             elementContainerStart(0);
-             { text(1, 'content'); }
-             elementContainerEnd();
+             ɵɵelementContainerStart(0);
+             { ɵɵtext(1, 'content'); }
+             ɵɵelementContainerEnd();
            }
          }
 
@@ -780,9 +779,9 @@ describe('render3 integration test', () => {
           </ng-template>`;
          const TestCmpt = createComponent('test-cmpt', function(rf: RenderFlags) {
            if (rf & RenderFlags.Create) {
-             template(
+             ɵɵtemplate(
                  0, embeddedTemplate, 2, 0, 'ng-template',
-                 [AttributeMarker.SelectOnly, 'testDirective']);
+                 [AttributeMarker.Bindings, 'testDirective']);
            }
          }, 1, 0, [TestDirective]);
 
@@ -804,13 +803,13 @@ describe('render3 integration test', () => {
        */
       const TestCmpt = createComponent('test-cmpt', function(rf: RenderFlags) {
         if (rf & RenderFlags.Create) {
-          elementContainerStart(0);
-          { text(1, 'component template'); }
-          elementContainerEnd();
+          ɵɵelementContainerStart(0);
+          { ɵɵtext(1, 'component template'); }
+          ɵɵelementContainerEnd();
         }
       }, 2);
 
-      function App() { element(0, 'test-cmpt'); }
+      function App() { ɵɵelement(0, 'test-cmpt'); }
 
       const fixture = new TemplateFixture(App, () => {}, 1, 0, [TestCmpt]);
       expect(fixture.html).toEqual('<test-cmpt>component template</test-cmpt>');
@@ -828,21 +827,21 @@ describe('render3 integration test', () => {
        */
       const TestCmpt = createComponent('test-cmpt', function(rf: RenderFlags) {
         if (rf & RenderFlags.Create) {
-          elementContainerStart(0);
+          ɵɵelementContainerStart(0);
           {
-            elementContainerStart(1);
+            ɵɵelementContainerStart(1);
             {
-              elementContainerStart(2);
-              { text(3, 'content'); }
-              elementContainerEnd();
+              ɵɵelementContainerStart(2);
+              { ɵɵtext(3, 'content'); }
+              ɵɵelementContainerEnd();
             }
-            elementContainerEnd();
+            ɵɵelementContainerEnd();
           }
-          elementContainerEnd();
+          ɵɵelementContainerEnd();
         }
       }, 4);
 
-      function App() { element(0, 'test-cmpt'); }
+      function App() { ɵɵelement(0, 'test-cmpt'); }
 
       const fixture = new TemplateFixture(App, () => {}, 1, 0, [TestCmpt]);
       expect(fixture.html).toEqual('<test-cmpt>content</test-cmpt>');
@@ -858,29 +857,29 @@ describe('render3 integration test', () => {
 
         clear() { this._vcRef.clear(); }
 
-        static ngDirectiveDef = defineDirective({
+        static ngDirectiveDef = ɵɵdefineDirective({
           type: TestDirective,
           selectors: [['', 'testDirective', '']],
-          factory:
-              () => testDirective = new TestDirective(
-                  directiveInject(TemplateRef as any), directiveInject(ViewContainerRef as any)),
+          factory: () => testDirective = new TestDirective(
+                       ɵɵdirectiveInject(TemplateRef as any),
+                       ɵɵdirectiveInject(ViewContainerRef as any)),
         });
       }
 
 
       function embeddedTemplate(rf: RenderFlags, ctx: any) {
         if (rf & RenderFlags.Create) {
-          elementContainerStart(0);
+          ɵɵelementContainerStart(0);
           {
-            elementContainerStart(1);
+            ɵɵelementContainerStart(1);
             {
-              elementContainerStart(2);
-              { text(3, 'content'); }
-              elementContainerEnd();
+              ɵɵelementContainerStart(2);
+              { ɵɵtext(3, 'content'); }
+              ɵɵelementContainerEnd();
             }
-            elementContainerEnd();
+            ɵɵelementContainerEnd();
           }
-          elementContainerEnd();
+          ɵɵelementContainerEnd();
         }
       }
 
@@ -897,13 +896,13 @@ describe('render3 integration test', () => {
        */
       const TestCmpt = createComponent('test-cmpt', function(rf: RenderFlags) {
         if (rf & RenderFlags.Create) {
-          template(
+          ɵɵtemplate(
               0, embeddedTemplate, 4, 0, 'ng-template',
-              [AttributeMarker.SelectOnly, 'testDirective']);
+              [AttributeMarker.Bindings, 'testDirective']);
         }
       }, 1, 0, [TestDirective]);
 
-      function App() { element(0, 'test-cmpt'); }
+      function App() { ɵɵelement(0, 'test-cmpt'); }
 
       const fixture = new ComponentFixture(TestCmpt);
       expect(fixture.html).toEqual('');
@@ -926,10 +925,10 @@ describe('render3 integration test', () => {
       class Directive {
         constructor(public elRef: ElementRef) {}
 
-        static ngDirectiveDef = defineDirective({
+        static ngDirectiveDef = ɵɵdefineDirective({
           type: Directive,
           selectors: [['', 'dir', '']],
-          factory: () => directive = new Directive(directiveInject(ElementRef)),
+          factory: () => directive = new Directive(ɵɵdirectiveInject(ElementRef)),
         });
       }
 
@@ -939,12 +938,12 @@ describe('render3 integration test', () => {
        * <div><ng-container dir></ng-container></div>
        */
       function Template() {
-        elementStart(0, 'div');
+        ɵɵelementStart(0, 'div');
         {
-          elementContainerStart(1, [AttributeMarker.SelectOnly, 'dir']);
-          elementContainerEnd();
+          ɵɵelementContainerStart(1, [AttributeMarker.Bindings, 'dir']);
+          ɵɵelementContainerEnd();
         }
-        elementEnd();
+        ɵɵelementEnd();
       }
 
       const fixture = new TemplateFixture(Template, () => {}, 2, 0, [Directive]);
@@ -956,7 +955,7 @@ describe('render3 integration test', () => {
 
       function ContentTemplate(rf: RenderFlags, ctx: any) {
         if (rf & RenderFlags.Create) {
-          text(0, 'Content');
+          ɵɵtext(0, 'Content');
         }
       }
 
@@ -969,10 +968,10 @@ describe('render3 integration test', () => {
 
         clear() { this._vcRef.clear(); }
 
-        static ngDirectiveDef = defineDirective({
+        static ngDirectiveDef = ɵɵdefineDirective({
           type: Directive,
           selectors: [['', 'dir', '']],
-          factory: () => directive = new Directive(directiveInject(ViewContainerRef as any)),
+          factory: () => directive = new Directive(ɵɵdirectiveInject(ViewContainerRef as any)),
           inputs: {contentTpl: 'contentTpl'},
         });
       }
@@ -986,14 +985,15 @@ describe('render3 integration test', () => {
        */
       const App = createComponent('app', function(rf: RenderFlags) {
         if (rf & RenderFlags.Create) {
-          elementContainerStart(0, [AttributeMarker.SelectOnly, 'dir']);
-          template(
-              1, ContentTemplate, 1, 0, 'ng-template', null, ['content', ''], templateRefExtractor);
-          elementContainerEnd();
+          ɵɵelementContainerStart(0, [AttributeMarker.Bindings, 'dir']);
+          ɵɵtemplate(
+              1, ContentTemplate, 1, 0, 'ng-template', null, ['content', ''],
+              ɵɵtemplateRefExtractor);
+          ɵɵelementContainerEnd();
         }
         if (rf & RenderFlags.Update) {
-          const content = reference(2) as any;
-          elementProperty(0, 'contentTpl', bind(content));
+          const content = ɵɵreference(2) as any;
+          ɵɵelementProperty(0, 'contentTpl', ɵɵbind(content));
         }
       }, 3, 1, [Directive]);
 
@@ -1013,7 +1013,7 @@ describe('render3 integration test', () => {
     it('should support ViewContainerRef on <ng-template> inside <ng-container>', () => {
       function ContentTemplate(rf: RenderFlags, ctx: any) {
         if (rf & RenderFlags.Create) {
-          text(0, 'Content');
+          ɵɵtext(0, 'Content');
         }
       }
 
@@ -1024,12 +1024,12 @@ describe('render3 integration test', () => {
 
         clear() { this._vcRef.clear(); }
 
-        static ngDirectiveDef = defineDirective({
+        static ngDirectiveDef = ɵɵdefineDirective({
           type: Directive,
           selectors: [['', 'dir', '']],
-          factory:
-              () => directive = new Directive(
-                  directiveInject(TemplateRef as any), directiveInject(ViewContainerRef as any)),
+          factory: () => directive = new Directive(
+                       ɵɵdirectiveInject(TemplateRef as any),
+                       ɵɵdirectiveInject(ViewContainerRef as any)),
         });
       }
 
@@ -1042,11 +1042,11 @@ describe('render3 integration test', () => {
        */
       const App = createComponent('app', function(rf: RenderFlags) {
         if (rf & RenderFlags.Create) {
-          elementContainerStart(0);
-          template(
-              1, ContentTemplate, 1, 0, 'ng-template', [AttributeMarker.SelectOnly, 'dir'], [],
-              templateRefExtractor);
-          elementContainerEnd();
+          ɵɵelementContainerStart(0);
+          ɵɵtemplate(
+              1, ContentTemplate, 1, 0, 'ng-template', [AttributeMarker.Bindings, 'dir'], [],
+              ɵɵtemplateRefExtractor);
+          ɵɵelementContainerEnd();
         }
       }, 2, 0, [Directive]);
 
@@ -1068,12 +1068,12 @@ describe('render3 integration test', () => {
        * <div><ng-container id="foo"></ng-container></div>
        */
       function Template() {
-        elementStart(0, 'div');
+        ɵɵelementStart(0, 'div');
         {
-          elementContainerStart(1, ['id', 'foo']);
-          elementContainerEnd();
+          ɵɵelementContainerStart(1, ['id', 'foo']);
+          ɵɵelementContainerEnd();
         }
-        elementEnd();
+        ɵɵelementEnd();
       }
 
       const fixture = new TemplateFixture(Template, () => {}, 2);
@@ -1097,56 +1097,56 @@ describe('render3 integration test', () => {
 
     function showLabel(rf: RenderFlags, ctx: {label: string | undefined}) {
       if (rf & RenderFlags.Create) {
-        container(0);
+        ɵɵcontainer(0);
       }
       if (rf & RenderFlags.Update) {
-        containerRefreshStart(0);
+        ɵɵcontainerRefreshStart(0);
         {
           if (ctx.label != null) {
-            let rf1 = embeddedViewStart(0, 1, 1);
+            let rf1 = ɵɵembeddedViewStart(0, 1, 1);
             if (rf1 & RenderFlags.Create) {
-              text(0);
+              ɵɵtext(0);
             }
             if (rf1 & RenderFlags.Update) {
-              textBinding(0, bind(ctx.label));
+              ɵɵtextBinding(0, ɵɵbind(ctx.label));
             }
-            embeddedViewEnd();
+            ɵɵembeddedViewEnd();
           }
         }
-        containerRefreshEnd();
+        ɵɵcontainerRefreshEnd();
       }
     }
 
     function showTree(rf: RenderFlags, ctx: {tree: Tree}) {
       if (rf & RenderFlags.Create) {
-        container(0);
-        container(1);
-        container(2);
+        ɵɵcontainer(0);
+        ɵɵcontainer(1);
+        ɵɵcontainer(2);
       }
       if (rf & RenderFlags.Update) {
-        containerRefreshStart(0);
+        ɵɵcontainerRefreshStart(0);
         {
-          const rf0 = embeddedViewStart(0, 1, 0);
+          const rf0 = ɵɵembeddedViewStart(0, 1, 0);
           { showLabel(rf0, {label: ctx.tree.beforeLabel}); }
-          embeddedViewEnd();
+          ɵɵembeddedViewEnd();
         }
-        containerRefreshEnd();
-        containerRefreshStart(1);
+        ɵɵcontainerRefreshEnd();
+        ɵɵcontainerRefreshStart(1);
         {
           for (let subTree of ctx.tree.subTrees || []) {
-            const rf0 = embeddedViewStart(0, 3, 0);
+            const rf0 = ɵɵembeddedViewStart(0, 3, 0);
             { showTree(rf0, {tree: subTree}); }
-            embeddedViewEnd();
+            ɵɵembeddedViewEnd();
           }
         }
-        containerRefreshEnd();
-        containerRefreshStart(2);
+        ɵɵcontainerRefreshEnd();
+        ɵɵcontainerRefreshStart(2);
         {
-          const rf0 = embeddedViewStart(0, 1, 0);
+          const rf0 = ɵɵembeddedViewStart(0, 1, 0);
           { showLabel(rf0, {label: ctx.tree.afterLabel}); }
-          embeddedViewEnd();
+          ɵɵembeddedViewEnd();
         }
-        containerRefreshEnd();
+        ɵɵcontainerRefreshEnd();
       }
     }
 
@@ -1155,7 +1155,7 @@ describe('render3 integration test', () => {
       beforeTree !: Tree;
       // TODO(issue/24571): remove '!'.
       afterTree !: Tree;
-      static ngComponentDef = defineComponent({
+      static ngComponentDef = ɵɵdefineComponent({
         selectors: [['child']],
         type: ChildComponent,
         consts: 3,
@@ -1163,26 +1163,26 @@ describe('render3 integration test', () => {
         template: function ChildComponentTemplate(
             rf: RenderFlags, ctx: {beforeTree: Tree, afterTree: Tree}) {
           if (rf & RenderFlags.Create) {
-            projectionDef();
-            container(0);
-            projection(1);
-            container(2);
+            ɵɵprojectionDef();
+            ɵɵcontainer(0);
+            ɵɵprojection(1);
+            ɵɵcontainer(2);
           }
           if (rf & RenderFlags.Update) {
-            containerRefreshStart(0);
+            ɵɵcontainerRefreshStart(0);
             {
-              const rf0 = embeddedViewStart(0, 3, 0);
+              const rf0 = ɵɵembeddedViewStart(0, 3, 0);
               { showTree(rf0, {tree: ctx.beforeTree}); }
-              embeddedViewEnd();
+              ɵɵembeddedViewEnd();
             }
-            containerRefreshEnd();
-            containerRefreshStart(2);
+            ɵɵcontainerRefreshEnd();
+            ɵɵcontainerRefreshStart(2);
             {
-              const rf0 = embeddedViewStart(0, 3, 0);
+              const rf0 = ɵɵembeddedViewStart(0, 3, 0);
               { showTree(rf0, {tree: ctx.afterTree}); }
-              embeddedViewEnd();
+              ɵɵembeddedViewEnd();
             }
-            containerRefreshEnd();
+            ɵɵcontainerRefreshEnd();
           }
         },
         factory: () => new ChildComponent,
@@ -1192,20 +1192,20 @@ describe('render3 integration test', () => {
 
     function parentTemplate(rf: RenderFlags, ctx: ParentCtx) {
       if (rf & RenderFlags.Create) {
-        elementStart(0, 'child');
-        { container(1); }
-        elementEnd();
+        ɵɵelementStart(0, 'child');
+        { ɵɵcontainer(1); }
+        ɵɵelementEnd();
       }
       if (rf & RenderFlags.Update) {
-        elementProperty(0, 'beforeTree', bind(ctx.beforeTree));
-        elementProperty(0, 'afterTree', bind(ctx.afterTree));
-        containerRefreshStart(1);
+        ɵɵelementProperty(0, 'beforeTree', ɵɵbind(ctx.beforeTree));
+        ɵɵelementProperty(0, 'afterTree', ɵɵbind(ctx.afterTree));
+        ɵɵcontainerRefreshStart(1);
         {
-          const rf0 = embeddedViewStart(0, 3, 0);
+          const rf0 = ɵɵembeddedViewStart(0, 3, 0);
           { showTree(rf0, {tree: ctx.projectedTree}); }
-          embeddedViewEnd();
+          ɵɵembeddedViewEnd();
         }
-        containerRefreshEnd();
+        ɵɵcontainerRefreshEnd();
       }
     }
 
@@ -1238,10 +1238,10 @@ describe('render3 integration test', () => {
       it('should support attribute bindings', () => {
         const App = createComponent('app', function(rf: RenderFlags, ctx: any) {
           if (rf & RenderFlags.Create) {
-            element(0, 'span');
+            ɵɵelement(0, 'span');
           }
           if (rf & RenderFlags.Update) {
-            elementAttribute(0, 'title', bind(ctx.title));
+            ɵɵelementAttribute(0, 'title', ɵɵbind(ctx.title));
           }
         }, 1, 1);
 
@@ -1265,10 +1265,10 @@ describe('render3 integration test', () => {
       it('should stringify values used attribute bindings', () => {
         const App = createComponent('app', function(rf: RenderFlags, ctx: any) {
           if (rf & RenderFlags.Create) {
-            element(0, 'span');
+            ɵɵelement(0, 'span');
           }
           if (rf & RenderFlags.Update) {
-            elementAttribute(0, 'title', bind(ctx.title));
+            ɵɵelementAttribute(0, 'title', ɵɵbind(ctx.title));
           }
         }, 1, 1);
 
@@ -1285,29 +1285,30 @@ describe('render3 integration test', () => {
       it('should update bindings', () => {
         function Template(rf: RenderFlags, c: any) {
           if (rf & RenderFlags.Create) {
-            element(0, 'b');
+            ɵɵelement(0, 'b');
           }
           if (rf & RenderFlags.Update) {
-            elementAttribute(0, 'a', interpolationV(c));
-            elementAttribute(0, 'a0', bind(c[1]));
-            elementAttribute(0, 'a1', interpolation1(c[0], c[1], c[16]));
-            elementAttribute(0, 'a2', interpolation2(c[0], c[1], c[2], c[3], c[16]));
-            elementAttribute(0, 'a3', interpolation3(c[0], c[1], c[2], c[3], c[4], c[5], c[16]));
-            elementAttribute(
-                0, 'a4', interpolation4(c[0], c[1], c[2], c[3], c[4], c[5], c[6], c[7], c[16]));
-            elementAttribute(
-                0, 'a5',
-                interpolation5(c[0], c[1], c[2], c[3], c[4], c[5], c[6], c[7], c[8], c[9], c[16]));
-            elementAttribute(
-                0, 'a6', interpolation6(
+            ɵɵelementAttribute(0, 'a', ɵɵinterpolationV(c));
+            ɵɵelementAttribute(0, 'a0', ɵɵbind(c[1]));
+            ɵɵelementAttribute(0, 'a1', ɵɵinterpolation1(c[0], c[1], c[16]));
+            ɵɵelementAttribute(0, 'a2', ɵɵinterpolation2(c[0], c[1], c[2], c[3], c[16]));
+            ɵɵelementAttribute(
+                0, 'a3', ɵɵinterpolation3(c[0], c[1], c[2], c[3], c[4], c[5], c[16]));
+            ɵɵelementAttribute(
+                0, 'a4', ɵɵinterpolation4(c[0], c[1], c[2], c[3], c[4], c[5], c[6], c[7], c[16]));
+            ɵɵelementAttribute(
+                0, 'a5', ɵɵinterpolation5(
+                             c[0], c[1], c[2], c[3], c[4], c[5], c[6], c[7], c[8], c[9], c[16]));
+            ɵɵelementAttribute(
+                0, 'a6', ɵɵinterpolation6(
                              c[0], c[1], c[2], c[3], c[4], c[5], c[6], c[7], c[8], c[9], c[10],
                              c[11], c[16]));
-            elementAttribute(
-                0, 'a7', interpolation7(
+            ɵɵelementAttribute(
+                0, 'a7', ɵɵinterpolation7(
                              c[0], c[1], c[2], c[3], c[4], c[5], c[6], c[7], c[8], c[9], c[10],
                              c[11], c[12], c[13], c[16]));
-            elementAttribute(
-                0, 'a8', interpolation8(
+            ɵɵelementAttribute(
+                0, 'a8', ɵɵinterpolation8(
                              c[0], c[1], c[2], c[3], c[4], c[5], c[6], c[7], c[8], c[9], c[10],
                              c[11], c[12], c[13], c[14], c[15], c[16]));
           }
@@ -1331,30 +1332,30 @@ describe('render3 integration test', () => {
 
         const App = createComponent('app', function(rf: RenderFlags, ctx: any) {
           if (rf & RenderFlags.Create) {
-            elementStart(0, 'span');
-            container(1);
-            elementEnd();
+            ɵɵelementStart(0, 'span');
+            ɵɵcontainer(1);
+            ɵɵelementEnd();
           }
           if (rf & RenderFlags.Update) {
-            elementAttribute(0, 'title', bind(ctx.title));
-            containerRefreshStart(1);
+            ɵɵelementAttribute(0, 'title', ɵɵbind(ctx.title));
+            ɵɵcontainerRefreshStart(1);
             {
               if (true) {
-                let rf1 = embeddedViewStart(1, 1, 1);
+                let rf1 = ɵɵembeddedViewStart(1, 1, 1);
                 {
                   if (rf1 & RenderFlags.Create) {
-                    elementStart(0, 'b');
+                    ɵɵelementStart(0, 'b');
                     {}
-                    elementEnd();
+                    ɵɵelementEnd();
                   }
                   if (rf1 & RenderFlags.Update) {
-                    elementAttribute(0, 'title', bind(ctx.title));
+                    ɵɵelementAttribute(0, 'title', ɵɵbind(ctx.title));
                   }
                 }
-                embeddedViewEnd();
+                ɵɵembeddedViewEnd();
               }
             }
-            containerRefreshEnd();
+            ɵɵcontainerRefreshEnd();
           }
         }, 2, 1);
 
@@ -1382,7 +1383,7 @@ describe('render3 integration test', () => {
           /* @HostBinding('attr.aria-label') */
           label = 'some label';
 
-          static ngDirectiveDef = defineDirective({
+          static ngDirectiveDef = ɵɵdefineDirective({
             type: HostBindingDir,
             selectors: [['', 'hostBindingDir', '']],
             factory: function HostBindingDir_Factory() {
@@ -1391,10 +1392,10 @@ describe('render3 integration test', () => {
             hostBindings: function HostBindingDir_HostBindings(
                 rf: RenderFlags, ctx: any, elIndex: number) {
               if (rf & RenderFlags.Create) {
-                allocHostVars(1);
+                ɵɵallocHostVars(1);
               }
               if (rf & RenderFlags.Update) {
-                elementAttribute(elIndex, 'aria-label', bind(ctx.label));
+                ɵɵelementAttribute(elIndex, 'aria-label', ɵɵbind(ctx.label));
               }
             }
           });
@@ -1402,7 +1403,7 @@ describe('render3 integration test', () => {
 
         const App = createComponent('app', function(rf: RenderFlags, ctx: any) {
           if (rf & RenderFlags.Create) {
-            element(0, 'div', ['hostBindingDir', '']);
+            ɵɵelement(0, 'div', ['hostBindingDir', '']);
           }
         }, 1, 0, [HostBindingDir]);
 
@@ -1419,13 +1420,14 @@ describe('render3 integration test', () => {
       it('should support binding to styles', () => {
         const App = createComponent('app', function(rf: RenderFlags, ctx: any) {
           if (rf & RenderFlags.Create) {
-            elementStart(0, 'span');
-            elementStyling(null, ['border-color']);
-            elementEnd();
+            ɵɵelementStart(0, 'span');
+            ɵɵstyling(null, ['border-color']);
+            ɵɵelementEnd();
           }
           if (rf & RenderFlags.Update) {
-            elementStyleProp(0, 0, ctx.color);
-            elementStylingApply(0);
+            ɵɵselect(0);
+            ɵɵstyleProp(0, ctx.color);
+            ɵɵstylingApply();
           }
         }, 1);
 
@@ -1446,13 +1448,14 @@ describe('render3 integration test', () => {
       it('should support binding to styles with suffix', () => {
         const App = createComponent('app', function(rf: RenderFlags, ctx: any) {
           if (rf & RenderFlags.Create) {
-            elementStart(0, 'span');
-            elementStyling(null, ['font-size']);
-            elementEnd();
+            ɵɵelementStart(0, 'span');
+            ɵɵstyling(null, ['font-size']);
+            ɵɵelementEnd();
           }
           if (rf & RenderFlags.Update) {
-            elementStyleProp(0, 0, ctx.time, 'px');
-            elementStylingApply(0);
+            ɵɵselect(0);
+            ɵɵstyleProp(0, ctx.time, 'px');
+            ɵɵstylingApply();
           }
         }, 1);
 
@@ -1480,13 +1483,14 @@ describe('render3 integration test', () => {
         /** <span [class.active]="class"></span> */
         const App = createComponent('app', function(rf: RenderFlags, ctx: any) {
           if (rf & RenderFlags.Create) {
-            elementStart(0, 'span');
-            elementStyling(['active']);
-            elementEnd();
+            ɵɵelementStart(0, 'span');
+            ɵɵstyling(['active']);
+            ɵɵelementEnd();
           }
           if (rf & RenderFlags.Update) {
-            elementClassProp(0, 0, ctx.class);
-            elementStylingApply(0);
+            ɵɵselect(0);
+            ɵɵclassProp(0, ctx.class);
+            ɵɵstylingApply();
           }
         }, 1);
 
@@ -1521,13 +1525,14 @@ describe('render3 integration test', () => {
       it('should work correctly with existing static classes', () => {
         const App = createComponent('app', function(rf: RenderFlags, ctx: any) {
           if (rf & RenderFlags.Create) {
-            elementStart(0, 'span', [AttributeMarker.Classes, 'existing']);
-            elementStyling(['existing', 'active']);
-            elementEnd();
+            ɵɵelementStart(0, 'span', [AttributeMarker.Classes, 'existing']);
+            ɵɵstyling(['existing', 'active']);
+            ɵɵelementEnd();
           }
           if (rf & RenderFlags.Update) {
-            elementClassProp(0, 1, ctx.class);
-            elementStylingApply(0);
+            ɵɵselect(0);
+            ɵɵclassProp(1, ctx.class);
+            ɵɵstylingApply();
           }
         }, 1);
 
@@ -1544,7 +1549,7 @@ describe('render3 integration test', () => {
       it('should apply classes properly when nodes are components', () => {
         const MyComp = createComponent('my-comp', (rf: RenderFlags, ctx: any) => {
           if (rf & RenderFlags.Create) {
-            text(0, 'Comp Content');
+            ɵɵtext(0, 'Comp Content');
           }
         }, 1, 0, []);
 
@@ -1553,13 +1558,14 @@ describe('render3 integration test', () => {
          */
         const App = createComponent('app', function(rf: RenderFlags, ctx: any) {
           if (rf & RenderFlags.Create) {
-            elementStart(0, 'my-comp');
-            elementStyling(['active']);
-            elementEnd();
+            ɵɵelementStart(0, 'my-comp');
+            ɵɵstyling(['active']);
+            ɵɵelementEnd();
           }
           if (rf & RenderFlags.Update) {
-            elementClassProp(0, 0, ctx.class);
-            elementStylingApply(0);
+            ɵɵselect(0);
+            ɵɵclassProp(0, ctx.class);
+            ɵɵstylingApply();
           }
         }, 1, 0, [MyComp]);
 
@@ -1583,17 +1589,17 @@ describe('render3 integration test', () => {
 
           create() { this.vcr.createEmbeddedView(this.tmp); }
 
-          static ngComponentDef = defineComponent({
+          static ngComponentDef = ɵɵdefineComponent({
             type: StructuralComp,
             selectors: [['structural-comp']],
             factory: () => structuralComp =
-                         new StructuralComp(directiveInject(ViewContainerRef as any)),
+                         new StructuralComp(ɵɵdirectiveInject(ViewContainerRef as any)),
             inputs: {tmp: 'tmp'},
             consts: 1,
             vars: 0,
             template: (rf: RenderFlags, ctx: StructuralComp) => {
               if (rf & RenderFlags.Create) {
-                text(0, 'Comp Content');
+                ɵɵtext(0, 'Comp Content');
               }
             }
           });
@@ -1601,7 +1607,7 @@ describe('render3 integration test', () => {
 
         function FooTemplate(rf: RenderFlags, ctx: any) {
           if (rf & RenderFlags.Create) {
-            text(0, 'Temp Content');
+            ɵɵtext(0, 'Temp Content');
           }
         }
 
@@ -1613,16 +1619,18 @@ describe('render3 integration test', () => {
          */
         const App = createComponent('app', function(rf: RenderFlags, ctx: any) {
           if (rf & RenderFlags.Create) {
-            template(0, FooTemplate, 1, 0, 'ng-template', null, ['foo', ''], templateRefExtractor);
-            elementStart(2, 'structural-comp');
-            elementStyling(['active']);
-            elementEnd();
+            ɵɵtemplate(
+                0, FooTemplate, 1, 0, 'ng-template', null, ['foo', ''], ɵɵtemplateRefExtractor);
+            ɵɵelementStart(2, 'structural-comp');
+            ɵɵstyling(['active']);
+            ɵɵelementEnd();
           }
           if (rf & RenderFlags.Update) {
-            const foo = reference(1) as any;
-            elementClassProp(2, 0, ctx.class);
-            elementStylingApply(2);
-            elementProperty(2, 'tmp', bind(foo));
+            const foo = ɵɵreference(1) as any;
+            ɵɵselect(2);
+            ɵɵclassProp(0, ctx.class);
+            ɵɵstylingApply();
+            ɵɵelementProperty(2, 'tmp', ɵɵbind(foo));
           }
         }, 3, 1, [StructuralComp]);
 
@@ -1645,7 +1653,7 @@ describe('render3 integration test', () => {
 
       let mockClassDirective: DirWithClassDirective;
       class DirWithClassDirective {
-        static ngDirectiveDef = defineDirective({
+        static ngDirectiveDef = ɵɵdefineDirective({
           type: DirWithClassDirective,
           selectors: [['', 'DirWithClass', '']],
           factory: () => mockClassDirective = new DirWithClassDirective(),
@@ -1658,7 +1666,7 @@ describe('render3 integration test', () => {
 
       let mockStyleDirective: DirWithStyleDirective;
       class DirWithStyleDirective {
-        static ngDirectiveDef = defineDirective({
+        static ngDirectiveDef = ɵɵdefineDirective({
           type: DirWithStyleDirective,
           selectors: [['', 'DirWithStyle', '']],
           factory: () => mockStyleDirective = new DirWithStyleDirective(),
@@ -1676,14 +1684,15 @@ describe('render3 integration test', () => {
             */
            const App = createComponent('app', function(rf: RenderFlags, ctx: any) {
              if (rf & RenderFlags.Create) {
-               elementStart(
+               ɵɵelementStart(
                    0, 'div',
-                   ['DirWithClass', AttributeMarker.Classes, 'apple', 'orange', 'banana']);
-               elementStyling();
-               elementEnd();
+                   ['DirWithClass', '', AttributeMarker.Classes, 'apple', 'orange', 'banana']);
+               ɵɵstyling();
+               ɵɵelementEnd();
              }
              if (rf & RenderFlags.Update) {
-               elementStylingApply(0);
+               ɵɵselect(0);
+               ɵɵstylingApply();
              }
            }, 1, 0, [DirWithClassDirective]);
 
@@ -1698,14 +1707,15 @@ describe('render3 integration test', () => {
             */
            const App = createComponent('app', function(rf: RenderFlags, ctx: any) {
              if (rf & RenderFlags.Create) {
-               elementStart(
-                   0, 'div',
-                   ['DirWithStyle', AttributeMarker.Styles, 'width', '100px', 'height', '200px']);
-               elementStyling();
-               elementEnd();
+               ɵɵelementStart(0, 'div', [
+                 'DirWithStyle', '', AttributeMarker.Styles, 'width', '100px', 'height', '200px'
+               ]);
+               ɵɵstyling();
+               ɵɵelementEnd();
              }
              if (rf & RenderFlags.Update) {
-               elementStylingApply(0);
+               ɵɵselect(0);
+               ɵɵstylingApply();
              }
            }, 1, 0, [DirWithStyleDirective]);
 
@@ -1720,13 +1730,14 @@ describe('render3 integration test', () => {
            */
            const App = createComponent('app', function(rf: RenderFlags, ctx: any) {
              if (rf & RenderFlags.Create) {
-               elementStart(0, 'div', ['DirWithClass']);
-               elementStyling();
-               elementEnd();
+               ɵɵelementStart(0, 'div', ['DirWithClass']);
+               ɵɵstyling();
+               ɵɵelementEnd();
              }
              if (rf & RenderFlags.Update) {
-               elementStylingMap(0, 'cucumber grape');
-               elementStylingApply(0);
+               ɵɵselect(0);
+               ɵɵclassMap('cucumber grape');
+               ɵɵstylingApply();
              }
            }, 1, 0, [DirWithClassDirective]);
 
@@ -1741,13 +1752,14 @@ describe('render3 integration test', () => {
            */
            const App = createComponent('app', function(rf: RenderFlags, ctx: any) {
              if (rf & RenderFlags.Create) {
-               elementStart(0, 'div', ['DirWithStyle']);
-               elementStyling();
-               elementEnd();
+               ɵɵelementStart(0, 'div', ['DirWithStyle']);
+               ɵɵstyling();
+               ɵɵelementEnd();
              }
              if (rf & RenderFlags.Update) {
-               elementStylingMap(0, null, {width: '200px', height: '500px'});
-               elementStylingApply(0);
+               ɵɵselect(0);
+               ɵɵstyleMap({width: '200px', height: '500px'});
+               ɵɵstylingApply();
              }
            }, 1, 0, [DirWithStyleDirective]);
 
@@ -1758,14 +1770,14 @@ describe('render3 integration test', () => {
       it('should apply initial styling to the element that contains the directive with host styling',
          () => {
            class DirWithInitialStyling {
-             static ngDirectiveDef = defineDirective({
+             static ngDirectiveDef = ɵɵdefineDirective({
                type: DirWithInitialStyling,
                selectors: [['', 'DirWithInitialStyling', '']],
                factory: () => new DirWithInitialStyling(),
                hostBindings: function(
                    rf: RenderFlags, ctx: DirWithInitialStyling, elementIndex: number) {
                  if (rf & RenderFlags.Create) {
-                   elementHostAttrs(ctx, [
+                   ɵɵelementHostAttrs([
                      'title', 'foo', AttributeMarker.Classes, 'heavy', 'golden',
                      AttributeMarker.Styles, 'color', 'purple', 'font-weight', 'bold'
                    ]);
@@ -1783,7 +1795,7 @@ describe('render3 integration test', () => {
            */
            const App = createComponent('app', function(rf: RenderFlags, ctx: any) {
              if (rf & RenderFlags.Create) {
-               element(0, 'div', [
+               ɵɵelement(0, 'div', [
                  'DirWithInitialStyling', '', AttributeMarker.Classes, 'big',
                  AttributeMarker.Styles, 'color', 'black', 'font-size', '200px'
                ]);
@@ -1809,23 +1821,22 @@ describe('render3 integration test', () => {
             * [style.height]></my-comp>
            */
            class DirWithSingleStylingBindings {
-             static ngDirectiveDef = defineDirective({
+             static ngDirectiveDef = ɵɵdefineDirective({
                type: DirWithSingleStylingBindings,
                selectors: [['', 'DirWithSingleStylingBindings', '']],
                factory: () => dirInstance = new DirWithSingleStylingBindings(),
                hostBindings: function(
                    rf: RenderFlags, ctx: DirWithSingleStylingBindings, elementIndex: number) {
                  if (rf & RenderFlags.Create) {
-                   elementHostAttrs(
-                       ctx,
+                   ɵɵelementHostAttrs(
                        [AttributeMarker.Classes, 'def', AttributeMarker.Styles, 'width', '555px']);
-                   elementStyling(['xyz'], ['width', 'height'], null, ctx);
+                   ɵɵstyling(['xyz'], ['width', 'height']);
                  }
                  if (rf & RenderFlags.Update) {
-                   elementStyleProp(elementIndex, 0, ctx.width, null, ctx);
-                   elementStyleProp(elementIndex, 1, ctx.height, null, ctx);
-                   elementClassProp(elementIndex, 0, ctx.activateXYZClass, ctx);
-                   elementStylingApply(elementIndex, ctx);
+                   ɵɵstyleProp(0, ctx.width);
+                   ɵɵstyleProp(1, ctx.height);
+                   ɵɵclassProp(0, ctx.activateXYZClass);
+                   ɵɵstylingApply();
                  }
                }
              });
@@ -1841,7 +1852,7 @@ describe('render3 integration test', () => {
            */
            const App = createComponent('app', function(rf: RenderFlags, ctx: any) {
              if (rf & RenderFlags.Create) {
-               element(0, 'div', [
+               ɵɵelement(0, 'div', [
                  'DirWithSingleStylingBindings', '', AttributeMarker.Classes, 'abc',
                  AttributeMarker.Styles, 'width', '100px', 'height', '200px'
                ]);
@@ -1886,17 +1897,17 @@ describe('render3 integration test', () => {
             *   [style.width]
            */
            class Dir1WithStyle {
-             static ngDirectiveDef = defineDirective({
+             static ngDirectiveDef = ɵɵdefineDirective({
                type: Dir1WithStyle,
                selectors: [['', 'Dir1WithStyle', '']],
                factory: () => dir1Instance = new Dir1WithStyle(),
                hostBindings: function(rf: RenderFlags, ctx: Dir1WithStyle, elementIndex: number) {
                  if (rf & RenderFlags.Create) {
-                   elementStyling(null, ['width'], null, ctx);
+                   ɵɵstyling(null, ['width']);
                  }
                  if (rf & RenderFlags.Update) {
-                   elementStyleProp(elementIndex, 0, ctx.width, null, ctx);
-                   elementStylingApply(elementIndex, ctx);
+                   ɵɵstyleProp(0, ctx.width);
+                   ɵɵstylingApply();
                  }
                }
              });
@@ -1910,18 +1921,18 @@ describe('render3 integration test', () => {
             *   style="width:111px"
            */
            class Dir2WithStyle {
-             static ngDirectiveDef = defineDirective({
+             static ngDirectiveDef = ɵɵdefineDirective({
                type: Dir2WithStyle,
                selectors: [['', 'Dir2WithStyle', '']],
                factory: () => dir2Instance = new Dir2WithStyle(),
                hostBindings: function(rf: RenderFlags, ctx: Dir2WithStyle, elementIndex: number) {
                  if (rf & RenderFlags.Create) {
-                   elementHostAttrs(ctx, [AttributeMarker.Styles, 'width', '111px']);
-                   elementStyling(null, ['width'], null, ctx);
+                   ɵɵelementHostAttrs([AttributeMarker.Styles, 'width', '111px']);
+                   ɵɵstyling(null, ['width']);
                  }
                  if (rf & RenderFlags.Update) {
-                   elementStyleProp(elementIndex, 0, ctx.width, null, ctx);
-                   elementStylingApply(elementIndex, ctx);
+                   ɵɵstyleProp(0, ctx.width);
+                   ɵɵstylingApply();
                  }
                }
              });
@@ -1934,12 +1945,13 @@ describe('render3 integration test', () => {
            */
            const App = createComponent('app', function(rf: RenderFlags, ctx: any) {
              if (rf & RenderFlags.Create) {
-               element(0, 'div', ['Dir1WithStyle', '', 'Dir2WithStyle', '']);
-               elementStyling(null, ['width']);
+               ɵɵelement(0, 'div', ['Dir1WithStyle', '', 'Dir2WithStyle', '']);
+               ɵɵstyling(null, ['width']);
              }
              if (rf & RenderFlags.Update) {
-               elementStyleProp(0, 0, ctx.width);
-               elementStylingApply(0);
+               ɵɵselect(0);
+               ɵɵstyleProp(0, ctx.width);
+               ɵɵstylingApply();
              }
            }, 1, 0, [Dir1WithStyle, Dir2WithStyle]);
 
@@ -1983,17 +1995,18 @@ describe('render3 integration test', () => {
             *   [class]
            */
            class Dir1WithStyling {
-             static ngDirectiveDef = defineDirective({
+             static ngDirectiveDef = ɵɵdefineDirective({
                type: Dir1WithStyling,
                selectors: [['', 'Dir1WithStyling', '']],
                factory: () => dir1Instance = new Dir1WithStyling(),
                hostBindings: function(rf: RenderFlags, ctx: Dir1WithStyling, elementIndex: number) {
                  if (rf & RenderFlags.Create) {
-                   elementStyling(null, null, null, ctx);
+                   ɵɵstyling();
                  }
                  if (rf & RenderFlags.Update) {
-                   elementStylingMap(elementIndex, ctx.classesExp, ctx.stylesExp, ctx);
-                   elementStylingApply(elementIndex, ctx);
+                   ɵɵstyleMap(ctx.stylesExp);
+                   ɵɵclassMap(ctx.classesExp);
+                   ɵɵstylingApply();
                  }
                }
              });
@@ -2009,18 +2022,18 @@ describe('render3 integration test', () => {
             *   style="width:111px"
            */
            class Dir2WithStyling {
-             static ngDirectiveDef = defineDirective({
+             static ngDirectiveDef = ɵɵdefineDirective({
                type: Dir2WithStyling,
                selectors: [['', 'Dir2WithStyling', '']],
                factory: () => dir2Instance = new Dir2WithStyling(),
                hostBindings: function(rf: RenderFlags, ctx: Dir2WithStyling, elementIndex: number) {
                  if (rf & RenderFlags.Create) {
-                   elementHostAttrs(ctx, [AttributeMarker.Styles, 'width', '111px']);
-                   elementStyling(null, null, null, ctx);
+                   ɵɵelementHostAttrs([AttributeMarker.Styles, 'width', '111px']);
+                   ɵɵstyling();
                  }
                  if (rf & RenderFlags.Update) {
-                   elementStylingMap(elementIndex, null, ctx.stylesExp, ctx);
-                   elementStylingApply(elementIndex, ctx);
+                   ɵɵstyleMap(ctx.stylesExp);
+                   ɵɵstylingApply();
                  }
                }
              });
@@ -2034,12 +2047,14 @@ describe('render3 integration test', () => {
            */
            const App = createComponent('app', function(rf: RenderFlags, ctx: any) {
              if (rf & RenderFlags.Create) {
-               element(0, 'div', ['Dir1WithStyling', '', 'Dir2WithStyling', '']);
-               elementStyling();
+               ɵɵelement(0, 'div', ['Dir1WithStyling', '', 'Dir2WithStyling', '']);
+               ɵɵstyling();
              }
              if (rf & RenderFlags.Update) {
-               elementStylingMap(0, ctx.classesExp, ctx.stylesExp);
-               elementStylingApply(0);
+               ɵɵselect(0);
+               ɵɵstyleMap(ctx.stylesExp);
+               ɵɵclassMap(ctx.classesExp);
+               ɵɵstylingApply();
              }
            }, 1, 0, [Dir1WithStyling, Dir2WithStyling]);
 
@@ -2110,13 +2125,14 @@ describe('render3 integration test', () => {
     it('should properly handle and render interpolation for class attribute bindings', () => {
       const App = createComponent('app', function(rf: RenderFlags, ctx: any) {
         if (rf & RenderFlags.Create) {
-          elementStart(0, 'div');
-          elementStyling();
-          elementEnd();
+          ɵɵelementStart(0, 'div');
+          ɵɵstyling();
+          ɵɵelementEnd();
         }
         if (rf & RenderFlags.Update) {
-          elementStylingMap(0, interpolation2('-', ctx.name, '-', ctx.age, '-'));
-          elementStylingApply(0);
+          ɵɵselect(0);
+          ɵɵclassMap(ɵɵinterpolation2('-', ctx.name, '-', ctx.age, '-'));
+          ɵɵstylingApply();
         }
       }, 1, 2);
 
@@ -2143,20 +2159,20 @@ describe('template data', () => {
      */
     function Template(rf: RenderFlags, ctx: any) {
       if (rf & RenderFlags.Create) {
-        container(0);
+        ɵɵcontainer(0);
       }
       if (rf & RenderFlags.Update) {
-        containerRefreshStart(0);
+        ɵɵcontainerRefreshStart(0);
         {
           if (ctx.condition) {
-            let rf1 = embeddedViewStart(0, 1, 0);
+            let rf1 = ɵɵembeddedViewStart(0, 1, 0);
             if (rf1 & RenderFlags.Create) {
-              element(0, 'div');
+              ɵɵelement(0, 'div');
             }
-            embeddedViewEnd();
+            ɵɵembeddedViewEnd();
           }
         }
-        containerRefreshEnd();
+        ɵɵcontainerRefreshEnd();
       }
     }
 
@@ -2186,7 +2202,7 @@ describe('template data', () => {
 describe('component styles', () => {
   it('should pass in the component styles directly into the underlying renderer', () => {
     class StyledComp {
-      static ngComponentDef = defineComponent({
+      static ngComponentDef = ɵɵdefineComponent({
         type: StyledComp,
         styles: ['div { color: red; }'],
         consts: 1,
@@ -2196,7 +2212,7 @@ describe('component styles', () => {
         factory: () => new StyledComp(),
         template: (rf: RenderFlags, ctx: StyledComp) => {
           if (rf & RenderFlags.Create) {
-            element(0, 'div');
+            ɵɵelement(0, 'div');
           }
         }
       });
@@ -2214,7 +2230,7 @@ describe('component animations', () => {
     const animB = {name: 'b'};
 
     class AnimComp {
-      static ngComponentDef = defineComponent({
+      static ngComponentDef = ɵɵdefineComponent({
         type: AnimComp,
         consts: 0,
         vars: 0,
@@ -2241,7 +2257,7 @@ describe('component animations', () => {
 
   it('should include animations in the renderType data array even if the array is empty', () => {
     class AnimComp {
-      static ngComponentDef = defineComponent({
+      static ngComponentDef = ɵɵdefineComponent({
         type: AnimComp,
         consts: 0,
         vars: 0,
@@ -2261,7 +2277,7 @@ describe('component animations', () => {
 
   it('should allow [@trigger] bindings to be picked up by the underlying renderer', () => {
     class AnimComp {
-      static ngComponentDef = defineComponent({
+      static ngComponentDef = ɵɵdefineComponent({
         type: AnimComp,
         consts: 1,
         vars: 1,
@@ -2269,10 +2285,10 @@ describe('component animations', () => {
         factory: () => new AnimComp(),
         template: (rf: RenderFlags, ctx: AnimComp) => {
           if (rf & RenderFlags.Create) {
-            element(0, 'div', [AttributeMarker.SelectOnly, '@fooAnimation']);
+            ɵɵelement(0, 'div', [AttributeMarker.Bindings, '@fooAnimation']);
           }
           if (rf & RenderFlags.Update) {
-            elementAttribute(0, '@fooAnimation', bind(ctx.animationValue));
+            ɵɵelementAttribute(0, '@fooAnimation', ɵɵbind(ctx.animationValue));
           }
         }
       });
@@ -2297,7 +2313,7 @@ describe('component animations', () => {
   it('should allow creation-level [@trigger] properties to be picked up by the underlying renderer',
      () => {
        class AnimComp {
-         static ngComponentDef = defineComponent({
+         static ngComponentDef = ɵɵdefineComponent({
            type: AnimComp,
            consts: 1,
            vars: 1,
@@ -2305,7 +2321,7 @@ describe('component animations', () => {
            factory: () => new AnimComp(),
            template: (rf: RenderFlags, ctx: AnimComp) => {
              if (rf & RenderFlags.Create) {
-               element(0, 'div', ['@fooAnimation', '']);
+               ɵɵelement(0, 'div', ['@fooAnimation', '']);
              }
            }
          });
@@ -2324,13 +2340,13 @@ describe('component animations', () => {
 
   it('should allow host binding animations to be picked up and rendered', () => {
     class ChildCompWithAnim {
-      static ngDirectiveDef = defineDirective({
+      static ngDirectiveDef = ɵɵdefineDirective({
         type: ChildCompWithAnim,
         factory: () => new ChildCompWithAnim(),
         selectors: [['child-comp-with-anim']],
         hostBindings: function(rf: RenderFlags, ctx: any, elementIndex: number): void {
           if (rf & RenderFlags.Update) {
-            elementProperty(0, '@fooAnim', ctx.exp);
+            ɵɵelementProperty(0, '@fooAnim', ctx.exp);
           }
         },
       });
@@ -2339,7 +2355,7 @@ describe('component animations', () => {
     }
 
     class ParentComp {
-      static ngComponentDef = defineComponent({
+      static ngComponentDef = ɵɵdefineComponent({
         type: ParentComp,
         consts: 1,
         vars: 1,
@@ -2347,7 +2363,7 @@ describe('component animations', () => {
         factory: () => new ParentComp(),
         template: (rf: RenderFlags, ctx: ParentComp) => {
           if (rf & RenderFlags.Create) {
-            element(0, 'child-comp-with-anim');
+            ɵɵelement(0, 'child-comp-with-anim');
           }
         },
         directives: [ChildCompWithAnim]
@@ -2369,7 +2385,7 @@ describe('component animations', () => {
 describe('element discovery', () => {
   it('should only monkey-patch immediate child nodes in a component', () => {
     class StructuredComp {
-      static ngComponentDef = defineComponent({
+      static ngComponentDef = ɵɵdefineComponent({
         type: StructuredComp,
         selectors: [['structured-comp']],
         factory: () => new StructuredComp(),
@@ -2377,10 +2393,10 @@ describe('element discovery', () => {
         vars: 0,
         template: (rf: RenderFlags, ctx: StructuredComp) => {
           if (rf & RenderFlags.Create) {
-            elementStart(0, 'div');
-            elementStart(1, 'p');
-            elementEnd();
-            elementEnd();
+            ɵɵelementStart(0, 'div');
+            ɵɵelementStart(1, 'p');
+            ɵɵelementEnd();
+            ɵɵelementEnd();
           }
           if (rf & RenderFlags.Update) {
           }
@@ -2401,7 +2417,7 @@ describe('element discovery', () => {
 
   it('should only monkey-patch immediate child nodes in a sub component', () => {
     class ChildComp {
-      static ngComponentDef = defineComponent({
+      static ngComponentDef = ɵɵdefineComponent({
         type: ChildComp,
         selectors: [['child-comp']],
         factory: () => new ChildComp(),
@@ -2409,16 +2425,16 @@ describe('element discovery', () => {
         vars: 0,
         template: (rf: RenderFlags, ctx: ChildComp) => {
           if (rf & RenderFlags.Create) {
-            element(0, 'div');
-            element(1, 'div');
-            element(2, 'div');
+            ɵɵelement(0, 'div');
+            ɵɵelement(1, 'div');
+            ɵɵelement(2, 'div');
           }
         }
       });
     }
 
     class ParentComp {
-      static ngComponentDef = defineComponent({
+      static ngComponentDef = ɵɵdefineComponent({
         type: ParentComp,
         selectors: [['parent-comp']],
         directives: [ChildComp],
@@ -2427,10 +2443,10 @@ describe('element discovery', () => {
         vars: 0,
         template: (rf: RenderFlags, ctx: ParentComp) => {
           if (rf & RenderFlags.Create) {
-            elementStart(0, 'section');
-            elementStart(1, 'child-comp');
-            elementEnd();
-            elementEnd();
+            ɵɵelementStart(0, 'section');
+            ɵɵelementStart(1, 'child-comp');
+            ɵɵelementEnd();
+            ɵɵelementEnd();
           }
         }
       });
@@ -2451,7 +2467,7 @@ describe('element discovery', () => {
 
   it('should only monkey-patch immediate child nodes in an embedded template container', () => {
     class StructuredComp {
-      static ngComponentDef = defineComponent({
+      static ngComponentDef = ɵɵdefineComponent({
         type: StructuredComp,
         selectors: [['structured-comp']],
         directives: [NgIf],
@@ -2460,19 +2476,19 @@ describe('element discovery', () => {
         vars: 1,
         template: (rf: RenderFlags, ctx: StructuredComp) => {
           if (rf & RenderFlags.Create) {
-            elementStart(0, 'section');
-            template(1, (rf, ctx) => {
+            ɵɵelementStart(0, 'section');
+            ɵɵtemplate(1, (rf, ctx) => {
               if (rf & RenderFlags.Create) {
-                elementStart(0, 'div');
-                element(1, 'p');
-                elementEnd();
-                element(2, 'div');
+                ɵɵelementStart(0, 'div');
+                ɵɵelement(1, 'p');
+                ɵɵelementEnd();
+                ɵɵelement(2, 'div');
               }
             }, 3, 0, 'ng-template', ['ngIf', '']);
-            elementEnd();
+            ɵɵelementEnd();
           }
           if (rf & RenderFlags.Update) {
-            elementProperty(1, 'ngIf', true);
+            ɵɵelementProperty(1, 'ngIf', true);
           }
         }
       });
@@ -2499,7 +2515,7 @@ describe('element discovery', () => {
 
   it('should return a context object from a given dom node', () => {
     class StructuredComp {
-      static ngComponentDef = defineComponent({
+      static ngComponentDef = ɵɵdefineComponent({
         type: StructuredComp,
         selectors: [['structured-comp']],
         directives: [NgIf],
@@ -2508,8 +2524,8 @@ describe('element discovery', () => {
         vars: 0,
         template: (rf: RenderFlags, ctx: StructuredComp) => {
           if (rf & RenderFlags.Create) {
-            element(0, 'section');
-            element(1, 'div');
+            ɵɵelement(0, 'section');
+            ɵɵelement(1, 'div');
           }
         }
       });
@@ -2537,7 +2553,7 @@ describe('element discovery', () => {
 
   it('should cache the element context on a element was pre-emptively monkey-patched', () => {
     class StructuredComp {
-      static ngComponentDef = defineComponent({
+      static ngComponentDef = ɵɵdefineComponent({
         type: StructuredComp,
         selectors: [['structured-comp']],
         factory: () => new StructuredComp(),
@@ -2545,7 +2561,7 @@ describe('element discovery', () => {
         vars: 0,
         template: (rf: RenderFlags, ctx: StructuredComp) => {
           if (rf & RenderFlags.Create) {
-            element(0, 'section');
+            ɵɵelement(0, 'section');
           }
         }
       });
@@ -2569,7 +2585,7 @@ describe('element discovery', () => {
   it('should cache the element context on an intermediate element that isn\'t pre-emptively monkey-patched',
      () => {
        class StructuredComp {
-         static ngComponentDef = defineComponent({
+         static ngComponentDef = ɵɵdefineComponent({
            type: StructuredComp,
            selectors: [['structured-comp']],
            factory: () => new StructuredComp(),
@@ -2577,9 +2593,9 @@ describe('element discovery', () => {
            vars: 0,
            template: (rf: RenderFlags, ctx: StructuredComp) => {
              if (rf & RenderFlags.Create) {
-               elementStart(0, 'section');
-               element(1, 'p');
-               elementEnd();
+               ɵɵelementStart(0, 'section');
+               ɵɵelement(1, 'p');
+               ɵɵelementEnd();
              }
            }
          });
@@ -2602,7 +2618,7 @@ describe('element discovery', () => {
   it('should be able to pull in element context data even if the element is decorated using styling',
      () => {
        class StructuredComp {
-         static ngComponentDef = defineComponent({
+         static ngComponentDef = ɵɵdefineComponent({
            type: StructuredComp,
            selectors: [['structured-comp']],
            factory: () => new StructuredComp(),
@@ -2610,12 +2626,13 @@ describe('element discovery', () => {
            vars: 0,
            template: (rf: RenderFlags, ctx: StructuredComp) => {
              if (rf & RenderFlags.Create) {
-               elementStart(0, 'section');
-               elementStyling(['class-foo']);
-               elementEnd();
+               ɵɵelementStart(0, 'section');
+               ɵɵstyling(['class-foo']);
+               ɵɵelementEnd();
              }
              if (rf & RenderFlags.Update) {
-               elementStylingApply(0);
+               ɵɵselect(0);
+               ɵɵstylingApply();
              }
            }
          });
@@ -2656,7 +2673,7 @@ describe('element discovery', () => {
          </section>
        */
        class ProjectorComp {
-         static ngComponentDef = defineComponent({
+         static ngComponentDef = ɵɵdefineComponent({
            type: ProjectorComp,
            selectors: [['projector-comp']],
            factory: () => new ProjectorComp(),
@@ -2664,13 +2681,13 @@ describe('element discovery', () => {
            vars: 0,
            template: (rf: RenderFlags, ctx: ProjectorComp) => {
              if (rf & RenderFlags.Create) {
-               projectionDef();
-               text(0, 'welcome');
-               elementStart(1, 'header');
-               elementStart(2, 'h1');
-               projection(3);
-               elementEnd();
-               elementEnd();
+               ɵɵprojectionDef();
+               ɵɵtext(0, 'welcome');
+               ɵɵelementStart(1, 'header');
+               ɵɵelementStart(2, 'h1');
+               ɵɵprojection(3);
+               ɵɵelementEnd();
+               ɵɵelementEnd();
              }
              if (rf & RenderFlags.Update) {
              }
@@ -2679,7 +2696,7 @@ describe('element discovery', () => {
        }
 
        class ParentComp {
-         static ngComponentDef = defineComponent({
+         static ngComponentDef = ɵɵdefineComponent({
            type: ParentComp,
            selectors: [['parent-comp']],
            directives: [ProjectorComp],
@@ -2688,14 +2705,14 @@ describe('element discovery', () => {
            vars: 0,
            template: (rf: RenderFlags, ctx: ParentComp) => {
              if (rf & RenderFlags.Create) {
-               elementStart(0, 'section');
-               elementStart(1, 'projector-comp');
-               elementStart(2, 'p');
-               text(3, 'this content is projected');
-               elementEnd();
-               text(4, 'this content is projected also');
-               elementEnd();
-               elementEnd();
+               ɵɵelementStart(0, 'section');
+               ɵɵelementStart(1, 'projector-comp');
+               ɵɵelementStart(2, 'p');
+               ɵɵtext(3, 'this content is projected');
+               ɵɵelementEnd();
+               ɵɵtext(4, 'this content is projected also');
+               ɵɵelementEnd();
+               ɵɵelementEnd();
              }
            }
          });
@@ -2753,7 +2770,7 @@ describe('element discovery', () => {
   it('should return `null` when an element context is retrieved that is a DOM node that was not created by Angular',
      () => {
        class StructuredComp {
-         static ngComponentDef = defineComponent({
+         static ngComponentDef = ɵɵdefineComponent({
            type: StructuredComp,
            selectors: [['structured-comp']],
            factory: () => new StructuredComp(),
@@ -2761,7 +2778,7 @@ describe('element discovery', () => {
            vars: 0,
            template: (rf: RenderFlags, ctx: StructuredComp) => {
              if (rf & RenderFlags.Create) {
-               element(0, 'section');
+               ɵɵelement(0, 'section');
              }
            }
          });
@@ -2780,7 +2797,7 @@ describe('element discovery', () => {
 
   it('should by default monkey-patch the bootstrap component with context details', () => {
     class StructuredComp {
-      static ngComponentDef = defineComponent({
+      static ngComponentDef = ɵɵdefineComponent({
         type: StructuredComp,
         selectors: [['structured-comp']],
         factory: () => new StructuredComp(),
@@ -2819,7 +2836,7 @@ describe('element discovery', () => {
        let myDir3Instance: MyDir2|null = null;
 
        class MyDir1 {
-         static ngDirectiveDef = defineDirective({
+         static ngDirectiveDef = ɵɵdefineDirective({
            type: MyDir1,
            selectors: [['', 'my-dir-1', '']],
            factory: () => myDir1Instance = new MyDir1()
@@ -2827,7 +2844,7 @@ describe('element discovery', () => {
        }
 
        class MyDir2 {
-         static ngDirectiveDef = defineDirective({
+         static ngDirectiveDef = ɵɵdefineDirective({
            type: MyDir2,
            selectors: [['', 'my-dir-2', '']],
            factory: () => myDir2Instance = new MyDir2()
@@ -2835,7 +2852,7 @@ describe('element discovery', () => {
        }
 
        class MyDir3 {
-         static ngDirectiveDef = defineDirective({
+         static ngDirectiveDef = ɵɵdefineDirective({
            type: MyDir3,
            selectors: [['', 'my-dir-3', '']],
            factory: () => myDir3Instance = new MyDir2()
@@ -2843,7 +2860,7 @@ describe('element discovery', () => {
        }
 
        class StructuredComp {
-         static ngComponentDef = defineComponent({
+         static ngComponentDef = ɵɵdefineComponent({
            type: StructuredComp,
            selectors: [['structured-comp']],
            directives: [MyDir1, MyDir2, MyDir3],
@@ -2852,8 +2869,8 @@ describe('element discovery', () => {
            vars: 0,
            template: (rf: RenderFlags, ctx: StructuredComp) => {
              if (rf & RenderFlags.Create) {
-               element(0, 'div', ['my-dir-1', '', 'my-dir-2', '']);
-               element(1, 'div', ['my-dir-3']);
+               ɵɵelement(0, 'div', ['my-dir-1', '', 'my-dir-2', '']);
+               ɵɵelement(1, 'div', ['my-dir-3']);
              }
            }
          });
@@ -2908,7 +2925,7 @@ describe('element discovery', () => {
        let childComponentInstance: ChildComp|null = null;
 
        class MyDir1 {
-         static ngDirectiveDef = defineDirective({
+         static ngDirectiveDef = ɵɵdefineDirective({
            type: MyDir1,
            selectors: [['', 'my-dir-1', '']],
            factory: () => myDir1Instance = new MyDir1()
@@ -2916,7 +2933,7 @@ describe('element discovery', () => {
        }
 
        class MyDir2 {
-         static ngDirectiveDef = defineDirective({
+         static ngDirectiveDef = ɵɵdefineDirective({
            type: MyDir2,
            selectors: [['', 'my-dir-2', '']],
            factory: () => myDir2Instance = new MyDir2()
@@ -2924,7 +2941,7 @@ describe('element discovery', () => {
        }
 
        class ChildComp {
-         static ngComponentDef = defineComponent({
+         static ngComponentDef = ɵɵdefineComponent({
            type: ChildComp,
            selectors: [['child-comp']],
            factory: () => childComponentInstance = new ChildComp(),
@@ -2932,14 +2949,14 @@ describe('element discovery', () => {
            vars: 0,
            template: (rf: RenderFlags, ctx: ChildComp) => {
              if (rf & RenderFlags.Create) {
-               element(0, 'div');
+               ɵɵelement(0, 'div');
              }
            }
          });
        }
 
        class ParentComp {
-         static ngComponentDef = defineComponent({
+         static ngComponentDef = ɵɵdefineComponent({
            type: ParentComp,
            selectors: [['parent-comp']],
            directives: [ChildComp, MyDir1, MyDir2],
@@ -2948,7 +2965,7 @@ describe('element discovery', () => {
            vars: 0,
            template: (rf: RenderFlags, ctx: ParentComp) => {
              if (rf & RenderFlags.Create) {
-               element(0, 'child-comp', ['my-dir-1', '', 'my-dir-2', '']);
+               ɵɵelement(0, 'child-comp', ['my-dir-1', '', 'my-dir-2', '']);
              }
            }
          });
@@ -3001,7 +3018,7 @@ describe('element discovery', () => {
   it('should monkey-patch sub components with the view data and then replace them with the context result once a lookup occurs',
      () => {
        class ChildComp {
-         static ngComponentDef = defineComponent({
+         static ngComponentDef = ɵɵdefineComponent({
            type: ChildComp,
            selectors: [['child-comp']],
            factory: () => new ChildComp(),
@@ -3009,16 +3026,16 @@ describe('element discovery', () => {
            vars: 0,
            template: (rf: RenderFlags, ctx: ChildComp) => {
              if (rf & RenderFlags.Create) {
-               element(0, 'div');
-               element(1, 'div');
-               element(2, 'div');
+               ɵɵelement(0, 'div');
+               ɵɵelement(1, 'div');
+               ɵɵelement(2, 'div');
              }
            }
          });
        }
 
        class ParentComp {
-         static ngComponentDef = defineComponent({
+         static ngComponentDef = ɵɵdefineComponent({
            type: ParentComp,
            selectors: [['parent-comp']],
            directives: [ChildComp],
@@ -3027,10 +3044,10 @@ describe('element discovery', () => {
            vars: 0,
            template: (rf: RenderFlags, ctx: ParentComp) => {
              if (rf & RenderFlags.Create) {
-               elementStart(0, 'section');
-               elementStart(1, 'child-comp');
-               elementEnd();
-               elementEnd();
+               ɵɵelementStart(0, 'section');
+               ɵɵelementStart(1, 'child-comp');
+               ɵɵelementEnd();
+               ɵɵelementEnd();
              }
            }
          });
@@ -3062,7 +3079,7 @@ describe('element discovery', () => {
 describe('sanitization', () => {
   it('should sanitize data using the provided sanitization interface', () => {
     class SanitizationComp {
-      static ngComponentDef = defineComponent({
+      static ngComponentDef = ɵɵdefineComponent({
         type: SanitizationComp,
         selectors: [['sanitize-this']],
         factory: () => new SanitizationComp(),
@@ -3070,10 +3087,10 @@ describe('sanitization', () => {
         vars: 1,
         template: (rf: RenderFlags, ctx: SanitizationComp) => {
           if (rf & RenderFlags.Create) {
-            element(0, 'a');
+            ɵɵelement(0, 'a');
           }
           if (rf & RenderFlags.Update) {
-            elementProperty(0, 'href', bind(ctx.href), sanitizeUrl);
+            ɵɵelementProperty(0, 'href', ɵɵbind(ctx.href), ɵɵsanitizeUrl);
           }
         }
       });
@@ -3104,23 +3121,23 @@ describe('sanitization', () => {
       // @HostBinding()
       cite: any = 'http://cite-dir-value';
 
-      static ngDirectiveDef = defineDirective({
+      static ngDirectiveDef = ɵɵdefineDirective({
         type: UnsafeUrlHostBindingDir,
         selectors: [['', 'unsafeUrlHostBindingDir', '']],
         factory: () => hostBindingDir = new UnsafeUrlHostBindingDir(),
         hostBindings: (rf: RenderFlags, ctx: any, elementIndex: number) => {
           if (rf & RenderFlags.Create) {
-            allocHostVars(1);
+            ɵɵallocHostVars(1);
           }
           if (rf & RenderFlags.Update) {
-            elementProperty(elementIndex, 'cite', bind(ctx.cite), sanitizeUrl, true);
+            ɵɵelementProperty(elementIndex, 'cite', ɵɵbind(ctx.cite), ɵɵsanitizeUrl, true);
           }
         }
       });
     }
 
     class SimpleComp {
-      static ngComponentDef = defineComponent({
+      static ngComponentDef = ɵɵdefineComponent({
         type: SimpleComp,
         selectors: [['sanitize-this']],
         factory: () => new SimpleComp(),
@@ -3128,7 +3145,7 @@ describe('sanitization', () => {
         vars: 0,
         template: (rf: RenderFlags, ctx: SimpleComp) => {
           if (rf & RenderFlags.Create) {
-            element(0, 'blockquote', ['unsafeUrlHostBindingDir', '']);
+            ɵɵelement(0, 'blockquote', ['unsafeUrlHostBindingDir', '']);
           }
         },
         directives: [UnsafeUrlHostBindingDir]

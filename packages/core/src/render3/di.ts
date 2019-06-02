@@ -21,7 +21,11 @@ import {AttributeMarker, TContainerNode, TElementContainerNode, TElementNode, TN
 import {DECLARATION_VIEW, INJECTOR, LView, TData, TVIEW, TView, T_HOST} from './interfaces/view';
 import {assertNodeOfPossibleTypes} from './node_assert';
 import {getLView, getPreviousOrParentTNode, setTNodeAndViewData} from './state';
-import {findComponentView, getParentInjectorIndex, getParentInjectorView, hasParentInjector, isComponent, isComponentDef, renderStringify} from './util';
+import {isNameOnlyAttributeMarker} from './util/attrs_utils';
+import {getParentInjectorIndex, getParentInjectorView, hasParentInjector} from './util/injector_utils';
+import {stringifyForError} from './util/misc_utils';
+import {findComponentView} from './util/view_traversal_utils';
+import {isComponent, isComponentDef} from './util/view_utils';
 
 
 
@@ -267,11 +271,45 @@ export function injectAttributeImpl(tNode: TNode, attrNameToInject: string): str
   ngDevMode && assertDefined(tNode, 'expecting tNode');
   const attrs = tNode.attrs;
   if (attrs) {
-    for (let i = 0; i < attrs.length; i = i + 2) {
-      const attrName = attrs[i];
-      if (attrName === AttributeMarker.SelectOnly) break;
-      if (attrName == attrNameToInject) {
+    const attrsLength = attrs.length;
+    let i = 0;
+    while (i < attrsLength) {
+      const value = attrs[i];
+
+      // If we hit a `Bindings` or `Template` marker then we are done.
+      if (isNameOnlyAttributeMarker(value)) break;
+
+      // Skip namespaced attributes
+      if (value === AttributeMarker.NamespaceURI) {
+        // we skip the next two values
+        // as namespaced attributes looks like
+        // [..., AttributeMarker.NamespaceURI, 'http://someuri.com/test', 'test:exist',
+        // 'existValue', ...]
+        i = i + 2;
+      } else if (typeof value === 'number') {
+        // Skip to the first value of the marked attribute.
+        i++;
+        if (value === AttributeMarker.Classes && attrNameToInject === 'class') {
+          let accumulatedClasses = '';
+          while (i < attrsLength && typeof attrs[i] === 'string') {
+            accumulatedClasses += ' ' + attrs[i++];
+          }
+          return accumulatedClasses.trim();
+        } else if (value === AttributeMarker.Styles && attrNameToInject === 'style') {
+          let accumulatedStyles = '';
+          while (i < attrsLength && typeof attrs[i] === 'string') {
+            accumulatedStyles += `${attrs[i++]}: ${attrs[i++]}; `;
+          }
+          return accumulatedStyles.trim();
+        } else {
+          while (i < attrsLength && typeof attrs[i] === 'string') {
+            i++;
+          }
+        }
+      } else if (value === attrNameToInject) {
         return attrs[i + 1] as string;
+      } else {
+        i = i + 2;
       }
     }
   }
@@ -311,7 +349,7 @@ export function getOrCreateInjectable<T>(
       try {
         const value = bloomHash();
         if (value == null && !(flags & InjectFlags.Optional)) {
-          throw new Error(`No provider for ${renderStringify(token)}!`);
+          throw new Error(`No provider for ${stringifyForError(token)}!`);
         } else {
           return value;
         }
@@ -409,7 +447,7 @@ export function getOrCreateInjectable<T>(
   if (flags & InjectFlags.Optional) {
     return notFoundValue;
   } else {
-    throw new Error(`NodeInjector: NOT_FOUND [${renderStringify(token)}]`);
+    throw new Error(`NodeInjector: NOT_FOUND [${stringifyForError(token)}]`);
   }
 }
 
@@ -507,7 +545,7 @@ export function getNodeInjectable(
   if (isFactory(value)) {
     const factory: NodeInjectorFactory = value;
     if (factory.resolving) {
-      throw new Error(`Circular dep for ${renderStringify(tData[index])}`);
+      throw new Error(`Circular dep for ${stringifyForError(tData[index])}`);
     }
     const previousIncludeViewProviders = setIncludeViewProviders(factory.canSeeViewProviders);
     factory.resolving = true;
@@ -520,10 +558,6 @@ export function getNodeInjectable(
     setTNodeAndViewData(tNode, lData);
     try {
       value = lData[index] = factory.factory(null, tData, lData, tNode);
-      const tView = lData[TVIEW];
-      if (value && factory.isProvider && value.ngOnDestroy) {
-        (tView.destroyHooks || (tView.destroyHooks = [])).push(index, value.ngOnDestroy);
-      }
     } finally {
       if (factory.injectImpl) setInjectImplementation(previousInjectImplementation);
       setIncludeViewProviders(previousIncludeViewProviders);
@@ -600,7 +634,10 @@ export class NodeInjector implements Injector {
   }
 }
 
-export function getFactoryOf<T>(type: Type<any>): ((type: Type<T>| null) => T)|null {
+/**
+ * @codeGenApi
+ */
+export function ɵɵgetFactoryOf<T>(type: Type<any>): ((type: Type<T>| null) => T)|null {
   const typeAny = type as any;
   const def = getComponentDef<T>(typeAny) || getDirectiveDef<T>(typeAny) ||
       getPipeDef<T>(typeAny) || getInjectableDef<T>(typeAny) || getInjectorDef<T>(typeAny);
@@ -610,9 +647,12 @@ export function getFactoryOf<T>(type: Type<any>): ((type: Type<T>| null) => T)|n
   return def.factory;
 }
 
-export function getInheritedFactory<T>(type: Type<any>): (type: Type<T>) => T {
+/**
+ * @codeGenApi
+ */
+export function ɵɵgetInheritedFactory<T>(type: Type<any>): (type: Type<T>) => T {
   const proto = Object.getPrototypeOf(type.prototype).constructor as Type<any>;
-  const factory = getFactoryOf<T>(proto);
+  const factory = ɵɵgetFactoryOf<T>(proto);
   if (factory !== null) {
     return factory;
   } else {

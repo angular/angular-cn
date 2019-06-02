@@ -279,7 +279,7 @@ Specify size values in the following formats:
 
   12%：相对于基准大小的百分比大小。（不能用作基准大小的值。）
 
-When you configure a budget, the build system warns or reports and error when a given part of the app reaches or exceeds a boundary size that you set.
+When you configure a budget, the build system warns or reports an error when a given part of the app reaches or exceeds a boundary size that you set.
 
 如果配置了大小范围，构建系统就会在发现应用的某个部分达到或超过了你设置的大小范围时发出警告或报错。
 
@@ -493,7 +493,7 @@ For example, to divert all calls for `http://localhost:4200/api` to a server run
 你可以使用 `webpack` 开发服务器中的[代理支持](https://webpack.js.org/configuration/dev-server/#devserver-proxy)来把特定的 URL 转发给后端服务器，只要传入 `--proxy-config` 选项就可以了。
 比如，要把所有到 `http://localhost:4200/api` 的调用都转给运行在 `http://localhost:3000/api` 上的服务器，可采取如下步骤。
 
-1. Create a file `proxy.conf.json` in the projects `src/` folder, next to `package.json`.
+1. Create a file `proxy.conf.json` in the projects `src/` folder, in the same directory as `package.json`.
 
    在项目的 `src/` 目录下创建一个 `proxy.conf.json` 文件，紧挨着 `package.json`。
 

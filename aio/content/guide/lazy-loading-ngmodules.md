@@ -41,6 +41,11 @@ For the final sample app with two lazy loaded modules that this page describes, 
 
 ## 高层视角
 
+By default, NgModules are eagerly loaded, which means that as soon as the app loads, so do all the NgModules, whether or not they are immediately necessary. For large apps with lots of routes, consider lazy loading&mdash;a design pattern that loads NgModules as needed. Lazy loading helps keep initial
+bundle sizes smaller, which in turn helps decrease load times.
+
+默认情况下，NgModule 都是急性加载的，也就是说它会在应用加载时尽快加载，所有模块都是如此，无论是否立即要用。对于带有很多路由的大型应用，考虑使用惰性加载 —— 一种按需加载 NgModule 的模式。惰性加载可以减小初始包的尺寸，从而减少加载时间。
+
 There are three main steps to setting up a lazy loaded feature module:
 
 要想建立一个惰性加载的特性模块，有三个主要步骤：
@@ -132,9 +137,6 @@ This creates a folder inside of `customers` called `customer-list`
 with the four files that make up the component.
 
 这会在 `customers` 目录中创建一个名叫 `customer-list` 的文件夹，其中包含该组件的四个文件。
-
-<!-- For more information
-about components, see [Components](). -->
 
 Just like with the routing module, the CLI imports the
 `CustomerListComponent` into the `CustomersModule`.
@@ -294,7 +296,7 @@ Now, if you view the app in the browser, the three buttons take you to each modu
 
 ## 确认它工作正常
 
-You can check to see that a module is indeed being lazy loaded with the Chrome developer tools. In Chrome, open the dev tools by pressing `Cmd+Option+i` on a Mac or `Ctrl+Alt+i` on a PC and go to the Network Tab.
+You can check to see that a module is indeed being lazy loaded with the Chrome developer tools. In Chrome, open the dev tools by pressing `Cmd+Option+i` on a Mac or `Ctrl+Shift+j` on a PC and go to the Network Tab.
 
 你可以使用 Chrome 开发者工具来确认一下这些模块真的是惰性加载的。
 在 Chrome 中，按 `Cmd+Option+i`（Mac）或 `Ctrl+Alt+i`（PC），并选中 `Network` 页标签。
@@ -346,6 +348,10 @@ CLI 还会把 `RouterModule.forChild(routes)` 添加到各个特性模块中。�
 `forRoot()` contains injector configuration which is global; such as configuring the Router. `forChild()` has no injector configuration, only directives such as `RouterOutlet` and `RouterLink`.
 
 `forRoot()` 包含的注入器配置是全局性的，比如对路由器的配置。`forChild()` 中没有注入器配置，只有像 `RouterOutlet` 和 `RouterLink` 这样的指令。
+
+For more information, see the [`forRoot()` pattern](guide/singleton-services#forRoot) section of the [Singleton Services](guide/singleton-services) guide.
+
+欲知详情，参见[单例服务](guide/singleton-services)章的 [`forRoot()` 模式](guide/singleton-services#forRoot)小节。
 
 <hr>
 

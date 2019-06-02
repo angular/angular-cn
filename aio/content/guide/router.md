@@ -129,7 +129,7 @@ from which it can determine the component to display.
 当浏览器的 URL 变化时，路由器会查找对应的 `Route`（路由），并据此决定该显示哪个组件。
 
 A router has no routes until you configure it.
-The following example creates five route definitions, configures the router via the `RouterModule.forRoot` method,
+The following example creates five route definitions, configures the router via the `RouterModule.forRoot()` method,
 and adds the result to the `AppModule`'s `imports` array.
 
 路由器需要先配置才会有路由信息。
@@ -143,7 +143,7 @@ and adds the result to the `AppModule`'s `imports` array.
 {@a example-config}
 
 The `appRoutes` array of *routes* describes how to navigate.
-Pass it to the `RouterModule.forRoot` method in the module `imports` to configure the router.
+Pass it to the `RouterModule.forRoot()` method in the module `imports` to configure the router.
 
 这里的路由数组 `appRoutes` 描述如何进行导航。
 把它传给 `RouterModule.forRoot` 方法并传给本模块的 `imports` 数组就可以配置路由器。
@@ -207,8 +207,8 @@ If you need to see what events are happening during the navigation lifecycle, th
 
 ### 路由出口
 
-The `RouterOutlet` is a directive from the router library that is used like a component. 
-It acts as a placeholder that marks the spot in the template where the router should 
+The `RouterOutlet` is a directive from the router library that is used like a component.
+It acts as a placeholder that marks the spot in the template where the router should
 display the components for that outlet.
 
 `RouterOutlet` 是一个来自路由模块中的指令，它的用法类似于组件。
@@ -277,9 +277,9 @@ On each anchor tag, you see a [property binding](guide/template-syntax#property-
 在每个 A 标签上，你会看到一个到 `RouterLinkActive` 的[属性绑定](guide/template-syntax#property-binding)，形如 `routerLinkActive="..."`。
 
 The template expression to the right of the equals (=) contains a space-delimited string of CSS classes
-that the Router will add when this link is active (and remove when the link is inactive). You set the `RouterLinkActive` 
-directive to a string of classes such as `[routerLinkActive]="'active fluffy'"` or bind it to a component 
-property that returns such a string. 
+that the Router will add when this link is active (and remove when the link is inactive). You set the `RouterLinkActive`
+directive to a string of classes such as `[routerLinkActive]="'active fluffy'"` or bind it to a component
+property that returns such a string.
 
 等号右边的模板表达式包含一些用空格分隔的 CSS 类名，当这个链接激活时，路由器将会把它们加上去（并在处于非活动状态时移除）。你还可以把 `RouterLinkActive` 设置为一个类组成的字符串，如 `[routerLinkActive]="'active fluffy'"`，或把它绑定到一个返回类似字符串的组件属性。
 
@@ -1376,11 +1376,12 @@ In order to use the Router, you must first register the `RouterModule` from the 
 
 <div class="alert is-important">
 
-  **Note:** The `RouterModule.forRoot` method is a pattern used to register application-wide providers. Read more about application-wide providers in the [Singleton services](guide/singleton-services#forroot) guide.
+  **Note:** The `RouterModule.forRoot` method is a pattern used to register application-wide providers. Read more about application-wide providers in the [Singleton services](guide/singleton-services#forRoot-router) guide.
 
   **注意：** `RouterModule.forRoot` 方法是用于注册全应用级提供商的编码模式。要详细了解全应用级提供商，参见[单例服务](guide/singleton-services#forroot) 一章。
 
 </div>
+
 
 <code-example path="router/src/app/app.module.1.ts" linenums="false" header="src/app/app.module.ts (first-config)" region="first-config">
 
@@ -1618,10 +1619,9 @@ You've learned how to do the following:
 
    往壳组件的模板中添加一个 `router-outlet` 指令，视图将会被显示在那里
 
-* Configure the router module with `RouterModule.forRoot`.
+* Configure the router module with `RouterModule.forRoot()`.
 
    用 `RouterModule.forRoot` 配置路由器模块
-
 * Set the router to compose HTML5 browser URLs.
 
    设置路由器，使其合成 HTML5 模式的浏览器 URL
@@ -1879,7 +1879,7 @@ The **Routing Module** has several characteristics:
 ### 把路由集成到应用中
 
 The sample routing application does not include routing by default.
-When you use the [Angular CLI](cli) to create a project that will use routing, set the `--routing` option for the project or app, and for each NgModule. 
+When you use the [Angular CLI](cli) to create a project that will use routing, set the `--routing` option for the project or app, and for each NgModule.
 When you create or initialize a new project (using the CLI [`ng new`](cli/new) command) or a new app (using the [`ng generate app`](cli/generate) command), specify the `--routing` option.  This tells the CLI to include the `@angular/router` npm package and create a file named `app-routing.module.ts`.
 You can then use routing in any NgModule that you add to the project or app.
 
@@ -1918,7 +1918,7 @@ Create an `AppRouting` module in the `/app` folder to contain the routing config
 
 Import the `CrisisListComponent`, `HeroListComponent`, and `PageNotFoundComponent` symbols
 just like you did in the `app.module.ts`. Then move the `Router` imports
-and routing configuration, including `RouterModule.forRoot`, into this routing module.
+and routing configuration, including `RouterModule.forRoot()`, into this routing module.
 
 导入 `CrisisListComponent`、`HeroListComponent` 和 `PageNotFoundCompponent` 组件，就像 `app.module.ts` 中那样。然后把 `Router` 的导入语句和路由配置以及 `RouterModule.forRoot` 移入这个路由模块中。
 
@@ -1936,7 +1936,7 @@ After these steps, the file should look like this.
 
 </code-example>
 
-Next, update the `app.module.ts` file, removing `RouterModule.forRoot` in 
+Next, update the `app.module.ts` file, removing `RouterModule.forRoot` in
 the `imports` array.
 
 接下来，修改 `app.module.ts` 文件，从 `imports` 数组中移除 `RouterModule.forRoot`。
@@ -2106,7 +2106,6 @@ Follow these steps:
   * Change the `selector` to `app-hero-list`.
 
     把 `selector` 改为 `app-hero-list`。
-
 <div class="alert is-helpful">
 
    Selectors are **not required** for _routed components_ due to the components are dynamically inserted when the page is rendered, but are useful for identifying and targeting them in your HTML element tree.
@@ -2197,7 +2196,7 @@ hero-list
 
       hero.service.ts
 
-    </div>    
+    </div>
 
     <div class='file'>
       hero.ts
@@ -2205,7 +2204,7 @@ hero-list
 
     <div class='file'>
       heroes-routing.module.ts
-    </div>    
+    </div>
 
     <div class='file'>
 
@@ -2260,7 +2259,7 @@ Now that you have routes for the `Heroes` module, register them with the `Router
 现在，你有了 `Heroes` 模块的路由，还得在 `RouterModule` 中把它们注册给*路由器*，和 `AppRoutingModule` 中的做法几乎完全一样。
 
 There is a small but critical difference.
-In the `AppRoutingModule`, you used the static **`RouterModule.forRoot`** method to register the routes and application level service providers.
+In the `AppRoutingModule`, you used the static **`RouterModule.forRoot()`** method to register the routes and application level service providers.
 In a feature module you use the static **`forChild`** method.
 
 这里有少量但是关键的不同点。
@@ -2269,7 +2268,7 @@ In a feature module you use the static **`forChild`** method.
 
 <div class="alert is-helpful">
 
-Only call `RouterModule.forRoot` in the root `AppRoutingModule`
+Only call `RouterModule.forRoot()` in the root `AppRoutingModule`
 (or the `AppModule` if that's where you register top level application routes).
 In any other module, you must call the **`RouterModule.forChild`** method to register additional routes.
 
@@ -2481,7 +2480,7 @@ Accordingly, the _link parameters array_ has *two* items:  the routing _path_ an
 
 因此，这个*链接参数数组*中有两个条目：目标路由的**`path`（路径）**，和一个用来指定所选英雄 `id` 的**路由参数**。
 
-<code-example path="router/src/app/heroes/hero-list/hero-list.component.1.ts" linenums="false" header="src/app/heroes/hero-list/hero-list.component.ts (link-parameters-array)" region="link-parameters-array">
+<code-example path="router/src/app/heroes/hero-list/hero-list.component.1.html" linenums="false" header="src/app/heroes/hero-list/hero-list.component.html (link-parameters-array)" region="link-parameters-array">
 
 </code-example>
 
@@ -2882,7 +2881,7 @@ When navigating to the `HeroDetailComponent` you specified the _required_ `id` o
 
 当导航到 `HeroDetailComponent` 时，你可以在*路由参数*中指定一个所要编辑的英雄 `id`，只要把它作为[链接参数数组](guide/router#link-parameters-array)中的第二个条目就可以了。
 
-<code-example path="router/src/app/heroes/hero-list/hero-list.component.1.ts" linenums="false" header="src/app/heroes/hero-list/hero-list.component.ts (link-parameters-array)" region="link-parameters-array">
+<code-example path="router/src/app/heroes/hero-list/hero-list.component.1.html" linenums="false" header="src/app/heroes/hero-list/hero-list.component.html (link-parameters-array)" region="link-parameters-array">
 
 </code-example>
 
@@ -3145,7 +3144,7 @@ You could also create more transitions for other routes. This trigger is suffici
 
 你还可以为其它路由组件用不同的转场效果创建更多触发器。现在这个触发器已经足够当前的里程碑用了。
 
-Back in the `AppComponent`, import the `RouterOutlet` token from the `@angular/router` package and the `slideInAnimation` from 
+Back in the `AppComponent`, import the `RouterOutlet` token from the `@angular/router` package and the `slideInAnimation` from
 `'./animations.ts`.
 
 回到 `AppComponent`，从 `@angular/router` 中导入 `RouterOutlet` 令牌，并从 `'./animations.ts` 中导入 `slideInDownAnimation`。
@@ -3172,7 +3171,7 @@ For the `@routeAnimation` transitions to key off states, you'll need to provide 
 
 </code-example>
 
-The `@routeAnimation` property is bound to the `getAnimationData` with the provided `routerOutlet` reference, so you'll need to define that function in the `AppComponent`. The `getAnimationData` function returns the animation property from the `data` provided through the `ActivatedRoute`. The `animation` property matches the `transition` names you used in the `slideDownAnimation` defined in `animations.ts`.
+The `@routeAnimation` property is bound to the `getAnimationData` with the provided `routerOutlet` reference, so you'll need to define that function in the `AppComponent`. The `getAnimationData` function returns the animation property from the `data` provided through the `ActivatedRoute`. The `animation` property matches the `transition` names you used in the `slideInAnimation` defined in `animations.ts`.
 
 `@routeAnimation` 属性绑定到了 `getAnimationData` 和 `routerOutlet` 的引用，因此你需要在 `AppComponent` 中定义那个函数。`getAnimationData` 函数根据 `ActivatedRoute` 所提供的 `data` 对象返回动画的属性。`animation` 属性会匹配你在 `animations.ts` 中定义 `slideDownAnimation` 时使用的 `transition` 名称。
 
@@ -3261,7 +3260,7 @@ After these changes, the folder structure looks like this:
               crisis-list.component.ts
             </div>
 
-          </div>      
+          </div>
 
         <div class='file'>
 
@@ -3315,7 +3314,7 @@ hero-list
 
             hero.service.ts
 
-          </div>    
+          </div>
 
           <div class='file'>
             hero.ts
@@ -3323,7 +3322,7 @@ hero-list
 
           <div class='file'>
             heroes-routing.module.ts
-          </div>    
+          </div>
 
           <div class='file'>
 
@@ -3453,7 +3452,7 @@ Here are the relevant files for this version of the sample application.
 
   <code-pane header="animations.ts" path="router/src/app/animations.ts">
 
-  </code-pane>  
+  </code-pane>
 
   <code-pane header="app.component.html" path="router/src/app/app.component.2.html">
 
@@ -3473,11 +3472,11 @@ Here are the relevant files for this version of the sample application.
 
   <code-pane header="hero-list.component.css" path="router/src/app/heroes/hero-list/hero-list.component.css">
 
-  </code-pane>  
+  </code-pane>
 
   <code-pane header="hero-list.component.html" path="router/src/app/heroes/hero-list/hero-list.component.html">
 
-  </code-pane>  
+  </code-pane>
 
   <code-pane header="hero-list.component.ts" path="router/src/app/heroes/hero-list/hero-list.component.ts">
 
@@ -3505,7 +3504,7 @@ Here are the relevant files for this version of the sample application.
 
   <code-pane header="message.service.ts" path="router/src/app/message.service.ts">
 
-  </code-pane>  
+  </code-pane>
 
 </code-tabs>
 
@@ -3706,7 +3705,7 @@ display the `Crisis Center Home` and `Crisis Detail` route components.
 
 The `Crisis Detail` route is a child of the `Crisis List`. The router [reuses components](#reuse)
 by default, so the `Crisis Detail` component will be re-used as you select different crises.
-In contrast, back in the `Hero Detail` route, the component was recreated each time you selected a different hero.
+In contrast, back in the `Hero Detail` route, [the component was recreated](#snapshot-the-no-observable-alternative) each time you selected a different hero from the list of heroes.
 
 `Crisis Detail` 路由是 `Crisis List` 的子路由。由于路由器默认会[复用组件](#reuse)，因此当你选择了另一个危机时，`CrisisDetailComponent` 会被复用。  
 作为对比，回到 `Hero Detail` 路由时，每当你选择了不同的英雄时，该组件都会被重新创建。
@@ -3766,7 +3765,7 @@ _before_ the `AppRoutingModule`:
 
   <code-pane path="router/src/app/crisis-center/crisis-center.module.ts"header="src/app/crisis-center/crisis-center.module.ts">
 
-  </code-pane> 
+  </code-pane>
 
   <code-pane path="router/src/app/app.module.4.ts" linenums="false" header="src/app/app.module.ts (import CrisisCenterModule)" region="crisis-center-module">
 
@@ -4743,7 +4742,7 @@ Register a `/login` route in the `auth/auth-routing.module.ts`. In `app.module.t
 
   <code-pane header="src/app/auth/login/login.component.html" path="router/src/app/auth/login/login.component.html">
 
-  </code-pane>  
+  </code-pane>
 
   <code-pane header="src/app/auth/login/login.component.ts" path="router/src/app/auth/login/login.component.1.ts">
 
@@ -5239,7 +5238,7 @@ Add an `anchor` element so you can jump to a certain point on the page.
 
 再添加一个锚点（`A`）元素，来让你能跳转到页面中的正确位置。
 
-Add the `NavigationExtras` object to the `router.navigate` method that navigates you to the `/login` route.
+Add the `NavigationExtras` object to the `router.navigate()` method that navigates you to the `/login` route.
 
 为 `router.navigate` 方法添加一个 `NavigationExtras` 对象，用来导航到 `/login` 路由。
 
@@ -5249,7 +5248,7 @@ Add the `NavigationExtras` object to the `router.navigate` method that navigates
 
 You can also preserve query parameters and fragments across navigations without having to provide them
 again when navigating. In the `LoginComponent`, you'll add an *object* as the
-second argument in the `router.navigate` function
+second argument in the `router.navigateUrl()` function
 and provide the `queryParamsHandling` and `preserveFragment` to pass along the current query parameters
 and fragment to the next route.
 
@@ -5621,9 +5620,9 @@ To enable preloading of all lazy loaded modules, import the `PreloadAllModules` 
 
 要为所有惰性加载模块启用预加载功能，请从 Angular 的路由模块中导入 `PreloadAllModules`。
 
-The second argument in the `RouterModule.forRoot` method takes an object for additional configuration options.
+The second argument in the `RouterModule.forRoot()` method takes an object for additional configuration options.
 The `preloadingStrategy` is one of those options.
-Add the `PreloadAllModules` token to the `forRoot` call:
+Add the `PreloadAllModules` token to the `forRoot()` call:
 
 `RouterModule.forRoot` 方法的第二个参数接受一个附加配置选项对象。
 `preloadingStrategy` 就是其中之一。
@@ -5760,10 +5759,9 @@ But first, make a few changes to the `AppRoutingModule`.
 
    把 `SelectivePreloadingStrategyService` 导入到 `AppRoutingModule` 中。
 
-1. Replace the `PreloadAllModules` strategy in the call to `forRoot` with this `SelectivePreloadingStrategyService`.
+1. Replace the `PreloadAllModules` strategy in the call to `forRoot()` with this `SelectivePreloadingStrategyService`.
 
    把 `PreloadAllModules` 策略替换成对 `forRoot` 的调用，并且传入这个 `SelectivePreloadingStrategyService`。
-
 1. Add the `SelectivePreloadingStrategyService` strategy to the `AppRoutingModule` providers array so it can be injected
 elsewhere in the app.
 
@@ -6123,7 +6121,7 @@ The router supports both styles with two `LocationStrategy` providers:
 
    `HashLocationStrategy` - 支持“hash URL”风格。
 
-The `RouterModule.forRoot` function sets the `LocationStrategy` to the `PathLocationStrategy`,
+The `RouterModule.forRoot()` function sets the `LocationStrategy` to the `PathLocationStrategy`,
 making it the default strategy.
 You can switch to the `HashLocationStrategy` with an override during the bootstrapping process if you prefer it.
 
@@ -6277,7 +6275,7 @@ Those developers may still use HTML5 URLs by taking two remedial steps:
 #### *HashLocationStrategy* 策略
 
 You can go old-school with the `HashLocationStrategy` by
-providing the `useHash: true` in an object as the second argument of the `RouterModule.forRoot`
+providing the `useHash: true` in an object as the second argument of the `RouterModule.forRoot()`
 in the `AppModule`.
 
 你可以在根模块的 `RouterModule.forRoot` 的第二个参数中传入一个带有 `useHash: true` 的对象，以回到基于 `HashLocationStrategy` 的传统方式。

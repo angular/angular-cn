@@ -6,7 +6,8 @@
  * found in the LICENSE file at https://angular.io/license
  */
 
-import {INJECTOR, Injector} from '../di/injector';
+import {Injector} from '../di/injector';
+import {INJECTOR} from '../di/injector_compatibility';
 import {InjectFlags} from '../di/interface/injector';
 import {StaticProvider} from '../di/interface/provider';
 import {R3Injector, createInjector} from '../di/r3_injector';
@@ -18,6 +19,7 @@ import {assertDefined} from '../util/assert';
 import {stringify} from '../util/stringify';
 import {ComponentFactoryResolver} from './component_ref';
 import {getNgModuleDef} from './definition';
+import {maybeUnwrapFn} from './util/misc_utils';
 
 export interface NgModuleType<T = any> extends Type<T> { ngModuleDef: NgModuleDef<T>; }
 
@@ -43,7 +45,7 @@ export class NgModuleRef<T> extends viewEngine_NgModuleRef<T> implements Interna
                      ngModuleDef,
                      `NgModule '${stringify(ngModuleType)}' is not a subtype of 'NgModuleType'.`);
 
-    this._bootstrapComponents = ngModuleDef !.bootstrap;
+    this._bootstrapComponents = maybeUnwrapFn(ngModuleDef !.bootstrap);
     const additionalProviders: StaticProvider[] = [
       {
         provide: viewEngine_NgModuleRef,

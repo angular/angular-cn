@@ -48,3 +48,13 @@ It requires more of an investment in time and thought for managing, maintaining,
 This complexity can pay off, however, when the library is being used in multiple apps.
 
 把代码放到一个单独的库中比简单地把所有内容都放在一个应用中要复杂得多。它需要更多的时间投入，并且需要管理、维护和更新这个库。不过，当把该库用在多个应用中时，这种复杂性就会得到回报。
+
+<div class="alert is-helpful">
+
+Note that libraries are intended to be used by Angular apps.
+To add Angular functionality to non-Angular web apps, you can use [Angular custom elements](guide/elements).
+
+注意，这里所说的库是为了供 Angular 应用使用的。
+如果想把 Angular 的功能添加到非 Angular 应用中，可以使用 [Angular 自定义元素](guide/elements)。
+
+</div>

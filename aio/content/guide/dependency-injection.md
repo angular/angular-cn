@@ -286,8 +286,7 @@ Child modules and component injectors are independent of each other, and create 
 
 Thanks to [injector inheritance](guide/hierarchical-dependency-injection),
 you can still inject application-wide services into these components.
-A component's injector is a child of its parent component's injector,
-and a descendent of its parent's parent's injector, and so on all the way back to the application's _root_ injector. Angular can inject a service provided by any injector in that lineage.
+A component's injector is a child of its parent component's injector, and inherits from all ancestor injectors all the way back to the application's _root_ injector. Angular can inject a service provided by any injector in that lineage.
 
 借助[注入器继承机制](guide/hierarchical-dependency-injection)，你仍然可以把全应用级的服务注入到这些组件中。
 组件的注入器是其父组件注入器的子节点，也是其父节点的父节点的后代，以此类推，直到应用的*根*注入器为止。
@@ -331,7 +330,7 @@ Learn more in the [Testing](guide/testing) guide.
 
 ## 那些需要其它服务的服务
 
-Service can have their own dependencies. `HeroService` is very simple and doesn't have any dependencies of its own. Suppose, however, that you want it to report its activities through a logging service. You can apply the same *constructor injection* pattern,
+Services can have their own dependencies. `HeroService` is very simple and doesn't have any dependencies of its own. Suppose, however, that you want it to report its activities through a logging service. You can apply the same *constructor injection* pattern,
 adding a constructor that takes a `Logger` parameter.
 
 服务还可以具有自己的依赖。`HeroService` 非常简单，没有自己的依赖。不过，如果你希望通过日志服务来报告这些活动，那么就可以使用同样的*构造函数注入*模式，添加一个构造函数来接收一个 `Logger` 参数。

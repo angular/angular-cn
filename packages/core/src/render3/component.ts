@@ -11,21 +11,24 @@
 import {Type} from '../core';
 import {Injector} from '../di/injector';
 import {Sanitizer} from '../sanitization/security';
-import {assertDefined} from '../util/assert';
 
 import {assertComponentType} from './assert';
 import {getComponentDef} from './definition';
 import {diPublicInInjector, getOrCreateNodeInjectorForNode} from './di';
-import {publishDefaultGlobalUtils} from './global_utils';
 import {registerPostOrderHooks, registerPreOrderHooks} from './hooks';
-import {CLEAN_PROMISE, addToViewTree, createLView, createNodeAtIndex, createTNode, createTView, getOrCreateTView, initNodeFlags, instantiateRootComponent, invokeHostBindingsInCreationMode, locateHostElement, queueComponentIndexForCheck, refreshDescendantViews} from './instructions';
+import {CLEAN_PROMISE, addToViewTree, createLView, createNodeAtIndex, createTView, getOrCreateTView, initNodeFlags, instantiateRootComponent, invokeHostBindingsInCreationMode, locateHostElement, queueComponentIndexForCheck, refreshDescendantViews} from './instructions/shared';
 import {ComponentDef, ComponentType, RenderFlags} from './interfaces/definition';
 import {TElementNode, TNode, TNodeFlags, TNodeType} from './interfaces/node';
 import {PlayerHandler} from './interfaces/player';
 import {RElement, Renderer3, RendererFactory3, domRendererFactory3} from './interfaces/renderer';
-import {CONTEXT, FLAGS, HEADER_OFFSET, HOST, LView, LViewFlags, RootContext, RootContextFlags, TVIEW, T_HOST} from './interfaces/view';
-import {enterView, getPreviousOrParentTNode, leaveView, resetComponentState, setCurrentDirectiveDef} from './state';
-import {applyOnCreateInstructions, defaultScheduler, getRootView, readPatchedLView, renderStringify} from './util';
+import {CONTEXT, FLAGS, HEADER_OFFSET, HOST, LView, LViewFlags, RENDERER, RootContext, RootContextFlags, TVIEW} from './interfaces/view';
+import {applyOnCreateInstructions} from './node_util';
+import {enterView, getPreviousOrParentTNode, leaveView, resetComponentState, setActiveHostElement} from './state';
+import {renderInitialClasses, renderInitialStyles} from './styling/class_and_style_bindings';
+import {publishDefaultGlobalUtils} from './util/global_utils';
+import {defaultScheduler, stringifyForError} from './util/misc_utils';
+import {getRootContext} from './util/view_traversal_utils';
+import {readPatchedLView, resetPreOrderHookFlags} from './util/view_utils';
 
 
 
@@ -84,7 +87,7 @@ type HostFeature = (<T>(component: T, componentDef: ComponentDef<T>) => void);
 // TODO: A hack to not pull in the NullInjector from @angular/core.
 export const NULL_INJECTOR: Injector = {
   get: (token: any, notFoundValue?: any) => {
-    throw new Error('NullInjector: Not found: ' + renderStringify(token));
+    throw new Error('NullInjector: Not found: ' + stringifyForError(token));
   }
 };
 
@@ -108,6 +111,11 @@ export function renderComponent<T>(
     opts: CreateComponentOptions = {}): T {
   ngDevMode && publishDefaultGlobalUtils();
   ngDevMode && assertComponentType(componentType);
+
+  // this is preemptively set to avoid having test and debug code accidentally
+  // read data from a previous application state...
+  setActiveHostElement(null);
+
   const rendererFactory = opts.rendererFactory || domRendererFactory3;
   const sanitizer = opts.sanitizer || null;
   const componentDef = getComponentDef<T>(componentType) !;
@@ -134,10 +142,11 @@ export function renderComponent<T>(
     component = createRootComponent(
         componentView, componentDef, rootView, rootContext, opts.hostFeatures || null);
 
-    addToViewTree(rootView, HEADER_OFFSET, componentView);
+    addToViewTree(rootView, componentView);
 
     refreshDescendantViews(rootView);  // creation mode pass
     rootView[FLAGS] &= ~LViewFlags.CreationMode;
+    resetPreOrderHookFlags(rootView);
     refreshDescendantViews(rootView);  // update mode pass
   } finally {
     leaveView(oldView);
@@ -198,12 +207,29 @@ export function createRootComponent<T>(
 
   hostFeatures && hostFeatures.forEach((feature) => feature(component, componentDef));
 
+  // We want to generate an empty QueryList for root content queries for backwards
+  // compatibility with ViewEngine.
+  if (componentDef.contentQueries) {
+    componentDef.contentQueries(RenderFlags.Create, component, rootView.length - 1);
+  }
+
+  const rootTNode = getPreviousOrParentTNode();
   if (tView.firstTemplatePass && componentDef.hostBindings) {
-    const rootTNode = getPreviousOrParentTNode();
+    const elementIndex = rootTNode.index - HEADER_OFFSET;
+    setActiveHostElement(elementIndex);
+
     const expando = tView.expandoInstructions !;
     invokeHostBindingsInCreationMode(
         componentDef, expando, component, rootTNode, tView.firstTemplatePass);
     rootTNode.onElementCreationFns && applyOnCreateInstructions(rootTNode);
+
+    setActiveHostElement(null);
+  }
+
+  if (rootTNode.stylingTemplate) {
+    const native = componentView[HOST] !as RElement;
+    renderInitialClasses(native, rootTNode.stylingTemplate, componentView[RENDERER]);
+    renderInitialStyles(native, rootTNode.stylingTemplate, componentView[RENDERER]);
   }
 
   return component;
@@ -238,25 +264,12 @@ export function LifecycleHooksFeature(component: any, def: ComponentDef<any>): v
   const rootTView = readPatchedLView(component) ![TVIEW];
   const dirIndex = rootTView.data.length - 1;
 
-  registerPreOrderHooks(dirIndex, def, rootTView);
+  registerPreOrderHooks(dirIndex, def, rootTView, -1, -1, -1);
   // TODO(misko): replace `as TNode` with createTNode call. (needs refactoring to lose dep on
   // LNode).
   registerPostOrderHooks(
       rootTView, { directiveStart: dirIndex, directiveEnd: dirIndex + 1 } as TNode);
 }
-
-/**
- * Retrieve the root context for any component by walking the parent `LView` until
- * reaching the root `LView`.
- *
- * @param component any component
- */
-function getRootContext(component: any): RootContext {
-  const rootContext = getRootView(component)[CONTEXT] as RootContext;
-  ngDevMode && assertDefined(rootContext, 'rootContext');
-  return rootContext;
-}
-
 
 /**
  * Wait on component until it is rendered.

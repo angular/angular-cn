@@ -7,7 +7,7 @@
  */
 
 import {ApplicationRef} from '../application_ref';
-import {InjectorType, defineInjector} from '../di/interface/defs';
+import {InjectorType, ɵɵdefineInjector} from '../di/interface/defs';
 import {Provider} from '../di/interface/provider';
 import {convertInjectableProviderToFactory} from '../di/util';
 import {Type} from '../interface/type';
@@ -38,7 +38,10 @@ export interface NgModuleTransitiveScopes {
   schemas: SchemaMetadata[]|null;
 }
 
-export type NgModuleDefWithMeta<T, Declarations, Imports, Exports> = NgModuleDef<T>;
+/**
+ * @publicApi
+ */
+export type ɵɵNgModuleDefWithMeta<T, Declarations, Imports, Exports> = NgModuleDef<T>;
 
 /**
  * Runtime link information for NgModules.
@@ -50,7 +53,7 @@ export type NgModuleDefWithMeta<T, Declarations, Imports, Exports> = NgModuleDef
  *
  * 这是在运行期间装配组件、指令、管道和注入器时所需的内部数据结构。
  *
- * NOTE: Always use `defineNgModule` function to create this object,
+ * NOTE: Always use `ɵɵdefineNgModule` function to create this object,
  * never create the object directly since the shape of this object
  * can change between versions.
  *
@@ -67,19 +70,19 @@ export interface NgModuleDef<T> {
    *
    * 列出用于引导的组件。
    */
-  bootstrap: Type<any>[];
+  bootstrap: Type<any>[]|(() => Type<any>[]);
 
   /** List of components, directives, and pipes declared by this module.
    *
    * 列出本模块中声明的组件、指令和管道。
    */
-  declarations: Type<any>[];
+  declarations: Type<any>[]|(() => Type<any>[]);
 
   /** List of modules or `ModuleWithProviders` imported by this module.
    *
    * 列出被本模块导入的模块或 `ModuleWithProviders`。
    */
-  imports: Type<any>[];
+  imports: Type<any>[]|(() => Type<any>[]);
 
   /**
    * List of modules, `ModuleWithProviders`, components, directives, or pipes exported by this
@@ -87,7 +90,7 @@ export interface NgModuleDef<T> {
    *
    * 列出本模块导出的模块、`ModuleWithProviders`、组件、指令或管道。
    */
-  exports: Type<any>[];
+  exports: Type<any>[]|(() => Type<any>[]);
 
   /**
    * Cached value of computed `transitiveCompileScopes` for this module.
@@ -128,10 +131,12 @@ export interface ModuleWithProviders<
  *
  *
  * NgModule 装饰器和构造函数的类型。
+ *
+ * @publicApi
  */
 export interface NgModuleDecorator {
   /**
-   * Marks a class as an NgModule and supplies configuration metadata.
+   * Decorator that marks a class as an NgModule and supplies configuration metadata.
    *
    * 把一个类标记为 NgModule，并提供配置元数据。
    */
@@ -273,7 +278,7 @@ export interface NgModule {
    *
    * ### 范例
    *
-   * The following example allows MainModule to use anthing exported by
+   * The following example allows MainModule to use anything exported by
    * `CommonModule`:
    *
    * 下列例子允许 `MainModule` 使用 `CommonModule` 中导入的任意可声明对象：
@@ -468,7 +473,7 @@ function preR3NgModuleCompile(moduleType: InjectorType<any>, metadata: NgModule)
     imports = [...imports, metadata.exports];
   }
 
-  moduleType.ngInjectorDef = defineInjector({
+  moduleType.ngInjectorDef = ɵɵdefineInjector({
     factory: convertInjectableProviderToFactory(moduleType, {useClass: moduleType}),
     providers: metadata && metadata.providers,
     imports: imports,

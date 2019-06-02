@@ -7,6 +7,7 @@
  */
 
 import {SchemaMetadata, ViewEncapsulation} from '../../core';
+import {ProcessProvidersFunction} from '../../di/interface/provider';
 import {Type} from '../../interface/type';
 import {CssSelectorList} from './projection';
 
@@ -84,7 +85,10 @@ export const enum DirectiveDefFlags {ContentQuery = 0b10}
  */
 export interface PipeType<T> extends Type<T> { ngPipeDef: never; }
 
-export type DirectiveDefWithMeta<
+/**
+ * @codeGenApi
+ */
+export type ɵɵDirectiveDefWithMeta<
     T, Selector extends string, ExportAs extends string[], InputMap extends{[key: string]: string},
     OutputMap extends{[key: string]: string}, QueryFields extends string[]> = DirectiveDef<T>;
 
@@ -92,12 +96,14 @@ export type DirectiveDefWithMeta<
  * Runtime information for classes that are inherited by components or directives
  * that aren't defined as components or directives.
  *
- * This is an internal data structure used by the render to determine what inputs
+ * This is an internal data structure used by the renderer to determine what inputs
  * and outputs should be inherited.
  *
  * See: {@link defineBase}
+ *
+ * @codeGenApi
  */
-export interface BaseDef<T> {
+export interface ɵɵBaseDef<T> {
   /**
    * A dictionary mapping the inputs' minified property names to their public API names, which
    * are their aliases if any, or their original unminified property names
@@ -117,6 +123,23 @@ export interface BaseDef<T> {
    * (as in `@Output('alias') propertyName: any;`).
    */
   readonly outputs: {[P in keyof T]: string};
+
+  /**
+   * Function to create and refresh content queries associated with a given directive.
+   */
+  contentQueries: ContentQueriesFunction<T>|null;
+
+  /**
+   * Query-related instructions for a directive. Note that while directives don't have a
+   * view and as such view queries won't necessarily do anything, there might be
+   * components that extend the directive.
+   */
+  viewQuery: ViewQueriesFunction<T>|null;
+
+  /**
+   * Refreshes host bindings on the associated directive.
+   */
+  hostBindings: HostBindingsFunction<T>|null;
 }
 
 /**
@@ -133,12 +156,14 @@ export interface BaseDef<T> {
  *
  * See: {@link defineDirective}
  */
-export interface DirectiveDef<T> extends BaseDef<T> {
+export interface DirectiveDef<T> extends ɵɵBaseDef<T> {
   /** Token representing the directive. Used by DI. */
   type: Type<T>;
 
   /** Function that resolves providers and publishes them into the DI system. */
-  providersResolver: (<U extends T>(def: DirectiveDef<U>) => void)|null;
+  providersResolver:
+      (<U extends T>(def: DirectiveDef<U>, processProvidersFn?: ProcessProvidersFunction) =>
+           void)|null;
 
   /** The selectors that will be used to match nodes to this directive. */
   readonly selectors: CssSelectorList;
@@ -152,16 +177,6 @@ export interface DirectiveDef<T> extends BaseDef<T> {
    * Factory function used to create a new directive instance.
    */
   factory: FactoryFn<T>;
-
-  /**
-   * Function to create and refresh content queries associated with a given directive.
-   */
-  contentQueries: ContentQueriesFunction<T>|null;
-
-  /**
-   * Refreshes host bindings on the associated directive.
-   */
-  hostBindings: HostBindingsFunction<T>|null;
 
   /* The following are lifecycle hooks for this component */
   onChanges: (() => void)|null;
@@ -184,7 +199,10 @@ export interface DirectiveDef<T> extends BaseDef<T> {
            privateName: string) => void)|null;
 }
 
-export type ComponentDefWithMeta<
+/**
+ * @codeGenApi
+ */
+export type ɵɵComponentDefWithMeta<
     T, Selector extends String, ExportAs extends string[], InputMap extends{[key: string]: string},
     OutputMap extends{[key: string]: string}, QueryFields extends string[]> = ComponentDef<T>;
 
@@ -328,7 +346,10 @@ export interface PipeDef<T> {
   onDestroy: (() => void)|null;
 }
 
-export type PipeDefWithMeta<T, Name extends string> = PipeDef<T>;
+/**
+ * @codeGenApi
+ */
+export type ɵɵPipeDefWithMeta<T, Name extends string> = PipeDef<T>;
 
 export interface DirectiveDefFeature {
   <T>(directiveDef: DirectiveDef<T>): void;

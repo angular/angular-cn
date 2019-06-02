@@ -1641,7 +1641,7 @@ Angular 的事件绑定语法由等号左侧带圆括号的**目标事件**和�
 下面事件绑定监听按钮的点击事件。每当点击发生时，都会调用组件的 `onSave()` 方法。
 
 <figure>
-  <img src='generated/images/guide/event-binding/syntax-diagram.svg' alt="Syntax diagram">
+  <img src='generated/images/guide/template-syntax/syntax-diagram.svg' alt="Syntax diagram">
 </figure>
 
 ### Target event
@@ -1755,7 +1755,7 @@ Here are the pertinent excerpts from that `ItemDetailComponent`:
 
 下面的代码节选自 `HeroDetailComponent`：
 
-<code-example path="event-binding/src/app/item-detail/item-detail.component.html" linenums="false" header="src/app/item-detail/item-detail.component.ts (template)" region="line-through">
+<code-example path="event-binding/src/app/item-detail/item-detail.component.html" linenums="false" header="src/app/item-detail/item-detail.component.html (template)" region="line-through">
 </code-example>
 
 <code-example path="event-binding/src/app/item-detail/item-detail.component.ts" linenums="false" header="src/app/item-detail/item-detail.component.ts (deleteRequest)" region="deleteRequest">
@@ -3258,44 +3258,39 @@ You'll need this template operator when you turn on strict null checks. It's opt
 
 <hr/>
 
+{@a built-in-template-functions}
+
+## Built-in template functions
+
 {@a any-type-cast-function}
 
-## The `$any` type cast function (`$any( <expression> )`)
+### The `$any()` type cast function
 
 ## 类型转换函数 `$any` （$any( <表达式> )）
 
-Sometimes a binding expression will be reported as a type error and it is not possible or difficult
-to fully specify the type. To silence the error, you can use the `$any` cast function to cast
-the expression to [the `any` type](http://www.typescriptlang.org/docs/handbook/basic-types.html#any).
+Sometimes a binding expression triggers a type error during [AOT compilation](guide/aot-compiler) and it is not possible or difficult
+to fully specify the type. To silence the error, you can use the `$any()` cast function to cast
+the expression to [the `any` type](http://www.typescriptlang.org/docs/handbook/basic-types.html#any) as in the following example:
 
 有时候，绑定表达式可能会报类型错误，并且它不能或很难指定类型。要消除这种报错，你可以使用 `$any` 转换函数来把表达式转换成 [`any` 类型](http://www.typescriptlang.org/docs/handbook/basic-types.html#any)。
 
-<code-example path="template-syntax/src/app/app.component.html" region="any-type-cast-function-1" header="src/app/app.component.html" linenums="false">
+<code-example path="built-in-template-functions/src/app/app.component.html" region="any-type-cast-function-1" header="src/app/app.component.html" linenums="false">
 </code-example>
 
-In this example, when the Angular compiler turns your template into TypeScript code,
-it prevents TypeScript from reporting that `marker` is not a member of the `Hero`
-interface.
+When the Angular compiler turns this template into TypeScript code,
+it prevents TypeScript from reporting that `bestByDate` is not a member of the `item`
+object when it runs type checking on the template.
 
 在这个例子中，当 Angular 编译器把模板转换成 TypeScript 代码时，`$any` 表达式可以防止 TypeScript 编译器报错说 `marker` 不是 `Hero` 接口的成员。
 
-The `$any` cast function can be used in conjunction with `this` to allow access to undeclared members of
+The `$any()` cast function also works with `this` to allow access to undeclared members of
 the component.
 
 `$any` 转换函数可以和 `this` 联合使用，以便访问组件中未声明过的成员。
 
-<code-example path="template-syntax/src/app/app.component.html" region="any-type-cast-function-2" header="src/app/app.component.html" linenums="false">
+<code-example path="built-in-template-functions/src/app/app.component.html" region="any-type-cast-function-2" header="src/app/app.component.html" linenums="false">
 </code-example>
 
-The `$any` cast function can be used anywhere in a binding expression where a method call is valid.
+The `$any()` cast function works anywhere in a binding expression where a method call is valid.
 
-`$any` 转换函数可以在绑定表达式中任何可以进行方法调用的地方使用。
-
-## Summary
-
-## 小结
-
-You've completed this survey of template syntax.
-Now it's time to put that knowledge to work on your own components and directives.
-
-你完成了模板语法的概述。现在，该把如何写组件和指令的知识投入到实际工作当中了。
+`$any()` 转换函数可以用在绑定表达式中任何可以进行方法调用的地方。

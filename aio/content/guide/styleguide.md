@@ -73,7 +73,6 @@ For example, `hero.component.ts` and `hero.component.html`.
 The guideline uses the shortcut `hero.component.ts|html|css|spec` to represent those various files. Using this shortcut makes this guide's file structures easier to read and more terse.
 
 本指南将会使用像 `hero.component.ts|html|css|spec` 的简写来表示上面描述的多个文件，目的是保持本指南的简洁性，增加描述文件结构时的可读性。
-
 {@a single-responsibility}
 
 ## Single responsibility
@@ -867,6 +866,7 @@ As always, strive for consistency.
 
 </div>
 
+
 <code-example path="styleguide/src/02-05/main.ts" header="main.ts">
 
 </code-example>
@@ -887,8 +887,6 @@ As always, strive for consistency.
 
 <div class="s-rule do">
 
-
-
 **Do** use _dashed-case_ or _kebab-case_ for naming the element selectors of components.
 
 **坚持**使用*中线命名法（dashed-case）*或叫*烤串命名法（kebab-case）*来命名组件的元素选择器。
@@ -903,15 +901,9 @@ As always, strive for consistency.
 
 </div>
 
-
-
 <code-example path="styleguide/src/05-02/app/heroes/shared/hero-button/hero-button.component.avoid.ts" region="example" header="app/heroes/shared/hero-button/hero-button.component.ts">
 
 </code-example>
-
-
-
-
 
 <code-tabs>
 
@@ -924,8 +916,6 @@ As always, strive for consistency.
   </code-pane>
 
 </code-tabs>
-
-
 
 <a href="#toc">Back to top</a>
 
@@ -943,9 +933,7 @@ As always, strive for consistency.
 
 <div class="s-rule do">
 
-**Do** use a hyphenated, lowercase element selector value (e.g. `admin-users`).
-
-**坚持**使用带连字符的小写元素选择器值（例如 `admin-users`）。
+**Do** use a hyphenated, lowercase element selector value ; for example, `admin-users`.**坚持**使用带连字符的小写元素选择器值（例如 `admin-users`）。
 
 </div>
 
@@ -1007,8 +995,6 @@ For example, the prefix `toh` represents from **T**our **o**f **H**eroes and the
 
 </code-example>
 
-
-
 <a href="#toc">Back to top</a>
 
 <a href="#toc">回到顶部</a>
@@ -1026,19 +1012,13 @@ For example, the prefix `toh` represents from **T**our **o**f **H**eroes and the
 
 <div class="s-rule do">
 
-
-
 **Do** Use lower camel case for naming the selectors of directives.
 
 **坚持**使用小驼峰形式命名指令的选择器。
 
 </div>
 
-
-
 <div class="s-why">
-
-
 
 **Why?** Keeps the names of the properties defined in the directives that are bound to the view consistent with the attribute names.
 
@@ -1046,17 +1026,15 @@ For example, the prefix `toh` represents from **T**our **o**f **H**eroes and the
 
 </div>
 
-
-
 <div class="s-why-last">
-
-
 
 **Why?** The Angular HTML parser is case sensitive and recognizes lower camel case.
 
 **为何？** Angular 的 HTML 解析器是大小写敏感的，可以识别小驼峰形式。
 
 </div>
+
+
 
 <a href="#toc">Back to top</a>
 
@@ -1683,7 +1661,7 @@ Have a consistent set of coding, naming, and whitespace conventions.
 
 <div class="s-rule do">
 
-**Do** use upper camel case when naming classes.
+**Do** use upper camel case, also known as PascalCase, when naming classes.
 
 **坚持**使用大写驼峰命名法来命名类。
 
@@ -1710,9 +1688,11 @@ By convention, upper camel case indicates a constructable asset.
 
 </code-example>
 
+
 <code-example path="styleguide/src/03-01/app/core/exception.service.ts" region="example" header="app/shared/exception.service.ts">
 
 </code-example>
+
 
 <a href="#toc">Back to top</a>
 
@@ -2758,12 +2738,11 @@ and more difficult in a flat structure.
 
 </div>
 
-<div class='file-tree-reference'>
+<div >
 
-  <a href="#file-tree">Refer to this _folder and file structure_ example.</a>
+  For more information, refer to <a href="#file-tree">this folder and file structure example.</a>
 
   <a href="#file-tree">点这里查看目录和文件结构的范例</a>
-
 </div>
 
 <a href="#toc">Back to top</a>
@@ -3158,390 +3137,20 @@ Yet there is a real danger of that happening if the `SharedModule` provides a se
 
 </code-tabs>
 
+
+
+
 <a href="#toc">Back to top</a>
 
 <a href="#toc">回到顶部</a>
 
 {@a 04-11}
 
-### Core feature module
+### Lazy Loaded folders
 
 ### 核心特性模块
 
 #### Style 04-11
-
-#### 风格 04-11
-
-<div class="s-rule consider">
-
-**Consider** collecting numerous, auxiliary, single-use classes inside a core module
-to simplify the apparent structure of a feature module.
-
-**考虑**把那些数量庞大、辅助性的、只用一次的类收集到核心模块中，让特性模块的结构更清晰简明。
-
-</div>
-
-<div class="s-rule consider">
-
-**Consider** calling the application-wide core module, `CoreModule`.
-Importing `CoreModule` into the root `AppModule` reduces its complexity
-and emphasizes its role as orchestrator of the application as a whole.
-
-**坚持**把那些“只用一次”的类收集到 `CoreModule` 中，并对外隐藏它们的实现细节。简化的 `AppModule` 会导入 `CoreModule`，并且把它作为整个应用的总指挥。
-
-</div>
-
-<div class="s-rule do">
-
-**Do** create a feature module named `CoreModule` in a `core` folder (e.g. `app/core/core.module.ts` defines `CoreModule`).
-
-**坚持**在 `core` 目录下创建一个名叫 `CoreModule` 的特性模块（例如在 `app/core/core.module.ts` 中定义 `CoreModule`）。
-
-</div>
-
-<div class="s-rule do">
-
-**Do** put a singleton service whose instance will be shared throughout the application in the `CoreModule` (e.g. `ExceptionService` and `LoggerService`).
-
-**坚持**把要共享给整个应用的单例服务放进 `CoreModule` 中（例如 `ExceptionService` 和 `LoggerService`）。
-
-</div>
-
-<div class="s-rule do">
-
-**Do** import all modules required by the assets in the `CoreModule` (e.g. `CommonModule` and `FormsModule`).
-
-**坚持**导入 `CoreModule` 中的资产所需要的全部模块（例如 `CommonModule` 和 `FormsModule`）。
-
-</div>
-
-<div class="s-why">
-
-**Why?** `CoreModule` provides one or more singleton services. Angular registers the providers with the app root injector, making a singleton instance of each service available to any component that needs them, whether that component is eagerly or lazily loaded.
-
-**为何？** `CoreModule` 提供了一个或多个单例服务。Angular 使用应用的根注入器注册这些服务提供商，让每个服务的这个单例对象对所有需要它们的组件都是可用的，而不用管该组件是通过主动加载还是惰性加载的方式加载的。
-
-</div>
-
-<div class="s-why">
-
-**Why?** `CoreModule` will contain singleton services. When a lazy loaded module imports these, it will get a new instance and not the intended app-wide singleton.
-
-**为何？**`CoreModule` 将包含一些单例服务。而如果是由惰性加载模块来导入这些服务，它就会得到一个新实例，而不是所期望的全应用级单例。
-
-</div>
-
-<div class="s-rule do">
-
-**Do** gather application-wide, single use components in the `CoreModule`.
-Import it once (in the `AppModule`) when the app starts and never import it anywhere else. (e.g. `NavComponent` and `SpinnerComponent`).
-
-**坚持**把应用级、只用一次的组件收集到 `CoreModule` 中。
-只在应用启动时从 `AppModule` 中导入它一次，以后再也不要导入它（例如 `NavComponent` 和 `SpinnerComponent`）。
-
-</div>
-
-<div class="s-why">
-
-**Why?** Real world apps can have several single-use components (e.g., spinners, message toasts, and modal dialogs) that appear only in the `AppComponent` template.
-They are not imported elsewhere so they're not shared in that sense.
-Yet they're too big and messy to leave loose in the root folder.
-
-**为何？**真实世界中的应用会有很多只用一次的组件（例如加载动画、消息浮层、模态框等），它们只会在 `AppComponent` 的模板中出现。
-不会在其它地方导入它们，所以没有共享的价值。
-然而它们又太大了，放在根目录中就会显得乱七八糟的。
-
-</div>
-
-<div class="s-rule avoid">
-
-**Avoid** importing the `CoreModule` anywhere except in the `AppModule`.
-
-**避免**在 `AppModule` 之外的任何地方导入 `CoreModule`。
-
-</div>
-
-<div class="s-why">
-
-**Why?** A lazily loaded feature module that directly imports the `CoreModule` will make its own copy of services and likely have undesirable results.
-
-**为何？**如果惰性加载的特性模块直接导入 `CoreModule`，就会创建它自己的服务副本，并导致意料之外的后果。
-
-</div>
-
-<div class="s-why">
-
-**Why?** An eagerly loaded feature module already has access to the `AppModule`'s injector, and thus the `CoreModule`'s services.
-
-**为何？**主动加载的特性模块已经准备好了访问 `AppModule` 的注入器，因此也能取得 `CoreModule` 中的服务。
-
-</div>
-
-<div class="s-rule do">
-
-**Do** export all symbols from the `CoreModule` that the `AppModule` will import and make available for other feature modules to use.
-
-**坚持**从 `CoreModule` 中导出 `AppModule` 需导入的所有符号，使它们在所有特性模块中可用。
-
-</div>
-
-<div class="s-why">
-
-**Why?** `CoreModule` exists to make commonly used singleton services available for use in the many other modules.
-
-**为何？**`CoreModule` 的存在就要让常用的单例服务在所有其它模块中可用。
-
-</div>
-
-<div class="s-why-last">
-
-**Why?** You want the entire app to use the one, singleton instance.
-You don't want each module to have its own separate instance of singleton services.
-Yet there is a real danger of that happening accidentally if the `CoreModule` provides a service.
-
-**为何？**你希望整个应用都使用这个单例服务。
-你不希望每个模块都有这个单例服务的单独的实例。
-然而，如果 `CoreModule` 中提供了一个服务，就可能偶尔导致这种后果。
-
-</div>
-
-<div class='filetree'>
-
-  <div class='file'>
-
-    src
-
-  </div>
-
-  <div class='children'>
-
-    <div class='file'>
-
-      app
-
-    </div>
-
-    <div class='children'>
-
-      <div class='file'>
-
-        core
-
-      </div>
-
-      <div class='children'>
-
-        <div class='file'>
-
-          core.module.ts
-
-        </div>
-
-        <div class='file'>
-
-          logger.service.ts|spec.ts
-
-        </div>
-
-        <div class='file'>
-
-          nav
-
-        </div>
-
-        <div class='children'>
-
-          <div class='file'>
-
-            nav.component.ts|html|css|spec.ts
-
-          </div>
-
-        </div>
-
-        <div class='file'>
-
-          spinner
-
-        </div>
-
-        <div class='children'>
-
-          <div class='file'>
-
-            spinner.component.ts|html|css|spec.ts
-
-          </div>
-
-          <div class='file'>
-
-            spinner.service.ts|spec.ts
-
-          </div>
-
-        </div>
-
-      </div>
-
-      <div class='file'>
-
-        app.component.ts|html|css|spec.ts
-
-      </div>
-
-      <div class='file'>
-
-        app.module.ts
-
-      </div>
-
-      <div class='file'>
-
-        app-routing.module.ts
-
-      </div>
-
-    </div>
-
-    <div class='file'>
-
-      main.ts
-
-    </div>
-
-    <div class='file'>
-
-      index.html
-
-    </div>
-
-  </div>
-
-  <div class='file'>
-
-    ...
-
-  </div>
-
-</div>
-
-<code-tabs>
-
-  <code-pane header="app/app.module.ts" path="styleguide/src/04-11/app/app.module.ts" region="example">
-
-  </code-pane>
-
-  <code-pane header="app/core/core.module.ts" path="styleguide/src/04-11/app/core/core.module.ts">
-
-  </code-pane>
-
-  <code-pane header="app/core/logger.service.ts" path="styleguide/src/04-11/app/core/logger.service.ts">
-
-  </code-pane>
-
-  <code-pane header="app/core/nav/nav.component.ts" path="styleguide/src/04-11/app/core/nav/nav.component.ts">
-
-  </code-pane>
-
-  <code-pane header="app/core/nav/nav.component.html" path="styleguide/src/04-11/app/core/nav/nav.component.html">
-
-  </code-pane>
-
-  <code-pane header="app/core/spinner/spinner.component.ts" path="styleguide/src/04-11/app/core/spinner/spinner.component.ts">
-
-  </code-pane>
-
-  <code-pane header="app/core/spinner/spinner.component.html" path="styleguide/src/04-11/app/core/spinner/spinner.component.html">
-
-  </code-pane>
-
-  <code-pane header="app/core/spinner/spinner.service.ts" path="styleguide/src/04-11/app/core/spinner/spinner.service.ts">
-
-  </code-pane>
-
-</code-tabs>
-
-<div class="alert is-helpful">
-
-`AppModule` is a little smaller because many app/root classes have moved to other modules.
-`AppModule` is stable because you will add future components and providers to other modules, not this one.
-`AppModule` delegates to imported modules rather than doing work.
-`AppModule` is focused on its main task, orchestrating the app as a whole.
-
-`AppModule` 变得更小了，因为很多应用根部的类都被移到了其它模块中。
-`AppModule` 变得稳定了，因为你将会往其它模块中添加特性组件和服务提供商，而不是这个 `AppModule`。
-`AppModule` 把工作委托给了导入的模块，而不是亲力亲为。
-`AppModule` 聚焦在它自己的主要任务上：作为整个应用的总指挥。
-
-</div>
-
-<a href="#toc">Back to top</a>
-
-<a href="#toc">回到顶部</a>
-
-{@a 04-12}
-
-### Prevent re-import of the core module
-
-### 防止多次导入 `CoreModule`
-
-#### Style 04-12
-
-#### 风格 04-12
-
-Only the root `AppModule` should import the `CoreModule`.
-
-应该只有 `AppModule` 才允许导入 `CoreModule`。
-
-<div class="s-rule do">
-
-**Do** guard against reimporting of `CoreModule` and fail fast by adding guard logic.
-
-**坚持**防范多次导入 `CoreModule`，并通过添加守卫逻辑来尽快失败。
-
-</div>
-
-<div class="s-why">
-
-**Why?** Guards against reimporting of the `CoreModule`.
-
-**为何？**守卫可以阻止对 `CoreModule` 的多次导入。
-
-</div>
-
-<div class="s-why-last">
-
-**Why?** Guards against creating multiple instances of assets intended to be singletons.
-
-**为何？**守卫会禁止创建单例服务的多个实例。
-
-</div>
-
-<code-tabs>
-
-  <code-pane header="app/core/module-import-guard.ts" path="styleguide/src/04-12/app/core/module-import-guard.ts">
-
-  </code-pane>
-
-  <code-pane header="app/core/core.module.ts" path="styleguide/src/04-12/app/core/core.module.ts">
-
-  </code-pane>
-
-</code-tabs>
-
-<a href="#toc">Back to top</a>
-
-<a href="#toc">回到顶部</a>
-
-{@a 04-13}
-
-### Lazy Loaded folders
-
-### 惰性加载的目录
-
-#### Style 04-13
-
-#### 样式 04-13
 
 A distinct application feature or workflow may be *lazy loaded* or *loaded on demand* rather than when the application starts.
 
@@ -3569,13 +3178,13 @@ A typical *lazy loaded folder* contains a *routing component*, its child compone
 
 <a href="#toc">回到顶部</a>
 
-{@a 04-14}
+{@a 04-12}
 
 ### Never directly import lazy loaded folders
 
 ### 永远不要直接导入惰性加载的目录
 
-#### Style 04-14
+#### Style 04-12
 
 #### 样式 04-14
 
@@ -3621,7 +3230,7 @@ A typical *lazy loaded folder* contains a *routing component*, its child compone
 
 <div class="s-why">
 
-**Why?** components have templates containing HTML and optional Angular template syntax.
+**Why?** Components have templates containing HTML and optional Angular template syntax.
 They display content.
 Developers place components on the page as they would native HTML elements and web components.
 
@@ -4218,7 +3827,7 @@ helps instantly identify which members of the component serve which purpose.
 
 **Why?** The property associated with `@HostBinding` or the method associated with `@HostListener`
 can be modified only in a single place&mdash;in the directive's class.
-If you use the `host` metadata property, you must modify both the property/method declaration in the 
+If you use the `host` metadata property, you must modify both the property/method declaration in the
 directive's class and the metadata in the decorator associated with the directive.
 
 **为何？**对于关联到 `@HostBinding` 的属性或关联到 `@HostListener` 的方法，要修改时，只需在指令类中的一个地方修改。
@@ -4392,7 +4001,7 @@ Compare with the less preferred `host` metadata alternative.
 
 </div>
 
-<code-example path="dependency-injection/src/app/tree-shaking/service.ts" header="src/app/treeshaking/service.ts" linenums="false"> </code-example> 
+<code-example path="dependency-injection/src/app/tree-shaking/service.ts" header="src/app/treeshaking/service.ts" linenums="false"> </code-example>
 
 <a href="#toc">Back to top</a>
 
@@ -4544,7 +4153,7 @@ Use Lifecycle hooks to tap into important events exposed by Angular.
 <div class="s-why-last">
 
 **Why?** Lifecycle interfaces prescribe typed method
-signatures. use those signatures to flag spelling and syntax mistakes.
+signatures. Use those signatures to flag spelling and syntax mistakes.
 
 **为何？**如果使用强类型的方法签名，编译器和编辑器可以帮你揪出拼写错误。
 

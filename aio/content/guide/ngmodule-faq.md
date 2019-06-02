@@ -353,21 +353,20 @@ You add that result to the `imports` list of the root `AppModule`.
 `RouterModule.forRoot()` 返回一个[ModuleWithProviders](api/core/ModuleWithProviders)对象。
 你把这个结果添加到根模块 `AppModule` 的 `imports` 列表中。
 
-Only call and import a `.forRoot()` result in the root application module, `AppModule`.
-Importing it in any other module, particularly in a lazy-loaded module,
-is contrary to the intent and will likely produce a runtime error.
-For more information, see [Singleton Services](guide/singleton-services).
+Only call and import a `forRoot()` result in the root application module, `AppModule`.
+Avoid importing it in any other module, particularly in a lazy-loaded module. For more
+information on `forRoot()` see [the `forRoot()` pattern](guide/singleton-services#the-forroot-pattern) section of the [Singleton Services](guide/singleton-services) guide.
 
 只能在应用的根模块 `AppModule` 中调用并导入 `.forRoot()` 的结果。
 在其它模块中导入它，特别是惰性加载模块中，是违反设计目标的并会导致一个运行时错误。
 要了解更多，参见[单例服务](guide/singleton-services)。
 
-For a service, instead of using `forRoot()`,  specify `providedIn: 'root'` on the service's `@Injectable()` decorator, which 
+For a service, instead of using `forRoot()`,  specify `providedIn: 'root'` on the service's `@Injectable()` decorator, which
 makes the service automatically available to the whole application and thus singleton by default.
 
 对于服务来说，除了可以使用 `forRoot()`外，更好的方式是在该服务的 `@Injectable()` 装饰器中指定 `providedIn: 'root'`，它让该服务自动在全应用级可用，这样它也就默认是单例的。
 
-`RouterModule` also offers a `forChild` static method for configuring the routes of lazy-loaded modules.
+`RouterModule` also offers a `forChild()` static method for configuring the routes of lazy-loaded modules.
 
 `RouterModule` 也提供了静态方法 `forChild`，用于配置惰性加载模块的路由。
 
@@ -376,10 +375,8 @@ configure services in root and feature modules respectively.
 
 `forRoot()` 和 `forChild()` 都是约定俗成的方法名，它们分别用于在根模块和特性模块中配置服务。
 
-Angular doesn't recognize these names but Angular developers do.
 Follow this convention when you write similar modules with configurable service providers.
 
-Angular 并不识别这些名字，但是 Angular 的开发人员可以。
 当你写类似的需要可配置的服务提供商时，请遵循这个约定。
 
 <hr/>
@@ -661,7 +658,7 @@ Providers should be configured using `@Injectable` syntax. If possible, they sho
 提供商应该使用 `@Injectable` 语法进行配置。只要可能，就应该把它们在应用的根注入器中提供（`providedIn: 'root'`）。
 如果它们只被惰性加载的上下文中使用，那么这种方式配置的服务就是惰性加载的。
 
-If it's the consumer's decision whether a provider is available application-wide or not, 
+If it's the consumer's decision whether a provider is available application-wide or not,
 then register providers in modules (`@NgModule.providers`) instead of registering in components (`@Component.providers`).
 
 如果要由消费方来决定是否把它作为全应用级提供商，那么就要在模块中（`@NgModule.providers`）注册提供商，而不是组件中（`@Component.providers`）。
@@ -815,12 +812,12 @@ You can throw an error or take other remedial action.
 为了防范这种风险，可以写一个构造函数，它会尝试从应用的根注入器中注入该模块或服务。如果这种注入成功了，那就说明这个类是被第二次加载的，你就可以抛出一个错误，或者采取其它挽救措施。
 
 Certain NgModules, such as `BrowserModule`, implement such a guard.
-Here is a custom constructor for an NgModule called `CoreModule`.
+Here is a custom constructor for an NgModule called `GreetingModule`.
 
 某些 NgModule（例如 `BrowserModule`）就实现了那样一个守卫。
 下面是一个名叫 `CoreModule` 的 NgModule 的 自定义构造函数。
 
-<code-example path="ngmodule-faq/src/app/core/core.module.ts" region="ctor" header="src/app/core/core.module.ts (Constructor)" linenums="false">
+<code-example path="ngmodules/src/app/greeting/greeting.module.ts" region="ctor" header="src/app/greeting/greeting.module.ts (Constructor)" linenums="false">
 </code-example>
 
 <hr/>
@@ -1009,29 +1006,6 @@ Import the `SharedModule` in your _feature_ modules,
 both those loaded when the app starts and those you lazy load later.
 
 在任何特性模块中（无论是你在应用启动时主动加载的模块还是之后惰性加载的模块），你都可以随意导入这个 `SharedModule`。
-
-### `CoreModule`
-
-`CoreModule` is a conventional name for an `NgModule` with `providers` for
-the singleton services you load when the application starts.
-
-为你要在应用启动时加载的那些服务创建一个带 `providers` 的 `CoreModule`。
-
-Import `CoreModule` in the root `AppModule` only.
-Never import `CoreModule` in any other module.
-
-只能在根模块 `AppModule` 中导入 `CoreModule`。
-永远不要在除根模块 `AppModule` 之外的任何模块中导入 `CoreModule`。
-
-Consider making `CoreModule` a pure services module
-with no `declarations`.
-
-考虑把 `CoreModule` 做成一个没有 `declarations` 的纯服务模块。
-
-For more information, see [Sharing NgModules](guide/sharing-ngmodules)
-and [Singleton Services](guide/singleton-services).
-
-要了解更多，参见[共享模块](guide/sharing-ngmodules)和[单例服务](guide/singleton-services)。
 
 ### Feature Modules
 

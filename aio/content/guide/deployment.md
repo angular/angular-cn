@@ -2,8 +2,7 @@
 
 # 部署
 
-When you are ready to deploy your Angular application to a remote server, you have various options for
-deployment.
+When you are ready to deploy your Angular application to a remote server, you have various options for deployment.
 
 当你准备把 Angular 应用部署到远程服务器上时，有很多关于部署的选项。
 
@@ -11,7 +10,51 @@ deployment.
 
 {@a copy-files}
 
-## Simplest deployment possible
+
+## Simple deployment options
+
+Before fully deploying your application, you can test the process, build configuration, and deployed behavior by using one of these interim techniques
+
+### Building and serving from disk
+
+During development, you typically use the `ng serve` command to build, watch, and serve the application from local memory, using [webpack-dev-server](https://webpack.js.org/guides/development/#webpack-dev-server).
+When you are ready to deploy, however, you must use the `ng build` command to build the app and deploy the build artifacts elsewhere.
+
+Both `ng build` and `ng serve` clear the output folder before they build the project, but only the `ng build` command writes the generated build artifacts to the output folder.
+
+<div class="alert is-helpful">
+
+The output folder is  `dist/project-name/` by default.
+To output to a different folder, change the `outputPath` in `angular.json`.
+
+</div>
+
+As you near the end of the development process, serving the contents of your output folder from a local web server can give you a better idea of how your application will behave when it is deployed to a remote server.
+You will need two terminals to get the live-reload experience.
+
+* On the first terminal, run the [`ng build` command](cli/build) in *watch* mode to compile the application to the `dist` folder.
+
+  <code-example language="none" class="code-shell">
+   ng build --watch
+  </code-example>
+
+  Like the `ng serve` command, this regenerates output files when source files change.
+
+* On the second terminal, install a web server (such as [lite-server](https://github.com/johnpapa/lite-server)), and run it against the output folder. For example:
+
+  <code-example language="none" class="code-shell">
+   lite-server --baseDir="dist"
+  </code-example>
+
+   The server will automatically reload your browser when new files are output.
+
+<div class="alert is-critical">
+
+This method is for development and testing only, and is not a supported or secure way of deploying an application.
+
+</div>
+
+### Basic deployment to a remote server
 
 ## 最简化的部署方式
 
@@ -43,7 +86,7 @@ This is the simplest production-ready deployment of your application.
 
 {@a deploy-to-github}
 
-## Deploy to GitHub pages
+### Deploy to GitHub pages
 
 ## 发布到 GitHub pages（页面服务）
 
@@ -507,44 +550,137 @@ for the missing files. Look at where it _tried_ to find those files and adjust t
 
 这里如果不配置 `base` 标签，应用就会失败，并在浏览器的控制台中为缺失的文件显示一个 `404 - Not Found` 错误。看看它*试图*从哪里去查找那些文件，并据此调整 base 标签。
 
-## Building and serving for deployment
+## Differential Loading
 
-## 为部署而构建和启动服务器
+When building web applications, making sure your application is compatible with the majority of browsers is a goal. Even as JavaScript continues to evolve, with new features being introduced, not all browsers are updated with support for these new features at the same pace. This is where compilation and [polyfills](guide/browser-support#polyfills) come in. The code you write in development using TypeScript is compiled and bundled into a format that is compatible with most browsers, commonly known as ES5. Polyfills are used bridge the gap, providing functionality that simply doesn't exist in some legacy browsers. 
 
-When you are designing and developing applications, you typically use `ng serve` to build your app for fast, local, iterative development.
-When you are ready to deploy, however, you must use the `ng build` command to build the app and deploy the build artifacts elsewhere.
+There is a cost to ensure this browser compatibility, and it comes in the form of larger bundle size. All modern browsers support ES2015 and beyond, but in most cases, you still have to account for users accessing your application from a browser that doesn't. To maximize compatibility, you ship a single bundle that includes all your compiled code, plus any polyfills that may be needed. Users with modern browsers shouldn't pay the price of increased bundle size when used in a modern browser that supports many of the latest features in JavaScript. This is where differential loading comes into play.
 
-在设计和开发应用程序时，通常使用 `ng serve` 来构建应用，已进行快速的、本地的、迭代式的开发。
-不过，当准备部署时，你必须使用 `ng build` 命令来构建应用，并在别处部署构建成果。
+Differential loading is a strategy where the CLI builds two separate bundles as part of your deployed application. The modern bundle contains modern syntax, takes advantage of built-in support in modern browsers, ships less polyfills, and results in a smaller bundle size. The second bundle, includes the additional compiled code, all necessary polyfills, and results in a larger bundle size. This strategy allows you to continue to build your web application to support multiple browsers, but only load the necessary code that the browser needs.
 
-Both `ng build` and `ng serve` clear the output folder before they build the project, but only the `ng build` command writes the generated build artifacts to the output folder.
+### Differential builds
+
+The Angular CLI handles differential loading for you as part of the _build_ process for deployment. The Angular CLI will produce the necessary bundles used for differential loading, based on your browser support requirements and compilation target. 
+
+The Angular CLI uses two configurations for differential loading:
+
+- Browserslist - The `browserslist` configuration file is included in your application [project structure](guide/file-structure#application-configuration-files) and provides the minimum browsers your application supports. See the [Browserslist spec](https://github.com/browserslist/browserslist) for complete configuration options.
+- tsconfig.json - The `target` in the TypeScript `compilerOptions` determines the ECMAScript target version that the code is compiled to. Modern browsers support ES2015 natively, while ES5 is more commonly used to support legacy browsers.
 
 在构建之前，`ng build` 和 `ng serve` 都会清空输出目录，但是只有 `ng build` 命令才会把生成的构建成果写入到输出目录下。
 
 <div class="alert is-helpful">
 
-The output folder is  `dist/` by default.
-To output to a different folder, change the `outputPath` in `angular.json`.
+**Note:** Differential loading is currently only supported when using `es2015` as a compilation `target`. When used with targets higher than `es2015`, a warning is emitted during build time.
+
+</div>
+
+The CLI queries the Browserslist configuration, and checks the `target` to determine if support for legacy browsers is required. The combination of these two configurations determines whether multiple bundles are produced when you create a _build_. When you create a development build using [`ng build`](cli/build) and differential loading is enabled, the output produced is simpler and easier to debug, allowing you to rely less on sourcemaps of compiled code. When you create a production build using [`ng build --prod`](cli/build), the CLI uses the defined configurations above to determine the bundles to build for deployment of your application. 
+
+The `index.html` file is also modified during the build process to include script tags that enable differential loading. See the sample output below from the `index.html` file produced during a build using `ng build`.
+
+```html
+<!-- ... -->
+<body>
+  <app-root></app-root>
+  <script src="runtime-es2015.js" type="module"></script>
+  <script src="runtime-es5.js" nomodule></script>
+  <script src="polyfills-es2015.js" type="module"></script>
+  <script src="polyfills-es5.js" nomodule></script>
+  <script src="styles-es2015.js" type="module"></script>
+  <script src="styles-es5.js" nomodule></script>
+  <script src="vendor-es2015.js" type="module"></script>
+  <script src="vendor-es5.js" nomodule></script>
+  <script src="main-es2015.js" type="module"></script>
+  <script src="main-es5.js" nomodule></script>
+</body>
+<!-- ... -->
+```
+
+Each script tag has a `type="module"` or `nomodule` attribute. Browsers with native support for ES modules only load the scripts with the `module` type attribute and ignore scripts with the `nomodule` attribute. Legacy browsers only load the scripts with the `nomodule` attribute, and ignore the script tags with the `module` type that load ES modules. 
+
+<div class="alert is-helpful">
+
+**Note:** Some legacy browsers still download both bundles, but only execute the appropriate scripts based on the attributes mentioned above. You can read more on the issue [here](https://github.com/philipwalton/webpack-esnext-boilerplate/issues/1).
 
 输出目录默认为 `dist/`。
 要想输出到其它目录，请修改 `angular.json` 中的 `outputPath`。
 
 </div>
 
-The `ng serve` command builds, watches, and serves the application from local memory, using a local development server.
-When you have deployed your app to another server, however, you might still want to serve the app so that you can continue to see changes that you make in it.
-You can do this by adding the `--watch` option to the `ng build` command.
+See the [configuration table](#configuration-table) below for the configurations for enabling differential loading.
+
+### Configuring differential loading
+
+Differential loading for creating builds is already supported with version 8 and later of the Angular CLI. For each application project in your workspace, you can configure how builds are produced based on the mentioned `browserslist` and `tsconfig.json` files in your application project.
+
+Look at the default configuration for a newly created Angular application:
+
+The `browserslist` looks like this:
+
+```
+> 0.5%
+last 2 versions
+Firefox ESR
+not dead
+not IE 9-11 # For IE 9-11 support, remove 'not'.
+```
+
+The `tsconfig.json` looks like this:
+
 
 `ng serve` 命令会构建、监视并使用本地开发服务器从内存中提供网站服务。
 但是，当你将应用部署到其它服务器时，你可能希望仍然能持续看到你对该应用所做的修改。这时候，你可以为 `ng build` 命令添加 `--watch` 选项来做到这一点。
 
 ```
-ng build --watch
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "baseUrl": "./",
+    "outDir": "./dist/out-tsc",
+    "sourceMap": true,
+    "declaration": false,
+    "module": "esnext",
+    "moduleResolution": "node",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "importHelpers": true,
+    "target": "es2015",
+    "typeRoots": [
+      "node_modules/@types"
+    ],
+    "lib": [
+      "es2018",
+      "dom"
+    ]
+  }
+}
 ```
-Like the `ng serve` command, this regenerates output files when source files change.
 
-像 `ng serve` 命令一样，当源码文件发生变化时，它会重新生成输出文件。
+By default, legacy browsers such as IE 9-11 are ignored, and the compilation target is ES2015. As a result, this produces two builds, and differential loading is enabled. If you ignore browsers without ES2015 support, a single build is produced. To see the build result for differential loading based on different configurations, refer to the table below. 
 
-For complete details of the CLI commands, see the [CLI command reference](cli).
+<div class="alert is-important">
 
-要了解 CLI 命令的详细信息，参见 [CLI 命令参考手册](cli)。
+**Note:** To see which browsers are supported with the above configuration, see which settings meet to your browser support requirements, see the [Browserslist compatibility page](https://browserl.ist/?q=%3E+0.5%25%2C+last+2+versions%2C+Firefox+ESR%2C+Chrome+41%2C+not+dead%2C+not+IE+9-11).
+
+</div>
+
+{@a configuration-table }
+
+| ES5 Browserslist Result | ES Target | Build Result |
+| -------- | -------- | -------- |
+| disabled | es5     | Single build |
+| enabled  | es5     | Single build w/Conditional Polyfills |
+| disabled | es2015  | Single build |
+| enabled  | es2015  | Differential Loading (Two builds w/Conditional Polyfills |
+
+When the ES5 Browserslist result is `disabled`, then ES5 browser support is not required. Otherwise, ES5 browser support is required.
+
+### Opting out of differential loading
+
+Differential loading can be explicitly disabled if it causes unexpected issues or you need to target ES5 specifically for legacy browser support. 
+
+To explicitly disable differential loading:
+
+- Enable the `dead` or `IE` browsers in the `browserslist` config file by removing the `not` keyword in front of them.
+- Set the `target` in the `compilerOptions` to `es5`.

@@ -263,7 +263,8 @@ Note the following:
 
    你使用自定义管道的方式和内置管道完全相同。
 
-* You must include your pipe in the `declarations` array of the `AppModule`.
+* You must include your pipe in the `declarations` array of the `AppModule`
+* If you choose to inject your pipe into a class, you must provide it in the `providers` array of your `NgModule`.
 
    你必须在 `AppModule` 的 `declarations` 数组中包含这个管道。
 

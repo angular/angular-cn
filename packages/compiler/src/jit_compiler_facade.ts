@@ -7,7 +7,7 @@
  */
 
 
-import {CompilerFacade, CoreEnvironment, ExportedCompilerFacade, R3ComponentMetadataFacade, R3DependencyMetadataFacade, R3DirectiveMetadataFacade, R3InjectableMetadataFacade, R3InjectorMetadataFacade, R3NgModuleMetadataFacade, R3PipeMetadataFacade, R3QueryMetadataFacade, StringMap, StringMapWithRename} from './compiler_facade_interface';
+import {CompilerFacade, CoreEnvironment, ExportedCompilerFacade, R3BaseMetadataFacade, R3ComponentMetadataFacade, R3DependencyMetadataFacade, R3DirectiveMetadataFacade, R3InjectableMetadataFacade, R3InjectorMetadataFacade, R3NgModuleMetadataFacade, R3PipeMetadataFacade, R3QueryMetadataFacade, StringMap, StringMapWithRename} from './compiler_facade_interface';
 import {ConstantPool} from './constant_pool';
 import {HostBinding, HostListener, Input, Output, Type} from './core';
 import {compileInjectable} from './injectable_compiler_2';
@@ -21,12 +21,14 @@ import {R3InjectorMetadata, R3NgModuleMetadata, compileInjector, compileNgModule
 import {compilePipeFromMetadata} from './render3/r3_pipe_compiler';
 import {R3Reference} from './render3/util';
 import {R3DirectiveMetadata, R3QueryMetadata} from './render3/view/api';
-import {compileComponentFromMetadata, compileDirectiveFromMetadata, parseHostBindings, verifyHostBindings} from './render3/view/compiler';
+import {ParsedHostBindings, compileBaseDefFromMetadata, compileComponentFromMetadata, compileDirectiveFromMetadata, parseHostBindings, verifyHostBindings} from './render3/view/compiler';
 import {makeBindingParser, parseTemplate} from './render3/view/template';
+import {ResourceLoader} from './resource_loader';
 import {DomElementSchemaRegistry} from './schema/dom_element_schema_registry';
 
 export class CompilerFacadeImpl implements CompilerFacade {
   R3ResolvedDependencyType = R3ResolvedDependencyType as any;
+  ResourceLoader = ResourceLoader;
   private elementSchemaRegistry = new DomElementSchemaRegistry();
 
   constructor(private jitEvaluator = new JitEvaluator()) {}
@@ -36,6 +38,7 @@ export class CompilerFacadeImpl implements CompilerFacade {
     const res = compilePipeFromMetadata({
       name: facade.name,
       type: new WrappedNodeExpr(facade.type),
+      typeArgumentCount: facade.typeArgumentCount,
       deps: convertR3DependencyMetadataArray(facade.deps),
       pipeName: facade.pipeName,
       pure: facade.pure,
@@ -70,7 +73,7 @@ export class CompilerFacadeImpl implements CompilerFacade {
       type: new WrappedNodeExpr(facade.type),
       deps: convertR3DependencyMetadataArray(facade.deps),
       providers: new WrappedNodeExpr(facade.providers),
-      imports: new WrappedNodeExpr(facade.imports),
+      imports: facade.imports.map(i => new WrappedNodeExpr(i)),
     };
     const res = compileInjector(meta);
     return this.jitExpression(res.expression, angularCoreEnv, sourceMapUrl, res.statements);
@@ -86,6 +89,7 @@ export class CompilerFacadeImpl implements CompilerFacade {
       imports: facade.imports.map(wrapReference),
       exports: facade.exports.map(wrapReference),
       emitInline: true,
+      containsForwardDecls: false,
       schemas: facade.schemas ? facade.schemas.map(wrapReference) : null,
     };
     const res = compileNgModule(meta);
@@ -130,7 +134,6 @@ export class CompilerFacadeImpl implements CompilerFacade {
           ...convertDirectiveFacadeToMetadata(facade),
           selector: facade.selector || this.elementSchemaRegistry.getDefaultComponentElementName(),
           template,
-          viewQueries: facade.viewQueries.map(convertToR3QueryMetadata),
           wrapDirectivesAndPipesInClosure: false,
           styles: facade.styles || [],
           encapsulation: facade.encapsulation as any,
@@ -146,6 +149,24 @@ export class CompilerFacadeImpl implements CompilerFacade {
     const preStatements = [...constantPool.statements, ...res.statements];
     return this.jitExpression(
         res.expression, angularCoreEnv, `ng:///${facade.name}.js`, preStatements);
+  }
+
+  compileBase(angularCoreEnv: CoreEnvironment, sourceMapUrl: string, facade: R3BaseMetadataFacade):
+      any {
+    const constantPool = new ConstantPool();
+    const typeSourceSpan =
+        this.createParseSourceSpan('Base', facade.name, `ng:///${facade.name}.js`);
+    const meta = {
+      ...facade,
+      typeSourceSpan,
+      viewQueries: facade.viewQueries ? facade.viewQueries.map(convertToR3QueryMetadata) :
+                                        facade.viewQueries,
+      queries: facade.queries ? facade.queries.map(convertToR3QueryMetadata) : facade.queries,
+      host: extractHostBindings(facade.propMetadata, typeSourceSpan)
+    };
+    const res = compileBaseDefFromMetadata(meta, constantPool, makeBindingParser());
+    return this.jitExpression(
+        res.expression, angularCoreEnv, sourceMapUrl, constantPool.statements);
   }
 
   createParseSourceSpan(kind: string, typeName: string, sourceUrl: string): ParseSourceSpan {
@@ -199,6 +220,7 @@ function convertToR3QueryMetadata(facade: R3QueryMetadataFacade): R3QueryMetadat
     predicate: Array.isArray(facade.predicate) ? facade.predicate :
                                                  new WrappedNodeExpr(facade.predicate),
     read: facade.read ? new WrappedNodeExpr(facade.read) : null,
+    static: facade.static
   };
 }
 
@@ -226,11 +248,12 @@ function convertDirectiveFacadeToMetadata(facade: R3DirectiveMetadataFacade): R3
     typeSourceSpan: facade.typeSourceSpan,
     type: new WrappedNodeExpr(facade.type),
     deps: convertR3DependencyMetadataArray(facade.deps),
-    host: extractHostBindings(facade.host, facade.propMetadata, facade.typeSourceSpan),
+    host: extractHostBindings(facade.propMetadata, facade.typeSourceSpan, facade.host),
     inputs: {...inputsFromMetadata, ...inputsFromType},
     outputs: {...outputsFromMetadata, ...outputsFromType},
     queries: facade.queries.map(convertToR3QueryMetadata),
     providers: facade.providers != null ? new WrappedNodeExpr(facade.providers) : null,
+    viewQueries: facade.viewQueries.map(convertToR3QueryMetadata),
   };
 }
 
@@ -279,12 +302,8 @@ function convertR3DependencyMetadataArray(facades: R3DependencyMetadataFacade[] 
 }
 
 function extractHostBindings(
-    host: {[key: string]: string}, propMetadata: {[key: string]: any[]},
-    sourceSpan: ParseSourceSpan): {
-  attributes: StringMap,
-  listeners: StringMap,
-  properties: StringMap,
-} {
+    propMetadata: {[key: string]: any[]}, sourceSpan: ParseSourceSpan,
+    host?: {[key: string]: string}): ParsedHostBindings {
   // First parse the declarations from the metadata.
   const bindings = parseHostBindings(host || {});
 

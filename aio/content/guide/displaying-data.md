@@ -424,7 +424,7 @@ Angular 并不是在显示和隐藏这条消息，它是在从 DOM 中添加和�
 </div>
 
 Try it out. Because the array has four items, the message should appear.
-Go back into <code>app.component.ts</code> and delete or comment out one of the elements from the hero array.
+Go back into <code>app.component.ts</code> and delete or comment out one of the elements from the heroes array.
 The browser should refresh automatically and the message should disappear.
 
 试一下。因为这个数组中有四个条目，所以消息应该显示出来。

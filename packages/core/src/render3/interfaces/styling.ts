@@ -7,7 +7,10 @@
  */
 import {StyleSanitizeFn} from '../../sanitization/style_sanitizer';
 import {RElement} from '../interfaces/renderer';
+import {LContainer} from './container';
 import {PlayerContext} from './player';
+import {LView} from './view';
+
 
 /**
  * The styling context acts as a styling manifest (shaped as an array) for determining which
@@ -48,7 +51,7 @@ import {PlayerContext} from './player';
  * Once the styling context is created then single and multi properties can be stored within it.
  * For this to happen, the following function needs to be called:
  *
- * `elementStyling` (called with style properties, class properties and a sanitizer + a directive
+ * `styling` (called with style properties, class properties and a sanitizer + a directive
  * instance).
  *
  * When this instruction is called it will populate the styling context with the provided style
@@ -119,8 +122,8 @@ import {PlayerContext} from './player';
  * values are and how they work.
  *
  * Each time a binding property is updated (whether it be through a single
- * property instruction like `elementStyleProp`, `elementClassProp` or
- * `elementStylingMap`) then the values in the context will be updated as
+ * property instruction like `styleProp`, `classProp`,
+ * `styleMap` or `classMap`) then the values in the context will be updated as
  * well.
  *
  * If for example `[style.width]` updates to `555px` then its value will be reflected
@@ -139,9 +142,9 @@ import {PlayerContext} from './player';
  *
  * Despite the context being updated, nothing has been rendered on screen (not styles or
  * classes have been set on the element). To kick off rendering for an element the following
- * function needs to be run `elementStylingApply`.
+ * function needs to be run `stylingApply`.
  *
- * `elementStylingApply` will run through the context and find each dirty value and render them onto
+ * `stylingApply` will run through the context and find each dirty value and render them onto
  * the element. Once complete, all styles/classes will be set to clean. Because of this, the render
  * function will now know not to rerun itself again if called again unless new style/class values
  * have changed.
@@ -155,11 +158,12 @@ import {PlayerContext} from './player';
  * Each of the following instructions supports accepting a directive instance as an input parameter:
  *
  * - `elementHostAttrs`
- * - `elementStyling`
- * - `elementStyleProp`
- * - `elementClassProp`
- * - `elementStylingMap`
- * - `elementStylingApply`
+ * - `styling`
+ * - `styleProp`
+ * - `classProp`
+ * - `styleMap`
+ * - `classMap`
+ * - `stylingApply`
  *
  * Each time a directive value is passed in, it will be converted into an index by examining the
  * directive registry (which lives in the context configuration area). The index is then used
@@ -253,13 +257,18 @@ import {PlayerContext} from './player';
  *
  * ## Rendering
  * The rendering mechanism (when the styling data is applied on screen) occurs via the
- * `elementStylingApply` function and is designed to run after **all** styling functions have been
+ * `stylingApply` function and is designed to run after **all** styling functions have been
  * evaluated. The rendering algorithm will loop over the context and only apply the styles that are
  * flagged as dirty (either because they are new, updated or have been removed via multi or
  * single bindings).
  */
 export interface StylingContext extends
     Array<{[key: string]: any}|number|string|boolean|RElement|StyleSanitizeFn|PlayerContext|null> {
+  /**
+   * Location of element that is used as a target for this context.
+   */
+  [StylingIndex.ElementPosition]: LContainer|LView|RElement|null;
+
   /**
    * A numeric value representing the configuration status (whether the context is dirty or not)
    * mixed together (using bit shifting) with a index value which tells the starting index value
@@ -284,27 +293,37 @@ export interface StylingContext extends
 
   /**
    * A numeric value representing the class index offset value. Whenever a single class is
-   * applied (using `elementClassProp`) it should have an styling index value that doesn't
+   * applied (using `classProp`) it should have an styling index value that doesn't
    * need to take into account any style values that exist in the context.
    */
   [StylingIndex.SinglePropOffsetPositions]: SinglePropOffsetValues;
 
   /**
-   * Location of element that is used as a target for this context.
-   */
-  [StylingIndex.ElementPosition]: RElement|null;
-
-  /**
-   * The last class value that was interpreted by elementStylingMap. This is cached
+   * The last class value that was interpreted by `styleMap`. This is cached
    * So that the algorithm can exit early incase the value has not changed.
    */
   [StylingIndex.CachedMultiClasses]: any|MapBasedOffsetValues;
 
   /**
-   * The last style value that was interpreted by elementStylingMap. This is cached
+   * The last style value that was interpreted by `classMap`. This is cached
    * So that the algorithm can exit early incase the value has not changed.
    */
   [StylingIndex.CachedMultiStyles]: any|MapBasedOffsetValues;
+
+  /**
+   * A queue of all hostStyling instructions.
+   *
+   * This array (queue) is populated only when host-level styling instructions
+   * (e.g. `hostStyleMap` and `hostClassProp`) are used to apply style and
+   * class values via host bindings to the host element. Despite these being
+   * standard angular instructions, they are not designed to immediately apply
+   * their values to the styling context when executed. What happens instead is
+   * a queue is constructed and each instruction is populated into the queue.
+   * Then, once the style/class values are set to flush (via `stylingApply` or
+   * `hostStylingApply`), the queue is flushed and the values are rendered onto
+   * the host element.
+   */
+  [StylingIndex.HostInstructionsQueue]: HostInstructionsQueue|null;
 
   /**
    * Location of animation context (which contains the active players) for this element styling
@@ -314,15 +333,75 @@ export interface StylingContext extends
 }
 
 /**
+ * A queue of all host-related styling instructions (these are buffered and evaluated just before
+ * the styling is applied).
+ *
+ * This queue is used when any `hostStyling` instructions are executed from the `hostBindings`
+ * function. Template-level styling functions (e.g. `styleMap` and `classProp`)
+ * do not make use of this queue (they are applied to the styling context immediately).
+ *
+ * Due to the nature of how components/directives are evaluated, directives (both parent and
+ * subclass directives) may not apply their styling at the right time for the styling
+ * algorithm code to prioritize them. Therefore, all host-styling instructions are queued up
+ * (buffered) into the array below and are automatically sorted in terms of priority. The
+ * priority for host-styling is as follows:
+ *
+ * 1. The template (this doesn't get queued, but gets evaluated immediately)
+ * 2. Any directives present on the host
+ *   2a) first child directive styling bindings are updated
+ *   2b) then any parent directives
+ * 3. Component host bindings
+ *
+ * Angular runs change detection for each of these cases in a different order. Because of this
+ * the array below is populated with each of the host styling functions + their arguments.
+ *
+ * context[HostInstructionsQueue] = [
+ *   directiveIndex,
+ *   hostStylingFn,
+ *   [argumentsForFn],
+ *   ...
+ *   anotherDirectiveIndex, <-- this has a lower priority (a higher directive index)
+ *   anotherHostStylingFn,
+ *   [argumentsForFn],
+ * ]
+ *
+ * When `renderStyling` is called (within `class_and_host_bindings.ts`) then the queue is
+ * drained and each of the instructions are executed. Once complete the queue is empty then
+ * the style/class binding code is rendered on the element (which is what happens normally
+ * inside of `renderStyling`).
+ *
+ * Right now each directive's hostBindings function, as well the template function, both
+ * call `stylingApply()` and `hostStylingApply()`. The fact that this is called
+ * multiple times for the same element (b/c of change detection) causes some issues. To avoid
+ * having styling code be rendered on an element multiple times, the `HostInstructionsQueue`
+ * reserves a slot for a reference pointing to the very last directive that was registered and
+ * only allows for styling to be applied once that directive is encountered (which will happen
+ * as the last update for that element).
+ */
+export interface HostInstructionsQueue extends Array<number|Function|any[]> { [0]: number; }
+
+/**
+ * Used as a reference for any values contained within `HostInstructionsQueue`.
+ */
+export const enum HostInstructionsQueueIndex {
+  LastRegisteredDirectiveIndexPosition = 0,
+  ValuesStartPosition = 1,
+  DirectiveIndexOffset = 0,
+  InstructionFnOffset = 1,
+  ParamsOffset = 2,
+  Size = 3,
+}
+
+/**
  * Used as a styling array to house static class and style values that were extracted
  * by the compiler and placed in the animation context via `elementStart` and
  * `elementHostAttrs`.
  *
  * See [InitialStylingValuesIndex] for a breakdown of how all this works.
  */
-export interface InitialStylingValues extends Array<string|boolean|null> {
+export interface InitialStylingValues extends Array<string|boolean|number|null> {
   [InitialStylingValuesIndex.DefaultNullValuePosition]: null;
-  [InitialStylingValuesIndex.InitialClassesStringPosition]: string|null;
+  [InitialStylingValuesIndex.CachedStringValuePosition]: string|null;
 }
 
 /**
@@ -429,12 +508,54 @@ export interface InitialStylingValues extends Array<string|boolean|null> {
  * ```
  */
 export const enum InitialStylingValuesIndex {
+  /**
+   * The first value is always `null` so that `styles[0] == null` for unassigned values
+   */
   DefaultNullValuePosition = 0,
-  InitialClassesStringPosition = 1,
+
+  /**
+   * Used for non-styling code to examine what the style or className string is:
+   * styles: ['width', '100px', 0, 'opacity', null, 0, 'height', '200px', 0]
+   *    => initialStyles[CachedStringValuePosition] = 'width:100px;height:200px';
+   * classes: ['foo', true, 0, 'bar', false, 0, 'baz', true, 0]
+   *    => initialClasses[CachedStringValuePosition] = 'foo bar';
+   *
+   * Note that this value is `null` by default and it will only be populated
+   * once `getInitialStyleStringValue` or `getInitialClassNameValue` is executed.
+   */
+  CachedStringValuePosition = 1,
+
+  /**
+   * Where the style or class values start in the tuple
+   */
   KeyValueStartPosition = 2,
+
+  /**
+   * The offset value (index + offset) for the property value for each style/class entry
+   */
   PropOffset = 0,
+
+  /**
+   * The offset value (index + offset) for the style/class value for each style/class entry
+   */
   ValueOffset = 1,
-  Size = 2
+
+  /**
+   * The offset value (index + offset) for the style/class directive owner for each style/class
+     entry
+   */
+  DirectiveOwnerOffset = 2,
+
+  /**
+   * The first bit set aside to mark if the initial style was already rendere
+   */
+  AppliedFlagBitPosition = 0b0,
+  AppliedFlagBitLength = 1,
+
+  /**
+   * The total size for each style/class entry (prop + value + directiveOwner)
+   */
+  Size = 3
 }
 
 /**
@@ -466,9 +587,7 @@ export const enum InitialStylingValuesIndex {
  * index value by the size of the array entries (so if DirA is at spot 8 then its index will be 2).
  */
 export interface DirectiveRegistryValues extends Array<null|{}|boolean|number|StyleSanitizeFn> {
-  [DirectiveRegistryValuesIndex.DirectiveValueOffset]: null;
   [DirectiveRegistryValuesIndex.SinglePropValuesIndexOffset]: number;
-  [DirectiveRegistryValuesIndex.DirtyFlagOffset]: boolean;
   [DirectiveRegistryValuesIndex.StyleSanitizerOffset]: StyleSanitizeFn|null;
 }
 
@@ -477,11 +596,9 @@ export interface DirectiveRegistryValues extends Array<null|{}|boolean|number|St
  * that are housed inside of [DirectiveRegistryValues].
  */
 export const enum DirectiveRegistryValuesIndex {
-  DirectiveValueOffset = 0,
-  SinglePropValuesIndexOffset = 1,
-  DirtyFlagOffset = 2,
-  StyleSanitizerOffset = 3,
-  Size = 4
+  SinglePropValuesIndexOffset = 0,
+  StyleSanitizerOffset = 1,
+  Size = 2
 }
 
 /**
@@ -614,18 +731,18 @@ export const enum StylingFlags {
 
 /** Used as numeric pointer values to determine what cells to update in the `StylingContext` */
 export const enum StylingIndex {
-  // Index of location where the start of single properties are stored. (`updateStyleProp`)
-  MasterFlagPosition = 0,
-  // Position of where the registered directives exist for this styling context
-  DirectiveRegistryPosition = 1,
-  // Position of where the initial styles are stored in the styling context
-  InitialStyleValuesPosition = 2,
-  InitialClassValuesPosition = 3,
-  // Index of location where the class index offset value is located
-  SinglePropOffsetPositions = 4,
   // Position of where the initial styles are stored in the styling context
   // This index must align with HOST, see interfaces/view.ts
-  ElementPosition = 5,
+  ElementPosition = 0,
+  // Index of location where the start of single properties are stored. (`updateStyleProp`)
+  MasterFlagPosition = 1,
+  // Position of where the registered directives exist for this styling context
+  DirectiveRegistryPosition = 2,
+  // Position of where the initial styles are stored in the styling context
+  InitialStyleValuesPosition = 3,
+  InitialClassValuesPosition = 4,
+  // Index of location where the class index offset value is located
+  SinglePropOffsetPositions = 5,
   // Position of where the last string-based CSS class value was stored (or a cached version of the
   // initial styles when a [class] directive is present)
   CachedMultiClasses = 6,
@@ -633,9 +750,10 @@ export const enum StylingIndex {
   CachedMultiStyles = 7,
   // Multi and single entries are stored in `StylingContext` as: Flag; PropertyName;  PropertyValue
   // Position of where the initial styles are stored in the styling context
-  PlayerContext = 8,
+  HostInstructionsQueue = 8,
+  PlayerContext = 9,
   // Location of single (prop) value entries are stored within the context
-  SingleStylesStartPosition = 9,
+  SingleStylesStartPosition = 10,
   FlagsOffset = 0,
   PropertyOffset = 1,
   ValueOffset = 2,
@@ -660,3 +778,13 @@ export const enum DirectiveOwnerAndPlayerBuilderIndex {
   BitCountSize = 16,
   BitMask = 0b1111111111111111
 }
+
+/**
+ * The default directive styling index value for template-based bindings.
+ *
+ * All host-level bindings (e.g. `hostStyleProp` and `hostClassMap`) are
+ * assigned a directive styling index value based on the current directive
+ * uniqueId and the directive super-class inheritance depth. But for template
+ * bindings they always have the same directive styling index value.
+ */
+export const DEFAULT_TEMPLATE_DIRECTIVE_INDEX = 0;

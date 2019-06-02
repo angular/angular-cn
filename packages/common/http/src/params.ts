@@ -26,8 +26,10 @@ export interface HttpParameterCodec {
 }
 
 /**
- * A `HttpParameterCodec` that uses `encodeURIComponent` and `decodeURIComponent` to
- * serialize and parse URL parameter keys and values.
+ * A class that uses `encodeURIComponent` and `decodeURIComponent` to
+ * serialize and parse URL parameter keys and values. If you pass URL query parameters
+ * without encoding, the query parameters can get misinterpreted at the receiving end.
+ * Use the `HttpParameterCodec` class to encode and decode the query-string values.
  *
  * 一个 `HttpParameterCodec`，它使用 `encodeURIComponent` 和 `decodeURIComponent` 来序列化和解析 URL 参数的 key 和 value。
  *
@@ -92,7 +94,7 @@ export interface HttpParamsOptions {
    */
   fromString?: string;
 
-  /** Object map of the HTTP params. Mutally exclusive with `fromString`.
+  /** Object map of the HTTP params. Mutually exclusive with `fromString`.
    *
    * HTTP 参数的对象映射表。与 `fromString` 互斥。
    */
@@ -262,7 +264,7 @@ export class HttpParams {
             }
         }
       });
-      this.cloneFrom = null;
+      this.cloneFrom = this.updates = null;
     }
   }
 }

@@ -35,7 +35,8 @@ merge:
     # this list must be manually kept in sync with google3/third_party/javascript/angular2/copy.bara.sky
     include:
       - "LICENSE"
-      - "modules/**"
+      - "modules/benchmarks/**"
+      - "modules/system.d.ts"
       - "packages/**"
     # list of patterns to ignore for the files changed by the PR
     exclude:
@@ -46,7 +47,7 @@ merge:
       - "packages/bazel/src/ng_package/**"
       - "packages/bazel/src/protractor/**"
       - "packages/bazel/src/schematics/**"
-      - "packages/compiler-cli/src/ngcc/**"
+      - "packages/compiler-cli/ngcc/**"
       - "packages/docs/**"
       - "packages/elements/schematics/**"
       - "packages/examples/**"
@@ -57,6 +58,7 @@ merge:
       - "**/.gitkeep"
       - "**/yarn.lock"
       - "**/package.json"
+      - "**/third_party/**"
       - "**/tsconfig-build.json"
       - "**/tsconfig.json"
       - "**/BUILD.bazel"
@@ -165,3 +167,10 @@ triagePR:
       - "effort*"
       - "risk*"
       - "comp: *"
+
+# options for rerunning CI
+rerunCircleCI:
+  # set to true to disable
+  disabled: false
+  # the label which when added triggers a rerun of the default CircleCI workflow
+  triggerRerunLabel: "PR action: rerun CI at HEAD"

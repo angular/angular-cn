@@ -43,7 +43,7 @@ Just run the [`ng test`](cli/test) CLI command:
 </code-example>
 
 The `ng test` command builds the app in _watch mode_,
-and launches the [karma test runner](https://karma-runner.github.io).
+and launches the [Karma test runner](https://karma-runner.github.io).
 
 `ng test` 命令在*监视模式*下构建应用，并启动 [karma 测试运行器](https://karma-runner.github.io)。
 
@@ -93,7 +93,7 @@ The tests run again, the browser refreshes, and the new test results appear.
 
 #### 配置
 
-The CLI takes care of Jasmine and karma configuration for you.
+The CLI takes care of Jasmine and Karma configuration for you.
 
 CLI 会为你生成 Jasmine 和 Karma 的配置文件。
 
@@ -102,13 +102,13 @@ the `test.ts` files in the `src/` folder.
 
 不过你也可以通过编辑 `src/` 目录下的 `karma.conf.js` 和 `test.ts` 文件来微调很多选项。
 
-The `karma.conf.js` file is a partial karma configuration file.
+The `karma.conf.js` file is a partial Karma configuration file.
 The CLI constructs the full runtime configuration in memory, based on application structure specified in the `angular.json` file, supplemented by `karma.conf.js`.
 
 `karma.conf.js` 文件是 karma 配置文件的一部分。
 CLI 会基于 `angular.json` 文件中指定的项目结构和 `karma.conf.js` 文件，来在内存中构建出完整的运行时配置。
 
-Search the web for more details about Jasmine and karma configuration.
+Search the web for more details about Jasmine and Karma configuration.
 
 要进一步了解 Jasmine 和 Karma 的配置项，请搜索网络。
 
@@ -441,7 +441,7 @@ written without assistance from Angular testing utilities.
 #### 带有依赖的服务
 
 Services often depend on other services that Angular injects into the constructor.
-In many cases, it easy to create and _inject_ these dependencies by hand while
+In many cases, it's easy to create and _inject_ these dependencies by hand while
 calling the service's constructor.
 
 服务通常会依赖于一些 Angular 注入到其构造函数中的其它服务。
@@ -489,7 +489,7 @@ These standard testing techniques are great for unit testing services in isolati
 
 这些标准的测试技巧对于在隔离的环境下对服务进行单元测试非常重要。
 
-However, you almost always inject service into application classes using Angular
+However, you almost always inject services into application classes using Angular
 dependency injection and you should have tests that reflect that usage pattern.
 Angular testing utilities make it easy to investigate how injected services behave.
 
@@ -652,7 +652,7 @@ traditional `beforeEach()` style.
 
 很多开发者觉得这种方式相比传统的 `beforeEach()` 风格更加干净、更加明确。
 
-Although this testing guide follows the tradition style and
+Although this testing guide follows the traditional style and
 the default [CLI schematics](https://github.com/angular/angular-cli)
 generate test files with `beforeEach()` and `TestBed`,
 feel free to adopt _this alternative approach_ in your own projects.
@@ -715,15 +715,6 @@ this page defers to the [Http guide](guide/http#testing-http-requests),
 which covers testing with the `HttpClientTestingModule` in detail.
 
 本章的*代码范例*要示范的是 `HttpClientTestingModule`，所以把部分内容移到了 [Http](guide/http#testing-http-requests) 一章，那里会详细讲解如何用 `HttpClientTestingModule` 进行测试。
-
-<div class="alert is-helpful">
-
-This guide's sample code also demonstrates testing of the _legacy_ `HttpModule`
-in `app/model/http-hero.service.spec.ts`.
-
-本章范例代码中的 `app/model/http-hero.service.spec.ts` 还示范了如何使用*传统的* `HttpModule` 进行验证。
-
-</div>
 
 ## Component Test Basics
 
@@ -4281,7 +4272,7 @@ Debug specs in the browser in the same way that you debug an application.
 
 在浏览器中，像调试应用一样调试测试程序 spec。
 
-  1. Reveal the karma browser window (hidden earlier).
+  1. Reveal the Karma browser window (hidden earlier).
 
      显示 `Karma` 的浏览器窗口（之前被隐藏了）。
 

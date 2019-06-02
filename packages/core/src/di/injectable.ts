@@ -8,7 +8,8 @@
 
 import {Type} from '../interface/type';
 import {TypeDecorator, makeDecorator} from '../util/decorators';
-import {InjectableDef, InjectableType, defineInjectable, getInjectableDef} from './interface/defs';
+
+import {InjectableType, getInjectableDef, ɵɵInjectableDef, ɵɵdefineInjectable} from './interface/defs';
 import {ClassSansProvider, ConstructorSansProvider, ExistingSansProvider, FactorySansProvider, StaticClassSansProvider, ValueSansProvider} from './interface/provider';
 import {compileInjectable as render3CompileInjectable} from './jit/injectable';
 import {convertInjectableProviderToFactory} from './util';
@@ -48,16 +49,7 @@ export interface InjectableDecorator {
    *
    * 下面的例子展示了如何正确的把服务类标记为可注入的（Injectable）。
    *
-   * ### 范例
-   *
-   * {@example core/di/ts/metadata_spec.ts region='Injectable'}
-   *
-   * `Injector` throws an error if it tries to instantiate a class that
-   * is not decorated with `@Injectable`, as shown in the following example.
-   *
-   * `Injector`在试图实例化一个不带 `@Injectable` 标记的类时，就会抛出一个错误，如下面的例子所示。
-   *
-   * {@example core/di/ts/metadata_spec.ts region='InjectableThrows'}
+   * <code-example path="core/di/ts/metadata_spec.ts" region="Injectable"></code-example>
    *
    */
   (): TypeDecorator;
@@ -102,7 +94,7 @@ export const Injectable: InjectableDecorator = makeDecorator(
  *
  * @publicApi
  */
-export interface InjectableType<T> extends Type<T> { ngInjectableDef: InjectableDef<T>; }
+export interface InjectableType<T> extends Type<T> { ngInjectableDef: ɵɵInjectableDef<T>; }
 
 /**
  * Supports @Injectable() in JIT mode for Render2.
@@ -111,7 +103,7 @@ function render2CompileInjectable(
     injectableType: InjectableType<any>,
     options: {providedIn?: Type<any>| 'root' | null} & InjectableProvider): void {
   if (options && options.providedIn !== undefined && !getInjectableDef(injectableType)) {
-    injectableType.ngInjectableDef = defineInjectable({
+    injectableType.ngInjectableDef = ɵɵdefineInjectable({
       providedIn: options.providedIn,
       factory: convertInjectableProviderToFactory(injectableType, options),
     });

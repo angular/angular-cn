@@ -32,9 +32,11 @@ module.exports = new Package('angular-api', [basePackage, typeScriptPackage])
   .processor(require('./processors/simplifyMemberAnchors'))
   .processor(require('./processors/computeStability'))
   .processor(require('./processors/removeInjectableConstructors'))
+  .processor(require('./processors/collectPackageContentDocs'))
   .processor(require('./processors/processPackages'))
   .processor(require('./processors/processNgModuleDocs'))
   .processor(require('./processors/fixupRealProjectRelativePath'))
+  .processor(require('./processors/processAliasDocs'))
 
 
   /**
@@ -72,10 +74,10 @@ module.exports = new Package('angular-api', [basePackage, typeScriptPackage])
 
     // API files are typescript
     readTypeScriptModules.basePath = API_SOURCE_PATH;
-    readTypeScriptModules.ignoreExportsMatching = [/^[_ɵ]|^VERSION$/];
+    readTypeScriptModules.ignoreExportsMatching = [/^_|^ɵɵ|^VERSION$/];
     readTypeScriptModules.hidePrivateMembers = true;
 
-    // NOTE: This list shold be in sync with tools/public_api_guard/BUILD.bazel
+    // NOTE: This list should be in sync with tools/public_api_guard/BUILD.bazel
     readTypeScriptModules.sourceFiles = [
       'animations/index.ts',
       'animations/browser/index.ts',
@@ -88,8 +90,9 @@ module.exports = new Package('angular-api', [basePackage, typeScriptPackage])
       'core/testing/index.ts',
       'elements/index.ts',
       'forms/index.ts',
-      'http/index.ts',
-      'http/testing/index.ts',
+      // Current plan for Angular v8 is to hide documentation for the @angular/http package
+      // 'http/index.ts',
+      // 'http/testing/index.ts',
       'platform-browser/index.ts',
       'platform-browser/animations/index.ts',
       'platform-browser/testing/index.ts',
@@ -201,7 +204,8 @@ module.exports = new Package('angular-api', [basePackage, typeScriptPackage])
 
 function addMinLengthRules(checkContentRules) {
   const createMinLengthRule = require('./content-rules/minLength');
-  const paramRuleSet = checkContentRules.docTypeRules['parameter'] = checkContentRules.docTypeRules['parameter'] || {};
+  const paramRuleSet = checkContentRules.docTypeRules['parameter'] =
+      checkContentRules.docTypeRules['parameter'] || {};
   const paramRules = paramRuleSet['name'] = paramRuleSet['name'] || [];
   paramRules.push(createMinLengthRule());
 }
@@ -213,7 +217,8 @@ function addHeadingRules(checkContentRules, API_DOC_TYPES) {
 
   API_DOC_TYPES.forEach(docType => {
     let rules;
-    const ruleSet = checkContentRules.docTypeRules[docType] = checkContentRules.docTypeRules[docType] || {};
+    const ruleSet = checkContentRules.docTypeRules[docType] =
+        checkContentRules.docTypeRules[docType] || {};
 
     rules = ruleSet['description'] = ruleSet['description'] || [];
     rules.push(noMarkdownHeadings);
@@ -228,16 +233,17 @@ function addHeadingRules(checkContentRules, API_DOC_TYPES) {
 
 function addAllowedPropertiesRules(checkContentRules, API_CONTAINED_DOC_TYPES) {
   API_CONTAINED_DOC_TYPES.forEach(docType => {
-    const ruleSet = checkContentRules.docTypeRules[docType] = checkContentRules.docTypeRules[docType] || {};
+    const ruleSet = checkContentRules.docTypeRules[docType] =
+        checkContentRules.docTypeRules[docType] || {};
 
     const rules = ruleSet['usageNotes'] = ruleSet['usageNotes'] || [];
-    rules.push((doc, prop, value) =>
-      value &&
-      // methods are allowed to have usage notes
-      !isMethod(doc) &&
-      // options on decorators are allowed to ahve usage notes
-      !(doc.containerDoc && doc.containerDoc.docType === 'decorator') &&
-      `Invalid property: "${prop}" is not allowed on "${doc.docType}" docs.`);
+    rules.push(
+        (doc, prop, value) => value &&
+            // methods are allowed to have usage notes
+            !isMethod(doc) &&
+            // options on decorators are allowed to ahve usage notes
+            !(doc.containerDoc && doc.containerDoc.docType === 'decorator') &&
+            `Invalid property: "${prop}" is not allowed on "${doc.docType}" docs.`);
   });
 }
 

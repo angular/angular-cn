@@ -222,7 +222,7 @@ through the injector tree until it reaches the root injector.
 
   第一个配置过该提供商的注入器就会把依赖（服务实例或值）提供给这个构造函数。
 
-* If no provider is found in the root injector, the DI framework returns null to the constructor.
+* If no provider is found in the root injector, the DI framework throws an error.
 
   如果在根注入器中也没有找到提供商，则 DI 框架将会给构造函数返回一个 null。
 

@@ -1,4 +1,4 @@
-# Getting started 
+# QuickStart to Local Environment Setup and Development 
 
 # 快速上手
 
@@ -6,19 +6,29 @@ Welcome to Angular! Angular helps you build modern applications for the web, mob
 
 欢迎使用 Angular！Angular 可以帮助你为 Web、移动端或桌面构建现代应用程序。
 
-This guide shows you how to build and run a simple Angular
-app. You'll use the [Angular CLI tool](cli "CLI command reference") to accelerate development, 
-while adhering to the [Style Guide](guide/styleguide "Angular style guide") recommendations that
-benefit _every_ Angular project.
 
-本指南会介绍如何构建并运行一个简单的 Angular 应用。
-你将使用 [Angular CLI 工具](cli "CLI command reference")来加速开发，并遵守[风格指南](guide/styleguide "Angular style guide")中的建议，这些建议将使*每一个* Angular 应用受益。
+<div class="callout is-helpful">
+<header>Getting Started - Stackblitz</header>
 
+<header>快速上手 - Stackblitz</header>
+
+
+We recently introduced a [**new Getting Started**](getting-started) that leverages the [StackBlitz](https://stackblitz.com/) online development environment. 
+We recommend the new Getting Started for anyone who wants to quickly learn the essentials of Angular, in the context of building a basic online store app. 
+
+我们最近引入了一个[**新的快速上手**](getting-started)，它改用 [StackBlitz](https://stackblitz.com/) 作为在线开发环境。
+我们建议想要快速学习 Angular 基础知识的同学使用这个新的快速上手，尝试构建一个最基本的在线商店应用。
+
+</div> 
+
+
+This guide shows you how to build and run a simple Angular app in your local development environment using the [Angular CLI tool](cli "CLI command reference"). 
+At the end of this guide&mdash;as part of final code review&mdash;there is a link to download a copy of the final application code, so that you can compare your work, validate your local setup, or just explore a simple Angular app. 
 This guide takes less than 30 minutes to complete. 
-At the end of this guide&mdash;as part of final code review&mdash;there is a link to download a copy of the final application code. (If you don't execute the commands in this guide, you can still download the final application code.)
 
-
-本指南只要不到 30 分钟即可完成。本指南末尾的最终代码回顾部分提供了一个链接，你可以去下载最终应用代码的一份副本。（就算你没有执行本章的这些命令，也仍然可以直接下载这份最终版的应用代码。）
+本指南会告诉你如何在本地开发环境中使用 [Angular CLI 工具](cli "CLI command reference")来构建并运行一个简单的 Angular 应用。
+本指南末尾的最终代码回顾部分提供了一个链接，它可以下载最终的应用代码，好让你能对比自己的工作成果，验证你的本地开发环境，或者浏览一个简单的 Angular 应用。
+本指南只要不到 30 分钟即可完成。
 
 {@a devenv}
 {@a prerequisites}
@@ -254,7 +264,7 @@ You can <a href="generated/zips/cli-quickstart/cli-quickstart.zip" target="_blan
 </div>
 
 
-For more information about Angular project files and the file structure, see [Workspace and project file struture](guide/file-structure).
+For more information about Angular project files and the file structure, see [Workspace and project file structure](guide/file-structure).
 
 要了解关于 Angular 项目文件和文件结构的更多信息，请参见[工作区与项目的文件结构](guide/file-structure)。
 

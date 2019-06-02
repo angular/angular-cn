@@ -11,7 +11,10 @@ import * as ts from 'typescript';
 
 import {ErrorCode, FatalDiagnosticError} from '../../diagnostics';
 import {ImportRewriter} from '../../imports';
-import {ReflectionHost, reflectNameOfDeclaration} from '../../reflection';
+import {IncrementalState} from '../../incremental';
+import {PerfRecorder} from '../../perf';
+import {ClassDeclaration, ReflectionHost, isNamedClassDeclaration, reflectNameOfDeclaration} from '../../reflection';
+import {LocalModuleScopeRegistry} from '../../scope';
 import {TypeCheckContext} from '../../typecheck';
 import {getSourceFile} from '../../util/src/typescript';
 
@@ -48,7 +51,7 @@ export class IvyCompilation {
    * Tracks classes which have been analyzed and found to have an Ivy decorator, and the
    * information recorded about them for later compilation.
    */
-  private ivyClasses = new Map<ts.Declaration, IvyClass>();
+  private ivyClasses = new Map<ClassDeclaration, IvyClass>();
 
   /**
    * Tracks factory information which needs to be generated.
@@ -58,6 +61,8 @@ export class IvyCompilation {
    * Tracks the `DtsFileTransformer`s for each TS file that needs .d.ts transformations.
    */
   private dtsMap = new Map<string, DtsFileTransformer>();
+
+  private reexportMap = new Map<string, Map<string, [string, string]>>();
   private _diagnostics: ts.Diagnostic[] = [];
 
 
@@ -71,16 +76,19 @@ export class IvyCompilation {
    * `null` in most cases.
    */
   constructor(
-      private handlers: DecoratorHandler<any, any>[], private checker: ts.TypeChecker,
-      private reflector: ReflectionHost, private importRewriter: ImportRewriter,
-      private sourceToFactorySymbols: Map<string, Set<string>>|null) {}
+      private handlers: DecoratorHandler<any, any>[], private reflector: ReflectionHost,
+      private importRewriter: ImportRewriter, private incrementalState: IncrementalState,
+      private perf: PerfRecorder, private sourceToFactorySymbols: Map<string, Set<string>>|null,
+      private scopeRegistry: LocalModuleScopeRegistry) {}
 
+
+  get exportStatements(): Map<string, Map<string, [string, string]>> { return this.reexportMap; }
 
   analyzeSync(sf: ts.SourceFile): void { return this.analyze(sf, false); }
 
   analyzeAsync(sf: ts.SourceFile): Promise<void>|undefined { return this.analyze(sf, true); }
 
-  private detectHandlersForClass(node: ts.Declaration): IvyClass|null {
+  private detectHandlersForClass(node: ClassDeclaration): IvyClass|null {
     // The first step is to reflect the decorators.
     const classDecorators = this.reflector.getDecoratorsOfDeclaration(node);
     let ivyClass: IvyClass|null = null;
@@ -164,8 +172,10 @@ export class IvyCompilation {
   private analyze(sf: ts.SourceFile, preanalyze: true): Promise<void>|undefined;
   private analyze(sf: ts.SourceFile, preanalyze: boolean): Promise<void>|undefined {
     const promises: Promise<void>[] = [];
-
-    const analyzeClass = (node: ts.Declaration): void => {
+    if (this.incrementalState.safeToSkip(sf)) {
+      return;
+    }
+    const analyzeClass = (node: ClassDeclaration): void => {
       const ivyClass = this.detectHandlersForClass(node);
 
       // If the class has no Ivy behavior (or had errors), skip it.
@@ -178,6 +188,7 @@ export class IvyCompilation {
       for (const match of ivyClass.matchedHandlers) {
         // The analyze() function will run the analysis phase of the handler.
         const analyze = () => {
+          const analyzeClassSpan = this.perf.start('analyzeClass', node);
           try {
             match.analyzed = match.handler.analyze(node, match.detected.metadata);
 
@@ -190,13 +201,14 @@ export class IvyCompilation {
                 this.sourceToFactorySymbols.has(sf.fileName)) {
               this.sourceToFactorySymbols.get(sf.fileName) !.add(match.analyzed.factorySymbolName);
             }
-
           } catch (err) {
             if (err instanceof FatalDiagnosticError) {
               this._diagnostics.push(err.toDiagnostic());
             } else {
               throw err;
             }
+          } finally {
+            this.perf.stop(analyzeClassSpan);
           }
         };
 
@@ -223,7 +235,7 @@ export class IvyCompilation {
 
     const visit = (node: ts.Node): void => {
       // Process nodes recursively, and look for class declarations with decorators.
-      if (ts.isClassDeclaration(node)) {
+      if (isNamedClassDeclaration(node)) {
         analyzeClass(node);
       }
       ts.forEachChild(node, visit);
@@ -239,14 +251,56 @@ export class IvyCompilation {
   }
 
   resolve(): void {
+    const resolveSpan = this.perf.start('resolve');
     this.ivyClasses.forEach((ivyClass, node) => {
       for (const match of ivyClass.matchedHandlers) {
         if (match.handler.resolve !== undefined && match.analyzed !== null &&
             match.analyzed.analysis !== undefined) {
-          match.handler.resolve(node, match.analyzed.analysis);
+          const resolveClassSpan = this.perf.start('resolveClass', node);
+          try {
+            const res = match.handler.resolve(node, match.analyzed.analysis);
+            if (res.reexports !== undefined) {
+              const fileName = node.getSourceFile().fileName;
+              if (!this.reexportMap.has(fileName)) {
+                this.reexportMap.set(fileName, new Map<string, [string, string]>());
+              }
+              const fileReexports = this.reexportMap.get(fileName) !;
+              for (const reexport of res.reexports) {
+                fileReexports.set(reexport.asAlias, [reexport.fromModule, reexport.symbolName]);
+              }
+            }
+            if (res.diagnostics !== undefined) {
+              this._diagnostics.push(...res.diagnostics);
+            }
+          } catch (err) {
+            if (err instanceof FatalDiagnosticError) {
+              this._diagnostics.push(err.toDiagnostic());
+            } else {
+              throw err;
+            }
+          } finally {
+            this.perf.stop(resolveClassSpan);
+          }
         }
       }
     });
+    this.perf.stop(resolveSpan);
+    this.recordNgModuleScopeDependencies();
+  }
+
+  private recordNgModuleScopeDependencies() {
+    const recordSpan = this.perf.start('recordDependencies');
+    this.scopeRegistry !.getCompilationScopes().forEach(scope => {
+      const file = scope.declaration.getSourceFile();
+      // Register the file containing the NgModule where the declaration is declared.
+      this.incrementalState.trackFileDependency(scope.ngModule.getSourceFile(), file);
+      scope.directives.forEach(
+          directive =>
+              this.incrementalState.trackFileDependency(directive.ref.node.getSourceFile(), file));
+      scope.pipes.forEach(
+          pipe => this.incrementalState.trackFileDependency(pipe.ref.node.getSourceFile(), file));
+    });
+    this.perf.stop(recordSpan);
   }
 
   typeCheck(context: TypeCheckContext): void {
@@ -266,8 +320,8 @@ export class IvyCompilation {
    */
   compileIvyFieldFor(node: ts.Declaration, constantPool: ConstantPool): CompileResult[]|undefined {
     // Look to see whether the original node was analyzed. If not, there's nothing to do.
-    const original = ts.getOriginalNode(node) as ts.Declaration;
-    if (!this.ivyClasses.has(original)) {
+    const original = ts.getOriginalNode(node) as typeof node;
+    if (!isNamedClassDeclaration(original) || !this.ivyClasses.has(original)) {
       return undefined;
     }
 
@@ -280,7 +334,10 @@ export class IvyCompilation {
         continue;
       }
 
-      const compileMatchRes = match.handler.compile(node, match.analyzed.analysis, constantPool);
+      const compileSpan = this.perf.start('compileClass', original);
+      const compileMatchRes =
+          match.handler.compile(node as ClassDeclaration, match.analyzed.analysis, constantPool);
+      this.perf.stop(compileSpan);
       if (!Array.isArray(compileMatchRes)) {
         res.push(compileMatchRes);
       } else {
@@ -302,9 +359,9 @@ export class IvyCompilation {
    * Lookup the `ts.Decorator` which triggered transformation of a particular class declaration.
    */
   ivyDecoratorsFor(node: ts.Declaration): ts.Decorator[] {
-    const original = ts.getOriginalNode(node) as ts.Declaration;
+    const original = ts.getOriginalNode(node) as typeof node;
 
-    if (!this.ivyClasses.has(original)) {
+    if (!isNamedClassDeclaration(original) || !this.ivyClasses.has(original)) {
       return EMPTY_ARRAY;
     }
     const ivyClass = this.ivyClasses.get(original) !;

@@ -6,7 +6,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 
-import {Component, Directive, Inject, InjectionToken, NgModule, Optional, Pipe} from '@angular/core';
+import {Component, Directive, ErrorHandler, Inject, Injectable, InjectionToken, Input, NgModule, Optional, Pipe, ɵsetClassMetadata as setClassMetadata, ɵɵdefineComponent as defineComponent, ɵɵtext as text} from '@angular/core';
 import {TestBed, getTestBed} from '@angular/core/testing/src/test_bed';
 import {By} from '@angular/platform-browser';
 import {expect} from '@angular/platform-browser/testing/src/matchers';
@@ -229,12 +229,69 @@ describe('TestBed', () => {
     expect(hello.nativeElement).toHaveText('Hello injected World !');
   });
 
+  it('allow to override multi provider', () => {
+    const MY_TOKEN = new InjectionToken('MyProvider');
+    class MyProvider {}
+
+    @Component({selector: 'my-comp', template: ``})
+    class MyComp {
+      constructor(@Inject(MY_TOKEN) public myProviders: MyProvider[]) {}
+    }
+
+    TestBed.configureTestingModule({
+      declarations: [MyComp],
+      providers: [{provide: MY_TOKEN, useValue: {value: 'old provider'}, multi: true}]
+    });
+
+    const multiOverride = {useValue: [{value: 'new provider'}], multi: true};
+    TestBed.overrideProvider(MY_TOKEN, multiOverride as any);
+
+    const fixture = TestBed.createComponent(MyComp);
+    expect(fixture.componentInstance.myProviders).toEqual([{value: 'new provider'}]);
+  });
+
   it('should resolve components that are extended by other components', () => {
     // SimpleApp uses SimpleCmp in its template, which is extended by InheritedCmp
     const simpleApp = TestBed.createComponent(SimpleApp);
     simpleApp.detectChanges();
     expect(simpleApp.nativeElement).toHaveText('simple - inherited');
   });
+
+  it('should not trigger change detection for ComponentA while calling TestBed.createComponent for ComponentB',
+     () => {
+       const log: string[] = [];
+       @Component({
+         selector: 'comp-a',
+         template: '...',
+       })
+       class CompA {
+         @Input() inputA: string = '';
+         ngOnInit() { log.push('CompA:ngOnInit', this.inputA); }
+       }
+
+       @Component({
+         selector: 'comp-b',
+         template: '...',
+       })
+       class CompB {
+         @Input() inputB: string = '';
+         ngOnInit() { log.push('CompB:ngOnInit', this.inputB); }
+       }
+
+       TestBed.configureTestingModule({declarations: [CompA, CompB]});
+
+       log.length = 0;
+       const appA = TestBed.createComponent(CompA);
+       appA.componentInstance.inputA = 'a';
+       appA.autoDetectChanges();
+       expect(log).toEqual(['CompA:ngOnInit', 'a']);
+
+       log.length = 0;
+       const appB = TestBed.createComponent(CompB);
+       appB.componentInstance.inputB = 'b';
+       appB.autoDetectChanges();
+       expect(log).toEqual(['CompB:ngOnInit', 'b']);
+     });
 
   it('should resolve components without async resources synchronously', (done) => {
     TestBed
@@ -255,6 +312,118 @@ describe('TestBed', () => {
     // work for components that don't have any async resources (templateUrl, styleUrls).
     TestBed.createComponent(ComponentWithInlineTemplate);
   });
+
+  it('should be able to override the ErrorHandler via an import', () => {
+    class CustomErrorHandler {}
+
+    @NgModule({providers: [{provide: ErrorHandler, useClass: CustomErrorHandler}]})
+    class ProvidesErrorHandler {
+    }
+
+    getTestBed().resetTestingModule();
+    TestBed.configureTestingModule({imports: [ProvidesErrorHandler, HelloWorldModule]});
+
+    expect(TestBed.get(ErrorHandler)).toEqual(jasmine.any(CustomErrorHandler));
+
+  });
+
+  it('should throw errors in CD', () => {
+    @Component({selector: 'my-comp', template: ''})
+    class MyComp {
+      name !: {hello: string};
+
+      ngOnInit() {
+        // this should throw because this.name is undefined
+        this.name.hello = 'hello';
+      }
+    }
+
+    TestBed.configureTestingModule({declarations: [MyComp]});
+
+    expect(() => {
+      const fixture = TestBed.createComponent(MyComp);
+      fixture.detectChanges();
+    }).toThrowError();
+  });
+
+  // TODO(FW-1245): properly fix issue where errors in listeners aren't thrown and don't cause
+  // tests to fail. This is an issue in both View Engine and Ivy, and may require a breaking
+  // change to completely fix (since simple re-throwing breaks handlers in ngrx, etc).
+  xit('should throw errors in listeners', () => {
+
+    @Component({selector: 'my-comp', template: '<button (click)="onClick()">Click me</button>'})
+    class MyComp {
+      name !: {hello: string};
+
+      onClick() {
+        // this should throw because this.name is undefined
+        this.name.hello = 'hello';
+      }
+    }
+
+    TestBed.configureTestingModule({declarations: [MyComp]});
+    const fixture = TestBed.createComponent(MyComp);
+    fixture.detectChanges();
+
+    expect(() => {
+      const button = fixture.nativeElement.querySelector('button');
+      button.click();
+    }).toThrowError();
+  });
+
+  onlyInIvy('TestBed should handle AOT pre-compiled Components')
+      .describe('AOT pre-compiled components', () => {
+        /**
+         * Function returns a class that represents AOT-compiled version of the following Component:
+         *
+         * @Component({
+         *  selector: 'comp',
+         *  templateUrl: './template.ng.html',
+         *  styleUrls: ['./style.css']
+         * })
+         * class ComponentClass {}
+         *
+         * This is needed to closer match the behavior of AOT pre-compiled components (compiled
+         * outside of TestBed) without changing TestBed state and/or Component metadata to compile
+         * them via TestBed with external resources.
+         */
+        const getAOTCompiledComponent = () => {
+          class ComponentClass {
+            static ngComponentDef = defineComponent({
+              type: ComponentClass,
+              selectors: [['comp']],
+              factory: () => new ComponentClass(),
+              consts: 1,
+              vars: 0,
+              template: (rf: any, ctx: any) => {
+                if (rf & 1) {
+                  text(0, 'Some template');
+                }
+              },
+              styles: ['body { margin: 0; }']
+            });
+          }
+          setClassMetadata(
+              ComponentClass, [{
+                type: Component,
+                args: [{
+                  selector: 'comp',
+                  templateUrl: './template.ng.html',
+                  styleUrls: ['./style.css'],
+                }]
+              }],
+              null, null);
+          return ComponentClass;
+        };
+
+        it('should have an ability to override template', () => {
+          const SomeComponent = getAOTCompiledComponent();
+          TestBed.configureTestingModule({declarations: [SomeComponent]});
+          TestBed.overrideTemplateUsingTestingModule(SomeComponent, 'Template override');
+          const fixture = TestBed.createComponent(SomeComponent);
+          expect(fixture.nativeElement.innerHTML).toBe('Template override');
+        });
+      });
 
   onlyInIvy('patched ng defs should be removed after resetting TestingModule')
       .describe('resetting ng defs', () => {
@@ -294,8 +463,8 @@ describe('TestBed', () => {
           TestBed.resetTestingModule();
 
           const defAfterReset = (SomeComponent as any).ngComponentDef;
-          expect(defAfterReset.pipeDefs().length).toEqual(0);
-          expect(defAfterReset.directiveDefs().length).toEqual(1);  // component
+          expect(defAfterReset.pipeDefs).toBe(null);
+          expect(defAfterReset.directiveDefs).toBe(null);
         });
 
         it('should cleanup ng defs for classes with no ng annotations (in case of inheritance)',
@@ -306,18 +475,71 @@ describe('TestBed', () => {
 
              class ComponentWithNoAnnotations extends SomeComponent {}
 
-             TestBed.configureTestingModule({declarations: [ComponentWithNoAnnotations]});
+             @Directive({selector: 'some-directive'})
+             class SomeDirective {
+             }
+
+             class DirectiveWithNoAnnotations extends SomeDirective {}
+
+             @Pipe({name: 'some-pipe'})
+             class SomePipe {
+             }
+
+             class PipeWithNoAnnotations extends SomePipe {}
+
+             TestBed.configureTestingModule({
+               declarations: [
+                 ComponentWithNoAnnotations, DirectiveWithNoAnnotations, PipeWithNoAnnotations
+               ]
+             });
              TestBed.createComponent(ComponentWithNoAnnotations);
 
              expect(ComponentWithNoAnnotations.hasOwnProperty('ngComponentDef')).toBeTruthy();
              expect(SomeComponent.hasOwnProperty('ngComponentDef')).toBeTruthy();
 
+             expect(DirectiveWithNoAnnotations.hasOwnProperty('ngDirectiveDef')).toBeTruthy();
+             expect(SomeDirective.hasOwnProperty('ngDirectiveDef')).toBeTruthy();
+
+             expect(PipeWithNoAnnotations.hasOwnProperty('ngPipeDef')).toBeTruthy();
+             expect(SomePipe.hasOwnProperty('ngPipeDef')).toBeTruthy();
+
              TestBed.resetTestingModule();
 
+             // ng defs should be removed from classes with no annotations
              expect(ComponentWithNoAnnotations.hasOwnProperty('ngComponentDef')).toBeFalsy();
+             expect(DirectiveWithNoAnnotations.hasOwnProperty('ngDirectiveDef')).toBeFalsy();
+             expect(PipeWithNoAnnotations.hasOwnProperty('ngPipeDef')).toBeFalsy();
 
-             // ngComponentDef should be preserved on super component
+             // ng defs should be preserved on super types
              expect(SomeComponent.hasOwnProperty('ngComponentDef')).toBeTruthy();
+             expect(SomeDirective.hasOwnProperty('ngDirectiveDef')).toBeTruthy();
+             expect(SomePipe.hasOwnProperty('ngPipeDef')).toBeTruthy();
+           });
+
+        it('should clean up overridden providers for modules that are imported more than once',
+           () => {
+
+             @Injectable()
+             class Token {
+               name: string = 'real';
+             }
+
+             @NgModule({
+               providers: [Token],
+             })
+             class Module {
+             }
+
+             TestBed.configureTestingModule({imports: [Module, Module]});
+             TestBed.overrideProvider(Token, {useValue: {name: 'fake'}});
+
+             expect(TestBed.get(Token).name).toEqual('fake');
+
+             TestBed.resetTestingModule();
+
+             // The providers for the module should have been restored to the original array, with
+             // no trace of the overridden providers.
+             expect((Module as any).ngInjectorDef.providers).toEqual([Token]);
            });
       });
 });

@@ -93,17 +93,8 @@ export function createEmptyStateSnapshot(
  *
  * 包含与当前组件相关的路由信息。`ActivatedRoute` 也可用于遍历路由器的状态树。
  *
- * ```
- * @Component({...})
- * class MyComponent {
- *   constructor(route: ActivatedRoute) {
- *     const id: Observable<string> = route.params.map(p => p.id);
- *     const url: Observable<string> = route.url.map(segments => segments.join(''));
- *     // route.data includes both `data` and `resolve`
- *     const user = route.data.map(d => d.user);
- *   }
- * }
- * ```
+ * {@example router/activated-route/module.ts region="activated-route"
+ *     header="activated-route.component.ts" linenums="false"}
  *
  * @publicApi
  */

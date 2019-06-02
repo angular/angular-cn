@@ -10,8 +10,8 @@ import {AnimationEvent} from '@angular/animations';
 import {MockAnimationDriver, MockAnimationPlayer} from '@angular/animations/browser/testing';
 
 import {RendererType2, ViewEncapsulation} from '../../src/core';
-import {defineComponent} from '../../src/render3/index';
-import {bind, container, containerRefreshEnd, containerRefreshStart, element, elementEnd, elementProperty, elementStart, embeddedViewEnd, embeddedViewStart, listener, text, tick} from '../../src/render3/instructions';
+import {ɵɵdefineComponent} from '../../src/render3/index';
+import {tick, ɵɵbind, ɵɵcontainer, ɵɵcontainerRefreshEnd, ɵɵcontainerRefreshStart, ɵɵelement, ɵɵelementEnd, ɵɵelementProperty, ɵɵelementStart, ɵɵembeddedViewEnd, ɵɵembeddedViewStart, ɵɵlistener, ɵɵtext} from '../../src/render3/instructions/all';
 import {RenderFlags} from '../../src/render3/interfaces/definition';
 
 import {getAnimationRendererFactory2, getRendererFactory2} from './imported_renderer2';
@@ -29,7 +29,7 @@ describe('renderer factory lifecycle', () => {
   rendererFactory.end = () => logs.push('end');
 
   class SomeComponent {
-    static ngComponentDef = defineComponent({
+    static ngComponentDef = ɵɵdefineComponent({
       type: SomeComponent,
       encapsulation: ViewEncapsulation.None,
       selectors: [['some-component']],
@@ -38,7 +38,7 @@ describe('renderer factory lifecycle', () => {
       template: function(rf: RenderFlags, ctx: SomeComponent) {
         if (rf & RenderFlags.Create) {
           logs.push('component create');
-          text(0, 'foo');
+          ɵɵtext(0, 'foo');
         }
         if (rf & RenderFlags.Update) {
           logs.push('component update');
@@ -49,7 +49,7 @@ describe('renderer factory lifecycle', () => {
   }
 
   class SomeComponentWhichThrows {
-    static ngComponentDef = defineComponent({
+    static ngComponentDef = ɵɵdefineComponent({
       type: SomeComponentWhichThrows,
       encapsulation: ViewEncapsulation.None,
       selectors: [['some-component-with-Error']],
@@ -65,7 +65,7 @@ describe('renderer factory lifecycle', () => {
   function Template(rf: RenderFlags, ctx: any) {
     if (rf & RenderFlags.Create) {
       logs.push('function create');
-      text(0, 'bar');
+      ɵɵtext(0, 'bar');
     }
     if (rf & RenderFlags.Update) {
       logs.push('function update');
@@ -77,8 +77,8 @@ describe('renderer factory lifecycle', () => {
   function TemplateWithComponent(rf: RenderFlags, ctx: any) {
     if (rf & RenderFlags.Create) {
       logs.push('function_with_component create');
-      text(0, 'bar');
-      element(1, 'some-component');
+      ɵɵtext(0, 'bar');
+      ɵɵelement(1, 'some-component');
     }
     if (rf & RenderFlags.Update) {
       logs.push('function_with_component update');
@@ -139,7 +139,7 @@ describe('animation renderer factory', () => {
   });
 
   class SomeComponent {
-    static ngComponentDef = defineComponent({
+    static ngComponentDef = ɵɵdefineComponent({
       type: SomeComponent,
       encapsulation: ViewEncapsulation.None,
       selectors: [['some-component']],
@@ -147,7 +147,7 @@ describe('animation renderer factory', () => {
       vars: 0,
       template: function(rf: RenderFlags, ctx: SomeComponent) {
         if (rf & RenderFlags.Create) {
-          text(0, 'foo');
+          ɵɵtext(0, 'foo');
         }
       },
       factory: () => new SomeComponent
@@ -160,23 +160,23 @@ describe('animation renderer factory', () => {
     callback(event: AnimationEvent) {
       eventLogs.push(`${event.fromState ? event.fromState : event.toState} - ${event.phaseName}`);
     }
-    static ngComponentDef = defineComponent({
+    static ngComponentDef = ɵɵdefineComponent({
       type: SomeComponentWithAnimation,
       selectors: [['some-component']],
       consts: 2,
       vars: 1,
       template: function(rf: RenderFlags, ctx: SomeComponentWithAnimation) {
         if (rf & RenderFlags.Create) {
-          elementStart(0, 'div');
+          ɵɵelementStart(0, 'div');
           {
-            listener('@myAnimation.start', ctx.callback.bind(ctx));
-            listener('@myAnimation.done', ctx.callback.bind(ctx));
-            text(1, 'foo');
+            ɵɵlistener('@myAnimation.start', ctx.callback.bind(ctx));
+            ɵɵlistener('@myAnimation.done', ctx.callback.bind(ctx));
+            ɵɵtext(1, 'foo');
           }
-          elementEnd();
+          ɵɵelementEnd();
         }
         if (rf & RenderFlags.Update) {
-          elementProperty(0, '@myAnimation', bind(ctx.exp));
+          ɵɵelementProperty(0, '@myAnimation', ɵɵbind(ctx.exp));
         }
       },
       factory: () => new SomeComponentWithAnimation,
@@ -234,27 +234,27 @@ describe('Renderer2 destruction hooks', () => {
     let condition = true;
 
     function createTemplate() {
-      elementStart(0, 'div');
-      { container(1); }
-      elementEnd();
+      ɵɵelementStart(0, 'div');
+      { ɵɵcontainer(1); }
+      ɵɵelementEnd();
     }
 
     function updateTemplate() {
-      containerRefreshStart(1);
+      ɵɵcontainerRefreshStart(1);
       {
         if (condition) {
-          let rf1 = embeddedViewStart(1, 3, 0);
+          let rf1 = ɵɵembeddedViewStart(1, 3, 0);
           {
             if (rf1 & RenderFlags.Create) {
-              element(0, 'span');
-              element(1, 'span');
-              element(2, 'span');
+              ɵɵelement(0, 'span');
+              ɵɵelement(1, 'span');
+              ɵɵelement(2, 'span');
             }
           }
-          embeddedViewEnd();
+          ɵɵembeddedViewEnd();
         }
       }
-      containerRefreshEnd();
+      ɵɵcontainerRefreshEnd();
     }
 
     const t = new TemplateFixture(
@@ -270,7 +270,7 @@ describe('Renderer2 destruction hooks', () => {
 
   it('should call renderer.destroy for each component destroyed', () => {
     class SimpleComponent {
-      static ngComponentDef = defineComponent({
+      static ngComponentDef = ɵɵdefineComponent({
         type: SimpleComponent,
         encapsulation: ViewEncapsulation.None,
         selectors: [['simple']],
@@ -278,7 +278,7 @@ describe('Renderer2 destruction hooks', () => {
         vars: 0,
         template: function(rf: RenderFlags, ctx: SimpleComponent) {
           if (rf & RenderFlags.Create) {
-            element(0, 'span');
+            ɵɵelement(0, 'span');
           }
         },
         factory: () => new SimpleComponent,
@@ -288,27 +288,27 @@ describe('Renderer2 destruction hooks', () => {
     let condition = true;
 
     function createTemplate() {
-      elementStart(0, 'div');
-      { container(1); }
-      elementEnd();
+      ɵɵelementStart(0, 'div');
+      { ɵɵcontainer(1); }
+      ɵɵelementEnd();
     }
 
     function updateTemplate() {
-      containerRefreshStart(1);
+      ɵɵcontainerRefreshStart(1);
       {
         if (condition) {
-          let rf1 = embeddedViewStart(1, 3, 0);
+          let rf1 = ɵɵembeddedViewStart(1, 3, 0);
           {
             if (rf1 & RenderFlags.Create) {
-              element(0, 'simple');
-              element(1, 'span');
-              element(2, 'simple');
+              ɵɵelement(0, 'simple');
+              ɵɵelement(1, 'span');
+              ɵɵelement(2, 'simple');
             }
           }
-          embeddedViewEnd();
+          ɵɵembeddedViewEnd();
         }
       }
-      containerRefreshEnd();
+      ɵɵcontainerRefreshEnd();
     }
 
     const t = new TemplateFixture(

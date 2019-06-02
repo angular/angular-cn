@@ -21,6 +21,7 @@ describe('ng-add schematic', () => {
       name: 'demo',
       dependencies: {
         '@angular/core': '1.2.3',
+        'rxjs': '~6.3.3',
       },
       devDependencies: {
         'typescript': '3.2.2',
@@ -54,6 +55,7 @@ describe('ng-add schematic', () => {
           },
         },
       },
+      defaultProject: 'demo',
     }));
     schematicRunner =
         new SchematicTestRunner('@angular/bazel', require.resolve('../collection.json'));
@@ -97,14 +99,39 @@ describe('ng-add schematic', () => {
     expect(devDeps).toContain('@bazel/bazel');
     expect(devDeps).toContain('@bazel/ibazel');
     expect(devDeps).toContain('@bazel/karma');
-    expect(devDeps).toContain('@bazel/typescript');
   });
 
-  it('should create Bazel workspace file', () => {
+  it('should replace an existing dev dependency', () => {
+    expect(host.files).toContain('/package.json');
+    const packageJson = JSON.parse(host.readContent('/package.json'));
+    packageJson.devDependencies['@angular/bazel'] = '4.2.42';
+    host.overwrite('/package.json', JSON.stringify(packageJson));
+    host = schematicRunner.runSchematic('ng-add', defaultOptions, host);
+    const content = host.readContent('/package.json');
+    // It is possible that a dep gets added twice if the package already exists.
+    expect(content.match(/@angular\/bazel/g) !.length).toEqual(1);
+    const json = JSON.parse(content);
+    expect(json.devDependencies['@angular/bazel']).toBe('1.2.3');
+  });
+
+  it('should remove an existing dependency', () => {
+    expect(host.files).toContain('/package.json');
+    const packageJson = JSON.parse(host.readContent('/package.json'));
+    packageJson.dependencies['@angular/bazel'] = '4.2.42';
+    expect(Object.keys(packageJson.dependencies)).toContain('@angular/bazel');
+    host.overwrite('/package.json', JSON.stringify(packageJson));
+    host = schematicRunner.runSchematic('ng-add', defaultOptions, host);
+    const content = host.readContent('/package.json');
+    const json = JSON.parse(content);
+    expect(Object.keys(json.dependencies)).not.toContain('@angular/bazel');
+    expect(json.devDependencies['@angular/bazel']).toBe('1.2.3');
+  });
+
+  it('should not create Bazel workspace file', () => {
     host = schematicRunner.runSchematic('ng-add', defaultOptions, host);
     const {files} = host;
-    expect(files).toContain('/WORKSPACE');
-    expect(files).toContain('/BUILD.bazel');
+    expect(files).not.toContain('/WORKSPACE');
+    expect(files).not.toContain('/BUILD.bazel');
   });
 
   it('should produce main.dev.ts and main.prod.ts for AOT', () => {
@@ -176,6 +203,15 @@ describe('ng-add schematic', () => {
     expect(lint.builder).toBe('@angular-devkit/build-angular:tslint');
   });
 
+  it('should get defaultProject if name is not provided', () => {
+    const options = {};
+    host = schematicRunner.runSchematic('ng-add', options, host);
+    const content = host.readContent('/angular.json');
+    const json = JSON.parse(content);
+    const builder = json.projects.demo.architect.build.builder;
+    expect(builder).toBe('@angular/bazel:build');
+  });
+
   it('should create a backup for original tsconfig.json', () => {
     expect(host.files).toContain('/tsconfig.json');
     const original = host.readContent('/tsconfig.json');
@@ -198,4 +234,71 @@ describe('ng-add schematic', () => {
       }
     });
   });
+
+  describe('rxjs', () => {
+    const cases = [
+      // version|upgrade
+      ['6.3.3', true],
+      ['~6.3.3', true],
+      ['^6.3.3', true],
+      ['~6.3.11', true],
+      ['6.4.0', false],
+      ['~6.4.0', false],
+      ['~6.4.1', false],
+      ['6.5.0', false],
+      ['~6.5.0', false],
+      ['^6.5.0', false],
+      ['~7.0.1', false],
+    ];
+    for (const [version, upgrade] of cases) {
+      it(`should ${upgrade ? '' : 'not '}upgrade v${version}')`, () => {
+        host.overwrite('package.json', JSON.stringify({
+          name: 'demo',
+          dependencies: {
+            '@angular/core': '1.2.3',
+            'rxjs': version,
+          },
+          devDependencies: {
+            'typescript': '3.2.2',
+          },
+        }));
+        host = schematicRunner.runSchematic('ng-add', defaultOptions, host);
+        expect(host.files).toContain('/package.json');
+        const content = host.readContent('/package.json');
+        const json = JSON.parse(content);
+        if (upgrade) {
+          expect(json.dependencies.rxjs).toBe('~6.4.0');
+        } else {
+          expect(json.dependencies.rxjs).toBe(version);
+        }
+      });
+    }
+  });
+
+  it('should add a postinstall step to package.json', () => {
+    host = schematicRunner.runSchematic('ng-add', defaultOptions, host);
+    expect(host.files).toContain('/package.json');
+    const content = host.readContent('/package.json');
+    const json = JSON.parse(content);
+    expect(json.scripts.postinstall).toBe('ngc -p ./angular-metadata.tsconfig.json');
+  });
+
+  it('should work when run on a minimal project (without test and e2e targets)', () => {
+    host.overwrite('angular.json', JSON.stringify({
+      projects: {
+        'demo': {
+          architect: {
+            build: {},
+            serve: {},
+            'extract-i18n': {
+              builder: '@angular-devkit/build-angular:extract-i18n',
+            },
+          },
+        },
+      },
+    }));
+
+    expect(() => schematicRunner.runSchematic('ng-add', defaultOptions, host)).not.toThrowError();
+  });
+
 });

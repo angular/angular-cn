@@ -3,7 +3,8 @@ import { ComponentFixture, fakeAsync, inject, TestBed, tick } from '@angular/cor
 import { By, Title } from '@angular/platform-browser';
 import { APP_BASE_HREF } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
-import { MatProgressBar, MatSidenav } from '@angular/material';
+import { MatProgressBar } from '@angular/material/progress-bar';
+import { MatSidenav } from '@angular/material/sidenav';
 
 import { of, timer } from 'rxjs';
 import { first, mapTo } from 'rxjs/operators';
@@ -650,11 +651,11 @@ describe('AppComponent', () => {
 
         component.tocMaxHeight = '100';
         fixture.detectChanges();
-        expect(tocContainer!.style['max-height']).toBe('100px');
+        expect(tocContainer!.style.maxHeight).toBe('100px');
 
         component.tocMaxHeight = '200';
         fixture.detectChanges();
-        expect(tocContainer!.style['max-height']).toBe('200px');
+        expect(tocContainer!.style.maxHeight).toBe('200px');
       });
 
       it('should restrain scrolling inside the ToC container', () => {
@@ -787,7 +788,7 @@ describe('AppComponent', () => {
             { path: 'news', title: 'News', type: 'marketing', keywords: '', titleWords: '', deprecated: false }
           ];
 
-          searchService.searchResults.next({ query: 'something', results: results });
+          searchService.searchResults.next({ query: 'something', results });
           component.showSearchResults = true;
           fixture.detectChanges();
 

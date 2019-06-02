@@ -10,6 +10,7 @@ import {AttributeMarker} from '../../core';
 import {AST, BindingType, Interpolation} from '../../expression_parser/ast';
 import * as o from '../../output/output_ast';
 import {ParseSourceSpan} from '../../parse_util';
+import {isEmptyExpression} from '../../template_parser/template_parser';
 import * as t from '../r3_ast';
 import {Identifiers as R3} from '../r3_identifiers';
 
@@ -57,13 +58,14 @@ interface BoundStylingEntry {
  * order which these must be generated is as follows:
  *
  * if (createMode) {
- *   elementStyling(...)
+ *   styling(...)
  * }
  * if (updateMode) {
- *   elementStylingMap(...)
- *   elementStyleProp(...)
- *   elementClassProp(...)
- *   elementStylingApp(...)
+ *   styleMap(...)
+ *   classMap(...)
+ *   styleProp(...)
+ *   classProp(...)
+ *   stylingApp(...)
  * }
  *
  * The creation/update methods within the builder class produce these instructions.
@@ -160,7 +162,10 @@ export class StylingBuilder {
 
   registerStyleInput(
       name: string, isMapBased: boolean, value: AST, sourceSpan: ParseSourceSpan,
-      unit?: string|null): BoundStylingEntry {
+      unit?: string|null): BoundStylingEntry|null {
+    if (isEmptyExpression(value)) {
+      return null;
+    }
     const {property, hasOverrideFlag, unit: bindingUnit} = parseProperty(name);
     const entry: BoundStylingEntry = {
       name: property,
@@ -180,7 +185,10 @@ export class StylingBuilder {
   }
 
   registerClassInput(name: string, isMapBased: boolean, value: AST, sourceSpan: ParseSourceSpan):
-      BoundStylingEntry {
+      BoundStylingEntry|null {
+    if (isEmptyExpression(value)) {
+      return null;
+    }
     const {property, hasOverrideFlag} = parseProperty(name);
     const entry:
         BoundStylingEntry = {name: property, value, sourceSpan, hasOverrideFlag, unit: null};
@@ -256,9 +264,12 @@ export class StylingBuilder {
         reference: R3.elementHostAttrs,
         allocateBindingSlots: 0,
         buildParams: () => {
-          // params => elementHostAttrs(directive, attrs)
+          // params => elementHostAttrs(attrs)
           this.populateInitialStylingAttrs(attrs);
-          return [this._directiveExpr !, getConstantLiteralFromArray(constantPool, attrs)];
+          const attrArray = !attrs.some(attr => attr instanceof o.WrappedNodeExpr) ?
+              getConstantLiteralFromArray(constantPool, attrs) :
+              o.literalArr(attrs);
+          return [attrArray];
         }
       };
     }
@@ -266,18 +277,18 @@ export class StylingBuilder {
   }
 
   /**
-   * Builds an instruction with all the expressions and parameters for `elementStyling`.
+   * Builds an instruction with all the expressions and parameters for `styling`.
    *
    * The instruction generation code below is used for producing the AOT statement code which is
    * responsible for registering style/class bindings to an element.
    */
-  buildElementStylingInstruction(sourceSpan: ParseSourceSpan|null, constantPool: ConstantPool):
-      Instruction|null {
+  buildStylingInstruction(sourceSpan: ParseSourceSpan|null, constantPool: ConstantPool): Instruction
+      |null {
     if (this.hasBindings) {
       return {
         sourceSpan,
         allocateBindingSlots: 0,
-        reference: R3.elementStyling,
+        reference: R3.styling,
         buildParams: () => {
           // a string array of every style-based binding
           const styleBindingProps =
@@ -292,12 +303,12 @@ export class StylingBuilder {
           // (otherwise a shorter amount of params will be filled). The code below helps
           // determine how many params are required in the expression code.
           //
-          // min params => elementStyling()
-          // max params => elementStyling(classBindings, styleBindings, sanitizer, directive)
+          // min params => styling()
+          // max params => styling(classBindings, styleBindings, sanitizer)
+          //
+          const params: o.Expression[] = [];
           let expectedNumberOfArgs = 0;
-          if (this._directiveExpr) {
-            expectedNumberOfArgs = 4;
-          } else if (this._useDefaultSanitizer) {
+          if (this._useDefaultSanitizer) {
             expectedNumberOfArgs = 3;
           } else if (styleBindingProps.length) {
             expectedNumberOfArgs = 2;
@@ -305,7 +316,6 @@ export class StylingBuilder {
             expectedNumberOfArgs = 1;
           }
 
-          const params: o.Expression[] = [];
           addParam(
               params, classBindingNames.length > 0,
               getConstantLiteralFromArray(constantPool, classBindingNames), 1,
@@ -317,9 +327,6 @@ export class StylingBuilder {
           addParam(
               params, this._useDefaultSanitizer, o.importExpr(R3.defaultStyleSanitizer), 3,
               expectedNumberOfArgs);
-          if (this._directiveExpr) {
-            params.push(this._directiveExpr);
-          }
           return params;
         }
       };
@@ -328,62 +335,50 @@ export class StylingBuilder {
   }
 
   /**
-   * Builds an instruction with all the expressions and parameters for `elementStylingMap`.
+   * Builds an instruction with all the expressions and parameters for `classMap`.
    *
-   * The instruction data will contain all expressions for `elementStylingMap` to function
-   * which include the `[style]` and `[class]` expression params (if they exist) as well as
-   * the sanitizer and directive reference expression.
+   * The instruction data will contain all expressions for `classMap` to function
+   * which includes the `[class]` expression params.
    */
-  buildElementStylingMapInstruction(valueConverter: ValueConverter): Instruction|null {
-    if (this._classMapInput || this._styleMapInput) {
-      const stylingInput = this._classMapInput ! || this._styleMapInput !;
-      let totalBindingSlotsRequired = 0;
-
-      // these values must be outside of the update block so that they can
-      // be evaluted (the AST visit call) during creation time so that any
-      // pipes can be picked up in time before the template is built
-      const mapBasedClassValue =
-          this._classMapInput ? this._classMapInput.value.visit(valueConverter) : null;
-      if (mapBasedClassValue instanceof Interpolation) {
-        totalBindingSlotsRequired += mapBasedClassValue.expressions.length;
-      }
-
-      const mapBasedStyleValue =
-          this._styleMapInput ? this._styleMapInput.value.visit(valueConverter) : null;
-      if (mapBasedStyleValue instanceof Interpolation) {
-        totalBindingSlotsRequired += mapBasedStyleValue.expressions.length;
-      }
-
-      return {
-        sourceSpan: stylingInput.sourceSpan,
-        reference: R3.elementStylingMap,
-        allocateBindingSlots: totalBindingSlotsRequired,
-        buildParams: (convertFn: (value: any) => o.Expression) => {
-          // min params => elementStylingMap(index, classMap)
-          // max params => elementStylingMap(index, classMap, styleMap, directive)
-          let expectedNumberOfArgs = 0;
-          if (this._directiveExpr) {
-            expectedNumberOfArgs = 4;
-          } else if (mapBasedStyleValue) {
-            expectedNumberOfArgs = 3;
-          } else if (mapBasedClassValue) {
-            // index and class = 2
-            expectedNumberOfArgs = 2;
-          }
-
-          const params: o.Expression[] = [this._elementIndexExpr];
-          addParam(
-              params, mapBasedClassValue, mapBasedClassValue ? convertFn(mapBasedClassValue) : null,
-              2, expectedNumberOfArgs);
-          addParam(
-              params, mapBasedStyleValue, mapBasedStyleValue ? convertFn(mapBasedStyleValue) : null,
-              3, expectedNumberOfArgs);
-          addParam(params, this._directiveExpr, this._directiveExpr, 4, expectedNumberOfArgs);
-          return params;
-        }
-      };
+  buildClassMapInstruction(valueConverter: ValueConverter): Instruction|null {
+    if (this._classMapInput) {
+      return this._buildMapBasedInstruction(valueConverter, true, this._classMapInput);
     }
     return null;
+  }
+
+  /**
+   * Builds an instruction with all the expressions and parameters for `styleMap`.
+   *
+   * The instruction data will contain all expressions for `styleMap` to function
+   * which includes the `[style]` expression params.
+   */
+  buildStyleMapInstruction(valueConverter: ValueConverter): Instruction|null {
+    if (this._styleMapInput) {
+      return this._buildMapBasedInstruction(valueConverter, false, this._styleMapInput);
+    }
+    return null;
+  }
+
+  private _buildMapBasedInstruction(
+      valueConverter: ValueConverter, isClassBased: boolean, stylingInput: BoundStylingEntry) {
+    let totalBindingSlotsRequired = 0;
+
+    // these values must be outside of the update block so that they can
+    // be evaluated (the AST visit call) during creation time so that any
+    // pipes can be picked up in time before the template is built
+    const mapValue = stylingInput.value.visit(valueConverter);
+    if (mapValue instanceof Interpolation) {
+      totalBindingSlotsRequired += mapValue.expressions.length;
+    }
+
+    const reference = isClassBased ? R3.classMap : R3.styleMap;
+    return {
+      sourceSpan: stylingInput.sourceSpan,
+      reference,
+      allocateBindingSlots: totalBindingSlotsRequired,
+      buildParams: (convertFn: (value: any) => o.Expression) => { return [convertFn(mapValue)]; }
+    };
   }
 
   private _buildSingleInputs(
@@ -398,23 +393,18 @@ export class StylingBuilder {
         sourceSpan: input.sourceSpan,
         allocateBindingSlots: totalBindingSlotsRequired, reference,
         buildParams: (convertFn: (value: any) => o.Expression) => {
-          // min params => elementStlyingProp(elmIndex, bindingIndex, value)
-          // max params => elementStlyingProp(elmIndex, bindingIndex, value, overrideFlag)
-
-          const params = [this._elementIndexExpr, o.literal(bindingIndex), convertFn(value)];
+          // min params => stylingProp(elmIndex, bindingIndex, value)
+          // max params => stylingProp(elmIndex, bindingIndex, value, overrideFlag)
+          const params: o.Expression[] = [];
+          params.push(o.literal(bindingIndex));
+          params.push(convertFn(value));
 
           if (allowUnits) {
             if (input.unit) {
               params.push(o.literal(input.unit));
-            } else if (this._directiveExpr) {
+            } else if (input.hasOverrideFlag) {
               params.push(o.NULL_EXPR);
             }
-          }
-
-          if (this._directiveExpr) {
-            params.push(this._directiveExpr);
-          } else if (input.hasOverrideFlag) {
-            params.push(o.NULL_EXPR);
           }
 
           if (input.hasOverrideFlag) {
@@ -430,7 +420,7 @@ export class StylingBuilder {
   private _buildClassInputs(valueConverter: ValueConverter): Instruction[] {
     if (this._singleClassInputs) {
       return this._buildSingleInputs(
-          R3.elementClassProp, this._singleClassInputs, this._classesIndex, false, valueConverter);
+          R3.classProp, this._singleClassInputs, this._classesIndex, false, valueConverter);
     }
     return [];
   }
@@ -438,7 +428,7 @@ export class StylingBuilder {
   private _buildStyleInputs(valueConverter: ValueConverter): Instruction[] {
     if (this._singleStyleInputs) {
       return this._buildSingleInputs(
-          R3.elementStyleProp, this._singleStyleInputs, this._stylesIndex, true, valueConverter);
+          R3.styleProp, this._singleStyleInputs, this._stylesIndex, true, valueConverter);
     }
     return [];
   }
@@ -446,17 +436,9 @@ export class StylingBuilder {
   private _buildApplyFn(): Instruction {
     return {
       sourceSpan: this._lastStylingInput ? this._lastStylingInput.sourceSpan : null,
-      reference: R3.elementStylingApply,
+      reference: R3.stylingApply,
       allocateBindingSlots: 0,
-      buildParams: () => {
-        // min params => elementStylingApply(elmIndex)
-        // max params => elementStylingApply(elmIndex, directive)
-        const params: o.Expression[] = [this._elementIndexExpr];
-        if (this._directiveExpr) {
-          params.push(this._directiveExpr);
-        }
-        return params;
-      }
+      buildParams: () => { return []; }
     };
   }
 
@@ -467,9 +449,13 @@ export class StylingBuilder {
   buildUpdateLevelInstructions(valueConverter: ValueConverter) {
     const instructions: Instruction[] = [];
     if (this.hasBindings) {
-      const mapInstruction = this.buildElementStylingMapInstruction(valueConverter);
-      if (mapInstruction) {
-        instructions.push(mapInstruction);
+      const styleMapInstruction = this.buildStyleMapInstruction(valueConverter);
+      if (styleMapInstruction) {
+        instructions.push(styleMapInstruction);
+      }
+      const classMapInstruction = this.buildClassMapInstruction(valueConverter);
+      if (classMapInstruction) {
+        instructions.push(classMapInstruction);
       }
       instructions.push(...this._buildStyleInputs(valueConverter));
       instructions.push(...this._buildClassInputs(valueConverter));
@@ -486,8 +472,12 @@ function registerIntoMap(map: Map<string, number>, key: string) {
 }
 
 function isStyleSanitizable(prop: string): boolean {
-  return prop === 'background-image' || prop === 'background' || prop === 'border-image' ||
-      prop === 'filter' || prop === 'list-style' || prop === 'list-style-image';
+  // Note that browsers support both the dash case and
+  // camel case property names when setting through JS.
+  return prop === 'background-image' || prop === 'backgroundImage' || prop === 'background' ||
+      prop === 'border-image' || prop === 'borderImage' || prop === 'filter' ||
+      prop === 'list-style' || prop === 'listStyle' || prop === 'list-style-image' ||
+      prop === 'listStyleImage';
 }
 
 /**

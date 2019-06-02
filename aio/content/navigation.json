@@ -62,12 +62,43 @@
       "hidden": true
     },
     {
-      "url": "guide/quickstart",
       "title": "快速上手",
-      "tooltip": "对 Angular 和 Angular CLI 基础知识的简短介绍"
+      "tooltip": "通过构建第一个 Angular 应用来学习基础知识",
+      "children": [
+        {
+          "url": "getting-started",
+          "title": "你的第一个应用",
+          "tooltip": "介绍 Angular 的组件模型、模板语法和组件通讯"
+        },
+        {
+          "url": "getting-started/routing",
+          "title": "路由",
+          "tooltip": "介绍如何使用浏览器的 URL 在组件之间进行路由"
+        },
+        {
+          "url": "getting-started/data",
+          "title": "管理数据",
+          "tooltip": "介绍服务以及如何访问外部数据"
+        },
+        {
+          "url": "getting-started/forms",
+          "title": "表单",
+          "tooltip": "学习如何使用表单从用户那里获取并管理数据"
+        },
+        {
+          "url": "getting-started/deployment",
+          "title": "部署",
+          "tooltip": "通过你的应用放到 Firebase 或自己的服务器上来把它分享给外界"
+        }
+      ]
     },
     {
-      "title": "教程",
+      "url": "guide/quickstart",
+      "title": "环境快速上手",
+      "tooltip": "使用 Angular CLI 搭建本地开发环境简介"
+    },
+    {
+      "title": "教程：英雄指南",
       "tooltip": "此《英雄指南》教程会带你用 TypeScript 一步步创建一个 Angular 应用。",
       "children": [
         {
@@ -444,6 +475,11 @@
               "tooltip": "在 CLI 项目中启用 Service Worker，并在浏览器中查看效果。"
             },
             {
+              "url": "guide/app-shell",
+              "title": "App Shell",
+              "tooltip": "Enabling the App Shell in a CLI project."
+            },
+            {
               "url": "guide/service-worker-communications",
               "title": "与 Service Worker 通讯",
               "tooltip": "那些能让你和 Angular 的 Service Worker 通讯的服务类。"
@@ -506,12 +542,43 @@
               "tooltip": "通过创建、发布和使用你自己的库来扩展 Angular"
             }
           ]
+        },
+        {
+          "title": "Schematics",
+          "tooltip": "Understanding schematics.",
+          "children": [
+            {
+              "url": "guide/schematics",
+              "title": "Schematics Overview",
+              "tooltip": "Understand how schematics are used in Angular."
+            },
+            {
+              "url": "guide/schematics-authoring",
+              "title": "Authoring Schematics",
+              "tooltip": "Understand the structure of a schematic."
+            },
+            {
+              "url": "guide/schematics-for-libraries",
+              "title": "Schematics for Libraries",
+              "tooltip": "Use schematics to integrate your library with the Angular CLI."
+            }
+          ]
+        },
+        {
+          "url": "guide/ivy",
+          "title": "Angular Ivy",
+          "tooltip": "Opting into Angular Ivy with Angular CLI."
+        },
+        {
+          "url": "guide/web-worker",
+          "title": "Web Workers",
+          "tooltip": "Using Web Workers with Angular CLI."
         }
       ]
     },
     {
       "title": "环境搭建与部署",
-      "tooltip": "关于环境搭建、构建、测试、部署环境与工具的信息。",
+      "tooltip": "构建、测试、部署环境、工具以及配置信息。",
       "children": [
         {
           "url": "guide/setup",
@@ -548,6 +615,11 @@
           "url": "guide/build",
           "title": "构建与运行",
           "tooltip": "构建应用及为应用启动开发服务器。"
+        },
+        {
+          "url": "guide/bazel",
+          "title": "Building with Bazel",
+          "tooltip": "How to set up your environment to build and test with Bazel."
         },
         {
           "url": "guide/testing",
@@ -594,8 +666,13 @@
         },
         {
           "url": "guide/releases",
-          "title": "Angular 发布策略与实践",
-          "tooltip": "Angular 的版本、发布、支持、弃用策略与实践。"
+          "title": "发布实践",
+          "tooltip": "Angular 的版本、发布、支持、弃用策略及实践"
+        },
+        {
+          "url": "guide/deprecations",
+          "title": "弃用清单",
+          "tooltip": "弃用的 Angular API 和特性汇总。"
         }
       ]
     },
@@ -628,6 +705,11 @@
           "title": "概览",
           "tooltip": "CLI 工具介绍、命令、语法",
           "url": "cli"
+        },
+        {
+          "title": "Usage Analytics",
+          "tooltip": "For administrators, guide to gathering usage analytics from your users.",
+          "url": "cli/usage-analytics-gathering"
         }
       ]
     },
@@ -671,12 +753,6 @@
       "tooltip": "Flutter 中文文档站",
       "title": "友站：Flutter 中文"
     },
-    {
-      "url": "guide/change-log",
-      "title": "Change Log",
-      "tooltip": "Angular Documentation Change Log",
-      "hidden": true
-    }
   ],
   "Footer": [
     {
@@ -701,6 +777,11 @@
           "url": "https://blog.angular.io/",
           "title": "博客",
           "tooltip": "Angular 官方博客"
+        },
+        {
+          "url": "analytics",
+          "title": "Usage Analytics",
+          "tooltip": "Angular Usage Analytics"
         }
       ]
     },

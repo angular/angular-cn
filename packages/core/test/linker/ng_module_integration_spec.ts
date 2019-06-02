@@ -8,13 +8,13 @@
 
 import {ANALYZE_FOR_ENTRY_COMPONENTS, CUSTOM_ELEMENTS_SCHEMA, ChangeDetectorRef, Compiler, Component, ComponentFactoryResolver, Directive, HostBinding, Inject, Injectable, InjectionToken, Injector, Input, NgModule, NgModuleRef, Optional, Pipe, Provider, Self, Type, forwardRef, getModuleFactory, ɵivyEnabled as ivyEnabled} from '@angular/core';
 import {Console} from '@angular/core/src/console';
-import {InjectableDef, defineInjectable} from '@angular/core/src/di/interface/defs';
+import {ɵɵInjectableDef, ɵɵdefineInjectable} from '@angular/core/src/di/interface/defs';
 import {getNgModuleDef} from '@angular/core/src/render3/definition';
 import {NgModuleData} from '@angular/core/src/view/types';
 import {tokenKey} from '@angular/core/src/view/util';
 import {ComponentFixture, TestBed, inject} from '@angular/core/testing';
 import {expect} from '@angular/platform-browser/testing/src/matchers';
-import {fixmeIvy, modifiedInIvy, obsoleteInIvy, onlyInIvy} from '@angular/private/testing';
+import {modifiedInIvy, obsoleteInIvy, onlyInIvy} from '@angular/private/testing';
 
 import {InternalNgModuleRef, NgModuleFactory} from '../../src/linker/ng_module_factory';
 import {clearModulesForTest} from '../../src/linker/ng_module_factory_loader';
@@ -136,6 +136,15 @@ function declareTests(config?: {useJit: boolean}) {
     }
 
     function createComp<T>(compType: Type<T>, moduleType: Type<any>): ComponentFixture<T> {
+      const componentDef = (compType as any).ngComponentDef;
+      if (componentDef) {
+        // Since we avoid Components/Directives/Pipes recompiling in case there are no overrides, we
+        // may face a problem where previously compiled defs available to a given
+        // Component/Directive are cached in TView and may become stale (in case any of these defs
+        // gets recompiled). In order to avoid this problem, we force fresh TView to be created.
+        componentDef.template.ngPrivateData = null;
+      }
+
       const ngModule = createModule(moduleType, injector);
 
       const cf = ngModule.componentFactoryResolver.resolveComponentFactory(compType) !;
@@ -1353,7 +1362,7 @@ function declareTests(config?: {useJit: boolean}) {
               }
 
               class Bar {
-                static ngInjectableDef: InjectableDef<Bar> = defineInjectable({
+                static ngInjectableDef: ɵɵInjectableDef<Bar> = ɵɵdefineInjectable({
                   factory: () => new Bar(),
                   providedIn: SomeModule,
                 });
@@ -1385,7 +1394,7 @@ function declareTests(config?: {useJit: boolean}) {
               }
 
               class Bar {
-                static ngInjectableDef: InjectableDef<Bar> = defineInjectable({
+                static ngInjectableDef: ɵɵInjectableDef<Bar> = ɵɵdefineInjectable({
                   factory: () => new Bar(),
                   providedIn: SomeModule,
                 });

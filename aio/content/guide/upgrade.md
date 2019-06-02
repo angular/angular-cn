@@ -2115,15 +2115,15 @@ keeping the controllers in AngularJS land.
 
 你可以用 Angular 的服务类来替换这个实现，而把控制器继续留在 AngularJS 的地盘上。
 
-In the new version, you import the Angular HTTP module and call its `Http` service instead of `ngResource`.
+In the new version, you import the Angular HTTP module and call its `HttpClient` service instead of `ngResource`.
 
 在这个新版本中，你导入了 Angular 的 HTTP 模块，并且用它的 `Http` 服务替换掉 `NgResource`。
 
-Re-open the `app.module.ts` file, import and add `HttpModule` to the `imports` array of the `AppModule`:
+Re-open the `app.module.ts` file, import and add `HttpClientModule` to the `imports` array of the `AppModule`:
 
 再次打开 `app.module.ts` 文件，导入并把 `HttpModule` 添加到 `AppModule` 的 `imports` 数组中：
 
-<code-example path="upgrade-phonecat-2-hybrid/app/app.module.ts" region="httpmodule" header="app.module.ts">
+<code-example path="upgrade-phonecat-2-hybrid/app/app.module.ts" region="httpclientmodule" header="app.module.ts">
 </code-example>
 
 Now you're ready to upgrade the Phone service itself. Replace the ngResource-based
@@ -2144,7 +2144,7 @@ Angular decorators but still need to have their dependencies injected.
 就像在[依赖注入指南](guide/dependency-injection)中描述过的那样，
 这是一个标记装饰器，你要把它用在那些没有其它 Angular 装饰器，并且自己有依赖注入的类上。
 
-In its constructor the class expects to get the `Http` service. It will
+In its constructor the class expects to get the `HttpClient` service. It will
 be injected to it and it is stored as a private field. The service is then
 used in the two instance methods, one of which loads the list of all phones,
 and the other loads the details of a specified phone:

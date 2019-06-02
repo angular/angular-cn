@@ -9,7 +9,7 @@
 import {ArrayType, AssertNotNull, BinaryOperator, BinaryOperatorExpr, BuiltinType, BuiltinTypeName, CastExpr, ClassStmt, CommaExpr, CommentStmt, ConditionalExpr, DeclareFunctionStmt, DeclareVarStmt, Expression, ExpressionStatement, ExpressionType, ExpressionVisitor, ExternalExpr, ExternalReference, FunctionExpr, IfStmt, InstantiateExpr, InvokeFunctionExpr, InvokeMethodExpr, JSDocCommentStmt, LiteralArrayExpr, LiteralExpr, LiteralMapExpr, MapType, NotExpr, ReadKeyExpr, ReadPropExpr, ReadVarExpr, ReturnStatement, Statement, StatementVisitor, StmtModifier, ThrowStmt, TryCatchStmt, Type, TypeVisitor, TypeofExpr, WrappedNodeExpr, WriteKeyExpr, WritePropExpr, WriteVarExpr} from '@angular/compiler';
 import * as ts from 'typescript';
 
-import {ImportRewriter, NoopImportRewriter} from '../../imports';
+import {DefaultImportRecorder, ImportRewriter, NOOP_DEFAULT_IMPORT_RECORDER, NoopImportRewriter} from '../../imports';
 
 export class Context {
   constructor(readonly isStatement: boolean) {}
@@ -38,11 +38,8 @@ const BINARY_OPERATORS = new Map<BinaryOperator, ts.BinaryOperator>([
   [BinaryOperator.Plus, ts.SyntaxKind.PlusToken],
 ]);
 
-
-
 export class ImportManager {
-  private moduleToIndex = new Map<string, string>();
-  private importedModules = new Set<string>();
+  private specifierToIdentifier = new Map<string, string>();
   private nextIndex = 0;
 
   constructor(protected rewriter: ImportRewriter = new NoopImportRewriter(), private prefix = 'i') {
@@ -61,29 +58,37 @@ export class ImportManager {
     }
 
     // If not, this symbol will be imported. Allocate a prefix for the imported module if needed.
-    if (!this.moduleToIndex.has(moduleName)) {
-      this.moduleToIndex.set(moduleName, `${this.prefix}${this.nextIndex++}`);
+
+    if (!this.specifierToIdentifier.has(moduleName)) {
+      this.specifierToIdentifier.set(moduleName, `${this.prefix}${this.nextIndex++}`);
     }
-    const moduleImport = this.moduleToIndex.get(moduleName) !;
+    const moduleImport = this.specifierToIdentifier.get(moduleName) !;
 
     return {moduleImport, symbol};
   }
 
-  getAllImports(contextPath: string): {name: string, as: string}[] {
-    return Array.from(this.moduleToIndex.keys()).map(name => {
-      const as = this.moduleToIndex.get(name) !;
-      name = this.rewriter.rewriteSpecifier(name, contextPath);
-      return {name, as};
+  getAllImports(contextPath: string): {specifier: string, qualifier: string}[] {
+    const imports: {specifier: string, qualifier: string}[] = [];
+    this.specifierToIdentifier.forEach((qualifier, specifier) => {
+      specifier = this.rewriter.rewriteSpecifier(specifier, contextPath);
+      imports.push({specifier, qualifier});
     });
+    return imports;
   }
 }
 
-export function translateExpression(expression: Expression, imports: ImportManager): ts.Expression {
-  return expression.visitExpression(new ExpressionTranslatorVisitor(imports), new Context(false));
+export function translateExpression(
+    expression: Expression, imports: ImportManager,
+    defaultImportRecorder: DefaultImportRecorder): ts.Expression {
+  return expression.visitExpression(
+      new ExpressionTranslatorVisitor(imports, defaultImportRecorder), new Context(false));
 }
 
-export function translateStatement(statement: Statement, imports: ImportManager): ts.Statement {
-  return statement.visitStatement(new ExpressionTranslatorVisitor(imports), new Context(true));
+export function translateStatement(
+    statement: Statement, imports: ImportManager,
+    defaultImportRecorder: DefaultImportRecorder): ts.Statement {
+  return statement.visitStatement(
+      new ExpressionTranslatorVisitor(imports, defaultImportRecorder), new Context(true));
 }
 
 export function translateType(type: Type, imports: ImportManager): ts.TypeNode {
@@ -92,7 +97,8 @@ export function translateType(type: Type, imports: ImportManager): ts.TypeNode {
 
 class ExpressionTranslatorVisitor implements ExpressionVisitor, StatementVisitor {
   private externalSourceFiles = new Map<string, ts.SourceMapSource>();
-  constructor(private imports: ImportManager) {}
+  constructor(
+      private imports: ImportManager, private defaultImportRecorder: DefaultImportRecorder) {}
 
   visitDeclareVarStmt(stmt: DeclareVarStmt, context: Context): ts.VariableStatement {
     const nodeFlags = stmt.hasModifier(StmtModifier.Final) ? ts.NodeFlags.Const : ts.NodeFlags.None;
@@ -306,7 +312,12 @@ class ExpressionTranslatorVisitor implements ExpressionVisitor, StatementVisitor
     throw new Error('Method not implemented.');
   }
 
-  visitWrappedNodeExpr(ast: WrappedNodeExpr<any>, context: Context): any { return ast.node; }
+  visitWrappedNodeExpr(ast: WrappedNodeExpr<any>, context: Context): any {
+    if (ts.isIdentifier(ast.node)) {
+      this.defaultImportRecorder.recordUsedIdentifier(ast.node);
+    }
+    return ast.node;
+  }
 
   visitTypeofExpr(ast: TypeofExpr, context: Context): ts.TypeOfExpression {
     return ts.createTypeOf(ast.expr.visitExpression(this, context));
@@ -478,7 +489,7 @@ export class TypeTranslatorVisitor implements ExpressionVisitor, TypeVisitor {
   }
 
   visitTypeofExpr(ast: TypeofExpr, context: Context): ts.TypeQueryNode {
-    let expr = translateExpression(ast.expr, this.imports);
+    let expr = translateExpression(ast.expr, this.imports, NOOP_DEFAULT_IMPORT_RECORDER);
     return ts.createTypeQueryNode(expr as ts.Identifier);
   }
 }

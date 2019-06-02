@@ -7,12 +7,12 @@
  */
 import {StaticInjector} from '../../src/di/injector';
 import {createInjector} from '../../src/di/r3_injector';
-import {getComponent, getContext, getDirectives, getInjectionTokens, getInjector, getListeners, getLocalRefs, getRootComponents, getViewComponent, loadLContext} from '../../src/render3/discovery_utils';
-import {ProvidersFeature, RenderFlags, defineComponent, defineDirective, elementContainerEnd, elementContainerStart, getHostElement, i18n, i18nApply, i18nExp} from '../../src/render3/index';
+import {AttributeMarker, RenderFlags, getHostElement, ɵɵProvidersFeature, ɵɵdefineComponent, ɵɵdefineDirective, ɵɵelementContainerEnd, ɵɵelementContainerStart, ɵɵi18n, ɵɵi18nApply, ɵɵi18nExp, ɵɵselect} from '../../src/render3/index';
+import {markDirty, ɵɵbind, ɵɵelement, ɵɵelementEnd, ɵɵelementProperty, ɵɵelementStart, ɵɵlistener, ɵɵstyling, ɵɵstylingApply, ɵɵtemplate, ɵɵtext, ɵɵtextBinding} from '../../src/render3/instructions/all';
+import {getComponent, getContext, getDirectives, getInjectionTokens, getInjector, getListeners, getLocalRefs, getRootComponents, getViewComponent, loadLContext} from '../../src/render3/util/discovery_utils';
 
-import {element, elementEnd, elementStart, elementStyling, elementStylingApply, template, bind, elementProperty, text, textBinding, markDirty, listener} from '../../src/render3/instructions';
-import {ComponentFixture} from './render_util';
 import {NgIf} from './common_with_def';
+import {ComponentFixture} from './render_util';
 
 describe('discovery utils', () => {
   let fixture: ComponentFixture<MyApp>;
@@ -68,7 +68,7 @@ describe('discovery utils', () => {
   class Child {
     constructor() { childComponent.push(this); }
 
-    static ngComponentDef = defineComponent({
+    static ngComponentDef = ɵɵdefineComponent({
       type: Child,
       selectors: [['child']],
       factory: () => new Child(),
@@ -76,17 +76,17 @@ describe('discovery utils', () => {
       vars: 0,
       template: (rf: RenderFlags, ctx: Child) => {
         if (rf & RenderFlags.Create) {
-          element(0, 'p');
+          ɵɵelement(0, 'p');
         }
       },
-      features: [ProvidersFeature([{provide: String, useValue: 'Child'}])]
+      features: [ɵɵProvidersFeature([{provide: String, useValue: 'Child'}])]
     });
   }
 
   class DirectiveA {
     constructor() { dirA.push(this); }
 
-    static ngDirectiveDef = defineDirective({
+    static ngDirectiveDef = ɵɵdefineDirective({
       type: DirectiveA,
       selectors: [['', 'dirA', '']],
       exportAs: ['dirA'],
@@ -102,7 +102,7 @@ describe('discovery utils', () => {
     text: string = 'INIT';
     constructor() { myApp = this; }
 
-    static ngComponentDef = defineComponent({
+    static ngComponentDef = ɵɵdefineComponent({
       type: MyApp,
       selectors: [['my-app']],
       factory: () => new MyApp(),
@@ -111,30 +111,30 @@ describe('discovery utils', () => {
       directives: [Child, DirectiveA, NgIf],
       template: (rf: RenderFlags, ctx: MyApp) => {
         if (rf & RenderFlags.Create) {
-          elementStart(0, 'span');
-          listener('click', $event => log.push($event));
-          text(1);
-          elementEnd();
-          element(2, 'div', ['dirA', ''], ['div', '', 'foo', 'dirA']);
-          element(5, 'child');
-          element(6, 'child', ['dirA', ''], ['child', '']);
-          template(8, function(rf: RenderFlags, ctx: never) {
+          ɵɵelementStart(0, 'span');
+          ɵɵlistener('click', $event => log.push($event));
+          ɵɵtext(1);
+          ɵɵelementEnd();
+          ɵɵelement(2, 'div', ['dirA', ''], ['div', '', 'foo', 'dirA']);
+          ɵɵelement(5, 'child');
+          ɵɵelement(6, 'child', ['dirA', ''], ['child', '']);
+          ɵɵtemplate(8, function(rf: RenderFlags, ctx: never) {
             if (rf & RenderFlags.Create) {
-              element(0, 'child');
+              ɵɵelement(0, 'child');
             }
-          }, 1, 0, 'child', ['ngIf', '']);
-          elementStart(9, 'i18n');
-          i18n(10, MSG_DIV);
-          elementEnd();
-          elementContainerStart(11);
-          { text(12, 'content'); }
-          elementContainerEnd();
+          }, 1, 0, 'child', ['dirA', AttributeMarker.Template, 'ngIf']);
+          ɵɵelementStart(9, 'i18n');
+          ɵɵi18n(10, MSG_DIV);
+          ɵɵelementEnd();
+          ɵɵelementContainerStart(11);
+          { ɵɵtext(12, 'content'); }
+          ɵɵelementContainerEnd();
         }
         if (rf & RenderFlags.Update) {
-          textBinding(1, bind(ctx.text));
-          elementProperty(8, 'ngIf', bind(true));
-          i18nExp(bind(ctx.text));
-          i18nApply(10);
+          ɵɵtextBinding(1, ɵɵbind(ctx.text));
+          ɵɵelementProperty(8, 'ngIf', ɵɵbind(true));
+          ɵɵi18nExp(ɵɵbind(ctx.text));
+          ɵɵi18nApply(10);
         }
       }
     });
@@ -348,7 +348,7 @@ describe('discovery utils deprecated', () => {
       let innerComp: InnerComp;
 
       class InnerComp {
-        static ngComponentDef = defineComponent({
+        static ngComponentDef = ɵɵdefineComponent({
           type: InnerComp,
           selectors: [['inner-comp']],
           factory: () => innerComp = new InnerComp(),
@@ -356,14 +356,14 @@ describe('discovery utils deprecated', () => {
           vars: 0,
           template: (rf: RenderFlags, ctx: InnerComp) => {
             if (rf & RenderFlags.Create) {
-              element(0, 'div');
+              ɵɵelement(0, 'div');
             }
           }
         });
       }
 
       class Comp {
-        static ngComponentDef = defineComponent({
+        static ngComponentDef = ɵɵdefineComponent({
           type: Comp,
           selectors: [['comp']],
           factory: () => new Comp(),
@@ -371,7 +371,7 @@ describe('discovery utils deprecated', () => {
           vars: 0,
           template: (rf: RenderFlags, ctx: Comp) => {
             if (rf & RenderFlags.Create) {
-              element(0, 'inner-comp');
+              ɵɵelement(0, 'inner-comp');
             }
           },
           directives: [InnerComp]
@@ -399,7 +399,7 @@ describe('discovery utils deprecated', () => {
       let myDir3Instance: MyDir2|null = null;
 
       class MyDir1 {
-        static ngDirectiveDef = defineDirective({
+        static ngDirectiveDef = ɵɵdefineDirective({
           type: MyDir1,
           selectors: [['', 'my-dir-1', '']],
           factory: () => myDir1Instance = new MyDir1()
@@ -407,7 +407,7 @@ describe('discovery utils deprecated', () => {
       }
 
       class MyDir2 {
-        static ngDirectiveDef = defineDirective({
+        static ngDirectiveDef = ɵɵdefineDirective({
           type: MyDir2,
           selectors: [['', 'my-dir-2', '']],
           factory: () => myDir2Instance = new MyDir2()
@@ -415,7 +415,7 @@ describe('discovery utils deprecated', () => {
       }
 
       class MyDir3 {
-        static ngDirectiveDef = defineDirective({
+        static ngDirectiveDef = ɵɵdefineDirective({
           type: MyDir3,
           selectors: [['', 'my-dir-3', '']],
           factory: () => myDir3Instance = new MyDir2()
@@ -423,7 +423,7 @@ describe('discovery utils deprecated', () => {
       }
 
       class Comp {
-        static ngComponentDef = defineComponent({
+        static ngComponentDef = ɵɵdefineComponent({
           type: Comp,
           selectors: [['comp']],
           factory: () => new Comp(),
@@ -431,8 +431,8 @@ describe('discovery utils deprecated', () => {
           vars: 0,
           template: (rf: RenderFlags, ctx: Comp) => {
             if (rf & RenderFlags.Create) {
-              element(0, 'div', ['my-dir-1', '', 'my-dir-2', '']);
-              element(1, 'div', ['my-dir-3']);
+              ɵɵelement(0, 'div', ['my-dir-1', '', 'my-dir-2', '']);
+              ɵɵelement(1, 'div', ['my-dir-3']);
             }
           },
           directives: [MyDir1, MyDir2, MyDir3]
@@ -461,7 +461,7 @@ describe('discovery utils deprecated', () => {
     it('should return an injector that can return directive instances', () => {
 
       class Comp {
-        static ngComponentDef = defineComponent({
+        static ngComponentDef = ɵɵdefineComponent({
           type: Comp,
           selectors: [['comp']],
           factory: () => new Comp(),
@@ -481,7 +481,7 @@ describe('discovery utils deprecated', () => {
     it('should return an injector that falls-back to a module injector', () => {
 
       class Comp {
-        static ngComponentDef = defineComponent({
+        static ngComponentDef = ɵɵdefineComponent({
           type: Comp,
           selectors: [['comp']],
           factory: () => new Comp(),
@@ -506,7 +506,7 @@ describe('discovery utils deprecated', () => {
     it('should return a map of local refs for an element', () => {
 
       class MyDir {
-        static ngDirectiveDef = defineDirective({
+        static ngDirectiveDef = ɵɵdefineDirective({
           type: MyDir,
           selectors: [['', 'myDir', '']],
           exportAs: ['myDir'],
@@ -515,7 +515,7 @@ describe('discovery utils deprecated', () => {
       }
 
       class Comp {
-        static ngComponentDef = defineComponent({
+        static ngComponentDef = ɵɵdefineComponent({
           type: Comp,
           selectors: [['comp']],
           factory: () => new Comp(),
@@ -524,7 +524,7 @@ describe('discovery utils deprecated', () => {
           template: (rf: RenderFlags, ctx: Comp) => {
             if (rf & RenderFlags.Create) {
               // <div myDir #elRef #dirRef="myDir">
-              element(0, 'div', ['myDir'], ['elRef', '', 'dirRef', 'myDir']);
+              ɵɵelement(0, 'div', ['myDir'], ['elRef', '', 'dirRef', 'myDir']);
             }
           },
           directives: [MyDir]
@@ -543,7 +543,7 @@ describe('discovery utils deprecated', () => {
 
     it('should return a map of local refs for an element with styling context', () => {
       class Comp {
-        static ngComponentDef = defineComponent({
+        static ngComponentDef = ɵɵdefineComponent({
           type: Comp,
           selectors: [['comp']],
           factory: () => new Comp(),
@@ -552,11 +552,12 @@ describe('discovery utils deprecated', () => {
           template: (rf: RenderFlags, ctx: Comp) => {
             if (rf & RenderFlags.Create) {
               // <div #elRef class="fooClass">
-              elementStart(0, 'div', null, ['elRef', '']);
-              elementEnd();
+              ɵɵelementStart(0, 'div', null, ['elRef', '']);
+              ɵɵelementEnd();
             }
             if (rf & RenderFlags.Update) {
-              elementStylingApply(0);
+              ɵɵselect(0);
+              ɵɵstylingApply();
             }
           }
         });

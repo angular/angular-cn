@@ -6,10 +6,10 @@
  * found in the LICENSE file at https://angular.io/license
  */
 
-import {Component, ContentChild, ContentChildren, Directive, QueryList, TemplateRef, ViewChild, ViewContainerRef} from '@angular/core';
+import {Component, ContentChild, ContentChildren, Directive, QueryList, TemplateRef, ViewChild, ViewContainerRef, ɵi18nConfigureLocalize} from '@angular/core';
 import {TestBed} from '@angular/core/testing';
 import {expect} from '@angular/platform-browser/testing/src/matchers';
-import {onlyInIvy, polyfillGoogGetMsg} from '@angular/private/testing';
+import {onlyInIvy} from '@angular/private/testing';
 
 @Directive({
   selector: '[tplRef]',
@@ -23,10 +23,14 @@ class DirectiveWithTplRef {
 class MyComp {
   name = 'John';
   items = ['1', '2', '3'];
+  obj = {a: {b: 'value'}};
   visible = true;
   age = 20;
   count = 2;
   otherLabel = 'other label';
+  clicks = 0;
+
+  onClick() { this.clicks++; }
 }
 
 const TRANSLATIONS: any = {
@@ -42,6 +46,7 @@ const TRANSLATIONS: any = {
   'Item {$interpolation}': 'Article {$interpolation}',
   '\'Single quotes\' and "Double quotes"': '\'Guillemets simples\' et "Guillemets doubles"',
   'My logo': 'Mon logo',
+  '{$interpolation} - {$interpolation_1}': '{$interpolation} - {$interpolation_1} (fr)',
   '{$startTagSpan}My logo{$tagImg}{$closeTagSpan}':
       '{$startTagSpan}Mon logo{$tagImg}{$closeTagSpan}',
   '{$startTagNgTemplate} Hello {$closeTagNgTemplate}{$startTagNgContainer} Bye {$closeTagNgContainer}':
@@ -74,7 +79,7 @@ const getFixtureWithOverrides = (overrides = {}) => {
 onlyInIvy('Ivy i18n logic').describe('i18n', function() {
 
   beforeEach(() => {
-    polyfillGoogGetMsg(TRANSLATIONS);
+    ɵi18nConfigureLocalize({translations: TRANSLATIONS});
     TestBed.configureTestingModule({declarations: [MyComp, DirectiveWithTplRef]});
   });
 
@@ -175,6 +180,13 @@ onlyInIvy('Ivy i18n logic').describe('i18n', function() {
       expect(element).toHaveText('Bonjour John');
     });
 
+    it('should support interpolations with complex expressions', () => {
+      const template = `<div i18n>{{ name | uppercase }} - {{ obj?.a?.b }}</div>`;
+      const fixture = getFixtureWithOverrides({template});
+      const element = fixture.nativeElement.firstChild;
+      expect(element).toHaveText('JOHN - value (fr)');
+    });
+
     it('should properly escape quotes in content', () => {
       const content = `'Single quotes' and "Double quotes"`;
       const template = `<div i18n>${content}</div>`;
@@ -244,6 +256,23 @@ onlyInIvy('Ivy i18n logic').describe('i18n', function() {
 
       const element = fixture.nativeElement.firstChild;
       expect(element).toHaveText('Bonjour John');
+    });
+
+    it('should work correctly with event listeners', () => {
+      const content = 'Hello {{ name }}';
+      const template = `
+        <div i18n (click)="onClick()">${content}</div>
+      `;
+      const fixture = getFixtureWithOverrides({template});
+
+      const element = fixture.nativeElement.firstChild;
+      const instance = fixture.componentInstance;
+
+      expect(element).toHaveText('Bonjour John');
+      expect(instance.clicks).toBe(0);
+
+      element.click();
+      expect(instance.clicks).toBe(1);
     });
   });
 
@@ -580,5 +609,32 @@ onlyInIvy('Ivy i18n logic').describe('i18n', function() {
       expect(toHtml(fixture.nativeElement))
           .toEqual(`<div-query><!--ng-container-->Contenu<!--container--></div-query>`);
     });
+  });
+
+  it('should handle multiple i18n sections', () => {
+    const template = `
+    <div i18n>Section 1</div>
+    <div i18n>Section 2</div>
+    <div i18n>Section 3</div>
+  `;
+    const fixture = getFixtureWithOverrides({template});
+    expect(fixture.nativeElement.innerHTML)
+        .toBe('<div>Section 1</div><div>Section 2</div><div>Section 3</div>');
+  });
+
+  it('should handle multiple i18n sections inside of *ngFor', () => {
+    const template = `
+    <ul *ngFor="let item of [1,2,3]">
+      <li i18n>Section 1</li>
+      <li i18n>Section 2</li>
+      <li i18n>Section 3</li>
+    </ul>
+  `;
+    const fixture = getFixtureWithOverrides({template});
+    const element = fixture.nativeElement;
+    for (let i = 0; i < element.children.length; i++) {
+      const child = element.children[i];
+      expect(child.innerHTML).toBe(`<li>Section 1</li><li>Section 2</li><li>Section 3</li>`);
+    }
   });
 });

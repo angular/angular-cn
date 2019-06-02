@@ -67,7 +67,6 @@ Open the `HeroesComponent` template file and make the following changes:
 * Add an `<h2>` at the top, 
 
    在顶部添加 `<h2>`，
-
 * Below it add an HTML unordered list (`<ul>`)
 
    然后添加表示无序列表的 HTML 元素（`<ul>`）
@@ -94,7 +93,7 @@ Now change the `<li>` to this:
 <code-example path="toh-pt2/src/app/heroes/heroes.component.1.html" region="li">
 </code-example>
 
-The [`*ngFor`](guide/template-syntax#ngFor) is Angular's _repeater_ directive. 
+The [`*ngFor`](guide/template-syntax#ngFor) is Angular's _repeater_ directive.
 It repeats the host element for each element in a list.
 
 [`*ngFor`](guide/template-syntax#ngFor) 是一个 Angular 的复写器（repeater）指令。
@@ -112,7 +111,7 @@ In this example
 
    `heroes` 就是来自 `HeroesComponent` 类的列表。
 
-* `hero` holds the current hero object for each iteration through the list. 
+* `hero` holds the current hero object for each iteration through the list.
 
    当依次遍历这个列表时，`hero` 会为每个迭代保存当前的英雄对象。
 
@@ -134,7 +133,7 @@ After the browser refreshes, the list of heroes appears.
 
 ### 给英雄们“美容”
 
-The heroes list should be attractive and should respond visually when users 
+The heroes list should be attractive and should respond visually when users
 hover over and select a hero from the list.
 
 英雄列表应该富有吸引力，并且当用户把鼠标移到某个英雄上和从列表中选中某个英雄时，应该给出视觉反馈。
@@ -193,7 +192,7 @@ The `heroes.component.css` styles apply only to the `HeroesComponent` and don't 
 
 ## 主从结构
 
-When the user clicks a hero in the **master** list, 
+When the user clicks a hero in the **master** list,
 the component should display the selected hero's **details** at the bottom of the page.
 
 当用户在**主**列表中点击一个英雄时，该组件应该在页面底部显示所选英雄的**详情**。
@@ -253,7 +252,7 @@ to the component's `selectedHero`.
 
 ### 修改详情模板
 
-The template still refers to the component's old `hero` property which no longer exists. 
+The template still refers to the component's old `hero` property which no longer exists.
 Rename `hero` to `selectedHero`.
 
 该模板引用的仍然是老的 `hero` 属性，但它已经不存在了。
@@ -261,10 +260,6 @@ Rename `hero` to `selectedHero`.
 
 <code-example path="toh-pt2/src/app/heroes/heroes.component.html" region="selectedHero-details" header="heroes.component.html (selected hero details)" linenums="false">
 </code-example>
-
-### Hide empty details with _*ngIf_
-
-### 使用 `*ngIf` 隐藏空白的详情
 
 After the browser refreshes, the application is broken.
 
@@ -278,14 +273,6 @@ Open the browser developer tools and look in the console for an error message li
   HeroesComponent.html:3 ERROR TypeError: Cannot read property 'name' of undefined
 </code-example>
 
-Now click one of the list items.
-The app seems to be working again.
-The heroes appear in a list and details about the clicked hero appear at the bottom of the page.
-
-现在，从列表中随便点击一个条目。
-应用又正常了。
-英雄们显示在列表中，并且所点英雄的详情也显示在了页面的下方。
-
 #### What happened?
 
 #### 怎么回事？
@@ -298,9 +285,17 @@ Binding expressions in the template that refer to properties of `selectedHero` &
 
 但模板中的绑定表达式引用了 `selectedHero` 的属性（表达式为 `{{selectedHero.name}}`），这必然会失败，因为你还没选过英雄呢。
 
-#### The fix
+Now, click one of the list items.
+The app seems to be working again.
+The heroes appear in a list and details about the clicked hero appear at the bottom of the page.
 
-#### 修复
+现在，点击列表中的一个条目。
+应用又能正常工作了。
+列表中又显示出了英雄们，并且选中的英雄的详情再次出现在了页面底部。
+
+#### The fix - hide empty details with _*ngIf_
+
+#### 修复 —— 使用 _*ngIf_ 隐藏空白的详情
 
 The component should only display the selected hero details if the `selectedHero` exists.
 
@@ -368,7 +363,7 @@ You just have to apply the `.selected` class to the `<li>` when the user clicks 
 *所选英雄*的颜色来自于[你前面添加的样式](#styles)中的 CSS 类 `.selected`。
 所以你只要在用户点击一个 `<li>` 时把 `.selected` 类应用到该元素上就可以了。
 
-The Angular [class binding](guide/template-syntax#class-binding) makes it easy to add and remove a CSS class conditionally. 
+The Angular [class binding](guide/template-syntax#class-binding) makes it easy to add and remove a CSS class conditionally.
 Just add `[class.some-css-class]="some-condition"` to the element you want to style.
 
 Angular 的 [CSS 类绑定](guide/template-syntax#class-binding)机制让根据条件添加或移除一个 CSS 类变得很容易。
@@ -399,7 +394,7 @@ The finished `<li>` looks like this:
 
 ## 查看最终代码
 
-Your app should look like this <live-example></live-example>. 
+Your app should look like this <live-example></live-example>.
 
 你的应用现在变成了这样：<live-example></live-example>。
 

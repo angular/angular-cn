@@ -2,7 +2,7 @@
 
 # Service Worker 快速起步
 
-This document explains how to enable Angular service worker support in projects that you created with the [Angular CLI](cli). It then uses a simple example to show you a service worker in action, demonstrating loading and basic caching. 
+This document explains how to enable Angular service worker support in projects that you created with the [Angular CLI](cli). It then uses a simple example to show you a service worker in action, demonstrating loading and basic caching.
 
 本文档解释了如何在 [Angular CLI](cli) 项目中启用对 Angular Service Worker 的支持。稍后它会用一个简单的范例来向你展示 Service Worker 实践，包括加载和基础的缓存功能。
 
@@ -18,14 +18,14 @@ A basic understanding of the information in [Introduction to Angular service wor
 
 ## 为你的项目添加 Service Worker
 
-To set up the Angular service worker in your project, use the CLI command `ng add @angular/pwa`. It takes care of configuring your app to use service workers by adding the `service-worker` package along 
+To set up the Angular service worker in your project, use the CLI command `ng add @angular/pwa`. It takes care of configuring your app to use service workers by adding the `service-worker` package along
 with setting up the necessary support files.
 
 要让你的项目支持 Angular Service Worker，可以使用 CLI 命令 `ng add @angular/pwa`。它会添加 `service-worker` 包，并建立必要的支持文件，小心翼翼地配置你的应用，以便使用 Service Worker。
 
 ```sh
 
-ng add @angular/pwa --project *project-name* 
+ng add @angular/pwa --project *project-name*
 ```
 
 The above command completes the following actions:
@@ -35,7 +35,6 @@ The above command completes the following actions:
 1. Adds the `@angular/service-worker` package to your project. 
 
    把 @angular/service-worker 添加到你的项目中。
-
 2. Enables service worker build support in the CLI.
 
    在 CLI 中启用 Service Worker 的构建支持。
@@ -60,11 +59,11 @@ The above command completes the following actions:
 
    创建图标文件，以支持安装渐进式应用（PWA）。
 
-6. Creates the service worker configuration file called [`ngsw-config.json`](/guide/service-worker-config), which specifies the caching behaviors and other settings. 
+6. Creates the service worker configuration file called [`ngsw-config.json`](/guide/service-worker-config), which specifies the caching behaviors and other settings.
 
    创建一个名叫 [`ngsw-config.json`](/guide/service-worker-config) 的 Service Worker 配置文件，它会用来指定缓存的行为以及其它设定。
 
-Now, build the project: 
+Now, build the project:
 
 现在，构建本项目：
 
@@ -82,8 +81,8 @@ The CLI project is now set up to use the Angular service worker.
 
 ## Service Worker 实战：向导
 
-This section demonstrates a service worker in action, 
-using an example application. 
+This section demonstrates a service worker in action,
+using an example application.
 
 本节用一个范例应用来演示一下 Service Worker 实战。
 
@@ -121,7 +120,7 @@ With the server running, you can point your browser at http://localhost:8080/. Y
 
 ### 模拟网络出问题
 
-To simulate a network issue, disable network interaction for your application. In Chrome: 
+To simulate a network issue, disable network interaction for your application. In Chrome:
 
 要想模拟网络出问题的情况，可以为你的应用禁用网络交互。在 Chrome 中：
 
@@ -145,11 +144,11 @@ Now the app has no access to network interaction.
 
 现在，本应用不能再和网络进行交互了。
 
-For applications that do not use the Angular service worker, refreshing now would display Chrome's Internet disconnected page that says "There is no Internet connection". 
+For applications that do not use the Angular service worker, refreshing now would display Chrome's Internet disconnected page that says "There is no Internet connection".
 
 对于那些不使用 Angular Service Worker 的应用，现在刷新将会显示 Chrome 的“网络中断”页，提示“没有可用的网络连接”。
 
-With the addition of an Angular service worker, the application behavior changes. On a refresh, the page loads normally. 
+With the addition of an Angular service worker, the application behavior changes. On a refresh, the page loads normally.
 
 有了 Angular Service Worker，本应用的行为就不一样了。刷新时，页面会正常加载。
 
@@ -212,8 +211,8 @@ Pay attention to two key points:
 
 ### 修改你的应用
 
-Now that you've seen how service workers cache your application, the 
-next step is understanding how updates work. 
+Now that you've seen how service workers cache your application, the
+next step is understanding how updates work.
 
 现在，你已经看到了 Service Worker 如何缓存你的应用，接下来的步骤讲它如何进行更新。
 
@@ -221,7 +220,7 @@ next step is understanding how updates work.
 
    如果你正在隐身窗口中测试，请打开第二个空白页。这会让该隐身窗口和缓存的状态在测试期间持续活着。
 
-2. Close the application tab, but not the window. This should also close the Developer Tools. 
+2. Close the application tab, but not the window. This should also close the Developer Tools.
 
    关闭该应用的页面，而不是整个窗口。这也会同时关闭开发者工具。
 

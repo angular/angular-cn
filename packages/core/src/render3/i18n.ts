@@ -6,24 +6,30 @@
  * found in the LICENSE file at https://angular.io/license
  */
 
+import '../util/ng_i18n_closure_mode';
+
 import {SRCSET_ATTRS, URI_ATTRS, VALID_ATTRS, VALID_ELEMENTS, getTemplateContent} from '../sanitization/html_sanitizer';
 import {InertBodyHelper} from '../sanitization/inert_body';
 import {_sanitizeUrl, sanitizeSrcset} from '../sanitization/url_sanitizer';
+import {addAllToArray} from '../util/array_utils';
 import {assertDefined, assertEqual, assertGreaterThan} from '../util/assert';
 
 import {attachPatchData} from './context_discovery';
-import {allocExpando, createNodeAtIndex, elementAttribute, load, textBinding} from './instructions';
+import {attachI18nOpCodesDebug} from './debug';
+import {ɵɵelementAttribute, ɵɵload, ɵɵtextBinding} from './instructions/all';
+import {allocExpando, createNodeAtIndex} from './instructions/shared';
 import {LContainer, NATIVE} from './interfaces/container';
 import {COMMENT_MARKER, ELEMENT_MARKER, I18nMutateOpCode, I18nMutateOpCodes, I18nUpdateOpCode, I18nUpdateOpCodes, IcuType, TI18n, TIcu} from './interfaces/i18n';
 import {TElementNode, TIcuContainerNode, TNode, TNodeType} from './interfaces/node';
-import {RComment, RElement} from './interfaces/renderer';
+import {RComment, RElement, RText} from './interfaces/renderer';
 import {SanitizerFn} from './interfaces/sanitization';
 import {StylingContext} from './interfaces/styling';
 import {BINDING_INDEX, HEADER_OFFSET, LView, RENDERER, TVIEW, TView, T_HOST} from './interfaces/view';
 import {appendChild, createTextNode, nativeRemoveNode} from './node_manipulation';
 import {getIsParent, getLView, getPreviousOrParentTNode, setIsParent, setPreviousOrParentTNode} from './state';
 import {NO_CHANGE} from './tokens';
-import {addAllToArray, getNativeByIndex, getNativeByTNode, getTNode, isLContainer, renderStringify} from './util';
+import {renderStringify} from './util/misc_utils';
+import {getNativeByIndex, getNativeByTNode, getTNode, isLContainer} from './util/view_utils';
 
 const MARKER = `�`;
 const ICU_BLOCK_REGEXP = /^\s*(�\d+:?\d*�)\s*,\s*(select|plural)\s*,/;
@@ -342,8 +348,10 @@ const parentIndexStack: number[] = [];
  * @param index A unique index of the translation in the static block.
  * @param message The translation message.
  * @param subTemplateIndex Optional sub-template index in the `message`.
+ *
+ * @codeGenApi
  */
-export function i18nStart(index: number, message: string, subTemplateIndex?: number): void {
+export function ɵɵi18nStart(index: number, message: string, subTemplateIndex?: number): void {
   const tView = getLView()[TVIEW];
   ngDevMode && assertDefined(tView, `tView should be defined`);
   i18nIndexStack[++i18nIndexStackPointer] = index;
@@ -454,6 +462,10 @@ function i18nStartFirstPass(
 
   allocExpando(viewData, i18nVarsCount);
 
+  ngDevMode &&
+      attachI18nOpCodesDebug(
+          createOpCodes, updateOpCodes, icuExpressions.length ? icuExpressions : null, viewData);
+
   // NOTE: local var needed to properly assert the type of `TI18n`.
   const tI18n: TI18n = {
     vars: i18nVarsCount,
@@ -461,16 +473,19 @@ function i18nStartFirstPass(
     update: updateOpCodes,
     icus: icuExpressions.length ? icuExpressions : null,
   };
+
   tView.data[index + HEADER_OFFSET] = tI18n;
 }
 
 function appendI18nNode(tNode: TNode, parentTNode: TNode, previousTNode: TNode | null): TNode {
   ngDevMode && ngDevMode.rendererMoveNode++;
+  const nextNode = tNode.next;
   const viewData = getLView();
   if (!previousTNode) {
     previousTNode = parentTNode;
   }
-  // re-organize node tree to put this node in the correct position.
+
+  // Re-organize node tree to put this node in the correct position.
   if (previousTNode === parentTNode && tNode !== parentTNode.child) {
     tNode.next = parentTNode.child;
     parentTNode.child = tNode;
@@ -483,6 +498,15 @@ function appendI18nNode(tNode: TNode, parentTNode: TNode, previousTNode: TNode |
 
   if (parentTNode !== viewData[T_HOST]) {
     tNode.parent = parentTNode as TElementNode;
+  }
+
+  // If tNode was moved around, we might need to fix a broken link.
+  let cursor: TNode|null = tNode.next;
+  while (cursor) {
+    if (cursor.next === tNode) {
+      cursor.next = nextNode;
+    }
+    cursor = cursor.next;
   }
 
   appendChild(getNativeByTNode(tNode, viewData), tNode, viewData);
@@ -512,9 +536,9 @@ function appendI18nNode(tNode: TNode, parentTNode: TNode, previousTNode: TNode |
  *
  * @returns Transformed string that can be consumed by i18nStart instruction
  *
- * @publicAPI
+ * @codeGenApi
  */
-export function i18nPostprocess(
+export function ɵɵi18nPostprocess(
     message: string, replacements: {[key: string]: (string | string[])} = {}): string {
   /**
    * Step 1: resolve all multi-value placeholders like [�#5�|�*1:1��#2:1�|�#4:1�]
@@ -607,21 +631,13 @@ export function i18nPostprocess(
 /**
  * Translates a translation block marked by `i18nStart` and `i18nEnd`. It inserts the text/ICU nodes
  * into the render tree, moves the placeholder nodes and removes the deleted nodes.
+ *
+ * @codeGenApi
  */
-export function i18nEnd(): void {
+export function ɵɵi18nEnd(): void {
   const tView = getLView()[TVIEW];
   ngDevMode && assertDefined(tView, `tView should be defined`);
   i18nEndFirstPass(tView);
-}
-
-function findLastNode(node: TNode): TNode {
-  while (node.next) {
-    node = node.next;
-  }
-  if (node.child) {
-    return findLastNode(node.child);
-  }
-  return node;
 }
 
 /**
@@ -637,15 +653,11 @@ function i18nEndFirstPass(tView: TView) {
   const tI18n = tView.data[rootIndex + HEADER_OFFSET] as TI18n;
   ngDevMode && assertDefined(tI18n, `You should call i18nStart before i18nEnd`);
 
-  // The last placeholder that was added before `i18nEnd`
-  const previousOrParentTNode = getPreviousOrParentTNode();
-  const visitedNodes = readCreateOpCodes(rootIndex, tI18n.create, tI18n.icus, viewData);
-
   // Find the last node that was added before `i18nEnd`
-  let lastCreatedNode = previousOrParentTNode;
-  if (lastCreatedNode.child) {
-    lastCreatedNode = findLastNode(lastCreatedNode.child);
-  }
+  let lastCreatedNode = getPreviousOrParentTNode();
+
+  // Read the instructions to insert/move/remove DOM elements
+  const visitedNodes = readCreateOpCodes(rootIndex, tI18n.create, tI18n.icus, viewData);
 
   // Remove deleted nodes
   for (let i = rootIndex + 1; i <= lastCreatedNode.index - HEADER_OFFSET; i++) {
@@ -653,6 +665,24 @@ function i18nEndFirstPass(tView: TView) {
       removeNode(i, viewData);
     }
   }
+}
+
+/**
+ * Creates and stores the dynamic TNode, and unhooks it from the tree for now.
+ */
+function createDynamicNodeAtIndex(
+    index: number, type: TNodeType, native: RElement | RText | null,
+    name: string | null): TElementNode|TIcuContainerNode {
+  const previousOrParentTNode = getPreviousOrParentTNode();
+  const tNode = createNodeAtIndex(index, type as any, native, name, null);
+
+  // We are creating a dynamic node, the previous tNode might not be pointing at this node.
+  // We will link ourselves into the tree later with `appendI18nNode`.
+  if (previousOrParentTNode.next === tNode) {
+    previousOrParentTNode.next = null;
+  }
+
+  return tNode;
 }
 
 function readCreateOpCodes(
@@ -669,7 +699,7 @@ function readCreateOpCodes(
       const textNodeIndex = createOpCodes[++i] as number;
       ngDevMode && ngDevMode.rendererCreateTextNode++;
       previousTNode = currentTNode;
-      currentTNode = createNodeAtIndex(textNodeIndex, TNodeType.Element, textRNode, null, null);
+      currentTNode = createDynamicNodeAtIndex(textNodeIndex, TNodeType.Element, textRNode, null);
       visitedNodes.push(textNodeIndex);
       setIsParent(false);
     } else if (typeof opCode == 'number') {
@@ -689,7 +719,6 @@ function readCreateOpCodes(
                   currentTNode !,
                   `You need to create or select a node before you can insert it into the DOM`);
           previousTNode = appendI18nNode(currentTNode !, destinationTNode, previousTNode);
-          destinationTNode.next = null;
           break;
         case I18nMutateOpCode.Select:
           const nodeIndex = opCode >>> I18nMutateOpCode.SHIFT_REF;
@@ -713,7 +742,7 @@ function readCreateOpCodes(
           const elementNodeIndex = opCode >>> I18nMutateOpCode.SHIFT_REF;
           const attrName = createOpCodes[++i] as string;
           const attrValue = createOpCodes[++i] as string;
-          elementAttribute(elementNodeIndex, attrName, attrValue);
+          ɵɵelementAttribute(elementNodeIndex, attrName, attrValue);
           break;
         default:
           throw new Error(`Unable to determine the type of mutate operation for "${opCode}"`);
@@ -729,8 +758,8 @@ function readCreateOpCodes(
           const commentRNode = renderer.createComment(commentValue);
           ngDevMode && ngDevMode.rendererCreateComment++;
           previousTNode = currentTNode;
-          currentTNode =
-              createNodeAtIndex(commentNodeIndex, TNodeType.IcuContainer, commentRNode, null, null);
+          currentTNode = createDynamicNodeAtIndex(
+              commentNodeIndex, TNodeType.IcuContainer, commentRNode, null);
           visitedNodes.push(commentNodeIndex);
           attachPatchData(commentRNode, viewData);
           (currentTNode as TIcuContainerNode).activeCaseIndex = null;
@@ -746,8 +775,8 @@ function readCreateOpCodes(
           const elementRNode = renderer.createElement(tagNameValue);
           ngDevMode && ngDevMode.rendererCreateElement++;
           previousTNode = currentTNode;
-          currentTNode = createNodeAtIndex(
-              elementNodeIndex, TNodeType.Element, elementRNode, tagNameValue, null);
+          currentTNode = createDynamicNodeAtIndex(
+              elementNodeIndex, TNodeType.Element, elementRNode, tagNameValue);
           visitedNodes.push(elementNodeIndex);
           break;
         default:
@@ -783,19 +812,22 @@ function readUpdateOpCodes(
             value += renderStringify(viewData[bindingsStartIndex - opCode]);
           } else {
             const nodeIndex = opCode >>> I18nUpdateOpCode.SHIFT_REF;
+            let tIcuIndex: number;
+            let tIcu: TIcu;
+            let icuTNode: TIcuContainerNode;
             switch (opCode & I18nUpdateOpCode.MASK_OPCODE) {
               case I18nUpdateOpCode.Attr:
                 const attrName = updateOpCodes[++j] as string;
                 const sanitizeFn = updateOpCodes[++j] as SanitizerFn | null;
-                elementAttribute(nodeIndex, attrName, value, sanitizeFn);
+                ɵɵelementAttribute(nodeIndex, attrName, value, sanitizeFn);
                 break;
               case I18nUpdateOpCode.Text:
-                textBinding(nodeIndex, value);
+                ɵɵtextBinding(nodeIndex, value);
                 break;
               case I18nUpdateOpCode.IcuSwitch:
-                let tIcuIndex = updateOpCodes[++j] as number;
-                let tIcu = icus ![tIcuIndex];
-                let icuTNode = getTNode(nodeIndex, viewData) as TIcuContainerNode;
+                tIcuIndex = updateOpCodes[++j] as number;
+                tIcu = icus ![tIcuIndex];
+                icuTNode = getTNode(nodeIndex, viewData) as TIcuContainerNode;
                 // If there is an active case, delete the old nodes
                 if (icuTNode.activeCaseIndex !== null) {
                   const removeCodes = tIcu.remove[icuTNode.activeCaseIndex];
@@ -854,7 +886,7 @@ function removeNode(index: number, viewData: LView) {
     nativeRemoveNode(viewData[RENDERER], removedPhRNode);
   }
 
-  const slotValue = load(index) as RElement | RComment | LContainer | StylingContext;
+  const slotValue = ɵɵload(index) as RElement | RComment | LContainer | StylingContext;
   if (isLContainer(slotValue)) {
     const lContainer = slotValue as LContainer;
     if (removedPhTNode.type !== TNodeType.Container) {
@@ -888,10 +920,12 @@ function removeNode(index: number, viewData: LView) {
  * @param index A unique index of the translation in the static block.
  * @param message The translation message.
  * @param subTemplateIndex Optional sub-template index in the `message`.
+ *
+ * @codeGenApi
  */
-export function i18n(index: number, message: string, subTemplateIndex?: number): void {
-  i18nStart(index, message, subTemplateIndex);
-  i18nEnd();
+export function ɵɵi18n(index: number, message: string, subTemplateIndex?: number): void {
+  ɵɵi18nStart(index, message, subTemplateIndex);
+  ɵɵi18nEnd();
 }
 
 /**
@@ -899,8 +933,10 @@ export function i18n(index: number, message: string, subTemplateIndex?: number):
  *
  * @param index A unique index in the static block
  * @param values
+ *
+ * @codeGenApi
  */
-export function i18nAttributes(index: number, values: string[]): void {
+export function ɵɵi18nAttributes(index: number, values: string[]): void {
   const tView = getLView()[TVIEW];
   ngDevMode && assertDefined(tView, `tView should be defined`);
   if (tView.firstTemplatePass && tView.data[index + HEADER_OFFSET] === null) {
@@ -932,7 +968,7 @@ function i18nAttributesFirstPass(tView: TView, index: number, values: string[]) 
           addAllToArray(
               generateBindingUpdateOpCodes(value, previousElementIndex, attrName), updateOpCodes);
         } else {
-          elementAttribute(previousElementIndex, attrName, value);
+          ɵɵelementAttribute(previousElementIndex, attrName, value);
         }
       }
     }
@@ -949,8 +985,10 @@ let shiftsCounter = 0;
  * update the translated nodes.
  *
  * @param expression The binding's new value or NO_CHANGE
+ *
+ * @codeGenApi
  */
-export function i18nExp<T>(expression: T | NO_CHANGE): void {
+export function ɵɵi18nExp<T>(expression: T | NO_CHANGE): void {
   if (expression !== NO_CHANGE) {
     changeMask = changeMask | (1 << shiftsCounter);
   }
@@ -962,8 +1000,10 @@ export function i18nExp<T>(expression: T | NO_CHANGE): void {
  *
  * @param index Index of either {@link i18nStart} (translation block) or {@link i18nAttributes}
  * (i18n attribute) on which it should update the content.
+ *
+ * @codeGenApi
  */
-export function i18nApply(index: number) {
+export function ɵɵi18nApply(index: number) {
   if (shiftsCounter) {
     const lView = getLView();
     const tView = lView[TVIEW];
@@ -1565,4 +1605,39 @@ function parseNodes(
           nestedIcuNodeIndex << I18nMutateOpCode.SHIFT_REF | I18nMutateOpCode.Remove);
     }
   }
+}
+
+let TRANSLATIONS: {[key: string]: string} = {};
+export interface I18nLocalizeOptions { translations: {[key: string]: string}; }
+
+/**
+ * Set the configuration for `i18nLocalize`.
+ *
+ * @deprecated this method is temporary & should not be used as it will be removed soon
+ */
+export function i18nConfigureLocalize(options: I18nLocalizeOptions = {
+  translations: {}
+}) {
+  TRANSLATIONS = options.translations;
+}
+
+const LOCALIZE_PH_REGEXP = /\{\$(.*?)\}/g;
+
+/**
+ * A goog.getMsg-like function for users that do not use Closure.
+ *
+ * This method is required as a *temporary* measure to prevent i18n tests from being blocked while
+ * running outside of Closure Compiler. This method will not be needed once runtime translation
+ * service support is introduced.
+ *
+ * @publicApi
+ * @deprecated this method is temporary & should not be used as it will be removed soon
+ */
+export function ɵɵi18nLocalize(input: string, placeholders: {[key: string]: string} = {}) {
+  if (typeof TRANSLATIONS[input] !== 'undefined') {  // to account for empty string
+    input = TRANSLATIONS[input];
+  }
+  return Object.keys(placeholders).length ?
+      input.replace(LOCALIZE_PH_REGEXP, (match, key) => placeholders[key] || '') :
+      input;
 }

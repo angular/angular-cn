@@ -22,7 +22,9 @@ import {performWatchCompilation, createPerformWatchHost} from './perform_watch'
 
 export function main(
     args: string[], consoleError: (s: string) => void = console.error,
-    config?: NgcParsedConfiguration, customTransformers?: api.CustomTransformers): number {
+    config?: NgcParsedConfiguration, customTransformers?: api.CustomTransformers, programReuse?: {
+      program: api.Program | undefined,
+    }): number {
   let {project, rootNames, options, errors: configErrors, watch, emitFlags} =
       config || readNgcCommandLineAndConfiguration(args);
   if (configErrors.length) {
@@ -32,12 +34,22 @@ export function main(
     const result = watchMode(project, options, consoleError);
     return reportErrorsAndExit(result.firstCompileResult, options, consoleError);
   }
-  const {diagnostics: compileDiags} = performCompilation({
+
+  let oldProgram: api.Program|undefined;
+  if (programReuse !== undefined) {
+    oldProgram = programReuse.program;
+  }
+
+  const {diagnostics: compileDiags, program} = performCompilation({
     rootNames,
     options,
     emitFlags,
+    oldProgram,
     emitCallback: createEmitCallback(options), customTransformers
   });
+  if (programReuse !== undefined) {
+    programReuse.program = program;
+  }
   return reportErrorsAndExit(compileDiags, options, consoleError);
 }
 
@@ -54,8 +66,7 @@ export function mainDiagnosticsForTest(
 }
 
 function createEmitCallback(options: api.CompilerOptions): api.TsEmitCallback|undefined {
-  const transformDecorators = options.enableIvy !== 'ngtsc' && options.enableIvy !== 'tsc' &&
-      options.annotationsAs !== 'decorators';
+  const transformDecorators = !options.enableIvy && options.annotationsAs !== 'decorators';
   const transformTypesToClosure = options.annotateForClosureCompiler;
   if (!transformDecorators && !transformTypesToClosure) {
     return undefined;
@@ -192,7 +203,7 @@ function reportErrorsAndExit(
   const errorsAndWarnings = filterErrorsAndWarnings(allDiagnostics);
   if (errorsAndWarnings.length) {
     const formatHost = getFormatDiagnosticsHost(options);
-    if (options && (options.enableIvy === true || options.enableIvy === 'ngtsc')) {
+    if (options && options.enableIvy === true) {
       const ngDiagnostics = errorsAndWarnings.filter(api.isNgDiagnostic);
       const tsDiagnostics = errorsAndWarnings.filter(api.isTsDiagnostic);
       consoleError(replaceTsWithNgInErrors(

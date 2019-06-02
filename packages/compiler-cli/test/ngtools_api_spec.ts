@@ -7,7 +7,7 @@
  */
 
 import {__NGTOOLS_PRIVATE_API_2 as NgTools_InternalApi_NG_2} from '@angular/compiler-cli';
-import {fixmeIvy, ivyEnabled} from '@angular/private/testing';
+import {ivyEnabled} from '@angular/private/testing';
 import * as path from 'path';
 import * as ts from 'typescript';
 
@@ -19,7 +19,7 @@ describe('ngtools_api (deprecated)', () => {
   beforeEach(() => { testSupport = setup(); });
 
   function createProgram(rootNames: string[]) {
-    const options = testSupport.createCompilerOptions({enableIvy: ivyEnabled && 'ngtsc'});
+    const options = testSupport.createCompilerOptions({enableIvy: ivyEnabled});
     const host = ts.createCompilerHost(options, true);
     const program =
         ts.createProgram(rootNames.map(p => path.resolve(testSupport.basePath, p)), options, host);

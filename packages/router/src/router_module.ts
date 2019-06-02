@@ -170,42 +170,74 @@ export class RouterModule {
    *
    * 创建一个带有所有路由器服务提供商和指令的模块。它还可以（可选的）设置一个应用监听器，来执行首次导航。
    *
-   * Options (see `ExtraOptions`):
+   * Configuration Options:
    *
-   * 选项（参见 `ExtraOptions`）：
+   * 配置项：
    *
-   * * `enableTracing` makes the router log all its internal events to the console.
+   * * `enableTracing` Toggles whether the router should log all navigation events to the console.
    *
-   *   `enableTracing` 让路由器把它所有的内部事件都记录到控制台中。
+   *   `enableTracing` 可以切换路由器是否应该把它所有的内部事件都记录到控制台中。
    *
-   * * `useHash` enables the location strategy that uses the URL fragment instead of the history
+   * * `useHash` Enables the location strategy that uses the URL fragment instead of the history
    * API.
    *
-   *   `useHash` 修改位置策略（`LocationStrategy`），用 URL 片段（`#`）代替 `history` API。
+   *   `useHash` 启用 `LocationStrategy` 位置策略，用 URL 片段（`#`）代替 `history` API。
    *
-   * * `initialNavigation` disables the initial navigation.
+   * * `initialNavigation` Disables the initial navigation.
    *
    *   `initialNavigation` 禁用首次导航。
    *
-   * * `errorHandler` provides a custom error handler.
+   * * `errorHandler` Defines a custom error handler for failed navigations.
    *
-   *   `errorHandler` 提供一个自定义的错误处理器。
+   *   `errorHandler` 为那些失败的导航定义了一个自定义错误处理器。
    *
-   * * `preloadingStrategy` configures a preloading strategy (see `PreloadAllModules`).
+   * * `preloadingStrategy` Configures a preloading strategy. See `PreloadAllModules`.
    *
    *   `preloadingStrategy` 配置预加载策略（参见 `PreloadAllModules`）。
    *
-   * * `onSameUrlNavigation` configures how the router handles navigation to the current URL. See
-   * `ExtraOptions` for more details.
+   * * `onSameUrlNavigation` Define what the router should do if it receives a navigation request to
+   * the current URL.
    *
-   *   `onSameUrlNavigation` 会配置路由器在导航到当前 URL 时该如何处理。欲知详情，参见 `ExtraOptions`。
+   *   `onSameUrlNavigation` 定义了当路由器接收到一个到当前 URL 的导航请求时，应该做什么。
    *
-   * * `paramsInheritanceStrategy` defines how the router merges params, data and resolved data
-   * from parent to child routes.
+   * * `scrollPositionRestoration` Configures if the scroll position needs to be restored when
+   * navigating back.
+   *
+   *    `scrollPositionRestoration` 配置了当导航回来时是否需要还原滚动位置。
+   *
+   * * `anchorScrolling` Configures if the router should scroll to the element when the url has a
+   * fragment.
+   *
+   *    `anchorScrolling` 配置了当 URL 指定了一个片段（fragment）时，路由器是否需要滚动到那个元素处。
+   *
+   * * `scrollOffset` Configures the scroll offset the router will use when scrolling to an element.
+   *
+   *    `scrollOffset` 配置了当滚动到某个元素时，路由应该使用的滚动偏移量。
+   *
+   * * `paramsInheritanceStrategy` Defines how the router merges params, data and resolved data from
+   * parent to child routes.
    *
    *   `paramsInheritanceStrategy` 定义了路由器要如何把父路由的参数、数据和解析出的数据合并到子路由中。
    *
-   */
+   * * `malformedUriErrorHandler` Defines a custom malformed uri error handler function. This
+   * handler is invoked when encodedURI contains invalid character sequences.
+   *
+   *    `malformedUriErrorHandler` 定义了一个自定义的无效 uri 错误处理器函数。当 encodedURI 的参数中包含错误的字符序列时，就会调用这个处理器。
+   *
+   * * `urlUpdateStrategy` Defines when the router updates the browser URL. The default behavior is
+   * to update after successful navigation.
+   *
+   *    `urlUpdateStrategy` 定义了路由器应该何时更新浏览器的 URL。默认的行为是在成功的导航之后才更新。
+   *
+   * * `relativeLinkResolution` Enables the correct relative link resolution in components with
+   * empty paths.
+   *
+   *    `relativeLinkResolution` 指定了在空路径路由的组件中应该正确解析相对路径。
+   *
+   * See `ExtraOptions` for more details about the above options.
+   *
+   * 请参见 `ExtraOptions` 以了解上述选项的详情。
+  */
   static forRoot(routes: Routes, config?: ExtraOptions): ModuleWithProviders<RouterModule> {
     return {
       ngModule: RouterModule,
@@ -416,66 +448,45 @@ export interface ExtraOptions {
    *
    * 配置是否需要在导航回来的时候恢复滚动位置。
    *
-   * * 'disabled'--does nothing (default).
+   * * 'disabled'--does nothing (default).  Scroll position will be maintained on navigation.
    *
-   *   'disabled' - 什么也不做（默认）。
+   *   'disabled' - 什么也不做（默认）。在导航时，会自动维护滚动位置
    *
-   * * 'top'--set the scroll position to 0,0..
+   * * 'top'--set the scroll position to x = 0, y = 0 on all navigation.
    *
-   *   'top' - 把滚动位置设置为 0,0。
+   *   'top' - 在任何一次导航中都把滚动位置设置为 x=0, y=0。
    *
-   * * 'enabled'--set the scroll position to the stored position. This option will be the default in
-   * the future.
+   * * 'enabled'--restores the previous scroll position on backward navigation, else sets the
+   * position to the anchor if one is provided, or sets the scroll position to [0, 0] (forward
+   * navigation). This option will be the default in the future.
    *
-   *   'enabled' - 把滚动位置设置为以前保存的位置。将来这个选项会变成默认值。
+   *   'enabled' —— 当向后导航时，滚动到以前的滚动位置。当向前导航时，如果提供了锚点，则自动滚动到那个锚点，否则把滚动位置设置为 [0, 0]。该选项将来会变成默认值。
    *
-   * When enabled, the router stores and restores scroll positions during navigation.
-   * When navigating forward, the scroll position will be set to [0, 0], or to the anchor
-   * if one is provided.
+   * You can implement custom scroll restoration behavior by adapting the enabled behavior as
+   * follows:
    *
-   * 当启用时，路由器会在导航时保存和恢复滚动位置。当向前导航时，滚动位置会设置为 [0, 0]，如果指定了锚点，则跳转到那个锚点。
-   *
-   * You can implement custom scroll restoration behavior as follows.
-   *
-   * 你可以自定义滚动位置的恢复策略。
+   * 你可以通过如下方式来适配启用时的行为，来自定义恢复滚动位置的策略。
    *
    * ```typescript
    * class AppModule {
-   *  constructor(router: Router, viewportScroller: ViewportScroller, store: Store<AppState>) {
-   *    router.events.pipe(filter(e => e instanceof Scroll), switchMap(e => {
-   *      return store.pipe(first(), timeout(200), map(() => e));
-   *    }).subscribe(e => {
-   *      if (e.position) {
-   *        viewportScroller.scrollToPosition(e.position);
-   *      } else if (e.anchor) {
-   *        viewportScroller.scrollToAnchor(e.anchor);
-   *      } else {
-   *        viewportScroller.scrollToPosition([0, 0]);
-   *      }
-   *    });
-   *  }
-   * }
-   * ```
-   *
-   * You can also implement component-specific scrolling like this:
-   *
-   * 你还可以像这样在组件级实现滚动位置恢复策略：
-   *
-   * ```typescript
-   * class ListComponent {
-   *   list: any[];
-   *   constructor(router: Router, viewportScroller: ViewportScroller, fetcher: ListFetcher) {
-   *     const scrollEvents = router.events.filter(e => e instanceof Scroll);
-   *     listFetcher.fetch().pipe(withLatestFrom(scrollEvents)).subscribe(([list, e]) => {
-   *       this.list = list;
-   *       if (e.position) {
-   *         viewportScroller.scrollToPosition(e.position);
-   *       } else {
-   *         viewportScroller.scrollToPosition([0, 0]);
-   *       }
-   *     });
-   *   }
-   * }
+    *   constructor(router: Router, viewportScroller: ViewportScroller) {
+    *     router.events.pipe(
+    *       filter((e: Event): e is Scroll => e instanceof Scroll)
+    *     ).subscribe(e => {
+    *       if (e.position) {
+    *         // backward navigation
+    *         viewportScroller.scrollToPosition(e.position);
+    *       } else if (e.anchor) {
+    *         // anchor navigation
+    *         viewportScroller.scrollToAnchor(e.anchor);
+    *       } else {
+    *         // forward navigation
+    *         viewportScroller.scrollToPosition([0, 0]);
+    *       }
+    *     });
+    *   }
+    * }
+    * ```
    */
   scrollPositionRestoration?: 'disabled'|'enabled'|'top';
 
@@ -605,8 +616,8 @@ export interface ExtraOptions {
    *
    * `<a [routerLink]="['../a']">Link to A</a>`
    *
-   * In other words, you're required to use `../` rather than `./`. The current default in v6
-   * is `legacy`, and this option will be removed in v7 to default to the corrected behavior.
+   * In other words, you're required to use `../` rather than `./`. This is currently the default
+   * behavior. Setting this option to `corrected` enables the fix.
    *
    * 换句话说，要使用 `../` 而不是 `./`。目前 v6 版本的默认值是 `legacy`，到 v7 就会移除该选项，以纠正此行为。
    */

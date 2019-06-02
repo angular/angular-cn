@@ -48,34 +48,34 @@ enum TranslationType {
  *
  * 基于区域规则格式化日期。
  *
- * Where:
+ * @param value The date to format, as a Date, or a number (milliseconds since UTC epoch)
+ * or an [ISO date-time string](https://www.w3.org/TR/NOTE-datetime).
  *
- * 这里的：
+ * 要格式化的日期，是一个日期、数字（从 UTC 时代以来的毫秒数）或 ISO 字符串 (https://www.w3.org/TR/NOTE-datetime)。
  *
- * - `value` is a Date, a number (milliseconds since UTC epoch) or an ISO string
- *   (https://www.w3.org/TR/NOTE-datetime).
+ * @param format The date-time components to include. See `DatePipe` for details.
  *
- *   `value` 是一个日期、数字（从 UTC 时代以来的毫秒数）或 ISO 字符串 (https://www.w3.org/TR/NOTE-datetime)。
+ * 表示要包含的日期/时间部件。欲知详情，参见 `DatePipe`。
  *
- * - `format` indicates which date/time components to include. See {@link DatePipe} for more
- *   details.
+ * @param locale A locale code for the locale format rules to use.
  *
- *   `format` 表示要包含的日期/时间部件。欲知详情，参见 {@link DatePipe}。
+ * 一个区域代码，用来表示要使用的区域格式规则。
  *
- * - `locale` is a `string` defining the locale to use.
+ * @param timezone The time zone. A time zone offset from GMT (such as `'+0430'`),
+ * or a standard UTC/GMT or continental US time zone abbreviation.
+ * If not specified, uses host system settings.
  *
- *   `locale` 是一个 `string`，用来定义要使用的区域。
+ * 时区。可以是 GMT 中的时区偏移（如 `'+0430'`），或一个标准的 UTC/GMT 或美国大陆时区的缩写。
+ * 如果没有指定，就会使用宿主系统中的设定。
  *
- * - `timezone` to be used for formatting. It understands UTC/GMT and the continental US time zone
- *   abbreviations, but for general use, use a time zone offset (e.g. `'+0430'`).
- *   If not specified, host system settings are used.
+ * @returns The formatted date string.
  *
- *   `timezone` 用在格式化中。它能理解 UTC/GMT 和美国大陆时区缩写，但对于一般用途则使用时区偏移（比如 `'+0430'`）。
- *   如果没有指定，则使用宿主系统中的设定。
+ * 格式化之后的日期字符串。
  *
- * See {@link DatePipe} for more details.
+ * @see `DatePipe`
+ * @see [Internationalization (i18n) Guide](https://angular.io/guide/i18n)
  *
- * 欲知详情，参见 {@link DatePipe}。
+ * [国际化 (i18n) 指南](https://angular.cn/guide/i18n)
  *
  * @publicApi
  */

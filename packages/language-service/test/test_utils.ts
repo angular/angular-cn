@@ -152,6 +152,8 @@ export class MockTypescriptHost implements ts.LanguageServiceHost {
 
   fileExists(fileName: string): boolean { return this.getRawFileContent(fileName) != null; }
 
+  readFile(path: string): string|undefined { return this.getRawFileContent(path); }
+
   getMarkerLocations(fileName: string): {[name: string]: number}|undefined {
     let content = this.getRawFileContent(fileName);
     if (content) {
@@ -276,7 +278,7 @@ function getLocationMarkers(value: string): {[name: string]: number} {
   return result;
 }
 
-const referenceMarker = /«(((\w|\-)+)|([^∆]*∆(\w+)∆.[^»]*))»/g;
+const referenceMarker = /«(((\w|\-)+)|([^ᐱ]*ᐱ(\w+)ᐱ.[^»]*))»/g;
 const definitionMarkerGroup = 1;
 const nameMarkerGroup = 2;
 
@@ -298,7 +300,7 @@ function getReferenceMarkers(value: string): ReferenceResult {
   const text = value.replace(
       referenceMarker, (match: string, text: string, reference: string, _: string,
                         definition: string, definitionName: string, index: number): string => {
-        const result = reference ? text : text.replace(/∆/g, '');
+        const result = reference ? text : text.replace(/ᐱ/g, '');
         const span: Span = {start: index - adjustment, end: index - adjustment + result.length};
         const markers = reference ? references : definitions;
         const name = reference || definitionName;
@@ -311,7 +313,7 @@ function getReferenceMarkers(value: string): ReferenceResult {
 }
 
 function removeReferenceMarkers(value: string): string {
-  return value.replace(referenceMarker, (match, text) => text.replace(/∆/g, ''));
+  return value.replace(referenceMarker, (match, text) => text.replace(/ᐱ/g, ''));
 }
 
 export function noDiagnostics(diagnostics: Diagnostics) {

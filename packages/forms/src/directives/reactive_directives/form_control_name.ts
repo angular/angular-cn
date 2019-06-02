@@ -152,7 +152,7 @@ export const controlNameBinding: any = {
  *
  * ```ts
  * imports: [
- *   ReactiveFormsModule.withConfig({warnOnNgModelWithFormControl: 'never'});
+ *   ReactiveFormsModule.withConfig({warnOnNgModelWithFormControl: 'never'})
  * ]
  * ```
  *

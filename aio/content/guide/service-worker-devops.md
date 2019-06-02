@@ -2,7 +2,7 @@
 
 # 生产环境下的 Service Worker
 
-This page is a reference for deploying and supporting production apps that use the Angular service worker. It explains how the Angular service worker fits into the larger production environment, the service worker's behavior under various conditions, and available recourses and fail-safes.
+This page is a reference for deploying and supporting production apps that use the Angular service worker. It explains how the Angular service worker fits into the larger production environment, the service worker's behavior under various conditions, and available resources and fail-safes.
 
 本页讲的是如何使用 Angular Service Worker 发布和支持生产环境下的应用。
 它解释了 Angular Service Worker 如何满足大规模生产环境的需求、Service Worker 在多种条件下有哪些行为以及有哪些可用的资源和故障保护机制。
@@ -270,6 +270,22 @@ Angular Service Worker 的大部分更新对应用程序来说都是透明的 - 
 但是，在 Angular Service Worker 中可能偶尔会有错误修复或新功能，需要让旧的缓存失效。
 这时，应用程序就从会网络上透明地进行刷新。
 
+### Bypassing the service worker
+
+### 绕过 Service Worker
+
+In some cases, you may want to bypass the service worker entirely and let the browser handle the
+request instead. An example is when you rely on a feature that is currently not supported in service
+workers (e.g.
+[reporting progress on uploaded files](https://github.com/w3c/ServiceWorker/issues/1141)).
+
+某些情况下，你可能想要完全绕过 Service Worker，转而让浏览器处理请求。比如当你要用到某些 Service Worker 尚不支持的特性时（例如[报告文件上传的进度](https://github.com/w3c/ServiceWorker/issues/1141)）。
+
+To bypass the service worker you can set `ngsw-bypass` as a request header, or as a query parameter.
+(The value of the header or query parameter is ignored and can be empty or omitted.)
+
+要想绕过 Service Worker，你可以设置一个名叫 `ngsw-bypass` 的请求头或查询参数。（这个请求头或查询参数的值会被忽略，可以把它设为空字符串或略去。）
+
 ## Debugging the Angular service worker
 
 ## 调试 Angular Service Worker
@@ -513,7 +529,7 @@ Angular Service Worker 也包含多种故障保护机制。
 ### 故障保护机制
 
 To deactivate the service worker, remove or rename the
-`ngsw-config.json` file. When the service worker's request
+`ngsw.json` file. When the service worker's request
 for `ngsw.json` returns a `404`, then the service worker
 removes all of its caches and de-registers itself,
 essentially self-destructing.

@@ -16,103 +16,194 @@ import {UrlSegment, UrlSegmentGroup} from './url_tree';
 
 
 /**
- * @description
+ * Represents a route configuration for the Router service.
+ * An array of `Route` objects, used in `Router.config` and for nested route configurations
+ * in `Route.children`.
  *
- * Represents router configuration.
+ * @see `Route`
+ * @see `Router`
+ * @publicApi
+ */
+export type Routes = Route[];
+
+/**
+ * Represents the result of matching URLs with a custom matching function.
  *
- * 表示路由器配置。
+ * 表示使用自定义匹配函数时的 URL 匹配结果。
  *
- * `Routes` is an array of route configurations. Each one has the following properties:
+ * * `consumed` is an array of the consumed URL segments.
  *
- * `Routes` 是个表示路由配置的数组。每一个都具有下列属性：
+ *    `consumed` 是一个表示已消费的 URL 片段的数组。
  *
- * - `path` is a string that uses the route matcher DSL.
  *
- *   `path` 是一个用于路由匹配 DSL 中的字符串。
+ * * `posParams` is a map of positional parameters.
  *
- * - `pathMatch` is a string that specifies the matching strategy. Options are `prefix` (default)
- *   and `full`. See [Matching Strategy](#matching-strategy) below for more information.
+ *   `posParams` 是一个位置型参数的映射表。
  *
- *   `pathMatch`是一个用来指定路由匹配策略的字符串。可选项有 `prefix`（默认值）和 `full`。参见[匹配策略](#matching-strategy)部分，以了解更多知识。
+ * @see `UrlMatcher()`
+ * @publicApi
+ */
+export type UrlMatchResult = {
+  consumed: UrlSegment[]; posParams?: {[name: string]: UrlSegment};
+};
+
+/**
+ * A function for matching a route against URLs. Implement a custom URL matcher
+ * for `Route.matcher` when a combination of `path` and `pathMatch`
+ * is not expressive enough.
  *
- * - `matcher` defines a custom strategy for path matching and supersedes `path` and `pathMatch`.
+ * 一个用于匹配路由和 URL 的函数。
  *
- *   `matcher` 定义了一个用于路径匹配的自定义策略，指定了它就会代替 `path` 和 `pathMatch`。
+ * 当 `path` 和 `pathMatch` 的组合不足以表达时，可以为 `Route.matcher` 实现一个自定义的 URL 匹配器。
  *
- * - `component` is a component type.
+ * @param segments An array of URL segments.
  *
- *   `component` 是一个组件类型。
+ * 表示 URL 各个片段的数组。
  *
- * - `redirectTo` is the url fragment which will replace the current matched segment.
+ * @param group A segment group.
  *
- *   `redirectTo` 是一个 URL 片段，它将会代替当前匹配的 URL 片段。
+ * 一个片段组。
  *
- * - `outlet` is the name of the outlet the component should be placed into.
+ * @param route The route to match against.
  *
- *   `outlet` 是该组件要放进的出口的名字。
+ * 准备用来匹配的路由定义。
  *
- * - `canActivate` is an array of DI tokens used to look up CanActivate handlers. See
- *   `CanActivate` for more info.
+ * @returns The match-result,
  *
- *   `canActivate` 是一个 DI 令牌的数组，用于查阅 `CanActivate` 处理器，欲知详情，参见 `CanActivate`。
- *
- * - `canActivateChild` is an array of DI tokens used to look up CanActivateChild handlers. See
- *   `CanActivateChild` for more info.
- *
- *   `canActivateChild` 是一个 DI 令牌的数组，用于查阅 `CanActivateChild` 处理器，欲知详情，参见 `CanActivateChild`。
- *
- * - `canDeactivate` is an array of DI tokens used to look up CanDeactivate handlers. See
- *   `CanDeactivate` for more info.
- *
- *   `canDeactivate` 是一个 DI 令牌的数组，用于查阅 `CanDeactivate` 处理器，欲知详情，参见 `CanDeactivate`。
- *
- * - `canLoad` is an array of DI tokens used to look up CanLoad handlers. See
- *   `CanLoad` for more info.
- *
- *   `canLoad` 是一个 DI 令牌的数组，用于查阅 `CanLoad` 处理器，欲知详情，参见 `CanLoad`。
- *
- * - `data` is additional data provided to the component via `ActivatedRoute`.
- *
- *   `data` 是一个可通过 `ActivatedRoute` 提供给组件的附加数据。
- *
- * - `resolve` is a map of DI tokens used to look up data resolvers. See `Resolve` for more
- *   info.
- *
- *   `resolve` 是一个 DI 令牌的映射表，用于查阅数据解析器。欲知详情，参见 `Resolve`。
- *
- * - `runGuardsAndResolvers` defines when guards and resolvers will be run. By default they run only
- *    when the matrix parameters of the route change. Options include:
- *    - `paramsChange` (default) - Run guards and resolvers when path or matrix params change. This
- *      mode ignores query param changes.
- *    - `paramsOrQueryParamsChange` - Guards and resolvers will run when any parameters change. This
- *      includes path, matrix, and query params.
- *    - `pathParamsChange` - Run guards and resolvers path or any path params change. This mode is
- *      useful if you want to ignore changes to all optional parameters such as query *and* matrix
- *      params.
- *    - `pathParamsOrQueryParamsChange` - Same as `pathParamsChange`, but also rerun when any query
- *      param changes
- *    - `always` - Run guards and resolvers on every navigation.
- *    - (from: ActivatedRouteSnapshot, to: ActivatedRouteSnapshot) => boolean - Use a predicate
- *      function when none of the pre-configured modes fit the needs of the application. An example
- *      might be when you need to ignore updates to a param such as `sortDirection`, but need to
- *      reload guards and resolvers when changing the `searchRoot` param.
- *
- *   `runGuardsAndResolvers` 定义了路由守卫和解析器的运行时机。默认情况下，它们只会在路由的矩阵参数（`#`）变化时才会执行。
- *   当设置为 `paramsOrQueryParamsChange` 时，它们在查询参数（`?`）变化时也会执行。当设置为 `always` 时，它们每次都会执行。
- *
- * - `children` is an array of child route definitions.
- *
- *   `children` 是一个子路由定义构成的数组。
- *
- * - `loadChildren` is a reference to lazy loaded child routes. See `LoadChildren` for more
- *   info.
- *
- *   `loadChildren` 是一个用于惰性加载子路由的引用。欲知详情，参见 `LoadChildren`。
+ * 匹配结果，
  *
  * @usageNotes
+ *
+ * The following matcher matches HTML files.
+ *
+ * 下列匹配器会匹配 HTML 文件。
+ *
+ * ```
+ * export function htmlFiles(url: UrlSegment[]) {
+ *   return url.length === 1 && url[0].path.endsWith('.html') ? ({consumed: url}) : null;
+ * }
+ *
+ * export const routes = [{ matcher: htmlFiles, component: AnyComponent }];
+ * ```
+ *
+ * @publicApi
+ */
+export type UrlMatcher = (segments: UrlSegment[], group: UrlSegmentGroup, route: Route) =>
+    UrlMatchResult;
+
+/**
+ *
+ * Represents static data associated with a particular route.
+ *
+ * @see `Route#data`
+ *
+ * @publicApi
+ */
+export type Data = {
+  [name: string]: any
+};
+
+/**
+ *
+ * Represents the resolved data associated with a particular route.
+ *
+ * @see `Route#resolve`.
+ *
+ * @publicApi
+ */
+export type ResolveData = {
+  [name: string]: any
+};
+
+/**
+ *
+ * A function that is called to resolve a collection of lazy-loaded routes.
+ *
+ * Often this function will be implemented using an ES dynamic `import()` expression. For example:
+ *
+ * ```
+ * [{
+ *   path: 'lazy',
+ *   loadChildren: () => import('./lazy-route/lazy.module').then(mod => mod.LazyModule),
+ * }];
+ * ```
+ *
+ * This function _must_ match the form above: an arrow function of the form
+ * `() => import('...').then(mod => mod.MODULE)`.
+ *
+ * @see `Route#loadChildren`.
+ * @publicApi
+ */
+export type LoadChildrenCallback = () => Type<any>| NgModuleFactory<any>| Observable<Type<any>>|
+    Promise<NgModuleFactory<any>|Type<any>|any>;
+
+/**
+ *
+ * A string of the form `path/to/file#exportName` that acts as a URL for a set of routes to load,
+ * or a function that returns such a set.
+ *
+ * The string form of `LoadChildren` is deprecated (see `DeprecatedLoadChildren`). The function
+ * form (`LoadChildrenCallback`) should be used instead.
+ *
+ * @see `Route#loadChildren`.
+ * @publicApi
+ */
+export type LoadChildren = LoadChildrenCallback | DeprecatedLoadChildren;
+
+/**
+ * A string of the form `path/to/file#exportName` that acts as a URL for a set of routes to load.
+ *
+ * @see `Route#loadChildren`
+ * @publicApi
+ * @deprecated the `string` form of `loadChildren` is deprecated in favor of the proposed ES dynamic
+ * `import()` expression, which offers a more natural and standards-based mechanism to dynamically
+ * load an ES module at runtime.
+ */
+export type DeprecatedLoadChildren = string;
+
+/**
+ *
+ * How to handle query parameters in a router link.
+ * One of:
+ * - `merge` : Merge new with current parameters.
+ * - `preserve` : Preserve current parameters.
+ *
+ * @see `RouterLink#queryParamsHandling`.
+ * @publicApi
+ */
+export type QueryParamsHandling = 'merge' | 'preserve' | '';
+
+/**
+ *
+ * A policy for when to run guards and resolvers on a route.
+ *
+ * @see `Route#runGuardsAndResolvers`
+ * @publicApi
+ */
+export type RunGuardsAndResolvers = 'pathParamsChange' | 'pathParamsOrQueryParamsChange' |
+    'paramsChange' | 'paramsOrQueryParamsChange' | 'always' |
+    ((from: ActivatedRouteSnapshot, to: ActivatedRouteSnapshot) => boolean);
+
+/**
+ * A configuration object that defines a single route.
+ * A set of routes are collected in a `Routes` array to define a `Router` configuration.
+ * The router attempts to match segments of a given URL against each route,
+ * using the configuration options defined in this object.
+ *
+ * Supports static, parameterized, redirect, and wildcard routes, as well as
+ * custom route data and resolve methods.
+ *
+ * For detailed usage information, see the [Routing Guide](guide/router).
+ *
+ * @usageNotes
+ *
  * ### Simple Configuration
  *
  * ### 简单配置
+ *
+ * The following route specifies that when navigating to, for example,
+ * `/team/11/user/bob`, the router creates the 'Team' component
+ * with the 'User' child component in it.
  *
  * ```
  * [{
@@ -125,14 +216,11 @@ import {UrlSegment, UrlSegmentGroup} from './url_tree';
  * }]
  * ```
  *
- * When navigating to `/team/11/user/bob`, the router will create the team component with the user
- * component in it.
- *
- * 当导航到 `/team/11/user/bob` 时，路由器将会创建一个 Team 组件，其中包含一个 User 组件。
- *
  * ### Multiple Outlets
  *
- * ### 多重路由出口
+ * The following route creates sibling components with multiple outlets.
+ * When navigating to `/team/11(aux:chat/jim)`, the router creates the 'Team' component next to
+ * the 'Chat' component. The 'Chat' component is placed into the 'aux' outlet.
  *
  * ```
  * [{
@@ -145,29 +233,26 @@ import {UrlSegment, UrlSegmentGroup} from './url_tree';
  * }]
  * ```
  *
- * When navigating to `/team/11(aux:chat/jim)`, the router will create the team component next to
- * the chat component. The chat component will be placed into the aux outlet.
- *
- * 在导航到 `/team/11(aux:chat/jim)` 时，路由器将会在创建了 Chat 组件之后创建一个 Team 组件。Chat 组件会被放进 `aux` 路由出口中。
- *
  * ### Wild Cards
  *
- * ### 通配符
+ * The following route uses wild-card notation to specify a component
+ * that is always instantiated regardless of where you navigate to.
  *
  * ```
  * [{
  *   path: '**',
- *   component: Sink
+ *   component: WildcardComponent
  * }]
  * ```
  *
- * Regardless of where you navigate to, the router will instantiate the sink component.
- *
- * 无论你导航到哪里，路由器都会实例化这个 Sink 组件。
- *
  * ### Redirects
  *
- * ### 重定向
+ * The following route uses the `redirectTo` property to ignore a segment of
+ * a given URL when looking for a child path.
+ *
+ * When navigating to '/team/11/legacy/user/jim', the router changes the URL segment
+ * '/team/11/legacy/user/jim' to '/team/11/user/jim', and then instantiates
+ * the Team component with the User child component in it.
  *
  * ```
  * [{
@@ -183,24 +268,19 @@ import {UrlSegment, UrlSegmentGroup} from './url_tree';
  * }]
  * ```
  *
- * When navigating to '/team/11/legacy/user/jim', the router will change the url to
- * '/team/11/user/jim', and then will instantiate the team component with the user component
- * in it.
- *
- * 当导航到 '/team/11/legacy/user/jim' 时，路由器将会把 URL 改成 '/team/11/user/jim'，然后实例化一个 Team 组件，其中包含一个 User 组件。
- *
- * If the `redirectTo` value starts with a '/', then it is an absolute redirect. E.g., if in the
- * example above we change the `redirectTo` to `/user/:name`, the result url will be '/user/jim'.
- *
- * 如果 `redirectTo` 的值是以 `/` 开头的，则会执行一次绝对导航。比如，如果上面的例子中我们把 `redirectTo` 改为 `/user/:name`，
- * 那么最终的 url 就会是 `'/user/jim'`。
- *
+ * The redirect path can be relative, as shown in this example, or absolute.
+ * If we change the `redirectTo` value in the example to the absolute URL segment '/user/:name',
+ * the result URL is also absolute, '/user/jim'.
+
  * ### Empty Path
  *
  * ### 空路径
  *
  * Empty-path route configurations can be used to instantiate components that do not 'consume'
- * any url segments. Let's look at the following configuration:
+ * any URL segments.
+ *
+ * In the following configuration, when navigating to
+ * `/team/11`, the router instantiates the 'AllUsers' component.
  *
  * 空路径路由可用来实例化一些不"消费"任何 url 区段的组件。来看下列配置：
  *
@@ -218,11 +298,11 @@ import {UrlSegment, UrlSegmentGroup} from './url_tree';
  * }]
  * ```
  *
- * When navigating to `/team/11`, the router will instantiate the AllUsers component.
+ * Empty-path routes can have children. In the following example, when navigating
+ * to `/team/11/user/jim`, the router instantiates the wrapper component with
+ * the user component in it.
  *
- * 当导航到 `/team/11` 时，路由器就会实例化 AllUsers 组件。
- *
- * Empty-path routes can have children.
+ * Note that an empty path route inherits its parent's parameters and data.
  *
  * 空路径路由还可以有子路由。
  *
@@ -241,33 +321,11 @@ import {UrlSegment, UrlSegmentGroup} from './url_tree';
  * }]
  * ```
  *
- * When navigating to `/team/11/user/jim`, the router will instantiate the wrapper component with
- * the user component in it.
- *
- * 当导航到 `/team/11/user/jim` 时，路由器将会实例化 `WrapperCmp`，其中还有一个 `User` 组件。
- *
- * An empty path route inherits its parent's params and data. This is because it cannot have its
- * own params, and, as a result, it often uses its parent's params and data as its own.
- *
- * 空路径路由会继承它的父路由的参数和数据。这是因为它不能拥有自己的参数，所以，它通常会把其父路由的参数和数据当做自己的使用。
- *
  * ### Matching Strategy
  *
- * ### 匹配策略
- *
- * By default the router will look at what is left in the url, and check if it starts with
- * the specified path (e.g., `/team/11/user` starts with `team/:id`).
- *
- * 默认情况下，路由器会查看当前 URL 中还剩下什么，并检查它是否以指定的路径开头（比如 `/team/11/user` 就是用 `team/:id` 开头的）。
- *
- * We can change the matching strategy to make sure that the path covers the whole unconsumed url,
- * which is akin to `unconsumedUrl === path` or `$` regular expressions.
- *
- * 我们可以修改匹配策略，以确保该路径匹配所有尚未消费的 url，它相当于 `unconsumedUrl === path` 或正则表达式中的 `$`。
- *
- * This is particularly important when redirecting empty-path routes.
- *
- * 如果要把空路径路由重定向到别处，这尤其重要。
+ * The default path-match strategy is 'prefix', which means that the router
+ * checks URL elements from the left to see if the URL matches a specified path.
+ * For example, '/team/11/user' matches 'team/:id'.
  *
  * ```
  * [{
@@ -280,15 +338,14 @@ import {UrlSegment, UrlSegmentGroup} from './url_tree';
  * }]
  * ```
  *
- * Since an empty path is a prefix of any url, even when navigating to '/main', the router will
- * still apply the redirect.
+ * You can specify the path-match strategy 'full' to make sure that the path
+ * covers the whole unconsumed URL. It is important to do this when redirecting
+ * empty-path routes. Otherwise, because an empty path is a prefix of any URL,
+ * the router would apply the redirect even when navigating to the redirect destination,
+ * creating an endless loop.
  *
- * 由于空路径是任何 url 的前缀，所以即使想导航到 '/main'，路由器仍然会执行这次跳转。
- *
- * If `pathMatch: full` is provided, the router will apply the redirect if and only if navigating to
- * '/'.
- *
- * 如果指定了 `pathMatch: full`，则路由器只有在导航到 `'/'` 时才会执行这次跳转。
+ * In the following example, supplying the 'full' `patchMatch` strategy ensures
+ * that the router applies the redirect if and only if navigating to '/'.
  *
  * ```
  * [{
@@ -303,21 +360,15 @@ import {UrlSegment, UrlSegmentGroup} from './url_tree';
  *
  * ### Componentless Routes
  *
- * ### 无组件路由
+ * You can share parameters between sibling components.
+ * For example, suppose that two sibling components should go next to each other,
+ * and both of them require an ID parameter. You can accomplish this using a route
+ * that does not specify a component at the top level.
  *
- * It is useful at times to have the ability to share parameters between sibling components.
- *
- * 当需要在兄弟组件之间共享参数时，这非常有用。
- *
- * Say we have two components--ChildCmp and AuxCmp--that we want to put next to each other and both
- * of them require some id parameter.
- *
- * 假设我们有两个组件 `ChildCmp` 和 `AuxCmp`，它们彼此相邻，并且都需要一个 `id` 参数。
- *
- * One way to do that would be to have a bogus parent component, so both the siblings can get the id
- * parameter from it. This is not ideal. Instead, you can use a componentless route.
- *
- * 解决方案之一就是伪造一个父组件，这样一来，这些兄弟组件就可以通过它获取同一个 id 参数了。但这还不理想。我们要改用无组件路由。
+ * In the following example, 'ChildCmp' and 'AuxCmp' are siblings.
+ * When navigating to 'parent/10/(a//aux:b)', the route instantiates
+ * the main child and aux child components next to each other.
+ * For this to work, the application component must have the primary and aux outlets defined.
  *
  * ```
  * [{
@@ -329,22 +380,13 @@ import {UrlSegment, UrlSegmentGroup} from './url_tree';
  * }]
  * ```
  *
- * So when navigating to `parent/10/(a//aux:b)`, the route will instantiate the main child and aux
- * child components next to each other. In this example, the application component
- * has to have the primary and aux outlets defined.
+ * The router merges the parameters, data, and resolve of the componentless
+ * parent into the parameters, data, and resolve of the children.
  *
- * 这样当导航到 `parent/10/(a//aux:b)` 时，该路由将会先后实例化主要的子控件和辅助子控件。在这个例子中，应用组件必须定义主路由出口和 `aux` 出口。
- *
- * The router will also merge the `params`, `data`, and `resolve` of the componentless parent into
- * the `params`, `data`, and `resolve` of the children. This is done because there is no component
- * that can inject the activated route of the componentless parent.
- *
- * 路由器还会把这个无组件父路由的 `params`、`data` 和 `resolve` 结果合并到子路由的 `params`、`data` 和 `resolve` 中。
- * 之所以能这样，是因为这里没有组件能接收这个无组件父路由的激活路由信息，所以只能合并到子路由中。
- *
- * This is especially useful when child components are defined as follows:
- *
- * 当用如下方式定义子组件时，这会非常有用：
+ * This is especially useful when child components are defined
+ * with an empty path string, as in the following example.
+ * With this configuration, navigating to '/parent/10' creates
+ * the main child and aux components.
  *
  * ```
  * [{
@@ -356,18 +398,18 @@ import {UrlSegment, UrlSegmentGroup} from './url_tree';
  * }]
  * ```
  *
- * With this configuration in place, navigating to '/parent/10' will create the main child and aux
- * components.
- *
- * 使用这种配置，导航到 '/parent/10' 时就会创建主要的子组件和辅助子组件。
- *
  * ### Lazy Loading
  *
  * ### 惰性加载
  *
- * Lazy loading speeds up our application load time by splitting it into multiple bundles, and
- * loading them on demand. The router is designed to make lazy loading simple and easy. Instead of
- * providing the children property, you can provide the `loadChildren` property, as follows:
+ * Lazy loading speeds up application load time by splitting the application
+ * into multiple bundles and loading them on demand.
+ * To use lazy loading, provide the `loadChildren` property  instead of the `children` property.
+ *
+ * Given the following example route, the router uses the registered
+ * `NgModuleFactoryLoader` to fetch an NgModule associated with 'team'.
+ * It then extracts the set of routes defined in that NgModule,
+ * and transparently adds those routes to the main configuration.
  *
  * 惰性加载可以通过把应用拆分成多个发布包，并按需加载它们，来加速应用的启动时间。
  * 路由器的设计让惰性加载非常简易。只要用 `loadChildren` 属性代替 `children` 属性就可以了，例如：
@@ -380,181 +422,102 @@ import {UrlSegment, UrlSegmentGroup} from './url_tree';
  * }]
  * ```
  *
- * The router will use registered NgModuleFactoryLoader to fetch an NgModule associated with 'team'.
- * Then it will extract the set of routes defined in that NgModule, and will transparently add
- * those routes to the main configuration.
- *
- * 路由器会使用已注册的 `NgModuleFactoryLoader` 来获取与 `team` 相关的 NgModule。
- * 然后，它就会提取出那个 NgModule 中定义的一组路由，并透明的把那些路由添加到主路由配置中。
- *
- * @publicApi
- */
-export type Routes = Route[];
-
-/**
- * @description Represents the results of the URL matching.
- *
- * 表示 URL 匹配的结果。
- *
- * * `consumed` is an array of the consumed URL segments.
- *
- *   `consumed` 是一个已消费的 URL 区段的数组。
- *
- * * `posParams` is a map of positional parameters.
- *
- *   `posParams` 是位置参数的映射表。
- *
- * @publicApi
- */
-export type UrlMatchResult = {
-  consumed: UrlSegment[]; posParams?: {[name: string]: UrlSegment};
-};
-
-/**
- * @description
- *
- * A function matching URLs
- *
- * 用于匹配 URL 的函数
- *
- * A custom URL matcher can be provided when a combination of `path` and `pathMatch` isn't
- * expressive enough.
- *
- * 当 `path` 和 `pathMatch` 的组合无法满足需求时，可以提供一个自定义的 URL 匹配器。
- *
- * For instance, the following matcher matches html files.
- *
- * 比如，下列匹配器会匹配 html 文件。
- *
- * ```
- * export function htmlFiles(url: UrlSegment[]) {
- *   return url.length === 1 && url[0].path.endsWith('.html') ? ({consumed: url}) : null;
- * }
- *
- * export const routes = [{ matcher: htmlFiles, component: AnyComponent }];
- * ```
- *
- * @publicApi
- */
-export type UrlMatcher = (segments: UrlSegment[], group: UrlSegmentGroup, route: Route) =>
-    UrlMatchResult;
-
-/**
- * @description
- *
- * Represents the static data associated with a particular route.
- *
- * 表示与特定路由相关的静态数据。
- *
- * See `Routes` for more details.
- *
- * 欲知详情，参见 `Routes`。
- *
- * @publicApi
- */
-export type Data = {
-  [name: string]: any
-};
-
-/**
- * @description
- *
- * Represents the resolved data associated with a particular route.
- *
- * 表示与特定路由相关的解析出来的数据。
- *
- * See `Routes` for more details.
- *
- * 欲知详情，参见 `Routes`。
- *
- * @publicApi
- */
-export type ResolveData = {
-  [name: string]: any
-};
-
-/**
- * @description
- *
- * The type of `loadChildren`.
- *
- * `loadChildren` 的类型定义。
- *
- * See `Routes` for more details.
- *
- * 欲知详情，参见 `Routes`。
- *
- * @publicApi
- */
-export type LoadChildrenCallback = () =>
-    Type<any>| NgModuleFactory<any>| Promise<Type<any>>| Observable<Type<any>>;
-
-/**
- * @description
- *
- * The type of `loadChildren`.
- *
- * `loadChildren` 的类型定义。
- *
- * See `Routes` for more details.
- *
- * 欲知详情，参见 `Routes`。
- * @publicApi
- */
-export type LoadChildren = string | LoadChildrenCallback;
-
-/**
- * @description
- *
- * The type of `queryParamsHandling`.
- *
- * `queryParamsHandling` 的类型定义。
- *
- * See `RouterLink` for more details.
- *
- * 欲知详情，参见 `RouterLink`。
- */
-export type QueryParamsHandling = 'merge' | 'preserve' | '';
-
-/**
- * @description
- *
- * The type of `runGuardsAndResolvers`.
- *
- * `runGuardsAndResolvers` 的类型定义。
- *
- * See `Routes` for more details.
- *
- * 欲知详情，参见 `Routes`。
- *
- * @publicApi
- */
-export type RunGuardsAndResolvers = 'pathParamsChange' | 'pathParamsOrQueryParamsChange' |
-    'paramsChange' | 'paramsOrQueryParamsChange' | 'always' |
-    ((from: ActivatedRouteSnapshot, to: ActivatedRouteSnapshot) => boolean);
-
-/**
- * See `Routes` for more details.
- *
- * 欲知详情，参见 `Routes`。
- *
  * @publicApi
  */
 export interface Route {
+  /**
+   * The path to match against, a URL string that uses router matching notation.
+   * Can be a wild card (`**`) that matches any URL (see Usage Notes below).
+   * Default is "/" (the root path).
+   */
   path?: string;
+  /**
+   * The path-matching strategy, one of 'prefix' or 'full'.
+   * Default is 'prefix'.
+   *
+   * By default, the router checks URL elements from the left to see if the URL
+   * matches a given  path, and stops when there is a match. For example,
+   * '/team/11/user' matches 'team/:id'.
+   *
+   * The path-match strategy 'full' matches against the entire URL.
+   * It is important to do this when redirecting empty-path routes.
+   * Otherwise, because an empty path is a prefix of any URL,
+   * the router would apply the redirect even when navigating
+   * to the redirect destination, creating an endless loop.
+   *
+   */
   pathMatch?: string;
+  /**
+   * A URL-matching function to use as a custom strategy for path matching.
+   * If present, supersedes `path` and `pathMatch`.
+   */
   matcher?: UrlMatcher;
+  /**
+   * The component to instantiate when the path matches.
+   * Can be empty if child routes specify components.
+   */
   component?: Type<any>;
+  /**
+   * A URL to which to redirect when a the path matches.
+   * Absolute if the URL begins with a slash (/), otherwise relative to the path URL.
+   * When not present, router does not redirect.
+   */
   redirectTo?: string;
+  /**
+   * Name of a `RouterOutlet` object where the component can be placed
+   * when the path matches.
+   */
   outlet?: string;
+  /**
+   * An array of dependency-injection tokens used to look up `CanActivate()`
+   * handlers, in order to determine if the current user is allowed to
+   * activate the component. By default, any user can activate.
+   */
   canActivate?: any[];
+  /**
+   * An array of DI tokens used to look up `CanActivateChild()` handlers,
+   * in order to determine if the current user is allowed to activate
+   * a child of the component. By default, any user can activate a child.
+   */
   canActivateChild?: any[];
+  /**
+   * An array of DI tokens used to look up `CanDeactivate()`
+   * handlers, in order to determine if the current user is allowed to
+   * deactivate the component. By default, any user can deactivate.
+   *
+   */
   canDeactivate?: any[];
+  /**
+   * An array of DI tokens used to look up `CanLoad()`
+   * handlers, in order to determine if the current user is allowed to
+   * load the component. By default, any user can load.
+   */
   canLoad?: any[];
+  /**
+   * Additional developer-defined data provided to the component via
+   * `ActivatedRoute`. By default, no additional data is passed.
+   */
   data?: Data;
+  /**
+   * A map of DI tokens used to look up data resolvers. See `Resolve`.
+   */
   resolve?: ResolveData;
+  /**
+   * An array of child `Route` objects that specifies a nested route
+   * configuration.
+   */
   children?: Routes;
+  /**
+   * A `LoadChildren` object specifying lazy-loaded child routes.
+   */
   loadChildren?: LoadChildren;
+  /**
+   * Defines when guards and resolvers will be run. One of
+   * - `paramsOrQueryParamsChange` : Run when query parameters change.
+   * - `always` : Run on every execution.
+   * By default, guards and resolvers run only when the matrix
+   * parameters of the route change.
+   */
   runGuardsAndResolvers?: RunGuardsAndResolvers;
   /**
    * Filled for routes with `loadChildren` once the module has been loaded

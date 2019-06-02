@@ -362,7 +362,7 @@ After you update the model in the component class, update the template to connec
 
 在修改了组件类中的模型之后，还要修改模板，来把这个 `FormGroup` 实例对接到它的输入元素。
 
-Add the `address` form group containing the `firstName` and `lastName` fields to the `ProfileEditor` template.
+Add the `address` form group containing the `street`, `city`, `state`, and `zip` fields to the `ProfileEditor` template.
 
 把包含 `firstName` 和 `lastName` 字段的 `address` 表单组添加到 `ProfileEditor` 模板中。
 

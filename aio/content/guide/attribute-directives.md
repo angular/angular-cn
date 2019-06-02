@@ -74,6 +74,10 @@ when the user hovers over that element. You can apply it like this:
 
 {@a write-directive}
 
+Please note that directives _do not_ support namespaces.
+
+<code-example path="attribute-directives/src/app/app.component.avoid.html" linenums="false" header="src/app/app.component.avoid.html (unsupported)" region="unsupported"></code-example>
+
 ### Write the directive code
 
 ### 编写指令代码
@@ -86,7 +90,7 @@ Create the directive class file in a terminal window with the CLI command [`ng g
 ng generate directive highlight
 </code-example>
 
-The CLI creates `src/app/highlight.directive.ts`, a corresponding test file (`.../spec.ts`, and _declares_ the directive class in the root `AppModule`.
+The CLI creates `src/app/highlight.directive.ts`, a corresponding test file `src/app/highlight.directive.spec.ts`, and _declares_ the directive class in the root `AppModule`.
 
 CLI 会创建 `src/app/highlight.directive.ts` 及相应的测试文件（`.../spec.ts`），并且在根模块 `AppModule` 中声明这个指令类。
 

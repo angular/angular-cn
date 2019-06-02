@@ -6,19 +6,10 @@
     "name": "CIRCULAR"
   },
   {
-    "name": "CIRCULAR"
-  },
-  {
-    "name": "EMPTY"
-  },
-  {
     "name": "EMPTY_ARRAY"
   },
   {
     "name": "EmptyErrorImpl"
-  },
-  {
-    "name": "IDENT"
   },
   {
     "name": "INJECTOR"
@@ -31,12 +22,6 @@
   },
   {
     "name": "InjectionToken"
-  },
-  {
-    "name": "Injector"
-  },
-  {
-    "name": "MULTI_PROVIDER_FN"
   },
   {
     "name": "NEW_LINE"
@@ -58,9 +43,6 @@
   },
   {
     "name": "NO_NEW_LINE"
-  },
-  {
-    "name": "NULL_INJECTOR"
   },
   {
     "name": "NULL_INJECTOR"
@@ -93,16 +75,13 @@
     "name": "SkipSelf"
   },
   {
-    "name": "StaticInjector"
+    "name": "THROW_IF_NOT_FOUND"
   },
   {
     "name": "USE_VALUE"
   },
   {
     "name": "UnsubscriptionErrorImpl"
-  },
-  {
-    "name": "_THROW_IF_NOT_FOUND"
   },
   {
     "name": "__forward_ref__"
@@ -117,10 +96,10 @@
     "name": "_currentInjector"
   },
   {
-    "name": "catchInjectorError"
+    "name": "_global"
   },
   {
-    "name": "computeDeps"
+    "name": "catchInjectorError"
   },
   {
     "name": "couldBeInjectableType"
@@ -132,12 +111,6 @@
     "name": "deepForEach"
   },
   {
-    "name": "defineInjectable"
-  },
-  {
-    "name": "defineInjector"
-  },
-  {
     "name": "formatError"
   },
   {
@@ -145,6 +118,9 @@
   },
   {
     "name": "getClosureSafeProperty"
+  },
+  {
+    "name": "getGlobal"
   },
   {
     "name": "getInjectableDef"
@@ -160,9 +136,6 @@
   },
   {
     "name": "hasOnDestroy"
-  },
-  {
-    "name": "inject"
   },
   {
     "name": "injectArgs"
@@ -198,36 +171,36 @@
     "name": "makeRecord"
   },
   {
-    "name": "multiProviderMixError"
-  },
-  {
     "name": "providerToFactory"
   },
   {
     "name": "providerToRecord"
   },
   {
-    "name": "recursivelyProcessProviders"
-  },
-  {
     "name": "resolveForwardRef"
-  },
-  {
-    "name": "resolveProvider"
-  },
-  {
-    "name": "resolveToken"
   },
   {
     "name": "setCurrentInjector"
   },
   {
-    "name": "staticError"
-  },
-  {
     "name": "stringify"
   },
   {
-    "name": "tryResolveToken"
+    "name": "throwCyclicDependencyError"
+  },
+  {
+    "name": "throwInvalidProviderError"
+  },
+  {
+    "name": "throwMixedMultiProviderError"
+  },
+  {
+    "name": "ɵɵdefineInjectable"
+  },
+  {
+    "name": "ɵɵdefineInjector"
+  },
+  {
+    "name": "ɵɵinject"
   }
 ]

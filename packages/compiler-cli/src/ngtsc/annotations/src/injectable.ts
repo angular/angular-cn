@@ -10,11 +10,12 @@ import {Expression, LiteralExpr, R3DependencyMetadata, R3InjectableMetadata, R3R
 import * as ts from 'typescript';
 
 import {ErrorCode, FatalDiagnosticError} from '../../diagnostics';
-import {Decorator, ReflectionHost, reflectObjectLiteral} from '../../reflection';
+import {DefaultImportRecorder} from '../../imports';
+import {ClassDeclaration, Decorator, ReflectionHost, reflectObjectLiteral} from '../../reflection';
 import {AnalysisOutput, CompileResult, DecoratorHandler, DetectResult, HandlerPrecedence} from '../../transform';
 
 import {generateSetClassMetadataCall} from './metadata';
-import {getConstructorDependencies, getValidConstructorDependencies, isAngularCore, validateConstructorDependencies} from './util';
+import {findAngularDecorator, getConstructorDependencies, getValidConstructorDependencies, validateConstructorDependencies} from './util';
 
 export interface InjectableHandlerData {
   meta: R3InjectableMetadata;
@@ -27,17 +28,16 @@ export interface InjectableHandlerData {
 export class InjectableDecoratorHandler implements
     DecoratorHandler<InjectableHandlerData, Decorator> {
   constructor(
-      private reflector: ReflectionHost, private isCore: boolean, private strictCtorDeps: boolean) {
-  }
+      private reflector: ReflectionHost, private defaultImportRecorder: DefaultImportRecorder,
+      private isCore: boolean, private strictCtorDeps: boolean) {}
 
   readonly precedence = HandlerPrecedence.SHARED;
 
-  detect(node: ts.Declaration, decorators: Decorator[]|null): DetectResult<Decorator>|undefined {
+  detect(node: ClassDeclaration, decorators: Decorator[]|null): DetectResult<Decorator>|undefined {
     if (!decorators) {
       return undefined;
     }
-    const decorator = decorators.find(
-        decorator => decorator.name === 'Injectable' && (this.isCore || isAngularCore(decorator)));
+    const decorator = findAngularDecorator(decorators, 'Injectable', this.isCore);
     if (decorator !== undefined) {
       return {
         trigger: decorator.node,
@@ -48,17 +48,19 @@ export class InjectableDecoratorHandler implements
     }
   }
 
-  analyze(node: ts.ClassDeclaration, decorator: Decorator): AnalysisOutput<InjectableHandlerData> {
+  analyze(node: ClassDeclaration, decorator: Decorator): AnalysisOutput<InjectableHandlerData> {
     return {
       analysis: {
         meta: extractInjectableMetadata(
-            node, decorator, this.reflector, this.isCore, this.strictCtorDeps),
-        metadataStmt: generateSetClassMetadataCall(node, this.reflector, this.isCore),
+            node, decorator, this.reflector, this.defaultImportRecorder, this.isCore,
+            this.strictCtorDeps),
+        metadataStmt: generateSetClassMetadataCall(
+            node, this.reflector, this.defaultImportRecorder, this.isCore),
       },
     };
   }
 
-  compile(node: ts.ClassDeclaration, analysis: InjectableHandlerData): CompileResult {
+  compile(node: ClassDeclaration, analysis: InjectableHandlerData): CompileResult {
     const res = compileIvyInjectable(analysis.meta);
     const statements = res.statements;
     if (analysis.metadataStmt !== null) {
@@ -79,12 +81,9 @@ export class InjectableDecoratorHandler implements
  * A `null` return value indicates this is @Injectable has invalid data.
  */
 function extractInjectableMetadata(
-    clazz: ts.ClassDeclaration, decorator: Decorator, reflector: ReflectionHost, isCore: boolean,
+    clazz: ClassDeclaration, decorator: Decorator, reflector: ReflectionHost,
+    defaultImportRecorder: DefaultImportRecorder, isCore: boolean,
     strictCtorDeps: boolean): R3InjectableMetadata {
-  if (clazz.name === undefined) {
-    throw new FatalDiagnosticError(
-        ErrorCode.DECORATOR_ON_ANONYMOUS_CLASS, decorator.node, `@Injectable on anonymous class`);
-  }
   const name = clazz.name.text;
   const type = new WrappedNodeExpr(clazz.name);
   const typeArgumentCount = reflector.getGenericArityOfClass(clazz) || 0;
@@ -102,9 +101,10 @@ function extractInjectableMetadata(
     // signature does not work for DI then an ngInjectableDef that throws.
     let ctorDeps: R3DependencyMetadata[]|'invalid'|null = null;
     if (strictCtorDeps) {
-      ctorDeps = getValidConstructorDependencies(clazz, reflector, isCore);
+      ctorDeps = getValidConstructorDependencies(clazz, reflector, defaultImportRecorder, isCore);
     } else {
-      const possibleCtorDeps = getConstructorDependencies(clazz, reflector, isCore);
+      const possibleCtorDeps =
+          getConstructorDependencies(clazz, reflector, defaultImportRecorder, isCore);
       if (possibleCtorDeps !== null) {
         if (possibleCtorDeps.deps !== null) {
           // This use of @Injectable has valid constructor dependencies.
@@ -125,7 +125,7 @@ function extractInjectableMetadata(
       providedIn: new LiteralExpr(null), ctorDeps,
     };
   } else if (decorator.args.length === 1) {
-    const rawCtorDeps = getConstructorDependencies(clazz, reflector, isCore);
+    const rawCtorDeps = getConstructorDependencies(clazz, reflector, defaultImportRecorder, isCore);
     let ctorDeps: R3DependencyMetadata[]|'invalid'|null = null;
 
     // rawCtorDeps will be null if the class has no constructor.

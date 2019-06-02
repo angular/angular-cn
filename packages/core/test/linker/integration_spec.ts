@@ -6,7 +6,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 
-import {CommonModule} from '@angular/common';
+import {CommonModule, DOCUMENT} from '@angular/common';
 import {Compiler, ComponentFactory, ComponentRef, ErrorHandler, EventEmitter, Host, Inject, Injectable, InjectionToken, Injector, NO_ERRORS_SCHEMA, NgModule, NgModuleRef, OnDestroy, SkipSelf, ViewRef, ɵivyEnabled as ivyEnabled} from '@angular/core';
 import {ChangeDetectionStrategy, ChangeDetectorRef, PipeTransform} from '@angular/core/src/change_detection/change_detection';
 import {getDebugContext} from '@angular/core/src/errors';
@@ -19,7 +19,6 @@ import {EmbeddedViewRef} from '@angular/core/src/linker/view_ref';
 import {Attribute, Component, ContentChildren, Directive, HostBinding, HostListener, Input, Output, Pipe} from '@angular/core/src/metadata';
 import {TestBed, async, fakeAsync, getTestBed, tick} from '@angular/core/testing';
 import {getDOM} from '@angular/platform-browser/src/dom/dom_adapter';
-import {DOCUMENT} from '@angular/platform-browser/src/dom/dom_tokens';
 import {dispatchEvent, el} from '@angular/platform-browser/testing/src/browser_util';
 import {expect} from '@angular/platform-browser/testing/src/matchers';
 import {modifiedInIvy, obsoleteInIvy, onlyInIvy} from '@angular/private/testing';
@@ -1426,6 +1425,20 @@ function declareTests(config?: {useJit: boolean}) {
             .toThrowError(`Directive ${stringify(SomeDirective)} has no selector, please add it!`);
       });
 
+      it('should throw when using directives with empty string selector', () => {
+        @Directive({selector: ''})
+        class SomeDirective {
+        }
+
+        @Component({selector: 'comp', template: ''})
+        class SomeComponent {
+        }
+
+        TestBed.configureTestingModule({declarations: [MyComp, SomeDirective, SomeComponent]});
+        expect(() => TestBed.createComponent(MyComp))
+            .toThrowError(`Directive ${stringify(SomeDirective)} has no selector, please add it!`);
+      });
+
       it('should use a default element name for components without selectors', () => {
         let noSelectorComponentFactory: ComponentFactory<SomeComponent> = undefined !;
 
@@ -1621,6 +1634,21 @@ function declareTests(config?: {useJit: boolean}) {
             }
           });
 
+      it('should throw on bindings to unknown properties of containers', () => {
+        TestBed.configureTestingModule({imports: [CommonModule], declarations: [MyComp]});
+        const template = '<div *ngFor="let item in ctxArrProp">{{item}}</div>';
+        TestBed.overrideComponent(MyComp, {set: {template}});
+
+        try {
+          const fixture = TestBed.createComponent(MyComp);
+          fixture.detectChanges();
+          throw 'Should throw';
+        } catch (e) {
+          expect(e.message).toMatch(
+              /Can't bind to 'ngForIn' since it isn't a known property of 'div'./);
+        }
+      });
+
       it('should not throw for property binding to a non-existing property when there is a matching directive property',
          () => {
            TestBed.configureTestingModule({declarations: [MyComp, MyDir]});
@@ -1659,17 +1687,27 @@ function declareTests(config?: {useJit: boolean}) {
     describe('logging property updates', () => {
       it('should reflect property values as attributes', () => {
         TestBed.configureTestingModule({declarations: [MyComp, MyDir]});
-        const template = '<div>' +
-            '<div my-dir [elprop]="ctxProp"></div>' +
-            '</div>';
-        TestBed.overrideComponent(MyComp, {set: {template}});
+        TestBed.overrideComponent(
+            MyComp, {set: {template: `<div my-dir [elprop]="ctxProp"></div>`}});
         const fixture = TestBed.createComponent(MyComp);
 
         fixture.componentInstance.ctxProp = 'hello';
         fixture.detectChanges();
 
-        expect(getDOM().getInnerHTML(fixture.nativeElement))
-            .toContain('ng-reflect-dir-prop="hello"');
+        const html = getDOM().getInnerHTML(fixture.nativeElement);
+        expect(html).toContain('ng-reflect-dir-prop="hello"');
+      });
+
+      it('should reflect property values on unbound inputs', () => {
+        TestBed.configureTestingModule({declarations: [MyComp, MyDir]});
+        TestBed.overrideComponent(
+            MyComp, {set: {template: `<div my-dir elprop="hello" title="Reflect test"></div>`}});
+        const fixture = TestBed.createComponent(MyComp);
+        fixture.detectChanges();
+
+        const html = getDOM().getInnerHTML(fixture.nativeElement);
+        expect(html).toContain('ng-reflect-dir-prop="hello"');
+        expect(html).not.toContain('ng-reflect-title');
       });
 
       it(`should work with prop names containing '$'`, () => {
@@ -1677,22 +1715,53 @@ function declareTests(config?: {useJit: boolean}) {
         const fixture = TestBed.createComponent(ParentCmp);
         fixture.detectChanges();
 
-        expect(getDOM().getInnerHTML(fixture.nativeElement)).toContain('ng-reflect-test_="hello"');
+        const html = getDOM().getInnerHTML(fixture.nativeElement);
+        expect(html).toContain('ng-reflect-test_="hello"');
       });
 
       it('should reflect property values on template comments', () => {
         const fixture =
             TestBed.configureTestingModule({declarations: [MyComp]})
                 .overrideComponent(
-                    MyComp, {set: {template: '<ng-template [ngIf]="ctxBoolProp"></ng-template>'}})
+                    MyComp, {set: {template: `<ng-template [ngIf]="ctxBoolProp"></ng-template>`}})
                 .createComponent(MyComp);
 
         fixture.componentInstance.ctxBoolProp = true;
         fixture.detectChanges();
 
-        expect(getDOM().getInnerHTML(fixture.nativeElement))
-            .toContain('"ng\-reflect\-ng\-if"\: "true"');
+        const html = getDOM().getInnerHTML(fixture.nativeElement);
+        expect(html).toContain('"ng-reflect-ng-if": "true"');
       });
+
+      it('should reflect property values on ng-containers', () => {
+        const fixture =
+            TestBed.configureTestingModule({declarations: [MyComp]})
+                .overrideComponent(
+                    MyComp,
+                    {set: {template: `<ng-container *ngIf="ctxBoolProp">content</ng-container>`}})
+                .createComponent(MyComp);
+
+        fixture.componentInstance.ctxBoolProp = true;
+        fixture.detectChanges();
+
+        const html = getDOM().getInnerHTML(fixture.nativeElement);
+        expect(html).toContain('"ng-reflect-ng-if": "true"');
+      });
+
+      it('should reflect property values of multiple directive bound to the same input name',
+         () => {
+           TestBed.configureTestingModule({declarations: [MyComp, MyDir, MyDir2]});
+           TestBed.overrideComponent(
+               MyComp, {set: {template: `<div my-dir my-dir2 [elprop]="ctxProp"></div>`}});
+           const fixture = TestBed.createComponent(MyComp);
+
+           fixture.componentInstance.ctxProp = 'hello';
+           fixture.detectChanges();
+
+           const html = getDOM().getInnerHTML(fixture.nativeElement);
+           expect(html).toContain('ng-reflect-dir-prop="hello"');
+           expect(html).toContain('ng-reflect-dir-prop2="hello"');
+         });
 
       it('should indicate when toString() throws', () => {
         TestBed.configureTestingModule({declarations: [MyComp, MyDir]});
@@ -1703,6 +1772,99 @@ function declareTests(config?: {useJit: boolean}) {
         fixture.detectChanges();
         expect(getDOM().getInnerHTML(fixture.nativeElement)).toContain('[ERROR]');
       });
+
+      it('should not reflect undefined values', () => {
+        TestBed.configureTestingModule({declarations: [MyComp, MyDir, MyDir2]});
+        TestBed.overrideComponent(
+            MyComp, {set: {template: `<div my-dir [elprop]="ctxProp"></div>`}});
+        const fixture = TestBed.createComponent(MyComp);
+
+        fixture.componentInstance.ctxProp = 'hello';
+        fixture.detectChanges();
+
+        expect(getDOM().getInnerHTML(fixture.nativeElement))
+            .toContain('ng-reflect-dir-prop="hello"');
+
+        fixture.componentInstance.ctxProp = undefined !;
+        fixture.detectChanges();
+
+        expect(getDOM().getInnerHTML(fixture.nativeElement)).not.toContain('ng-reflect-');
+      });
+
+      it('should not reflect null values', () => {
+        TestBed.configureTestingModule({declarations: [MyComp, MyDir, MyDir2]});
+        TestBed.overrideComponent(
+            MyComp, {set: {template: `<div my-dir [elprop]="ctxProp"></div>`}});
+        const fixture = TestBed.createComponent(MyComp);
+
+        fixture.componentInstance.ctxProp = 'hello';
+        fixture.detectChanges();
+
+        expect(getDOM().getInnerHTML(fixture.nativeElement))
+            .toContain('ng-reflect-dir-prop="hello"');
+
+        fixture.componentInstance.ctxProp = null !;
+        fixture.detectChanges();
+
+        expect(getDOM().getInnerHTML(fixture.nativeElement)).not.toContain('ng-reflect-');
+      });
+
+      it('should reflect empty strings', () => {
+        TestBed.configureTestingModule({declarations: [MyComp, MyDir, MyDir2]});
+        TestBed.overrideComponent(
+            MyComp, {set: {template: `<div my-dir [elprop]="ctxProp"></div>`}});
+        const fixture = TestBed.createComponent(MyComp);
+
+        fixture.componentInstance.ctxProp = '';
+        fixture.detectChanges();
+
+        expect(getDOM().getInnerHTML(fixture.nativeElement)).toContain('ng-reflect-dir-prop=""');
+      });
+
+      it('should not reflect in comment nodes when the value changes to undefined', () => {
+        const fixture =
+            TestBed.configureTestingModule({declarations: [MyComp]})
+                .overrideComponent(
+                    MyComp, {set: {template: `<ng-template [ngIf]="ctxBoolProp"></ng-template>`}})
+                .createComponent(MyComp);
+
+        fixture.componentInstance.ctxBoolProp = true;
+        fixture.detectChanges();
+
+        let html = getDOM().getInnerHTML(fixture.nativeElement);
+        expect(html).toContain('bindings={');
+        expect(html).toContain('"ng-reflect-ng-if": "true"');
+
+        fixture.componentInstance.ctxBoolProp = undefined !;
+        fixture.detectChanges();
+
+        html = getDOM().getInnerHTML(fixture.nativeElement);
+        expect(html).toContain('bindings={');
+        expect(html).not.toContain('ng-reflect');
+      });
+
+      it('should reflect in comment nodes when the value changes to null', () => {
+        const fixture =
+            TestBed.configureTestingModule({declarations: [MyComp]})
+                .overrideComponent(
+                    MyComp, {set: {template: `<ng-template [ngIf]="ctxBoolProp"></ng-template>`}})
+                .createComponent(MyComp);
+
+        fixture.componentInstance.ctxBoolProp = true;
+        fixture.detectChanges();
+
+        let html = getDOM().getInnerHTML(fixture.nativeElement);
+        expect(html).toContain('bindings={');
+        expect(html).toContain('"ng-reflect-ng-if": "true"');
+
+        fixture.componentInstance.ctxBoolProp = null !;
+        fixture.detectChanges();
+
+        html = getDOM().getInnerHTML(fixture.nativeElement);
+        expect(html).toContain('bindings={');
+        expect(html).toContain('"ng-reflect-ng-if": null');
+      });
+
     });
 
     describe('property decorators', () => {
@@ -1991,6 +2153,12 @@ class MyDir {
   constructor() { this.dirProp = ''; }
 }
 
+@Directive({selector: '[my-dir2]', inputs: ['dirProp2: elprop'], exportAs: 'mydir2'})
+class MyDir2 {
+  dirProp2: string;
+  constructor() { this.dirProp2 = ''; }
+}
+
 @Directive({selector: '[title]', inputs: ['title']})
 class DirectiveWithTitle {
   // TODO(issue/24571): remove '!'.
@@ -2090,12 +2258,14 @@ class MyComp {
   ctxProp: string;
   ctxNumProp: number;
   ctxBoolProp: boolean;
+  ctxArrProp: number[];
   toStringThrow = {toString: function() { throw 'boom'; }};
 
   constructor() {
     this.ctxProp = 'initial value';
     this.ctxNumProp = 0;
     this.ctxBoolProp = false;
+    this.ctxArrProp = [0, 1, 2];
   }
 
   throwError() { throw 'boom'; }

@@ -2,18 +2,38 @@
 
 <h1 class="no-toc">教程：英雄指南</h1>
 
-The _Tour of Heroes_ tutorial covers the fundamentals of Angular.  
-In this tutorial you will build an app that helps a staffing agency manage its stable of heroes.
+This _Tour of Heroes_ tutorial provides a deep dive into the fundamentals of Angular. 
+It shows you how to set up your local development environment and develop an app using the [Angular CLI tool](cli "CLI command reference"). 
 
-**英雄指南**教程涵盖了 Angular 的基本知识。在本教程中，你将构建一个应用，来帮助招聘机构管理一群英雄。
+这个**英雄指南**教程深入讲解了 Angular 的基本知识。它向你展示了如何搭建本地开发环境，以及如何使用 [Angular CLI 工具](cli "CLI command reference")开发一个应用。
 
-This basic app has many of the features you'd expect to find in a data-driven application.
+<div class="callout is-helpful">
+<header>Getting Started - Stackblitz</header>
+
+<header>快速起步 - Stackblitz</header>
+
+
+We recently introduced a [**new Getting Started**](getting-started) that leverages the [StackBlitz](https://stackblitz.com/) online development environment. 
+We recommend the new Getting Started for anyone who wants to quickly learn the essentials of Angular, in the context of building an online store app. 
+The new Getting Started covers the same major topics as this Tour of Heroes&mdash;components, template syntax, routing, services, and accessing data via HTTP&mdash;in a condensed format.
+
+我们最近引入了一个[**新的快速上手**](getting-started)，它基于在线开发环境 [StackBlitz](https://stackblitz.com/)。
+我们建议每个想要快速掌握 Angular 基础知识的人使用那个新的快速上手，来构建一个在线商店应用程序。
+新的快速上手以更精简的格式涵盖了与本《英雄指南》相同的主题：组件、模板语法、路由、服务以及通过 HTTP 访问数据等。
+
+</div> 
+
+In this _Tour of Heroes_ tutorial, you will build an app that helps a staffing agency manage its stable of heroes.
+
+在这个**英雄指南**教程中，你将构建一个应用，来帮助招聘机构管理一群英雄。
+
+This app has many of the features you'd expect to find in a data-driven application.
 It acquires and displays a list of heroes, edits a selected hero's detail, and navigates among different views of heroic data.
 
 这个入门级 app 包含很多数据驱动的应用所需的特性。
 它需要获取并显示英雄的列表、编辑所选英雄的详情，并且在英雄数据的不同视图之间导航。
 
-By the end of the tutorial you will be able to do the following:
+By the end of this tutorial you will be able to do the following:
 
 在本教程的最后，你将完成下列工作：
 
@@ -58,7 +78,7 @@ Angular can do whatever you need it to do.
 
 你将学到足够的 Angular 知识，并确信 Angular 确实能提供你所需的支持。
 
-After completing all tutorial steps, the final app will look like this <live-example name="toh-pt6"></live-example>.
+After completing all tutorial steps, the final app will look like this: <live-example name="toh-pt6"></live-example>.
 
 完成本教程的所有步骤之后，最终的应用会是这样的：<live-example name="toh-pt6"></live-example>。
 

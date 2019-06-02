@@ -36,7 +36,7 @@ import {isUrlTree} from './utils/type_guards';
 /**
  * @description
  *
- * Represents the extra options used during navigation.
+ * Options that modify the navigation strategy.
  *
  * 表示在导航时用到的额外选项。
  * @publicApi
@@ -107,13 +107,10 @@ export interface NavigationExtras {
   fragment?: string;
 
   /**
-   * Preserves the query parameters for the next navigation.
+   * DEPRECATED: Use `queryParamsHandling` instead to preserve
+   * query parameters for the next navigation.
    *
-   * 在后续导航时保留查询（`?`）参数。
-   *
-   * deprecated, use `queryParamsHandling` instead
-   *
-   * 已废弃，请用 `queryParamsHandling` 代替
+   * 已废弃，请改用 `queryParamsHandling` 来为后续导航保留查询参数。
    *
    * ```
    * // Preserve query params from /results?page=1 to /view?page=1
@@ -125,7 +122,7 @@ export interface NavigationExtras {
   preserveQueryParams?: boolean;
 
   /**
-   *  config strategy to handle the query parameters for the next navigation.
+   * Configuration strategy for how to handle query parameters for the next navigation.
    *
    *  配置后续导航时对查询（`?`）参数的处理策略。
    *
@@ -308,13 +305,14 @@ function defaultRouterHook(snapshot: RouterStateSnapshot, runExtras: {
 /**
  * @description
  *
- * Provides the navigation and url manipulation capabilities.
+ * An NgModule that provides navigation and URL manipulation capabilities.
  *
  * 提供导航和操纵 URL 的能力。
  *
- * See `Routes` for more details and examples.
+ * @see `Route`.
+ * @see [Routing and Navigation Guide](guide/router).
  *
- * 查看 `Routes` 以了解详情和范例。
+ * [路由与导航](guide/router)。
  *
  * @ngModule RouterModule
  *
@@ -337,17 +335,20 @@ export class Router {
   private console: Console;
   private isNgZoneEnabled: boolean = false;
 
+  /**
+   * An event stream for routing events in this NgModule.
+   */
   public readonly events: Observable<Event> = new Subject<Event>();
+  /**
+   * The current state of routing in this NgModule.
+   */
   public readonly routerState: RouterState;
 
   /**
-   * Error handler that is invoked when a navigation errors.
+   * A handler for navigation errors in this NgModule.
    *
-   * 当导航发生错误时要调用的错误处理器。
+   * 本模块中的导航错误处理器。
    *
-   * See `ErrorHandler` for more information.
-   *
-   * 欲知详情，参见 `ErrorHandler`。
    */
   errorHandler: ErrorHandler = defaultErrorHandler;
 
@@ -364,7 +365,8 @@ export class Router {
        url: string) => UrlTree = defaultMalformedUriErrorHandler;
 
   /**
-   * Indicates if at least one navigation happened.
+   * True if at least one navigation event has occurred,
+   * false otherwise.
    *
    * 表示是否发生过至少一次导航。
    */
@@ -372,8 +374,10 @@ export class Router {
   private lastSuccessfulId: number = -1;
 
   /**
-   * Used by RouterModule. This allows us to
-   * pause the navigation either before preactivation or after it.
+   * Hooks that enable you to pause navigation,
+   * either before or after the preactivation phase.
+   * Used by `RouterModule`.
+   *
    * @internal
    */
   hooks: {beforePreactivation: RouterHook, afterPreactivation: RouterHook} = {
@@ -388,13 +392,15 @@ export class Router {
    */
   urlHandlingStrategy: UrlHandlingStrategy = new DefaultUrlHandlingStrategy();
 
+  /**
+   * The strategy for re-using routes.
+   */
   routeReuseStrategy: RouteReuseStrategy = new DefaultRouteReuseStrategy();
 
   /**
-   * Define what the router should do if it receives a navigation request to the current URL.
-   * By default, the router will ignore this navigation. However, this prevents features such
-   * as a "refresh" button. Use this option to configure the behavior when navigating to the
-   * current URL. Default is 'ignore'.
+   * How to handle a navigation request to the current URL. One of:
+   * - `'ignore'` :  The router ignores the request.
+   * - `'reload'` : The router reloads the URL. Use to implement a "refresh" feature.
    *
    * 定义当路由器收到一个导航到当前 URL 的请求时应该怎么做。
    * 默认情况下，路由器将会忽略这次导航。但这样会阻止类似于 "刷新" 按钮的特性。
@@ -403,17 +409,18 @@ export class Router {
   onSameUrlNavigation: 'reload'|'ignore' = 'ignore';
 
   /**
-   * Defines how the router merges params, data and resolved data from parent to child
-   * routes. Available options are:
+   * How to merge parameters, data, and resolved data from parent to child
+   * routes. One of:
    *
    * 定义路由器如何从父路由向子路由合并参数、数据。可用选项为：
    *
-   * - `'emptyOnly'`, the default, only inherits parent params for path-less or component-less
-   *   routes.
+   * - `'emptyOnly'` : Inherit parent parameters, data, and resolved data
+   * for path-less or component-less routes.
    *
    *   `'emptyOnly'`，默认值，只从无路径或无组件的路由继承父级参数。
    *
-   * - `'always'`, enables unconditional inheritance of parent params.
+   * - `'always'` : Inherit parent parameters, data, and resolved data
+   * for all child routes.
    *
    *   `'always'`，允许无条件地继承父级参数。
    *
@@ -510,25 +517,24 @@ export class Router {
               ...t, extractedUrl: this.urlHandlingStrategy.extract(t.rawUrl)
             } as NavigationTransition)),
 
-        // Store the Navigation object
-        tap(t => {
-          this.currentNavigation = {
-            id: t.id,
-            initialUrl: t.currentRawUrl,
-            extractedUrl: t.extractedUrl,
-            trigger: t.source,
-            extras: t.extras,
-            previousNavigation: this.lastSuccessfulNavigation ?
-                {...this.lastSuccessfulNavigation, previousNavigation: null} :
-                null
-          };
-        }),
-
         // Using switchMap so we cancel executing navigations when a new one comes in
         switchMap(t => {
           let completed = false;
           let errored = false;
           return of (t).pipe(
+              // Store the Navigation object
+              tap(t => {
+                this.currentNavigation = {
+                  id: t.id,
+                  initialUrl: t.currentRawUrl,
+                  extractedUrl: t.extractedUrl,
+                  trigger: t.source,
+                  extras: t.extras,
+                  previousNavigation: this.lastSuccessfulNavigation ?
+                      {...this.lastSuccessfulNavigation, previousNavigation: null} :
+                      null
+                };
+              }),
               switchMap(t => {
                 const urlTransition =
                     !this.navigated || t.extractedUrl.toString() !== this.browserUrlTree.toString();
@@ -575,7 +581,8 @@ export class Router {
                       tap(t => {
                         if (this.urlUpdateStrategy === 'eager') {
                           if (!t.extras.skipLocationChange) {
-                            this.setBrowserUrl(t.urlAfterRedirects, !!t.extras.replaceUrl, t.id);
+                            this.setBrowserUrl(
+                                t.urlAfterRedirects, !!t.extras.replaceUrl, t.id, t.extras.state);
                           }
                           this.browserUrlTree = t.urlAfterRedirects;
                         }
@@ -587,7 +594,7 @@ export class Router {
                             t.id, this.serializeUrl(t.extractedUrl),
                             this.serializeUrl(t.urlAfterRedirects), t.targetSnapshot !);
                         eventsSubject.next(routesRecognized);
-                      }), );
+                      }));
                 } else {
                   const processPreviousUrl = urlTransition && this.rawUrlTree &&
                       this.urlHandlingStrategy.shouldProcessUrl(this.rawUrlTree);
@@ -699,7 +706,7 @@ export class Router {
                             t.id, this.serializeUrl(t.extractedUrl),
                             this.serializeUrl(t.urlAfterRedirects), t.targetSnapshot !);
                         this.triggerEvent(resolveEnd);
-                      }), );
+                      }));
                 }
                 return undefined;
               }),
@@ -815,7 +822,7 @@ export class Router {
                   }
                 }
                 return EMPTY;
-              }), );
+              }));
           // TODO(jasonaden): remove cast once g3 is on updated TypeScript
         })) as any as Observable<NavigationTransition>;
   }
@@ -871,7 +878,7 @@ export class Router {
     }
   }
 
-  /** The current url
+  /** The current URL.
    *
    * 当前 URL
    */
@@ -888,11 +895,11 @@ export class Router {
    *
    * 重置供导航和生成链接使用的配置项。
    *
+   * @param config The route array for the new configuration.
+   *
+   * 新配置中的路由定义数组。
+   *
    * @usageNotes
-   *
-   * ### Example
-   *
-   * ### 用法
    *
    * ```
    * router.resetConfig([
@@ -913,9 +920,10 @@ export class Router {
   /** @docsNotRequired */
   ngOnDestroy(): void { this.dispose(); }
 
-  /** Disposes of the router
+  /** Disposes of the router.
    *
    * 销毁路由器
+   *
    */
   dispose(): void {
     if (this.locationSubscription) {
@@ -925,7 +933,7 @@ export class Router {
   }
 
   /**
-   * Applies an array of commands to the current url tree and creates a new url tree.
+   * Applies an array of commands to the current URL tree and creates a new URL tree.
    *
    * 把一个命令数组应用于当前的 URL 树，并创建一个新的 URL 树。
    *
@@ -935,11 +943,16 @@ export class Router {
    * 如果指定了激活路由，就以该路由为起点应用这些命令。
    * 如果没有指定激活路由，就以根路由为起点应用这些命令。
    *
+   * @param commands An array of commands to apply.
+   *
+   * 要应用的命令数组。
+   *
+   * @param navigationExtras
+   * @returns The new URL tree.
+   *
+   * 新的 URL Tree。
+   *
    * @usageNotes
-   *
-   * ### Example
-   *
-   * ### 用法
    *
    * ```
    * // create /team/33/user/11
@@ -1004,25 +1017,25 @@ export class Router {
   }
 
   /**
-   * Navigate based on the provided url. This navigation is always absolute.
+   * Navigate based on the provided URL, which must be absolute.
    *
    * 基于所提供的 url 进行导航。这种导航永远使用绝对路径。
    *
-   * Returns a promise that:
+   * @param url An absolute URL. The function does not apply any delta to the current URL.
    *
-   * 返回一个 Promise：
+   * 一个绝对 URL。该函数不会对当前 URL 做任何修改。
    *
-   * - resolves to 'true' when navigation succeeds,
+   * @param extras An object containing properties that modify the navigation strategy.
+   * The function ignores any properties in the `NavigationExtras` that would change the
+   * provided URL.
    *
-   *   当导航成功时解析为 `'true'`，
+   * 一个包含一组属性的对象，它会修改导航策略。
+   * 该函数会忽略 `NavigationExtras` 中任何可能会改变所提供的 URL 的属性
    *
-   * - resolves to 'false' when navigation fails,
+   * @returns A Promise that resolves to 'true' when navigation succeeds,
+   * to 'false' when navigation fails, or is rejected on error.
    *
-   *   当导航失败时解析为 `'false'`，
-   *
-   * - is rejected when an error happens.
-   *
-   *   当出错时拒绝（reject）。
+   *   一个 Promise，当导航成功时，它会解析成 `true`；导航失败或出错时，它会解析成 `false`。
    *
    * @usageNotes
    *
@@ -1036,14 +1049,6 @@ export class Router {
    * // Navigate without updating the URL
    * router.navigateByUrl("/team/33/user/11", { skipLocationChange: true });
    * ```
-   *
-   * Since `navigateByUrl()` takes an absolute URL as the first parameter,
-   * it will not apply any delta to the current URL and ignores any properties
-   * in the second parameter (the `NavigationExtras`) that would change the
-   * provided URL.
-   *
-   * 由于 `navigateByUrl()` 要求必须用绝对地址作为第一个参数，所以它不会在当前 URL 上做增量修改，
-   * 并且会忽略第二个参数 `NavigationExtras` 中所有可能会更改 URL 的属性。
    *
    */
   navigateByUrl(url: string|UrlTree, extras: NavigationExtras = {skipLocationChange: false}):

@@ -6,13 +6,14 @@ ts_library(
     name = "utility",
     srcs = [
         "json-utils.ts",
+        "workspace-utils.ts",
     ],
     module_name = "@angular/bazel/src/schematics/utility",
     deps = [
-        "@ngdeps//@angular-devkit/core",
-        "@ngdeps//@angular-devkit/schematics",
-        "@ngdeps//@schematics/angular",
-        "@ngdeps//typescript",
+        "@npm//@angular-devkit/core",
+        "@npm//@angular-devkit/schematics",
+        "@npm//@schematics/angular",
+        "@npm//typescript",
     ],
 )
 
@@ -21,10 +22,11 @@ ts_library(
     testonly = True,
     srcs = [
         "json-utils_spec.ts",
+        "workspace-utils_spec.ts",
     ],
     deps = [
         ":utility",
-        "@ngdeps//@angular-devkit/core",
-        "@ngdeps//@angular-devkit/schematics",
+        "@npm//@angular-devkit/core",
+        "@npm//@angular-devkit/schematics",
     ],
 )

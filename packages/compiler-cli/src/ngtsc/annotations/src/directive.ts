@@ -6,18 +6,19 @@
  * found in the LICENSE file at https://angular.io/license
  */
 
-import {ConstantPool, Expression, ParseError, R3DirectiveMetadata, R3QueryMetadata, Statement, WrappedNodeExpr, compileDirectiveFromMetadata, makeBindingParser, parseHostBindings, verifyHostBindings} from '@angular/compiler';
+import {ConstantPool, Expression, ParseError, ParsedHostBindings, R3DirectiveMetadata, R3QueryMetadata, Statement, WrappedNodeExpr, compileDirectiveFromMetadata, makeBindingParser, parseHostBindings, verifyHostBindings} from '@angular/compiler';
 import * as ts from 'typescript';
 
 import {ErrorCode, FatalDiagnosticError} from '../../diagnostics';
-import {Reference} from '../../imports';
-import {EnumValue, PartialEvaluator} from '../../partial_evaluator';
-import {ClassMember, ClassMemberKind, Decorator, ReflectionHost, filterToMembersWithDecorator, reflectObjectLiteral} from '../../reflection';
+import {DefaultImportRecorder, Reference} from '../../imports';
+import {MetadataRegistry} from '../../metadata';
+import {extractDirectiveGuards} from '../../metadata/src/util';
+import {DynamicValue, EnumValue, PartialEvaluator} from '../../partial_evaluator';
+import {ClassDeclaration, ClassMember, ClassMemberKind, Decorator, ReflectionHost, filterToMembersWithDecorator, reflectObjectLiteral} from '../../reflection';
 import {AnalysisOutput, CompileResult, DecoratorHandler, DetectResult, HandlerPrecedence} from '../../transform';
 
 import {generateSetClassMetadataCall} from './metadata';
-import {SelectorScopeRegistry} from './selector_scope';
-import {extractDirectiveGuards, getValidConstructorDependencies, isAngularCore, unwrapExpression, unwrapForwardRef} from './util';
+import {findAngularDecorator, getValidConstructorDependencies, readBaseClass, unwrapExpression, unwrapForwardRef} from './util';
 
 const EMPTY_OBJECT: {[key: string]: string} = {};
 
@@ -29,16 +30,16 @@ export class DirectiveDecoratorHandler implements
     DecoratorHandler<DirectiveHandlerData, Decorator> {
   constructor(
       private reflector: ReflectionHost, private evaluator: PartialEvaluator,
-      private scopeRegistry: SelectorScopeRegistry, private isCore: boolean) {}
+      private metaRegistry: MetadataRegistry, private defaultImportRecorder: DefaultImportRecorder,
+      private isCore: boolean) {}
 
   readonly precedence = HandlerPrecedence.PRIMARY;
 
-  detect(node: ts.Declaration, decorators: Decorator[]|null): DetectResult<Decorator>|undefined {
+  detect(node: ClassDeclaration, decorators: Decorator[]|null): DetectResult<Decorator>|undefined {
     if (!decorators) {
       return undefined;
     }
-    const decorator = decorators.find(
-        decorator => decorator.name === 'Directive' && (this.isCore || isAngularCore(decorator)));
+    const decorator = findAngularDecorator(decorators, 'Directive', this.isCore);
     if (decorator !== undefined) {
       return {
         trigger: decorator.node,
@@ -49,25 +50,25 @@ export class DirectiveDecoratorHandler implements
     }
   }
 
-  analyze(node: ts.ClassDeclaration, decorator: Decorator): AnalysisOutput<DirectiveHandlerData> {
-    const directiveResult =
-        extractDirectiveMetadata(node, decorator, this.reflector, this.evaluator, this.isCore);
+  analyze(node: ClassDeclaration, decorator: Decorator): AnalysisOutput<DirectiveHandlerData> {
+    const directiveResult = extractDirectiveMetadata(
+        node, decorator, this.reflector, this.evaluator, this.defaultImportRecorder, this.isCore);
     const analysis = directiveResult && directiveResult.metadata;
 
     // If the directive has a selector, it should be registered with the `SelectorScopeRegistry` so
     // when this directive appears in an `@NgModule` scope, its selector can be determined.
     if (analysis && analysis.selector !== null) {
       const ref = new Reference(node);
-      this.scopeRegistry.registerDirective(node, {
+      this.metaRegistry.registerDirectiveMetadata({
         ref,
-        directive: ref,
-        name: node.name !.text,
+        name: node.name.text,
         selector: analysis.selector,
         exportAs: analysis.exportAs,
         inputs: analysis.inputs,
         outputs: analysis.outputs,
         queries: analysis.queries.map(query => query.propertyName),
         isComponent: false, ...extractDirectiveGuards(node, this.reflector),
+        baseClass: readBaseClass(node, this.reflector, this.evaluator),
       });
     }
 
@@ -78,12 +79,13 @@ export class DirectiveDecoratorHandler implements
     return {
       analysis: {
         meta: analysis,
-        metadataStmt: generateSetClassMetadataCall(node, this.reflector, this.isCore),
+        metadataStmt: generateSetClassMetadataCall(
+            node, this.reflector, this.defaultImportRecorder, this.isCore),
       }
     };
   }
 
-  compile(node: ts.ClassDeclaration, analysis: DirectiveHandlerData, pool: ConstantPool):
+  compile(node: ClassDeclaration, analysis: DirectiveHandlerData, pool: ConstantPool):
       CompileResult {
     const res = compileDirectiveFromMetadata(analysis.meta, pool, makeBindingParser());
     const statements = res.statements;
@@ -103,8 +105,9 @@ export class DirectiveDecoratorHandler implements
  * Helper function to extract metadata from a `Directive` or `Component`.
  */
 export function extractDirectiveMetadata(
-    clazz: ts.ClassDeclaration, decorator: Decorator, reflector: ReflectionHost,
-    evaluator: PartialEvaluator, isCore: boolean, defaultSelector: string | null = null): {
+    clazz: ClassDeclaration, decorator: Decorator, reflector: ReflectionHost,
+    evaluator: PartialEvaluator, defaultImportRecorder: DefaultImportRecorder, isCore: boolean,
+    defaultSelector: string | null = null): {
   decorator: Map<string, ts.Expression>,
   metadata: R3DirectiveMetadata,
   decoratedElements: ClassMember[],
@@ -158,10 +161,20 @@ export function extractDirectiveMetadata(
 
   const queries = [...contentChildFromFields, ...contentChildrenFromFields];
 
+  // Construct the list of view queries.
+  const viewChildFromFields = queriesFromFields(
+      filterToMembersWithDecorator(decoratedElements, 'ViewChild', coreModule), reflector,
+      evaluator);
+  const viewChildrenFromFields = queriesFromFields(
+      filterToMembersWithDecorator(decoratedElements, 'ViewChildren', coreModule), reflector,
+      evaluator);
+  const viewQueries = [...viewChildFromFields, ...viewChildrenFromFields];
+
   if (directive.has('queries')) {
     const queriesFromDecorator =
         extractQueriesFromDecorator(directive.get('queries') !, reflector, evaluator, isCore);
     queries.push(...queriesFromDecorator.content);
+    viewQueries.push(...queriesFromDecorator.view);
   }
 
   // Parse the selector.
@@ -173,13 +186,14 @@ export function extractDirectiveMetadata(
       throw new FatalDiagnosticError(
           ErrorCode.VALUE_HAS_WRONG_TYPE, expr, `selector must be a string`);
     }
-    selector = resolved;
+    // use default selector in case selector is an empty string
+    selector = resolved === '' ? defaultSelector : resolved;
   }
   if (!selector) {
-    throw new Error(`Directive ${clazz.name !.text} has no selector, please add it!`);
+    throw new Error(`Directive ${clazz.name.text} has no selector, please add it!`);
   }
 
-  const host = extractHostBindings(directive, decoratedElements, evaluator, coreModule);
+  const host = extractHostBindings(decoratedElements, evaluator, coreModule, directive);
 
   const providers: Expression|null =
       directive.has('providers') ? new WrappedNodeExpr(directive.get('providers') !) : null;
@@ -202,17 +216,16 @@ export function extractDirectiveMetadata(
   }
 
   // Detect if the component inherits from another class
-  const usesInheritance = clazz.heritageClauses !== undefined &&
-      clazz.heritageClauses.some(hc => hc.token === ts.SyntaxKind.ExtendsKeyword);
+  const usesInheritance = reflector.hasBaseClass(clazz);
   const metadata: R3DirectiveMetadata = {
-    name: clazz.name !.text,
-    deps: getValidConstructorDependencies(clazz, reflector, isCore), host,
+    name: clazz.name.text,
+    deps: getValidConstructorDependencies(clazz, reflector, defaultImportRecorder, isCore), host,
     lifecycle: {
         usesOnChanges,
     },
     inputs: {...inputsFromMeta, ...inputsFromFields},
-    outputs: {...outputsFromMeta, ...outputsFromFields}, queries, selector,
-    type: new WrappedNodeExpr(clazz.name !),
+    outputs: {...outputsFromMeta, ...outputsFromFields}, queries, viewQueries, selector,
+    type: new WrappedNodeExpr(clazz.name),
     typeArgumentCount: reflector.getGenericArityOfClass(clazz) || 0,
     typeSourceSpan: null !, usesInheritance, exportAs, providers
   };
@@ -229,6 +242,9 @@ export function extractQueryMetadata(
   const first = name === 'ViewChild' || name === 'ContentChild';
   const node = unwrapForwardRef(args[0], reflector);
   const arg = evaluator.evaluate(node);
+
+  /** Whether or not this query should collect only static results (see view/api.ts)  */
+  let isStatic: boolean = false;
 
   // Extract the predicate
   let predicate: Expression|string[]|null = null;
@@ -264,13 +280,28 @@ export function extractQueryMetadata(
       }
       descendants = descendantsValue;
     }
+
+    if (options.has('static')) {
+      const staticValue = evaluator.evaluate(options.get('static') !);
+      if (typeof staticValue !== 'boolean') {
+        throw new FatalDiagnosticError(
+            ErrorCode.VALUE_HAS_WRONG_TYPE, node, `@${name} options.static must be a boolean`);
+      }
+      isStatic = staticValue;
+    }
+
   } else if (args.length > 2) {
     // Too many arguments.
     throw new Error(`@${name} has too many arguments`);
   }
 
   return {
-      propertyName, predicate, first, descendants, read,
+    propertyName,
+    predicate,
+    first,
+    descendants,
+    read,
+    static: isStatic,
   };
 }
 
@@ -424,19 +455,15 @@ function isPropertyTypeMember(member: ClassMember): boolean {
       member.kind === ClassMemberKind.Property;
 }
 
-type StringMap = {
-  [key: string]: string
+type StringMap<T> = {
+  [key: string]: T;
 };
 
-function extractHostBindings(
-    metadata: Map<string, ts.Expression>, members: ClassMember[], evaluator: PartialEvaluator,
-    coreModule: string | undefined): {
-  attributes: StringMap,
-  listeners: StringMap,
-  properties: StringMap,
-} {
-  let hostMetadata: StringMap = {};
-  if (metadata.has('host')) {
+export function extractHostBindings(
+    members: ClassMember[], evaluator: PartialEvaluator, coreModule: string | undefined,
+    metadata?: Map<string, ts.Expression>): ParsedHostBindings {
+  let hostMetadata: StringMap<string|Expression> = {};
+  if (metadata && metadata.has('host')) {
     const expr = metadata.get('host') !;
     const hostMetaMap = evaluator.evaluate(expr);
     if (!(hostMetaMap instanceof Map)) {
@@ -449,10 +476,19 @@ function extractHostBindings(
         value = value.resolved;
       }
 
-      if (typeof value !== 'string' || typeof key !== 'string') {
-        throw new Error(`Decorator host metadata must be a string -> string object, got ${value}`);
+      if (typeof key !== 'string') {
+        throw new Error(
+            `Decorator host metadata must be a string -> string object, but found unparseable key ${key}`);
       }
-      hostMetadata[key] = value;
+
+      if (typeof value == 'string') {
+        hostMetadata[key] = value;
+      } else if (value instanceof DynamicValue) {
+        hostMetadata[key] = new WrappedNodeExpr(value.node as ts.Expression);
+      } else {
+        throw new Error(
+            `Decorator host metadata must be a string -> string object, but found unparseable value ${value}`);
+      }
     });
   }
 
@@ -464,7 +500,7 @@ function extractHostBindings(
     throw new FatalDiagnosticError(
         // TODO: provide more granular diagnostic and output specific host expression that triggered
         // an error instead of the whole host object
-        ErrorCode.HOST_BINDING_PARSE_ERROR, metadata.get('host') !,
+        ErrorCode.HOST_BINDING_PARSE_ERROR, metadata !.get('host') !,
         errors.map((error: ParseError) => error.msg).join('\n'));
   }
 

@@ -166,12 +166,14 @@ export declare class KeyValuePipe implements PipeTransform {
 }
 
 export declare class Location {
-    constructor(platformStrategy: LocationStrategy);
+    constructor(platformStrategy: LocationStrategy, platformLocation: PlatformLocation);
     back(): void;
     forward(): void;
+    getState(): unknown;
     go(path: string, query?: string, state?: any): void;
     isCurrentPathEqualTo(path: string, query?: string): boolean;
     normalize(url: string): string;
+    onUrlChange(fn: (url: string, state: unknown) => void): void;
     path(includeHash?: boolean): string;
     prepareExternalUrl(url: string): string;
     replaceState(path: string, query?: string, state?: any): void;
@@ -207,13 +209,22 @@ export declare class LowerCasePipe implements PipeTransform {
     transform(value: string): string;
 }
 
-export declare class NgClass implements DoCheck {
+export declare class NgClass extends NgClassBase implements DoCheck {
     klass: string;
     ngClass: string | string[] | Set<string> | {
         [klass: string]: any;
     };
-    constructor(_iterableDiffers: IterableDiffers, _keyValueDiffers: KeyValueDiffers, _ngEl: ElementRef, _renderer: Renderer2);
+    constructor(delegate: NgClassImpl);
     ngDoCheck(): void;
+}
+
+export declare class NgClassBase {
+    protected _delegate: NgClassImpl;
+    constructor(_delegate: NgClassImpl);
+    getValue(): {
+        [key: string]: any;
+    } | null;
+    static ngDirectiveDef: any;
 }
 
 export declare class NgComponentOutlet implements OnChanges, OnDestroy {
@@ -283,12 +294,21 @@ export declare class NgPluralCase {
     constructor(value: string, template: TemplateRef<Object>, viewContainer: ViewContainerRef, ngPlural: NgPlural);
 }
 
-export declare class NgStyle implements DoCheck {
+export declare class NgStyle extends NgStyleBase implements DoCheck {
     ngStyle: {
-        [key: string]: string;
-    };
-    constructor(_differs: KeyValueDiffers, _ngEl: ElementRef, _renderer: Renderer2);
+        [klass: string]: any;
+    } | null;
+    constructor(delegate: NgStyleImpl);
     ngDoCheck(): void;
+}
+
+export declare class NgStyleBase {
+    protected _delegate: NgStyleImpl;
+    constructor(_delegate: NgStyleImpl);
+    getValue(): {
+        [key: string]: any;
+    } | null;
+    static ngDirectiveDef: any;
 }
 
 export declare class NgSwitch {
@@ -355,11 +375,16 @@ export declare class PercentPipe implements PipeTransform {
 
 export declare abstract class PlatformLocation {
     abstract readonly hash: string;
+    abstract readonly hostname: string;
+    abstract readonly href: string;
     abstract readonly pathname: string;
+    abstract readonly port: string;
+    abstract readonly protocol: string;
     abstract readonly search: string;
     abstract back(): void;
     abstract forward(): void;
     abstract getBaseHrefFromDOM(): string;
+    abstract getState(): unknown;
     abstract onHashChange(fn: LocationChangeListener): void;
     abstract onPopState(fn: LocationChangeListener): void;
     abstract pushState(state: any, title: string, url: string): void;

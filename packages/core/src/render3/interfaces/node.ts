@@ -6,23 +6,40 @@
  * found in the LICENSE file at https://angular.io/license
  */
 
+import {CssSelector} from './projection';
 import {RNode} from './renderer';
 import {StylingContext} from './styling';
 import {LView, TView} from './view';
 
 
 /**
- * TNodeType corresponds to the TNode.type property. It contains information
- * on how to map a particular set of bits in TNode.flags to the node type.
+ * TNodeType corresponds to the {@link TNode} `type` property.
  */
 export const enum TNodeType {
-  Container = 0b000,
-  Projection = 0b001,
-  View = 0b010,
-  Element = 0b011,
-  ViewOrElement = 0b010,
-  ElementContainer = 0b100,
-  IcuContainer = 0b101,
+  /**
+   * The TNode contains information about an {@link LContainer} for embedded views.
+   */
+  Container = 0,
+  /**
+   * The TNode contains information about an `<ng-content>` projection
+   */
+  Projection = 1,
+  /**
+   * The TNode contains information about an {@link LView}
+   */
+  View = 2,
+  /**
+   * The TNode contains information about a DOM element aka {@link RNode}.
+   */
+  Element = 3,
+  /**
+   * The TNode contains information about an `<ng-container>` element {@link RNode}.
+   */
+  ElementContainer = 4,
+  /**
+   * The TNode contains information about an ICU comment used in `i18n`.
+   */
+  IcuContainer = 5,
 }
 
 /**
@@ -107,20 +124,72 @@ export const enum AttributeMarker {
   Styles = 2,
 
   /**
-   * This marker indicates that the following attribute names were extracted from bindings (ex.:
-   * [foo]="exp") and / or event handlers (ex. (bar)="doSth()").
-   * Taking the above bindings and outputs as an example an attributes array could look as follows:
-   * ['class', 'fade in', AttributeMarker.SelectOnly, 'foo', 'bar']
+   * Signals that the following attribute names were extracted from input or output bindings.
+   *
+   * For example, given the following HTML:
+   *
+   * ```
+   * <div moo="car" [foo]="exp" (bar)="doSth()">
+   * ```
+   *
+   * the generated code is:
+   *
+   * ```
+   * var _c1 = ['moo', 'car', AttributeMarker.Bindings, 'foo', 'bar'];
+   * ```
    */
-  SelectOnly = 3,
+  Bindings = 3,
+
+  /**
+   * Signals that the following attribute names were hoisted from an inline-template declaration.
+   *
+   * For example, given the following HTML:
+   *
+   * ```
+   * <div *ngFor="let value of values; trackBy:trackBy" dirA [dirB]="value">
+   * ```
+   *
+   * the generated code for the `template()` instruction would include:
+   *
+   * ```
+   * ['dirA', '', AttributeMarker.Bindings, 'dirB', AttributeMarker.Template, 'ngFor', 'ngForOf',
+   * 'ngForTrackBy', 'let-value']
+   * ```
+   *
+   * while the generated code for the `element()` instruction inside the template function would
+   * include:
+   *
+   * ```
+   * ['dirA', '', AttributeMarker.Bindings, 'dirB']
+   * ```
+   */
+  Template = 4,
+
+  /**
+   * Signals that the following attribute is `ngProjectAs` and its value is a parsed `CssSelector`.
+   *
+   * For example, given the following HTML:
+   *
+   * ```
+   * <h1 attr="value" ngProjectAs="[title]">
+   * ```
+   *
+   * the generated code for the `element()` instruction would include:
+   *
+   * ```
+   * ['attr', 'value', AttributeMarker.ProjectAs, ['', 'title', '']]
+   * ```
+   */
+  ProjectAs = 5
 }
 
 /**
  * A combination of:
- * - attribute names and values
- * - special markers acting as flags to alter attributes processing.
+ * - Attribute names and values.
+ * - Special markers acting as flags to alter attributes processing.
+ * - Parsed ngProjectAs selectors.
  */
-export type TAttributes = (string | AttributeMarker)[];
+export type TAttributes = (string | AttributeMarker | CssSelector)[];
 
 /**
  * Binding data (flyweight) for a particular node that is shared between all templates
@@ -282,6 +351,14 @@ export interface TNode {
    * to insert them or remove them from the DOM.
    */
   next: TNode|null;
+
+  /**
+   * The next projected sibling. Since in Angular content projection works on the node-by-node basis
+   * the act of projecting nodes might change nodes relationship at the insertion point (target
+   * view). At the same time we need to keep initial relationship between nodes as expressed in
+   * content view.
+   */
+  projectionNext: TNode|null;
 
   /**
    * First child of the current node.

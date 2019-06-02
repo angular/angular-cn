@@ -74,7 +74,7 @@ Angular 语言服务目前在[Visual Studio Code](https://code.visualstudio.com/
 
 In Visual Studio Code, install Angular Language Service from the store,
 which is accessible from the bottom icon on the left menu pane.
-You can also use the VS Quick Open (⌘+P) to search for the extension. When you've opened it,
+You can also use the VS Quick Open (⌘+P on Mac, CTRL+P on Windows) to search for the extension. When you've opened it,
 enter the following command:
 
 Visual Studio Code 可以从商店中安装 Angular 语言服务，这个功能就在左侧菜单面板最底下的那个图标。

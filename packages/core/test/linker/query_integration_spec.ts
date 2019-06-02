@@ -10,7 +10,7 @@ import {AfterContentChecked, AfterContentInit, AfterViewChecked, AfterViewInit, 
 import {ElementRef} from '@angular/core/src/core';
 import {ComponentFixture, TestBed, async} from '@angular/core/testing';
 import {expect} from '@angular/platform-browser/testing/src/matchers';
-import {fixmeIvy, ivyEnabled, modifiedInIvy, onlyInIvy} from '@angular/private/testing';
+import {ivyEnabled, modifiedInIvy, onlyInIvy} from '@angular/private/testing';
 import {Subject} from 'rxjs';
 
 import {stringify} from '../../src/util/stringify';
@@ -100,9 +100,18 @@ describe('Query API', () => {
 
     it('should contain the first content child when target is on <ng-template> with embedded view (issue #16568)',
        () => {
-         const template =
-             '<div directive-needs-content-child><ng-template text="foo" [ngIf]="true"><div text="bar"></div></ng-template></div>' +
-             '<needs-content-child #q><ng-template text="foo" [ngIf]="true"><div text="bar"></div></ng-template></needs-content-child>';
+         const template = `
+          <div directive-needs-content-child>
+            <ng-template text="foo" [ngIf]="true">
+              <div text="bar"></div>
+             </ng-template>
+           </div>
+           <needs-content-child #q>
+              <ng-template text="foo" [ngIf]="true">
+                <div text="bar"></div>
+              </ng-template>
+           </needs-content-child>
+         `;
          const view = createTestCmp(MyComp0, template);
          view.detectChanges();
          const q: NeedsContentChild = view.debugElement.children[1].references !['q'];
@@ -126,7 +135,7 @@ describe('Query API', () => {
       ]);
     });
 
-    modifiedInIvy('Static ViewChild and ContentChild queries are resolved in update mode')
+    modifiedInIvy('Static queries in Ivy require an explicit {static: true} arg')
         .it('should set static view and content children already after the constructor call', () => {
           const template =
               '<needs-static-content-view-child #q><div text="contentFoo"></div></needs-static-content-view-child>';
@@ -319,7 +328,7 @@ describe('Query API', () => {
          const template = `<needs-content-children-shallow>
                           <ng-template [ngIf]="true">
                             <div #q></div>
-                          </ng-template>                          
+                          </ng-template>
                         </needs-content-children-shallow>`;
          const view = createTestCmpAndDetectChanges(MyComp0, template);
 
@@ -333,7 +342,7 @@ describe('Query API', () => {
          const template = `<needs-content-children-shallow>
                           <ng-template [ngIf]="true">
                             <div #q directive-needs-content-child></div>
-                          </ng-template>                          
+                          </ng-template>
                         </needs-content-children-shallow>`;
          const view = createTestCmpAndDetectChanges(MyComp0, template);
 
@@ -358,7 +367,7 @@ describe('Query API', () => {
           const template = `<needs-content-children-shallow>
                           <ng-container>
                             <div #q></div>
-                          </ng-container>                             
+                          </ng-container>
                         </needs-content-children-shallow>`;
           const view = createTestCmpAndDetectChanges(MyComp0, template);
 
@@ -713,25 +722,25 @@ describe('Query API', () => {
           expect(q.query.map((d: TextDirective) => d.text)).toEqual(['2', '1']);
         });
 
-    fixmeIvy('FW-920: Queries in nested views are not destroyed properly')
-        .it('should remove manually projected templates if their parent view is destroyed', () => {
-          const template = `
+    it('should remove manually projected templates if their parent view is destroyed', () => {
+      const template = `
           <manual-projecting #q><ng-template #tpl><div text="1"></div></ng-template></manual-projecting>
           <div *ngIf="shouldShow">
             <ng-container [ngTemplateOutlet]="tpl"></ng-container>
           </div>
         `;
-          const view = createTestCmp(MyComp0, template);
-          const q = view.debugElement.children[0].references !['q'];
-          view.componentInstance.shouldShow = true;
-          view.detectChanges();
+      const view = createTestCmp(MyComp0, template);
+      const q = view.debugElement.children[0].references !['q'];
+      view.componentInstance.shouldShow = true;
+      view.detectChanges();
 
-          expect(q.query.length).toBe(1);
+      expect(q.query.length).toBe(1);
 
-          view.componentInstance.shouldShow = false;
-          view.detectChanges();
-          expect(q.query.length).toBe(0);
-        });
+      view.componentInstance.shouldShow = false;
+      view.detectChanges();
+
+      expect(q.query.length).toBe(0);
+    });
 
     modifiedInIvy('https://github.com/angular/angular/issues/15117 fixed in ivy')
         .it('should not throw if a content template is queried and created in the view during change detection',

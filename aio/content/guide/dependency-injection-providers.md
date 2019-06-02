@@ -11,22 +11,22 @@ that it injects into components, directives, pipes, and other services.
 依赖[提供商](guide/glossary#provider)会使用 [DI 令牌](guide/glossary#di-token)来配置注入器，注入器会用它来提供这个依赖值的具体的、运行时版本。
 注入器依靠 "提供商配置" 来创建依赖的实例，并把该实例注入到组件、指令、管道和其它服务中。
 
-You must configure an injector with a provider, or it won't know how to create the dependency.  
-The most obvious way for an injector to create an instance of a service class is with the class itself. 
-If you specify the service class itself as the provider token, the default behavior is for the injector to instantiate that class with `new`. 
+You must configure an injector with a provider, or it won't know how to create the dependency.
+The most obvious way for an injector to create an instance of a service class is with the class itself.
+If you specify the service class itself as the provider token, the default behavior is for the injector to instantiate that class with `new`.
 
 你必须使用提供商来配置注入器，否则注入器就无法知道如何创建此依赖。
 注入器创建服务实例的最简单方法，就是用这个服务类本身来创建它。
 如果你把服务类作为此服务的 DI 令牌，注入器的默认行为就是 `new` 出这个类实例。
 
-In the following typical example, the `Logger` class itself provides a `Logger` instance. 
+In the following typical example, the `Logger` class itself provides a `Logger` instance.
 
 在下面这个典型的例子中，`Logger` 类自身提供了 `Logger` 的实例。
 
 <code-example path="dependency-injection/src/app/providers.component.ts" region="providers-logger">
 </code-example>
 
-You can, however, configure an injector with an alternative provider, 
+You can, however, configure an injector with an alternative provider,
 in order to deliver some other object that provides the needed logging functionality.
 For instance:
 
@@ -73,10 +73,10 @@ that serves as the key for both locating a dependency value and configuring the 
 
   `provide` 属性存有[令牌](guide/dependency-injection#token)，它作为一个 key ，在定位依赖值和配置注入器时使用。
 
-* The second property is a provider definition object, which tells the injector how to create the dependency value. 
+* The second property is a provider definition object, which tells the injector how to create the dependency value.
 The provider-definition key can be `useClass`, as in the example.
 It can also be `useExisting`, `useValue`, or `useFactory`.
-Each of these keys provides a different type of dependency, as discussed below. 
+Each of these keys provides a different type of dependency, as discussed below.
 
   第二个属性是一个提供商定义对象，它告诉注入器要如何创建依赖值。
   提供商定义对象中的 key 可以是 `useClass` —— 就像这个例子中一样。
@@ -132,7 +132,7 @@ The injector needs providers for both this new logging service and its dependent
 
 Suppose an old component depends upon the `OldLogger` class.
 `OldLogger` has the same interface as `NewLogger`, but for some reason
-you can't update the old component to use it. 
+you can't update the old component to use it.
 
 假设老的组件依赖于 `OldLogger` 类。`OldLogger` 和 `NewLogger` 的接口相同，但是由于某种原因，我们没法修改老的组件来使用 `NewLogger`。
 
@@ -146,7 +146,7 @@ when a component asks for either the new or the old logger.
 在这种情况下，无论某个组件请求老的 logger 还是新的 logger，依赖注入器都应该注入这个 `NewLogger` 的单例。
 也就是说 `OldLogger` 应该是 `NewLogger` 的*别名*。
 
-If you try to alias `OldLogger` to `NewLogger` with `useClass`, you end up with two different `NewLogger` instances in your app. 
+If you try to alias `OldLogger` to `NewLogger` with `useClass`, you end up with two different `NewLogger` instances in your app.
 
 如果你试图用 `useClass` 为 `OldLogger` 指定一个别名 `NewLogger`，就会在应用中得到 `NewLogger` 的两个不同的实例。
 
@@ -166,8 +166,8 @@ To make sure there is only one instance of `NewLogger`, alias `OldLogger` with t
 
 ## 值提供商
 
-Sometimes it's easier to provide a ready-made object rather than ask the injector to create it from a class. 
-To inject an object you have already created, 
+Sometimes it's easier to provide a ready-made object rather than ask the injector to create it from a class.
+To inject an object you have already created,
 configure the injector with the `useValue` option
 
 有时候，提供一个现成的对象会比要求注入器从类去创建更简单一些。
@@ -217,9 +217,9 @@ They can be object literals, as shown in the following example.
 
 **TypeScript 接口不是有效的令牌**
 
-The `HERO_DI_CONFIG` constant conforms to the `AppConfig` interface. 
+The `HERO_DI_CONFIG` constant conforms to the `AppConfig` interface.
 Unfortunately, you cannot use a TypeScript interface as a token.
-In TypeScript, an interface is a design-time artifact, and doesn't have a runtime representation (token) that the DI framework can use. 
+In TypeScript, an interface is a design-time artifact, and doesn't have a runtime representation (token) that the DI framework can use.
 
 `HERO_DI_CONFIG` 常量满足 `AppConfig` 接口的要求。
 不幸的是，你不能用 TypeScript 的接口作为令牌。
@@ -298,7 +298,7 @@ it supports typing of the configuration object within the class.
 ## 工厂提供商
 
 Sometimes you need to create a dependent value dynamically,
-based on information you won't have until run time. 
+based on information you won't have until run time.
 For example, you might need information that changes repeatedly in the course of the browser session.
 Also, your injectable service might not have independent access to the source of the information.
 
@@ -372,7 +372,7 @@ The injector resolves these tokens and injects the corresponding services into t
 
 Notice that you captured the factory provider in an exported variable, `heroServiceProvider`.
 This extra step makes the factory provider reusable.
-You can configure a provider of `HeroService` with this variable wherever you need it. 
+You can configure a provider of `HeroService` with this variable wherever you need it.
 In this sample, you need it only in `HeroesComponent`,
 where `heroServiceProvider` replaces `HeroService` in the metadata `providers` array.
 
@@ -399,12 +399,12 @@ The following shows the new and the old implementations side-by-side.
 
 ## 预定义令牌与多提供商
 
-Angular provides a number of built-in injection-token constants that you can use to customize the behavior of 
-various systems. 
+Angular provides a number of built-in injection-token constants that you can use to customize the behavior of
+various systems.
 
 Angular 提供了一些内置的注入令牌常量，你可以用它们来自定义系统的多种行为。
 
-For example, you can use the following built-in tokens as hooks into the framework’s bootstrapping and initialization process.  
+For example, you can use the following built-in tokens as hooks into the framework’s bootstrapping and initialization process.
 A provider object can associate any of these injection tokens with one or more callback functions that take app-specific initialization actions.
 
 比如，你可以使用下列内置令牌来切入 Angular 框架的启动和初始化过程。
@@ -439,8 +439,8 @@ export const APP_TOKENS = [
 ];
 ```
 
-Multiple providers can be associated with a single token in other areas as well. 
-For example, you can register a custom form validator using the built-in [NG_VALIDATORS](api/forms/NG_VALIDATORS) token, 
+Multiple providers can be associated with a single token in other areas as well.
+For example, you can register a custom form validator using the built-in [NG_VALIDATORS](api/forms/NG_VALIDATORS) token,
 and provide multiple instances of a given validator provider by using the `multi: true` property in the provider object.
 Angular adds your custom validators to the existing collection.
 
@@ -448,7 +448,7 @@ Angular adds your custom validators to the existing collection.
 比如，你可以使用内置的 [NG_VALIDATORS](api/forms/NG_VALIDATORS) 令牌注册自定义表单验证器，还可以在提供商定义对象中使用 `multi: true` 属性来为指定的验证器令牌提供多个验证器实例。
 Angular 会把你的自定义验证器添加到现有验证器的集合中。
 
-The Router also makes use of multiple providers associated with a single token. 
+The Router also makes use of multiple providers associated with a single token.
 When you provide multiple sets of routes using [RouterModule.forRoot](api/router/RouterModule#forroot)
 and [RouterModule.forChild](api/router/RouterModule#forchild) in a single module,
 the [ROUTES](api/router/ROUTES) token combines all the different provided sets of routes into a single value.
@@ -458,7 +458,7 @@ the [ROUTES](api/router/ROUTES) token combines all the different provided sets o
 
 <div class="alert is-helpful">
 
-Search for [Constants in API documentation](api?type=const) to find more built-in tokens. 
+Search for [Constants in API documentation](api?type=const) to find more built-in tokens.
 
 搜索 [API 文档中的常量](api?type=const)以了解更多内置令牌。
 
@@ -471,9 +471,9 @@ Search for [Constants in API documentation](api?type=const) to find more built-i
 
 ## 可摇树优化的提供商
 
-Tree shaking refers to a compiler option that removes code from the final bundle if that code not referenced in an application.
+Tree shaking refers to a compiler option that removes code from the final bundle if the app doesn't reference that code.
 When providers are tree-shakable, the Angular compiler removes the associated
-services from the final output when it determines that they are not used in your application.
+services from the final output when it determines that your application doesn't use those services.
 This significantly reduces the size of your bundles.
 
 摇树优化是指一个编译器选项，意思是把应用中未引用过的代码从最终生成的包中移除。
@@ -482,12 +482,12 @@ This significantly reduces the size of your bundles.
 
 <div class="alert is-helpful">
 
-Ideally, if an application isn't injecting a service, it shouldn't be included in the final output. 
-However, Angular has to be able to identify at build time whether the service will be required or not. 
-Because it's always possible to inject a service directly using `injector.get(Service)`, 
-Angular can't identify all of the places in your code where this injection could happen, 
-so it has no choice but to include the service in the injector. 
-Thus, services provided at the NgModule or component level are not tree-shakable.
+Ideally, if an application isn't injecting a service, Angular shouldn't include it in the final output.
+However, Angular has to be able to identify at build time whether the app will require the service or not.
+Because it's always possible to inject a service directly using `injector.get(Service)`,
+Angular can't identify all of the places in your code where this injection could happen,
+so it has no choice but to include the service in the injector.
+Thus, services in the NgModule `providers` array or at component level are not tree-shakable.
 
 理想情况下，如果应用没有注入服务，它就不应该包含在最终输出中。
 不过，Angular 要能在构建期间识别出该服务是否需要。
@@ -502,9 +502,9 @@ The following example of non-tree-shakable providers in Angular configures a ser
 
 <code-example path="dependency-injection/src/app/tree-shaking/service-and-module.ts"  header="src/app/tree-shaking/service-and-modules.ts" linenums="false"> </code-example>
 
-This module can then be imported into your application module 
-to make the service available for injection in your app, 
-as shown in the following example.
+You can then import this module into your application module
+to make the service available for injection in your app,
+as in the following example.
 
 该模块以后可以导入到你的应用模块中，以便该服务可注入到你的应用中，例子如下。
 

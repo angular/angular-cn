@@ -169,7 +169,7 @@ configure it with the `routes` in one step by calling
 
 ## 添加路由出口 （_RouterOutlet_）
 
-Open the `AppComponent` template replace the `<app-heroes>` element with a `<router-outlet>` element.
+Open the `AppComponent` template and replace the `<app-heroes>` element with a `<router-outlet>` element.
 
 打开 `AppComponent` 的模板，把 `<app-heroes>` 元素替换为 `<router-outlet>` 元素。
 

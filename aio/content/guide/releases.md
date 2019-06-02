@@ -1,4 +1,4 @@
-# Angular versioning and releases
+# Angular Versioning and Releases 
 
 # Angular 的版本与发布
 
@@ -14,10 +14,6 @@ This document contains the practices that we follow to provide you with a leadin
 
 本文档包含一些我们所遵循的实践，它让我们能为你提供一个前沿的应用开发平台，同时兼顾稳定性。我们会努力确保将来的变化总是以一种可预期的方式引入。我们希望每个 Angular 用户都明白我们将在何时添加以及如何添加新特性，并且为那些将要移除的、准备废弃的特性提前做好准备。
 
-See [Updating your projects](guide/updating "Updating your projects") for information about how to update your apps and libraries to the latest version of Angular.
-
-参见[更新你的项目](guide/updating "Updating your projects")，以了解如何把你的应用和库更新到 Angular 的最新版本。
-
 <div class="alert is-helpful">
 
 The practices described in this document apply to Angular 2.0 and later. If you are currently using AngularJS, see [Upgrading from AngularJS](guide/upgrade "Upgrading from Angular JS"). _AngularJS_ is the name for all v1.x versions of Angular.
@@ -26,8 +22,7 @@ The practices described in this document apply to Angular 2.0 and later. If you 
 
 </div>
 
-{@a angular-versioning}
-
+{@a versioning}
 ## Angular versioning
 
 ## Angular 的版本
@@ -36,7 +31,7 @@ Angular version numbers indicate the level of changes that are introduced by the
 
 Angular 的版本号表明本次发布中所引入的变更级别。它使用[语义化版本号](https://semver.org/ "Semantic Versioning Specification")来帮助你理解升级到新版本时的潜在影响。
 
-Angular version numbers have three parts: `major.minor.patch`. For example, version 5.2.9 indicates major version 5, minor version 2, and patch version 9. 
+Angular version numbers have three parts: `major.minor.patch`. For example, version 7.2.11 indicates major version 7, minor version 2, and patch level 11. 
 
 Angular 的版本号包括三个部分：`major.minor.patch`。比如，版本 5.2.9 表示主版本号是 5，小版本号是 2，补丁版本号是 9。
 
@@ -44,29 +39,58 @@ The version number is incremented based on the level of change included in the r
 
 版本号是根据本次发布中包含的变更的级别进行递增的。
 
-* Major releases contain significant new features, some but minimal developer assistance is expected during the update. When updating to a new major release, you may need to run update scripts, refactor code, run additional tests, and learn new APIs. 
+* **Major releases** contain significant new features, some but minimal developer assistance is expected during the update. When updating to a new major release, you may need to run update scripts, refactor code, run additional tests, and learn new APIs. 
+
+
+* **Minor releases** contain new smaller features. Minor releases are fully backward-compatible; no developer assistance is expected during update, but you can optionally modify your apps and libraries to begin using new APIs, features, and capabilities that were added in the release. We update peer dependencies in minor versions by expanding the supported versions, but we do not require projects to update these dependencies. 
+
+
+* **Patch releases** are low risk, bug fix releases. No developer assistance is expected during update.
+
+
+{@a updating}
+### Supported update paths
+
+In alignment with the versioning scheme described above, we commit to support the following update paths:
 
    主版本包含重要的新特性，其中的部分特性在升级时会需要由开发人员提供少量的协助才能完成。当升级到新的主版本时，你可能需要运行升级脚本、重构代码、运行其它测试以及学习新的 API。
 
-* Minor releases contain new smaller features. Minor releases are fully backward-compatible; no developer assistance is expected during update, but you can optionally modify your apps and libraries to begin using new APIs, features, and capabilities that were added in the release. We update peer dependencies in minor versions by expanding the supported versions, but we do not require projects to update these dependencies. 
+* If you are updating within the **same major version,** then you can skip any intermediate versions and update directly to the targeted version. For example, you can update directly from 7.0.0 to 7.2.11.
 
    小版本包含新的小型特性。小版本是完全向后兼容的，在升级期间，不需要开发人员提供协助，但是你可以（可选的）修改你的应用和库，来使用本次发布中新增的 API、特性和能力。我们会扩展库同级（peer dependency）中的小版本号范围来更新库同级，但并不需要你的项目也更新那些依赖。
 
-* Patch releases are low risk, bug fix releases. No developer assistance is expected during update.
+* If you are updating from **one major version to another,** then we recommend that you **don't skip major versions.** Follow the instructions to incrementally update to the next major version, testing and validating at each step. For example, if you want to update from version 6.x.x to version 8.x.x, we recommend that you update to the latest 7.x.x release first. After successfully updating to 7.x.x, you can then update to 8.x.x. 
 
-   补丁版本是风险最低的、修 BUG 的版本。在升级期间完全不需要开发人员的协助。
+如果你要从一个主版本升级到另一个主版本，那么我们建议你不要跳过主版本。要遵循本升级指南，依次升级到下一个主版本，在每一个步骤做完后都测试并验证一下。比如，如果你要从 6.x.x 升级到 8.x.x，我们建议你先升级到 7.x.x 中的最新版。在成功升级到 7.x.x 后，你就可以升级到 8.x.x 了。
 
-If you are updating within the same major version, then you can skip any intermediate versions and update directly to the targeted version. For example, if you want to update from 5.0.0 to 5.2.9, then you can update directly; you do not need to update from 5.0.0 to 5.1.0 before updating to 5.2.9. 
+See [Keeping Up-to-Date](guide/updating "Updating your projects") for more information about updating your Angular projects to the most recent version. 
 
-如果你正在同一个主版本内进行升级，那么你可以跳过任何中间版本，直接升级到目标版本。比如，如果你想从 5.0.0 升级到 5.2.9，那么你可以直接升级，而不用先升级到 5.1.0 再升级到 5.2.9。
+参见[保持更新](guide/updating "Updating your projects")以了解把 Angular 项目升级到最新版本的更多信息。
 
-If you are updating from one major version to another, then we recommend that you don't skip major versions. Follow the instructions to incrementally update to the next major version, testing and validating at each step. For example, if you want to update from version 4.x.x to version 6.x.x, we recommend that you update to the latest 5.x.x release first. After successfully updating to 5.x.x, you can then update to 6.x.x. 
+{@a previews}
+### Preview releases
 
-如果你要从一个主版本升级到另一个，那么我们建议你不要跳过主版本。要遵循升级指南，逐次升级到下一个主版本，在每一个步骤做完后都测试并验证一下。比如，如果你要从 4.x.x 升级到 6.x.x，我们建议你先升级到 5.x.x 中的最新版。在成功升级到 5.x.x 后，你就可以升级到 6.x.x 了。
+### 预览发布
 
-Pre-release previews&mdash;such as Beta and Release Candidate versions&mdash;are indicated by appending a dash and a beta or rc identifier, such as version 5.2.9-rc.3.
+We let you preview what's coming by providing Beta releases and Release Candidates (`rc`) for each major and minor release: 
 
-预发布的预览版（比如 Beta 和 RC 版本）会在版本号后面跟一个横线，再跟一个 beta 或 rc 标识，比如 5.2.9-rc.3。
+我们还会通过提供 Beta 版和 RC（候选发布）版来让你预览每个即将到来的大版本和小版本。
+
+<!-- 
+* **Next:** The release that is under active development. The next release is indicated by a release tag appended with the  `next` identifier, such as  `8.1.0-next.0`. For the next version of the documentation, see [next.angular.io](https://next.angular.io). 
+-->
+
+* **Beta:** A release that is under active development and testing. A Beta release is indicated by a release tag appended with the  `beta` identifier, such as  `8.0.0-beta.0`. 
+
+  **Beta**：一个仍然在开发和测试中的版本。Beta 版的发布标签带有 `beta` 标志，比如 `8.0.0-beta.0`。
+
+* **Release candidate:** A release that is feature complete and in final testing. A release candidate is indicated by a release tag appended with the `rc` identifier, such as version `8.1.0-rc`.
+
+  **RC 版**：一个特性已经完成，正在进行最终测试的版本。RC 版的发布标签带有 `rc` 标志，比如 `8.1.0-rc`。
+
+The next version of the documentation is available at [next.angular.io](https://next.angular.io). This includes any documentation for Beta or Release Candidate features and APIs. 
+
+下一个版本的文档位于 [next.angular.io](https://next.angular.io)。其中包括 Beta 或 RC 中的特性和 API。
 
 {@a frequency}
 
@@ -94,13 +118,9 @@ In general, you can expect the following release cycle:
 
    差不多每周一个补丁版本
 
-We bake quality into our releases&mdash;and let you preview what's coming next&mdash;by providing Beta releases and release candidates (RCs) for each major and minor release.
+This cadence of releases gives you access to new features as soon as they are ready, while maintaining the stability and reliability of the platform for production users.
 
-我们会通过为每个主版本和小版本提供 Beta 发布和 RC 发布，来提高这些发布的质量，并且让你可以预览未来的特性。
-
-This cadence of releases gives you access to new beta features as soon as they are ready, while maintaining the stability and reliability of the platform for production users.
-
-这种发布节奏可以让你可以通过 beta 版提前使用新特性，同时，为生产环境下的用户维护本平台的稳定性和可靠性。
+这种发布节奏能让你尽快用上已就绪的新特性，同时，为生产环境下的用户维护本平台的稳定性和可靠性。
 
 {@a schedule}
 
@@ -123,14 +143,14 @@ The following table contains our current target release dates for the next two m
 Date | Stable Release | Compatibility
  ---------------------- | -------------- | -------------
 日期 | 稳定版 | 兼容性
- March/April 2019       | 8.0.0          | ^7.0.0
- 2019年3~4月       | 8.0.0          | ^7.0.0
- September/October 2019 | 9.0.0          | ^8.0.0
- 2019年9~10月 | 9.0.0          | ^8.0.0
+ 2019 年 5 月          | 8.0.0          | ^7.0.0
+ 2019 年 10/11 月  | 9.0.0          | ^8.0.0
 
  Compatibility note: The primary goal of the backward compatibility promise is to ensure that changes in the core framework and tooling don't break the existing ecosystem of components and applications and don't put undue upgrade/migration burden on Angular application and component authors.
 
 兼容性说明：向后兼容性承诺的主要目标是确保在核心框架和核心工具中的变化不会破坏现有组件和应用的生态系统，并且不要给 Angular 应用和组件的开发者带来额外的升级/迁移负担。
+
+
 
 {@a lts}
 {@a support}
@@ -146,27 +166,25 @@ All of our major releases are supported for 18 months.
 
    6 个月的*活跃支持*，在此期间我们会定期发布更新和补丁
 
-* 12 months of *long-term support (LTS)*, during which only critical fixes and security patches are released.
+* 12 months of *long-term support (LTS)*, during which only critical fixes and security patches are released. 
 
    12 个月的*长期支持（LTS）*，在 LTS 期间，只会发布关键性修复和安全补丁。
 
-The following table provides the support status and key dates for Angular version 5.0.0 and higher. 
+The following table provides the status for Angular versions under support. 
 
 下表中提供了 Angular 5.0.0 以上的支持状态和一些关键时间点。
 
 Version | Status | Released     | Active Ends  | LTS Ends
 ------- | ------ | ------------ | ------------ | ------------ 
 版本 | 状态 | 发布     | 停止活动  | LTS 结束
-^7.0.0  | Active | Oct 18, 2018 | Apr 18, 2019 | Apr 18, 2020
+^8.0.0  | Active | May 22, 2019 | Nov 22, 2019 | Nov 22, 2020
+^7.0.0  | LTS    | Oct 18, 2018 | Apr 18, 2019 | Apr 18, 2020
 ^7.0.0  | 活动 | 2018年10月18日 | 2019年4月18日 | 2020年4月18日
 ^6.0.0  | LTS    | May 3, 2018  | Nov 3, 2018  | Nov 3, 2019
-^6.0.0  | LTS    | 2018年5月3日  | 2018年11月3日  | 2019年11月3日
-^5.0.0  | LTS    | Nov 1, 2017  | May 1, 2018  | May 1, 2019
-^5.0.0  | LTS    | 2017年11月1日  | 2018年5月1日  | 2019年5月1日
 
-LTS for Angular version ^4.0.0 ended on September 23, 2018.
+Angular versions ^4.0.0 and ^5.0.0 are no longer under support. 
 
-Angular ^4.0.0 版本的 LTS 支持将结束于 2018-09-23。
+不再为 ^4.0.0 和 ^5.0.0 版提供支持。
 
 {@a deprecation}
 
@@ -178,7 +196,7 @@ Sometimes &quot;breaking changes&quot;, such as the removal of support for selec
 
 "破坏性变更"（比如移除特定的 API 和特性）有时候是必须的，比如创新、让最佳实践与时俱进、变更依赖关系甚至来自 Web 平台自身的变化。
 
-To make these transitions as easy as possible, we make two commitments to you:
+To make these transitions as easy as possible, we make these commitments to you:
 
 要让这些转变尽可能的简单，我们会给你两项保证：
 
@@ -194,25 +212,18 @@ To help ensure that you have sufficient time and a clear path to update, this is
 
 为了保证你能有充足的时间和清晰的路径进行升级，我们制定了如下弃用策略：
 
-* We announce deprecated features in the [change log](https://github.com/angular/angular/blob/master/CHANGELOG.md "Angular change log").
+* **Announcement:** We announce deprecated APIs and features in the [change log](https://github.com/angular/angular/blob/master/CHANGELOG.md "Angular change log"). Deprecated APIs appear in the [documentation](api?status=deprecated) with ~~strikethrough.~~ When we announce a deprecation, we also announce a recommended update path. For convenience,  [Deprecations](guide/deprecations) contains a summary of deprecated APIs and features. 
 
-   当在[变更记录](https://github.com/angular/angular/blob/master/CHANGELOG.md "Angular change log")中宣布了准备弃用的特性时。
+  ** 宣布弃用：** 我们会在[变更记录](https://github.com/angular/angular/blob/master/CHANGELOG.md "Angular change log")中宣布要弃用的那些 API 和特性。启用的 API 在[文档](api?status=deprecated)中会显示成带~~删除线~~的样式。当我们宣布一项弃用时，我们还会宣布一个建议的升级路径。为便于查找，我们在[弃用列表](guide/deprecations)中包含一个关于弃用 API 和特性的汇总表。
 
-* When we announce a deprecation, we also announce a recommended update path.
+* **Deprecation period:** When an API or a feature is deprecated, it will still be present in the [next two major releases](#schedule). After that, deprecated APIs and features will be candidates for removal. A deprecation can be announced in any release, but the removal of a deprecated API or feature will happen only in major release. Until a deprecated API or feature is removed, it will be maintained according to the LTS support policy, meaning that only critical and security issues will be fixed. 
 
-   当我们宣布一项弃用时，我们也会同时宣布建议的升级路径。
+  **弃用阶段：** 当 API 或特性已弃用时，它在[接下来的两个主版本](#schedule)中仍然会存在。再往后，弃用的 API 和特性将会进入候选弃用状态。可能会在任何一次发布中宣布弃用，但是只会在主版本中移除已弃用的 API 或特性。除非已弃用的 API 或特性已被移除，否则我们仍然会根据 LTS 支持策略来维护它，也就是说，只会修复严重问题和安全问题。
 
-* We support existing use of a stable API during the deprecation period, so  your code will keep working during that period. 
+* **npm dependencies:** We only make npm dependency updates that require changes to your apps in a major release. 
+In minor releases, we update peer dependencies by expanding the supported versions, but we do not require projects to update these dependencies until a future major version. This means that during minor Angular releases, npm dependency updates within Angular applications and libraries are optional.
 
-   我们会在弃用期间支持使用现有的稳定 API，所以在此期间你的代码仍然能正常工作。
-
-* We support each deprecated API for at least two subsequent major releases, which means at least 12 months after deprecation.
-
-   我们会支持每个弃用的 API 至少连续两个主版本，这意味着在弃用之前至少有 12 个月的时间。
-
-* We only make peer dependency updates that require changes to your apps in a major release. In minor releases, we update peer dependencies by expanding the supported versions, but we do not require projects to update these dependencies until a future major version. 
-
-   我们只会在主版本中更新你的应用所需的库同级。在小版本中，我们通过扩展支持的版本来升级库同级。但是我们不需要项目也更新这些依赖 —— 直到下一个主版本为止。
+  **npm 依赖：** 在主版本中，我们只会更新那些需要修改你的应用的那些 npm 依赖项。在次要版本中，我们会通过扩展受支持版本范围的方式来更新对等依赖（peerDependencies），但在下一个主版本到来之前，不会强制要求你升级它们。这意味着，在次要版本中，Angular 应用和库中，npm 依赖项的更新是可选的。
 
 {@a public-api}
 

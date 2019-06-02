@@ -8,11 +8,10 @@
 
 import {NgForOfContext} from '@angular/common';
 
-import {AttributeMarker, defineComponent, element, getCurrentView, templateRefExtractor} from '../../src/render3/index';
-
-import {bind, template, elementEnd, elementProperty, elementStart, interpolation1, interpolation2, interpolation3, interpolationV, listener, load, nextContext, text, textBinding, elementContainerStart, elementContainerEnd, reference} from '../../src/render3/instructions';
+import {AttributeMarker, ɵɵdefineComponent, ɵɵelement, ɵɵgetCurrentView, ɵɵtemplateRefExtractor} from '../../src/render3/index';
+import {ɵɵbind, ɵɵelementContainerEnd, ɵɵelementContainerStart, ɵɵelementEnd, ɵɵelementProperty, ɵɵelementStart, ɵɵinterpolation1, ɵɵinterpolation2, ɵɵinterpolation3, ɵɵinterpolationV, ɵɵlistener, ɵɵload, ɵɵnextContext, ɵɵreference, ɵɵtemplate, ɵɵtext, ɵɵtextBinding} from '../../src/render3/instructions/all';
 import {RenderFlags} from '../../src/render3/interfaces/definition';
-import {restoreView} from '../../src/render3/state';
+import {ɵɵrestoreView} from '../../src/render3/state';
 
 import {NgForOf, NgIf, NgTemplateOutlet} from './common_with_def';
 import {ComponentFixture, createDirective, getDirectiveOnNode} from './render_util';
@@ -23,20 +22,20 @@ describe('@angular/common integration', () => {
     it('should update a loop', () => {
       function liTemplate(rf: RenderFlags, ctx: NgForOfContext<string>) {
         if (rf & RenderFlags.Create) {
-          elementStart(0, 'li');
-          { text(1); }
-          elementEnd();
+          ɵɵelementStart(0, 'li');
+          { ɵɵtext(1); }
+          ɵɵelementEnd();
         }
         if (rf & RenderFlags.Update) {
           const item = ctx.$implicit;
-          textBinding(1, bind(item));
+          ɵɵtextBinding(1, ɵɵbind(item));
         }
       }
 
       class MyApp {
         items: string[] = ['first', 'second'];
 
-        static ngComponentDef = defineComponent({
+        static ngComponentDef = ɵɵdefineComponent({
           type: MyApp,
           factory: () => new MyApp(),
           selectors: [['my-app']],
@@ -47,12 +46,15 @@ describe('@angular/common integration', () => {
           // </ul>
           template: (rf: RenderFlags, ctx: MyApp) => {
             if (rf & RenderFlags.Create) {
-              elementStart(0, 'ul');
-              { template(1, liTemplate, 2, 1, 'li', ['ngForOf', '']); }
-              elementEnd();
+              ɵɵelementStart(0, 'ul');
+              {
+                ɵɵtemplate(
+                    1, liTemplate, 2, 1, 'li', [AttributeMarker.Template, 'ngFor', 'ngForOf']);
+              }
+              ɵɵelementEnd();
             }
             if (rf & RenderFlags.Update) {
-              elementProperty(1, 'ngForOf', bind(ctx.items));
+              ɵɵelementProperty(1, 'ngForOf', ɵɵbind(ctx.items));
             }
           },
           directives: () => [NgForOf]
@@ -85,20 +87,20 @@ describe('@angular/common integration', () => {
     it('should support ngForOf context variables', () => {
       function liTemplate(rf: RenderFlags, ctx: NgForOfContext<string>) {
         if (rf & RenderFlags.Create) {
-          elementStart(0, 'li');
-          { text(1); }
-          elementEnd();
+          ɵɵelementStart(0, 'li');
+          { ɵɵtext(1); }
+          ɵɵelementEnd();
         }
         if (rf & RenderFlags.Update) {
           const item = ctx.$implicit;
-          textBinding(1, interpolation3('', ctx.index, ' of ', ctx.count, ': ', item, ''));
+          ɵɵtextBinding(1, ɵɵinterpolation3('', ctx.index, ' of ', ctx.count, ': ', item, ''));
         }
       }
 
       class MyApp {
         items: string[] = ['first', 'second'];
 
-        static ngComponentDef = defineComponent({
+        static ngComponentDef = ɵɵdefineComponent({
           type: MyApp,
           factory: () => new MyApp(),
           selectors: [['my-app']],
@@ -110,12 +112,15 @@ describe('@angular/common integration', () => {
           // </ul>
           template: (rf: RenderFlags, ctx: MyApp) => {
             if (rf & RenderFlags.Create) {
-              elementStart(0, 'ul');
-              { template(1, liTemplate, 2, 3, 'li', ['ngForOf', '']); }
-              elementEnd();
+              ɵɵelementStart(0, 'ul');
+              {
+                ɵɵtemplate(
+                    1, liTemplate, 2, 3, 'li', [AttributeMarker.Template, 'ngFor', 'ngForOf']);
+              }
+              ɵɵelementEnd();
             }
             if (rf & RenderFlags.Update) {
-              elementProperty(1, 'ngForOf', bind(ctx.items));
+              ɵɵelementProperty(1, 'ngForOf', ɵɵbind(ctx.items));
             }
 
           },
@@ -138,7 +143,7 @@ describe('@angular/common integration', () => {
       const Dir = createDirective('dir');
 
       class Comp {
-        static ngComponentDef = defineComponent({
+        static ngComponentDef = ɵɵdefineComponent({
           type: Comp,
           selectors: [['comp']],
           factory: () => new Comp(),
@@ -146,9 +151,9 @@ describe('@angular/common integration', () => {
           vars: 0,
           template: (rf: RenderFlags, cmp: Comp) => {
             if (rf & RenderFlags.Create) {
-              elementStart(0, 'div', ['dir', '']);
-              { text(1, 'comp text'); }
-              elementEnd();
+              ɵɵelementStart(0, 'div', ['dir', '']);
+              { ɵɵtext(1, 'comp text'); }
+              ɵɵelementEnd();
               // testing only
               dirs.push(getDirectiveOnNode(0));
             }
@@ -159,7 +164,7 @@ describe('@angular/common integration', () => {
 
       function ngForTemplate(rf: RenderFlags, ctx: NgForOfContext<string>) {
         if (rf & RenderFlags.Create) {
-          element(0, 'comp');
+          ɵɵelement(0, 'comp');
         }
       }
 
@@ -167,7 +172,7 @@ describe('@angular/common integration', () => {
       class MyApp {
         rows: string[] = ['first', 'second'];
 
-        static ngComponentDef = defineComponent({
+        static ngComponentDef = ɵɵdefineComponent({
           type: MyApp,
           factory: () => new MyApp(),
           selectors: [['my-app']],
@@ -175,10 +180,11 @@ describe('@angular/common integration', () => {
           vars: 1,
           template: (rf: RenderFlags, ctx: MyApp) => {
             if (rf & RenderFlags.Create) {
-              template(0, ngForTemplate, 1, 0, 'comp', ['ngForOf', '']);
+              ɵɵtemplate(
+                  0, ngForTemplate, 1, 0, 'comp', [AttributeMarker.Template, 'ngFor', 'ngForOf']);
             }
             if (rf & RenderFlags.Update) {
-              elementProperty(0, 'ngForOf', bind(ctx.rows));
+              ɵɵelementProperty(0, 'ngForOf', ɵɵbind(ctx.rows));
             }
           },
           directives: () => [NgForOf, Comp, Dir]
@@ -206,13 +212,13 @@ describe('@angular/common integration', () => {
 
       function liTemplate(rf: RenderFlags, ctx: NgForOfContext<string>) {
         if (rf & RenderFlags.Create) {
-          elementStart(0, 'li');
-          { text(1); }
-          elementEnd();
+          ɵɵelementStart(0, 'li');
+          { ɵɵtext(1); }
+          ɵɵelementEnd();
         }
         if (rf & RenderFlags.Update) {
           const item = ctx.$implicit;
-          textBinding(1, interpolation1('', item, ''));
+          ɵɵtextBinding(1, ɵɵinterpolation1('', item, ''));
         }
       }
 
@@ -228,7 +234,7 @@ describe('@angular/common integration', () => {
           }
         }
 
-        static ngComponentDef = defineComponent({
+        static ngComponentDef = ɵɵdefineComponent({
           type: MyApp,
           factory: () => new MyApp(),
           selectors: [['my-app']],
@@ -240,18 +246,21 @@ describe('@angular/common integration', () => {
           // </ul>
           template: (rf: RenderFlags, ctx: MyApp) => {
             if (rf & RenderFlags.Create) {
-              elementStart(0, 'button');
+              ɵɵelementStart(0, 'button');
               {
-                listener('click', function() { return ctx.toggle(); });
-                text(1, 'Toggle List');
+                ɵɵlistener('click', function() { return ctx.toggle(); });
+                ɵɵtext(1, 'Toggle List');
               }
-              elementEnd();
-              elementStart(2, 'ul');
-              { template(3, liTemplate, 2, 1, 'li', ['ngForOf', '']); }
-              elementEnd();
+              ɵɵelementEnd();
+              ɵɵelementStart(2, 'ul');
+              {
+                ɵɵtemplate(
+                    3, liTemplate, 2, 1, 'li', [AttributeMarker.Template, 'ngFor', 'ngForOf']);
+              }
+              ɵɵelementEnd();
             }
             if (rf & RenderFlags.Update) {
-              elementProperty(3, 'ngForOf', bind(ctx.items));
+              ɵɵelementProperty(3, 'ngForOf', ɵɵbind(ctx.items));
             }
 
           },
@@ -293,7 +302,7 @@ describe('@angular/common integration', () => {
       class MyApp {
         items: any[] = [{data: ['1', '2'], value: 'first'}, {data: ['3', '4'], value: 'second'}];
 
-        static ngComponentDef = defineComponent({
+        static ngComponentDef = ɵɵdefineComponent({
           type: MyApp,
           factory: () => new MyApp(),
           selectors: [['my-app']],
@@ -301,12 +310,15 @@ describe('@angular/common integration', () => {
           vars: 1,
           template: (rf: RenderFlags, ctx: MyApp) => {
             if (rf & RenderFlags.Create) {
-              elementStart(0, 'ul');
-              { template(1, liTemplate, 2, 1, 'li', ['ngForOf', '']); }
-              elementEnd();
+              ɵɵelementStart(0, 'ul');
+              {
+                ɵɵtemplate(
+                    1, liTemplate, 2, 1, 'li', [AttributeMarker.Template, 'ngFor', 'ngForOf']);
+              }
+              ɵɵelementEnd();
             }
             if (rf & RenderFlags.Update) {
-              elementProperty(1, 'ngForOf', bind(ctx.items));
+              ɵɵelementProperty(1, 'ngForOf', ɵɵbind(ctx.items));
             }
 
           },
@@ -316,27 +328,31 @@ describe('@angular/common integration', () => {
 
       function liTemplate(rf: RenderFlags, ctx: any) {
         if (rf & RenderFlags.Create) {
-          elementStart(0, 'li');
-          { template(1, spanTemplate, 2, 3, 'span', ['ngForOf', '']); }
-          elementEnd();
+          ɵɵelementStart(0, 'li');
+          {
+            ɵɵtemplate(
+                1, spanTemplate, 2, 3, 'span', [AttributeMarker.Template, 'ngFor', 'ngForOf']);
+          }
+          ɵɵelementEnd();
         }
         if (rf & RenderFlags.Update) {
           const row = ctx.$implicit as any;
-          elementProperty(1, 'ngForOf', bind(row.data));
+          ɵɵelementProperty(1, 'ngForOf', ɵɵbind(row.data));
         }
       }
 
       function spanTemplate(rf: RenderFlags, ctx: any) {
         if (rf & RenderFlags.Create) {
-          elementStart(0, 'span');
-          { text(1); }
-          elementEnd();
+          ɵɵelementStart(0, 'span');
+          { ɵɵtext(1); }
+          ɵɵelementEnd();
         }
         if (rf & RenderFlags.Update) {
           const cell = ctx.$implicit;
-          const row = nextContext().$implicit as any;
-          const app = nextContext() as any;
-          textBinding(1, interpolation3('', cell, ' - ', row.value, ' - ', app.items.length, ''));
+          const row = ɵɵnextContext().$implicit as any;
+          const app = ɵɵnextContext() as any;
+          ɵɵtextBinding(
+              1, ɵɵinterpolation3('', cell, ' - ', row.value, ' - ', app.items.length, ''));
         }
       }
 
@@ -384,7 +400,7 @@ describe('@angular/common integration', () => {
 
         onClick(value: string, name: string) { this.events.push(value, name); }
 
-        static ngComponentDef = defineComponent({
+        static ngComponentDef = ɵɵdefineComponent({
           type: MyApp,
           factory: () => new MyApp(),
           selectors: [['my-app']],
@@ -392,10 +408,11 @@ describe('@angular/common integration', () => {
           vars: 1,
           template: (rf: RenderFlags, ctx: MyApp) => {
             if (rf & RenderFlags.Create) {
-              template(0, divTemplate, 2, 1, 'div', ['ngForOf', '']);
+              ɵɵtemplate(
+                  0, divTemplate, 2, 1, 'div', [AttributeMarker.Template, 'ngFor', 'ngForOf']);
             }
             if (rf & RenderFlags.Update) {
-              elementProperty(0, 'ngForOf', bind(ctx.items));
+              ɵɵelementProperty(0, 'ngForOf', ɵɵbind(ctx.items));
             }
 
           },
@@ -405,39 +422,39 @@ describe('@angular/common integration', () => {
 
       function divTemplate(rf: RenderFlags, ctx: any) {
         if (rf & RenderFlags.Create) {
-          elementStart(0, 'div');
-          { template(1, pTemplate, 3, 2, 'p', ['ngForOf', '']); }
-          elementEnd();
+          ɵɵelementStart(0, 'div');
+          { ɵɵtemplate(1, pTemplate, 3, 2, 'p', [AttributeMarker.Template, 'ngFor', 'ngForOf']); }
+          ɵɵelementEnd();
         }
         if (rf & RenderFlags.Update) {
           const row = ctx.$implicit as any;
-          elementProperty(1, 'ngForOf', bind(row.data));
+          ɵɵelementProperty(1, 'ngForOf', ɵɵbind(row.data));
         }
       }
 
       function pTemplate(rf: RenderFlags, ctx: any) {
         if (rf & RenderFlags.Create) {
-          const state = getCurrentView();
-          elementStart(0, 'p');
+          const state = ɵɵgetCurrentView();
+          ɵɵelementStart(0, 'p');
           {
-            elementStart(1, 'span');
+            ɵɵelementStart(1, 'span');
             {
-              listener('click', () => {
-                restoreView(state);
-                const row = nextContext().$implicit as any;
-                const app = nextContext();
+              ɵɵlistener('click', () => {
+                ɵɵrestoreView(state);
+                const row = ɵɵnextContext().$implicit as any;
+                const app = ɵɵnextContext();
                 app.onClick(row.value, app.name);
               });
             }
-            elementEnd();
-            text(2);
+            ɵɵelementEnd();
+            ɵɵtext(2);
           }
-          elementEnd();
+          ɵɵelementEnd();
         }
         if (rf & RenderFlags.Update) {
-          const row = nextContext().$implicit as any;
-          const app = nextContext() as any;
-          textBinding(2, interpolation2('', row.value, ' - ', app.name, ''));
+          const row = ɵɵnextContext().$implicit as any;
+          const app = ɵɵnextContext() as any;
+          ɵɵtextBinding(2, ɵɵinterpolation2('', row.value, ' - ', app.name, ''));
         }
       }
 
@@ -478,7 +495,7 @@ describe('@angular/common integration', () => {
           [{value: 'two', data: ['3', '4']}]
         ];
 
-        static ngComponentDef = defineComponent({
+        static ngComponentDef = ɵɵdefineComponent({
           type: MyApp,
           factory: () => new MyApp(),
           selectors: [['my-app']],
@@ -486,10 +503,11 @@ describe('@angular/common integration', () => {
           vars: 1,
           template: (rf: RenderFlags, ctx: MyApp) => {
             if (rf & RenderFlags.Create) {
-              template(0, divTemplate, 2, 1, 'div', ['ngForOf', '']);
+              ɵɵtemplate(
+                  0, divTemplate, 2, 1, 'div', [AttributeMarker.Template, 'ngFor', 'ngForOf']);
             }
             if (rf & RenderFlags.Update) {
-              elementProperty(0, 'ngForOf', bind(ctx.items));
+              ɵɵelementProperty(0, 'ngForOf', ɵɵbind(ctx.items));
             }
 
           },
@@ -499,38 +517,44 @@ describe('@angular/common integration', () => {
 
       function divTemplate(rf: RenderFlags, ctx: any) {
         if (rf & RenderFlags.Create) {
-          elementStart(0, 'div');
-          { template(1, innerDivTemplate, 2, 1, 'div', ['ngForOf', '']); }
-          elementEnd();
+          ɵɵelementStart(0, 'div');
+          {
+            ɵɵtemplate(
+                1, innerDivTemplate, 2, 1, 'div', [AttributeMarker.Template, 'ngFor', 'ngForOf']);
+          }
+          ɵɵelementEnd();
         }
         if (rf & RenderFlags.Update) {
           const row = ctx.$implicit as any;
-          elementProperty(1, 'ngForOf', bind(row));
+          ɵɵelementProperty(1, 'ngForOf', ɵɵbind(row));
         }
       }
 
       function innerDivTemplate(rf: RenderFlags, ctx: any) {
         if (rf & RenderFlags.Create) {
-          elementStart(0, 'div');
-          { template(1, spanTemplate, 2, 2, 'span', ['ngForOf', '']); }
-          elementEnd();
+          ɵɵelementStart(0, 'div');
+          {
+            ɵɵtemplate(
+                1, spanTemplate, 2, 2, 'span', [AttributeMarker.Template, 'ngFor', 'ngForOf']);
+          }
+          ɵɵelementEnd();
         }
         if (rf & RenderFlags.Update) {
           const cell = ctx.$implicit as any;
-          elementProperty(1, 'ngForOf', bind(cell.data));
+          ɵɵelementProperty(1, 'ngForOf', ɵɵbind(cell.data));
         }
       }
 
       function spanTemplate(rf: RenderFlags, ctx: any) {
         if (rf & RenderFlags.Create) {
-          elementStart(0, 'span');
-          { text(1); }
-          elementEnd();
+          ɵɵelementStart(0, 'span');
+          { ɵɵtext(1); }
+          ɵɵelementEnd();
         }
         if (rf & RenderFlags.Update) {
-          const cell = nextContext().$implicit as any;
-          const app = nextContext(2) as any;
-          textBinding(1, interpolation2('', cell.value, ' - ', app.name, ''));
+          const cell = ɵɵnextContext().$implicit as any;
+          const app = ɵɵnextContext(2) as any;
+          ɵɵtextBinding(1, ɵɵinterpolation2('', cell.value, ' - ', app.name, ''));
         }
       }
 
@@ -646,7 +670,7 @@ describe('@angular/common integration', () => {
           }
         ];
 
-        static ngComponentDef = defineComponent({
+        static ngComponentDef = ɵɵdefineComponent({
           type: MyApp,
           factory: () => new MyApp(),
           selectors: [['my-app']],
@@ -654,10 +678,11 @@ describe('@angular/common integration', () => {
           vars: 1,
           template: (rf: RenderFlags, ctx: MyApp) => {
             if (rf & RenderFlags.Create) {
-              template(0, itemTemplate0, 2, 1, 'span', ['ngForOf', '']);
+              ɵɵtemplate(
+                  0, itemTemplate0, 2, 1, 'span', [AttributeMarker.Template, 'ngFor', 'ngForOf']);
             }
             if (rf & RenderFlags.Update) {
-              elementProperty(0, 'ngForOf', bind(ctx.items));
+              ɵɵelementProperty(0, 'ngForOf', ɵɵbind(ctx.items));
             }
 
           },
@@ -667,123 +692,147 @@ describe('@angular/common integration', () => {
 
       function itemTemplate0(rf: RenderFlags, ctx: any) {
         if (rf & RenderFlags.Create) {
-          elementStart(0, 'span');
-          { template(1, itemTemplate1, 2, 1, 'span', ['ngForOf', '']); }
-          elementEnd();
+          ɵɵelementStart(0, 'span');
+          {
+            ɵɵtemplate(
+                1, itemTemplate1, 2, 1, 'span', [AttributeMarker.Template, 'ngFor', 'ngForOf']);
+          }
+          ɵɵelementEnd();
         }
         if (rf & RenderFlags.Update) {
           const item0 = ctx.$implicit as any;
-          elementProperty(1, 'ngForOf', bind(item0.data));
+          ɵɵelementProperty(1, 'ngForOf', ɵɵbind(item0.data));
         }
       }
 
       function itemTemplate1(rf: RenderFlags, ctx: any) {
         if (rf & RenderFlags.Create) {
-          elementStart(0, 'span');
-          { template(1, itemTemplate2, 2, 1, 'span', ['ngForOf', '']); }
-          elementEnd();
+          ɵɵelementStart(0, 'span');
+          {
+            ɵɵtemplate(
+                1, itemTemplate2, 2, 1, 'span', [AttributeMarker.Template, 'ngFor', 'ngForOf']);
+          }
+          ɵɵelementEnd();
         }
         if (rf & RenderFlags.Update) {
           const item1 = ctx.$implicit as any;
-          elementProperty(1, 'ngForOf', bind(item1.data));
+          ɵɵelementProperty(1, 'ngForOf', ɵɵbind(item1.data));
         }
       }
 
       function itemTemplate2(rf: RenderFlags, ctx: any) {
         if (rf & RenderFlags.Create) {
-          elementStart(0, 'span');
-          { template(1, itemTemplate3, 2, 1, 'span', ['ngForOf', '']); }
-          elementEnd();
+          ɵɵelementStart(0, 'span');
+          {
+            ɵɵtemplate(
+                1, itemTemplate3, 2, 1, 'span', [AttributeMarker.Template, 'ngFor', 'ngForOf']);
+          }
+          ɵɵelementEnd();
         }
         if (rf & RenderFlags.Update) {
           const item2 = ctx.$implicit as any;
-          elementProperty(1, 'ngForOf', bind(item2.data));
+          ɵɵelementProperty(1, 'ngForOf', ɵɵbind(item2.data));
         }
       }
 
       function itemTemplate3(rf: RenderFlags, ctx: any) {
         if (rf & RenderFlags.Create) {
-          elementStart(0, 'span');
-          { template(1, itemTemplate4, 2, 1, 'span', ['ngForOf', '']); }
-          elementEnd();
+          ɵɵelementStart(0, 'span');
+          {
+            ɵɵtemplate(
+                1, itemTemplate4, 2, 1, 'span', [AttributeMarker.Template, 'ngFor', 'ngForOf']);
+          }
+          ɵɵelementEnd();
         }
         if (rf & RenderFlags.Update) {
           const item3 = ctx.$implicit as any;
-          elementProperty(1, 'ngForOf', bind(item3.data));
+          ɵɵelementProperty(1, 'ngForOf', ɵɵbind(item3.data));
         }
       }
 
       function itemTemplate4(rf: RenderFlags, ctx: any) {
         if (rf & RenderFlags.Create) {
-          elementStart(0, 'span');
-          { template(1, itemTemplate5, 2, 1, 'span', ['ngForOf', '']); }
-          elementEnd();
+          ɵɵelementStart(0, 'span');
+          {
+            ɵɵtemplate(
+                1, itemTemplate5, 2, 1, 'span', [AttributeMarker.Template, 'ngFor', 'ngForOf']);
+          }
+          ɵɵelementEnd();
         }
         if (rf & RenderFlags.Update) {
           const item4 = ctx.$implicit as any;
-          elementProperty(1, 'ngForOf', bind(item4.data));
+          ɵɵelementProperty(1, 'ngForOf', ɵɵbind(item4.data));
         }
       }
 
       function itemTemplate5(rf: RenderFlags, ctx: any) {
         if (rf & RenderFlags.Create) {
-          elementStart(0, 'span');
-          { template(1, itemTemplate6, 2, 1, 'span', ['ngForOf', '']); }
-          elementEnd();
+          ɵɵelementStart(0, 'span');
+          {
+            ɵɵtemplate(
+                1, itemTemplate6, 2, 1, 'span', [AttributeMarker.Template, 'ngFor', 'ngForOf']);
+          }
+          ɵɵelementEnd();
         }
         if (rf & RenderFlags.Update) {
           const item5 = ctx.$implicit as any;
-          elementProperty(1, 'ngForOf', bind(item5.data));
+          ɵɵelementProperty(1, 'ngForOf', ɵɵbind(item5.data));
         }
       }
 
       function itemTemplate6(rf: RenderFlags, ctx: any) {
         if (rf & RenderFlags.Create) {
-          elementStart(0, 'span');
-          { template(1, itemTemplate7, 2, 1, 'span', ['ngForOf', '']); }
-          elementEnd();
+          ɵɵelementStart(0, 'span');
+          {
+            ɵɵtemplate(
+                1, itemTemplate7, 2, 1, 'span', [AttributeMarker.Template, 'ngFor', 'ngForOf']);
+          }
+          ɵɵelementEnd();
         }
         if (rf & RenderFlags.Update) {
           const item6 = ctx.$implicit as any;
-          elementProperty(1, 'ngForOf', bind(item6.data));
+          ɵɵelementProperty(1, 'ngForOf', ɵɵbind(item6.data));
         }
       }
 
       function itemTemplate7(rf: RenderFlags, ctx: any) {
         if (rf & RenderFlags.Create) {
-          elementStart(0, 'span');
-          { template(1, itemTemplate8, 2, 10, 'span', ['ngForOf', '']); }
-          elementEnd();
+          ɵɵelementStart(0, 'span');
+          {
+            ɵɵtemplate(
+                1, itemTemplate8, 2, 10, 'span', [AttributeMarker.Template, 'ngFor', 'ngForOf']);
+          }
+          ɵɵelementEnd();
         }
         if (rf & RenderFlags.Update) {
           const item7 = ctx.$implicit as any;
-          elementProperty(1, 'ngForOf', bind(item7.data));
+          ɵɵelementProperty(1, 'ngForOf', ɵɵbind(item7.data));
         }
       }
 
       function itemTemplate8(rf: RenderFlags, ctx: any) {
         if (rf & RenderFlags.Create) {
-          elementStart(0, 'span');
-          { text(1); }
-          elementEnd();
+          ɵɵelementStart(0, 'span');
+          { ɵɵtext(1); }
+          ɵɵelementEnd();
         }
 
         if (rf & RenderFlags.Update) {
           const value = ctx.$implicit;
-          const item7 = nextContext().$implicit;
-          const item6 = nextContext().$implicit;
-          const item5 = nextContext().$implicit;
-          const item4 = nextContext().$implicit;
-          const item3 = nextContext().$implicit;
-          const item2 = nextContext().$implicit;
-          const item1 = nextContext().$implicit;
-          const item0 = nextContext().$implicit;
-          const myApp = nextContext();
-          textBinding(1, interpolationV([
-                        '',  value,       '.', item7.value, '.', item6.value, '.', item5.value,
-                        '.', item4.value, '.', item3.value, '.', item2.value, '.', item1.value,
-                        '.', item0.value, '.', myApp.value, ''
-                      ]));
+          const item7 = ɵɵnextContext().$implicit;
+          const item6 = ɵɵnextContext().$implicit;
+          const item5 = ɵɵnextContext().$implicit;
+          const item4 = ɵɵnextContext().$implicit;
+          const item3 = ɵɵnextContext().$implicit;
+          const item2 = ɵɵnextContext().$implicit;
+          const item1 = ɵɵnextContext().$implicit;
+          const item0 = ɵɵnextContext().$implicit;
+          const myApp = ɵɵnextContext();
+          ɵɵtextBinding(1, ɵɵinterpolationV([
+                          '',  value,       '.', item7.value, '.', item6.value, '.', item5.value,
+                          '.', item4.value, '.', item3.value, '.', item2.value, '.', item1.value,
+                          '.', item0.value, '.', myApp.value, ''
+                        ]));
         }
       }
 
@@ -810,7 +859,7 @@ describe('@angular/common integration', () => {
         valueOne = 'one';
         valueTwo = 'two';
 
-        static ngComponentDef = defineComponent({
+        static ngComponentDef = ɵɵdefineComponent({
           type: MyApp,
           factory: () => new MyApp(),
           selectors: [['my-app']],
@@ -822,12 +871,12 @@ describe('@angular/common integration', () => {
            */
           template: (rf: RenderFlags, ctx: MyApp) => {
             if (rf & RenderFlags.Create) {
-              template(0, templateOne, 2, 1, 'div', ['ngIf', '']);
-              template(1, templateTwo, 2, 1, 'div', ['ngIf', '']);
+              ɵɵtemplate(0, templateOne, 2, 1, 'div', [AttributeMarker.Template, 'ngIf']);
+              ɵɵtemplate(1, templateTwo, 2, 1, 'div', [AttributeMarker.Template, 'ngIf']);
             }
             if (rf & RenderFlags.Update) {
-              elementProperty(0, 'ngIf', bind(ctx.showing));
-              elementProperty(1, 'ngIf', bind(ctx.showing));
+              ɵɵelementProperty(0, 'ngIf', ɵɵbind(ctx.showing));
+              ɵɵelementProperty(1, 'ngIf', ɵɵbind(ctx.showing));
             }
 
           },
@@ -837,25 +886,25 @@ describe('@angular/common integration', () => {
 
       function templateOne(rf: RenderFlags, ctx: any) {
         if (rf & RenderFlags.Create) {
-          elementStart(0, 'div');
-          { text(1); }
-          elementEnd();
+          ɵɵelementStart(0, 'div');
+          { ɵɵtext(1); }
+          ɵɵelementEnd();
         }
         if (rf & RenderFlags.Update) {
-          const myApp = nextContext();
-          textBinding(1, bind(myApp.valueOne));
+          const myApp = ɵɵnextContext();
+          ɵɵtextBinding(1, ɵɵbind(myApp.valueOne));
         }
       }
 
       function templateTwo(rf: RenderFlags, ctx: any) {
         if (rf & RenderFlags.Create) {
-          elementStart(0, 'div');
-          { text(1); }
-          elementEnd();
+          ɵɵelementStart(0, 'div');
+          { ɵɵtext(1); }
+          ɵɵelementEnd();
         }
         if (rf & RenderFlags.Update) {
-          const myApp = nextContext();
-          textBinding(1, bind(myApp.valueTwo));
+          const myApp = ɵɵnextContext();
+          ɵɵtextBinding(1, ɵɵbind(myApp.valueTwo));
         }
       }
 
@@ -884,7 +933,7 @@ describe('@angular/common integration', () => {
         innerShowing = true;
         name = 'App name';
 
-        static ngComponentDef = defineComponent({
+        static ngComponentDef = ɵɵdefineComponent({
           type: AppComponent,
           factory: () => new AppComponent(),
           selectors: [['my-app']],
@@ -892,10 +941,10 @@ describe('@angular/common integration', () => {
           vars: 1,
           template: (rf: RenderFlags, ctx: AppComponent) => {
             if (rf & RenderFlags.Create) {
-              template(0, divTemplate, 2, 1, 'div', ['ngIf', '']);
+              ɵɵtemplate(0, divTemplate, 2, 1, 'div', [AttributeMarker.Template, 'ngIf']);
             }
             if (rf & RenderFlags.Update) {
-              elementProperty(0, 'ngIf', bind(ctx.showing));
+              ɵɵelementProperty(0, 'ngIf', ɵɵbind(ctx.showing));
             }
 
           },
@@ -905,37 +954,37 @@ describe('@angular/common integration', () => {
 
       function divTemplate(rf: RenderFlags, ctx: any) {
         if (rf & RenderFlags.Create) {
-          elementStart(0, 'div');
-          { template(1, outerDivTemplate, 2, 1, 'div', ['ngIf', '']); }
-          elementEnd();
+          ɵɵelementStart(0, 'div');
+          { ɵɵtemplate(1, outerDivTemplate, 2, 1, 'div', [AttributeMarker.Template, 'ngIf']); }
+          ɵɵelementEnd();
         }
         if (rf & RenderFlags.Update) {
-          const app = nextContext();
-          elementProperty(1, 'ngIf', bind(app.outerShowing));
+          const app = ɵɵnextContext();
+          ɵɵelementProperty(1, 'ngIf', ɵɵbind(app.outerShowing));
         }
       }
 
       function outerDivTemplate(rf: RenderFlags, ctx: any) {
         if (rf & RenderFlags.Create) {
-          elementStart(0, 'div');
-          { template(1, innerDivTemplate, 2, 1, 'div', ['ngIf', '']); }
-          elementEnd();
+          ɵɵelementStart(0, 'div');
+          { ɵɵtemplate(1, innerDivTemplate, 2, 1, 'div', [AttributeMarker.Template, 'ngIf']); }
+          ɵɵelementEnd();
         }
         if (rf & RenderFlags.Update) {
-          const app = nextContext(2);
-          elementProperty(1, 'ngIf', bind(app.innerShowing));
+          const app = ɵɵnextContext(2);
+          ɵɵelementProperty(1, 'ngIf', ɵɵbind(app.innerShowing));
         }
       }
 
       function innerDivTemplate(rf: RenderFlags, ctx: any) {
         if (rf & RenderFlags.Create) {
-          elementStart(0, 'div');
-          { text(1); }
-          elementEnd();
+          ɵɵelementStart(0, 'div');
+          { ɵɵtext(1); }
+          ɵɵelementEnd();
         }
         if (rf & RenderFlags.Update) {
-          const app = nextContext(3);
-          textBinding(1, bind(app.name));
+          const app = ɵɵnextContext(3);
+          ɵɵtextBinding(1, ɵɵbind(app.name));
         }
       }
 
@@ -955,7 +1004,7 @@ describe('@angular/common integration', () => {
 
       class MyApp {
         showing = false;
-        static ngComponentDef = defineComponent({
+        static ngComponentDef = ɵɵdefineComponent({
           type: MyApp,
           factory: () => new MyApp(),
           selectors: [['my-app']],
@@ -967,17 +1016,17 @@ describe('@angular/common integration', () => {
            */
           template: (rf: RenderFlags, myApp: MyApp) => {
             if (rf & RenderFlags.Create) {
-              template(0, (rf1: RenderFlags) => {
+              ɵɵtemplate(0, (rf1: RenderFlags) => {
                 if (rf1 & RenderFlags.Create) {
-                  text(0, 'from tpl');
+                  ɵɵtext(0, 'from tpl');
                 }
-              }, 1, 0, 'ng-template', undefined, ['tpl', ''], templateRefExtractor);
-              template(
-                  2, null, 0, 0, 'ng-template', [AttributeMarker.SelectOnly, 'ngTemplateOutlet']);
+              }, 1, 0, 'ng-template', undefined, ['tpl', ''], ɵɵtemplateRefExtractor);
+              ɵɵtemplate(
+                  2, null, 0, 0, 'ng-template', [AttributeMarker.Bindings, 'ngTemplateOutlet']);
             }
             if (rf & RenderFlags.Update) {
-              const tplRef = load(1);
-              elementProperty(2, 'ngTemplateOutlet', bind(myApp.showing ? tplRef : null));
+              const tplRef = ɵɵload(1);
+              ɵɵelementProperty(2, 'ngTemplateOutlet', ɵɵbind(myApp.showing ? tplRef : null));
             }
           },
           directives: () => [NgTemplateOutlet]
@@ -999,7 +1048,7 @@ describe('@angular/common integration', () => {
     it('should allow usage on ng-container', () => {
       class MyApp {
         showing = false;
-        static ngComponentDef = defineComponent({
+        static ngComponentDef = ɵɵdefineComponent({
           type: MyApp,
           factory: () => new MyApp(),
           selectors: [['my-app']],
@@ -1011,17 +1060,17 @@ describe('@angular/common integration', () => {
            */
           template: (rf: RenderFlags, myApp: MyApp) => {
             if (rf & RenderFlags.Create) {
-              template(0, (rf1: RenderFlags) => {
+              ɵɵtemplate(0, (rf1: RenderFlags) => {
                 if (rf1 & RenderFlags.Create) {
-                  text(0, 'from tpl');
+                  ɵɵtext(0, 'from tpl');
                 }
-              }, 1, 0, 'ng-template', undefined, ['tpl', ''], templateRefExtractor);
-              elementContainerStart(2, [AttributeMarker.SelectOnly, 'ngTemplateOutlet']);
-              elementContainerEnd();
+              }, 1, 0, 'ng-template', undefined, ['tpl', ''], ɵɵtemplateRefExtractor);
+              ɵɵelementContainerStart(2, [AttributeMarker.Bindings, 'ngTemplateOutlet']);
+              ɵɵelementContainerEnd();
             }
             if (rf & RenderFlags.Update) {
-              const tplRef = reference(1);
-              elementProperty(2, 'ngTemplateOutlet', bind(myApp.showing ? tplRef : null));
+              const tplRef = ɵɵreference(1);
+              ɵɵelementProperty(2, 'ngTemplateOutlet', ɵɵbind(myApp.showing ? tplRef : null));
             }
           },
           directives: () => [NgTemplateOutlet]

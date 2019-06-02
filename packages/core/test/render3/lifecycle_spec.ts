@@ -7,24 +7,22 @@
  */
 
 import {ComponentFactoryResolver, OnDestroy, SimpleChange, SimpleChanges, ViewContainerRef} from '../../src/core';
-import {AttributeMarker, ComponentTemplate, LifecycleHooksFeature, NO_CHANGE, NgOnChangesFeature, defineComponent, defineDirective, injectComponentFactoryResolver} from '../../src/render3/index';
-
-import {bind, container, containerRefreshEnd, containerRefreshStart, directiveInject, element, elementEnd, elementProperty, elementStart, embeddedViewEnd, embeddedViewStart, listener, markDirty, projection, projectionDef, store, template, text} from '../../src/render3/instructions';
+import {AttributeMarker, ComponentTemplate, LifecycleHooksFeature, injectComponentFactoryResolver, ɵɵNgOnChangesFeature, ɵɵdefineComponent, ɵɵdefineDirective} from '../../src/render3/index';
+import {markDirty, ɵɵbind, ɵɵcontainer, ɵɵcontainerRefreshEnd, ɵɵcontainerRefreshStart, ɵɵdirectiveInject, ɵɵelement, ɵɵelementEnd, ɵɵelementProperty, ɵɵelementStart, ɵɵembeddedViewEnd, ɵɵembeddedViewStart, ɵɵlistener, ɵɵprojection, ɵɵprojectionDef, ɵɵselect, ɵɵtemplate, ɵɵtext} from '../../src/render3/instructions/all';
 import {RenderFlags} from '../../src/render3/interfaces/definition';
 
 import {NgIf} from './common_with_def';
 import {ComponentFixture, containerEl, createComponent, renderComponent, renderToHtml, requestAnimationFrame} from './render_util';
-import {fixmeIvy} from '@angular/private/testing';
 
 describe('lifecycles', () => {
 
   function getParentTemplate(name: string) {
     return (rf: RenderFlags, ctx: any) => {
       if (rf & RenderFlags.Create) {
-        element(0, name);
+        ɵɵelement(0, name);
       }
       if (rf & RenderFlags.Update) {
-        elementProperty(0, 'val', bind(ctx.val));
+        ɵɵelementProperty(0, 'val', ɵɵbind(ctx.val));
       }
     };
   }
@@ -36,16 +34,16 @@ describe('lifecycles', () => {
 
     let Comp = createOnInitComponent('comp', (rf: RenderFlags, ctx: any) => {
       if (rf & RenderFlags.Create) {
-        projectionDef();
-        elementStart(0, 'div');
-        { projection(1); }
-        elementEnd();
+        ɵɵprojectionDef();
+        ɵɵelementStart(0, 'div');
+        { ɵɵprojection(1); }
+        ɵɵelementEnd();
       }
     }, 2);
     let Parent = createOnInitComponent('parent', getParentTemplate('comp'), 1, 1, [Comp]);
     let ProjectedComp = createOnInitComponent('projected', (rf: RenderFlags, ctx: any) => {
       if (rf & RenderFlags.Create) {
-        text(0, 'content');
+        ɵɵtext(0, 'content');
       }
     }, 1);
 
@@ -59,7 +57,7 @@ describe('lifecycles', () => {
           events.push(`${name}${this.val}`);
         }
 
-        static ngComponentDef = defineComponent({
+        static ngComponentDef = ɵɵdefineComponent({
           type: Component,
           selectors: [[name]],
           consts: consts,
@@ -74,7 +72,7 @@ describe('lifecycles', () => {
     class Directive {
       ngOnInit() { events.push('dir'); }
 
-      static ngDirectiveDef = defineDirective(
+      static ngDirectiveDef = ɵɵdefineDirective(
           {type: Directive, selectors: [['', 'dir', '']], factory: () => new Directive()});
     }
 
@@ -85,10 +83,10 @@ describe('lifecycles', () => {
          /** <comp [val]="val"></comp> */
          const App = createComponent('app', function(rf: RenderFlags, ctx: any) {
            if (rf & RenderFlags.Create) {
-             element(0, 'comp');
+             ɵɵelement(0, 'comp');
            }
            if (rf & RenderFlags.Update) {
-             elementProperty(0, 'val', bind(ctx.val));
+             ɵɵelementProperty(0, 'val', ɵɵbind(ctx.val));
            }
          }, 1, 1, directives);
 
@@ -117,7 +115,7 @@ describe('lifecycles', () => {
        */
       const App = createComponent('app', function(rf: RenderFlags, ctx: any) {
         if (rf & RenderFlags.Create) {
-          element(0, 'parent');
+          ɵɵelement(0, 'parent');
         }
       }, 1, 0, directives);
 
@@ -134,12 +132,13 @@ describe('lifecycles', () => {
        */
       const App = createComponent('app', function(rf: RenderFlags, ctx: any) {
         if (rf & RenderFlags.Create) {
-          element(0, 'parent');
-          element(1, 'parent');
+          ɵɵelement(0, 'parent');
+          ɵɵelement(1, 'parent');
         }
         if (rf & RenderFlags.Update) {
-          elementProperty(0, 'val', 1);
-          elementProperty(1, 'val', 2);
+          ɵɵelementProperty(0, 'val', 1);
+          ɵɵselect(1);
+          ɵɵelementProperty(1, 'val', 2);
         }
       }, 2, 0, directives);
 
@@ -156,20 +155,20 @@ describe('lifecycles', () => {
        */
       const App = createComponent('app', function(rf: RenderFlags, ctx: any) {
         if (rf & RenderFlags.Create) {
-          container(0);
+          ɵɵcontainer(0);
         }
         if (rf & RenderFlags.Update) {
-          containerRefreshStart(0);
+          ɵɵcontainerRefreshStart(0);
           {
             if (!ctx.skip) {
-              let rf1 = embeddedViewStart(0, 1, 0);
+              let rf1 = ɵɵembeddedViewStart(0, 1, 0);
               if (rf1 & RenderFlags.Create) {
-                element(0, 'comp');
+                ɵɵelement(0, 'comp');
               }
-              embeddedViewEnd();
+              ɵɵembeddedViewEnd();
             }
           }
-          containerRefreshEnd();
+          ɵɵcontainerRefreshEnd();
         }
       }, 1, 0, directives);
 
@@ -190,17 +189,17 @@ describe('lifecycles', () => {
 
       function IfTemplate(rf: RenderFlags, ctx: any) {
         if (rf & RenderFlags.Create) {
-          element(0, 'comp');
+          ɵɵelement(0, 'comp');
         }
       }
 
       /** <comp *ngIf="showing"></comp> */
       const App = createComponent('app', function(rf: RenderFlags, ctx: any) {
         if (rf & RenderFlags.Create) {
-          template(0, IfTemplate, 1, 0, 'comp', ['ngIf', '']);
+          ɵɵtemplate(0, IfTemplate, 1, 0, 'comp', [AttributeMarker.Template, 'ngIf']);
         }
         if (rf & RenderFlags.Update) {
-          elementProperty(0, 'ngIf', bind(ctx.showing));
+          ɵɵelementProperty(0, 'ngIf', ɵɵbind(ctx.showing));
         }
       }, 1, 0, directives);
 
@@ -225,11 +224,12 @@ describe('lifecycles', () => {
       class ViewContainerComp {
         constructor(public vcr: ViewContainerRef, public cfr: ComponentFactoryResolver) {}
 
-        static ngComponentDef = defineComponent({
+        static ngComponentDef = ɵɵdefineComponent({
           type: ViewContainerComp,
           selectors: [['view-container-comp']],
-          factory: () => viewContainerComp = new ViewContainerComp(
-                       directiveInject(ViewContainerRef as any), injectComponentFactoryResolver()),
+          factory:
+              () => viewContainerComp = new ViewContainerComp(
+                  ɵɵdirectiveInject(ViewContainerRef as any), injectComponentFactoryResolver()),
           consts: 0,
           vars: 0,
           template: (rf: RenderFlags, ctx: ViewContainerComp) => {}
@@ -238,7 +238,7 @@ describe('lifecycles', () => {
 
       const DynamicComp = createComponent('dynamic-comp', (rf: RenderFlags, ctx: any) => {
         if (rf & RenderFlags.Create) {
-          element(0, 'comp');
+          ɵɵelement(0, 'comp');
         }
       }, 1, 0, [Comp]);
 
@@ -259,9 +259,9 @@ describe('lifecycles', () => {
        */
       const App = createComponent('app', function(rf: RenderFlags, ctx: any) {
         if (rf & RenderFlags.Create) {
-          elementStart(0, 'comp');
-          { elementStart(1, 'projected'); }
-          elementEnd();
+          ɵɵelementStart(0, 'comp');
+          { ɵɵelementStart(1, 'projected'); }
+          ɵɵelementEnd();
         }
       }, 2, 0, directives);
 
@@ -280,18 +280,21 @@ describe('lifecycles', () => {
        */
       const App = createComponent('app', function(rf: RenderFlags, ctx: any) {
         if (rf & RenderFlags.Create) {
-          elementStart(0, 'comp');
-          { elementStart(1, 'projected'); }
-          elementEnd();
-          elementStart(2, 'comp');
-          { elementStart(3, 'projected'); }
-          elementEnd();
+          ɵɵelementStart(0, 'comp');
+          { ɵɵelementStart(1, 'projected'); }
+          ɵɵelementEnd();
+          ɵɵelementStart(2, 'comp');
+          { ɵɵelementStart(3, 'projected'); }
+          ɵɵelementEnd();
         }
         if (rf & RenderFlags.Update) {
-          elementProperty(0, 'val', 1);
-          elementProperty(1, 'val', 1);
-          elementProperty(2, 'val', 2);
-          elementProperty(3, 'val', 2);
+          ɵɵelementProperty(0, 'val', 1);
+          ɵɵselect(1);
+          ɵɵelementProperty(1, 'val', 1);
+          ɵɵselect(2);
+          ɵɵelementProperty(2, 'val', 2);
+          ɵɵselect(3);
+          ɵɵelementProperty(3, 'val', 2);
         }
       }, 4, 0, directives);
 
@@ -303,7 +306,7 @@ describe('lifecycles', () => {
       /** <comp directive></comp> */
       const App = createComponent('app', function(rf: RenderFlags, ctx: any) {
         if (rf & RenderFlags.Create) {
-          element(0, 'comp', ['dir', '']);
+          ɵɵelement(0, 'comp', ['dir', '']);
         }
       }, 1, 0, directives);
 
@@ -318,7 +321,7 @@ describe('lifecycles', () => {
       /** <div directive></div> */
       const App = createComponent('app', function(rf: RenderFlags, ctx: any) {
         if (rf & RenderFlags.Create) {
-          element(0, 'div', ['dir', '']);
+          ɵɵelement(0, 'div', ['dir', '']);
         }
       }, 1, 0, directives);
 
@@ -339,27 +342,28 @@ describe('lifecycles', () => {
        */
       const App = createComponent('app', function(rf: RenderFlags, ctx: any) {
         if (rf & RenderFlags.Create) {
-          element(0, 'comp');
-          container(1);
-          element(2, 'comp');
+          ɵɵelement(0, 'comp');
+          ɵɵcontainer(1);
+          ɵɵelement(2, 'comp');
         }
         if (rf & RenderFlags.Update) {
-          elementProperty(0, 'val', 1);
-          elementProperty(2, 'val', 5);
-          containerRefreshStart(1);
+          ɵɵelementProperty(0, 'val', 1);
+          ɵɵselect(2);
+          ɵɵelementProperty(2, 'val', 5);
+          ɵɵcontainerRefreshStart(1);
           {
             for (let j = 2; j < 5; j++) {
-              let rf1 = embeddedViewStart(0, 1, 0);
+              let rf1 = ɵɵembeddedViewStart(0, 1, 0);
               if (rf1 & RenderFlags.Create) {
-                element(0, 'comp');
+                ɵɵelement(0, 'comp');
               }
               if (rf1 & RenderFlags.Update) {
-                elementProperty(0, 'val', j);
+                ɵɵelementProperty(0, 'val', j);
               }
-              embeddedViewEnd();
+              ɵɵembeddedViewEnd();
             }
           }
-          containerRefreshEnd();
+          ɵɵcontainerRefreshEnd();
         }
       }, 3, 0, directives);
 
@@ -379,27 +383,28 @@ describe('lifecycles', () => {
        */
       const App = createComponent('app', function(rf: RenderFlags, ctx: any) {
         if (rf & RenderFlags.Create) {
-          element(0, 'parent');
-          container(1);
-          element(2, 'parent');
+          ɵɵelement(0, 'parent');
+          ɵɵcontainer(1);
+          ɵɵelement(2, 'parent');
         }
         if (rf & RenderFlags.Update) {
-          elementProperty(0, 'val', 1);
-          elementProperty(2, 'val', 5);
-          containerRefreshStart(1);
+          ɵɵelementProperty(0, 'val', 1);
+          ɵɵselect(2);
+          ɵɵelementProperty(2, 'val', 5);
+          ɵɵcontainerRefreshStart(1);
           {
             for (let j = 2; j < 5; j++) {
-              let rf1 = embeddedViewStart(0, 1, 0);
+              let rf1 = ɵɵembeddedViewStart(0, 1, 0);
               if (rf1 & RenderFlags.Create) {
-                element(0, 'parent');
+                ɵɵelement(0, 'parent');
               }
               if (rf1 & RenderFlags.Update) {
-                elementProperty(0, 'val', j);
+                ɵɵelementProperty(0, 'val', j);
               }
-              embeddedViewEnd();
+              ɵɵembeddedViewEnd();
             }
           }
-          containerRefreshEnd();
+          ɵɵcontainerRefreshEnd();
         }
       }, 3, 0, directives);
 
@@ -437,7 +442,7 @@ describe('lifecycles', () => {
 
         ngOnInit() { allEvents.push('init ' + name); }
 
-        static ngComponentDef = defineComponent({
+        static ngComponentDef = ɵɵdefineComponent({
           type: Component,
           selectors: [[name]],
           factory: () => new Component(), template,
@@ -452,7 +457,7 @@ describe('lifecycles', () => {
     class Directive {
       ngDoCheck() { events.push('dir'); }
 
-      static ngDirectiveDef = defineDirective(
+      static ngDirectiveDef = ɵɵdefineDirective(
           {type: Directive, selectors: [['', 'dir', '']], factory: () => new Directive()});
     }
 
@@ -462,7 +467,7 @@ describe('lifecycles', () => {
       /** <comp></comp> */
       const App = createComponent('app', function(rf: RenderFlags, ctx: any) {
         if (rf & RenderFlags.Create) {
-          element(0, 'comp');
+          ɵɵelement(0, 'comp');
         }
       }, 1, 0, directives);
 
@@ -489,7 +494,7 @@ describe('lifecycles', () => {
        */
       const App = createComponent('app', function(rf: RenderFlags, ctx: any) {
         if (rf & RenderFlags.Create) {
-          element(0, 'parent');
+          ɵɵelement(0, 'parent');
         }
       }, 1, 0, directives);
 
@@ -501,7 +506,7 @@ describe('lifecycles', () => {
       /** <comp></comp> */
       const App = createComponent('app', function(rf: RenderFlags, ctx: any) {
         if (rf & RenderFlags.Create) {
-          element(0, 'comp');
+          ɵɵelement(0, 'comp');
         }
       }, 1, 0, directives);
 
@@ -516,7 +521,7 @@ describe('lifecycles', () => {
       /** <comp directive></comp> */
       const App = createComponent('app', function(rf: RenderFlags, ctx: any) {
         if (rf & RenderFlags.Create) {
-          element(0, 'comp', ['dir', '']);
+          ɵɵelement(0, 'comp', ['dir', '']);
         }
       }, 1, 0, directives);
 
@@ -531,7 +536,7 @@ describe('lifecycles', () => {
       /** <div directive></div> */
       const App = createComponent('app', function(rf: RenderFlags, ctx: any) {
         if (rf & RenderFlags.Create) {
-          element(0, 'div', ['dir', '']);
+          ɵɵelement(0, 'div', ['dir', '']);
         }
       }, 1, 0, directives);
 
@@ -555,27 +560,27 @@ describe('lifecycles', () => {
 
     let Comp = createAfterContentInitComp('comp', function(rf: RenderFlags, ctx: any) {
       if (rf & RenderFlags.Create) {
-        projectionDef();
-        projection(0);
+        ɵɵprojectionDef();
+        ɵɵprojection(0);
       }
     }, 1);
 
     let Parent = createAfterContentInitComp('parent', function(rf: RenderFlags, ctx: any) {
       if (rf & RenderFlags.Create) {
-        projectionDef();
-        elementStart(0, 'comp');
-        { projection(1); }
-        elementEnd();
+        ɵɵprojectionDef();
+        ɵɵelementStart(0, 'comp');
+        { ɵɵprojection(1); }
+        ɵɵelementEnd();
       }
       if (rf & RenderFlags.Update) {
-        elementProperty(0, 'val', bind(ctx.val));
+        ɵɵelementProperty(0, 'val', ɵɵbind(ctx.val));
       }
     }, 2, 1, [Comp]);
 
     let ProjectedComp = createAfterContentInitComp('projected', (rf: RenderFlags, ctx: any) => {
       if (rf & RenderFlags.Create) {
-        projectionDef();
-        projection(0);
+        ɵɵprojectionDef();
+        ɵɵprojection(0);
       }
     }, 1);
 
@@ -590,7 +595,7 @@ describe('lifecycles', () => {
         }
         ngAfterContentChecked() { allEvents.push(`${name}${this.val} check`); }
 
-        static ngComponentDef = defineComponent({
+        static ngComponentDef = ɵɵdefineComponent({
           type: Component,
           selectors: [[name]],
           factory: () => new Component(),
@@ -607,39 +612,40 @@ describe('lifecycles', () => {
       ngAfterContentInit() { events.push('init'); }
       ngAfterContentChecked() { events.push('check'); }
 
-      static ngDirectiveDef = defineDirective(
+      static ngDirectiveDef = ɵɵdefineDirective(
           {type: Directive, selectors: [['', 'dir', '']], factory: () => new Directive()});
     }
 
     function ForLoopWithChildrenTemplate(rf: RenderFlags, ctx: any) {
       if (rf & RenderFlags.Create) {
-        elementStart(0, 'parent');
-        { text(1, 'content'); }
-        elementEnd();
-        container(2);
-        elementStart(3, 'parent');
-        { text(4, 'content'); }
-        elementEnd();
+        ɵɵelementStart(0, 'parent');
+        { ɵɵtext(1, 'content'); }
+        ɵɵelementEnd();
+        ɵɵcontainer(2);
+        ɵɵelementStart(3, 'parent');
+        { ɵɵtext(4, 'content'); }
+        ɵɵelementEnd();
       }
       if (rf & RenderFlags.Update) {
-        elementProperty(0, 'val', 1);
-        elementProperty(3, 'val', 4);
-        containerRefreshStart(2);
+        ɵɵelementProperty(0, 'val', 1);
+        ɵɵselect(3);
+        ɵɵelementProperty(3, 'val', 4);
+        ɵɵcontainerRefreshStart(2);
         {
           for (let i = 2; i < 4; i++) {
-            let rf1 = embeddedViewStart(0, 2, 0);
+            let rf1 = ɵɵembeddedViewStart(0, 2, 0);
             if (rf1 & RenderFlags.Create) {
-              elementStart(0, 'parent');
-              { text(1, 'content'); }
-              elementEnd();
+              ɵɵelementStart(0, 'parent');
+              { ɵɵtext(1, 'content'); }
+              ɵɵelementEnd();
             }
             if (rf1 & RenderFlags.Update) {
-              elementProperty(0, 'val', i);
+              ɵɵelementProperty(0, 'val', i);
             }
-            embeddedViewEnd();
+            ɵɵembeddedViewEnd();
           }
         }
-        containerRefreshEnd();
+        ɵɵcontainerRefreshEnd();
       }
     }
 
@@ -649,9 +655,9 @@ describe('lifecycles', () => {
       /** <comp>content</comp> */
       const App = createComponent('app', function(rf: RenderFlags, ctx: any) {
         if (rf & RenderFlags.Create) {
-          elementStart(0, 'comp');
-          { text(1, 'content'); }
-          elementEnd();
+          ɵɵelementStart(0, 'comp');
+          { ɵɵtext(1, 'content'); }
+          ɵɵelementEnd();
         }
       }, 2, 0, directives);
 
@@ -679,22 +685,22 @@ describe('lifecycles', () => {
        */
       const App = createComponent('app', function(rf: RenderFlags, ctx: any) {
         if (rf & RenderFlags.Create) {
-          container(0);
+          ɵɵcontainer(0);
         }
         if (rf & RenderFlags.Update) {
-          containerRefreshStart(0);
+          ɵɵcontainerRefreshStart(0);
           {
             if (!ctx.skip) {
-              let rf1 = embeddedViewStart(0, 2, 0);
+              let rf1 = ɵɵembeddedViewStart(0, 2, 0);
               if (rf1 & RenderFlags.Create) {
-                elementStart(0, 'comp');
-                { text(1, 'content'); }
-                elementEnd();
+                ɵɵelementStart(0, 'comp');
+                { ɵɵtext(1, 'content'); }
+                ɵɵelementEnd();
               }
-              embeddedViewEnd();
+              ɵɵembeddedViewEnd();
             }
           }
-          containerRefreshEnd();
+          ɵɵcontainerRefreshEnd();
         }
       }, 1, 0, directives);
 
@@ -718,9 +724,9 @@ describe('lifecycles', () => {
        */
       const App = createComponent('app', function(rf: RenderFlags, ctx: any) {
         if (rf & RenderFlags.Create) {
-          elementStart(0, 'parent');
-          { text(1, 'content'); }
-          elementEnd();
+          ɵɵelementStart(0, 'parent');
+          { ɵɵtext(1, 'content'); }
+          ɵɵelementEnd();
         }
       }, 2, 0, directives);
 
@@ -737,16 +743,17 @@ describe('lifecycles', () => {
        */
       const App = createComponent('app', function(rf: RenderFlags, ctx: any) {
         if (rf & RenderFlags.Create) {
-          elementStart(0, 'parent');
-          { text(1, 'content'); }
-          elementEnd();
-          elementStart(2, 'parent');
-          { text(3, 'content'); }
-          elementEnd();
+          ɵɵelementStart(0, 'parent');
+          { ɵɵtext(1, 'content'); }
+          ɵɵelementEnd();
+          ɵɵelementStart(2, 'parent');
+          { ɵɵtext(3, 'content'); }
+          ɵɵelementEnd();
         }
         if (rf & RenderFlags.Update) {
-          elementProperty(0, 'val', 1);
-          elementProperty(2, 'val', 2);
+          ɵɵelementProperty(0, 'val', 1);
+          ɵɵselect(2);
+          ɵɵelementProperty(2, 'val', 2);
         }
       }, 4, 0, directives);
 
@@ -767,13 +774,13 @@ describe('lifecycles', () => {
        */
       const App = createComponent('app', function(rf: RenderFlags, ctx: any) {
         if (rf & RenderFlags.Create) {
-          elementStart(0, 'parent');
+          ɵɵelementStart(0, 'parent');
           {
-            elementStart(1, 'projected');
-            { text(2, 'content'); }
-            elementEnd();
+            ɵɵelementStart(1, 'projected');
+            { ɵɵtext(2, 'content'); }
+            ɵɵelementEnd();
           }
-          elementEnd();
+          ɵɵelementEnd();
         }
       }, 3, 0, directives);
 
@@ -797,26 +804,29 @@ describe('lifecycles', () => {
        */
       const App = createComponent('app', function(rf: RenderFlags, ctx: any) {
         if (rf & RenderFlags.Create) {
-          elementStart(0, 'parent');
+          ɵɵelementStart(0, 'parent');
           {
-            elementStart(1, 'projected');
-            { text(2, 'content'); }
-            elementEnd();
+            ɵɵelementStart(1, 'projected');
+            { ɵɵtext(2, 'content'); }
+            ɵɵelementEnd();
           }
-          elementEnd();
-          elementStart(3, 'parent');
+          ɵɵelementEnd();
+          ɵɵelementStart(3, 'parent');
           {
-            elementStart(4, 'projected');
-            { text(5, 'content'); }
-            elementEnd();
+            ɵɵelementStart(4, 'projected');
+            { ɵɵtext(5, 'content'); }
+            ɵɵelementEnd();
           }
-          elementEnd();
+          ɵɵelementEnd();
         }
         if (rf & RenderFlags.Update) {
-          elementProperty(0, 'val', 1);
-          elementProperty(1, 'val', 1);
-          elementProperty(3, 'val', 2);
-          elementProperty(4, 'val', 2);
+          ɵɵelementProperty(0, 'val', 1);
+          ɵɵselect(1);
+          ɵɵelementProperty(1, 'val', 1);
+          ɵɵselect(3);
+          ɵɵelementProperty(3, 'val', 2);
+          ɵɵselect(4);
+          ɵɵelementProperty(4, 'val', 2);
         }
       }, 6, 0, directives);
 
@@ -834,33 +844,34 @@ describe('lifecycles', () => {
        */
       const App = createComponent('app', function(rf: RenderFlags, ctx: any) {
         if (rf & RenderFlags.Create) {
-          elementStart(0, 'comp');
-          { text(1, 'content'); }
-          elementEnd();
-          container(2);
-          elementStart(3, 'comp');
-          { text(4, 'content'); }
-          elementEnd();
+          ɵɵelementStart(0, 'comp');
+          { ɵɵtext(1, 'content'); }
+          ɵɵelementEnd();
+          ɵɵcontainer(2);
+          ɵɵelementStart(3, 'comp');
+          { ɵɵtext(4, 'content'); }
+          ɵɵelementEnd();
         }
         if (rf & RenderFlags.Update) {
-          elementProperty(0, 'val', 1);
-          elementProperty(3, 'val', 4);
-          containerRefreshStart(2);
+          ɵɵelementProperty(0, 'val', 1);
+          ɵɵselect(3);
+          ɵɵelementProperty(3, 'val', 4);
+          ɵɵcontainerRefreshStart(2);
           {
             for (let i = 2; i < 4; i++) {
-              let rf1 = embeddedViewStart(0, 2, 0);
+              let rf1 = ɵɵembeddedViewStart(0, 2, 0);
               if (rf1 & RenderFlags.Create) {
-                elementStart(0, 'comp');
-                { text(1, 'content'); }
-                elementEnd();
+                ɵɵelementStart(0, 'comp');
+                { ɵɵtext(1, 'content'); }
+                ɵɵelementEnd();
               }
               if (rf1 & RenderFlags.Update) {
-                elementProperty(0, 'val', i);
+                ɵɵelementProperty(0, 'val', i);
               }
-              embeddedViewEnd();
+              ɵɵembeddedViewEnd();
             }
           }
-          containerRefreshEnd();
+          ɵɵcontainerRefreshEnd();
         }
       }, 5, 0, directives);
 
@@ -888,9 +899,9 @@ describe('lifecycles', () => {
         /** <comp>content</comp> */
         const App = createComponent('app', function(rf: RenderFlags, ctx: any) {
           if (rf & RenderFlags.Create) {
-            elementStart(0, 'comp');
-            { text(1, 'content'); }
-            elementEnd();
+            ɵɵelementStart(0, 'comp');
+            { ɵɵtext(1, 'content'); }
+            ɵɵelementEnd();
           }
         }, 2, 0, directives);
 
@@ -917,7 +928,7 @@ describe('lifecycles', () => {
         /** <comp directive></comp> */
         const App = createComponent('app', function(rf: RenderFlags, ctx: any) {
           if (rf & RenderFlags.Create) {
-            element(0, 'comp', ['dir', '']);
+            ɵɵelement(0, 'comp', ['dir', '']);
           }
         }, 1, 0, directives);
 
@@ -929,7 +940,7 @@ describe('lifecycles', () => {
         /** <div directive></div> */
         const App = createComponent('app', function(rf: RenderFlags, ctx: any) {
           if (rf & RenderFlags.Create) {
-            element(0, 'div', ['dir', '']);
+            ɵɵelement(0, 'div', ['dir', '']);
           }
         }, 1, 0, directives);
 
@@ -950,17 +961,17 @@ describe('lifecycles', () => {
 
     let Comp = createAfterViewInitComponent('comp', (rf: RenderFlags, ctx: any) => {
       if (rf & RenderFlags.Create) {
-        projectionDef();
-        elementStart(0, 'div');
-        { projection(1); }
-        elementEnd();
+        ɵɵprojectionDef();
+        ɵɵelementStart(0, 'div');
+        { ɵɵprojection(1); }
+        ɵɵelementEnd();
       }
     }, 2);
     let Parent = createAfterViewInitComponent('parent', getParentTemplate('comp'), 1, 1, [Comp]);
 
     let ProjectedComp = createAfterViewInitComponent('projected', (rf: RenderFlags, ctx: any) => {
       if (rf & RenderFlags.Create) {
-        text(0, 'content');
+        ɵɵtext(0, 'content');
       }
     }, 1);
 
@@ -976,7 +987,7 @@ describe('lifecycles', () => {
         }
         ngAfterViewChecked() { allEvents.push(`${name}${this.val} check`); }
 
-        static ngComponentDef = defineComponent({
+        static ngComponentDef = ɵɵdefineComponent({
           type: Component,
           selectors: [[name]],
           consts: consts,
@@ -993,7 +1004,7 @@ describe('lifecycles', () => {
       ngAfterViewInit() { events.push('init'); }
       ngAfterViewChecked() { events.push('check'); }
 
-      static ngDirectiveDef = defineDirective(
+      static ngDirectiveDef = ɵɵdefineDirective(
           {type: Directive, selectors: [['', 'dir', '']], factory: () => new Directive()});
     }
 
@@ -1003,7 +1014,7 @@ describe('lifecycles', () => {
       /** <comp></comp> */
       const App = createComponent('app', function(rf: RenderFlags, ctx: any) {
         if (rf & RenderFlags.Create) {
-          element(0, 'comp');
+          ɵɵelement(0, 'comp');
         }
       }, 1, 0, defs);
 
@@ -1031,20 +1042,20 @@ describe('lifecycles', () => {
       */
       const App = createComponent('app', function(rf: RenderFlags, ctx: any) {
         if (rf & RenderFlags.Create) {
-          container(0);
+          ɵɵcontainer(0);
         }
         if (rf & RenderFlags.Update) {
-          containerRefreshStart(0);
+          ɵɵcontainerRefreshStart(0);
           {
             if (!ctx.skip) {
-              let rf1 = embeddedViewStart(0, 1, 0);
+              let rf1 = ɵɵembeddedViewStart(0, 1, 0);
               if (rf1 & RenderFlags.Create) {
-                element(0, 'comp');
+                ɵɵelement(0, 'comp');
               }
-              embeddedViewEnd();
+              ɵɵembeddedViewEnd();
             }
           }
-          containerRefreshEnd();
+          ɵɵcontainerRefreshEnd();
         }
       }, 1, 0, defs);
 
@@ -1069,7 +1080,7 @@ describe('lifecycles', () => {
        */
       const App = createComponent('app', function(rf: RenderFlags, ctx: any) {
         if (rf & RenderFlags.Create) {
-          element(0, 'parent');
+          ɵɵelement(0, 'parent');
         }
       }, 1, 0, defs);
 
@@ -1086,12 +1097,13 @@ describe('lifecycles', () => {
        */
       const App = createComponent('app', function(rf: RenderFlags, ctx: any) {
         if (rf & RenderFlags.Create) {
-          element(0, 'parent');
-          element(1, 'parent');
+          ɵɵelement(0, 'parent');
+          ɵɵelement(1, 'parent');
         }
         if (rf & RenderFlags.Update) {
-          elementProperty(0, 'val', 1);
-          elementProperty(1, 'val', 2);
+          ɵɵelementProperty(0, 'val', 1);
+          ɵɵselect(1);
+          ɵɵelementProperty(1, 'val', 2);
         }
       }, 2, 0, defs);
 
@@ -1108,9 +1120,9 @@ describe('lifecycles', () => {
        */
       const App = createComponent('app', function(rf: RenderFlags, ctx: any) {
         if (rf & RenderFlags.Create) {
-          elementStart(0, 'comp');
-          { element(1, 'projected'); }
-          elementEnd();
+          ɵɵelementStart(0, 'comp');
+          { ɵɵelement(1, 'projected'); }
+          ɵɵelementEnd();
         }
       }, 2, 0, defs);
 
@@ -1129,18 +1141,21 @@ describe('lifecycles', () => {
        */
       const App = createComponent('app', function(rf: RenderFlags, ctx: any) {
         if (rf & RenderFlags.Create) {
-          elementStart(0, 'comp');
-          { element(1, 'projected'); }
-          elementEnd();
-          elementStart(2, 'comp');
-          { element(3, 'projected'); }
-          elementEnd();
+          ɵɵelementStart(0, 'comp');
+          { ɵɵelement(1, 'projected'); }
+          ɵɵelementEnd();
+          ɵɵelementStart(2, 'comp');
+          { ɵɵelement(3, 'projected'); }
+          ɵɵelementEnd();
         }
         if (rf & RenderFlags.Update) {
-          elementProperty(0, 'val', 1);
-          elementProperty(1, 'val', 1);
-          elementProperty(2, 'val', 2);
-          elementProperty(3, 'val', 2);
+          ɵɵelementProperty(0, 'val', 1);
+          ɵɵselect(1);
+          ɵɵelementProperty(1, 'val', 1);
+          ɵɵselect(2);
+          ɵɵelementProperty(2, 'val', 2);
+          ɵɵselect(3);
+          ɵɵelementProperty(3, 'val', 2);
         }
       }, 4, 0, defs);
 
@@ -1156,13 +1171,14 @@ describe('lifecycles', () => {
        */
       const ParentComp = createAfterViewInitComponent('parent', (rf: RenderFlags, ctx: any) => {
         if (rf & RenderFlags.Create) {
-          elementStart(0, 'comp');
-          { element(1, 'projected'); }
-          elementEnd();
+          ɵɵelementStart(0, 'comp');
+          { ɵɵelement(1, 'projected'); }
+          ɵɵelementEnd();
         }
         if (rf & RenderFlags.Update) {
-          elementProperty(0, 'val', bind(ctx.val));
-          elementProperty(1, 'val', bind(ctx.val));
+          ɵɵelementProperty(0, 'val', ɵɵbind(ctx.val));
+          ɵɵselect(1);
+          ɵɵelementProperty(1, 'val', ɵɵbind(ctx.val));
         }
       }, 2, 2, [Comp, ProjectedComp]);
 
@@ -1172,12 +1188,13 @@ describe('lifecycles', () => {
        */
       const App = createComponent('app', function(rf: RenderFlags, ctx: any) {
         if (rf & RenderFlags.Create) {
-          element(0, 'parent');
-          element(1, 'parent');
+          ɵɵelement(0, 'parent');
+          ɵɵelement(1, 'parent');
         }
         if (rf & RenderFlags.Update) {
-          elementProperty(0, 'val', 1);
-          elementProperty(1, 'val', 2);
+          ɵɵelementProperty(0, 'val', 1);
+          ɵɵselect(1);
+          ɵɵelementProperty(1, 'val', 2);
         }
       }, 2, 0, [ParentComp]);
 
@@ -1195,27 +1212,28 @@ describe('lifecycles', () => {
        */
       const App = createComponent('app', function(rf: RenderFlags, ctx: any) {
         if (rf & RenderFlags.Create) {
-          element(0, 'comp');
-          container(1);
-          element(2, 'comp');
+          ɵɵelement(0, 'comp');
+          ɵɵcontainer(1);
+          ɵɵelement(2, 'comp');
         }
         if (rf & RenderFlags.Update) {
-          elementProperty(0, 'val', 1);
-          elementProperty(2, 'val', 4);
-          containerRefreshStart(1);
+          ɵɵelementProperty(0, 'val', 1);
+          ɵɵselect(2);
+          ɵɵelementProperty(2, 'val', 4);
+          ɵɵcontainerRefreshStart(1);
           {
             for (let i = 2; i < 4; i++) {
-              let rf1 = embeddedViewStart(0, 1, 0);
+              let rf1 = ɵɵembeddedViewStart(0, 1, 0);
               if (rf1 & RenderFlags.Create) {
-                element(0, 'comp');
+                ɵɵelement(0, 'comp');
               }
               if (rf1 & RenderFlags.Update) {
-                elementProperty(0, 'val', i);
+                ɵɵelementProperty(0, 'val', i);
               }
-              embeddedViewEnd();
+              ɵɵembeddedViewEnd();
             }
           }
-          containerRefreshEnd();
+          ɵɵcontainerRefreshEnd();
         }
       }, 3, 0, defs);
 
@@ -1234,27 +1252,28 @@ describe('lifecycles', () => {
        */
       const App = createComponent('app', function(rf: RenderFlags, ctx: any) {
         if (rf & RenderFlags.Create) {
-          element(0, 'parent');
-          container(1);
-          element(2, 'parent');
+          ɵɵelement(0, 'parent');
+          ɵɵcontainer(1);
+          ɵɵelement(2, 'parent');
         }
         if (rf & RenderFlags.Update) {
-          elementProperty(0, 'val', 1);
-          elementProperty(2, 'val', 4);
-          containerRefreshStart(1);
+          ɵɵelementProperty(0, 'val', 1);
+          ɵɵselect(2);
+          ɵɵelementProperty(2, 'val', 4);
+          ɵɵcontainerRefreshStart(1);
           {
             for (let i = 2; i < 4; i++) {
-              let rf1 = embeddedViewStart(0, 1, 0);
+              let rf1 = ɵɵembeddedViewStart(0, 1, 0);
               if (rf1 & RenderFlags.Create) {
-                element(0, 'parent');
+                ɵɵelement(0, 'parent');
               }
               if (rf1 & RenderFlags.Update) {
-                elementProperty(0, 'val', i);
+                ɵɵelementProperty(0, 'val', i);
               }
-              embeddedViewEnd();
+              ɵɵembeddedViewEnd();
             }
           }
-          containerRefreshEnd();
+          ɵɵcontainerRefreshEnd();
         }
       }, 3, 0, defs);
 
@@ -1270,7 +1289,7 @@ describe('lifecycles', () => {
         /** <comp></comp> */
         const App = createComponent('app', function(rf: RenderFlags, ctx: any) {
           if (rf & RenderFlags.Create) {
-            element(0, 'comp');
+            ɵɵelement(0, 'comp');
           }
         }, 1, 0, defs);
 
@@ -1294,10 +1313,10 @@ describe('lifecycles', () => {
         /** <comp [val]="myVal"></comp> */
         const App = createComponent('app', function(rf: RenderFlags, ctx: any) {
           if (rf & RenderFlags.Create) {
-            element(0, 'comp');
+            ɵɵelement(0, 'comp');
           }
           if (rf & RenderFlags.Update) {
-            elementProperty(0, 'val', bind(ctx.myVal));
+            ɵɵelementProperty(0, 'val', ɵɵbind(ctx.myVal));
           }
         }, 1, 1, defs);
 
@@ -1319,27 +1338,28 @@ describe('lifecycles', () => {
          */
         const App = createComponent('app', function(rf: RenderFlags, ctx: any) {
           if (rf & RenderFlags.Create) {
-            element(0, 'parent');
-            container(1);
-            element(2, 'parent');
+            ɵɵelement(0, 'parent');
+            ɵɵcontainer(1);
+            ɵɵelement(2, 'parent');
           }
           if (rf & RenderFlags.Update) {
-            elementProperty(0, 'val', 1);
-            elementProperty(2, 'val', 4);
-            containerRefreshStart(1);
+            ɵɵelementProperty(0, 'val', 1);
+            ɵɵselect(2);
+            ɵɵelementProperty(2, 'val', 4);
+            ɵɵcontainerRefreshStart(1);
             {
               for (let i = 2; i < 4; i++) {
-                let rf1 = embeddedViewStart(0, 1, 0);
+                let rf1 = ɵɵembeddedViewStart(0, 1, 0);
                 if (rf1 & RenderFlags.Create) {
-                  element(0, 'parent');
+                  ɵɵelement(0, 'parent');
                 }
                 if (rf1 & RenderFlags.Update) {
-                  elementProperty(0, 'val', i);
+                  ɵɵelementProperty(0, 'val', i);
                 }
-                embeddedViewEnd();
+                ɵɵembeddedViewEnd();
               }
             }
-            containerRefreshEnd();
+            ɵɵcontainerRefreshEnd();
           }
         }, 3, 0, defs);
 
@@ -1359,7 +1379,7 @@ describe('lifecycles', () => {
         /** <comp directive></comp> */
         const App = createComponent('app', function(rf: RenderFlags, ctx: any) {
           if (rf & RenderFlags.Create) {
-            element(0, 'comp', ['dir', '']);
+            ɵɵelement(0, 'comp', ['dir', '']);
           }
         }, 1, 0, defs);
 
@@ -1371,7 +1391,7 @@ describe('lifecycles', () => {
         /** <div directive></div> */
         const App = createComponent('app', function(rf: RenderFlags, ctx: any) {
           if (rf & RenderFlags.Create) {
-            element(0, 'div', ['dir', '']);
+            ɵɵelement(0, 'div', ['dir', '']);
           }
         }, 1, 0, defs);
 
@@ -1388,8 +1408,8 @@ describe('lifecycles', () => {
 
     let Comp = createOnDestroyComponent('comp', (rf: RenderFlags, ctx: any) => {
       if (rf & RenderFlags.Create) {
-        projectionDef();
-        projection(0);
+        ɵɵprojectionDef();
+        ɵɵprojection(0);
       }
     }, 1);
     let Parent = createOnDestroyComponent('parent', getParentTemplate('comp'), 1, 1, [Comp]);
@@ -1401,7 +1421,7 @@ describe('lifecycles', () => {
         val: string = '';
         ngOnDestroy() { events.push(`${name}${this.val}`); }
 
-        static ngComponentDef = defineComponent({
+        static ngComponentDef = ɵɵdefineComponent({
           type: Component,
           selectors: [[name]],
           factory: () => new Component(),
@@ -1416,7 +1436,7 @@ describe('lifecycles', () => {
 
     let Grandparent = createOnDestroyComponent('grandparent', function(rf: RenderFlags, ctx: any) {
       if (rf & RenderFlags.Create) {
-        element(0, 'parent');
+        ɵɵelement(0, 'parent');
       }
     }, 1, 0, [Parent]);
 
@@ -1425,7 +1445,7 @@ describe('lifecycles', () => {
     class Directive {
       ngOnDestroy() { events.push('dir'); }
 
-      static ngDirectiveDef = defineDirective(
+      static ngDirectiveDef = ɵɵdefineDirective(
           {type: Directive, selectors: [['', 'dir', '']], factory: () => new Directive()});
     }
 
@@ -1440,20 +1460,20 @@ describe('lifecycles', () => {
 
       const App = createComponent('app', function(rf: RenderFlags, ctx: any) {
         if (rf & RenderFlags.Create) {
-          container(0);
+          ɵɵcontainer(0);
         }
         if (rf & RenderFlags.Update) {
-          containerRefreshStart(0);
+          ɵɵcontainerRefreshStart(0);
           {
             if (!ctx.skip) {
-              let rf1 = embeddedViewStart(0, 1, 0);
+              let rf1 = ɵɵembeddedViewStart(0, 1, 0);
               if (rf1 & RenderFlags.Create) {
-                element(0, 'comp');
+                ɵɵelement(0, 'comp');
               }
-              embeddedViewEnd();
+              ɵɵembeddedViewEnd();
             }
           }
-          containerRefreshEnd();
+          ɵɵcontainerRefreshEnd();
         }
       }, 1, 0, defs);
 
@@ -1473,25 +1493,26 @@ describe('lifecycles', () => {
        */
       const App = createComponent('app', function(rf: RenderFlags, ctx: any) {
         if (rf & RenderFlags.Create) {
-          container(0);
+          ɵɵcontainer(0);
         }
         if (rf & RenderFlags.Update) {
-          containerRefreshStart(0);
+          ɵɵcontainerRefreshStart(0);
           {
             if (!ctx.skip) {
-              let rf1 = embeddedViewStart(0, 2, 2);
+              let rf1 = ɵɵembeddedViewStart(0, 2, 2);
               if (rf1 & RenderFlags.Create) {
-                element(0, 'comp');
-                element(1, 'comp');
+                ɵɵelement(0, 'comp');
+                ɵɵelement(1, 'comp');
               }
               if (rf1 & RenderFlags.Update) {
-                elementProperty(0, 'val', bind('1'));
-                elementProperty(1, 'val', bind('2'));
+                ɵɵelementProperty(0, 'val', ɵɵbind('1'));
+                ɵɵselect(1);
+                ɵɵelementProperty(1, 'val', ɵɵbind('2'));
               }
-              embeddedViewEnd();
+              ɵɵembeddedViewEnd();
             }
           }
-          containerRefreshEnd();
+          ɵɵcontainerRefreshEnd();
         }
       }, 1, 0, defs);
 
@@ -1513,20 +1534,20 @@ describe('lifecycles', () => {
 
       const App = createComponent('app', function(rf: RenderFlags, ctx: any) {
         if (rf & RenderFlags.Create) {
-          container(0);
+          ɵɵcontainer(0);
         }
         if (rf & RenderFlags.Update) {
-          containerRefreshStart(0);
+          ɵɵcontainerRefreshStart(0);
           {
             if (!ctx.skip) {
-              let rf1 = embeddedViewStart(0, 1, 0);
+              let rf1 = ɵɵembeddedViewStart(0, 1, 0);
               if (rf1 & RenderFlags.Create) {
-                element(0, 'parent');
+                ɵɵelement(0, 'parent');
               }
-              embeddedViewEnd();
+              ɵɵembeddedViewEnd();
             }
           }
-          containerRefreshEnd();
+          ɵɵcontainerRefreshEnd();
         }
       }, 1, 0, defs);
 
@@ -1548,20 +1569,20 @@ describe('lifecycles', () => {
        */
       const App = createComponent('app', function(rf: RenderFlags, ctx: any) {
         if (rf & RenderFlags.Create) {
-          container(0);
+          ɵɵcontainer(0);
         }
         if (rf & RenderFlags.Update) {
-          containerRefreshStart(0);
+          ɵɵcontainerRefreshStart(0);
           {
             if (!ctx.skip) {
-              let rf1 = embeddedViewStart(0, 1, 0);
+              let rf1 = ɵɵembeddedViewStart(0, 1, 0);
               if (rf1 & RenderFlags.Create) {
-                element(0, 'grandparent');
+                ɵɵelement(0, 'grandparent');
               }
-              embeddedViewEnd();
+              ɵɵembeddedViewEnd();
             }
           }
-          containerRefreshEnd();
+          ɵɵcontainerRefreshEnd();
         }
       }, 1, 0, defs);
 
@@ -1585,31 +1606,34 @@ describe('lifecycles', () => {
        */
       const App = createComponent('app', function(rf: RenderFlags, ctx: any) {
         if (rf & RenderFlags.Create) {
-          container(0);
+          ɵɵcontainer(0);
         }
         if (rf & RenderFlags.Update) {
-          containerRefreshStart(0);
+          ɵɵcontainerRefreshStart(0);
           {
             if (!ctx.skip) {
-              let rf1 = embeddedViewStart(0, 4, 0);
+              let rf1 = ɵɵembeddedViewStart(0, 4, 0);
               if (rf1 & RenderFlags.Create) {
-                elementStart(0, 'comp');
-                { element(1, 'projected'); }
-                elementEnd();
-                elementStart(2, 'comp');
-                { element(3, 'projected'); }
-                elementEnd();
+                ɵɵelementStart(0, 'comp');
+                { ɵɵelement(1, 'projected'); }
+                ɵɵelementEnd();
+                ɵɵelementStart(2, 'comp');
+                { ɵɵelement(3, 'projected'); }
+                ɵɵelementEnd();
               }
               if (rf1 & RenderFlags.Update) {
-                elementProperty(0, 'val', 1);
-                elementProperty(1, 'val', 1);
-                elementProperty(2, 'val', 2);
-                elementProperty(3, 'val', 2);
+                ɵɵelementProperty(0, 'val', 1);
+                ɵɵselect(1);
+                ɵɵelementProperty(1, 'val', 1);
+                ɵɵselect(2);
+                ɵɵelementProperty(2, 'val', 2);
+                ɵɵselect(3);
+                ɵɵelementProperty(3, 'val', 2);
               }
-              embeddedViewEnd();
+              ɵɵembeddedViewEnd();
             }
           }
-          containerRefreshEnd();
+          ɵɵcontainerRefreshEnd();
         }
       }, 1, 0, defs);
 
@@ -1634,40 +1658,41 @@ describe('lifecycles', () => {
 
       const App = createComponent('app', function(rf: RenderFlags, ctx: any) {
         if (rf & RenderFlags.Create) {
-          container(0);
+          ɵɵcontainer(0);
         }
         if (rf & RenderFlags.Update) {
-          containerRefreshStart(0);
+          ɵɵcontainerRefreshStart(0);
           {
             if (ctx.condition) {
-              let rf1 = embeddedViewStart(0, 3, 2);
+              let rf1 = ɵɵembeddedViewStart(0, 3, 2);
               if (rf1 & RenderFlags.Create) {
-                element(0, 'comp');
-                container(1);
-                element(2, 'comp');
+                ɵɵelement(0, 'comp');
+                ɵɵcontainer(1);
+                ɵɵelement(2, 'comp');
               }
               if (rf1 & RenderFlags.Update) {
-                elementProperty(0, 'val', bind('1'));
-                elementProperty(2, 'val', bind('3'));
-                containerRefreshStart(1);
+                ɵɵelementProperty(0, 'val', ɵɵbind('1'));
+                ɵɵselect(2);
+                ɵɵelementProperty(2, 'val', ɵɵbind('3'));
+                ɵɵcontainerRefreshStart(1);
                 {
                   if (ctx.condition2) {
-                    let rf2 = embeddedViewStart(0, 1, 1);
+                    let rf2 = ɵɵembeddedViewStart(0, 1, 1);
                     if (rf2 & RenderFlags.Create) {
-                      element(0, 'comp');
+                      ɵɵelement(0, 'comp');
                     }
                     if (rf2 & RenderFlags.Update) {
-                      elementProperty(0, 'val', bind('2'));
+                      ɵɵelementProperty(0, 'val', ɵɵbind('2'));
                     }
-                    embeddedViewEnd();
+                    ɵɵembeddedViewEnd();
                   }
                 }
-                containerRefreshEnd();
+                ɵɵcontainerRefreshEnd();
               }
-              embeddedViewEnd();
+              ɵɵembeddedViewEnd();
             }
           }
-          containerRefreshEnd();
+          ɵɵcontainerRefreshEnd();
         }
       }, 1, 0, defs);
 
@@ -1727,40 +1752,41 @@ describe('lifecycles', () => {
        */
       const App = createComponent('app', function(rf: RenderFlags, ctx: any) {
         if (rf & RenderFlags.Create) {
-          container(0);
+          ɵɵcontainer(0);
         }
         if (rf & RenderFlags.Update) {
-          containerRefreshStart(0);
+          ɵɵcontainerRefreshStart(0);
           {
             if (ctx.condition) {
-              let rf1 = embeddedViewStart(0, 3, 2);
+              let rf1 = ɵɵembeddedViewStart(0, 3, 2);
               if (rf1 & RenderFlags.Create) {
-                element(0, 'comp');
-                container(1);
-                element(2, 'comp');
+                ɵɵelement(0, 'comp');
+                ɵɵcontainer(1);
+                ɵɵelement(2, 'comp');
               }
               if (rf1 & RenderFlags.Update) {
-                elementProperty(0, 'val', bind('1'));
-                elementProperty(2, 'val', bind('5'));
-                containerRefreshStart(1);
+                ɵɵelementProperty(0, 'val', ɵɵbind('1'));
+                ɵɵselect(2);
+                ɵɵelementProperty(2, 'val', ɵɵbind('5'));
+                ɵɵcontainerRefreshStart(1);
                 {
                   for (let j = 2; j < ctx.len; j++) {
-                    let rf2 = embeddedViewStart(0, 1, 1);
+                    let rf2 = ɵɵembeddedViewStart(0, 1, 1);
                     if (rf2 & RenderFlags.Create) {
-                      element(0, 'comp');
+                      ɵɵelement(0, 'comp');
                     }
                     if (rf2 & RenderFlags.Update) {
-                      elementProperty(0, 'val', bind(j));
+                      ɵɵelementProperty(0, 'val', ɵɵbind(j));
                     }
-                    embeddedViewEnd();
+                    ɵɵembeddedViewEnd();
                   }
                 }
-                containerRefreshEnd();
+                ɵɵcontainerRefreshEnd();
               }
-              embeddedViewEnd();
+              ɵɵembeddedViewEnd();
             }
           }
-          containerRefreshEnd();
+          ɵɵcontainerRefreshEnd();
         }
       }, 1, 0, defs);
 
@@ -1817,32 +1843,32 @@ describe('lifecycles', () => {
        */
       function Template(rf: RenderFlags, ctx: any) {
         if (rf & RenderFlags.Create) {
-          container(0);
+          ɵɵcontainer(0);
         }
         if (rf & RenderFlags.Update) {
-          containerRefreshStart(0);
+          ɵɵcontainerRefreshStart(0);
           {
             if (ctx.condition) {
-              let rf1 = embeddedViewStart(0, 5, 0);
+              let rf1 = ɵɵembeddedViewStart(0, 5, 0);
               if (rf1 & RenderFlags.Create) {
-                elementStart(0, 'button');
+                ɵɵelementStart(0, 'button');
                 {
-                  listener('click', ctx.onClick.bind(ctx));
-                  text(1, 'Click me');
+                  ɵɵlistener('click', ctx.onClick.bind(ctx));
+                  ɵɵtext(1, 'Click me');
                 }
-                elementEnd();
-                element(2, 'comp');
-                elementStart(3, 'button');
+                ɵɵelementEnd();
+                ɵɵelement(2, 'comp');
+                ɵɵelementStart(3, 'button');
                 {
-                  listener('click', ctx.onClick.bind(ctx));
-                  text(4, 'Click me');
+                  ɵɵlistener('click', ctx.onClick.bind(ctx));
+                  ɵɵtext(4, 'Click me');
                 }
-                elementEnd();
+                ɵɵelementEnd();
               }
-              embeddedViewEnd();
+              ɵɵembeddedViewEnd();
             }
           }
-          containerRefreshEnd();
+          ɵɵcontainerRefreshEnd();
         }
       }
 
@@ -1877,20 +1903,20 @@ describe('lifecycles', () => {
        */
       const App = createComponent('app', function(rf: RenderFlags, ctx: any) {
         if (rf & RenderFlags.Create) {
-          container(0);
+          ɵɵcontainer(0);
         }
         if (rf & RenderFlags.Update) {
-          containerRefreshStart(0);
+          ɵɵcontainerRefreshStart(0);
           {
             if (ctx.condition) {
-              let rf1 = embeddedViewStart(0, 1, 0);
+              let rf1 = ɵɵembeddedViewStart(0, 1, 0);
               if (rf1 & RenderFlags.Create) {
-                element(0, 'comp', ['dir', '']);
+                ɵɵelement(0, 'comp', ['dir', '']);
               }
-              embeddedViewEnd();
+              ɵɵembeddedViewEnd();
             }
           }
-          containerRefreshEnd();
+          ɵɵcontainerRefreshEnd();
         }
       }, 1, 0, defs);
 
@@ -1913,20 +1939,20 @@ describe('lifecycles', () => {
        */
       const App = createComponent('app', function(rf: RenderFlags, ctx: any) {
         if (rf & RenderFlags.Create) {
-          container(0);
+          ɵɵcontainer(0);
         }
         if (rf & RenderFlags.Update) {
-          containerRefreshStart(0);
+          ɵɵcontainerRefreshStart(0);
           {
             if (ctx.condition) {
-              let rf1 = embeddedViewStart(0, 1, 0);
+              let rf1 = ɵɵembeddedViewStart(0, 1, 0);
               if (rf1 & RenderFlags.Create) {
-                element(0, 'div', ['dir', '']);
+                ɵɵelement(0, 'div', ['dir', '']);
               }
-              embeddedViewEnd();
+              ɵɵembeddedViewEnd();
             }
           }
-          containerRefreshEnd();
+          ɵɵcontainerRefreshEnd();
         }
       }, 1, 0, defs);
 
@@ -1954,10 +1980,10 @@ describe('lifecycles', () => {
      */
     const Comp = createOnChangesComponent('comp', (rf: RenderFlags, ctx: any) => {
       if (rf & RenderFlags.Create) {
-        projectionDef();
-        elementStart(0, 'div');
-        { projection(1); }
-        elementEnd();
+        ɵɵprojectionDef();
+        ɵɵelementStart(0, 'div');
+        { ɵɵprojection(1); }
+        ɵɵelementEnd();
       }
     }, 2);
 
@@ -1966,17 +1992,17 @@ describe('lifecycles', () => {
      */
     const Parent = createOnChangesComponent('parent', (rf: RenderFlags, ctx: any) => {
       if (rf & RenderFlags.Create) {
-        element(0, 'comp');
+        ɵɵelement(0, 'comp');
       }
       if (rf & RenderFlags.Update) {
-        elementProperty(0, 'val1', bind(ctx.a));
-        elementProperty(0, 'publicVal2', bind(ctx.b));
+        ɵɵelementProperty(0, 'val1', ɵɵbind(ctx.a));
+        ɵɵelementProperty(0, 'publicVal2', ɵɵbind(ctx.b));
       }
     }, 1, 2, [Comp]);
 
     const ProjectedComp = createOnChangesComponent('projected', (rf: RenderFlags, ctx: any) => {
       if (rf & RenderFlags.Create) {
-        text(0, 'content');
+        ɵɵtext(0, 'content');
       }
     }, 1);
 
@@ -2001,7 +2027,7 @@ describe('lifecycles', () => {
           events.push({type: 'onChanges', name: 'comp - ' + name, changes});
         }
 
-        static ngComponentDef = defineComponent({
+        static ngComponentDef = ɵɵdefineComponent({
           type: Component,
           selectors: [[name]],
           factory: () => new Component(),
@@ -2009,7 +2035,7 @@ describe('lifecycles', () => {
           vars: vars,
           inputs: {a: 'val1', b: ['publicVal2', 'val2']}, template,
           directives: directives,
-          features: [NgOnChangesFeature()],
+          features: [ɵɵNgOnChangesFeature()],
         });
       };
     }
@@ -2023,12 +2049,12 @@ describe('lifecycles', () => {
         events.push({type: 'onChanges', name: 'dir - dir', changes});
       }
 
-      static ngDirectiveDef = defineDirective({
+      static ngDirectiveDef = ɵɵdefineDirective({
         type: Directive,
         selectors: [['', 'dir', '']],
         factory: () => new Directive(),
         inputs: {a: 'val1', b: ['publicVal2', 'val2']},
-        features: [NgOnChangesFeature()],
+        features: [ɵɵNgOnChangesFeature()],
       });
     }
 
@@ -2038,11 +2064,11 @@ describe('lifecycles', () => {
       /** <comp [val1]="val1" [publicVal2]="val2"></comp> */
       const App = createComponent('app', function(rf: RenderFlags, ctx: any) {
         if (rf & RenderFlags.Create) {
-          element(0, 'comp');
+          ɵɵelement(0, 'comp');
         }
         if (rf & RenderFlags.Update) {
-          elementProperty(0, 'val1', bind(ctx.val1));
-          elementProperty(0, 'publicVal2', bind(ctx.val2));
+          ɵɵelementProperty(0, 'val1', ɵɵbind(ctx.val1));
+          ɵɵelementProperty(0, 'publicVal2', ɵɵbind(ctx.val2));
         }
       }, 1, 2, defs);
 
@@ -2084,11 +2110,11 @@ describe('lifecycles', () => {
        */
       const App = createComponent('app', function(rf: RenderFlags, ctx: any) {
         if (rf & RenderFlags.Create) {
-          element(0, 'parent');
+          ɵɵelement(0, 'parent');
         }
         if (rf & RenderFlags.Update) {
-          elementProperty(0, 'val1', bind(ctx.val1));
-          elementProperty(0, 'publicVal2', bind(ctx.val2));
+          ɵɵelementProperty(0, 'val1', ɵɵbind(ctx.val1));
+          ɵɵelementProperty(0, 'publicVal2', ɵɵbind(ctx.val2));
         }
       }, 1, 2, defs);
 
@@ -2128,14 +2154,15 @@ describe('lifecycles', () => {
 
       const App = createComponent('app', function(rf: RenderFlags, ctx: any) {
         if (rf & RenderFlags.Create) {
-          element(0, 'parent');
-          element(1, 'parent');
+          ɵɵelement(0, 'parent');
+          ɵɵelement(1, 'parent');
         }
         if (rf & RenderFlags.Update) {
-          elementProperty(0, 'val1', bind(1));
-          elementProperty(0, 'publicVal2', bind(1));
-          elementProperty(1, 'val1', bind(2));
-          elementProperty(1, 'publicVal2', bind(2));
+          ɵɵelementProperty(0, 'val1', ɵɵbind(1));
+          ɵɵelementProperty(0, 'publicVal2', ɵɵbind(1));
+          ɵɵselect(1);
+          ɵɵelementProperty(1, 'val1', ɵɵbind(2));
+          ɵɵelementProperty(1, 'publicVal2', ɵɵbind(2));
         }
       }, 2, 4, defs);
 
@@ -2186,24 +2213,24 @@ describe('lifecycles', () => {
 
       const App = createComponent('app', function(rf: RenderFlags, ctx: any) {
         if (rf & RenderFlags.Create) {
-          container(0);
+          ɵɵcontainer(0);
         }
         if (rf & RenderFlags.Update) {
-          containerRefreshStart(0);
+          ɵɵcontainerRefreshStart(0);
           {
             if (ctx.condition) {
-              let rf1 = embeddedViewStart(0, 1, 2);
+              let rf1 = ɵɵembeddedViewStart(0, 1, 2);
               if (rf1 & RenderFlags.Create) {
-                element(0, 'comp');
+                ɵɵelement(0, 'comp');
               }
               if (rf1 & RenderFlags.Update) {
-                elementProperty(0, 'val1', bind(1));
-                elementProperty(0, 'publicVal2', bind(1));
+                ɵɵelementProperty(0, 'val1', ɵɵbind(1));
+                ɵɵelementProperty(0, 'publicVal2', ɵɵbind(1));
               }
-              embeddedViewEnd();
+              ɵɵembeddedViewEnd();
             }
           }
-          containerRefreshEnd();
+          ɵɵcontainerRefreshEnd();
         }
       }, 1, 0, defs);
 
@@ -2264,15 +2291,16 @@ describe('lifecycles', () => {
        */
       const App = createComponent('app', function(rf: RenderFlags, ctx: any) {
         if (rf & RenderFlags.Create) {
-          elementStart(0, 'comp');
-          { elementStart(1, 'projected'); }
-          elementEnd();
+          ɵɵelementStart(0, 'comp');
+          { ɵɵelementStart(1, 'projected'); }
+          ɵɵelementEnd();
         }
         if (rf & RenderFlags.Update) {
-          elementProperty(0, 'val1', bind(1));
-          elementProperty(0, 'publicVal2', bind(1));
-          elementProperty(1, 'val1', bind(2));
-          elementProperty(1, 'publicVal2', bind(2));
+          ɵɵelementProperty(0, 'val1', ɵɵbind(1));
+          ɵɵelementProperty(0, 'publicVal2', ɵɵbind(1));
+          ɵɵselect(1);
+          ɵɵelementProperty(1, 'val1', ɵɵbind(2));
+          ɵɵelementProperty(1, 'publicVal2', ɵɵbind(2));
         }
       }, 2, 4, defs);
 
@@ -2308,22 +2336,25 @@ describe('lifecycles', () => {
        */
       const App = createComponent('app', function(rf: RenderFlags, ctx: any) {
         if (rf & RenderFlags.Create) {
-          elementStart(0, 'comp');
-          { elementStart(1, 'projected'); }
-          elementEnd();
-          elementStart(2, 'comp');
-          { elementStart(3, 'projected'); }
-          elementEnd();
+          ɵɵelementStart(0, 'comp');
+          { ɵɵelementStart(1, 'projected'); }
+          ɵɵelementEnd();
+          ɵɵelementStart(2, 'comp');
+          { ɵɵelementStart(3, 'projected'); }
+          ɵɵelementEnd();
         }
         if (rf & RenderFlags.Update) {
-          elementProperty(0, 'val1', bind(1));
-          elementProperty(0, 'publicVal2', bind(1));
-          elementProperty(1, 'val1', bind(2));
-          elementProperty(1, 'publicVal2', bind(2));
-          elementProperty(2, 'val1', bind(3));
-          elementProperty(2, 'publicVal2', bind(3));
-          elementProperty(3, 'val1', bind(4));
-          elementProperty(3, 'publicVal2', bind(4));
+          ɵɵelementProperty(0, 'val1', ɵɵbind(1));
+          ɵɵelementProperty(0, 'publicVal2', ɵɵbind(1));
+          ɵɵselect(1);
+          ɵɵelementProperty(1, 'val1', ɵɵbind(2));
+          ɵɵelementProperty(1, 'publicVal2', ɵɵbind(2));
+          ɵɵselect(2);
+          ɵɵelementProperty(2, 'val1', ɵɵbind(3));
+          ɵɵelementProperty(2, 'publicVal2', ɵɵbind(3));
+          ɵɵselect(3);
+          ɵɵelementProperty(3, 'val1', ɵɵbind(4));
+          ɵɵelementProperty(3, 'publicVal2', ɵɵbind(4));
         }
       }, 4, 8, defs);
 
@@ -2370,11 +2401,11 @@ describe('lifecycles', () => {
        */
       const App = createComponent('app', function(rf: RenderFlags, ctx: any) {
         if (rf & RenderFlags.Create) {
-          element(0, 'comp', ['dir', '']);
+          ɵɵelement(0, 'comp', ['dir', '']);
         }
         if (rf & RenderFlags.Update) {
-          elementProperty(0, 'val1', bind(1));
-          elementProperty(0, 'publicVal2', bind(1));
+          ɵɵelementProperty(0, 'val1', ɵɵbind(1));
+          ɵɵelementProperty(0, 'publicVal2', ɵɵbind(1));
         }
       }, 1, 2, defs);
 
@@ -2411,11 +2442,11 @@ describe('lifecycles', () => {
        */
       const App = createComponent('app', function(rf: RenderFlags, ctx: any) {
         if (rf & RenderFlags.Create) {
-          element(0, 'div', ['dir', '']);
+          ɵɵelement(0, 'div', ['dir', '']);
         }
         if (rf & RenderFlags.Update) {
-          elementProperty(0, 'val1', bind(1));
-          elementProperty(0, 'publicVal2', bind(1));
+          ɵɵelementProperty(0, 'val1', ɵɵbind(1));
+          ɵɵelementProperty(0, 'publicVal2', ɵɵbind(1));
         }
       }, 1, 2, defs);
 
@@ -2445,30 +2476,31 @@ describe('lifecycles', () => {
 
       const App = createComponent('app', function(rf: RenderFlags, ctx: any) {
         if (rf & RenderFlags.Create) {
-          element(0, 'comp');
-          container(1);
-          element(2, 'comp');
+          ɵɵelement(0, 'comp');
+          ɵɵcontainer(1);
+          ɵɵelement(2, 'comp');
         }
         if (rf & RenderFlags.Update) {
-          elementProperty(0, 'val1', bind(1));
-          elementProperty(0, 'publicVal2', bind(1));
-          elementProperty(2, 'val1', bind(5));
-          elementProperty(2, 'publicVal2', bind(5));
-          containerRefreshStart(1);
+          ɵɵelementProperty(0, 'val1', ɵɵbind(1));
+          ɵɵelementProperty(0, 'publicVal2', ɵɵbind(1));
+          ɵɵselect(2);
+          ɵɵelementProperty(2, 'val1', ɵɵbind(5));
+          ɵɵelementProperty(2, 'publicVal2', ɵɵbind(5));
+          ɵɵcontainerRefreshStart(1);
           {
             for (let j = 2; j < 5; j++) {
-              let rf1 = embeddedViewStart(0, 1, 2);
+              let rf1 = ɵɵembeddedViewStart(0, 1, 2);
               if (rf1 & RenderFlags.Create) {
-                element(0, 'comp');
+                ɵɵelement(0, 'comp');
               }
               if (rf1 & RenderFlags.Update) {
-                elementProperty(0, 'val1', bind(j));
-                elementProperty(0, 'publicVal2', bind(j));
+                ɵɵelementProperty(0, 'val1', ɵɵbind(j));
+                ɵɵelementProperty(0, 'publicVal2', ɵɵbind(j));
               }
-              embeddedViewEnd();
+              ɵɵembeddedViewEnd();
             }
           }
-          containerRefreshEnd();
+          ɵɵcontainerRefreshEnd();
         }
       }, 3, 4, defs);
 
@@ -2531,30 +2563,31 @@ describe('lifecycles', () => {
 
       const App = createComponent('app', function(rf: RenderFlags, ctx: any) {
         if (rf & RenderFlags.Create) {
-          element(0, 'parent');
-          container(1);
-          element(2, 'parent');
+          ɵɵelement(0, 'parent');
+          ɵɵcontainer(1);
+          ɵɵelement(2, 'parent');
         }
         if (rf & RenderFlags.Update) {
-          elementProperty(0, 'val1', bind(1));
-          elementProperty(0, 'publicVal2', bind(1));
-          elementProperty(2, 'val1', bind(5));
-          elementProperty(2, 'publicVal2', bind(5));
-          containerRefreshStart(1);
+          ɵɵelementProperty(0, 'val1', ɵɵbind(1));
+          ɵɵelementProperty(0, 'publicVal2', ɵɵbind(1));
+          ɵɵselect(2);
+          ɵɵelementProperty(2, 'val1', ɵɵbind(5));
+          ɵɵelementProperty(2, 'publicVal2', ɵɵbind(5));
+          ɵɵcontainerRefreshStart(1);
           {
             for (let j = 2; j < 5; j++) {
-              let rf1 = embeddedViewStart(0, 1, 2);
+              let rf1 = ɵɵembeddedViewStart(0, 1, 2);
               if (rf1 & RenderFlags.Create) {
-                element(0, 'parent');
+                ɵɵelement(0, 'parent');
               }
               if (rf1 & RenderFlags.Update) {
-                elementProperty(0, 'val1', bind(j));
-                elementProperty(0, 'publicVal2', bind(j));
+                ɵɵelementProperty(0, 'val1', ɵɵbind(j));
+                ɵɵelementProperty(0, 'publicVal2', ɵɵbind(j));
               }
-              embeddedViewEnd();
+              ɵɵembeddedViewEnd();
             }
           }
-          containerRefreshEnd();
+          ɵɵcontainerRefreshEnd();
         }
       }, 3, 4, defs);
 
@@ -2654,7 +2687,7 @@ describe('lifecycles', () => {
 
         ngOnChanges(changes: SimpleChanges) { events.push(changes); }
 
-        static ngComponentDef = defineComponent({
+        static ngComponentDef = ɵɵdefineComponent({
           type: MyComp,
           factory: () => {
             // Capture the instance so we can test setting the property directly
@@ -2663,10 +2696,10 @@ describe('lifecycles', () => {
           },
           template: (rf: RenderFlags, ctx: any) => {
             if (rf & RenderFlags.Create) {
-              element(0, 'div');
+              ɵɵelement(0, 'div');
             }
             if (rf & RenderFlags.Update) {
-              elementProperty(0, 'id', bind(ctx.a));
+              ɵɵelementProperty(0, 'id', ɵɵbind(ctx.a));
             }
           },
           selectors: [['my-comp']],
@@ -2684,10 +2717,10 @@ describe('lifecycles', () => {
 
       const App = createComponent('app', function(rf: RenderFlags, ctx: any) {
         if (rf & RenderFlags.Create) {
-          element(0, 'my-comp');
+          ɵɵelement(0, 'my-comp');
         }
         if (rf & RenderFlags.Update) {
-          elementProperty(0, 'value', bind(1));
+          ɵɵelementProperty(0, 'value', ɵɵbind(1));
         }
       }, 1, 1, [MyComp]);
 
@@ -2725,7 +2758,7 @@ describe('lifecycles', () => {
         ngAfterViewInit() { events.push(`viewInit ${name}${this.val}`); }
         ngAfterViewChecked() { events.push(`viewCheck ${name}${this.val}`); }
 
-        static ngComponentDef = defineComponent({
+        static ngComponentDef = ɵɵdefineComponent({
           type: Component,
           selectors: [[name]],
           factory: () => new Component(),
@@ -2733,7 +2766,7 @@ describe('lifecycles', () => {
           vars: vars,
           inputs: {val: 'val'}, template,
           directives: directives,
-          features: [NgOnChangesFeature()],
+          features: [ɵɵNgOnChangesFeature()],
         });
       };
     }
@@ -2747,8 +2780,8 @@ describe('lifecycles', () => {
        */
       const App = createComponent('app', function(rf: RenderFlags, ctx: any) {
         if (rf & RenderFlags.Create) {
-          element(0, 'comp');
-          element(1, 'comp');
+          ɵɵelement(0, 'comp');
+          ɵɵelement(1, 'comp');
         }
         // This template function is a little weird in that the `elementProperty` calls
         // below are directly setting values `1` and `2`, where normally there would be
@@ -2756,8 +2789,9 @@ describe('lifecycles', () => {
         // This means when `fixture.update()` is called below, ngOnChanges should fire,
         // even though the *value* itself never changed.
         if (rf & RenderFlags.Update) {
-          elementProperty(0, 'val', 1);
-          elementProperty(1, 'val', 2);
+          ɵɵelementProperty(0, 'val', 1);
+          ɵɵselect(1);
+          ɵɵelementProperty(1, 'val', 2);
         }
       }, 2, 0, [Comp]);
 
@@ -2782,10 +2816,10 @@ describe('lifecycles', () => {
       /** <comp [val]="val"></comp> */
       const Parent = createAllHooksComponent('parent', (rf: RenderFlags, ctx: any) => {
         if (rf & RenderFlags.Create) {
-          element(0, 'comp');
+          ɵɵelement(0, 'comp');
         }
         if (rf & RenderFlags.Update) {
-          elementProperty(0, 'val', bind(ctx.val));
+          ɵɵelementProperty(0, 'val', ɵɵbind(ctx.val));
         }
       }, 1, 1, [Comp]);
 
@@ -2795,12 +2829,13 @@ describe('lifecycles', () => {
        */
       const App = createComponent('app', function(rf: RenderFlags, ctx: any) {
         if (rf & RenderFlags.Create) {
-          element(0, 'parent');
-          element(1, 'parent');
+          ɵɵelement(0, 'parent');
+          ɵɵelement(1, 'parent');
         }
         if (rf & RenderFlags.Update) {
-          elementProperty(0, 'val', 1);
-          elementProperty(1, 'val', 2);
+          ɵɵelementProperty(0, 'val', 1);
+          ɵɵselect(1);
+          ɵɵelementProperty(1, 'val', 2);
         }
       }, 2, 0, [Parent]);
 
@@ -2838,12 +2873,13 @@ describe('lifecycles', () => {
       /** <ng-content></ng-content><view [val]="val"></view> */
       const Parent = createAllHooksComponent('parent', (rf: RenderFlags, ctx: any) => {
         if (rf & RenderFlags.Create) {
-          projectionDef();
-          projection(0);
-          element(1, 'view');
+          ɵɵprojectionDef();
+          ɵɵprojection(0);
+          ɵɵelement(1, 'view');
         }
         if (rf & RenderFlags.Update) {
-          elementProperty(1, 'val', bind(ctx.val));
+          ɵɵselect(1);
+          ɵɵelementProperty(1, 'val', ɵɵbind(ctx.val));
         }
       }, 2, 1, [View]);
 
@@ -2857,18 +2893,21 @@ describe('lifecycles', () => {
        */
       const App = createComponent('app', function(rf: RenderFlags, ctx: any) {
         if (rf & RenderFlags.Create) {
-          elementStart(0, 'parent');
-          { element(1, 'content'); }
-          elementEnd();
-          elementStart(2, 'parent');
-          { element(3, 'content'); }
-          elementEnd();
+          ɵɵelementStart(0, 'parent');
+          { ɵɵelement(1, 'content'); }
+          ɵɵelementEnd();
+          ɵɵelementStart(2, 'parent');
+          { ɵɵelement(3, 'content'); }
+          ɵɵelementEnd();
         }
         if (rf & RenderFlags.Update) {
-          elementProperty(0, 'val', bind(1));
-          elementProperty(1, 'val', bind(1));
-          elementProperty(2, 'val', bind(2));
-          elementProperty(3, 'val', bind(2));
+          ɵɵelementProperty(0, 'val', ɵɵbind(1));
+          ɵɵselect(1);
+          ɵɵelementProperty(1, 'val', ɵɵbind(1));
+          ɵɵselect(2);
+          ɵɵelementProperty(2, 'val', ɵɵbind(2));
+          ɵɵselect(3);
+          ɵɵelementProperty(3, 'val', ɵɵbind(2));
         }
       }, 4, 4, [Parent, Content]);
 
@@ -2919,7 +2958,7 @@ describe('lifecycles', () => {
       class OnDestroyDirective implements OnDestroy {
         ngOnDestroy() { destroyed = true; }
 
-        static ngDirectiveDef = defineDirective({
+        static ngDirectiveDef = ɵɵdefineDirective({
           type: OnDestroyDirective,
           selectors: [['', 'onDestroyDirective', '']],
           factory: () => new OnDestroyDirective()
@@ -2929,8 +2968,8 @@ describe('lifecycles', () => {
 
       function conditionTpl(rf: RenderFlags, ctx: Cmpt) {
         if (rf & RenderFlags.Create) {
-          template(
-              0, null, 0, 1, 'ng-template', [AttributeMarker.SelectOnly, 'onDestroyDirective']);
+          ɵɵtemplate(
+              0, null, 0, 1, 'ng-template', [AttributeMarker.Bindings, 'onDestroyDirective']);
         }
       }
 
@@ -2941,16 +2980,16 @@ describe('lifecycles', () => {
        */
       function cmptTpl(rf: RenderFlags, cmpt: Cmpt) {
         if (rf & RenderFlags.Create) {
-          template(0, conditionTpl, 1, 1, 'ng-template', [AttributeMarker.SelectOnly, 'ngIf']);
+          ɵɵtemplate(0, conditionTpl, 1, 1, 'ng-template', [AttributeMarker.Bindings, 'ngIf']);
         }
         if (rf & RenderFlags.Update) {
-          elementProperty(0, 'ngIf', bind(cmpt.showing));
+          ɵɵelementProperty(0, 'ngIf', ɵɵbind(cmpt.showing));
         }
       }
 
       class Cmpt {
         showing = true;
-        static ngComponentDef = defineComponent({
+        static ngComponentDef = ɵɵdefineComponent({
           type: Cmpt,
           factory: () => new Cmpt(),
           selectors: [['cmpt']],

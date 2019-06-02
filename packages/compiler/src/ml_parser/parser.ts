@@ -274,15 +274,6 @@ class _TreeBuilder {
       this._elementStack.pop();
     }
 
-    const tagDef = this.getTagDefinition(el.name);
-    const {parent, container} = this._getParentElementSkippingContainers();
-
-    if (parent && tagDef.requireExtraParent(parent.name)) {
-      const newParent = new html.Element(
-          tagDef.parentToAdd, [], [], el.sourceSpan, el.startSourceSpan, el.endSourceSpan);
-      this._insertBeforeContainer(parent, container, newParent);
-    }
-
     this._addToParent(el);
     this._elementStack.push(el);
   }
@@ -402,9 +393,9 @@ class _TreeBuilder {
 
   private _getElementFullName(prefix: string, localName: string, parentElement: html.Element|null):
       string {
-    if (prefix == null) {
-      prefix = this.getTagDefinition(localName).implicitNamespacePrefix !;
-      if (prefix == null && parentElement != null) {
+    if (prefix === '') {
+      prefix = this.getTagDefinition(localName).implicitNamespacePrefix || '';
+      if (prefix === '' && parentElement != null) {
         prefix = getNsPrefix(parentElement.name);
       }
     }
