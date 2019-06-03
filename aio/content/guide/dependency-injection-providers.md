@@ -506,7 +506,7 @@ You can then import this module into your application module
 to make the service available for injection in your app,
 as in the following example.
 
-该模块以后可以导入到你的应用模块中，以便该服务可注入到你的应用中，例子如下。
+你可以把该模块导入到你的应用模块中，以便该服务可注入到你的应用中，例子如下。
 
 <code-example path="dependency-injection/src/app/tree-shaking/app.module.ts"  header="src/app/tree-shaking/app.modules.ts" linenums="false"> </code-example>
 

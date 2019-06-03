@@ -567,8 +567,6 @@ The Angular CLI uses two configurations for differential loading:
 - Browserslist - The `browserslist` configuration file is included in your application [project structure](guide/file-structure#application-configuration-files) and provides the minimum browsers your application supports. See the [Browserslist spec](https://github.com/browserslist/browserslist) for complete configuration options.
 - tsconfig.json - The `target` in the TypeScript `compilerOptions` determines the ECMAScript target version that the code is compiled to. Modern browsers support ES2015 natively, while ES5 is more commonly used to support legacy browsers.
 
-在构建之前，`ng build` 和 `ng serve` 都会清空输出目录，但是只有 `ng build` 命令才会把生成的构建成果写入到输出目录下。
-
 <div class="alert is-helpful">
 
 **Note:** Differential loading is currently only supported when using `es2015` as a compilation `target`. When used with targets higher than `es2015`, a warning is emitted during build time.
@@ -627,10 +625,6 @@ not IE 9-11 # For IE 9-11 support, remove 'not'.
 ```
 
 The `tsconfig.json` looks like this:
-
-
-`ng serve` 命令会构建、监视并使用本地开发服务器从内存中提供网站服务。
-但是，当你将应用部署到其它服务器时，你可能希望仍然能持续看到你对该应用所做的修改。这时候，你可以为 `ng build` 命令添加 `--watch` 选项来做到这一点。
 
 ```
 {

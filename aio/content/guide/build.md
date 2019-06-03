@@ -495,7 +495,7 @@ For example, to divert all calls for `http://localhost:4200/api` to a server run
 
 1. Create a file `proxy.conf.json` in the projects `src/` folder, in the same directory as `package.json`.
 
-   在项目的 `src/` 目录下创建一个 `proxy.conf.json` 文件，紧挨着 `package.json`。
+   在项目的 `src/` 目录下创建一个 `proxy.conf.json` 文件，和 `package.json` 放在同一目录下。
 
 1. Add the following content to the new proxy file:
 

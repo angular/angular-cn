@@ -68,7 +68,7 @@ The public API for your library is maintained in the `public-api.ts` file in you
 Anything exported from this file is made public when your library is imported into an application.
 Use an NgModule to expose services and components.
 
-库的公共 API 是在库文件夹下的 `index.ts` 文件中维护的。当你的库被导入应用时，从该文件导出的所有内容都会公开。请使用 NgModule 来暴露这些服务和组件。
+库的公共 API 是在库文件夹下的 `public-api.ts` 文件中维护的。当你的库被导入应用时，从该文件导出的所有内容都会公开。请使用 NgModule 来暴露这些服务和组件。
 
 Your library should supply documentation (typically a README file) for installation and maintenance.
 
@@ -162,11 +162,11 @@ A library can include [schematics](guide/glossary#schematic) that allow it to in
 
 * Include an update schematic so that `ng update` can update your library’s dependencies and provide migrations for breaking changes in new releases.
 
-    包含一个更新型 schematic ，以便 `ng update` 可以更新此库的依赖，并针对新版本中的破坏性变更提供辅助迁移。
+    包含一个更新（update）schematic ，以便 `ng update` 可以更新此库的依赖，并针对新版本中的破坏性变更提供辅助迁移。
 
 To learn more, see [Schematics Overview](guide/schematics) and [Schematics for Libraries](guide/schematics-for-libraries).
 
-要了解更多信息，参见 [Schematic - 简介](https://blog.angular.io/schematics-an-introduction-dc1dfbc2a2b2) 。
+要了解更多信息，参见 [原理图概览](guide/schematics) 和 [供库使用的原理图](guide/schematics-for-libraries)。
 
 ## Publishing your library
 

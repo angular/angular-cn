@@ -289,7 +289,7 @@ you can still inject application-wide services into these components.
 A component's injector is a child of its parent component's injector, and inherits from all ancestor injectors all the way back to the application's _root_ injector. Angular can inject a service provided by any injector in that lineage.
 
 借助[注入器继承机制](guide/hierarchical-dependency-injection)，你仍然可以把全应用级的服务注入到这些组件中。
-组件的注入器是其父组件注入器的子节点，也是其父节点的父节点的后代，以此类推，直到应用的*根*注入器为止。
+组件的注入器是其父组件注入器的子节点，它会继承所有的祖先注入器，其终点则是应用的*根*注入器。
 Angular 可以注入该继承谱系中任何一个注入器提供的服务。
 
 For example, Angular can inject `HeroListComponent` with both the `HeroService` provided in `HeroComponent` and the `UserService` provided in `AppModule`.

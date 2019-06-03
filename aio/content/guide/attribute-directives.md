@@ -92,7 +92,7 @@ ng generate directive highlight
 
 The CLI creates `src/app/highlight.directive.ts`, a corresponding test file `src/app/highlight.directive.spec.ts`, and _declares_ the directive class in the root `AppModule`.
 
-CLI 会创建 `src/app/highlight.directive.ts` 及相应的测试文件（`.../spec.ts`），并且在根模块 `AppModule` 中声明这个指令类。
+CLI 会创建 `src/app/highlight.directive.ts` 及相应的测试文件（`src/app/highlight.directive.spec.ts`），并且在根模块 `AppModule` 中声明这个指令类。
 
 <div class="alert is-helpful">
 
