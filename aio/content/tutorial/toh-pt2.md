@@ -67,6 +67,7 @@ Open the `HeroesComponent` template file and make the following changes:
 * Add an `<h2>` at the top, 
 
    在顶部添加 `<h2>`，
+
 * Below it add an HTML unordered list (`<ul>`)
 
    然后添加表示无序列表的 HTML 元素（`<ul>`）
@@ -131,7 +132,7 @@ After the browser refreshes, the list of heroes appears.
 
 ### Style the heroes
 
-### 给英雄们“美容”
+### 给英雄列表“美容”
 
 The heroes list should be attractive and should respond visually when users
 hover over and select a hero from the list.

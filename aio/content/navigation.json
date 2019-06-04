@@ -476,8 +476,8 @@
             },
             {
               "url": "guide/app-shell",
-              "title": "App Shell",
-              "tooltip": "Enabling the App Shell in a CLI project."
+              "title": "应用外壳",
+              "tooltip": "在 CLI 项目中启用应用外壳。"
             },
             {
               "url": "guide/service-worker-communications",
@@ -513,7 +513,7 @@
             {
               "url": "guide/upgrade-performance",
               "title": "更关注性能的升级方式",
-              "tooltip": "用更灵活的方式把 AngularJS 升级到 Angular"
+              "tooltip": "用更灵活的方式把 AngularJS 升级到 Angular。"
             },
             {
               "url": "guide/ajs-quick-reference",
@@ -539,40 +539,40 @@
             {
               "url": "guide/creating-libraries",
               "title": "创建库",
-              "tooltip": "通过创建、发布和使用你自己的库来扩展 Angular"
+              "tooltip": "通过创建、发布和使用你自己的库来扩展 Angular。"
             }
           ]
         },
         {
-          "title": "Schematics",
-          "tooltip": "Understanding schematics.",
+          "title": "原理图（Schematic）",
+          "tooltip": "理解原理图",
           "children": [
             {
               "url": "guide/schematics",
-              "title": "Schematics Overview",
-              "tooltip": "Understand how schematics are used in Angular."
+              "title": "原理图概览",
+              "tooltip": "理解 Angular 如何使用原理图。"
             },
             {
               "url": "guide/schematics-authoring",
-              "title": "Authoring Schematics",
-              "tooltip": "Understand the structure of a schematic."
+              "title": "制作原理图",
+              "tooltip": "理解原理图的结构。"
             },
             {
               "url": "guide/schematics-for-libraries",
-              "title": "Schematics for Libraries",
-              "tooltip": "Use schematics to integrate your library with the Angular CLI."
+              "title": "库的原理图",
+              "tooltip": "使用原理图来把你的库集成进 Angular CLI 中。"
             }
           ]
         },
         {
           "url": "guide/ivy",
-          "title": "Angular Ivy",
-          "tooltip": "Opting into Angular Ivy with Angular CLI."
+          "title": "Angular Ivy（常春藤）",
+          "tooltip": "在 Angular CLI 中可选的启用 Ivy。"
         },
         {
           "url": "guide/web-worker",
-          "title": "Web Workers",
-          "tooltip": "Using Web Workers with Angular CLI."
+          "title": "Web Worker",
+          "tooltip": "在 Angular CLI 中使用 Web Worker。"
         }
       ]
     },
@@ -618,8 +618,8 @@
         },
         {
           "url": "guide/bazel",
-          "title": "Building with Bazel",
-          "tooltip": "How to set up your environment to build and test with Bazel."
+          "title": "使用 Bazel 进行构建",
+          "tooltip": "如何配置你的环境，以利用 Bazel 进行构建和测试。"
         },
         {
           "url": "guide/testing",
@@ -707,8 +707,8 @@
           "url": "cli"
         },
         {
-          "title": "Usage Analytics",
-          "tooltip": "For administrators, guide to gathering usage analytics from your users.",
+          "title": "使用情况分析",
+          "tooltip": "管理员如何从用户那里收集使用情况分析。",
           "url": "cli/usage-analytics-gathering"
         }
       ]
@@ -779,9 +779,9 @@
           "tooltip": "Angular 官方博客"
         },
         {
-          "url": "analytics",
-          "title": "Usage Analytics",
-          "tooltip": "Angular Usage Analytics"
+          "url": "分析",
+          "title": "使用分析",
+          "tooltip": "Angular 使用情况分析"
         }
       ]
     },
