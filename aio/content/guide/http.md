@@ -1366,6 +1366,8 @@ Every progress event triggers change detection, so only turn them on if you trul
 When using [`HttpClient#request()`](api/common/http/HttpClient#request) with an HTTP method, configure with
 [`observe: 'events'`](api/common/http/HttpClient#request) to see all events, including the progress of transfers.
 
+当和 HTTP 方法一起使用 [`HttpClient#request()`](api/common/http/HttpClient#request) 时，配置上 [`observe: 'events'`](api/common/http/HttpClient#request) 选项可以看到所有事件，包括传输过程中的事件。
+
 </div>
 
 Next, pass this request object to the `HttpClient.request()` method, which

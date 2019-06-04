@@ -183,8 +183,8 @@ and leave it up to the app whether to provide the service.
 You can configure a provider at the module level using the `providers` metadata option for a non-root NgModule, in order to limit the scope of the provider to that module.
 This is the equivalent of specifying the non-root module in the `@Injectable()` metadata, except that the service provided via `providers` is not tree-shakable.
 
-你还可以在非根 NgModule 元数据的 `providedIn` 选项中配置一个模块级的提供商，以便把该服务的范围限定到该模块一级。
-这和在 `@Injectable()` 元数据中指定一个非根模块是基本等效的，但以这种方式提供的服务无法被摇树优化掉。
+你还可以在非根 NgModule 元数据的 `providers` 选项中配置一个模块级的提供商，以便把该服务的范围限定在该模块一级。
+这和在 `@Injectable()` 元数据中指定一个非根模块是基本等效的，但以 `providers` 形式提供的服务无法被摇树优化。
 
 You generally don't need to specify `AppModule` with `providedIn`, because the app's `root` injector is the `AppModule` injector. 
 However, if you configure a app-wide provider in the `@NgModule()` metadata for `AppModule`,
