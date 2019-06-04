@@ -35,6 +35,7 @@ The above command completes the following actions:
 1. Adds the `@angular/service-worker` package to your project. 
 
    把 @angular/service-worker 添加到你的项目中。
+
 2. Enables service worker build support in the CLI.
 
    在 CLI 中启用 Service Worker 的构建支持。

@@ -933,7 +933,9 @@ As always, strive for consistency.
 
 <div class="s-rule do">
 
-**Do** use a hyphenated, lowercase element selector value ; for example, `admin-users`.**坚持**使用带连字符的小写元素选择器值（例如 `admin-users`）。
+**Do** use a hyphenated, lowercase element selector value; for example, `admin-users`.
+
+**坚持**使用带连字符的小写元素选择器值（例如 `admin-users`）。
 
 </div>
 
@@ -1663,7 +1665,7 @@ Have a consistent set of coding, naming, and whitespace conventions.
 
 **Do** use upper camel case, also known as PascalCase, when naming classes.
 
-**坚持**使用大写驼峰命名法来命名类。
+**坚持**使用大写驼峰形式（也叫 Pascal 形式）来命名类。
 
 </div>
 
@@ -2738,11 +2740,12 @@ and more difficult in a flat structure.
 
 </div>
 
-<div >
+<div>
 
   For more information, refer to <a href="#file-tree">this folder and file structure example.</a>
 
-  <a href="#file-tree">点这里查看目录和文件结构的范例</a>
+  欲知详情，参见<a href="#file-tree">目录和文件结构的范例</a>
+  
 </div>
 
 <a href="#toc">Back to top</a>
@@ -3148,7 +3151,7 @@ Yet there is a real danger of that happening if the `SharedModule` provides a se
 
 ### Lazy Loaded folders
 
-### 核心特性模块
+### 惰性加载文件夹
 
 #### Style 04-11
 

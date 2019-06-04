@@ -35,15 +35,27 @@ The CLI schematic `@nguniversal/express-engine` performs the required steps, as 
 </div>
 
 {@a the-example}
-## Universal tutorial 
+
+## Universal tutorial
+
+## Universal 教程
+
 
 The [Tour of Heroes tutorial](tutorial) is the foundation for this walkthrough. 
+
+这次演练的基础是[“英雄指南”教程](tutorial) 。
 
 In this example, the Angular CLI compiles and bundles the Universal version of the app with the
 [Ahead-of-Time (AoT) compiler](guide/aot-compiler).
 A Node Express web server compiles HTML pages with Universal based on client requests.
 
+在这个例子中，Angular CLI 使用 [预先（AoT）编译器](guide/aot-compiler)编译并打包了该应用的 Universal 版本。 Node Express Web 服务器则会根据客户端的请求，利用 Universal 编译 HTML 页面。
+
+
 To create the server-side app module, `app.server.module.ts`, run the following CLI command.
+
+要创建服务端应用模块 `app.server.module.ts`，请运行以下 CLI 命令。
+
 
 <code-example format="." language="bash">
 
@@ -52,6 +64,9 @@ ng add @nguniversal/express-engine --clientProject angular.io-example
 </code-example>
 
 The command creates the following folder structure.
+
+该命令会创建如下文件夹结构。
+
 
 <code-example format="." language="none" linenums="false">
 src/
@@ -72,9 +87,18 @@ webpack.server.config.js     <i>* webpack server configuration</i>
 
 The files marked with `*` are new and not in the original tutorial sample.
 
+标有 `*` 的文件都是新增的，不在原始的教程示例中。
+
+
 ### Universal in action
 
+### Universal 实战
+
+
 To start rendering your app with Universal on your local system, use the following command.
+
+要使用 Universal 在本地系统中渲染你的应用，请使用如下命令。
+
 
 <code-example format="." language="bash" linenums="false">
 npm run build:ssr && npm run serve:ssr
@@ -83,32 +107,74 @@ npm run build:ssr && npm run serve:ssr
 Open a browser and navigate to http://localhost:4000/.
 You should see the familiar Tour of Heroes dashboard page.
 
+打开浏览器，导航到 http://localhost:4000/。你会看到熟悉的“英雄指南”仪表盘页面。
+
+
 Navigation via `routerLinks` works correctly because they use the native anchor (`<a>`) tags.
 You can go from the Dashboard to the Heroes page and back.
 You can click a hero on the Dashboard page to display its Details page.
 
+通过 `routerLinks` 导航时能正常工作，因为它们使用的是原生的链接标签（`<a>`）。你可以从仪表盘进入 英雄列表页面，然后返回。你可以点击仪表盘页面上的一个英雄来显示他的详情页面。
+
+
 If you throttle your network speed so that the client-side scripts take longer to download (instructions below), 
 you'll notice:
+
+如果你限制下网速（稍后会讲操作步骤），让客户端脚本下载时间变长，你会注意到：
+
+
 * Clicking a hero on the Heroes page does nothing.
+
+  点击英雄列表页面上的英雄没有反应。
+
 * You can't add or delete a hero.
-* The search box on the Dashboard page is ignored.
-* The *Back* and *Save* buttons on the Details page don't work.
+
+  你无法添加或删除英雄。
+
+- The search box on the Dashboard page is ignored.
+
+  仪表盘页面上的搜索框会被忽略。
+
+- The *Back* and *Save* buttons on the Details page don't work.
+
+  “详情”页面上的*后退*和*保存*按钮不起作用。
+
 
 User events other than `routerLink` clicks aren't supported.
 You must wait for the full client app to bootstrap and run, or buffer the events using libraries like 
 [preboot](https://github.com/angular/preboot), which allow you to replay these events once the client-side scripts load.
 
+不支持除了点击 `routerLink` 以外的任何用户事件。你必须等待完整的客户端应用启动并运行，或者使用 [preboot 之类的](https://github.com/angular/preboot)库来缓冲这些事件，这样你就可以在客户端脚本加载完毕后重放这些事件。
+
+
 The transition from the server-rendered app to the client app happens quickly on a development machine, but you should
 always test your apps in real-world scenarios.
 
+在开发机器上，从服务端渲染的应用过渡到客户端应用的过程会很快，但是你还是应该在实际场景中测试一下你的应用。
+
+
 You can simulate a slower network to see the transition more clearly as follows:
 
+你可以通过模拟速度较慢的网络来更清晰地看到这种转换，如下所示：
+
+
 1. Open the Chrome Dev Tools and go to the Network tab.
+
+   打开 Chrome 开发者工具，进入 Network 标签页。
+
 1. Find the [Network Throttling](https://developers.google.com/web/tools/chrome-devtools/network-performance/reference#throttling) 
-dropdown on the far right of the menu bar.
+   dropdown on the far right of the menu bar.
+
+   找一下菜单栏最右侧的 [Network Throttling](https://developers.google.com/web/tools/chrome-devtools/network-performance/reference#throttling) 下拉菜单。
+
 1. Try one of the "3G" speeds.
 
+   尝试一下 “3G” 的速度吧。
+
+
 The server-rendered app still launches quickly but the full client app may take seconds to load.
+
+服务端渲染的应用仍然可以快速启动，但完整的客户端应用可能需要几秒钟才能加载完。
 
 {@a why-do-it}
 ## Why use server-side rendering?
@@ -121,7 +187,7 @@ There are three main reasons to create a Universal version of your app.
 
 1. Facilitate web crawlers through [search engine optimization (SEO)](https://static.googleusercontent.com/media/www.google.com/en//webmasters/docs/search-engine-optimization-starter-guide.pdf)
 
-通过[搜索引擎优化(SEO)](https://static.googleusercontent.com/media/www.google.com/en//webmasters/docs/search-engine-optimization-starter-guide.pdf)来帮助网络爬虫。
+  通过[搜索引擎优化(SEO)](https://static.googleusercontent.com/media/www.google.com/en//webmasters/docs/search-engine-optimization-starter-guide.pdf)来帮助网络爬虫。
 
 1. Improve performance on mobile and low-powered devices
 
@@ -129,7 +195,7 @@ There are three main reasons to create a Universal version of your app.
 
 1. Show the first page quickly with a [first-contentful paint (FCP)](https://developers.google.com/web/tools/lighthouse/audits/first-contentful-paint)
 
-   迅速显示出第一个页面
+   迅速显示出第一个支持[首次内容绘制(FCP)](https://developers.google.com/web/tools/lighthouse/audits/first-contentful-paint)的页面
 
 {@a seo}
 
@@ -137,12 +203,13 @@ There are three main reasons to create a Universal version of your app.
 
 ### Facilitate web crawlers (SEO)
 
-### 帮助网络爬虫
+### 帮助网络爬虫（SEO）
 
 Google, Bing, Facebook, Twitter, and other social media sites rely on web crawlers to index your application content and 
 make that content searchable on the web.
 
 Google、Bing、Facebook、Twitter 和其它社交媒体网站都依赖网络爬虫去索引你的应用内容，并且让它的内容可以通过网络搜索到。
+
 These web crawlers may be unable to navigate and index your highly interactive Angular application as a human user could do.
 
 这些网络爬虫可能不会像人类那样导航到你的具有高度交互性的 Angular 应用，并为其建立索引。
@@ -176,7 +243,7 @@ Displaying the first page quickly can be critical for user engagement.
 
 快速显示第一页对于吸引用户是至关重要的。
 
-[53percent of mobile site visits are abandoned](https://www.thinkwithgoogle.com/marketing-resources/data-measurement/mobile-page-speed-new-industry-benchmarks/) 
+[53 percent of mobile site visits are abandoned](https://www.thinkwithgoogle.com/marketing-resources/data-measurement/mobile-page-speed-new-industry-benchmarks/) 
 if pages take longer than 3 seconds to load.
 Your app may have to launch faster to engage these users before they decide to do something else.
 
@@ -230,14 +297,13 @@ The sample web server for this guide is based on the popular [Express](https://e
 Universal applications use the Angular `platform-server` package (as opposed to `platform-browser`), which provides 
 server implementations of the DOM, `XMLHttpRequest`, and other low-level features that don't rely on a browser.
 
-要制作一个 Universal 应用，就要安装 `platform-server` 包，它提供了 DOM 的服务端实现、`XMLHttpRequest` 以及其它不依赖浏览器的底层特性。
-使用 `platform-server` 模块（代替 `platform-browser` 模块）编译客户端应用，并在 Web 服务器上运行其生成的 Universal 应用。
+Universal 应用使用 `platform-server` 包（而不是 `platform-browser`），它提供了 DOM 的服务端实现、`XMLHttpRequest` 以及其它不依赖浏览器的底层特性。
 
 The server ([Node Express](https://expressjs.com/) in this guide's example)
 passes client requests for application pages to the NgUniversal `ngExpressEngine`. Under the hood, this
 calls Universal's `renderModuleFactory()` function, while providing caching and other helpful utilities.
 
-服务器（这个例子中使用的是 [Node Express](https://expressjs.com/) 服务器）会把客户端对应用页面的请求传给 `renderModuleFactory()` 函数。
+服务器（这个例子中使用的是 [Node Express](https://expressjs.com/) 服务器）会把客户端对应用页面的请求传给 NgUniversal 的 `ngExpressEngine`。在内部实现上，它会调用 Universal 的 `renderModuleFactory()` 函数，它还提供了缓存等有用的工具函数。
 
 The `renderModuleFactory()` function takes as inputs a *template* HTML page (usually `index.html`),
 an Angular *module* containing components,
@@ -268,20 +334,20 @@ Finally, the server returns the rendered page to the client.
 
 Because a Universal app doesn't execute in the browser, some of the browser APIs and capabilities may be missing on the server.
 
-由于 Universal 的 `platform-server` 应用并没有运行在浏览器中，因此你不得不在该服务器中缺少某些浏览器 API 和能力的情况下工作。
+由于 Universal 应用并没有运行在浏览器中，因此该服务器上可能会缺少浏览器的某些 API 和其它能力。
 
 
 For example, server-side applications can't reference browser-only global objects such as `window`, `document`, `navigator`, or `location`. 
+
+比如，服务端应用不能引用浏览器独有的全局对象，比如 `window`、`document`、`navigator` 或 `location`。
 
 Angular provides some injectable abstractions over these objects, such as [`Location`](api/common/Location) 
 or [`DOCUMENT`](api/common/DOCUMENT); it may substitute adequately for these APIs.
 If Angular doesn't provide it, it's possible to write new abstractions that delegate to the browser APIs while in the browser 
 and to an alternative implementation while on the server (aka shimming).
 
-比如，你的服务端渲染页面不能引用浏览器独有的原生对象，比如 `window`、`document`、`navigator` 或 `location`。
-如果你在服务端渲染的页面中不需要它们，就可以使用条件逻辑跳过它们。
-另一种方式是查找一个可注入的 Angular 对所需对象的抽象服务，比如 `Location` 或 `Document`，它可能作为你调用的指定 API 的等价替身。
-如果 Angular 没有提供它，你也可以写一个自己的抽象层，当在浏览器中运行时，就把它委托给浏览器 API，当它在服务器中运行时，就提供一个符合要求的代用实现。
+Angular 提供了一些这些对象的可注入的抽象层，比如 [`Location`](api/common/Location) 或 [`DOCUMENT`](api/common/DOCUMENT)，它可以作为你所调用的 API 的等效替身。
+如果 Angular 没有提供它，你也可以写一个自己的抽象层，当在浏览器中运行时，就把它委托给浏览器 API，当它在服务器中运行时，就提供一个符合要求的代用实现（也叫垫片 - shimming）。
 
 
 Similarly, without mouse or keyboard events, a server-side app can't rely on a user clicking a button to show a component.
@@ -299,14 +365,12 @@ Universal 应用必须仅仅根据客户端过来的请求决定要渲染的内�
 
 The tutorial's `HeroService` and `HeroSearchService` delegate to the Angular `HttpClient` module to fetch application data.
 These services send requests to _relative_ URLs such as `api/heroes`.
-
-教程中的 `HeroService` 和 `HeroSearchService` 都委托了 Angular 的 `HttpClient` 模块来获取应用数据。
-那些服务都把请求发送到了*相对* URL，比如 `api/heroes`。
-
 In a Universal app, HTTP URLs must be _absolute_(for example, `https://my-server.com/api/heroes`).
 This means you need to change your services to make requests with absolute URLs when running on the server and with relative 
 URLs when running in the browser.
 
+教程中的 `HeroService` 和 `HeroSearchService` 都委托了 Angular 的 `HttpClient` 模块来获取应用数据。
+那些服务都把请求发送到了*相对* URL，比如 `api/heroes`。
 在 Universal 应用中，HTTP 的 URL 必须是*绝对地址*（比如 `https://my-server.com/api/heroes`），
 只有这样，Universal 的 Web 服务器才能处理那些请求。
 这意味着当运行在服务端时，你要修改你的服务，来使用绝对 URL发起请求，而在浏览器中，则使用相对 URL。
@@ -408,16 +472,14 @@ not using the `Request` token as shown above.
 
   第二个参数 `extraProviders` 是可选的。它能让你指定一些在服务端运行时特有的服务提供商。
   只有当你的应用需要一些运行在服务器中才需要的信息时，才需要这么做。
-  这个例子中所需的信息就是正在运行的服务器的*源*地址，它通过 `APP_BASE_HREF` 令牌提供，以便应用可以 [计算出 HTTP URL 的绝对地址](#http-urls)。
+  比如这个运行中的服务器的*源*地址，当像前面例子中那样无法使用 `Request` 令牌时，可用它来[计算 HTTP URL 的绝对地址](#http-urls)。
 
 The `ngExpressEngine()` function returns a `Promise` callback that resolves to the rendered page.
-
-`ngExpressEngine()` 函数返回了一个会解析成渲染好的页面的*承诺（Promise）*。
-
 It's up to the engine to decide what to do with that page.
 This engine's `Promise` callback returns the rendered page to the web server,
 which then forwards it to the client in the HTTP response.
 
+`ngExpressEngine()` 函数返回了一个会解析成渲染好的页面的*承诺（Promise）*。
 接下来你的引擎要决定拿这个页面做点什么。
 在*这个引擎*的 `Promise` 回调函数中，把渲染好的页面返回给了 Web 服务器，然后服务器通过 HTTP 响应把它转发给了客户端。
 

@@ -237,10 +237,12 @@ In the following snippets, the `recommended` within double curly braces and the
 
 An expression may also refer to properties of the _template's_ context
 such as a template input variable,
+<!-- link to built-in-directives#template-input-variables -->
 `let customer`, or a template reference variable, `#customerInput`.
+<!-- link to guide/template-ref-variables -->
 
 表达式的上下文可以包括组件之外的对象。
-  比如[模板输入变量](guide/template-syntax#template-input-variable) (`let customer`)和[模板引用变量](guide/template-syntax#ref-vars)(`#customerInput`)就是备选的上下文对象之一。
+  比如[模板输入变量](built-in-directives#template-input-variables) (`let customer`)和[模板引用变量](guide/template-ref-variables)(`#customerInput`)就是备选的上下文对象之一。
 
 <code-example path="interpolation/src/app/app.component.html" region="template-input-variable" header="src/app/app.component.html (template input variable)" linenums="false">
 </code-example>
@@ -3266,13 +3268,13 @@ You'll need this template operator when you turn on strict null checks. It's opt
 
 ### The `$any()` type cast function
 
-## 类型转换函数 `$any` （$any( <表达式> )）
+## 类型转换函数 `$any()`
 
 Sometimes a binding expression triggers a type error during [AOT compilation](guide/aot-compiler) and it is not possible or difficult
 to fully specify the type. To silence the error, you can use the `$any()` cast function to cast
 the expression to [the `any` type](http://www.typescriptlang.org/docs/handbook/basic-types.html#any) as in the following example:
 
-有时候，绑定表达式可能会报类型错误，并且它不能或很难指定类型。要消除这种报错，你可以使用 `$any` 转换函数来把表达式转换成 [`any` 类型](http://www.typescriptlang.org/docs/handbook/basic-types.html#any)。
+有时候，绑定表达式可能会在 [AOT 编译](guide/aot-compiler)时报类型错误，并且它不能或很难指定类型。要消除这种报错，你可以使用 `$any()` 转换函数来把表达式转换成 [`any` 类型](http://www.typescriptlang.org/docs/handbook/basic-types.html#any)，范例如下：
 
 <code-example path="built-in-template-functions/src/app/app.component.html" region="any-type-cast-function-1" header="src/app/app.component.html" linenums="false">
 </code-example>
@@ -3281,12 +3283,12 @@ When the Angular compiler turns this template into TypeScript code,
 it prevents TypeScript from reporting that `bestByDate` is not a member of the `item`
 object when it runs type checking on the template.
 
-在这个例子中，当 Angular 编译器把模板转换成 TypeScript 代码时，`$any` 表达式可以防止 TypeScript 编译器报错说 `marker` 不是 `Hero` 接口的成员。
+当 Angular 编译器把模板转换成 TypeScript 代码时，`$any` 表达式可以防止 TypeScript 编译器在进行类型检查时报错说 `bestByDate` 不是 `item` 对象的成员。
 
 The `$any()` cast function also works with `this` to allow access to undeclared members of
 the component.
 
-`$any` 转换函数可以和 `this` 联合使用，以便访问组件中未声明过的成员。
+`$any()` 转换函数可以和 `this` 联合使用，以便访问组件中未声明过的成员。
 
 <code-example path="built-in-template-functions/src/app/app.component.html" region="any-type-cast-function-2" header="src/app/app.component.html" linenums="false">
 </code-example>

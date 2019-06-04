@@ -156,7 +156,7 @@ The [Browser Support](guide/browser-support) guide explains which browsers need 
 how you can add them.
 
 很多浏览器欠缺对 Angular 所需的某些最新 HTML 标准、特性的原生支持。
-[腻子脚本](https://en.wikipedia.org/wiki/Polyfill) 可以模拟这些缺失的特性。
+[腻子脚本](https://en.wikipedia.org/wiki/Polyfill_(programming) 可以模拟这些缺失的特性。
 [浏览器支持](guide/browser-support)一章中解释了哪些浏览器分别需要哪些腻子脚本，以及如何添加它们。
 
 The `package.json` for a new Angular workspace installs the [core-js](https://github.com/zloirock/core-js) package, 

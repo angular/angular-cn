@@ -534,7 +534,7 @@ for `ngsw.json` returns a `404`, then the service worker
 removes all of its caches and de-registers itself,
 essentially self-destructing.
 
-要停用 Service Worker，请删除或重命名 `ngsw-config.json` 文件。
+要停用 Service Worker，请删除或重命名 `ngsw.json` 文件。
 当 Service Worker 对 `ngsw.json` 的请求返回 `404` 时，Service Worker 就会删除它的所有缓存并注销自己，本质上就是自毁。
 
 ### Safety Worker

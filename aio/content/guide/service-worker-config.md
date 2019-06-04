@@ -352,7 +352,7 @@ Angular Service Worker 可以使用两种缓存策略之一来获取数据资源
 
 * `performance`, the default, optimizes for responses that are as fast as possible. If a resource exists in the cache, the cached version is used, and no network request is made. This allows for some staleness, depending on the `maxAge`, in exchange for better performance. This is suitable for resources that don't change often; for example, user avatar images.
 
-   `performance`，默认值，为尽快给出响应而优化。如果缓存中存在某个资源，则使用这个缓存版本。
+   `performance`，默认值，为尽快给出响应而优化。如果缓存中存在某个资源，则使用这个缓存版本，而不再发起网络请求。
   它允许资源有一定的陈旧性（取决于 `maxAge`）以换取更好的性能。适用于那些不经常改变的资源，例如用户头像。
 
 * `freshness` optimizes for currency of data, preferentially fetching requested data from the network. Only if the network times out, according to `timeout`, does the request fall back to the cache. This is useful for resources that change frequently; for example, account balances.

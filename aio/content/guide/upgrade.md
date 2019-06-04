@@ -2117,11 +2117,11 @@ keeping the controllers in AngularJS land.
 
 In the new version, you import the Angular HTTP module and call its `HttpClient` service instead of `ngResource`.
 
-在这个新版本中，你导入了 Angular 的 HTTP 模块，并且用它的 `Http` 服务替换掉 `NgResource`。
+在这个新版本中，你导入了 Angular 的 HTTP 模块，并且用它的 `HttpClient` 服务替换掉 `ngResource`。
 
 Re-open the `app.module.ts` file, import and add `HttpClientModule` to the `imports` array of the `AppModule`:
 
-再次打开 `app.module.ts` 文件，导入并把 `HttpModule` 添加到 `AppModule` 的 `imports` 数组中：
+再次打开 `app.module.ts` 文件，导入并把 `HttpClientModule` 添加到 `AppModule` 的 `imports` 数组中：
 
 <code-example path="upgrade-phonecat-2-hybrid/app/app.module.ts" region="httpclientmodule" header="app.module.ts">
 </code-example>
@@ -2149,7 +2149,7 @@ be injected to it and it is stored as a private field. The service is then
 used in the two instance methods, one of which loads the list of all phones,
 and the other loads the details of a specified phone:
 
-在它的构造函数中，该类期待一个 `Http` 服务。`Http` 服务将被注入进来并存入一个私有字段。
+在它的构造函数中，该类期待一个 `HttpClient` 服务。`HttpClient` 服务将被注入进来并存入一个私有字段。
 然后该服务在两个实例方法中被使用到，一个加载所有电话的列表，另一个加载一台指定电话的详情：
 
 <code-example path="upgrade-phonecat-2-hybrid/app/core/phone/phone.service.ts" region="fullclass" header="app/core/phone/phone.service.ts">

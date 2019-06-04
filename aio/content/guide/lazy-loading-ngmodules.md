@@ -299,7 +299,7 @@ Now, if you view the app in the browser, the three buttons take you to each modu
 You can check to see that a module is indeed being lazy loaded with the Chrome developer tools. In Chrome, open the dev tools by pressing `Cmd+Option+i` on a Mac or `Ctrl+Shift+j` on a PC and go to the Network Tab.
 
 你可以使用 Chrome 开发者工具来确认一下这些模块真的是惰性加载的。
-在 Chrome 中，按 `Cmd+Option+i`（Mac）或 `Ctrl+Alt+i`（PC），并选中 `Network` 页标签。
+在 Chrome 中，按 `Cmd+Option+i`（Mac）或 `Ctrl+Shift+j`（PC），并选中 `Network` 页标签。
 
 <figure>
  <img src="generated/images/guide/lazy-loading-ngmodules/network-tab.png" width="600" alt="lazy loaded modules diagram">

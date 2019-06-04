@@ -14,9 +14,11 @@ Angular [工作区](guide/glossary#workspace)根目录下的 `angular.json` 文�
 
 At the top level of `angular.json`, a few properties configure the workspace, and a `projects` section contains the remaining per-project configuration options. CLI defaults set at the workspace level can be overridden by defaults set at the project level, and defaults set at the project level can be overridden on the command line.
 
+在 `angular.json` 的顶级，一些属性用于配置工作区，其中的 `projects` 区则包含其余的针对每个项目的配置项。CLI 在工作空间级的默认设置可以被项目级的设置所覆盖，而项目级的设置可以被命令行中的设置所覆盖。
+
 The following properties, at the top level of the file, configure the workspace.
 
-在 `angular.json` 的顶级，一些属性用于配置工作区，其中的 `projects` 区则包含其余的针对每个项目的配置项。
+下列属性位于文件的顶级，用于配置工作空间。
 
 * `version`: The configuration-file version.
 
@@ -31,13 +33,16 @@ The following properties, at the top level of the file, configure the workspace.
   `defaultProject`：当命令中没有指定参数时，要使用的默认工程名。当你用 `ng new` 在新的工作区中创建新应用时，该应用就会一直作为此工作区的默认项目，除非你到这里修改它。
 
 * `schematics` : A set of [schematics](guide/glossary#schematic) that customize the `ng generate` sub-command option defaults for this workspace. See [Generation schematics](#schematics) below.
+
+   `schematics`：一组[原理图](guide/glossary#schematic)，用于定制 `ng generate` 子命令在本工作空间中的默认选项。参见稍后的[生成器原理图](#schematics)。
+
 * `projects` : Contains a subsection for each project (library or application) in the workspace, with the per-project configuration options.
 
-  `projects`：对于工作区中的每个项目（库、应用、e2e 测试）都会包含一个子分区，子分区中是每个项目的配置项。
+  `projects`：对于工作区中的每个项目（应用或库）都会包含一个子分区，子分区中是每个项目的配置项。
 
 The initial app that you create with `ng new app_name` is listed under "projects":
 
-你通过 `ng new app_name` 命令创建的初始应用及其对应的端到端测试应用都会列在 `projects` 下：
+你通过 `ng new app_name` 命令创建的初始应用会列在 `projects` 目录下：
 
 <code-example format="." language="json" linenums="false">
 "projects": {
@@ -61,11 +66,11 @@ When you create a library project with `ng generate library`, the library projec
 
   * The initial app created by `ng new` is at the top level of the workspace file structure.
 
-    `ng new` 创建的这个初始应用和它的 e2e 应用一起位于工作区文件结构的顶层。
+    `ng new` 创建的这个初始应用位于工作区文件结构的顶层。
 
   * Additional applications and libraries go into a `projects` folder in the workspace.
 
-    其它应用、e2e应用和库位于工作区的 `projects` 文件夹中。
+    其它应用和库位于工作区的 `projects` 文件夹中。
 
   For more information, see [Workspace and project file structure](guide/file-structure).
 
@@ -143,7 +148,7 @@ The `architect` section of `angular.json` contains a set of Architect *targets*.
 Many of the targets correspond to the CLI commands that run them.
 Some additional predefined targets can be run using the `ng run` command, and you can define your own targets.
 
-建筑师（Architect）是指 CLI 用来根据所提供的配置执行复杂任务（如编译和测试运行）的工具。 `architect` 部分包含一组建筑*目标*。很多目标都对应于运行它们的 CLI 命令。使用 `ng run` 命令可以运行一些额外的预定义目标，并可以定义自己的目标。
+建筑师（Architect）是指 CLI 用来根据所提供的配置执行复杂任务（如编译和测试运行）的工具。 `angular.json` 的 `architect` 部分包含一组建筑*目标*。很多目标都对应于运行它们的 CLI 命令。使用 `ng run` 命令可以运行一些额外的预定义目标，并可以定义自己的目标。
 
 Each target object specifies the `builder` for that target, which is the npm package for the tool that Architect runs.
 In addition, each target has an `options` section that configures default options for the target, and a `configurations` section that names and specifies alternative configurations for the target.
@@ -226,10 +231,17 @@ The `architect/build` section configures defaults for options of the `ng build` 
 
 ### Default build targets
 
+### 默认的构建目标
+
 Angular defines default builders for use with the Architect tool and `ng run` command.
 The default builders provide implementations that use a particular tool to perform a complex operation.
 
+Angular 定义了一些默认的构建器，供建筑师工具和 `ng run` 命令使用。
+这些默认的构建器会利用一些特定工具来执行复杂操作。
+
 The JSON schemas that the define the options and defaults for each of these default builders are collected in the [`@angular-devkit/build-angular`](https://github.com/angular/angular-cli/blob/7.0.x/packages/angular/cli/lib/config/schema.json) package. The schemas configure options for the following Architect build targets:
+
+这些默认构造器的选项及其默认值的 JSON 模式定义在 [`@angular-devkit/build-angular`](https://github.com/angular/angular-cli/blob/7.0.x/packages/angular/cli/lib/config/schema.json) 包中。这些 JSON 模式包括下列构建目标的配置项：
 
 * app-shell
 * browser
@@ -286,8 +298,14 @@ Some additional options (listed below) can only be set through the configuration
 
 ## Project asset configuration
 
+## 项目资产（asset）配置
+
+
 Each `build` target configuration can include an `assets` array that lists files or folders you want to copy as-is when building your project.
 By default, the `src/assets/` folder and `src/favicon.ico` are copied over.
+
+每个 `build` 目标配置都可以包含一个 `assets` 数组，它列出了当你构建项目时要复制的文件或文件夹。默认情况下，会复制 `src/assets/` 文件夹和 `src/favicon.ico` 。
+
 
 <code-example format="." language="json" linenums="false">
 "assets": [
@@ -298,15 +316,36 @@ By default, the `src/assets/` folder and `src/favicon.ico` are copied over.
 
 To exclude an asset, you can remove it from the assets configuration.
 
+要排除某个资产，可以从这份资产配置中删除它。
+
+
 You can further configure assets to be copied by specifying assets as objects, rather than as simple paths relative to the workspace root.
 A asset specification object can have the following fields.
 
+你可以通过把资产指定为对象的形式来进一步配置要复制的资产，而不仅是相对于工作空间根目录的路径。一个资产对象可以包含如下字段。
+
+
 * `glob`:  A [node-glob](https://github.com/isaacs/node-glob/blob/master/README.md) using `input` as base directory.
+
+  `glob`：一个 [node-glob](https://github.com/isaacs/node-glob/blob/master/README.md) 它使用 `input` 作为基准目录。
+
 * `input`: A path relative to the workspace root.
+
+  `input`：相对于工作空间根目录的路径。
+
 * `output`: A path relative to `outDir` (default is `dist/`*project-name*). Because of the security implications, the CLI never writes files outside of the project output path.
-* `ignore`: A list of globs to exclude.
+
+  `output`：相对于 `outDir` 的路径（默认为 `dist/`*project-name* ）。为了杜绝安全隐患，CLI 永远不会在项目输出路径之外写文件。
+
+- `ignore`: A list of globs to exclude.
+
+  `ignore`：要排除的 glob 列表。
+
 
 For example, the default asset paths can be represented in more detail using the following objects.
+
+例如，可以使用如下对象来更详细地表达默认的资产路径。
+
 
 <code-example format="." language="json" linenums="false">
 "assets": [
@@ -318,6 +357,9 @@ For example, the default asset paths can be represented in more detail using the
 You can use this extended configuration to copy assets from outside your project.
 For example, the following configuration copies assets from a node package:
 
+你可以使用此扩展配置从项目外部复制资产。例如，以下配置会从 node 包中复制资产：
+
+
 <code-example format="." language="json" linenums="false">
 "assets": [
  { "glob": "**/*", "input": "./node_modules/some-package/images", "output": "/some-package/" },
@@ -326,7 +368,13 @@ For example, the following configuration copies assets from a node package:
 
 The contents of `node_modules/some-package/images/` will be available in `dist/some-package/`.
 
+`node_modules/some-package/images/` 中的内容将会复制到 `dist/some-package/` 中。
+
+
 The following example uses the `ignore` field to exclude certain files in the assets folder from being copied into the build:
+
+下面的例子使用 `ignore` 字段排除了 assets 文件夹中的某些特定文件，防止它们被复制到 build 中：
+
 
 <code-example format="." language="json" linenums="false">
 "assets": [

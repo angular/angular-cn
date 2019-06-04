@@ -33,7 +33,7 @@ Angular 的版本号表明本次发布中所引入的变更级别。它使用[�
 
 Angular version numbers have three parts: `major.minor.patch`. For example, version 7.2.11 indicates major version 7, minor version 2, and patch level 11. 
 
-Angular 的版本号包括三个部分：`major.minor.patch`。比如，版本 5.2.9 表示主版本号是 5，小版本号是 2，补丁版本号是 9。
+Angular 的版本号包括三个部分：`major.minor.patch`。比如，版本 7.2.11 表示主版本号是 7，小版本号是 2，补丁版本号是 11。
 
 The version number is incremented based on the level of change included in the release. 
 
@@ -41,27 +41,32 @@ The version number is incremented based on the level of change included in the r
 
 * **Major releases** contain significant new features, some but minimal developer assistance is expected during the update. When updating to a new major release, you may need to run update scripts, refactor code, run additional tests, and learn new APIs. 
 
+  **主版本**包含重要的新特性，其中的部分特性在升级时会需要由开发人员提供少量的协助才能完成。当升级到新的主版本时，你可能需要运行升级脚本、重构代码、运行其它测试以及学习新的 API。
 
 * **Minor releases** contain new smaller features. Minor releases are fully backward-compatible; no developer assistance is expected during update, but you can optionally modify your apps and libraries to begin using new APIs, features, and capabilities that were added in the release. We update peer dependencies in minor versions by expanding the supported versions, but we do not require projects to update these dependencies. 
 
+  **小版本**包含新的小型特性。小版本是完全向后兼容的，在升级期间，不需要开发人员提供协助，但是你可以（可选的）修改你的应用和库，来使用本次发布中新增的 API、特性和能力。我们会扩展库的对等依赖（peer dependency）中的小版本号范围来更新库同级，但并不需要你的项目也更新那些依赖。
 
 * **Patch releases** are low risk, bug fix releases. No developer assistance is expected during update.
 
+  **补丁版本**是风险最低的、修 BUG 的版本。在升级期间完全不需要开发人员的协助。
 
 {@a updating}
 ### Supported update paths
 
+### 所支持的升级路径
+
 In alignment with the versioning scheme described above, we commit to support the following update paths:
 
-   主版本包含重要的新特性，其中的部分特性在升级时会需要由开发人员提供少量的协助才能完成。当升级到新的主版本时，你可能需要运行升级脚本、重构代码、运行其它测试以及学习新的 API。
+为了和上面所讲的版本方案一致，我们承诺支持如下升级路径：
 
 * If you are updating within the **same major version,** then you can skip any intermediate versions and update directly to the targeted version. For example, you can update directly from 7.0.0 to 7.2.11.
 
-   小版本包含新的小型特性。小版本是完全向后兼容的，在升级期间，不需要开发人员提供协助，但是你可以（可选的）修改你的应用和库，来使用本次发布中新增的 API、特性和能力。我们会扩展库同级（peer dependency）中的小版本号范围来更新库同级，但并不需要你的项目也更新那些依赖。
+  如果你在**同一个主版本**内升级，那么你可以跳过任何中间版本，直接升级到目标版本。比如，你可以直接从 7.0.0 升级到 7.2.11。
 
 * If you are updating from **one major version to another,** then we recommend that you **don't skip major versions.** Follow the instructions to incrementally update to the next major version, testing and validating at each step. For example, if you want to update from version 6.x.x to version 8.x.x, we recommend that you update to the latest 7.x.x release first. After successfully updating to 7.x.x, you can then update to 8.x.x. 
 
-如果你要从一个主版本升级到另一个主版本，那么我们建议你不要跳过主版本。要遵循本升级指南，依次升级到下一个主版本，在每一个步骤做完后都测试并验证一下。比如，如果你要从 6.x.x 升级到 8.x.x，我们建议你先升级到 7.x.x 中的最新版。在成功升级到 7.x.x 后，你就可以升级到 8.x.x 了。
+  如果你要从一个主版本升级到另一个主版本，那么我们建议你不要跳过主版本。要遵循本升级指南，依次升级到下一个主版本，在每一个步骤做完后都测试并验证一下。比如，如果你要从 6.x.x 升级到 8.x.x，我们建议你先升级到 7.x.x 中的最新版。在成功升级到 7.x.x 后，你就可以升级到 8.x.x 了。
 
 See [Keeping Up-to-Date](guide/updating "Updating your projects") for more information about updating your Angular projects to the most recent version. 
 
@@ -172,7 +177,7 @@ All of our major releases are supported for 18 months.
 
 The following table provides the status for Angular versions under support. 
 
-下表中提供了 Angular 5.0.0 以上的支持状态和一些关键时间点。
+下表中提供了目前受支持的 Angular 版本的状态。
 
 Version | Status | Released     | Active Ends  | LTS Ends
 ------- | ------ | ------------ | ------------ | ------------ 
@@ -198,7 +203,7 @@ Sometimes &quot;breaking changes&quot;, such as the removal of support for selec
 
 To make these transitions as easy as possible, we make these commitments to you:
 
-要让这些转变尽可能的简单，我们会给你两项保证：
+要让这些转变尽可能的简单，我们会给你下列保证：
 
 * We work hard to minimize the number of breaking changes and to provide migration tools when possible. 
 

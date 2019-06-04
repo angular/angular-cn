@@ -133,7 +133,7 @@ The following example creates five route definitions, configures the router via 
 and adds the result to the `AppModule`'s `imports` array.
 
 路由器需要先配置才会有路由信息。
-下面的例子创建了五个路由定义，并用 `RouterModule.forRoot` 方法来配置路由器，
+下面的例子创建了五个路由定义，并用 `RouterModule.forRoot()` 方法来配置路由器，
 并把它的返回值添加到 `AppModule` 的 `imports` 数组中。
 
 <code-example path="router/src/app/app.module.0.ts" linenums="false" header="src/app/app.module.ts (excerpt)">
@@ -146,7 +146,7 @@ The `appRoutes` array of *routes* describes how to navigate.
 Pass it to the `RouterModule.forRoot()` method in the module `imports` to configure the router.
 
 这里的路由数组 `appRoutes` 描述如何进行导航。
-把它传给 `RouterModule.forRoot` 方法并传给本模块的 `imports` 数组就可以配置路由器。
+把它传给 `RouterModule.forRoot()` 方法并传给本模块的 `imports` 数组就可以配置路由器。
 
 Each `Route` maps a URL `path` to a component.
 There are _no leading slashes_ in the _path_.
@@ -1378,7 +1378,7 @@ In order to use the Router, you must first register the `RouterModule` from the 
 
   **Note:** The `RouterModule.forRoot` method is a pattern used to register application-wide providers. Read more about application-wide providers in the [Singleton services](guide/singleton-services#forRoot-router) guide.
 
-  **注意：** `RouterModule.forRoot` 方法是用于注册全应用级提供商的编码模式。要详细了解全应用级提供商，参见[单例服务](guide/singleton-services#forroot) 一章。
+  **注意：** `RouterModule.forRoot` 方法是用于注册全应用级提供商的编码模式。要详细了解全应用级提供商，参见[单例服务](guide/singleton-services#forRoot-router) 一章。
 
 </div>
 
@@ -1621,7 +1621,8 @@ You've learned how to do the following:
 
 * Configure the router module with `RouterModule.forRoot()`.
 
-   用 `RouterModule.forRoot` 配置路由器模块
+   用 `RouterModule.forRoot()` 配置路由器模块
+
 * Set the router to compose HTML5 browser URLs.
 
    设置路由器，使其合成 HTML5 模式的浏览器 URL
@@ -1920,7 +1921,7 @@ Import the `CrisisListComponent`, `HeroListComponent`, and `PageNotFoundComponen
 just like you did in the `app.module.ts`. Then move the `Router` imports
 and routing configuration, including `RouterModule.forRoot()`, into this routing module.
 
-导入 `CrisisListComponent`、`HeroListComponent` 和 `PageNotFoundCompponent` 组件，就像 `app.module.ts` 中那样。然后把 `Router` 的导入语句和路由配置以及 `RouterModule.forRoot` 移入这个路由模块中。
+导入 `CrisisListComponent`、`HeroListComponent` 和 `PageNotFoundCompponent` 组件，就像 `app.module.ts` 中那样。然后把 `Router` 的导入语句和路由配置以及 `RouterModule.forRoot()` 移入这个路由模块中。
 
 Re-export the Angular `RouterModule` by adding it to the module `exports` array.
 By re-exporting the `RouterModule` here the components declared in `AppModule` will have access to router directives such as `RouterLink` and `RouterOutlet`.
@@ -2106,6 +2107,7 @@ Follow these steps:
   * Change the `selector` to `app-hero-list`.
 
     把 `selector` 改为 `app-hero-list`。
+
 <div class="alert is-helpful">
 
    Selectors are **not required** for _routed components_ due to the components are dynamically inserted when the page is rendered, but are useful for identifying and targeting them in your HTML element tree.
@@ -2153,8 +2155,7 @@ When you're done, you'll have these *hero management* files:
   <div class='children'>
 
     <div class='file'>
-
-hero-detail
+      hero-detail
     </div>
 
       <div class='children'>
@@ -2167,15 +2168,14 @@ hero-detail
           hero-detail.component.html
         </div>
 
-        <div class='file'>      hero-detail.component.ts
-
-    </div>
+        <div class='file'>      
+          hero-detail.component.ts
+        </div>
 
       </div>
 
     <div class='file'>
-
-hero-list
+      hero-list
     </div>
 
       <div class='children'>
@@ -2188,9 +2188,9 @@ hero-list
           hero-list.component.html
         </div>
 
-        <div class='file'>      hero-list.component.ts
-
-    </div></div>
+        <div class='file'>      
+          hero-list.component.ts
+        </div></div>
 
     <div class='file'>
 
@@ -2272,7 +2272,7 @@ Only call `RouterModule.forRoot()` in the root `AppRoutingModule`
 (or the `AppModule` if that's where you register top level application routes).
 In any other module, you must call the **`RouterModule.forChild`** method to register additional routes.
 
-只在根模块 `AppRoutingModule` 中调用 `RouterModule.forRoot`（如果在 `AppModule` 中注册应用的顶级路由，那就在 `AppModule` 中调用）。
+只在根模块 `AppRoutingModule` 中调用 `RouterModule.forRoot()`（如果在 `AppModule` 中注册应用的顶级路由，那就在 `AppModule` 中调用）。
 在其它模块中，你就必须调用**`RouterModule.forChild`**方法来注册附属路由。
 
 </div>
@@ -3173,7 +3173,7 @@ For the `@routeAnimation` transitions to key off states, you'll need to provide 
 
 The `@routeAnimation` property is bound to the `getAnimationData` with the provided `routerOutlet` reference, so you'll need to define that function in the `AppComponent`. The `getAnimationData` function returns the animation property from the `data` provided through the `ActivatedRoute`. The `animation` property matches the `transition` names you used in the `slideInAnimation` defined in `animations.ts`.
 
-`@routeAnimation` 属性绑定到了 `getAnimationData` 和 `routerOutlet` 的引用，因此你需要在 `AppComponent` 中定义那个函数。`getAnimationData` 函数根据 `ActivatedRoute` 所提供的 `data` 对象返回动画的属性。`animation` 属性会匹配你在 `animations.ts` 中定义 `slideDownAnimation` 时使用的 `transition` 名称。
+`@routeAnimation` 属性使用所提供的 `routerOutlet` 引用来绑定到 `getAnimationData`，因此你需要在 `AppComponent` 中定义那个函数。`getAnimationData` 函数会根据 `ActivatedRoute` 所提供的 `data` 对象返回动画的属性。`animation` 属性会根据你在 `animations.ts` 中定义 `slideInAnimation` 时使用的 `transition` 名称进行匹配。
 
 <code-example path="router/src/app/app.component.2.ts" linenums="false" header="src/app/app.component.ts (router outlet)" region="function-binding">
 
@@ -3708,7 +3708,7 @@ by default, so the `Crisis Detail` component will be re-used as you select diffe
 In contrast, back in the `Hero Detail` route, [the component was recreated](#snapshot-the-no-observable-alternative) each time you selected a different hero from the list of heroes.
 
 `Crisis Detail` 路由是 `Crisis List` 的子路由。由于路由器默认会[复用组件](#reuse)，因此当你选择了另一个危机时，`CrisisDetailComponent` 会被复用。  
-作为对比，回到 `Hero Detail` 路由时，每当你选择了不同的英雄时，该组件都会被重新创建。
+作为对比，回头看看 `Hero Detail` 路由，每当你从列表中选择了不同的英雄时，[都会重新创建该组件](#snapshot-the-no-observable-alternative)。
 
 At the top level, paths that begin with `/` refer to the root of the application.
 But child routes *extend* the path of the parent route.
@@ -5240,7 +5240,7 @@ Add an `anchor` element so you can jump to a certain point on the page.
 
 Add the `NavigationExtras` object to the `router.navigate()` method that navigates you to the `/login` route.
 
-为 `router.navigate` 方法添加一个 `NavigationExtras` 对象，用来导航到 `/login` 路由。
+为 `router.navigate()` 方法添加一个 `NavigationExtras` 对象，用来导航到 `/login` 路由。
 
 <code-example path="router/src/app/auth/auth.guard.4.ts" linenums="false" header="src/app/auth/auth.guard.ts (v3)">
 
@@ -5252,7 +5252,7 @@ second argument in the `router.navigateUrl()` function
 and provide the `queryParamsHandling` and `preserveFragment` to pass along the current query parameters
 and fragment to the next route.
 
-还可以在导航之间**保留**查询参数和片段，而无需再次在导航中提供。在 `LoginComponent` 中的 `router.navigate` 方法中，添加一个对象作为第二个参数，该**对象**提供了 `queryParamsHandling` 和 `preserveFragment`，用于传递当前的查询参数和片段到下一个路由。
+还可以在导航之间**保留**查询参数和片段，而无需再次在导航中提供。在 `LoginComponent` 中的 `router.navigateUrl()` 方法中，添加一个对象作为第二个参数，该**对象**提供了 `queryParamsHandling` 和 `preserveFragment`，用于传递当前的查询参数和片段到下一个路由。
 
 <code-example path="router/src/app/auth/login/login.component.ts" linenums="false" header="src/app/auth/login/login.component.ts (preserve)" region="preserve">
 
@@ -5624,9 +5624,9 @@ The second argument in the `RouterModule.forRoot()` method takes an object for a
 The `preloadingStrategy` is one of those options.
 Add the `PreloadAllModules` token to the `forRoot()` call:
 
-`RouterModule.forRoot` 方法的第二个参数接受一个附加配置选项对象。
+`RouterModule.forRoot()` 方法的第二个参数接受一个附加配置选项对象。
 `preloadingStrategy` 就是其中之一。
-把 `PreloadAllModules` 添加到 `forRoot` 调用中：
+把 `PreloadAllModules` 添加到 `forRoot()` 调用中：
 
 <code-example path="router/src/app/app-routing.module.6.ts" linenums="false" header="src/app/app-routing.module.ts (preload all)" region="forRoot">
 
@@ -5699,9 +5699,9 @@ Set the `data.preload` flag in the `crisis-center` route in the `AppRoutingModul
 
 </code-example>
 
-Generate a new `SelectivePreloadingStrategyService` service.
+Generate a new `SelectivePreloadingStrategy` service.
 
-生成一个新的 `SelectivePreloadingStrategyService` 服务。
+生成一个新的 `SelectivePreloadingStrategy` 服务。
 
 <code-example language="none" class="code-shell">
   ng generate service selective-preloading-strategy
@@ -5761,7 +5761,8 @@ But first, make a few changes to the `AppRoutingModule`.
 
 1. Replace the `PreloadAllModules` strategy in the call to `forRoot()` with this `SelectivePreloadingStrategyService`.
 
-   把 `PreloadAllModules` 策略替换成对 `forRoot` 的调用，并且传入这个 `SelectivePreloadingStrategyService`。
+   把 `PreloadAllModules` 策略替换成对 `forRoot()` 的调用，并且传入这个 `SelectivePreloadingStrategyService`。
+
 1. Add the `SelectivePreloadingStrategyService` strategy to the `AppRoutingModule` providers array so it can be injected
 elsewhere in the app.
 
@@ -6125,7 +6126,7 @@ The `RouterModule.forRoot()` function sets the `LocationStrategy` to the `PathLo
 making it the default strategy.
 You can switch to the `HashLocationStrategy` with an override during the bootstrapping process if you prefer it.
 
-`RouterModule.forRoot` 函数把 `LocationStrategy` 设置成了 `PathLocationStrategy`，使其成为了默认策略。
+`RouterModule.forRoot()` 函数把 `LocationStrategy` 设置成了 `PathLocationStrategy`，使其成为了默认策略。
 你可以在启动过程中改写（override）它，来切换到 `HashLocationStrategy` 风格 —— 如果你更喜欢这种。
 
 <div class="alert is-helpful">
@@ -6278,7 +6279,7 @@ You can go old-school with the `HashLocationStrategy` by
 providing the `useHash: true` in an object as the second argument of the `RouterModule.forRoot()`
 in the `AppModule`.
 
-你可以在根模块的 `RouterModule.forRoot` 的第二个参数中传入一个带有 `useHash: true` 的对象，以回到基于 `HashLocationStrategy` 的传统方式。
+你可以在根模块的 `RouterModule.forRoot()` 的第二个参数中传入一个带有 `useHash: true` 的对象，以回到基于 `HashLocationStrategy` 的传统方式。
 
 <code-example path="router/src/app/app.module.6.ts" linenums="false" header="src/app/app.module.ts (hash URL strategy)">
 

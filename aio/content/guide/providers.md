@@ -52,7 +52,7 @@ You can now inject `UserService` anywhere in your application.
 
 The service itself is a class that the CLI generated and that's decorated with `@Injectable()`. By default, this decorator has a `providedIn` property, which creates a provider for the service. In this case, `providedIn: 'root'` specifies that Angular should provide the service in the root injector.
 
-该服务本身是 CLI 创建的一个类，并且加上了 `@Injectable` 装饰器。默认情况下，该装饰器是用 `providedIn` 属性进行配置的，它会为该服务创建一个提供商。在这个例子中，`providedIn: 'root'` 指定该服务应该在根注入器中提供。
+该服务本身是 CLI 创建的一个类，并且加上了 `@Injectable()` 装饰器。默认情况下，该装饰器是用 `providedIn` 属性进行配置的，它会为该服务创建一个提供商。在这个例子中，`providedIn: 'root'` 指定 Angular 应该在根注入器中提供该服务。
 
 ## Provider scope
 

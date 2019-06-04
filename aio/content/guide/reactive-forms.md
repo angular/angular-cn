@@ -364,7 +364,7 @@ After you update the model in the component class, update the template to connec
 
 Add the `address` form group containing the `street`, `city`, `state`, and `zip` fields to the `ProfileEditor` template.
 
-把包含 `firstName` 和 `lastName` 字段的 `address` 表单组添加到 `ProfileEditor` 模板中。
+把包含 `street`、`city`、`state` 和 `zip`  字段的 `address` 表单组添加到 `ProfileEditor` 模板中。
 
 <code-example path="reactive-forms/src/app/profile-editor/profile-editor.component.1.html" region="formgroupname" linenums="false" header="src/app/profile-editor/profile-editor.component.html (template nested form group)">
 

@@ -1,6 +1,6 @@
 # Keeping your Angular Projects Up-to-Date
 
-# 升级你的 Angular 项目
+# 持续更新你的 Angular 项目
 
 Just like Web and the entire web ecosystem, Angular is continuously improving. Angular balances continuous improvement with a strong focus on stability and making updates easy. Keeping your Angular app up-to-date enables you to take advantage of leading-edge new features, as well as optimizations and bug fixes. 
 

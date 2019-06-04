@@ -95,7 +95,7 @@ then loading the module in multiple feature modules would duplicate the registra
 
 There are multiple ways to prevent this:
 
-有多重方式来防止这种现象：
+有多种方式来防止这种现象：
 
 * Use the [`providedIn` syntax](guide/singleton-services#providedIn) instead of registering the service in the module.
 
@@ -172,9 +172,9 @@ a simple object with the following properties:
 
 `forRoot()` 会接受一个服务配置对象，并返回一个 [ModuleWithProviders](api/core/ModuleWithProviders) 对象，它带有下列属性：
 
-* `ngModule`: in this example, the `CoreModule` class.
+* `ngModule`: in this example, the `GreetingModule` class.
 
-  `ngModule`：在这个例子中，就是 `CoreModule` 类。
+  `ngModule`：在这个例子中，就是 `GreetingModule` 类。
 
 * `providers`: the configured providers.
 
@@ -191,20 +191,19 @@ of imported modules.
 
 在这个 <live-example name="ngmodules">在线例子</live-example>中，根模块 `AppModule` 导入了 `GreetingModule`，并把它的 `providers` 添加到了 `AppModule` 的服务提供商列表中。特别是，Angular 会把所有从其它模块导入的提供商追加到本模块的 `@NgModule.providers` 中列出的提供商之前。这种顺序可以确保你在 `AppModule` 的 `providers` 中显式列出的提供商，其优先级高于导入模块中给出的提供商。
 
-Import `CoreModule` and use its `forRoot()` method one time, in `AppModule`, because it registers services and you only want to register those services one time in your app. If you were to register them more than once, you could end up with multiple instances of the service and a runtime error.
+The sample app imports `GreetingModule` and uses its `forRoot()` method one time, in `AppModule`. Registering it once like this prevents multiple instances.
 
-应该只在 `AppModule` 中导入 `CoreModule` 并只使用一次 `forRoot()` 方法，因为该方法中会注册服务，而你希望那些服务在该应用中只注册一次。
-如果你多次注册它们，就可能会得到该服务的多个实例，并导致运行时错误。
+在这个范例应用中，导入 `GreetingModule`，并只在 `AppModule` 中调用一次它的 `forRoot()` 方法。像这样注册它一次就可以防止出现多个实例。
 
 You can also add a `forRoot()` method in the `GreetingModule` that configures
 the greeting `UserService`.
 
-你还可以在 `CoreModule` 中添加一个用于配置 `UserService` 的 `forRoot()` 方法。
+你还可以在 `GreetingModule` 中添加一个用于配置 `UserService` 的 `forRoot()` 方法。
 
 In the following example, the optional, injected `UserServiceConfig`
 extends the greeting `UserService`. If a `UserServiceConfig` exists, the `UserService` sets the user name from that config.
 
-在下面的例子中，可选的注入 `UserServiceConfig` 扩展了 `Core` 模块中的 `UserService`。如果 `UserServiceConfig` 存在，就从这个配置中设置用户名。
+在下面的例子中，可选的注入 `UserServiceConfig` 扩展了 `UserService`。如果 `UserServiceConfig` 存在，就从这个配置中设置用户名。
 
 <code-example path="ngmodules/src/app/greeting/user.service.ts" region="ctor" header="src/app/greeting/user.service.ts (constructor)" linenums="false">
 
@@ -221,7 +220,7 @@ Here's `forRoot()` that takes a `UserServiceConfig` object:
 Lastly, call it within the `imports` list of the `AppModule`. In the following
 snippet, other parts of the file are left out. For the complete file, see the <live-example name="ngmodules"></live-example>, or continue to the next section of this document.
 
-最后，在 `AppModule` 的 `imports`*列表*中调用它。
+最后，在 `AppModule` 的 `imports`*列表*中调用它。在下面的代码片段中，省略了文件的另一部分。要查看完整文件，参见 <live-example name="ngmodules"></live-example> 或继续阅读本文档的后续章节。
 
 <code-example path="ngmodules/src/app/app.module.ts" region="import-for-root" header="src/app/app.module.ts (imports)" linenums="false">
 
@@ -235,22 +234,20 @@ Remember to import `GreetingModule` as a Javascript import at the top of the fil
 
 记住：在本文件的顶部要以 JavaScript  import 形式导入 `GreetingModule`，并且不要把它多次加入到本 `@NgModule` 的 `imports` 列表中。
 
-<!-- KW--Does this mean that if we need it elsewhere we only import it at the top? I thought the services would all be available since we were importing it into `AppModule` in `providers`. -->
+## Prevent reimport of the `GreetingModule`
 
-## Prevent reimport of the `CoreModule`
+## 防止重复导入 `GreetingModule`
 
-## 防止重复导入 `CoreModule`
-
-Only the root `AppModule` should import the `CoreModule`. If a
+Only the root `AppModule` should import the `GreetingModule`. If a
 lazy-loaded module imports it too, the app can generate
 [multiple instances](guide/ngmodule-faq#q-why-bad) of a service.
 
-只有根模块 `AppModule` 才能导入 `CoreModule`。如果一个惰性加载模块也导入了它，
+只有根模块 `AppModule` 才能导入 `GreetingModule`。如果一个惰性加载模块也导入了它，
 该应用就会为服务生成[多个实例](guide/ngmodule-faq#q-why-bad)。
 
 To guard against a lazy loaded module re-importing `GreetingModule`, add the following `GreetingModule` constructor.
 
-要想防止惰性加载模块重复导入 `CoreModule`，可以添加如下的 `CoreModule` 构造函数。
+要想防止惰性加载模块重复导入 `GreetingModule`，可以添加如下的 `GreetingModule` 构造函数。
 
 <code-example path="ngmodules/src/app/greeting/greeting.module.ts" region="ctor" header="src/app/greeting/greeting.module.ts" linenums="false">
 
@@ -282,7 +279,7 @@ and the constructor concludes uneventfully.
 
 It's a different story if you improperly import `GreetingModule` into a lazy loaded module such as `CustomersModule`.
 
-但如果你把 `CoreModule` 导入到像 `CustomerModule` 这样的惰性加载模块中，事情就不一样了。
+但如果你把 `GreetingModule` 导入到像 `CustomerModule` 这样的惰性加载模块中，事情就不一样了。
 
 Angular creates a lazy loaded module with its own injector,
 a child of the root injector.
@@ -290,7 +287,7 @@ a child of the root injector.
 Of course it finds the instance imported by the root `AppModule`.
 Now `parentModule` exists and the constructor throws the error.
 
-Angular 创建惰性加载模块时会给它一个自有的注入器，它是根注入器的*子注入器*。
+Angular 创建惰性加载模块时会给它一个自己的注入器，它是根注入器的*子注入器*。
 `@SkipSelf()` 让 Angular 在其父注入器中查找 `CoreModule`，这次，它的父注入器是根注入器（而上次的父注入器是空）。
 当然，这次它找到了由根模块 `AppModule` 导入的实例。
 该构造函数检测到存在 `parentModule`，于是抛出一个错误。

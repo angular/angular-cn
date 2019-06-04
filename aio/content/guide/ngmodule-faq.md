@@ -357,9 +357,9 @@ Only call and import a `forRoot()` result in the root application module, `AppMo
 Avoid importing it in any other module, particularly in a lazy-loaded module. For more
 information on `forRoot()` see [the `forRoot()` pattern](guide/singleton-services#the-forroot-pattern) section of the [Singleton Services](guide/singleton-services) guide.
 
-只能在应用的根模块 `AppModule` 中调用并导入 `.forRoot()` 的结果。
-在其它模块中导入它，特别是惰性加载模块中，是违反设计目标的并会导致一个运行时错误。
-要了解更多，参见[单例服务](guide/singleton-services)。
+只能在应用的根模块 `AppModule` 中调用并导入 `forRoot()` 的结果。
+在其它模块，特别是惰性加载模块中，不要导入它。
+要了解关于 `forRoot()` 的更多信息，参见[单例服务](guide/singleton-services)一章的 [the `forRoot()` 模式](guide/singleton-services#the-forroot-pattern)部分。
 
 For a service, instead of using `forRoot()`,  specify `providedIn: 'root'` on the service's `@Injectable()` decorator, which
 makes the service automatically available to the whole application and thus singleton by default.
@@ -368,7 +368,7 @@ makes the service automatically available to the whole application and thus sing
 
 `RouterModule` also offers a `forChild()` static method for configuring the routes of lazy-loaded modules.
 
-`RouterModule` 也提供了静态方法 `forChild`，用于配置惰性加载模块的路由。
+`RouterModule` 也提供了静态方法 `forChild()`，用于配置惰性加载模块的路由。
 
 `forRoot()` and `forChild()` are conventional names for methods that
 configure services in root and feature modules respectively.
