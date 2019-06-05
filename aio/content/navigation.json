@@ -94,7 +94,7 @@
     },
     {
       "url": "guide/quickstart",
-      "title": "环境快速上手",
+      "title": "快速搭建环境",
       "tooltip": "使用 Angular CLI 搭建本地开发环境简介"
     },
     {
