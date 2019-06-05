@@ -242,7 +242,7 @@ such as a template input variable,
 <!-- link to guide/template-ref-variables -->
 
 表达式的上下文可以包括组件之外的对象。
-  比如[模板输入变量](built-in-directives#template-input-variables) (`let customer`)和[模板引用变量](guide/template-ref-variables)(`#customerInput`)就是备选的上下文对象之一。
+  比如[模板输入变量](guide/template-syntax#template-input-variable) (`let customer`)和[模板引用变量](guide/template-syntax#ref-vars)(`#customerInput`)就是备选的上下文对象之一。
 
 <code-example path="interpolation/src/app/app.component.html" region="template-input-variable" header="src/app/app.component.html (template input variable)" linenums="false">
 </code-example>

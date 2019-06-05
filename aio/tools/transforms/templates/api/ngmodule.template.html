@@ -70,13 +70,16 @@
   {$ memberHelpers.renderMethodDetails(versionInfo, doc.methods, 'instance-methods', 'instance-method', '方法') $}
 
   {% if doc.ngmoduleOptions.providers %}
+  <a name="providers"></a>
   {$ renderTable(doc.ngmoduleOptions.providers, 'providers', '提供商', '提供商') $}
   {% endif %}
 
   {% if doc.directives.length %}
+    <a name="directives"></a>
     {$ renderExports(doc.directives, 'directive', '指令') $}
   {% endif %}
   {% if doc.pipes.length %}
+    <a name="pipes"></a>
     {$ renderExports(doc.pipes, 'pipe', '管道') $}
   {% endif %}
 

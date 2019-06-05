@@ -179,6 +179,7 @@
 {% set nonInternalMethods = methods | filterByPropertyValue('internal', undefined) %}
 {% if nonInternalMethods.length %}
 <section class="{$ containerClass $}">
+  <a name="methods"></a>
   <h2>{$ headingText $}</h2>
   {% for member in nonInternalMethods %}
     {$ renderMethodDetail(versionInfo, member, itemClass) $}
@@ -192,6 +193,7 @@
 {% set nonInternalProperties = properties | filterByPropertyValue('internal', undefined) %}
 {% if nonInternalProperties.length -%}
 <section class="{$ containerClass $}">
+  <a name="properties"></a>
   <h{$ headingLevel $}>{$ headingText $}</h{$ headingLevel $}>
   <table class="is-full-width list-table property-table">
     <thead>
