@@ -143,14 +143,14 @@ For example, the `@angular/pwa` schematic turns your application into a PWA by a
 Generation schematics are instructions for the `ng generate` command.
 The documented sub-commands use the default Angular generation schematics, but you can specify a different schematic (in place of a sub-command) to generate an artifact defined in your library.
 
-生成原理图是 `ng generate` 的操作指令。
-那些已经有文档的子命令会使用默认的 Angular 生成原理图，但你可以在子命令中指定另一个原理图来生成你的库中定义的那些工件。
+生成器原理图是 `ng generate` 的操作指令。
+那些已经有文档的子命令会使用默认的 Angular 生成器原理图，但你可以在子命令中指定另一个原理图来生成你的库中定义的那些工件。
 
 
 Angular Material, for example, supplies generation schematics for the UI components that it defines.
 The following command uses one of these schematics to render an Angular Material `<mat-table>` that is pre-configured with a datasource for sorting and pagination.
 
-例如，Angular Material 为它定义的一些 UI 组件提供了生成原理图。下面的命令会使用其中一个原理图来渲染一个 Angular Material 的 `<mat-table>` 组件，它预先配置了一个用于排序和分页的数据源。
+例如，Angular Material 为它定义的一些 UI 组件提供了生成器原理图。下面的命令会使用其中一个原理图来渲染一个 Angular Material 的 `<mat-table>` 组件，它预先配置了一个用于排序和分页的数据源。
 
 
 <code-example language="bash" linenums="false">
@@ -199,7 +199,7 @@ If there are inconsistencies (for example, if peer dependencies cannot be matche
 
 We recommend that you do not force an update of all dependencies by default. Try updating specific dependencies first.
 
-我们建议您不要强制更新所有的依赖项，而应该首先尝试更新特定的依赖项。
+我们建议你不要强制更新所有的依赖项，而应该首先尝试更新特定的依赖项。
 
 
 For more about how the `ng update` command works, see [Update Command](https://github.com/angular/angular-cli/blob/master/docs/specifications/update.md).
@@ -216,7 +216,7 @@ If you create a new version of your library that introduces potential breaking c
 
 For example, suppose you want to update the Angular Material library.
 
-例如，假设您要更新 Angular Material 库。
+例如，假设你要更新 Angular Material 库。
 
 
 <code-example language="bash" linenums="false">
