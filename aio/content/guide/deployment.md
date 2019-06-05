@@ -92,7 +92,7 @@ This method is for development and testing only, and is not a supported or secur
 
 ### Basic deployment to a remote server
 
-## 最简化的部署方式
+### 最简化的部署方式
 
 For the simplest deployment, create a production build and copy the output directory to a web server.
 
@@ -124,7 +124,7 @@ This is the simplest production-ready deployment of your application.
 
 ### Deploy to GitHub pages
 
-## 发布到 GitHub pages（页面服务）
+### 发布到 GitHub pages（页面服务）
 
 Another simple way to deploy your Angular app is to use [GitHub Pages](https://help.github.com/articles/what-is-github-pages/).
 

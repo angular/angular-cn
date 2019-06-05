@@ -12,6 +12,7 @@ A simple example might be a button that sends users to your company website, tha
 
 <div class="alert is-helpful">
      <p>For more details on how a library project is structured you can refer the <a href="guide/file-structure#library-project-files">Library Project Files</a></p>
+     <p>要了解关于库项目结构的更多信息，参见<a href="guide/file-structure#library-project-files">库项目文件</a>。</p>
 </div>
 
 ## Getting started

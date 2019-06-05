@@ -109,7 +109,8 @@ The following top-level configuration properties are available for each project,
 | `prefix`      | Angular 所生成的选择器的前缀字符串。可以自定义它，以作为应用或功能区的标识。                                                                                                                                   |
 | `schematics`    | A set of schematics that customize the `ng generate` sub-command option defaults for this project. See [Generation schematics](#schematics) below.  |
 | `schematics`  | 一组原理图（schematic），它可以为该项目自定义 `ng generate` 子命令的默认选项。 |
-| `architect`     | Configuration defaults for Architect builder targets for this project. 参见稍后的 [生成器原理图](#schematics)。 |
+| `architect`     | Configuration defaults for Architect builder targets for this project. |
+| `architect`     | 为本项目的各个构建器目标配置默认值。 |
 
 {@a schematics}
 ## Generation schematics

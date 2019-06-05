@@ -316,9 +316,7 @@ For example, the string `3d12h` will cache content for up to three and a half da
 This duration string specifies the network timeout. The network timeout is how long the Angular service worker will wait for the network to respond before using a cached response, if configured to do so. `timeout` is a duration string, using the following unit suffixes:
 
 这个表示持续时间的字符串用于指定网络超时时间。
-如果配置了它，Angular Service Worker 在开始使用缓存之前就会先等待网络给出响应，这个等待时间就是网络超时时间。
-
-`timeout` 是一个表示持续时间的字符串，使用下列后缀单位：
+如果配置了网络超时时间，Angular Service Worker 就会先等待这么长时间再使用缓存。`timeout` 是一个表示持续时间的字符串，使用下列后缀单位：
 
 * `d`: days
 

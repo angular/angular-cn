@@ -76,6 +76,8 @@ when the user hovers over that element. You can apply it like this:
 
 Please note that directives _do not_ support namespaces.
 
+注意，指令**不支持**命名空间。
+
 <code-example path="attribute-directives/src/app/app.component.avoid.html" linenums="false" header="src/app/app.component.avoid.html (unsupported)" region="unsupported"></code-example>
 
 ### Write the directive code

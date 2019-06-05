@@ -237,9 +237,7 @@ In the following snippets, the `recommended` within double curly braces and the
 
 An expression may also refer to properties of the _template's_ context
 such as a template input variable,
-<!-- link to built-in-directives#template-input-variables -->
 `let customer`, or a template reference variable, `#customerInput`.
-<!-- link to guide/template-ref-variables -->
 
 表达式的上下文可以包括组件之外的对象。
   比如[模板输入变量](guide/template-syntax#template-input-variable) (`let customer`)和[模板引用变量](guide/template-syntax#ref-vars)(`#customerInput`)就是备选的上下文对象之一。
@@ -3264,11 +3262,13 @@ You'll need this template operator when you turn on strict null checks. It's opt
 
 ## Built-in template functions
 
+## 内置模板函数
+
 {@a any-type-cast-function}
 
 ### The `$any()` type cast function
 
-## 类型转换函数 `$any()`
+### 类型转换函数 `$any()`
 
 Sometimes a binding expression triggers a type error during [AOT compilation](guide/aot-compiler) and it is not possible or difficult
 to fully specify the type. To silence the error, you can use the `$any()` cast function to cast
