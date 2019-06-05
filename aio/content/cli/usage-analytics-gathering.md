@@ -19,7 +19,7 @@ Data gathered in this way can be viewed on the Google Analytics site, but is not
 As an administrator for an Angular development group, you can configure your instance of Angular CLI to be able to see analytics data for your own team's usage of the Angular CLI.
 This configuration option is separate from and in addition to other usage analytics that your users may be sharing with Google.
 
-以这种方式收集的数据可以在 Google Analytics 网站上查看，但不会自动显示在您所属单位的 Google Analytics 网站上。如果你是开发组织的管理员，可以配置你们的 Angular CLI 实例来查看你的团队在使用 Angular CLI 时的分析数据。此配置项与该用户可能与 Google 共享的对其它使用情况的分析是彼此隔离的。
+以这种方式收集的数据可以在 Google Analytics 网站上查看，但不会自动显示在你所属单位的 Google Analytics 网站上。如果你是开发组织的管理员，可以配置你们的 Angular CLI 实例来查看你的团队在使用 Angular CLI 时的分析数据。此配置项与该用户可能与 Google 共享的对其它使用情况的分析是彼此隔离的。
 
 
 ## Enable access to CLI usage data

@@ -710,7 +710,7 @@ Each time a new alias instance is added, the new form array instance is provided
 
 Initially, the form contains one `Alias` field. To add another field, click the **Add Alias** button. You can also validate the array of aliases reported by the form model displayed by `Form Value` at the bottom of the template.
 
-最初，表单只包含一个绰号字段，点击 `Add Alias` 按钮，就出现了另一个字段。您还可以验证由模板底部的“Form Value”显示出来的表单模型所报告的这个绰号数组。
+最初，表单只包含一个绰号字段，点击 `Add Alias` 按钮，就出现了另一个字段。你还可以验证由模板底部的“Form Value”显示出来的表单模型所报告的这个绰号数组。
 
 <div class="alert is-helpful">
 
