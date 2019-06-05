@@ -752,7 +752,7 @@
       "url": "https://flutter-io.cn/",
       "tooltip": "Flutter 中文文档站",
       "title": "友站：Flutter 中文"
-    },
+    }
   ],
   "Footer": [
     {
@@ -779,8 +779,8 @@
           "tooltip": "Angular 官方博客"
         },
         {
-          "url": "分析",
-          "title": "使用分析",
+          "url": "analytics",
+          "title": "使用情况分析",
           "tooltip": "Angular 使用情况分析"
         }
       ]
