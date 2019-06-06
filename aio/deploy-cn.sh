@@ -14,7 +14,7 @@ yarn preview > /tmp/preview.log &
 
 sleep 3;
 
-ts-node ./tools/translator/bin/prerender.ts
+node ./tools/translator/bin/prerender.js
 
 killall -9 node
 
