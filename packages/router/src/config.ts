@@ -53,7 +53,6 @@ export type UrlMatchResult = {
  * is not expressive enough.
  *
  * 一个用于匹配路由和 URL 的函数。
- *
  * 当 `path` 和 `pathMatch` 的组合不足以表达时，可以为 `Route.matcher` 实现一个自定义的 URL 匹配器。
  *
  * @param segments An array of URL segments.
@@ -279,10 +278,12 @@ export type RunGuardsAndResolvers = 'pathParamsChange' | 'pathParamsOrQueryParam
  * Empty-path route configurations can be used to instantiate components that do not 'consume'
  * any URL segments.
  *
+ * 空路径路由可用来实例化一些不"消费"任何 url 区段的组件。
+ *
  * In the following configuration, when navigating to
  * `/team/11`, the router instantiates the 'AllUsers' component.
  *
- * 空路径路由可用来实例化一些不"消费"任何 url 区段的组件。来看下列配置：
+ * 在下列配置中，当导航到 `/team/11` 时，路由器会实例化 'AllUsers' 组件。
  *
  * ```
  * [{
@@ -303,8 +304,6 @@ export type RunGuardsAndResolvers = 'pathParamsChange' | 'pathParamsOrQueryParam
  * the user component in it.
  *
  * Note that an empty path route inherits its parent's parameters and data.
- *
- * 空路径路由还可以有子路由。
  *
  * ```
  * [{
@@ -410,9 +409,6 @@ export type RunGuardsAndResolvers = 'pathParamsChange' | 'pathParamsOrQueryParam
  * `NgModuleFactoryLoader` to fetch an NgModule associated with 'team'.
  * It then extracts the set of routes defined in that NgModule,
  * and transparently adds those routes to the main configuration.
- *
- * 惰性加载可以通过把应用拆分成多个发布包，并按需加载它们，来加速应用的启动时间。
- * 路由器的设计让惰性加载非常简易。只要用 `loadChildren` 属性代替 `children` 属性就可以了，例如：
  *
  * ```
  * [{

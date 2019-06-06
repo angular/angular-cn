@@ -47,8 +47,6 @@ export type HttpObserve = 'body' | 'events' | 'response';
 /**
  * Performs HTTP requests.
  *
- * 执行 HTTP 请求。
- *
  * `HttpClient` is available as an injectable class, with methods to perform HTTP requests.
  * Each request method has multiple signatures, and the return type varies based on
  * the signature that is called (mainly the values of `observe` and `responseType`).
@@ -97,11 +95,7 @@ export class HttpClient {
   /**
    * Sends an `HTTPRequest` and returns a stream of `HTTPEvents`.
    *
-   * 发送指定的 `HttpRequest` 并返回一个由 `HTTPEvents` 组成的流。
-   *
    * @return An `Observable` of the response, with the response body as a stream of `HTTPEvents`.
-   *
-   * 一个由响应组成的 `Observable`，其响应体是 `HTTPEvents` 组成的流。
    */
   request<R>(req: HttpRequest<any>): Observable<HttpEvent<R>>;
 
@@ -129,15 +123,11 @@ export class HttpClient {
    * Constructs a request that interprets the body as a blob and returns
    * the response as a blob.
    *
-   * 构造一个请求，这个请求会把 body 解释为 `Blob` ，并返回它。
-   *
    * @param method  The HTTP method.
    * @param url     The endpoint URL.
    * @param options The HTTP options to send with the request.
    *
    * @return An `Observable` of the response, with the response body of type `Blob`.
-   *
-   * 一个由 `Blob` 型的 body 组成的 `Observable` 对象。
    */
   request(method: string, url: string, options: {
     body?: any,
@@ -152,15 +142,11 @@ export class HttpClient {
    * Constructs a request that interprets the body as a text string and
    * returns a string value.
    *
-   * 构造一个请求，这个请求会把 body 解释为文本，并返回它。
-   *
    * @param method  The HTTP method.
    * @param url     The endpoint URL.
    * @param options The HTTP options to send with the request.
    *
    * @return An `Observable` of the response, with the response body of type string.
-   *
-   * 一个由 `string` 型的 body 组成的 `Observable` 对象。
    */
   request(method: string, url: string, options: {
     body?: any,
@@ -175,16 +161,12 @@ export class HttpClient {
    * Constructs a request that interprets the body as an `ArrayBuffer` and returns the
    * the full event stream.
    *
-   * 构造一个请求，这个请求会把 body 解释为 `ArrayBuffer` ，并返回完整的事件流。
-   *
    * @param method  The HTTP method.
    * @param url     The endpoint URL.
    * @param options The HTTP options to send with the request.
    *
    * @return An `Observable` of the response, with the response body as an array of `HTTPEvents` for the
    * request.
-   *
-   * 一个由该请求的所有 `HttpEvents` 组成的 `Observable` 对象，事件的 body 是 `ArrayBuffer` 型的。
    */
   request(method: string, url: string, options: {
     body?: any,
@@ -198,16 +180,12 @@ export class HttpClient {
    * Constructs a request that interprets the body as a `Blob` and returns
    * the full event stream.
    *
-   * 构造一个请求，这个请求会把 body 解释为 `Blob` ，并返回完整的事件流。
-   *
    * @param method  The HTTP method.
    * @param url     The endpoint URL.
    * @param options The HTTP options to send with the request.
    *
    * @return An `Observable` of of all `HttpEvents` for the request,
    * with the response body of type `Blob`.
-   *
-   * 一个由该请求的所有 `HttpEvents` 组成的 `Observable` 对象，事件的 body 是 `Blob` 型的。
    */
   request(method: string, url: string, options: {
     body?: any,
@@ -221,16 +199,12 @@ export class HttpClient {
   /**
    * Constructs a request which interprets the body as a text string and returns the full event stream.
    *
-   * 构造一个请求，这个请求会把 body 解释为文本，并返回完整的事件流。
-   *
    * @param method  The HTTP method.
    * @param url     The endpoint URL.
    * @param options The HTTP options to send with the request.
    *
    * @return An `Observable` of all `HttpEvents` for the reques,
    * with the response body of type string.
-   *
-   * 一个由该请求的所有 `HttpEvents` 组成的 `Observable` 对象，事件的 body 是 `string` 型的。
    */
   request(method: string, url: string, options: {
     body?: any,
@@ -244,16 +218,12 @@ export class HttpClient {
   /**
    * Constructs a request which interprets the body as a JSON object and returns the full event stream.
    *
-   * 构造一个请求，这个请求会把 body 解释为 JSON ，并返回完整的事件流。
-   *
    * @param method  The HTTP method.
    * @param url     The endpoint URL.
    * @param options The HTTP options to send with the  request.
    *
    * @return An `Observable` of all `HttpEvents` for the request,
    *  with the response body of type `Object`.
-   *
-   * 一个由该请求的所有 `HttpEvents` 组成的 `Observable` 对象，事件的 body 是 `Object` 型的。
    */
   request(method: string, url: string, options: {
     body?: any,
@@ -268,16 +238,12 @@ export class HttpClient {
   /**
    * Constructs a request which interprets the body as a JSON object and returns the full event stream.
    *
-   * 构造一个请求，这个请求会把 body 解释为 JSON ，并返回完整的事件流。
-   *
    * @param method  The HTTP method.
    * @param url     The endpoint URL.
    * @param options The HTTP options to send with the request.
    *
    * @return An `Observable` of all `HttpEvents` for the request,
    * with the response body of type `R`.
-   *
-   * 一个由该请求的所有 `HttpEvents` 组成的 `Observable` 对象，事件的 body 是 `R` 型的。
    */
   request<R>(method: string, url: string, options: {
     body?: any,
@@ -293,15 +259,11 @@ export class HttpClient {
    * Constructs a request which interprets the body as an `ArrayBuffer`
    * and returns the full `HTTPResponse`.
    *
-   * 构造一个请求，这个请求会把 body 解释为 `ArrayBuffer` ，并返回完整的响应体。
-   *
    * @param method  The HTTP method.
    * @param url     The endpoint URL.
    * @param options The HTTP options to send with the request.
    *
    * @return An `Observable` of the `HTTPResponse`, with the response body as an `ArrayBuffer`.
-   *
-   * 一个由该请求的 `HttpResponse` 组成的 `Observable` 对象，其 body 是 `ArrayBuffer` 型的。
    */
   request(method: string, url: string, options: {
     body?: any,
@@ -315,15 +277,11 @@ export class HttpClient {
   /**
    * Constructs a request which interprets the body as a `Blob` and returns the full `HTTPResponse`.
    *
-   * 构造一个请求，这个请求会把 body 解释为 `Blob` ，并返回完整的响应体。
-   *
    * @param method  The HTTP method.
    * @param url     The endpoint URL.
    * @param options The HTTP options to send with the request.
    *
    * @return An `Observable` of the `HTTPResponse`, with the response body of type `Blob`.
-   *
-   * 一个由该请求的 `HttpResponse` 组成的 `Observable` 对象，其 body 是 `Blob` 型的。
    */
   request(method: string, url: string, options: {
     body?: any,
@@ -337,15 +295,11 @@ export class HttpClient {
   /**
    * Constructs a request which interprets the body as a text stream and returns the full `HTTPResponse`.
    *
-   * 构造一个请求，这个请求会把 body 解释为文本，并返回完整的响应体。
-   *
    * @param method  The HTTP method.
    * @param url     The endpoint URL.
    * @param options The HTTP options to send with the request.
    *
    * @return An `Observable` of the HTTP response, with the response body of type string.
-   *
-   * 一个由该请求的 `HttpResponse` 组成的 `Observable` 对象，其 body 是 `string` 型的。
    */
   request(method: string, url: string, options: {
     body?: any,
@@ -359,16 +313,12 @@ export class HttpClient {
   /**
    * Constructs a request which interprets the body as a JSON object and returns the full `HTTPResponse`.
    *
-   * 构造一个请求，这个请求会把 body 解释为 JSON ，并返回完整的响应体。
-   *
    * @param method  The HTTP method.
    * @param url     The endpoint URL.
    * @param options The HTTP options to send with the request.
    *
    * @return An `Observable` of the full `HTTPResponse`,
    * with the response body of type `Object`.
-   *
-   * 一个由该请求的 `HttpResponse` 组成的 `Observable` 对象，其 body 是 `Object` 型的。
    */
   request(method: string, url: string, options: {
     body?: any,
@@ -384,15 +334,11 @@ export class HttpClient {
    * Constructs a request which interprets the body as a JSON object and returns
    * the full `HTTPResponse` with the response body in the requested type.
    *
-   * 构造一个请求，这个请求会把 body 解释为 JSON ，并返回完整的响应体。
-   *
    * @param method  The HTTP method.
    * @param url     The endpoint URL.
    * @param options The HTTP options to send with the request.
    *
    * @return  An `Observable` of the full `HTTPResponse`, with the response body of type `R`.
-   *
-   * 一个由该请求的 `HttpResponse` 组成的 `Observable` 对象，其 body 是 `R` 型的。
    */
   request<R>(method: string, url: string, options: {
     body?: any,
@@ -408,15 +354,11 @@ export class HttpClient {
    * Constructs a request which interprets the body as a JSON object and returns the full
    * `HTTPResponse` as a JSON object.
    *
-   * 构造一个请求，这个请求会把 body 解释为 JSON ，并返回它。
-   *
    * @param method  The HTTP method.
    * @param url     The endpoint URL.
    * @param options The HTTP options to send with the request.
    *
    * @return An `Observable` of the `HTTPResponse`, with the response body of type `Object`.
-   *
-   * 一个由该请求的 `HttpResponse` 组成的 `Observable` 对象，其 body 是 `Object` 型的。
    */
   request(method: string, url: string, options?: {
     body?: any,
@@ -432,15 +374,11 @@ export class HttpClient {
    * Constructs a request which interprets the body as a JSON object
    * with the response body of the requested type.
    *
-   * 构造一个请求，这个请求会把 body 解释为 JSON ，并返回它。
-   *
    * @param method  The HTTP method.
    * @param url     The endpoint URL.
    * @param options The HTTP options to send with the request.
    *
    * @return An `Observable` of the `HTTPResponse`, with the response body of type `R`.
-   *
-   * 一个由该请求的 `HttpResponse` 组成的 `Observable` 对象，其 body 是 `R` 型的。
    */
   request<R>(method: string, url: string, options?: {
     body?: any,
@@ -455,15 +393,11 @@ export class HttpClient {
   /**
    * Constructs a request where response type and requested observable are not known statically.
    *
-   * 以某种方式构造请求，其响应类型和所请求的 `Observable` 都是无法静态获知的。
-   *
    * @param method  The HTTP method.
    * @param url     The endpoint URL.
    * @param options The HTTP options to send with the request.
    *
    * @return An `Observable` of the reuested response, wuth body of type `any`.
-   *
-   * 所请求的任意 `Observable`，其类型是 `any`。
    */
   request(method: string, url: string, options?: {
     body?: any,
@@ -479,8 +413,6 @@ export class HttpClient {
    * Constructs an observable for a generic HTTP request that, when subscribed,
    * fires the request through the chain of registered interceptors and on to the
    * server.
-   *
-   * 为一个特定的 HTTP 请求构造一个 `Observable`，当它被订阅时，就触发该请求，经过一系列已注册的拦截器的处理之后，最终发给服务器。
    *
    * You can pass an `HttpRequest` directly as the only parameter. In this case,
    * the call returns an observable of the raw `HttpEvent` stream.
@@ -623,14 +555,10 @@ export class HttpClient {
    * Constructs a `DELETE` request that interprets the body as an `ArrayBuffer`
    *  and returns the response as an `ArrayBuffer`.
    *
-   * 构造一个 `DELETE` 请求，这个请求会把 body 解释为 `ArrayBuffer` ，并返回它。
-   *
    * @param url     The endpoint URL.
    * @param options The HTTP options to send with the request.
    *
    * @return  An `Observable` of the response body as an `ArrayBuffer`.
-   *
-   * 一个由 `ArrayBuffer` 型的 body 组成的 `Observable` 对象。
    */
   delete (url: string, options: {
     headers?: HttpHeaders | {[header: string]: string | string[]},
@@ -645,14 +573,10 @@ export class HttpClient {
    * Constructs a `DELETE` request that interprets the body as a `Blob` and returns
    * the response as a `Blob`.
    *
-   * 构造一个 `DELETE` 请求，这个请求会把 body 解释为 `Blob` ，并返回它。
-   *
    * @param url     The endpoint URL.
    * @param options The HTTP options to send with the request.
    *
    * @return An `Observable` of the response body as a `Blob`.
-   *
-   * 一个由 `Blob` 型的 body 组成的 `Observable` 对象。
    */
   delete (url: string, options: {
     headers?: HttpHeaders | {[header: string]: string | string[]},
@@ -666,14 +590,10 @@ export class HttpClient {
    * Constructs a `DELETE` request that interprets the body as a text string and returns
    * a string.
    *
-   * 构造一个 `DELETE` 请求，这个请求会把 body 解释为文本，并返回它。
-   *
    * @param url     The endpoint URL.
    * @param options The HTTP options to send with the request.
    *
    * @return An `Observable` of the response, with the response body of type string.
-   *
-   * 一个由 `string` 型的 body 组成的 `Observable` 对象。
    */
   delete (url: string, options: {
     headers?: HttpHeaders | {[header: string]: string | string[]},
@@ -687,15 +607,11 @@ export class HttpClient {
    * Constructs a `DELETE` request that interprets the body as an `ArrayBuffer`
    *  and returns the full event stream.
    *
-   * 构造一个 `DELETE` 请求，这个请求会把 body 解释为 `ArrayBuffer` ，并返回完整的事件流。
-   *
    * @param url     The endpoint URL.
    * @param options The HTTP options to send with the request.
    *
    * @return An `Observable` of all `HTTPEvents` for the request,
    * with response body as an `ArrayBuffer`.
-   *
-   * 一个由该请求的所有 `HttpEvents` 组成的 `Observable` 对象，事件的 body 是 `ArrayBuffer` 型的。
    */
   delete (url: string, options: {
     headers?: HttpHeaders | {[header: string]: string | string[]},
@@ -709,15 +625,11 @@ export class HttpClient {
    * Constructs a `DELETE` request that interprets the body as a `Blob`
    *  and returns the full event stream.
    *
-   * 构造一个 `DELETE` 请求，这个请求会把 body 解释为 `Blob` ，并返回完整的事件流。
-   *
    * @param url     The endpoint URL.
    * @param options The HTTP options to send with the request.
    *
    * @return An `Observable` of all the `HTTPEvents` for the request, with the response body as a
    * `Blob`.
-   *
-   * 一个由该请求的所有 `HttpEvents` 组成的 `Observable` 对象，事件的 body 是 `Blob` 型的。
    */
   delete (url: string, options: {
     headers?: HttpHeaders | {[header: string]: string | string[]},
@@ -731,15 +643,11 @@ export class HttpClient {
    * Constructs a `DELETE` request that interprets the body as a text string
    * and returns the full event stream.
    *
-   * 构造一个 `DELETE` 请求，这个请求会把 body 解释为文本，并返回完整的事件流。
-   *
    * @param url     The endpoint URL.
    * @param options The HTTP options to send with the request.
    *
    * @return An `Observable` of all `HTTPEvents` for the request, with the response
    *  body of type string.
-   *
-   * 一个由该请求的所有 `HttpEvents` 组成的 `Observable` 对象，事件的 body 是 `string` 型的。
    */
   delete (url: string, options: {
     headers?: HttpHeaders | {[header: string]: string | string[]},
@@ -753,15 +661,11 @@ export class HttpClient {
    * Constructs a `DELETE` request that interprets the body as a JSON object
    * and returns the full event stream.
    *
-   * 构造一个 `DELETE` 请求，这个请求会把 body 解释为 JSON ，并返回完整的事件流。
-   *
    * @param url     The endpoint URL.
    * @param options The HTTP options to send with the request.
    *
    * @return An `Observable` of all `HTTPEvents` for the request, with response body of
    * type `Object`.
-   *
-   * 一个由该请求的所有 `HttpEvents` 组成的 `Observable` 对象，事件的 body 是 `Object` 型的。
    */
   delete (url: string, options: {
     headers?: HttpHeaders | {[header: string]: string | string[]},
@@ -776,15 +680,11 @@ export class HttpClient {
    * Constructs a `DELETE`request that interprets the body as a JSON object
    * and returns the full event stream.
    *
-   * 构造一个 `DELETE` 请求，这个请求会把 body 解释为 JSON ，并返回完整的事件流。
-   *
    * @param url     The endpoint URL.
    * @param options The HTTP options to send with the request.
    *
    * @return An `Observable` of all the `HTTPEvents` for the request, with a response
    * body in the requested type.
-   *
-   * 一个由该请求的所有 `HttpEvents` 组成的 `Observable` 对象，事件的 body 是 `T` 型的。
    */
   delete<T>(url: string, options: {
     headers?: HttpHeaders | {[header: string]: string | string[]},
@@ -799,14 +699,10 @@ export class HttpClient {
    * Constructs a `DELETE` request that interprets the body as an `ArrayBuffer` and returns
    *  the full `HTTPResponse`.
    *
-   * 构造一个 `DELETE` 请求，这个请求会把 body 解释为 `ArrayBuffer` ，并返回完整的响应体。
-   *
    * @param url     The endpoint URL.
    * @param options The HTTP options to send with the request.
    *
    * @return An `Observable` of the full `HTTPResponse`, with the response body as an `ArrayBuffer`.
-   *
-   * 一个由该请求的 `HttpResponse` 组成的 `Observable` 对象，其 body 是 `ArrayBuffer` 型的。
    */
   delete (url: string, options: {
     headers?: HttpHeaders | {[header: string]: string | string[]},
@@ -820,14 +716,10 @@ export class HttpClient {
    * Constructs a `DELETE` request that interprets the body as a `Blob` and returns the full
    * `HTTPResponse`.
    *
-   * 构造一个 `DELETE` 请求，这个请求会把 body 解释为 `Blob` ，并返回完整的响应体。
-   *
    * @param url     The endpoint URL.
    * @param options The HTTP options to send with the request.
    *
    * @return An `Observable` of the `HTTPResponse`, with the response body of type `Blob`.
-   *
-   * 一个由该请求的 `HttpResponse` 组成的 `Observable` 对象，其 body 是 `Blob` 型的。
    */
   delete (url: string, options: {
     headers?: HttpHeaders | {[header: string]: string | string[]},
@@ -841,14 +733,10 @@ export class HttpClient {
    * Constructs a `DELETE` request that interprets the body as a text stream and
    *  returns the full `HTTPResponse`.
    *
-   * 构造一个 `DELETE` 请求，这个请求会把 body 解释为文本，并返回完整的响应体。
-   *
    * @param url     The endpoint URL.
    * @param options The HTTP options to send with the request.
    *
    * @return An `Observable` of the full `HTTPResponse`, with the response body of type string.
-   *
-   * 一个由该请求的 `HttpResponse` 组成的 `Observable` 对象，其 body 是 `string` 型的。
    */
   delete (url: string, options: {
     headers?: HttpHeaders | {[header: string]: string | string[]},
@@ -862,19 +750,10 @@ export class HttpClient {
    * Constructs a `DELETE` request the interprets the body as a JSON object and returns
    * the full `HTTPResponse`.
    *
-   * 构造一个 `DELETE` 请求，这个请求会把 body 解释为 JSON ，并返回完整的响应体。
-   *
    * @param url     The endpoint URL.
-   *
-   * 端点 URL。
-   *
    * @param options The HTTP options to send with the request.
    *
-   * 和该请求一起发送的 HTTP 选项。
-   *
    * @return An `Observable` of the `HTTPResponse`, with the response body of type `Object`.
-   *
-   * 一个由该请求的 `HttpResponse` 组成的 `Observable` 对象，其 body 是 `Object` 型的。
    *
    */
   delete (url: string, options: {
@@ -890,14 +769,10 @@ export class HttpClient {
    * Constructs a `DELETE` request that interprets the body as a JSON object
    * and returns the full `HTTPResponse`.
    *
-   * 构造一个 `DELETE` 请求，这个请求会把 body 解释为 JSON ，并返回完整的响应体。
-   *
    * @param url     The endpoint URL.
    * @param options The HTTP options to send with the request.
    *
    * @return An `Observable` of the `HTTPResponse`, with the response body of the requested type.
-   *
-   * 一个由该请求的 `HttpResponse` 组成的 `Observable` 对象，其 body 是 `T` 型的。
    */
   delete<T>(url: string, options: {
     headers?: HttpHeaders | {[header: string]: string | string[]},
@@ -912,14 +787,10 @@ export class HttpClient {
    * Constructs a `DELETE` request that interprets the body as a JSON object and
    * returns the response body as a JSON object.
    *
-   * 构造一个 `DELETE` 请求，这个请求会把 body 解释为 JSON ，并返回它。
-   *
    * @param url     The endpoint URL.
    * @param options The HTTP options to send with the request.
    *
    * @return An `Observable` of the response, with the response body of type `Object`.
-   *
-   * 一个由 `Object` 型的 body 组成的 `Observable` 对象。
    */
   delete (url: string, options?: {
     headers?: HttpHeaders | {[header: string]: string | string[]},
@@ -934,14 +805,10 @@ export class HttpClient {
    * Constructs a DELETE request that interprets the body as a JSON object and returns
    * the response in a given type.
    *
-   * 构造一个 `DELETE` 请求，这个请求会把 body 解释为 JSON ，并返回它。
-   *
    * @param url     The endpoint URL.
    * @param options The HTTP options to send with the request.
    *
    * @return An `Observable` of the `HTTPResponse`, with response body in the requested type.
-   *
-   * 一个由 `T` 型的 body 组成的 `Observable` 对象。
    */
   delete<T>(url: string, options?: {
     headers?: HttpHeaders | {[header: string]: string | string[]},
@@ -957,16 +824,8 @@ export class HttpClient {
    * `DELETE` request to execute on the server. See the individual overloads for
    * details on the return type.
    *
-   * 构造一个 `Observable`，当订阅它时，将导致服务器执行一个配置好的 `DELETE` 请求。
-   * 关于返回类型的详细信息请参见它的各个重载形式。
-   *
    * @param url     The endpoint URL.
-   *
-   * 端点 URL。
-   *
    * @param options The HTTP options to send with the request.
-   *
-   * 和该请求一起发送的 HTTP 选项。
    *
    */
   delete (url: string, options: {
@@ -985,14 +844,10 @@ export class HttpClient {
    * Constructs a `GET` request that interprets the body as an `ArrayBuffer` and returns the response in
    *  an `ArrayBuffer`.
    *
-   * 构造一个 `GET` 请求，这个请求会把 body 解释为 `ArrayBuffer` ，并返回它。
-   *
    * @param url     The endpoint URL.
    * @param options The HTTP options to send with the request.
    *
    * @return An `Observable` of the response, with the response body as an `ArrayBuffer`.
-   *
-   * 一个由 `ArrayBuffer` 型的 body 组成的 `Observable` 对象。
    */
   get(url: string, options: {
     headers?: HttpHeaders | {[header: string]: string | string[]},
@@ -1006,14 +861,10 @@ export class HttpClient {
    * Constructs a `GET` request that interprets the body as a `Blob`
    * and returns the response as a `Blob`.
    *
-   * 构造一个 `GET` 请求，这个请求会把 body 解释为 `Blob` ，并返回它。
-   *
    * @param url     The endpoint URL.
    * @param options The HTTP options to send with the request.
    *
    * @return An `Observable` of the response, with the response body as a `Blob`.
-   *
-   * 一个由 `Blob` 型的 body 组成的 `Observable` 对象。
    */
   get(url: string, options: {
     headers?: HttpHeaders | {[header: string]: string | string[]},
@@ -1027,14 +878,10 @@ export class HttpClient {
    * Constructs a `GET` request that interprets the body as a text string
    * and returns the response as a string value.
    *
-   * 构造一个 `GET` 请求，这个请求会把 body 解释为文本，并返回它。
-   *
    * @param url     The endpoint URL.
    * @param options The HTTP options to send with the request.
    *
    * @return An `Observable` of the response, with the response body of type string.
-   *
-   * 一个由 `string` 型的 body 组成的 `Observable` 对象。
    */
   get(url: string, options: {
     headers?: HttpHeaders | {[header: string]: string | string[]},
@@ -1048,15 +895,11 @@ export class HttpClient {
    * Constructs a `GET` request that interprets the body as an `ArrayBuffer` and returns
    *  the full event stream.
    *
-   * 构造一个 `GET` 请求，这个请求会把 body 解释为 `ArrayBuffer` ，并返回完整的事件流。
-   *
    * @param url     The endpoint URL.
    * @param options The HTTP options to send with the request.
    *
    * @return An `Observable` of all `HttpEvents` for the request, with the response
    * body as an `ArrayBuffer`.
-   *
-   * 一个由该请求的所有 `HttpEvents` 组成的 `Observable` 对象，事件的 body 是 `ArrayBuffer` 型的。
    */
   get(url: string, options: {
     headers?: HttpHeaders | {[header: string]: string | string[]},
@@ -1070,14 +913,10 @@ export class HttpClient {
    * Constructs a `GET` request that interprets the body as a `Blob` and
    * returns the full event stream.
    *
-   * 构造一个 `GET` 请求，这个请求会把 body 解释为 `Blob` ，并返回完整的事件流。
-   *
    * @param url     The endpoint URL.
    * @param options The HTTP options to send with the request.
    *
    * @return An `Observable` of the response, with the response body as a `Blob`.
-   *
-   * 一个由该请求的所有 `HttpEvents` 组成的 `Observable` 对象，事件的 body 是 `Blob` 型的。
    */
   get(url: string, options: {
     headers?: HttpHeaders | {[header: string]: string | string[]},
@@ -1091,14 +930,10 @@ export class HttpClient {
    * Constructs a `GET` request that interprets the body as a text string and returns
    * the full event stream.
    *
-   * 构造一个 `GET` 请求，这个请求会把 body 解释为文本，并返回完整的事件流。
-   *
    * @param url     The endpoint URL.
    * @param options The HTTP options to send with the request.
    *
    * @return An `Observable` of the response, with the response body of type string.
-   *
-   * 一个由该请求的所有 `HttpEvents` 组成的 `Observable` 对象，事件的 body 是 `string` 型的。
    */
   get(url: string, options: {
     headers?: HttpHeaders | {[header: string]: string | string[]},
@@ -1112,14 +947,10 @@ export class HttpClient {
    * Constructs a `GET` request that interprets the body as a JSON object
    * and returns the full event stream.
    *
-   * 构造一个 `GET` 请求，这个请求会把 body 解释为 JSON ，并返回完整的事件流。
-   *
    * @param url     The endpoint URL.
    * @param options The HTTP options to send with the request.
    *
    * @return An `Observable` of the response, with the response body of type `Object`.
-   *
-   * 一个由该请求的所有 `HttpEvents` 组成的 `Observable` 对象，事件的 body 是 `Object` 型的。
    */
   get(url: string, options: {
     headers?: HttpHeaders | {[header: string]: string | string[]},
@@ -1133,14 +964,10 @@ export class HttpClient {
   /**
    * Constructs a `GET` request that interprets the body as a JSON object and returns the full event stream.
    *
-   * 构造一个 `GET` 请求，这个请求会把 body 解释为 JSON ，并返回完整的事件流。
-   *
    * @param url     The endpoint URL.
    * @param options The HTTP options to send with the request.
    *
    * @return An `Observable` of the response, with a response body in the requested type.
-   *
-   * 一个由该请求的所有 `HttpEvents` 组成的 `Observable` 对象，事件的 body 是 `T` 型的。
    */
   get<T>(url: string, options: {
     headers?: HttpHeaders | {[header: string]: string | string[]},
@@ -1155,15 +982,11 @@ export class HttpClient {
    * Constructs a `GET` request that interprets the body as an `ArrayBuffer` and
    * returns the full `HTTPResponse`.
    *
-   * 构造一个 `GET` 请求，这个请求会把 body 解释为 `ArrayBuffer` ，并返回完整的响应体。
-   *
    * @param url     The endpoint URL.
    * @param options The HTTP options to send with the request.
    *
    * @return An `Observable` of the `HTTPResponse` for the request,
    * with the response body as an `ArrayBuffer`.
-   *
-   * 一个由该请求的 `HttpResponse` 组成的 `Observable` 对象，其 body 是 `ArrayBuffer` 型的。
    */
   get(url: string, options: {
     headers?: HttpHeaders | {[header: string]: string | string[]},
@@ -1177,15 +1000,11 @@ export class HttpClient {
    * Constructs a `GET` request that interprets the body as a `Blob` and
    * returns the full `HTTPResponse`.
    *
-   * 构造一个 `GET` 请求，这个请求会把 body 解释为 `Blob` ，并返回完整的响应体。
-   *
    * @param url     The endpoint URL.
    * @param options The HTTP options to send with the request.
    *
    * @return An `Observable` of the `HTTPResponse` for the request,
    *  with the response body as a `Blob`.
-   *
-   * 一个由该请求的 `HttpResponse` 组成的 `Observable` 对象，其 body 是 `Blob` 型的。
    */
   get(url: string, options: {
     headers?: HttpHeaders | {[header: string]: string | string[]},
@@ -1199,15 +1018,11 @@ export class HttpClient {
    * Constructs a `GET` request that interprets the body as a text stream and
    * returns the full `HTTPResponse`.
    *
-   * 构造一个 `GET` 请求，这个请求会把 body 解释为文本，并返回完整的响应体。
-   *
    * @param url     The endpoint URL.
    * @param options The HTTP options to send with the request.
    *
    * @return An `Observable` of the `HTTPResponse` for the request,
    * with the response body of type string.
-   *
-   * 一个由该请求的 `HttpResponse` 组成的 `Observable` 对象，其 body 是 `string` 型的。
    */
   get(url: string, options: {
     headers?: HttpHeaders | {[header: string]: string | string[]},
@@ -1221,15 +1036,11 @@ export class HttpClient {
    * Constructs a `GET` request that interprets the body as a JSON object and
    * returns the full `HTTPResponse`.
    *
-   * 构造一个 `GET` 请求，这个请求会把 body 解释为 JSON ，并返回完整的响应体。
-   *
    * @param url     The endpoint URL.
    * @param options The HTTP options to send with the request.
    *
    * @return An `Observable` of the full `HttpResponse`,
    * with the response body of type `Object`.
-   *
-   * 一个由该请求的 `HttpResponse` 组成的 `Observable` 对象，其 body 是 `Object` 型的。
    */
   get(url: string, options: {
     headers?: HttpHeaders | {[header: string]: string | string[]},
@@ -1244,15 +1055,11 @@ export class HttpClient {
    * Constructs a `GET` request that interprets the body as a JSON object and
    * returns the full `HTTPResponse`.
    *
-   * 构造一个 `GET` 请求，这个请求会把 body 解释为 JSON ，并返回完整的响应体。
-   *
    * @param url     The endpoint URL.
    * @param options The HTTP options to send with the request.
    *
    * @return An `Observable` of the full `HTTPResponse` for the request,
    * with a response body in the requested type.
-   *
-   * 一个由该请求的 `HttpResponse` 组成的 `Observable` 对象，其 body 是 `T` 型的。
    */
   get<T>(url: string, options: {
     headers?: HttpHeaders | {[header: string]: string | string[]},
@@ -1267,20 +1074,11 @@ export class HttpClient {
    * Constructs a `GET` request that interprets the body as a JSON object and
    * returns the response body as a JSON object.
    *
-   * 构造一个 `GET` 请求，这个请求会把 body 解释为 JSON ，并返回它。
-   *
    * @param url     The endpoint URL.
-   *
-   * 端点 URL。
-   *
    * @param options The HTTP options to send with the request.
    *
-   * 和该请求一起发送的 HTTP 选项。
    *
    * @return An `Observable` of the response body as a JSON object.
-   *
-   * 一个由 JSON 对象类型的 body 组成的 `Observable` 对象。
-
    */
   get(url: string, options?: {
     headers?: HttpHeaders | {[header: string]: string | string[]},
@@ -1295,14 +1093,10 @@ export class HttpClient {
    * Constructs a `GET` request that interprets the body as a JSON object and returns
    * the response body in a given type.
    *
-   * 构造一个 `GET` 请求，这个请求会把 body 解释为 JSON ，并返回它。
-   *
    * @param url     The endpoint URL.
    * @param options The HTTP options to send with the request.
    *
    * @return An `Observable` of the `HTTPResponse`, with a response body in the requested type.
-   *
-   * 一个由 `T` 型的 body 组成的 `Observable` 对象。
    */
   get<T>(url: string, options?: {
     headers?: HttpHeaders | {[header: string]: string | string[]},
@@ -1317,9 +1111,6 @@ export class HttpClient {
    * Constructs an observable that, when subscribed, causes the configured
    * `GET` request to execute on the server. See the individual overloads for
    * details on the return type.
-   *
-   * 构造一个 `Observable`，当订阅它时，将导致服务器执行一个配置好的 `GET` 请求。
-   * 关于 `get()` 返回类型的详细信息取决于所提供的选项，参见它的各个重载形式。
    */
   get(url: string, options: {
     headers?: HttpHeaders | {[header: string]: string | string[]},
@@ -1337,14 +1128,10 @@ export class HttpClient {
    * Constructs a `HEAD` request that interprets the body as an `ArrayBuffer` and
    * returns the response as an `ArrayBuffer`.
    *
-   * 构造一个 `HEAD` 请求，这个请求会把 body 解释为 `ArrayBuffer` ，并返回它。
-   *
    * @param url     The endpoint URL.
    * @param options The HTTP options to send with the request.
    *
    * @return An `Observable` of the response, with the response body as an `ArrayBuffer`.
-   *
-   * 一个由 `ArrayBuffer` 型的 body 组成的 `Observable` 对象。
    */
   head(url: string, options: {
     headers?: HttpHeaders | {[header: string]: string | string[]},
@@ -1376,14 +1163,10 @@ export class HttpClient {
    * Constructs a `HEAD` request that interprets the body as a text string and returns the response
    * as a string value.
    *
-   * 构造一个 `HEAD` 请求，这个请求会把 body 解释为文本，并返回它。
-   *
    * @param url     The endpoint URL.
    * @param options The HTTP options to send with the request.
    *
    * @return An `Observable` of the response, with the response body of type string.
-   *
-   * 一个由 `string` 型的 body 组成的 `Observable` 对象。
    */
   head(url: string, options: {
     headers?: HttpHeaders | {[header: string]: string | string[]},
@@ -1397,15 +1180,11 @@ export class HttpClient {
    * Constructs a `HEAD` request that interprets the body as an  `ArrayBuffer`
    *  and returns the full event stream.
    *
-   * 构造一个 `HEAD` 请求，这个请求会把 body 解释为 `ArrayBuffer` ，并返回完整的事件流。
-   *
    * @param url     The endpoint URL.
    * @param options The HTTP options to send with the request.
    *
    * @return An `Observable` of tall `HttpEvents` for the request,
    * with the response body as an `ArrayBuffer`.
-   *
-   * 一个由该请求的所有 `HttpEvents` 组成的 `Observable` 对象，事件的 body 是 `ArrayBuffer` 型的。
    */
   head(url: string, options: {
     headers?: HttpHeaders | {[header: string]: string | string[]},
@@ -1419,15 +1198,11 @@ export class HttpClient {
    * Constructs a `HEAD` request that interprets the body as a `Blob` and
    * returns the full event stream.
    *
-   * 构造一个 `HEAD` 请求，这个请求会把 body 解释为 `Blob` ，并返回完整的事件流。
-   *
    * @param url     The endpoint URL.
    * @param options The HTTP options to send with the request.
    *
    * @return An `Observable` of all `HttpEvents` for the request,
    * with the response body as a `Blob`.
-   *
-   * 一个由该请求的所有 `HttpEvents` 组成的 `Observable` 对象，事件的 body 是 `Blob` 型的。
    */
   head(url: string, options: {
     headers?: HttpHeaders | {[header: string]: string | string[]},
@@ -1441,14 +1216,10 @@ export class HttpClient {
    * Constructs a `HEAD` request that interprets the body as a text string
    * and returns the full event stream.
    *
-   * 构造一个 `HEAD` 请求，这个请求会把 body 解释为文本，并返回完整的事件流。
-   *
    * @param url     The endpoint URL.
    * @param options The HTTP options to send with the request.
    *
    * @return An `Observable` of all HttpEvents for the request, with the response body of type string.
-   *
-   * 一个由该请求的所有 `HttpEvents` 组成的 `Observable` 对象，事件的 body 是 `string` 型的。
    */
   head(url: string, options: {
     headers?: HttpHeaders | {[header: string]: string | string[]},
@@ -1462,15 +1233,11 @@ export class HttpClient {
    * Constructs a `HEAD` request that interprets the body as a JSON object
    * and returns the full HTTP event stream.
    *
-   * 构造一个 `HEAD` 请求，这个请求会把 body 解释为 JSON ，并返回完整的事件流。
-   *
    * @param url     The endpoint URL.
    * @param options The HTTP options to send with the request.
    *
    * @return An `Observable` of all `HTTPEvents` for the request, with a response body of
    * type `Object`.
-   *
-   * 一个由该请求的所有 `HttpEvents` 组成的 `Observable` 对象，事件的 body 是 `Object` 型的。
    */
   head(url: string, options: {
     headers?: HttpHeaders | {[header: string]: string | string[]},
@@ -1485,15 +1252,11 @@ export class HttpClient {
    * Constructs a `HEAD` request that interprets the body as a JSON object and
    * returns the full event stream.
    *
-   * 构造一个 `HEAD` 请求，这个请求会把 body 解释为 JSON ，并返回完整的事件流。
-   *
    * @return An `Observable` of all the `HTTPEvents` for the request
    * , with a response body in the requested type.
    *
    * @param url     The endpoint URL.
    * @param options The HTTP options to send with the request.
-   *
-   * 一个由该请求的所有 `HttpEvents` 组成的 `Observable` 对象，事件的 body 是 `T` 型的。
    */
   head<T>(url: string, options: {
     headers?: HttpHeaders | {[header: string]: string | string[]},
@@ -1508,15 +1271,11 @@ export class HttpClient {
    * Constructs a `HEAD` request that interprets the body as an `ArrayBuffer`
    *  and returns the full HTTP response.
    *
-   * 构造一个 `HEAD` 请求，这个请求会把 body 解释为 `ArrayBuffer` ，并返回完整的响应体。
-   *
    * @param url     The endpoint URL.
    * @param options The HTTP options to send with the request.
    *
    * @return An `Observable` of the `HTTPResponse` for the request,
    * with the response body as an `ArrayBuffer`.
-   *
-   * 一个由该请求的 `HttpResponse` 组成的 `Observable` 对象，其 body 是 `ArrayBuffer` 型的。
    */
   head(url: string, options: {
     headers?: HttpHeaders | {[header: string]: string | string[]},
@@ -1530,15 +1289,11 @@ export class HttpClient {
    * Constructs a `HEAD` request that interprets the body as a `Blob` and returns
    * the full `HTTPResponse`.
    *
-   * 构造一个 `HEAD` 请求，这个请求会把 body 解释为 `Blob` ，并返回完整的响应体。
-   *
    * @param url     The endpoint URL.
    * @param options The HTTP options to send with the request.
    *
    * @return An `Observable` of the `HTTPResponse` for the request,
    * with the response body as a blob.
-   *
-   * 一个由该请求的 `HttpResponse` 组成的 `Observable` 对象，其 body 是 `Blob` 型的。
    */
   head(url: string, options: {
     headers?: HttpHeaders | {[header: string]: string | string[]},
@@ -1552,15 +1307,11 @@ export class HttpClient {
    * Constructs a `HEAD` request that interprets the body as text stream
    * and returns the full `HTTPResponse`.
    *
-   * 构造一个 `HEAD` 请求，这个请求会把 body 解释为文本，并返回完整的响应体。
-   *
    * @param url     The endpoint URL.
    * @param options The HTTP options to send with the request.
    *
    * @return An `Observable` of the `HTTPResponse` for the request,
    * with the response body of type string.
-   *
-   * 一个由该请求的 `HttpResponse` 组成的 `Observable` 对象，其 body 是 `string` 型的。
    */
   head(url: string, options: {
     headers?: HttpHeaders | {[header: string]: string | string[]},
@@ -1574,15 +1325,11 @@ export class HttpClient {
    * Constructs a `HEAD` request that interprets the body as a JSON object and
    * returns the full `HTTPResponse`.
    *
-   * 构造一个 `HEAD` 请求，这个请求会把 body 解释为 JSON ，并返回完整的响应体。
-   *
    * @param url     The endpoint URL.
    * @param options The HTTP options to send with the request.
    *
    * @return An `Observable` of the `HTTPResponse` for the request,
    * with the response body of type `Object`.
-   *
-   * 一个由该请求的 `HttpResponse` 组成的 `Observable` 对象，其 body 是 `Object` 型的。
    */
   head(url: string, options: {
     headers?: HttpHeaders | {[header: string]: string | string[]},
@@ -1597,15 +1344,11 @@ export class HttpClient {
    * Constructs a `HEAD` request that interprets the body as a JSON object
    * and returns the full `HTTPResponse`.
    *
-   * 构造一个 `HEAD` 请求，这个请求会把 body 解释为 JSON ，并返回完整的响应体。
-   *
    * @param url     The endpoint URL.
    * @param options The HTTP options to send with the request.
    *
    * @return An `Observable` of the `HTTPResponse` for the request,
    * with a responmse body of the requested type.
-   *
-   * 一个由该请求的 `HttpResponse` 组成的 `Observable` 对象，其 body 是 `T` 型的。
    */
   head<T>(url: string, options: {
     headers?: HttpHeaders | {[header: string]: string | string[]},
@@ -1620,14 +1363,10 @@ export class HttpClient {
    * Constructs a `HEAD` request that interprets the body as a JSON object and
    * returns the response body as a JSON object.
    *
-   * 构造一个 `HEAD` 请求，这个请求会把 body 解释为 JSON ，并返回它。
-   *
    * @param url     The endpoint URL.
    * @param options The HTTP options to send with the request.
    *
    * @return An `Observable` of the response, with the response body as a JSON object.
-   *
-   * 一个由 `Object` 型的 body 组成的 `Observable` 对象。
    */
   head(url: string, options?: {
     headers?: HttpHeaders | {[header: string]: string | string[]},
@@ -1642,15 +1381,11 @@ export class HttpClient {
    * Constructs a `HEAD` request that interprets the body as a JSON object and returns
    * the response in a given type.
    *
-   * 构造一个 `HEAD` 请求，这个请求会把 body 解释为 JSON ，并返回它。
-   *
    * @param url     The endpoint URL.
    * @param options The HTTP options to send with the request.
    *
    * @return An `Observable` of the `HTTPResponse` for the request,
    * with a response body of the given type.
-   *
-   * 一个由 `T` 型的 body 组成的 `Observable` 对象。
    */
   head<T>(url: string, options?: {
     headers?: HttpHeaders | {[header: string]: string | string[]},
@@ -1667,9 +1402,6 @@ export class HttpClient {
    * meta information about the resource without transferring the
    * resource itself. See the individual overloads for
    * details on the return type.
-   *
-   * 构造一个 `Observable`，当订阅它时，将导致服务器执行一个配置好的 `HEAD` 请求。
-   * 关于 `head()` 返回类型的详细信息取决于所提供的选项，参见它的各个重载形式。
    */
   head(url: string, options: {
     headers?: HttpHeaders | {[header: string]: string | string[]},
@@ -1685,47 +1417,24 @@ export class HttpClient {
   /**
    * Constructs a `JSONP` request for the given URL and name of the callback parameter.
    *
-   * 使用指定的 URL 和回调函数名构造一个 JSONP 请求。
-   *
    * @param url The resource URL.
-   *
-   * 资源 URL。
-   *
    * @param callbackParam The callback function name.
    *
-   * 回调函数的名字。
-   *
    * @return An `Observable` of the response object, with response body as an object.
-   *
-   * 一个 `Object` 型响应对象组成的 `Observable` 对象
-   *
    */
   jsonp(url: string, callbackParam: string): Observable<Object>;
 
   /**
    * Constructs a `JSONP` request for the given URL and name of the callback parameter.
    *
-   * 使用指定的 URL 和回调函数名构造一个 JSONP 请求。
-   *
    * @param url The resource URL.
-   *
-   * 资源 URL。
-   *
    * @param callbackParam The callback function name.
-   *
-   * 回调函数的名字。
    *
    * You must install a suitable interceptor, such as one provided by `HttpClientJsonpModule`.
    * If no such interceptor is reached,
    * then the `JSONP` request can be rejected by the configured backend.
    *
-   * 你必须先安装适当的拦截器，比如 `HttpClientJsonpModule` 所提供的那个。
-   * 如果没有这样的拦截器，那么 `JSONP` 可能会被所配置的后端拒绝处理。
-   *
    * @return An `Observable` of the response object, with response body in the requested type.
-   *
-   * 一个响应对象的 `Observable`，其中带有请求中所要求的响应体。
-   *
    */
   jsonp<T>(url: string, callbackParam: string): Observable<T>;
 
@@ -1759,14 +1468,10 @@ export class HttpClient {
    * Constructs an `OPTIONS` request that interprets the body as an
    * `ArrayBuffer` and returns the response as an `ArrayBuffer`.
    *
-   * 构造一个 `OPTIONS` 请求，这个请求会把 body 解释为 `ArrayBuffer` ，并返回它。
-   *
    * @param url The endpoint URL.
    * @param options HTTP options.
    *
    * @return An `Observable` of the response, with the response body as an `ArrayBuffer`.
-   *
-   * 一个由 `ArrayBuffer` 型的 body 组成的 `Observable` 对象。
    */
   options(url: string, options: {
     headers?: HttpHeaders | {[header: string]: string | string[]},
@@ -1780,14 +1485,10 @@ export class HttpClient {
    * Constructs an `OPTIONS` request that interprets the body as a `Blob` and returns
    * the response as a `Blob`.
    *
-   * 构造一个 `OPTIONS` 请求，这个请求会把 body 解释为 `Blob` ，并返回它。
-   *
    * @param url The endpoint URL.
    * @param options HTTP options.
    *
    * @return An `Observable` of the response, with the response body as a `Blob`.
-   *
-   * 一个由 `Blob` 型的 body 组成的 `Observable` 对象。
    */
   options(url: string, options: {
     headers?: HttpHeaders | {[header: string]: string | string[]},
@@ -1801,14 +1502,10 @@ export class HttpClient {
    * Constructs an `OPTIONS` request that interprets the body as a text string and
    * returns a string value.
    *
-   * 构造一个 `OPTIONS` 请求，这个请求会把 body 解释为文本，并返回它。
-   *
    * @param url The endpoint URL.
    * @param options HTTP options.
    *
    * @return An `Observable` of the response, with the response body of type string.
-   *
-   * 一个由 `string` 型的 body 组成的 `Observable` 对象。
    */
   options(url: string, options: {
     headers?: HttpHeaders | {[header: string]: string | string[]},
@@ -1822,15 +1519,11 @@ export class HttpClient {
    * Constructs an `OPTIONS` request that interprets the body as an `ArrayBuffer`
    *  and returns the full event stream.
    *
-   * 构造一个 `OPTIONS` 请求，这个请求会把 body 解释为 `ArrayBuffer` ，并返回完整的事件流。
-   *
    * @param url The endpoint URL.
    * @param options HTTP options.
    *
    * @return  An `Observable` of all `HttpEvents` for the request,
    * with the response body as an `ArrayBuffer`.
-   *
-   * 一个由该请求的所有 `HttpEvents` 组成的 `Observable` 对象，事件的 body 是 `ArrayBuffer` 型的。
    */
   options(url: string, options: {
     headers?: HttpHeaders | {[header: string]: string | string[]},
@@ -1844,15 +1537,11 @@ export class HttpClient {
    * Constructs an `OPTIONS` request that interprets the body as a `Blob` and
    * returns the full event stream.
    *
-   * 构造一个 `OPTIONS` 请求，这个请求会把 body 解释为 `Blob` ，并返回完整的事件流。
-   *
    * @param url The endpoint URL.
    * @param options HTTP options.
    *
    * @return An `Observable` of all `HttpEvents` for the request,
    * with the response body as a `Blob`.
-   *
-   * 一个由该请求的所有 `HttpEvents` 组成的 `Observable` 对象，事件的 body 是 `Blob` 型的。
    */
   options(url: string, options: {
     headers?: HttpHeaders | {[header: string]: string | string[]},
@@ -1866,15 +1555,11 @@ export class HttpClient {
    * Constructs an `OPTIONS` request that interprets the body as a text string
    * and returns the full event stream.
    *
-   * 构造一个 `OPTIONS` 请求，这个请求会把 body 解释为文本，并返回完整的事件流。
-   *
    * @param url The endpoint URL.
    * @param options HTTP options.
    *
    * @return An `Observable` of all the `HTTPEvents` for the request,
    * with the response body of type string.
-   *
-   * 一个由该请求的所有 `HttpEvents` 组成的 `Observable` 对象，事件的 body 是 `string` 型的。
    */
   options(url: string, options: {
     headers?: HttpHeaders | {[header: string]: string | string[]},
@@ -1888,15 +1573,11 @@ export class HttpClient {
    * Constructs an `OPTIONS` request that interprets the body as a JSON object
    * and returns the full event stream.
    *
-   * 构造一个 `OPTIONS` 请求，这个请求会把 body 解释为 JSON ，并返回完整的事件流。
-   *
    * @param url The endpoint URL.
    * @param options HTTP options.
    *
    * @return An `Observable` of all the `HttpEvents` for the request with the response
    * body of type `Object`.
-   *
-   * 一个由该请求的所有 `HttpEvents` 组成的 `Observable` 对象，事件的 body 是 `Object` 型的。
    */
   options(url: string, options: {
     headers?: HttpHeaders | {[header: string]: string | string[]},
@@ -1911,15 +1592,11 @@ export class HttpClient {
    * Constructs an `OPTIONS` request that interprets the body as a JSON object and
    * returns the full event stream.
    *
-   * 构造一个 `OPTIONS` 请求，这个请求会把 body 解释为 JSON ，并返回完整的事件流。
-   *
    * @param url The endpoint URL.
    * @param options HTTP options.
    *
    * @return An `Observable` of all the `HttpEvents` for the request,
    * with a response body in the requested type.
-   *
-   * 一个由该请求的所有 `HttpEvents` 组成的 `Observable` 对象，事件的 body 是 `T` 型的。
    */
   options<T>(url: string, options: {
     headers?: HttpHeaders | {[header: string]: string | string[]},
@@ -1934,15 +1611,11 @@ export class HttpClient {
    * Constructs an `OPTIONS` request that interprets the body as an `ArrayBuffer`
    *  and returns the full HTTP response.
    *
-   * 构造一个 `OPTIONS` 请求，这个请求会把 body 解释为 `ArrayBuffer` ，并返回完整的响应体。
-   *
    * @param url The endpoint URL.
    * @param options HTTP options.
    *
    * @return An `Observable` of the `HttpResponse` for the request,
    * with the response body as an `ArrayBuffer`.
-   *
-   * 一个由该请求的 `HttpResponse` 组成的 `Observable` 对象，其 body 是 `ArrayBuffer` 型的。
    */
   options(url: string, options: {
     headers?: HttpHeaders | {[header: string]: string | string[]},
@@ -1956,15 +1629,11 @@ export class HttpClient {
    * Constructs an `OPTIONS` request that interprets the body as a `Blob`
    *  and returns the full `HTTPResponse`.
    *
-   * 构造一个 `OPTIONS` 请求，这个请求会把 body 解释为 `Blob` ，并返回完整的响应体。
-   *
    * @param url The endpoint URL.
    * @param options HTTP options.
    *
    * @return An `Observable` of the `HttpResponse` for the request,
    *  with the response body as a `Blob`.
-   *
-   * 一个由该请求的 `HttpResponse` 组成的 `Observable` 对象，其 body 是 `Blob` 型的。
    */
   options(url: string, options: {
     headers?: HttpHeaders | {[header: string]: string | string[]},
@@ -1978,15 +1647,11 @@ export class HttpClient {
    * Constructs an `OPTIONS` request that interprets the body as text stream
    * and returns the full `HTTPResponse`.
    *
-   * 构造一个 `OPTIONS` 请求，这个请求会把 body 解释为文本，并返回完整的响应体。
-   *
    * @param url The endpoint URL.
    * @param options HTTP options.
    *
    * @return An `Observable` of the `HttpResponse` for the request,
    *  with the response body of type string.
-   *
-   * 一个由该请求的 `HttpResponse` 组成的 `Observable` 对象，其 body 是 `string` 型的。
    */
   options(url: string, options: {
     headers?: HttpHeaders | {[header: string]: string | string[]},
@@ -2000,15 +1665,11 @@ export class HttpClient {
    * Constructs an `OPTIONS` request that interprets the body as a JSON object
    * and returns the full `HTTPResponse`.
    *
-   * 构造一个 `OPTIONS` 请求，这个请求会把 body 解释为 JSON ，并返回完整的响应体。
-   *
    * @param url The endpoint URL.
    * @param options HTTP options.
    *
    * @return An `Observable` of the `HttpResponse` for the request,
    * with the response body of type `Object`.
-   *
-   * 一个由该请求的 `HttpResponse` 组成的 `Observable` 对象，其 body 是 `Object` 型的。
    */
   options(url: string, options: {
     headers?: HttpHeaders | {[header: string]: string | string[]},
@@ -2023,15 +1684,11 @@ export class HttpClient {
    * Constructs an `OPTIONS` request that interprets the body as a JSON object and
    * returns the full `HTTPResponse`.
    *
-   * 构造一个 `OPTIONS` 请求，这个请求会把 body 解释为 JSON ，并返回完整的响应体。
-   *
    * @param url The endpoint URL.
    * @param options HTTP options.
    *
    * @return An `Observable` of the `HttpResponse` for the request,
    * with a response body in the requested type.
-   *
-   * 一个由该请求的 `HttpResponse` 组成的 `Observable` 对象，其 body 是 `T` 型的。
    */
   options<T>(url: string, options: {
     headers?: HttpHeaders | {[header: string]: string | string[]},
@@ -2046,14 +1703,10 @@ export class HttpClient {
    * Constructs an `OPTIONS` request that interprets the body as a JSON object and returns the response
    * body as a JSON object.
    *
-   * 构造一个 `OPTIONS` 请求，这个请求会把 body 解释为 JSON ，并返回它。
-   *
    * @param url The endpoint URL.
    * @param options HTTP options.
    *
    * @return An `Observable` of the response, with the response body as a JSON object.
-   *
-   * 一个由 `Object` 型的 body 组成的 `Observable` 对象。
    */
   options(url: string, options?: {
     headers?: HttpHeaders | {[header: string]: string | string[]},
@@ -2068,14 +1721,10 @@ export class HttpClient {
    * Constructs an `OPTIONS` request that interprets the body as a JSON object and returns the response
    * in a given type.
    *
-   * 构造一个 `OPTIONS` 请求，这个请求会把 body 解释为 JSON ，并返回它。
-   *
    * @param url The endpoint URL.
    * @param options HTTP options.
    *
    * @return An `Observable` of the `HTTPResponse`, with a response body of the given type.
-   *
-   * 一个由 `T` 型的 body 组成的 `Observable` 对象。
    */
   options<T>(url: string, options?: {
     headers?: HttpHeaders | {[header: string]: string | string[]},
@@ -2092,9 +1741,6 @@ export class HttpClient {
    * to determine the supported HTTP methods and other capabilites of an endpoint,
    * without implying a resource action. See the individual overloads for
    * details on the return type.
-   *
-   * 构造一个 `Observable`，当订阅它时，将导致服务器执行一个配置好的 `OPTIONS` 请求。
-   * 关于 `options()` 返回类型的详细信息取决于所提供的选项，参见它的各个重载形式。
    */
   options(url: string, options: {
     headers?: HttpHeaders | {[header: string]: string | string[]},
@@ -2111,15 +1757,11 @@ export class HttpClient {
    * Constructs a `PATCH` request that interprets the body as an `ArrayBuffer` and returns
    * the response as an `ArrayBuffer`.
    *
-   * 构造一个 `PATCH` 请求，这个请求会把 body 解释为 `ArrayBuffer` ，并返回它。
-   *
    * @param url The endpoint URL.
    * @param body The resources to edit.
    * @param options HTTP options.
    *
    * @return An `Observable` of the response, with the response body as an `ArrayBuffer`.
-   *
-   * 一个由 `ArrayBuffer` 型的 body 组成的 `Observable` 对象。
    */
   patch(url: string, body: any|null, options: {
     headers?: HttpHeaders | {[header: string]: string | string[]},
@@ -2133,15 +1775,11 @@ export class HttpClient {
    * Constructs a `PATCH` request that interprets the body as a `Blob` and returns the response
    * as a `Blob`.
    *
-   * 构造一个 `PATCH` 请求，这个请求会把 body 解释为 `Blob` ，并返回它。
-   *
    * @param url The endpoint URL.
    * @param body The resources to edit.
    * @param options HTTP options.
    *
    * @return An `Observable` of the response, with the response body as a `Blob`.
-   *
-   * 一个由 `Blob` 型的 body 组成的 `Observable` 对象。
    */
   patch(url: string, body: any|null, options: {
     headers?: HttpHeaders | {[header: string]: string | string[]},
@@ -2155,15 +1793,11 @@ export class HttpClient {
    * Constructs a `PATCH` request that interprets the body as as a text string and
    * returns the response as a string value.
    *
-   * 构造一个 `PATCH` 请求，这个请求会把 body 解释为文本，并返回它。
-   *
    * @param url The endpoint URL.
    * @param body The resources to edit.
    * @param options HTTP options.
    *
    * @return An `Observable` of the response, with a response body of type string.
-   *
-   * 一个由 `string` 型的 body 组成的 `Observable` 对象。
    */
   patch(url: string, body: any|null, options: {
     headers?: HttpHeaders | {[header: string]: string | string[]},
@@ -2177,16 +1811,12 @@ export class HttpClient {
    * Constructs a `PATCH` request that interprets the body as an `ArrayBuffer` and
    *  returns the the full event stream.
    *
-   * 构造一个 `PATCH` 请求，这个请求会把 body 解释为 `ArrayBuffer` ，并返回完整的事件流。
-   *
    * @param url The endpoint URL.
    * @param body The resources to edit.
    * @param options HTTP options.
    *
    * @return An `Observable` of all the `HTTPevents` for the request,
    * with the response body as an `ArrayBuffer`.
-   *
-   * 一个由该请求的所有 `HttpEvents` 组成的 `Observable` 对象，事件的 body 是 `ArrayBuffer` 型的。
    */
 
   patch(url: string, body: any|null, options: {
@@ -2201,16 +1831,12 @@ export class HttpClient {
    * Constructs a `PATCH` request that interprets the body as a `Blob`
    *  and returns the full event stream.
    *
-   * 构造一个 `PATCH` 请求，这个请求会把 body 解释为 `Blob` ，并返回完整的事件流。
-   *
    * @param url The endpoint URL.
    * @param body The resources to edit.
    * @param options HTTP options.
    *
    * @return An `Observable` of all the `HTTPevents` for the request, with the
    * response body as `Blob`.
-   *
-   * 一个由该请求的所有 `HttpEvents` 组成的 `Observable` 对象，事件的 body 是 `Blob` 型的。
    */
   patch(url: string, body: any|null, options: {
     headers?: HttpHeaders | {[header: string]: string | string[]},
@@ -2224,16 +1850,12 @@ export class HttpClient {
    * Constructs a `PATCH` request that interprets the body as a text string and
    * returns the full event stream.
    *
-   * 构造一个 `PATCH` 请求，这个请求会把 body 解释为文本，并返回完整的事件流。
-   *
    * @param url The endpoint URL.
    * @param body The resources to edit.
    * @param options HTTP options.
    *
    * @return An `Observable` of all the `HTTPevents`for the request, with a
    * response body of type string.
-   *
-   * 一个由该请求的所有 `HttpEvents` 组成的 `Observable` 对象，事件的 body 是 `string` 型的。
    */
   patch(url: string, body: any|null, options: {
     headers?: HttpHeaders | {[header: string]: string | string[]},
@@ -2247,16 +1869,12 @@ export class HttpClient {
    * Constructs a `PATCH` request that interprets the body as a JSON object
    * and returns the full event stream.
    *
-   * 构造一个 `PATCH` 请求，这个请求会把 body 解释为 JSON ，并返回完整的事件流。
-   *
    * @param url The endpoint URL.
    * @param body The resources to edit.
    * @param options HTTP options.
    *
    * @return An `Observable` of all the `HTTPevents` for the request,
    * with a response body of type `Object`.
-   *
-   * 一个由该请求的所有 `HttpEvents` 组成的 `Observable` 对象，事件的 body 是 `Object` 型的。
    */
   patch(url: string, body: any|null, options: {
     headers?: HttpHeaders | {[header: string]: string | string[]},
@@ -2271,16 +1889,12 @@ export class HttpClient {
    * Constructs a `PATCH` request that interprets the body as a JSON object
    * and returns the full event stream.
    *
-   * 构造一个 `PATCH` 请求，这个请求会把 body 解释为 JSON ，并返回完整的事件流。
-   *
    * @param url The endpoint URL.
    * @param body The resources to edit.
    * @param options HTTP options.
    *
    * @return An `Observable` of all the `HTTPevents` for the request,
    *  with a response body in the requested type.
-   *
-   * 一个由该请求的所有 `HttpEvents` 组成的 `Observable` 对象，事件的 body 是 `T` 型的。
    */
   patch<T>(url: string, body: any|null, options: {
     headers?: HttpHeaders | {[header: string]: string | string[]},
@@ -2295,16 +1909,12 @@ export class HttpClient {
    * Constructs a `PATCH` request that interprets the body as an `ArrayBuffer`
    *  and returns the full `HTTPResponse`.
    *
-   * 构造一个 `PATCH` 请求，这个请求会把 body 解释为 `ArrayBuffer` ，并返回完整的响应体。
-   *
    * @param url The endpoint URL.
    * @param body The resources to edit.
    * @param options HTTP options.
    *
    * @return  An `Observable` of the `HttpResponse` for the request,
    *  with the response body as an `ArrayBuffer`.
-   *
-   * 一个由该请求的 `HttpResponse` 组成的 `Observable` 对象，其 body 是 `ArrayBuffer` 型的。
    */
   patch(url: string, body: any|null, options: {
     headers?: HttpHeaders | {[header: string]: string | string[]},
@@ -2318,16 +1928,12 @@ export class HttpClient {
    * Constructs a `PATCH` request that interprets the body as a `Blob` and returns the full
    * `HTTPResponse`.
    *
-   * 构造一个 `PATCH` 请求，这个请求会把 body 解释为 `Blob` ，并返回完整的响应体。
-   *
    * @param url The endpoint URL.
    * @param body The resources to edit.
    * @param options HTTP options.
    *
    * @return  An `Observable` of the `HttpResponse` for the request,
    * with the response body as a `Blob`.
-   *
-   * 一个由该请求的 `HttpResponse` 组成的 `Observable` 对象，其 body 是 `Blob` 型的。
    */
   patch(url: string, body: any|null, options: {
     headers?: HttpHeaders | {[header: string]: string | string[]},
@@ -2341,16 +1947,12 @@ export class HttpClient {
    * Constructs a `PATCH` request that interprets the body as a text stream and returns the
    * full `HTTPResponse`.
    *
-   * 构造一个 `PATCH` 请求，这个请求会把 body 解释为文本，并返回完整的响应体。
-   *
    * @param url The endpoint URL.
    * @param body The resources to edit.
    * @param options HTTP options.
    *
    * @return  An `Observable` of the `HttpResponse` for the request,
    * with a response body of type string.
-   *
-   * 一个由该请求的 `HttpResponse` 组成的 `Observable` 对象，其 body 是 `string` 型的。
    */
   patch(url: string, body: any|null, options: {
     headers?: HttpHeaders | {[header: string]: string | string[]},
@@ -2364,16 +1966,12 @@ export class HttpClient {
    * Constructs a `PATCH` request that interprets the body as a JSON object
    * and returns the full `HTTPResponse`.
    *
-   * 构造一个 `PATCH` 请求，这个请求会把 body 解释为 JSON ，并返回完整的响应体。
-   *
    * @param url The endpoint URL.
    * @param body The resources to edit.
    * @param options HTTP options.
    *
    * @return An `Observable` of the `HttpResponse` for the request,
    * with a response body in the requested type.
-   *
-   * 一个由该请求的 `HttpResponse` 组成的 `Observable` 对象，其 body 是 `Object` 型的。
    */
   patch(url: string, body: any|null, options: {
     headers?: HttpHeaders | {[header: string]: string | string[]},
@@ -2388,16 +1986,12 @@ export class HttpClient {
    * Constructs a `PATCH` request that interprets the body as a JSON object
    * and returns the full `HTTPResponse`.
    *
-   * 构造一个 `PATCH` 请求，这个请求会把 body 解释为 JSON ，并返回完整的响应体。
-   *
    * @param url The endpoint URL.
    * @param body The resources to edit.
    * @param options HTTP options.
    *
    * @return An `Observable` of the `HttpResponse` for the request,
    * with a response body in the given type.
-   *
-   * 一个由该请求的 `HttpResponse` 组成的 `Observable` 对象，其 body 是 `T` 型的。
    */
   patch<T>(url: string, body: any|null, options: {
     headers?: HttpHeaders | {[header: string]: string | string[]},
@@ -2412,15 +2006,11 @@ export class HttpClient {
    * Constructs a `PATCH` request that interprets the body as a JSON object and
    * returns the response body as a JSON object.
    *
-   * 构造一个 `PATCH` 请求，这个请求会把 body 解释为 JSON ，并返回它。
-   *
    * @param url The endpoint URL.
    * @param body The resources to edit.
    * @param options HTTP options.
    *
    * @return An `Observable` of the response, with the response body as a JSON object.
-   *
-   * 一个由 `Object` 型的 body 组成的 `Observable` 对象。
    */
   patch(url: string, body: any|null, options?: {
     headers?: HttpHeaders | {[header: string]: string | string[]},
@@ -2435,16 +2025,12 @@ export class HttpClient {
    * Constructs a `PATCH` request that interprets the body as a JSON object
    * and returns the response in a given type.
    *
-   * 构造一个 `PATCH` 请求，这个请求会把 body 解释为 JSON ，并返回它。
-   *
    * @param url The endpoint URL.
    * @param body The resources to edit.
    * @param options HTTP options.
    *
    * @return  An `Observable` of the `HttpResponse` for the request,
    * with a response body in the given type.
-   *
-   * 一个由 `T` 型的 body 组成的 `Observable` 对象。
    */
   patch<T>(url: string, body: any|null, options?: {
     headers?: HttpHeaders | {[header: string]: string | string[]},
@@ -2459,9 +2045,6 @@ export class HttpClient {
    * Constructs an observable that, when subscribed, causes the configured
    * `PATCH` request to execute on the server. See the individual overloads for
    * details on the return type.
-   *
-   * 构造一个 `Observable`，当订阅它时，将导致服务器执行一个配置好的 `PATCH` 请求。
-   * 关于 `patch()` 返回类型的详细信息取决于所提供的选项，参见它的各个重载形式。
    */
   patch(url: string, body: any|null, options: {
     headers?: HttpHeaders | {[header: string]: string | string[]},
@@ -2478,15 +2061,11 @@ export class HttpClient {
    * Constructs a `POST` request that interprets the body as an as an `ArrayBuffer` and returns
    * an `ArrayBuffer`.
    *
-   * 构造一个 `POST` 请求，这个请求会把 body 解释为 `ArrayBuffer` ，并返回它。
-   *
    * @param url The endpoint URL.
    * @param body The content to replace with.
    * @param options HTTP options.
    *
    * @return An `Observable` of the response, with the response body as an `ArrayBuffer`.
-   *
-   * 一个由 `ArrayBuffer` 型的 body 组成的 `Observable` 对象。
    */
   post(url: string, body: any|null, options: {
     headers?: HttpHeaders | {[header: string]: string | string[]},
@@ -2500,15 +2079,11 @@ export class HttpClient {
    * Constructs a `POST` request that interprets the body as a `Blob` and returns the
    * response as a `Blob`.
    *
-   * 构造一个 `POST` 请求，这个请求会把 body 解释为 `Blob` ，并返回它。
-   *
    * @param url The endpoint URL.
    * @param body The content to replace with.
    * @param options HTTP options
    *
    * @return An `Observable` of the response, with the response body as a `Blob`.
-   *
-   * 一个由 `Blob` 型的 body 组成的 `Observable` 对象。
    */
   post(url: string, body: any|null, options: {
     headers?: HttpHeaders | {[header: string]: string | string[]},
@@ -2522,15 +2097,11 @@ export class HttpClient {
    * Constructs a `POST` request that interprets the body as a text string and
    * returns the response as a string value.
    *
-   * 构造一个 `POST` 请求，这个请求会把 body 解释为文本，并返回它。
-   *
    * @param url The endpoint URL.
    * @param body The content to replace with.
    * @param options HTTP options
    *
    * @return An `Observable` of the response, with a response body of type string.
-   *
-   * 一个由 `string` 型的 body 组成的 `Observable` 对象。
    */
   post(url: string, body: any|null, options: {
     headers?: HttpHeaders | {[header: string]: string | string[]},
@@ -2544,16 +2115,12 @@ export class HttpClient {
    * Constructs a `POST` request that interprets the body as an `ArrayBuffer` and
    * returns the full event stream.
    *
-   * 构造一个 `POST` 请求，这个请求会把 body 解释为 `ArrayBuffer` ，并返回完整的事件流。
-   *
    * @param url The endpoint URL.
    * @param body The content to replace with.
    * @param options HTTP options
    *
    * @return An `Observable` of all `HttpEvents` for the request,
    * with the response body as an `ArrayBuffer`.
-   *
-   * 一个由该请求的所有 `HttpEvents` 组成的 `Observable` 对象，事件的 body 是 `ArrayBuffer` 型的。
    */
   post(url: string, body: any|null, options: {
     headers?: HttpHeaders | {[header: string]: string | string[]},
@@ -2567,15 +2134,11 @@ export class HttpClient {
    * Constructs a `POST` request that interprets the body as a `Blob`
    * and returns the response in an observable of the full event stream.
    *
-   * 构造一个 `POST` 请求，这个请求会把 body 解释为 `Blob` ，并返回完整的事件流。
-   *
    * @param url The endpoint URL.
    * @param body The content to replace with.
    * @param options HTTP options
    *
    * @return An `Observable` of all `HttpEvents` for the request, with the response body as `Blob`.
-   *
-   * 一个由该请求的所有 `HttpEvents` 组成的 `Observable` 对象，事件的 body 是 `Blob` 型的。
    */
   post(url: string, body: any|null, options: {
     headers?: HttpHeaders | {[header: string]: string | string[]},
@@ -2588,16 +2151,12 @@ export class HttpClient {
   /**
    * Constructs a `POST` request that interprets the body as a text string and returns the full event stream.
    *
-   * 构造一个 `POST` 请求，这个请求会把 body 解释为文本，并返回完整的事件流。
-   *
    * @param url The endpoint URL.
    * @param body The content to replace with.
    * @param options HTTP options
    *
    * @return  An `Observable` of all `HttpEvents` for the request,
    * with a response body of type string.
-   *
-   * 一个由该请求的所有 `HttpEvents` 组成的 `Observable` 对象，事件的 body 是 `string` 型的。
    */
   post(url: string, body: any|null, options: {
     headers?: HttpHeaders | {[header: string]: string | string[]},
@@ -2610,16 +2169,12 @@ export class HttpClient {
   /**
    * Constructs a POST request that interprets the body as a JSON object and returns the full event stream.
    *
-   * 构造一个 `POST` 请求，这个请求会把 body 解释为 JSON ，并返回完整的事件流。
-   *
    * @param url The endpoint URL.
    * @param body The content to replace with.
    * @param options HTTP options
    *
    * @return  An `Observable` of all `HttpEvents` for the request,
    * with a response body of type `Object`.
-   *
-   * 一个由该请求的所有 `HttpEvents` 组成的 `Observable` 对象，事件的 body 是 `Object` 型的。
    */
   post(url: string, body: any|null, options: {
     headers?: HttpHeaders | {[header: string]: string | string[]},
@@ -2633,16 +2188,12 @@ export class HttpClient {
   /**
    * Constructs a POST request that interprets the body as a JSON object and returns the full event stream.
    *
-   * 构造一个 `POST` 请求，这个请求会把 body 解释为 JSON ，并返回完整的事件流。
-   *
    * @param url The endpoint URL.
    * @param body The content to replace with.
    * @param options HTTP options
    *
    * @return An `Observable` of all `HttpEvents` for the request,
    * with a response body in the requested type.
-   *
-   * 一个由该请求的所有 `HttpEvents` 组成的 `Observable` 对象，事件的 body 是 `T` 型的。
    */
   post<T>(url: string, body: any|null, options: {
     headers?: HttpHeaders | {[header: string]: string | string[]},
@@ -2657,15 +2208,11 @@ export class HttpClient {
    * Constructs a POST request that interprets the body as an `ArrayBuffer`
    *  and returns the full `HTTPresponse`.
    *
-   * 构造一个 `POST` 请求，这个请求会把 body 解释为 `ArrayBuffer` ，并返回完整的响应体。
-   *
    * @param url The endpoint URL.
    * @param body The content to replace with.
    * @param options HTTP options
    *
    * @return  An `Observable` of the `HTTPResponse` for the request, with the response body as an `ArrayBuffer`.
-   *
-   * 一个由该请求的 `HttpResponse` 组成的 `Observable` 对象，其 body 是 `ArrayBuffer` 型的。
    */
   post(url: string, body: any|null, options: {
     headers?: HttpHeaders | {[header: string]: string | string[]},
@@ -2679,16 +2226,12 @@ export class HttpClient {
    * Constructs a `POST` request that interprets the body as a `Blob` and returns the full
    * `HTTPResponse`.
    *
-   * 构造一个 `POST` 请求，这个请求会把 body 解释为 `Blob` ，并返回完整的响应体。
-   *
    * @param url The endpoint URL.
    * @param body The content to replace with.
    * @param options HTTP options
    *
    * @return An `Observable` of the `HTTPResponse` for the request,
    * with the response body as a `Blob`.
-   *
-   * 一个由该请求的 `HttpResponse` 组成的 `Observable` 对象，其 body 是 `Blob` 型的。
    */
   post(url: string, body: any|null, options: {
     headers?: HttpHeaders | {[header: string]: string | string[]},
@@ -2702,16 +2245,12 @@ export class HttpClient {
    * Constructs a `POST` request that interprets the body as a text stream and returns
    * the full `HTTPResponse`.
    *
-   * 构造一个 `POST` 请求，这个请求会把 body 解释为文本，并返回完整的响应体。
-   *
    * @param url The endpoint URL.
    * @param body The content to replace with.
    * @param options HTTP options
    *
    * @return  An `Observable` of the `HTTPResponse` for the request,
    * with a response body of type string.
-   *
-   * 一个由该请求的 `HttpResponse` 组成的 `Observable` 对象，其 body 是 `string` 型的。
    */
   post(url: string, body: any|null, options: {
     headers?: HttpHeaders | {[header: string]: string | string[]},
@@ -2725,16 +2264,12 @@ export class HttpClient {
    * Constructs a `POST` request that interprets the body as a JSON object
    * and returns the full `HTTPResponse`.
    *
-   * 构造一个 `POST` 请求，这个请求会把 body 解释为 JSON ，并返回完整的响应体。
-   *
    * @param url The endpoint URL.
    * @param body The content to replace with.
    * @param options HTTP options
    *
    * @return An `Observable` of the `HTTPResponse` for the request, with a response body of type
    * `Object`.
-   *
-   * 一个由该请求的 `HttpResponse` 组成的 `Observable` 对象，其 body 是 `Object` 型的。
    */
   post(url: string, body: any|null, options: {
     headers?: HttpHeaders | {[header: string]: string | string[]},
@@ -2750,15 +2285,11 @@ export class HttpClient {
    * `HTTPResponse`.
    *
    *
-   * 构造一个 `POST` 请求，这个请求会把 body 解释为 JSON ，并返回完整的响应体。
-   *
    * @param url The endpoint URL.
    * @param body The content to replace with.
    * @param options HTTP options
    *
    * @return An `Observable` of the `HTTPResponse` for the request, with a response body in the requested type.
-   *
-   * 一个由该请求的 `HttpResponse` 组成的 `Observable` 对象，其 body 是 `T` 型的。
    */
   post<T>(url: string, body: any|null, options: {
     headers?: HttpHeaders | {[header: string]: string | string[]},
@@ -2773,15 +2304,11 @@ export class HttpClient {
    * Constructs a `POST` request that interprets the body as a
    * JSON object and returns the response body as a JSON object.
    *
-   * 构造一个 `POST` 请求，这个请求会把 body 解释为 JSON ，并返回它。
-   *
    * @param url The endpoint URL.
    * @param body The content to replace with.
    * @param options HTTP options
    *
    * @return An `Observable` of the response, with the response body as a JSON object.
-   *
-   * 一个由 `Object` 型的 body 组成的 `Observable` 对象。
    */
   post(url: string, body: any|null, options?: {
     headers?: HttpHeaders | {[header: string]: string | string[]},
@@ -2796,15 +2323,11 @@ export class HttpClient {
    * Constructs a `POST` request that interprets the body as a JSON object
    * and returns an observable of the response.
    *
-   * 构造一个 `POST` 请求，这个请求会把 body 解释为 JSON ，并返回它。
-   *
    * @param url The endpoint URL.
    * @param body The content to replace with.
    * @param options HTTP options
    *
    * @return  An `Observable` of the `HTTPResponse` for the request, with a response body in the requested type.
-   *
-   * 一个由 `T` 型的 body 组成的 `Observable` 对象。
    */
   post<T>(url: string, body: any|null, options?: {
     headers?: HttpHeaders | {[header: string]: string | string[]},
@@ -2820,9 +2343,6 @@ export class HttpClient {
    * `POST` request to execute on the server. The server responds with the location of
    * the replaced resource. See the individual overloads for
    * details on the return type.
-   *
-   * 构造一个 `Observable`，当订阅它时，将导致服务器执行一个配置好的 `POST` 请求。
-   * 关于 `post()` 返回类型的详细信息取决于所提供的选项，参见它的各个重载形式。
    */
   post(url: string, body: any|null, options: {
     headers?: HttpHeaders | {[header: string]: string | string[]},
@@ -2839,15 +2359,11 @@ export class HttpClient {
    * Constructs a `PUT` request that interprets the body as an `ArrayBuffer` and returns the
    * response as an `ArrayBuffer`.
    *
-   * 构造一个 `PUT` 请求，这个请求会把 body 解释为 `ArrayBuffer` ，并返回它。
-   *
    * @param url The endpoint URL.
    * @param body The resources to add/update.
    * @param options HTTP options
    *
    * @return An `Observable` of the response, with the response body as an `ArrayBuffer`.
-   *
-   * 一个由 `ArrayBuffer` 型的 body 组成的 `Observable` 对象。
    */
   put(url: string, body: any|null, options: {
     headers?: HttpHeaders | {[header: string]: string | string[]},
@@ -2861,15 +2377,11 @@ export class HttpClient {
    * Constructs a `PUT` request that interprets the body as a `Blob` and returns
    * the response as a `Blob`.
    *
-   * 构造一个 `PUT` 请求，这个请求会把 body 解释为 `Blob` ，并返回它。
-   *
    * @param url The endpoint URL.
    * @param body The resources to add/update.
    * @param options HTTP options
    *
    * @return An `Observable` of the response, with the response body as a `Blob`.
-   *
-   * 一个由 `Blob` 型的 body 组成的 `Observable` 对象。
    */
   put(url: string, body: any|null, options: {
     headers?: HttpHeaders | {[header: string]: string | string[]},
@@ -2883,15 +2395,11 @@ export class HttpClient {
    * Constructs a `PUT` request that interprets the body as a text string and
    * returns the response as a string value.
    *
-   * 构造一个 `PUT` 请求，这个请求会把 body 解释为文本，并返回它。
-   *
    * @param url The endpoint URL.
    * @param body The resources to add/update.
    * @param options HTTP options
    *
    * @return An `Observable` of the response, with a response body of type string.
-   *
-   * 一个由 `string` 型的 body 组成的 `Observable` 对象。
    */
   put(url: string, body: any|null, options: {
     headers?: HttpHeaders | {[header: string]: string | string[]},
@@ -2905,16 +2413,12 @@ export class HttpClient {
    * Constructs a `PUT` request that interprets the body as an `ArrayBuffer` and
    * returns the full event stream.
    *
-   * 构造一个 `PUT` 请求，这个请求会把 body 解释为 `ArrayBuffer` ，并返回完整的事件流。
-   *
    * @param url The endpoint URL.
    * @param body The resources to add/update.
    * @param options HTTP options
    *
    * @return An `Observable` of all `HttpEvents` for the request,
    * with the response body as an `ArrayBuffer`.
-   *
-   * 一个由该请求的所有 `HttpEvents` 组成的 `Observable` 对象，事件的 body 是 `ArrayBuffer` 型的。
    */
   put(url: string, body: any|null, options: {
     headers?: HttpHeaders | {[header: string]: string | string[]},
@@ -2927,16 +2431,12 @@ export class HttpClient {
   /**
    * Constructs a `PUT` request that interprets the body as a `Blob` and returns the full event stream.
    *
-   * 构造一个 `PUT` 请求，这个请求会把 body 解释为 `Blob` ，并返回完整的事件流。
-   *
    * @param url The endpoint URL.
    * @param body The resources to add/update.
    * @param options HTTP options
    *
    * @return An `Observable` of all `HttpEvents` for the request,
    * with the response body as a `Blob`.
-   *
-   * 一个由该请求的所有 `HttpEvents` 组成的 `Observable` 对象，事件的 body 是 `Blob` 型的。
    */
   put(url: string, body: any|null, options: {
     headers?: HttpHeaders | {[header: string]: string | string[]},
@@ -2949,16 +2449,12 @@ export class HttpClient {
   /**
    * Constructs a `PUT` request that interprets the body as a text string and returns the full event stream.
    *
-   * 构造一个 `PUT` 请求，这个请求会把 body 解释为文本，并返回完整的事件流。
-   *
    * @param url The endpoint URL.
    * @param body The resources to add/update.
    * @param options HTTP options
    *
    * @return An `Observable` of all HttpEvents for the request, with a response body
    * of type string.
-   *
-   * 一个由该请求的所有 `HttpEvents` 组成的 `Observable` 对象，事件的 body 是 `string` 型的。
    */
   put(url: string, body: any|null, options: {
     headers?: HttpHeaders | {[header: string]: string | string[]},
@@ -2971,16 +2467,12 @@ export class HttpClient {
   /**
    * Constructs a `PUT` request that interprets the body as a JSON object and returns the full event stream.
    *
-   * 构造一个 `PUT` 请求，这个请求会把 body 解释为 JSON ，并返回完整的事件流。
-   *
    * @param url The endpoint URL.
    * @param body The resources to add/update.
    * @param options HTTP options
    *
    * @return An `Observable` of all `HttpEvents` for the request, with a response body of
    * type `Object`.
-   *
-   * 一个由该请求的所有 `HttpEvents` 组成的 `Observable` 对象，事件的 body 是 `Object` 型的。
    */
   put(url: string, body: any|null, options: {
     headers?: HttpHeaders | {[header: string]: string | string[]},
@@ -2995,16 +2487,12 @@ export class HttpClient {
    * Constructs a `PUT` request that interprets the body as a JSON object and returns the
    * full event stream.
    *
-   * 构造一个 `PUT` 请求，这个请求会把 body 解释为 JSON ，并返回完整的事件流。
-   *
    * @param url The endpoint URL.
    * @param body The resources to add/update.
    * @param options HTTP options
    *
    * @return An `Observable` of all `HttpEvents` for the request,
    * with a response body in the requested type.
-   *
-   * 一个由该请求的所有 `HttpEvents` 组成的 `Observable` 对象，事件的 body 是 `T` 型的。
    */
   put<T>(url: string, body: any|null, options: {
     headers?: HttpHeaders | {[header: string]: string | string[]},
@@ -3015,15 +2503,11 @@ export class HttpClient {
    * Constructs a `PUT` request that interprets the body as an
    * `ArrayBuffer` and returns an observable of the full HTTP response.
    *
-   * 构造一个 `PUT` 请求，这个请求会把 body 解释为 `ArrayBuffer` ，并返回完整的响应体。
-   *
    * @param url The endpoint URL.
    * @param body The resources to add/update.
    * @param options HTTP options
    *
    * @return An `Observable` of the `HTTPResponse` for the request, with the response body as an `ArrayBuffer`.
-   *
-   * 一个由该请求的 `HttpResponse` 组成的 `Observable` 对象，其 body 是 `ArrayBuffer` 型的。
    */
   put(url: string, body: any|null, options: {
     headers?: HttpHeaders | {[header: string]: string | string[]},
@@ -3037,16 +2521,12 @@ export class HttpClient {
    * Constructs a `PUT` request that interprets the body as a `Blob` and returns the
    * full HTTP response.
    *
-   * 构造一个 `PUT` 请求，这个请求会把 body 解释为 `Blob` ，并返回完整的响应体。
-   *
    * @param url The endpoint URL.
    * @param body The resources to add/update.
    * @param options HTTP options
    *
    * @return An `Observable` of the `HTTPResponse` for the request,
    * with the response body as a `Blob`.
-   *
-   * 一个由该请求的 `HttpResponse` 组成的 `Observable` 对象，其 body 是 `Blob` 型的。
    */
   put(url: string, body: any|null, options: {
     headers?: HttpHeaders | {[header: string]: string | string[]},
@@ -3060,15 +2540,11 @@ export class HttpClient {
    * Constructs a `PUT` request that interprets the body as a text stream and returns the
    * full HTTP response.
    *
-   * 构造一个 `PUT` 请求，这个请求会把 body 解释为文本，并返回完整的响应体。
-   *
    * @param url The endpoint URL.
    * @param body The resources to add/update.
    * @param options HTTP options
    *
    * @return An `Observable` of the `HTTPResponse` for the request, with a response body of type string.
-   *
-   * 一个由该请求的 `HttpResponse` 组成的 `Observable` 对象，其 body 是 `string` 型的。
    */
   put(url: string, body: any|null, options: {
     headers?: HttpHeaders | {[header: string]: string | string[]},
@@ -3081,16 +2557,12 @@ export class HttpClient {
   /**
    * Constructs a `PUT` request that interprets the body as a JSON object and returns the full HTTP response.
    *
-   * 构造一个 `PUT` 请求，这个请求会把 body 解释为 JSON ，并返回完整的响应体。
-   *
    * @param url The endpoint URL.
    * @param body The resources to add/update.
    * @param options HTTP options
    *
    * @return An `Observable` of the `HTTPResponse` for the request, with a response body
    * of type 'Object`.
-   *
-   * 一个由该请求的 `HttpResponse` 组成的 `Observable` 对象，其 body 是 `Object` 型的。
    */
   put(url: string, body: any|null, options: {
     headers?: HttpHeaders | {[header: string]: string | string[]},
@@ -3104,16 +2576,12 @@ export class HttpClient {
   /**
    * Constructs a `PUT` request that interprets the body as a JSON object and returns the full HTTP response.
    *
-   * 构造一个 `PUT` 请求，这个请求会把 body 解释为 JSON ，并返回完整的响应体。
-   *
    * @param url The endpoint URL.
    * @param body The resources to add/update.
    * @param options HTTP options
    *
    * @return An `Observable` of the `HTTPResponse` for the request,
    * with a response body in the requested type.
-   *
-   * 一个由该请求的 `HttpResponse` 组成的 `Observable` 对象，其 body 是 `T` 型的。
    */
   put<T>(url: string, body: any|null, options: {
     headers?: HttpHeaders | {[header: string]: string | string[]},
@@ -3128,15 +2596,11 @@ export class HttpClient {
    * Constructs a `PUT` request that interprets the body as a JSON object and returns the response
    * body as a JSON object.
    *
-   * 构造一个 `PUT` 请求，这个请求会把 body 解释为 JSON ，并返回它。
-   *
    * @param url The endpoint URL.
    * @param body The resources to add/update.
    * @param options HTTP options
    *
    * @return An `Observable` of the response, with the response body as a JSON object.
-   *
-   * 一个由 `Object` 型的 body 组成的 `Observable` 对象。
    */
   put(url: string, body: any|null, options?: {
     headers?: HttpHeaders | {[header: string]: string | string[]},
@@ -3151,15 +2615,11 @@ export class HttpClient {
    * Constructs a `PUT` request that interprets the body as a JSON object
    * and returns an observable of the response.
    *
-   * 构造一个 `PUT` 请求，这个请求会把 body 解释为 JSON ，并返回它。
-   *
    * @param url The endpoint URL.
    * @param body The resources to add/update.
    * @param options HTTP options
    *
    * @return An `Observable` of the `HTTPResponse` for the request, with a response body in the requested type.
-   *
-   * 一个由 `T` 型的 body 组成的 `Observable` 对象。
    */
   put<T>(url: string, body: any|null, options?: {
     headers?: HttpHeaders | {[header: string]: string | string[]},
@@ -3175,9 +2635,6 @@ export class HttpClient {
    * `PUT` request to execute on the server. The `PUT` method replaces an existing resource
    * with a new set of values.
    * See the individual overloads for details on the return type.
-   *
-   * 构造一个 `Observable`，当订阅它时，将导致服务器执行一个配置好的 `PUT` 请求。
-   * 关于 `put()` 返回类型的详细信息取决于所提供的选项，参见它的各个重载形式。
    */
   put(url: string, body: any|null, options: {
     headers?: HttpHeaders | {[header: string]: string | string[]},

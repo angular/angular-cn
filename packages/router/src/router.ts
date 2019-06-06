@@ -38,7 +38,7 @@ import {isUrlTree} from './utils/type_guards';
  *
  * Options that modify the navigation strategy.
  *
- * 表示在导航时用到的额外选项。
+ * 用于修订导航策略的额外选项。
  * @publicApi
  */
 export interface NavigationExtras {
@@ -307,7 +307,7 @@ function defaultRouterHook(snapshot: RouterStateSnapshot, runExtras: {
  *
  * An NgModule that provides navigation and URL manipulation capabilities.
  *
- * 提供导航和操纵 URL 的能力。
+ * 一个提供导航和操纵 URL 能力的 NgModule。
  *
  * @see `Route`.
  * @see [Routing and Navigation Guide](guide/router).
@@ -368,7 +368,7 @@ export class Router {
    * True if at least one navigation event has occurred,
    * false otherwise.
    *
-   * 表示是否发生过至少一次导航。
+   * 如果为 True 则表示是否发生过至少一次导航，反之为 False。
    */
   navigated: boolean = false;
   private lastSuccessfulId: number = -1;
@@ -399,12 +399,17 @@ export class Router {
 
   /**
    * How to handle a navigation request to the current URL. One of:
+   *
+   * 定义当路由器收到一个导航到当前 URL 的请求时应该怎么做。可取下列值之一：
+   *
    * - `'ignore'` :  The router ignores the request.
+   *
+   *   `'ignore'`：路由器会忽略此请求。
+   *
    * - `'reload'` : The router reloads the URL. Use to implement a "refresh" feature.
    *
-   * 定义当路由器收到一个导航到当前 URL 的请求时应该怎么做。
-   * 默认情况下，路由器将会忽略这次导航。但这样会阻止类似于 "刷新" 按钮的特性。
-   * 使用该选项可以配置导航到当前 URL 时的行为。默认值为 'ignore'。
+   *   `'reload'`：路由器会重新加载当前 URL。用来实现"刷新"功能。
+   *
    */
   onSameUrlNavigation: 'reload'|'ignore' = 'ignore';
 
@@ -412,17 +417,17 @@ export class Router {
    * How to merge parameters, data, and resolved data from parent to child
    * routes. One of:
    *
-   * 定义路由器如何从父路由向子路由合并参数、数据。可用选项为：
+   * 如何从父路由向子路由合并参数、数据和解析到的数据。可取下列值之一：
    *
    * - `'emptyOnly'` : Inherit parent parameters, data, and resolved data
    * for path-less or component-less routes.
    *
-   *   `'emptyOnly'`，默认值，只从无路径或无组件的路由继承父级参数。
+   *   `'emptyOnly'`：让无路径或无组件的路由继承父级的参数、数据和解析到的数据。
    *
    * - `'always'` : Inherit parent parameters, data, and resolved data
    * for all child routes.
    *
-   *   `'always'`，允许无条件地继承父级参数。
+   *   `'always'`：让所有子路由都继承父级的参数、数据和解析到的数据。
    *
    */
   paramsInheritanceStrategy: 'emptyOnly'|'always' = 'emptyOnly';
@@ -1019,7 +1024,7 @@ export class Router {
   /**
    * Navigate based on the provided URL, which must be absolute.
    *
-   * 基于所提供的 url 进行导航。这种导航永远使用绝对路径。
+   * 基于所提供的 URL 进行导航，必须使用绝对路径。
    *
    * @param url An absolute URL. The function does not apply any delta to the current URL.
    *

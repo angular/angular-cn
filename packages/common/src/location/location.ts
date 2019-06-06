@@ -145,7 +145,7 @@ export class Location {
    * Given a string representing a URL, returns the URL path after stripping the
    * trailing slashes.
    *
-   * 给出一个字符串形式的 URL，返回一个标准化的 URL 路径，但不包括首尾的斜杠。
+   * 给出一个字符串形式的 URL，返回一个去掉末尾斜杠之后的 URL 路径。
    *
    * @param url String representing a URL.
    *

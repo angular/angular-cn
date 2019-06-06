@@ -198,10 +198,13 @@ export abstract class AbstractControl {
    *
    * * For an enabled `FormGroup`, the values of enabled controls as an object
    * with a key-value pair for each member of the group.
+   *
+   *   对于启用状态的 `FormGroup`，它是由组中的每个已启用的成员控件的名称和值组成的对象。
+   *
    * * For a disabled `FormGroup`, the values of all controls as an object
    * with a key-value pair for each member of the group.
    *
-   *   对于 `FormGroup`，它是由组中的每个已启用的成员控件的名称和值组成的对象。
+   *   对于禁用状态的 `FormGroup`，它是由组中的所有成员控件的名称和值组成的对象。
    *
    * * For a `FormArray`, the values of enabled controls as an array.
    *
@@ -1874,7 +1877,7 @@ export class FormGroup extends AbstractControl {
    * * `onlySelf`: When true, each change only affects this control, and not its parent. Default is
    * true.
    *
-   *   `onlySelf`:：如果为 `true`，则每个变更仅仅影响当前控件，而不会影响父控件。默认为 `false`。
+   *   `onlySelf`：如果为 `true`，则每个变更仅仅影响当前控件，而不会影响父控件。默认为 `false`。
    *
    * * `emitEvent`: When true or not supplied (the default), both the `statusChanges` and
    * `valueChanges`
@@ -2177,7 +2180,7 @@ export class FormGroup extends AbstractControl {
  * the `FormArray` directly, as that result in strange and unexpected behavior such
  * as broken change detection.
  *
- * 要改变数组中的控件列表，可以使用 `FormArray` 本身的 `push`、`insert` 或 `removeAt` 方法。这些方法能确保表单数组正确的跟踪这些子控件。
+ * 要改变数组中的控件列表，可以使用 `FormArray` 本身的 `push`、`insert`、`removeAt` 或 `clear` 方法。这些方法能确保表单数组正确的跟踪这些子控件。
  * 不要直接修改实例化 `FormArray` 时传入的那个 `AbstractControl` 数组，否则会导致奇怪的、非预期的行为，比如破坏变更检测机制。
  *
  * @publicApi

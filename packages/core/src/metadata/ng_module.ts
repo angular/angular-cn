@@ -57,7 +57,7 @@ export type ɵɵNgModuleDefWithMeta<T, Declarations, Imports, Exports> = NgModul
  * never create the object directly since the shape of this object
  * can change between versions.
  *
- * 注意：总是使用 `defineNgModule` 函数来创建该对象，永远不要直接创建它，因为该对象的结构在不同版本间可能会不一样。
+ * 注意：总是使用 `ɵɵdefineNgModule` 函数来创建该对象，永远不要直接创建它，因为该对象的结构在不同版本间可能会不一样。
  */
 export interface NgModuleDef<T> {
   /** Token representing the module. Used by DI.

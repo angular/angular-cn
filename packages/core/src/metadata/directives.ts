@@ -22,6 +22,7 @@ import {ViewEncapsulation} from './view';
  * Type of the Directive decorator / constructor function.
  *
  * 指令装饰器的类型和构造函数。
+ *
  * @publicApi
  */
 export interface DirectiveDecorator {
@@ -780,7 +781,6 @@ export interface PipeDecorator {
    * to a template. To make it a member of an NgModule,
    * list it in the `declarations` field of the `NgModule` metadata.
    *
-   * 声明一个可复用的 pipe 函数，并提供配置元数据。
    */
   (obj: Pipe): TypeDecorator;
 
@@ -930,7 +930,7 @@ export interface OutputDecorator {
   * The DOM property bound to the output property is automatically updated during change detection.
   *
   * 一个装饰器，用于把一个类字段标记为输出属性，并提供配置元数据。
-  * 声明一个可绑定的输出属性，Angular 在变更检测期间会自动更新它。
+  * 凡是绑定到输出属性上的 DOM 属性，Angular 在变更检测期间都会自动进行更新。
   *
   * @usageNotes
   *

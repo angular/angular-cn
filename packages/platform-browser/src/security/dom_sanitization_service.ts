@@ -17,7 +17,7 @@ export {SecurityContext};
 /**
  * Marker interface for a value that's safe to use in a particular context.
  *
- *
+ * @publicApi
  * 一个标记性接口，用于表示一个值可以安全的用在特定的上下文中。
  */
 export interface SafeValue {}
@@ -25,7 +25,7 @@ export interface SafeValue {}
 /**
  * Marker interface for a value that's safe to use as HTML.
  *
- *
+ * @publicApi
  * 一个标记性接口，用于表示一个值可以安全地用在 HTML 上下文中。
  */
 export interface SafeHtml extends SafeValue {}
@@ -33,7 +33,7 @@ export interface SafeHtml extends SafeValue {}
 /**
  * Marker interface for a value that's safe to use as style (CSS).
  *
- *
+ * @publicApi
  * 一个标记性接口，用于表示一个值可以安全地用在样式（CSS）上下文中。
  */
 export interface SafeStyle extends SafeValue {}
@@ -41,7 +41,7 @@ export interface SafeStyle extends SafeValue {}
 /**
  * Marker interface for a value that's safe to use as JavaScript.
  *
- *
+ * @publicApi
  * 一个标记性接口，用于表示一个值可以安全地用在 JavaScript 上下文中。
  */
 export interface SafeScript extends SafeValue {}
@@ -49,7 +49,7 @@ export interface SafeScript extends SafeValue {}
 /**
  * Marker interface for a value that's safe to use as a URL linking to a document.
  *
- *
+ * @publicApi
  * 一个标记性接口，用于表示一个值可以安全地用作 URL 链接到一个文档。
  */
 export interface SafeUrl extends SafeValue {}
@@ -57,7 +57,7 @@ export interface SafeUrl extends SafeValue {}
 /**
  * Marker interface for a value that's safe to use as a URL to load executable code from.
  *
- *
+ * @publicApi
  * 一个标记性接口，用于表示一个值可以安全地用作 URL 以加载可执行代码。
  */
 export interface SafeResourceUrl extends SafeValue {}

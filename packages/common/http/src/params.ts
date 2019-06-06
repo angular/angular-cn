@@ -32,6 +32,7 @@ export interface HttpParameterCodec {
  * Use the `HttpParameterCodec` class to encode and decode the query-string values.
  *
  * 一个 `HttpParameterCodec`，它使用 `encodeURIComponent` 和 `decodeURIComponent` 来序列化和解析 URL 参数的 key 和 value。
+ * 如果你传入未编码的查询参数，那么接收端可能会对这些参数进行错误解析。请使用 `HttpParameterCodec` 类对查询字符串的值进行编码和解码。
  *
  * @publicApi
  */

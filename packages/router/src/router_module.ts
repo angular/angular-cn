@@ -465,7 +465,7 @@ export interface ExtraOptions {
    * You can implement custom scroll restoration behavior by adapting the enabled behavior as
    * follows:
    *
-   * 你可以通过如下方式来适配启用时的行为，来自定义恢复滚动位置的策略。
+   * 你可以通过如下方式来适配启用时的行为，来自定义恢复滚动位置的策略：
    *
    * ```typescript
    * class AppModule {
@@ -619,7 +619,7 @@ export interface ExtraOptions {
    * In other words, you're required to use `../` rather than `./`. This is currently the default
    * behavior. Setting this option to `corrected` enables the fix.
    *
-   * 换句话说，要使用 `../` 而不是 `./`。目前 v6 版本的默认值是 `legacy`，到 v7 就会移除该选项，以纠正此行为。
+   * 换句话说，要使用 `../` 而不是 `./`。它是当前版本的默认行为。把该选项设置为 `corrected` 可以启用这项修正。
    */
   relativeLinkResolution?: 'legacy'|'corrected';
 }
