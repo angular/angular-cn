@@ -338,7 +338,7 @@ A asset specification object can have the following fields.
 
   `output`：相对于 `outDir` 的路径（默认为 `dist/`*project-name* ）。为了杜绝安全隐患，CLI 永远不会在项目输出路径之外写文件。
 
-- `ignore`: A list of globs to exclude.
+* `ignore`: A list of globs to exclude.
 
   `ignore`：要排除的 glob 列表。
 

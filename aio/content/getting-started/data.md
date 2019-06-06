@@ -14,15 +14,15 @@ In this section, you'll create the shopping cart. You'll:
 在本节中，你将创建购物车。你将：
 
 
-- Update the product details page to include a "Buy" button, which adds the current product to a list of products managed by a cart service. 
+* Update the product details page to include a "Buy" button, which adds the current product to a list of products managed by a cart service. 
 
   修改商品详情页，让它包含一个 “Buy” 按钮，它会把当前商品添加到由 "购物车服务" 管理的商品列表中。
 
-- Add a cart component, which displays the items you added to your cart.
+* Add a cart component, which displays the items you added to your cart.
 
   添加一个购物车组件，它会显示你添加到购物车中的商品。
 
-- Add a shipping component, which retrieves shipping prices for the items in the cart by using Angular's HttpClient to retrieve shipping data from a `.json` file.
+* Add a shipping component, which retrieves shipping prices for the items in the cart by using Angular's HttpClient to retrieve shipping data from a `.json` file.
 
   添加一个配送组件，它会使用 Angular 的 HttpClient 从 `.json` 文件中检索配送数据来取得购物车中这些商品的运费。
 
@@ -324,11 +324,11 @@ Services can be used to share data across components:
 服务可用于跨组件共享数据：
 
 
-- The product details component already uses the cart service (`CartService`) to add products to the cart.
+* The product details component already uses the cart service (`CartService`) to add products to the cart.
 
   商品详情组件已经使用了购物车服务（ `CartService` ）来把商品添加到购物车中。
 
-- In this section, you'll update the cart component to use the cart service to display the products in the cart.
+* In this section, you'll update the cart component to use the cart service to display the products in the cart.
 
   在本节中，你将修改购物车组件以使用购物车服务来显示购物车中的商品。
 
@@ -742,11 +742,12 @@ To continue exploring Angular, choose either of the following options:
 要继续探索 Angular，请选择下列选项之一：
 
 
-- [Continue to the "Forms" section](getting-started/forms "Getting Started: Forms") to finish the app by adding the shopping cart page and a form-based checkout feature. You'll create a form to collect user information as part of checkout. 
+* [Continue to the "Forms" section](getting-started/forms "Getting Started: Forms") to finish the app by adding the shopping cart page and a form-based checkout feature. You'll create a form to collect user information as part of checkout. 
 
   [继续浏览“表单”部分](getting-started/forms "入门：表单")，通过添加购物车页面和基于表单的结帐功能来完成该应用。你还可以创建一个表单来收集用户信息，作为结账过程的一部分。
 
-- [Skip ahead to the "Deployment" section](getting-started/deployment "Getting Started: Deployment") to deploy your app to Firebase or move to local development. 
+* [Skip ahead to the "Deployment" section](getting-started/deployment "Getting Started: Deployment") to deploy your app to Firebase or move to local development. 
 
   [跳到“部署”部分，](getting-started/deployment "入门：部署")把你的应用部署到 Firebase 或转成本地开发。
+
 

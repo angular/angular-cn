@@ -610,7 +610,7 @@ Differential loading is a strategy where the CLI builds two separate bundles as 
 ### 差异化构建
 
 
-The Angular CLI handles differential loading for you as part of the *build* process for deployment. The Angular CLI will produce the necessary bundles used for differential loading, based on your browser support requirements and compilation target. 
+The Angular CLI handles differential loading for you as part of the _build_ process for deployment. The Angular CLI will produce the necessary bundles used for differential loading, based on your browser support requirements and compilation target. 
 
 在面向部署的*构建*过程中，Angular CLI 会为你处理差异化加载。Angular CLI 会根据浏览器的支持情况和编译目标生成用于差异化加载的必要的发布包。
 
@@ -626,7 +626,7 @@ Angular CLI 使用两种配置进行差异化加载：
 
 - tsconfig.json - The `target` in the TypeScript `compilerOptions` determines the ECMAScript target version that the code is compiled to. Modern browsers support ES2015 natively, while ES5 is more commonly used to support legacy browsers.
 
-  tsconfig.json - TypeScript `compilerOptions` 会决定编译后代码的 ECMAScript 目标版本。现代浏览器原生支持 ES2015，而 ES5 则更常用于支持老式浏览器。
+  tsconfig.json - TypeScript `compilerOptions` 中的 `target` 会决定编译后代码的 ECMAScript 目标版本。现代浏览器原生支持 ES2015，而 ES5 则更常用于支持老式浏览器。
 
 
 <div class="alert is-helpful">
@@ -638,7 +638,7 @@ Angular CLI 使用两种配置进行差异化加载：
 
 </div>
 
-The CLI queries the Browserslist configuration, and checks the `target` to determine if support for legacy browsers is required. The combination of these two configurations determines whether multiple bundles are produced when you create a *build*. When you create a development build using [`ng build`](cli/build) and differential loading is enabled, the output produced is simpler and easier to debug, allowing you to rely less on sourcemaps of compiled code. When you create a production build using [`ng build --prod`](cli/build), the CLI uses the defined configurations above to determine the bundles to build for deployment of your application. 
+The CLI queries the Browserslist configuration, and checks the `target` to determine if support for legacy browsers is required. The combination of these two configurations determines whether multiple bundles are produced when you create a _build_. When you create a development build using [`ng build`](cli/build) and differential loading is enabled, the output produced is simpler and easier to debug, allowing you to rely less on sourcemaps of compiled code. When you create a production build using [`ng build --prod`](cli/build), the CLI uses the defined configurations above to determine the bundles to build for deployment of your application. 
 
 CLI会查询 "浏览器列表" 配置，并检查 `target` 以确定是否需要支持老式浏览器。这两种配置的结合决定了在创建*构建*时是否产生了多个发布包。当使用 [`ng build`](cli/build) 创建开发构建时，如果启用了差异化加载，产生的输出就会更简单，也更容易调试，因为你可以更少地依赖已编译代码的 sourcemaps。当你使用 [`ng build --prod`](cli/build) 创建一个产品环境构建时，CLI 会使用上面定义的配置来确定要为部署你的应用而构建哪些包。
 
@@ -705,39 +705,43 @@ The `browserslist` looks like this:
 `browserslist` 是这样的：
 
 
-    > 0.5%
-    last 2 versions
-    Firefox ESR
-    not dead
-    not IE 9-11 # For IE 9-11 support, remove 'not'.
+```
+> 0.5%
+last 2 versions
+Firefox ESR
+not dead
+not IE 9-11 # For IE 9-11 support, remove 'not'.
+```
 
 The `tsconfig.json` looks like this:
 
 `tsconfig.json` 是这样的：
 
 
-    {
-      "compileOnSave": false,
-      "compilerOptions": {
-        "baseUrl": "./",
-        "outDir": "./dist/out-tsc",
-        "sourceMap": true,
-        "declaration": false,
-        "module": "esnext",
-        "moduleResolution": "node",
-        "emitDecoratorMetadata": true,
-        "experimentalDecorators": true,
-        "importHelpers": true,
-        "target": "es2015",
-        "typeRoots": [
-          "node_modules/@types"
-        ],
-        "lib": [
-          "es2018",
-          "dom"
-        ]
-      }
-    }
+```
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "baseUrl": "./",
+    "outDir": "./dist/out-tsc",
+    "sourceMap": true,
+    "declaration": false,
+    "module": "esnext",
+    "moduleResolution": "node",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "importHelpers": true,
+    "target": "es2015",
+    "typeRoots": [
+      "node_modules/@types"
+    ],
+    "lib": [
+      "es2018",
+      "dom"
+    ]
+  }
+}
+```
 
 By default, legacy browsers such as IE 9-11 are ignored, and the compilation target is ES2015. As a result, this produces two builds, and differential loading is enabled. If you ignore browsers without ES2015 support, a single build is produced. To see the build result for differential loading based on different configurations, refer to the table below. 
 

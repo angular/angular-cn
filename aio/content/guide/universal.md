@@ -131,11 +131,11 @@ you'll notice:
 
   你无法添加或删除英雄。
 
-- The search box on the Dashboard page is ignored.
+* The search box on the Dashboard page is ignored.
 
   仪表盘页面上的搜索框会被忽略。
 
-- The *Back* and *Save* buttons on the Details page don't work.
+* The *Back* and *Save* buttons on the Details page don't work.
 
   “详情”页面上的*后退*和*保存*按钮不起作用。
 

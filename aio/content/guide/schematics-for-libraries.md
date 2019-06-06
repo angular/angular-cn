@@ -512,7 +512,7 @@ A `Rule` can use external template files, transform them, and return another `Ru
 
   `classify()` 方法接受一个值，并返回标题格式（title case）的值。比如，如果提供的名字是 `my service`，它就会返回 `MyService`。
 
-* The `dasherize()` method takes a value and  returns the value in dashed and lowercase. For example, if the provided name is MyService, it is returned as \`my-service.
+* The `dasherize()` method takes a value and  returns the value in dashed and lowercase. For example, if the provided name is MyService, it is returned as `my-service.
 
   `dasherize()` 方法接受一个值，并以中线分隔并小写的形式返回值。比如，如果提供的名字是 MyService，它就会返回 “my-service” 的形式。
 

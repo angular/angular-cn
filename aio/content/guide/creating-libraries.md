@@ -163,7 +163,7 @@ A library can include [schematics](guide/glossary#schematic) that allow it to in
 
 * Include an update schematic so that `ng update` can update your library’s dependencies and provide migrations for breaking changes in new releases.
 
-    包含一个更新（update）schematic ，以便 `ng update` 可以更新此库的依赖，并针对新版本中的破坏性变更提供辅助迁移。
+    包含一个更新（update）原理图 ，以便 `ng update` 可以更新此库的依赖，并针对新版本中的破坏性变更提供辅助迁移。
 
 To learn more, see [Schematics Overview](guide/schematics) and [Schematics for Libraries](guide/schematics-for-libraries).
 

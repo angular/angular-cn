@@ -815,7 +815,7 @@ Certain NgModules, such as `BrowserModule`, implement such a guard.
 Here is a custom constructor for an NgModule called `GreetingModule`.
 
 某些 NgModule（例如 `BrowserModule`）就实现了那样一个守卫。
-下面是一个名叫 `CoreModule` 的 NgModule 的 自定义构造函数。
+下面是一个名叫 `GreetingModule` 的 NgModule 的 自定义构造函数。
 
 <code-example path="ngmodules/src/app/greeting/greeting.module.ts" region="ctor" header="src/app/greeting/greeting.module.ts (Constructor)" linenums="false">
 </code-example>

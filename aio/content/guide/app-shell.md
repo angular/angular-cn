@@ -53,11 +53,11 @@ Use the CLI to automatically create the app shell.
 ng generate app-shell --client-project my-app --universal-project server-app
 </code-example>
 
-- `my-app` takes the name of your client application.
+* `my-app` takes the name of your client application.
 
   `my-app` 是本客户端应用的名字。
 
-- `server-app` takes the name of the Universal (or server) application.
+* `server-app` takes the name of the Universal (or server) application.
 
   `server-app` 是这个 Universal（或 server）应用的名字。
 

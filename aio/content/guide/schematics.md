@@ -40,7 +40,7 @@ The subcommands for `ng generate` are shorthand for the corresponding schematic.
 ng generate my-schematic-collection:my-schematic-name
 </code-example>
 
-—or—
+&mdash;or&mdash;
 
 \- 或者 -
 
@@ -77,17 +77,17 @@ As a library developer, you can create your own collections of custom schematics
 作为一名库开发人员，你可以创建自己的自定义原理图集合，以便把你的库与 Angular CLI 集成在一起。
 
 
-- An *add schematic* allows developers to install your library in an Angular workspace using `ng add`.
+* An *add schematic* allows developers to install your library in an Angular workspace using `ng add`.
 
   *添加（Add）原理图*允许开发人员使用 `ng add` 在 Angular工作空间中安装你的库。
 
 
-- *Generation schematics* can tell the `ng generate` subcommands how to modify projects, add configurations and scripts, and scaffold  artifacts that are defined in your library.
+* *Generation schematics* can tell the `ng generate` subcommands how to modify projects, add configurations and scripts, and scaffold  artifacts that are defined in your library.
 
   *生成（Generation）原理图*可以告诉 `ng generate` 子命令如何修改项目、添加配置和脚本，以及为库中定义的工件提供脚手架。
 
 
-- An *update schematic* can tell the `ng update` command how to update your library's dependencies and adjust for breaking changes when you release a new version.
+* An *update schematic* can tell the `ng update` command how to update your library's dependencies and adjust for breaking changes when you release a new version.
 
   *更新（Update）原理图*可以告诉 `ng update` 命令，如何更新库的依赖，并在发布新版本时调整其中的破坏性变更。
 

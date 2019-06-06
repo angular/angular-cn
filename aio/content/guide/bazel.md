@@ -139,11 +139,11 @@ Now you'll find new files in the Angular workspace:
 在 Angular 工作区中，你会找到一些新文件：
 
 
-- `/WORKSPACE` tells Bazel how to download external dependencies.
+* `/WORKSPACE` tells Bazel how to download external dependencies.
 
   `/WORKSPACE` 会告诉 Bazel 要如何下载外部依赖。
 
-- `/BUILD.bazel` and `/src/BUILD.bazel` tell Bazel about your source code.
+* `/BUILD.bazel` and `/src/BUILD.bazel` tell Bazel about your source code.
 
   `/BUILD.bazel` 和 `/src/BUILD.bazel` 会告诉 Bazel 你的源代码在哪里。
 
@@ -153,7 +153,7 @@ You can find a full-featured example with custom Bazel configurations at <http:/
 你可以在 <http://github.com/angular/angular-bazel-example> 找到一个全功能的 Bazel 配置示例。
 
 
-Documentation for using Bazel for frontend projects is linked from <https://docs.bazel.build/versions/master/bazel-and-javascript.html>.
+Documentation for using Bazel for frontend projects is linked from https://docs.bazel.build/versions/master/bazel-and-javascript.html.
 
 <https://docs.bazel.build/versions/master/bazel-and-javascript.html> 则是一个关于如何使用 Bazel 进行前端项目的文档链接。
 
@@ -175,15 +175,15 @@ The common commands in Bazel are:
 Bazel 的常用命令有：
 
 
-- `bazel build [targets]`: Compile the default output artifacts of the given targets.
+* `bazel build [targets]`: Compile the default output artifacts of the given targets.
 
   `bazel build [targets]`：编译指定目标的默认输出成果。
 
-- `bazel test [targets]`: For whichever `*_test` targets are found in the patterns, run the tests.
+* `bazel test [targets]`: For whichever `*_test` targets are found in the patterns, run the tests.
 
   `bazel test [targets]`：对于那些符合 `*_test` 模式的目标，运行测试。
 
-- `bazel run [target]`: Compile the program represented by target, and then run it.
+* `bazel run [target]`: Compile the program represented by target, and then run it.
 
   `bazel run [target]`：编译目标所代表的程序，然后运行它。
 
@@ -198,7 +198,7 @@ The output locations are printed in the output.
 在输出中打印了输出到的位置。
 
 
-Full documentation for the Bazel CLI is at <https://docs.bazel.build/versions/master/command-line-reference.html>.
+Full documentation for the Bazel CLI is at https://docs.bazel.build/versions/master/command-line-reference.html.
 
 Bazel CLI 的完整文档位于 <https://docs.bazel.build/versions/master/command-line-reference.html> 。
 
@@ -222,7 +222,7 @@ Using the graphviz optional dependency, you'll have a program `dot`, which you c
 $ bazel query --output=graph ... | dot -Tpng > graph.png
 ```
 
-See <https://docs.bazel.build/versions/master/query-how-to.html> for more details on `bazel query`.
+See https://docs.bazel.build/versions/master/query-how-to.html for more details on `bazel query`.
 
 关于 `bazel query` 的详细信息，参见 <https://docs.bazel.build/versions/master/query-how-to.html> 。
 
@@ -247,6 +247,6 @@ In the `BUILD.bazel` file, each rule must first be imported, using the `load` st
 在 `BUILD.bazel` 文件中，必须首先使用 `load` 语句导入每个规则。然后用一些属性调用此规则，调用此规则的结果就是向 Bazel 中声明了：当给定一些输入和依赖的时候该如何得到一些输出。然后，当你运行一个 `bazel` 命令时，Bazel 就会加载你声明过的所有规则，以确定它们在运行期间的绝对顺序。注意，只有那些在产生输出时真正起作用的规则才会被执行。
 
 
-A list of common rules for frontend development is documented in the README at <https://github.com/bazelbuild/rules_nodejs/>. 
+A list of common rules for frontend development is documented in the README at https://github.com/bazelbuild/rules_nodejs/. 
 
 在 [https://github.com/bazelbuild/rules_nodejs/](https://github.com/bazelbuild/rules_nodejs/) 上的 README 文件中记录了前端开发中要用到的通用规则列表。

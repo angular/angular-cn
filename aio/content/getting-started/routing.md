@@ -166,7 +166,7 @@ The product details component handles the display of each product. The Angular R
       To do: This is the first time we inject anything into a component. Should we mention it here? There's also a comment about maybe explaining it a bit in the services section (in data.md).
       -->
 
-1. In the `ngOnInit()` method, *subscribe* to route params and fetch the product based on the `productId`.
+1. In the `ngOnInit()` method, _subscribe_ to route params and fetch the product based on the `productId`.
 
    在 `ngOnInit()` 方法中，*订阅（subscribe）*路由参数并根据其 `productId` 获取商品信息。
 

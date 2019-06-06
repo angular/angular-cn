@@ -171,7 +171,7 @@ For more information, see [/deep/, >>>, and ::ng-deep](guide/component-styles#de
 
 {@a template-tag}
 
-### &lt;template> tag
+### &lt;template&gt; tag
 
 ### &lt;template> 标签
 
@@ -198,15 +198,17 @@ Deprecated:
 
 已弃用：
 
-
-    <ngForm #myForm="ngForm">
+```
+<ngForm #myForm="ngForm">
+```
 
 Replacement: 
 
 替代品：
 
-
-    <ng-form #myForm="ngForm">
+```
+<ng-form #myForm="ngForm">
+```
 
 The [`NgFormSelectorWarning`](api/forms/NgFormSelectorWarning) directive is solely used to display warnings when the deprecated `ngForm` selector is used. 
 
@@ -259,15 +261,17 @@ Before:
 
 之前：
 
-
-    ReflectiveInjector.resolveAndCreate(providers);
+```
+ReflectiveInjector.resolveAndCreate(providers);
+```
 
 After:
 
 之后：
 
-
-    Injector.create({providers});
+```
+Injector.create({providers});
+```
 
 {@a i18n-pipes}
 
@@ -322,23 +326,25 @@ Before:
 
 之前：
 
-
-    const routes: Routes = [{
-      path: 'lazy',
-      // The following string syntax for loadChildren is deprecated
-      loadChildren: './lazy/lazy.module#LazyModule'
-    }];
+```
+const routes: Routes = [{
+  path: 'lazy',
+  // The following string syntax for loadChildren is deprecated
+  loadChildren: './lazy/lazy.module#LazyModule'
+}];
+```
 
 After: 
 
 之后：
 
-
-    const routes: Routes = [{
-      path: 'lazy',
-      // The new import() syntax 
-      loadChildren: () => import('./lazy/lazy.module').then(m => m.LazyModule)
-    }];
+```
+const routes: Routes = [{
+  path: 'lazy',
+  // The new import() syntax 
+  loadChildren: () => import('./lazy/lazy.module').then(m => m.LazyModule)
+}];
+```
 
 <div class="alert is-helpful">
 
