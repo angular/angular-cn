@@ -143,7 +143,7 @@ Make sure you do **not** prefix the `highlight` directive name with **`ng`** bec
 that prefix is reserved for Angular and using it could cause bugs that are difficult to diagnose.
 
 确认你**没有**给 `highlight` 指令添加**`ng`**前缀。
-那个前缀属于 Angular，使用它可能导致难以诊断的 bug。例如，这个简短的前缀 `my` 可以帮助你区分自定义指令。
+那个前缀属于 Angular，使用它可能导致难以诊断的 bug。例如，这个简短的前缀 `app` 可以帮助你区分自定义指令。
 
 </div>
 
