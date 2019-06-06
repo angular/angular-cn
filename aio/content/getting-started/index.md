@@ -18,6 +18,8 @@ You don't need to install anything: you'll build the app using the [StackBlitz](
 <div class="callout is-helpful">
 <header>New to web development?</header>
 
+<header>你是 Web 开发的新手吗？</header>
+
 
 You'll find many resources to complement the Angular docs. Mozilla's MDN docs include both [HTML](https://developer.mozilla.org/en-US/docs/Learn/HTML "Learning HTML: Guides and tutorials") and [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript "JavaScript") introductions. [TypeScript's docs](https://www.typescriptlang.org/docs/home.html "TypeScript documentation") include a 5-minute tutorial. Various online course platforms, such as [Udemy](http://www.udemy.com "Udemy online courses") and [Codeacademy](https://www.codecademy.com/ "Codeacademy online courses"), also cover web development basics. 
 
@@ -35,7 +37,7 @@ You'll find many resources to complement the Angular docs. Mozilla's MDN docs in
 
 
 <h4>
-<live-example name="getting-started-v0" noDownload>Click here to create a new project in StackBlitz.</live-example> 
+<live-example name="getting-started-v0" noDownload>点此在 StackBlitz 上创建一个新项目</live-example> 
 </h4>
 
 StackBlitz creates a starter Angular app. 
@@ -54,7 +56,7 @@ We've seeded this particular app with a top bar&mdash;containing the store name 
 
 
 <div class="callout is-helpful">
-<header>StackBlitz tips</header>
+<header>StackBlitz 提示</header>
 
 * Log into StackBlitz, so you can save and resume your work. If you have a GitHub account, you can log into StackBlitz with that account. 
 
@@ -120,6 +122,7 @@ Angular 的模板语法扩展了 HTML 和 JavaScript。在本节中，你将通�
       `*ngFor` 会导致 `<div>` 被列表中的每个商品都重复渲染一次。
 
       <div class="alert is-helpful">
+
       `*ngFor` is a "structural directive". Structural directives shape or reshape the DOM's structure, typically by adding, removing, and manipulating the elements to which they are attached. Any directive with an * is a structural directive.
       
       `*ngFor` 是一个 "结构型指令"。结构型指令会通过添加、删除和操纵它们的宿主元素等方式塑造或重塑 DOM 的结构。任何带有 * 的指令都是结构型指令。

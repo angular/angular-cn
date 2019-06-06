@@ -523,7 +523,7 @@
           ]
         },
         {
-          "title": "Angular 库开发",
+          "title": "开发 Angular 库",
           "tooltip": "使用共享库扩展 Angular",
           "children": [
             {
