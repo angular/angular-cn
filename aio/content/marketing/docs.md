@@ -11,26 +11,26 @@ Tutorials and guides include downloadable example to accelerate your projects.
 <div class="card-container">
   <a href="start" class="docs-card" title="Angular Getting Started">
       <section>Learn</section>
-      <section>Angular 走马观花</section>
+      <section>开始学习</section>
       <p>Create your first Angular app, without any setup</p>
-      <p>快速体验 Angular 的 "hello world" 应用。</p>
+      <p>不需要任何设置，快速创建你的第一个 Angular 应用。</p>
       <p class="card-footer">Getting Started</p>
-      <p class="card-footer">体验 Angular</p>
+      <p class="card-footer">快速起步</p>
   </a>
   <a href="guide/setup-local" class="docs-card"
     title="Angular Local Environment Setup">
       <section>Start Working</section>
-      <section>开始使用 Angular</section>
+      <section>开始工作</section>
       <p>Set up your local environment with the Angular CLI</p>
-      <p>跟随"快速上手"构建你的开发环境</p>
+      <p>使用 Angular CLI 搭建本地开发环境</p>
       <p class="card-footer">Local Setup</p>
-      <p class="card-footer">快速上手</p>
+      <p class="card-footer">开始搭建</p>
   </a>
   <a href="guide/architecture" class="docs-card" title="Angular Architecture">
       <section>Explore</section>
-      <section>基本原理</section>
+      <section>深入探索</section>
       <p>Learn more about Angular apps and framework features</p>
-      <p>学习 Angular 应用的基本原理。<br/>从架构概览开始。</p>
+      <p>学习 Angular 应用的更多知识及架构特性</p>
       <p class="card-footer">Architecture</p>
       <p class="card-footer">架构</p>
   </a>

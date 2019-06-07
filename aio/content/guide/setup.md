@@ -1,6 +1,6 @@
 # Setup for Upgrading from AngularJS
 
-# 搭建本地开发环境
+# 准备从 AngularJS 升级
 
 <!-- 
 Question: Can we remove this file and instead direct readers to https://github.com/angular/quickstart/blob/master/README.md
@@ -11,8 +11,12 @@ Question: Can we remove this file and instead direct readers to https://github.c
 **Audience:** Use this guide **only** in the context of  [Upgrading from AngularJS](guide/upgrade "Upgrading from AngularJS to Angular") or [Upgrading for Performance](guide/upgrade-performance "Upgrading for Performance"). 
 Those Upgrade guides refer to this Setup guide for information about using the [deprecated QuickStart GitHub repository](https://github.com/angular/quickstart "Deprecated Angular QuickStart GitHub repository"), which was created prior to the current Angular [CLI](cli "CLI Overview"). 
 
+**注意：**本指南**仅仅**适用于[从 AngularJS 升级](guide/upgrade "Upgrading from AngularJS to Angular")和[注重性能的升级](guide/upgrade-performance "Upgrading for Performance")。
+本指南中提到的升级指南使用的是[已弃用的快速上手 Github 仓库](https://github.com/angular/quickstart "Deprecated Angular QuickStart GitHub repository")，它是在 Angular [CLI](cli "CLI Overview") 推出之前创建的。
+
 **For all other scenarios,** see the current instructions in [Local Environment Setup](guide/setup-local "Setting up for Local Development").
 
+**对于所有其它场景**，请参见[建立本地开发环境](guide/setup-local "Setting up for Local Development")中的步骤。
 
 </div>
 
@@ -136,8 +140,8 @@ The **QuickStart seed** provides a basic QuickStart playground application and o
 Consequently, there are many files in the project folder on your machine,
 most of which you can [learn about later](guide/file-structure).
 
-**《快速上手》种子** 包含了与《快速上手》游乐场一样的应用，但是，它真正的目的是提供坚实的*本地*开发基础。
-所以你的电脑里的项目目录里面有*更多文件*，其中的大部分你都会[在稍后学到](guide/file-structure)。
+**《快速上手》种子** 提供了一个基本的《快速上手》游乐场应用，以及进行本地开发的其它必要文件。
+所以，你电脑里的项目目录中有*更多文件*，其中的大部分你都会[在稍后学到](guide/file-structure)。
 
 {@a app-files}
 

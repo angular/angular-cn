@@ -302,7 +302,8 @@ CLI 支持开发周期中的所有阶段，比如构建、测试、打包和部�
 
 * To begin using the CLI for a new project, see [Local Environment Setup](guide/setup-local "Setting up for Local Development").
 
-  要开始使用 CLI 来创建新项目，参见[快速起步](guide/quickstart)。
+  要开始使用 CLI 来创建新项目，参见[建立本地开发环境](guide/setup-local "Setting up for Local Development")。
+  
 * To learn more about the full capabilities of the CLI, see the [CLI command reference](cli).
 
   要了解 CLI 的全部功能，参见 [CLI 命令参考手册](cli)。
@@ -1069,6 +1070,7 @@ To learn more, see [Pipes](guide/pipes).
 
 要了解更多，参见[管道](guide/pipes)页。
 
+{@a polyfill}
 ## polyfill
 
 ## 腻子脚本（polyfill）
@@ -1255,7 +1257,7 @@ Add these schematics to the npm package that you use to publish and share your l
 
    For more information, see [Schematics](guide/schematics) and [Integrating Libraries with the CLI](guide/creating-libraries#integrating-with-the-cli).
 
-   欲知详情，参见 [devkit 文档](https://www.npmjs.com/package/@angular-devkit/schematics)。
+   欲知详情，参见[原理图](guide/schematics)和[把库与 CLI 集成](guide/creating-libraries#integrating-with-the-cli)。
 
 {@a schematics-cli}
 

@@ -12,9 +12,8 @@
 If you're new to Angular, see the [**Getting Started tutorial.**](start) 
 The Getting Started tutorial covers the same major topics as this Tour of Heroes&mdash;components, template syntax, routing, services, and accessing data via HTTP&mdash;in a condensed format, following the most current best practices. 
 
-我们最近引入了一个[**新的快速上手**](getting-started)，它基于在线开发环境 [StackBlitz](https://stackblitz.com/)。
-我们建议每个想要快速掌握 Angular 基础知识的人使用那个新的快速上手，来构建一个在线商店应用程序。
-新的快速上手以更精简的格式涵盖了与本《英雄指南》相同的主题：组件、模板语法、路由、服务以及通过 HTTP 访问数据等。
+如果你刚刚接触 Angular，请参见[**新的快速上手**](start)。
+这个快速上手教程涵盖了与《英雄指南》相同的主题：组件、模板语法、路由、服务以及通过 HTTP 访问数据等，但是格式更简单，且遵循了绝大部分最佳实践。
 
 **This Tour of Heroes tutorial** is the conceptual basis for many examples in this documentation set. Reading this introduction page provides sufficient context for working with those examples. You do not need to do this tutorial to understand those other examples. The Tour of Heroes tutorial is maintained here for context and continuity. 
 

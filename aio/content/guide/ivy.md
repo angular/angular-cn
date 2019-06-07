@@ -4,14 +4,15 @@
 
 Ivy is the code name for Angular's [next-generation compilation and rendering pipeline](https://blog.angular.io/a-plan-for-version-8-0-and-ivy-b3318dfc19f7). Starting with Angular version 8, you can choose to opt in to start using a preview version of Ivy and help in its continuing development and tuning.
 
+Ivy 是 Angular [下一代编译和渲染管道](https://blog.angular.io/a-plan-for-version-8-0-and-ivy-b3318dfc19f7)的代号。从 Angular 的版本 8 开始，你就可以开始选用 Ivy 的预览版，并帮助我们继续对它开发和调优了。
+
+
 <div class="alert is-helpful">
 
    To preview Ivy, use `@angular/core@next` version of Angular (8.1.x), rather than `@angular/core@latest` (8.0.x), as it contains all the latest bug fixes and improvements.
 
+   要想预览 Ivy，请使用 Angular 的 `@angular/core@next` 版(8.1.x)，而不是 `@angular/core@latest` 版(8.0.x)，因为它包含了最近的所有 BUG 修复和改进。
 </div>
-
-Ivy 是 Angular [下一代编译和渲染管道](https://blog.angular.io/a-plan-for-version-8-0-and-ivy-b3318dfc19f7)的代号。从 Angular 的版本 8 开始，你就可以开始选用 Ivy 了，以帮助它继续开发和调优。
-
 
 ## Using Ivy in a new project
 
@@ -53,6 +54,8 @@ To update an existing project to use Ivy, set the `enableIvy` option in the `ang
 
 AOT compilation with Ivy is faster and should be used by default. In the `angular.json` workspace configuration file, set the default build options for your project to always use AOT compilation.
 
+利用 Ivy 进行 AOT 编译会更快，应该默认使用它。在工作空间配置文件 `angular.json` 中，为你的项目设置默认构建选项，让它总是使用 AOT 编译。
+
 ```json
 {
   "projects": {
@@ -74,4 +77,4 @@ To stop using the Ivy compiler, set `enableIvy` to `false` in `tsconfig.app.json
  
 
 要停止使用 Ivy 编译器，请在 `enableIvy` 中把 `tsconfig.app.json` 设置为 `false` ，或者把它完全删除。
-
+同时，从默认的构建选项中移除 `"aot": true`（如果有）。 

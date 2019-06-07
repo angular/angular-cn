@@ -18,7 +18,7 @@ Alternatively, you can use the [yarn client](https://yarnpkg.com/) for downloadi
 
 See [Local Environment Setup](guide/setup-local "Setting up for Local Development") for information about the required versions and installation of `Node.js` and `npm`.
 
-参见[快速起步](guide/quickstart#prerequisites)，以了解所需的 Node.js 和 npm 版本。
+参见[建立本地开发环境](guide/setup-local "Setting up for Local Development")，以了解所需的 `Node.js` 和 `npm` 版本。
 
 If you already have projects running on your machine that use other versions of Node.js and npm, consider using [nvm](https://github.com/creationix/nvm) to manage the multiple versions of Node.js and npm. 
 
@@ -82,9 +82,9 @@ The `dependencies` section of `package.json` contains:
 
 * [**Angular packages**](#angular-packages): Angular core and optional modules; their package names begin `@angular/`.
 
-   *[*Angular 包**：Angular 的核心和可选模块，它们的包名以 `@angular/` 开头。
+   [**Angular 包**：Angular 的核心和可选模块，它们的包名以 `@angular/` 开头。
 
-* **[Support packages**](#support-packages): 3rd party libraries that must be present for Angular apps to run.
+* [**Support packages**](#support-packages): 3rd party libraries that must be present for Angular apps to run.
 
    [**支持包**](#support-packages)：那些 Angular 应用运行时必需的第三方库。
 

@@ -20,14 +20,15 @@ ng new &lt;my-project&gt;
 When you run this command, the CLI installs the necessary Angular npm packages and other dependencies in a new workspace, with a root-level application named *my-project*.
 The workspace root folder contains various support and configuration files, and a README file with generated descriptive text that you can customize.
 
-当你运行这个命令时，CLI 会在一个新的工作区中安装必需的 Angular npm 包和其它依赖项，其根文件夹名叫 *project_name*。该工作空间的根文件夹中包含一些工作空间配置文件，和一个带有自动生成的描述性文本的自述文件，你可以自定义它。
+当你运行这个命令时，CLI 会在一个新的工作区中安装必需的 Angular npm 包和其它依赖项，其根应用名叫 *my-project*。
+该工作空间的根文件夹中包含一些工作空间配置文件，和一个带有自动生成的描述性文本的自述文件，你可以自定义它。
 
 
 By default, `ng new` creates an initial skeleton application at the root level of the workspace, along with its end-to-end tests.
 The skeleton is for a simple Welcome application that is ready to run and easy to modify.
 The root-level application has the same name as the workspace, and the source files reside in the `src/` subfolder of the workspace.
 
-`ng new` 还会默认创建一个初始的骨架应用，以及它的端到端测试项目。这个骨架是一个简单的 Welcome 应用，它可以运行，也很容易修改。这个*根应用*与工作空间同名，其源文件位于工作空间的 `src/` 子文件夹中。
+`ng new` 还会默认创建一个位于工作空间根级的骨架应用，及其端到端测试项目。这个骨架是一个简单的 Welcome 应用，它可以运行，也很容易修改。这个*根应用*与工作空间同名，其源文件位于工作空间的 `src/` 子文件夹中。
 
 
 This default behavior is suitable for a typical "multi-repo" development style where each application resides in its own workspace.
@@ -57,7 +58,7 @@ See [Setting up for a multi-project workspace](#multiple-projects) below.
 All projects within a workspace share a [CLI configuration context](guide/workspace-config).
 The top level of the workspace contains workspace-wide configuration files, configuration files for the root-level application, and subfolders for the root-level application source and test files.
 
-每个工作空间中的所有项目共享同一个 [CLI 配置环境](guide/workspace-config) 。该工作空间的顶层包含着全工作空间级的配置文件。
+每个工作空间中的所有项目共享同一个 [CLI 配置环境](guide/workspace-config) 。该工作空间的顶层包含着全工作空间级的配置文件、根应用的配置文件以及一些包含根应用的源文件和测试文件的子文件夹。
 
 | WORKSPACE CONFIG FILES    | PURPOSE |
 | :--------------------- | :------------------------------------------|
@@ -91,13 +92,13 @@ The top level of the workspace contains workspace-wide configuration files, conf
 By default, the CLI command `ng new my-app` creates a workspace folder named "my-app" and generates a new application skeleton in a `src/` folder at the top level of the workspace.
 A newly generated application contains source files for a root module, with a root component and template.
 
-CLI 命令`ng new my-app` 会默认创建名为 “my-app” 的工作空间文件夹，并为工作空间顶层的根应用生成一个新的应用骨架。新生成的应用包含一个根模块的源文件，包括一个根组件及其模板。
+CLI 命令`ng new my-app` 会默认创建名为 “my-app” 的工作空间文件夹，并在 `src/` 文件夹下为工作空间顶层的根应用生成一个新的应用骨架。新生成的应用包含一个根模块的源文件，包括一个根组件及其模板。
 
 
 When the workspace file structure is in place, you can use the `ng generate` command on the command line to add functionality and data to the application.
 This initial root-level application is the *default app* for CLI commands (unless you change the default after creating [additional apps](#multiple-projects)).
 
-当工作空间文件结构到位时，可以在命令行中使用 `ng generate` 命令往该应用中添加功能和数据。这个初始的起步者应用是 CLI 命令的*默认应用*（除非你在创建[其它应用](#multiple-projects)之后更改了默认值）。
+当工作空间文件结构到位时，可以在命令行中使用 `ng generate` 命令往该应用中添加功能和数据。这个初始的根应用是 CLI 命令的*默认应用*（除非你在创建[其它应用](#multiple-projects)之后更改了默认值）。
 
 
 <div class="alert is-helpful">
@@ -207,10 +208,12 @@ Project-specific [TypeScript](https://www.typescriptlang.org/) configuration fil
 
 An `e2e/` folder at the top level contains source files for a set of end-to-end tests that correspond to the root-level application, along with test-specific configuration files.
 
+根级的 `e2e/` 文件夹中包含一组针对根应用的端到端测试的源文件，以及测试专属的配置文件。
+
+
 For a multi-project workspace, application-specific end-to-end tests are in the project root, under `projects/project-name/e2e/`.
 
-`e2e/` 子文件夹包含一组和应用对应的端到端测试的源文件，以及测试专属的配置文件。
-
+对于多项目的工作空间，应用专属的端到端测试文件都位于项目各自的根目录下，即 `projects/project-name/e2e/`。
 
 <code-example language="none" linenums="false">
   e2e/

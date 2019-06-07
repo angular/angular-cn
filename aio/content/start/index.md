@@ -23,7 +23,7 @@ You don't need to install anything: you'll build the app using the [StackBlitz](
 
 You'll find many resources to complement the Angular docs. Mozilla's MDN docs include both [HTML](https://developer.mozilla.org/en-US/docs/Learn/HTML "Learning HTML: Guides and tutorials") and [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript "JavaScript") introductions. [TypeScript's docs](https://www.typescriptlang.org/docs/home.html "TypeScript documentation") include a 5-minute tutorial. Various online course platforms, such as [Udemy](http://www.udemy.com "Udemy online courses") and [Codecademy](https://www.codecademy.com/ "Codeacademy online courses"), also cover web development basics. 
 
-你可以找到很多资源作为 Angular 文档的补充。Mozilla 的 MDN 文档同时包含了 [HTML](https://developer.mozilla.org/en-US/docs/Learn/HTML "学习 HTML：指南和教程") 和 [JavaScript 的](https://developer.mozilla.org/en-US/docs/Web/JavaScript "JavaScript") 介绍。[TypeScript 的文档](https://www.typescriptlang.org/docs/home.html "TypeScript 文档")中包含一个 5 分钟教程。各种在线课程平台，比如 [Udemy](http://www.udemy.com "Udemy 在线课程") 和 [Codeacademy](https://www.codecademy.com/ "Codeacademy 在线课程")，也涵盖了 Web 开发的一些基础知识。
+你可以找到很多资源作为 Angular 文档的补充。Mozilla 的 MDN 文档同时包含了 [HTML](https://developer.mozilla.org/en-US/docs/Learn/HTML "学习 HTML：指南和教程") 和 [JavaScript 的](https://developer.mozilla.org/en-US/docs/Web/JavaScript "JavaScript") 介绍。[TypeScript 的文档](https://www.typescriptlang.org/docs/home.html "TypeScript 文档")中包含一个 5 分钟教程。各种在线课程平台，比如 [Udemy](http://www.udemy.com "Udemy 在线课程") 和 [Codecademy](https://www.codecademy.com/ "Codeacademy 在线课程")，也涵盖了 Web 开发的一些基础知识。
 
 
 </div> 
@@ -585,9 +585,9 @@ To continue exploring Angular, choose either of the following options:
 
 * [Continue to the "Routing" section](start/routing "Getting Started: Routing") to create a product details page that can be accessed by clicking a product name and that has its own URL pattern. 
 
-  [继续浏览“路由”部分](getting-started/routing "入门：路由")，创建一个商品详情页面，通过单击商品名称，可以访问该页面，该页面有自己的 URL 模式。
+  [继续浏览“路由”部分](start/routing "入门：路由")，创建一个商品详情页面，通过单击商品名称，可以访问该页面，该页面有自己的 URL 模式。
 
 * [Skip ahead to the "Deployment" section](start/deployment "Getting Started: Deployment") to move to local development, or deploy your app to Firebase or your own server.
 
-  [跳到“部署”部分](getting-started/deployment "入门：部署")，把你的应用部署到 Firebase 或转成本地开发。
+  [跳到“部署”部分，](start/deployment "入门：部署")把你的应用转移到本地开发、部署到 Firebase 或你自己的服务器。
 

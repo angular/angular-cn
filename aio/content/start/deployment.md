@@ -12,7 +12,7 @@ To deploy your application, you have to compile it, and then host the JavaScript
 
 Whether you came here directly from [Your First App](start "Getting Started: Your First App"), or completed the entire online store application through the [Routing](start/routing "Getting Started: Routing"), [Managing Data](start/data "Getting Started: Managing Data"), and [Forms](start/forms "Getting Started: Forms") sections, you have an application that you can deploy by following the instructions in this section. 
 
-无论你是从[你的第一个应用](getting-started "入门：你的第一个应用")直接来到这里，还是经过[路由](getting-started/routing "入门：路由")、[管理数据](getting-started/data "入门：管理数据")和[表单](getting-started/forms "入门：表单")部分，完成了整个在线商店应用之后来到这里，都可以按照本节中的说明进行部署。
+无论你是从[你的第一个应用](start "入门：你的第一个应用")直接来到这里，还是经过[路由](start/routing "入门：路由")、[管理数据](start/data "入门：管理数据")和[表单](start/forms "入门：表单")部分，完成了整个在线商店应用之后来到这里，都可以按照本节中的说明进行部署。
 
 
 </div>
@@ -24,7 +24,7 @@ Whether you came here directly from [Your First App](start "Getting Started: You
 
 StackBlitz projects are public by default, allowing you to share your Angular app via the project URL. Keep in mind that this is a great way to share ideas and prototypes, but it is not intended for production hosting.
 
-StackBlitz 允许你从项目中把 Angular 应用直接发布到 Firebase。下面的步骤简要描述了如何在不必设置自己的开发环境的情况下快速部署它。
+StackBlitz 项目默认是公开的，你可以通过项目的 URL 来共享你的应用。记住，虽然这是一种共享思路和原型的良好途径，但并不适合承载产品环境。
 
 1. In your StackBlitz project, make sure you have forked or saved your project.
 
@@ -49,7 +49,7 @@ StackBlitz 允许你从项目中把 Angular 应用直接发布到 Firebase。下
 
 To build your application locally or for production, you will need to download the source code from your StackBlitz project. Click the `Download Project` icon in the left menu across from `Project` to download your files.
 
-要在本地构建应用，你需要从 StackBlitz 项目中下载源代码。单击左侧菜单中的 `Download Project` 图标以下载文件。
+要在本地构建应用或未生产环境构建应用，你需要从 StackBlitz 项目中下载源代码。单击左侧菜单中的 `Download Project` 图标以下载文件。
 
 
 Once you have the source code downloaded and unzipped, use the [Angular Console](https://angularconsole.com "Angular Console web site") to serve the application, or you install Node and have the Angular CLI installed.
@@ -101,7 +101,7 @@ This will produce the files that you need to deploy.
 
 The files in the `dist/my-project-name` folder are static and can be hosted on any web server capable of serving files (Node, Java, .NET) or any backend (Firebase, Google Cloud, App Engine, others).
 
-`dist/my-project-name` 文件夹中的文件都是静态的，可以托管在任何能够提供文件服务的 Web 服务器上（node，Java，.NET），也可以是任何后端（Firebase，Google Cloud，App Engine 等）。
+`dist/my-project-name` 文件夹中的文件都是静态的，可以托管在任何能够提供文件服务的 Web 服务器上（Node，Java，.NET），也可以是任何后端（Firebase，Google Cloud，App Engine 等）。
 
 
 ### Hosting an Angular app on Firebase

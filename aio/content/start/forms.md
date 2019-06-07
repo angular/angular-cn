@@ -1,11 +1,11 @@
 # Forms
 
-# 表格
+# 表单
 
 
 At the end of [Managing Data](start/data "Getting Started: Managing Data"), the online store application has a product catalog and a shopping cart.
 
-当[管理数据](getting-started/data "入门：管理数据")结束时，这个在线商店应用有了一个商品名录和一个购物车。
+当[管理数据](start/data "入门：管理数据")结束时，这个在线商店应用有了一个商品名录和一个购物车。
 
 
 In this section, you'll finish the app by adding a form-based checkout feature. You'll create a form to collect user information as part of checkout. 
@@ -168,5 +168,5 @@ Congratulations! You have a complete online store application with a product cat
 
 [Continue to the "Deployment" section](start/deployment "Getting Started: Deployment") to move to local development, or deploy your app to Firebase or your own server.
 
-[继续浏览“部署”部分，](getting-started/deployment "入门：部署")把你的应用部署到 Firebase，或者转成本地开发。
+[继续浏览“部署”部分，](start/deployment "入门：部署")把你的应用转移到本地开发、部署到 Firebase 或你自己的服务器。
 

@@ -12,7 +12,7 @@ The browser maintains a `CustomElementRegistry` of defined custom elements, whic
 
 [自定义元素](https://developer.mozilla.org/en-US/docs/Web/Web_Components/Using_custom_elements)这项特性目前受到了 Chrome、Opera 和 Safari 的支持，在其它浏览器中也能通过腻子脚本（参见[浏览器支持](#browser-support)）加以支持。
 自定义元素扩展了 HTML，它允许你定义一个由 JavaScript 代码创建和控制的标签。
-浏览器会维护一个自定义元素（也叫 Web Components）的注册表 `CustomElementRegistry`，它把一个可实例化的 JavaScript 类映射到 HTML 标签上。
+浏览器会维护一个自定义元素的注册表 `CustomElementRegistry`，它把一个可实例化的 JavaScript 类映射到 HTML 标签上。
 
 The `@angular/elements` package exports a `createCustomElement()` API that provides a bridge from Angular's component interface and change detection functionality to the built-in DOM API.
 

@@ -6,7 +6,7 @@
 At the end of [Routing](start/routing "Getting Started: Routing"), the online store application has a product catalog with two views: a product list and product details. 
 Users can click on a product name from the list to see details in a new view, with a distinct URL (route). 
 
-在[路由](getting-started/routing "入门：路由")的末尾，本应用实现了一个包含两个视图的商品名录：商品列表和商品详情。用户点击清单中的某个商品名称，就会在新视图中看到具有显著 URL（路由）的详情页。
+在[路由](start/routing "入门：路由")的末尾，本应用实现了一个包含两个视图的商品名录：商品列表和商品详情。用户点击清单中的某个商品名称，就会在新视图中看到具有显著 URL（路由）的详情页。
 
 
 In this section, you'll create the shopping cart. You'll:
@@ -24,7 +24,7 @@ In this section, you'll create the shopping cart. You'll:
 
 * Add a shipping component, which retrieves shipping prices for the items in the cart by using Angular's `HttpClient` to retrieve shipping data from a `.json` file.
 
-  添加一个配送组件，它会使用 Angular 的 HttpClient 从 `.json` 文件中检索配送数据来取得购物车中这些商品的运费。
+  添加一个配送组件，它会使用 Angular 的 `HttpClient` 从 `.json` 文件中检索配送数据来取得购物车中这些商品的运费。
 
 
 {@a services}
@@ -64,7 +64,7 @@ You'll also set up a cart service to store information about products in the car
 
 Later, in the [Forms](start/forms "Getting Started: Forms") part of this tutorial, this cart service also will be accessed from the page where the user checks out. 
 
-稍后，在本教程的[表单](getting-started/forms "入门：表单")部分，也会从用户的结账页面中访问这个 购物车服务。
+稍后，在本教程的[表单](start/forms "入门：表单")部分，也会从用户的结账页面中访问这个 购物车服务。
 
 
 </div>
@@ -82,7 +82,7 @@ Later, in the [Forms](start/forms "Getting Started: Forms") part of this tutoria
 
    1. Right click on the `app` folder, choose `Angular Generator`, and choose `Service`. Name the new service `cart`.
 
-      右键单击 `app` 文件夹，选择 `Angular Generator`，然后选择 `**Service**`。把新的服务命名为 `cart`。
+      右键单击 `app` 文件夹，选择 `Angular Generator`，然后选择 `Service`。把新的服务命名为 `cart`。
 
 
       <code-example header="src/app/cart.service.ts" path="getting-started/src/app/cart.service.1.ts"></code-example>
@@ -590,7 +590,7 @@ Here you'll define the `get()` method that will be used.
 
 Learn more: See the [HttpClient guide](guide/http "HttpClient guide") for more information about Angular's `HttpClient`.
 
-要了解关于 Angular HttpClient 的更多信息，请参阅[HttpClient 指南](guide/http "HttpClient 指南")。
+要了解关于 Angular `HttpClient` 的更多信息，请参阅[HttpClient 指南](guide/http "HttpClient 指南")。
 
 
 </div>
@@ -744,10 +744,10 @@ To continue exploring Angular, choose either of the following options:
 
 * [Continue to the "Forms" section](start/forms "Getting Started: Forms") to finish the app by adding the shopping cart page and a form-based checkout feature. You'll create a form to collect user information as part of checkout. 
 
-  [继续浏览“表单”部分](getting-started/forms "入门：表单")，通过添加购物车页面和基于表单的结帐功能来完成该应用。你还可以创建一个表单来收集用户信息，作为结账过程的一部分。
+  [继续浏览“表单”部分](start/forms "入门：表单")，通过添加购物车页面和基于表单的结帐功能来完成该应用。你还可以创建一个表单来收集用户信息，作为结账过程的一部分。
 
 * [Skip ahead to the "Deployment" section](start/deployment "Getting Started: Deployment") to move to local development, or deploy your app to Firebase or your own server. 
 
-  [跳到“部署”部分，](getting-started/deployment "入门：部署")把你的应用部署到 Firebase 或转成本地开发。
+  [跳到“部署”部分，](start/deployment "入门：部署")把你的应用部署到 Firebase 或转成本地开发。
 
 

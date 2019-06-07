@@ -10,14 +10,14 @@ Some developers prefer Visual Studio as their Integrated Development Environment
 
 This cookbook describes the steps required to set up and use Angular app files in Visual Studio 2015 within an ASP.NET 4.x project.
 
-本文介绍了在**Visual Studio 2015 的 ASP.NET 4.x 项目中**，实现 Angular “[快速上手](guide/quickstart)”所需的步骤。
+本文介绍了在**Visual Studio 2015 的 ASP.NET 4.x 项目中**使用 Angular 应用的各个文件所需的步骤。
 
 <div class="alert is-helpful">
 
 There is no *live example* for this cookbook because it describes Visual Studio, not 
 the Angular application itself. It uses the starter Angular application created by the CLI command [`ng new`](cli/new) as an example. 
 
-本文中没有*在线例子*，因为它介绍的是 Visual Studio，而不是《快速上手》应用程序本身。
+本文中没有*在线例子*，因为它介绍的是 Visual Studio，而不是《快速上手》应用程序本身。它使用 CLI 命令 [`ng new`](cli/new) 创建的 Angular 入门应用作为例子。
 
 </div>
 
@@ -54,7 +54,7 @@ if they are not already on your machine.
 See [Local Environment Setup](guide/setup-local "Setting up for Local Development") for supported versions and instructions. 
 
 如果你的电脑里没有 Node.js®和 npm，请安装**[它们](https://nodejs.org/en/download/)**。
-参见[快速上手](guide/quickstart)以了解所支持的版本和安装步骤。
+参见[搭建本地开发环境](guide/setup-local "Setting up for Local Development")以了解所支持的版本和安装步骤。
 
 
 
@@ -117,23 +117,23 @@ Visual Studio 将优先在当前的工作区查找外部工具，如果没有找
 
 While Visual Studio Update 3 ships with TypeScript support out of the box, it currently doesn’t ship with more recent versions of TypeScript, which you need to develop Angular applications.
 
-Visual Studio Update 3 自带 TypeScript 支持，但它的 TypeScript 版本不是开发 Angular 应用所需的 3.1。
+Visual Studio Update 3 自带 TypeScript 支持，但它的 TypeScript 版本不是开发 Angular 应用所需的最新版 TypeScript。
 
 To install the latest version of TypeScript:
 
-要安装 TypeScript 3.1：
+要安装 TypeScript 最新版：
 
  * Download and install the latest [TypeScript for Visual Studio 2015](https://www.microsoft.com/en-us/download/details.aspx?id=48593),
 
-    下载并安装 **[TypeScript 3.1 for Visual Studio 2015](https://www.microsoft.com/en-us/download/details.aspx?id=48593)**
+    下载并安装最新版的 **[TypeScript for Visual Studio 2015](https://www.microsoft.com/en-us/download/details.aspx?id=48593)**
 
  * OR install it with npm: `npm install -g typescript@latest`.
 
-    或通过 npm 安装：`npm install -g typescript@2.2`。
+    或通过 npm 安装：`npm install -g typescript@latest`。
 
 You can find out more about TypeScript support in Visual Studio **[here](https://blogs.msdn.microsoft.com/typescript/announcing-typescript-3-1/)**.
 
-你可以在**[这里](https://blogs.msdn.microsoft.com/typescript/2017/02/22/announcing-typescript-2-2/)**查看更多 Visual Studio 中 TypeScript 3.1 的支持。
+你可以在**[这里](https://blogs.msdn.microsoft.com/typescript/2017/02/22/announcing-typescript-2-2/)**查看更多 Visual Studio 中 TypeScript 的支持。
 
 At this point, Visual Studio is ready. It’s a good idea to close Visual Studio and 
 restart it to make sure everything is clean.
@@ -199,7 +199,7 @@ no authentication, and no hosting. Pick the template and options appropriate for
 Copy files from the starter Angular app into the folder containing the `.csproj` file.
 Include the files in the Visual Studio project as follows:
 
-拷贝从 GitHub 下载的“快速上手”文件到包含 `.csproj` 文件的目录中。按照下面的步骤把它们加到 Visual Studio 中：
+把 Angular 初学者应用中的文件复制到包含 `.csproj` 文件的目录中。按照下面的步骤把它们加到 Visual Studio 中：
 
 * Click the `Show All Files` button in Solution Explorer to reveal all of the hidden files in the project.
 

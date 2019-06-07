@@ -7,7 +7,7 @@ At the end of [Your First App](start "Getting Started: Your First App"), the onl
 The app doesn't have any variable states or navigation. 
 There is one URL, and that URL always displays the "My Store" page with a list of products and their descriptions. 
 
-在[你的第一个应用](getting-started "入门：你的第一个应用")结束时，这个在线商店应用会有一个基本的商品名录。该应用还没有任何可变的状态或导航。它只有一个 URL，该 URL 总是会显示“我的商店”页面，其中是商品列表及其描述。
+在[你的第一个应用](start "入门：你的第一个应用")结束时，这个在线商店应用会有一个基本的商品名录。该应用还没有任何可变的状态或导航。它只有一个 URL，该 URL 总是会显示“我的商店”页面，其中是商品列表及其描述。
 
 
 In this section, you'll extend the app to display full product details in separate pages, with their own URLs.
@@ -232,9 +232,9 @@ To continue exploring Angular, choose either of the following options:
 
 * [Continue to the "Managing Data" section](start/data "Getting Started: Managing Data") to add the shopping cart feature, using a service to manage the cart data and using HTTP to retrieve external data for shipping prices. 
 
-  [继续浏览“管理数据”部分](getting-started/data "入门：管理数据")，以添加购物车功能，使用服务来管理购物车数据，并通过 HTTP 检索配送价格的外部数据。
+  [继续浏览“管理数据”部分](start/data "入门：管理数据")，以添加购物车功能，使用服务来管理购物车数据，并通过 HTTP 检索配送价格的外部数据。
 
 * [Skip ahead to the Deployment section](start/deployment "Getting Started: Deployment") to deploy your app to Firebase or move to local development. 
 
-  [跳到部署部分](getting-started/deployment "入门：部署")，把你的应用部署到 Firebase 或转成本地开发。
+  [跳到部署部分](start/deployment "入门：部署")，把你的应用部署到 Firebase 或转成本地开发。
 

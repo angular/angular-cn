@@ -538,7 +538,7 @@ showing exactly which classes are included in the bundle.
 
 Here's the output for the _main_ bundle of an example app called `cli-quickstart`.
 
-下面是 "快速上手" 应用中 `main` 包的输出。
+下面是范例应用 `cli-quickstart` 中 `main` 包的输出。
 
 <figure>
   <img src="generated/images/guide/deployment/quickstart-sourcemap-explorer.png" alt="quickstart sourcemap explorer">

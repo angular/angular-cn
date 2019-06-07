@@ -4260,7 +4260,7 @@ A guard's return value controls the router's behavior:
 
 <div class="alert is-helpful">
 
-**Note:**The guard can also tell the router to navigate elsewhere, effectively canceling the current navigation. When
+**Note:** The guard can also tell the router to navigate elsewhere, effectively canceling the current navigation. When
 doing so inside a guard, the guard should return `false`;
 
 **注意**：守卫还可以告诉路由器导航到别处，这样也会取消当前的导航。要想在守卫中这么做，就要返回 `false`；
@@ -4400,8 +4400,7 @@ The admin feature file structure looks like this:
   <div class='children'>
 
     <div class='file'>
-
-admin
+      admin
     </div>
 
       <div class='children'>
@@ -4434,42 +4433,34 @@ admin
           admin-dashboard.component.html
         </div>
 
-        <div class='file'>      admin-dashboard.component.ts
-
-    </div>
+        <div class='file'>
+          admin-dashboard.component.ts
+        </div>
 
       </div>
 
     <div class='file'>
-
       manage-crises
     </div>
 
       <div class='children'>
 
         <div class='file'>
+          manage-crises.component.css
+        </div>
 
-      manage-crises.component.css
+        <div class='file'>
+          manage-crises.component.html
+        </div>
 
-    </div>
-
-    <div class='file'>
-
-      manage-crises.component.html
-
-    </div>
-
-    <div class='file'>
-
-      manage-crises.component.ts
-
-    </div>
+        <div class='file'>
+          manage-crises.component.ts
+        </div>
 
       </div>
 
     <div class='file'>
-
-manage-heroes
+      manage-heroes
     </div>
 
       <div class='children'>
@@ -5377,8 +5368,10 @@ The `loadChildren` property takes a function that returns a promise using the br
 The path is the location of the `AdminModule` (relative to the app root).
 After the code is requested and loaded, the `Promise` resolves an object that contains the `NgModule`, in this case the  `AdminModule`.
 
-给它一个 `loadChildren` 属性（替换掉 `children` 属性），把它设置为 `AdminModule` 的地址。
-该地址是 `AdminModule` 的文件路径（相对于 `app` 目录的），加上一个 `#` 分隔符，再加上导出模块的类名 `AdminModule`。
+给它一个 `loadChildren` 属性（替换掉 `children` 属性）。
+`loadChildren` 属性接收一个函数，该函数使用浏览器内置的动态导入语法 `import('...')` 来惰性加载代码，并返回一个承诺（Promise）。
+其路径是 `AdminModule` 的位置（相对于应用的根目录）。
+当代码请求并加载完毕后，这个 `Promise` 就会解析成一个包含 `NgModule` 的对象，也就是 `AdminModule`。
 
 <code-example path="router/src/app/app-routing.module.5.ts" region="admin-1" header="app-routing.module.ts (load children)">
 

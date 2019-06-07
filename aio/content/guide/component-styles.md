@@ -172,6 +172,8 @@ to the current component and all its descendants, be sure to include the `:host`
 `::ng-deep`. If the `::ng-deep` combinator is used without the `:host` pseudo-class selector, the style
 can bleed into other components.
 
+把伪类 `::ng-deep` 应用到如何一条 CSS 规则上就会完全禁止对那条规则的视图包装。任何带有 `::ng-deep` 的样式都会变成全局样式。为了把指定的样式限定在当前组件及其下级组件中，请确保在 `::ng-deep` 之前带上 `:host` 选择器。如果 `::ng-deep` 组合器在 `:host` 伪类之外使用，该样式就会污染其它组件。
+
 The following example targets all `<h3>` elements, from the host element down
 through this component to all of its child elements in the DOM.
 
