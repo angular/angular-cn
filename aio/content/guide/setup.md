@@ -34,7 +34,7 @@ Setting up a new project on your machine is quick and easy with the [QuickStart 
 
 **Prerequisite:** Make sure you have [Node.js® and npm installed](guide/setup-local#prerequisites "Angular prerequisites").
 
-**先决条件：**确保你已经安装好了 [Node.js® 和 npm](guide/setup-local#prerequisites "Angular prerequisites")。
+**前提条件：**确保你已经安装好了 [Node.js® 和 npm](guide/setup-local#prerequisites "Angular prerequisites")。
 
 {@a clone}
 ## Clone
