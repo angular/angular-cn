@@ -1304,77 +1304,164 @@ After this, the service is injectable anywhere in AngularJS code:
 
 ## Lazy Loading AngularJS
 
+## 惰性加载 AngularJS
+
+
 When building applications, you want to ensure that only the required resources are loaded when necessary. Whether that be loading of assets or code, making sure everything that can be deferred until needed keeps your application running efficiently. This is especially true when running different frameworks in the same application. 
+
+在构建应用时，你需要确保只在必要的时候才加载所需的资源。无论是加载静态资产（Asset）还是代码，都要确保任何事都推迟到必要时才去做，以便让应用更高效的运行。当要在同一个应用中运行不同的框架时，更是如此。
+
 
 [Lazy loading](guide/glossary#lazy-loading) is a technique that defers the loading of required assets and code resources until they are actually used. This reduces startup time and increases efficiency, especially when running different frameworks in the same application.
 
+[惰性加载](guide/glossary#lazy-loading)是一项直到使用时才延迟加载所需静态资产和代码资源的技术。它可以减少启动时间、提高效率，特别是要在同一个应用中运行不同的框架时。
+
+
 When migrating large applications from AngularJS to Angular using a hybrid approach, you want to migrate some of the most commonly used features first, and only use the less commonly used features if needed. Doing so helps you ensure that the application is still providing a seamless experience for your users while you are migrating.
+
+当你用混合应用的方式将大型应用从 AngularJS 迁移到 Angular 时，你首先要迁移一些最常用的特性，并且只在必要的时候才使用那些不太常用的特性。这样做有助于确保应用程序在迁移时仍然能为用户提供无缝的体验。
+
 
 In most environments where both Angular and AngularJS are used to render the application, both frameworks are loaded in the initial bundle being sent to the client. This results in both increased bundle size and possible reduced performance. 
 
+在同时用 Angular 和 AngularJS 渲染应用的大多数环境中，这两个框架都会包含在发送客户端的初始发布包中。这会导致发布包的体积增大、性能降低。
+
+
 Overall application performance is affected in cases where the user stays on Angular-rendered pages because the AngularJS framework and application are still loaded and running, even if they are never accessed. 
+
+当用户停留在由 Angular 呈现的页面上时，应用的整体性能也会受到影响。这是因为 AngularJS 的框架和应用仍然被加载并运行了，即使它们从未被访问过。
+
 
 You can take steps to mitigate both bundle size and performance issues. By isolating your AngularJS app to a separate bundle, you can take advantage of [lazy loading](guide/glossary#lazy-loading) to load, bootstrap, and render the AngularJS application only when needed. This strategy reduces your initial bundle size, defers any potential impact from loading both frameworks until absolutely necessary, and keeps your application running as efficiently as possible.
 
+你可以采取措施来缓解这些包的大小和性能问题。通过把你的 AngularJS 应用程序分离到一个单独的发布包中，你就可以利用[惰性加载](guide/glossary#lazy-loading)技术来只在必要的时候才加载、引导和呈现这个 AngularJS 应用。这种策略减少了你的初始发布包大小，推迟了同时加载两个框架的潜在影响 —— 直到绝对必要时才加载，以便让你的应用尽可能高效地运行。
+
+
 The steps below show you how to do the following:
 
+下面的步骤介绍了要如何去做：
+
+
 * Setup a callback function for your AngularJS bundle.
+
+  为 AngularJS 发布包设置一个回调函数。
+
 * Create a service that lazy loads and bootstraps your AngularJS app.
+
+  创建一个服务，以便惰性加载并引导你的 AngularJS 应用。
+
 * Create a routable component for AngularJS content
+
+  为 AngularJS 的内容创建一个可路由的组件
+
 * Create a custom `matcher` function for AngularJS-specific URLs and configure the Angular `Router` with the custom matcher for AngularJS routes.
+
+  为 AngularJS 特有的 URL 创建自定义的 `matcher` 函数，并为 Angular 路由器的自定义匹配器配置上 AngularJS 的各个路由。
+
 
 ### Create a service to lazy load AngularJS
 
+### 为惰性加载 AngularJS 创建一个服务
+
+
 As of Angular version 8, lazy loading code can be accomplished simply by using the dynamic import syntax `import('...')`. In your application, you create a new service that uses dynamic imports to lazy load AngularJS.
+
+在 Angular 的版本 8 中，惰性加载代码只需使用动态导入语法 `import('...')` 即可。在这个应用中，你创建了一个新服务，它使用动态导入技术惰性加载 AngularJS。
+
 
 <code-example path="upgrade-lazy-load-ajs/src/app/lazy-loader.service.ts" header="src/app/lazy-loader.service.ts">
 </code-example>
 
 The service uses the `import()` method to load your bundled AngularJS application lazily. This decreases the initial bundle size of your application as you're not loading code your user doesn't need yet. You also need to provide a way to _bootstrap_ the application manually after it has been loaded. AngularJS provides a way to manually bootstrap an application using the [angular.bootstrap()](https://docs.angularjs.org/api/ng/function/angular.bootstrap) method with a provided HTML element. Your AngularJS app should also expose a `bootstrap` method that bootstraps the AngularJS app.
 
+该服务使用 `import()` 方法惰性加载打包好的 AngularJS 应用。这会减少应用初始包的大小，因为你尚未加载用户目前不需要的代码。你还需要提供一种方法，在加载完毕后手动*启动*它。 AngularJS 提供了一种使用 [angular.bootstrap()](https://docs.angularjs.org/api/ng/function/angular.bootstrap) 方法并传入一个 HTML 元素来手动引导应用的方法。你的 AngularJS 应用也应该公开一个用来引导 AngularJS 应用的 `bootstrap` 方法。
+
+
 <code-example path="upgrade-lazy-load-ajs/src/app/angularjs-app/index.ts" header="angularjs-app">
 </code-example>
 
 Your AngularJS application is configured with only the routes it needs to render content. The remaining routes in your application are handled by the Angular Router. The exposed `bootstrap` method is called in your Angular app to bootstrap the AngularJS application after the bundle is loaded.
 
+你的 AngularJS 应用只配置了呈现内容所需的那部分路由。而 Angular 路由器会处理应用中其它的路由。你的 Angular 应用中会调用公开的 `bootstrap` 方法，让它在加载完发布包之后引导 AngularJS 应用。
+
+
 <div class="alert is-important">
 
 **Note:** After AngularJS is loaded and bootstrapped, listeners such as those wired up in your route configuration will continue to listen for route changes. To ensure listeners are shut down when AngularJS isn't being displayed, configure an `otherwise` option with the [$routeProvider](https://docs.angularjs.org/api/ngRoute/provider/$routeProvider) that renders an empty template. This assumes all other routes will be handled by Angular.
+
+**注意：**当 AngularJS 加载并引导完毕后，监听器（比如路由配置中的那些监听器）会继续监听路由的变化。为了确保当 AngularJS 尚未显示时先关闭监听器，请在 [$routeProvider](https://docs.angularjs.org/api/ngRoute/provider/$routeProvider) 中配置一个渲染空模板 `otherwise` 选项。这里假设 Angular 将处理所有其它路由。
+
 
 </div>
 
 ### Create a component to render AngularJS content
 
+### 创建一个用来渲染 AngularJS 内容的组件
+
+
 In your Angular application, you need a component as a placeholder for your AngularJS content. This component uses the service you create to load and bootstrap your AngularJS app after the component is initialized.
+
+在 Angular 应用中，你需要一个组件作为 AngularJS 内容的占位符。该组件使用你创建的服务，并在组件初始化完成后加载并引导你的 AngularJS 应用。
+
 
 <code-example path="upgrade-lazy-load-ajs/src/app/angular-js/angular-js.component.ts" header="src/app/angular-js/angular-js.component.ts">
 </code-example>
 
 When the Angular Router matches a route that uses AngularJS, the `AngularJSComponent` is rendered, and the content is rendered within the AngularJS [`ng-view`](https://docs.angularjs.org/api/ngRoute/directive/ngView) directive. 
 
+当 Angular 的路由器匹配到使用 AngularJS 的路由时，会渲染 `AngularJSComponent` ，并在 AngularJS 的 [`ng-view`](https://docs.angularjs.org/api/ngRoute/directive/ngView) 指令中渲染内容。
+
+
 ### Configure a custom route matcher for AngularJS routes
+
+### 为那些 AngularJS 路由配置自定义路由匹配器
+
 
 To configure the Angular Router, you must define a route for AngularJS URLs. To match those URLs, you add a route configuration that uses the `matcher` property. The `matcher` allows you to use custom pattern matching for URL paths. The Angular Router tries to match on more specific routes such as static and variable routes first. When it doesn't find a match, it then looks at custom matchers defined in your route configuration. If the custom matchers don't match a route, it then goes to catch-all routes, such as a 404 page.
 
+为了配置 Angular 的路由器，你必须为 AngularJS 的 URL 定义路由。要匹配这些 URL，你需要添加一个使用 `matcher` 属性的路由配置。这个 `matcher` 允许你使用自定义模式来匹配这些 URL 路径。 Angular 的路由器会首先尝试匹配更具体的路由，比如静态路由和可变路由。当它找不到匹配项时，就会找到路由配置中定义的自定义匹配器。如果自定义匹配器与某个路由不匹配，它就会转到用于 "捕获所有"（catch-all）的路由，比如 404 页面。
+
+
 The following example defines a custom matcher function for AngularJS routes.
+
+下面的例子给 AngularJS 路由定义了一个自定义匹配器函数。
+
 
 <code-example path="upgrade-lazy-load-ajs/src/app/app-routing.module.ts" header="src/app/app-routing.module.ts" region="matcher">
 </code-example>
 
 The following code adds a route object to your routing configuration using the `matcher` property and custom matcher, and the `component` property with `AngularJSComponent`.
 
+下列代码往你的路由配置中添加了一个路由对象，其 `matcher` 属性是这个自定义匹配器，而 `component` 属性为 `AngularJSComponent`。
+
+
 <code-example path="upgrade-lazy-load-ajs/src/app/app-routing.module.ts" header="src/app/app-routing.module.ts">
 </code-example>
 
 When your application matches a route that needs AngularJS, the AngularJS app is loaded and bootstrapped, the AngularJS routes match the necessary URL to render their content, and your application continues to run with both AngularJS and Angular frameworks.
 
+当你的应用匹配上需要 AngularJS 的路由，AngularJS 的应用会被加载并引导，AngularJS 路由会匹配必要的 URL 以渲染它们的内容，而你的应用会继续运行 AngularJS 和 Angular 框架。
+
+
 ## Using the Unified Angular Location Service
+
+## 使用统一的 Angular 位置服务（Location）
+
 
 In AngularJS, the [$location service](https://docs.angularjs.org/api/ng/service/$location) handles all routing configuration and navigation, encoding and decoding of URLS, redirects, and interactions with browser APIs. Angular uses its own underlying `Location` service for all of these tasks. 
 
+在 AngularJS 中，[$location 服务](https://docs.angularjs.org/api/ng/service/$location) 会处理所有路由配置和导航工作，对各个 URL 进行编码和解码，重定向，以及与浏览器 API 交互。 Angular 在所有这些任务中都使用了自己的底层服务 `Location`。
+
+
 When you migrate from AngularJS to Angular you will want to move as much responsibility as possible to Angular, so that you can take advantage of new APIs. To help with the transition, Angular provides the `LocationUpgradeModule`. This module enables a _unified_ location service that shifts responsibilities from the AngularJS `$location` service to the Angular `Location` service.
 
+当你从 AngularJS 迁移到 Angular 时，你会希望把尽可能多的责任移交给 Angular，以便利用新的 API。为了帮你完成这种转换，Angular 提供了 `LocationUpgradeModule`。该模块支持*统一的*位置服务，可以把 AngularJS `$location` 服务的职责转移给 Angular 的 `Location` 服务。
+
+
 To use the `LocationUpgradeModule`, import the symbol from `@angular/common/upgrade` and add it to your `AppModule` imports using the static `LocationUpgradeModule.config()` method.
+
+要使用`LocationUpgradeModule` ， `AppModule`导入`@angular/common/upgrade`的符号，并使用静态的`LocationUpgradeModule.config()`方法把它添加到你的`AppModule`导入中。
+
 
 ```ts
 // Other imports ...
@@ -1391,7 +1478,13 @@ export class AppModule {}
 
 The `LocationUpgradeModule.config()` method accepts a configuration object that allows you to configure options including the `LocationStrategy` with the `useHash` property, and the URL prefix with the `hashPrefix` property.
 
+`LocationUpgradeModule.config()` 方法接受一个配置对象，该对象的 `useHash` 为 `LocationStrategy`，`hashPrefix` 为 URL 前缀。
+
+
 The `useHash` property defaults to `false`, and the `hashPrefix` defaults to an empty `string`. Pass the configuration object to override the defaults.
+
+`useHash` 属性默认为 `false`，而 `hashPrefix` 默认为空 `string`。传递配置对象可以覆盖默认值。
+
 
 ```ts
 LocationUpgradeModule.config({
@@ -1404,11 +1497,20 @@ LocationUpgradeModule.config({
 
 **Note:** See the `LocationUpgradeConfig` for more configuration options available to the `LocationUpgradeModule.config()` method.
 
+**注意：**有关 `LocationUpgradeModule.config()` 方法可用的更多配置项，请参阅 `LocationUpgradeConfig`。
+
+
 </div>
 
 This registers a drop-in replacement for the `$location` provider in AngularJS. Once registered, all navigation, routing broadcast messages, and any necessary digest cycles in AngularJS triggered during navigation are handled by Angular. This gives you a single way to navigate within both sides of your hybrid application consistently.
 
+这会为 AngularJS 中的 `$location` 提供商注册一个替代品。一旦注册成功，导航过程中所有由 AngularJS 触发的导航、路由广播消息以及任何必需的变更检测周期都会改由 Angular 进行处理。这样，你就可以通过这个唯一的途径在此混合应用的两个框架间进行导航了。
+
+
 For usage of the `$location` service as a provider in AngularJS, you need to downgrade the `$locationShim` using a factory provider.
+
+要想在 AngularJS 中使用 `$location` 服务作为提供商，你需要使用一个工厂提供商来降级 `$locationShim`。
+
 
 ```ts
 // Other imports ...
@@ -1420,6 +1522,8 @@ angular.module('myHybridApp', [...])
 ```
 
 Once you introduce the Angular Router, using the Angular Router triggers navigations through the unified location service, still providing a single source for navigating with AngularJS and Angular.
+
+一旦引入了 Angular 路由器，你只要使用 Angular 路由器就可以通过统一位置服务触发导航了，同时，你仍然可以通过 AngularJS 和 Angular 进行导航。
 
 ## Using Ahead-of-time compilation with hybrid apps
 
