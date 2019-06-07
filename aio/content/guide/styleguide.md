@@ -2787,6 +2787,8 @@ Yet there is a real danger of that happening if the `SharedModule` provides a se
 
 #### Style 04-11
 
+#### 风格 04-11
+
 A distinct application feature or workflow may be *lazy loaded* or *loaded on demand* rather than when the application starts.
 
 某些边界清晰的应用特性或工作流可以做成*惰性加载*或*按需加载*的，而不用总是随着应用启动。
@@ -2844,6 +2846,8 @@ A typical *lazy loaded folder* contains a *routing component*, its child compone
 <a href="#toc">回到顶部</a>
 
 ## Components
+
+## 组件
 
 {@a 05-03}
 

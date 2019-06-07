@@ -109,6 +109,7 @@ For a complete list of Angular packages, see the [API reference](http://angular.
 
 Package name                               | Description
 ----------------------------------------   | --------------------------------------------------
+包名                               | 说明
 [**@angular/animations**](api/animations) | Angular's animations library makes it easy to define and apply animation effects such as page and list transitions. For more information, see the [Animations guide](guide/animations).
 [**@angular/animations**](api/animations) | Angular 的动画库能让你更容易地定义和应用页面和列表的动画效果。欲知详情，参见[动画](guide/animations)。
 [**@angular/common**](api/common) | The commonly-needed services, pipes, and directives provided by the Angular team. The [`HttpClientModule`](api/common/http/HttpClientModule) is also here, in the [`@angular/common/http`](api/common/http) subfolder. For more information, see the [HttpClient guide](guide/http).
