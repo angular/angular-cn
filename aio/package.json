@@ -47,7 +47,7 @@
     "payload-size": "scripts/payload.sh",
     "predocs": "node scripts/contributors/check-pictures && yarn generate-stackblitz && yarn generate-zips",
     "docs": "yarn docs-only",
-    "docs-only": "dgeni ./tools/transforms/angular.io-package",
+    "docs-only": "node --max-old-space-size=2048 ./node_modules/.bin/dgeni ./tools/transforms/angular.io-package",
     "docs-watch": "node tools/transforms/authors-package/watchr.js",
     "docs-lint": "eslint --ignore-path=\"tools/transforms/.eslintignore\" tools/transforms",
     "docs-test": "node tools/transforms/test.js",
