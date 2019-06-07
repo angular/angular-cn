@@ -1309,37 +1309,37 @@ After this, the service is injectable anywhere in AngularJS code:
 
 When building applications, you want to ensure that only the required resources are loaded when necessary. Whether that be loading of assets or code, making sure everything that can be deferred until needed keeps your application running efficiently. This is especially true when running different frameworks in the same application. 
 
-在构建应用时，你需要确保只在必要的时候才加载所需的资源。无论是加载静态资产（Asset）还是代码，都要确保任何事都推迟到必要时才去做，以便让应用更高效的运行。当要在同一个应用中运行不同的框架时，更是如此。
+在构建应用时，你需要确保只在必要的时候才加载所需的资源，无论是加载静态资产（Asset）还是代码。要确保任何事都尽量推迟到必要时才去做，以便让应用更高效的运行。当要在同一个应用中运行不同的框架时，更是如此。
 
 
 [Lazy loading](guide/glossary#lazy-loading) is a technique that defers the loading of required assets and code resources until they are actually used. This reduces startup time and increases efficiency, especially when running different frameworks in the same application.
 
-[惰性加载](guide/glossary#lazy-loading)是一项直到使用时才延迟加载所需静态资产和代码资源的技术。它可以减少启动时间、提高效率，特别是要在同一个应用中运行不同的框架时。
+[惰性加载](guide/glossary#lazy-loading)是一项技术，它会推迟到使用时才加载所需静态资产和代码资源。这可以减少启动时间、提高效率，特别是要在同一个应用中运行不同的框架时。
 
 
 When migrating large applications from AngularJS to Angular using a hybrid approach, you want to migrate some of the most commonly used features first, and only use the less commonly used features if needed. Doing so helps you ensure that the application is still providing a seamless experience for your users while you are migrating.
 
-当你用混合应用的方式将大型应用从 AngularJS 迁移到 Angular 时，你首先要迁移一些最常用的特性，并且只在必要的时候才使用那些不太常用的特性。这样做有助于确保应用程序在迁移时仍然能为用户提供无缝的体验。
+当你采用混合式应用的方式将大型应用从 AngularJS 迁移到 Angular 时，你首先要迁移一些最常用的特性，并且只在必要的时候才使用那些不太常用的特性。这样做有助于确保应用程序在迁移过程中仍然能为用户提供无缝的体验。
 
 
 In most environments where both Angular and AngularJS are used to render the application, both frameworks are loaded in the initial bundle being sent to the client. This results in both increased bundle size and possible reduced performance. 
 
-在同时用 Angular 和 AngularJS 渲染应用的大多数环境中，这两个框架都会包含在发送客户端的初始发布包中。这会导致发布包的体积增大、性能降低。
+在大多数需要同时用 Angular 和 AngularJS 渲染应用的环境中，这两个框架都会包含在发送给客户端的初始发布包中。这会导致发布包的体积增大、性能降低。
 
 
 Overall application performance is affected in cases where the user stays on Angular-rendered pages because the AngularJS framework and application are still loaded and running, even if they are never accessed. 
 
-当用户停留在由 Angular 呈现的页面上时，应用的整体性能也会受到影响。这是因为 AngularJS 的框架和应用仍然被加载并运行了，即使它们从未被访问过。
+当用户停留在由 Angular 呈现的页面上时，应用的整体性能也会受到影响。这是因为 AngularJS 的框架和应用仍然被加载并运行了 —— 即使它们从未被访问过。
 
 
 You can take steps to mitigate both bundle size and performance issues. By isolating your AngularJS app to a separate bundle, you can take advantage of [lazy loading](guide/glossary#lazy-loading) to load, bootstrap, and render the AngularJS application only when needed. This strategy reduces your initial bundle size, defers any potential impact from loading both frameworks until absolutely necessary, and keeps your application running as efficiently as possible.
 
-你可以采取措施来缓解这些包的大小和性能问题。通过把你的 AngularJS 应用程序分离到一个单独的发布包中，你就可以利用[惰性加载](guide/glossary#lazy-loading)技术来只在必要的时候才加载、引导和呈现这个 AngularJS 应用。这种策略减少了你的初始发布包大小，推迟了同时加载两个框架的潜在影响 —— 直到绝对必要时才加载，以便让你的应用尽可能高效地运行。
+你可以采取一些措施来缓解这些包的大小和性能问题。通过把 AngularJS 应用程序分离到一个单独的发布包中，你就可以利用[惰性加载](guide/glossary#lazy-loading)技术来只在必要的时候才加载、引导和呈现这个 AngularJS 应用。这种策略减少了你的初始发布包大小，推迟了同时加载两个框架的潜在影响 —— 直到绝对必要时才加载，以便让你的应用尽可能高效地运行。
 
 
 The steps below show you how to do the following:
 
-下面的步骤介绍了要如何去做：
+下面的步骤介绍了应该如何去做：
 
 
 * Setup a callback function for your AngularJS bundle.
@@ -1356,7 +1356,7 @@ The steps below show you how to do the following:
 
 * Create a custom `matcher` function for AngularJS-specific URLs and configure the Angular `Router` with the custom matcher for AngularJS routes.
 
-  为 AngularJS 特有的 URL 创建自定义的 `matcher` 函数，并为 Angular 路由器的自定义匹配器配置上 AngularJS 的各个路由。
+  为 AngularJS 特有的 URL 创建自定义的 `matcher` 函数，并为 AngularJS 的各个路由配上带有自定义匹配器的 Angular 路由器。
 
 
 ### Create a service to lazy load AngularJS
@@ -1366,7 +1366,7 @@ The steps below show you how to do the following:
 
 As of Angular version 8, lazy loading code can be accomplished simply by using the dynamic import syntax `import('...')`. In your application, you create a new service that uses dynamic imports to lazy load AngularJS.
 
-在 Angular 的版本 8 中，惰性加载代码只需使用动态导入语法 `import('...')` 即可。在这个应用中，你创建了一个新服务，它使用动态导入技术惰性加载 AngularJS。
+在 Angular 的版本 8 中，惰性加载代码只需使用动态导入语法 `import('...')` 即可。在这个应用中，你创建了一个新服务，它使用动态导入技术来惰性加载 AngularJS。
 
 
 <code-example path="upgrade-lazy-load-ajs/src/app/lazy-loader.service.ts" header="src/app/lazy-loader.service.ts">
@@ -1374,7 +1374,7 @@ As of Angular version 8, lazy loading code can be accomplished simply by using t
 
 The service uses the `import()` method to load your bundled AngularJS application lazily. This decreases the initial bundle size of your application as you're not loading code your user doesn't need yet. You also need to provide a way to _bootstrap_ the application manually after it has been loaded. AngularJS provides a way to manually bootstrap an application using the [angular.bootstrap()](https://docs.angularjs.org/api/ng/function/angular.bootstrap) method with a provided HTML element. Your AngularJS app should also expose a `bootstrap` method that bootstraps the AngularJS app.
 
-该服务使用 `import()` 方法惰性加载打包好的 AngularJS 应用。这会减少应用初始包的大小，因为你尚未加载用户目前不需要的代码。你还需要提供一种方法，在加载完毕后手动*启动*它。 AngularJS 提供了一种使用 [angular.bootstrap()](https://docs.angularjs.org/api/ng/function/angular.bootstrap) 方法并传入一个 HTML 元素来手动引导应用的方法。你的 AngularJS 应用也应该公开一个用来引导 AngularJS 应用的 `bootstrap` 方法。
+该服务使用 `import()` 方法惰性加载打包好的 AngularJS 应用。这会减少应用初始包的大小，因为你尚未加载用户目前不需要的代码。你还要提供一种方法，在加载完毕后手动*启动*它。 AngularJS 提供了一种使用 [angular.bootstrap()](https://docs.angularjs.org/api/ng/function/angular.bootstrap) 方法并传入一个 HTML 元素来手动引导应用的方法。你的 AngularJS 应用也应该公开一个用来引导 AngularJS 应用的 `bootstrap` 方法。
 
 
 <code-example path="upgrade-lazy-load-ajs/src/app/angularjs-app/index.ts" header="angularjs-app">
@@ -1382,7 +1382,7 @@ The service uses the `import()` method to load your bundled AngularJS applicatio
 
 Your AngularJS application is configured with only the routes it needs to render content. The remaining routes in your application are handled by the Angular Router. The exposed `bootstrap` method is called in your Angular app to bootstrap the AngularJS application after the bundle is loaded.
 
-你的 AngularJS 应用只配置了呈现内容所需的那部分路由。而 Angular 路由器会处理应用中其它的路由。你的 Angular 应用中会调用公开的 `bootstrap` 方法，让它在加载完发布包之后引导 AngularJS 应用。
+你的 AngularJS 应用只配置了呈现内容所需的那部分路由。而 Angular 路由器会处理应用中其余的路由。你的 Angular 应用中会调用公开的 `bootstrap` 方法，让它在加载完发布包之后引导 AngularJS 应用。
 
 
 <div class="alert is-important">
