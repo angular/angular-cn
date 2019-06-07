@@ -33,7 +33,7 @@ There are three kinds of directives in Angular:
    属性型指令 &mdash; 改变元素、组件或其它指令的外观和行为的指令。
 
 *Components* are the most common of the three directives.
-You saw a component for the first time in the [Getting Started](guide/quickstart).
+You saw a component for the first time in the [Getting Started](start "Getting Started with Angular") tutorial.
 
 *组件*是这三种指令中最常用的。
 你在[快速上手](guide/quickstart)例子中第一次见到组件。

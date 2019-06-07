@@ -171,17 +171,18 @@ function readClassValueFromTNode(tNode: TNode): string {
  * Attribute matching depends upon `isInlineTemplate` and `isProjectionMode`.
  * The following table summarizes which types of attributes we attempt to match:
  *
- * =========================================================================================
- * Modes                   | Normal Attributes | Bindings Attributes | Template Attributes
- * =========================================================================================
- * Inline + Projection     | YES               | YES                 | NO
- * -----------------------------------------------------------------------------------------
- * Inline + Directive      | NO                | NO                  | YES
- * -----------------------------------------------------------------------------------------
- * Non-inline + Projection | YES               | YES                 | NO
- * -----------------------------------------------------------------------------------------
- * Non-inline + Directive  | YES               | YES                 | NO
- * =========================================================================================
+ * ===========================================================================================================
+ * Modes                   | Normal Attributes | Bindings Attributes | Template Attributes | I18n
+ * Attributes
+ * ===========================================================================================================
+ * Inline + Projection     | YES               | YES                 | NO                  | YES
+ * -----------------------------------------------------------------------------------------------------------
+ * Inline + Directive      | NO                | NO                  | YES                 | NO
+ * -----------------------------------------------------------------------------------------------------------
+ * Non-inline + Projection | YES               | YES                 | NO                  | YES
+ * -----------------------------------------------------------------------------------------------------------
+ * Non-inline + Directive  | YES               | YES                 | NO                  | YES
+ * ===========================================================================================================
  *
  * @param name the name of the attribute to find
  * @param attrs the attribute array to examine
@@ -203,7 +204,8 @@ function findAttrIndexInNode(
       const maybeAttrName = attrs[i];
       if (maybeAttrName === name) {
         return i;
-      } else if (maybeAttrName === AttributeMarker.Bindings) {
+      } else if (
+          maybeAttrName === AttributeMarker.Bindings || maybeAttrName === AttributeMarker.I18n) {
         bindingsMode = true;
       } else if (maybeAttrName === AttributeMarker.Classes) {
         let value = attrs[++i];
@@ -255,29 +257,6 @@ export function getProjectAsAttrValue(tNode: TNode): CssSelector|null {
   return null;
 }
 
-/**
- * Checks a given node against matching projection selectors and returns
- * selector index (or 0 if none matched).
- *
- * This function takes into account the parsed ngProjectAs selector from the node's attributes.
- * If present, it will check whether the ngProjectAs selector matches any of the projection
- * selectors.
- */
-export function matchingProjectionSelectorIndex(
-    tNode: TNode, selectors: CssSelectorList[]): number {
-  const ngProjectAsAttrVal = getProjectAsAttrValue(tNode);
-  for (let i = 0; i < selectors.length; i++) {
-    // If we ran into an `ngProjectAs` attribute, we should match its parsed selector
-    // to the list of selectors, otherwise we fall back to matching against the node.
-    if (ngProjectAsAttrVal === null ?
-            isNodeMatchingSelectorList(tNode, selectors[i], /* isProjectionMode */ true) :
-            isSelectorInSelectorList(ngProjectAsAttrVal, selectors[i])) {
-      return i + 1;  // first matching selector "captures" a given node
-    }
-  }
-  return 0;
-}
-
 function getNameOnlyMarkerIndex(nodeAttrs: TAttributes) {
   for (let i = 0; i < nodeAttrs.length; i++) {
     const nodeAttr = nodeAttrs[i];
@@ -305,7 +284,7 @@ function matchTemplateAttribute(attrs: TAttributes, name: string): number {
  * @param selector Selector to be checked.
  * @param list List in which to look for the selector.
  */
-function isSelectorInSelectorList(selector: CssSelector, list: CssSelectorList): boolean {
+export function isSelectorInSelectorList(selector: CssSelector, list: CssSelectorList): boolean {
   selectorListLoop: for (let i = 0; i < list.length; i++) {
     const currentSelectorInList = list[i];
     if (selector.length !== currentSelectorInList.length) {

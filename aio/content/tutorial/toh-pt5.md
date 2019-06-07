@@ -769,9 +769,9 @@ You can click a hero in the dashboard or in the heroes list and navigate to that
 你可以在仪表盘或英雄列表中点击一个英雄来导航到该英雄的详情视图。
 
 If you paste `localhost:4200/detail/11` in the browser address bar,
-the router navigates to the detail view for the hero with `id: 11`,  "Mr. Nice".
+the router navigates to the detail view for the hero with `id: 11`,  "Dr Nice".
 
-如果你在浏览器的地址栏中粘贴了 `localhost:4200/detail/11`，路由器也会导航到 `id: 11` 的英雄（"Mr. Nice"）的详情视图。
+如果你在浏览器的地址栏中粘贴了 `localhost:4200/detail/11`，路由器也会导航到 `id: 11` 的英雄（"Dr. Nice"）的详情视图。
 
 {@a goback}
 

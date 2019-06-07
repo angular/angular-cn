@@ -13,7 +13,6 @@ import {BindingForm, convertPropertyBinding} from '../../compiler_util/expressio
 import {ConstantPool, DefinitionKind} from '../../constant_pool';
 import * as core from '../../core';
 import {AST, ParsedEvent, ParsedEventType, ParsedProperty} from '../../expression_parser/ast';
-import {LifecycleHooks} from '../../lifecycle_reflector';
 import {DEFAULT_INTERPOLATION_CONFIG} from '../../ml_parser/interpolation_config';
 import * as o from '../../output/output_ast';
 import {ParseError, ParseSourceSpan, typeSourceSpan} from '../../parse_util';
@@ -668,18 +667,7 @@ function createHostBindingsFunction(
           sanitizerFn = resolveSanitizationFn(securityContexts[0], isAttribute);
         }
       }
-
-      const isPropertyInstruction = instruction === R3.property;
-      const instructionParams: o.Expression[] = isPropertyInstruction ?
-          [
-            o.literal(bindingName),
-            bindingExpr.currValExpr,
-          ] :
-          [
-            elVarExp,
-            o.literal(bindingName),
-            o.importExpr(R3.bind).callFn([bindingExpr.currValExpr]),
-          ];
+      const instructionParams = [o.literal(bindingName), bindingExpr.currValExpr];
       if (sanitizerFn) {
         instructionParams.push(sanitizerFn);
       }
@@ -725,6 +713,7 @@ function createHostBindingsFunction(
     // the update block of a component/directive templateFn/hostBindingsFn so that the bindings
     // are evaluated and updated for the element.
     styleBuilder.buildUpdateLevelInstructions(getValueConverter()).forEach(instruction => {
+      totalHostVarsCount += instruction.allocateBindingSlots;
       updateStatements.push(createStylingStmt(instruction, bindingContext, bindingFn));
     });
   }
@@ -776,14 +765,14 @@ function getBindingNameAndInstruction(binding: ParsedProperty):
   const attrMatches = bindingName.match(ATTR_REGEX);
   if (attrMatches) {
     bindingName = attrMatches[1];
-    instruction = R3.elementAttribute;
+    instruction = R3.attribute;
   } else {
     if (binding.isAnimation) {
       bindingName = prepareSyntheticPropertyName(bindingName);
       // host bindings that have a synthetic property (e.g. @foo) should always be rendered
       // in the context of the component and not the parent. Therefore there is a special
       // compatibility instruction available for this purpose.
-      instruction = R3.componentHostSyntheticProperty;
+      instruction = R3.updateSyntheticHostBinding;
     } else {
       instruction = R3.property;
     }

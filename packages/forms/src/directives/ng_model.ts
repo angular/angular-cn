@@ -58,7 +58,7 @@ export const formControlBinding: any = {
  *   当在指令中使用 `exportAs` 时，这是一个常见问题！
  *
  */
-const resolvedPromise = Promise.resolve(null);
+const resolvedPromise = (() => Promise.resolve(null))();
 
 /**
  * @description

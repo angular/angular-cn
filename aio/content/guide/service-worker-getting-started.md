@@ -117,6 +117,15 @@ With the server running, you can point your browser at http://localhost:8080/. Y
 
 **提示：** 当测试 Angular Service Worker 时，最好使用浏览器中的隐身或隐私窗口，以确保 Service Worker 不会从以前的残留状态中读取数据，否则可能导致意外的行为。
 
+<div class="alert is-helpful">
+
+**Note:**
+If you are not using HTTPS, the service worker will only be registered when accessing the app on `localhost`.
+
+**注意：**
+如果没有使用 HTTPS，那么 Service Worker 只会在 `localhost` 上的应用中进行注册。
+</div>
+
 ### Simulating a network issue
 
 ### 模拟网络出问题
@@ -300,3 +309,4 @@ You may also be interested in the following:
 * [Communicating with service workers](guide/service-worker-communications).
 
    [与 Service Worker 通讯](guide/service-worker-communications)。
+

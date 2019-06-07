@@ -8,6 +8,16 @@
 
 // clang-format off
 export {
+  ɵɵattribute,
+  ɵɵattributeInterpolate1,
+  ɵɵattributeInterpolate2,
+  ɵɵattributeInterpolate3,
+  ɵɵattributeInterpolate4,
+  ɵɵattributeInterpolate5,
+  ɵɵattributeInterpolate6,
+  ɵɵattributeInterpolate7,
+  ɵɵattributeInterpolate8,
+  ɵɵattributeInterpolateV,
   ɵɵdefineBase,
   ɵɵdefineComponent,
   ɵɵdefineDirective,
@@ -47,6 +57,16 @@ export {
   ɵɵelement,
   ɵɵlistener,
   ɵɵtext,
+  ɵɵtextInterpolate,
+  ɵɵtextInterpolate1,
+  ɵɵtextInterpolate2,
+  ɵɵtextInterpolate3,
+  ɵɵtextInterpolate4,
+  ɵɵtextInterpolate5,
+  ɵɵtextInterpolate6,
+  ɵɵtextInterpolate7,
+  ɵɵtextInterpolate8,
+  ɵɵtextInterpolateV,
   ɵɵembeddedViewStart,
   ɵɵprojection,
   ɵɵbind,
@@ -100,7 +120,7 @@ export {
   ɵɵpropertyInterpolate7,
   ɵɵpropertyInterpolate8,
   ɵɵpropertyInterpolateV,
-  ɵɵcomponentHostSyntheticProperty,
+  ɵɵupdateSyntheticHostBinding,
   ɵɵcomponentHostSyntheticListener,
   ɵɵprojectionDef,
   ɵɵreference,
@@ -142,6 +162,8 @@ export {
   ɵɵi18nPostprocess,
   i18nConfigureLocalize as ɵi18nConfigureLocalize,
   ɵɵi18nLocalize,
+  setLocaleId as ɵsetLocaleId,
+  DEFAULT_LOCALE_ID as ɵDEFAULT_LOCALE_ID,
   setClassMetadata as ɵsetClassMetadata,
   ɵɵresolveWindow,
   ɵɵresolveDocument,
@@ -274,10 +296,9 @@ export {
   SWITCH_RENDERER2_FACTORY__POST_R3__ as ɵSWITCH_RENDERER2_FACTORY__POST_R3__,
 } from './render/api';
 
-export {
-  getModuleFactory__POST_R3__ as ɵgetModuleFactory__POST_R3__,
-  registerNgModuleType as ɵregisterNgModuleType,
-} from './linker/ng_module_factory_loader';
+export { getModuleFactory__POST_R3__ as ɵgetModuleFactory__POST_R3__ } from './linker/ng_module_factory_loader';
+
+export { registerNgModuleType as ɵregisterNgModuleType } from './linker/ng_module_factory_registration';
 
 export {
   publishGlobalUtil as ɵpublishGlobalUtil,

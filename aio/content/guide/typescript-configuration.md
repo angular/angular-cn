@@ -155,7 +155,7 @@ The `node_modules/@angular/core/` folder of any Angular application contains sev
 很多库在自己的 npm 包中都包含了它们的类型定义文件，TypeScript 编译器和编辑器都能找到它们。Angular 库也是这样的。
 任何 Angular 应用程序的 `node_modules/@angular/core/` 目录下，都包含几个 `d.ts` 文件，它们描述了 Angular 的各个部分。
 
-**You need do nothing to get *typings* files for library packages that include `d.ts` files.
+**You don't need to do anything to get *typings* files for library packages that include `d.ts` files.
 Angular packages include them already.**
 
 **你不需要为那些包含了 `d.ts` 文件的库获取*类型定义*文件 —— Angular 的所有包都是如此。**

@@ -1,28 +1,38 @@
-# Setup for local development
+# Setup for Upgrading from AngularJS
 
 # 搭建本地开发环境
 
-{@a develop-locally}
+<!-- 
+Question: Can we remove this file and instead direct readers to https://github.com/angular/quickstart/blob/master/README.md
+-->
 
+<div class="alert is-critical">
+
+**Audience:** Use this guide **only** in the context of  [Upgrading from AngularJS](guide/upgrade "Upgrading from AngularJS to Angular") or [Upgrading for Performance](guide/upgrade-performance "Upgrading for Performance"). 
+Those Upgrade guides refer to this Setup guide for information about using the [deprecated QuickStart GitHub repository](https://github.com/angular/quickstart "Deprecated Angular QuickStart GitHub repository"), which was created prior to the current Angular [CLI](cli "CLI Overview"). 
+
+**For all other scenarios,** see the current instructions in [Local Environment Setup](guide/setup-local "Setting up for Local Development").
+
+
+</div>
+
+<!--
 The <live-example name=quickstart>QuickStart live-coding</live-example> example is an Angular _playground_.
-It's not where you'd develop a real application.
-You [should develop locally](guide/setup#why-locally "Why develop locally") on your own machine ... and that's also how we think you should learn Angular.
+There are also some differences from a local app, to simplify that live-coding experience.
+In particular, the QuickStart live-coding example shows just the AppComponent file; it creates the equivalent of app.module.ts and main.ts internally for the playground only.
+-->
 
-<live-example name=quickstart>《快速上手》在线编程</live-example>例子是 Angular 的*游乐场*。
- 它不是开发真实应用的地方。 
- 你应该在自己的电脑上[本地开发](guide/setup#why-locally "为什么在本地开发？")... 你也应该在本地环境学习 Angular。
+This guide describes how to develop locally on your own machine.
+Setting up a new project on your machine is quick and easy with the [QuickStart seed on github](https://github.com/angular/quickstart "Install the github QuickStart repo").
 
-Setting up a new project on your machine is quick and easy with the **QuickStart seed**,
-maintained [on github](https://github.com/angular/quickstart "Install the github QuickStart repo").
+本指南讲的是如何在你自己的机器上进行本地化开发。
+利用 [github 上的**《快速上手》种子**](https://github.com/angular/quickstart "安装 github 《快速上手》库")在你的电脑上搭建一个新项目是很快很容易的。
 
-利用 [github 上](https://github.com/angular/quickstart "安装 github 《快速上手》库")的**《快速上手》种子**在你的电脑上搭建一个新项目是很快很容易的。
+**Prerequisite:** Make sure you have [Node.js® and npm installed](guide/setup-local#prerequisites "Angular prerequisites").
 
-Make sure you have [Node.js® and npm installed](guide/setup#install-prerequisites "What if you don't have Node.js and npm?").
-
-请确保你已经安装了 [Node.js® 和 npm](guide/setup#install-prerequisites "如果你没有 Node.js 和 npm？")。
+**先决条件：**确保你已经安装好了 [Node.js® 和 npm](guide/setup-local#prerequisites "Angular prerequisites")。
 
 {@a clone}
-
 ## Clone
 
 ## 克隆
@@ -122,9 +132,8 @@ Open a terminal window in the project folder and enter the following commands fo
 
 ## 《快速上手》种子库里都有什么？
 
-The **QuickStart seed** contains the same application as the QuickStart playground.
-But its true purpose is to provide a solid foundation for _local_ development.
-Consequently, there are _many more files_ in the project folder on your machine,
+The **QuickStart seed** provides a basic QuickStart playground application and other files necessary for local development.
+Consequently, there are many files in the project folder on your machine,
 most of which you can [learn about later](guide/file-structure).
 
 **《快速上手》种子** 包含了与《快速上手》游乐场一样的应用，但是，它真正的目的是提供坚实的*本地*开发基础。
@@ -364,86 +373,26 @@ You may need [nvm](https://github.com/creationix/nvm) if you already have projec
 我们推荐使用 [nvm](https://github.com/creationix/nvm) 来管理多版本 Node.js 和 npm。
     如果你的电脑上已经有使用其他版本 Node.js 和 npm 的项目，你可能需要 nvm。
 
-{@a why-locally}
 
-## Appendix: Why develop locally
+## Appendix: Develop locally with IE
 
-## 附录：为何在本地开发
+## 附录：用 IE 进行本地化开发
 
-<live-example title="QuickStart Seed in Stackblitz">Live coding</live-example> in the browser is a great way to explore Angular.
+If you develop angular locally with `ng serve`, a `websocket` connection is set up automatically between browser and local dev server, so when your code changes, the browser can automatically refresh.
 
-在浏览器中<live-example title="QuickStart Seed in Stackblitz">在线编程</live-example>是很好的探索 Angular 的方法。
+如果你使用 `ng serve` 进行本地化 Angular 开发，就会自动在浏览器和本地开发服务器之间建立一个 `websocket` 连接，这样，在代码发生变化时，浏览器就会自动刷新。
 
-Links on almost every documentation page open completed samples in the browser.
-You can play with the sample code, share your changes with friends, and download and run the code on your own machine.
+In Windows, by default, one application can only have 6 websocket connections, <a href="https://msdn.microsoft.com/library/ee330736%28v=vs.85%29.aspx?f=255&MSPPError=-2147217396#websocket_maxconn" title="MSDN WebSocket settings">MSDN WebSocket Settings</a>.
+So when IE is refreshed (manually or automatically by `ng serve`), sometimes the websocket does not close properly. When websocket connections exceed the limitations, a `SecurityError` will be thrown. This error will not affect the angular application, you can just restart IE to clear this error, or modify the windows registry to update the limitations.
 
-几乎每章文档里面的链接都在浏览器中打开完整的例子。
-你可以用这些代码做实验，或者与朋友共享你的修改，或者下载并在你自己的电脑上运行这些代码。
+在 Windows 上，默认情况下，每个应用最多只能有 6 个 websocket 连接，参见 <a href="https://msdn.microsoft.com/library/ee330736%28v=vs.85%29.aspx?f=255&MSPPError=-2147217396#websocket_maxconn" title="MSDN WebSocket settings">MSDN 上的 WebSocket 设置</a>。
+所以，当 IE 刷新时（手动刷新或由 `ng serve` 自动刷新），websocket 可能无法正常关闭。当 websocket 连接数超过上限时，就会抛出一个 `SecurityError` 异常。这种错误不会影响 Angular 应用，你可以重启 IE 来清除此异常或在 Windows 注册表中加大这个上限。
 
-The [Getting Started](guide/quickstart "Angular QuickStart Playground") shows just the `AppComponent` file.
-It creates the equivalent of `app.module.ts` and `main.ts` internally _for the playground only_.
-so the reader can discover Angular without distraction.
-The other samples are based on the QuickStart seed.
-
-[快速上手](guide/quickstart "Angular 快速起步游乐场")仅仅展示了 `AppComponent` 文件。
-它在内部创建了只为*游乐场*而准备的等价 `app.module.ts` 和 `main.ts`。
-所以读者可以在零干扰的情况下探索 Angular。
-其他例子是基于 《快速上手》种子的。
-
-As much fun as this is ...
-
-虽然有这么多的乐趣，但是...
-
-* you can't ship your app in Stackblitz
-
-   你不能在 Stackblitz 里面发布你的应用
-
-* you aren't always online when writing code
-
-   编程时你不可能总是在线
-
-* transpiling TypeScript in the browser is slow
-
-   在浏览器中编译 TypeScript 很慢
-
-* the type support, refactoring, and code completion only work in your local IDE
-
-   只有本地 IDE 有类型支持、代码重构和代码自动完成
-
-Use the <live-example title="QuickStart Seed in Stackblitz">live coding</live-example> environment as a _playground_,
-a place to try the documentation samples and experiment on your own.
-It's the perfect place to reproduce a bug when you want to
-<a href="https://github.com/angular/angular/issues/new" title="File a documentation issue">file a documentation issue</a> or
-<a href="https://github.com/angular/angular/issues/new" title="File an Angular issue">file an issue with Angular itself</a>.
-
-把<live-example title="QuickStart Seed in Stackblitz">在线编程</live-example>环境当做*游乐场*，一个尝试文档例子和自己做实验的地方。
-当你想要<a href="https://github.com/angular/angular.io/issues/new" target="_blank" title="提交关于文档的问题">提交关于文档的问题</a>或者
-<a href="https://github.com/angular/angular/issues/new" target="_blank" title="提交关于 Angular 的问题">提交关于 Angular 自身的问题</a>时，
-它是重现错误的完美地方。
-
-For real development, we strongly recommend [developing locally](guide/setup#develop-locally).
-
-对于现实项目开发，我们强烈推荐在[本地开发](guide/setup#develop-locally)。
-
-## Appendix: develop locally with IE
-
-## 附录：使用 IE 进行本地开发
-
-If you develop angular locally with `ng serve`, there will be `websocket` connection being setup automatically between browser and local dev server, so when your code change, browser can automatically refresh.
-
-如果你使用 `ng serve` 在本地进行 Angular 开发，就会在浏览器和本地开发服务器之间自动建立一个 `WebSocket` 连接，因此，当你的代码变化时，浏览器也会自动刷新。
-
-In windows, by default one application can only have 6 websocket connections, <a href="https://msdn.microsoft.com/library/ee330736%28v=vs.85%29.aspx?f=255&MSPPError=-2147217396#websocket_maxconn" title="MSDN WebSocket settings">MSDN WebSocket Settings</a>.
-So if IE was refreshed manunally or automatically by `ng serve`, sometimes, the websocket will not close properly, when websocket connections exceed limitations, `SecurityError` will be thrown, this error will not affect the angular application, you can just restart IE to clear this error, or modify the windows registry to update the limitations.
-
-在 Windows 中，默认情况下一个应用只能有六个 WebSocket 连接，参见 <a href="https://msdn.microsoft.com/library/ee330736%28v=vs.85%29.aspx?f=255&MSPPError=-2147217396#websocket_maxconn" title="MSDN WebSocket settings">MSDN 中的 WebSocket 设置部分</a>。
-所以，如果 IE 手动刷新或被 `ng serve` 触发了自动刷新，有时候 WebSocket 可能无法正常关闭，当 WebSocket 的连接数超限时，就会抛出 `SecurityError` 异常。请放心，这个异常对 Angular 应用没什么影响，你重启一下 IE 就能消除这个错误，或者修改 Windows 注册表来修改这个上限。
-
-## Appendix: test using `fakeAsync()/async()`
+## Appendix: Test using `fakeAsync()/async()`
 
 ## 附录：使用 `fakeAsync()/async()` 进行测试
 
-If you use the `fakeAsync()/async()` helper function to run unit tests (for details, read [testing guide](guide/testing#async-test-with-fakeasync)), you need to import `zone.js/dist/zone-testing` in your test setup file.
+If you use the `fakeAsync()/async()` helper function to run unit tests (for details, read the [Testing guide](guide/testing#async-test-with-fakeasync)), you need to import `zone.js/dist/zone-testing` in your test setup file.
 
 如果你使用 `fakeAsync()/async()` 辅助函数来运行单元测试（详情参见[测试指南](guide/testing#async-test-with-fakeasync)），就要在测试的准备文件中导入 `zone.js/dist/zone-testing`。
 

@@ -42,9 +42,6 @@
     "name": "FLAGS"
   },
   {
-    "name": "FactoryPrototype"
-  },
-  {
     "name": "HEADER_OFFSET"
   },
   {
@@ -129,7 +126,19 @@
     "name": "ViewEncapsulation"
   },
   {
+    "name": "__global"
+  },
+  {
+    "name": "__globalThis"
+  },
+  {
+    "name": "__self"
+  },
+  {
     "name": "__values"
+  },
+  {
+    "name": "__window"
   },
   {
     "name": "_global"
@@ -177,9 +186,6 @@
     "name": "createLView"
   },
   {
-    "name": "createNodeAtIndex"
-  },
-  {
     "name": "createRootComponent"
   },
   {
@@ -190,6 +196,9 @@
   },
   {
     "name": "createTNode"
+  },
+  {
+    "name": "createTNodeAtIndex"
   },
   {
     "name": "createTView"
@@ -255,9 +264,6 @@
     "name": "getDirectiveDef"
   },
   {
-    "name": "getGlobal"
-  },
-  {
     "name": "getHighestElementOrICUContainer"
   },
   {
@@ -289,6 +295,9 @@
   },
   {
     "name": "getOrCreateNodeInjectorForNode"
+  },
+  {
+    "name": "getOrCreateTNode"
   },
   {
     "name": "getOrCreateTView"
@@ -471,7 +480,7 @@
     "name": "setInjectImplementation"
   },
   {
-    "name": "setIsParent"
+    "name": "setIsNotParent"
   },
   {
     "name": "setPreviousOrParentTNode"

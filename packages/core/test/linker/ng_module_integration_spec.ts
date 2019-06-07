@@ -6,7 +6,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 
-import {ANALYZE_FOR_ENTRY_COMPONENTS, CUSTOM_ELEMENTS_SCHEMA, ChangeDetectorRef, Compiler, Component, ComponentFactoryResolver, Directive, HostBinding, Inject, Injectable, InjectionToken, Injector, Input, NgModule, NgModuleRef, Optional, Pipe, Provider, Self, Type, forwardRef, getModuleFactory, ɵivyEnabled as ivyEnabled} from '@angular/core';
+import {ANALYZE_FOR_ENTRY_COMPONENTS, CUSTOM_ELEMENTS_SCHEMA, ChangeDetectorRef, Compiler, Component, ComponentFactoryResolver, Directive, HostBinding, Inject, Injectable, InjectionToken, Injector, Input, NgModule, NgModuleRef, Optional, Pipe, Provider, Self, Type, forwardRef, getModuleFactory, ɵivyEnabled as ivyEnabled, ɵɵdefineNgModule as defineNgModule} from '@angular/core';
 import {Console} from '@angular/core/src/console';
 import {ɵɵInjectableDef, ɵɵdefineInjectable} from '@angular/core/src/di/interface/defs';
 import {getNgModuleDef} from '@angular/core/src/render3/definition';
@@ -17,7 +17,7 @@ import {expect} from '@angular/platform-browser/testing/src/matchers';
 import {modifiedInIvy, obsoleteInIvy, onlyInIvy} from '@angular/private/testing';
 
 import {InternalNgModuleRef, NgModuleFactory} from '../../src/linker/ng_module_factory';
-import {clearModulesForTest} from '../../src/linker/ng_module_factory_loader';
+import {clearModulesForTest} from '../../src/linker/ng_module_factory_registration';
 import {stringify} from '../../src/util/stringify';
 
 class Engine {}
@@ -142,7 +142,7 @@ function declareTests(config?: {useJit: boolean}) {
         // may face a problem where previously compiled defs available to a given
         // Component/Directive are cached in TView and may become stale (in case any of these defs
         // gets recompiled). In order to avoid this problem, we force fresh TView to be created.
-        componentDef.template.ngPrivateData = null;
+        componentDef.TView = null;
       }
 
       const ngModule = createModule(moduleType, injector);
@@ -327,6 +327,40 @@ function declareTests(config?: {useJit: boolean}) {
           createModule(SomeOtherModule);
         }).toThrowError(/Duplicate module registered/);
       });
+
+      it('should not throw immediately if two modules have the same id', () => {
+        expect(() => {
+          @NgModule({id: 'some-module'})
+          class ModuleA {
+          }
+
+          @NgModule({id: 'some-module'})
+          class ModuleB {
+          }
+        }).not.toThrow();
+      });
+
+      onlyInIvy('VE does not allow use of NgModuleFactory without importing the .ngfactory')
+          .it('should register a module even if not importing the .ngfactory file or calling create()',
+              () => {
+                class ChildModule {
+                  static ngModuleDef = defineNgModule({
+                    type: ChildModule,
+                    id: 'child',
+                  });
+                }
+
+                class Module {
+                  static ngModuleDef = defineNgModule({
+                    type: Module,
+                    id: 'test',
+                    imports: [ChildModule],
+                  });
+                }
+
+                createModuleFactory(ChildModule);
+                expect(getModuleFactory('child')).toBeAnInstanceOf(NgModuleFactory);
+              });
     });
 
     describe('entryComponents', () => {

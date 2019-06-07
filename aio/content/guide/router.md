@@ -5372,9 +5372,10 @@ Open the `AppRoutingModule` and add a new `admin` route to its `appRoutes` array
 
 打开 `AppRoutingModule`，并把一个新的 `admin` 路由添加到它的 `appRoutes` 数组中。
 
-Give it a `loadChildren` property instead of a `children` property, set to the address of the `AdminModule`.
-The address is the `AdminModule` file location (relative to the app root),
-followed by a `#` separator, followed by the name of the exported module class, `AdminModule`.
+Give it a `loadChildren` property instead of a `children` property.
+The `loadChildren` property takes a function that returns a promise using the browser's built-in syntax for lazy loading code using dynamic imports `import('...')`.
+The path is the location of the `AdminModule` (relative to the app root).
+After the code is requested and loaded, the `Promise` resolves an object that contains the `NgModule`, in this case the  `AdminModule`.
 
 给它一个 `loadChildren` 属性（替换掉 `children` 属性），把它设置为 `AdminModule` 的地址。
 该地址是 `AdminModule` 的文件路径（相对于 `app` 目录的），加上一个 `#` 分隔符，再加上导出模块的类名 `AdminModule`。

@@ -1,16 +1,16 @@
-# Dependency Injection in Angular 
+# Dependency Injection in Angular
 
 # Angular 中的依赖注入
 
 Dependency injection (DI), is an important application design pattern.
-Angular has its own DI framework, which is typically 
+Angular has its own DI framework, which is typically
 used in the design of Angular applications to increase their efficiency and modularity.
 
 依赖注入（DI）是一种重要的应用设计模式。
 Angular 有自己的 DI 框架，在设计应用时常会用到它，以提升它们的开发效率和模块化程度。
 
 Dependencies are services or objects that a class needs to perform its function.
-DI is a coding pattern in which a class asks for dependencies from external sources rather than creating them itself. 
+DI is a coding pattern in which a class asks for dependencies from external sources rather than creating them itself.
 
 依赖，是当类需要执行其功能时，所需要的服务或对象。
 DI 是一种编码模式，其中的类会从外部源中请求获取依赖，而不是自己创建它们。
@@ -85,7 +85,7 @@ Having multiple classes in the same file can be confusing. We generally recommen
 在同一个文件中放多个类容易让人困惑。我们通常建议你在单独的文件中定义组件和服务。
 
 If you do combine a component and service in the same file,
-it is important to define the service first, and then the component. If you define the component before the service, you get a run-time null reference error. 
+it is important to define the service first, and then the component. If you define the component before the service, you get a run-time null reference error.
 
 如果你把组件和服务都放在同一个文件中，请务必先定义服务，然后再定义组件。如果在服务之前定义组件，则会在运行时收到一个空引用错误。
 
@@ -136,24 +136,24 @@ The `@Injectable()` is an essential ingredient in every Angular service definiti
 
 The class we have created provides a service. The `@Injectable()` decorator marks it as a service
 that can be injected, but Angular can't actually inject it anywhere until you configure
-an Angular [dependency injector](guide/glossary#injector) with a [provider](guide/glossary#provider) of that service. 
+an Angular [dependency injector](guide/glossary#injector) with a [provider](guide/glossary#provider) of that service.
 
 我们创建的类提供了一个服务。`@Injectable()` 装饰器把它标记为可供注入的服务，不过在你使用该服务的 [provider](guide/glossary#provider) 提供商配置好 Angular 的[依赖注入器](guide/glossary#injector)之前，Angular 实际上无法将其注入到任何位置。
 
-The injector is responsible for creating service instances and injecting them into classes like `HeroListComponent`.  
+The injector is responsible for creating service instances and injecting them into classes like `HeroListComponent`.
 You rarely create an Angular injector yourself. Angular creates injectors for you as it executes the app, starting with the _root injector_ that it creates during the [bootstrap process](guide/bootstrapping).
 
 该注入器负责创建服务实例，并把它们注入到像 `HeroListComponent` 这样的类中。
 你很少需要自己创建 Angular 的注入器。Angular 会在执行应用时为你创建注入器，第一个注入器是*根注入器*，创建于[启动过程](guide/bootstrapping)中。
 
-A provider tells an injector _how to create the service_. 
-You must configure an injector with a provider before that injector can create a service (or provide any other kind of dependency). 
+A provider tells an injector _how to create the service_.
+You must configure an injector with a provider before that injector can create a service (or provide any other kind of dependency).
 
 提供商会告诉注入器*如何创建该服务*。
 要想让注入器能够创建服务（或提供其它类型的依赖），你必须使用某个提供商配置好注入器。
 
 A provider can be the service class itself, so that the injector can use `new` to create an instance.
-You might also define more than one class to provide the same service in different ways, 
+You might also define more than one class to provide the same service in different ways,
 and configure different injectors with different providers.
 
 提供商可以是服务类本身，因此注入器可以使用 `new` 来创建实例。
@@ -162,10 +162,10 @@ and configure different injectors with different providers.
 <div class="alert is-helpful">
 
 Injectors are inherited, which means that if a given injector can't resolve a dependency,
-it asks the parent injector to resolve it.  
-A component can get services from its own injector, 
-from the injectors of its component ancestors, 
-from the injector of its parent NgModule, or from the `root` injector. 
+it asks the parent injector to resolve it.
+A component can get services from its own injector,
+from the injectors of its component ancestors,
+from the injector of its parent NgModule, or from the `root` injector.
 
 注入器是可继承的，这意味着如果指定的注入器无法解析某个依赖，它就会请求父注入器来解析它。
 组件可以从它自己的注入器来获取服务、从其祖先组件的注入器中获取、从其父 NgModule 的注入器中获取，或从 `root` 注入器中获取。
@@ -192,7 +192,7 @@ You can configure injectors with providers at different levels of your app, by s
 
   在 NgModule 的 `@NgModule()` 装饰器中。
 
-* In the `@Component()` decorator for a component. 
+* In the `@Component()` decorator for a component.
 
   在组件的 `@Component()` 装饰器中。
 
@@ -217,14 +217,14 @@ Learn more about [where to configure providers](guide/hierarchical-dependency-in
 
 </div>
 
-{@a injector-config} 
+{@a injector-config}
 {@a bootstrap}
 
 ## Injecting services
 
 ## 注入服务
 
-In order for `HeroListComponent` to get heroes from `HeroService`, it needs to ask for `HeroService` to be injected, rather than creating it's own `HeroService` instance with `new`.
+In order for `HeroListComponent` to get heroes from `HeroService`, it needs to ask for `HeroService` to be injected, rather than creating its own `HeroService` instance with `new`.
 
 `HeroListComponent` 要想从 `HeroService` 中获取英雄列表，就得要求注入 `HeroService`，而不是自己使用 `new` 来创建自己的 `HeroService` 实例。
 
@@ -263,7 +263,7 @@ If you decided to provide `HeroService` in `AppModule`, `HeroListComponent` woul
 
 ### 注入器树与服务实例
 
-Services are singletons _within the scope of an injector_. That is, there is at most one instance of a service in a given injector. 
+Services are singletons _within the scope of an injector_. That is, there is at most one instance of a service in a given injector.
 
 *在某个注入器*的范围内，服务是单例的。也就是说，在指定的注入器中最多只有某个服务的最多一个实例。
 
@@ -272,15 +272,15 @@ There is only one root injector for an app. Providing `UserService` at the `root
 应用只有一个根注入器。在 `root` 或 `AppModule` 级提供 `UserService` 意味着它注册到了根注入器上。
 在整个应用中只有一个 `UserService` 实例，每个要求注入 `UserService` 的类都会得到这一个服务实例，*除非*你在*子注入器*中配置了另一个提供商。
 
-Angular DI has a [hierarchical injection system](guide/hierarchical-dependency-injection), which means that nested injectors can create their own service instances. 
+Angular DI has a [hierarchical injection system](guide/hierarchical-dependency-injection), which means that nested injectors can create their own service instances.
 Angular regularly creates nested injectors. Whenever Angular creates a new instance of a component that has `providers` specified in `@Component()`, it also creates a new _child injector_ for that instance.
-Similarly, when a new NgModule is lazy-loaded at run time, Angular can create an injector for it with its own providers. 
+Similarly, when a new NgModule is lazy-loaded at run time, Angular can create an injector for it with its own providers.
 
 Angular DI 具有[分层注入体系](guide/hierarchical-dependency-injection)，这意味着下级注入器也可以创建它们自己的服务实例。
 Angular 会有规律的创建下级注入器。每当 Angular 创建一个在 `@Component()` 中指定了 `providers` 的组件实例时，它也会为该实例创建一个新的*子注入器*。
 类似的，当在运行期间加载一个新的 NgModule 时，Angular 也可以为它创建一个拥有自己的提供商的注入器。
 
-Child modules and component injectors are independent of each other, and create their own separate instances of the provided services. When Angular destroys an NgModule or component instance, it also destroys that injector and that injector's service instances. 
+Child modules and component injectors are independent of each other, and create their own separate instances of the provided services. When Angular destroys an NgModule or component instance, it also destroys that injector and that injector's service instances.
 
 子模块和组件注入器彼此独立，并且会为所提供的服务分别创建自己的实例。当 Angular 销毁 NgModule 或组件实例时，也会销毁这些注入器以及注入器中的那些服务实例。
 
@@ -326,7 +326,7 @@ Learn more in the [Testing](guide/testing) guide.
 
 {@a service-needs-service}
 
-## Services that need other services 
+## Services that need other services
 
 ## 那些需要其它服务的服务
 
@@ -363,7 +363,7 @@ Notice that the `Logger` service also has the `@Injectable()` decorator, even th
 注意，虽然 `Logger` 服务没有自己的依赖项，但是它同样带有 `@Injectable()` 装饰器。实际上，`@Injectable()` **对所有服务都是必须的**。
 
 When Angular creates a class whose constructor has parameters, it looks for type and injection metadata about those parameters so that it can inject the correct service.
-If Angular can't find that parameter information, it throws an error. 
+If Angular can't find that parameter information, it throws an error.
 Angular can only find the parameter information _if the class has a decorator of some kind_.
 The `@Injectable()` decorator is the standard decorator for service classes.
 
@@ -377,7 +377,6 @@ The `@Injectable()` decorator is the standard decorator for service classes.
  The decorator requirement is imposed by TypeScript. TypeScript normally discards parameter type information when it [transpiles](guide/glossary#transpile) the code to JavaScript. TypeScript preserves this information if the class has a decorator and the `emitDecoratorMetadata` compiler option is set `true` in TypeScript's `tsconfig.json` configuration file. The CLI configures `tsconfig.json` with `emitDecoratorMetadata: true`.
 
  对装饰器的需求是 TypeScript 强制要求的。当 TypeScript 把代码[转译](guide/glossary#transpile)成 JavaScript 时，一般会丢弃参数的类型信息。只有当类具有装饰器，并且 `tsconfig.json` 中的编译器选项 `emitDecoratorMetadata` 为 `true` 时，TypeScript 才会保留这些信息。CLI 所配置的 `tsconfig.json` 就带有 `emitDecoratorMetadata: true`。
-
  This means you're responsible for putting `@Injectable()` on your service classes.
 
  这意味着你有责任给所有服务类加上 `@Injectable()`。
@@ -419,7 +418,7 @@ Angular knows to inject the service associated with that `HeroService` class tok
 <code-example path="dependency-injection/src/app/heroes/hero-list.component.ts" region="ctor-signature" header="src/app/heroes/hero-list.component.ts">
 </code-example>
 
-Many dependency values are provided by classes, but not all. The expanded *provide* object lets you associate different kinds of providers with a DI token. 
+Many dependency values are provided by classes, but not all. The expanded *provide* object lets you associate different kinds of providers with a DI token.
 
 很多依赖项的值都是通过类来提供的，但不是全部。扩展的 *provide* 对象让你可以把多种不同种类的提供商和 DI 令牌关联起来。
 
@@ -438,7 +437,7 @@ one?
 
 `HeroService` *需要*一个记录器，但是如果找不到它会怎么样？
 
-When a component or service declares a dependency, the class constructor takes that dependency as a parameter. 
+When a component or service declares a dependency, the class constructor takes that dependency as a parameter.
 You can tell Angular that the dependency is optional by annotating the
 constructor parameter with `@Optional()`.
 

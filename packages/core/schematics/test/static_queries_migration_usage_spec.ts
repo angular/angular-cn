@@ -127,6 +127,26 @@ describe('static-queries migration with usage strategy', () => {
           .toContain(`@ContentChild('test', { static: false }) query: any;`);
     });
 
+    it('should not mark content queries used in "ngAfterContentInit" as static (BOM)', async() => {
+      writeFile('/index.ts', `\uFEFF
+        import {Component, ContentChild} from '@angular/core';
+
+        @Component({template: '<span #test></span>'})
+        export class MyComp {
+          @ContentChild('test') query: any;
+
+          ngAfterContentInit() {
+            this.query.classList.add('test');
+          }
+        }
+      `);
+
+      await runMigration();
+
+      expect(tree.readContent('/index.ts'))
+          .toContain(`@ContentChild('test', { static: false }) query: any;`);
+    });
+
     it('should not mark content queries used in "ngAfterContentChecked" as static', async() => {
       writeFile('/index.ts', `
         import {Component, ContentChild} from '@angular/core';
@@ -1504,23 +1524,6 @@ describe('static-queries migration with usage strategy', () => {
 
       expect(tree.readContent('/src/index.ts'))
           .toContain(`@${queryType}('test', { static: false }) query: any;`);
-    });
-
-    it(`should not prompt for migration strategy if no @${queryType} query is used`, async() => {
-      writeFile('/index.ts', `
-        import {Component, ${queryType}} from '@angular/core';
-
-        @Component({template: '<span #test></span>'})
-        export class NoQueriesDeclared {
-        }
-      `);
-
-      const testModule = require('../migrations/static-queries/strategy_prompt');
-      spyOn(testModule, 'promptForMigrationStrategy').and.callThrough();
-
-      await runMigration();
-
-      expect(testModule.promptForMigrationStrategy).toHaveBeenCalledTimes(0);
     });
 
     it('should support function call with default parameter value', async() => {

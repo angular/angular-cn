@@ -11,7 +11,6 @@ import {resolveForwardRef} from '../../di/forward_ref';
 import {NG_INJECTOR_DEF} from '../../di/interface/defs';
 import {reflectDependencies} from '../../di/jit/util';
 import {Type} from '../../interface/type';
-import {registerNgModuleType} from '../../linker/ng_module_factory_loader';
 import {Component} from '../../metadata';
 import {ModuleWithProviders, NgModule, NgModuleDef, NgModuleTransitiveScopes} from '../../metadata/ng_module';
 import {flatten} from '../../util/array_utils';
@@ -95,12 +94,16 @@ export function compileNgModule(moduleType: Type<any>, ngModule: NgModule = {}):
 
 /**
  * Compiles and adds the `ngModuleDef` and `ngInjectorDef` properties to the module class.
+ *
+ * It's possible to compile a module via this API which will allow duplicate declarations in its
+ * root.
  */
-export function compileNgModuleDefs(moduleType: NgModuleType, ngModule: NgModule): void {
+export function compileNgModuleDefs(
+    moduleType: NgModuleType, ngModule: NgModule,
+    allowDuplicateDeclarationsInRoot: boolean = false): void {
   ngDevMode && assertDefined(moduleType, 'Required value moduleType');
   ngDevMode && assertDefined(ngModule, 'Required value ngModule');
   const declarations: Type<any>[] = flatten(ngModule.declarations || EMPTY_ARRAY);
-
   let ngModuleDef: any = null;
   Object.defineProperty(moduleType, NG_MODULE_DEF, {
     configurable: true,
@@ -109,28 +112,29 @@ export function compileNgModuleDefs(moduleType: NgModuleType, ngModule: NgModule
         ngModuleDef = getCompilerFacade().compileNgModule(
             angularCoreEnv, `ng:///${moduleType.name}/ngModuleDef.js`, {
               type: moduleType,
-              bootstrap: flatten(ngModule.bootstrap || EMPTY_ARRAY, resolveForwardRef),
+              bootstrap: flatten(ngModule.bootstrap || EMPTY_ARRAY).map(resolveForwardRef),
               declarations: declarations.map(resolveForwardRef),
-              imports: flatten(ngModule.imports || EMPTY_ARRAY, resolveForwardRef)
+              imports: flatten(ngModule.imports || EMPTY_ARRAY)
+                           .map(resolveForwardRef)
                            .map(expandModuleWithProviders),
-              exports: flatten(ngModule.exports || EMPTY_ARRAY, resolveForwardRef)
+              exports: flatten(ngModule.exports || EMPTY_ARRAY)
+                           .map(resolveForwardRef)
                            .map(expandModuleWithProviders),
               emitInline: true,
               schemas: ngModule.schemas ? flatten(ngModule.schemas) : null,
+              id: ngModule.id || null,
             });
       }
       return ngModuleDef;
     }
   });
-  if (ngModule.id) {
-    registerNgModuleType(ngModule.id, moduleType);
-  }
 
   let ngInjectorDef: any = null;
   Object.defineProperty(moduleType, NG_INJECTOR_DEF, {
     get: () => {
       if (ngInjectorDef === null) {
-        ngDevMode && verifySemanticsOfNgModuleDef(moduleType as any as NgModuleType);
+        ngDevMode && verifySemanticsOfNgModuleDef(
+                         moduleType as any as NgModuleType, allowDuplicateDeclarationsInRoot);
         const meta: R3InjectorMetadataFacade = {
           name: moduleType.name,
           type: moduleType,
@@ -151,7 +155,8 @@ export function compileNgModuleDefs(moduleType: NgModuleType, ngModule: NgModule
   });
 }
 
-function verifySemanticsOfNgModuleDef(moduleType: NgModuleType): void {
+function verifySemanticsOfNgModuleDef(
+    moduleType: NgModuleType, allowDuplicateDeclarationsInRoot: boolean): void {
   if (verifiedNgModule.get(moduleType)) return;
   verifiedNgModule.set(moduleType, true);
   moduleType = resolveForwardRef(moduleType);
@@ -159,22 +164,25 @@ function verifySemanticsOfNgModuleDef(moduleType: NgModuleType): void {
   const errors: string[] = [];
   const declarations = maybeUnwrapFn(ngModuleDef.declarations);
   const imports = maybeUnwrapFn(ngModuleDef.imports);
-  flatten(imports, unwrapModuleWithProvidersImports).forEach(verifySemanticsOfNgModuleDef);
+  flatten(imports)
+      .map(unwrapModuleWithProvidersImports)
+      .forEach(mod => verifySemanticsOfNgModuleDef(mod, false));
   const exports = maybeUnwrapFn(ngModuleDef.exports);
   declarations.forEach(verifyDeclarationsHaveDefinitions);
   const combinedDeclarations: Type<any>[] = [
     ...declarations.map(resolveForwardRef),  //
-    ...flatten(imports.map(computeCombinedExports), resolveForwardRef),
+    ...flatten(imports.map(computeCombinedExports)).map(resolveForwardRef),
   ];
   exports.forEach(verifyExportsAreDeclaredOrReExported);
-  declarations.forEach(verifyDeclarationIsUnique);
+  declarations.forEach(decl => verifyDeclarationIsUnique(decl, allowDuplicateDeclarationsInRoot));
   declarations.forEach(verifyComponentEntryComponentsIsPartOfNgModule);
 
   const ngModule = getAnnotation<NgModule>(moduleType, 'NgModule');
   if (ngModule) {
     ngModule.imports &&
-        flatten(ngModule.imports, unwrapModuleWithProvidersImports)
-            .forEach(verifySemanticsOfNgModuleDef);
+        flatten(ngModule.imports)
+            .map(unwrapModuleWithProvidersImports)
+            .forEach(mod => verifySemanticsOfNgModuleDef(mod, false));
     ngModule.bootstrap && ngModule.bootstrap.forEach(verifyCorrectBootstrapType);
     ngModule.bootstrap && ngModule.bootstrap.forEach(verifyComponentIsPartOfNgModule);
     ngModule.entryComponents && ngModule.entryComponents.forEach(verifyComponentIsPartOfNgModule);
@@ -209,15 +217,17 @@ function verifySemanticsOfNgModuleDef(moduleType: NgModuleType): void {
     }
   }
 
-  function verifyDeclarationIsUnique(type: Type<any>) {
+  function verifyDeclarationIsUnique(type: Type<any>, suppressErrors: boolean) {
     type = resolveForwardRef(type);
     const existingModule = ownerNgModule.get(type);
     if (existingModule && existingModule !== moduleType) {
-      const modules = [existingModule, moduleType].map(stringifyForError).sort();
-      errors.push(
-          `Type ${stringifyForError(type)} is part of the declarations of 2 modules: ${modules[0]} and ${modules[1]}! ` +
-          `Please consider moving ${stringifyForError(type)} to a higher module that imports ${modules[0]} and ${modules[1]}. ` +
-          `You can also create a new NgModule that exports and includes ${stringifyForError(type)} then import that NgModule in ${modules[0]} and ${modules[1]}.`);
+      if (!suppressErrors) {
+        const modules = [existingModule, moduleType].map(stringifyForError).sort();
+        errors.push(
+            `Type ${stringifyForError(type)} is part of the declarations of 2 modules: ${modules[0]} and ${modules[1]}! ` +
+            `Please consider moving ${stringifyForError(type)} to a higher module that imports ${modules[0]} and ${modules[1]}. ` +
+            `You can also create a new NgModule that exports and includes ${stringifyForError(type)} then import that NgModule in ${modules[0]} and ${modules[1]}.`);
+      }
     } else {
       // Mark type as having owner.
       ownerNgModule.set(type, moduleType);
@@ -312,7 +322,7 @@ function computeCombinedExports(type: Type<any>): Type<any>[] {
   return [...flatten(maybeUnwrapFn(ngModuleDef.exports).map((type) => {
     const ngModuleDef = getNgModuleDef(type);
     if (ngModuleDef) {
-      verifySemanticsOfNgModuleDef(type as any as NgModuleType);
+      verifySemanticsOfNgModuleDef(type as any as NgModuleType, false);
       return computeCombinedExports(type);
     } else {
       return type;
@@ -364,7 +374,7 @@ export function patchComponentDefWithScope<C>(
   // may face a problem where previously compiled defs available to a given Component/Directive
   // are cached in TView and may become stale (in case any of these defs gets recompiled). In
   // order to avoid this problem, we force fresh TView to be created.
-  componentDef.template.ngPrivateData = undefined;
+  componentDef.tView = null;
 }
 
 /**

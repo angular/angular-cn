@@ -6,17 +6,23 @@
  * found in the LICENSE file at https://angular.io/license
  */
 
-import {ApplicationInitStatus, COMPILER_OPTIONS, Compiler, Component, Directive, ModuleWithComponentFactories, NgModule, NgModuleFactory, NgZone, Injector, Pipe, PlatformRef, Provider, Type, ɵcompileComponent as compileComponent, ɵcompileDirective as compileDirective, ɵcompileNgModuleDefs as compileNgModuleDefs, ɵcompilePipe as compilePipe, ɵgetInjectableDef as getInjectableDef, ɵNG_COMPONENT_DEF as NG_COMPONENT_DEF, ɵNG_DIRECTIVE_DEF as NG_DIRECTIVE_DEF, ɵNG_INJECTOR_DEF as NG_INJECTOR_DEF, ɵNG_MODULE_DEF as NG_MODULE_DEF, ɵNG_PIPE_DEF as NG_PIPE_DEF, ɵRender3ComponentFactory as ComponentFactory, ɵRender3NgModuleRef as NgModuleRef, ɵɵInjectableDef as InjectableDef, ɵNgModuleFactory as R3NgModuleFactory, ɵNgModuleTransitiveScopes as NgModuleTransitiveScopes, ɵNgModuleType as NgModuleType, ɵDirectiveDef as DirectiveDef, ɵpatchComponentDefWithScope as patchComponentDefWithScope, ɵtransitiveScopesFor as transitiveScopesFor,} from '@angular/core';
 import {ResourceLoader} from '@angular/compiler';
+import {ApplicationInitStatus, COMPILER_OPTIONS, Compiler, Component, Directive, Injector, LOCALE_ID, ModuleWithComponentFactories, NgModule, NgModuleFactory, NgZone, Pipe, PlatformRef, Provider, Type, ɵDEFAULT_LOCALE_ID as DEFAULT_LOCALE_ID, ɵDirectiveDef as DirectiveDef, ɵNG_COMPONENT_DEF as NG_COMPONENT_DEF, ɵNG_DIRECTIVE_DEF as NG_DIRECTIVE_DEF, ɵNG_INJECTOR_DEF as NG_INJECTOR_DEF, ɵNG_MODULE_DEF as NG_MODULE_DEF, ɵNG_PIPE_DEF as NG_PIPE_DEF, ɵNgModuleFactory as R3NgModuleFactory, ɵNgModuleTransitiveScopes as NgModuleTransitiveScopes, ɵNgModuleType as NgModuleType, ɵRender3ComponentFactory as ComponentFactory, ɵRender3NgModuleRef as NgModuleRef, ɵcompileComponent as compileComponent, ɵcompileDirective as compileDirective, ɵcompileNgModuleDefs as compileNgModuleDefs, ɵcompilePipe as compilePipe, ɵgetInjectableDef as getInjectableDef, ɵpatchComponentDefWithScope as patchComponentDefWithScope, ɵsetLocaleId as setLocaleId, ɵtransitiveScopesFor as transitiveScopesFor, ɵɵInjectableDef as InjectableDef} from '@angular/core';
 
-import {clearResolutionOfComponentResourcesQueue, restoreComponentResolutionQueue, resolveComponentResources, isComponentDefPendingResolution} from '../../src/metadata/resource_loading';
-
+import {clearResolutionOfComponentResourcesQueue, isComponentDefPendingResolution, resolveComponentResources, restoreComponentResolutionQueue} from '../../src/metadata/resource_loading';
 import {MetadataOverride} from './metadata_override';
 import {ComponentResolver, DirectiveResolver, NgModuleResolver, PipeResolver, Resolver} from './resolvers';
 import {TestModuleMetadata} from './test_bed_common';
 
-const TESTING_MODULE = 'TestingModule';
-type TESTING_MODULE = typeof TESTING_MODULE;
+enum TestingModuleOverride {
+  DECLARATION,
+  OVERRIDE_TEMPLATE,
+}
+
+function isTestingModuleOverride(value: unknown): value is TestingModuleOverride {
+  return value === TestingModuleOverride.DECLARATION ||
+      value === TestingModuleOverride.OVERRIDE_TEMPLATE;
+}
 
 // Resolvers for Angular decorators
 type Resolvers = {
@@ -56,7 +62,7 @@ export class R3TestBedCompiler {
 
   private resolvers: Resolvers = initResolvers();
 
-  private componentToModuleScope = new Map<Type<any>, Type<any>|TESTING_MODULE>();
+  private componentToModuleScope = new Map<Type<any>, Type<any>|TestingModuleOverride>();
 
   // Map that keeps initial version of component/directive/pipe defs in case
   // we compile a Type again, thus overriding respective static fields. This is
@@ -92,7 +98,7 @@ export class R3TestBedCompiler {
   configureTestingModule(moduleDef: TestModuleMetadata): void {
     // Enqueue any compilation tasks for the directly declared component.
     if (moduleDef.declarations !== undefined) {
-      this.queueTypeArray(moduleDef.declarations, TESTING_MODULE);
+      this.queueTypeArray(moduleDef.declarations, TestingModuleOverride.DECLARATION);
       this.declarations.push(...moduleDef.declarations);
     }
 
@@ -188,7 +194,7 @@ export class R3TestBedCompiler {
     }
 
     // Set the component's scope to be the testing module.
-    this.componentToModuleScope.set(type, TESTING_MODULE);
+    this.componentToModuleScope.set(type, TestingModuleOverride.OVERRIDE_TEMPLATE);
   }
 
   async compileComponents(): Promise<void> {
@@ -231,6 +237,9 @@ export class R3TestBedCompiler {
     const parentInjector = this.platform.injector;
     this.testModuleRef = new NgModuleRef(this.testModuleType, parentInjector);
 
+    // Set the locale ID, it can be overridden for the tests
+    const localeId = this.testModuleRef.injector.get(LOCALE_ID, DEFAULT_LOCALE_ID);
+    setLocaleId(localeId);
 
     // ApplicationInitStatus.runInitializers() is marked @internal to core.
     // Cast it to any before accessing it.
@@ -306,14 +315,15 @@ export class R3TestBedCompiler {
   }
 
   private applyTransitiveScopes(): void {
-    const moduleToScope = new Map<Type<any>|TESTING_MODULE, NgModuleTransitiveScopes>();
-    const getScopeOfModule = (moduleType: Type<any>| TESTING_MODULE): NgModuleTransitiveScopes => {
-      if (!moduleToScope.has(moduleType)) {
-        const realType = moduleType === TESTING_MODULE ? this.testModuleType : moduleType;
-        moduleToScope.set(moduleType, transitiveScopesFor(realType));
-      }
-      return moduleToScope.get(moduleType) !;
-    };
+    const moduleToScope = new Map<Type<any>|TestingModuleOverride, NgModuleTransitiveScopes>();
+    const getScopeOfModule =
+        (moduleType: Type<any>| TestingModuleOverride): NgModuleTransitiveScopes => {
+          if (!moduleToScope.has(moduleType)) {
+            const realType = isTestingModuleOverride(moduleType) ? this.testModuleType : moduleType;
+            moduleToScope.set(moduleType, transitiveScopesFor(realType));
+          }
+          return moduleToScope.get(moduleType) !;
+        };
 
     this.componentToModuleScope.forEach((moduleType, componentType) => {
       const moduleScope = getScopeOfModule(moduleType);
@@ -370,7 +380,7 @@ export class R3TestBedCompiler {
     this.existingComponentStyles.clear();
   }
 
-  private queueTypeArray(arr: any[], moduleType: Type<any>|TESTING_MODULE): void {
+  private queueTypeArray(arr: any[], moduleType: Type<any>|TestingModuleOverride): void {
     for (const value of arr) {
       if (Array.isArray(value)) {
         this.queueTypeArray(value, moduleType);
@@ -392,7 +402,7 @@ export class R3TestBedCompiler {
     compileNgModuleDefs(ngModule as NgModuleType<any>, metadata);
   }
 
-  private queueType(type: Type<any>, moduleType: Type<any>|TESTING_MODULE): void {
+  private queueType(type: Type<any>, moduleType: Type<any>|TestingModuleOverride): void {
     const component = this.resolvers.component.resolve(type);
     if (component) {
       // Check whether a give Type has respective NG def (ngComponentDef) and compile if def is
@@ -404,9 +414,22 @@ export class R3TestBedCompiler {
       this.seenComponents.add(type);
 
       // Keep track of the module which declares this component, so later the component's scope
-      // can be set correctly. Only record this the first time, because it might be overridden by
-      // overrideTemplateUsingTestingModule.
-      if (!this.componentToModuleScope.has(type)) {
+      // can be set correctly. If the component has already been recorded here, then one of several
+      // cases is true:
+      // * the module containing the component was imported multiple times (common).
+      // * the component is declared in multiple modules (which is an error).
+      // * the component was in 'declarations' of the testing module, and also in an imported module
+      //   in which case the module scope will be TestingModuleOverride.DECLARATION.
+      // * overrideTemplateUsingTestingModule was called for the component in which case the module
+      //   scope will be TestingModuleOverride.OVERRIDE_TEMPLATE.
+      //
+      // If the component was previously in the testing module's 'declarations' (meaning the
+      // current value is TestingModuleOverride.DECLARATION), then `moduleType` is the component's
+      // real module, which was imported. This pattern is understood to mean that the component
+      // should use its original scope, but that the testing module should also contain the
+      // component in its scope.
+      if (!this.componentToModuleScope.has(type) ||
+          this.componentToModuleScope.get(type) === TestingModuleOverride.DECLARATION) {
         this.componentToModuleScope.set(type, moduleType);
       }
       return;
@@ -502,6 +525,8 @@ export class R3TestBedCompiler {
     this.initialNgDefs.clear();
     this.moduleProvidersOverridden.clear();
     this.restoreComponentResolutionQueue();
+    // Restore the locale ID to the default value, this shouldn't be necessary but we never know
+    setLocaleId(DEFAULT_LOCALE_ID);
   }
 
   private compileTestModule(): void {
@@ -525,7 +550,7 @@ export class R3TestBedCompiler {
       imports,
       schemas: this.schemas,
       providers,
-    });
+    }, /* allowDuplicateDeclarationsInRoot */ true);
     // clang-format on
 
     this.applyProviderOverridesToModule(this.testModuleType);

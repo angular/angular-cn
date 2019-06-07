@@ -158,6 +158,29 @@ describe('static-queries migration with template strategy', () => {
           .toContain(`@ViewChild('myTmpl', { static: true }) query: any;`);
     });
 
+    it('should detect queries selecting ng-template as static (BOM)', async() => {
+      writeFile('/index.ts', `\uFEFF
+        import {Component, NgModule, ViewChild} from '@angular/core';
+
+        @Component({template: \`
+          <ng-template #myTmpl>
+            My template
+          </ng-template>
+        \`})
+        export class MyComp {
+          private @ViewChild('myTmpl') query: any;
+        }
+
+        @NgModule({declarations: [MyComp]})
+        export class MyModule {}
+      `);
+
+      await runMigration();
+
+      expect(tree.readContent('/index.ts'))
+          .toContain(`@ViewChild('myTmpl', { static: true }) query: any;`);
+    });
+
     it('should detect queries selecting component view providers through string token', async() => {
       writeFile('/index.ts', `
         import {Component, Directive, NgModule, ViewChild} from '@angular/core';
@@ -498,6 +521,115 @@ describe('static-queries migration with template strategy', () => {
               /^⮑ {3}index.ts@5:11: Multiple components use the query with different timings./);
     });
 
+    it('should be able to migrate an application with type checking failure which ' +
+           'does not affect analysis',
+       async() => {
+         // Fakes the `@angular/package` by creating a `ViewChild` decorator
+         // function that requires developers to specify the "static" flag.
+         writeFile('/node_modules/@angular/core/index.d.ts', `
+           export interface ViewChildDecorator {
+             (selector: Type<any> | Function | string, opts: {
+               static: boolean;
+               read?: any;
+             }): any;
+           }
+         
+           export declare const ViewChild: ViewChildDecorator;
+         `);
+
+         writeFile('/index.ts', `
+           import {NgModule, Component, ViewChild} from '@angular/core';
+           
+           @Component({
+             template: '<ng-template><p #myRef></p></ng-template>'
+           })
+           export class MyComp {
+             @ViewChild('myRef') query: any;
+           }
+         `);
+
+         writeFile('/my-module.ts', `
+           import {NgModule} from '@angular/core';
+           import {MyComp} from './index';
+           
+           @NgModule({declarations: [MyComp]})
+           export class MyModule {}
+         `);
+
+         await runMigration();
+
+         expect(errorOutput.length).toBe(0);
+         expect(tree.readContent('/index.ts'))
+             .toContain(`@ViewChild('myRef', { static: false }) query: any;`);
+       });
+
+    it('should be able to migrate applications with template type checking failure ' +
+           'which does not affect analysis',
+       async() => {
+         writeFile('/index.ts', `
+           import {NgModule, Component, ViewChild} from '@angular/core';
+           
+           @Component({
+             template: '<p #myRef>{{myVar.hello()}}</p>'
+           })
+           export class MyComp {
+             // This causes a type checking exception as the template
+             // tries to call a function called "hello()" on this variable.
+             myVar: boolean = false;
+             
+             @ViewChild('myRef') query: any;
+           }
+         `);
+
+         writeFile('/my-module.ts', `
+           import {NgModule} from '@angular/core';
+           import {MyComp} from './index';
+           
+           @NgModule({declarations: [MyComp]})
+           export class MyModule {}
+         `);
+
+         await runMigration();
+
+         expect(errorOutput.length).toBe(0);
+         expect(tree.readContent('/index.ts'))
+             .toContain(`@ViewChild('myRef', { static: true }) query: any;`);
+       });
+
+    it('should notify user if project has syntax errors which can affect analysis', async() => {
+      writeFile('/index.ts', `
+        import {Component, ViewChild} from '@angular/core';
+        
+        @Component({
+          template: '<p #myRef></p>'
+        })
+        export class MyComp {
+          @ViewChild('myRef') query: any;
+        }
+      `);
+
+      writeFile('/file-with-syntax-error.ts', `     
+        export classX ClassWithSyntaxError {
+          // ...
+        }
+      `);
+
+      writeFile('/my-module.ts', `
+        import {NgModule} from '@angular/core';
+        import {MyComp} from './index';
+        
+        @NgModule({declarations: [MyComp]})
+        export class MyModule {}
+      `);
+
+      await runMigration();
+
+      expect(errorOutput.length).toBe(1);
+      expect(errorOutput[0]).toMatch(/file-with-syntax-error\.ts\(2,9\): error TS1128.*/);
+      expect(tree.readContent('/index.ts'))
+          .toContain(`@ViewChild('myRef', { static: true }) query: any;`);
+    });
+
     it('should gracefully exit migration if queries could not be analyzed', async() => {
       writeFile('/index.ts', `
         import {Component, ViewChild} from '@angular/core';
@@ -515,8 +647,6 @@ describe('static-queries migration with template strategy', () => {
       await runMigration();
 
       expect(errorOutput.length).toBe(1);
-      expect(errorOutput[0])
-          .toMatch(/^Error: Could not create Angular AOT compiler to determine query timing./);
       expect(errorOutput[0]).toMatch(/Cannot determine the module for class MyComp/);
     });
 
@@ -604,7 +734,7 @@ describe('static-queries migration with template strategy', () => {
           .toContain(`@ViewChild('myRef', /* TODO: add static flag */ myOptionsVar) query: any;`);
       expect(warnOutput.length).toBe(1);
       expect(warnOutput[0])
-          .toMatch(/^⮑ {3}index.ts@8:11: Cannot update query declaration to explicit timing./);
+          .toMatch(/^⮑ {3}index.ts@8:11: Cannot update query to set explicit timing./);
       expect(warnOutput[0]).toMatch(/Please manually set the query timing to.*static: true/);
     });
 
@@ -673,15 +803,49 @@ describe('static-queries migration with template strategy', () => {
         export class MyModule {}
       `);
 
-      spyOn(console, 'error').and.callThrough();
-
       await runMigration();
 
-      expect(console.error).toHaveBeenCalledTimes(0);
+      expect(errorOutput.length).toBe(0);
       expect(tree.readContent('/src/test.ts'))
           .toContain(`@ViewChild('test', /* TODO: add static flag */ {}) query: any;`);
       expect(tree.readContent('/src/app.component.ts'))
           .toContain(`@ViewChild('test', { static: true }) query: any;`);
+    });
+
+    it('should not fall back to test strategy if selected strategy fails', async() => {
+      writeFile('/src/tsconfig.spec.json', JSON.stringify({
+        compilerOptions: {
+          experimentalDecorators: true,
+          lib: ['es2015'],
+        },
+        files: [
+          'test.ts',
+        ],
+      }));
+
+      writeFile('/src/test.ts', `import * as mod from './app.module';`);
+      writeFile('/src/app.component.ts', `
+        import {Component, ViewChild} from '@angular/core';
+
+        @Component({template: '<span #test>Test</span>'})
+        export class AppComponent {
+          @ViewChild('test') query: any;
+        }
+      `);
+
+      writeFile('/src/app.module.ts', `
+        import {NgModule} from '@angular/core';
+        import {AppComponent} from './app.component';
+
+        @NgModule({declarations: [AppComponent, ThisCausesAnError]})
+        export class MyModule {}
+      `);
+
+      await runMigration();
+
+      expect(errorOutput.length).toBe(1);
+      expect(errorOutput[0]).toMatch(/Unexpected value 'undefined'/);
+      expect(tree.readContent('/src/app.component.ts')).toContain(`@ViewChild('test') query: any;`);
     });
   });
 });

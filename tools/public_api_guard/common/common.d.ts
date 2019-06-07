@@ -103,7 +103,7 @@ export declare function getLocaleNumberFormat(locale: string, type: NumberFormat
 
 export declare function getLocaleNumberSymbol(locale: string, symbol: NumberSymbol): string;
 
-export declare function getLocalePluralCase(locale: string): (value: number) => Plural;
+export declare const getLocalePluralCase: (locale: string) => ((value: number) => Plural);
 
 export declare function getLocaleTimeFormat(locale: string, width: FormatWidth): string;
 
@@ -263,7 +263,7 @@ export declare class NgIf {
     ngIfElse: TemplateRef<NgIfContext> | null;
     ngIfThen: TemplateRef<NgIfContext> | null;
     constructor(_viewContainer: ViewContainerRef, templateRef: TemplateRef<NgIfContext>);
-    static ngTemplateGuard_ngIf<E>(dir: NgIf, expr: E): expr is NonNullable<E>;
+    static ngTemplateGuard_ngIf: 'binding';
 }
 
 export declare class NgIfContext {
@@ -410,7 +410,10 @@ export interface PopStateEvent {
 export declare function registerLocaleData(data: any, localeId?: string | any, extraData?: any): void;
 
 export declare class SlicePipe implements PipeTransform {
-    transform(value: any, start: number, end?: number): any;
+    transform<T>(value: ReadonlyArray<T>, start: number, end?: number): Array<T>;
+    transform(value: string, start: number, end?: number): string;
+    transform(value: null, start: number, end?: number): null;
+    transform(value: undefined, start: number, end?: number): undefined;
 }
 
 export declare type Time = {

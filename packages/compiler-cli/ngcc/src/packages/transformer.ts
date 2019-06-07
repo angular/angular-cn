@@ -13,13 +13,20 @@ import {NgccReferencesRegistry} from '../analysis/ngcc_references_registry';
 import {ExportInfo, PrivateDeclarationsAnalyzer} from '../analysis/private_declarations_analyzer';
 import {SwitchMarkerAnalyses, SwitchMarkerAnalyzer} from '../analysis/switch_marker_analyzer';
 import {FileSystem} from '../file_system/file_system';
+import {CommonJsReflectionHost} from '../host/commonjs_host';
 import {Esm2015ReflectionHost} from '../host/esm2015_host';
 import {Esm5ReflectionHost} from '../host/esm5_host';
 import {NgccReflectionHost} from '../host/ngcc_host';
+import {UmdReflectionHost} from '../host/umd_host';
 import {Logger} from '../logging/logger';
-import {Esm5Renderer} from '../rendering/esm5_renderer';
-import {EsmRenderer} from '../rendering/esm_renderer';
-import {FileInfo, Renderer} from '../rendering/renderer';
+import {CommonJsRenderingFormatter} from '../rendering/commonjs_rendering_formatter';
+import {DtsRenderer} from '../rendering/dts_renderer';
+import {Esm5RenderingFormatter} from '../rendering/esm5_rendering_formatter';
+import {EsmRenderingFormatter} from '../rendering/esm_rendering_formatter';
+import {Renderer} from '../rendering/renderer';
+import {RenderingFormatter} from '../rendering/rendering_formatter';
+import {UmdRenderingFormatter} from '../rendering/umd_rendering_formatter';
+import {FileToWrite} from '../rendering/utils';
 
 import {EntryPointBundle} from './entry_point_bundle';
 
@@ -54,7 +61,7 @@ export class Transformer {
    * @param bundle the bundle to transform.
    * @returns information about the files that were transformed.
    */
-  transform(bundle: EntryPointBundle): FileInfo[] {
+  transform(bundle: EntryPointBundle): FileToWrite[] {
     const isCore = bundle.isCore;
     const reflectionHost = this.getHost(isCore, bundle);
 
@@ -63,10 +70,21 @@ export class Transformer {
            moduleWithProvidersAnalyses} = this.analyzeProgram(reflectionHost, isCore, bundle);
 
     // Transform the source files and source maps.
-    const renderer = this.getRenderer(reflectionHost, isCore, bundle);
-    const renderedFiles = renderer.renderProgram(
-        decorationAnalyses, switchMarkerAnalyses, privateDeclarationsAnalyses,
-        moduleWithProvidersAnalyses);
+    const srcFormatter = this.getRenderingFormatter(reflectionHost, isCore, bundle);
+
+    const renderer =
+        new Renderer(srcFormatter, this.fs, this.logger, reflectionHost, isCore, bundle);
+    let renderedFiles = renderer.renderProgram(
+        decorationAnalyses, switchMarkerAnalyses, privateDeclarationsAnalyses);
+
+    if (bundle.dts) {
+      const dtsFormatter = new EsmRenderingFormatter(reflectionHost, isCore);
+      const dtsRenderer =
+          new DtsRenderer(dtsFormatter, this.fs, this.logger, reflectionHost, isCore, bundle);
+      const renderedDtsFiles = dtsRenderer.renderProgram(
+          decorationAnalyses, privateDeclarationsAnalyses, moduleWithProvidersAnalyses);
+      renderedFiles = renderedFiles.concat(renderedDtsFiles);
+    }
 
     return renderedFiles;
   }
@@ -78,17 +96,31 @@ export class Transformer {
         return new Esm2015ReflectionHost(this.logger, isCore, typeChecker, bundle.dts);
       case 'esm5':
         return new Esm5ReflectionHost(this.logger, isCore, typeChecker, bundle.dts);
+      case 'umd':
+        return new UmdReflectionHost(
+            this.logger, isCore, bundle.src.program, bundle.src.host, bundle.dts);
+      case 'commonjs':
+        return new CommonJsReflectionHost(
+            this.logger, isCore, bundle.src.program, bundle.src.host, bundle.dts);
       default:
         throw new Error(`Reflection host for "${bundle.format}" not yet implemented.`);
     }
   }
 
-  getRenderer(host: NgccReflectionHost, isCore: boolean, bundle: EntryPointBundle): Renderer {
+  getRenderingFormatter(host: NgccReflectionHost, isCore: boolean, bundle: EntryPointBundle):
+      RenderingFormatter {
     switch (bundle.format) {
       case 'esm2015':
-        return new EsmRenderer(this.fs, this.logger, host, isCore, bundle);
+        return new EsmRenderingFormatter(host, isCore);
       case 'esm5':
-        return new Esm5Renderer(this.fs, this.logger, host, isCore, bundle);
+        return new Esm5RenderingFormatter(host, isCore);
+      case 'umd':
+        if (!(host instanceof UmdReflectionHost)) {
+          throw new Error('UmdRenderer requires a UmdReflectionHost');
+        }
+        return new UmdRenderingFormatter(host, isCore);
+      case 'commonjs':
+        return new CommonJsRenderingFormatter(host, isCore);
       default:
         throw new Error(`Renderer for "${bundle.format}" not yet implemented.`);
     }

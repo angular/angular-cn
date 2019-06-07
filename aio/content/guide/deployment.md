@@ -536,12 +536,12 @@ showing exactly which classes are included in the bundle.
 
 `source-map-explorer` 会分析与包一起生成的 source map，并画出所有依赖的地图，精确展示哪些类包含在哪个包中。
 
-Here's the output for the _main_ bundle of the QuickStart.
+Here's the output for the _main_ bundle of an example app called `cli-quickstart`.
 
 下面是 "快速上手" 应用中 `main` 包的输出。
 
 <figure>
-  <img src="generated/images/guide/cli-quickstart/quickstart-sourcemap-explorer.png" alt="quickstart sourcemap explorer">
+  <img src="generated/images/guide/deployment/quickstart-sourcemap-explorer.png" alt="quickstart sourcemap explorer">
 </figure>
 
 {@a base-tag}

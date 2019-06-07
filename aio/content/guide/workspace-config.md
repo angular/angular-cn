@@ -87,7 +87,7 @@ The following top-level configuration properties are available for each project,
 每个项目的 `projects:<project_name>`  下都有以下顶级配置属性。
 
 <code-example format="." language="json" linenums="false">
-    "my-v7-app": {
+    "my-app": {
       "root": "",
       "sourceRoot": "src",
       "projectType": "application",

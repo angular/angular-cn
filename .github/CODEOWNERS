@@ -661,6 +661,7 @@
 /packages/common/upgrade/**                                     @angular/fw-upgrade @angular/framework-global-approvers @angular/framework-global-approvers-for-docs-only-changes
 /packages/examples/upgrade/**                                   @angular/fw-upgrade @angular/framework-global-approvers @angular/framework-global-approvers-for-docs-only-changes
 /aio/content/guide/upgrade.md                                   @angular/fw-upgrade @angular/framework-global-approvers @angular/framework-global-approvers-for-docs-only-changes
+/aio/content/examples/upgrade-lazy-load-ajs/**                  @angular/fw-upgrade @angular/framework-global-approvers @angular/framework-global-approvers-for-docs-only-changes
 /aio/content/examples/upgrade-module/**                         @angular/fw-upgrade @angular/framework-global-approvers @angular/framework-global-approvers-for-docs-only-changes
 /aio/content/images/guide/upgrade/**                            @angular/fw-upgrade @angular/framework-global-approvers @angular/framework-global-approvers-for-docs-only-changes
 /aio/content/examples/upgrade-phonecat-1-typescript/**          @angular/fw-upgrade @angular/framework-global-approvers @angular/framework-global-approvers-for-docs-only-changes
@@ -811,6 +812,7 @@ testing/**                                                      @angular/fw-test
 /aio/content/guide/releases.md                                  @angular/fw-docs-packaging @angular/framework-global-approvers @angular/framework-global-approvers-for-docs-only-changes
 /aio/content/guide/updating.md                                  @angular/fw-docs-packaging @angular/framework-global-approvers @angular/framework-global-approvers-for-docs-only-changes
 /aio/content/guide/workspace-config.md                          @angular/fw-docs-packaging @angular/framework-global-approvers @angular/framework-global-approvers-for-docs-only-changes
+/aio/content/guide/deprecations.md                              @angular/fw-docs-packaging @angular/framework-global-approvers @angular/framework-global-approvers-for-docs-only-changes
 
 
 
@@ -855,6 +857,7 @@ testing/**                                                      @angular/fw-test
 /.buildkite/**                                                  @angular/fw-dev-infra
 /.circleci/**                                                   @angular/fw-dev-infra
 /.codefresh/**                                                  @angular/fw-dev-infra
+/.devcontainer/**                                               @angular/fw-dev-infra
 /.github/**                                                     @angular/fw-dev-infra
 /.vscode/**                                                     @angular/fw-dev-infra
 /docs/BAZEL.md                                                  @angular/fw-dev-infra

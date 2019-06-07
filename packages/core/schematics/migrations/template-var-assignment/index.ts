@@ -19,8 +19,7 @@ import {analyzeResolvedTemplate} from './analyze_template';
 
 type Logger = logging.LoggerApi;
 
-const README_URL =
-    'https://github.com/angular/angular/tree/master/packages/core/schematics/migrations/template-var-assignment/README.md';
+const README_URL = 'https://v8.angular.io/guide/deprecations#cannot-assign-to-template-variables';
 const FAILURE_MESSAGE = `Found assignment to template variable.`;
 
 /** Entry point for the V8 template variable assignment schematic. */
@@ -54,7 +53,10 @@ function runTemplateVariableAssignmentCheck(
   // program to be based on the file contents in the virtual file tree.
   host.readFile = fileName => {
     const buffer = tree.read(relative(basePath, fileName));
-    return buffer ? buffer.toString() : undefined;
+    // Strip BOM as otherwise TSC methods (Ex: getWidth) will return an offset which
+    // which breaks the CLI UpdateRecorder.
+    // See: https://github.com/angular/angular/pull/30719
+    return buffer ? buffer.toString().replace(/^\uFEFF/, '') : undefined;
   };
 
   const program = ts.createProgram(parsed.fileNames, parsed.options, host);

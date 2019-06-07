@@ -6,26 +6,28 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import {validateAgainstEventAttributes} from '../../sanitization/sanitization';
-import {assertDataInRange, assertEqual} from '../../util/assert';
+import {assertDataInRange, assertDefined, assertEqual} from '../../util/assert';
 import {assertHasParent} from '../assert';
 import {attachPatchData} from '../context_discovery';
 import {registerPostOrderHooks} from '../hooks';
 import {TAttributes, TNodeFlags, TNodeType} from '../interfaces/node';
-import {RElement, isProceduralRenderer} from '../interfaces/renderer';
+import {RElement, Renderer3, isProceduralRenderer} from '../interfaces/renderer';
 import {SanitizerFn} from '../interfaces/sanitization';
 import {StylingContext} from '../interfaces/styling';
-import {BINDING_INDEX, QUERIES, RENDERER, TVIEW} from '../interfaces/view';
+import {BINDING_INDEX, HEADER_OFFSET, LView, QUERIES, RENDERER, TVIEW, T_HOST} from '../interfaces/view';
 import {assertNodeType} from '../node_assert';
 import {appendChild} from '../node_manipulation';
 import {applyOnCreateInstructions} from '../node_util';
-import {decreaseElementDepthCount, getElementDepthCount, getIsParent, getLView, getPreviousOrParentTNode, getSelectedIndex, increaseElementDepthCount, setIsParent, setPreviousOrParentTNode} from '../state';
+import {decreaseElementDepthCount, getElementDepthCount, getIsParent, getLView, getPreviousOrParentTNode, getSelectedIndex, increaseElementDepthCount, setIsNotParent, setPreviousOrParentTNode} from '../state';
 import {getInitialClassNameValue, getInitialStyleStringValue, initializeStaticContext, patchContextWithStaticAttrs, renderInitialClasses, renderInitialStyles} from '../styling/class_and_style_bindings';
 import {getStylingContextFromLView, hasClassInput, hasStyleInput} from '../styling/util';
+import {registerInitialStylingIntoContext} from '../styling_next/instructions';
+import {runtimeIsNewStylingInUse} from '../styling_next/state';
 import {NO_CHANGE} from '../tokens';
 import {attrsStylingIndexOf, setUpAttributes} from '../util/attrs_utils';
 import {renderStringify} from '../util/misc_utils';
 import {getNativeByIndex, getNativeByTNode, getTNode} from '../util/view_utils';
-import {createDirectivesAndLocals, createNodeAtIndex, elementCreate, executeContentQueries, initializeTNodeInputs, setInputsForProperty, setNodeStylingTemplate} from './shared';
+import {createDirectivesAndLocals, elementCreate, executeContentQueries, getOrCreateTNode, initializeTNodeInputs, setInputsForProperty, setNodeStylingTemplate} from './shared';
 import {getActiveDirectiveStylingIndex} from './styling';
 
 
@@ -53,18 +55,17 @@ export function ɵɵelementStart(
                    'elements should be created before any bindings ');
 
   ngDevMode && ngDevMode.rendererCreateElement++;
-
-  const native = elementCreate(name);
+  ngDevMode && assertDataInRange(lView, index + HEADER_OFFSET);
+  const native = lView[index + HEADER_OFFSET] = elementCreate(name);
   const renderer = lView[RENDERER];
-
-  ngDevMode && assertDataInRange(lView, index - 1);
-
-  const tNode = createNodeAtIndex(index, TNodeType.Element, native !, name, attrs || null);
+  const tNode =
+      getOrCreateTNode(tView, lView[T_HOST], index, TNodeType.Element, name, attrs || null);
   let initialStylesIndex = 0;
   let initialClassesIndex = 0;
 
+  let lastAttrIndex = -1;
   if (attrs) {
-    const lastAttrIndex = setUpAttributes(native, attrs);
+    lastAttrIndex = setUpAttributes(native, attrs);
 
     // it's important to only prepare styling-related datastructures once for a given
     // tNode and not each time an element is created. Also, the styling code is designed
@@ -75,12 +76,13 @@ export function ɵɵelementStart(
     // instantiated into a context per element)
     setNodeStylingTemplate(tView, tNode, attrs, lastAttrIndex);
 
-    if (tNode.stylingTemplate) {
+    const stylingTemplate = tNode.stylingTemplate;
+    if (stylingTemplate) {
       // the initial style/class values are rendered immediately after having been
       // initialized into the context so the element styling is ready when directives
       // are initialized (since they may read style/class values in their constructor)
-      initialStylesIndex = renderInitialStyles(native, tNode.stylingTemplate, renderer);
-      initialClassesIndex = renderInitialClasses(native, tNode.stylingTemplate, renderer);
+      initialStylesIndex = renderInitialStyles(native, stylingTemplate, renderer);
+      initialClassesIndex = renderInitialClasses(native, stylingTemplate, renderer);
     }
   }
 
@@ -116,10 +118,14 @@ export function ɵɵelementStart(
     renderInitialStyles(native, tNode.stylingTemplate, renderer, initialStylesIndex);
   }
 
+  if (runtimeIsNewStylingInUse() && lastAttrIndex >= 0) {
+    registerInitialStylingIntoContext(tNode, attrs as TAttributes, lastAttrIndex);
+  }
+
   const currentQueries = lView[QUERIES];
   if (currentQueries) {
     currentQueries.addNode(tNode);
-    lView[QUERIES] = currentQueries.clone();
+    lView[QUERIES] = currentQueries.clone(tNode);
   }
   executeContentQueries(tView, tNode, lView);
 }
@@ -131,12 +137,13 @@ export function ɵɵelementStart(
  */
 export function ɵɵelementEnd(): void {
   let previousOrParentTNode = getPreviousOrParentTNode();
+  ngDevMode && assertDefined(previousOrParentTNode, 'No parent node to close.');
   if (getIsParent()) {
-    setIsParent(false);
+    setIsNotParent();
   } else {
     ngDevMode && assertHasParent(getPreviousOrParentTNode());
     previousOrParentTNode = previousOrParentTNode.parent !;
-    setPreviousOrParentTNode(previousOrParentTNode);
+    setPreviousOrParentTNode(previousOrParentTNode, false);
   }
 
   // this is required for all host-level styling-related instructions to run
@@ -146,7 +153,8 @@ export function ɵɵelementEnd(): void {
   ngDevMode && assertNodeType(previousOrParentTNode, TNodeType.Element);
   const lView = getLView();
   const currentQueries = lView[QUERIES];
-  if (currentQueries) {
+  // Go back up to parent queries only if queries have been cloned on this element.
+  if (currentQueries && previousOrParentTNode.index === currentQueries.nodeIndex) {
     lView[QUERIES] = currentQueries.parent;
   }
 
@@ -191,9 +199,9 @@ export function ɵɵelement(
 
 
 /**
- * Updates the value of removes an attribute on an Element.
+ * Updates the value or removes an attribute on an Element.
  *
- * @param number index The index of the element in the data array
+ * @param index The index of the element in the data array
  * @param name name The name of the attribute.
  * @param value value The attribute is removed when value is `null` or `undefined`.
  *                  Otherwise the attribute value is set to the stringified value.
@@ -206,27 +214,33 @@ export function ɵɵelementAttribute(
     index: number, name: string, value: any, sanitizer?: SanitizerFn | null,
     namespace?: string): void {
   if (value !== NO_CHANGE) {
-    ngDevMode && validateAgainstEventAttributes(name);
     const lView = getLView();
     const renderer = lView[RENDERER];
-    const element = getNativeByIndex(index, lView) as RElement;
-    if (value == null) {
-      ngDevMode && ngDevMode.rendererRemoveAttribute++;
-      isProceduralRenderer(renderer) ? renderer.removeAttribute(element, name, namespace) :
-                                       element.removeAttribute(name);
+    elementAttributeInternal(index, name, value, lView, renderer, sanitizer, namespace);
+  }
+}
+
+export function elementAttributeInternal(
+    index: number, name: string, value: any, lView: LView, renderer: Renderer3,
+    sanitizer?: SanitizerFn | null, namespace?: string) {
+  ngDevMode && validateAgainstEventAttributes(name);
+  const element = getNativeByIndex(index, lView) as RElement;
+  if (value == null) {
+    ngDevMode && ngDevMode.rendererRemoveAttribute++;
+    isProceduralRenderer(renderer) ? renderer.removeAttribute(element, name, namespace) :
+                                     element.removeAttribute(name);
+  } else {
+    ngDevMode && ngDevMode.rendererSetAttribute++;
+    const tNode = getTNode(index, lView);
+    const strValue =
+        sanitizer == null ? renderStringify(value) : sanitizer(value, tNode.tagName || '', name);
+
+
+    if (isProceduralRenderer(renderer)) {
+      renderer.setAttribute(element, name, strValue, namespace);
     } else {
-      ngDevMode && ngDevMode.rendererSetAttribute++;
-      const tNode = getTNode(index, lView);
-      const strValue =
-          sanitizer == null ? renderStringify(value) : sanitizer(value, tNode.tagName || '', name);
-
-
-      if (isProceduralRenderer(renderer)) {
-        renderer.setAttribute(element, name, strValue, namespace);
-      } else {
-        namespace ? element.setAttributeNS(namespace, name, strValue) :
-                    element.setAttribute(name, strValue);
-      }
+      namespace ? element.setAttributeNS(namespace, name, strValue) :
+                  element.setAttribute(name, strValue);
     }
   }
 }

@@ -17,13 +17,13 @@ Service Worker 的功能就像一个网络代理。它们会拦截所有由应�
 这种代理行为不会局限于通过程序调用 API（比如`fetch`）发起的请求，还包括 HTML 中对资源的引用，甚至对 `index.html` 的首次请求。
  基于 Service Worker 的缓存是完全可编程的，并且不依赖于服务端指定的那些控制缓存策略的头。
 
-Unlike the other scripts that make up an application, such as the Angular app bundle, the service worker is preserved after the user closes the tab. The next time that browser loads the application, the service worker loads first, and can intercept every request for resources to load the application. If the service worker is designed to do so, it can *completely satisfy the loading of the application, without the need for the network*. 
+Unlike the other scripts that make up an application, such as the Angular app bundle, the service worker is preserved after the user closes the tab. The next time that browser loads the application, the service worker loads first, and can intercept every request for resources to load the application. If the service worker is designed to do so, it can *completely satisfy the loading of the application, without the need for the network*.
 
 不像应用中的其它脚本（如 Angular 的应用包），Service Worker 在用户关闭浏览器页标签时仍然会被保留。
 下次浏览器加载本应用时，Service Worker 会首先加载，然后拦截加载本应用时的对每一项资源的请求。
 如果这个 Service Worker 就是为此而设计的，它就能*完全满足应用加载时的需求，而不需要依赖网络*。
 
-Even across a fast reliable network, round-trip delays can introduce significant latency when loading the application. Using a service worker to reduce dependency on the network can significantly improve the user experience. 
+Even across a fast reliable network, round-trip delays can introduce significant latency when loading the application. Using a service worker to reduce dependency on the network can significantly improve the user experience.
 
 即使在快速可靠的网络中，往返延迟也可能在加载应用程序时产生显著的延迟。使用 Service Worker 来减少对网络的依赖可以显着改善用户体验。
 
@@ -37,7 +37,7 @@ Angular applications, as single-page applications, are in a prime position to be
 从 Angular v5.0.0 开始，Angular 提供了一份 Service Worker 的实现。
 Angular 开发人员可以利用 Service Worker，并受益于其增强的可靠性和性能，而无需再针对底层 API 写代码。
 
-Angular's service worker is designed to optimize the end user experience of using an application over a slow or unreliable network connection, while also minimizing the risks of serving outdated content. 
+Angular's service worker is designed to optimize the end user experience of using an application over a slow or unreliable network connection, while also minimizing the risks of serving outdated content.
 
 Angular 的 Service Worker 的设计目标是优化那些使用慢速、不可靠网络的最终用户的体验，同时还要尽可能减小提供过期内容的风险。
 
@@ -88,20 +88,28 @@ Your application must run in a web browser that supports service workers. Curren
 你的应用必须运行在支持 Service Worker 的 Web 浏览器中。目前，Chrome 和 Firefox 的最新版本 都已经支持了。
 要想知道其它浏览器是否支持，参见 [Can I Use](http://caniuse.com/#feat=serviceworkers) 页。
 
+In addition, in order for service workers to be registered, the app must be accessed over HTTPS, not HTTP. Browsers will ignore service workers on pages that are served over an insecure connection. The reason is that service workers are quite powerful, so extra care needs to be taken to ensure the service worker script has not been tampered with.
+
+此外，为了注册 Service Worker，应用必须通过 HTTPS 进行访问，而不能通过 HTTP。浏览器会忽略那些通过不安全连接提供的页面上的 Service Worker。其原因在于 Service Worker 真的很强大，所以需要额外的安全保障来确保 Service Worker 脚本不会被中间人攻击所篡改。
+
+There is one exception to this rule: To make local development easier, browsers do _not_ require a secure connection when accessing an app on `localhost`.
+
+这条规则有一个例外：为了方便本地开发，当访问 `localhost` 上的应用时，浏览器*不*要求安全连接。
+
 ## Related resources
 
 ## 相关资源
 
-For more information about service workers in general, see [Service Workers: an Introduction](https://developers.google.com/web/fundamentals/primers/service-workers/). 
+For more information about service workers in general, see [Service Workers: an Introduction](https://developers.google.com/web/fundamentals/primers/service-workers/).
 
 要了解更多关于 Service Worker 的普遍性信息，参见 [Service Worker 简介](https://developers.google.com/web/fundamentals/primers/service-workers/)。
 
-For more information about browser support, see the [browser support](https://developers.google.com/web/fundamentals/primers/service-workers/#browser_support) section of [Service Workers: an Introduction](https://developers.google.com/web/fundamentals/primers/service-workers/), Jake Archibald's [Is Serviceworker ready?](https://jakearchibald.github.io/isserviceworkerready/), and 
-[Can I Use](http://caniuse.com/#feat=serviceworkers). 
+For more information about browser support, see the [browser support](https://developers.google.com/web/fundamentals/primers/service-workers/#browser_support) section of [Service Workers: an Introduction](https://developers.google.com/web/fundamentals/primers/service-workers/), Jake Archibald's [Is Serviceworker ready?](https://jakearchibald.github.io/isserviceworkerready/), and
+[Can I Use](http://caniuse.com/#feat=serviceworkers).
 
 要了解关于浏览器支持度的更多信息，参见 [Service Worker 简介](https://developers.google.com/web/fundamentals/primers/service-workers/) 中的[浏览器支持](https://developers.google.com/web/fundamentals/primers/service-workers/#browser_support)部分、Jake Archibald 写的[Serviceworker 好了吗？](https://jakearchibald.github.io/isserviceworkerready/)和 [Can I Use](http://caniuse.com/#feat=serviceworkers)。
 
-The remainder of this Angular documentation specifically addresses the Angular implementation of service workers. 
+The remainder of this Angular documentation specifically addresses the Angular implementation of service workers.
 
 这份 Angular 文档的其它部分全都专注于讲 Angular 中的 Service Worker 实现。
 

@@ -168,13 +168,13 @@ export interface ConstructorSansProvider {
 export declare type ContentChild = Query;
 
 export interface ContentChildDecorator {
-    (selector: Type<any> | Function | string, opts?: {
+    (selector: Type<any> | Function | string, opts: {
         read?: any;
-        static?: boolean;
+        static: boolean;
     }): any;
-    new (selector: Type<any> | Function | string, opts?: {
+    new (selector: Type<any> | Function | string, opts: {
         read?: any;
-        static?: boolean;
+        static: boolean;
     }): ContentChild;
 }
 
@@ -661,6 +661,26 @@ export interface OutputDecorator {
 
 export declare function ɵɵallocHostVars(count: number): void;
 
+export declare function ɵɵattribute(name: string, value: any, sanitizer?: SanitizerFn | null, namespace?: string): void;
+
+export declare function ɵɵattributeInterpolate1(attrName: string, prefix: string, v0: any, suffix: string, sanitizer?: SanitizerFn, namespace?: string): TsickleIssue1009;
+
+export declare function ɵɵattributeInterpolate2(attrName: string, prefix: string, v0: any, i0: string, v1: any, suffix: string, sanitizer?: SanitizerFn, namespace?: string): TsickleIssue1009;
+
+export declare function ɵɵattributeInterpolate3(attrName: string, prefix: string, v0: any, i0: string, v1: any, i1: string, v2: any, suffix: string, sanitizer?: SanitizerFn, namespace?: string): TsickleIssue1009;
+
+export declare function ɵɵattributeInterpolate4(attrName: string, prefix: string, v0: any, i0: string, v1: any, i1: string, v2: any, i2: string, v3: any, suffix: string, sanitizer?: SanitizerFn, namespace?: string): TsickleIssue1009;
+
+export declare function ɵɵattributeInterpolate5(attrName: string, prefix: string, v0: any, i0: string, v1: any, i1: string, v2: any, i2: string, v3: any, i3: string, v4: any, suffix: string, sanitizer?: SanitizerFn, namespace?: string): TsickleIssue1009;
+
+export declare function ɵɵattributeInterpolate6(attrName: string, prefix: string, v0: any, i0: string, v1: any, i1: string, v2: any, i2: string, v3: any, i3: string, v4: any, i4: string, v5: any, suffix: string, sanitizer?: SanitizerFn, namespace?: string): TsickleIssue1009;
+
+export declare function ɵɵattributeInterpolate7(attrName: string, prefix: string, v0: any, i0: string, v1: any, i1: string, v2: any, i2: string, v3: any, i3: string, v4: any, i4: string, v5: any, i5: string, v6: any, suffix: string, sanitizer?: SanitizerFn, namespace?: string): TsickleIssue1009;
+
+export declare function ɵɵattributeInterpolate8(attrName: string, prefix: string, v0: any, i0: string, v1: any, i1: string, v2: any, i2: string, v3: any, i3: string, v4: any, i4: string, v5: any, i5: string, v6: any, i6: string, v7: any, suffix: string, sanitizer?: SanitizerFn, namespace?: string): TsickleIssue1009;
+
+export declare function ɵɵattributeInterpolateV(attrName: string, values: any[], sanitizer?: SanitizerFn, namespace?: string): TsickleIssue1009;
+
 export interface ɵɵBaseDef<T> {
     contentQueries: ContentQueriesFunction<T> | null;
     /** @deprecated */ readonly declaredInputs: {
@@ -691,8 +711,6 @@ export declare type ɵɵComponentDefWithMeta<T, Selector extends String, ExportA
 }, QueryFields extends string[]> = ComponentDef<T>;
 
 export declare function ɵɵcomponentHostSyntheticListener<T>(eventName: string, listenerFn: (e?: any) => any, useCapture?: boolean, eventTargetResolver?: GlobalTargetResolver): void;
-
-export declare function ɵɵcomponentHostSyntheticProperty<T>(index: number, propName: string, value: T | NO_CHANGE, sanitizer?: SanitizerFn | null, nativeOnly?: boolean): void;
 
 export declare function ɵɵcontainer(index: number): void;
 
@@ -777,6 +795,7 @@ export declare function ɵɵdefineNgModule<T>(def: {
     imports?: Type<any>[] | (() => Type<any>[]);
     exports?: Type<any>[] | (() => Type<any>[]);
     schemas?: SchemaMetadata[] | null;
+    id?: string | null;
 }): never;
 
 export declare function ɵɵdefinePipe<T>(pipeDef: {
@@ -919,7 +938,7 @@ export declare type ɵɵPipeDefWithMeta<T, Name extends string> = PipeDef<T>;
 
 export declare function ɵɵprojection(nodeIndex: number, selectorIndex?: number, attrs?: TAttributes): void;
 
-export declare function ɵɵprojectionDef(selectors?: CssSelectorList[]): void;
+export declare function ɵɵprojectionDef(projectionSlots?: ProjectionSlots): void;
 
 export declare function ɵɵproperty<T>(propName: string, value: T, sanitizer?: SanitizerFn | null, nativeOnly?: boolean): TsickleIssue1009;
 
@@ -1036,6 +1055,28 @@ export declare function ɵɵtext(index: number, value?: any): void;
 
 export declare function ɵɵtextBinding<T>(index: number, value: T | NO_CHANGE): void;
 
+export declare function ɵɵtextInterpolate(v0: any): TsickleIssue1009;
+
+export declare function ɵɵtextInterpolate1(prefix: string, v0: any, suffix: string): TsickleIssue1009;
+
+export declare function ɵɵtextInterpolate2(prefix: string, v0: any, i0: string, v1: any, suffix: string): TsickleIssue1009;
+
+export declare function ɵɵtextInterpolate3(prefix: string, v0: any, i0: string, v1: any, i1: string, v2: any, suffix: string): TsickleIssue1009;
+
+export declare function ɵɵtextInterpolate4(prefix: string, v0: any, i0: string, v1: any, i1: string, v2: any, i2: string, v3: any, suffix: string): TsickleIssue1009;
+
+export declare function ɵɵtextInterpolate5(prefix: string, v0: any, i0: string, v1: any, i1: string, v2: any, i2: string, v3: any, i3: string, v4: any, suffix: string): TsickleIssue1009;
+
+export declare function ɵɵtextInterpolate6(prefix: string, v0: any, i0: string, v1: any, i1: string, v2: any, i2: string, v3: any, i3: string, v4: any, i4: string, v5: any, suffix: string): TsickleIssue1009;
+
+export declare function ɵɵtextInterpolate7(prefix: string, v0: any, i0: string, v1: any, i1: string, v2: any, i2: string, v3: any, i3: string, v4: any, i4: string, v5: any, i5: string, v6: any, suffix: string): TsickleIssue1009;
+
+export declare function ɵɵtextInterpolate8(prefix: string, v0: any, i0: string, v1: any, i1: string, v2: any, i2: string, v3: any, i3: string, v4: any, i4: string, v5: any, i5: string, v6: any, i6: string, v7: any, suffix: string): TsickleIssue1009;
+
+export declare function ɵɵtextInterpolateV(values: any[]): TsickleIssue1009;
+
+export declare function ɵɵupdateSyntheticHostBinding<T>(propName: string, value: T | NO_CHANGE, sanitizer?: SanitizerFn | null, nativeOnly?: boolean): void;
+
 export declare function ɵɵviewQuery<T>(predicate: Type<any> | string[], descend: boolean, read: any): QueryList<T>;
 
 export declare const PACKAGE_ROOT_URL: InjectionToken<string>;
@@ -1083,7 +1124,7 @@ export interface Query {
     isViewQuery: boolean;
     read: any;
     selector: any;
-    static?: boolean;
+    static: boolean;
 }
 
 export declare abstract class Query {
@@ -1095,6 +1136,7 @@ export declare class QueryList<T> {
     readonly first: T;
     readonly last: T;
     readonly length: number;
+    constructor();
     destroy(): void;
     filter(fn: (item: T, index: number, array: T[]) => boolean): T[];
     find(fn: (item: T, index: number, array: T[]) => boolean): T | undefined;
@@ -1361,13 +1403,13 @@ export declare const VERSION: Version;
 export declare type ViewChild = Query;
 
 export interface ViewChildDecorator {
-    (selector: Type<any> | Function | string, opts?: {
+    (selector: Type<any> | Function | string, opts: {
         read?: any;
-        static?: boolean;
+        static: boolean;
     }): any;
-    new (selector: Type<any> | Function | string, opts?: {
+    new (selector: Type<any> | Function | string, opts: {
         read?: any;
-        static?: boolean;
+        static: boolean;
     }): ViewChild;
 }
 
@@ -1419,14 +1461,19 @@ export declare class WrappedValue {
     static wrap(value: any): WrappedValue;
 }
 
+/** @deprecated */
 export declare const wtfCreateScope: (signature: string, flags?: any) => WtfScopeFn;
 
+/** @deprecated */
 export declare const wtfEndTimeRange: (range: any) => void;
 
+/** @deprecated */
 export declare const wtfLeave: <T>(scope: any, returnValue?: T) => T;
 
+/** @deprecated */
 export interface WtfScopeFn {
     (arg0?: any, arg1?: any): any;
 }
 
+/** @deprecated */
 export declare const wtfStartTimeRange: (rangeType: string, action: string) => any;

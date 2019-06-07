@@ -8,15 +8,14 @@ Some developers prefer Visual Studio as their Integrated Development Environment
 
 有些开发者喜欢用 Visual Studio 作为他们的集成开发环境。
 
-This cookbook describes the steps required to set up and use the
-Angular [Getting Started](guide/quickstart) files in Visual Studio 2015 within an ASP.NET 4.x project.
+This cookbook describes the steps required to set up and use Angular app files in Visual Studio 2015 within an ASP.NET 4.x project.
 
 本文介绍了在**Visual Studio 2015 的 ASP.NET 4.x 项目中**，实现 Angular “[快速上手](guide/quickstart)”所需的步骤。
 
 <div class="alert is-helpful">
 
 There is no *live example* for this cookbook because it describes Visual Studio, not 
-the Angular Getting Started application itself.
+the Angular application itself. It uses the starter Angular application created by the CLI command [`ng new`](cli/new) as an example. 
 
 本文中没有*在线例子*，因为它介绍的是 Visual Studio，而不是《快速上手》应用程序本身。
 
@@ -52,7 +51,7 @@ Note that the resulting code does not map to the docs. Adjust accordingly.
 
 Install **[Node.js® and npm](https://nodejs.org/en/download/)**
 if they are not already on your machine.
-See [Getting Started](guide/quickstart) for supported versions and instructions. 
+See [Local Environment Setup](guide/setup-local "Setting up for Local Development") for supported versions and instructions. 
 
 如果你的电脑里没有 Node.js®和 npm，请安装**[它们](https://nodejs.org/en/download/)**。
 参见[快速上手](guide/quickstart)以了解所支持的版本和安装步骤。
@@ -116,24 +115,23 @@ Visual Studio 将优先在当前的工作区查找外部工具，如果没有找
 
 <h2 id='prereq4'>前提条件: 安装 TypeScript 2.2 for Visual Studio 2015</h2>
 
-While Visual Studio Update 3 ships with TypeScript support out of the box, it currently doesn’t ship with TypeScript 3.1, 
-which you need to develop Angular applications.
+While Visual Studio Update 3 ships with TypeScript support out of the box, it currently doesn’t ship with more recent versions of TypeScript, which you need to develop Angular applications.
 
 Visual Studio Update 3 自带 TypeScript 支持，但它的 TypeScript 版本不是开发 Angular 应用所需的 3.1。
 
-To install TypeScript 3.1:
+To install the latest version of TypeScript:
 
 要安装 TypeScript 3.1：
 
- * Download and install [TypeScript 3.1 for Visual Studio 2015](https://www.microsoft.com/en-us/download/details.aspx?id=48593),
+ * Download and install the latest [TypeScript for Visual Studio 2015](https://www.microsoft.com/en-us/download/details.aspx?id=48593),
 
     下载并安装 **[TypeScript 3.1 for Visual Studio 2015](https://www.microsoft.com/en-us/download/details.aspx?id=48593)**
 
- * OR install it with npm: `npm install -g typescript@3.1`.
+ * OR install it with npm: `npm install -g typescript@latest`.
 
     或通过 npm 安装：`npm install -g typescript@2.2`。
 
-You can find out more about TypeScript 3.1 support in Visual Studio **[here](https://blogs.msdn.microsoft.com/typescript/announcing-typescript-3-1/)**.
+You can find out more about TypeScript support in Visual Studio **[here](https://blogs.msdn.microsoft.com/typescript/announcing-typescript-3-1/)**.
 
 你可以在**[这里](https://blogs.msdn.microsoft.com/typescript/2017/02/22/announcing-typescript-2-2/)**查看更多 Visual Studio 中 TypeScript 3.1 的支持。
 
@@ -144,11 +142,18 @@ restart it to make sure everything is clean.
 
 <h2 id='download'>Step 1: Download the Angular Getting Started app</h2>
 
-<h2 id='download'>第一步: 下载“ Angular 快速上手”文件</h2>
+<h2 id='download'>
+  Step 1: Create a starter Angular app
+</h2>
 
-Go to the final code review in [Getting Started](guide/quickstart) and download the solution app project. These files contain a starter Angular app.
+<h2 id='download'>
+  第一步：创建一个 Angular 的初学者应用
+</h2>
 
-到 [Getting Started](guide/quickstart) 中查看最终代码，并下载这个解决方案的应用项目。这些文件包含一个起步级 Angular 应用。
+ 
+ Follow the instructions in [Local Environment Setup](guide/setup-local "Setting up for Local Development") to create a starter Angular app using the CLI command [`ng new`](cli/new). 
+
+ 遵循[建立本地环境](guide/setup-local "Setting up for Local Development")中的步骤，使用 CLI 命令 [`ng new`](cli/new) 创建一个 Angular 的初学者应用。
 
 <h2 id='create-project'>Step 2: Create the Visual Studio ASP.NET project</h2>
 
@@ -183,11 +188,15 @@ no authentication, and no hosting. Pick the template and options appropriate for
 
 </div>
 
-<h2 id='copy'>Step 3: Copy the Angular Getting Started project files into the ASP.NET project folder</h2>
+<h2 id='copy'>
+  Step 3: Copy the Angular project files into the ASP.NET project folder
+</h2>
 
-<h2 id='copy'>第三步: 把“快速上手”的文件复制到 ASP.NET 项目所在的目录</h2>
+<h2 id='copy'>
+  第三步: 把这个 Angular 项目中的文件复制到 ASP.NET 项目所在的目录
+</h2>
 
-Copy the files you downloaded from [Getting Started](guide/quickstart) into the folder containing the `.csproj` file.
+Copy files from the starter Angular app into the folder containing the `.csproj` file.
 Include the files in the Visual Studio project as follows:
 
 拷贝从 GitHub 下载的“快速上手”文件到包含 `.csproj` 文件的目录中。按照下面的步骤把它们加到 Visual Studio 中：

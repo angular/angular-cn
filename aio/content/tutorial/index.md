@@ -1,27 +1,29 @@
-<h1 class="no-toc">Tutorial: Tour of Heroes</h1>
+<h1 class="no-toc">Tour of Heroes App and Tutorial</h1>
 
 <h1 class="no-toc">教程：英雄指南</h1>
 
-This _Tour of Heroes_ tutorial provides a deep dive into the fundamentals of Angular. 
-It shows you how to set up your local development environment and develop an app using the [Angular CLI tool](cli "CLI command reference"). 
-
-这个**英雄指南**教程深入讲解了 Angular 的基本知识。它向你展示了如何搭建本地开发环境，以及如何使用 [Angular CLI 工具](cli "CLI command reference")开发一个应用。
-
 <div class="callout is-helpful">
-<header>Getting Started - Stackblitz</header>
+
+<header>Getting Started Tutorial</header>
 
 <header>快速起步 - Stackblitz</header>
 
 
-We recently introduced a [**new Getting Started**](getting-started) that leverages the [StackBlitz](https://stackblitz.com/) online development environment. 
-We recommend the new Getting Started for anyone who wants to quickly learn the essentials of Angular, in the context of building an online store app. 
-The new Getting Started covers the same major topics as this Tour of Heroes&mdash;components, template syntax, routing, services, and accessing data via HTTP&mdash;in a condensed format.
+If you're new to Angular, see the [**Getting Started tutorial.**](start) 
+The Getting Started tutorial covers the same major topics as this Tour of Heroes&mdash;components, template syntax, routing, services, and accessing data via HTTP&mdash;in a condensed format, following the most current best practices. 
 
 我们最近引入了一个[**新的快速上手**](getting-started)，它基于在线开发环境 [StackBlitz](https://stackblitz.com/)。
 我们建议每个想要快速掌握 Angular 基础知识的人使用那个新的快速上手，来构建一个在线商店应用程序。
 新的快速上手以更精简的格式涵盖了与本《英雄指南》相同的主题：组件、模板语法、路由、服务以及通过 HTTP 访问数据等。
 
+**This Tour of Heroes tutorial** is the conceptual basis for many examples in this documentation set. Reading this introduction page provides sufficient context for working with those examples. You do not need to do this tutorial to understand those other examples. The Tour of Heroes tutorial is maintained here for context and continuity. 
+
+**这份《英雄指南》教程**是本文档中很多范例的基础。阅读此简介页面可以为那些例子提供充足的上下文。你不用实做这个教程就能理解其它范例。这份《英雄指南》教程只是为了保持一个上下文和连续性。
+
 </div> 
+
+This _Tour of Heroes_ tutorial provides an introduction to the fundamentals of Angular. 
+It shows you how to set up your local development environment and develop an app using the [Angular CLI tool](cli "CLI command reference"). 
 
 In this _Tour of Heroes_ tutorial, you will build an app that helps a staffing agency manage its stable of heroes.
 
@@ -78,9 +80,19 @@ Angular can do whatever you need it to do.
 
 你将学到足够的 Angular 知识，并确信 Angular 确实能提供你所需的支持。
 
+<div class="callout is-helpful">
+
+<header>Solution</header>
+
+<header>最终解</header>
+
 After completing all tutorial steps, the final app will look like this: <live-example name="toh-pt6"></live-example>.
 
 完成本教程的所有步骤之后，最终的应用会是这样的：<live-example name="toh-pt6"></live-example>。
+
+</div>
+
+
 
 ## What you'll build
 

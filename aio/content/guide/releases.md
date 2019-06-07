@@ -148,9 +148,9 @@ The following table contains our current target release dates for the next two m
 Date | Stable Release | Compatibility
  ---------------------- | -------------- | -------------
 日期 | 稳定版 | 兼容性
- 2019 年 5 月          | 8.0.0          | ^7.0.0
  2019 年 10/11 月  | 9.0.0          | ^8.0.0
-
+ 2020 年 5 月      | 10.0.0         | ^9.0.0
+ 
  Compatibility note: The primary goal of the backward compatibility promise is to ensure that changes in the core framework and tooling don't break the existing ecosystem of components and applications and don't put undue upgrade/migration burden on Angular application and component authors.
 
 兼容性说明：向后兼容性承诺的主要目标是确保在核心框架和核心工具中的变化不会破坏现有组件和应用的生态系统，并且不要给 Angular 应用和组件的开发者带来额外的升级/迁移负担。
@@ -182,7 +182,7 @@ The following table provides the status for Angular versions under support.
 Version | Status | Released     | Active Ends  | LTS Ends
 ------- | ------ | ------------ | ------------ | ------------ 
 版本 | 状态 | 发布     | 停止活动  | LTS 结束
-^8.0.0  | Active | May 22, 2019 | Nov 22, 2019 | Nov 22, 2020
+^8.0.0  | Active | May 28, 2019 | Nov 28, 2019 | Nov 28, 2020
 ^7.0.0  | LTS    | Oct 18, 2018 | Apr 18, 2019 | Apr 18, 2020
 ^7.0.0  | 活动 | 2018年10月18日 | 2019年4月18日 | 2020年4月18日
 ^6.0.0  | LTS    | May 3, 2018  | Nov 3, 2018  | Nov 3, 2019

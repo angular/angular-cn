@@ -33,6 +33,15 @@
     "name": "DECLARATION_VIEW"
   },
   {
+    "name": "DEFAULT_BINDING_VALUE"
+  },
+  {
+    "name": "DEFAULT_GUARD_MASK_VALUE"
+  },
+  {
+    "name": "DEFAULT_SIZE_VALUE"
+  },
+  {
     "name": "DEFAULT_TEMPLATE_DIRECTIVE_INDEX"
   },
   {
@@ -51,9 +60,6 @@
     "name": "FLAGS"
   },
   {
-    "name": "FactoryPrototype"
-  },
-  {
     "name": "HEADER_OFFSET"
   },
   {
@@ -64,6 +70,9 @@
   },
   {
     "name": "INJECTOR_BLOOM_PARENT_SIZE"
+  },
+  {
+    "name": "MAP_BASED_ENTRY_PROP_NAME"
   },
   {
     "name": "MONKEY_PATCH_KEY_NAME"
@@ -150,7 +159,19 @@
     "name": "ViewEncapsulation"
   },
   {
+    "name": "__global"
+  },
+  {
+    "name": "__globalThis"
+  },
+  {
+    "name": "__self"
+  },
+  {
     "name": "__values"
+  },
+  {
+    "name": "__window"
   },
   {
     "name": "_currentNamespace"
@@ -165,6 +186,12 @@
     "name": "_selectedIndex"
   },
   {
+    "name": "_stylingMode"
+  },
+  {
+    "name": "addBindingIntoContext"
+  },
+  {
     "name": "addComponentLogic"
   },
   {
@@ -175,6 +202,12 @@
   },
   {
     "name": "allocStylingContext"
+  },
+  {
+    "name": "allocTStylingContext"
+  },
+  {
+    "name": "allocateNewContextEntry"
   },
   {
     "name": "allocateOrUpdateDirectiveIntoContext"
@@ -228,9 +261,6 @@
     "name": "createLView"
   },
   {
-    "name": "createNodeAtIndex"
-  },
-  {
     "name": "createRootComponent"
   },
   {
@@ -241,6 +271,9 @@
   },
   {
     "name": "createTNode"
+  },
+  {
+    "name": "createTNodeAtIndex"
   },
   {
     "name": "createTView"
@@ -315,6 +348,9 @@
     "name": "getCheckNoChangesMode"
   },
   {
+    "name": "getClassesContext"
+  },
+  {
     "name": "getClosureSafeProperty"
   },
   {
@@ -327,13 +363,16 @@
     "name": "getContainerRenderParent"
   },
   {
+    "name": "getContext"
+  },
+  {
     "name": "getDirectiveDef"
   },
   {
     "name": "getElementDepthCount"
   },
   {
-    "name": "getGlobal"
+    "name": "getGuardMask"
   },
   {
     "name": "getHighestElementOrICUContainer"
@@ -381,6 +420,9 @@
     "name": "getOrCreateNodeInjectorForNode"
   },
   {
+    "name": "getOrCreateTNode"
+  },
+  {
     "name": "getOrCreateTView"
   },
   {
@@ -402,6 +444,15 @@
     "name": "getPreviousOrParentTNode"
   },
   {
+    "name": "getProp"
+  },
+  {
+    "name": "getPropConfig"
+  },
+  {
+    "name": "getPropValuesStartPosition"
+  },
+  {
     "name": "getRenderFlags"
   },
   {
@@ -417,10 +468,16 @@
     "name": "getSelectedIndex"
   },
   {
+    "name": "getStylesContext"
+  },
+  {
     "name": "getStylingContextFromLView"
   },
   {
     "name": "getTNode"
+  },
+  {
+    "name": "getValuesCount"
   },
   {
     "name": "hasClassInput"
@@ -579,6 +636,12 @@
     "name": "refreshDynamicEmbeddedViews"
   },
   {
+    "name": "registerBinding"
+  },
+  {
+    "name": "registerInitialStylingIntoContext"
+  },
+  {
     "name": "registerPostOrderHooks"
   },
   {
@@ -612,6 +675,9 @@
     "name": "resolveDirectives"
   },
   {
+    "name": "runtimeIsNewStylingInUse"
+  },
+  {
     "name": "saveNameToExportMap"
   },
   {
@@ -636,6 +702,9 @@
     "name": "setCurrentQueryIndex"
   },
   {
+    "name": "setGuardMask"
+  },
+  {
     "name": "setHostBindings"
   },
   {
@@ -651,7 +720,7 @@
     "name": "setInputsFromAttrs"
   },
   {
-    "name": "setIsParent"
+    "name": "setIsNotParent"
   },
   {
     "name": "setNodeStylingTemplate"

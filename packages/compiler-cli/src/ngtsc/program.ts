@@ -438,7 +438,8 @@ export class NgtscProgram implements api.Program {
         // First, try to use local identifiers if available.
         new LocalIdentifierStrategy(),
         // Next, attempt to use an absolute import.
-        new AbsoluteModuleStrategy(this.tsProgram, checker, this.options, this.host),
+        new AbsoluteModuleStrategy(
+            this.tsProgram, checker, this.options, this.host, this.reflector),
         // Finally, check if the reference is being written into a file within the project's logical
         // file system, and use a relative import if so. If this fails, ReferenceEmitter will throw
         // an error.
@@ -500,7 +501,8 @@ export class NgtscProgram implements api.Program {
           this.options.strictInjectionParameters || false),
       new NgModuleDecoratorHandler(
           this.reflector, evaluator, metaRegistry, scopeRegistry, referencesRegistry, this.isCore,
-          this.routeAnalyzer, this.refEmitter, this.defaultImportTracker),
+          this.routeAnalyzer, this.refEmitter, this.defaultImportTracker,
+          this.options.i18nInLocale),
       new PipeDecoratorHandler(
           this.reflector, evaluator, metaRegistry, this.defaultImportTracker, this.isCore),
     ];

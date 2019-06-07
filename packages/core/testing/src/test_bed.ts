@@ -57,8 +57,14 @@ export interface TestBed {
   compileComponents(): Promise<any>;
 
   get<T>(token: Type<T>|InjectionToken<T>, notFoundValue?: T, flags?: InjectFlags): any;
+
+  // TODO: switch back to official deprecation marker once TSLint issue is resolved
+  // https://github.com/palantir/tslint/issues/4522
   /**
-   * @deprecated from v8.0.0 use Type<T> or InjectionToken<T>
+   * deprecated from v8.0.0 use Type<T> or InjectionToken<T>
+   * This does not use the deprecated jsdoc tag on purpose
+   * because it renders all overloads as deprecated in TSLint
+   * due to https://github.com/palantir/tslint/issues/4522.
    */
   get(token: any, notFoundValue?: any): any;
 
@@ -82,20 +88,6 @@ export interface TestBed {
   overrideProvider(token: any, provider: {useValue: any;}): void;
   overrideProvider(token: any, provider: {useFactory?: Function, useValue?: any, deps?: any[]}):
       void;
-
-  /**
-   * Overwrites all providers for the given token with the given provider definition.
-   *
-   * @deprecated as it makes all NgModules lazy. Introduced only for migrating off of it.
-   */
-  deprecatedOverrideProvider(token: any, provider: {
-    useFactory: Function,
-    deps: any[],
-  }): void;
-  deprecatedOverrideProvider(token: any, provider: {useValue: any;}): void;
-  deprecatedOverrideProvider(
-      token: any, provider: {useFactory?: Function, useValue?: any, deps?: any[]}): void;
-
 
   overrideTemplateUsingTestingModule(component: Type<any>, template: string): void;
 
@@ -221,25 +213,6 @@ export class TestBedViewEngine implements Injector, TestBed {
     deps?: any[],
   }): TestBedStatic {
     _getTestBedViewEngine().overrideProvider(token, provider as any);
-    return TestBedViewEngine as any as TestBedStatic;
-  }
-
-  /**
-   * Overwrites all providers for the given token with the given provider definition.
-   *
-   * @deprecated as it makes all NgModules lazy. Introduced only for migrating off of it.
-   */
-  static deprecatedOverrideProvider(token: any, provider: {
-    useFactory: Function,
-    deps: any[],
-  }): void;
-  static deprecatedOverrideProvider(token: any, provider: {useValue: any;}): void;
-  static deprecatedOverrideProvider(token: any, provider: {
-    useFactory?: Function,
-    useValue?: any,
-    deps?: any[],
-  }): TestBedStatic {
-    _getTestBedViewEngine().deprecatedOverrideProvider(token, provider as any);
     return TestBedViewEngine as any as TestBedStatic;
   }
 
@@ -535,21 +508,6 @@ export class TestBedViewEngine implements Injector, TestBed {
   overrideProvider(token: any, provider: {useFactory?: Function, useValue?: any, deps?: any[]}):
       void {
     this.overrideProviderImpl(token, provider);
-  }
-
-  /**
-   * Overwrites all providers for the given token with the given provider definition.
-   *
-   * @deprecated as it makes all NgModules lazy. Introduced only for migrating off of it.
-   */
-  deprecatedOverrideProvider(token: any, provider: {
-    useFactory: Function,
-    deps: any[],
-  }): void;
-  deprecatedOverrideProvider(token: any, provider: {useValue: any;}): void;
-  deprecatedOverrideProvider(
-      token: any, provider: {useFactory?: Function, useValue?: any, deps?: any[]}): void {
-    this.overrideProviderImpl(token, provider, /* deprecated */ true);
   }
 
   private overrideProviderImpl(

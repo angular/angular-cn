@@ -15,6 +15,7 @@ import * as t from '../r3_ast';
 import {Identifiers as R3} from '../r3_identifiers';
 
 import {parse as parseStyle} from './style_parser';
+import {compilerIsNewStylingInUse} from './styling_state';
 import {ValueConverter} from './template';
 
 const IMPORTANT_FLAG = '!important';
@@ -88,6 +89,7 @@ export class StylingBuilder {
   /** an array of each [class.name] input */
   private _singleClassInputs: BoundStylingEntry[]|null = null;
   private _lastStylingInput: BoundStylingEntry|null = null;
+  private _firstStylingInput: BoundStylingEntry|null = null;
 
   // maps are used instead of hash maps because a Map will
   // retain the ordering of the keys
@@ -180,6 +182,7 @@ export class StylingBuilder {
       registerIntoMap(this._stylesIndex, property);
     }
     this._lastStylingInput = entry;
+    this._firstStylingInput = this._firstStylingInput || entry;
     this.hasBindings = true;
     return entry;
   }
@@ -199,6 +202,7 @@ export class StylingBuilder {
       registerIntoMap(this._classesIndex, property);
     }
     this._lastStylingInput = entry;
+    this._firstStylingInput = this._firstStylingInput || entry;
     this.hasBindings = true;
     return entry;
   }
@@ -363,6 +367,11 @@ export class StylingBuilder {
   private _buildMapBasedInstruction(
       valueConverter: ValueConverter, isClassBased: boolean, stylingInput: BoundStylingEntry) {
     let totalBindingSlotsRequired = 0;
+    if (compilerIsNewStylingInUse()) {
+      // the old implementation does not reserve slot values for
+      // binding entries. The new one does.
+      totalBindingSlotsRequired++;
+    }
 
     // these values must be outside of the update block so that they can
     // be evaluated (the AST visit call) during creation time so that any
@@ -389,6 +398,11 @@ export class StylingBuilder {
       const bindingIndex: number = mapIndex.get(input.name !) !;
       const value = input.value.visit(valueConverter);
       totalBindingSlotsRequired += (value instanceof Interpolation) ? value.expressions.length : 0;
+      if (compilerIsNewStylingInUse()) {
+        // the old implementation does not reserve slot values for
+        // binding entries. The new one does.
+        totalBindingSlotsRequired++;
+      }
       return {
         sourceSpan: input.sourceSpan,
         allocateBindingSlots: totalBindingSlotsRequired, reference,
@@ -442,6 +456,15 @@ export class StylingBuilder {
     };
   }
 
+  private _buildSanitizerFn() {
+    return {
+      sourceSpan: this._firstStylingInput ? this._firstStylingInput.sourceSpan : null,
+      reference: R3.styleSanitizer,
+      allocateBindingSlots: 0,
+      buildParams: () => [o.importExpr(R3.defaultStyleSanitizer)]
+    };
+  }
+
   /**
    * Constructs all instructions which contain the expressions that will be placed
    * into the update block of a template function or a directive hostBindings function.
@@ -449,6 +472,9 @@ export class StylingBuilder {
   buildUpdateLevelInstructions(valueConverter: ValueConverter) {
     const instructions: Instruction[] = [];
     if (this.hasBindings) {
+      if (compilerIsNewStylingInUse() && this._useDefaultSanitizer) {
+        instructions.push(this._buildSanitizerFn());
+      }
       const styleMapInstruction = this.buildStyleMapInstruction(valueConverter);
       if (styleMapInstruction) {
         instructions.push(styleMapInstruction);
@@ -477,7 +503,7 @@ function isStyleSanitizable(prop: string): boolean {
   return prop === 'background-image' || prop === 'backgroundImage' || prop === 'background' ||
       prop === 'border-image' || prop === 'borderImage' || prop === 'filter' ||
       prop === 'list-style' || prop === 'listStyle' || prop === 'list-style-image' ||
-      prop === 'listStyleImage';
+      prop === 'listStyleImage' || prop === 'clip-path' || prop === 'clipPath';
 }
 
 /**

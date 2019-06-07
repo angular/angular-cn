@@ -7,14 +7,14 @@
  */
 import * as ts from 'typescript';
 
-import {AbsoluteFsPath} from '../../../src/ngtsc/path';
+import {AbsoluteFsPath, PathSegment} from '../../../src/ngtsc/path';
 import {EsmDependencyHost} from '../../src/dependencies/esm_dependency_host';
 import {ModuleResolver} from '../../src/dependencies/module_resolver';
 import {MockFileSystem} from '../helpers/mock_file_system';
 
 const _ = AbsoluteFsPath.from;
 
-describe('DependencyHost', () => {
+describe('EsmDependencyHost', () => {
   let host: EsmDependencyHost;
   beforeEach(() => {
     const fs = createMockFileSystem();
@@ -56,7 +56,7 @@ describe('DependencyHost', () => {
       expect(dependencies.size).toBe(1);
       expect(dependencies.has(_('/node_modules/lib-1'))).toBe(true);
       expect(missing.size).toBe(1);
-      expect(missing.has('missing')).toBe(true);
+      expect(missing.has(PathSegment.fromFsPath('missing'))).toBe(true);
       expect(deepImports.size).toBe(0);
     });
 
@@ -70,7 +70,7 @@ describe('DependencyHost', () => {
       expect(dependencies.size).toBe(0);
       expect(missing.size).toBe(0);
       expect(deepImports.size).toBe(1);
-      expect(deepImports.has('/node_modules/lib-1/deep/import')).toBe(true);
+      expect(deepImports.has(_('/node_modules/lib-1/deep/import'))).toBe(true);
     });
 
     it('should recurse into internal dependencies', () => {

@@ -46,8 +46,22 @@ describe('injectable pipe migration', () => {
     shx.rm('-r', tmpDirPath);
   });
 
-  it('should add @Injectable to pipes that do not have it', () => {
+  it('should add @Injectable to pipes that do not have it', async() => {
     writeFile('/index.ts', `
+      import { Pipe } from '@angular/core';
+
+      @Pipe({ name: 'myPipe' })
+      export class MyPipe {
+      }
+    `);
+
+    await runMigration();
+    expect(tree.readContent('/index.ts'))
+        .toMatch(/@Injectable\(\)\s+@Pipe\(\{ name: 'myPipe' \}\)\s+export class MyPipe/);
+  });
+
+  it('should add @Injectable to pipes that do not have it (BOM)', () => {
+    writeFile('/index.ts', `\uFEFF
       import { Pipe } from '@angular/core';
 
       @Pipe({ name: 'myPipe' })
@@ -60,7 +74,7 @@ describe('injectable pipe migration', () => {
         .toMatch(/@Injectable\(\)\s+@Pipe\(\{ name: 'myPipe' \}\)\s+export class MyPipe/);
   });
 
-  it('should add an import for Injectable to the @angular/core import declaration', () => {
+  it('should add an import for Injectable to the @angular/core import declaration', async() => {
     writeFile('/index.ts', `
       import { Pipe } from '@angular/core';
 
@@ -69,14 +83,14 @@ describe('injectable pipe migration', () => {
       }
     `);
 
-    runMigration();
+    await runMigration();
 
     const content = tree.readContent('/index.ts');
     expect(content).toContain('import { Pipe, Injectable } from \'@angular/core\'');
     expect((content.match(/import/g) || []).length).toBe(1, 'Expected only one import statement');
   });
 
-  it('should not add an import for Injectable if it is imported already', () => {
+  it('should not add an import for Injectable if it is imported already', async() => {
     writeFile('/index.ts', `
       import { Pipe, Injectable, NgModule } from '@angular/core';
 
@@ -85,12 +99,12 @@ describe('injectable pipe migration', () => {
       }
     `);
 
-    runMigration();
+    await runMigration();
     expect(tree.readContent('/index.ts'))
         .toContain('import { Pipe, Injectable, NgModule } from \'@angular/core\'');
   });
 
-  it('should do nothing if the pipe is marked as injectable already', () => {
+  it('should do nothing if the pipe is marked as injectable already', async() => {
     const source = `
       import { Injectable, Pipe } from '@angular/core';
 
@@ -101,11 +115,11 @@ describe('injectable pipe migration', () => {
     `;
 
     writeFile('/index.ts', source);
-    runMigration();
+    await runMigration();
     expect(tree.readContent('/index.ts')).toBe(source);
   });
 
-  it('should not add @Injectable if @Pipe was not imported from @angular/core', () => {
+  it('should not add @Injectable if @Pipe was not imported from @angular/core', async() => {
     const source = `
       import { Pipe } from '@not-angular/core';
 
@@ -115,7 +129,7 @@ describe('injectable pipe migration', () => {
     `;
 
     writeFile('/index.ts', source);
-    runMigration();
+    await runMigration();
     expect(tree.readContent('/index.ts')).toBe(source);
   });
 
@@ -123,5 +137,7 @@ describe('injectable pipe migration', () => {
     host.sync.write(normalize(filePath), virtualFs.stringToFileBuffer(contents));
   }
 
-  function runMigration() { runner.runSchematic('migration-injectable-pipe', {}, tree); }
+  function runMigration() {
+    runner.runSchematicAsync('migration-injectable-pipe', {}, tree).toPromise();
+  }
 });

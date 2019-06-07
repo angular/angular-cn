@@ -29,7 +29,7 @@ function setupFakeCore(support: TestSupport): void {
   const nodeModulesPath = path.join(support.basePath, 'node_modules');
   const angularCoreDirectory = path.join(nodeModulesPath, '@angular/core');
 
-  fs.symlinkSync(fakeNpmPackageDir, angularCoreDirectory, 'dir');
+  fs.symlinkSync(fakeNpmPackageDir, angularCoreDirectory, 'junction');
 }
 
 /**
@@ -49,7 +49,7 @@ export class NgtscTestEnvironment {
    */
   static setup(): NgtscTestEnvironment {
     const support = setup();
-    const outDir = path.join(support.basePath, 'built');
+    const outDir = path.posix.join(support.basePath, 'built');
     process.chdir(support.basePath);
 
     setupFakeCore(support);
@@ -121,7 +121,7 @@ export class NgtscTestEnvironment {
     if (this.multiCompileHostExt === null) {
       throw new Error(`Not tracking written files - call enableMultipleCompilations()`);
     }
-    const outDir = path.join(this.support.basePath, 'built');
+    const outDir = path.posix.join(this.support.basePath, 'built');
     const writtenFiles = new Set<string>();
     this.multiCompileHostExt.getFilesWrittenSinceLastFlush().forEach(rawFile => {
       if (rawFile.startsWith(outDir)) {
@@ -133,7 +133,7 @@ export class NgtscTestEnvironment {
 
   write(fileName: string, content: string) {
     if (this.multiCompileHostExt !== null) {
-      const absFilePath = path.resolve(this.support.basePath, fileName);
+      const absFilePath = path.posix.resolve(this.support.basePath, fileName);
       this.multiCompileHostExt.invalidate(absFilePath);
     }
     this.support.write(fileName, content);
@@ -143,7 +143,7 @@ export class NgtscTestEnvironment {
     if (this.multiCompileHostExt === null) {
       throw new Error(`Not caching files - call enableMultipleCompilations()`);
     }
-    const fullFile = path.join(this.support.basePath, fileName);
+    const fullFile = path.posix.join(this.support.basePath, fileName);
     this.multiCompileHostExt.invalidate(fullFile);
   }
 

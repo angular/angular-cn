@@ -371,8 +371,6 @@ const routes: Routes = [{
 | ------------- | --------------- |
 | 属性          | 替代品            |
 | `params`      | `paramMap`      |
-| `params`      | `paramMap`      |
-| `queryParams` | `queryParamMap` |
 | `queryParams` | `queryParamMap` |
 
 For more information see the [Router guide](guide/router#activated-route). 
@@ -452,66 +450,36 @@ For more information about using `@angular/common/http`, see the [HttpClient gui
 | --------------------- | ----------------------------------------------------------------- |
 | `@angular/http`       | `@angular/common/http` 中最接近的替代品                                  |
 | `BaseRequestOptions`  | [`HttpRequest`](/api/common/http/HttpRequest)                     |
-| `BaseRequestOptions`  | [`HttpRequest`](/api/common/http/HttpRequest)                     |
-| `BaseResponseOptions` | [`HttpResponse`](/api/common/http/HttpResponse)                   |
 | `BaseResponseOptions` | [`HttpResponse`](/api/common/http/HttpResponse)                   |
 | `BrowserXhr`          |                                                                   |
-| `BrowserXhr`          |                                                                   |
-| `Connection`          | [`HttpBackend`](/api/common/http/HttpBackend)                     |
 | `Connection`          | [`HttpBackend`](/api/common/http/HttpBackend)                     |
 | `ConnectionBackend`   | [`HttpBackend`](/api/common/http/HttpBackend)                     |
-| `ConnectionBackend`   | [`HttpBackend`](/api/common/http/HttpBackend)                     |
-| `CookieXSRFStrategy`  | [`HttpClientXsrfModule`](/api/common/http/HttpClientXsrfModule)   |
 | `CookieXSRFStrategy`  | [`HttpClientXsrfModule`](/api/common/http/HttpClientXsrfModule)   |
 | `Headers`             | [`HttpHeaders`](/api/common/http/HttpHeaders)                     |
-| `Headers`             | [`HttpHeaders`](/api/common/http/HttpHeaders)                     |
-| `Http`                | [`HttpClient`](/api/common/http/HttpClient)                       |
 | `Http`                | [`HttpClient`](/api/common/http/HttpClient)                       |
 | `HttpModule`          | [`HttpClientModule`](/api/common/http/HttpClientModule)           |
-| `HttpModule`          | [`HttpClientModule`](/api/common/http/HttpClientModule)           |
-| `Jsonp`               | [`HttpClient`](/api/common/http/HttpClient)                       |
 | `Jsonp`               | [`HttpClient`](/api/common/http/HttpClient)                       |
 | `JSONPBackend`        | [`JsonpClientBackend`](/api/common/http/JsonpClientBackend)       |
-| `JSONPBackend`        | [`JsonpClientBackend`](/api/common/http/JsonpClientBackend)       |
-| `JSONPConnection`     | [`JsonpClientBackend`](/api/common/http/JsonpClientBackend)       |
 | `JSONPConnection`     | [`JsonpClientBackend`](/api/common/http/JsonpClientBackend)       |
 | `JsonpModule`         | [`HttpClientJsonpModule`](/api/common/http/HttpClientJsonpModule) |
-| `JsonpModule`         | [`HttpClientJsonpModule`](/api/common/http/HttpClientJsonpModule) |
-| `QueryEncoder`        | [`HttpUrlEncodingCodec`](/api/common/http/HttpUrlEncodingCodec)   |
 | `QueryEncoder`        | [`HttpUrlEncodingCodec`](/api/common/http/HttpUrlEncodingCodec)   |
 | `ReadyState`          | [`HttpBackend`](/api/common/http/HttpBackend)                     |
-| `ReadyState`          | [`HttpBackend`](/api/common/http/HttpBackend)                     |
-| `Request`             | [`HttpRequest`](/api/common/http/HttpRequest)                     |
 | `Request`             | [`HttpRequest`](/api/common/http/HttpRequest)                     |
 | `RequestMethod`       | [`HttpClient`](/api/common/http/HttpClient)                       |
-| `RequestMethod`       | [`HttpClient`](/api/common/http/HttpClient)                       |
-| `RequestOptions`      | [`HttpRequest`](/api/common/http/HttpRequest)                     |
 | `RequestOptions`      | [`HttpRequest`](/api/common/http/HttpRequest)                     |
 | `RequestOptionsArgs`  | [`HttpRequest`](/api/common/http/HttpRequest)                     |
-| `RequestOptionsArgs`  | [`HttpRequest`](/api/common/http/HttpRequest)                     |
-| `Response`            | [`HttpResponse`](/api/common/http/HttpResponse)                   |
 | `Response`            | [`HttpResponse`](/api/common/http/HttpResponse)                   |
 | `ResponseContentType` | [`HttpClient`](/api/common/http/HttpClient)                       |
-| `ResponseContentType` | [`HttpClient`](/api/common/http/HttpClient)                       |
-| `ResponseOptions`     | [`HttpResponse`](/api/common/http/HttpResponse)                   |
 | `ResponseOptions`     | [`HttpResponse`](/api/common/http/HttpResponse)                   |
 | `ResponseOptionsArgs` | [`HttpResponse`](/api/common/http/HttpResponse)                   |
-| `ResponseOptionsArgs` | [`HttpResponse`](/api/common/http/HttpResponse)                   |
-| `ResponseType`        | [`HttpClient`](/api/common/http/HttpClient)                       |
 | `ResponseType`        | [`HttpClient`](/api/common/http/HttpClient)                       |
 | `URLSearchParams`     | [`HttpParams`](/api/common/http/HttpParams)                       |
-| `URLSearchParams`     | [`HttpParams`](/api/common/http/HttpParams)                       |
-| `XHRBackend`          | [`HttpXhrBackend`](/api/common/http/HttpXhrBackend)               |
 | `XHRBackend`          | [`HttpXhrBackend`](/api/common/http/HttpXhrBackend)               |
 | `XHRConnection`       | [`HttpXhrBackend`](/api/common/http/HttpXhrBackend)               |
-| `XHRConnection`       | [`HttpXhrBackend`](/api/common/http/HttpXhrBackend)               |
-| `XSRFStrategy`        | [`HttpClientXsrfModule`](/api/common/http/HttpClientXsrfModule)   |
 | `XSRFStrategy`        | [`HttpClientXsrfModule`](/api/common/http/HttpClientXsrfModule)   |
 
 | `@angular/http/testing` | Closest replacement in `@angular/common/http/testing`                     |
 | ----------------------- | ------------------------------------------------------------------------- |
 | `@angular/http/testing` | `@angular/common/http/testing` 中最接近的替代品                              |
 | `MockBackend`           | [`HttpTestingController`](/api/common/http/testing/HttpTestingController) |
-| `MockBackend`           | [`HttpTestingController`](/api/common/http/testing/HttpTestingController) |
-| `MockConnection`        | [`HttpTestingController`](/api/common/http/testing/HttpTestingController) |
 | `MockConnection`        | [`HttpTestingController`](/api/common/http/testing/HttpTestingController) |

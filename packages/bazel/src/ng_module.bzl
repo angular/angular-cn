@@ -427,7 +427,7 @@ def ngc_compile_action(
 
     if is_legacy_ngc and messages_out != None:
         ctx.actions.run(
-            inputs = list(inputs),
+            inputs = inputs,
             outputs = messages_out,
             executable = ctx.executable.ng_xi18n,
             arguments = (_EXTRA_NODE_OPTIONS_FLAGS +
@@ -442,7 +442,7 @@ def ngc_compile_action(
 
     if dts_bundles_out != None:
         # combine the inputs and outputs and filter .d.ts and json files
-        filter_inputs = [f for f in inputs + outputs if f.path.endswith(".d.ts") or f.path.endswith(".json")]
+        filter_inputs = [f for f in list(inputs) + outputs if f.path.endswith(".d.ts") or f.path.endswith(".json")]
 
         if _should_produce_flat_module_outs(ctx):
             dts_entry_points = ["%s.d.ts" % _flat_module_out_file(ctx)]
@@ -489,6 +489,14 @@ def _compile_action(ctx, inputs, outputs, dts_bundles_out, messages_out, tsconfi
     # Give the Angular compiler all the user-listed assets
     file_inputs = list(ctx.files.assets)
 
+    if (type(inputs) == type([])):
+        file_inputs.extend(inputs)
+    else:
+        # inputs ought to be a list, but allow depset as well
+        # so that this can change independently of rules_typescript
+        # TODO(alexeagle): remove this case after update (July 2019)
+        file_inputs.extend(inputs.to_list())
+
     if hasattr(ctx.attr, "node_modules"):
         file_inputs.extend(_filter_ts_inputs(ctx.files.node_modules))
 
@@ -508,7 +516,7 @@ def _compile_action(ctx, inputs, outputs, dts_bundles_out, messages_out, tsconfi
     # Collect the inputs and summary files from our deps
     action_inputs = depset(
         file_inputs,
-        transitive = [inputs] + [
+        transitive = [
             dep.collect_summaries_aspect_result
             for dep in ctx.attr.deps
             if hasattr(dep, "collect_summaries_aspect_result")

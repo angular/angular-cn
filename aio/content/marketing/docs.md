@@ -1,77 +1,80 @@
-<h1 class="no-toc">What is Angular?</h1>
+<h1 class="no-toc">Introduction to the Angular Docs</h1>
 
 <h1 class="no-toc">什么是 Angular？</h1>
 
-Angular is a platform that makes it easy to build applications with the web. Angular combines declarative templates, dependency injection, end to end tooling, and integrated best practices to solve development challenges. Angular empowers developers to build applications that live on the web, mobile, or the desktop.
+These Angular docs help you learn and use the Angular platform and framework, from your first app to optimizing complex enterprise apps. 
+Tutorials and guides include downloadable example to accelerate your projects. 
 
-Angular 是一个开发平台。它能帮你更轻松的构建 Web 应用。Angular 集声明式模板、依赖注入、端到端工具和一些最佳实践于一身，为你解决开发方面的各种挑战。Angular 为开发者提升构建 Web、手机或桌面应用的能力。
+这份 Angular 文档会帮助你学习和使用 Angular 平台&框架，从你的第一个应用开始，一直到优化复杂的企业应用。
+这些教程和指南中都包含可下载的范例，以加速你的学习。
 
 <div class="card-container">
-  <a href="generated/live-examples/toh-pt1/stackblitz.html" target="_blank" class="docs-card"
-    title="Experience Angular in a live coding environment">
-      <section>Get a Glimpse of Angular</section>
+  <a href="start" class="docs-card" title="Angular Getting Started">
+      <section>Learn</section>
       <section>Angular 走马观花</section>
-      <p>A quick look at an Angular "hello world" application.</p>
+      <p>Create your first Angular app, without any setup</p>
       <p>快速体验 Angular 的 "hello world" 应用。</p>
-      <p class="card-footer">Angular in Action</p>
+      <p class="card-footer">Getting Started</p>
       <p class="card-footer">体验 Angular</p>
   </a>
-  <a href="guide/quickstart" class="docs-card" title="Angular Getting Started">
-      <section>Get Going with Angular</section>
+  <a href="guide/setup-local" class="docs-card"
+    title="Angular Local Environment Setup">
+      <section>Start Working</section>
       <section>开始使用 Angular</section>
-      <p>Get going on your own environment with the Getting Started.</p>
+      <p>Set up your local environment with the Angular CLI</p>
       <p>跟随"快速上手"构建你的开发环境</p>
-      <p class="card-footer">Quickstart</p>
+      <p class="card-footer">Local Setup</p>
       <p class="card-footer">快速上手</p>
   </a>
   <a href="guide/architecture" class="docs-card" title="Angular Architecture">
-      <section>Fundamentals</section>
+      <section>Explore</section>
       <section>基本原理</section>
-      <p>Learn Angular application fundamentals, starting with an architecture overview.</p>
+      <p>Learn more about Angular apps and framework features</p>
       <p>学习 Angular 应用的基本原理。<br/>从架构概览开始。</p>
       <p class="card-footer">Architecture</p>
       <p class="card-footer">架构</p>
   </a>
 </div>
 
+
 ## Assumptions
 
 ## 基本假设
 
-This documentation assumes that you are already familiar with
-[JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript/A_re-introduction_to_JavaScript "Learn JavaScript"),
-and some of the tools from the
-[latest standards](https://babeljs.io/learn-es2015/ "Latest JavaScript standards") such as
-[classes](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes "ES2015 Classes")
-and [modules](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import "ES2015 Modules").
-The code samples are written using [TypeScript](https://www.typescriptlang.org/ "TypeScript").
-Most Angular code can be written with just the latest JavaScript,
-using [types](https://www.typescriptlang.org/docs/handbook/classes.html "TypeScript Types") for dependency injection,
-and using [decorators](https://www.typescriptlang.org/docs/handbook/decorators.html "Decorators") for metadata.
+These docs assume that you are already familiar with HTML, CSS, [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript/A_re-introduction_to_JavaScript "Learn JavaScript"), 
+and some of the tools from the [latest standards](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Language_Resources "Latest JavaScript standards"), such as [classes](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes "ES2015 Classes") and [modules](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import "ES2015 Modules"). 
+The code samples are written using [TypeScript](https://www.typescriptlang.org/ "TypeScript"). 
+Most Angular code can be written with just the latest JavaScript, using [types](https://www.typescriptlang.org/docs/handbook/classes.html "TypeScript Types") for dependency injection, and using [decorators](https://www.typescriptlang.org/docs/handbook/decorators.html "Decorators") for metadata.
 
 
-本文档假设你已经熟悉了 [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript/A_re-introduction_to_JavaScript "Learn JavaScript") 和来自 [最新标准](https://babeljs.io/learn-es2015/ "Latest JavaScript standards") 的一些知识，比如  [类](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes "ES2015 Classes") 和 [模块](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import "ES2015 Modules")。
+
+本文档假设你已经熟悉了 HTML，CSS，[JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript/A_re-introduction_to_JavaScript "Learn JavaScript") 和来自 [最新标准](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Language_Resources "Latest JavaScript standards") 的一些知识，比如  [类](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes "ES2015 Classes") 和 [模块](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import "ES2015 Modules")。
 下列代码范例都是用最新版本的 [TypeScript](https://www.typescriptlang.org/ "TypeScript") 写的。
 大多数 Angular 代码都只能用最新的 JavaScript 编写，它会用 [类型](https://www.typescriptlang.org/docs/handbook/classes.html "TypeScript Types") 实现依赖注入，还会用[装饰器](https://www.typescriptlang.org/docs/handbook/decorators.html "Decorators")来提供元数据。
 
-## Feedback
+## Feedback 
 
 ## 反馈
 
-You can sit with us!
+<h4>You can sit with us!</h4>
 
-你也可以和我们一起做贡献！
+<h4>你也可以和我们一起做贡献！</h4>
 
-You can file documentation
-[issues](https://github.com/angular/angular/issues "Angular Github issues") and create
+We want to hear from you. [Report problems or submit suggestions for future docs.](https://github.com/angular/angular/issues/new/choose "Angular GitHub repository new issue form")
+
+我们希望听到你的声音！[欢迎报告问题或为文档的未来提交建议](https://github.com/angular/angular/issues/new/choose "Angular GitHub repository new issue form")。
+
+Contribute to Angular docs by creating
 [pull requests](https://github.com/angular/angular/pulls "Angular Github pull requests")
 on the Angular Github repository.
-The [contributing guide](https://github.com/angular/angular/blob/master/CONTRIBUTING.md "Contributing guide")
-will help you contribute to the community.
-Our community values  respectful, supportive communication.
-Please consult and adhere to the
-[code of conduct](https://github.com/angular/code-of-conduct/blob/master/CODE_OF_CONDUCT.md "contributor code of conduct").
+See [Contributing to Angular](https://github.com/angular/angular/blob/master/CONTRIBUTING.md "Contributing guide")
+for information about submission guidelines.  
 
-你可以到 Angular 在 Github 上的仓库中提出文档方面的[问题](https://github.com/angular/angular/issues "Angular Github issues")，并创建[Pull Requests](https://github.com/angular/angular/pulls "Angular Github pull requests")。
+请到 Github 上的仓库中创建 [Pull Requests](https://github.com/angular/angular/pulls "Angular Github pull requests") 来为 Angular 文档做出贡献。
 [贡献者指南](https://github.com/angular/angular/blob/master/CONTRIBUTING.md "贡献者指南")将会帮助你更好的为社区做贡献。
-我们社区的价值观是互相尊重、互相支持。参见[社区行为规范](https://github.com/angular/code-of-conduct/blob/master/CODE_OF_CONDUCT.md "contributor code of conduct")。
+
+Our community values respectful, supportive communication.
+Please consult and adhere to the [Code of Conduct](https://github.com/angular/code-of-conduct/blob/master/CODE_OF_CONDUCT.md "Contributor code of conduct").
+
+我们的社区提倡相互尊重、相互支持。
+参见[社区行为规范](https://github.com/angular/code-of-conduct/blob/master/CODE_OF_CONDUCT.md "contributor code of conduct")。

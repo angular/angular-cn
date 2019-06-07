@@ -300,10 +300,9 @@ The [Angular CLI](cli) is a command-line tool for managing the Angular developme
 [Angular CLI](cli) 是一个命令行工具，用于管理 Angular 的开发周期。它用于为[工作区](#workspace)或[项目](#project)创建初始的脚手架，并且运行[生成器（schematics）](#schematic)来为初始生成的版本添加或修改各类代码。
 CLI 支持开发周期中的所有阶段，比如构建、测试、打包和部署。
 
-* To begin using the CLI for a new project, see [Getting Started](guide/quickstart).
+* To begin using the CLI for a new project, see [Local Environment Setup](guide/setup-local "Setting up for Local Development").
 
   要开始使用 CLI 来创建新项目，参见[快速起步](guide/quickstart)。
-
 * To learn more about the full capabilities of the CLI, see the [CLI command reference](cli).
 
   要了解 CLI 的全部功能，参见 [CLI 命令参考手册](cli)。
@@ -646,15 +645,14 @@ Compare to [custom element](#custom-element).
 
 ## 入口点（Entry Point）
 
-A JavaScript symbol that makes parts of an [npm package](guide/npm-packages) available for import by other code.
-The Angular [scoped packages](#scoped-package) each have an entry point named `index`.
+A JavaScript module(#module) that is intended to be imported by a user of [an
+npm package](guide/npm-packages). An entry-point module typically re-exports
+symbols from other internal modules. A package can contain multiple
+entry points. For example, the `@angular/core` package has two entry-point
+modules, which can be imported using the module names `@angular/core` and
+`@angular/core/testing`.
 
-JavaScript 的 ID 用来让这段代码成为 [npm 包](guide/npm-packages)的一部分，从而让其它代码能导入它。
-Angular 的每个[范围化的包](#scoped-package)都有一个名叫 `index` 的入口点。
-
-Within Angular, use [NgModules](#ngmodule) to make public parts available for import by other NgModules.
-
-在 Angular 领域中，[NgModules](#ngmodule) 可以让一些公开的部分可以供其它 NgModules 导入。
+JavaScript 模块(#module)的目的是供 [npm 包](guide/npm-packages)的用户进行导入。入口点模块通常会重新导出来自其它内部模块的一些符号。每个包可以包含多个入口点。比如 `@angular/core` 就有两个入口点模块，它们可以使用名字 `@angular/core` 和 `@angular/core/testing` 进行导入。
 
 {@a F}
 

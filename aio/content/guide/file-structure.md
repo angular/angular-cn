@@ -14,18 +14,18 @@ Angular CLI 的 `ng new`命令可以创建一个工作空间。
 
 
 <code-example language="bash" linenums="false">
-ng new &lt;project_name&gt;
+ng new &lt;my-project&gt;
 </code-example>
 
-When you run this command, the CLI installs the necessary Angular npm packages and other dependencies in a new workspace, with a root folder named *project_name*.
-The workspace root folder contains workspace configuration files and a README file with generated descriptive text that you can customize.
+When you run this command, the CLI installs the necessary Angular npm packages and other dependencies in a new workspace, with a root-level application named *my-project*.
+The workspace root folder contains various support and configuration files, and a README file with generated descriptive text that you can customize.
 
 当你运行这个命令时，CLI 会在一个新的工作区中安装必需的 Angular npm 包和其它依赖项，其根文件夹名叫 *project_name*。该工作空间的根文件夹中包含一些工作空间配置文件，和一个带有自动生成的描述性文本的自述文件，你可以自定义它。
 
 
-By default, `ng new` also creates an initial skeleton application, along with its end-to-end tests.
+By default, `ng new` creates an initial skeleton application at the root level of the workspace, along with its end-to-end tests.
 The skeleton is for a simple Welcome application that is ready to run and easy to modify.
-This *root application* has the same name as the workspace, and the source files reside in the `src/` subfolder of the workspace.
+The root-level application has the same name as the workspace, and the source files reside in the `src/` subfolder of the workspace.
 
 `ng new` 还会默认创建一个初始的骨架应用，以及它的端到端测试项目。这个骨架是一个简单的 Welcome 应用，它可以运行，也很容易修改。这个*根应用*与工作空间同名，其源文件位于工作空间的 `src/` 子文件夹中。
 
@@ -55,46 +55,47 @@ See [Setting up for a multi-project workspace](#multiple-projects) below.
 
 
 All projects within a workspace share a [CLI configuration context](guide/workspace-config).
-The top level of the workspace contains workspace-wide configuration files.
+The top level of the workspace contains workspace-wide configuration files, configuration files for the root-level application, and subfolders for the root-level application source and test files.
 
 每个工作空间中的所有项目共享同一个 [CLI 配置环境](guide/workspace-config) 。该工作空间的顶层包含着全工作空间级的配置文件。
 
-
-| WORKSPACE CONFIG FILES | PURPOSE                                                                                                                                                                                                                                                                                                                                                                         |
-| :--------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| 工作空间配置文件      | 用途                                                                                                                                                                                                                                                                                                                                                                            |
-| `node_modules/`        | Provides [npm packages](guide/npm-packages) to the entire workspace. Workspace-wide `node_modules` dependencies are visible to all projects.                                                                                                                                                                                                                                    |
-| `node_modules/`        | 为整个工作空间提供了 [npm 包](guide/npm-packages) 。所有项目都可以看到工作区范围内的 `node_modules` 依赖项。                                                                                                                                                                                                                                                                        |
-| `.editorconfig`        | Configuration for code editors. See [EditorConfig](https://editorconfig.org/).                                                                                                                                                                                                                                                                                                  |
-| `.editorconfig`        | 代码编辑器的配置。参见 [EditorConfig](https://editorconfig.org/) 。                                                                                                                                                                                                                                                                                                              |
-| `.gitignore`           | Specifies intentionally untracked files that [Git](https://git-scm.com/) should ignore.                                                                                                                                                                                                                                                                                         |
-| `.gitignore`           | 指定 [Git](https://git-scm.com/) 应忽略的不必追踪的文件。                                                                                                                                                                                                                                                                                                                         |
+| WORKSPACE CONFIG FILES    | PURPOSE |
+| :--------------------- | :------------------------------------------|
+| 工作空间配置文件      | 用途                 |
+| `.editorconfig`        | Configuration for code editors. See [EditorConfig](https://editorconfig.org/). |
+| `.editorconfig`        | 代码编辑器的配置。参见 [EditorConfig](https://editorconfig.org/) 。  |
+| `.gitignore`           | Specifies intentionally untracked files that [Git](https://git-scm.com/) should ignore. |
+| `.gitignore`           | 指定 [Git](https://git-scm.com/) 应忽略的不必追踪的文件。      |
+| `README.md`            | Introductory documentation for the root app. |
+| `README.md`            | 根应用的简介文档. |
 | `angular.json`         | CLI configuration defaults for all projects in the workspace, including configuration options for build, serve, and test tools that the CLI uses, such as [TSLint](https://palantir.github.io/tslint/), [Karma](https://karma-runner.github.io/), and [Protractor](http://www.protractortest.org/). For details, see [Angular Workspace Configuration](guide/workspace-config). |
 | `angular.json`         | 为工作区中的所有项目指定 CLI 的默认配置，包括 CLI 要用到的构建、启动开发服务器和测试工具的配置项，比如 [TSLint](https://palantir.github.io/tslint/)，[Karma](https://karma-runner.github.io/) 和 [Protractor](http://www.protractortest.org/)。欲知详情，请参阅 [Angular 工作空间配置](guide/workspace-config) 部分。                                                                 |
 | `package.json`         | Configures [npm package dependencies](guide/npm-packages) that are available to all projects in the workspace. See [npm documentation](https://docs.npmjs.com/files/package.json) for the specific format and contents of this file.                                                                                                                                            |
 | `package.json`         | 配置工作空间中所有项目可用的 [npm包依赖](guide/npm-packages) 。有关此文件的具体格式和内容，请参阅 [npm 的文档](https://docs.npmjs.com/files/package.json) 。                                                                                                                                                                                                                         |
 | `package-lock.json`    | Provides version information for all packages installed into `node_modules` by the npm client. See [npm documentation](https://docs.npmjs.com/files/package-lock.json) for details. If you use the yarn client, this file will be [yarn.lock](https://yarnpkg.com/lang/en/docs/yarn-lock/) instead.                                                                             |
 | `package-lock.json`    | 提供 npm 客户端安装到 `node_modules` 的所有软件包的版本信息。欲知详情，请参阅 [npm 的文档](https://docs.npmjs.com/files/package-lock.json)。如果你使用的是 yarn 客户端，那么该文件[就是 yarn.lock](https://yarnpkg.com/lang/en/docs/yarn-lock/) 。                                                                                                                                        |
-| `README.md`            | Introductory documentation for the root app.                                                                                                                                                                                                                                                                                                                                    |
+| `src/`                  | Source files for the root-level application project. |
+| `node_modules/`         | Provides [npm packages](guide/npm-packages) to the entire workspace. Workspace-wide `node_modules` dependencies are visible to all projects.                                                                                                                                                                                                                                                                                                                                    |
 | `README.md`            | 根应用的介绍性文档。                                                                                                                                                                                                                                                                                                                                                            |
 | `tsconfig.json`        | Default [TypeScript](https://www.typescriptlang.org/) configuration for projects in the workspace.                                                                                                                                                                                                                                                                              |
 | `tsconfig.json`        | 工作空间中各个项目的默认 [TypeScript](https://www.typescriptlang.org/) 配置。                                                                                                                                                                                                                                                                                                         |
 | `tslint.json`          | Default [TSLint](https://palantir.github.io/tslint/) configuration for projects in the workspace.                                                                                                                                                                                                                                                                               |
 | `tslint.json`          | 工作空间中各个项目的默认 [TSLint](https://palantir.github.io/tslint/) 配置。                                                                                                                                                                                                                                                                                                          |
 
+
 ## Application project files
 
 ## 应用项目文件
 
 
-By default, the CLI command `ng new my-app` creates a workspace folder named "my-app" and generates a new application skeleton for a root application at the top level of the workspace.
+By default, the CLI command `ng new my-app` creates a workspace folder named "my-app" and generates a new application skeleton in a `src/` folder at the top level of the workspace.
 A newly generated application contains source files for a root module, with a root component and template.
 
 CLI 命令`ng new my-app` 会默认创建名为 “my-app” 的工作空间文件夹，并为工作空间顶层的根应用生成一个新的应用骨架。新生成的应用包含一个根模块的源文件，包括一个根组件及其模板。
 
 
 When the workspace file structure is in place, you can use the `ng generate` command on the command line to add functionality and data to the application.
-This initial starter application is the *default app* for CLI commands (unless you change the default after creating [additional apps](#multiple-projects)).
+This initial root-level application is the *default app* for CLI commands (unless you change the default after creating [additional apps](#multiple-projects)).
 
 当工作空间文件结构到位时，可以在命令行中使用 `ng generate` 命令往该应用中添加功能和数据。这个初始的起步者应用是 CLI 命令的*默认应用*（除非你在创建[其它应用](#multiple-projects)之后更改了默认值）。
 
@@ -204,13 +205,14 @@ Project-specific [TypeScript](https://www.typescriptlang.org/) configuration fil
 ### 端到端测试文件
 
 
-An `e2e/` subfolder contains source files for a set of end-to-end tests that correspond to an application, along with test-specific configuration files.
+An `e2e/` folder at the top level contains source files for a set of end-to-end tests that correspond to the root-level application, along with test-specific configuration files.
+
+For a multi-project workspace, application-specific end-to-end tests are in the project root, under `projects/project-name/e2e/`.
 
 `e2e/` 子文件夹包含一组和应用对应的端到端测试的源文件，以及测试专属的配置文件。
 
 
 <code-example language="none" linenums="false">
-my-app/
   e2e/
      src/                 (end-to-end tests for my-app)
         app.e2e-spec.ts
@@ -237,7 +239,7 @@ A multi-project workspace is suitable for an enterprise that uses a single repos
 
 
 If you intend to have multiple projects in a workspace, you can skip the initial application generation when you create the workspace, and give the workspace a unique name.
-The following command creates a workspace with all of the workspace-wide configuration files, but no root application.
+The following command creates a workspace with all of the workspace-wide configuration files, but no root-level application.
 
 如果你打算在工作区中包含多个项目，可以在创建工作空间时不要自动创建初始应用，并为工作空间指定一个唯一的名字。下列命令用于创建一个包含全工作空间级配置文件的工作空间，但没有根应用。
 

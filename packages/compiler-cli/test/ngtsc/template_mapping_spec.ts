@@ -44,7 +44,7 @@ describe('template source-mapping', () => {
             {source: '<h3>', generated: 'i0.ɵɵelementStart(0, "h3")', sourceUrl: '../test.ts'});
         expect(mappings).toContain({
           source: 'Hello {{ name }}',
-          generated: 'i0.ɵɵtextBinding(1, i0.ɵɵinterpolation1("Hello ", ctx.name, ""))',
+          generated: 'i0.ɵɵtextInterpolate1("Hello ", ctx.name, "")',
           sourceUrl: '../test.ts'
         });
         expect(mappings).toContain(
@@ -57,8 +57,7 @@ describe('template source-mapping', () => {
             {source: '<h2>', generated: 'i0.ɵɵelementStart(0, "h2")', sourceUrl: '../test.ts'});
         expect(mappings).toContain({
           source: '{{ greeting + " " + name }}',
-          generated:
-              'i0.ɵɵtextBinding(1, i0.ɵɵinterpolation1("", ((ctx.greeting + " ") + ctx.name), ""))',
+          generated: 'i0.ɵɵtextInterpolate(ctx.greeting + " " + ctx.name)',
           sourceUrl: '../test.ts'
         });
         expect(mappings).toContain(
@@ -85,8 +84,7 @@ describe('template source-mapping', () => {
             {source: '<div>', generated: 'i0.ɵɵelementStart(0, "div")', sourceUrl: '../test.ts'});
         expect(mappings).toContain({
           source: '{{200.3 | percent : 2 }}',
-          generated:
-              'i0.ɵɵtextBinding(1, i0.ɵɵinterpolation1("", i0.ɵɵpipeBind2(2, 1, 200.3, 2), ""))',
+          generated: 'i0.ɵɵtextInterpolate(i0.ɵɵpipeBind2(2, 1, 200.3, 2))',
           sourceUrl: '../test.ts'
         });
         expect(mappings).toContain(
@@ -119,7 +117,7 @@ describe('template source-mapping', () => {
         });
         expect(mappings).toContain({
           source: '[attr]="greeting + name"',
-          generated: 'i0.ɵɵproperty("attr", (ctx.greeting + ctx.name))',
+          generated: 'i0.ɵɵproperty("attr", ctx.greeting + ctx.name)',
           sourceUrl: '../test.ts'
         });
       });
@@ -164,12 +162,12 @@ describe('template source-mapping', () => {
         expect(mappings).toContain(
             {source: 'Add Item', generated: 'i0.ɵɵtext(1, "Add Item")', sourceUrl: '../test.ts'});
         expect(mappings).toContain(
-            {source: 'items.push(', generated: 'ctx.items.push((', sourceUrl: '../test.ts'});
+            {source: 'items.push(', generated: 'ctx.items.push(', sourceUrl: '../test.ts'});
         expect(mappings).toContain(
             {source: `'item' `, generated: `"item"`, sourceUrl: '../test.ts'});
         expect(mappings).toContain({
           source: '+ items.length)',
-          generated: ' + ctx.items.length))',
+          generated: ' + ctx.items.length)',
           sourceUrl: '../test.ts'
         });
         expect(mappings).toContain(
@@ -270,7 +268,7 @@ describe('template source-mapping', () => {
 
         // expect(mappings).toContain({
         //   source: '{{ name }}',
-        //   generated: 'i0.ɵɵtextBinding(1, i0.ɵɵinterpolation1("", ctx_r0.name, ""))',
+        //   generated: 'i0.ɵɵtextInterpolate(ctx_r0.name)',
         //   sourceUrl: '../test.ts'
         // });
       });
@@ -294,7 +292,7 @@ describe('template source-mapping', () => {
 
         // expect(mappings).toContain({
         //   source: '{{ name }}',
-        //   generated: 'i0.ɵɵtextBinding(1, i0.ɵɵinterpolation1("", ctx_r0.name, ""))',
+        //   generated: 'i0.ɵɵtextInterpolate(ctx_r0.name)',
         //   sourceUrl: '../test.ts'
         // });
       });
@@ -334,7 +332,7 @@ describe('template source-mapping', () => {
             {source: '<h3>', generated: 'i0.ɵɵelementStart(0, "h3")', sourceUrl: '../test.ts'});
         expect(mappings).toContain({
           source: '<ng-content select="title">',
-          generated: 'i0.ɵɵprojection(1, 1)',
+          generated: 'i0.ɵɵprojection(1)',
           sourceUrl: '../test.ts'
         });
         expect(mappings).toContain(
@@ -342,7 +340,7 @@ describe('template source-mapping', () => {
         expect(mappings).toContain(
             {source: '<div>', generated: 'i0.ɵɵelementStart(2, "div")', sourceUrl: '../test.ts'});
         expect(mappings).toContain(
-            {source: '<ng-content>', generated: 'i0.ɵɵprojection(3)', sourceUrl: '../test.ts'});
+            {source: '<ng-content>', generated: 'i0.ɵɵprojection(3, 1)', sourceUrl: '../test.ts'});
         expect(mappings).toContain(
             {source: '</div>', generated: 'i0.ɵɵelementEnd()', sourceUrl: '../test.ts'});
       });
@@ -370,7 +368,7 @@ describe('template source-mapping', () => {
 
       // Update mode
       expect(mappings).toContain({
-        generated: 'i0.ɵɵtextBinding(3, i0.ɵɵinterpolation1("", (1 + 2), ""))',
+        generated: 'i0.ɵɵtextInterpolate(1 + 2)',
         source: '{{ 1 + 2 }}',
         sourceUrl: '../test.ts'
       });
@@ -396,9 +394,10 @@ describe('template source-mapping', () => {
       expect(mappings).toContain(
           {generated: 'i0.ɵɵelementEnd()', source: '</div>', sourceUrl: '../test.ts'});
 
+      // TODO(benlesh): We need to circle back and prevent the extra parens from being generated.
       // Update mode
       expect(mappings).toContain({
-        generated: 'i0.ɵɵtextBinding(3, i0.ɵɵinterpolation1("", (1 + 2), ""))',
+        generated: 'i0.ɵɵtextInterpolate(1 + 2)',
         source: '{{ 1 + 2 }}',
         sourceUrl: '../test.ts'
       });
@@ -452,7 +451,7 @@ describe('template source-mapping', () => {
 
         // Update mode
         expect(mappings).toContain({
-          generated: 'i0.ɵɵtextBinding(3, i0.ɵɵinterpolation1("", (1 + 2), ""))',
+          generated: 'i0.ɵɵtextInterpolate(1 + 2)',
           source: '{{ 1 + 2 }}',
           sourceUrl: '../dir/test.html'
         });
@@ -496,7 +495,7 @@ describe('template source-mapping', () => {
 
         // Update mode
         expect(mappings).toContain({
-          generated: 'i0.ɵɵtextBinding(3, i0.ɵɵinterpolation1("", (1 + 2), ""))',
+          generated: 'i0.ɵɵtextInterpolate(1 + 2)',
           source: '{{ 1 + 2 }}',
           sourceUrl: '../extraRootDir/test.html'
         });

@@ -5,19 +5,21 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import {assertEqual} from '../../util/assert';
+import {assertDataInRange, assertEqual} from '../../util/assert';
 import {assertHasParent} from '../assert';
 import {attachPatchData} from '../context_discovery';
 import {executePreOrderHooks, registerPostOrderHooks} from '../hooks';
 import {ACTIVE_INDEX, CONTAINER_HEADER_OFFSET, LContainer} from '../interfaces/container';
 import {ComponentTemplate} from '../interfaces/definition';
 import {LocalRefExtractor, TAttributes, TContainerNode, TNode, TNodeType} from '../interfaces/node';
-import {BINDING_INDEX, HEADER_OFFSET, LView, QUERIES, RENDERER, TVIEW} from '../interfaces/view';
+import {BINDING_INDEX, HEADER_OFFSET, LView, QUERIES, RENDERER, TVIEW, T_HOST} from '../interfaces/view';
 import {assertNodeType} from '../node_assert';
 import {appendChild, removeView} from '../node_manipulation';
-import {getCheckNoChangesMode, getIsParent, getLView, getPreviousOrParentTNode, setIsParent, setPreviousOrParentTNode} from '../state';
+import {getCheckNoChangesMode, getIsParent, getLView, getPreviousOrParentTNode, setIsNotParent, setPreviousOrParentTNode} from '../state';
 import {getNativeByTNode, loadInternal} from '../util/view_utils';
-import {addToViewTree, createDirectivesAndLocals, createLContainer, createNodeAtIndex, createTView} from './shared';
+
+import {addToViewTree, createDirectivesAndLocals, createLContainer, createTView, getOrCreateTNode} from './shared';
+
 
 /**
  * Creates an LContainer for inline views, e.g.
@@ -37,7 +39,7 @@ export function ɵɵcontainer(index: number): void {
     tNode.tViews = [];
   }
   addTContainerToQueries(lView, tNode);
-  setIsParent(false);
+  setIsNotParent();
 }
 
 /**
@@ -77,7 +79,7 @@ export function ɵɵtemplate(
   addTContainerToQueries(lView, tContainerNode);
   attachPatchData(getNativeByTNode(tContainerNode, lView), lView);
   registerPostOrderHooks(tView, tContainerNode);
-  setIsParent(false);
+  setIsNotParent();
 }
 
 /**
@@ -91,10 +93,8 @@ export function ɵɵcontainerRefreshStart(index: number): void {
   const lView = getLView();
   const tView = lView[TVIEW];
   let previousOrParentTNode = loadInternal(tView.data, index) as TNode;
-  setPreviousOrParentTNode(previousOrParentTNode);
-
   ngDevMode && assertNodeType(previousOrParentTNode, TNodeType.Container);
-  setIsParent(true);
+  setPreviousOrParentTNode(previousOrParentTNode, true);
 
   lView[index + HEADER_OFFSET][ACTIVE_INDEX] = 0;
 
@@ -113,12 +113,12 @@ export function ɵɵcontainerRefreshStart(index: number): void {
 export function ɵɵcontainerRefreshEnd(): void {
   let previousOrParentTNode = getPreviousOrParentTNode();
   if (getIsParent()) {
-    setIsParent(false);
+    setIsNotParent();
   } else {
     ngDevMode && assertNodeType(previousOrParentTNode, TNodeType.View);
     ngDevMode && assertHasParent(previousOrParentTNode);
     previousOrParentTNode = previousOrParentTNode.parent !;
-    setPreviousOrParentTNode(previousOrParentTNode);
+    setPreviousOrParentTNode(previousOrParentTNode, false);
   }
 
   ngDevMode && assertNodeType(previousOrParentTNode, TNodeType.Container);
@@ -166,9 +166,12 @@ function containerInternal(
                    'container nodes should be created before any bindings');
 
   const adjustedIndex = index + HEADER_OFFSET;
-  const comment = lView[RENDERER].createComment(ngDevMode ? 'container' : '');
+  ngDevMode && assertDataInRange(lView, index + HEADER_OFFSET);
   ngDevMode && ngDevMode.rendererCreateComment++;
-  const tNode = createNodeAtIndex(index, TNodeType.Container, comment, tagName, attrs);
+  const comment = lView[index + HEADER_OFFSET] =
+      lView[RENDERER].createComment(ngDevMode ? 'container' : '');
+  const tNode =
+      getOrCreateTNode(lView[TVIEW], lView[T_HOST], index, TNodeType.Container, tagName, attrs);
   const lContainer = lView[adjustedIndex] =
       createLContainer(lView[adjustedIndex], lView, comment, tNode);
 

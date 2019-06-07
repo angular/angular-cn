@@ -29,27 +29,11 @@ In this part of the tutorial, you'll do the following:
 
 ## Set up your environment
 
-## 设置开发环境
+## 搭建开发环境
 
-To set up your development environment, follow these instructions in [Getting Started](guide/quickstart):
+To set up your development environment, follow the instructions in [Local Environment Setup](guide/setup-local "Setting up for Local Development").
 
-要想设置开发环境，请按照[快速上手](guide/quickstart) 中的说明进行操作：
-
-* [Prerequisites](guide/quickstart#prerequisites)
-
-  [先决条件](guide/quickstart#prerequisites)
-
-* [Install the Angular CLI](guide/quickstart#install-cli)
-
-  [安装 Angular CLI](guide/quickstart#install-cli)
-
-<div class="alert is-helpful">
-
-**Note:** You do not need to complete the entire Getting Started. After you complete the above two sections of Getting Started, your environment is set up. Continue below to create the Tour of Heroes workspace and an initial app project.
-
-**注意：**你不用做完整个快速上手。只要完成了上面这两个部分，你的环境就已经设置好了。然后继续下面的步骤来创建一个《英雄指南》的工作区和一个初始应用项目。
-</div>
-
+要想搭建开发环境，请遵循[搭建本地环境](guide/setup-local "Setting up for Local Development")中的步骤进行操作。
 
 ## Create a new workspace and an initial application
 

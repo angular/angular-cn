@@ -241,7 +241,7 @@ In `AppRoutingModule`, update the `routes` array with the following:
 
 </code-example>
 
-The import statements stay the same. The first two paths are the routes to the `CustomersModule` and the `OrdersModule` respectively. Notice that the lazy loading syntax uses `loadChildren` followed by a string that is the relative path to the module, a hash mark or `#`, and the module’s class name.
+The import statements stay the same. The first two paths are the routes to the `CustomersModule` and the `OrdersModule` respectively. Notice that the lazy loading syntax uses `loadChildren` followed by a function that uses the browser's built-in `import('...')` syntax for dynamic imports. The import path is the relative path to the module.
 
 这些 `import` 语句没有变化。前两个路径分别路由到了 `CustomersModule` 和 `OrdersModule`。注意看惰性加载的语法：`loadChildren` 后面紧跟着一个字符串，它指向模块的相对路径，然后是一个 `#`，然后是该模块的类名。
 

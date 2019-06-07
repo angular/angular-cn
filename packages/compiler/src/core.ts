@@ -29,7 +29,7 @@ export interface Query {
   read: any;
   isViewQuery: boolean;
   selector: any;
-  static?: boolean;
+  static: boolean;
 }
 
 export const createContentChildren = makeMetadataFactory<Query>(
@@ -491,5 +491,21 @@ export const enum AttributeMarker {
    * ['attr', 'value', AttributeMarker.ProjectAs, ['', 'title', '']]
    * ```
    */
-  ProjectAs = 5
+  ProjectAs = 5,
+
+  /**
+   * Signals that the following attribute will be translated by runtime i18n
+   *
+   * For example, given the following HTML:
+   *
+   * ```
+   * <div moo="car" foo="value" i18n-foo [bar]="binding" i18n-bar>
+   * ```
+   *
+   * the generated code is:
+   *
+   * ```
+   * var _c1 = ['moo', 'car', AttributeMarker.I18n, 'foo', 'bar'];
+   */
+  I18n = 6,
 }

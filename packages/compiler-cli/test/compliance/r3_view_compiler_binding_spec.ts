@@ -45,7 +45,7 @@ describe('compiler compliance: bindings', () => {
         }
         if (rf & 2) {
           $r3$.ɵɵselect(1);
-          $i0$.ɵɵtextBinding(1, $i0$.ɵɵinterpolation1("Hello ", $ctx$.name, ""));
+          $i0$.ɵɵtextInterpolate1("Hello ", $ctx$.name, "");
         }
       }`;
       const result = compile(files, angularFiles);
@@ -308,7 +308,7 @@ describe('compiler compliance: bindings', () => {
               $r3$.ɵɵallocHostVars(1);
             }
             if (rf & 2) {
-              $r3$.ɵɵelementAttribute(elIndex, "required", $r3$.ɵɵbind(ctx.required));
+              $r3$.ɵɵattribute("required", ctx.required);
             }
           }
         });
@@ -496,6 +496,51 @@ describe('compiler compliance: bindings', () => {
       expectEmit(result.source, template, 'Incorrect handling of interpolated properties');
     });
 
+
+    it('should generate the proper update instructions for interpolated attributes', () => {
+      const files: MockDirectory = getAppFiles(`
+        <div attr.title="a{{one}}b{{two}}c{{three}}d{{four}}e{{five}}f{{six}}g{{seven}}h{{eight}}i{{nine}}j"></div>
+        <div attr.title="a{{one}}b{{two}}c{{three}}d{{four}}e{{five}}f{{six}}g{{seven}}h{{eight}}i"></div>
+        <div attr.title="a{{one}}b{{two}}c{{three}}d{{four}}e{{five}}f{{six}}g{{seven}}h"></div>
+        <div attr.title="a{{one}}b{{two}}c{{three}}d{{four}}e{{five}}f{{six}}g"></div>
+        <div attr.title="a{{one}}b{{two}}c{{three}}d{{four}}e{{five}}f"></div>
+        <div attr.title="a{{one}}b{{two}}c{{three}}d{{four}}e"></div>
+        <div attr.title="a{{one}}b{{two}}c{{three}}d"></div>
+        <div attr.title="a{{one}}b{{two}}c"></div>
+        <div attr.title="a{{one}}b"></div>
+        <div attr.title="{{one}}"></div>
+      `);
+
+      const template = `
+      …
+        if (rf & 2) {
+          i0.ɵɵselect(0);
+          i0.ɵɵattributeInterpolateV("title", ["a", ctx.one, "b", ctx.two, "c", ctx.three, "d", ctx.four, "e", ctx.five, "f", ctx.six, "g", ctx.seven, "h", ctx.eight, "i", ctx.nine, "j"]);
+          i0.ɵɵselect(1);
+          i0.ɵɵattributeInterpolate8("title", "a", ctx.one, "b", ctx.two, "c", ctx.three, "d", ctx.four, "e", ctx.five, "f", ctx.six, "g", ctx.seven, "h", ctx.eight, "i");
+          i0.ɵɵselect(2);
+          i0.ɵɵattributeInterpolate7("title", "a", ctx.one, "b", ctx.two, "c", ctx.three, "d", ctx.four, "e", ctx.five, "f", ctx.six, "g", ctx.seven, "h");
+          i0.ɵɵselect(3);
+          i0.ɵɵattributeInterpolate6("title", "a", ctx.one, "b", ctx.two, "c", ctx.three, "d", ctx.four, "e", ctx.five, "f", ctx.six, "g");
+          i0.ɵɵselect(4);
+          i0.ɵɵattributeInterpolate5("title", "a", ctx.one, "b", ctx.two, "c", ctx.three, "d", ctx.four, "e", ctx.five, "f");
+          i0.ɵɵselect(5);
+          i0.ɵɵattributeInterpolate4("title", "a", ctx.one, "b", ctx.two, "c", ctx.three, "d", ctx.four, "e");
+          i0.ɵɵselect(6);
+          i0.ɵɵattributeInterpolate3("title", "a", ctx.one, "b", ctx.two, "c", ctx.three, "d");
+          i0.ɵɵselect(7);
+          i0.ɵɵattributeInterpolate2("title", "a", ctx.one, "b", ctx.two, "c");
+          i0.ɵɵselect(8);
+          i0.ɵɵattributeInterpolate1("title", "a", ctx.one, "b");
+          i0.ɵɵselect(9);
+          i0.ɵɵattribute("title", ctx.one);
+      }
+      …
+      `;
+      const result = compile(files, angularFiles);
+      expectEmit(result.source, template, 'Incorrect handling of interpolated properties');
+    });
+
     it('should keep local ref for host element', () => {
       const files: MockDirectory = getAppFiles(`
         <b ngNonBindable #myRef id="my-id">
@@ -522,7 +567,7 @@ describe('compiler compliance: bindings', () => {
           if (rf & 2) {
             const $_r0$ = $i0$.ɵɵreference(1);
             $r3$.ɵɵselect(4);
-            $i0$.ɵɵtextBinding(4, $i0$.ɵɵinterpolation1(" ", $_r0$.id, " "));
+            $i0$.ɵɵtextInterpolate1(" ", $_r0$.id, " ");
           }
         }
       `;

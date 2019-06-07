@@ -48,7 +48,7 @@ describe('compiler compliance: listen()', () => {
             $r3$.ɵɵelementStart(0, "div", $e0_attrs$);
             $r3$.ɵɵlistener("click", function MyComponent_Template_div_click_0_listener($event) {
               ctx.onClick($event);
-              return (1 == 2);
+              return 1 == 2;
             });
             $r3$.ɵɵelementEnd();
           }

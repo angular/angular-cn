@@ -21,12 +21,24 @@ export {
   markDirty,
   store,
   tick,
+
   ɵɵallocHostVars,
+
+  ɵɵattribute,
+  ɵɵattributeInterpolate1,
+  ɵɵattributeInterpolate2,
+  ɵɵattributeInterpolate3,
+  ɵɵattributeInterpolate4,
+  ɵɵattributeInterpolate5,
+  ɵɵattributeInterpolate6,
+  ɵɵattributeInterpolate7,
+  ɵɵattributeInterpolate8,
+  ɵɵattributeInterpolateV,
+
   ɵɵbind,
   ɵɵclassMap,
   ɵɵclassProp,
   ɵɵcomponentHostSyntheticListener,
-  ɵɵcomponentHostSyntheticProperty,
 
   ɵɵcontainer,
   ɵɵcontainerRefreshEnd,
@@ -89,14 +101,28 @@ export {
   ɵɵselect,
   ɵɵstyleMap,
   ɵɵstyleProp,
+  ɵɵstyleSanitizer,
   ɵɵstyling,
   ɵɵstylingApply,
   ɵɵtemplate,
 
   ɵɵtext,
-  ɵɵtextBinding} from './instructions/all';
+  ɵɵtextBinding,
+  ɵɵtextInterpolate,
+  ɵɵtextInterpolate1,
+  ɵɵtextInterpolate2,
+  ɵɵtextInterpolate3,
+  ɵɵtextInterpolate4,
+  ɵɵtextInterpolate5,
+  ɵɵtextInterpolate6,
+  ɵɵtextInterpolate7,
+  ɵɵtextInterpolate8,
+  ɵɵtextInterpolateV,
+
+  ɵɵupdateSyntheticHostBinding,
+} from './instructions/all';
 export {RenderFlags} from './interfaces/definition';
-export {CssSelectorList} from './interfaces/projection';
+export {CssSelectorList, ProjectionSlots} from './interfaces/projection';
 
 export {
   ɵɵrestoreView,
@@ -106,6 +132,7 @@ export {
 } from './state';
 
 export {
+  DEFAULT_LOCALE_ID,
   ɵɵi18n,
   ɵɵi18nAttributes,
   ɵɵi18nExp,
@@ -115,6 +142,8 @@ export {
   ɵɵi18nPostprocess,
   i18nConfigureLocalize,
   ɵɵi18nLocalize,
+  getLocaleId,
+  setLocaleId,
 } from './i18n';
 
 export {NgModuleFactory, NgModuleRef, NgModuleType} from './ng_module_ref';

@@ -5,7 +5,7 @@
 * Use of this source code is governed by an MIT-style license that can be
 * found in the LICENSE file at https://angular.io/license
 */
-import {StyleSanitizeFn} from '../../sanitization/style_sanitizer';
+import {StyleSanitizeFn, StyleSanitizeMode} from '../../sanitization/style_sanitizer';
 import {EMPTY_ARRAY, EMPTY_OBJ} from '../empty';
 import {AttributeMarker, TAttributes} from '../interfaces/node';
 import {BindingStore, BindingType, Player, PlayerBuilder, PlayerFactory, PlayerIndex} from '../interfaces/player';
@@ -943,7 +943,9 @@ function updateSingleStylingValue(
     if (currDirective !== directiveIndex) {
       const prop = getProp(context, singleIndex);
       const sanitizer = getStyleSanitizer(context, directiveIndex);
-      setSanitizeFlag(context, singleIndex, (sanitizer && sanitizer(prop)) ? true : false);
+      setSanitizeFlag(
+          context, singleIndex,
+          (sanitizer && sanitizer(prop, null, StyleSanitizeMode.ValidateProperty)) ? true : false);
     }
 
     // the value will always get updated (even if the dirty flag is skipped)
@@ -1141,7 +1143,8 @@ export function setStyle(
     native: any, prop: string, value: string | null, renderer: Renderer3,
     sanitizer: StyleSanitizeFn | null, store?: BindingStore | null,
     playerBuilder?: ClassAndStylePlayerBuilder<any>| null) {
-  value = sanitizer && value ? sanitizer(prop, value) : value;
+  value =
+      sanitizer && value ? sanitizer(prop, value, StyleSanitizeMode.ValidateAndSanitize) : value;
   if (store || playerBuilder) {
     if (store) {
       store.setValue(prop, value);
@@ -1461,7 +1464,9 @@ function valueExists(value: string | null | boolean, isClassBased?: boolean) {
 function prepareInitialFlag(
     context: StylingContext, prop: string, entryIsClassBased: boolean,
     sanitizer?: StyleSanitizeFn | null) {
-  let flag = (sanitizer && sanitizer(prop)) ? StylingFlags.Sanitize : StylingFlags.None;
+  let flag = (sanitizer && sanitizer(prop, null, StyleSanitizeMode.ValidateProperty)) ?
+      StylingFlags.Sanitize :
+      StylingFlags.None;
 
   let initialIndex: number;
   if (entryIsClassBased) {
@@ -1636,7 +1641,7 @@ function diffSummaryValues(result: any[], name: string, prop: string, a: any, b:
   }
 }
 
-function getSinglePropIndexValue(
+export function getSinglePropIndexValue(
     context: StylingContext, directiveIndex: number, offset: number, isClassBased: boolean) {
   const singlePropOffsetRegistryIndex =
       context[StylingIndex.DirectiveRegistryPosition]
@@ -1747,7 +1752,7 @@ export function getInitialStyleStringValue(context: StylingContext): string {
 }
 
 /**
- * Returns the current cached mutli-value for a given directiveIndex within the provided context.
+ * Returns the current cached multi-value for a given directiveIndex within the provided context.
  */
 function readCachedMapValue(
     context: StylingContext, entryIsClassBased: boolean, directiveIndex: number) {

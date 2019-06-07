@@ -166,12 +166,11 @@ Component styles normally apply only to the HTML in the component's own template
 
 组件样式通常只会作用于组件自身的 HTML 上。
 
-Use the `/deep/` shadow-piercing descendant combinator to force a style down through the child
-component tree into all the child component views.
-The `/deep/` combinator works to any depth of nested components, and it applies to both the view
-children and content children of the component.
-
-可以使用 `/deep/` 选择器来强制一个样式对各级子组件的视图也生效，它不但会作用于组件的子视图，也会作用于投影进来的内容(`ng-content`)。
+Applying the `::ng-deep` pseudo-class to any CSS rule completely disables view-encapsulation for
+that rule. Any style with `::ng-deep` applied becomes a global style. In order to scope the specified style
+to the current component and all its descendants, be sure to include the `:host` selector before
+`::ng-deep`. If the `::ng-deep` combinator is used without the `:host` pseudo-class selector, the style
+can bleed into other components.
 
 The following example targets all `<h3>` elements, from the host element down
 through this component to all of its child elements in the DOM.

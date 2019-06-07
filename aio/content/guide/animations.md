@@ -229,7 +229,7 @@ The third argument, `easing`, controls how the animation [accelerates and decele
 
   运行 200 毫秒，不等待。按照标准曲线运动，开始很慢，中间加速，最后逐渐减速：`'0.2s ease-in-out'`
 
-* Start immediately, run for 200ms. Use a acceleration curve to start slow and end at full velocity: `'0.2s ease-in'`
+* Start immediately, run for 200ms. Use an acceleration curve to start slow and end at full velocity: `'0.2s ease-in'`
 
   立即开始，运行 200 毫秒。按照加速曲线运动，开始很慢，最后达到全速：`'0.2s ease-in'`
 

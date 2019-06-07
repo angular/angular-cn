@@ -373,10 +373,10 @@ describe('compiler compliance', () => {
           }
           if (rf & 2) {
             $r3$.ɵɵselect(0);
-            $r3$.ɵɵproperty("ternary", (ctx.cond ? $r3$.ɵɵpureFunction1(8, $c0$, ctx.a): $c1$));
+            $r3$.ɵɵproperty("ternary", ctx.cond ? $r3$.ɵɵpureFunction1(8, $c0$, ctx.a): $c1$);
             $r3$.ɵɵproperty("pipe", $r3$.ɵɵpipeBind3(1, 4, ctx.value, 1, 2));
-            $r3$.ɵɵproperty("and", (ctx.cond && $r3$.ɵɵpureFunction1(10, $c0$, ctx.b)));
-            $r3$.ɵɵproperty("or", (ctx.cond || $r3$.ɵɵpureFunction1(12, $c0$, ctx.c)));
+            $r3$.ɵɵproperty("and", ctx.cond && $r3$.ɵɵpureFunction1(10, $c0$, ctx.b));
+            $r3$.ɵɵproperty("or", ctx.cond || $r3$.ɵɵpureFunction1(12, $c0$, ctx.c));
           }
         }
       `;
@@ -444,19 +444,17 @@ describe('compiler compliance', () => {
             $r3$.ɵɵallocHostVars(14);
           }
           if (rf & 2) {
-            $r3$.ɵɵcomponentHostSyntheticProperty(elIndex, "@expansionHeight",
-              $r3$.ɵɵbind(
+            $r3$.ɵɵupdateSyntheticHostBinding("@expansionHeight",
                 $r3$.ɵɵpureFunction2(5, $_c1$, ctx.getExpandedState(),
                   $r3$.ɵɵpureFunction2(2, $_c0$, ctx.collapsedHeight, ctx.expandedHeight)
                 )
-              ), null, true
+              , null, true
             );
-            $r3$.ɵɵcomponentHostSyntheticProperty(elIndex, "@expansionWidth",
-              $r3$.ɵɵbind(
+            $r3$.ɵɵupdateSyntheticHostBinding("@expansionWidth",
                 $r3$.ɵɵpureFunction2(11, $_c1$, ctx.getExpandedState(),
                   $r3$.ɵɵpureFunction2(8, $_c2$, ctx.collapsedWidth, ctx.expandedWidth)
                 )
-              ), null, true
+              , null, true
             );
           }
         },
@@ -810,7 +808,7 @@ describe('compiler compliance', () => {
             const $myComp$ = $r3$.ɵɵnextContext();
             const $foo$ = $r3$.ɵɵreference(1);
             $r3$.ɵɵselect(1);
-            $r3$.ɵɵtextBinding(1, $r3$.ɵɵinterpolation2("", $myComp$.salutation, " ", $foo$, ""));
+            $r3$.ɵɵtextInterpolate2("", $myComp$.salutation, " ", $foo$, "");
           }
         }
         …
@@ -1159,7 +1157,7 @@ describe('compiler compliance', () => {
             type: SimpleComponent,
             selectors: [["simple"]],
             factory: function SimpleComponent_Factory(t) { return new (t || SimpleComponent)(); },
-            ngContentSelectors: _c0,
+            ngContentSelectors: $c0$,
             consts: 2,
             vars: 0,
             template:  function SimpleComponent_Template(rf, ctx) {
@@ -1189,10 +1187,10 @@ describe('compiler compliance', () => {
               if (rf & 1) {
                 $r3$.ɵɵprojectionDef($c1$);
                 $r3$.ɵɵelementStart(0, "div", $c3$);
-                $r3$.ɵɵprojection(1, 1);
+                $r3$.ɵɵprojection(1);
                 $r3$.ɵɵelementEnd();
                 $r3$.ɵɵelementStart(2, "div", $c4$);
-                $r3$.ɵɵprojection(3, 2);
+                $r3$.ɵɵprojection(3, 1);
                 $r3$.ɵɵelementEnd();
               }
             },
@@ -1207,6 +1205,54 @@ describe('compiler compliance', () => {
             result.source, SimpleComponentDefinition, 'Incorrect SimpleComponent definition');
         expectEmit(
             result.source, ComplexComponentDefinition, 'Incorrect ComplexComponent definition');
+      });
+
+      it('should support multi-slot content projection with multiple wildcard slots', () => {
+        const files = {
+          app: {
+            'spec.ts': `
+              import {Component, NgModule} from '@angular/core';
+
+              @Component({
+                template: \`
+                  <ng-content></ng-content>
+                  <ng-content select="[spacer]"></ng-content>
+                  <ng-content></ng-content>
+                \`,
+              })
+              class Cmp {}
+
+              @NgModule({ declarations: [Cmp] })
+              class Module {}
+            `,
+          }
+        };
+
+        const output = `
+          const $c0$ = ["*", [["", "spacer", ""]], "*"];
+          const $c1$ = ["*", "[spacer]", "*"];
+          …
+          Cmp.ngComponentDef = $r3$.ɵɵdefineComponent({
+            type: Cmp,
+            selectors: [["ng-component"]],
+            factory: function Cmp_Factory(t) { return new (t || Cmp)(); },
+            ngContentSelectors: $c1$,
+            consts: 3,
+            vars: 0,
+            template: function Cmp_Template(rf, ctx) {
+              if (rf & 1) {
+                i0.ɵɵprojectionDef($c0$);
+                i0.ɵɵprojection(0);
+                i0.ɵɵprojection(1, 1);
+                i0.ɵɵprojection(2, 2);
+              }
+            },
+            encapsulation: 2
+          });
+        `;
+
+        const {source} = compile(files, angularFiles);
+        expectEmit(source, output, 'Invalid content projection instructions generated');
       });
 
       it('should support content projection in nested templates', () => {
@@ -1241,7 +1287,7 @@ describe('compiler compliance', () => {
           const $_c2$ = ["id", "second"];
           function Cmp_div_0_Template(rf, ctx) { if (rf & 1) {
             $r3$.ɵɵelementStart(0, "div", $_c2$);
-            $r3$.ɵɵprojection(1, 1);
+            $r3$.ɵɵprojection(1);
             $r3$.ɵɵelementEnd();
           } }
           const $_c3$ = ["id", "third"];
@@ -1255,10 +1301,10 @@ describe('compiler compliance', () => {
           function Cmp_ng_template_2_Template(rf, ctx) {
             if (rf & 1) {
               $r3$.ɵɵtext(0, " '*' selector: ");
-              $r3$.ɵɵprojection(1);
+              $r3$.ɵɵprojection(1, 1);
             }
           }
-          const $_c4$ = [[["span", "title", "tofirst"]]];
+          const $_c4$ = [[["span", "title", "tofirst"]], "*"];
           …
           template: function Cmp_Template(rf, ctx) {
             if (rf & 1) {
@@ -1312,31 +1358,31 @@ describe('compiler compliance', () => {
         const output = `
           function Cmp_ng_template_1_ng_template_1_Template(rf, ctx) {
               if (rf & 1) {
-                $r3$.ɵɵprojection(0, 4);
+                $r3$.ɵɵprojection(0, 3);
             }
           }
           function Cmp_ng_template_1_Template(rf, ctx) {
             if (rf & 1) {
-              $r3$.ɵɵprojection(0, 3);
+              $r3$.ɵɵprojection(0, 2);
               $r3$.ɵɵtemplate(1, Cmp_ng_template_1_ng_template_1_Template, 1, 0, "ng-template");
             }
           }
           function Cmp_ng_template_2_Template(rf, ctx) {
             if (rf & 1) {
               $r3$.ɵɵtext(0, " '*' selector in a template: ");
-              $r3$.ɵɵprojection(1);
+              $r3$.ɵɵprojection(1, 4);
             }
           }
-          const $_c0$ = [[["", "id", "tomainbefore"]], [["", "id", "tomainafter"]], [["", "id", "totemplate"]], [["", "id", "tonestedtemplate"]]];
-          const $_c1$ = ["[id=toMainBefore]", "[id=toMainAfter]", "[id=toTemplate]", "[id=toNestedTemplate]"];
+          const $_c0$ = [[["", "id", "tomainbefore"]], [["", "id", "tomainafter"]], [["", "id", "totemplate"]], [["", "id", "tonestedtemplate"]], "*"];
+          const $_c1$ = ["[id=toMainBefore]", "[id=toMainAfter]", "[id=toTemplate]", "[id=toNestedTemplate]", "*"];
           …
           template: function Cmp_Template(rf, ctx) {
             if (rf & 1) {
-              $r3$.ɵɵprojectionDef($_c2$);
-              $r3$.ɵɵprojection(0, 1);
+              $r3$.ɵɵprojectionDef($_c0$);
+              $r3$.ɵɵprojection(0);
               $r3$.ɵɵtemplate(1, Cmp_ng_template_1_Template, 2, 0, "ng-template");
               $r3$.ɵɵtemplate(2, Cmp_ng_template_2_Template, 2, 0, "ng-template");
-              $r3$.ɵɵprojection(3, 2);
+              $r3$.ɵɵprojection(3, 1);
             }
           }
         `;
@@ -1508,8 +1554,8 @@ describe('compiler compliance', () => {
               }
               if (rf & 2) {
                 var $tmp$;
-                ($r3$.ɵɵqueryRefresh(($tmp$ = $r3$.ɵɵloadViewQuery())) && (ctx.someDir = $tmp$.first));
-                ($r3$.ɵɵqueryRefresh(($tmp$ = $r3$.ɵɵloadViewQuery())) && (ctx.someDirs = $tmp$));
+                $r3$.ɵɵqueryRefresh(($tmp$ = $r3$.ɵɵloadViewQuery())) && (ctx.someDir = $tmp$.first);
+                $r3$.ɵɵqueryRefresh(($tmp$ = $r3$.ɵɵloadViewQuery())) && (ctx.someDirs = $tmp$);
               }
             },
             consts: 1,
@@ -1566,8 +1612,8 @@ describe('compiler compliance', () => {
               }
               if (rf & 2) {
                 var $tmp$;
-                ($r3$.ɵɵqueryRefresh(($tmp$ = $r3$.ɵɵloadViewQuery())) && (ctx.myRef = $tmp$.first));
-                ($r3$.ɵɵqueryRefresh(($tmp$ = $r3$.ɵɵloadViewQuery())) && (ctx.myRefs = $tmp$));
+                $r3$.ɵɵqueryRefresh(($tmp$ = $r3$.ɵɵloadViewQuery())) && (ctx.myRef = $tmp$.first);
+                $r3$.ɵɵqueryRefresh(($tmp$ = $r3$.ɵɵloadViewQuery())) && (ctx.myRefs = $tmp$);
               }
             },
             …
@@ -1619,8 +1665,8 @@ describe('compiler compliance', () => {
               }
               if (rf & 2) {
                 var $tmp$;
-                ($r3$.ɵɵqueryRefresh(($tmp$ = $r3$.ɵɵloadViewQuery())) && (ctx.someDir = $tmp$.first));
-                ($r3$.ɵɵqueryRefresh(($tmp$ = $r3$.ɵɵloadViewQuery())) && (ctx.foo = $tmp$.first));
+                $r3$.ɵɵqueryRefresh(($tmp$ = $r3$.ɵɵloadViewQuery())) && (ctx.someDir = $tmp$.first);
+                $r3$.ɵɵqueryRefresh(($tmp$ = $r3$.ɵɵloadViewQuery())) && (ctx.foo = $tmp$.first);
               }
             },
             consts: 1,
@@ -1684,10 +1730,10 @@ describe('compiler compliance', () => {
               }
               if (rf & 2) {
                 var $tmp$;
-                ($r3$.ɵɵqueryRefresh(($tmp$ = $r3$.ɵɵloadViewQuery())) && (ctx.myRef = $tmp$.first));
-                ($r3$.ɵɵqueryRefresh(($tmp$ = $r3$.ɵɵloadViewQuery())) && (ctx.someDir = $tmp$.first));
-                ($r3$.ɵɵqueryRefresh(($tmp$ = $r3$.ɵɵloadViewQuery())) && (ctx.myRefs = $tmp$));
-                ($r3$.ɵɵqueryRefresh(($tmp$ = $r3$.ɵɵloadViewQuery())) && (ctx.someDirs = $tmp$));
+                $r3$.ɵɵqueryRefresh(($tmp$ = $r3$.ɵɵloadViewQuery())) && (ctx.myRef = $tmp$.first);
+                $r3$.ɵɵqueryRefresh(($tmp$ = $r3$.ɵɵloadViewQuery())) && (ctx.someDir = $tmp$.first);
+                $r3$.ɵɵqueryRefresh(($tmp$ = $r3$.ɵɵloadViewQuery())) && (ctx.myRefs = $tmp$);
+                $r3$.ɵɵqueryRefresh(($tmp$ = $r3$.ɵɵloadViewQuery())) && (ctx.someDirs = $tmp$);
               }
             },
             …
@@ -1714,7 +1760,7 @@ describe('compiler compliance', () => {
               \`
             })
             export class ContentQueryComponent {
-              @ContentChild(SomeDirective) someDir: SomeDirective;
+              @ContentChild(SomeDirective, {static: false}) someDir: SomeDirective;
               @ContentChildren(SomeDirective) someDirList !: QueryList<SomeDirective>;
             }
 
@@ -1748,8 +1794,8 @@ describe('compiler compliance', () => {
               }
               if (rf & 2) {
               var $tmp$;
-                ($r3$.ɵɵqueryRefresh(($tmp$ = $r3$.ɵɵloadContentQuery())) && (ctx.someDir = $tmp$.first));
-                ($r3$.ɵɵqueryRefresh(($tmp$ = $r3$.ɵɵloadContentQuery())) && (ctx.someDirList = $tmp$));
+                $r3$.ɵɵqueryRefresh(($tmp$ = $r3$.ɵɵloadContentQuery())) && (ctx.someDir = $tmp$.first);
+                $r3$.ɵɵqueryRefresh(($tmp$ = $r3$.ɵɵloadContentQuery())) && (ctx.someDirList = $tmp$);
               }
             },
             ngContentSelectors: _c0,
@@ -1786,7 +1832,7 @@ describe('compiler compliance', () => {
               \`
             })
             export class ContentQueryComponent {
-              @ContentChild('myRef') myRef: any;
+              @ContentChild('myRef', {static: false}) myRef: any;
               @ContentChildren('myRef1, myRef2, myRef3') myRefs: QueryList<any>;
             }
             @NgModule({declarations: [ContentQueryComponent]})
@@ -1808,8 +1854,8 @@ describe('compiler compliance', () => {
               }
               if (rf & 2) {
               var $tmp$;
-                ($r3$.ɵɵqueryRefresh(($tmp$ = $r3$.ɵɵloadContentQuery())) && (ctx.myRef = $tmp$.first));
-                ($r3$.ɵɵqueryRefresh(($tmp$ = $r3$.ɵɵloadContentQuery())) && (ctx.myRefs = $tmp$));
+                $r3$.ɵɵqueryRefresh(($tmp$ = $r3$.ɵɵloadContentQuery())) && (ctx.myRef = $tmp$.first);
+                $r3$.ɵɵqueryRefresh(($tmp$ = $r3$.ɵɵloadContentQuery())) && (ctx.myRefs = $tmp$);
               }
             },
             …
@@ -1870,8 +1916,8 @@ describe('compiler compliance', () => {
               }
               if (rf & 2) {
               var $tmp$;
-                ($r3$.ɵɵqueryRefresh(($tmp$ = $r3$.ɵɵloadContentQuery())) && (ctx.someDir = $tmp$.first));
-                ($r3$.ɵɵqueryRefresh(($tmp$ = $r3$.ɵɵloadContentQuery())) && (ctx.foo = $tmp$.first));
+                $r3$.ɵɵqueryRefresh(($tmp$ = $r3$.ɵɵloadContentQuery())) && (ctx.someDir = $tmp$.first);
+                $r3$.ɵɵqueryRefresh(($tmp$ = $r3$.ɵɵloadContentQuery())) && (ctx.foo = $tmp$.first);
               }
             },
             ngContentSelectors: $_c1$,
@@ -1911,9 +1957,9 @@ describe('compiler compliance', () => {
               \`
             })
             export class ContentQueryComponent {
-              @ContentChild('myRef', {read: TemplateRef}) myRef: TemplateRef;
+              @ContentChild('myRef', {read: TemplateRef, static: false}) myRef: TemplateRef;
               @ContentChildren('myRef1, myRef2, myRef3', {read: ElementRef}) myRefs: QueryList<ElementRef>;
-              @ContentChild(SomeDirective, {read: ElementRef}) someDir: ElementRef;
+              @ContentChild(SomeDirective, {read: ElementRef, static: false}) someDir: ElementRef;
               @ContentChildren(SomeDirective, {read: TemplateRef}) someDirs: QueryList<TemplateRef>;
             }
             @NgModule({declarations: [ContentQueryComponent]})
@@ -1937,10 +1983,10 @@ describe('compiler compliance', () => {
               }
               if (rf & 2) {
               var $tmp$;
-                ($r3$.ɵɵqueryRefresh(($tmp$ = $r3$.ɵɵloadContentQuery())) && (ctx.myRef = $tmp$.first));
-                ($r3$.ɵɵqueryRefresh(($tmp$ = $r3$.ɵɵloadContentQuery())) && (ctx.someDir = $tmp$.first));
-                ($r3$.ɵɵqueryRefresh(($tmp$ = $r3$.ɵɵloadContentQuery())) && (ctx.myRefs = $tmp$));
-                ($r3$.ɵɵqueryRefresh(($tmp$ = $r3$.ɵɵloadContentQuery())) && (ctx.someDirs = $tmp$));
+                $r3$.ɵɵqueryRefresh(($tmp$ = $r3$.ɵɵloadContentQuery())) && (ctx.myRef = $tmp$.first);
+                $r3$.ɵɵqueryRefresh(($tmp$ = $r3$.ɵɵloadContentQuery())) && (ctx.someDir = $tmp$.first);
+                $r3$.ɵɵqueryRefresh(($tmp$ = $r3$.ɵɵloadContentQuery())) && (ctx.myRefs = $tmp$);
+                $r3$.ɵɵqueryRefresh(($tmp$ = $r3$.ɵɵloadContentQuery())) && (ctx.someDirs = $tmp$);
               }
             },
             …
@@ -1966,7 +2012,7 @@ describe('compiler compliance', () => {
               \`
             })
             export class ContentQueryComponent {
-              @Input() @ContentChild('foo') foo: any;
+              @Input() @ContentChild('foo', {static: false}) foo: any;
             }
 
             @Component({
@@ -2074,9 +2120,9 @@ describe('compiler compliance', () => {
                 }
                 if (rf & 2) {
                   $r3$.ɵɵselect(0);
-                  $r3$.ɵɵtextBinding(0, $r3$.ɵɵinterpolation1("", $r3$.ɵɵpipeBind2(1, 3, $r3$.ɵɵpipeBind2(2, 6, ctx.name, ctx.size), ctx.size), ""));
+                  $r3$.ɵɵtextInterpolate($r3$.ɵɵpipeBind2(1, 3, $r3$.ɵɵpipeBind2(2, 6, ctx.name, ctx.size), ctx.size));
                   $r3$.ɵɵselect(4);
-                  $r3$.ɵɵtextBinding(4, $r3$.ɵɵinterpolation2("", $r3$.ɵɵpipeBindV(5, 9, $r3$.ɵɵpureFunction1(18, $c0$, ctx.name)), " ", (ctx.name ? 1 : $r3$.ɵɵpipeBind1(6, 16, 2)), ""));
+                  $r3$.ɵɵtextInterpolate2("", $r3$.ɵɵpipeBindV(5, 9, $r3$.ɵɵpureFunction1(18, $c0$, ctx.name)), " ", ctx.name ? 1 : $r3$.ɵɵpipeBind1(6, 16, 2), "");
                 }
               },
               pipes: [MyPurePipe, MyPipe],
@@ -2139,14 +2185,14 @@ describe('compiler compliance', () => {
                 }
                 if (rf & 2) {
                   $r3$.ɵɵselect(0);
-                  $r3$.ɵɵtextBinding(0, $r3$.ɵɵinterpolation5(
+                  $r3$.ɵɵtextInterpolate5(
                     "0:", i0.ɵɵpipeBind1(1, 5, ctx.name),
                     "1:", i0.ɵɵpipeBind2(2, 7, ctx.name, 1),
                     "2:", i0.ɵɵpipeBind3(3, 10, ctx.name, 1, 2),
                     "3:", i0.ɵɵpipeBind4(4, 14, ctx.name, 1, 2, 3),
                     "4:", i0.ɵɵpipeBindV(5, 19, $r3$.ɵɵpureFunction1(25, $c0$, ctx.name)),
                     ""
-                  ));
+                  );
                 }
               },
               pipes: [MyPipe],
@@ -2192,7 +2238,7 @@ describe('compiler compliance', () => {
             if (rf & 2) {
               const $user$ = $r3$.ɵɵreference(1);
               $r3$.ɵɵselect(2);
-              $r3$.ɵɵtextBinding(2, $r3$.ɵɵinterpolation1("Hello ", $user$.value, "!"));
+              $r3$.ɵɵtextInterpolate1("Hello ", $user$.value, "!");
             }
           },
           encapsulation: 2
@@ -2255,7 +2301,7 @@ describe('compiler compliance', () => {
             const $foo$ = $r3$.ɵɵreference(1);
             const $baz$ = $r3$.ɵɵreference(5);
             $r3$.ɵɵselect(1);
-            $r3$.ɵɵtextBinding(1, $r3$.ɵɵinterpolation3("", $foo$, "-", $bar$, "-", $baz$, ""));
+            $r3$.ɵɵtextInterpolate3("", $foo$, "-", $bar$, "-", $baz$, "");
           }
         }
         function MyComponent_div_3_Template(rf, ctx) {
@@ -2271,7 +2317,7 @@ describe('compiler compliance', () => {
             $r3$.ɵɵnextContext();
             const $foo$ = $r3$.ɵɵreference(1);
             $r3$.ɵɵselect(1);
-            $r3$.ɵɵtextBinding(1, $r3$.ɵɵinterpolation2(" ", $foo$, "-", $bar$, " "));
+            $r3$.ɵɵtextInterpolate2(" ", $foo$, "-", $bar$, " ");
           }
         }
         …
@@ -2291,7 +2337,7 @@ describe('compiler compliance', () => {
             if (rf & 2) {
               const $foo$ = $r3$.ɵɵreference(1);
               $r3$.ɵɵselect(2);
-              $r3$.ɵɵtextBinding(2, $r3$.ɵɵinterpolation1(" ", $foo$, " "));
+              $r3$.ɵɵtextInterpolate1(" ", $foo$, " ");
             }
           },
           directives:[IfDirective],
@@ -2300,9 +2346,7 @@ describe('compiler compliance', () => {
 
       const result = compile(files, angularFiles);
       const source = result.source;
-
       expectEmit(source, MyComponentDefinition, 'Incorrect MyComponent.ngComponentDef');
-
     });
 
     it('should support local refs mixed with context assignments', () => {
@@ -2344,7 +2388,7 @@ describe('compiler compliance', () => {
           const $item$ = $i0$.ɵɵnextContext().$implicit;
           const $foo$ = $i0$.ɵɵreference(2);
           $r3$.ɵɵselect(1);
-          $i0$.ɵɵtextBinding(1, $i0$.ɵɵinterpolation2(" ", $foo$, " - ", $item$, " "));
+          $i0$.ɵɵtextInterpolate2(" ", $foo$, " - ", $item$, " ");
         }
       }
 
@@ -2648,7 +2692,7 @@ describe('compiler compliance', () => {
             if (rf & 2) {
               const $item$ = ctx.$implicit;
               $r3$.ɵɵselect(1);
-              $r3$.ɵɵtextBinding(1, $r3$.ɵɵinterpolation1("", $item$.name, ""));
+              $r3$.ɵɵtextInterpolate($item$.name);
             }
           }
           …
@@ -2731,7 +2775,7 @@ describe('compiler compliance', () => {
               const $info$ = ctx.$implicit;
               const $item$ = $r3$.ɵɵnextContext().$implicit;
               $r3$.ɵɵselect(1);
-              $r3$.ɵɵtextBinding(1, $r3$.ɵɵinterpolation2(" ", $item$.name, ": ", $info$.description, " "));
+              $r3$.ɵɵtextInterpolate2(" ", $item$.name, ": ", $info$.description, " ");
             }
           }
 
@@ -2749,7 +2793,7 @@ describe('compiler compliance', () => {
             if (rf & 2) {
               const $item$ = ctx.$implicit;
               $r3$.ɵɵselect(2);
-              $r3$.ɵɵtextBinding(2, $r3$.ɵɵinterpolation1("", IDENT.name, ""));
+              $r3$.ɵɵtextInterpolate(IDENT.name);
               $r3$.ɵɵselect(4);
               $r3$.ɵɵproperty("forOf", IDENT.infos);
             }
@@ -3078,7 +3122,7 @@ describe('compiler compliance', () => {
           }
           if (rf & 2) {
             var $tmp$;
-            ($r3$.ɵɵqueryRefresh(($tmp$ = $r3$.ɵɵloadViewQuery())) && (ctx.something = $tmp$.first));
+            $r3$.ɵɵqueryRefresh(($tmp$ = $r3$.ɵɵloadViewQuery())) && (ctx.something = $tmp$.first);
           }
         }
       });
@@ -3123,7 +3167,7 @@ describe('compiler compliance', () => {
           }
           if (rf & 2) {
             var $tmp$;
-            ($r3$.ɵɵqueryRefresh(($tmp$ = $r3$.ɵɵloadViewQuery())) && (ctx.something = $tmp$));
+            $r3$.ɵɵqueryRefresh(($tmp$ = $r3$.ɵɵloadViewQuery())) && (ctx.something = $tmp$);
           }
         }
       });
@@ -3139,7 +3183,7 @@ describe('compiler compliance', () => {
           'spec.ts': `
             import {Component, NgModule, ContentChild} from '@angular/core';
             export class BaseClass {
-              @ContentChild('something') something: any;
+              @ContentChild('something', {static: false}) something: any;
             }
 
             @Component({
@@ -3166,7 +3210,7 @@ describe('compiler compliance', () => {
           }
           if (rf & 2) {
             var $tmp$;
-            ($r3$.ɵɵqueryRefresh(($tmp$ = $r3$.ɵɵloadContentQuery())) && (ctx.something = $tmp$.first));
+            $r3$.ɵɵqueryRefresh(($tmp$ = $r3$.ɵɵloadContentQuery())) && (ctx.something = $tmp$.first);
           }
         }
       });
@@ -3211,7 +3255,7 @@ describe('compiler compliance', () => {
           }
           if (rf & 2) {
             var $tmp$;
-            ($r3$.ɵɵqueryRefresh(($tmp$ = $r3$.ɵɵloadContentQuery())) && (ctx.something = $tmp$));
+            $r3$.ɵɵqueryRefresh(($tmp$ = $r3$.ɵɵloadContentQuery())) && (ctx.something = $tmp$);
           }
         }
       });
@@ -3253,7 +3297,7 @@ describe('compiler compliance', () => {
             $r3$.ɵɵallocHostVars(1);
           }
           if (rf & 2) {
-            $r3$.ɵɵelementAttribute(elIndex, "tabindex", $r3$.ɵɵbind(ctx.tabindex));
+            $r3$.ɵɵattribute("tabindex", ctx.tabindex);
           }
         }
       });

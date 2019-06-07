@@ -43,10 +43,9 @@ With interpolation, you put the property name in the view template, enclosed in 
 要显示组件的属性，最简单的方式就是通过插值表达式 (interpolation) 来绑定属性名。
 要使用插值表达式，就把属性名包裹在双花括号里放进视图模板，如 `{{myHero}}`。
 
-Follow the [Getting Started](guide/quickstart) instructions for creating a new project
-named <code>displaying-data</code>.
+Use the CLI command [`ng new displaying-data`](cli/new) to create a workspace and app named `displaying-data`. 
 
-按照[快速起步](guide/quickstart)的说明，创建一个新项目，名为<code>displaying-data</code>。
+使用 CLI 命令 [`ng new displaying-data`](cli/new) 创建一个工作空间和一个名叫 `displaying-data` 的应用。
 
 Delete the <code>app.component.html</code> file. It is not needed for this example.
 

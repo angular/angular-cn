@@ -51,9 +51,9 @@
   "SideNav": [
     {
       "url": "docs",
-      "title": "文档",
-      "tooltip": "Angular 开发文档",
-      "hidden": true
+      "title": "简介",
+      "tooltip": "Angular 文档简介",
+      "hidden": false
     },
     {
       "url": "guide/docs-style-guide",
@@ -66,87 +66,87 @@
       "tooltip": "通过构建第一个 Angular 应用来学习基础知识",
       "children": [
         {
-          "url": "getting-started",
+          "url": "start",
           "title": "你的第一个应用",
           "tooltip": "介绍 Angular 的组件模型、模板语法和组件通讯"
         },
         {
-          "url": "getting-started/routing",
+          "url": "start/routing",
           "title": "路由",
           "tooltip": "介绍如何使用浏览器的 URL 在组件之间进行路由"
         },
         {
-          "url": "getting-started/data",
+          "url": "start/data",
           "title": "管理数据",
           "tooltip": "介绍服务以及如何访问外部数据"
         },
         {
-          "url": "getting-started/forms",
+          "url": "start/forms",
           "title": "表单",
           "tooltip": "学习如何使用表单从用户那里获取并管理数据"
         },
         {
-          "url": "getting-started/deployment",
+          "url": "start/deployment",
           "title": "部署",
           "tooltip": "通过你的应用放到 Firebase 或自己的服务器上来把它分享给外界"
         }
       ]
     },
     {
-      "url": "guide/quickstart",
-      "title": "快速搭建环境",
+      "url": "guide/setup-local",
+      "title": "搭建环境",
       "tooltip": "使用 Angular CLI 搭建本地开发环境简介"
     },
     {
-      "title": "教程：英雄指南",
-      "tooltip": "此《英雄指南》教程会带你用 TypeScript 一步步创建一个 Angular 应用。",
+      "title": "基本原理",
+      "tooltip": "Angular 的基本原理",
       "children": [
         {
-          "url": "tutorial",
-          "title": "简介",
-          "tooltip": "《英雄指南》教程简介"
+          "title": "英雄指南",
+          "tooltip": "英雄指南是这里大量 Angular 范例的基础",
+          "children": [
+            {
+              "url": "tutorial",
+              "title": "简介",
+              "tooltip": "《英雄指南》教程简介"
+            },
+            {
+              "url": "tutorial/toh-pt0",
+              "title": "应用的“外壳”",
+              "tooltip": "创建应用的外壳"
+            },
+            {
+              "url": "tutorial/toh-pt1",
+              "title": "1. 英雄编辑器",
+              "tooltip": "第一部分：构建一个简单的英雄编辑器"
+            },
+            {
+              "url": "tutorial/toh-pt2",
+              "title": "2. 显示英雄列表",
+              "tooltip": "第二部分：构建一个主从结构的页面，用于展现英雄列表。"
+            },
+            {
+              "url": "tutorial/toh-pt3",
+              "title": "3. 主从组件",
+              "tooltip": "第三部分：把主从结构的页面重构成多个组件。"
+            },
+            {
+              "url": "tutorial/toh-pt4",
+              "title": "4. 服务",
+              "tooltip": "第四部分：创建一个可复用的服务来管理英雄数据。"
+            },
+            {
+              "url": "tutorial/toh-pt5",
+              "title": "5. 路由",
+              "tooltip": "第五部分：添加 Angular 路由器，并且学习在视图之间导航。"
+            },
+            {
+              "url": "tutorial/toh-pt6",
+              "title": "6. HTTP",
+              "tooltip": "第六部分：通过 HTTP 来获取并保存英雄数据。"
+            }
+          ]
         },
-        {
-          "url": "tutorial/toh-pt0",
-          "title": "应用的“外壳”",
-          "tooltip": "创建应用的外壳"
-        },
-        {
-          "url": "tutorial/toh-pt1",
-          "title": "1. 英雄编辑器",
-          "tooltip": "第一部分：构建一个简单的英雄编辑器"
-        },
-        {
-          "url": "tutorial/toh-pt2",
-          "title": "2. 显示英雄列表",
-          "tooltip": "第二部分：构建一个主从结构的页面，用于展现英雄列表。"
-        },
-        {
-          "url": "tutorial/toh-pt3",
-          "title": "3. 主从组件",
-          "tooltip": "第三部分：把主从结构的页面重构成多个组件。"
-        },
-        {
-          "url": "tutorial/toh-pt4",
-          "title": "4. 服务",
-          "tooltip": "第四部分：创建一个可复用的服务来管理英雄数据。"
-        },
-        {
-          "url": "tutorial/toh-pt5",
-          "title": "5. 路由",
-          "tooltip": "第五部分：添加 Angular 路由器，并且学习在视图之间导航。"
-        },
-        {
-          "url": "tutorial/toh-pt6",
-          "title": "6. HTTP",
-          "tooltip": "第六部分：通过 HTTP 来获取并保存英雄数据。"
-        }
-      ]
-    },
-    {
-      "title": "核心知识",
-      "tooltip": "学习 Angular 的核心知识",
-      "children": [
         {
           "title": "架构",
           "tooltip": "Angular 应用的基本构造块。",
@@ -565,6 +565,11 @@
           ]
         },
         {
+          "url": "guide/cli-builder",
+          "title": "CLI Builders",
+          "tooltip": "Using builders to customize Angular CLI."
+        },
+        {
           "url": "guide/ivy",
           "title": "Angular Ivy（常春藤）",
           "tooltip": "在 Angular CLI 中可选的启用 Ivy。"
@@ -577,34 +582,14 @@
       ]
     },
     {
-      "title": "环境搭建与部署",
-      "tooltip": "构建、测试、部署环境、工具以及配置信息。",
+      "title": "开发工作流",
+      "tooltip": "关于构建、测试和部署的信息",
       "children": [
         {
           "url": "guide/setup",
-          "title": "搭建本地开发环境",
-          "tooltip": "安装 Angular 快速起步种子工程，以便在你的电脑上更快、更高效的开发。",
+          "title": "升级的准备工作",
+          "tooltip": "How to set up the Angular QuickStart seed in the context of upgrading from AngularJS.",
           "hidden": true
-        },
-        {
-          "url": "guide/file-structure",
-          "title": "项目文件结构",
-          "tooltip": "Angular 工作区在文件系统中是怎样的。"
-        },
-        {
-          "url": "guide/workspace-config",
-          "title": "工作区配置",
-          "tooltip": "\"angular.json\" 包含供 CLI 命令使用的工作区和项目默认配置。"
-        },
-        {
-          "url": "guide/npm-packages",
-          "title": "npm 包",
-          "tooltip": "开发期间和运行期间所需的 npm 包的说明。"
-        },
-        {
-          "url": "guide/typescript-configuration",
-          "title": "TypeScript 配置",
-          "tooltip": "给 Angular 开发者的 TypeScript 配置。"
         },
         {
           "url": "guide/aot-compiler",
@@ -632,13 +617,8 @@
           "tooltip": "了解如何部署 Angular 应用。"
         },
         {
-          "url": "guide/browser-support",
-          "title": "浏览器支持",
-          "tooltip": "浏览器支持与腻子脚本指南。"
-        },
-        {
           "title": "开发工具集成",
-          "tooltip": "整合开发环境和工具。",
+          "tooltip": "与开发环境和工具集成起来",
           "children": [
             {
               "url": "guide/language-service",
@@ -652,6 +632,37 @@
               "hidden": true
             }
           ]
+        }
+      ]
+    },
+    {
+      "title": "配置",
+      "tooltip": "工作空间与项目的结构，及其配置文件。",
+      "children": [
+        {
+          "url": "guide/file-structure",
+          "title": "项目文件结构",
+          "tooltip": "Angular 工作区在文件系统中是怎样的。"
+        },
+        {
+          "url": "guide/workspace-config",
+          "title": "工作区配置",
+          "tooltip": "\"angular.json\" 包含供 CLI 命令使用的工作区和项目默认配置。"
+        },
+        {
+          "url": "guide/npm-packages",
+          "title": "npm 包",
+          "tooltip": "开发期间和运行期间所需的 npm 包的说明。"
+        },
+        {
+          "url": "guide/typescript-configuration",
+          "title": "TypeScript 配置",
+          "tooltip": "给 Angular 开发者的 TypeScript 配置。"
+        },
+        {
+          "url": "guide/browser-support",
+          "title": "浏览器支持",
+          "tooltip": "浏览器支持与腻子脚本指南。"
         }
       ]
     },
@@ -816,7 +827,7 @@
         {
           "url": "events",
           "title": "活动",
-          "tooltip": "Post issues and suggestions on github."
+          "tooltip": "Angular events around the world."
         },
         {
           "url": "http://www.meetup.com/topics/angularjs/",
@@ -860,20 +871,24 @@
   ],
   "docVersions": [
     {
+      "title": "v7",
+      "url": "https://v7.angular.io/"
+    },
+    {
       "title": "v6",
-      "url": "https://v6.angular.io"
+      "url": "https://v6.angular.io/"
     },
     {
       "title": "v5",
-      "url": "https://v5.angular.io"
+      "url": "https://v5.angular.io/"
     },
     {
       "title": "v4",
-      "url": "https://v4.angular.io"
+      "url": "https://v4.angular.io/"
     },
     {
       "title": "v2",
-      "url": "https://v2.angular.io"
+      "url": "https://v2.angular.io/"
     }
   ]
 }

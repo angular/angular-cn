@@ -14,7 +14,7 @@ export {isListLikeIterable as ɵisListLikeIterable} from './change_detection/cha
 export {ChangeDetectorStatus as ɵChangeDetectorStatus, isDefaultChangeDetectionStrategy as ɵisDefaultChangeDetectionStrategy} from './change_detection/constants';
 export {Console as ɵConsole} from './console';
 export {inject, setCurrentInjector as ɵsetCurrentInjector, ɵɵinject} from './di/injector_compatibility';
-export {getInjectableDef as ɵgetInjectableDef, ɵɵInjectableDef as ɵɵInjectableDef, ɵɵInjectorDef} from './di/interface/defs';
+export {getInjectableDef as ɵgetInjectableDef, ɵɵInjectableDef, ɵɵInjectorDef} from './di/interface/defs';
 export {APP_ROOT as ɵAPP_ROOT} from './di/scope';
 export {ivyEnabled as ɵivyEnabled} from './ivy_switch';
 export {ComponentFactory as ɵComponentFactory} from './linker/component_factory';
@@ -34,3 +34,5 @@ export {makeDecorator as ɵmakeDecorator} from './util/decorators';
 export {isObservable as ɵisObservable, isPromise as ɵisPromise} from './util/lang';
 export {clearOverrides as ɵclearOverrides, initServicesIfNeeded as ɵinitServicesIfNeeded, overrideComponentView as ɵoverrideComponentView, overrideProvider as ɵoverrideProvider} from './view/index';
 export {NOT_FOUND_CHECK_ONLY_ELEMENT_INJECTOR as ɵNOT_FOUND_CHECK_ONLY_ELEMENT_INJECTOR} from './view/provider';
+export {getLocalePluralCase as ɵgetLocalePluralCase, findLocaleData as ɵfindLocaleData} from './i18n/locale_data_api';
+export {LOCALE_DATA as ɵLOCALE_DATA, LocaleDataIndex as ɵLocaleDataIndex} from './i18n/locale_data';

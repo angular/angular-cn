@@ -7,8 +7,9 @@
  */
 
 import {AbsoluteFsPath} from '@angular/compiler-cli/src/ngtsc/path';
-import {existsSync, readFileSync, readdirSync, statSync, writeFileSync} from 'fs';
+import {existsSync, readFileSync, readdirSync, statSync, symlinkSync} from 'fs';
 import * as mockFs from 'mock-fs';
+import * as path from 'path';
 
 import {getAngularPackagesFromRunfiles, resolveNpmTreeArtifact} from '../../../test/runfile_helpers';
 import {NodeJSFileSystem} from '../../src/file_system/node_js_file_system';
@@ -40,6 +41,7 @@ describe('ngcc main()', () => {
   describe('with targetEntryPointPath', () => {
     it('should only compile the given package entry-point (and its dependencies).', () => {
       const STANDARD_MARKERS = {
+        main: '0.0.0-PLACEHOLDER',
         module: '0.0.0-PLACEHOLDER',
         es2015: '0.0.0-PLACEHOLDER',
         esm5: '0.0.0-PLACEHOLDER',
@@ -161,29 +163,31 @@ describe('ngcc main()', () => {
 
          });
 
-         // * the `main` property is UMD, which is not yet supported.
-         // * none of the ES2015 formats are compiled as they are not on the `propertiesToConsider`
-         // list.
+         // The ES2015 formats are not compiled as they are not in `propertiesToConsider`.
          expect(loadPackage('@angular/core').__processed_by_ivy_ngcc__).toEqual({
            esm5: '0.0.0-PLACEHOLDER',
+           main: '0.0.0-PLACEHOLDER',
            module: '0.0.0-PLACEHOLDER',
            fesm5: '0.0.0-PLACEHOLDER',
            typings: '0.0.0-PLACEHOLDER',
          });
          expect(loadPackage('@angular/common').__processed_by_ivy_ngcc__).toEqual({
            esm5: '0.0.0-PLACEHOLDER',
+           main: '0.0.0-PLACEHOLDER',
            module: '0.0.0-PLACEHOLDER',
            fesm5: '0.0.0-PLACEHOLDER',
            typings: '0.0.0-PLACEHOLDER',
          });
          expect(loadPackage('@angular/common/testing').__processed_by_ivy_ngcc__).toEqual({
            esm5: '0.0.0-PLACEHOLDER',
+           main: '0.0.0-PLACEHOLDER',
            module: '0.0.0-PLACEHOLDER',
            fesm5: '0.0.0-PLACEHOLDER',
            typings: '0.0.0-PLACEHOLDER',
          });
          expect(loadPackage('@angular/common/http').__processed_by_ivy_ngcc__).toEqual({
            esm5: '0.0.0-PLACEHOLDER',
+           main: '0.0.0-PLACEHOLDER',
            module: '0.0.0-PLACEHOLDER',
            fesm5: '0.0.0-PLACEHOLDER',
            typings: '0.0.0-PLACEHOLDER',
@@ -195,12 +199,11 @@ describe('ngcc main()', () => {
     it('should only compile the first matching format', () => {
       mainNgcc({
         basePath: '/node_modules',
-        propertiesToConsider: ['main', 'module', 'fesm5', 'esm5'],
+        propertiesToConsider: ['module', 'fesm5', 'esm5'],
         compileAllFormats: false,
         logger: new MockLogger(),
 
       });
-      // * The `main` is UMD, which is not yet supported, and so is not compiled.
       // * In the Angular packages fesm5 and module have the same underlying format,
       //   so both are marked as compiled.
       // * The `esm5` is not compiled because we stopped after the `fesm5` format.
@@ -333,10 +336,15 @@ describe('ngcc main()', () => {
 
 
 function createMockFileSystem() {
+  const typeScriptPath = path.join(process.env.RUNFILES !, 'typescript');
+  if (!existsSync(typeScriptPath)) {
+    symlinkSync(resolveNpmTreeArtifact('typescript'), typeScriptPath, 'junction');
+  }
+
   mockFs({
     '/node_modules/@angular': loadAngularPackages(),
-    '/node_modules/rxjs': loadDirectory(resolveNpmTreeArtifact('rxjs', 'index.js')),
-    '/node_modules/tslib': loadDirectory(resolveNpmTreeArtifact('tslib', 'tslib.js')),
+    '/node_modules/rxjs': loadDirectory(resolveNpmTreeArtifact('rxjs')),
+    '/node_modules/tslib': loadDirectory(resolveNpmTreeArtifact('tslib')),
     '/node_modules/test-package': {
       'package.json': '{"name": "test-package", "es2015": "./index.js", "typings": "./index.d.ts"}',
       // no metadata.json file so not compiled by Angular.

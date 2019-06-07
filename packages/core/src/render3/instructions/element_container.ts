@@ -10,12 +10,14 @@ import {assertHasParent} from '../assert';
 import {attachPatchData} from '../context_discovery';
 import {registerPostOrderHooks} from '../hooks';
 import {TAttributes, TNodeType} from '../interfaces/node';
-import {BINDING_INDEX, QUERIES, RENDERER, TVIEW} from '../interfaces/view';
+import {BINDING_INDEX, HEADER_OFFSET, QUERIES, RENDERER, TVIEW, T_HOST} from '../interfaces/view';
 import {assertNodeType} from '../node_assert';
 import {appendChild} from '../node_manipulation';
 import {applyOnCreateInstructions} from '../node_util';
-import {getIsParent, getLView, getPreviousOrParentTNode, setIsParent, setPreviousOrParentTNode} from '../state';
-import {createDirectivesAndLocals, createNodeAtIndex, executeContentQueries, setNodeStylingTemplate} from './shared';
+import {getIsParent, getLView, getPreviousOrParentTNode, setIsNotParent, setPreviousOrParentTNode} from '../state';
+
+import {createDirectivesAndLocals, executeContentQueries, getOrCreateTNode, setNodeStylingTemplate} from './shared';
+
 
 /**
  * Creates a logical container for other nodes (<ng-container>) backed by a comment node in the DOM.
@@ -42,11 +44,12 @@ export function ɵɵelementContainerStart(
                    'element containers should be created before any bindings');
 
   ngDevMode && ngDevMode.rendererCreateComment++;
-  const native = renderer.createComment(ngDevMode ? tagName : '');
+  ngDevMode && assertDataInRange(lView, index + HEADER_OFFSET);
+  const native = lView[index + HEADER_OFFSET] = renderer.createComment(ngDevMode ? tagName : '');
 
   ngDevMode && assertDataInRange(lView, index - 1);
-  const tNode =
-      createNodeAtIndex(index, TNodeType.ElementContainer, native, tagName, attrs || null);
+  const tNode = getOrCreateTNode(
+      tView, lView[T_HOST], index, TNodeType.ElementContainer, tagName, attrs || null);
 
 
   if (attrs) {
@@ -62,7 +65,7 @@ export function ɵɵelementContainerStart(
   const currentQueries = lView[QUERIES];
   if (currentQueries) {
     currentQueries.addNode(tNode);
-    lView[QUERIES] = currentQueries.clone();
+    lView[QUERIES] = currentQueries.clone(tNode);
   }
   executeContentQueries(tView, tNode, lView);
 }
@@ -77,16 +80,17 @@ export function ɵɵelementContainerEnd(): void {
   const lView = getLView();
   const tView = lView[TVIEW];
   if (getIsParent()) {
-    setIsParent(false);
+    setIsNotParent();
   } else {
     ngDevMode && assertHasParent(previousOrParentTNode);
     previousOrParentTNode = previousOrParentTNode.parent !;
-    setPreviousOrParentTNode(previousOrParentTNode);
+    setPreviousOrParentTNode(previousOrParentTNode, false);
   }
 
   ngDevMode && assertNodeType(previousOrParentTNode, TNodeType.ElementContainer);
   const currentQueries = lView[QUERIES];
-  if (currentQueries) {
+  // Go back up to parent queries only if queries have been cloned on this element.
+  if (currentQueries && previousOrParentTNode.index === currentQueries.nodeIndex) {
     lView[QUERIES] = currentQueries.parent;
   }
 

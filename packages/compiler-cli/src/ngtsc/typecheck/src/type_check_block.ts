@@ -122,7 +122,7 @@ class TcbVariableOp extends TcbOp {
     const id = this.tcb.allocateId();
     const initializer = ts.createPropertyAccess(
         /* expression */ ctx,
-        /* name */ this.variable.value);
+        /* name */ this.variable.value || '$implicit');
 
     // Declare the variable, and return its identifier.
     this.scope.addStatement(tsCreateVariable(id, initializer));
@@ -185,22 +185,28 @@ class TcbTemplateBodyOp extends TcbOp {
         // There are two kinds of guards. Template guards (ngTemplateGuards) allow type narrowing of
         // the expression passed to an @Input of the directive. Scan the directive to see if it has
         // any template guards, and generate them if needed.
-        dir.ngTemplateGuards.forEach(inputName => {
+        dir.ngTemplateGuards.forEach(guard => {
           // For each template guard function on the directive, look for a binding to that input.
-          const boundInput = this.template.inputs.find(i => i.name === inputName) ||
+          const boundInput = this.template.inputs.find(i => i.name === guard.inputName) ||
               this.template.templateAttrs.find(
                   (i: TmplAstTextAttribute | TmplAstBoundAttribute): i is TmplAstBoundAttribute =>
-                      i instanceof TmplAstBoundAttribute && i.name === inputName);
+                      i instanceof TmplAstBoundAttribute && i.name === guard.inputName);
           if (boundInput !== undefined) {
             // If there is such a binding, generate an expression for it.
             const expr = tcbExpression(boundInput.value, this.tcb, this.scope);
-            // Call the guard function on the directive with the directive instance and that
-            // expression.
-            const guardInvoke = tsCallMethod(dirId, `ngTemplateGuard_${inputName}`, [
-              dirInstId,
-              expr,
-            ]);
-            directiveGuards.push(guardInvoke);
+
+            if (guard.type === 'binding') {
+              // Use the binding expression itself as guard.
+              directiveGuards.push(expr);
+            } else {
+              // Call the guard function on the directive with the directive instance and that
+              // expression.
+              const guardInvoke = tsCallMethod(dirId, `ngTemplateGuard_${guard.inputName}`, [
+                dirInstId,
+                expr,
+              ]);
+              directiveGuards.push(guardInvoke);
+            }
           }
         });
 
@@ -282,6 +288,19 @@ class TcbDirectiveOp extends TcbOp {
 }
 
 /**
+ * Mapping between attributes names that don't correspond to their element property names.
+ * Note: this mapping has to be kept in sync with the equally named mapping in the runtime.
+ */
+const ATTR_TO_PROP: {[name: string]: string} = {
+  'class': 'className',
+  'for': 'htmlFor',
+  'formaction': 'formAction',
+  'innerHtml': 'innerHTML',
+  'readonly': 'readOnly',
+  'tabindex': 'tabIndex',
+};
+
+/**
  * A `TcbOp` which generates code to check "unclaimed inputs" - bindings on an element which were
  * not attributed to any directive or component, and are instead processed against the HTML element
  * itself.
@@ -318,7 +337,8 @@ class TcbUnclaimedInputsOp extends TcbOp {
       if (binding.type === BindingType.Property) {
         if (binding.name !== 'style' && binding.name !== 'class') {
           // A direct binding to a property.
-          const prop = ts.createPropertyAccess(elId, binding.name);
+          const propertyName = ATTR_TO_PROP[binding.name] || binding.name;
+          const prop = ts.createPropertyAccess(elId, propertyName);
           const assign = ts.createBinary(prop, ts.SyntaxKind.EqualsToken, expr);
           this.scope.addStatement(ts.createStatement(assign));
         } else {

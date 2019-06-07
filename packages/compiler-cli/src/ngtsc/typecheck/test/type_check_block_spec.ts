@@ -18,7 +18,7 @@ import {generateTypeCheckBlock} from '../src/type_check_block';
 
 describe('type check blocks', () => {
   it('should generate a basic block for a binding',
-     () => { expect(tcb('{{hello}}')).toContain('ctx.hello;'); });
+     () => { expect(tcb('{{hello}} {{world}}')).toContain('"" + ctx.hello + ctx.world;'); });
 
   it('should generate literal map expressions', () => {
     const TEMPLATE = '{{ method({foo: a, bar: b}) }}';
@@ -32,7 +32,7 @@ describe('type check blocks', () => {
 
   it('should handle non-null assertions', () => {
     const TEMPLATE = `{{a!}}`;
-    expect(tcb(TEMPLATE)).toContain('ctx.a!;');
+    expect(tcb(TEMPLATE)).toContain('(ctx.a!);');
   });
 
   it('should handle keyed property access', () => {
@@ -40,12 +40,27 @@ describe('type check blocks', () => {
     expect(tcb(TEMPLATE)).toContain('ctx.a[ctx.b];');
   });
 
+  it('should translate unclaimed bindings to their property equivalent', () => {
+    const TEMPLATE = `<label [for]="'test'"></label>`;
+    expect(tcb(TEMPLATE)).toContain('_t1.htmlFor = "test";');
+  });
+
+  it('should handle implicit vars on ng-template', () => {
+    const TEMPLATE = `<ng-template let-a></ng-template>`;
+    expect(tcb(TEMPLATE)).toContain('var _t2 = _t1.$implicit;');
+  });
+
+  it('should handle implicit vars when using microsyntax', () => {
+    const TEMPLATE = `<div *ngFor="let user of users"></div>`;
+    expect(tcb(TEMPLATE)).toContain('var _t2 = _t1.$implicit;');
+  });
+
   it('should generate a forward element reference correctly', () => {
     const TEMPLATE = `
       {{ i.value }}
       <input #i>
     `;
-    expect(tcb(TEMPLATE)).toContain('var _t1 = document.createElement("input"); _t1.value;');
+    expect(tcb(TEMPLATE)).toContain('var _t1 = document.createElement("input"); "" + _t1.value;');
   });
 
   it('should generate a forward directive reference correctly', () => {
@@ -61,7 +76,7 @@ describe('type check blocks', () => {
     }];
     expect(tcb(TEMPLATE, DIRECTIVES))
         .toContain(
-            'var _t1 = Dir.ngTypeCtor({}); _t1.value; var _t2 = document.createElement("div");');
+            'var _t1 = Dir.ngTypeCtor({}); "" + _t1.value; var _t2 = document.createElement("div");');
   });
 
   it('should handle style and class bindings specially', () => {
@@ -80,6 +95,40 @@ describe('type check blocks', () => {
     const TEMPLATE = `{{$any(a)}}`;
     const block = tcb(TEMPLATE);
     expect(block).toContain('(ctx.a as any);');
+  });
+
+  describe('template guards', () => {
+    it('should emit invocation guards', () => {
+      const DIRECTIVES: TestDeclaration[] = [{
+        type: 'directive',
+        name: 'NgIf',
+        selector: '[ngIf]',
+        inputs: {'ngIf': 'ngIf'},
+        ngTemplateGuards: [{
+          inputName: 'ngIf',
+          type: 'invocation',
+        }]
+      }];
+      const TEMPLATE = `<div *ngIf="person"></div>`;
+      const block = tcb(TEMPLATE, DIRECTIVES);
+      expect(block).toContain('if (NgIf.ngTemplateGuard_ngIf(_t1, ctx.person))');
+    });
+
+    it('should emit binding guards', () => {
+      const DIRECTIVES: TestDeclaration[] = [{
+        type: 'directive',
+        name: 'NgIf',
+        selector: '[ngIf]',
+        inputs: {'ngIf': 'ngIf'},
+        ngTemplateGuards: [{
+          inputName: 'ngIf',
+          type: 'binding',
+        }]
+      }];
+      const TEMPLATE = `<div *ngIf="person !== null"></div>`;
+      const block = tcb(TEMPLATE, DIRECTIVES);
+      expect(block).toContain('if (ctx.person !== null)');
+    });
   });
 
   describe('config', () => {

@@ -39,7 +39,7 @@ export declare class NgForOf<T> {
 
 export declare class NgIf {
   ngIf: any;
-  static ngTemplateGuard_ngIf<E>(dir: NgIf, expr: E): expr is NonNullable<E>
+  static ngTemplateGuard_ngIf: 'binding';
   static ngDirectiveDef: i0.ɵɵDirectiveDefWithMeta<NgForOf<any>, '[ngIf]', never, {'ngIf': 'ngIf'}, {}, never>;
 }
 
@@ -85,6 +85,29 @@ describe('ngtsc type checking', () => {
     @Component({
       selector: 'test',
       template: '<div *ngIf="user">{{user.name}}</div>',
+    })
+    class TestCmp {
+      user: {name: string}|null;
+    }
+
+    @NgModule({
+      declarations: [TestCmp],
+      imports: [CommonModule],
+    })
+    class Module {}
+    `);
+
+    env.driveMain();
+  });
+
+  it('should check usage of NgIf with explicit non-null guard', () => {
+    env.write('test.ts', `
+    import {CommonModule} from '@angular/common';
+    import {Component, NgModule} from '@angular/core';
+
+    @Component({
+      selector: 'test',
+      template: '<div *ngIf="user !== null">{{user.name}}</div>',
     })
     class TestCmp {
       user: {name: string}|null;
@@ -246,6 +269,31 @@ describe('ngtsc type checking', () => {
     expect(diags.length).toBe(1);
     expect(diags[0].messageText).toContain('does_not_exist');
   });
+
+  it('should property type-check a microsyntax variable with the same name as the expression',
+     () => {
+       env.write('test.ts', `
+    import {CommonModule} from '@angular/common';
+    import {Component, Input, NgModule} from '@angular/core';
+
+    @Component({
+      selector: 'test',
+      template: '<div *ngIf="foo as foo">{{foo}}</div>',
+    })
+    export class TestCmp<T extends {name: string}> {
+      foo: any;
+    }
+
+    @NgModule({
+      declarations: [TestCmp],
+      imports: [CommonModule],
+    })
+    export class Module {}
+    `);
+
+       const diags = env.driveDiagnostics();
+       expect(diags.length).toBe(0);
+     });
 
   it('should properly type-check inherited directives', () => {
     env.write('test.ts', `

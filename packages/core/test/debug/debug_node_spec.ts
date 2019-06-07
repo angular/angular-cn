@@ -7,7 +7,7 @@
  */
 
 
-import {Component, Directive, ElementRef, EmbeddedViewRef, EventEmitter, HostBinding, Injectable, Input, NO_ERRORS_SCHEMA, TemplateRef, ViewChild, ViewContainerRef} from '@angular/core';
+import {Component, DebugNode, Directive, ElementRef, EmbeddedViewRef, EventEmitter, HostBinding, Injectable, Input, NO_ERRORS_SCHEMA, TemplateRef, ViewChild, ViewContainerRef} from '@angular/core';
 import {ComponentFixture, TestBed, async} from '@angular/core/testing';
 import {By} from '@angular/platform-browser/src/dom/debug/by';
 import {getDOM} from '@angular/platform-browser/src/dom/dom_adapter';
@@ -160,7 +160,7 @@ class BankAccount {
  `
 })
 class SimpleContentComp {
-  @ViewChild('content') content !: ElementRef;
+  @ViewChild('content', {static: false}) content !: ElementRef;
 }
 
 @Component({
@@ -676,6 +676,64 @@ class TestCmptWithPropBindings {
 
       const divB = divA.query(By.css('div'));
       expect(divB.nativeElement.getAttribute('id')).toBe('b');
+    });
+
+    it('should be an instance of DebugNode', () => {
+      fixture = TestBed.createComponent(ParentComp);
+      fixture.detectChanges();
+      expect(fixture.debugElement).toBeAnInstanceOf(DebugNode);
+    });
+
+    it('should return the same element when queried twice', () => {
+      fixture = TestBed.createComponent(ParentComp);
+      fixture.detectChanges();
+
+      const childTestElsFirst = fixture.debugElement.queryAll(By.css('child-comp'));
+      const childTestElsSecond = fixture.debugElement.queryAll(By.css('child-comp'));
+
+      expect(childTestElsFirst.length).toBe(1);
+      expect(childTestElsSecond[0]).toBe(childTestElsFirst[0]);
+    });
+
+    it('should not query the descendants of a sibling node', () => {
+      @Component({
+        selector: 'my-comp',
+        template: `
+          <div class="div.1">
+            <p class="p.1">
+              <span class="span.1">span.1</span>
+              <span class="span.2">span.2</span>
+            </p>
+            <p class="p.2">
+              <span class="span.3">span.3</span>
+              <span class="span.4">span.4</span>
+            </p>
+          </div>
+          <div class="div.2">
+            <p class="p.3">
+              <span class="span.5">span.5</span>
+              <span class="span.6">span.6</span>
+            </p>
+            <p class="p.4">
+              <span class="span.7">span.7</span>
+              <span class="span.8">span.8</span>
+            </p>
+          </div>
+        `
+      })
+      class MyComp {
+      }
+
+      TestBed.configureTestingModule({declarations: [MyComp]});
+      const fixture = TestBed.createComponent(MyComp);
+      fixture.detectChanges();
+
+      const firstDiv = fixture.debugElement.query(By.css('div'));
+      const firstDivChildren = firstDiv.queryAll(By.css('span'));
+
+      expect(firstDivChildren.map(child => child.nativeNode.textContent.trim())).toEqual([
+        'span.1', 'span.2', 'span.3', 'span.4'
+      ]);
     });
 
   });

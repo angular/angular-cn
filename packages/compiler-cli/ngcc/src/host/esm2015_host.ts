@@ -306,26 +306,13 @@ export class Esm2015ReflectionHost extends TypeScriptReflectionHost implements N
   }
 
   /**
-   * Determine if an identifier was imported from another module and return `Import` metadata
-   * describing its origin.
-   *
-   * @param id a TypeScript `ts.Identifer` to reflect.
-   *
-   * @returns metadata about the `Import` if the identifier was imported from another module, or
-   * `null` if the identifier doesn't resolve to an import but instead is locally defined.
-   */
-  getImportOfIdentifier(id: ts.Identifier): Import|null {
-    return super.getImportOfIdentifier(id) || this.getImportOfNamespacedIdentifier(id);
-  }
-
-  /**
    * Find all the classes that contain decorations in a given file.
    * @param sourceFile The source file to search for decorated classes.
    * @returns An array of decorated classes.
    */
   findDecoratedClasses(sourceFile: ts.SourceFile): DecoratedClass[] {
     const classes: DecoratedClass[] = [];
-    sourceFile.statements.map(statement => {
+    this.getModuleStatements(sourceFile).forEach(statement => {
       if (ts.isVariableStatement(statement)) {
         statement.declarationList.declarations.forEach(declaration => {
           const decoratedClass = this.getDecoratedClassFromSymbol(this.getClassSymbol(declaration));
@@ -379,7 +366,9 @@ export class Esm2015ReflectionHost extends TypeScriptReflectionHost implements N
       throw new Error(
           `Cannot get the dts file for a declaration that has no name: ${declaration.getText()} in ${declaration.getSourceFile().fileName}`);
     }
-    return this.dtsDeclarationMap.get(declaration.name.text) || null;
+    return this.dtsDeclarationMap.has(declaration.name.text) ?
+        this.dtsDeclarationMap.get(declaration.name.text) ! :
+        null;
   }
 
   /**
@@ -432,7 +421,9 @@ export class Esm2015ReflectionHost extends TypeScriptReflectionHost implements N
    */
   protected resolveAliasedClassIdentifier(declaration: ts.Declaration): ts.Identifier|null {
     this.ensurePreprocessed(declaration.getSourceFile());
-    return this.aliasedClassDeclarations.get(declaration) || null;
+    return this.aliasedClassDeclarations.has(declaration) ?
+        this.aliasedClassDeclarations.get(declaration) ! :
+        null;
   }
 
   /**
@@ -485,6 +476,16 @@ export class Esm2015ReflectionHost extends TypeScriptReflectionHost implements N
           `Unable to locate declaration of ${aliasedIdentifier.text} in "${statement.getText()}"`);
     }
     this.aliasedClassDeclarations.set(aliasedDeclaration.node, declaration.name);
+  }
+
+  /** Get the top level statements for a module.
+   *
+   * In ES5 and ES2015 this is just the top level statements of the file.
+   * @param sourceFile The module whose statements we want.
+   * @returns An array of top level statements for the given module.
+   */
+  protected getModuleStatements(sourceFile: ts.SourceFile): ts.Statement[] {
+    return Array.from(sourceFile.statements);
   }
 
   protected getDecoratorsOfSymbol(symbol: ClassSymbol): Decorator[]|null {
@@ -741,7 +742,8 @@ export class Esm2015ReflectionHost extends TypeScriptReflectionHost implements N
           helperCall, makeMemberTargetFilter(classSymbol.name));
       memberDecorators.forEach((decorators, memberName) => {
         if (memberName) {
-          const memberDecorators = memberDecoratorMap.get(memberName) || [];
+          const memberDecorators =
+              memberDecoratorMap.has(memberName) ? memberDecoratorMap.get(memberName) ! : [];
           const coreDecorators = decorators.filter(decorator => this.isFromCore(decorator));
           memberDecoratorMap.set(memberName, memberDecorators.concat(coreDecorators));
         }
@@ -778,7 +780,8 @@ export class Esm2015ReflectionHost extends TypeScriptReflectionHost implements N
               if (keyName === undefined) {
                 classDecorators.push(decorator);
               } else {
-                const decorators = memberDecorators.get(keyName) || [];
+                const decorators =
+                    memberDecorators.has(keyName) ? memberDecorators.get(keyName) ! : [];
                 decorators.push(decorator);
                 memberDecorators.set(keyName, decorators);
               }
@@ -877,14 +880,20 @@ export class Esm2015ReflectionHost extends TypeScriptReflectionHost implements N
           const decorator = reflectObjectLiteral(node);
 
           // Is the value of the `type` property an identifier?
-          const typeIdentifier = decorator.get('type');
-          if (typeIdentifier && ts.isIdentifier(typeIdentifier)) {
-            decorators.push({
-              name: typeIdentifier.text,
-              identifier: typeIdentifier,
-              import: this.getImportOfIdentifier(typeIdentifier), node,
-              args: getDecoratorArgs(node),
-            });
+          if (decorator.has('type')) {
+            let typeIdentifier = decorator.get('type') !;
+            if (ts.isPropertyAccessExpression(typeIdentifier)) {
+              // the type is in a namespace, e.g. `core.Directive`
+              typeIdentifier = typeIdentifier.name;
+            }
+            if (ts.isIdentifier(typeIdentifier)) {
+              decorators.push({
+                name: typeIdentifier.text,
+                identifier: typeIdentifier,
+                import: this.getImportOfIdentifier(typeIdentifier), node,
+                args: getDecoratorArgs(node),
+              });
+            }
           }
         }
       });
@@ -1033,8 +1042,8 @@ export class Esm2015ReflectionHost extends TypeScriptReflectionHost implements N
    */
   protected getConstructorParameterDeclarations(classSymbol: ClassSymbol):
       ts.ParameterDeclaration[]|null {
-    const constructorSymbol = classSymbol.members && classSymbol.members.get(CONSTRUCTOR);
-    if (constructorSymbol) {
+    if (classSymbol.members && classSymbol.members.has(CONSTRUCTOR)) {
+      const constructorSymbol = classSymbol.members.get(CONSTRUCTOR) !;
       // For some reason the constructor does not have a `valueDeclaration` ?!?
       const constructor = constructorSymbol.declarations &&
           constructorSymbol.declarations[0] as ts.ConstructorDeclaration | undefined;
@@ -1110,8 +1119,10 @@ export class Esm2015ReflectionHost extends TypeScriptReflectionHost implements N
                 element =>
                     ts.isObjectLiteralExpression(element) ? reflectObjectLiteral(element) : null)
             .map(paramInfo => {
-              const typeExpression = paramInfo && paramInfo.get('type') || null;
-              const decoratorInfo = paramInfo && paramInfo.get('decorators') || null;
+              const typeExpression =
+                  paramInfo && paramInfo.has('type') ? paramInfo.get('type') ! : null;
+              const decoratorInfo =
+                  paramInfo && paramInfo.has('decorators') ? paramInfo.get('decorators') ! : null;
               const decorators = decoratorInfo &&
                   this.reflectDecorators(decoratorInfo)
                       .filter(decorator => this.isFromCore(decorator));
@@ -1327,27 +1338,56 @@ export class Esm2015ReflectionHost extends TypeScriptReflectionHost implements N
                 prop =>
                     !!prop.name && ts.isIdentifier(prop.name) && prop.name.text === 'ngModule') ||
         null;
-    const ngModuleIdentifier = ngModuleProperty && ts.isPropertyAssignment(ngModuleProperty) &&
-            ts.isIdentifier(ngModuleProperty.initializer) && ngModuleProperty.initializer ||
-        null;
 
-    // If no `ngModule` property was found in an object literal return value, return `null` to
-    // indicate that the provided node does not appear to be a `ModuleWithProviders` function.
-    if (ngModuleIdentifier === null) {
+    if (!ngModuleProperty || !ts.isPropertyAssignment(ngModuleProperty)) {
       return null;
     }
 
-    const ngModuleDeclaration = this.getDeclarationOfIdentifier(ngModuleIdentifier);
+    // The ngModuleValue could be of the form `SomeModule` or `namespace_1.SomeModule`
+    const ngModuleValue = ngModuleProperty.initializer;
+    if (!ts.isIdentifier(ngModuleValue) && !ts.isPropertyAccessExpression(ngModuleValue)) {
+      return null;
+    }
+
+    const ngModuleDeclaration = this.getDeclarationOfExpression(ngModuleValue);
     if (!ngModuleDeclaration) {
       throw new Error(
-          `Cannot find a declaration for NgModule ${ngModuleIdentifier.text} referenced in "${declaration!.getText()}"`);
+          `Cannot find a declaration for NgModule ${ngModuleValue.getText()} referenced in "${declaration!.getText()}"`);
     }
     if (!hasNameIdentifier(ngModuleDeclaration.node)) {
       return null;
     }
-    const ngModule = ngModuleDeclaration as Declaration<ClassDeclaration>;
+    return {
+      name,
+      ngModule: ngModuleDeclaration as Declaration<ClassDeclaration>, declaration, container
+    };
+  }
 
-    return {name, ngModule, declaration, container};
+  protected getDeclarationOfExpression(expression: ts.Expression): Declaration|null {
+    if (ts.isIdentifier(expression)) {
+      return this.getDeclarationOfIdentifier(expression);
+    }
+
+    if (!ts.isPropertyAccessExpression(expression) || !ts.isIdentifier(expression.expression)) {
+      return null;
+    }
+
+    const namespaceDecl = this.getDeclarationOfIdentifier(expression.expression);
+    if (!namespaceDecl || !ts.isSourceFile(namespaceDecl.node)) {
+      return null;
+    }
+
+    const namespaceExports = this.getExportsOfModule(namespaceDecl.node);
+    if (namespaceExports === null) {
+      return null;
+    }
+
+    if (!namespaceExports.has(expression.name.text)) {
+      return null;
+    }
+
+    const exportDecl = namespaceExports.get(expression.name.text) !;
+    return {...exportDecl, viaModule: namespaceDecl.viaModule};
   }
 }
 

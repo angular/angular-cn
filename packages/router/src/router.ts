@@ -626,6 +626,7 @@ export class Router {
                      * way the next navigation will be coming from the current URL in the browser.
                      */
                     this.rawUrlTree = t.rawUrl;
+                    this.browserUrlTree = t.urlAfterRedirects;
                     t.resolve(null);
                     return EMPTY;
                   }
@@ -843,7 +844,14 @@ export class Router {
     this.routerState.root.component = this.rootComponentType;
   }
 
-  private getTransition(): NavigationTransition { return this.transitions.value; }
+  private getTransition(): NavigationTransition {
+    const transition = this.transitions.value;
+    // This value needs to be set. Other values such as extractedUrl are set on initial navigation
+    // but the urlAfterRedirects may not get set if we aren't processing the new URL *and* not
+    // processing the previous URL.
+    transition.urlAfterRedirects = this.browserUrlTree;
+    return transition;
+  }
 
   private setTransition(t: Partial<NavigationTransition>): void {
     this.transitions.next({...this.getTransition(), ...t});

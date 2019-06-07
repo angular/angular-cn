@@ -107,6 +107,10 @@ export class SlicePipe implements PipeTransform {
    *
    *     **如果为负数**：从列表或字符串中返回 `end` 索引之前的所有条目。
    */
+  transform<T>(value: ReadonlyArray<T>, start: number, end?: number): Array<T>;
+  transform(value: string, start: number, end?: number): string;
+  transform(value: null, start: number, end?: number): null;
+  transform(value: undefined, start: number, end?: number): undefined;
   transform(value: any, start: number, end?: number): any {
     if (value == null) return value;
 
