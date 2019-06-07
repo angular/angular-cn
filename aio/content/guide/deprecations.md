@@ -100,10 +100,10 @@ Tip: In the [API reference section](api) of this doc site, deprecated APIs are i
 | API                                                                                                       | Replacement                                                                           | Deprecation announced | Notes |
 | --------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------- | --------------------- | ----- |
 | API                                                                                                       | 替代品                                                                                  | 已宣布弃用        | 备注  |
-| [`TestBed.deprecatedOverrideProvider()`](api/core/testing/TestBed#deprecatedoverrideprovider)             | [`TestBed.overrideProvider()`](api/core/testing/TestBed#overrideprovider)             | v7                    | none  |
-| [`TestBed.deprecatedOverrideProvider()`](api/core/testing/TestBed#deprecatedoverrideprovider)             | [`TestBed.overrideProvider()`](api/core/testing/TestBed#overrideprovider)             | v7                    | 无  |
-| [`TestBedStatic.deprecatedOverrideProvider()`](api/core/testing/TestBedStatic#deprecatedoverrideprovider) | [`TestBedStatic.overrideProvider()`](api/core/testing/TestBedStatic#overrideprovider) | v5                    | none  |
-| [`TestBedStatic.deprecatedOverrideProvider()`](api/core/testing/TestBedStatic#deprecatedoverrideprovider) | [`TestBedStatic.overrideProvider()`](api/core/testing/TestBedStatic#overrideprovider) | v5                    | 无  |
+| `TestBed.deprecatedOverrideProvider()`             | [`TestBed.overrideProvider()`](api/core/testing/TestBed#overrideprovider)             | v7                    | none  |
+| `TestBed.deprecatedOverrideProvider()`             | [`TestBed.overrideProvider()`](api/core/testing/TestBed#overrideprovider)             | v7                    | 无  |
+| `TestBedStatic.deprecatedOverrideProvider()` | [`TestBedStatic.overrideProvider()`](api/core/testing/TestBedStatic#overrideprovider) | v5                    | none  |
+| `TestBedStatic.deprecatedOverrideProvider()` | [`TestBedStatic.overrideProvider()`](api/core/testing/TestBedStatic#overrideprovider) | v5                    | 无  |
 
 #### @angular/forms
 

@@ -1409,7 +1409,7 @@ In your Angular application, you need a component as a placeholder for your Angu
 
 When the Angular Router matches a route that uses AngularJS, the `AngularJSComponent` is rendered, and the content is rendered within the AngularJS [`ng-view`](https://docs.angularjs.org/api/ngRoute/directive/ngView) directive. 
 
-当 Angular 的路由器匹配到使用 AngularJS 的路由时，会渲染 `AngularJSComponent` ，并在 AngularJS 的 [`ng-view`](https://docs.angularjs.org/api/ngRoute/directive/ngView) 指令中渲染内容。
+当 Angular 的路由器匹配到使用 AngularJS 的路由时，会渲染 `AngularJSComponent`，并在 AngularJS 的 [`ng-view`](https://docs.angularjs.org/api/ngRoute/directive/ngView) 指令中渲染内容。
 
 
 ### Configure a custom route matcher for AngularJS routes
@@ -1419,7 +1419,7 @@ When the Angular Router matches a route that uses AngularJS, the `AngularJSCompo
 
 To configure the Angular Router, you must define a route for AngularJS URLs. To match those URLs, you add a route configuration that uses the `matcher` property. The `matcher` allows you to use custom pattern matching for URL paths. The Angular Router tries to match on more specific routes such as static and variable routes first. When it doesn't find a match, it then looks at custom matchers defined in your route configuration. If the custom matchers don't match a route, it then goes to catch-all routes, such as a 404 page.
 
-为了配置 Angular 的路由器，你必须为 AngularJS 的 URL 定义路由。要匹配这些 URL，你需要添加一个使用 `matcher` 属性的路由配置。这个 `matcher` 允许你使用自定义模式来匹配这些 URL 路径。 Angular 的路由器会首先尝试匹配更具体的路由，比如静态路由和可变路由。当它找不到匹配项时，就会找到路由配置中定义的自定义匹配器。如果自定义匹配器与某个路由不匹配，它就会转到用于 "捕获所有"（catch-all）的路由，比如 404 页面。
+为了配置 Angular 的路由器，你必须为 AngularJS 的 URL 定义路由。要匹配这些 URL，你需要添加一个使用 `matcher` 属性的路由配置。这个 `matcher` 允许你使用自定义模式来匹配这些 URL 路径。 Angular 的路由器会首先尝试匹配更具体的路由，比如静态路由和可变路由。当它找不到匹配项时，就会求助于路由配置中的自定义匹配器。如果自定义匹配器与某个路由不匹配，它就会转到用于 "捕获所有"（catch-all）的路由，比如 404 页面。
 
 
 The following example defines a custom matcher function for AngularJS routes.
@@ -1440,7 +1440,7 @@ The following code adds a route object to your routing configuration using the `
 
 When your application matches a route that needs AngularJS, the AngularJS app is loaded and bootstrapped, the AngularJS routes match the necessary URL to render their content, and your application continues to run with both AngularJS and Angular frameworks.
 
-当你的应用匹配上需要 AngularJS 的路由，AngularJS 的应用会被加载并引导，AngularJS 路由会匹配必要的 URL 以渲染它们的内容，而你的应用会继续运行 AngularJS 和 Angular 框架。
+当你的应用匹配上需要 AngularJS 的路由时，AngularJS 应用就会被加载并引导。AngularJS 路由会匹配必要的 URL 以渲染它们的内容，而接下来你的应用就会同时运行 AngularJS 和 Angular 框架。
 
 
 ## Using the Unified Angular Location Service
@@ -1450,17 +1450,17 @@ When your application matches a route that needs AngularJS, the AngularJS app is
 
 In AngularJS, the [$location service](https://docs.angularjs.org/api/ng/service/$location) handles all routing configuration and navigation, encoding and decoding of URLS, redirects, and interactions with browser APIs. Angular uses its own underlying `Location` service for all of these tasks. 
 
-在 AngularJS 中，[$location 服务](https://docs.angularjs.org/api/ng/service/$location) 会处理所有路由配置和导航工作，对各个 URL 进行编码和解码，重定向，以及与浏览器 API 交互。 Angular 在所有这些任务中都使用了自己的底层服务 `Location`。
+在 AngularJS 中，[$location 服务](https://docs.angularjs.org/api/ng/service/$location)会处理所有路由配置和导航工作，并对各个 URL 进行编码和解码、重定向、以及与浏览器 API 交互。 Angular 在所有这些任务中都使用了自己的底层服务 `Location`。
 
 
 When you migrate from AngularJS to Angular you will want to move as much responsibility as possible to Angular, so that you can take advantage of new APIs. To help with the transition, Angular provides the `LocationUpgradeModule`. This module enables a _unified_ location service that shifts responsibilities from the AngularJS `$location` service to the Angular `Location` service.
 
-当你从 AngularJS 迁移到 Angular 时，你会希望把尽可能多的责任移交给 Angular，以便利用新的 API。为了帮你完成这种转换，Angular 提供了 `LocationUpgradeModule`。该模块支持*统一的*位置服务，可以把 AngularJS `$location` 服务的职责转移给 Angular 的 `Location` 服务。
+当你从 AngularJS 迁移到 Angular 时，你会希望把尽可能多的责任移交给 Angular，以便利用新的 API。为了帮你完成这种转换，Angular 提供了 `LocationUpgradeModule`。该模块支持*统一*位置服务，可以把 AngularJS 中 `$location` 服务的职责转给 Angular 的 `Location` 服务。
 
 
 To use the `LocationUpgradeModule`, import the symbol from `@angular/common/upgrade` and add it to your `AppModule` imports using the static `LocationUpgradeModule.config()` method.
 
-要使用`LocationUpgradeModule` ， `AppModule`导入`@angular/common/upgrade`的符号，并使用静态的`LocationUpgradeModule.config()`方法把它添加到你的`AppModule`导入中。
+要使用`LocationUpgradeModule`，就会从 `@angular/common/upgrade` 中导入此符号，并使用静态方法 `LocationUpgradeModule.config()` 把它添加到你的 `AppModule` 导入表（`imports`）中。
 
 
 ```ts
@@ -1497,7 +1497,7 @@ LocationUpgradeModule.config({
 
 **Note:** See the `LocationUpgradeConfig` for more configuration options available to the `LocationUpgradeModule.config()` method.
 
-**注意：**有关 `LocationUpgradeModule.config()` 方法可用的更多配置项，请参阅 `LocationUpgradeConfig`。
+**注意：**有关 `LocationUpgradeModule.config()` 方法的更多可用配置项，请参阅 `LocationUpgradeConfig`。
 
 
 </div>
@@ -1523,7 +1523,7 @@ angular.module('myHybridApp', [...])
 
 Once you introduce the Angular Router, using the Angular Router triggers navigations through the unified location service, still providing a single source for navigating with AngularJS and Angular.
 
-一旦引入了 Angular 路由器，你只要使用 Angular 路由器就可以通过统一位置服务触发导航了，同时，你仍然可以通过 AngularJS 和 Angular 进行导航。
+一旦引入了 Angular 路由器，你只要使用 Angular 路由器就可以通过统一位置服务来触发导航了，同时，你仍然可以通过 AngularJS 和 Angular 进行导航。
 
 ## Using Ahead-of-time compilation with hybrid apps
 
