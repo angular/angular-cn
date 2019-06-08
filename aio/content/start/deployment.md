@@ -2,11 +2,9 @@
 
 # 部署
 
-
 To deploy your application, you have to compile it, and then host the JavaScript, CSS, and HTML on a web server. Built Angular applications are very portable and can live in any environment or served by any technology, such as Node, Java, .NET, PHP, and many others.
 
 要部署应用，你必须先编译它，然后在 Web 服务器上托管 JavaScript、CSS 和 HTML。构建后的 Angular 应用程序非常容易移植，它可以在任何环境中运行，也可以用任何技术提供服务，比如 Node，Java，.NET，PHP 等等。
-
 
 <div class="alert is-helpful">
 
@@ -14,13 +12,11 @@ Whether you came here directly from [Your First App](start "Getting Started: You
 
 无论你是从[你的第一个应用](start "入门：你的第一个应用")直接来到这里，还是经过[路由](start/routing "入门：路由")、[管理数据](start/data "入门：管理数据")和[表单](start/forms "入门：表单")部分，完成了整个在线商店应用之后来到这里，都可以按照本节中的说明进行部署。
 
-
 </div>
 
 ## Share your application
 
 ## 从 StackBlitz 开始部署
-
 
 StackBlitz projects are public by default, allowing you to share your Angular app via the project URL. Keep in mind that this is a great way to share ideas and prototypes, but it is not intended for production hosting.
 
@@ -46,21 +42,17 @@ StackBlitz 项目默认是公开的，你可以通过项目的 URL 来共享你�
 
 ## 本地构建
 
-
 To build your application locally or for production, you will need to download the source code from your StackBlitz project. Click the `Download Project` icon in the left menu across from `Project` to download your files.
 
 要在本地构建应用或未生产环境构建应用，你需要从 StackBlitz 项目中下载源代码。单击左侧菜单中的 `Download Project` 图标以下载文件。
-
 
 Once you have the source code downloaded and unzipped, use the [Angular Console](https://angularconsole.com "Angular Console web site") to serve the application, or you install Node and have the Angular CLI installed.
 
 下载并解压源代码后，就可以使用 [Angular Console](https://angularconsole.com "Angular Console 的网站") 来启动开发服务器了，也可以先安装 Node 再安装 Angular CLI。
 
-
 From the terminal, install the Angular CLI globally with:
 
 在终端上，全局安装 Angular CLI：
-
 
 ```sh
 npm install -g @angular/cli
@@ -70,11 +62,9 @@ This will install the command `ng` into your system, which is the command you us
 
 这会把命令 `ng` 安装到你的系统中，你可以用它的命令来创建新工作区或新项目、启动开发服务器、或构建那些可以共享或分发的版本。
 
-
 Create a new Angular CLI workspace using the [`ng new`](cli/new "CLI ng new command reference") command:
 
 [`ng new`](cli/new "在 CLI 中输入新的命令参考") 命令用来创建一个新的 Angular CLI 工作空间：
-
 
 ```sh
 ng new my-project-name
@@ -84,7 +74,6 @@ From there you replace the `/src` folder with the one from your `StackBlitz` dow
 
 进入你从 `StackBlitz` 下载的 `/src` 文件夹，然后执行 build 命令。
 
-
 ```sh
 ng build --prod
 ```
@@ -93,26 +82,21 @@ This will produce the files that you need to deploy.
 
 这会产生你要部署的文件。
 
-
 #### Hosting the built project
 
 #### 托管已构建的项目
-
 
 The files in the `dist/my-project-name` folder are static and can be hosted on any web server capable of serving files (Node, Java, .NET) or any backend (Firebase, Google Cloud, App Engine, others).
 
 `dist/my-project-name` 文件夹中的文件都是静态的，可以托管在任何能够提供文件服务的 Web 服务器上（Node，Java，.NET），也可以是任何后端（Firebase，Google Cloud，App Engine 等）。
 
-
 ### Hosting an Angular app on Firebase
 
 ### 在 Firebase 上托管一个 Angular 应用
 
-
 One of the easiest ways to get your site live is to host it using Firebase.
 
 要想让你的网站上线，最简单的办法之一就是使用 Firebase 托管它。
-
 
 1. Sign up for a firebase account on [Firebase](https://firebase.google.com/ "Firebase web site").
 
@@ -142,11 +126,9 @@ One of the easiest ways to get your site live is to host it using Firebase.
 
    部署之后，访问 <https://your-firebase-project-name.firebaseapp.com> 进行实时查看！
 
-
 ### Hosting an Angular app anywhere else
 
 ### 在其它地方托管 Angular 应用
-
 
 To host an Angular app on another web host, you'll need to upload or send the files to the host. 
 Because you are building a Single Page Application, you'll also need to make sure you redirect any invalid URLs to your `index.html` file. 
@@ -154,21 +136,17 @@ Learn more about development and distribution of your application in the [Buildi
 
 要在其它网络主机上托管 Angular 应用，你需要上传文件或把它们发送到那台主机。由于你正在构建一个单页面应用，所以你还要确保把所有无效的 URL 都重定向到 `index.html` 文件。在[构建与服务](guide/build "构建和提供 Angular 应用服务")和[部署](guide/deployment "部署指南")指南”中可以找到关于开发和部署应用的更多信息。
 
-
 ## Join our community
 
 ## 加入我们的社区
-
 
 You are now an Angular developer! [Share this moment](https://twitter.com/intent/tweet?url=https://angular.io/start&text=I%20just%20finished%20the%20Angular%20Getting%20Started%20Tutorial "Angular on Twitter"), tell us what you thought of this Getting Started, or submit [suggestions for future editions](https://github.com/angular/angular/issues/new/choose "Angular GitHub repository new issue form"). 
 
 你现在是一位 Angular 的开发者了！[分享这一刻](https://twitter.com/intent/tweet?url=https://next.angular.io/getting-started&text=I%20just%20finished%20the%20Angular%20Getting%20Started%20Tutorial "Angular on Twitter")，告诉我们你对这份“入门文档”的看法，或者[为今后的版本](https://github.com/angular/angular/issues/new/choose "Angular GitHub 存储库中的新问题表单")提交[建议](https://github.com/angular/angular/issues/new/choose "Angular GitHub 存储库中的新问题表单")。
 
-
 Angular offers many more capabilities, and you now have a foundation that empowers you to build an application and explore those other capabilities:
 
 Angular 还提供了更多功能，不过你现在已经有了基础，可以让你构建一个应用并探索其它的能力：
-
 
 * Angular provides advanced capabilities for mobile apps, animation, internationalization, server-side rendering, and more. 
 
@@ -186,9 +164,7 @@ Angular 还提供了更多功能，不过你现在已经有了基础，可以让
 
   Angular 还拥有广泛的[第三方工具和库](https://angular.io/resources "Angular 资源列表")互助网。
 
-
 Keep current by following the [Angular blog](https://blog.angular.io/ "Angular blog"). 
 
 敬请关注 [Angular 官方博客](https://blog.angular.io/ "Angular 的博客")。
-
 
