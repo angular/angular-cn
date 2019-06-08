@@ -566,8 +566,8 @@
         },
         {
           "url": "guide/cli-builder",
-          "title": "CLI Builders",
-          "tooltip": "Using builders to customize Angular CLI."
+          "title": "CLI 构建器",
+          "tooltip": "使用构建器定制 Angular CLI。"
         },
         {
           "url": "guide/ivy",
