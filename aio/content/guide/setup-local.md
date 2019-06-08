@@ -203,15 +203,14 @@ Your app greets you with a message:
   如果你不熟悉 Angular，请参阅[快速起步](start)教程。在构建基本的在线商店应用的过程中，快速起步可以帮助你快速学习 Angular 的基本知识。
 
 
-  <div class="alert is-helpful">
+<div class="alert is-helpful">
   
   Getting Started assumes the [StackBlitz](https://stackblitz.com/) online development environment. 
   To learn how to export an app from StackBlitz to your local environment, skip ahead to the [Deployment](start/deployment "Getting Started: Deployment") section. 
 
   “快速起步”假设以 [StackBlitz](https://stackblitz.com/) 作为在线开发环境 。要了解如何将应用从 StackBlitz 导出到本地环境，请跳到[部署](start/deployment "入门：部署")部分。
 
-
-  </div>
+</div>
 
 
 * To learn more about using the Angular CLI, see the [CLI Overview](cli "CLI Overview"). In addition to creating the initial workspace and app scaffolding, you can use the CLI to generate Angular code such as components and services. The CLI supports the full development cycle, including building, testing, bundling, and deployment. 
