@@ -170,7 +170,7 @@ Your app greets you with a message:
   如果你不熟悉 Angular，请参阅[快速起步](start)教程。在构建基本的在线商店应用的过程中，快速起步可以帮助你快速学习 Angular 的基本知识。
 
 <div class="alert is-helpful">
-  
+
   Getting Started assumes the [StackBlitz](https://stackblitz.com/) online development environment. 
   To learn how to export an app from StackBlitz to your local environment, skip ahead to the [Deployment](start/deployment "Getting Started: Deployment") section. 
 
