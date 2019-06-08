@@ -808,7 +808,7 @@ In this example, the prefix is `app`.
 该指令的*属性名*应该拼写成*小驼峰*形式，并且带有一个前缀。
 但是，这个前缀不能用 `ng`，因为它只属于 Angular 本身。
 请选择一些简短的，适合你自己或公司的前缀。
-在这个例子中，前缀是 `my`。
+在这个例子中，前缀是 `app`。
 
 The directive _class_ name ends in `Directive` per the [style guide](guide/styleguide#02-03 "Angular Style Guide").
 Angular's own directives do not.
