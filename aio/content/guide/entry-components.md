@@ -157,7 +157,7 @@ If a component isn't an _entry component_ and isn't found in a template,
 the tree shaker will throw it away. So, it's best to add only the components that are truly entry components to help keep your app
 as trim as possible.
 
-如果一个组件既不是*入口组件*也不没有在模板中使用过，摇树优化工具就会把它扔出去。
+如果一个组件既不是*入口组件*也没有在模板中使用过，摇树优化工具就会把它扔出去。
 所以，最好只添加那些真正的入口组件，以便让应用尽可能保持精简。
 
 <hr />
