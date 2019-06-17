@@ -157,7 +157,7 @@ technique to separate them out and you may see this pattern in legacy apps.
 However, since Angular 6.0, the best practice for providing services is with the
 `@Injectable()` `providedIn` property.
 
-**注意：**如果你的某个模块也同时有 providers 和 declarations，你也*可以*使用这种技巧来把它们分开。你可能会在某些传统应用中看到这算模式。
+**注意：**如果你的某个模块也同时有 providers 和 declarations，你也*可以*使用这种技巧来把它们分开。你可能会在某些传统应用中看到这种模式。
 不过，从 Angular 6.0 开始，提供服务的最佳实践是使用 `@Injectable()` 的 `providedIn` 属性。
 
 </div>
