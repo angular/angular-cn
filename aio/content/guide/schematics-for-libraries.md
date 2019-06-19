@@ -274,7 +274,7 @@ When you add a schematic to the collection, you have to point to it in the colle
 
 1. Create a `schema.ts` file and define an interface that stores the values of the options defined in the `schema.json` file.
 
-   创建一个 `schema.ts` 文件，并定义一个接口，用于存放 `schema.ts` 文件中定义的各个选项的值。
+   创建一个 `schema.ts` 文件，并定义一个接口，用于存放 `schema.json` 文件中定义的各个选项的值。
 
 
 <code-example header="projects/my-lib/schematics/my-service/schema.ts (Schematic Interface)" path="schematics-for-libraries/projects/my-lib/schematics/my-service/schema.ts">
