@@ -258,7 +258,7 @@ When you add a schematic to the collection, you have to point to it in the colle
 
 * *properties* : An object that defines the available options for the schematic.
 
-  *属性*：一个定义该原理图可用选项的对象。
+  *properties*：一个定义该原理图可用选项的对象。
 
 
   Each option associates key with a type, description, and optional alias.
