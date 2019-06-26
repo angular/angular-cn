@@ -281,7 +281,7 @@ Understanding this component requires only the Angular concepts covered in previ
 * The `@Component` selector value of "app-hero-form" means you can drop this form in a parent
 template with a `<app-hero-form>` tag.
 
-   `@Component` 选择器“hero-form”表示可以用 `<app-hero-form>` 标签把这个表单放进父模板。
+   `@Component` 选择器“app-hero-form”表示可以用 `<app-hero-form>` 标签把这个表单放进父模板。
 
 * The `templateUrl` property points to a separate file for the template HTML.
 
