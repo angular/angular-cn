@@ -23,7 +23,7 @@ Each named build configuration can have defaults for any of the options that app
 
 The following figure shows how a project has multiple build targets, which can be executed using the named configurations that you define.
 
-下面的例子展示了项目如何拥有多个构建目标，可以使用你定义的明明配置来执行这些目标。
+下面的例子展示了项目如何拥有多个构建目标，可以使用你定义的命名配置来执行这些目标。
 
 <figure>
   <img src="generated/images/guide/build/build-config-targets.gif" alt="build configurations and targets">
