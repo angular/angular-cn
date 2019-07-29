@@ -249,7 +249,7 @@ Angular 表单分为两部分：基于 HTML 的*模板*和组件*类*，用来�
 
 Using the Angular CLI command [`ng generate component`](cli/generate), generate a new component named `HeroForm`:
 
-使用 Angular CLI 命令 [`ng generate class`](cli/generate) 生成一个名叫 `HeroForm` 的新组件：
+使用 Angular CLI 命令 [`ng generate component`](cli/generate) 生成一个名叫 `HeroForm` 的新组件：
 
 <code-example language="sh" class="code-shell">
 
