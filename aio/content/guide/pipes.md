@@ -644,7 +644,7 @@ The code uses the [Angular http](guide/http) client to retrieve data:
 Now demonstrate it in a harness component whose template defines two bindings to this pipe,
 both requesting the heroes from the `heroes.json` file.
 
-接下来在一个测试挽具组件中演示一下它，该组件的模板中定义了两个使用到此管道的绑定，它们都从 `heroes.json` 文件中取得英雄数据。
+接下来在一个测试玩具组件中演示一下它，该组件的模板中定义了两个使用到此管道的绑定，它们都从 `heroes.json` 文件中取得英雄数据。
 
 <code-example path="pipes/src/app/hero-list.component.ts" header="src/app/hero-list.component.ts">
 
