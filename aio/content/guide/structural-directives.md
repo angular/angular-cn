@@ -292,11 +292,11 @@ The [`NgFor`](guide/structural-directives#ngFor) and [`NgSwitch...`](guide/struc
 
 Angular transforms the `*ngFor` in similar fashion from asterisk (*) syntax to `<ng-template>` _element_.
 
-Angular 会把 `*ngFor` 用同样的方式把星号（*）语法的 `template`*属性*转换成 `<ng-template>`*元素*。
+Angular 会把 `*ngFor` 用同样的方式把星号`（*）`语法的 `template`*属性*转换成 `<ng-template>`*元素*。
 
 Here's a full-featured application of `NgFor`, written both ways:
 
-这里有一个 `NgFor` 的全特性应用，同时用了这三种写法：
+这里有一个 `NgFor` 的全特性应用，同时用了这两种写法：
 
 <code-example path="structural-directives/src/app/app.component.html" linenums="false" header="src/app/app.component.html (inside-ngfor)" region="inside-ngfor">
 
