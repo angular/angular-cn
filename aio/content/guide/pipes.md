@@ -269,7 +269,7 @@ Note the following:
 
 * If you choose to inject your pipe into a class, you must provide it in the `providers` array of your `NgModule`.
 
-   你必须在 `AppModule` 的 `declarations` 数组中包含这个管道。
+   如果选择将管道注入(`inject`)类中，则必须将管道包含字在`NgModule`的`providers`数组中。
 
 <div class="callout is-helpful">
 
