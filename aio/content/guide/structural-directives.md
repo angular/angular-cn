@@ -57,8 +57,8 @@ Angular desugars this notation into a marked-up `<ng-template>` that surrounds t
 host element and its descendents.
 Each structural directive does something different with that template.
 
-在这个例子中，你将学到[星号(*)这个简写方法](guide/structural-directives#asterisk)，而这个字符串是一个[*微语法*](guide/structural-directives#microsyntax)，而不是通常的[模板表达式](guide/template-syntax#template-expressions)。
-Angular 会解开这个语法糖，变成一个 `<ng-template>` 标记，包裹着宿主元素及其子元素。
+在这个例子中，将会学到[星号(*)这个简写方法](guide/structural-directives#asterisk)，而这个字符串是一个[*微语法*](guide/structural-directives#microsyntax)，而不是通常的[模板表达式](guide/template-syntax#template-expressions)。
+Angular 会解释这个语法糖，变成一个 `<ng-template>` 标记，包裹着宿主元素及其子元素。
 每个结构型指令都可以用这个模板做点不同的事情。
 
 Three of the common, built-in structural directives&mdash;[NgIf](guide/template-syntax#ngIf),
