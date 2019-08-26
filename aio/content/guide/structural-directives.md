@@ -352,7 +352,7 @@ That's how the directive learns that the list is `heroes` and the track-by funct
 
    微语法解析器接收 `of` 和 `trackby`，把它们首字母大写（`of` -> `Of`, `trackBy` -> `TrackBy`），
   并且给它们加上指令的属性名（`ngFor`）前缀，最终生成的名字是 `ngForOf` 和 `ngForTrackBy`。
-  还有两个 `NgFor` 的*输入属性*，指令据此了解到列表是 `heroes`，而 track-by 函数是 `trackById`。
+  这两个最终生成的名字是 `NgFor` 的*输入属性*，指令据此了解到列表是 `heroes`，而 track-by 函数是 `trackById`。
 
 * As the `NgFor` directive loops through the list, it sets and resets properties of its own _context_ object.
 These properties include `index` and `odd` and a special property named `$implicit`.
