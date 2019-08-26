@@ -549,7 +549,7 @@ You'll refer to the `<ng-template>` when you [write your own structural directiv
 
 ## The *&lt;ng-template&gt;*
 
-## *&lt;ng-template&gt;*指令
+## *&lt;ng-template&gt;*
 
 The &lt;ng-template&gt; is an Angular element for rendering HTML.
 It is never displayed directly.
