@@ -4622,7 +4622,7 @@ It simply logs to console and `returns` true immediately, allowing navigation to
 Next, open `admin-routing.module.ts `, import the `AuthGuard` class, and
 update the admin route with a `canActivate` guard property that references it:
 
-接下来，打开 `crisis-center.routes.ts`，导入 `AuthGuard` 类，修改管理路由并通过 `CanActivate()` 守卫来引用 `AuthGuard`：
+接下来，打开 `admin-routing.module.ts`，导入 `AuthGuard` 类，修改管理路由并通过 `CanActivate()` 守卫来引用 `AuthGuard`：
 
 <code-example path="router/src/app/admin/admin-routing.module.2.ts" linenums="false" header="src/app/admin/admin-routing.module.ts (guarded admin route)" region="admin-route">
 
