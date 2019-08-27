@@ -172,7 +172,7 @@ When building forms in Angular, it's important to understand how the framework h
 As described above, in reactive forms each form element in the view is directly linked to a form model (`FormControl` instance). Updates from the view to the model and from the model to the view are synchronous and aren't dependent on the UI rendered. The diagrams below use the same favorite color example to demonstrate how data flows when an input field's value is changed from the view and then from the model.
 
 如前所述，在响应式表单中，视图中的每个表单元素都直接链接到一个表单模型（`FormControl` 实例）。
-从视图到模型的修改以及从模型到视图的修改都是同步的，不依赖于所呈现的 UI。下面的图标使用了同一个 "喜欢的颜色" 范例，来演示当输入字段的值的变更来自视图和来自模型时，数据如何流动。
+从视图到模型的修改以及从模型到视图的修改都是同步的，不依赖于所呈现的 UI。下面的图示使用了同一个 "喜欢的颜色" 范例，来演示当输入字段的值的变更来自视图和来自模型时，数据如何流动。
 
 <figure>
   <img src="generated/images/guide/forms-overview/dataflow-reactive-forms-vtm.png" alt="Reactive forms data flow - view to model" width="100%">
