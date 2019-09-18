@@ -264,7 +264,7 @@ Internally, Angular translates the `*ngIf` _attribute_ into a `<ng-template>` _e
 
 * The rest of the `<div>`, including its class attribute, moved inside the `<ng-template>` element.
 
-   `<div>` 上的其余部分，包括它的 `class` 属性在内，移到了内部的 `<ng-template>` 元素上。
+   `<div>` 上的其余部分，包括它的 `class` 属性在内，移到了 `<ng-template>` 内部的元素上。
 
 The first form is not actually rendered, only the finished product ends up in the DOM.
 
