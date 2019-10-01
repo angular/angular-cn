@@ -483,6 +483,9 @@ export class TemplateDefinitionBuilder implements t.Visitor<void>, LocalResolver
     }
 
     this.creationInstruction(ngContent.sourceSpan, R3.projection, parameters);
+    if (this.i18n) {
+      this.i18n.appendProjection(ngContent.i18n !, slot);
+    }
   }
 
 
@@ -1021,10 +1024,13 @@ export class TemplateDefinitionBuilder implements t.Visitor<void>, LocalResolver
     attrs.forEach(input => {
       if (input instanceof t.BoundAttribute) {
         const value = input.value.visit(this._valueConverter);
-        this.allocateBindingSlots(value);
-        this.updateInstruction(
-            templateIndex, template.sourceSpan, R3.property,
-            () => [o.literal(input.name), this.convertPropertyBinding(context, value, true)]);
+
+        if (value !== undefined) {
+          this.allocateBindingSlots(value);
+          this.updateInstruction(
+              templateIndex, template.sourceSpan, R3.property,
+              () => [o.literal(input.name), this.convertPropertyBinding(context, value, true)]);
+        }
       }
     });
   }

@@ -47,14 +47,12 @@ export {
   ɵɵdirectiveInject,
 
   ɵɵelement,
-  ɵɵelementAttribute,
   ɵɵelementContainerEnd,
 
   ɵɵelementContainerStart,
   ɵɵelementEnd,
 
   ɵɵelementHostAttrs,
-  ɵɵelementProperty,
   ɵɵelementStart,
   ɵɵembeddedViewEnd,
 

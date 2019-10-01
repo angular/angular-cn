@@ -818,8 +818,6 @@ export declare function ɵɵdisableBindings(): void;
 
 export declare function ɵɵelement(index: number, name: string, attrs?: TAttributes | null, localRefs?: string[] | null): void;
 
-export declare function ɵɵelementAttribute(index: number, name: string, value: any, sanitizer?: SanitizerFn | null, namespace?: string): void;
-
 export declare function ɵɵelementContainerEnd(): void;
 
 export declare function ɵɵelementContainerStart(index: number, attrs?: TAttributes | null, localRefs?: string[] | null): void;
@@ -827,8 +825,6 @@ export declare function ɵɵelementContainerStart(index: number, attrs?: TAttrib
 export declare function ɵɵelementEnd(): void;
 
 export declare function ɵɵelementHostAttrs(attrs: TAttributes): void;
-
-export declare function ɵɵelementProperty<T>(index: number, propName: string, value: T | NO_CHANGE, sanitizer?: SanitizerFn | null, nativeOnly?: boolean): void;
 
 export declare function ɵɵelementStart(index: number, name: string, attrs?: TAttributes | null, localRefs?: string[] | null): void;
 
