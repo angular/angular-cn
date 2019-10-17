@@ -398,7 +398,7 @@ Here, the _base URL_ is the `heroesURL` defined in the [Heroes and HTTP](tutoria
 the number of the hero that you want to retrieve. For example, `api/heroes/11`.
 Add a `HeroService.getHero()` method to make that request:
 
-这里的 `baseURL` 就是在 [英雄列表与 HTTP](http://localhost:4800/tutorial/toh-pt6#heroes-and-http) 部分定义过的 `heroesURL`（`api/heroes`）。而 `id` 则是你要获取的英雄的编号，比如，`api/heroes/11`。
+这里的 `baseURL` 就是在 [英雄列表与 HTTP](tutorial/toh-pt6#heroes-and-http) 部分定义过的 `heroesURL`（`api/heroes`）。而 `id` 则是你要获取的英雄的编号，比如，`api/heroes/11`。
 添加一个 `HeroService.getHero()` 方法，以发起该请求：
 
 <code-example path="toh-pt6/src/app/hero.service.ts" region="getHero" header="src/app/hero.service.ts"></code-example>
