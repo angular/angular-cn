@@ -1352,7 +1352,7 @@ both conforms to the rules and feels most natural for the task at hand.
 
 When setting an element property to a non-string data value, you must use _property binding_.
 
-但数据类型不是字符串时，就必须使用*属性绑定*了。
+当数据类型不是字符串时，就必须使用*属性绑定*了。
 
 #### Content security
 
