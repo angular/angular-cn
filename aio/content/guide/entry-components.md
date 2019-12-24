@@ -151,7 +151,7 @@ For the ones you don't reference, the tree shaker drops these components from th
 
 实际上，很多库声明和导出的组件都是你从未用过的。
 比如，Material Design 库会导出其中的所有组件，因为它不知道你会用哪一个。然而，显然你也不打算全都用上。
-对于那些你没有引用过的，摇树优化工具就会把这些组件从最终的代码包中摘出去。
+对于那些你没有引用过的，摇树(Tree Shaking 摇树的时候确实可以把已经枯死的枝条给抖下来)优化工具就会把这些组件从最终的代码包中摘出去。
 
 If a component isn't an _entry component_ and isn't found in a template,
 the tree shaker will throw it away. So, it's best to add only the components that are truly entry components to help keep your app
