@@ -452,7 +452,7 @@ The following table summarizes the key characteristics of each feature module gr
 
        Yes (Guards)
 
-       是（守卫）
+       有（守卫）
 
    </td>
 
