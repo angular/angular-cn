@@ -1289,7 +1289,7 @@ Now wrap the Angular `Heroes` in an *AngularJS factory function* using `downgrad
 and plug the factory into an AngularJS module.
 The name of the AngularJS dependency is up to you:
 
-现在，用 `upgradeAdapter.downgradeNg2Provider()` 来把 Angular 的 `Heroes` 包装成*AngularJS 的工厂函数*，并把这个工厂注册进 AngularJS 的模块中。
+现在，用 `downgradeInjectable()` 来把 Angular 的 `Heroes` 包装成*AngularJS 的工厂函数*，并把这个工厂注册进 AngularJS 的模块中。
 依赖在 AngularJS 中的名字你可以自己定：
 
 <code-example path="upgrade-module/src/app/a-to-ajs-providers/app.module.ts" region="register" header="app.module.ts">
