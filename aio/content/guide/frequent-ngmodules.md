@@ -17,7 +17,7 @@ As you add features to your app, you can add them in modules.
 The following are frequently used Angular modules with examples
 of some of the things they contain:
 
-Angular 应用需要不止一个模块，它们都为根模块服务。
+Angular 应用至少需要一个充当根模块使用的模块。
 如果你要把某些特性添加到应用中，可以通过添加模块来实现。
 下列是一些常用的 Angular 模块，其中带有一些其内容物的例子：
 
