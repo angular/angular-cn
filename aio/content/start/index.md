@@ -135,7 +135,7 @@ Angular 的模板语法扩展了 HTML 和 JavaScript。在本节中，你将通�
 
     In the preview pane, hover over the displayed product name to see the bound name property value. They are the same. Interpolation {{ }} lets you render the property value as text; property binding [ ] lets you use the property value in a template expression. 
 
-    在预览窗格中，将鼠标悬停在显示的商品名称上，可以看到绑定的 name 属性值。它们俩是一样的。插值表达式 `{{}}` 允许你把属性值渲染为文本；而属性绑定语法 `[]` 则允许你在模板表达式中使用属性值。
+    在预览窗格中，将鼠标悬停在显示的商品名称上，可以看到绑定的 name 属性值。它们都是一样的。插值表达式 `{{}}` 允许你把属性值渲染为文本；而属性绑定语法 `[]` 则允许你在模板表达式中使用属性值。
 
     <figure>
       <img src="generated/images/guide/start/template-syntax-product-anchor.png" alt="Product name anchor text is product name property">
