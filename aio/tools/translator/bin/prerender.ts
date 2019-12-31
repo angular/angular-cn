@@ -1,10 +1,10 @@
 import { readFileSync, writeFileSync } from 'fs';
-import * as klawSync from 'klaw-sync';
-import { sync as mkdirp } from 'mkdirp';
 import { minify } from 'html-minifier';
+import * as klawSync from 'klaw-sync';
+import { chunk, uniq } from 'lodash';
+import { sync as mkdirp } from 'mkdirp';
 import { dirname, join } from 'path';
 import { Browser, launch, Request } from 'puppeteer';
-import { chunk, uniq } from 'lodash';
 
 const minifyOptions = {
   collapseWhitespace: true,
@@ -28,7 +28,7 @@ function getApiUrls(): string[] {
     .map(file => file.path.replace(/^.*generated\/docs\/(.*).json$/, '$1'));
 }
 
-const urls = [...getGuideUrls(), ...getApiUrls(), 'index.html'];
+const urls = [...getGuideUrls(), ...getApiUrls(), 'translations/cn/about.html', 'index.html'];
 
 function filterResource(request: Request) {
   const type = request.resourceType();
