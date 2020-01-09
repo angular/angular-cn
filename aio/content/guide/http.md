@@ -816,7 +816,7 @@ Multiple interceptors form a _forward-and-backward_ chain of request/response ha
 *HTTP* 拦截机制是 `@angular/common/http` 中的主要特性之一。
 使用这种拦截机制，你可以声明*一些拦截器*，用它们监视和转换从应用发送到服务器的 HTTP 请求。
 拦截器还可以用监视和转换从服务器返回到本应用的那些响应。
-多个选择器会构成一个“请求/响应处理器”的双向链表。
+多个拦截器会构成一个“请求/响应处理器”的双向链表。
 
 Interceptors can perform a variety of  _implicit_ tasks, from authentication to logging, in a routine, standard way, for every HTTP request/response. 
 
