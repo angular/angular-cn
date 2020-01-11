@@ -1,13 +1,13 @@
-load("@npm_bazel_typescript//:index.bzl", "ts_devserver")
+load("//tools:defaults.bzl", "ts_devserver")
 load("//modules/benchmarks:benchmark_test.bzl", "benchmark_test")
 
 package(default_visibility = ["//modules/benchmarks:__subpackages__"])
 
 ts_devserver(
     name = "devserver",
-    index_html = "index.html",
+    bootstrap = ["tree.js"],
     port = 4200,
-    static_files = ["tree.js"],
+    static_files = ["index.html"],
 )
 
 benchmark_test(

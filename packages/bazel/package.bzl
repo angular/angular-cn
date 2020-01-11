@@ -25,14 +25,13 @@ def rules_angular_dev_dependencies():
     """
 
     # Needed for Remote Execution
+    # https://github.com/bazelbuild/bazel-toolchains/releases
     _maybe(
         http_archive,
         name = "bazel_toolchains",
-        sha256 = "142bcbd8cb751ce1193a1d7fef4e328493cd0a69cc0555183ad237f81418ba40",
-        strip_prefix = "bazel-toolchains-628224f6cf48e81116d0ee0bf65424eaa630d5b3",
-        urls = [
-            "https://github.com/xingao267/bazel-toolchains/archive/628224f6cf48e81116d0ee0bf65424eaa630d5b3.tar.gz",
-        ],
+        sha256 = "3c1299efcf64a4ecf4f6def7564db28879ad2870632144d77932e7910686d3f3",
+        strip_prefix = "bazel-toolchains-1.1.2",
+        url = "https://github.com/bazelbuild/bazel-toolchains/archive/1.1.2.tar.gz",
     )
 
     #############################################
@@ -40,9 +39,9 @@ def rules_angular_dev_dependencies():
     #############################################
     http_archive(
         name = "io_bazel_rules_sass",
-        sha256 = "76ae498b9a96fa029f026f8358ed44b93c934dde4691a798cb3a4137c307b7dc",
-        strip_prefix = "rules_sass-1.15.1",
-        url = "https://github.com/bazelbuild/rules_sass/archive/1.15.1.zip",
+        sha256 = "4f05239080175a3f4efa8982d2b7775892d656bb47e8cf56914d5f9441fb5ea6",
+        url = "https://github.com/bazelbuild/rules_sass/archive/86ca977cf2a8ed481859f83a286e164d07335116.zip",
+        strip_prefix = "rules_sass-86ca977cf2a8ed481859f83a286e164d07335116",
     )
 
     http_archive(

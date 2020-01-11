@@ -19,7 +19,7 @@ Install the CLI using the `npm` package manager:
 
 使用 `npm` 包管理器来安装 CLI：
 
-<code-example format="." language="bash">
+<code-example language="bash">
 npm install -g @angular/cli
 </code-example>
 
@@ -40,7 +40,7 @@ Enter the following to list commands or options for a given command (such as [ge
 命令行中还提供了联机帮助。
 输入下列命令列出命令或指定命令（如 [generate](cli/generate)）选项的简短说明。
 
-<code-example format="." language="bash">
+<code-example language="bash">
 ng help
 ng generate --help
 </code-example>
@@ -49,7 +49,7 @@ To create, build, and serve a new, basic Angular project on a development server
 
 要想创建、构建或在开发服务器上运行一个新的、基本的 Angular 项目，请到这个新工作区的上级目录中运行下列命令：
 
-<code-example format="." language="bash">
+<code-example language="bash">
 ng new my-first-project
 cd my-first-project
 ng serve
@@ -60,6 +60,18 @@ When you use the [ng serve](cli/serve) command to build an app and serve it loca
 
 在浏览器中，打开 <http://localhost:4200/> 查看运行效果。
 当你使用 [ng serve](cli/serve) 命令来构建应用并在本地启动开发服务器时，服务器会自动重新构建此应用，并在修改源码时重新加载此页面。
+
+<div class="alert is-helpful">
+
+when you run `ng new my-first-project` a new folder, named `my-first-project`, will be created in the current working directory. since you want to be able to create files inside that folder, make sure you have sufficient rights in the current working directory before running the command.
+
+当你运行 `ng new my-first-project` 时，将在当前工作目录中创建一个名为 `my-first-project` 的新文件夹。由于你希望在该文件夹中创建文件，因此在运行命令之前，请确保你在当前工作目录中具有足够的权限。
+
+If the current working directory is not the right place for your project, you can change to a more appropriate directory by running `cd <path-to-other-directory>` first.
+
+如果当前工作目录不适合放你的项目，可以先运行 `cd <path-to-other-directory>` 来切换到更合适的目录。
+
+</div>
 
 ## Workspaces and project files
 
@@ -134,8 +146,8 @@ Command syntax is shown as follows:
 * Option names are prefixed with a double dash (--).
     Option aliases are prefixed with a single dash (-).
     Arguments are not prefixed.
-    For example: 
-    <code-example format="." language="bash">
+    For example:
+    <code-example language="bash">
         ng build my-app -c production
     </code-example>
 
@@ -197,6 +209,6 @@ Schematic options are supplied to the command in the same format as immediate co
 
 ### 使用 Bazel 进行构建
 
-Optionally, you can configure the Angular CLI to use [Bazel](https://docs.bazel.build) as the build tool. For more information, see [Building with Bazel](guide/bazel). 
+Optionally, you can configure the Angular CLI to use [Bazel](https://docs.bazel.build) as the build tool. For more information, see [Building with Bazel](guide/bazel).
 
 你还可以把 Angular CLI 配置为把 [Bazel](https://docs.bazel.build) 作为构建工具。欲知详情，参见[用 Bazel 进行构建](guide/bazel)。

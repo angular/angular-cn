@@ -2,24 +2,14 @@
 
 # 单例服务
 
-#### Prerequisites:
+A singleton service is a service for which only one instance exists in an app.
 
-#### 前提条件：
-
-* A basic understanding of [Bootstrapping](guide/bootstrapping).
-
-   对[引导](guide/bootstrapping)有基本的了解。
-
-* Familiarity with [Providers](guide/providers).
-
-   熟悉[服务提供商](guide/providers)。
+单例服务是指在应用中只存在一个实例的服务。
 
 For a sample app using the app-wide singleton service that this page describes, see the
 <live-example name="ngmodules"></live-example> showcasing all the documented features of NgModules.
 
 本页中描述的这种全应用级单例服务的例子位于<live-example name="ngmodules"></live-example>，它示范了 NgModule 的所有已文档化的特性。
-
-<hr />
 
 ## Providing a singleton service
 
@@ -48,7 +38,7 @@ to provide the service in the application root.
 
 从 Angular 6.0 开始，创建单例服务的首选方式就是在那个服务类的 `@Injectable` 装饰器上把 `providedIn` 设置为 `root`。这会告诉 Angular 在应用的根上提供此服务。
 
-<code-example path="providers/src/app/user.service.0.ts"  header="src/app/user.service.ts" linenums="false"> </code-example>
+<code-example path="providers/src/app/user.service.0.ts"  header="src/app/user.service.ts"></code-example>
 
 For more detailed information on services, see the [Services](tutorial/toh-pt4) chapter of the
 [Tour of Heroes tutorial](tutorial).
@@ -111,9 +101,9 @@ There are multiple ways to prevent this:
 
 <div class="alert is-helpful">
 
-**Note:** There are two example apps where you can see this scenario; the more advanced <live-example noDownload>NgModules live example</live-example>, which contains `forRoot()` and `forChild()` in the routing modules and the `GreetingModule`, and the simpler <live-example name="lazy-loading-ngmodules" noDownload>Lazy Loading live example</live-example>. For an introductory explanation see the [Lazy Loading Feature Modules](guide/lazy-loading-ngmodules) guide.
+**Note:** There are two example apps where you can see this scenario; the more advanced <live-example noDownload name="ngmodules">NgModules live example</live-example>, which contains `forRoot()` and `forChild()` in the routing modules and the `GreetingModule`, and the simpler <live-example name="lazy-loading-ngmodules" noDownload>Lazy Loading live example</live-example>. For an introductory explanation see the [Lazy Loading Feature Modules](guide/lazy-loading-ngmodules) guide.
 
-**注意：**有两个范例应用可以让你查看这种情况，更高级的方式参见 <live-example noDownload>NgModules 在线例子</live-example>，它在路由模块中包含 `forRoot()` 和 `forChild()`，而 `GreetingModule` 是一个比较简单的<live-example name="lazy-loading-ngmodules" noDownload>惰性加载范例</live-example>。在[惰性加载模块](guide/lazy-loading-ngmodules)中有简要的解释。
+**注意：**有两个范例应用可以让你查看这种情况，更高级的方式参见 <live-example noDownload name="ngmodules">NgModules 在线例子</live-example>，它在路由模块中包含 `forRoot()` 和 `forChild()`，而 `GreetingModule` 是一个比较简单的<live-example name="lazy-loading-ngmodules" noDownload>惰性加载范例</live-example>。在[惰性加载模块](guide/lazy-loading-ngmodules)中有简要的解释。
 
 </div>
 
@@ -132,7 +122,7 @@ with `providers` and child modules without `providers`.
 
    把这些提供商放进 `forRoot()` 方法中。
 
-<code-example path="ngmodules/src/app/greeting/greeting.module.ts" region="for-root" header="src/app/greeting/greeting.module.ts" linenums="false"> </code-example>
+<code-example path="ngmodules/src/app/greeting/greeting.module.ts" region="for-root" header="src/app/greeting/greeting.module.ts"></code-example>
 
 
 {@a forRoot-router}
@@ -205,26 +195,20 @@ extends the greeting `UserService`. If a `UserServiceConfig` exists, the `UserSe
 
 在下面的例子中，可选的注入 `UserServiceConfig` 扩展了 `UserService`。如果 `UserServiceConfig` 存在，就从这个配置中设置用户名。
 
-<code-example path="ngmodules/src/app/greeting/user.service.ts" region="ctor" header="src/app/greeting/user.service.ts (constructor)" linenums="false">
-
-</code-example>
+<code-example path="ngmodules/src/app/greeting/user.service.ts" region="ctor" header="src/app/greeting/user.service.ts (constructor)"></code-example>
 
 Here's `forRoot()` that takes a `UserServiceConfig` object:
 
 下面是一个接受 `UserServiceConfig` 参数的 `forRoot()` 方法：
 
-<code-example path="ngmodules/src/app/greeting/greeting.module.ts" region="for-root" header="src/app/greeting/greeting.module.ts (forRoot)" linenums="false">
-
-</code-example>
+<code-example path="ngmodules/src/app/greeting/greeting.module.ts" region="for-root" header="src/app/greeting/greeting.module.ts (forRoot)"></code-example>
 
 Lastly, call it within the `imports` list of the `AppModule`. In the following
 snippet, other parts of the file are left out. For the complete file, see the <live-example name="ngmodules"></live-example>, or continue to the next section of this document.
 
 最后，在 `AppModule` 的 `imports`*列表*中调用它。在下面的代码片段中，省略了文件的另一部分。要查看完整文件，参见 <live-example name="ngmodules"></live-example> 或继续阅读本文档的后续章节。
 
-<code-example path="ngmodules/src/app/app.module.ts" region="import-for-root" header="src/app/app.module.ts (imports)" linenums="false">
-
-</code-example>
+<code-example path="ngmodules/src/app/app.module.ts" region="import-for-root" header="src/app/app.module.ts (imports)"></code-example>
 
 The app displays "Miss Marple" as the user instead of the default "Sherlock Holmes".
 
@@ -249,9 +233,7 @@ To guard against a lazy loaded module re-importing `GreetingModule`, add the fol
 
 要想防止惰性加载模块重复导入 `GreetingModule`，可以添加如下的 `GreetingModule` 构造函数。
 
-<code-example path="ngmodules/src/app/greeting/greeting.module.ts" region="ctor" header="src/app/greeting/greeting.module.ts" linenums="false">
-
-</code-example>
+<code-example path="ngmodules/src/app/greeting/greeting.module.ts" region="ctor" header="src/app/greeting/greeting.module.ts"></code-example>
 
 The constructor tells Angular to inject the `GreetingModule` into itself.
 The injection would be circular if Angular looked for
@@ -296,7 +278,7 @@ Here are the two files in their entirety for reference:
 
 以下这两个文件仅供参考：
 
-<code-tabs linenums="false">
+<code-tabs>
  <code-pane header="app.module.ts" path="ngmodules/src/app/app.module.ts">
  </code-pane>
  <code-pane header="greeting.module.ts" region="whole-greeting-module" path="ngmodules/src/app/greeting/greeting.module.ts">

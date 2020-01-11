@@ -5,7 +5,8 @@
     "packageManager": "yarn",
     "warnings": {
       "typescriptMismatch": false
-    }
+    },
+    "analytics": false
   },
   "newProjectRoot": "projects",
   "projects": {
@@ -60,7 +61,13 @@
             "styles": [
               "src/styles.scss"
             ],
-            "scripts": []
+            "scripts": [],
+            "budgets": [
+              {
+                "type": "anyComponentStyle",
+                "maximumWarning": "6kb"
+              }
+            ]
           },
           "configurations": {
             "fast": {

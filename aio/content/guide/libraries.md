@@ -1,4 +1,4 @@
-# Overview of Angular Libraries
+# Overview of Angular libraries
 
 # Angular 库开发概述
 

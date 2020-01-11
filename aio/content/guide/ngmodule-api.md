@@ -1,27 +1,5 @@
 # NgModule API
 
-#### Prerequisites
-
-#### 前提条件
-
-A basic understanding of the following concepts:
-
-对下列概念有基本的理解：
-
-* [Bootstrapping](guide/bootstrapping).
-
-   [引导启动](guide/bootstrapping)。
-
-* [JavaScript Modules vs. NgModules](guide/ngmodule-vs-jsmodule).
-
-   [JavaScript 模块与 NgModules](guide/ngmodule-vs-jsmodule)。
-
-<hr />
-
-## Purpose of `@NgModule`
-
-## `@NgModule` 的设计意图
-
 At a high level, NgModules are a way to organize Angular apps
 and they accomplish this through the metadata in the `@NgModule`
 decorator.

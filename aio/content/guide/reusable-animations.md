@@ -6,7 +6,7 @@
 
 #### 前提条件
 
-A basic understanding of the  following concepts:
+A basic understanding of the following concepts:
 
 对下列概念有基本的理解：
 
@@ -32,8 +32,7 @@ To create a reusable animation, use the [`animation()`](https://angular.io/api/a
 
 要想创建可复用的动画，请使用 [`animation()`](https://angular.cn/api/animations/animation) 方法来在独立的 `.ts` 文件中定义动画，并把该动画的定义声明为一个导出的 `const` 变量。然后你就可以在应用的组件代码中通过 [`useAnimation()`](https://angular.cn/api/animations/useAnimation) 来导入并复用它了。
 
-<code-example path="animations/src/app/animations.ts" header="src/app/animations.ts" region="reusable" language="typescript" linenums="false">
-</code-example>
+<code-example path="animations/src/app/animations.ts" header="src/app/animations.ts" region="reusable" language="typescript"></code-example>
 
 In the above code snippet, `transAnimation` is made reusable by declaring it as an export variable.
 
@@ -51,8 +50,7 @@ You can import the reusable `transAnimation` variable in your component class an
 
 你可以在组件类中导入这个可复用的 `transAnimation` 变量，并通过 `useAnimation()` 方法来复用它。代码如下：
 
-<code-example path="animations/src/app/open-close.component.3.ts" header="src/app/open-close.component.ts" region="reusable" language="typescript" linenums="false">
-</code-example>
+<code-example path="animations/src/app/open-close.component.3.ts" header="src/app/open-close.component.ts" region="reusable" language="typescript"></code-example>
 
 ## More on Angular animations
 

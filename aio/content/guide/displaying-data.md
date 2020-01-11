@@ -1,4 +1,4 @@
-# Displaying Data
+# Displaying data
 
 # 显示数据
 
@@ -17,9 +17,9 @@ The final UI looks like this:
 
 最终的用户界面是这样的：
 
-<figure>
+<div class="lightbox">
   <img src="generated/images/guide/displaying-data/final.png" alt="Final UI">
-</figure>
+</div>
 
 <div class="alert is-helpful">
 
@@ -43,7 +43,7 @@ With interpolation, you put the property name in the view template, enclosed in 
 要显示组件的属性，最简单的方式就是通过插值表达式 (interpolation) 来绑定属性名。
 要使用插值表达式，就把属性名包裹在双花括号里放进视图模板，如 `{{myHero}}`。
 
-Use the CLI command [`ng new displaying-data`](cli/new) to create a workspace and app named `displaying-data`. 
+Use the CLI command [`ng new displaying-data`](cli/new) to create a workspace and app named `displaying-data`.
 
 使用 CLI 命令 [`ng new displaying-data`](cli/new) 创建一个工作空间和一个名叫 `displaying-data` 的应用。
 
@@ -60,9 +60,7 @@ When you're done, it should look like this:
 
 修改完之后，它应该是这样的：
 
-<code-example path="displaying-data/src/app/app.component.1.ts" header="src/app/app.component.ts">
-
-</code-example>
+<code-example path="displaying-data/src/app/app.component.1.ts" header="src/app/app.component.ts"></code-example>
 
 You added two properties to the formerly empty component: `title` and `myHero`.
 
@@ -73,9 +71,7 @@ interpolation:
 
 修改完的模板会使用双花括号形式的插值表达式来显示这两个模板属性：
 
-<code-example path="displaying-data/src/app/app.component.1.ts" linenums="false" header="src/app/app.component.ts (template)" region="template">
-
-</code-example>
+<code-example path="displaying-data/src/app/app.component.1.ts" header="src/app/app.component.ts (template)" region="template"></code-example>
 
 <div class="alert is-helpful">
 
@@ -116,9 +112,7 @@ That element is a placeholder in the body of your `index.html` file:
 注意 `@Component` 装饰器中指定的 CSS 选择器 `selector`，它指定了一个叫 `<app-root>` 的元素。
 该元素是 `index.html` 文件里的一个占位符。
 
-<code-example path="displaying-data/src/index.html" linenums="false" header="src/index.html (body)" region="body">
-
-</code-example>
+<code-example path="displaying-data/src/index.html" header="src/index.html (body)" region="body"></code-example>
 
 When you bootstrap with the `AppComponent` class (in <code>main.ts</code>), Angular looks for a `<app-root>`
 in the `index.html`, finds it, instantiates an instance of `AppComponent`, and renders it
@@ -131,9 +125,9 @@ Now run the app. It should display the title and hero name:
 
 运行应用。它应该显示出标题和英雄名：
 
-<figure>
+<div class="lightbox">
   <img src="generated/images/guide/displaying-data/title-and-hero.png" alt="Title and Hero">
-</figure>
+</div>
 
 The next few sections review some of the coding choices in the app.
 
@@ -185,9 +179,7 @@ Although this example uses variable assignment to initialize the components, you
 
 虽然这个例子使用了变量赋值的方式初始化组件，你还可以使用构造函数来声明和初始化属性。
 
-<code-example path="displaying-data/src/app/app-ctor.component.1.ts" linenums="false" region="class">
-
-</code-example>
+<code-example path="displaying-data/src/app/app-ctor.component.1.ts" region="class"></code-example>
 
 This app uses more terse "variable assignment" style simply for brevity.
 
@@ -203,18 +195,14 @@ To display a list of heroes, begin by adding an array of hero names to the compo
 
 要显示一个英雄列表，先向组件中添加一个英雄名字数组，然后把 `myHero` 重定义为数组中的第一个名字。
 
-<code-example path="displaying-data/src/app/app.component.2.ts" linenums="false" header="src/app/app.component.ts (class)" region="class">
-
-</code-example>
+<code-example path="displaying-data/src/app/app.component.2.ts" header="src/app/app.component.ts (class)" region="class"></code-example>
 
 Now use the Angular `ngFor` directive in the template to display
 each item in the `heroes` list.
 
 接着，在模板中使用 Angular 的 `ngFor` 指令来显示 `heroes` 列表中的每一项。
 
-<code-example path="displaying-data/src/app/app.component.2.ts" linenums="false" header="src/app/app.component.ts (template)" region="template">
-
-</code-example>
+<code-example path="displaying-data/src/app/app.component.2.ts" header="src/app/app.component.ts (template)" region="template"></code-example>
 
 This UI uses the HTML unordered list with `<ul>` and `<li>` tags. The `*ngFor`
 in the `<li>` element is the Angular "repeater" directive.
@@ -223,9 +211,7 @@ It marks that `<li>` element (and its children) as the "repeater template":
 这个界面使用了由 `<ul>` 和 `<li>` 标签组成的无序列表。`<li>` 元素里的 `*ngFor` 是 Angular 的“迭代”指令。
 它将 `<li>` 元素及其子级标记为“迭代模板”：
 
-<code-example path="displaying-data/src/app/app.component.2.ts" linenums="false" header="src/app/app.component.ts (li)" region="li">
-
-</code-example>
+<code-example path="displaying-data/src/app/app.component.2.ts" header="src/app/app.component.ts (li)" region="li"></code-example>
 
 <div class="alert is-important">
 
@@ -267,9 +253,11 @@ Now the heroes appear in an unordered list.
 
 现在，英雄们出现在了一个无序列表中。
 
-<figure>
+<div class="lightbox">
   <img src="generated/images/guide/displaying-data/hero-names-list.png" alt="After ngfor">
-</figure>
+</div>
+
+
 
 ## Creating a class for the data
 
@@ -299,9 +287,7 @@ With the following code:
 
 代码如下：
 
-<code-example path="displaying-data/src/app/hero.ts" linenums="false" header="src/app/hero.ts">
-
-</code-example>
+<code-example path="displaying-data/src/app/hero.ts" header="src/app/hero.ts"></code-example>
 
 You've defined a class with a constructor and two properties: `id` and `name`.
 
@@ -316,9 +302,7 @@ Consider the first parameter:
 
 来看第一个参数：
 
-<code-example path="displaying-data/src/app/hero.ts" linenums="false" header="src/app/hero.ts (id)" region="id">
-
-</code-example>
+<code-example path="displaying-data/src/app/hero.ts" header="src/app/hero.ts (id)" region="id"></code-example>
 
 That brief syntax does a lot:
 
@@ -345,9 +329,7 @@ of `Hero` objects:
 
 导入了 `Hero` 类之后，组件的 `heroes` 属性就可以返回一个*类型化的*`Hero` 对象数组了。
 
-<code-example path="displaying-data/src/app/app.component.3.ts" linenums="false" header="src/app/app.component.ts (heroes)" region="heroes">
-
-</code-example>
+<code-example path="displaying-data/src/app/app.component.3.ts" header="src/app/app.component.ts (heroes)" region="heroes"></code-example>
 
 Next, update the template.
 At the moment it displays the hero's `id` and `name`.
@@ -357,9 +339,7 @@ Fix that to display only the hero's `name` property.
 现在它显示的是英雄的 `id` 和 `name`。
 要修复它，只显示英雄的 `name` 属性就行了。
 
-<code-example path="displaying-data/src/app/app.component.3.ts" linenums="false" header="src/app/app.component.ts (template)" region="template">
-
-</code-example>
+<code-example path="displaying-data/src/app/app.component.3.ts" header="src/app/app.component.ts (template)" region="template"></code-example>
 
 The display looks the same, but the code is clearer.
 
@@ -385,9 +365,7 @@ To see it in action, add the following paragraph at the bottom of the template:
 Angular 的 `ngIf` 指令会根据一个布尔条件来显示或移除一个元素。
 来看看实际效果，把下列语句加到模板的底部：
 
-<code-example path="displaying-data/src/app/app.component.ts" linenums="false" header="src/app/app.component.ts (message)" region="message">
-
-</code-example>
+<code-example path="displaying-data/src/app/app.component.ts" header="src/app/app.component.ts (message)" region="message"></code-example>
 
 <div class="alert is-important">
 

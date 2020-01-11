@@ -1,20 +1,6 @@
-# Entry Components
+# Entry components
 
 # 入口组件
-
-#### Prerequisites:
-
-#### 前提条件：
-
-A basic understanding of the following concepts:
-
-对下列概念有基本的理解：
-
-* [Bootstrapping](guide/bootstrapping).
-
-   [引导启动](guide/bootstrapping)。
-
-<hr />
 
 An entry component is any component that Angular loads imperatively, (which means you’re not referencing it in the template), by type. You specify an entry component by bootstrapping it in an NgModule, or including it in a routing definition.
 
@@ -23,7 +9,7 @@ An entry component is any component that Angular loads imperatively, (which mean
 
 <div class="alert is-helpful">
 
-To contrast the two types of components, there are components which are included in the template, which are declarative.  Additionally, there are  components which you load imperatively; that is, entry components.
+To contrast the two types of components, there are components which are included in the template, which are declarative. Additionally, there are components which you load imperatively; that is, entry components.
 
 对比一下这两种组件类型：有一类组件被包含在模板中，它们是声明式加载的；另一类组件你会命令式加载它，这就是入口组件。
 

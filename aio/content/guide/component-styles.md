@@ -1,4 +1,4 @@
-# Component Styles
+# Component styles
 
 # 组件样式
 
@@ -41,8 +41,7 @@ Usually you give it one string, as in the following example:
 `styles` 属性可以接受一个包含 CSS 代码的字符串数组。
 通常你只给它一个字符串就行了，如同下例：
 
-<code-example path="component-styles/src/app/hero-app.component.ts" header="src/app/hero-app.component.ts" linenums="false">
-</code-example>
+<code-example path="component-styles/src/app/hero-app.component.ts" header="src/app/hero-app.component.ts"></code-example>
 
 ## Style scope
 
@@ -112,8 +111,7 @@ targeting elements *inside* the component's template).
 
 使用 `:host` 伪类选择器，用来选择组件*宿主*元素中的元素（相对于组件模板*内部*的元素）。
 
-<code-example path="component-styles/src/app/hero-details.component.css" region="host" header="src/app/hero-details.component.css" linenums="false">
-</code-example>
+<code-example path="component-styles/src/app/hero-details.component.css" region="host" header="src/app/hero-details.component.css"></code-example>
 
 The `:host` selector is the only way to target the host element. You can't reach
 the host element from inside the component with other selectors because it's not part of the
@@ -131,8 +129,7 @@ The next example targets the host element again, but only when it also has the `
 
 下一个例子再次把宿主元素作为目标，但是只有当它同时带有 `active` CSS 类的时候才会生效。
 
-<code-example path="component-styles/src/app/hero-details.component.css" region="hostfunction" header="src/app/hero-details.component.css" linenums="false">
-</code-example>
+<code-example path="component-styles/src/app/hero-details.component.css" region="hostfunction" header="src/app/hero-details.component.css"></code-example>
 
 ### :host-context
 
@@ -155,8 +152,7 @@ if some ancestor element has the CSS class `theme-light`.
 
 在下面的例子中，只有当某个祖先元素有 CSS 类 `theme-light` 时，才会把 `background-color` 样式应用到组件*内部*的所有 `<h2>` 元素中。
 
-<code-example path="component-styles/src/app/hero-details.component.css" region="hostcontext" header="src/app/hero-details.component.css" linenums="false">
-</code-example>
+<code-example path="component-styles/src/app/hero-details.component.css" region="hostcontext" header="src/app/hero-details.component.css"></code-example>
 
 ### (deprecated) `/deep/`, `>>>`, and `::ng-deep`
 
@@ -179,9 +175,7 @@ through this component to all of its child elements in the DOM.
 
 这个例子以所有的 `<h3>` 元素为目标，从宿主元素到当前元素再到 DOM 中的所有子元素：
 
-<code-example path="component-styles/src/app/hero-details.component.css" region="deep" header="src/app/hero-details.component.css" linenums="false">
-
-</code-example>
+<code-example path="component-styles/src/app/hero-details.component.css" region="deep" header="src/app/hero-details.component.css"></code-example>
 
 The `/deep/` combinator also has the aliases `>>>`, and `::ng-deep`.
 
@@ -454,7 +448,7 @@ Choose from the following modes:
 
 * `Emulated` view encapsulation (the default) emulates the behavior of shadow DOM by preprocessing
   (and renaming) the CSS code to effectively scope the CSS to the component's view.
-  For details, see [Appendix 1](guide/component-styles#inspect-generated-css).
+  For details, see [Inspecting generated CSS](guide/component-styles#inspect-generated-css) below.
 
    `Emulated` 模式（**默认值**）通过预处理（并改名）CSS 代码来模拟 Shadow DOM 的行为，以达到把 CSS 样式局限在组件视图中的目的。
   更多信息，见[附录 1](guide/component-styles#inspect-generated-css) 。(译注：只进不出，全局样式能进来，组件样式出不去)
@@ -472,8 +466,7 @@ To set the components encapsulation mode, use the `encapsulation` property in th
 
 通过组件元数据中的 `encapsulation` 属性来设置组件封装模式：
 
-<code-example path="component-styles/src/app/quest-summary.component.ts" region="encapsulation.native" header="src/app/quest-summary.component.ts" linenums="false">
-</code-example>
+<code-example path="component-styles/src/app/quest-summary.component.ts" region="encapsulation.native" header="src/app/quest-summary.component.ts"></code-example>
 
 `ShadowDom` view encapsulation only works on browsers that have native support
 for shadow DOM (see [Shadow DOM v1](https://caniuse.com/#feat=shadowdomv1) on the

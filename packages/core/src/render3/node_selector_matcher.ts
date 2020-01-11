@@ -12,8 +12,8 @@ import {assertDefined, assertNotEqual} from '../util/assert';
 
 import {AttributeMarker, TAttributes, TNode, TNodeType, unusedValueExportToPlacateAjd as unused1} from './interfaces/node';
 import {CssSelector, CssSelectorList, SelectorFlags, unusedValueExportToPlacateAjd as unused2} from './interfaces/projection';
-import {getInitialClassNameValue} from './styling/class_and_style_bindings';
 import {isNameOnlyAttributeMarker} from './util/attrs_utils';
+import {getInitialStylingValue} from './util/styling_utils';
 
 const unusedValueToPlacateAjd = unused1 + unused2;
 
@@ -21,7 +21,10 @@ const NG_TEMPLATE_SELECTOR = 'ng-template';
 
 function isCssClassMatching(nodeClassAttrVal: string, cssClassToMatch: string): boolean {
   const nodeClassesLen = nodeClassAttrVal.length;
-  const matchIndex = nodeClassAttrVal !.indexOf(cssClassToMatch);
+  // we lowercase the class attribute value to be able to match
+  // selectors without case-sensitivity
+  // (selectors are already in lowercase when generated)
+  const matchIndex = nodeClassAttrVal.toLowerCase().indexOf(cssClassToMatch);
   const matchEndIdx = matchIndex + cssClassToMatch.length;
   if (matchIndex === -1                                                  // no match
       || (matchIndex > 0 && nodeClassAttrVal ![matchIndex - 1] !== ' ')  // no space before
@@ -78,7 +81,7 @@ export function isNodeMatchingSelector(
     const current = selector[i];
     if (typeof current === 'number') {
       // If we finish processing a :not selector and it hasn't failed, return false
-      if (!skipToNextSelector && !isPositive(mode) && !isPositive(current as number)) {
+      if (!skipToNextSelector && !isPositive(mode) && !isPositive(current)) {
         return false;
       }
       // If we are skipping to the next :not() and this mode flag is positive,
@@ -103,8 +106,9 @@ export function isNodeMatchingSelector(
 
       // special case for matching against classes when a tNode has been instantiated with
       // class and style values as separate attribute values (e.g. ['title', CLASS, 'foo'])
-      if ((mode & SelectorFlags.CLASS) && tNode.stylingTemplate) {
-        if (!isCssClassMatching(readClassValueFromTNode(tNode), selectorAttrValue as string)) {
+      if ((mode & SelectorFlags.CLASS) && tNode.classes) {
+        if (!isCssClassMatching(
+                getInitialStylingValue(tNode.classes), selectorAttrValue as string)) {
           if (isPositive(mode)) return false;
           skipToNextSelector = true;
         }
@@ -131,7 +135,10 @@ export function isNodeMatchingSelector(
           ngDevMode && assertNotEqual(
                            nodeAttrs[attrIndexInNode], AttributeMarker.NamespaceURI,
                            'We do not match directives on namespaced attributes');
-          nodeAttrValue = nodeAttrs[attrIndexInNode + 1] as string;
+          // we lowercase the attribute value to be able to match
+          // selectors without case-sensitivity
+          // (selectors are already in lowercase when generated)
+          nodeAttrValue = (nodeAttrs[attrIndexInNode + 1] as string).toLowerCase();
         }
 
         const compareAgainstClassName = mode & SelectorFlags.CLASS ? nodeAttrValue : null;
@@ -150,16 +157,6 @@ export function isNodeMatchingSelector(
 
 function isPositive(mode: SelectorFlags): boolean {
   return (mode & SelectorFlags.NOT) === 0;
-}
-
-function readClassValueFromTNode(tNode: TNode): string {
-  // comparing against CSS class values is complex because the compiler doesn't place them as
-  // regular attributes when an element is created. Instead, the classes (and styles for
-  // that matter) are placed in a special styling context that is used for resolving all
-  // class/style values across static attributes, [style]/[class] and [style.prop]/[class.name]
-  // bindings. Therefore if and when the styling context exists then the class values are to be
-  // extracted by the context helper code below...
-  return tNode.stylingTemplate ? getInitialClassNameValue(tNode.stylingTemplate) : '';
 }
 
 /**
@@ -207,7 +204,8 @@ function findAttrIndexInNode(
       } else if (
           maybeAttrName === AttributeMarker.Bindings || maybeAttrName === AttributeMarker.I18n) {
         bindingsMode = true;
-      } else if (maybeAttrName === AttributeMarker.Classes) {
+      } else if (
+          maybeAttrName === AttributeMarker.Classes || maybeAttrName === AttributeMarker.Styles) {
         let value = attrs[++i];
         // We should skip classes here because we have a separate mechanism for
         // matching classes in projection mode.

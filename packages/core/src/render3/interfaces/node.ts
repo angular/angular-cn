@@ -5,10 +5,9 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import {TStylingContext} from '../styling_next/interfaces';
+import {StylingMapArray, TStylingContext} from '../interfaces/styling';
 import {CssSelector} from './projection';
 import {RNode} from './renderer';
-import {StylingContext} from './styling';
 import {LView, TView} from './view';
 
 
@@ -46,23 +45,143 @@ export const enum TNodeType {
  * Corresponds to the TNode.flags property.
  */
 export const enum TNodeFlags {
-  /** This bit is set if the node is a component */
-  isComponent = 0b000001,
+  /** Bit #1 - This bit is set if the node is a host for any directive (including a component) */
+  isDirectiveHost = 0x1,
 
-  /** This bit is set if the node has been projected */
-  isProjected = 0b000010,
+  /**
+   * Bit #2 - This bit is set if the node is a host for a component.
+   *
+   * Setting this bit implies that the `isDirectiveHost` bit is set as well.
+   * */
+  isComponentHost = 0x2,
 
-  /** This bit is set if any directive on this node has content queries */
-  hasContentQuery = 0b000100,
+  /** Bit #3 - This bit is set if the node has been projected */
+  isProjected = 0x4,
 
-  /** This bit is set if the node has any "class" inputs */
-  hasClassInput = 0b001000,
+  /** Bit #4 - This bit is set if any directive on this node has content queries */
+  hasContentQuery = 0x8,
 
-  /** This bit is set if the node has any "style" inputs */
-  hasStyleInput = 0b010000,
+  /** Bit #5 - This bit is set if the node has any "class" inputs */
+  hasClassInput = 0x10,
 
-  /** This bit is set if the node has been detached by i18n */
-  isDetached = 0b100000,
+  /** Bit #6 - This bit is set if the node has any "style" inputs */
+  hasStyleInput = 0x20,
+
+  /** Bit #7 This bit is set if the node has been detached by i18n */
+  isDetached = 0x40,
+
+  /**
+   * Bit #8 - This bit is set if the node has directives with host bindings.
+   *
+   * This flags allows us to guard host-binding logic and invoke it only on nodes
+   * that actually have directives with host bindings.
+   */
+  hasHostBindings = 0x80,
+
+  /** Bit #9 - This bit is set if the node has initial styling */
+  hasInitialStyling = 0x100,
+
+  /**
+   * Bit #10 - Whether or not there are class-based map bindings present.
+   *
+   * Examples include:
+   * 1. `<div [class]="x">`
+   * 2. `@HostBinding('class') x`
+   */
+  hasClassMapBindings = 0x200,
+
+  /**
+   * Bit #11 - Whether or not there are any class-based prop bindings present.
+   *
+   * Examples include:
+   * 1. `<div [class.name]="x">`
+   * 2. `@HostBinding('class.name') x`
+   */
+  hasClassPropBindings = 0x400,
+
+  /**
+   * Bit #12 - whether or not there are any active [class] and [class.name] bindings
+   */
+  hasClassPropAndMapBindings = hasClassMapBindings | hasClassPropBindings,
+
+  /**
+   * Bit #13 - Whether or not the context contains one or more class-based template bindings.
+   *
+   * Examples include:
+   * 1. `<div [class]="x">`
+   * 2. `<div [class.name]="x">`
+   */
+  hasTemplateClassBindings = 0x800,
+
+  /**
+   * Bit #14 - Whether or not the context contains one or more class-based host bindings.
+   *
+   * Examples include:
+   * 1. `@HostBinding('class') x`
+   * 2. `@HostBinding('class.name') x`
+   */
+  hasHostClassBindings = 0x1000,
+
+  /**
+   * Bit #15 - Whether or not there are two or more sources for a class property in the context.
+   *
+   * Examples include:
+   * 1. prop + prop: `<div [class.active]="x" dir-that-sets-active-class>`
+   * 2. map + prop: `<div [class]="x" [class.foo]>`
+   * 3. map + map: `<div [class]="x" dir-that-sets-class>`
+   */
+  hasDuplicateClassBindings = 0x2000,
+
+  /**
+   * Bit #16 - Whether or not there are style-based map bindings present.
+   *
+   * Examples include:
+   * 1. `<div [style]="x">`
+   * 2. `@HostBinding('style') x`
+   */
+  hasStyleMapBindings = 0x4000,
+
+  /**
+   * Bit #17 - Whether or not there are any style-based prop bindings present.
+   *
+   * Examples include:
+   * 1. `<div [style.prop]="x">`
+   * 2. `@HostBinding('style.prop') x`
+   */
+  hasStylePropBindings = 0x8000,
+
+  /**
+   * Bit #18 - whether or not there are any active [style] and [style.prop] bindings
+   */
+  hasStylePropAndMapBindings = hasStyleMapBindings | hasStylePropBindings,
+
+  /**
+   * Bit #19 - Whether or not the context contains one or more style-based template bindings.
+   *
+   * Examples include:
+   * 1. `<div [style]="x">`
+   * 2. `<div [style.prop]="x">`
+   */
+  hasTemplateStyleBindings = 0x10000,
+
+  /**
+   * Bit #20 - Whether or not the context contains one or more style-based host bindings.
+   *
+   * Examples include:
+   * 1. `@HostBinding('style') x`
+   * 2. `@HostBinding('style.prop') x`
+   */
+  hasHostStyleBindings = 0x20000,
+
+  /**
+   * Bit #21 - Whether or not there are two or more sources for a style property in the context.
+   *
+   * Examples include:
+   * 1. prop + prop: `<div [style.width]="x" dir-that-sets-width>`
+   * 2. map + prop: `<div [style]="x" [style.prop]>`
+   * 3. map + map: `<div [style]="x" dir-that-sets-style>`
+   */
+  hasDuplicateStyleBindings = 0x40000,
 }
 
 /**
@@ -199,7 +318,7 @@ export const enum AttributeMarker {
    * ```
    * var _c1 = ['moo', 'car', AttributeMarker.I18n, 'foo', 'bar'];
    */
-  I18n,
+  I18n = 6,
 }
 
 /**
@@ -209,6 +328,13 @@ export const enum AttributeMarker {
  * - Parsed ngProjectAs selectors.
  */
 export type TAttributes = (string | AttributeMarker | CssSelector)[];
+
+/**
+ * Constants that are associated with a view. Includes:
+ * - Attribute arrays.
+ * - Local definition arrays.
+ */
+export type TConstants = (TAttributes | string)[];
 
 /**
  * Binding data (flyweight) for a particular node that is shared between all templates
@@ -261,19 +387,13 @@ export interface TNode {
   directiveEnd: number;
 
   /**
-   * Stores the first index where property binding metadata is stored for
-   * this node.
+   * Stores indexes of property bindings. This field is only set in the ngDevMode and holds indexes
+   * of property bindings so TestBed can get bound property metadata for a given node.
    */
-  propertyMetadataStartIndex: number;
+  propertyBindings: number[]|null;
 
   /**
-   * Stores the exclusive final index where property binding metadata is
-   * stored for this node.
-   */
-  propertyMetadataEndIndex: number;
-
-  /**
-   * Stores if Node isComponent, isProjected, hasContentQuery, hasClassInput and hasStyleInput
+   * Stores if Node isComponent, isProjected, hasContentQuery, hasClassInput and hasStyleInput etc.
    */
   flags: TNodeFlags;
 
@@ -328,20 +448,16 @@ export interface TNode {
   initialInputs: InitialInputData|null|undefined;
 
   /**
-   * Input data for all directives on this node.
-   *
-   * - `undefined` means that the prop has not been initialized yet,
-   * - `null` means that the prop has been initialized but no inputs have been found.
+   * Input data for all directives on this node. `null` means that there are no directives with
+   * inputs on this node.
    */
-  inputs: PropertyAliases|null|undefined;
+  inputs: PropertyAliases|null;
 
   /**
-   * Output data for all directives on this node.
-   *
-   * - `undefined` means that the prop has not been initialized yet,
-   * - `null` means that the prop has been initialized but no outputs have been found.
+   * Output data for all directives on this node. `null` means that there are no directives with
+   * outputs on this node.
    */
-  outputs: PropertyAliases|null|undefined;
+  outputs: PropertyAliases|null;
 
   /**
    * The TView or TViews attached to this node.
@@ -403,7 +519,6 @@ export interface TNode {
    */
   parent: TElementNode|TContainerNode|null;
 
-  stylingTemplate: StylingContext|null;
   /**
    * List of projected TNodes for a given component host element OR index into the said nodes.
    *
@@ -438,7 +553,7 @@ export interface TNode {
    *   - This would return the first head node to project:
    *     `getHost(currentTNode).projection[currentTNode.projection]`.
    * - When projecting nodes the parent node retrieved may be a `<ng-content>` node, in which case
-   *   the process is recursive in nature (not implementation).
+   *   the process is recursive in nature.
    *
    * If `projection` is of type `RNode[][]` than we have a collection of native nodes passed as
    * projectable nodes during dynamic component creation.
@@ -446,21 +561,44 @@ export interface TNode {
   projection: (TNode|RNode[])[]|number|null;
 
   /**
-   * A buffer of functions that will be called once `elementEnd` (or `element`) completes.
+   * A collection of all style bindings and/or static style values for an element.
    *
-   * Due to the nature of how directives work in Angular, some directive code may
-   * need to fire after any template-level code runs. If present, this array will
-   * be flushed (each function will be invoked) once the associated element is
-   * created.
+   * This field will be populated if and when:
    *
-   * If an element is created multiple times then this function will be populated
-   * with functions each time the creation block is called.
+   * - There are one or more initial styles on an element (e.g. `<div style="width:200px">`)
+   * - There are one or more style bindings on an element (e.g. `<div [style.width]="w">`)
+   *
+   * If and when there are only initial styles (no bindings) then an instance of `StylingMapArray`
+   * will be used here. Otherwise an instance of `TStylingContext` will be created when there
+   * are one or more style bindings on an element.
+   *
+   * During element creation this value is likely to be populated with an instance of
+   * `StylingMapArray` and only when the bindings are evaluated (which happens during
+   * update mode) then it will be converted to a `TStylingContext` if any style bindings
+   * are encountered. If and when this happens then the existing `StylingMapArray` value
+   * will be placed into the initial styling slot in the newly created `TStylingContext`.
    */
-  onElementCreationFns: Function[]|null;
-  // TODO (matsko): rename this to `styles` once the old styling impl is gone
-  newStyles: TStylingContext|null;
-  // TODO (matsko): rename this to `classes` once the old styling impl is gone
-  newClasses: TStylingContext|null;
+  styles: StylingMapArray|TStylingContext|null;
+
+  /**
+   * A collection of all class bindings and/or static class values for an element.
+   *
+   * This field will be populated if and when:
+   *
+   * - There are one or more initial classes on an element (e.g. `<div class="one two three">`)
+   * - There are one or more class bindings on an element (e.g. `<div [class.foo]="f">`)
+   *
+   * If and when there are only initial classes (no bindings) then an instance of `StylingMapArray`
+   * will be used here. Otherwise an instance of `TStylingContext` will be created when there
+   * are one or more class bindings on an element.
+   *
+   * During element creation this value is likely to be populated with an instance of
+   * `StylingMapArray` and only when the bindings are evaluated (which happens during
+   * update mode) then it will be converted to a `TStylingContext` if any class bindings
+   * are encountered. If and when this happens then the existing `StylingMapArray` value
+   * will be placed into the initial styling slot in the newly created `TStylingContext`.
+   */
+  classes: StylingMapArray|TStylingContext|null;
 }
 
 /** Static data for an element  */
@@ -573,6 +711,11 @@ export interface TProjectionNode extends TNode {
 }
 
 /**
+ * A union type representing all TNode types that can host a directive.
+ */
+export type TDirectiveHostNode = TElementNode | TContainerNode | TElementContainerNode;
+
+/**
  * This mapping is necessary so we can set input properties and output listeners
  * properly at runtime when property names are minified or aliased.
  *
@@ -591,10 +734,9 @@ export type PropertyAliases = {
  * Store the runtime input or output names for all the directives.
  *
  * i+0: directive instance index
- * i+1: publicName
- * i+2: privateName
+ * i+1: privateName
  *
- * e.g. [0, 'change', 'change-minified']
+ * e.g. [0, 'change-minified']
  */
 export type PropertyAliasValue = (number | string)[];
 

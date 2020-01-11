@@ -1,8 +1,8 @@
 import { Component, ElementRef, EventEmitter, HostListener, Input, OnDestroy, Output } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 
-import { Observable, of, timer } from 'rxjs';
-import { catchError, switchMap, takeUntil, tap } from 'rxjs/operators';
+import { asapScheduler, Observable, of, timer } from 'rxjs';
+import { catchError, observeOn, switchMap, takeUntil, tap } from 'rxjs/operators';
 
 import { DocumentContents, FETCHING_ERROR_ID, FILE_NOT_FOUND_ID } from 'app/documents/document.service';
 import { Logger } from 'app/shared/logger.service';
@@ -76,7 +76,7 @@ export class DocViewerComponent implements OnDestroy {
     }
 
     this.docContents$
-      .pipe(switchMap(newDoc => this.render(newDoc)),
+      .pipe(observeOn(asapScheduler),switchMap(newDoc => this.render(newDoc)),
         takeUntil(this.onDestroy$),
       )
       .subscribe();
@@ -154,6 +154,7 @@ export class DocViewerComponent implements OnDestroy {
    * Tell search engine crawlers whether to index this page
    */
   private setNoIndex(val: boolean) {
+    console.log('no index: ', val);
   }
 
   /**

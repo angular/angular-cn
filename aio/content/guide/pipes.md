@@ -45,17 +45,13 @@ a human-friendly date.
 管道把数据作为输入，然后转换它，给出期望的输出。
 你要把组件的 `birthday` 属性转换成对人类更友好的日期格式。
 
-<code-example path="pipes/src/app/hero-birthday1.component.ts" header="src/app/hero-birthday1.component.ts" linenums="false">
-
-</code-example>
+<code-example path="pipes/src/app/hero-birthday1.component.ts" header="src/app/hero-birthday1.component.ts"></code-example>
 
 Focus on the component's template.
 
 重点看下组件的模板。
 
-<code-example path="pipes/src/app/app.component.html" region="hero-birthday-template" header="src/app/app.component.html" linenums="false">
-
-</code-example>
+<code-example path="pipes/src/app/app.component.html" region="hero-birthday-template" header="src/app/app.component.html"></code-example>
 
 Inside the interpolation expression, you flow the component's `birthday` value through the
 [pipe operator](guide/template-syntax#pipe) ( | ) to the [Date pipe](api/common/DatePipe)
@@ -106,9 +102,7 @@ After formatting the hero's April 15th birthday, it renders as **<samp>04/15/88<
 修改生日模板，来为这个日期管道提供一个格式化参数。
 当格式化完该英雄的 4 月 15 日生日之后，它应该被渲染成**<samp>04/15/88</samp>**。
 
-<code-example path="pipes/src/app/app.component.html" region="format-birthday" header="src/app/app.component.html" linenums="false">
-
-</code-example>
+<code-example path="pipes/src/app/app.component.html" region="format-birthday" header="src/app/app.component.html"></code-example>
 
 The parameter value can be any valid template expression,
 (see the [Template expressions](guide/template-syntax#template-expressions) section of the
@@ -124,9 +118,7 @@ to the component's `format` property. Here's the template for that component:
 
 来写第二个组件，它把管道的格式参数*绑定*到该组件的 `format` 属性。这里是新组件的模板：
 
-<code-example path="pipes/src/app/hero-birthday2.component.ts" region="template" header="src/app/hero-birthday2.component.ts (template)" linenums="false">
-
-</code-example>
+<code-example path="pipes/src/app/hero-birthday2.component.ts" region="template" header="src/app/hero-birthday2.component.ts (template)"></code-example>
 
 You also added a button to the template and bound its click event to the component's `toggleFormat()` method.
 That method toggles the component's `format` property between a short form
@@ -135,9 +127,7 @@ That method toggles the component's `format` property between a short form
 你还能在模板中添加一个按钮，并把它的点击事件绑定到组件的 `toggleFormat()` 方法。
 此方法会在短日期格式(`'shortDate'`)和长日期格式(`'fullDate'`)之间切换组件的 `format` 属性。
 
-<code-example path="pipes/src/app/hero-birthday2.component.ts" region="class" header="src/app/hero-birthday2.component.ts (class)" linenums="false">
-
-</code-example>
+<code-example path="pipes/src/app/hero-birthday2.component.ts" region="class" header="src/app/hero-birthday2.component.ts (class)"></code-example>
 
 As you click the button, the displayed date alternates between
 "**<samp>04/15/1988</samp>**" and
@@ -145,10 +135,9 @@ As you click the button, the displayed date alternates between
 
 当你点击此按钮的时候，所显示的日期会在“**<samp>04/15/1988</samp>**”和“**<samp>Friday, April 15, 1988</samp>**”之间切换。
 
-<figure>
+<div class="lightbox">
   <img src='generated/images/guide/pipes/date-format-toggle-anim.gif' alt="Date Format Toggle">
-</figure>
-
+</div>
 <div class="alert is-helpful">
 
 Read more about the `DatePipe` format options in the [Date Pipe](api/common/DatePipe)
@@ -171,18 +160,14 @@ The birthday displays as **<samp>APR 15, 1988</samp>**.
 下面这个例子中，要把 `birthday` 串联到 `DatePipe` 管道，然后又串联到 `UpperCasePipe`，这样就可以把生日显示成大写形式了。
 生日被显示成了**<samp>APR 15, 1988</samp>**：
 
-<code-example path="pipes/src/app/app.component.html" region="chained-birthday" header="src/app/app.component.html" linenums="false">
-
-</code-example>
+<code-example path="pipes/src/app/app.component.html" region="chained-birthday" header="src/app/app.component.html"></code-example>
 
 This example&mdash;which displays **<samp>FRIDAY, APRIL 15, 1988</samp>**&mdash;chains
 the same pipes as above, but passes in a parameter to `date` as well.
 
 下面这个显示**<samp>FRIDAY, APRIL 15, 1988</samp>**的例子用同样的方式链接了这两个管道，而且同时还给 `date` 管道传进去一个参数。
 
-<code-example path="pipes/src/app/app.component.html" region="chained-parameter-birthday" header="src/app/app.component.html" linenums="false">
-
-</code-example>
+<code-example path="pipes/src/app/app.component.html" region="chained-parameter-birthday" header="src/app/app.component.html"></code-example>
 
 ## Custom pipes
 
@@ -194,9 +179,7 @@ Here's a custom pipe named `ExponentialStrengthPipe` that can boost a hero's pow
 你还可以写自己的自定义管道。
 下面就是一个名叫 `ExponentialStrengthPipe` 的管道，它可以放大英雄的能力：
 
-<code-example path="pipes/src/app/exponential-strength.pipe.ts" header="src/app/exponential-strength.pipe.ts" linenums="false">
-
-</code-example>
+<code-example path="pipes/src/app/exponential-strength.pipe.ts" header="src/app/exponential-strength.pipe.ts"></code-example>
 
 This pipe definition reveals the following key points:
 
@@ -248,12 +231,11 @@ Now you need a component to demonstrate the pipe.
 
 现在，你需要一个组件来演示这个管道。
 
-<code-example path="pipes/src/app/power-booster.component.ts" header="src/app/power-booster.component.ts" linenums="false">
-</code-example>
+<code-example path="pipes/src/app/power-booster.component.ts" header="src/app/power-booster.component.ts"></code-example>
 
-<figure>
+<div class="lightbox">
   <img src='generated/images/guide/pipes/power-booster.png' alt="Power Booster">
-</figure>
+</div>
 
 Note the following:
 
@@ -306,9 +288,9 @@ your pipe and two-way data binding with `ngModel`.
 
 </code-example>
 
-<figure>
+<div class="lightbox">
   <img src='generated/images/guide/pipes/power-boost-calculator-anim.gif' alt="Power Boost Calculator">
-</figure>
+</div>
 
 {@a change-detection}
 
@@ -336,17 +318,13 @@ its display of every hero in the `heroes` array. Here's the template:
 
 在下一个例子中，组件使用默认的、激进(昂贵)的变更检测策略来检测和更新 `heroes` 数组中的每个英雄。下面是它的模板：
 
-<code-example path="pipes/src/app/flying-heroes.component.html" region="template-1" header="src/app/flying-heroes.component.html (v1)" linenums="false">
-
-</code-example>
+<code-example path="pipes/src/app/flying-heroes.component.html" region="template-1" header="src/app/flying-heroes.component.html (v1)"></code-example>
 
 The companion component class provides heroes, adds heroes into the array, and can reset the array.
 
 和模板相伴的组件类可以提供英雄数组，能把新的英雄添加到数组中，还能重置英雄数组。
 
-<code-example path="pipes/src/app/flying-heroes.component.ts" region="v1" header="src/app/flying-heroes.component.ts (v1)" linenums="false">
-
-</code-example>
+<code-example path="pipes/src/app/flying-heroes.component.ts" region="v1" header="src/app/flying-heroes.component.ts (v1)"></code-example>
 
 You can add heroes and Angular updates the display when you do.
 If you click the `reset` button, Angular replaces `heroes` with a new array of the original heroes and updates the display.
@@ -364,17 +342,13 @@ Add a `FlyingHeroesPipe` to the `*ngFor` repeater that filters the list of heroe
 
 往 `*ngFor` 重复器中添加一个 `FlyingHeroesPipe` 管道，这个管道能过滤出所有会飞的英雄。
 
-<code-example path="pipes/src/app/flying-heroes.component.html" region="template-flying-heroes" header="src/app/flying-heroes.component.html (flyers)" linenums="false">
-
-</code-example>
+<code-example path="pipes/src/app/flying-heroes.component.html" region="template-flying-heroes" header="src/app/flying-heroes.component.html (flyers)"></code-example>
 
 Here's the `FlyingHeroesPipe` implementation, which follows the pattern for custom pipes described earlier.
 
 下面是 `FlyingHeroesPipe` 的实现，它遵循了以前讲过的那些写自定义管道的模式。
 
-<code-example path="pipes/src/app/flying-heroes.pipe.ts" region="pure" header="src/app/flying-heroes.pipe.ts" linenums="false">
-
-</code-example>
+<code-example path="pipes/src/app/flying-heroes.pipe.ts" region="pure" header="src/app/flying-heroes.pipe.ts"></code-example>
 
 Notice the odd behavior in the <live-example></live-example>:
 when you add flying heroes, none of them are displayed under "Heroes who fly."
@@ -391,11 +365,9 @@ Notice how a hero is added:
 
 注意这里是如何添加新英雄的：
 
-<code-example path="pipes/src/app/flying-heroes.component.ts" region="push" header="src/app/flying-heroes.component.ts" linenums="false">
+<code-example path="pipes/src/app/flying-heroes.component.ts" region="push" header="src/app/flying-heroes.component.ts"></code-example>
 
-</code-example>
-
-You add the hero into the `heroes` array.  The reference to the array hasn't changed.
+You add the hero into the `heroes` array. The reference to the array hasn't changed.
 It's the same array. That's all Angular cares about. From its perspective, *same array, no change, no display update*.
 
 当你往 `heroes` 数组中添加一个新的英雄时，这个数组的引用并没有改变。它还是那个数组。而引用却是 Angular 所关心的一切。
@@ -417,9 +389,9 @@ code with checkbox switches and additional displays to help you experience these
 如果你**替换了**这个数组，管道就会被执行，显示也更新了。
 这个*飞行英雄*的例子用检查框和其它显示内容扩展了原有代码，来帮你体验这些效果。
 
-<figure>
+<div class="lightbox">
   <img src='generated/images/guide/pipes/flying-heroes-anim.gif' alt="Flying Heroes">
-</figure>
+</div>
 
 Replacing the array is an efficient way to signal Angular to update the display.
 When do you replace the array? When the data changes.
@@ -459,9 +431,7 @@ impure like this:
 默认情况下，管道都是纯的。以前见到的每个管道都是纯的。
 通过把它的 `pure` 标志设置为 `false`，你可以制作一个非纯管道。你可以像这样让 `FlyingHeroesPipe` 变成非纯的：
 
-<code-example path="pipes/src/app/flying-heroes.pipe.ts" region="pipe-decorator" header="src/app/flying-heroes.pipe.ts" linenums="false">
-
-</code-example>
+<code-example path="pipes/src/app/flying-heroes.pipe.ts" region="pipe-decorator" header="src/app/flying-heroes.pipe.ts"></code-example>
 
 Before doing that, understand the difference between pure and impure, starting with a pure pipe.
 
@@ -560,17 +530,13 @@ This is a good candidate for an impure pipe because the `transform` function is 
 
 这是一个很好地非纯管道候选者，因为它的 `transform` 函数又小又快。
 
-<code-example path="pipes/src/app/flying-heroes.pipe.ts" linenums="false" header="src/app/flying-heroes.pipe.ts (filter)" region="filter">
-
-</code-example>
+<code-example path="pipes/src/app/flying-heroes.pipe.ts" header="src/app/flying-heroes.pipe.ts (filter)" region="filter"></code-example>
 
 You can derive a `FlyingHeroesImpureComponent` from `FlyingHeroesComponent`.
 
 你可以从 `FlyingHeroesComponent` 派生出一个 `FlyingHeroesImpureComponent`。
 
-<code-example path="pipes/src/app/flying-heroes-impure.component.html" linenums="false" header="src/app/flying-heroes-impure.component.html (excerpt)" region="template-flying-heroes">
-
-</code-example>
+<code-example path="pipes/src/app/flying-heroes-impure.component.html" header="src/app/flying-heroes-impure.component.html (excerpt)" region="template-flying-heroes"></code-example>
 
 The only substantive change is the pipe in the template.
 You can confirm in the <live-example></live-example> that the _flying heroes_
@@ -654,9 +620,9 @@ The component renders as the following:
 
 组件渲染起来是这样的：
 
-<figure>
+<div class="lightbox">
   <img src='generated/images/guide/pipes/hero-list.png' alt="Hero List">
-</figure>
+</div>
 
 A breakpoint on the pipe's request for data shows the following:
 
@@ -689,7 +655,7 @@ It displays the same hero data in JSON format by chaining through to the built-i
 <header>借助 json 管道进行调试</header>
 
 The [JsonPipe](api/common/JsonPipe)
-provides an easy way to diagnosis a mysteriously failing data binding or
+provides an easy way to diagnose a mysteriously failing data binding or
 inspect an object for future binding.
 
 [JsonPipe](api/common/JsonPipe)为你诊断数据绑定的某些神秘错误或为做进一步绑定而探查数据时，提供了一个简单途径。

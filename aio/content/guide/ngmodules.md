@@ -1,23 +1,5 @@
 # NgModules
 
-#### Prerequisites
-
-#### 前提条件
-
-A basic understanding of the following concepts:
-
-对下列概念有基本的理解：
-
-* [Bootstrapping](guide/bootstrapping).
-
-   [引导启动](guide/bootstrapping)。
-
-* [JavaScript Modules vs. NgModules](guide/ngmodule-vs-jsmodule).
-
-   [JavaScript 模块与 NgModules](guide/ngmodule-vs-jsmodule)。
-
-<hr>
-
 **NgModules** configure the injector and the compiler and help organize related things together.
 
 **NgModules** 用于配置注入器和编译器，并帮你把那些相关的东西组织在一起。
@@ -114,17 +96,19 @@ You then import these modules into the root module.
 
 ## 基本的模块
 
-The [Angular CLI](cli) generates the following basic app module when creating a new app.
+The [Angular CLI](cli) generates the following basic `AppModule` when creating a new app.
 
-[Angular CLI](cli) 在创建新应用时会生成下列基本的应用模块。
 
-<code-example path="bootstrapping/src/app/app.module.ts" region="whole-ngmodule" header="src/app/app.module.ts" linenums="false">
+[Angular CLI](cli) 在创建新应用时会生成如下基本模块 `AppModule`。
+
+<code-example path="ngmodules/src/app/app.module.1.ts" header="src/app/app.module.ts (default AppModule)">
+// @NgModule decorator with its metadata
 </code-example>
 
-At the top are the import statements. The next section is where you configure the `@NgModule` by stating what components and directives belong to it (`declarations`) as well as which other modules it uses (`imports`). This page builds on [Bootstrapping](guide/bootstrapping), which covers the structure of an NgModule in detail. If you need more information on the structure of an `@NgModule`, be sure to read [Bootstrapping](guide/bootstrapping).
+At the top are the import statements. The next section is where you configure the `@NgModule` by stating what components and directives belong to it (`declarations`) as well as which other modules it uses (`imports`). For more information on the structure of an `@NgModule`, be sure to read [Bootstrapping](guide/bootstrapping).
 
 文件的顶部是一些导入语句。接下来是你配置 `NgModule` 的地方，用于规定哪些组件和指令属于它（`declarations`），以及它使用了哪些其它模块（`imports`）。
-本章是基于[引导](guide/bootstrapping)一章的，那里详细讲了 NgModule 的结构。如果要进一步了解 `@NgModule` 的结构，参见[引导](guide/bootstrapping)。
+如果要进一步了解 `@NgModule` 的结构，参见[引导](guide/bootstrapping)。
 
 <hr />
 

@@ -117,6 +117,7 @@ export interface HttpDownloadProgressEvent extends HttpProgressEvent {
  *
  * 上传进度事件。
  *
+ * @publicApi
  */
 export interface HttpUploadProgressEvent extends HttpProgressEvent {
   type: HttpEventType.UploadProgress;

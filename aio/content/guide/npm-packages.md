@@ -10,7 +10,7 @@ You can download and install these npm packages by using the [npm CLI client](ht
 
 你可以使用 [npm CLI client](https://docs.npmjs.com/cli/install) 来下载并安装这些 npm 包，它通过 [Node.js®](https://nodejs.org "Nodejs.org") 安装并运行。默认情况下，Angular CLI 会使用 npm 客户端。
 
-Alternatively, you can use the [yarn client](https://yarnpkg.com/) for downloading and installing npm packages. 
+Alternatively, you can use the [yarn client](https://yarnpkg.com/) for downloading and installing npm packages.
 
 另外，你还可以使用 [**yarn** 客户端](https://yarnpkg.com/en/) 来下载并安装 npm 包。
 
@@ -20,7 +20,7 @@ See [Local Environment Setup](guide/setup-local "Setting up for Local Developmen
 
 参见[建立本地开发环境](guide/setup-local "Setting up for Local Development")，以了解所需的 `Node.js` 和 `npm` 版本。
 
-If you already have projects running on your machine that use other versions of Node.js and npm, consider using [nvm](https://github.com/creationix/nvm) to manage the multiple versions of Node.js and npm. 
+If you already have projects running on your machine that use other versions of Node.js and npm, consider using [nvm](https://github.com/creationix/nvm) to manage the multiple versions of Node.js and npm.
 
 如果你的电脑上已经有了使用其它 Node.js 和 npm 版本的项目，可考虑使用 [nvm](https://github.com/creationix/nvm) 来管理 Node.js 和 npm 的多个版本。
 
@@ -33,15 +33,15 @@ Both `npm` and `yarn` install the packages that are identified in a [`package.js
 
 无论使用 `npm` 还是 `yarn` 安装的包，都会记录在 [`package.json`](https://docs.npmjs.com/files/package.json) 文件中。
 
-The CLI command `ng new` creates a `package.json` file when it creates the new workspace. 
-This `package.json` is used by all projects in the workspace, including the initial app project that is  created by the CLI when it creates the workspace.   
+The CLI command `ng new` creates a `package.json` file when it creates the new workspace.
+This `package.json` is used by all projects in the workspace, including the initial app project that is created by the CLI when it creates the workspace.
 
 CLI 的 `ng new` 命令会在创建新的工作区的同时创建一个 `package.json`。
 这个 `package.json` 用于此工作区中的所有项目，包括由 CLI 在创建工作区时创建的那个初始项目。
 
 Initially, this `package.json` includes _a starter set of packages_, some of which are required by Angular and others that support common application scenarios.
-You add packages to `package.json` as your application evolves. 
-You may even remove some. 
+You add packages to `package.json` as your application evolves.
+You may even remove some.
 
 最初，这个 `package.json` 包括*一组初始包*，其中有些是 Angular 自身需要的，另一些是用来支持一些常见的应用场景。
 随着应用的演化，你可能会往 `package.json` 中添加甚至移除一些包。
@@ -65,7 +65,6 @@ For more information, see the CLI wiki page [Library Support](https://github.com
 
 **代码库开发者：**默认情况下，CLI 命令 [`ng generate library`](cli/generate) 会为新的代码库项目创建一个 `package.json`。这个 `package.json` 会在把该代码库发布到 npm 时用到。
 要了解更多信息，参见 CLI 的 wiki 页面[代码库支持](https://github.com/angular/angular-cli/wiki/stories-create-library)。
-
 </div>
 
 
@@ -102,7 +101,7 @@ To add a new dependency, use the [`ng add`](cli/add) command.
 ### Angular 包
 
 The following Angular packages are included as dependencies in the default `package.json` file for a new Angular workspace.
-For a complete list of Angular packages, see the [API reference](http://angular.io/api?type=package). 
+For a complete list of Angular packages, see the [API reference](http://angular.io/api?type=package).
 
 新 Angular 工作区的 `package.json` 文件中默认包含下列 Angular 包。
 要了解 Angular 包的完整列表，参见 [API 参考手册](http://angular.io/api?type=package)。
@@ -133,16 +132,16 @@ Package name                               | Description
 
 ### 支持包
 
-The following support packages are included as dependencies in the default `package.json` file for a new Angular workspace. 
+The following support packages are included as dependencies in the default `package.json` file for a new Angular workspace.
 
 新的 Angular 工作区的 `package.json` 文件中默认包含下列支持包。
 
 Package name                               | Description
 ----------------------------------------   | --------------------------------------------------
 包名                               | 说明
-[**rxjs**](https://github.com/ReactiveX/rxjs) | Many Angular APIs return [_observables_](guide/glossary#observable). RxJS is an implementation of the proposed [Observables specification](https://github.com/tc39/proposal-observable) currently before the [TC39](https://www.ecma-international.org/memento/tc39-m.htm) committee, which determines standards for the JavaScript language.
+[**rxjs**](https://github.com/ReactiveX/rxjs) | Many Angular APIs return [_observables_](guide/glossary#observable). RxJS is an implementation of the proposed [Observables specification](https://github.com/tc39/proposal-observable) currently before the [TC39](https://www.ecma-international.org/memento/tc39.htm) committee, which determines standards for the JavaScript language.
 [**rxjs**](https://github.com/ReactiveX/rxjs) | 很多 Angular API 都会返回[*可观察对象*](guide/glossary#observable)。RxJS 是对计划中的 [Observable 规范的实现](https://github.com/tc39/proposal-observable)，它正在等待 [TC39](http://www.ecma-international.org/memento/TC39.htm) 委员会来决定是否将其纳入语言规范。
-[**zone.js**](https://github.com/angular/zone.js) | Angular relies on zone.js to run Angular's change detection processes when native JavaScript operations raise events.  Zone.js is an implementation of a [specification](https://gist.github.com/mhevery/63fdcdf7c65886051d55) currently before the [TC39](http://www.ecma-international.org/memento/TC39.htm) committee that determines standards for the JavaScript language.
+[**zone.js**](https://github.com/angular/zone.js) | Angular relies on zone.js to run Angular's change detection processes when native JavaScript operations raise events. Zone.js is an implementation of a [specification](https://gist.github.com/mhevery/63fdcdf7c65886051d55) currently before the [TC39](https://www.ecma-international.org/memento/tc39.htm) committee that determines standards for the JavaScript language.
 [**zone.js**](https://github.com/angular/zone.js) | 当原生 JavaScript 操作发生事件时，Angular 要依靠 zone.js 来运行 Angular 的变更检测过程。 Zone.js 是对一个[规范](https://gist.github.com/mhevery/63fdcdf7c65886051d55)的实现，它正在等待 [TC39](http://www.ecma-international.org/memento/TC39.htm) 委员会来决定是否将其纳入语言规范。
 
 {@a polyfills}
@@ -153,14 +152,14 @@ Package name                               | Description
 Many browsers lack native support for some features in the latest HTML standards,
 features that Angular requires.
 [_Polyfills_](https://en.wikipedia.org/wiki/Polyfill_(programming)) can emulate the missing features.
-The [Browser Support](guide/browser-support) guide explains which browsers need polyfills and 
+The [Browser Support](guide/browser-support) guide explains which browsers need polyfills and
 how you can add them.
 
 很多浏览器欠缺对 Angular 所需的某些最新 HTML 标准、特性的原生支持。
 [腻子脚本](https://en.wikipedia.org/wiki/Polyfill_(programming) 可以模拟这些缺失的特性。
 [浏览器支持](guide/browser-support)一章中解释了哪些浏览器分别需要哪些腻子脚本，以及如何添加它们。
 
-The `package.json` for a new Angular workspace installs the [core-js](https://github.com/zloirock/core-js) package, 
+The `package.json` for a new Angular workspace installs the [core-js](https://github.com/zloirock/core-js) package,
 which polyfills missing features for several popular browser.
 
 默认的 `package.json` 会为新的 Angular 工作区安装 **[core-js](https://github.com/zloirock/core-js)** 包，它会弥补很多常用浏览器缺失的特性。
@@ -179,14 +178,14 @@ To add a new `devDependency`, use either one of the following commands:
 要想添加新的 `devDependency`，请使用下列命令之一：
 
 <code-example language="sh" class="code-shell">
-  npm install --dev &lt;package-name&gt;
+  npm install --save-dev &lt;package-name&gt;
 </code-example>
 
 <code-example language="sh" class="code-shell">
   yarn add --dev &lt;package-name&gt;
 </code-example>
 
-The following `devDependencies` are provided in the default `package.json` file for a new Angular workspace. 
+The following `devDependencies` are provided in the default `package.json` file for a new Angular workspace.
 
 新 Angular 工作区的默认 `package.json` 中包含下列 `devDependencies` 
 
@@ -225,7 +224,6 @@ Package name                               | Description
  For information about how the Angular CLI handles packages see the following guides: 
 
  要了解 Angular CLI 如何处理包的更多信息，请参见下列章节：
-
  * [Building and serving](guide/build) describes how packages come together to create a development build.
 
    [Building and serving](guide/build) 描述了这些包如何协作，以进行开发期构建。

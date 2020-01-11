@@ -85,9 +85,7 @@ When you're done, the `HeroDetailComponent` template should look like this:
 
 完工之后，`HeroDetailComponent` 的模板应该是这样的：
 
-<code-example path="toh-pt3/src/app/hero-detail/hero-detail.component.html" header="src/app/hero-detail/hero-detail.component.html" linenums="false">
-
-</code-example>
+<code-example path="toh-pt3/src/app/hero-detail/hero-detail.component.html" header="src/app/hero-detail/hero-detail.component.html"></code-example>
 
 ### Add the `@Input()` hero property
 
@@ -120,15 +118,13 @@ Amend the `@angular/core` import statement to include the `Input` symbol.
 
 修改 `@angular/core` 的导入语句，导入 `Input` 符号。
 
-<code-example path="toh-pt3/src/app/hero-detail/hero-detail.component.ts" region="import-input" header="src/app/hero-detail/hero-detail.component.ts (import Input)" linenums="false">
-</code-example>
+<code-example path="toh-pt3/src/app/hero-detail/hero-detail.component.ts" region="import-input" header="src/app/hero-detail/hero-detail.component.ts (import Input)"></code-example>
 
 Add a `hero` property, preceded by the `@Input()` decorator.
 
 添加一个带有 `@Input()` 装饰器的 `hero` 属性。
 
-<code-example path="toh-pt3/src/app/hero-detail/hero-detail.component.ts" region="input-hero"  linenums="false">
-</code-example>
+<code-example path="toh-pt3/src/app/hero-detail/hero-detail.component.ts" header="src/app/hero-detail/hero-detail.component.ts" region="input-hero"></code-example>
 
 That's the only change you should make to the `HeroDetailComponent` class.
 There are no more properties. There's no presentation logic.
@@ -202,8 +198,7 @@ The revised `HeroesComponent` template should look like this:
 修改后的 `HeroesComponent` 的模板是这样的：
 
 <code-example path="toh-pt3/src/app/heroes/heroes.component.html"
-  header="heroes.component.html" linenums="false">
-</code-example>
+  header="heroes.component.html"></code-example>
 
 The browser refreshes and the app starts working again as it did before.
 

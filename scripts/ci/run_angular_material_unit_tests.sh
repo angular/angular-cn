@@ -9,17 +9,17 @@ angular_dir=$(pwd)
 # Switch into Material directory.
 cd ${MATERIAL_REPO_TMP_DIR}
 
-# Install this version of Angular into the freshly cloned repo.
-rm -rf ./node_modules/@angular/*
-cp -r ${angular_dir}/dist/packages-dist-ivy-aot/* ./node_modules/@angular/
+# Updates Material's package.json to refer to the packages-dist directory.
+# Note that it's not necessary to perform a yarn install, as Bazel performs its own yarn install.
+node ${angular_dir}/scripts/ci/update-deps-to-dist-packages.js ${MATERIAL_REPO_TMP_DIR}/package.json ${angular_dir}/dist/packages-dist/
 
-# The angular/material2 CI sets TEST_PLATFORM to either "local", "saucelabs", or "browserstack".
-# For angular/angular, we only want to run the "local" tests.
-export TEST_PLATFORM=local
+# Copy the test blocklist into the "angular/components" repository. The components
+# repository automatically picks up the blocklist and disables the specified tests.
+cp ${angular_dir}/tools/material-ci/test-blocklist.ts ${MATERIAL_REPO_TMP_DIR}/test/
 
-# Append the test blocklist into angular/material2's karma-test-shim.js.
-# This filters out known-failing tests because the goal is to prevent regressions.
-cat ${angular_dir}/tools/material-ci/angular_material_test_blocklist.js >> ./test/karma-test-shim.js
+# Create a symlink for the Bazel binary installed through NPM, as running through Yarn introduces OOM errors.
+./scripts/circleci/setup_bazel_binary.sh
 
-# Now actually run the tests.
-yarn gulp test:single-run
+# Now actually run the tests. The dev-app and all its subpackages are excluded as they fail
+# to compile due to limitations in Ivy's type checker (see FW-1352 and FW-1433)
+bazel test --build_tag_filters=-docs-package,-e2e,-browser:firefox-local --test_tag_filters=-e2e,-browser:firefox-local --config=ivy -- src/... -src/dev-app/...

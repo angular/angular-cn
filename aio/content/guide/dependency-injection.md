@@ -1,4 +1,4 @@
-# Dependency Injection in Angular
+# Dependency injection in Angular
 
 # Angular 中的依赖注入
 
@@ -174,7 +174,7 @@ from the injector of its parent NgModule, or from the `root` injector.
 
   更多知识，参见 [提供商的不同类型](guide/dependency-injection-providers)。
 
-* Learn more about  how the [injector hierarchy](guide/hierarchical-dependency-injection) works.
+* Learn more about how the [injector hierarchy](guide/hierarchical-dependency-injection) works.
 
   更多知识，参见[层次化注入器](guide/hierarchical-dependency-injection)的工作原理。
 
@@ -211,9 +211,9 @@ Components are directives, and the `providers` option is inherited from `@Direct
 所有组件都是指令，而 `providers` 选项是从 `@Directive()` 中继承来的。
 你也可以与组件一样的级别为指令、管道配置提供商。
 
-Learn more about [where to configure providers](guide/hierarchical-dependency-injection#where-to-register).
+Learn more about [where to configure providers](guide/hierarchical-dependency-injection).
 
-欲知详情，参见[该在哪里配置提供商](guide/hierarchical-dependency-injection#where-to-register)。
+欲知详情，参见[该在哪里配置提供商](guide/hierarchical-dependency-injection)。
 
 </div>
 
@@ -313,8 +313,7 @@ under test.
 
 比如，你可以使用一个可在测试期间操纵的模拟服务来创建新的 `HeroListComponent`。
 
-<code-example path="dependency-injection/src/app/test.component.ts" region="spec" header="src/app/test.component.ts" linenums="false">
-</code-example>
+<code-example path="dependency-injection/src/app/test.component.ts" region="spec" header="src/app/test.component.ts"></code-example>
 
 <div class="alert is-helpful">
 
@@ -358,7 +357,7 @@ The constructor asks for an injected instance of `Logger` and stores it in a pri
 该构造函数请求注入一个 `Logger` 的实例，并把它保存在一个名叫 `logger` 的私有字段中。
 当要求获取英雄列表时，`getHeroes()` 方法就会记录一条消息。
 
-Notice that the `Logger` service also has the `@Injectable()` decorator, even though it might not need its own dependencies. In fact, the `@Injectable()` decorator is **required  for all services**.
+Notice that the `Logger` service also has the `@Injectable()` decorator, even though it might not need its own dependencies. In fact, the `@Injectable()` decorator is **required for all services**.
 
 注意，虽然 `Logger` 服务没有自己的依赖项，但是它同样带有 `@Injectable()` 装饰器。实际上，`@Injectable()` **对所有服务都是必须的**。
 
@@ -406,8 +405,7 @@ Here you get a `HeroService` directly from the injector by supplying the `HeroSe
 在简单的例子中，依赖项的值是一个*实例*，而类的*类型*则充当键来查阅它。
 通过把 `HeroService` 类型作为令牌，你可以直接从注入器中获得一个 `HeroService` 实例。
 
-<code-example path="dependency-injection/src/app/injector.component.ts" region="get-hero-service" header="src/app/injector.component.ts" linenums="false">
-</code-example>
+<code-example path="dependency-injection/src/app/injector.component.ts" region="get-hero-service" header="src/app/injector.component.ts"></code-example>
 
 The behavior is similar when you write a constructor that requires an injected class-based dependency.
 When you define a constructor parameter with the `HeroService` class type,
@@ -448,8 +446,7 @@ constructor parameter with `@Optional()`.
 <code-example path="dependency-injection/src/app/providers.component.ts" region="import-optional">
 </code-example>
 
-<code-example path="dependency-injection/src/app/providers.component.ts" region="provider-10-ctor" linenums="false">
-</code-example>
+<code-example path="dependency-injection/src/app/providers.component.ts" region="provider-10-ctor"></code-example>
 
 When using `@Optional()`, your code must be prepared for a null value. If you
 don't register a logger provider anywhere, the injector sets the
@@ -459,7 +456,7 @@ value of `logger` to null.
 
 <div class="alert is-helpful">
 
-`@Inject()` and `@Optional()` are _parameter decorators_.  They alter the way the DI framework provides a dependency, by annotating the dependency parameter on the constructor of the class that requires the dependency.
+`@Inject()` and `@Optional()` are _parameter decorators_. They alter the way the DI framework provides a dependency, by annotating the dependency parameter on the constructor of the class that requires the dependency.
 
 `@Inject()` 和 `@Optional()` 都是*参数装饰器*。它们通过在需要依赖项的类的构造函数上对参数进行注解，来改变 DI 框架提供依赖项的方式。
 

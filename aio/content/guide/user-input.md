@@ -1,4 +1,4 @@
-# User Input
+# User input
 
 # 用户输入
 
@@ -35,9 +35,7 @@ The following example shows an event binding that implements a click handler:
 
 下例展示了一个事件绑定，它实现了一个点击事件处理器：
 
-<code-example path="user-input/src/app/click-me.component.ts" region="click-me-button" header="src/app/click-me.component.ts" linenums="false">
-
-</code-example>
+<code-example path="user-input/src/app/click-me.component.ts" region="click-me-button" header="src/app/click-me.component.ts"></code-example>
 
 {@a click}
 
@@ -59,9 +57,7 @@ The example above shows a single line of HTML, but that HTML belongs to a larger
 这个对象通常都是控制此模板的 Angular 组件。
 上例中只显示了一行 HTML，那段 HTML 片段属于下面这个组件：
 
-<code-example path="user-input/src/app/click-me.component.ts" region="click-me-component" header="src/app/click-me.component.ts" linenums="false">
-
-</code-example>
+<code-example path="user-input/src/app/click-me.component.ts" region="click-me-component" header="src/app/click-me.component.ts"></code-example>
 
 When the user clicks the button, Angular calls the `onClickMe` method from `ClickMeComponent`.
 
@@ -79,21 +75,17 @@ DOM 事件可以携带可能对组件有用的信息。
 
 The following code listens to the `keyup` event and passes the entire event payload (`$event`) to the component event handler.
 
-下面的代码监听 `keyup` 事件，并将整个事件载荷 (`$event`) 传递给组件的事件处理器。
+下面的代码监听 `keyup` 事件，并将整个事件载荷 (`$event`) 传给组件的事件处理器。
 
-<code-example path="user-input/src/app/keyup.components.ts" region="key-up-component-1-template" header="src/app/keyup.components.ts (template v.1)" linenums="false">
-
-</code-example>
+<code-example path="user-input/src/app/keyup.components.ts" region="key-up-component-1-template" header="src/app/keyup.components.ts (template v.1)"></code-example>
 
 When a user presses and releases a key, the `keyup` event occurs, and Angular provides a corresponding
 DOM event object in the `$event` variable which this code passes as a parameter to the component's `onKey()` method.
 
 当用户按下并释放一个按键时，触发 `keyup` 事件，Angular 在 `$event` 变量提供一个相应的 DOM
-事件对象，上面的代码将它作为参数传递给 `onKey()` 方法。
+事件对象，上面的代码将它作为参数传给 `onKey()` 方法。
 
-<code-example path="user-input/src/app/keyup.components.ts" region="key-up-component-1-class-no-type" header="src/app/keyup.components.ts (class v.1)" linenums="false">
-
-</code-example>
+<code-example path="user-input/src/app/keyup.components.ts" region="key-up-component-1-class-no-type" header="src/app/keyup.components.ts (class v.1)"></code-example>
 
 The properties of an `$event` object vary depending on the type of DOM event. For example,
 a mouse event includes different information than an input box editing event.
@@ -111,7 +103,7 @@ In this case, `target` refers to the [`<input>` element](https://developer.mozil
 `event.target.value` 返回该元素的当前内容。
 
 After each call, the `onKey()` method appends the contents of the input box value to the list
-in the component's `values` property, followed by a  separator character (|).
+in the component's `values` property, followed by a separator character (|).
 The [interpolation](guide/template-syntax#interpolation)
 displays the accumulating input box changes from the `values` property.
 
@@ -128,9 +120,9 @@ Here's what the UI displays:
   a | ab | abc | ab | a | |
 </code-example>
 
-<figure>
+<div class="lightbox">
   <img src='generated/images/guide/user-input/keyup1-anim.gif' alt="key up 1">
-</figure>
+</div>
 
 <div class="alert is-helpful">
 
@@ -165,9 +157,7 @@ The following example rewrites the method with types:
 
 下面的例子，使用了带类型方法：
 
-<code-example path="user-input/src/app/keyup.components.ts" region="key-up-component-1-class" header="src/app/keyup.components.ts (class v.1 - typed )" linenums="false">
-
-</code-example>
+<code-example path="user-input/src/app/keyup.components.ts" region="key-up-component-1-class" header="src/app/keyup.components.ts (class v.1 - typed )"></code-example>
 
 The `$event` is now a specific `KeyboardEvent`.
 Not all elements have a `value` property so it casts `target` to an input element.
@@ -213,9 +203,7 @@ to implement a keystroke loopback in a simple template.
 
 下面的例子使用了局部模板变量，在一个超简单的模板中实现按键反馈功能。
 
-<code-example path="user-input/src/app/loop-back.component.ts" region="loop-back-component" header="src/app/loop-back.component.ts" linenums="false">
-
-</code-example>
+<code-example path="user-input/src/app/loop-back.component.ts" region="loop-back-component" header="src/app/loop-back.component.ts"></code-example>
 
 The template reference variable named `box`, declared on the `<input>` element,
 refers to the `<input>` element itself.
@@ -234,9 +222,9 @@ Type something in the input box, and watch the display update with each keystrok
 
 在输入框中输入，就会看到每次按键时，显示也随之更新了。
 
-<figure>
+<div class="lightbox">
   <img src='generated/images/guide/user-input/keyup-loop-back-anim.gif' alt="loop back">
-</figure>
+</div>
 
 <div class="alert is-helpful">
 
@@ -264,9 +252,7 @@ variable than to go through the `$event` object. Here's a rewrite of the previou
 从模板变量获得输入框比通过 `$event` 对象更加简单。
 下面的代码重写了之前 `keyup` 示例，它使用变量来获得用户输入。
 
-<code-example path="user-input/src/app/keyup.components.ts" region="key-up-component-2" header="src/app/keyup.components.ts (v2)" linenums="false">
-
-</code-example>
+<code-example path="user-input/src/app/keyup.components.ts" region="key-up-component-2" header="src/app/keyup.components.ts (v2)"></code-example>
 
 A nice aspect of this approach is that the component gets clean data values from the view.
 It no longer requires knowledge of the `$event` and its structure.
@@ -293,17 +279,15 @@ Then Angular calls the event handler only when the user presses _Enter_.
 更简单的方法是：绑定到 Angular 的 `keyup.enter` 模拟事件。
 然后，只有当用户敲*回车*键时，Angular 才会调用事件处理器。
 
-<code-example path="user-input/src/app/keyup.components.ts" region="key-up-component-3" header="src/app/keyup.components.ts (v3)" linenums="false">
-
-</code-example>
+<code-example path="user-input/src/app/keyup.components.ts" region="key-up-component-3" header="src/app/keyup.components.ts (v3)"></code-example>
 
 Here's how it works.
 
-下面展示了它是如何工作的。
+下面展示了它的工作原理。
 
-<figure>
+<div class="lightbox">
   <img src='generated/images/guide/user-input/keyup3-anim.gif' alt="key up 3">
-</figure>
+</div>
 
 ## On blur
 
@@ -321,9 +305,7 @@ To fix this issue, listen to both the _Enter_ key and the _blur_ event.
 
 下面通过同时监听输入框的回车键和失去焦点事件来修正这个问题。
 
-<code-example path="user-input/src/app/keyup.components.ts" region="key-up-component-4" header="src/app/keyup.components.ts (v4)" linenums="false">
-
-</code-example>
+<code-example path="user-input/src/app/keyup.components.ts" region="key-up-component-4" header="src/app/keyup.components.ts (v4)"></code-example>
 
 ## Put it all together
 
@@ -343,17 +325,15 @@ clicking **Add**.
 现在，在一个微型应用中一起使用它们，应用能显示一个英雄列表，并把新的英雄加到列表中。
 用户可以通过输入英雄名和点击“添加”按钮来添加英雄。
 
-<figure>
+<div class="lightbox">
   <img src='generated/images/guide/user-input/little-tour-anim.gif' alt="Little Tour of Heroes">
-</figure>
+</div>
 
 Below is the "Little Tour of Heroes"  component.
 
 下面就是“简版英雄指南”组件。
 
-<code-example path="user-input/src/app/little-tour.component.ts" region="little-tour" header="src/app/little-tour.component.ts" linenums="false">
-
-</code-example>
+<code-example path="user-input/src/app/little-tour.component.ts" region="little-tour" header="src/app/little-tour.component.ts"></code-example>
 
 ### Observations
 
@@ -371,11 +351,11 @@ Instead of passing the `newHero` into the component's `addHero` method,
 get the input box value and pass *that* to `addHero`.
 
    **传递数值，而非元素** &mdash;
-获取输入框的值并将*它*传递给组件的 `addHero`，而不要传递 `newHero`。
+获取输入框的值并将*它*传给组件的 `addHero`，而不要传递 `newHero`。
 
 * **Keep template statements simple** &mdash;
 The `(blur)` event is bound to two JavaScript statements.
-The first statement calls `addHero`.  The second statement, `newHero.value=''`,
+The first statement calls `addHero`. The second statement, `newHero.value=''`,
 clears the input box after a new hero is added to the list.
 
    **保持模板语句简单** &mdash;

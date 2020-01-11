@@ -1,4 +1,4 @@
-load("//tools:defaults.bzl", "jasmine_node_test", "ts_library", "ts_web_test_suite")
+load("//tools:defaults.bzl", "jasmine_node_test", "karma_web_test_suite", "ts_library")
 
 package(default_visibility = ["//visibility:public"])
 
@@ -11,7 +11,7 @@ ts_library(
             "**/*_node_only_spec.ts",
         ],
     ),
-    # Visible to //:test_web_all target
+    # Visible to //:saucelabs_unit_tests_poc target
     visibility = ["//:__pkg__"],
     deps = [
         "//packages/animations",
@@ -27,6 +27,7 @@ ts_library(
         "//packages/core/src/reflection",
         "//packages/core/src/util",
         "//packages/core/testing",
+        "//packages/localize/init",
         "//packages/platform-browser",
         "//packages/platform-browser-dynamic",
         "//packages/platform-browser/animations",
@@ -34,8 +35,8 @@ ts_library(
         "//packages/private/testing",
         "//packages/router",
         "//packages/router/testing",
+        "//packages/zone.js/lib:zone_d_ts",
         "@npm//rxjs",
-        "@npm//zone.js",
     ],
 )
 
@@ -59,19 +60,20 @@ ts_library(
 jasmine_node_test(
     name = "test",
     bootstrap = ["angular/tools/testing/init_node_spec.js"],
+    shard_count = 4,
     deps = [
         ":test_lib",
         ":test_node_only_lib",
         "//packages/platform-server",
         "//packages/platform-server/testing",
+        "//packages/zone.js/lib:zone_d_ts",
         "//tools/testing:node",
         "@npm//base64-js",
         "@npm//source-map",
-        "@npm//zone.js",
     ],
 )
 
-ts_web_test_suite(
+karma_web_test_suite(
     name = "test_web",
     deps = [
         ":test_lib",

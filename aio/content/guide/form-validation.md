@@ -1,4 +1,4 @@
-# Form Validation
+# Form validation
 
 # 表单验证
 
@@ -43,9 +43,7 @@ The following example exports `NgModel` into a variable called `name`:
 你可以通过把 `ngModel` 导出成局部模板变量来查看该控件的状态。
 比如下面这个例子就把 `NgModel` 导出成了一个名叫 `name` 的变量：
 
-<code-example path="form-validation/src/app/template/hero-form-template.component.html" region="name-with-error-msg" header="template/hero-form-template.component.html (name)" linenums="false">
-
-</code-example>
+<code-example path="form-validation/src/app/template/hero-form-template.component.html" region="name-with-error-msg" header="template/hero-form-template.component.html (name)"></code-example>
 
 Note the following:
 
@@ -139,8 +137,7 @@ built-in validators&mdash;this time, in function form. See below:
 
 {@a reactive-component-class}
 
-<code-example path="form-validation/src/app/reactive/hero-form-reactive.component.1.ts" region="form-group" header="reactive/hero-form-reactive.component.ts (validator functions)" linenums="false">
-</code-example>
+<code-example path="form-validation/src/app/reactive/hero-form-reactive.component.1.ts" region="form-group" header="reactive/hero-form-reactive.component.ts (validator functions)"></code-example>
 
 Note that:
 
@@ -167,8 +164,7 @@ If you look at the template for the name input again, it is fairly similar to th
 
 如果你到模板中找到 name 输入框，就会发现它和模板驱动的例子很相似。
 
-<code-example path="form-validation/src/app/reactive/hero-form-reactive.component.html" region="name-with-error-msg" header="reactive/hero-form-reactive.component.html (name with error msg)" linenums="false">
-</code-example>
+<code-example path="form-validation/src/app/reactive/hero-form-reactive.component.html" region="name-with-error-msg" header="reactive/hero-form-reactive.component.html (name with error msg)"></code-example>
 
 Key takeaways:
 
@@ -198,8 +194,7 @@ this guide. Here's what the definition of that function looks like:
 
 考虑前面的[例子](guide/form-validation#reactive-component-class)中的 `forbiddenNameValidator` 函数。该函数的定义看起来是这样的：
 
-<code-example path="form-validation/src/app/shared/forbidden-name.directive.ts" region="custom-validator" header="shared/forbidden-name.directive.ts (forbiddenNameValidator)" linenums="false">
-</code-example>
+<code-example path="form-validation/src/app/shared/forbidden-name.directive.ts" region="custom-validator" header="shared/forbidden-name.directive.ts (forbiddenNameValidator)"></code-example>
 
 The function is actually a factory that takes a regular expression to detect a _specific_ forbidden name and returns a validator function.
 
@@ -237,8 +232,7 @@ to the `FormControl`.
 
 在响应式表单组件中，添加自定义验证器相当简单。你所要做的一切就是直接把这个函数传给 `FormControl` 。
 
-<code-example path="form-validation/src/app/reactive/hero-form-reactive.component.1.ts" region="custom-validator" header="reactive/hero-form-reactive.component.ts (validator functions)" linenums="false">
-</code-example>
+<code-example path="form-validation/src/app/reactive/hero-form-reactive.component.1.ts" region="custom-validator" header="reactive/hero-form-reactive.component.ts (validator functions)"></code-example>
 
 ### Adding to template-driven forms
 
@@ -258,8 +252,7 @@ with the `NG_VALIDATORS` provider, a provider with an extensible collection of v
 
 Angular 在验证过程中能识别出指令的作用，是因为指令把自己注册成了 `NG_VALIDATORS` 提供商，该提供商拥有一组可扩展的验证器。
 
-<code-example path="form-validation/src/app/shared/forbidden-name.directive.ts" region="directive-providers" header="shared/forbidden-name.directive.ts (providers)" linenums="false">
-</code-example>
+<code-example path="form-validation/src/app/shared/forbidden-name.directive.ts" region="directive-providers" header="shared/forbidden-name.directive.ts (providers)"></code-example>
 
 The directive class then implements the `Validator` interface, so that it can easily integrate
 with Angular forms. Here is the rest of the directive to help you get an idea of how it all
@@ -274,9 +267,7 @@ Once the `ForbiddenValidatorDirective` is ready, you can simply add its selector
 
 一旦 `ForbiddenValidatorDirective` 写好了，你只要把 `forbiddenName` 选择器添加到输入框上就可以激活这个验证器了。比如：
 
-<code-example path="form-validation/src/app/template/hero-form-template.component.html" region="name-input" header="template/hero-form-template.component.html (forbidden-name-input)" linenums="false">
-
-</code-example>
+<code-example path="form-validation/src/app/template/hero-form-template.component.html" region="name-input" header="template/hero-form-template.component.html (forbidden-name-input)"></code-example>
 
 <div class="alert is-helpful">
 
@@ -378,8 +369,7 @@ The validator code is as follows:
 
 验证器的代码如下：
 
-<code-example path="form-validation/src/app/shared/identity-revealed.directive.ts" region="cross-validation-validator" header="shared/identity-revealed.directive.ts" linenums="false">
-</code-example>
+<code-example path="form-validation/src/app/shared/identity-revealed.directive.ts" region="cross-validation-validator" header="shared/identity-revealed.directive.ts"></code-example>
 
 The identity validator implements the `ValidatorFn` interface. It takes an Angular control object as an argument and returns either null if the form is valid, or `ValidationErrors` otherwise.
 
@@ -397,8 +387,7 @@ Next, to provide better user experience, we show an appropriate error message wh
 
 接下来，为了提供更好的用户体验，当表单无效时，我们还要显示一个恰当的错误信息。
 
-<code-example path="form-validation/src/app/reactive/hero-form-reactive.component.html" region="cross-validation-error-message" header="reactive/hero-form-template.component.html" linenums="false">
-</code-example>
+<code-example path="form-validation/src/app/reactive/hero-form-reactive.component.html" region="cross-validation-error-message" header="reactive/hero-form-template.component.html"></code-example>
 
 Note that we check if:
 
@@ -420,22 +409,19 @@ First we must create a directive that will wrap the validator function. We provi
 
 首先，我们必须创建一个指令，它会包装这个验证器函数。我们使用 `NG_VALIDATORS` 令牌来把它作为验证器提供出来。如果你还不清楚为什么要这么做或者不能完全理解这种语法，请重新访问前面的[小节](guide/form-validation#adding-to-template-driven-forms)。
 
-<code-example path="form-validation/src/app/shared/identity-revealed.directive.ts" region="cross-validation-directive" header="shared/identity-revealed.directive.ts" linenums="false">
-</code-example>
+<code-example path="form-validation/src/app/shared/identity-revealed.directive.ts" region="cross-validation-directive" header="shared/identity-revealed.directive.ts"></code-example>
 
 Next, we have to add the directive to the html template. Since the validator must be registered at the highest level in the form, we put the directive on the `form` tag.
 
 接下来，我们要把该指令添加到 HTML 模板中。由于验证器必须注册在表单的最高层，所以我们要把该指令放在 `form` 标签上。
 
-<code-example path="form-validation/src/app/template/hero-form-template.component.html" region="cross-validation-register-validator" header="template/hero-form-template.component.html" linenums="false">
-</code-example>
+<code-example path="form-validation/src/app/template/hero-form-template.component.html" region="cross-validation-register-validator" header="template/hero-form-template.component.html"></code-example>
 
 To provide better user experience, we show an appropriate error message when the form is invalid.
 
 为了提供更好的用户体验，当表单无效时，我们要显示一个恰当的错误信息。
 
-<code-example path="form-validation/src/app/template/hero-form-template.component.html" region="cross-validation-error-message" header="template/hero-form-template.component.html" linenums="false">
-</code-example>
+<code-example path="form-validation/src/app/template/hero-form-template.component.html" region="cross-validation-error-message" header="template/hero-form-template.component.html"></code-example>
 
 Note that we check if:
 
@@ -522,7 +508,7 @@ Let's start by creating the validator class.
 
 我们先创建一个验证器类。
 
-<code-example path="form-validation/src/app/shared/alter-ego.directive.ts" region="async-validator" linenums="false"></code-example>
+<code-example path="form-validation/src/app/shared/alter-ego.directive.ts" region="async-validator"></code-example>
 
 As you can see, the `UniqueAlterEgoValidator` class implements the `AsyncValidator` interface. In the constructor, we inject the `HeroesService` that has the following interface:
 

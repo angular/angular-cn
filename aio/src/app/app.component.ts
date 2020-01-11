@@ -128,11 +128,6 @@ export class AppComponent implements OnInit {
     this.documentService.currentDocument.subscribe(doc => this.currentDocument = doc);
 
     this.locationService.currentPath.subscribe(path => {
-      // Redirect to docs if we are in archive mode and are not hitting a docs page
-      // (i.e. we have arrived at a marketing page)
-      if (this.deployment.mode === 'archive' && !/^(docs$|api|guide|tutorial)/.test(path)) {
-        this.locationService.replace('docs');
-      }
       if (path === this.currentPath) {
         // scroll only if on same page (most likely a change to the hash)
         this.scrollService.scroll();
@@ -146,13 +141,21 @@ export class AppComponent implements OnInit {
       }
     });
 
-    this.navigationService.currentNodes.subscribe(currentNodes => this.currentNodes = currentNodes);
+    this.navigationService.currentNodes.subscribe(currentNodes => {
+      this.currentNodes = currentNodes;
+
+      // Redirect to docs if we are in archive mode and are not hitting a docs page
+      // (i.e. we have arrived at a marketing page)
+      if (this.deployment.mode === 'archive' && !currentNodes[sideNavView]) {
+        this.locationService.replace('docs');
+      }
+    });
 
     // Compute the version picker list from the current version and the versions in the navigation map
-    combineLatest(
+    combineLatest([
       this.navigationService.versionInfo,
-      this.navigationService.navigationViews.pipe(map(views => views['docVersions'])))
-      .subscribe(([versionInfo, versions]) => {
+      this.navigationService.navigationViews.pipe(map(views => views['docVersions'])),
+    ]).subscribe(([versionInfo, versions]) => {
         // TODO(pbd): consider whether we can lookup the stable and next versions from the internet
         const computedVersions: NavigationNode[] = [
           { title: 'next', url: 'https://next.angular.io' },
@@ -180,7 +183,7 @@ export class AppComponent implements OnInit {
     this.navigationService.versionInfo.subscribe(vi => this.versionInfo = vi);
 
     const hasNonEmptyToc = this.tocService.tocList.pipe(map(tocList => tocList.length > 0));
-    combineLatest(hasNonEmptyToc, this.showFloatingToc)
+    combineLatest([hasNonEmptyToc, this.showFloatingToc])
         .subscribe(([hasToc, showFloatingToc]) => this.hasFloatingToc = hasToc && showFloatingToc);
 
     // Generally, we want to delay updating the shell (e.g. host classes, sidenav state) for the new
@@ -188,10 +191,10 @@ export class AppComponent implements OnInit {
     // the new document applied prematurely).
     // For the first document, though, (when we know there is no previous document), we want to
     // ensure the styles are applied as soon as possible to avoid flicker.
-    combineLatest(
+    combineLatest([
       this.documentService.currentDocument,  // ...needed to determine host classes
-      this.navigationService.currentNodes)   // ...needed to determine `sidenav` state
-      .pipe(first())
+      this.navigationService.currentNodes,   // ...needed to determine `sidenav` state
+    ]).pipe(first())
       .subscribe(() => this.updateShell());
   }
 
@@ -207,7 +210,7 @@ export class AppComponent implements OnInit {
   }
 
   onDocRemoved() {
-    this.scrollService.removeStoredScrollPosition();
+    this.scrollService.removeStoredScrollInfo();
   }
 
   onDocInserted() {

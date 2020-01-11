@@ -1,4 +1,4 @@
-# TypeScript Configuration
+# TypeScript configuration
 
 # TypeScript 配置
 
@@ -8,8 +8,8 @@ It is a superset of JavaScript with design-time support for type safety and tool
 TypeScript 是 Angular 应用开发中使用的主语言。
 它是 JavaScript 的“方言”之一，为类型安全和工具化而做了设计期支持。
 
-Browsers can't execute TypeScript directly. Typescript must be "transpiled" into JavaScript using the *tsc* compiler,
-which requires some configuration.
+Browsers can't execute TypeScript directly.
+Typescript must be "transpiled" into JavaScript using the *tsc* compiler, which requires some configuration.
 
 浏览器不能直接执行 TypeScript。它得先用 *tsc* 编译器转译(transpile)成 JavaScript，而且编译器需要进行一些配置。
 
@@ -28,14 +28,17 @@ that are important to Angular developers, including details about the following 
 
 {@a tsconfig}
 
-## *tsconfig.json*
+## TypeScript configuration
 
-## *tsconfig.json* 文件
+## TypeScript 配置
 
-Typically, you add a TypeScript configuration file called `tsconfig.json` to your project to
-guide the compiler as it generates JavaScript files.
+A TypeScript configuration file called `tsconfig.json` guides the compiler as it generates JavaScript files for a project.
+This file contains options and flags that are essential for Angular applications.
+Typically, the file is found at the [root level of the workspace](guide/file-structure).
 
-你通常会往项目中加入一个 TypeScript 配置文件(`tsconfig.json`)，来指导编译器如何生成 JavaScript 文件。
+一个名为 `tsconfig.json` 的 TypeScript 配置文件会指导编译器如何为项目生成 JavaScript 文件。
+该文件包含对 Angular 应用程序必不可少的选项和标志。
+通常，该文件位于[工作区的根目录](guide/file-structure)中。
 
 <div class="alert is-helpful">
 
@@ -47,29 +50,39 @@ For details about `tsconfig.json`, see the official
 
 </div>
 
-The [Setup](guide/setup) guide uses the following `tsconfig.json`:
+The initial `tsconfig.json` for an Angular app typically looks like the following example.
 
-在[搭建本地开发环境](guide/setup)中创建过如下的 `tsconfig.json`：
+Angular 应用的初始 `tsconfig.json` 通常是这样的。
 
 <code-example lang="json" header="tsconfig.json" linenums="false">
-  {
-    "compilerOptions": {
-      "target": "es5",
-      "module": "commonjs",
-      "moduleResolution": "node",
-      "sourceMap": true,
-      "emitDecoratorMetadata": true,
-      "experimentalDecorators": true,
-      "lib": [ "es2015", "dom" ],
-      "noImplicitAny": true,
-      "suppressImplicitAnyIndexErrors": true
-    }
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "baseUrl": "./",
+    "outDir": "./dist/out-tsc",
+    "sourceMap": true,
+    "declaration": false,
+    "downlevelIteration": true,
+    "experimentalDecorators": true,
+    "module": "esnext",
+    "moduleResolution": "node",
+    "importHelpers": true,
+    "target": "es2015",
+    "typeRoots": [
+      "node_modules/@types"
+    ],
+    "lib": [
+      "es2018",
+      "dom"
+    ]
+  },
+  "angularCompilerOptions": {
+    "fullTemplateTypeCheck": true,
+    "strictInjectionParameters": true
   }
+}
 </code-example>
 
-This file contains options and flags that are essential for Angular applications.
-
-该文件中的选项和标志是写 Angular 应用程序的基础。
 
 {@a noImplicitAny}
 
@@ -92,13 +105,11 @@ the compiler silently defaults the type to `any`. That's what is meant by *impli
 当 `noImplicitAny` 标志是 `false`(默认值)时，
 如果编译器无法根据变量的用途推断出变量的类型，它就会悄悄的把变量类型默认为 `any`。这就是*隐式 `any`*的含义。
 
-The documentation setup sets the `noImplicitAny` flag to `true`.
 When the `noImplicitAny` flag is `true` and the TypeScript compiler cannot infer
 the type, it still generates the JavaScript files, but it also **reports an error**.
 Many seasoned developers prefer this stricter setting because type checking catches more
 unintentional errors at compile time.
 
-本文档在环境搭建时将 `noImplicitAny` 标志设置为 `true`。
 当 `noImplicitAny` 标志是 `true` 并且 TypeScript 编译器无法推断出类型时，它仍然会生成 JavaScript 文件。
 但是它也会**报告一个错误**。
 很多饱经沧桑的程序员更喜欢这种严格的设置，因为类型检查能在编译期间捕获更多意外错误。
@@ -115,18 +126,23 @@ You can suppress them with the following additional flag:
 大多数程序员可能觉得*这种错误*是个烦恼而不是助力。
 你可以使用另一个标志来禁止它们。
 
-<code-example format=".">
-  "suppressImplicitAnyIndexErrors":true
+<code-example>
+
+  "suppressImplicitAnyIndexErrors": true
 
 </code-example>
 
-The documentation setup sets this flag to `true` as well.
+<div class="alert is-helpful">
 
-本文档在环境搭建时将 `noImplicitAny` 标志设置为 `true`。
+For more information about how the TypeScript configuration affects compilation, see [Angular Compiler Options](guide/angular-compiler-options) and [Template Type Checking](guide/template-typecheck).
+
+要了解 TypeScript 配置如何影响编译的更多信息，请参见 [Angular 编译器选项](guide/angular-compiler-options)和[模板类型检查](guide/template-typecheck) 两章。
+
+</div>
 
 {@a typings}
 
-## TypeScript Typings
+## TypeScript typings
 
 ## TypeScript 类型定义(typings)
 
@@ -155,10 +171,14 @@ The `node_modules/@angular/core/` folder of any Angular application contains sev
 很多库在自己的 npm 包中都包含了它们的类型定义文件，TypeScript 编译器和编辑器都能找到它们。Angular 库也是这样的。
 任何 Angular 应用程序的 `node_modules/@angular/core/` 目录下，都包含几个 `d.ts` 文件，它们描述了 Angular 的各个部分。
 
-**You don't need to do anything to get *typings* files for library packages that include `d.ts` files.
-Angular packages include them already.**
+<div class="alert is-helpful">
 
-**你不需要为那些包含了 `d.ts` 文件的库获取*类型定义*文件 —— Angular 的所有包都是如此。**
+You don't need to do anything to get *typings* files for library packages that include `d.ts` files.
+Angular packages include them already.
+
+你不需要为那些包含了 `d.ts` 文件的库获取*类型定义*文件 —— Angular 的所有包都是如此。
+
+</div>
 
 ### lib.d.ts
 
@@ -173,19 +193,13 @@ like `Promise` if the target is `es6`.
 
 基于 `--target`，TypeScript 添加*额外*的环境声明，例如如果目标为 `es6` 时将添加 `Promise`。
 
-Since the QuickStart is targeting `es5`, you can override the
-list of declaration files to be included:
+By default, the target is `es2015`. If you are targeting `es5`, you still have newer type declarations due to the list of declaration files included:
 
-因为《快速上手》的目标为 `es5`，所以你可以重写声明文件列表来包含：
+默认情况下，目标是 `es2015`。如果你把目标改为 `es5`，那么由于包含了声明文件列表，你仍然拥有较新的类型声明：
 
-<code-example format=".">
-  "lib": ["es2015", "dom"]
+<code-example path="getting-started/tsconfig.0.json" header="tsconfig.json (lib excerpt)" region="lib">
 
 </code-example>
-
-Thanks to that, you have all the `es6` typings even when targeting `es5`.
-
-得益于这项设置，即使编译目标设置为 `es5`，你也能获得所有的 `es6` 类型信息。
 
 ### Installable typings files
 
@@ -205,25 +219,9 @@ and Typescript, starting at 2.0, automatically recognizes them.
 你还可以通过 `npm` 来使用[`@types/*` 范围化包](http://www.typescriptlang.org/docs/handbook/declaration-files/consumption.html)来安装这些类型信息，
 而 TypeScript 自从 2.0 开始，可以自动识别它们。
 
-For instance, to install typings for `jasmine` you could do `npm install @types/jasmine --save-dev`.
+For instance, to install typings for `jasmine` you run `npm install @types/jasmine --save-dev`.
 
 比如，要安装 `jasmine` 的类型信息，你可以执行 `npm install @types/jasmine --save-dev`。
-
-QuickStart identifies two *typings*, or `d.ts`, files:
-
-在“快速上手”中曾指定过两个*类型定义*文件（`d.ts`）：
-
-* [jasmine](http://jasmine.github.io/) typings for the Jasmine test framework.
-
-   [jasmine](http://jasmine.github.io/)是 Jasmine 测试框架的类型定义
-
-* [node](https://www.npmjs.com/package/@types/node) for code that references objects in the *Node.js®* environment;
-
-   [node](https://www.npmjs.com/package/@types/node)是为了在 *Node.js®* 环境中引用对象的代码提供的类型定义。
-
-QuickStart doesn't require these typings but many of the samples do.
-
-“快速上手”本身不需要这些类型定义，但是文档中的很多例子都需要。
 
 {@a target}
 
@@ -231,8 +229,8 @@ QuickStart doesn't require these typings but many of the samples do.
 
 ### *编译目标（target）*
 
-By default, the target is `es5`, you can configure the target to `es6` if you only want to deploy the application to
-es6 compatible browser. But if you configure the target to `es6` in some old browser such as `IE`, `Syntax Error` will be thrown.
+By default, the target is `es2015`, which is supported only in modern browsers. You can configure the target to `es5` to specifically support legacy browsers. [Differential loading](guide/deployment#differential-loading) is also provided by the Angular CLI to support modern, and legacy browsers with separate bundles.
 
-默认情况下，编译目标是 `es5`，如果你只想发布到兼容 es6 的浏览器中，也可以把它配置为 `es6`。
-不过，如果配置为 `es6`，那么一些老的浏览器（如 `IE` ）中就会抛出 `Syntax Error` 错误。
+默认情况下，编译目标是 `es2015`，只有现代浏览器才支持它。
+你可以把编译目标配置为 `es5` 以指定支持老式浏览器。
+Angular CLI 还提供了[差异化加载](guide/deployment#differential-loading)功能，以便使用不同的包来分别支持现代浏览器和老式浏览器。

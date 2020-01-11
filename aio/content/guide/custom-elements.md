@@ -8,7 +8,7 @@
 
 **Angular Labs Project** - experimental and unstable. **Breaking Changes Possible** 
 
-**Angular 实验室项目** - 试验性的、非稳定的。**可能会发生破坏性变更** 
+**Angular 实验室项目** - 试验性的、非稳定的。**可能会发生重大变更** 
 
 Targeted to land in the [6.x release cycle](https://github.com/angular/angular/blob/master/docs/RELEASE_SCHEDULE.md) of Angular - subject to change
 

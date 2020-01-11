@@ -219,14 +219,14 @@
               "tooltip": "添加专属于某个组件的样式"
             },
             {
-              "url": "guide/elements",
-              "title": "Angular 自定义元素",
-              "tooltip": "把组件转换成自定义元素。"
-            },
-            {
               "url": "guide/dynamic-component-loader",
               "title": "动态组件",
               "tooltip": "动态加载组件"
+            },
+            {
+              "url": "guide/elements",
+              "title": "Angular 元素",
+              "tooltip": "把组件转换成自定义元素"
             },
             {
               "url": "guide/attribute-directives",
@@ -467,6 +467,11 @@
           "tooltip": "把应用模板中的文本翻译成多种语言。"
         },
         {
+          "url": "guide/accessibility",
+          "title": "无障碍(a11y)",
+          "tooltip": "设计能被所有用户访问的应用"
+        },
+        {
           "title": "Service Worker 与 PWA",
           "tooltip": "Angular Service Worker: 控制应用资源的缓存。",
           "children": [
@@ -511,6 +516,12 @@
           "title": "从 AngularJS 升级",
           "tooltip": "把 AngularJS 应用增量式的升级到 Angular。",
           "children": [
+            {
+              "url": "guide/upgrade-setup",
+              "title": "搭建升级环境",
+              "tooltip": "把 Angular QuickStart 种子代码作为从 AngularJS 升级的基础。",
+              "hidden": true
+            },
             {
               "url": "guide/upgrade",
               "title": "升级步骤",
@@ -576,11 +587,6 @@
           "tooltip": "使用构建器定制 Angular CLI。"
         },
         {
-          "url": "guide/ivy",
-          "title": "Angular Ivy（常春藤）",
-          "tooltip": "在 Angular CLI 中可选的启用 Ivy。"
-        },
-        {
           "url": "guide/web-worker",
           "title": "Web Worker",
           "tooltip": "在 Angular CLI 中使用 Web Worker。"
@@ -592,16 +598,37 @@
       "tooltip": "关于构建、测试和部署的信息",
       "children": [
         {
-          "url": "guide/setup",
+          "url": "guide/upgrade-setup",
           "title": "升级的准备工作",
-          "tooltip": "How to set up the Angular QuickStart seed in the context of upgrading from AngularJS.",
+          "tooltip": "在从 AngularJS 升级时应该如何设置 Angular QuickStart 种子。",
           "hidden": true
         },
         {
-          "url": "guide/aot-compiler",
-          "title": "预先（AOT）编译",
-          "tooltip": "了解为何以及如何使用预先（AOT）编译器。"
-        },
+          "title": "AoT 预先编译器",
+          "tooltip": "理解 AoT 预先编译器。",
+          "children": [
+            {
+              "url": "guide/aot-compiler",
+              "title": "预先编译",
+              "tooltip": "学习为何以及如何使用预先编译器。"
+            },
+            {
+              "url": "guide/angular-compiler-options",
+              "title": "Angular 编译器选项",
+              "tooltip": "配置 AoT 编译。"
+           },
+           {
+              "url": "guide/aot-metadata-errors",
+              "title": "AoT 元数据错误",
+              "tooltip": "解决 AoT 编译错误。"
+           },
+           {
+            "url": "guide/template-typecheck",
+            "title": "模板类型检查",
+            "tooltip": "Angular 中的模板类型检查。"
+         }
+        ]
+      },
         {
           "url": "guide/build",
           "title": "构建与运行",
@@ -684,12 +711,22 @@
         {
           "url": "guide/releases",
           "title": "发布实践",
-          "tooltip": "Angular 的版本、发布、支持、弃用策略及实践"
+          "tooltip": "Angular 的版本、发布、支持、弃用策略及实践。"
+        },
+        {
+          "url": "guide/updating-to-version-9",
+          "title": "升级到第 9 版",
+          "tooltip": "支持把你的应用从 8 升级到 9。"
         },
         {
           "url": "guide/deprecations",
           "title": "弃用清单",
           "tooltip": "弃用的 Angular API 和特性汇总。"
+        },
+        {
+          "url": "guide/ivy",
+          "title": "Angular Ivy",
+          "tooltip": "关于 Angular Ivy 的编译与渲染管道。"
         }
       ]
     },
@@ -863,6 +900,10 @@
         {
           "title": "English Version",
           "url": "https://angular.io/"
+        },
+        {
+          "title": "正體中文版",
+          "url": "https://angular.tw/"
         },
         {
           "title": "日本語版",

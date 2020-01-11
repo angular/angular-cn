@@ -30,17 +30,11 @@ The file should look like this.
 定义一个包含十个英雄的常量数组 `HEROES`，并导出它。
 该文件是这样的。
 
-<code-example path="toh-pt2/src/app/mock-heroes.ts" linenums="false"
-header="src/app/mock-heroes.ts">
-</code-example>
+<code-example path="toh-pt2/src/app/mock-heroes.ts" header="src/app/mock-heroes.ts"></code-example>
 
 ## Displaying heroes
 
 ## 显示这些英雄
-
-You're about to display the list of heroes at the top of the `HeroesComponent`.
-
-你要在 `HeroesComponent` 的顶部显示这个英雄列表。
 
 Open the `HeroesComponent` class file and import the mock `HEROES`.
 
@@ -49,14 +43,14 @@ Open the `HeroesComponent` class file and import the mock `HEROES`.
 <code-example path="toh-pt2/src/app/heroes/heroes.component.ts" region="import-heroes" header="src/app/heroes/heroes.component.ts (import HEROES)">
 </code-example>
 
-In the same file (`HeroesComponent` class), define a component property called `heroes` to expose `HEROES` array for binding.
+In the same file (`HeroesComponent` class), define a component property called `heroes` to expose the `HEROES` array for binding.
 
-往类中添加一个 `heroes` 属性，这样可以暴露出这些英雄，以供绑定。
+往类中添加一个 `heroes` 属性，这样可以暴露出这个 `HEROES` 数组，以供绑定。
 
-<code-example path="toh-pt2/src/app/heroes/heroes.component.ts" region="component">
+<code-example path="toh-pt2/src/app/heroes/heroes.component.ts" header="src/app/heroes/heroes.component.ts" region="component">
 </code-example>
 
-### List heroes with _*ngFor_
+### List heroes with `*ngFor`
 
 ### 使用 `*ngFor` 列出这些英雄
 
@@ -84,12 +78,11 @@ Make it look like this:
 
 做完之后应该是这样的：
 
-<code-example path="toh-pt2/src/app/heroes/heroes.component.1.html" region="list" header="heroes.component.html (heroes template)" linenums="false">
-</code-example>
+<code-example path="toh-pt2/src/app/heroes/heroes.component.1.html" region="list" header="heroes.component.html (heroes template)"></code-example>
 
-Now change the `<li>` to this:
+That shows one hero. To list them all, add an `*ngFor` to the `<li>` to iterate through the list of heroes:
 
-现在，把 `<li>` 修改成这样：
+这只展示了一个英雄。要想把他们都列出来，就要为 `<li>` 添加一个 `*ngFor` 以便迭代出列表中的所有英雄：
 
 <code-example path="toh-pt2/src/app/heroes/heroes.component.1.html" region="li">
 </code-example>
@@ -100,15 +93,15 @@ It repeats the host element for each element in a list.
 [`*ngFor`](guide/template-syntax#ngFor) 是一个 Angular 的复写器（repeater）指令。
 它会为列表中的每项数据复写它的宿主元素。
 
-In this example
+The syntax in this example is as follows:
 
-在这个例子中
+这个例子中涉及的语法如下：
 
-* `<li>` is the host element
+* `<li>` is the host element.
 
-   `<li>` 就是 `*ngFor` 的宿主元素
+   `<li>` 就是 `*ngFor` 的宿主元素。
 
-* `heroes` is the list from the `HeroesComponent` class.
+* `heroes` holds the mock heroes list from the `HeroesComponent` class, the mock heroes list.
 
    `heroes` 就是来自 `HeroesComponent` 类的列表。
 
@@ -211,8 +204,7 @@ Add a click event binding to the `<li>` like this:
 
 再往 `<li>` 元素上插入一句点击事件的绑定代码：
 
-<code-example path="toh-pt2/src/app/heroes/heroes.component.1.html" region="selectedHero-click" header="heroes.component.html (template excerpt)" linenums="false">
-</code-example>
+<code-example path="toh-pt2/src/app/heroes/heroes.component.1.html" region="selectedHero-click" header="heroes.component.html (template excerpt)"></code-example>
 
 This is an example of Angular's [event binding](guide/template-syntax#event-binding) syntax.
 
@@ -221,15 +213,14 @@ This is an example of Angular's [event binding](guide/template-syntax#event-bind
 The parentheses around `click` tell Angular to listen for the `<li>` element's  `click` event.
 When the user clicks in the `<li>`, Angular executes the `onSelect(hero)` expression.
 
-`click` 外面的圆括号会让 Angular 监听这个 `<li>` 元素的 `click` 事件。
+
+In the next section, define an `click` 外面的圆括号会让 Angular 监听这个 `<li>` 元素的 `click` 事件。
 当用户点击 `<li>` 时，Angular 就会执行表达式 `onSelect(hero)`。
 
-`onSelect()` is a `HeroesComponent` method that you're about to write.
-Angular calls it with the `hero` object displayed in the clicked `<li>`,
-the same `hero` defined previously in the `*ngFor` expression.
+`onSelect()` method in `HeroesComponent` to
+display the hero that was defined in the `*ngFor` expression.
 
-`onSelect()` 是 `HeroesComponent` 上的一个方法，你很快就要写它。
-Angular 会把所点击的 `<li>` 上的 `hero` 对象传给它，这个 `hero` 也就是前面在 `*ngFor` 表达式中定义的那个。
+`HeroesComponent` 上的 `onSelect()` 方法 用来显示 `*ngFor` 表达式所定义的那个英雄（`hero`）。
 
 ### Add the click event handler
 
@@ -246,21 +237,20 @@ to the component's `selectedHero`.
 
 添加如下 `onSelect()` 方法，它会把模板中被点击的英雄赋值给组件的 `selectedHero` 属性。
 
-<code-example path="toh-pt2/src/app/heroes/heroes.component.ts" region="on-select" header="src/app/heroes/heroes.component.ts (onSelect)" linenums="false">
-</code-example>
+<code-example path="toh-pt2/src/app/heroes/heroes.component.ts" region="on-select" header="src/app/heroes/heroes.component.ts (onSelect)"></code-example>
 
-### Update the details template
+### Add a details section
 
-### 修改详情模板
+### 添加详情区
 
-The template still refers to the component's old `hero` property which no longer exists.
-Rename `hero` to `selectedHero`.
+Currently, you have a list in the component template. To click on a hero on the list
+and reveal details about that hero, you need a section for the details to render in the
+template. Add the following to `heroes.component.html` beneath the list section:
 
-该模板引用的仍然是老的 `hero` 属性，但它已经不存在了。
-把 `hero` 改名为 `selectedHero`。
+现在，组件的模板中有一个列表。要想点击列表中的一个英雄，并显示该英雄的详情，你需要在模板中留一个区域，用来显示这些详情。
+在 `heroes.component.html` 中该列表的紧下方，添加如下代码：
 
-<code-example path="toh-pt2/src/app/heroes/heroes.component.html" region="selectedHero-details" header="heroes.component.html (selected hero details)" linenums="false">
-</code-example>
+<code-example path="toh-pt2/src/app/heroes/heroes.component.html" region="selectedHero-details" header="heroes.component.html (selected hero details)"></code-example>
 
 After the browser refreshes, the application is broken.
 
@@ -282,7 +272,7 @@ When the app starts, the `selectedHero` is `undefined` _by design_.
 
 当应用启动时，`selectedHero` 是 `undefined`，*设计如此*。
 
-Binding expressions in the template that refer to properties of `selectedHero` &mdash; expressions like `{{selectedHero.name}}` &mdash; _must fail_ because there is no selected hero.
+Binding expressions in the template that refer to properties of `selectedHero`&mdash;expressions like `{{selectedHero.name}}`&mdash;_must fail_ because there is no selected hero.
 
 但模板中的绑定表达式引用了 `selectedHero` 的属性（表达式为 `{{selectedHero.name}}`），这必然会失败，因为你还没选过英雄呢。
 
@@ -308,8 +298,7 @@ Don't forget the asterisk (*) in front of `ngIf`. It's a critical part of the sy
 
 </div>
 
-<code-example path="toh-pt2/src/app/heroes/heroes.component.html" region="ng-if" header="src/app/heroes/heroes.component.html (*ngIf)" linenums="false">
-</code-example>
+<code-example path="toh-pt2/src/app/heroes/heroes.component.html" region="ng-if" header="src/app/heroes/heroes.component.html (*ngIf)"></code-example>
 
 After the browser refreshes, the list of names reappears.
 The details area is blank.
@@ -328,9 +317,9 @@ The heroes appear in a list and details about the clicked hero appear at the bot
 
 #### 为什么改好了？
 
-When `selectedHero` is undefined, the `ngIf` removes the hero detail from the DOM. There are no `selectedHero` bindings to worry about.
+When `selectedHero` is undefined, the `ngIf` removes the hero detail from the DOM. There are no `selectedHero` bindings to consider.
 
-当 `selectedHero` 为 `undefined` 时，`ngIf` 从 DOM 中移除了英雄详情。因此也就不用担心 `selectedHero` 的绑定了。
+当 `selectedHero` 为 `undefined` 时，`ngIf` 从 DOM 中移除了英雄详情。因此也就不用关心 `selectedHero` 的绑定了。
 
 When the user picks a hero, `selectedHero` has a value and
 `ngIf` puts the hero detail into the DOM.
@@ -349,11 +338,9 @@ If the user clicks "Magneta", that hero should render with a distinctive but sub
 
 如果用户点击了“Magneta”，这个英雄应该用一个略有不同的背景色显示出来，就像这样：
 
-<figure>
-
+<div class="lightbox">
   <img src='generated/images/guide/toh/heroes-list-selected.png' alt="Selected hero">
-
-</figure>
+</div>
 
 That _selected hero_ coloring is the work of the `.selected` CSS class in the [styles you added earlier](#styles).
 You just have to apply the `.selected` class to the `<li>` when the user clicks it.
@@ -367,12 +354,11 @@ Just add `[class.some-css-class]="some-condition"` to the element you want to st
 Angular 的 [CSS 类绑定](guide/template-syntax#class-binding)机制让根据条件添加或移除一个 CSS 类变得很容易。
 只要把 `[class.some-css-class]="some-condition"` 添加到你要施加样式的元素上就可以了。
 
-Add the following `[class.selected]` binding to  the `<li>` in the `HeroesComponent` template:
+Add the following `[class.selected]` binding to the `<li>` in the `HeroesComponent` template:
 
 在 `HeroesComponent` 模板中的 `<li>` 元素上添加 `[class.selected]` 绑定，代码如下：
 
-<code-example path="toh-pt2/src/app/heroes/heroes.component.1.html" region="class-selected" header="heroes.component.html (toggle the 'selected' CSS class)" linenums="false">
-</code-example>
+<code-example path="toh-pt2/src/app/heroes/heroes.component.1.html" region="class-selected" header="heroes.component.html (toggle the 'selected' CSS class)"></code-example>
 
 When the current row hero is the same as the `selectedHero`, Angular adds the `selected` CSS class. When the two heroes are different, Angular removes the class.
 
@@ -382,9 +368,7 @@ The finished `<li>` looks like this:
 
 最终的 `<li>` 是这样的：
 
-<code-example path="toh-pt2/src/app/heroes/heroes.component.html" region="li" header="heroes.component.html (list item hero)" linenums="false">
-
-</code-example>
+<code-example path="toh-pt2/src/app/heroes/heroes.component.html" region="li" header="heroes.component.html (list item hero)"></code-example>
 
 {@a final-code-review}
 
@@ -401,6 +385,10 @@ Here are the code files discussed on this page, including the `HeroesComponent` 
 下面是本页面中所提及的代码文件，包括 `HeroesComponent` 的样式。
 
 <code-tabs>
+
+  <code-pane header="src/app/mock-heroes.ts" path="toh-pt2/src/app/mock-heroes.ts">
+  </code-pane>
+
   <code-pane header="src/app/heroes/heroes.component.ts" path="toh-pt2/src/app/heroes/heroes.component.ts">
   </code-pane>
 

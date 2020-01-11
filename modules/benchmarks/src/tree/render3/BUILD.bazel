@@ -1,25 +1,26 @@
 package(default_visibility = ["//modules/benchmarks:__subpackages__"])
 
-load("//tools:defaults.bzl", "ng_module", "ng_rollup_bundle")
-load("@npm_bazel_typescript//:index.bzl", "ts_devserver")
+load("//tools:defaults.bzl", "ng_module", "ng_rollup_bundle", "ts_devserver")
 load("//modules/benchmarks:benchmark_test.bzl", "benchmark_test")
 
 ng_module(
     name = "tree_lib",
-    srcs = glob(["**/*.ts"]),
+    srcs = [
+        "index_aot.ts",
+        "tree.ts",
+    ],
     tags = ["ivy-only"],
     deps = [
         "//modules/benchmarks/src/tree:util_lib",
         "//packages:types",
         "//packages/common",
         "//packages/core",
-        "@npm//reflect-metadata",
     ],
 )
 
 ng_rollup_bundle(
     name = "bundle",
-    entry_point = "modules/benchmarks/src/tree/render3/index.js",
+    entry_point = ":index_aot.ts",
     tags = ["ivy-only"],
     deps = [
         ":tree_lib",
@@ -29,12 +30,10 @@ ng_rollup_bundle(
 
 ts_devserver(
     name = "devserver",
-    static_files = [
-        ":bundle.min_debug.js",
-        ":bundle.min.js",
-        "index.html",
-    ],
+    port = 4200,
+    static_files = ["index.html"],
     tags = ["ivy-only"],
+    deps = [":bundle.min_debug.js"],
 )
 
 benchmark_test(

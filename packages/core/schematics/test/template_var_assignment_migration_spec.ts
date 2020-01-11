@@ -28,7 +28,7 @@ describe('template variable assignment migration', () => {
     writeFile('/tsconfig.json', JSON.stringify({
       compilerOptions: {
         lib: ['es2015'],
-      }
+      },
     }));
     writeFile('/angular.json', JSON.stringify({
       projects: {t: {architect: {build: {options: {tsConfig: './tsconfig.json'}}}}}
@@ -210,6 +210,30 @@ describe('template variable assignment migration', () => {
 
        expect(warnOutput.length).toBe(0);
      });
+
+  it('should warn for template variable assignments in expression conditional', async() => {
+    writeFile('/index.ts', `
+      import {Component} from '@angular/core';
+
+      @Component({
+        templateUrl: './sub_dir/tmpl.html',
+      })
+      export class MyComp {
+        otherVar = false;
+      }
+    `);
+
+    writeFile('/sub_dir/tmpl.html', `
+      <ng-template let-tmplVar>
+        <p (click)="enabled ? tmplVar = true : otherVar = true"></p>
+      </ng-template>
+    `);
+
+    await runMigration();
+
+    expect(warnOutput.length).toBe(1);
+    expect(warnOutput[0]).toMatch(/^⮑ {3}sub_dir\/tmpl.html@3:31: Found assignment/);
+  });
 
   it('should not warn for property writes with template variable name but different scope',
      async() => {

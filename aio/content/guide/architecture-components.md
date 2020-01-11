@@ -25,16 +25,16 @@ The class interacts with the view through an API of properties and methods.
 你在类中定义组件的应用逻辑，为视图提供支持。
 组件通过一些由属性和方法组成的 API 与视图交互。
 
-For example, `HeroListComponent` has a `heroes` property that holds an array of heroes. 
-Its `selectHero()` method sets a `selectedHero` property when the user clicks to choose a hero from that list. 
-The component acquires the heroes from a service, which is a TypeScript [parameter property](http://www.typescriptlang.org/docs/handbook/classes.html#parameter-properties) on the constructor. 
+For example, `HeroListComponent` has a `heroes` property that holds an array of heroes.
+Its `selectHero()` method sets a `selectedHero` property when the user clicks to choose a hero from that list.
+The component acquires the heroes from a service, which is a TypeScript [parameter property](http://www.typescriptlang.org/docs/handbook/classes.html#parameter-properties) on the constructor.
 The service is provided to the component through the dependency injection system.
 
 比如，`HeroListComponent` 中有一个 名为`heroes`的属性，它储存着一个数组的英雄数据。
 `HeroListComponent` 还有一个 `selectHero()` 方法，当用户从列表中选择一个英雄时，它会设置 `selectedHero` 属性的值。
 该组件会从服务获取英雄列表，它是一个 TypeScript 的构造器[参数型属性](http://www.typescriptlang.org/docs/handbook/classes.html#parameter-properties)。本服务通过依赖注入系统提供给该组件。
 
-<code-example path="architecture/src/app/hero-list.component.ts" linenums="false" header="src/app/hero-list.component.ts (class)" region="class"></code-example>
+<code-example path="architecture/src/app/hero-list.component.ts" header="src/app/hero-list.component.ts (class)" region="class"></code-example>
 
 Angular creates, updates, and destroys components as the user moves through the application. Your app can take action at each moment in this lifecycle through optional [lifecycle hooks](guide/lifecycle-hooks), like `ngOnInit()`.
 
@@ -67,13 +67,13 @@ Here's an example of basic metadata for `HeroListComponent`.
 
 下面的例子中就是 `HeroListComponent` 的基础元数据：
 
-<code-example path="architecture/src/app/hero-list.component.ts" linenums="false" header="src/app/hero-list.component.ts (metadata)" region="metadata"></code-example>
+<code-example path="architecture/src/app/hero-list.component.ts" header="src/app/hero-list.component.ts (metadata)" region="metadata"></code-example>
 
 This example shows some of the most useful `@Component` configuration options:
 
 这个例子展示了一些最常用的 `@Component` 配置选项：
 
-* `selector`: A CSS selector that tells Angular to create and insert an instance of this component wherever it finds the corresponding tag in template HTML. For example, if an app's  HTML contains `<app-hero-list></app-hero-list>`, then
+* `selector`: A CSS selector that tells Angular to create and insert an instance of this component wherever it finds the corresponding tag in template HTML. For example, if an app's HTML contains `<app-hero-list></app-hero-list>`, then
 Angular inserts an instance of the `HeroListComponent` view between those tags.
 
    `selector`：是一个 CSS 选择器，它会告诉 Angular，一旦在模板 HTML 中找到了这个选择器对应的标签，就创建并插入该组件的一个实例。
@@ -85,7 +85,7 @@ Angular inserts an instance of the `HeroListComponent` view between those tags.
   另外，你还可以用 `template` 属性的值来提供内联的 HTML 模板。
   这个模板定义了该组件的*宿主视图*。
 
-* `providers`: An array of [providers](guide/glossary#provider) for services that the component requires. In the example, this tells Angular how to provide the `HeroService` instance that the component's constructor uses to get the list of heroes to display.  
+* `providers`: An array of [providers](guide/glossary#provider) for services that the component requires. In the example, this tells Angular how to provide the `HeroService` instance that the component's constructor uses to get the list of heroes to display.
 
    `providers`：当前组件所需的服务[提供商](guide/glossary#provider)的一个数组。在这个例子中，它告诉 Angular 该如何提供一个 `HeroService` 实例，以获取要显示的英雄列表。
 
@@ -104,9 +104,9 @@ Views are typically arranged hierarchically, allowing you to modify or show and 
 视图通常会分层次进行组织，让你能以 UI 分区或页面为单位进行修改、显示或隐藏。
 与组件直接关联的模板会定义该组件的*宿主视图*。该组件还可以定义一个*带层次结构的视图*，它包含一些*内嵌的视图*作为其它组件的宿主。
 
-<figure>
-<img src="generated/images/guide/architecture/component-tree.png" alt="Component tree" class="left">
-</figure>
+<div class="lightbox">
+  <img src="generated/images/guide/architecture/component-tree.png" alt="Component tree" class="left">
+</div>
 
 A view hierarchy can include views from components in the same NgModule, but it also can (and often does) include views from components that are defined in different NgModules.
 
@@ -139,7 +139,7 @@ This template uses typical HTML elements like `<h2>` and  `<p>`, and also includ
 
    `{{hero.name}}`、`(click)` 和 `[hero]` 把程序数据绑定到及绑定回 DOM，以响应用户的输入。更多内容参见稍后的[数据绑定](#data-binding)部分。
 
-* The `<app-hero-detail>` tag in the example is an element that represents a new component, `HeroDetailComponent`.  
+* The `<app-hero-detail>` tag in the example is an element that represents a new component, `HeroDetailComponent`.
 `HeroDetailComponent` (code not shown) defines the hero-detail child view of `HeroListComponent`.
 Notice how custom components like this mix seamlessly with native HTML in the same layouts.
 
@@ -165,15 +165,15 @@ The following diagram shows the four forms of data binding markup. Each form has
 
 下图显示了数据绑定标记的四种形式。每种形式都有一个方向 —— 从组件到 DOM、从 DOM 到组件或双向。
 
-<figure>
-<img src="generated/images/guide/architecture/databinding.png" alt="Data Binding" class="left">
-</figure>
+<div class="lightbox">
+  <img src="generated/images/guide/architecture/databinding.png" alt="Data Binding" class="left">
+</div>
 
 This example from the `HeroListComponent` template uses three of these forms.
 
 这个来自 `HeroListComponent` 模板中的例子使用了其中的三种形式：
 
-<code-example path="architecture/src/app/hero-list.component.1.html" linenums="false" header="src/app/hero-list.component.html (binding)" region="binding"></code-example>
+<code-example path="architecture/src/app/hero-list.component.1.html" header="src/app/hero-list.component.html (binding)" region="binding"></code-example>
 
 * The `{{hero.name}}` [*interpolation*](guide/displaying-data#interpolation)
 displays the component's `hero.name` property value within the `<li>` element.
@@ -189,13 +189,13 @@ displays the component's `hero.name` property value within the `<li>` element.
 
    当用户点击某个英雄的名字时，`(click)` [*事件绑定*](guide/user-input#binding-to-user-input-events)会调用组件的 `selectHero` 方法。
 
-Two-way data binding (used mainly in [template-driven forms](guide/forms)) 
-combines property and event binding in a single notation. 
+Two-way data binding (used mainly in [template-driven forms](guide/forms))
+combines property and event binding in a single notation.
 Here's an example from the `HeroDetailComponent` template that uses two-way data binding with the `ngModel` directive.
 
 **双向数据绑定**（主要用于[模板驱动表单](guide/forms)中），它会把属性绑定和事件绑定组合成一种单独的写法。下面这个来自 `HeroDetailComponent` 模板中的例子通过 `ngModel` 指令使用了双向数据绑定：
 
-<code-example path="architecture/src/app/hero-detail.component.html" linenums="false" header="src/app/hero-detail.component.html (ngModel)" region="ngModel"></code-example>
+<code-example path="architecture/src/app/hero-detail.component.html" header="src/app/hero-detail.component.html (ngModel)" region="ngModel"></code-example>
 
 In two-way binding, a data property value flows to the input box from the component as with property binding.
 The user's changes also flow back to the component, resetting the property to the latest value,
@@ -208,17 +208,17 @@ from the root of the application component tree through all child components.
 
 Angular 在每个 JavaScript 事件循环中处理*所有的*数据绑定，它会从组件树的根部开始，递归处理全部子组件。
 
-<figure>
+<div class="lightbox">
   <img src="generated/images/guide/architecture/component-databinding.png" alt="Data Binding" class="left">
-</figure>
+</div>
 
 Data binding plays an important role in communication between a template and its component, and is also important for communication between parent and child components.
 
 数据绑定在模板及其组件之间的通讯中扮演了非常重要的角色，它对于父组件和子组件之间的通讯也同样重要。
 
-<figure>
+<div class="lightbox">
   <img src="generated/images/guide/architecture/parent-child-binding.png" alt="Parent/Child binding" class="left">
-</figure>
+</div>
 
 ### Pipes
 
@@ -272,12 +272,12 @@ Angular 的模板是*动态的*。当 Angular 渲染它们的时候，会根据*
 
 A component is technically a directive.
 However, components are so distinctive and central to Angular applications that Angular
-defines the `@Component()` decorator, which extends the `@Directive()` decorator with 
+defines the `@Component()` decorator, which extends the `@Directive()` decorator with
 template-oriented features.
 
 组件从技术角度上说就是一个指令，但是由于组件对 Angular 应用来说非常独特、非常重要，因此 Angular 专门定义了 `@Component()` 装饰器，它使用一些面向模板的特性扩展了 `@Directive()` 装饰器。
 
-In addition to components, there are two other kinds of directives:  *structural* and *attribute*. 
+In addition to components, there are two other kinds of directives:  *structural* and *attribute*.
 Angular defines a number of directives of both kinds, and you can define your own using the  `@Directive()` decorator.
 
 除组件外，还有两种指令：*结构型指令*和*属性型指令*。
@@ -292,13 +292,13 @@ Just as for components, the metadata for a directive associates the decorated cl
 
 #### 结构型指令
 
-*Structural directives* alter layout by adding, removing, and replacing elements in the DOM. 
+*Structural directives* alter layout by adding, removing, and replacing elements in the DOM.
 The example template uses two built-in structural directives to add application logic to how the view is rendered.
 
 *结构型指令*通过添加、移除或替换 DOM 元素来修改布局。
 这个范例模板使用了两个内置的结构型指令来为要渲染的视图添加程序逻辑：
 
-<code-example path="architecture/src/app/hero-list.component.1.html" linenums="false" header="src/app/hero-list.component.html (structural)" region="structural"></code-example>
+<code-example path="architecture/src/app/hero-list.component.1.html" header="src/app/hero-list.component.html (structural)" region="structural"></code-example>
 
   * [`*ngFor`](guide/displaying-data#ngFor) is an iterative; it tells Angular to stamp out one `<li>` per hero in the `heroes` list.
 
@@ -323,7 +323,7 @@ The `ngModel` directive, which implements two-way data binding, is an example of
 `ngModel` 指令就是属性型指令的一个例子，它实现了双向数据绑定。
 `ngModel` 修改现有元素（一般是 `<input>`）的行为：设置其显示属性值，并响应 change 事件。
 
-<code-example path="architecture/src/app/hero-detail.component.html" linenums="false" header="src/app/hero-detail.component.html (ngModel)" region="ngModel"></code-example>
+<code-example path="architecture/src/app/hero-detail.component.html" header="src/app/hero-detail.component.html (ngModel)" region="ngModel"></code-example>
 
 Angular has more pre-defined directives that either alter the layout structure
 (for example, [ngSwitch](guide/template-syntax#ngSwitch))

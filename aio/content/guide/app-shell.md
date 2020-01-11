@@ -28,7 +28,7 @@ You can do this with the following CLI command:
 
 可以用下列 CLI 命令来执行本操作：
 
-<code-example format="." language="bash" linenums="false">
+<code-example language="bash">
 ng new my-app --routing
 </code-example>
 
@@ -49,25 +49,20 @@ Use the CLI to automatically create the app shell.
 使用 CLI 自动创建一个应用外壳。
 
 
-<code-example format="." language="bash" linenums="false">
-ng generate app-shell --client-project my-app --universal-project server-app
+<code-example language="bash">
+ng generate app-shell
 </code-example>
 
-* `my-app` takes the name of your client application.
+* `client-project` takes the name of your client application.
 
-  `my-app` 是本客户端应用的名字。
-
-* `server-app` takes the name of the Universal (or server) application.
-
-  `server-app` 是这个 Universal（或 server）应用的名字。
-
+  `client-project` 是你这个客户端应用的名字。
 
 After running this command you will notice that the `angular.json` configuration file has been updated to add two new targets, with a few other changes.
 
 执行完这个命令，你会发现 `angular.json` 配置文件中已经增加了两个新目标，并做了一些其它更改。
 
 
-<code-example format="." language="none" linenums="false">
+<code-example language="json">
 "server": {
   "builder": "@angular-devkit/build-angular:server",
   "options": {
@@ -82,6 +77,12 @@ After running this command you will notice that the `angular.json` configuration
     "browserTarget": "my-app:build",
     "serverTarget": "my-app:server",
     "route": "shell"
+  },
+  "configurations": {
+    "production": {
+      "browserTarget": "my-app:build:production",
+      "serverTarget": "my-app:server:production"
+    }
   }
 }
 </code-example>
@@ -96,8 +97,16 @@ Use the CLI to build the `app-shell` target.
 使用 CLI 构建目标 `app-shell`。
 
 
-<code-example format="." language="bash" linenums="false">
+<code-example language="bash">
 ng run my-app:app-shell
+</code-example>
+
+Or to use the production configuration.
+
+或使用产品环境配置。
+
+<code-example language="bash">
+ng run my-app:app-shell:production
 </code-example>
 
 To verify the build output, open `dist/my-app/index.html`. Look for default text `app-shell works!` to show that the app shell route was rendered as part of the output.

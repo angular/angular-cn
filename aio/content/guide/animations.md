@@ -75,8 +75,7 @@ Import `BrowserAnimationsModule`, which introduces the animation capabilities in
 
 导入 `BrowserAnimationsModule`，它能把动画能力引入 Angular 应用的根模块中。
 
-<code-example path="animations/src/app/app.module.1.ts" header="src/app/app.module.ts" language="typescript" linenums="false">
-</code-example>
+<code-example path="animations/src/app/app.module.1.ts" header="src/app/app.module.ts" language="typescript"></code-example>
 
 <div class="alert is-helpful">
 
@@ -131,9 +130,9 @@ In HTML, these attributes are set using ordinary CSS styles such as color and op
 在 HTML 中，这些属性都使用普通的 CSS 样式，比如颜色（color）和透明度（opacity）。在 Angular 中，使用 `style()` 函数来指定一组用作动画的 CSS 样式。
 你可以为动画状态指定一组样式，并为该状态指定一个名字，比如 `open` 或 `closed`。
 
-<figure>
-<img src="generated/images/guide/animations/open-closed.png" alt="open and closed states">
-</figure>
+<div class="lightbox">
+  <img src="generated/images/guide/animations/open-closed.png" alt="open and closed states">
+</div>
 
 ### Animation state and styles
 
@@ -170,9 +169,9 @@ In Angular, you can set multiple styles without any animation. However, without 
 
 在 Angular 中，你可以设置多个样式而不必用动画。不过，如果没有进一步细化，按钮的转换会立即完成 —— 没有渐隐、没有收缩，也没有其它的可视化效果来指出正在发生变化。
 
-To make the change less abrupt, we need to define an animation *transition* to specify the changes that occur between one state and another over a period of time. The `transition()` function accepts two arguments: the first argument accepts an expression that defines the direction between two transition states, and the second argument accepts an `animate()` function.
+To make the change less abrupt, we need to define an animation *transition* to specify the changes that occur between one state and another over a period of time. The `transition()` function accepts two arguments: the first argument accepts an expression that defines the direction between two transition states, and the second argument accepts one or a series of `animate()` steps.
 
-要让这些变化不那么突兀，我们需要定义一个动画*转场*来要求这些状态之间的变化在一段时间内发生。`transition()` 接受两个参数：第一个参数接受一个表达式，它定义两个转场状态之间的方向；第二个参数接受一个 `animate()` 函数。
+要让这些变化不那么突兀，我们需要定义一个动画*转场*来要求这些状态之间的变化在一段时间内发生。`transition()` 接受两个参数：第一个参数接受一个表达式，它定义两个转场状态之间的方向；第二个参数接受一个或一系列 `animate()` 函数。
 
 Use the `animate()` function to define the length, delay, and easing of a transition, and to designate the style function for defining styles while transitions are taking place. You can also use the `animate()` function to define the `keyframes()` function for multi-step animations. These definitions are placed in the second argument of the `animate()` function.
 
@@ -235,10 +234,9 @@ The third argument, `easing`, controls how the animation [accelerates and decele
 
 <div class="alert is-helpful">
 
-**Note:** See the Angular Material Design website's topic on [Natural easing curves](https://material.io/design/motion/speed.html#easing) for general information on easing curves.
+**Note:** See the Material Design website's topic on [Natural easing curves](https://material.io/design/motion/speed.html#easing) for general information on easing curves.
 
 **注意：**要了解缓动曲线的更多信息，请参阅 Angular Material Design 网站下的[自然缓动曲线](https://material.io/design/motion/speed.html#easing)主题。
-
 </div>
 
 This example provides a state transition from `open` to `closed` with a one second transition between states.
@@ -301,9 +299,9 @@ In this example, we'll name the trigger `openClose`, and attach it to the `butto
 
 在这个例子中，我们将把该触发器命名为 `openClose`，并把它附加到 `button` 元素上。该触发器描述了 `open` 和 `closed` 两个状态，以及两个转场效果的时序。
 
-<figure>
-<img src="generated/images/guide/animations/triggering-the-animation.png" alt="triggering the animation">
-</figure>
+<div class="lightbox">
+  <img src="generated/images/guide/animations/triggering-the-animation.png" alt="triggering the animation">
+</div>
 
 <div class="alert is-helpful">
 
@@ -321,9 +319,7 @@ Animations are defined in the metadata of the component that controls the HTML e
 
 这些控制 HTML 元素如何运动的动画是在组件的元数据中定义的。请在 `@Component()` 装饰器的 `animations:` 属性下用代码定义你要用的动画。
 
-<code-example path="animations/src/app/open-close.component.ts" header="src/app/open-close.component.ts" language="typescript"
-region="component" linenums="false">
-</code-example>
+<code-example path="animations/src/app/open-close.component.ts" header="src/app/open-close.component.ts" language="typescript" region="component"></code-example>
 
 When you've defined an animation trigger for a component, you can attach it to an element in that component's template by wrapping the trigger name in brackets and preceding it with an `@` symbol. Then, you can bind the trigger to a template expression using standard Angular property binding syntax as shown below, where `triggerName` is the name of the trigger, and `expression` evaluates to a defined animation state.
 
@@ -452,7 +448,7 @@ Defines one or more CSS styles to use in animations. Controls the visual appeara
 </tr>
 
 <tr>
-<td><code>state()</code></td>
+<td><code><a href="api/animations/state" class="code-anchor">state()</a></code></td>
 <td>
 
 Creates a named set of CSS styles that should be applied on successful transition to a given state. The state can then be referenced by name within other animation functions.
@@ -496,7 +492,7 @@ Allows a sequential change between styles within a specified time interval. Use 
 </tr>
 
 <tr>
-<td><code>group()</code></td>
+<td><code><a href="api/animations/group" class="code-anchor">group()</a></code></td>
 <td>
 
 Specifies a group of animation steps (<em>inner animations</em>) to be run in parallel. Animation continues only after all inner animation steps have completed. Used within <code>sequence()</code> or <code>transition().</code>

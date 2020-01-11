@@ -1,4 +1,4 @@
-# Dependency Injection in Action
+# Dependency injection in action
 
 # 依赖注入实战
 
@@ -38,18 +38,14 @@ The following example shows that `AppComponent` declares its dependence on `Logg
 
 下面的例子往 `AppComponent` 里声明它依赖 `LoggerService` 和 `UserContext`。
 
-<code-example path="dependency-injection-in-action/src/app/app.component.ts" region="ctor" header="src/app/app.component.ts" linenums="false">
-
-</code-example>
+<code-example path="dependency-injection-in-action/src/app/app.component.ts" region="ctor" header="src/app/app.component.ts"></code-example>
 
 `UserContext` in turn depends on both `LoggerService` and
 `UserService`, another service that gathers information about a particular user.
 
 `UserContext` 转而依赖 `LoggerService` 和 `UserService`（这个服务用来收集特定用户信息）。
 
-<code-example path="dependency-injection-in-action/src/app/user-context.service.ts" region="injectables" header="user-context.service.ts (injection)" linenums="false">
-
-</code-example>
+<code-example path="dependency-injection-in-action/src/app/user-context.service.ts" region="injectables" header="user-context.service.ts (injection)"></code-example>
 
 When Angular creates `AppComponent`, the DI framework creates an instance of `LoggerService` and starts to create `UserContextService`.
 `UserContextService` also needs `LoggerService`, which the framework already has, so the framework can provide the same instance. `UserContextService` also needs `UserService`, which the framework has yet to create. `UserService` has no further dependencies, so the framework can simply use `new` to instantiate the class and provide the instance to the `UserContextService` constructor.
@@ -69,9 +65,9 @@ When all dependencies are in place, `AppComponent` displays the user information
 
 当所有的依赖都就位之后，`AppComponent` 就会显示该用户的信息。
 
-<figure>
+<div class="lightbox">
   <img src="generated/images/guide/dependency-injection-in-action/logged-in-user.png" alt="Logged In User">
-</figure>
+</div>
 
 {@a service-scope}
 
@@ -198,9 +194,9 @@ and confirm that the three `HeroBioComponent` instances have their own cached he
 
 到<live-example name="dependency-injection-in-action">在线例子</live-example>中找到这个例子，确认三个 `HeroBioComponent` 实例拥有自己独立的英雄数据缓存。
 
-<figure>
+<div class="lightbox">
   <img src="generated/images/guide/dependency-injection-in-action/hero-bios.png" alt="Bios">
-</figure>
+</div>
 
 {@a qualify-dependency-lookup}
 
@@ -277,9 +273,7 @@ Focus on the template:
 
 注意看模板：
 
-<code-example path="dependency-injection-in-action/src/app/hero-bios.component.ts" region="template" header="dependency-injection-in-action/src/app/hero-bios.component.ts" linenums="false">
-
-</code-example>
+<code-example path="dependency-injection-in-action/src/app/hero-bios.component.ts" region="template" header="dependency-injection-in-action/src/app/hero-bios.component.ts"></code-example>
 
 Now there's a new `<hero-contact>` element between the `<hero-bio>` tags.
 Angular *projects*, or *transcludes*, the corresponding `HeroContactComponent` into the `HeroBioComponent` view,
@@ -288,17 +282,15 @@ placing it in the `<ng-content>` slot of the `HeroBioComponent` template.
 在 `<hero-bio>` 标签中是一个新的 `<hero-contact>` 元素。Angular 就会把相应的 `HeroContactComponent`*投影*(*transclude*)进 `HeroBioComponent` 的视图里，
 将它放在 `HeroBioComponent` 模板的 `<ng-content>` 标签槽里。
 
-<code-example path="dependency-injection-in-action/src/app/hero-bio.component.ts" region="template" header="src/app/hero-bio.component.ts (template)" linenums="false">
-
-</code-example>
+<code-example path="dependency-injection-in-action/src/app/hero-bio.component.ts" region="template" header="src/app/hero-bio.component.ts (template)"></code-example>
 
 The result is shown below, with the hero's telephone number from `HeroContactComponent` projected above the hero description.
 
 从 `HeroContactComponent` 获得的英雄电话号码，被投影到上面的英雄描述里，结果如下：
 
-<figure>
+<div class="lightbox">
   <img src="generated/images/guide/dependency-injection-in-action/hero-bio-and-content.png" alt="bio and contact">
-</figure>
+</div>
 
 
 Here's `HeroContactComponent`, which demonstrates the qualifying decorators.
@@ -313,9 +305,7 @@ Focus on the constructor parameters.
 
 注意构造函数的参数。
 
-<code-example path="dependency-injection-in-action/src/app/hero-contact.component.ts" region="ctor-params" header="src/app/hero-contact.component.ts" linenums="false">
-
-</code-example>
+<code-example path="dependency-injection-in-action/src/app/hero-contact.component.ts" region="ctor-params" header="src/app/hero-contact.component.ts"></code-example>
 
 The `@Host()` function decorating the  `heroCache` constructor property ensures that
 you get a reference to the cache service from the parent `HeroBioComponent`.
@@ -341,9 +331,9 @@ Here's `HeroBiosAndContactsComponent` in action.
 
 下面是 `HeroBiosAndContactsComponent` 的执行结果：
 
-<figure>
+<div class="lightbox">
   <img src="generated/images/guide/dependency-injection-in-action/hero-bios-and-contacts.png" alt="Bios with contact into">
-</figure>
+</div>
 
 If you comment out the `@Host()` decorator, Angular walks up the injector ancestor tree
 until it finds the logger at the `AppComponent` level.
@@ -352,9 +342,9 @@ with the "!!!" marker to indicate that the logger was found.
 
 如果注释掉 `@Host()` 装饰器，Angular 就会沿着注入器树往上走，直到在 `AppComponent` 中找到该日志服务。日志服务的逻辑加了进来，所显示的英雄信息增加了 "!!!" 标记，这表明确实找到了日志服务。
 
-<figure>
+<div class="lightbox">
   <img src="generated/images/guide/dependency-injection-in-action/hero-bio-contact-no-host.png" alt="Without @Host">
-</figure>
+</div>
 
 If you restore the `@Host()` decorator and comment out `@Optional`,
 the app throws an exception when it cannot find the required logger at the host component level.
@@ -392,7 +382,7 @@ Providers can also be scoped by injector through constructor parameter decorator
 
 </code-example>
 
-Using the `@Self` decorator, the injector only looks at the component's injector for its providers. The `@SkipSelf` decorator allows you to skip the local injector and look up in the hierarchy to find a provider that satisfies this dependency. The `sessionStorageService` instance interacts with the `BrowserStorageService` using the `sessionStorage` browser API, while the `localStorageService` skips the local injector and uses the root `BrowserStorageService` that uses the `localStorage` browswer API.
+Using the `@Self` decorator, the injector only looks at the component's injector for its providers. The `@SkipSelf` decorator allows you to skip the local injector and look up in the hierarchy to find a provider that satisfies this dependency. The `sessionStorageService` instance interacts with the `BrowserStorageService` using the `sessionStorage` browser API, while the `localStorageService` skips the local injector and uses the root `BrowserStorageService` that uses the `localStorage` browser API.
 
 使用 `@Self` 装饰器时，注入器只在该组件的注入器中查找提供商。`@SkipSelf` 装饰器可以让你跳过局部注入器，并在注入器树中向上查找，以发现哪个提供商满足该依赖。
 `sessionStorageService` 实例使用浏览器的 `sessionStorage` 来跟 `BrowserStorageService` 打交道，而 `localStorageService` 跳过了局部注入器，使用根注入器提供的 `BrowserStorageService`，它使用浏览器的 `localStorage` API。
@@ -434,18 +424,16 @@ first without a value (yielding the default color) and then with an assigned col
 
 下面的代码把指令的 `myHighlight` 属性(Attribute)填加到两个 `<div>` 标签里，一个没有赋值，一个赋值了颜色。
 
-<code-example path="dependency-injection-in-action/src/app/app.component.html" region="highlight" header="src/app/app.component.html (highlight)" linenums="false">
-
-</code-example>
+<code-example path="dependency-injection-in-action/src/app/app.component.html" region="highlight" header="src/app/app.component.html (highlight)"></code-example>
 
 
 The following image shows the effect of mousing over the `<hero-bios-and-contacts>` tag.
 
 下图显示了鼠标移到 `<hero-bios-and-contacts>` 标签上的效果：
 
-<figure>
+<div class="lightbox">
   <img src="generated/images/guide/dependency-injection-in-action/highlight.png" alt="Highlighted bios">
-</figure>
+</div>
 
 {@a providers}
 
@@ -471,9 +459,7 @@ The following is a typical example.
 
 下面是一个典型的例子。
 
-<code-example path="dependency-injection-in-action/src/app/hero-bios.component.ts" region="ctor" header="src/app/hero-bios.component.ts (component constructor injection)" linenums="false">
-
-</code-example>
+<code-example path="dependency-injection-in-action/src/app/hero-bios.component.ts" region="ctor" header="src/app/hero-bios.component.ts (component constructor injection)"></code-example>
 
 Angular asks the injector for the service associated with `LoggerService`
 and assigns the returned value to the `logger` parameter.
@@ -521,9 +507,9 @@ It's visually simple: a few properties and the logs produced by a logger.
 `HeroOfTheMonthComponent` 例子示范了一些替代方案，展示了为什么需要它们。
 它看起来很简单：一些属性和一些由 logger 生成的日志。
 
-<figure>
+<div class="lightbox">
   <img src="generated/images/guide/dependency-injection-in-action/hero-of-month.png" alt="Hero of the month">
-</figure>
+</div>
 
 The code behind it customizes how and where the DI framework provides dependencies.
 The use cases illustrate different ways to use the [*provide* object literal](guide/dependency-injection-providers#provide) to associate a definition object with a DI token.
@@ -558,9 +544,7 @@ The `HeroOfTheMonthComponent` example has two value providers.
 
 `HeroOfTheMonthComponent` 例子中有两个*值-提供商*。
 
-<code-example path="dependency-injection-in-action/src/app/hero-of-the-month.component.ts" region="use-value" header="dependency-injection-in-action/src/app/hero-of-the-month.component.ts" linenums="false">
-
-</code-example>
+<code-example path="dependency-injection-in-action/src/app/hero-of-the-month.component.ts" region="use-value" header="dependency-injection-in-action/src/app/hero-of-the-month.component.ts"></code-example>
 
 * The first provides an existing instance of the `Hero` class to use for the `Hero` token, rather than
 requiring the injector to create a new instance with `new` or use its own cached instance.
@@ -620,9 +604,7 @@ The following code shows two examples in `HeroOfTheMonthComponent`.
 
 请看下面 `HeroOfTheMonthComponent` 里的两个例子：
 
-<code-example path="dependency-injection-in-action/src/app/hero-of-the-month.component.ts" region="use-class" header="dependency-injection-in-action/src/app/hero-of-the-month.component.ts" linenums="false">
-
-</code-example>
+<code-example path="dependency-injection-in-action/src/app/hero-of-the-month.component.ts" region="use-class" header="dependency-injection-in-action/src/app/hero-of-the-month.component.ts"></code-example>
 
 The first provider is the *de-sugared*, expanded form of the most typical case in which the
 class to be created (`HeroService`) is also the provider's dependency injection token.
@@ -650,9 +632,7 @@ Components outside the tree continue to receive the original `LoggerService` ins
 
 `DateLoggerService` 从 `LoggerService` 继承；它把当前的日期/时间附加到每条信息上。
 
-<code-example path="dependency-injection-in-action/src/app/date-logger.service.ts" region="date-logger-service" header="src/app/date-logger.service.ts" linenums="false">
-
-</code-example>
+<code-example path="dependency-injection-in-action/src/app/date-logger.service.ts" region="date-logger-service" header="src/app/date-logger.service.ts"></code-example>
 
 {@a useexisting}
 
@@ -681,25 +661,21 @@ In this example, the `MinimalLogger` [class-interface](#class-interface) reduces
 
 想象 `LoggerService` 有个很大的 API 接口，远超过现有的三个方法和一个属性。你可能希望把 API 接口收窄到只有两个你确实需要的成员。在这个例子中，`MinimalLogger`[*类-接口*](guide/dependency-injection-in-action#class-interface)，就这个 API 成功缩小到了只有两个成员：
 
-<code-example path="dependency-injection-in-action/src/app/minimal-logger.service.ts" header="src/app/minimal-logger.service.ts" linenums="false">
-
-</code-example>
+<code-example path="dependency-injection-in-action/src/app/minimal-logger.service.ts" header="src/app/minimal-logger.service.ts"></code-example>
 
 The following example puts `MinimalLogger` to use in a simplified version of  `HeroOfTheMonthComponent`.
 
 下面的例子在一个简化版的 `HeroOfTheMonthComponent` 中使用 `MinimalLogger`。
 
-<code-example path="dependency-injection-in-action/src/app/hero-of-the-month.component.1.ts" header="src/app/hero-of-the-month.component.ts (minimal version)" linenums="false">
-
-</code-example>
+<code-example path="dependency-injection-in-action/src/app/hero-of-the-month.component.1.ts" header="src/app/hero-of-the-month.component.ts (minimal version)"></code-example>
 
 The `HeroOfTheMonthComponent` constructor's `logger` parameter is typed as `MinimalLogger`, so only the `logs` and `logInfo` members are visible in a TypeScript-aware editor.
 
 `HeroOfTheMonthComponent` 构造函数的 `logger` 参数是一个 `MinimalLogger` 类型，在支持 TypeScript 感知的编辑器里，只能看到它的两个成员 `logs` 和 `logInfo`：
 
-<figure>
+<div class="lightbox">
   <img src="generated/images/guide/dependency-injection-in-action/minimal-logger-intellisense.png" alt="MinimalLogger restricted API">
-</figure>
+</div>
 
 Behind the scenes, Angular sets the `logger` parameter to the full service registered under the `LoggingService` token, which happens to be the `DateLoggerService` instance that was [provided above](guide/dependency-injection-in-action#useclass).
 
@@ -711,9 +687,9 @@ This is illustrated in the following image, which displays the logging date.
 
 在下面的图片中，显示了日志日期，可以确认这一点：
 
-<figure>
+<div class="lightbox">
   <img src="generated/images/guide/dependency-injection-in-action/date-logger-entry.png" alt="DateLoggerService entry">
-</figure>
+</div>
 
 </div>
 
@@ -762,9 +738,7 @@ the passed-in state value and the injected services `Hero` and `HeroService`.
 该状态的值传给了 `runnersUpFactory()` 作为参数。
 `runnersUpFactory()` 返回了*提供商的工厂函数*，它可以使用传入的状态值和注入的服务 `Hero` 和 `HeroService`。
 
-<code-example path="dependency-injection-in-action/src/app/runners-up.ts" region="factory-synopsis" header="runners-up.ts (excerpt)" linenums="false">
-
-</code-example>
+<code-example path="dependency-injection-in-action/src/app/runners-up.ts" region="factory-synopsis" header="runners-up.ts (excerpt)"></code-example>
 
 The provider factory function (returned by `runnersUpFactory()`) returns the actual dependency object,
 the string of names.
@@ -829,20 +803,18 @@ as the token for a provider of `LoggerService`.
 
 </code-example>
 
- `MinimalLogger` is an abstract class.
+`MinimalLogger` is an abstract class.
 
 该 `MinimalLogger` 是一个抽象类。
 
-<code-example path="dependency-injection-in-action/src/app/minimal-logger.service.ts" header="dependency-injection-in-action/src/app/minimal-logger.service.ts" linenums="false">
-
-</code-example>
+<code-example path="dependency-injection-in-action/src/app/minimal-logger.service.ts" header="dependency-injection-in-action/src/app/minimal-logger.service.ts"></code-example>
 
 An abstract class is usually a base class that you can extend.
 In this app, however there is no class that inherits from `MinimalLogger`.
 
 你通常从一个可扩展的抽象类继承。但这个应用中*并没有*类会继承 `MinimalLogger`。
 
-The `LoggerService` and the `DateLoggerService`could have inherited from `MinimalLogger`,
+The `LoggerService` and the `DateLoggerService` could have inherited from `MinimalLogger`,
 or they could have implemented it instead, in the manner of an interface.
 But they did neither.
 `MinimalLogger` is used only as a dependency injection token.
@@ -860,7 +832,7 @@ As mentioned in [DI Providers](guide/dependency-injection-providers#interface-no
 
 就像 [DI 提供商](guide/dependency-injection-providers#interface-not-valid-token)中提到的那样，接口不是有效的 DI 令牌，因为它是 TypeScript 自己用的，在运行期间不存在。使用这种抽象类接口不但可以获得像接口一样的强类型，而且可以像普通类一样把它用作提供商令牌。
 
-A  class interface should define *only* the members that its consumers are allowed to call.
+A class interface should define *only* the members that its consumers are allowed to call.
 Such a narrowing interface helps decouple the concrete class from its consumers.
 
 类接口应该*只*定义允许它的消费者调用的成员。窄的接口有助于解耦该类的具体实现和它的消费者。
@@ -875,9 +847,7 @@ The `MinimalLogger` transpiles to this unoptimized, pre-minified JavaScript for 
 但是，为了最小化内存开销，该类应该是*没有实现*的。
 对于构造函数，`MinimalLogger` 会转译成未优化过的、预先最小化过的 JavaScript。
 
-<code-example path="dependency-injection-in-action/src/app/minimal-logger.service.ts" region="minimal-logger-transpiled" header="dependency-injection-in-action/src/app/minimal-logger.service.ts" linenums="false">
-
-</code-example>
+<code-example path="dependency-injection-in-action/src/app/minimal-logger.service.ts" region="minimal-logger-transpiled" header="dependency-injection-in-action/src/app/minimal-logger.service.ts"></code-example>
 
 Notice that it doesn't have any members. It never grows no matter how many members you add to the class,
 as long as those members are typed but not implemented. Look again at the TypeScript `MinimalLogger` class to confirm that it has no implementation.
@@ -912,17 +882,13 @@ in the *title* value provider and in the *runnersUp* factory provider.
 
 `InjectionToken` 具有这些特征。在*Hero of the Month*例子中遇见它们两次，一个是 *title* 的值，一个是 *runnersUp* 工厂提供商。
 
-<code-example path="dependency-injection-in-action/src/app/hero-of-the-month.component.ts" region="provide-injection-token" header="dependency-injection-in-action/src/app/hero-of-the-month.component.ts" linenums="false">
-
-</code-example>
+<code-example path="dependency-injection-in-action/src/app/hero-of-the-month.component.ts" region="provide-injection-token" header="dependency-injection-in-action/src/app/hero-of-the-month.component.ts"></code-example>
 
 You created the `TITLE` token like this:
 
 这样创建 `TITLE` 令牌：
 
-<code-example path="dependency-injection-in-action/src/app/hero-of-the-month.component.ts" region="injection-token" header="dependency-injection-in-action/src/app/hero-of-the-month.component.ts" linenums="false">
-
-</code-example>
+<code-example path="dependency-injection-in-action/src/app/hero-of-the-month.component.ts" region="injection-token" header="dependency-injection-in-action/src/app/hero-of-the-month.component.ts"></code-example>
 
 The type parameter, while optional, conveys the dependency's type to developers and tooling.
 The token description is another developer aid.
@@ -948,9 +914,9 @@ to display a *sorted* list of heroes.
 
 在这个刻意生成的例子里，`SortedHeroesComponent` 继承自 `HeroesBaseComponent`，显示一个*被排序*的英雄列表。
 
-<figure>
+<div class="lightbox">
   <img src="generated/images/guide/dependency-injection-in-action/sorted-heroes.png" alt="Sorted Heroes">
-</figure>
+</div>
 
 The `HeroesBaseComponent` can stand on its own.
 It demands its own instance of `HeroService` to get heroes
@@ -1055,9 +1021,7 @@ Break the circularity with `forwardRef`.
 
 使用 `forwardRef` 来打破这种循环：
 
-<code-example path="dependency-injection-in-action/src/app/parent-finder.component.ts" region="alex-providers" header="parent-finder.component.ts (AlexComponent providers)" linenums="false">
-
-</code-example>
+<code-example path="dependency-injection-in-action/src/app/parent-finder.component.ts" region="alex-providers" header="parent-finder.component.ts (AlexComponent providers)"></code-example>
 
 
 <!--- Waiting for good examples

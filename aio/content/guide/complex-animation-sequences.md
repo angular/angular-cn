@@ -6,7 +6,7 @@
 
 #### 前提条件
 
-A basic understanding of the  following concepts:
+A basic understanding of the following concepts:
 
 对下列概念有基本的理解：
 
@@ -36,9 +36,9 @@ Functions that control complex animation sequences are as follows:
 
   `stagger()` 用于为多元素动画应用级联延迟。
 
-* `group()` runs multiple animation steps in parallel.
+* [`group()`](api/animations/group) runs multiple animation steps in parallel.
 
-  `group()` 用于并行执行多个动画步骤。
+  [`group()`](api/animations/group) 用于并行执行多个动画步骤。
 
 * `sequence()` runs animation steps one after another.
 
@@ -66,7 +66,7 @@ The following example demonstrates how to use `query()` and `stagger()` function
 
 下面的例子演示了如何在动画元素的条目上使用 `query()` 和 `stagger()` 函数。
 
-* Use `query()` to look for any element entering or leaving the page. The query specifies elements meeting certain CSS class criteria.
+* Use `query()` to look for an element entering the page that meets certain criteria.
 
   用 `query()` 查阅正在进入或离开页面的任意元素。该查询会找出那些符合某种匹配 CSS 选择器的元素。
 
@@ -82,37 +82,36 @@ The following example demonstrates how to use `query()` and `stagger()` function
 
   对屏幕上的每个元素，根据一条自定义缓动曲线播放 0.5 秒的动画，同时将其淡入，而且逐步取消以前的位移效果。
 
-<code-example path="animations/src/app/hero-list-page.component.ts" header="src/app/hero-list-page.component.ts" region="page-animations" language="typescript" linenums="false"></code-example>
+<code-example path="animations/src/app/hero-list-page.component.ts" header="src/app/hero-list-page.component.ts" region="page-animations" language="typescript"></code-example>
 
 ## Parallel animation using group() function
 
 ## 使用 `group()` 函数播放并行动画
 
-You've seen how to add a delay between each successive animation. But you may also want to configure animations that happen in parallel. For example, you may want to animate two CSS properties of the same element but use a different `easing` function for each one. For this, you can use the animation `group()` function.
+You've seen how to add a delay between each successive animation. But you may also want to configure animations that happen in parallel. For example, you may want to animate two CSS properties of the same element but use a different `easing` function for each one. For this, you can use the animation [`group()`](api/animations/group) function.
 
-你已经了解了如何在两个连续的动画之间添加延迟。不过你可能还想配置一些并行的动画。比如，你可能希望为同一个元素的两个 CSS 属性设置动画，但要为每个属性使用不同的 `easing` 函数。这时，你可以使用动画函数 `group()`。
+你已经了解了如何在两个连续的动画之间添加延迟。不过你可能还想配置一些并行的动画。比如，你可能希望为同一个元素的两个 CSS 属性设置动画，但要为每个属性使用不同的 `easing` 函数。这时，你可以使用动画函数 [`group()`](api/animations/group)。
 
 <div class="alert is-helpful">
 
-**Note:** The `group()` function is used to group animation *steps*, rather than animated elements.
+**Note:** The [`group()`](api/animations/group) function is used to group animation *steps*, rather than animated elements.
 
-**注意：** `group()` 函数用于对动画*步骤*进行分组，而不是针对动画元素。
-
+**注意：** [`group()`](api/animations/group) 函数用于对动画*步骤*进行分组，而不是针对动画元素。
 </div>
 
 In the following example, using groups on both `:enter` and `:leave` allow for two different timing configurations. They're applied to the same element in parallel, but run independently.
 
 在下面的例子中，对 `:enter` 和 `:leave` 使用分组，可以配置两种不同的时序。它们会同时作用于同一个元素，但彼此独立运行。
 
-<code-example path="animations/src/app/hero-list-groups.component.ts" region="animationdef" header="src/app/hero-list-groups.component.ts (excerpt)" language="typescript" linenums="false"></code-example>
+<code-example path="animations/src/app/hero-list-groups.component.ts" region="animationdef" header="src/app/hero-list-groups.component.ts (excerpt)" language="typescript"></code-example>
 
 ## Sequential vs. parallel animations
 
 ## 顺序动画与平行动画
 
-Complex animations can have many things happening at once. But what if you want to create an animation involving several animations happening one after the other? Earlier we used `group()` to run multiple animations all at the same time, in parallel.
+Complex animations can have many things happening at once. But what if you want to create an animation involving several animations happening one after the other? Earlier we used [`group()`](api/animations/group) to run multiple animations all at the same time, in parallel.
 
-复杂动画中可以同时发生很多事情。但是当你要创建一个需要让几个子动画逐个执行的动画时，该怎么办呢？以前我们使用 `group()` 来同时并行运行多个动画。
+复杂动画中可以同时发生很多事情。但是当你要创建一个需要让几个子动画逐个执行的动画时，该怎么办呢？以前我们使用 [`group()`](api/animations/group) 来同时并行运行多个动画。
 
 A second function called `sequence()` lets you run those same animations one after the other. Within `sequence()`, the animation steps consist of either `style()` or `animate()` function calls.
 
@@ -148,7 +147,7 @@ The component file contains three transitions.
 
 该组件文件包含三个转场。
 
-<code-example path="animations/src/app/hero-list-page.component.ts" header="src/app/hero-list-page.component.ts" region="filter-animations" language="typescript" linenums="false"></code-example>
+<code-example path="animations/src/app/hero-list-page.component.ts" header="src/app/hero-list-page.component.ts" region="filter-animations" language="typescript"></code-example>
 
 The animation does the following:
 
@@ -182,9 +181,9 @@ For each match:
 
 ## 动画序列总结
 
-Angular functions for animating multiple elements start with `query()` to find inner elements, for example gathering all images within a `<div>`. The remaining functions, `stagger()`, `group()`, and `sequence()`, apply cascades or allow you to control how multiple animation steps are applied.
+Angular functions for animating multiple elements start with `query()` to find inner elements, for example gathering all images within a `<div>`. The remaining functions, `stagger()`, [`group()`](api/animations/group), and `sequence()`, apply cascades or allow you to control how multiple animation steps are applied.
 
-Angular 中这些用于多元素动画的函数，都要从 `query()` 开始，查找出内部元素，比如找出某个 `<div>` 中的所有图片。其余函数 `stagger()`、`group()` 和 `sequence()` 会以级联方式或你的自定义逻辑来控制要如何应用多个动画步骤。
+Angular 中这些用于多元素动画的函数，都要从 `query()` 开始，查找出内部元素，比如找出某个 `<div>` 中的所有图片。其余函数 `stagger()`、[`group()`](api/animations/group) 和 `sequence()` 会以级联方式或你的自定义逻辑来控制要如何应用多个动画步骤。
 
 ## More on Angular animations
 

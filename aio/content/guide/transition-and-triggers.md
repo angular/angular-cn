@@ -6,7 +6,7 @@ You learned the basics of Angular animations in the [introduction](guide/animati
 
 你已经在[简介](guide/animations)页学习了 Angular 动画的基础知识。
 
-In this guide, we go into greater depth on special transition states such as `*` (wildcard) and `void`, and show how these special states are used for elements entering and leaving a view. The chapter also explores on multiple animation triggers, animation callbacks and sequence-based animation using keyframes.
+In this guide, we go into greater depth on special transition states such as `*` (wildcard) and `void`, and show how these special states are used for elements entering and leaving a view. The chapter also explores multiple animation triggers, animation callbacks and sequence-based animation using keyframes.
 
 本章，我们将深入讲解特殊的转场状态，如 `*`（通配符）和 `void`，并说明这些特殊状态如何作用于进入或离开视图的元素。本章还探讨了多重触发器、动画回调，以及使用关键帧技术的序列动画。
 
@@ -30,9 +30,9 @@ For example, a transition of `open => *` applies when the element's state change
 
 比如，一个 `open => *` 转场可应用在当元素的状态从 `open` 变成任何其它状态时。
 
-<figure>
-<img src="generated/images/guide/animations/wildcard-state-500.png" alt="wildcard state expressions">
-</figure>
+<div class="lightbox">
+  <img src="generated/images/guide/animations/wildcard-state-500.png" alt="wildcard state expressions">
+</div>
 
 Here's another code sample using the wildcard state together with our previous example using the `open` and `closed` states. Instead of defining each state-to-state transition pair, we're now saying that any transition to `closed` takes 1 second, and any transition to `open` takes 0.5 seconds.
 
@@ -42,15 +42,13 @@ This allows us to add new states without having to include separate transitions 
 
 这让我们可以添加新状态，而不必把它手动包含到每个单独的转场中。
 
-<code-example header="src/app/open-close.component.ts" path="animations/src/app/open-close.component.ts" region="trigger-wildcard1" language="typescript" linenums="false">
-</code-example>
+<code-example header="src/app/open-close.component.ts" path="animations/src/app/open-close.component.ts" region="trigger-wildcard1" language="typescript"></code-example>
 
 Use a double arrow syntax to specify state-to-state transitions in both directions.
 
 使用双向箭头语法可以指定任意方向的状态转场。
 
-<code-example header="src/app/open-close.component.ts" path="animations/src/app/open-close.component.ts" region="trigger-wildcard2" language="typescript" linenums="false">
-</code-example>
+<code-example header="src/app/open-close.component.ts" path="animations/src/app/open-close.component.ts" region="trigger-wildcard2" language="typescript"></code-example>
 
 ### Using wildcard state with multiple transition states
 
@@ -60,13 +58,11 @@ In our two-state button example, the wildcard isn't that useful because there ar
 
 在这个双态按钮的例子中，通配符不是很有用，因为只有两种可能的状态：`open` 和 `closed`。当一个特定状态下的元素可能变更为多个潜在状态时，通配符状态会更好用。如果我们的按钮可以从 `open` 变成 `closed` 或类似 `inProgress` 的状态，则可以使用通配符状态来减少所需的编码量。
 
-<figure>
-<img src="generated/images/guide/animations/wildcard-3-states.png" alt="wildcard state with 3 states">
-</figure>
+<div class="lightbox">
+  <img src="generated/images/guide/animations/wildcard-3-states.png" alt="wildcard state with 3 states">
+</div>
 
-<code-example path="animations/src/app/open-close.component.ts" header="src/app/open-close.component.ts" linenums="false"
-region="trigger-transition" language="typescript">
-</code-example>
+<code-example path="animations/src/app/open-close.component.ts" header="src/app/open-close.component.ts" region="trigger-transition" language="typescript"></code-example>
 
 The `* => *` transition applies when any change between two states takes place.
 
@@ -88,9 +84,7 @@ Use the wildcard `*` with a style to tell the animation to use whatever the curr
 
 使用带样式的 `*` 通配符来告诉动画使用当前的状态值，并用它进行动画处理。通配符是一个后备值，如果未在触发器中声明动画状态，就会使用这个值。
 
-<code-example path="animations/src/app/open-close.component.ts" header="src/app/open-close.component.ts" linenums="false"
-region="transition4" language="typescript">
-</code-example>
+<code-example path="animations/src/app/open-close.component.ts" header="src/app/open-close.component.ts" region="transition4" language="typescript"></code-example>
 
 ### Void state
 
@@ -148,8 +142,7 @@ Now we'll add a new behavior:
 
   当你从列表中移除一个英雄时，它看起来是从右侧飞出去的。
 
-<code-example path="animations/src/app/hero-list-enter-leave.component.ts" header="src/app/hero-list-enter-leave.component.ts" region="animationdef" language="typescript" linenums="false">
-</code-example>
+<code-example path="animations/src/app/hero-list-enter-leave.component.ts" header="src/app/hero-list-enter-leave.component.ts" region="animationdef" language="typescript"></code-example>
 
 In the above code, we applied the `void` state when the HTML element isn't attached to a view.
 
@@ -214,13 +207,13 @@ The `transition()` function takes additional selector values, `:increment` and `
 
 <div class="alert is-helpful">
 
-**Note:** The following example uses `query()` and `stagger()` methods, which is discussed  in the [complex sequences](guide/complex-animation-sequences#complex-sequence) page.
+**Note:** The following example uses `query()` and `stagger()` methods, which is discussed in the [complex sequences](guide/complex-animation-sequences#complex-sequence) page.
 
 **注意：**下面的例子使用 `query()` 和 `stagger()` 方法，它们会在[复杂序列](guide/complex-animation-sequences#complex-sequence)中讨论。
 
 </div>
 
-<code-example path="animations/src/app/hero-list-page.component.ts" header="src/app/hero-list-page.component.ts" region="increment" language="typescript" linenums="false"></code-example>
+<code-example path="animations/src/app/hero-list-page.component.ts" header="src/app/hero-list-page.component.ts" region="increment" language="typescript"></code-example>
 
 ## Boolean values in transitions
 
@@ -310,8 +303,7 @@ To disable all animations for an Angular app, place the `@.disabled` host bindin
 
 要禁用 Angular 应用中的所有动画，只要把 `@.disabled` 绑定放在顶级的 Angular 组件上即可。
 
-<code-example path="animations/src/app/app.component.ts" header="src/app/app.component.ts" region="toggle-app-animations" language="typescript" linenums="false">
-</code-example>
+<code-example path="animations/src/app/app.component.ts" header="src/app/app.component.ts" region="toggle-app-animations" language="typescript"></code-example>
 
 <div class="alert is-helpful">
 
@@ -329,8 +321,7 @@ The animation `trigger()` function emits *callbacks* when it starts and when it 
 
 当动画启动和终止时，`trigger()` 函数会发出一些*回调*。在下面的例子中，我们有一个包含 `openClose` 触发器的组件。
 
-<code-example path="animations/src/app/open-close.component.ts" header="src/app/open-close.component.ts" region="events1" language="typescript" linenums="false">
-</code-example>
+<code-example path="animations/src/app/open-close.component.ts" header="src/app/open-close.component.ts" region="events1" language="typescript"></code-example>
 
 In the HTML template, the animation event is passed back via `$event`, as `@trigger.start` and `@trigger.done`, where `trigger` is the name of the trigger being used. In our example, the trigger `openClose` appears as follows.
 
@@ -355,8 +346,7 @@ Callbacks can serve as a debugging tool, for example in conjunction with `consol
 
 回调可以作为调试工具，例如与 `console.warn()` 结合使用，以便在浏览器的开发者控制台中查看应用的进度。下列代码片段为我们原始的双态按钮（`open` 与 `closed`）范例创建了控制台输出。
 
-<code-example path="animations/src/app/open-close.component.ts" header="src/app/open-close.component.ts" region="events" language="typescript" linenums="false">
-</code-example>
+<code-example path="animations/src/app/open-close.component.ts" header="src/app/open-close.component.ts" region="events" language="typescript"></code-example>
 
 {@a keyframes}
 
@@ -372,32 +362,31 @@ Angular's `keyframe()` function is similar to keyframes in CSS. Keyframes allow 
 
 Angular 的 `keyframe()` 函数类似于 CSS 中的关键帧。关键帧允许在单个时间段内进行多种样式更改。例如，我们的按钮可以在单个的 2 秒时间段内多次改变颜色，而不是渐隐掉。
 
-<figure>
-<img src="generated/images/guide/animations/keyframes-500.png" alt="keyframes">
-</figure>
+<div class="lightbox">
+  <img src="generated/images/guide/animations/keyframes-500.png" alt="keyframes">
+</div>
 
 The code for this color change might look like this.
 
 这些更改颜色的代码如下所示：
 
-<code-example path="animations/src/app/status-slider.component.ts" header="src/app/status-slider.component.ts" region="keyframes" language="typescript" linenums="false">
-</code-example>
+<code-example path="animations/src/app/status-slider.component.ts" header="src/app/status-slider.component.ts" region="keyframes" language="typescript"></code-example>
 
 ### Offset
 
 ### 偏移
 
-Keyframes include an *offset* that defines the point in the animation where each style change occurs. Offsets are relative measures from zero to one, marking the beginning and end of the animation, respectively.
+Keyframes include an *offset* that defines the point in the animation where each style change occurs. Offsets are relative measures from zero to one, marking the beginning and end of the animation, respectively and should be applied to each of the keyframe's steps if used at least once.
 
-关键帧包括一个用来定义动画中每个样式何时开始更改的*偏移（offset）*属性。偏移是个 0 到 1 之间的相对值，分别标记动画的开始和结束时间。
+关键帧包括一个用来定义动画中每个样式何时开始更改的*偏移（offset）*属性。偏移是个 0 到 1 之间的相对值，分别标记动画的开始和结束时间，并且只要使用了它，就要同样应用于这个关键帧的每个步骤。
 
 Defining offsets for keyframes is optional. If you omit them, evenly spaced offsets are automatically assigned. For example, three keyframes without predefined offsets receive offsets of 0, 0.5, and 1. Specifying an offset of 0.8 for the middle transition in the above example might look like this.
 
 定义关键帧的偏移量是可选的。如果省略它们，就会自动分配均匀间隔的偏移。例如，三个没有预定义偏移的关键帧会分别使用 0、0.5、1 作为偏移。在上面的例子中，还可以为中间的转场指定偏移量 0.8。代码如下：
 
-<figure>
-<img src="generated/images/guide/animations/keyframes-offset-500.png" alt="keyframes with offset">
-</figure>
+<div class="lightbox">
+  <img src="generated/images/guide/animations/keyframes-offset-500.png" alt="keyframes with offset">
+</div>
 
 The code with offsets specified would be as follows.
 
@@ -430,16 +419,15 @@ Here's an example of using keyframes to create a pulse effect:
 
   插在中间的关键帧序列会导致该按钮在一秒钟内出现不规则的脉动。
 
-<figure>
-<img src="generated/images/guide/animations/keyframes-pulsation.png" alt="keyframes with irregular pulsation">
-</figure>
+<div class="lightbox">
+  <img src="generated/images/guide/animations/keyframes-pulsation.png" alt="keyframes with irregular pulsation">
+</div>
 
 The code snippet for this animation might look like this.
 
 此动画的代码片段是这样的：
 
-<code-example path="animations/src/app/open-close.component.1.ts" header="src/app/open-close.component.ts" region="trigger" language="typescript" linenums="false">
-</code-example>
+<code-example path="animations/src/app/open-close.component.1.ts" header="src/app/open-close.component.ts" region="trigger" language="typescript"></code-example>
 
 ### Animatable properties and units
 
@@ -485,7 +473,7 @@ In this example, we have a trigger called `shrinkOut`, used when an HTML element
 
 在这个例子中，我们有一个名叫 `shrinkOut` 的触发器，它会在 HTML 元素离开页面时使用。该动画会使用它离开之前的任意高度，并从该高度动画到 0。
 
-<code-example path="animations/src/app/hero-list-auto.component.ts" header="src/app/hero-list-auto.component.ts" region="auto-calc" language="typescript" linenums="false"></code-example>
+<code-example path="animations/src/app/hero-list-auto.component.ts" header="src/app/hero-list-auto.component.ts" region="auto-calc" language="typescript"></code-example>
 
 ### Keyframes summary
 

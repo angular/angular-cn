@@ -142,8 +142,7 @@ export class FormBuilder {
    *
    * 下面的例子返回一个带有初始值并已禁用的控件。
    *
-   * <code-example path="forms/ts/formBuilder/form_builder_example.ts"
-   *   linenums="false" region="disabled-control">
+   * <code-example path="forms/ts/formBuilder/form_builder_example.ts" region="disabled-control">
    * </code-example>
    */
   control(

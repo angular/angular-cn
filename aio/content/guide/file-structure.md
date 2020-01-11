@@ -13,7 +13,7 @@ The Angular CLI `ng new` command creates a workspace.
 Angular CLI 的 `ng new`命令可以创建一个工作空间。
 
 
-<code-example language="bash" linenums="false">
+<code-example language="bash">
 ng new &lt;my-project&gt;
 </code-example>
 
@@ -111,7 +111,7 @@ This initial root-level application is the *default app* for CLI commands (unles
 
 </div>
 
-For a single-application workspace, the `src/` subfolder of the workspace contains the source files (application logic, data, and assets) for the root  application.
+For a single-application workspace, the `src/` subfolder of the workspace contains the source files (application logic, data, and assets) for the root application.
 For a multi-project workspace, additional projects in the `projects/` folder contain a `project-name/src/` subfolder with the same structure.
 
 对于单应用的工作区，工作空间的 `src/` 子文件夹包含根应用的源文件（应用逻辑、数据和静态资源）。对于多项目的工作空间，`projects/` 文件夹中的其它项目各自包含一个具有相同结构的 `project-name/src/` 子目录。
@@ -122,7 +122,7 @@ For a multi-project workspace, additional projects in the `projects/` folder con
 ### 应用源文件
 
 
-Files at the top level of `src/` support testing and running your  application. Subfolders contain the application source and  application-specific configuration.
+Files at the top level of `src/` support testing and running your application. Subfolders contain the application source and application-specific configuration.
 
 顶级文件 `src/` 为测试并运行你的应用提供支持。其子文件夹中包含应用源代码和应用的专属配置。
 
@@ -140,7 +140,7 @@ Files at the top level of `src/` support testing and running your  application. 
 | `favicon.ico`     | 用作该应用在标签栏中的图标。                                                                                                                                                                                                                                                                                                                                                                  |
 | `index.html`      | The main HTML page that is served when someone visits your site. The CLI automatically adds all JavaScript and CSS files when building your app, so you typically don't need to add any `<script>` or`<link>` tags here manually.                                                                                                                                                               |
 | `index.html`      | 当有人访问你的站点时，提供服务的主要 HTML 页面。CLI 会在构建你的应用时自动添加所有的 JavaScript 和 CSS 文件，所以你通常不用手动添加任何 `<script>` 或 `<link>` 标签。                                                                                                                                                                                                                                     |
-| `main.ts`         | The main entry point for your  application. Compiles the application with the [JIT compiler](https://angular.io/guide/glossary#jit) and bootstraps the application's root module (AppModule) to run in the browser. You can also use the [AOT compiler](https://angular.io/guide/aot-compiler) without changing any code by appending the `--aot` flag to the CLI `build` and `serve` commands. |
+| `main.ts`         | The main entry point for your application. Compiles the application with the [JIT compiler](https://angular.io/guide/glossary#jit) and bootstraps the application's root module (AppModule) to run in the browser. You can also use the [AOT compiler](https://angular.io/guide/aot-compiler) without changing any code by appending the `--aot` flag to the CLI `build` and `serve` commands. |
 | `main.ts`         | 应用的主要切入点。用 [JIT 编译器](https://angular.io/guide/glossary#jit)编译应用，然后引导应用的根模块（AppModule）在浏览器中运行。你也可以在不改变任何代码的情况下改用 [AOT 编译器](https://angular.io/guide/aot-compiler)， 只要在 CLI 的 `build` 和 `serve` 命令中加上 `--aot` 标志就可以了。                                                                                                          |
 | `polyfills.ts`    | Provides polyfill scripts for browser support.                                                                                                                                                                                                                                                                                                                                                  |
 | `polyfills.ts`    | 为浏览器支持提供了腻子（polyfill）脚本。                                                                                                                                                                                                                                                                                                                                                                |
@@ -161,7 +161,7 @@ Angular components, templates, and styles go here.
 | `src/app/` FILES            | PURPOSE                                                                                                                                                                                                                                             |
 | :-------------------------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `src/app/` 文件            | 用途                                                                                                                                                                                                                                                |
-| `app/app.component.ts`      | Defines the logic for the app's root component, named `AppComponent`. The view associated with this root component becomes the root of the [view hierarchy](guide/glossary#view-hierarchy) as you add components and services to your  application. |
+| `app/app.component.ts`      | Defines the logic for the app's root component, named `AppComponent`. The view associated with this root component becomes the root of the [view hierarchy](guide/glossary#view-hierarchy) as you add components and services to your application. |
 | `app/app.component.ts`      | 为应用的根组件定义逻辑，名为 `AppComponent` 。当你向应用中添加组件和服务时，与这个根组件相关联的视图就会成为[视图树](guide/glossary#view-hierarchy)的根。                                                                                      |
 | `app/app.component.html`    | Defines the HTML template associated with the root `AppComponent`.                                                                                                                                                                                  |
 | `app/app.component.html`    | 定义与根组件 `AppComponent` 关联的 HTML 模板。                                                                                                                                                                                                              |
@@ -195,7 +195,7 @@ Project-specific [TypeScript](https://www.typescriptlang.org/) configuration fil
 | `browserslist`                    | 配置各种前端工具之间共享的目标浏览器和 Node.js 版本。欲知详情，请参阅 [GitHub 上的浏览器列表](https://github.com/browserslist/browserslist) 。                                                                |
 | `karma.conf.js`                   | Application-specific [Karma](https://karma-runner.github.io/2.0/config/configuration-file.html) configuration.                                                                                                |
 | `karma.conf.js`                   | 应用专属的 [Karma](https://karma-runner.github.io/2.0/config/configuration-file.html) 配置。                                                                                                                  |
-| `tsconfig.app.json`               | Application-specific [TypeScript](https://www.typescriptlang.org/) configuration, including TypeScript and Angular template compiler options. See [TypeScript Configuration](guide/typescript-configuration). |
+| `tsconfig.app.json`               | Application-specific [TypeScript](https://www.typescriptlang.org/) configuration, including TypeScript and Angular template compiler options. See [TypeScript Configuration](guide/typescript-configuration) and [Angular Compiler Options](guide/angular-compiler-options). |
 | `tsconfig.app.json`               | 应用专属的 [TypeScript](https://www.typescriptlang.org/) 配置，包括 TypeScript 和 Angular 模板编译器的选项。参见 [TypeScript 配置](guide/typescript-configuration) 。                                                 |
 | `tsconfig.spec.json`              | [TypeScript](https://www.typescriptlang.org/) configuration for the application tests. See [TypeScript Configuration](guide/typescript-configuration).                                                        |
 | `tsconfig.spec.json`              | 应用测试的 [TypeScript](https://www.typescriptlang.org/) 配置。参见 [TypeScript 配置](guide/typescript-configuration) 。                                                                                          |
@@ -216,7 +216,7 @@ For a multi-project workspace, application-specific end-to-end tests are in the 
 
 对于多项目的工作空间，应用专属的端到端测试文件都位于项目各自的根目录下，即 `projects/project-name/e2e/`。
 
-<code-example language="none" linenums="false">
+<code-example language="none">
   e2e/
      src/                 (end-to-end tests for my-app)
         app.e2e-spec.ts
@@ -248,7 +248,7 @@ The following command creates a workspace with all of the workspace-wide configu
 如果你打算在工作区中包含多个项目，可以在创建工作空间时不要自动创建初始应用，并为工作空间指定一个唯一的名字。下列命令用于创建一个包含全工作空间级配置文件的工作空间，但没有根应用。
 
 
-<code-example language="bash" linenums="false">
+<code-example language="bash">
 ng new my-workspace --createApplication="false"
 </code-example>
 
@@ -257,7 +257,7 @@ You can then generate apps and libraries with names that are unique within the w
 然后，你可以使用工作空间内唯一的名字来生成应用和库。
 
 
-<code-example language="bash" linenums="false">
+<code-example language="bash">
 cd my-workspace
 ng generate application my-first-app
 </code-example>
@@ -274,7 +274,7 @@ When you create projects this way, the file structure of the workspace is entire
 工作空间中第一个显式生成的应用会像工作空间中的其它项目一样放在 `projects/` 文件夹中。新生成的库也会添加到 `projects/` 下。当你以这种方式创建项目时，工作空间的文件结构与[工作空间配置文件](guide/workspace-config) `angular.json` 中的结构完全一致。
 
 
-<code-example language="none" linenums="false">
+<code-example language="none">
 my-workspace/
   ...             (workspace-wide config files)
   projects/       (generated applications and libraries)

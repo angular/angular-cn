@@ -2,29 +2,15 @@
 
 # 服务提供商
 
-#### Prerequisites:
+A provider is an instruction to the [Dependency Injection](/guide/dependency-injection) system on how to obtain a value for a dependency. Most of the time, these dependencies are services that you create and provide.
 
-#### 前提条件：
-
-* A basic understanding of [Bootstrapping](guide/bootstrapping).
-
-   对[引导](guide/bootstrapping)有基本的了解。
-
-* Familiarity with [Frequently Used Modules](guide/frequent-ngmodules).
-
-   熟悉[常用模块](guide/frequent-ngmodules)。
+提供商就是一本说明书，用来指导[依赖注入](/guide/dependency-injection)系统该如何获取某个依赖的值。
+大多数情况下，这些依赖就是你要创建和提供的那些服务。
 
 For the final sample app using the provider that this page describes,
 see the <live-example></live-example>.
 
 要想查看本页提到的这个带有特性模块的范例应用，参见 <live-example></live-example>。
-
-<hr>
-
-A provider is an instruction to the DI system on how to obtain a value for a dependency. Most of the time, these dependencies are services that you create and provide.
-
-提供商就相当于说明书，用来指导 DI 系统该如何获取某个依赖的值。
-大多数情况下，这些依赖就是你要创建和提供的那些服务。
 
 ## Providing a service
 
@@ -44,7 +30,7 @@ This command creates the following `UserService` skeleton:
 
 该命令会创建下列 `UserService` 骨架：
 
-<code-example path="providers/src/app/user.service.0.ts"  header="src/app/user.service.ts" linenums="false"> </code-example>
+<code-example path="providers/src/app/user.service.0.ts"  header="src/app/user.service.ts"></code-example>
 
 You can now inject `UserService` anywhere in your application.
 
@@ -75,13 +61,13 @@ It's also possible to specify that a service should be provided in a particular 
 
 也可以规定某个服务只有在特定的 `@NgModule` 中提供。比如，如果你你希望只有当消费方导入了你创建的 `UserModule` 时才让 `UserService` 在应用中生效，那就可以指定该服务要在该模块中提供：
 
-<code-example path="providers/src/app/user.service.1.ts"  header="src/app/user.service.ts" linenums="false">  </code-example>
+<code-example path="providers/src/app/user.service.1.ts"  header="src/app/user.service.ts"></code-example>
 
 The example above shows the preferred way to provide a service in a module. This method is preferred because it enables tree-shaking of the service if nothing injects it. If it's not possible to specify in the service which module should provide it, you can also declare a provider for the service within the module:
 
 上面的例子展示的就是在模块中提供服务的首选方式。之所以推荐该方式，是因为当没有人注入它时，该服务就可以被摇树优化掉。如果没办法指定哪个模块该提供这个服务，你也可以在那个模块中为该服务声明一个提供商：
 
-<code-example path="providers/src/app/user.module.ts"  header="src/app/user.module.ts" linenums="false">  </code-example>
+<code-example path="providers/src/app/user.module.ts"  header="src/app/user.module.ts"></code-example>
 
 ## Limiting provider scope by lazy loading modules
 
@@ -117,7 +103,7 @@ Though you can provide services by lazy loading modules, not all services can be
 
 Another way to limit provider scope is by adding the service you want to limit to the component’s
 `providers` array. Component providers and NgModule providers are independent of each other. This
-method is helpful for when you want to eagerly load a module that needs a service all to itself.
+method is helpful when you want to eagerly load a module that needs a service all to itself.
 Providing a service in the component limits the service only to that component (other components in
 the same module can’t access it.)
 
@@ -125,8 +111,7 @@ the same module can’t access it.)
 当你要急性加载一个自带了全部所需服务的模块时，这种方式是有帮助的。
 在组件中提供服务，会限定该服务只能在该组件中有效（同一模块中的其它组件不能访问它）。
 
-<code-example path="providers/src/app/app.component.ts" region="component-providers" header="src/app/app.component.ts" linenums="false">
-</code-example>
+<code-example path="providers/src/app/app.component.ts" region="component-providers" header="src/app/app.component.ts"></code-example>
 
 ## Providing services in modules vs. components
 

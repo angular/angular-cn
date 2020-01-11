@@ -6,11 +6,9 @@
  * found in the LICENSE file at https://angular.io/license
  */
 
-import {OnDestroy} from '../../src/core';
-import {AttributeMarker, ComponentTemplate, ɵɵNgOnChangesFeature, ɵɵdefineComponent, ɵɵdefineDirective, ɵɵproperty} from '../../src/render3/index';
-import {ɵɵbind, ɵɵcontainer, ɵɵcontainerRefreshEnd, ɵɵcontainerRefreshStart, ɵɵelement, ɵɵelementEnd, ɵɵelementStart, ɵɵembeddedViewEnd, ɵɵembeddedViewStart, ɵɵprojection, ɵɵprojectionDef, ɵɵselect, ɵɵtemplate, ɵɵtext} from '../../src/render3/instructions/all';
+import {ComponentTemplate, ɵɵdefineComponent, ɵɵdefineDirective, ɵɵproperty} from '../../src/render3/index';
+import {ɵɵcontainer, ɵɵcontainerRefreshEnd, ɵɵcontainerRefreshStart, ɵɵelement, ɵɵelementEnd, ɵɵelementStart, ɵɵembeddedViewEnd, ɵɵembeddedViewStart, ɵɵprojection, ɵɵprojectionDef, ɵɵtext} from '../../src/render3/instructions/all';
 import {RenderFlags} from '../../src/render3/interfaces/definition';
-
 import {NgIf} from './common_with_def';
 import {ComponentFixture, createComponent} from './render_util';
 
@@ -22,7 +20,6 @@ describe('lifecycles', () => {
         ɵɵelement(0, name);
       }
       if (rf & RenderFlags.Update) {
-        ɵɵselect(0);
         ɵɵproperty('val', ctx.val);
       }
     };
@@ -49,7 +46,7 @@ describe('lifecycles', () => {
     }, 1);
 
     function createOnInitComponent(
-        name: string, template: ComponentTemplate<any>, consts: number, vars: number = 0,
+        name: string, template: ComponentTemplate<any>, decls: number, vars: number = 0,
         directives: any[] = []) {
       return class Component {
         val: string = '';
@@ -58,12 +55,12 @@ describe('lifecycles', () => {
           events.push(`${name}${this.val}`);
         }
 
-        static ngComponentDef = ɵɵdefineComponent({
+        static ɵfac = () => new Component();
+        static ɵcmp = ɵɵdefineComponent({
           type: Component,
           selectors: [[name]],
-          consts: consts,
+          decls: decls,
           vars: vars,
-          factory: () => new Component(),
           inputs: {val: 'val'}, template,
           directives: directives
         });
@@ -73,8 +70,8 @@ describe('lifecycles', () => {
     class Directive {
       ngOnInit() { events.push('dir'); }
 
-      static ngDirectiveDef = ɵɵdefineDirective(
-          {type: Directive, selectors: [['', 'dir', '']], factory: () => new Directive()});
+      static ɵfac = () => new Directive();
+      static ɵdir = ɵɵdefineDirective({type: Directive, selectors: [['', 'dir', '']]});
     }
 
     const directives = [Comp, Parent, ProjectedComp, Directive, NgIf];

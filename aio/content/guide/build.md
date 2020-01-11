@@ -12,29 +12,21 @@ This page discusses build-specific configuration options for Angular projects.
 
 ## 配置应用环境
 
-You can define different named build configurations for your project, such as *stage* and *production*, with different defaults. 
+You can define different named build configurations for your project, such as *stage* and *production*, with different defaults.
 
 你可以用不同的默认值来为项目定义出不同的命名配置项，比如 *stage* 和 *production*。
 
-Each named build configuration can have defaults for any of the options that apply to the various build targets, such as `build`, `serve`, and `test`. The [Angular CLI](cli) `build`, `serve`, and `test` commands can then replace files with appropriate versions for your intended target environment.
+Each named configuration can have defaults for any of the options that apply to the various [builder targets](guide/glossary#target), such as `build`, `serve`, and `test`. The [Angular CLI](cli) `build`, `serve`, and `test` commands can then replace files with appropriate versions for your intended target environment.
 
-每个命名配置项都可以具有某些选项的默认值，并应用于各种构建目标，比如 `build`、`serve` 和 `test`。
+每个命名配置项都可以具有某些选项的默认值，并应用于各种[构建目标](guide/glossary#target)，比如 `build`、`serve` 和 `test`。
 [Angular CLI](cli)  的 `build`、`serve` 和 `test` 命令可以为不同的目标环境，把文件替换成合适的版本。
-
-The following figure shows how a project has multiple build targets, which can be executed using the named configurations that you define.
-
-下面的例子展示了项目如何拥有多个构建目标，可以使用你定义的命名配置来执行这些目标。
-
-<figure>
-  <img src="generated/images/guide/build/build-config-targets.gif" alt="build configurations and targets">
-</figure>
 
 ### Configure environment-specific defaults
 
 ### 配置针对特定环境的默认值
 
-A project's `src/environments/` folder contains the base configuration file, `environment.ts`, which provides a default environment. 
-You can add override defaults for additional environments, such as production and staging, in target-specific configuration files. 
+A project's `src/environments/` folder contains the base configuration file, `environment.ts`, which provides a default environment.
+You can add override defaults for additional environments, such as production and staging, in target-specific configuration files.
 
 项目的 `src/environments/` 文件夹包含基础配置文件 `environment.ts`，它提供了一个默认环境。
 你可以在针对特定目标的配置文件中，为其它环境（比如生产和预生产）覆盖这些默认值。
@@ -60,8 +52,8 @@ export const environment = {
 };
 ```
 
-The `build` command uses this as the build target when no environment is specified. 
-You can add further variables, either as additional properties on the environment object, or as separate objects. 
+The `build` command uses this as the build target when no environment is specified.
+You can add further variables, either as additional properties on the environment object, or as separate objects.
 For example, the following adds a default for a variable to the default environment:
 
 当没有指定环境时，`build` 命令就会用它作为构建目标。
@@ -75,7 +67,7 @@ export const environment = {
 };
 ```
 
-You can add target-specific configuration files, such as `environment.prod.ts`. 
+You can add target-specific configuration files, such as `environment.prod.ts`.
 The following sets content sets default values for the production build target:
 
 你可以添加针对特定目标的配置文件，比如 `environment.prod.ts`。
@@ -145,14 +137,14 @@ export class AppComponent {
 
 ## 配置针对特定目标的文件替换规则
 
-The main CLI configuration file, `angular.json`, contains a `fileReplacements` section in the configuration for each build target, which allows you to replace any file with a target-specific version of that file. 
+The main CLI configuration file, `angular.json`, contains a `fileReplacements` section in the configuration for each build target, which allows you to replace any file with a target-specific version of that file.
 This is useful for including target-specific code or variables in a build that targets a specific environment, such as production or staging.
 
 CLI 的主配置文件 `angular.json` 中的每个构建目标下都包含了一个 `fileReplacements` 区段。这能让你把任何文件替换为针对特定目标的版本。
 当构建目标需要包含针对特定环境（比如生产或预生产）的代码或变量时，这非常有用。
 
-By default no files are replaced. 
-You can add file replacements for specific build targets. 
+By default no files are replaced.
+You can add file replacements for specific build targets.
 For example:
 
 默认情况下不会替换任何文件。
@@ -192,7 +184,7 @@ You can add additional configurations as required. To add a staging environment,
 }
 ```
 
-You can add more configuration options to this target environment as well. 
+You can add more configuration options to this target environment as well.
 Any option that your build supports can be overridden in a build target configuration.
 
 你还可以往目标环境中添加更多配置项。
@@ -228,18 +220,19 @@ You can also configure the `serve` command to use the targeted build configurati
 ```
 
 {@a size-budgets}
+{@a configure-size-budgets}
 
-## Configure size budgets
+## Configuring size budgets
 
 ## 配置文件大小预算
 
-As applications grow in functionality, they also grow in size. 
+As applications grow in functionality, they also grow in size.
 The CLI allows you to set size thresholds in your configuration to ensure that parts of your application stay within size boundaries that you define.
 
 当应用的功能不断增长时，其文件大小也会同步增长。
 CLI 允许你通过配置项来限制文件大小，以确保应用的各个部分都处于你定义的大小范围内。
 
-Define your size boundaries in the CLI configuration file, `angular.json`, in a `budgets` section for each [configured environment](#app-environments). 
+Define your size boundaries in the CLI configuration file, `angular.json`, in a `budgets` section for each [configured environment](#app-environments).
 
 你可以在 CLI 配置文件 `angular.json` 的 `budgets` 区段为每个[所配置的环境](#app-environments)定义这些大小范围。
 
@@ -255,8 +248,8 @@ Define your size boundaries in the CLI configuration file, `angular.json`, in a 
 }
 ```
 
-You can specify size budgets for the entire app, and for particular parts. 
-Each budget entry configures a budget of a given type. 
+You can specify size budgets for the entire app, and for particular parts.
+Each budget entry configures a budget of a given type.
 Specify size values in the following formats:
 
 你可以为整个应用指定大小范围，也可以为特定部分。
@@ -306,29 +299,33 @@ Each budget entry is a JSON object with the following properties:
 
     限制的类型。有效值为：
 
-        * bundle - The size of a specific bundle.
+* `bundle` - The size of a specific bundle.
 
-          bundle - 特定包的大小。
+  `bundle` - 特定包的大小。
 
-        * initial - The initial size of the app.
+* `initial` - The initial size of the app.
 
-          initial -  应用的初始大小。
+  `initial` -  应用的初始大小。
 
-        * allScript - The size of all scripts.
+* `allScript` - The size of all scripts.
 
-          allScript - 所有脚本的总大小。
+  `allScript` - 所有脚本的总大小。
 
-        * all - The size of the entire app.
+* `all` - The size of the entire app.
 
-          all - 整个应用的总大小。
+  `all` - 整个应用的总大小。
 
-        * anyScript - The size of any one script.
+* `anyComponentStyle` - This size of any one component stylesheet.
 
-          anyScript - 任何一个脚本的大小。
+  `anyComponentStyle` - 任何一个组件样式文件的大小。
 
-        * any - The size of any file.
+* `anyScript` - The size of any one script.
 
-          any - 任何一个文件的大小。
+  `anyScript` - 任何一个脚本的大小。
+
+* `any` - The size of any file.
+
+  `any` - 任何一个文件的大小。
 
     </td>
   </tr>
@@ -339,7 +336,6 @@ Each budget entry is a JSON object with the following properties:
     The name of the bundle (for `type=bundle`).
 
     要限制的包的名字（当 `type=bundle` 时）。
-
     </td>
   </tr>
   <tr>
@@ -422,15 +418,15 @@ Each budget entry is a JSON object with the following properties:
 
 ## 配置浏览器兼容性
 
-The CLI uses [Autoprefixer](https://github.com/postcss/autoprefixer) to ensure compatibility with different browser and browser versions. 
+The CLI uses [Autoprefixer](https://github.com/postcss/autoprefixer) to ensure compatibility with different browser and browser versions.
 You may find it necessary to target specific browsers or exclude certain browser versions from your build.
 
 CLI 使用 [Autoprefixer](https://github.com/postcss/autoprefixer) 来确保对不同浏览器及其版本的兼容性。
 你会发现当你要从构建中针对特定的目标浏览器或排除指定的浏览器版本时，这是很有必要的。
 
-Internally, Autoprefixer relies on a library called [Browserslist](https://github.com/browserslist/browserslist) to figure out which browsers to support with prefixing. 
-Browserlist looks for configuration options in a `browserslist` property of the package configuration file, or in a configuration file named `.browserslistrc`. 
-Autoprefixer looks for the `browserslist` configuration when it prefixes your CSS. 
+Internally, Autoprefixer relies on a library called [Browserslist](https://github.com/browserslist/browserslist) to figure out which browsers to support with prefixing.
+Browserlist looks for configuration options in a `browserslist` property of the package configuration file, or in a configuration file named `.browserslistrc`.
+Autoprefixer looks for the `browserslist` configuration when it prefixes your CSS.
 
 在内部 Autoprefixer 依赖一个名叫 [Browserslist](https://github.com/browserslist/browserslist) 的库来指出需要为哪些浏览器加前缀。
 Browserlist 会在 `package.json` 的 `browserlist` 属性中或一个名叫 `.browserslistrc` 的配置文件中来配置这些选项。
@@ -461,13 +457,11 @@ See the [browserslist repo](https://github.com/browserslist/browserslist) for mo
 
 参见 [browserslist 的代码库](https://github.com/browserslist/browserslist)以得到如何指定浏览器及其版本的更多例子。
 
-<div class="alert is-helpful">
+### Backward compatibility with Lighthouse
 
-Backward compatibility
+### 使用 Lighthouse 做向后兼容
 
-向后兼容
-
-If you want to produce a progressive web app and are using [Lighthouse](https://developers.google.com/web/tools/lighthouse/) to grade the project, add the following browserslist entry to your `package.json` file, in order to eliminate the [old flexbox](https://developers.google.com/web/tools/lighthouse/audits/old-flexbox) prefixes:
+If you want to produce a progressive web app and are using [Lighthouse](https://developers.google.com/web/tools/lighthouse/) to grade the project, add the following `browserslist` entry to your `package.json` file, in order to eliminate the [old flexbox](https://developers.google.com/web/tools/lighthouse/audits/old-flexbox) prefixes:
 
 如果你要制作渐进式应用，并使用 [Lighthouse](https://developers.google.com/web/tools/lighthouse/) 来对该项目进行评分，请为 `package.json` 添加如下的 `browserslist` 条目，以消除[老版本的 flexbox](https://developers.google.com/web/tools/lighthouse/audits/old-flexbox) 前缀：
 
@@ -479,7 +473,36 @@ If you want to produce a progressive web app and are using [Lighthouse](https://
 ]
 ```
 
-</div>
+### Backward compatibility with CSS grid
+
+### CSS 网格 (Grid) 布局的向后兼容
+
+CSS grid layout support in Autoprefixer, which was previously on by default, is off by default in Angular 8 and higher.
+
+Autoprefixer 默认支持 CSS 网格布局，但在 Angular 8 及更高版本中，它默认处于禁用状态。
+
+To use CSS grid with IE10/11, you must explicitly enable it using the `autoplace` option.
+To do this, add the following to the top of the global styles file (or within a specific css selector scope):
+
+要在 IE10/11 中使用 CSS 网格布局，必须使用 `autoplace` 选项显式启用它。
+为此，请将以下内容添加到全局样式文件的顶部（或用在特定的 css 选择器范围内）：
+
+```
+/* autoprefixer grid: autoplace /
+```
+
+or
+
+或
+
+```
+/ autoprefixer grid: no-autoplace */
+```
+
+For more information, see [Autoprefixer documentation](https://autoprefixer.github.io/).
+
+欲知详情，参见 [Autoprefixer 文档](https://autoprefixer.github.io/)。
+
 
 {@a proxy}
 
@@ -487,15 +510,15 @@ If you want to produce a progressive web app and are using [Lighthouse](https://
 
 ## 代理到后端服务器
 
-You can use the [proxying support](https://webpack.js.org/configuration/dev-server/#devserver-proxy) in the `webpack` dev server to divert certain URLs to a backend server, by passing a file to the `--proxy-config` build option.
+You can use the [proxying support](https://webpack.js.org/configuration/dev-server/#devserverproxy) in the `webpack` dev server to divert certain URLs to a backend server, by passing a file to the `--proxy-config` build option.
 For example, to divert all calls for `http://localhost:4200/api` to a server running on `http://localhost:3000/api`, take the following steps.
 
 你可以使用 `webpack` 开发服务器中的[代理支持](https://webpack.js.org/configuration/dev-server/#devserver-proxy)来把特定的 URL 转发给后端服务器，只要传入 `--proxy-config` 选项就可以了。
 比如，要把所有到 `http://localhost:4200/api` 的调用都转给运行在 `http://localhost:3000/api` 上的服务器，可采取如下步骤。
 
-1. Create a file `proxy.conf.json` in the projects `src/` folder, in the same directory as `package.json`.
+1. Create a file `proxy.conf.json` in your project's `src/` folder.
 
-   在项目的 `src/` 目录下创建一个 `proxy.conf.json` 文件，和 `package.json` 放在同一目录下。
+   在项目的 `src/` 目录下创建一个 `proxy.conf.json` 文件。
 
 1. Add the following content to the new proxy file:
 
@@ -526,12 +549,12 @@ For example, to divert all calls for `http://localhost:4200/api` to a server run
     ...
     ```
 
-1. To run the dev server with this proxy configuration, call `ng serve`. 
+1. To run the dev server with this proxy configuration, call `ng serve`.
 
    要使用这个代理选项启动开发服务器，请运行 `ng serve` 命令。
 
-You can edit the proxy configuration file to add configuration options; some examples are given below. 
-For a description of all options, see [webpack DevServer documentation](https://webpack.js.org/configuration/dev-server/#devserver-proxy).
+You can edit the proxy configuration file to add configuration options; some examples are given below.
+For a description of all options, see [webpack DevServer documentation](https://webpack.js.org/configuration/dev-server/#devserverproxy).
 
 你可以编辑这个代理配置文件，以添加配置项，例子如下。
 要查看所有选项的详细说明，参见 [webpack DevServer 文档](https://webpack.js.org/configuration/dev-server/#devserver-proxy)。
@@ -544,7 +567,7 @@ Note that if you edit the proxy configuration file, you must relaunch the `ng se
 
 ### 重写 URL 路径
 
-The `pathRewrite` proxy configuration option lets you rewrite the URL path at run time. 
+The `pathRewrite` proxy configuration option lets you rewrite the URL path at run time.
 For example, you can specify the following `pathRewrite` value to the proxy configuration to remove "api" from the end of a path.
 
 `pathRewrite` 代理配置项能让你在运行时重写 URL 路径。
@@ -604,7 +627,7 @@ Proxy log levels are `info` (the default), `debug`, `warn`, `error`, and `silent
 
 ### 代理多个条目
 
-You can  proxy multiple entries to the same target by defining the configuration in JavaScript.
+You can proxy multiple entries to the same target by defining the configuration in JavaScript.
 
 通过用 JavaScript 定义此配置，你还可以把多个条目代理到同一个目标。
 
@@ -678,10 +701,10 @@ module.exports = PROXY_CONFIG;
 
 ### 使用公司代理
 
-If you work behind a corporate proxy, the cannot directly proxy calls to any URL outside your local network. 
+If you work behind a corporate proxy, the backend cannot directly proxy calls to any URL outside your local network.
 In this case, you can configure the backend proxy to redirect calls through your corporate proxy using an agent:
 
-如果你在公司代理后面工作，就无法直接代理到局域网之外的任何 URL。
+如果你在某个公司代理之后，此后端就无法直接代理到局域网之外的任何 URL。
 这种情况下，你可以把这个后端代理配置为，借助 agent 通过你的公司代理转发此调用：
 
 <code-example language="none" class="code-shell">
@@ -718,4 +741,3 @@ function setupForCorporateProxy(proxyConfig) {
 
 module.exports = setupForCorporateProxy(proxyConfig);
 ```
-

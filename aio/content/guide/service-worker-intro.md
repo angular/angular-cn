@@ -4,7 +4,7 @@
 
 Service workers augment the traditional web deployment model and empower applications to deliver a user experience with the reliability and performance on par with natively-installed code. Adding a service worker to an Angular application is one of the steps for turning an application into a [Progressive Web App](https://developers.google.com/web/progressive-web-apps/) (also known as a PWA).
 
-Service Worker 可以增强传统的 Web 发布模式，并使应用程序能够提供可与本机代码媲美的高可靠、高性能的用户体验。为 Angular 应用添加 Service Worker 是把应用转换成[渐进式应用（PWA）](https://developers.google.com/web/progressive-web-apps/)的步骤之一。
+Service Worker 可以增强传统的 Web 发布模式，并使应用程序能够提供可与原生代码媲美的高可靠、高性能的用户体验。为 Angular 应用添加 Service Worker 是把应用转换成[渐进式应用（PWA）](https://developers.google.com/web/progressive-web-apps/)的步骤之一。
 
 At its simplest, a service worker is a script that runs in the web browser and manages caching for an application.
 
@@ -14,7 +14,7 @@ Service workers function as a network proxy. They intercept all outgoing HTTP re
 
 Service Worker 的功能就像一个网络代理。它们会拦截所有由应用发出的 HTTP 请求，并选择如何给出响应。
 比如，它们可以查询局部缓存，如果有缓存的响应数据，就用它做出响应。
-这种代理行为不会局限于通过程序调用 API（比如`fetch`）发起的请求，还包括 HTML 中对资源的引用，甚至对 `index.html` 的首次请求。
+这种代理行为不会局限于通过程序调用 API（比如 `fetch`）发起的请求，还包括 HTML 中对资源的引用，甚至对 `index.html` 的首次请求。
  基于 Service Worker 的缓存是完全可编程的，并且不依赖于服务端指定的那些控制缓存策略的头。
 
 Unlike the other scripts that make up an application, such as the Angular app bundle, the service worker is preserved after the user closes the tab. The next time that browser loads the application, the service worker loads first, and can intercept every request for resources to load the application. If the service worker is designed to do so, it can *completely satisfy the loading of the application, without the need for the network*.
@@ -83,22 +83,93 @@ Installing the Angular service worker is as simple as including an `NgModule`. I
 
 ## 前提条件
 
-Your application must run in a web browser that supports service workers. Currently, service workers are supported in the latest versions of Chrome, Firefox, Edge, Safari, Opera, UC Browser (Android version) and Samsung Internet. Browsers like IE and Opera Mini do not provide the support. To learn more about other browsers that are service worker ready, see the [Can I Use](https://caniuse.com/#feat=serviceworkers) page and [MDN docs](https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API).
+To make use of all the features of Angular service worker, use the latest versions of Angular and the Angular CLI.
 
-你的应用必须运行在支持 Service Worker 的 Web 浏览器中。目前，Chrome 和 Firefox 的最新版本 都已经支持了。
-要想知道其它浏览器是否支持，参见 [Can I Use](http://caniuse.com/#feat=serviceworkers) 页。
+要使用 Angular Service Worker 的所有功能，请使用最新版本的 Angular 和 Angular CLI。
 
-In addition, in order for service workers to be registered, the app must be accessed over HTTPS, not HTTP. Browsers will ignore service workers on pages that are served over an insecure connection. The reason is that service workers are quite powerful, so extra care needs to be taken to ensure the service worker script has not been tampered with.
 
-此外，为了注册 Service Worker，应用必须通过 HTTPS 进行访问，而不能通过 HTTP。浏览器会忽略那些通过不安全连接提供的页面上的 Service Worker。其原因在于 Service Worker 真的很强大，所以需要额外的安全保障来确保 Service Worker 脚本不会被中间人攻击所篡改。
+In order for service workers to be registered, the app must be accessed over HTTPS, not HTTP.
+Browsers ignore service workers on pages that are served over an insecure connection.
+The reason is that service workers are quite powerful, so extra care needs to be taken to ensure the service worker script has not been tampered with.
 
-There is one exception to this rule: To make local development easier, browsers do _not_ require a secure connection when accessing an app on `localhost`.
+为了注册 Service Worker，必须通过 HTTPS 而非 HTTP 访问该应用程序。浏览器会忽略通过不安全连接访问的页面上的 Service Worker。原因是 Service Worker 非常强大，因此需要格外小心，以确保 Service Worker 的脚本未被篡改。
+
+
+There is one exception to this rule: to make local development easier, browsers do _not_ require a secure connection when accessing an app on `localhost`.
 
 这条规则有一个例外：为了方便本地开发，当访问 `localhost` 上的应用时，浏览器*不*要求安全连接。
+
+### Browser support
+
+### 浏览器支持
+
+
+To benefit from the Angular service worker, your app must run in a web browser that supports service workers in general.
+Currently, service workers are supported in the latest versions of Chrome, Firefox, Edge, Safari, Opera, UC Browser (Android version) and Samsung Internet.
+Browsers like IE and Opera Mini do not support service workers.
+
+要从 Angular Service Worker 中受益，您的应用必须在支持 Service Worker 的 Web 浏览器中运行。
+当前，最新版本的 Chrome，Firefox，Edge，Safari，Opera，UC 浏览器（Android 版）和 Samsung Internet 支持 Service Worker。而 IE 和 Opera Mini 等浏览器不支持 Service Worker。
+
+
+If the user is accessing your app via a browser that does not support service workers, the service worker is not registered and related behavior such as offline cache management and push notifications does not happen.
+More specifically:
+
+如果用户通过不支持 Service Worker 的浏览器访问您的应用程序，则该 Service Worker 不会注册，并且不会发生相关行为，例如脱机缓存管理和推送通知。进一步来说：
+
+
+* The browser does not download the service worker script and `ngsw.json` manifest file.
+
+  浏览器不会下载 Service Worker 脚本和 `ngsw.json` 清单文件。
+
+
+* Active attempts to interact with the service worker, such as calling `SwUpdate.checkForUpdate()`, return rejected promises.
+
+  主动尝试与 Service Worker 进行交互，例如调用 `SwUpdate.checkForUpdate()`，会返回被拒绝的承诺（Promise）。
+
+
+* The observable events of related services, such as `SwUpdate.available`, are not triggered.
+
+  相关服务（例如 `SwUpdate.available`）的可观察事件不会触发。
+
+
+It is highly recommended that you ensure that your app works even without service worker support in the browser.
+Although an unsupported browser ignores service worker caching, it will still report errors if the app attempts to interact with the service worker.
+For example, calling `SwUpdate.checkForUpdate()` will return rejected promises.
+To avoid such an error, you can check whether the Angular service worker is enabled using `SwUpdate.isEnabled()`.
+
+强烈建议您确保即使在浏览器中没有 Service Worker 支持的情况下，您的应用也可以正常运行。尽管不受支持的浏览器会忽略 Service Worker 缓存，但如果应用程序尝试与 Service Worker 进行交互，它将仍然会报告错误。例如，调用 `SwUpdate.checkForUpdate()` 将返回被拒绝的承诺。为避免此类错误，您可以使用 `SwUpdate.isEnabled()` 检查是否启用了 Angular Service Worker。
+
+
+To learn more about other browsers that are service worker ready, see the [Can I Use](https://caniuse.com/#feat=serviceworkers) page and [MDN docs](https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API).
+
+要了解有关其它支持 Service Worker 的浏览器的更多信息，请参阅 [Can I Use](https://caniuse.com/#feat=serviceworkers) 页面和 [MDN 文档](https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API) 。
+
 
 ## Related resources
 
 ## 相关资源
+
+The rest of the articles in this section specifically address the Angular implementation of service workers.
+
+本节中的其余文章专门针对 Service Worker 的 Angular 实现。
+
+
+* [App Shell](guide/app-shell)
+
+  [应用外壳](guide/app-shell)
+
+* [Service Worker Communication](guide/service-worker-communications)
+
+   [与 Service Worker 通讯](guide/service-worker-communications).
+
+* [Service Worker in Production](guide/service-worker-devops)
+
+   [生产环境下的 Service Worker](guide/service-worker-devops)。
+
+* [Service Worker Configuration](guide/service-worker-config)
+
+   [Service Worker 配置](guide/service-worker-config)。
 
 For more information about service workers in general, see [Service Workers: an Introduction](https://developers.google.com/web/fundamentals/primers/service-workers/).
 
@@ -109,18 +180,25 @@ For more information about browser support, see the [browser support](https://de
 
 要了解关于浏览器支持度的更多信息，参见 [Service Worker 简介](https://developers.google.com/web/fundamentals/primers/service-workers/) 中的[浏览器支持](https://developers.google.com/web/fundamentals/primers/service-workers/#browser_support)部分、Jake Archibald 写的[Serviceworker 好了吗？](https://jakearchibald.github.io/isserviceworkerready/)和 [Can I Use](http://caniuse.com/#feat=serviceworkers)。
 
-The remainder of this Angular documentation specifically addresses the Angular implementation of service workers.
+For additional recommendations and examples, see:
 
-这份 Angular 文档的其它部分全都专注于讲 Angular 中的 Service Worker 实现。
+有关其他建议和示例，请参见：
 
-## More on Angular service workers
 
-## 关于 Angular Service Worker 的更多信息
+* [Precaching with Angular Service Worker](https://web.dev/precaching-with-the-angular-service-worker/)
 
-You may also be interested in the following:
+  [使用 Angular Service Worker 进行预缓存](https://web.dev/precaching-with-the-angular-service-worker/)
 
-你可能还对下列内容感兴趣：
 
-* [Getting Started with service workers](guide/service-worker-getting-started).
+* [Creating a PWA with Angular CLI](https://web.dev/creating-pwa-with-angular-cli/)
 
-   [Service Worker 快速起步](guide/service-worker-getting-started)。
+  [使用 Angular CLI 创建 PWA](https://web.dev/creating-pwa-with-angular-cli/)
+
+
+## Next steps
+
+## 下一步
+
+To begin using Angular service workers, see [Getting Started with service workers](guide/service-worker-getting-started).
+
+要开始使用 Angular Serivce Worker，参见 [Service Worker 快速起步](guide/service-worker-getting-started)。

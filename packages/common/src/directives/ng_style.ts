@@ -5,7 +5,7 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import {Directive, DoCheck, Input, ɵRenderFlags, ɵɵdefineDirective, ɵɵstyleMap, ɵɵstyling, ɵɵstylingApply} from '@angular/core';
+import {Directive, DoCheck, Input, ɵRenderFlags, ɵɵallocHostVars, ɵɵdefineDirective, ɵɵstyleMap} from '@angular/core';
 
 import {NgStyleImpl, NgStyleImplProvider} from './ng_style_impl';
 
@@ -25,6 +25,7 @@ import {NgStyleImpl, NgStyleImplProvider} from './ng_style_impl';
 
 // used when the VE is present
 export const ngStyleDirectiveDef__PRE_R3__ = undefined;
+export const ngStyleFactoryDef__PRE_R3__ = undefined;
 
 // used when the VE is not present (note the directive will
 // never be instantiated normally because it is apart of a
@@ -32,19 +33,20 @@ export const ngStyleDirectiveDef__PRE_R3__ = undefined;
 export const ngStyleDirectiveDef__POST_R3__ = ɵɵdefineDirective({
   type: function() {} as any,
   selectors: null as any,
-  factory: () => {},
   hostBindings: function(rf: ɵRenderFlags, ctx: any, elIndex: number) {
     if (rf & ɵRenderFlags.Create) {
-      ɵɵstyling();
+      ɵɵallocHostVars(2);
     }
     if (rf & ɵRenderFlags.Update) {
       ɵɵstyleMap(ctx.getValue());
-      ɵɵstylingApply();
     }
   }
 });
 
+export const ngStyleFactoryDef__POST_R3__ = function() {};
+
 export const ngStyleDirectiveDef = ngStyleDirectiveDef__PRE_R3__;
+export const ngStyleFactoryDef = ngStyleDirectiveDef__PRE_R3__;
 
 /**
  * Serves as the base non-VE container for NgStyle.
@@ -52,16 +54,17 @@ export const ngStyleDirectiveDef = ngStyleDirectiveDef__PRE_R3__;
  * While this is a base class that NgStyle extends from, the
  * class itself acts as a container for non-VE code to setup
  * a link to the `[style]` host binding (via the static
- * `ngDirectiveDef` property on the class).
+ * `ɵdir` property on the class).
  *
- * Note that the `ngDirectiveDef` property's code is switched
+ * Note that the `ɵdir` property's code is switched
  * depending if VE is present or not (this allows for the
  * binding code to be set only for newer versions of Angular).
  *
  * @publicApi
  */
 export class NgStyleBase {
-  static ngDirectiveDef: any = ngStyleDirectiveDef;
+  static ɵdir: any = ngStyleDirectiveDef;
+  static ɵfac: any = ngStyleFactoryDef;
 
   constructor(protected _delegate: NgStyleImpl) {}
 

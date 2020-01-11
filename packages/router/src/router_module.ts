@@ -6,17 +6,15 @@
  * found in the LICENSE file at https://angular.io/license
  */
 
-import {APP_BASE_HREF, HashLocationStrategy, LOCATION_INITIALIZED, Location, LocationStrategy, PathLocationStrategy, PlatformLocation, ViewportScroller} from '@angular/common';
+import {APP_BASE_HREF, HashLocationStrategy, LOCATION_INITIALIZED, Location, LocationStrategy, PathLocationStrategy, PlatformLocation, ViewportScroller, ɵgetDOM as getDOM} from '@angular/common';
 import {ANALYZE_FOR_ENTRY_COMPONENTS, APP_BOOTSTRAP_LISTENER, APP_INITIALIZER, ApplicationRef, Compiler, ComponentRef, Inject, Injectable, InjectionToken, Injector, ModuleWithProviders, NgModule, NgModuleFactoryLoader, NgProbeToken, Optional, Provider, SkipSelf, SystemJsNgModuleLoader} from '@angular/core';
-import {ɵgetDOM as getDOM} from '@angular/platform-browser';
 import {Subject, of } from 'rxjs';
-
 import {EmptyOutletComponent} from './components/empty_outlet';
 import {Route, Routes} from './config';
 import {RouterLink, RouterLinkWithHref} from './directives/router_link';
 import {RouterLinkActive} from './directives/router_link_active';
 import {RouterOutlet} from './directives/router_outlet';
-import {RouterEvent} from './events';
+import {Event} from './events';
 import {RouteReuseStrategy} from './route_reuse_strategy';
 import {ErrorHandler, Router} from './router';
 import {ROUTES} from './router_config_loader';
@@ -28,23 +26,14 @@ import {UrlHandlingStrategy} from './url_handling_strategy';
 import {DefaultUrlSerializer, UrlSerializer, UrlTree} from './url_tree';
 import {flatten} from './utils/collection';
 
-
-
 /**
- * @description
- *
- * Contains a list of directives
- *
- * 所含指令的列表
- *
+ * The directives defined in the `RouterModule`.
  */
 const ROUTER_DIRECTIVES =
     [RouterOutlet, RouterLink, RouterLinkWithHref, RouterLinkActive, EmptyOutletComponent];
 
 /**
- * @description
- *
- * Is used in DI to configure the router.
+ * A [DI token](guide/glossary/#di-token) for the router service.
  *
  * DI 用它来配置路由器。
  * @publicApi
@@ -142,16 +131,16 @@ export function routerNgProbeToken() {
  * 在构建应用时，管理状态的转换是最难的任务之一。对 Web 来说尤其如此，你还要确保这个状态同时在 URL 中反映出来。
  * 另外，我们通常会希望把应用拆分成多个发布包，并按需加载。要让这些工作透明化，可没那么简单。
  *
- * The Angular router solves these problems. Using the router, you can declaratively specify
+ * The Angular router service solves these problems. Using the router, you can declaratively specify
  * application states, manage state transitions while taking care of the URL, and load bundles on
  * demand.
  *
  * Angular 的路由器解决了这些问题。使用路由器，你可以声明式的指定应用的状态、管理状态的转换，还可以处理好 URL，还可以按需加载发布包。
  *
- * [Read this developer guide](https://angular.io/docs/ts/latest/guide/router.html) to get an
- * overview of how the router should be used.
+ * @see [Routing and Navigation](guide/router.html) for an
+ * overview of how the router service should be used.
  *
- * [阅读开发指南](/guide/router) 以获得如何使用路由器的全景图。
+ * @see [路由与导航](guide/router.html) 以获得如何使用路由器服务的概览。
  *
  * @publicApi
  */
@@ -165,78 +154,12 @@ export class RouterModule {
   constructor(@Optional() @Inject(ROUTER_FORROOT_GUARD) guard: any, @Optional() router: Router) {}
 
   /**
-   * Creates a module with all the router providers and directives. It also optionally sets up an
-   * application listener to perform an initial navigation.
+   * Creates and configures a module with all the router providers and directives.
+   * Optionally sets up an application listener to perform an initial navigation.
    *
-   * 创建一个带有所有路由器服务提供商和指令的模块。它还可以（可选的）设置一个应用监听器，来执行首次导航。
-   *
-   * Configuration Options:
-   *
-   * 配置项：
-   *
-   * * `enableTracing` Toggles whether the router should log all navigation events to the console.
-   *
-   *   `enableTracing` 可以切换路由器是否应该把它所有的内部事件都记录到控制台中。
-   *
-   * * `useHash` Enables the location strategy that uses the URL fragment instead of the history
-   * API.
-   *
-   *   `useHash` 启用 `LocationStrategy` 位置策略，用 URL 片段（`#`）代替 `history` API。
-   *
-   * * `initialNavigation` Disables the initial navigation.
-   *
-   *   `initialNavigation` 禁用首次导航。
-   *
-   * * `errorHandler` Defines a custom error handler for failed navigations.
-   *
-   *   `errorHandler` 为那些失败的导航定义了一个自定义错误处理器。
-   *
-   * * `preloadingStrategy` Configures a preloading strategy. See `PreloadAllModules`.
-   *
-   *   `preloadingStrategy` 配置预加载策略（参见 `PreloadAllModules`）。
-   *
-   * * `onSameUrlNavigation` Define what the router should do if it receives a navigation request to
-   * the current URL.
-   *
-   *   `onSameUrlNavigation` 定义了当路由器接收到一个到当前 URL 的导航请求时，应该做什么。
-   *
-   * * `scrollPositionRestoration` Configures if the scroll position needs to be restored when
-   * navigating back.
-   *
-   *    `scrollPositionRestoration` 配置了当导航回来时是否需要还原滚动位置。
-   *
-   * * `anchorScrolling` Configures if the router should scroll to the element when the url has a
-   * fragment.
-   *
-   *    `anchorScrolling` 配置了当 URL 指定了一个片段（fragment）时，路由器是否需要滚动到那个元素处。
-   *
-   * * `scrollOffset` Configures the scroll offset the router will use when scrolling to an element.
-   *
-   *    `scrollOffset` 配置了当滚动到某个元素时，路由应该使用的滚动偏移量。
-   *
-   * * `paramsInheritanceStrategy` Defines how the router merges params, data and resolved data from
-   * parent to child routes.
-   *
-   *   `paramsInheritanceStrategy` 定义了路由器要如何把父路由的参数、数据和解析出的数据合并到子路由中。
-   *
-   * * `malformedUriErrorHandler` Defines a custom malformed uri error handler function. This
-   * handler is invoked when encodedURI contains invalid character sequences.
-   *
-   *    `malformedUriErrorHandler` 定义了一个自定义的无效 uri 错误处理器函数。当 encodedURI 的参数中包含错误的字符序列时，就会调用这个处理器。
-   *
-   * * `urlUpdateStrategy` Defines when the router updates the browser URL. The default behavior is
-   * to update after successful navigation.
-   *
-   *    `urlUpdateStrategy` 定义了路由器应该何时更新浏览器的 URL。默认的行为是在成功的导航之后才更新。
-   *
-   * * `relativeLinkResolution` Enables the correct relative link resolution in components with
-   * empty paths.
-   *
-   *    `relativeLinkResolution` 指定了在空路径路由的组件中应该正确解析相对路径。
-   *
-   * See `ExtraOptions` for more details about the above options.
-   *
-   * 请参见 `ExtraOptions` 以了解上述选项的详情。
+   * @param routes An array of `Route` objects that define the navigation paths for the application.
+   * @param config An `ExtraOptions` configuration object that controls how navigation is performed.
+   * @return The new router module.
   */
   static forRoot(routes: Routes, config?: ExtraOptions): ModuleWithProviders<RouterModule> {
     return {
@@ -306,17 +229,12 @@ export function provideForRootGuard(router: Router): any {
 }
 
 /**
- * @description
- *
- * Registers routes.
+ * Registers a [DI provider](guide/glossary#provider) for a set of routes.
+ * @param routes The route configuration to provide.
  *
  * 注册路由。
  *
  * @usageNotes
- *
- * ### Example
- *
- * ### 例子
  *
  * ```
  * @NgModule({
@@ -336,33 +254,20 @@ export function provideRoutes(routes: Routes): any {
 }
 
 /**
- * @description
+ * Allowed values in an `ExtraOptions` object that configure
+ * when the router performs the initial navigation operation.
  *
- * Represents an option to configure when the initial navigation is performed.
- *
- * 一个选项，用于控制执行首次导航的时机。
- *
- * * 'enabled' - the initial navigation starts before the root component is created.
- * The bootstrap is blocked until the initial navigation is complete.
- *
- *   'enabled' - 在根组件创建之前就开始首次导航。在首次导航完成之前，引导过程都会被阻塞。
- *
- * * 'disabled' - the initial navigation is not performed. The location listener is set up before
- * the root component gets created.
- *
- *   'disabled' - 不执行首次导航。在根组件创建之前，就会挂接上位置变更监听器。
- *
- * * 'legacy_enabled'- the initial navigation starts after the root component has been created.
+ * * 'enabled' - The initial navigation starts before the root component is created.
+ * The bootstrap is blocked until the initial navigation is complete. This value is required
+ * for [server-side rendering](guide/universal) to work.
+ * * 'disabled' - The initial navigation is not performed. The location listener is set up before
+ * the root component gets created. Use if there is a reason to have
+ * more control over when the router starts its initial navigation due to some complex
+ * initialization logic.
+ * * 'legacy_enabled'- (Default, for compatibility.) The initial navigation starts after the root component has been created.
  * The bootstrap is not blocked until the initial navigation is complete. @deprecated
- *
- *   'legacy_enabled' - 在根组件创建完之后开始首次导航。在首次导航之前不阻塞引导过程。@deprecated
- *
- * * 'legacy_disabled'- the initial navigation is not performed. The location listener is set up
- * after @deprecated
- * the root component gets created.
- *
- *   'legacy_disabled' - 不执行首次导航。在根组件创建完之后设置路径监听器。@deprecated
- *
+ * * 'legacy_disabled'- The initial navigation is not performed. The location listener is set up
+ * after the root component gets created. @deprecated since v4
  * * `true` - same as 'legacy_enabled'. @deprecated since v4
  *
  *   `true` - 同 'legacy_enabled'. @deprecated since v4
@@ -371,15 +276,9 @@ export function provideRoutes(routes: Routes): any {
  *
  *   `false` - 同 'legacy_disabled'. @deprecated since v4
  *
- * The 'enabled' option should be used for applications unless there is a reason to have
- * more control over when the router starts its initial navigation due to some complex
- * initialization logic. In this case, 'disabled' should be used.
- *
- * 应用应该默认使用 'enabled'。如果在一些复杂的初始化逻辑中，需要在路由器开始首次导航之前进行更多的控制，则应该使用 'disabled'。
- *
  * The 'legacy_enabled' and 'legacy_disabled' should not be used for new applications.
  *
- * 新的应用中不应该再使用 'legacy_enabled' 和 'legacy_disabled'。
+ * @see `forRoot()`
  *
  * @publicApi
  */
@@ -387,9 +286,8 @@ export type InitialNavigation =
     true | false | 'enabled' | 'disabled' | 'legacy_enabled' | 'legacy_disabled';
 
 /**
- * @description
- *
- * Represents options to configure the router.
+ * A set of configuration options for a router module, provided in the
+ * `forRoot()` method.
  *
  * 表示路由器的配置项。
  *
@@ -397,35 +295,53 @@ export type InitialNavigation =
  */
 export interface ExtraOptions {
   /**
-   * Makes the router log all its internal events to the console.
-   *
-   * 让路由器将其所有的内部事件都记录到控制台中。
+   * When true, log all internal navigation events to the console.
+   * Use for debugging.
    */
   enableTracing?: boolean;
 
   /**
-   * Enables the location strategy that uses the URL fragment instead of the history API.
+   * When true, enable the location strategy that uses the URL fragment
+   * instead of the history API.
    *
    * 修改位置策略（`LocationStrategy`），用 URL 片段（`#`）代替 `history` API。
    */
   useHash?: boolean;
 
   /**
-   * Disables the initial navigation.
+   * One of `enabled` or `disabled`.
+   * When set to `enabled`, the initial navigation starts before the root component is created.
+   * The bootstrap is blocked until the initial navigation is complete. This value is required for
+   * [server-side rendering](guide/universal) to work.
+   * When set to `disabled`, the initial navigation is not performed.
+   * The location listener is set up before the root component gets created.
+   * Use if there is a reason to have more control over when the router
+   * starts its initial navigation due to some complex initialization logic.
+   *
+   * Legacy values are deprecated since v4 and should not be used for new applications:
+   *
+   * * `legacy_enabled` - Default for compatibility.
+   * The initial navigation starts after the root component has been created,
+   * but the bootstrap is not blocked until the initial navigation is complete.
+   * * `legacy_disabled` - The initial navigation is not performed.
+   * The location listener is set up after the root component gets created.
+   * * `true` - same as `legacy_enabled`.
+   * * `false` - same as `legacy_disabled`.
    *
    * 禁用首次导航
    */
   initialNavigation?: InitialNavigation;
 
   /**
-   * A custom error handler.
+   * A custom error handler for failed navigations.
    *
    * 自定义的错误处理器。
    */
   errorHandler?: ErrorHandler;
 
   /**
-   * Configures a preloading strategy. See `PreloadAllModules`.
+   * Configures a preloading strategy.
+   * One of `PreloadAllModules` or `NoPreloading` (the default).
    *
    * 配置预加载策略，参见 `PreloadAllModules`。
    */
@@ -433,8 +349,9 @@ export interface ExtraOptions {
 
   /**
    * Define what the router should do if it receives a navigation request to the current URL.
-   * By default, the router will ignore this navigation. However, this prevents features such
-   * as a "refresh" button. Use this option to configure the behavior when navigating to the
+   * Default is `ignore`, which causes the router ignores the navigation.
+   * This can disable features such as a "refresh" button.
+   * Use this option to configure the behavior when navigating to the
    * current URL. Default is 'ignore'.
    *
    * 规定当路由器收到一个导航到当前 URL 的请求时该如何处理。
@@ -448,66 +365,55 @@ export interface ExtraOptions {
    *
    * 配置是否需要在导航回来的时候恢复滚动位置。
    *
-   * * 'disabled'--does nothing (default).  Scroll position will be maintained on navigation.
+   * * 'disabled'- (Default) Does nothing. Scroll position is maintained on navigation.
    *
    *   'disabled' - 什么也不做（默认）。在导航时，会自动维护滚动位置
    *
-   * * 'top'--set the scroll position to x = 0, y = 0 on all navigation.
+   * * 'top'- Sets the scroll position to x = 0, y = 0 on all navigation.
    *
    *   'top' - 在任何一次导航中都把滚动位置设置为 x=0, y=0。
    *
-   * * 'enabled'--restores the previous scroll position on backward navigation, else sets the
+   * * 'enabled'- Restores the previous scroll position on backward navigation, else sets the
    * position to the anchor if one is provided, or sets the scroll position to [0, 0] (forward
    * navigation). This option will be the default in the future.
    *
    *   'enabled' —— 当向后导航时，滚动到以前的滚动位置。当向前导航时，如果提供了锚点，则自动滚动到那个锚点，否则把滚动位置设置为 [0, 0]。该选项将来会变成默认值。
    *
    * You can implement custom scroll restoration behavior by adapting the enabled behavior as
-   * follows:
+   * in the following example.
    *
-   * 你可以通过如下方式来适配启用时的行为，来自定义恢复滚动位置的策略：
+   * 你可以像下面的例子一样适配它启用时的行为，来自定义恢复滚动位置的策略：
    *
    * ```typescript
    * class AppModule {
-    *   constructor(router: Router, viewportScroller: ViewportScroller) {
-    *     router.events.pipe(
-    *       filter((e: Event): e is Scroll => e instanceof Scroll)
-    *     ).subscribe(e => {
-    *       if (e.position) {
-    *         // backward navigation
-    *         viewportScroller.scrollToPosition(e.position);
-    *       } else if (e.anchor) {
-    *         // anchor navigation
-    *         viewportScroller.scrollToAnchor(e.anchor);
-    *       } else {
-    *         // forward navigation
-    *         viewportScroller.scrollToPosition([0, 0]);
-    *       }
-    *     });
-    *   }
-    * }
-    * ```
+   *   constructor(router: Router, viewportScroller: ViewportScroller) {
+   *     router.events.pipe(
+   *       filter((e: Event): e is Scroll => e instanceof Scroll)
+   *     ).subscribe(e => {
+   *       if (e.position) {
+   *         // backward navigation
+   *         viewportScroller.scrollToPosition(e.position);
+   *       } else if (e.anchor) {
+   *         // anchor navigation
+   *         viewportScroller.scrollToAnchor(e.anchor);
+   *       } else {
+   *         // forward navigation
+   *         viewportScroller.scrollToPosition([0, 0]);
+   *       }
+   *     });
+   *   }
+   * }
+   * ```
    */
   scrollPositionRestoration?: 'disabled'|'enabled'|'top';
 
   /**
-   * Configures if the router should scroll to the element when the url has a fragment.
-   *
-   * 配置当 url 中带有片段（`#`）时路由器是否滚动到那个元素。
-   *
-   * * 'disabled'--does nothing (default).
-   *
-   *   'disabled' - 什么也不做（默认）。
-   *
-   * * 'enabled'--scrolls to the element. This option will be the default in the future.
-   *
-   *   'enabled' - 滚动到该元素。将来该选项会变为默认值。
+   * When set to 'enabled', scrolls to the anchor element when the URL has a fragment.
+   * Anchor scrolling is disabled by default.
    *
    * Anchor scrolling does not happen on 'popstate'. Instead, we restore the position
    * that we stored or scroll to the top.
    *
-   * 在 'popstate' 时，不会自动滚动到锚点，而是恢复应用中保存的滚动位置，或滚动到顶部。
-   */
   anchorScrolling?: 'disabled'|'enabled';
 
   /**
@@ -515,9 +421,10 @@ export interface ExtraOptions {
    *
    * 配置当滚动到一个元素时，路由器使用的滚动偏移。
    *
-   * When given a tuple with two numbers, the router will always use the numbers.
-   * When given a function, the router will invoke the function every time it restores scroll
-   * position.
+   * When given a tuple with x and y position value,
+   * the router uses that offset each time it scrolls.
+   * When given a function, the router invokes the function every time
+   * it restores scroll position.
    *
    * 当给出两个数字时，路由器总会使用它们。
    * 当给出一个函数时，路由器每当要恢复滚动位置时，都会调用该函数。
@@ -525,32 +432,24 @@ export interface ExtraOptions {
   scrollOffset?: [number, number]|(() => [number, number]);
 
   /**
-   * Defines how the router merges params, data and resolved data from parent to child
-   * routes. Available options are:
-   *
-   * 定义路由器如何把父路由的参数、数据和解析出的数据合并到子路由。有效的选项包括：
-   *
-   * - `'emptyOnly'`, the default, only inherits parent params for path-less or component-less
-   *   routes.
-   *
-   *   `'emptyOnly'`，默认值，只从无路径或无组件的路由中继承父路由的参数。
-   *
-   * - `'always'`, enables unconditional inheritance of parent params.
-   *
-   *   `'always'`，无条件继承父路由的参数。
+   * Defines how the router merges parameters, data, and resolved data from parent to child
+   * routes. By default ('emptyOnly'), inherits parent parameters only for
+   * path-less or component-less routes.
+   * Set to 'always' to enable unconditional inheritance of parent parameters.
    */
   paramsInheritanceStrategy?: 'emptyOnly'|'always';
 
   /**
-   * A custom malformed uri error handler function. This handler is invoked when encodedURI contains
-   * invalid character sequences. The default implementation is to redirect to the root url dropping
-   * any path or param info. This function passes three parameters:
+   * A custom handler for malformed URI errors. The handler is invoked when `encodedURI` contains
+   * invalid character sequences.
+   * The default implementation is to redirect to the root URL, dropping
+   * any path or parameter information. The function takes three parameters:
    *
    * 一个自定义的 URI 格式无效错误的处理器。每当 encodeURI 包含无效字符序列时，就会调用该处理器。默认的实现是跳转到根路径，抛弃任何路径和参数信息。该函数传入三个参数：
    *
-   * - `'URIError'` - Error thrown when parsing a bad URL
+   * - `'URIError'` - Error thrown when parsing a bad URL.
    *
-   *   `'URIError'` - 当传入错误的 URL 时抛出的错误
+   *   `'URIError'` - 当传入错误的 URL 时抛出的错误。
    *
    * - `'UrlSerializer'` - UrlSerializer that’s configured with the router.
    *
@@ -565,23 +464,11 @@ export interface ExtraOptions {
       (error: URIError, urlSerializer: UrlSerializer, url: string) => UrlTree;
 
   /**
-   * Defines when the router updates the browser URL. The default behavior is to update after
-   * successful navigation. However, some applications may prefer a mode where the URL gets
-   * updated at the beginning of navigation. The most common use case would be updating the
-   * URL early so if navigation fails, you can show an error message with the URL that failed.
-   * Available options are:
-   *
-   * 定义路由器要何时更新浏览器的 URL。默认行为是在每次成功的导航之后更新。
-   * 不过，有些应用会更愿意在导航开始时就更新。最常见的情况是尽早更新 URL，这样当导航失败时，你就可以在出错的 URL 上显示一条错误信息了。
-   * 可用的选项包括：
-   *
-   * - `'deferred'`, the default, updates the browser URL after navigation has finished.
-   *
-   *   `'deferred'`，默认值，在导航完毕后更新浏览器 URL。
-   *
-   * - `'eager'`, updates browser URL at the beginning of navigation.
-   *
-   *   `'eager'`，在导航开始时更新浏览器的 URL。
+   * Defines when the router updates the browser URL. By default ('deferred'),
+   * update after successful navigation.
+   * Set to 'eager' if prefer to update the URL at the beginning of navigation.
+   * Updating the URL early allows you to handle a failure of navigation by
+   * showing an error message with the URL that failed.
    */
   urlUpdateStrategy?: 'deferred'|'eager';
 
@@ -650,7 +537,7 @@ export function setupRouter(
 
   if (opts.enableTracing) {
     const dom = getDOM();
-    router.events.subscribe((e: RouterEvent) => {
+    router.events.subscribe((e: Event) => {
       dom.logGroup(`Router Event: ${(<any>e.constructor).name}`);
       dom.log(e.toString());
       dom.log(e);
@@ -682,23 +569,15 @@ export function rootRoute(router: Router): ActivatedRoute {
 }
 
 /**
- * To initialize the router properly we need to do in two steps:
+ * Router initialization requires two steps:
  *
- * 要正确初始化路由器，我们需要完成两个步骤：
+ * First, we start the navigation in a `APP_INITIALIZER` to block the bootstrap if
+ * a resolver or a guard executes asynchronously.
  *
- * We need to start the navigation in a APP_INITIALIZER to block the bootstrap if
- * a resolver or a guards executes asynchronously. Second, we need to actually run
- * activation in a BOOTSTRAP_LISTENER. We utilize the afterPreactivation
- * hook provided by the router to do that.
- *
- * 为了让解析器或路由守卫能异步执行，我们需要在 APP_INITIALIZER 中开始导航，以便阻塞引导过程。
- * 其次，我们要在 BOOTSTRAP_LISTENER 中实际运行激活逻辑。
- * 我们利用路由器提供的 `afterPreactivation`（预激活完成后） 钩子来做到这一点。
- *
+ * Next, we actually run activation in a `BOOTSTRAP_LISTENER`, using the
+ * `afterPreactivation` hook provided by the router.
  * The router navigation starts, reaches the point when preactivation is done, and then
  * pauses. It waits for the hook to be resolved. We then resolve it only in a bootstrap listener.
- *
- * 路由器开始导航，当预激活（`preactivation`）完成之后，就到达了这个时间点，并等待。它会一直等到这个钩子被解析之后才会继续。以后我们就只会在引导过程监听器中解析它了。
  */
 @Injectable()
 export class RouterInitializer {
@@ -788,7 +667,8 @@ export function getBootstrapListener(r: RouterInitializer) {
 }
 
 /**
- * A token for the router initializer that will be called after the app is bootstrapped.
+ * A [DI token](guide/glossary/#di-token) for the router initializer that
+ * is called after the app is bootstrapped.
  *
  * 一个代表路由器初始化器的令牌，应用引导完毕后就会调用它。
  *

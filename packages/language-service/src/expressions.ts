@@ -7,7 +7,7 @@
  */
 
 import {AST, ASTWithSource, AstPath as AstPathBase, NullAstVisitor, visitAstChildren} from '@angular/compiler';
-import {AstType} from '@angular/compiler-cli/src/language_services';
+import {AstType} from './expression_type';
 
 import {BuiltinType, Span, Symbol, SymbolQuery, SymbolTable} from './types';
 import {inSpan} from './utils';
@@ -18,7 +18,8 @@ function findAstAt(ast: AST, position: number, excludeEmpty: boolean = false): A
   const path: AST[] = [];
   const visitor = new class extends NullAstVisitor {
     visit(ast: AST) {
-      if ((!excludeEmpty || ast.span.start < ast.span.end) && inSpan(position, ast.span)) {
+      if ((!excludeEmpty || ast.sourceSpan.start < ast.sourceSpan.end) &&
+          inSpan(position, ast.sourceSpan)) {
         path.push(ast);
         visitAstChildren(ast, this);
       }

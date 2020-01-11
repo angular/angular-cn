@@ -3,14 +3,14 @@
 # 用 Bazel 进行构建
 
 
-This guide explains how to build and test Angular apps with Bazel. 
+This guide explains how to build and test Angular apps with Bazel.
 
 本章讲解了如何使用 Bazel 来构建和测试 Angular 应用。
 
 
 <div class="alert is-helpful">
 
-This guide assumes you are already familiar with developing and building Angular applications using the [CLI](cli). 
+This guide assumes you are already familiar with developing and building Angular applications using the [CLI](cli).
 
 本指南假设你已经熟悉如何使用 [CLI](cli) 来开发和构建 Angular 应用了。
 
@@ -59,7 +59,7 @@ then create the new application with
 ng new --collection=@angular/bazel
 ```
 
-Now when you use Angular CLI build commands such as `ng build` and `ng serve`, 
+Now when you use Angular CLI build commands such as `ng build` and `ng serve`,
 Bazel is used behind the scenes.
 Outputs from Bazel appear in the `dist/bin` folder.
 
@@ -85,11 +85,6 @@ If you need to opt-out from using Bazel, you can restore the backup files:
 - `/angular.json.bak` replaces `/angular.json`
 
   用 `/angular.json.bak` 替换 `/angular.json`
-
-- `/tsconfig.json.bak` replaces `/tsconfig.json`
-
-  用 `/tsconfig.json.bak` 替换 `/tsconfig.json`
-
 
 ## Advanced configuration
 
@@ -125,7 +120,7 @@ You can manually adjust the Bazel configuration to:
   构建过程并行化，以支持可延展性和增量构建
 
 
-Create the initial Bazel configuration files by running the following command: 
+Create the initial Bazel configuration files by running the following command:
 
 运行以下命令，创建初始的 Bazel 配置文件：
 
@@ -148,9 +143,9 @@ Now you'll find new files in the Angular workspace:
   `/BUILD.bazel` 和 `/src/BUILD.bazel` 会告诉 Bazel 你的源代码在哪里。
 
 
-You can find a full-featured example with custom Bazel configurations at <http://github.com/angular/angular-bazel-example>.
+You can find a full-featured example with custom Bazel configurations at https://github.com/bazelbuild/rules_nodejs/tree/master/examples/angular.
 
-你可以在 <http://github.com/angular/angular-bazel-example> 找到一个全功能的 Bazel 配置示例。
+你可以在 <https://github.com/bazelbuild/rules_nodejs/tree/master/examples/angular> 找到一个全功能的 Bazel 配置示例。
 
 
 Documentation for using Bazel for frontend projects is linked from https://docs.bazel.build/versions/master/bazel-and-javascript.html.
@@ -247,6 +242,6 @@ In the `BUILD.bazel` file, each rule must first be imported, using the `load` st
 在 `BUILD.bazel` 文件中，必须首先使用 `load` 语句导入每个规则。然后用一些属性调用此规则，调用此规则的结果就是向 Bazel 中声明了：当给定一些输入和依赖的时候该如何得到一些输出。然后，当你运行一个 `bazel` 命令时，Bazel 就会加载你声明过的所有规则，以确定它们在运行期间的绝对顺序。注意，只有那些在产生输出时真正起作用的规则才会被执行。
 
 
-A list of common rules for frontend development is documented in the README at https://github.com/bazelbuild/rules_nodejs/. 
+A list of common rules for frontend development is documented in the README at https://github.com/bazelbuild/rules_nodejs/.
 
 在 [https://github.com/bazelbuild/rules_nodejs/](https://github.com/bazelbuild/rules_nodejs/) 上的 README 文件中记录了前端开发中要用到的通用规则列表。

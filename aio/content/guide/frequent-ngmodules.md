@@ -1,16 +1,6 @@
-# Frequently Used Modules
+# Frequently-used modules
 
 # 常用模块
-
-#### Prerequisites
-
-#### 前提条件
-
-A basic understanding of [Bootstrapping](guide/bootstrapping).
-
-对[引导](guide/bootstrapping)有基本的了解。
-
-<hr>
 
 An Angular app needs at least one module that serves as the root module.
 As you add features to your app, you can add them in modules.
@@ -248,9 +238,9 @@ Angular returns an error telling you to use `CommonModule` instead.
 
 如果你把 `BrowserModule` 导入了惰性加载的特性模块中，Angular 就会返回一个错误，并告诉你要改用 `CommonModule`。
 
-<figure>
- <img src="generated/images/guide/frequent-ngmodules/browser-module-error.gif" width=750 alt="BrowserModule error">
-</figure>
+<div class="lightbox">
+  <img src="generated/images/guide/frequent-ngmodules/browser-module-error.gif" width=750 alt="BrowserModule error">
+</div>
 
 <hr />
 

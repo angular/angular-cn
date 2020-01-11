@@ -5,12 +5,12 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
+import {bindingUpdated} from '../bindings';
 import {SanitizerFn} from '../interfaces/sanitization';
-import {getLView, getSelectedIndex} from '../state';
-import {NO_CHANGE} from '../tokens';
+import {TVIEW} from '../interfaces/view';
+import {getLView, getSelectedIndex, nextBindingIndex} from '../state';
 
-import {ɵɵbind} from './property';
-import {elementAttributeInternal} from './shared';
+import {elementAttributeInternal, storePropertyBindingMetadata} from './shared';
 
 
 
@@ -28,12 +28,15 @@ import {elementAttributeInternal} from './shared';
  * @codeGenApi
  */
 export function ɵɵattribute(
-    name: string, value: any, sanitizer?: SanitizerFn | null, namespace?: string) {
-  const index = getSelectedIndex();
+    name: string, value: any, sanitizer?: SanitizerFn | null,
+    namespace?: string): typeof ɵɵattribute {
   const lView = getLView();
-  // TODO(FW-1340): Refactor to remove the use of other instructions here.
-  const bound = ɵɵbind(value);
-  if (bound !== NO_CHANGE) {
-    return elementAttributeInternal(index, name, bound, lView, sanitizer, namespace);
+  const bindingIndex = nextBindingIndex();
+  if (bindingUpdated(lView, bindingIndex, value)) {
+    const nodeIndex = getSelectedIndex();
+    elementAttributeInternal(nodeIndex, name, value, lView, sanitizer, namespace);
+    ngDevMode &&
+        storePropertyBindingMetadata(lView[TVIEW].data, nodeIndex, 'attr.' + name, bindingIndex);
   }
+  return ɵɵattribute;
 }

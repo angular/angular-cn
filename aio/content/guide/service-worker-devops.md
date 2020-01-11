@@ -360,6 +360,9 @@ There are two possible degraded states:
 clean copy of the latest known version of the app. Older cached
 versions are safe to use, so existing tabs continue to run from
 cache, but new loads of the app will be served from the network.
+The service worker will try to recover from this state when a new
+version of the application is detected and installed (that is,
+when a new `ngsw.json` is available).
 
    `EXISTING_CLIENTS_ONLY`：这个 Service Worker 没有该应用的最新已知版本的干净副本。
   较旧的缓存版本可以被安全的使用，所以现有的选项卡将继续使用较旧的版本运行本应用，
@@ -378,6 +381,17 @@ In both cases, the parenthetical annotation provides the
 error that caused the service worker to enter the degraded state.
 
 在这两种情况下，后面的括号注解中都会提供导致 Service Worker 进入降级状态的错误信息。
+
+Both states are temporary; they are saved only for the lifetime of the [ServiceWorker
+instance](https://developer.mozilla.org/en-US/docs/Web/API/ServiceWorkerGlobalScope).
+The browser sometimes terminates an idle service worker to conserve memory and
+processor power, and creates a new service worker instance in response to
+network events. The new instance starts in the `NORMAL` mode, regardless of the
+state of the previous instance.
+
+这两种状态都是暂时的；它们仅在 [ServiceWorker 实例](https://developer.mozilla.org/zh-CN/docs/Web/API/ServiceWorkerGlobalScope) 的生命周期内保存。
+浏览器有时会终止空闲的 Service Worker，以节省内存和处理能力，并创建一个新的 Service Worker 实例来响应网络事件。
+无论先前实例的状态如何，新实例均以 `NORMAL` 模式启动。
 
 #### Latest manifest hash
 
@@ -566,6 +580,33 @@ as well as any other Service Workers which might have been served in
 the past on your site.
 
 这个脚本可以用来停用 `@angular/service-worker` 以及任何其它曾在你的站点上提供过的 Service Worker。
+
+### Changing your app's location
+
+### 更改应用的位置
+
+It is important to note that service workers don't work behind redirect. You 
+may have already encountered the error `The script resource is behind a redirect, which is disallowed`.
+
+重要的是，要记住 Service Worker 无法在重定向后工作。你可能已经遇到过这种错误：`The script resource is behind a redirect, which is disallowed`。
+
+This can be a problem if you have to change your app's location. If you setup 
+a redirect from the old location (for example `example.com`) to the new 
+location (for example `www.example.com`) the worker will stop working. 
+Also, the redirect won't even trigger for users who are loading the site 
+entirely from Service Worker. The old worker (registered at `example.com`)
+ tries to update and sends requests to the old location `example.com` which 
+ get redirected to the new location `www.example.com` and create the error 
+`The script resource is behind a redirect, which is disallowed`.
+
+如果你不得不更改应用的位置，就可能会出现问题。如果你设置了从旧位置（例如 `example.com` ）到新位置（例如 `www.example.com`）的重定向，则 Service Worker 将停止工作。
+同样，对于完全从 Service Worker 加载该网站的用户，甚至都不会触发重定向。老的 Worker（注册在 `example.com`）会尝试更新并将请求发送到原来的位置 `example.com`，该位置重定向到新位置 `www.example.com` 就会导致错误 `The script resource is behind a redirect, which is disallowed`。
+
+To remedy this, you may need to kill the old worker using one of the above
+techniques ([Fail-safe](#fail-safe) or [Safety Worker](#safety-worker)).
+
+为了解决这个问题，你可能需要用上述技巧（[故障安全](#fail-safe)或[Safety Worker](#safety-worker)）之一杀死老的 Worker。
+
 
 ## More on Angular service workers
 

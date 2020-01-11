@@ -1,4 +1,4 @@
-# Dependency Providers
+# Dependency providers
 
 # 依赖提供商
 
@@ -112,8 +112,7 @@ This logger gets the user from an injected `UserService` instance.
 另一个类 `EvenBetterLogger` 可能要在日志信息里显示用户名。
 这个 logger 要从注入的 `UserService` 实例中来获取该用户。
 
-<code-example path="dependency-injection/src/app/providers.component.ts" region="EvenBetterLogger"  linenums="false">
-</code-example>
+<code-example path="dependency-injection/src/app/providers.component.ts" region="EvenBetterLogger"></code-example>
 
 The injector needs providers for both this new logging service and its dependent `UserService`. Configure this alternative logger with the `useClass` provider-definition key, like `BetterLogger`. The following array specifies both providers in the `providers` metadata option of the parent module or component.
 
@@ -121,8 +120,7 @@ The injector needs providers for both this new logging service and its dependent
 使用 `useClass` 作为提供商定义对象的 key ，来配置一个 logger 的替代品，比如 `BetterLogger`。
 下面的数组同时在父模块和组件的 `providers` 元数据选项中指定了这些提供商。
 
-<code-example path="dependency-injection/src/app/providers.component.ts" region="providers-5"  linenums="false">
-</code-example>
+<code-example path="dependency-injection/src/app/providers.component.ts" region="providers-5"></code-example>
 
 {@a aliased-class-providers}
 
@@ -150,15 +148,13 @@ If you try to alias `OldLogger` to `NewLogger` with `useClass`, you end up with 
 
 如果你试图用 `useClass` 为 `OldLogger` 指定一个别名 `NewLogger`，就会在应用中得到 `NewLogger` 的两个不同的实例。
 
-<code-example path="dependency-injection/src/app/providers.component.ts" region="providers-6a" linenums="false">
-</code-example>
+<code-example path="dependency-injection/src/app/providers.component.ts" region="providers-6a"></code-example>
 
 To make sure there is only one instance of `NewLogger`, alias `OldLogger` with the `useExisting` option.
 
 要确保只有一个 `NewLogger` 实例，就要用 `useExisting` 来为 `OldLogger` 指定别名。
 
-<code-example path="dependency-injection/src/app/providers.component.ts" region="providers-6b" linenums="false">
-</code-example>
+<code-example path="dependency-injection/src/app/providers.component.ts" region="providers-6b"></code-example>
 
 {@a value-provider}
 
@@ -177,15 +173,13 @@ The following code defines a variable that creates such an object to play the lo
 
 下面的代码定义了一个变量，用来创建这样一个能扮演 logger 角色的对象。
 
-<code-example path="dependency-injection/src/app/providers.component.ts" region="silent-logger"  linenums="false">
-</code-example>
+<code-example path="dependency-injection/src/app/providers.component.ts" region="silent-logger"></code-example>
 
 The following provider object uses the `useValue` key to associate the variable with the `Logger` token.
 
 下面的提供商定义对象使用 `useValue` 作为 key 来把该变量与 `Logger` 令牌关联起来。
 
-<code-example path="dependency-injection/src/app/providers.component.ts" region="providers-7" linenums="false">
-</code-example>
+<code-example path="dependency-injection/src/app/providers.component.ts" region="providers-7"></code-example>
 
 {@a non-class-dependencies}
 
@@ -208,8 +202,7 @@ They can be object literals, as shown in the following example.
 这些配置对象不一定总是类的实例。
 它们还可能是对象字面量，如下例所示。
 
-<code-example path="dependency-injection/src/app/app.config.ts" region="config" header="src/app/app.config.ts (excerpt)" linenums="false">
-</code-example>
+<code-example path="dependency-injection/src/app/app.config.ts" region="config" header="src/app/app.config.ts (excerpt)"></code-example>
 
 {@a interface-not-valid-token}
 
@@ -225,11 +218,9 @@ In TypeScript, an interface is a design-time artifact, and doesn't have a runtim
 不幸的是，你不能用 TypeScript 的接口作为令牌。
 在 TypeScript 中，接口是一个设计期的概念，无法用作 DI 框架在运行期所需的令牌。
 
-<code-example path="dependency-injection/src/app/providers.component.ts" region="providers-9-interface"  linenums="false">
-</code-example>
+<code-example path="dependency-injection/src/app/providers.component.ts" region="providers-9-interface"></code-example>
 
-<code-example path="dependency-injection/src/app/providers.component.ts" region="provider-9-ctor-interface"  linenums="false">
-</code-example>
+<code-example path="dependency-injection/src/app/providers.component.ts" region="provider-9-ctor-interface"></code-example>
 
 <div class="alert is-helpful">
 
@@ -256,8 +247,7 @@ The following example shows how to define such a token.
 另一个为非类依赖选择提供商令牌的解决方案是定义并使用 `InjectionToken` 对象。
 下面的例子展示了如何定义那样一个令牌。
 
-<code-example path="dependency-injection/src/app/app.config.ts" region="token" header="src/app/app.config.ts" linenums="false">
-</code-example>
+<code-example path="dependency-injection/src/app/app.config.ts" region="token" header="src/app/app.config.ts"></code-example>
 
 The type parameter, while optional, conveys the dependency's type to developers and tooling.
 The token description is another developer aid.
@@ -269,16 +259,14 @@ Register the dependency provider using the `InjectionToken` object:
 
 使用 `InjectionToken` 对象注册依赖提供商：
 
-<code-example path="dependency-injection/src/app/providers.component.ts" region="providers-9"  linenums="false">
-</code-example>
+<code-example path="dependency-injection/src/app/providers.component.ts" region="providers-9"></code-example>
 
 Now you can inject the configuration object into any constructor that needs it, with
 the help of an `@Inject()` parameter decorator.
 
 现在，借助参数装饰器 `@Inject()`，你可以把这个配置对象注入到任何需要它的构造函数中。
 
-<code-example path="dependency-injection/src/app/app.component.2.ts" region="ctor" header="src/app/app.component.ts" linenums="false">
-</code-example>
+<code-example path="dependency-injection/src/app/app.component.2.ts" region="ctor" header="src/app/app.component.ts"></code-example>
 
 <div class="alert is-helpful">
 
@@ -334,8 +322,7 @@ To resolve this, we give the `HeroService` constructor a boolean flag to control
 
 要解决这个问题，我们给 `HeroService` 的构造函数一个逻辑型标志，以控制是否显示秘密英雄。
 
-<code-example path="dependency-injection/src/app/heroes/hero.service.ts" region="internals" header="src/app/heroes/hero.service.ts (excerpt)" linenums="false">
-</code-example>
+<code-example path="dependency-injection/src/app/heroes/hero.service.ts" region="internals" header="src/app/heroes/hero.service.ts (excerpt)"></code-example>
 
 You can inject `Logger`, but you can't inject the  `isAuthorized` flag. Instead, you can use a factory provider to create a new logger instance for `HeroService`.
 
@@ -345,8 +332,7 @@ A factory provider needs a factory function.
 
 工厂提供商需要一个工厂函数。
 
-<code-example path="dependency-injection/src/app/heroes/hero.service.provider.ts" region="factory" header="src/app/heroes/hero.service.provider.ts (excerpt)" linenums="false">
-</code-example>
+<code-example path="dependency-injection/src/app/heroes/hero.service.provider.ts" region="factory" header="src/app/heroes/hero.service.provider.ts (excerpt)"></code-example>
 
 Although `HeroService` has no access to `UserService`, the factory function does.
 You inject both `Logger` and `UserService` into the factory provider
@@ -355,8 +341,7 @@ and let the injector pass them along to the factory function.
 虽然 `HeroService` 不能访问 `UserService`，但是工厂函数可以。
 你把 `Logger` 和 `UserService` 注入到了工厂提供商中，并让注入器把它们传给这个工厂函数。
 
-<code-example path="dependency-injection/src/app/heroes/hero.service.provider.ts" region="provider" header="src/app/heroes/hero.service.provider.ts (excerpt)" linenums="false">
-</code-example>
+<code-example path="dependency-injection/src/app/heroes/hero.service.provider.ts" region="provider" header="src/app/heroes/hero.service.provider.ts (excerpt)"></code-example>
 
 * The `useFactory` field tells Angular that the provider is a factory function whose implementation is `heroServiceFactory`.
 
@@ -500,7 +485,7 @@ The following example of non-tree-shakable providers in Angular configures a ser
 
 下面这个不可摇树优化的 Angular 提供商的例子为 NgModule 注入器配置了一个服务提供商。
 
-<code-example path="dependency-injection/src/app/tree-shaking/service-and-module.ts"  header="src/app/tree-shaking/service-and-modules.ts" linenums="false"> </code-example>
+<code-example path="dependency-injection/src/app/tree-shaking/service-and-module.ts"  header="src/app/tree-shaking/service-and-modules.ts"></code-example>
 
 You can then import this module into your application module
 to make the service available for injection in your app,
@@ -508,7 +493,7 @@ as in the following example.
 
 你可以把该模块导入到你的应用模块中，以便该服务可注入到你的应用中，例子如下。
 
-<code-example path="dependency-injection/src/app/tree-shaking/app.module.ts"  header="src/app/tree-shaking/app.modules.ts" linenums="false"> </code-example>
+<code-example path="dependency-injection/src/app/tree-shaking/app.module.ts"  header="src/app/tree-shaking/app.modules.ts"></code-example>
 
 When `ngc` runs, it compiles `AppModule` into a module factory, which contains definitions for all the providers declared in all the modules it includes. At runtime, this factory becomes an injector that instantiates these services.
 
@@ -530,13 +515,13 @@ The following example shows the tree-shakable equivalent to the `ServiceModule` 
 
 下面的例子展示了与上面的 `ServiceModule` 例子等价的可摇树优化的版本。
 
-<code-example path="dependency-injection/src/app/tree-shaking/service.ts"  header="src/app/tree-shaking/service.ts" linenums="false"> </code-example>
+<code-example path="dependency-injection/src/app/tree-shaking/service.ts"  header="src/app/tree-shaking/service.ts"></code-example>
 
 The service can be instantiated by configuring a factory function, as in the following example.
 
 该服务还可以通过配置工厂函数来实例化，如下例所示。
 
-<code-example path="dependency-injection/src/app/tree-shaking/service.0.ts"  header="src/app/tree-shaking/service.0.ts" linenums="false"> </code-example>
+<code-example path="dependency-injection/src/app/tree-shaking/service.0.ts"  header="src/app/tree-shaking/service.0.ts"></code-example>
 
 <div class="alert is-helpful">
 

@@ -1,38 +1,6 @@
-# Sharing Modules
+# Sharing modules
 
 # 共享特性模块
-
-#### Prerequisites
-
-#### 前提条件
-
-A basic understanding of the following:
-
-对下列知识有基本的了解：
-
-* [Feature Modules](guide/feature-modules).
-
-   [特性模块](guide/feature-modules)
-
-* [JavaScript Modules vs. NgModules](guide/ngmodule-vs-jsmodule).
-
-   [JavaScript 模块与 NgModules](guide/ngmodule-vs-jsmodule)。
-
-* [Frequently Used Modules](guide/frequent-ngmodules).
-
-   [常用模块](guide/frequent-ngmodules)。
-
-* [Routing and Navigation](guide/router).
-
-   [路由与导航](guide/router)。
-
-* [Lazy loading modules](guide/lazy-loading-ngmodules).
-
-   [惰性加载模块](guide/lazy-loading-ngmodules)。
-
-<!--* Components (#TBD) We don’t have a page just on the concept of components, but I think one would be helpful for beginners.-->
-
-<hr>
 
 Creating shared modules allows you to organize and streamline your code. You can put commonly
 used directives, pipes, and components into one module and then import just that module wherever
@@ -95,7 +63,7 @@ having to import it directly into the `@NgModule` decorator.
 即使 `SharedModule` 中声明的组件没有绑定过 `[(ngModel)]`，而且`SharedModule` 也不需要导入 `FormsModule`，`SharedModule` 仍然可以导出 `FormsModule`，而不必把它列在 `imports` 中。
 这种方式下，你可以让其它模块也能访问 `FormsModule`，而不用直接在自己的 `@NgModule` 装饰器中导入它。
 
-### Using components vs services from other modules.
+### Using components vs services from other modules
 
 ### 使用来自其它模块的组件和服务
 

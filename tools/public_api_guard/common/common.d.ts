@@ -27,30 +27,6 @@ export declare class DecimalPipe implements PipeTransform {
     transform(value: any, digitsInfo?: string, locale?: string): string | null;
 }
 
-export declare class DeprecatedCurrencyPipe implements PipeTransform {
-    constructor(_locale: string);
-    transform(value: any, currencyCode?: string, symbolDisplay?: boolean, digits?: string): string | null;
-}
-
-export declare class DeprecatedDatePipe implements PipeTransform {
-    constructor(_locale: string);
-    transform(value: any, pattern?: string): string | null;
-}
-
-export declare class DeprecatedDecimalPipe implements PipeTransform {
-    constructor(_locale: string);
-    transform(value: any, digits?: string): string | null;
-}
-
-/** @deprecated */
-export declare class DeprecatedI18NPipesModule {
-}
-
-export declare class DeprecatedPercentPipe implements PipeTransform {
-    constructor(_locale: string);
-    transform(value: any, digits?: string): string | null;
-}
-
 export declare const DOCUMENT: InjectionToken<Document>;
 
 export declare function formatCurrency(value: number, locale: string, currency: string, currencyCode?: string, digitsInfo?: string): string;
@@ -86,6 +62,8 @@ export declare function getLocaleDateTimeFormat(locale: string, width: FormatWid
 export declare function getLocaleDayNames(locale: string, formStyle: FormStyle, width: TranslationWidth): string[];
 
 export declare function getLocaleDayPeriods(locale: string, formStyle: FormStyle, width: TranslationWidth): [string, string];
+
+export declare function getLocaleDirection(locale: string): 'ltr' | 'rtl';
 
 export declare function getLocaleEraNames(locale: string, width: TranslationWidth): [string, string];
 
@@ -178,9 +156,9 @@ export declare class Location {
     prepareExternalUrl(url: string): string;
     replaceState(path: string, query?: string, state?: any): void;
     subscribe(onNext: (value: PopStateEvent) => void, onThrow?: ((exception: any) => void) | null, onReturn?: (() => void) | null): SubscriptionLike;
-    static joinWithSlash(start: string, end: string): string;
-    static normalizeQueryParams(params: string): string;
-    static stripTrailingSlash(url: string): string;
+    static joinWithSlash: (start: string, end: string) => string;
+    static normalizeQueryParams: (params: string) => string;
+    static stripTrailingSlash: (url: string) => string;
 }
 
 export declare const LOCATION_INITIALIZED: InjectionToken<Promise<any>>;
@@ -224,7 +202,8 @@ export declare class NgClassBase {
     getValue(): {
         [key: string]: any;
     } | null;
-    static ngDirectiveDef: any;
+    static ɵdir: any;
+    static ɵfac: any;
 }
 
 export declare class NgComponentOutlet implements OnChanges, OnDestroy {
@@ -237,45 +216,44 @@ export declare class NgComponentOutlet implements OnChanges, OnDestroy {
     ngOnDestroy(): void;
 }
 
-export declare class NgForOf<T> implements DoCheck {
-    ngForOf: NgIterable<T>;
-    ngForTemplate: TemplateRef<NgForOfContext<T>>;
+export declare class NgForOf<T, U extends NgIterable<T> = NgIterable<T>> implements DoCheck {
+    ngForOf: (U & NgIterable<T>) | undefined | null;
+    ngForTemplate: TemplateRef<NgForOfContext<T, U>>;
     ngForTrackBy: TrackByFunction<T>;
-    constructor(_viewContainer: ViewContainerRef, _template: TemplateRef<NgForOfContext<T>>, _differs: IterableDiffers);
+    constructor(_viewContainer: ViewContainerRef, _template: TemplateRef<NgForOfContext<T, U>>, _differs: IterableDiffers);
     ngDoCheck(): void;
-    static ngTemplateContextGuard<T>(dir: NgForOf<T>, ctx: any): ctx is NgForOfContext<T>;
+    static ngTemplateContextGuard<T, U extends NgIterable<T>>(dir: NgForOf<T, U>, ctx: any): ctx is NgForOfContext<T, U>;
 }
 
-export declare class NgForOfContext<T> {
+export declare class NgForOfContext<T, U extends NgIterable<T> = NgIterable<T>> {
     $implicit: T;
     count: number;
     readonly even: boolean;
     readonly first: boolean;
     index: number;
     readonly last: boolean;
-    ngForOf: NgIterable<T>;
+    ngForOf: U;
     readonly odd: boolean;
-    constructor($implicit: T, ngForOf: NgIterable<T>, index: number, count: number);
+    constructor($implicit: T, ngForOf: U, index: number, count: number);
 }
 
-export declare class NgIf {
-    ngIf: any;
-    ngIfElse: TemplateRef<NgIfContext> | null;
-    ngIfThen: TemplateRef<NgIfContext> | null;
-    constructor(_viewContainer: ViewContainerRef, templateRef: TemplateRef<NgIfContext>);
+export declare class NgIf<T = unknown> {
+    ngIf: T;
+    ngIfElse: TemplateRef<NgIfContext<T>> | null;
+    ngIfThen: TemplateRef<NgIfContext<T>> | null;
+    constructor(_viewContainer: ViewContainerRef, templateRef: TemplateRef<NgIfContext<T>>);
     static ngTemplateGuard_ngIf: 'binding';
+    static ngTemplateContextGuard<T>(dir: NgIf<T>, ctx: any): ctx is NgIfContext<T>;
 }
 
-export declare class NgIfContext {
-    $implicit: any;
-    ngIf: any;
+export declare class NgIfContext<T = unknown> {
+    $implicit: T;
+    ngIf: T;
 }
 
 export declare class NgLocaleLocalization extends NgLocalization {
-    /** @deprecated */ protected deprecatedPluralFn?: ((locale: string, value: string | number) => Plural) | null | undefined;
     protected locale: string;
-    constructor(locale: string,
-    /** @deprecated */ deprecatedPluralFn?: ((locale: string, value: string | number) => Plural) | null | undefined);
+    constructor(locale: string);
     getPluralCategory(value: any, locale?: string): string;
 }
 
@@ -308,7 +286,8 @@ export declare class NgStyleBase {
     getValue(): {
         [key: string]: any;
     } | null;
-    static ngDirectiveDef: any;
+    static ɵdir: any;
+    static ɵfac: any;
 }
 
 export declare class NgSwitch {
@@ -444,7 +423,7 @@ export declare abstract class ViewportScroller {
     abstract scrollToPosition(position: [number, number]): void;
     abstract setHistoryScrollRestoration(scrollRestoration: 'auto' | 'manual'): void;
     abstract setOffset(offset: [number, number] | (() => [number, number])): void;
-    static ngInjectableDef: never;
+    static ɵprov: never;
 }
 
 export declare enum WeekDay {

@@ -1,4 +1,4 @@
-# Upgrading for Performance
+# Upgrading for performance
 
 # 更关注性能的升级方式
 
@@ -325,10 +325,10 @@ the recipe.
 
 In order to start using any `upgrade/static` APIs, you still need to load the Angular framework as
 you would in a normal Angular app. You can see how this can be done with SystemJS by following the
-instructions in the [Setup](guide/setup) guide, selectively copying code from the
+instructions in the [Upgrade Setup](guide/upgrade-setup "Setup for Upgrading from AngularJS") guide, selectively copying code from the
 [QuickStart github repository](https://github.com/angular/quickstart).
 
-要开始使用任何 `upgrade/static` API，你仍然要像在普通 Angular 应用中一样加载 Angular 框架。要想用 SystemJS 做到这一点，你可以遵循[环境搭建](guide/setup)中的指导，有选择的从[快速上手项目的 Github 仓库](https://github.com/angular/quickstart)中复制代码。
+要开始使用任何 `upgrade/static` API，你仍然要像在普通 Angular 应用中一样加载 Angular 框架。要想用 SystemJS 做到这一点，你可以遵循[升级的准备工作](guide/upgrade-setup "Setup for Upgrading from AngularJS")中的指导，有选择的从[快速上手项目的 Github 仓库](https://github.com/angular/quickstart)中复制代码。
 
 You also need to install the `@angular/upgrade` package via `npm install @angular/upgrade --save`
 and add a mapping for the `@angular/upgrade/static` package:
@@ -474,7 +474,7 @@ Angular app. The setup for a hybrid app is mostly the same as described in the
 混合式应用的设置与[预先（AOT）编译](guide/aot-compiler)一章所讲的大致相同，但 `index.html` 和 `main-aot.ts` 略有差异。
 
 AOT needs to load any AngularJS files that are in the `<script>` tags in the AngularJS `index.html`.
-An easy way to copy them is to add each to the `copy-dist-files.js`file.
+An easy way to copy them is to add each to the `copy-dist-files.js` file.
 
 AOT 需要在 AngularJS 的 `index.html` 中的 `<script>` 标签中加载所有 AngularJS 文件。
 

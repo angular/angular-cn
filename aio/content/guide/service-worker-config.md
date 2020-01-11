@@ -16,25 +16,24 @@ A basic understanding of the following:
 
 <hr />
 
-The `src/ngsw-config.json` configuration file specifies which files and data URLs the Angular
-service worker should cache and how it should update the cached files and data. The
-[Angular CLI](cli) processes the configuration file during `ng build --prod`. Manually, you can process
-it with the `ngsw-config` tool:
+The `ngsw-config.json` configuration file specifies which files and data URLs the Angular service
+worker should cache and how it should update the cached files and data. The [Angular CLI](cli)
+processes the configuration file during `ng build --prod`. Manually, you can process it with the
+`ngsw-config` tool (where `<project-name>` is the name of the project being built):
 
-配置文件 `src/ngsw-config.json` 指定了 Angular Service Worker 应该缓存哪些文件和数据的 URL，以及如何更新缓存的文件和数据。
+配置文件 `ngsw-config.json` 指定了 Angular Service Worker 应该缓存哪些文件和数据的 URL，以及如何更新缓存的文件和数据。
 [Angular CLI](cli) 会在 `ng build --prod` 期间处理配置文件。
-如果想手动处理，你可以使用 `ngsw-config` 工具：
+如果想手动处理，你可以使用 `ngsw-config` 工具（这里的 `<project-name>` 就是要构建的项目名）：
 
-```sh
+<code-example language="sh">
+./node_modules/.bin/ngsw-config ./dist/&lt;project-name&gt; ./ngsw-config.json [/base/href]
+</code-example>
 
-ngsw-config dist src/ngsw-config.json /base/href
-
-```
-
-The configuration file uses the JSON format. All file paths must begin with `/`, which is the deployment directory&mdash;usually `dist` in CLI projects.
+The configuration file uses the JSON format. All file paths must begin with `/`, which corresponds
+to the deployment directory&mdash;usually `dist/<project-name>` in CLI projects.
 
 该配置文件使用 JSON 格式。
-所有文件路径都必须以 `/` 开头，也就是部署目录 —— 在 CLI 项目中的它通常是 `dist`。
+所有文件路径都必须以 `/` 开头，也就是相应的部署目录 —— 在 CLI 项目中的它通常是 `dist/<project-name>`。
 
 {@a glob-patterns}
 
@@ -136,8 +135,6 @@ interface AssetGroup {
   updateMode?: 'prefetch' | 'lazy';
   resources: {
     files?: string[];
-    /** @deprecated As of v6 `versionedFiles` and `files` options have the same behavior. Use `files` instead. */
-    versionedFiles?: string[];
     urls?: string[];
   };
 }
@@ -193,17 +190,13 @@ Defaults to the value `installMode` is set to.
 
 ### `resources`
 
-This section describes the resources to cache, broken up into three groups.
+This section describes the resources to cache, broken up into the following groups:
 
-本节描述要缓存的资源，分为三组。
+本节描述要缓存的资源，分为如下几组：
 
 * `files` lists patterns that match files in the distribution directory. These can be single files or glob-like patterns that match a number of files.
 
    `files` 列出了与 `dist` 目录中的文件相匹配的模式。它们可以是单个文件也可以是能匹配多个文件的类似 glob 的模式。
-
-* `versionedFiles` has been deprecated. As of v6 `versionedFiles` and `files` options have the same behavior. Use `files` instead.
-
-   `versionedFiles` 已经废弃，因为 v6 版本的 `versionedFiles` 和 `files` 选项具有相同的行为。请改用 `files`。
 
 * `urls` includes both URLs and URL patterns that will be matched at runtime. These resources are not fetched directly and do not have content hashes, but they will be cached according to their HTTP headers. This is most useful for CDNs such as the Google Fonts service.<br>
   _(Negative glob patterns are not supported and `?` will be matched literally; i.e. it will not match any character other than `?`.)_
@@ -248,11 +241,17 @@ Similar to `assetGroups`, every data group has a `name` which uniquely identifie
 
 ### `urls`
 
-A list of URL patterns. URLs that match these patterns will be cached according to this data group's policy.<br>
-  _(Negative glob patterns are not supported and `?` will be matched literally; i.e. it will not match any character other than `?`.)_
+A list of URL patterns. URLs that match these patterns are cached according to this data group's policy. Only non-mutating requests (GET and HEAD) are cached.
 
-一个 URL 模式的列表。匹配这些模式的 URL 将会根据该数据组的策略进行缓存。<br>
-  **（不支持 glob 中的逆模式）**
+一个 URL 模式的列表。匹配这些模式的 URL 将会根据该数据组的策略进行缓存。只有非修改型的请求（GET 和 HEAD）才会进行缓存。
+
+ * Negative glob patterns are not supported.
+ 
+   （不支持 glob 中的否定模式）。
+ 
+ * `?` is matched literally; that is, it matches *only* the character `?`.
+
+   `?` 只做字面匹配，也就是说，它*只*能匹配 `?` 字符。
 
 ### `version`
 

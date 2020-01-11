@@ -120,6 +120,9 @@ export interface NgModuleDef<T> {
  *
  * 模块类型。在 Ivy 应用中，它必须显式提供。
  *
+ * Note that using ModuleWithProviders without a generic type is deprecated.
+ * The generic will become required in a future version of Angular.
+ *
  * @publicApi
  */
 export interface ModuleWithProviders<
@@ -364,6 +367,7 @@ export interface NgModule {
    * 该选项用于添加那些需要写代码来创建的组件，比如 `ViewContainerRef.createComponent()`。
    *
    * @see [Entry Components](guide/entry-components)
+   * @deprecated Since 9.0.0. With Ivy, this property is no longer necessary.
    */
   entryComponents?: Array<Type<any>|any[]>;
 
@@ -446,7 +450,7 @@ export const NgModule: NgModuleDecorator = makeDecorator(
    *   `imports` 选项用于从其它模块中带入成员，`exports` 选项用于把本模块的成员带给其它模块。
    *
    */
-  (type: NgModuleType, meta: NgModule) => SWITCH_COMPILE_NGMODULE(type, meta));
+  (type: Type<any>, meta: NgModule) => SWITCH_COMPILE_NGMODULE(type, meta));
 
 /**
  * @description
@@ -470,13 +474,13 @@ export const NgModule: NgModuleDecorator = makeDecorator(
  */
 export interface DoBootstrap { ngDoBootstrap(appRef: ApplicationRef): void; }
 
-function preR3NgModuleCompile(moduleType: InjectorType<any>, metadata: NgModule): void {
+function preR3NgModuleCompile(moduleType: Type<any>, metadata?: NgModule): void {
   let imports = (metadata && metadata.imports) || [];
   if (metadata && metadata.exports) {
     imports = [...imports, metadata.exports];
   }
 
-  moduleType.ngInjectorDef = ɵɵdefineInjector({
+  (moduleType as InjectorType<any>).ɵinj = ɵɵdefineInjector({
     factory: convertInjectableProviderToFactory(moduleType, {useClass: moduleType}),
     providers: metadata && metadata.providers,
     imports: imports,

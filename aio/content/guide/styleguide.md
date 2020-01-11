@@ -1,4 +1,4 @@
-# Style Guide
+# Angular coding style guide
 
 # 风格指南
 
@@ -942,7 +942,7 @@ As always, strive for consistency.
 <div class="s-rule do">
 
 **Do** use a custom prefix for a component selector.
-For example, the prefix `toh` represents from **T**our **o**f **H**eroes and the prefix `admin` represents an admin feature area.
+For example, the prefix `toh` represents **T**our **o**f **H**eroes and the prefix `admin` represents an admin feature area.
 
 **坚持**为组件选择器添加自定义前缀。
 例如，`toh` 前缀表示 **T**our **o**f **H**eroes（英雄指南），而前缀 `admin 表示管理特性区。
@@ -1109,8 +1109,14 @@ For example, the prefix `toh` represents from **T**our **o**f **H**eroes and the
 <div class="s-rule do">
 
 **Do** use consistent names for all pipes, named after their feature.
+The pipe class name should use [UpperCamelCase](guide/glossary#case-types)
+(the general convention for class names),
+and the corresponding `name` string should use *lowerCamelCase*.
+The `name` string cannot use hyphens ("dash-case" or "kebab-case").
 
 **坚持**为所有管道使用一致的命名约定，用它们的特性来命名。
+管道类名应该使用 [UpperCamelCase](guide/glossary#case-types)（类名的通用约定），而相应的 `name` 字符串应该使用 *lowerCamelCase*。
+`name` 字符串中不应该使用中线（“中线格式”或“烤串格式”）。
 
 </div>
 
@@ -1701,7 +1707,7 @@ keep the **F**lattest structure you can, and
 
 <div class="s-why-last">
 
-**Why?** LIFT Provides a consistent structure that scales well, is modular, and makes it easier to increase developer efficiency by finding code quickly.
+**Why?** LIFT provides a consistent structure that scales well, is modular, and makes it easier to increase developer efficiency by finding code quickly.
 To confirm your intuition about a particular structure, ask:
 _can I quickly open and start work in all of the related files for this feature_?
 
@@ -1726,7 +1732,7 @@ _can I quickly open and start work in all of the related files for this feature_
 
 <div class="s-rule do">
 
-**Do** make locating code intuitive, simple and fast.
+**Do** make locating code intuitive, simple, and fast.
 
 **坚持**直观、简单和快速地定位代码。
 
@@ -3058,9 +3064,9 @@ Angular 的 TypeScript 语言服务（即将到来）可以帮助那些编辑器
 <div class="s-why">
 
 **Why?** If you ever need to rename the property or event name associated with
-`@Input` or `@Output`, you can modify it in a single place.
+`@Input()` or `@Output()`, you can modify it in a single place.
 
-**为何？** 如果需要重命名与 `@Input` 或者 `@Output` 关联的属性或事件名，你可以在一个位置修改。
+**为何？** 如果需要重命名与 `@Input()` 或者 `@Output()` 关联的属性或事件名，你可以在一个位置修改。
 
 </div>
 
@@ -3640,7 +3646,7 @@ Compare with the less preferred `host` metadata alternative.
 
 </div>
 
-<code-example path="dependency-injection/src/app/tree-shaking/service.ts" header="src/app/treeshaking/service.ts" linenums="false"> </code-example>
+<code-example path="dependency-injection/src/app/tree-shaking/service.ts" header="src/app/treeshaking/service.ts"></code-example>
 
 <a href="#toc">Back to top</a>
 

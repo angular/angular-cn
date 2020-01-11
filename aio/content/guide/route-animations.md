@@ -54,9 +54,9 @@ Let's illustrate a router transition animation by navigating between two routes,
 
 </br>
 
-<figure>
-<img src="generated/images/guide/animations/route-animation.gif" alt="Animations in action" width="440">
-</figure>
+<div class="lightbox">
+  <img src="generated/images/guide/animations/route-animation.gif" alt="Animations in action" width="440">
+</div>
 
 ## Route configuration
 
@@ -82,8 +82,7 @@ The following configuration defines the possible routes for the application.
 
 下列配置定义了应用程序中可能的路由。
 
-<code-example path="animations/src/app/app.module.ts" linenums="false" header="src/app/app.module.ts" region="route-animation-data" language="typescript">
-</code-example>
+<code-example path="animations/src/app/app.module.ts" header="src/app/app.module.ts" region="route-animation-data" language="typescript"></code-example>
 
 The `home` and `about` paths are associated with the `HomeComponent` and `AboutComponent` views. The route configuration tells the Angular router to instantiate the `HomeComponent` and `AboutComponent` views when the navigation matches the corresponding path.
 
@@ -113,15 +112,13 @@ The `<router-outlet>` container has an attribute directive that contains data ab
 
 `<router-outlet>` 容器具有一个属性型指令，它包含关于活动路由及其状态的数据，这些数据会基于我们在路由配置中设置的 `data` 属性。
 
-<code-example path="animations/src/app/app.component.html" header="src/app/app.component.html" region="route-animations-outlet">
-</code-example>
+<code-example path="animations/src/app/app.component.html" header="src/app/app.component.html" region="route-animations-outlet"></code-example>
 
-`AppComponent` defines a method that can detect when a view changes. The method assigns an animation state value to the animation trigger (`@routeAnimation`) based on the route configuration `data` property value.  Here's an example of an `AppComponent` method that detects when a route change happens.
+`AppComponent` defines a method that can detect when a view changes. The method assigns an animation state value to the animation trigger (`@routeAnimation`) based on the route configuration `data` property value. Here's an example of an `AppComponent` method that detects when a route change happens.
 
 `AppComponent` 中定义了一个可以检测视图何时发生变化的方法，该方法会基于路由配置的 `data` 属性值，将动画状态值赋值给动画触发器（`@routeAnimation`）。下面就是一个 `AppComponent` 中的范例方法，用于检测路由在何时发生了变化。
 
-<code-example path="animations/src/app/app.component.ts" linenums="false" header="src/app/app.component.ts" region="prepare-router-outlet" language="typescript">
-</code-example>
+<code-example path="animations/src/app/app.component.ts" header="src/app/app.component.ts" region="prepare-router-outlet" language="typescript"></code-example>
 
 Here, the `prepareRoute()` method takes the value of the output directive (established through `#outlet="outlet"`) and returns a string value representing the state of the animation based on the custom data of the current active route. You can use this data to control which transition to execute for each route.
 
@@ -139,8 +136,7 @@ The following code snippet defines a reusable animation named `slideInAnimation`
 
 下面的代码片段定义了一个名叫 `slideInAnimation` 的可复用动画。
 
-<code-example path="animations/src/app/animations.ts" linenums="false" header="src/app/animations.ts" region="route-animations" language="typescript">
-</code-example>
+<code-example path="animations/src/app/animations.ts" header="src/app/animations.ts" region="route-animations" language="typescript"></code-example>
 
 The animation definition does several things:
 
@@ -174,8 +170,7 @@ Make the animation definition available in your application by adding the reusab
 
 通过将可复用动画 `slideInAnimation` 添加到 `AppComponent` 的 `animations` 元数据中，可以让此动画定义能用在你的应用中。
 
-<code-example path="animations/src/app/app.component.ts" linenums="false" header="src/app/app.component.ts" region="define" language="typescript">
-</code-example>
+<code-example path="animations/src/app/app.component.ts" header="src/app/app.component.ts" region="define" language="typescript"></code-example>
 
 ### Styling the host and child components
 
@@ -185,8 +180,7 @@ During a transition, a new view is inserted directly after the old one and both 
 
 在转场期间，新视图将直接插入在旧视图后面，并且这两个元素会同时出现在屏幕上。要防止这种情况，就要为宿主视图以及要删除和插入的子视图指定一些额外的样式。宿主视图必须使用相对定位模式，而子视图则必须使用绝对定位模式。在这些视图中添加样式，就可以让容器就地播放动画，而不会让 DOM 移动。
 
-<code-example path="animations/src/app/animations.ts" linenums="false" header="src/app/animations.ts" region="style-view" language="typescript">
-</code-example>
+<code-example path="animations/src/app/animations.ts" header="src/app/animations.ts" region="style-view" language="typescript"></code-example>
 
 ### Querying the view containers
 
@@ -200,8 +194,7 @@ Let's assume that we are routing from the *Home => About*.
 
 我们假设正在从 *Home* 转场到 *About*，`Home => About`。
 
-<code-example path="animations/src/app/animations.ts" linenums="false" header="src/app/animations.ts" region="query" language="typescript" linenums="false">
-</code-example>
+<code-example path="animations/src/app/animations.ts" header="src/app/animations.ts" region="query" language="typescript"></code-example>
 
 The animation code does the following after styling the views:
 

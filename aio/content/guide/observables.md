@@ -32,7 +32,7 @@ As a publisher, you create an `Observable` instance that defines a *subscriber* 
 当有消费者调用 `subscribe()` 方法时，这个函数就会执行。
 订阅者函数用于定义“如何获取或生成那些要发布的值或消息”。
 
-To execute the observable you have created and begin receiving notifications, you call its `subscribe()` method, passing an *observer*.  This is a JavaScript object that defines the handlers for the notifications you receive. The `subscribe()` call returns a `Subscription` object that has an `unsubscribe()` method, which you call to stop receiving notifications.
+To execute the observable you have created and begin receiving notifications, you call its `subscribe()` method, passing an *observer*. This is a JavaScript object that defines the handlers for the notifications you receive. The `subscribe()` call returns a `Subscription` object that has an `unsubscribe()` method, which you call to stop receiving notifications.
 
 要执行所创建的可观察对象，并开始从中接收通知，你就要调用它的 `subscribe()` 方法，并传入一个*观察者（observer）*。
 这是一个 JavaScript 对象，它定义了你收到的这些消息的处理器（handler）。
@@ -149,7 +149,7 @@ Now you can use this function to create an observable that publishes keydown eve
 
 ## 多播
 
-A typical observable creates a new, independent execution for each subscribed observer. When an observer subscribes, the observable wires up an event handler and delivers values to that observer. When a second observer subscribes, the observable then wires up a new event handler and delivers values to that second observer in a separate execution. 
+A typical observable creates a new, independent execution for each subscribed observer. When an observer subscribes, the observable wires up an event handler and delivers values to that observer. When a second observer subscribes, the observable then wires up a new event handler and delivers values to that second observer in a separate execution.
 
 典型的可观察对象会为每一个观察者创建一次新的、独立的执行。
 当观察者进行订阅时，该可观察对象会连上一个事件处理器，并且向那个观察者发送一些值。当第二个观察者订阅时，这个可观察对象就会连上一个新的事件处理器，并独立执行一次，把这些值发送给第二个可观察对象。
@@ -162,7 +162,7 @@ Sometimes, instead of starting an independent execution for each subscriber, you
 
 *多播*用来让可观察对象在一次执行中同时广播给多个订阅者。借助支持多播的可观察对象，你不必注册多个监听器，而是复用第一个（`next`）监听器，并且把值发送给各个订阅者。
 
-When creating an observable you should determine how you want that observable to be used and whether or not you want to multicast its values. 
+When creating an observable you should determine how you want that observable to be used and whether or not you want to multicast its values.
 
 当创建可观察对象时，你要决定你希望别人怎么用这个对象以及是否对它的值进行多播。
 
@@ -196,7 +196,7 @@ Notice that if you subscribe twice, there will be two separate streams, each emi
 
 ## 错误处理
 
-Because observables produce values asynchronously, try/catch will not effectively catch errors. Instead, you handle errors by specifying an `error` callback on the observer. Producing an error also causes the observable to clean up subscriptions and stop producing values. An observable can  either produce values (calling the `next` callback), or it can complete, calling either the `complete` or `error` callback.
+Because observables produce values asynchronously, try/catch will not effectively catch errors. Instead, you handle errors by specifying an `error` callback on the observer. Producing an error also causes the observable to clean up subscriptions and stop producing values. An observable can either produce values (calling the `next` callback), or it can complete, calling either the `complete` or `error` callback.
 
 由于可观察对象会异步生成值，所以用 `try/catch` 是无法捕获错误的。你应该在观察者中指定一个 `error` 回调来处理错误。发生错误时还会导致可观察对象清理现有的订阅，并且停止生成值。可观察对象可以生成值（调用 `next` 回调），也可以调用 `complete` 或 `error` 回调来主动结束。
 

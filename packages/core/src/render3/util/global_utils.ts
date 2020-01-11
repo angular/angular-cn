@@ -7,8 +7,7 @@
  */
 import {assertDefined} from '../../util/assert';
 import {global} from '../../util/global';
-
-import {getComponent, getContext, getDirectives, getHostElement, getInjector, getListeners, getPlayers, getRootComponents, getViewComponent, markDirty} from '../global_utils_api';
+import {getComponent, getContext, getDebugNode, getDirectives, getHostElement, getInjector, getListeners, getRootComponents, getViewComponent, markDirty} from '../global_utils_api';
 
 
 
@@ -18,7 +17,7 @@ import {getComponent, getContext, getDirectives, getHostElement, getInjector, ge
  *
  * To see this in action run the following command:
  *
- *   bazel run --define=compile=aot
+ *   bazel run --config=ivy
  *   //packages/core/test/bundling/todo:devserver
  *
  *  Then load `localhost:5432` and start using the console tools.
@@ -48,7 +47,7 @@ export function publishDefaultGlobalUtils() {
     publishGlobalUtil('getInjector', getInjector);
     publishGlobalUtil('getRootComponents', getRootComponents);
     publishGlobalUtil('getDirectives', getDirectives);
-    publishGlobalUtil('getPlayers', getPlayers);
+    publishGlobalUtil('getDebugNode', getDebugNode);
     publishGlobalUtil('markDirty', markDirty);
   }
 }
@@ -62,13 +61,19 @@ export declare type GlobalDevModeContainer = {
  * used from the browser console when an application is not in production.
  */
 export function publishGlobalUtil(name: string, fn: Function): void {
-  const w = global as any as GlobalDevModeContainer;
-  ngDevMode && assertDefined(fn, 'function not defined');
-  if (w) {
-    let container = w[GLOBAL_PUBLISH_EXPANDO_KEY];
-    if (!container) {
-      container = w[GLOBAL_PUBLISH_EXPANDO_KEY] = {};
+  if (typeof COMPILED === 'undefined' || !COMPILED) {
+    // Note: we can't export `ng` when using closure enhanced optimization as:
+    // - closure declares globals itself for minified names, which sometimes clobber our `ng` global
+    // - we can't declare a closure extern as the namespace `ng` is already used within Google
+    //   for typings for AngularJS (via `goog.provide('ng....')`).
+    const w = global as any as GlobalDevModeContainer;
+    ngDevMode && assertDefined(fn, 'function not defined');
+    if (w) {
+      let container = w[GLOBAL_PUBLISH_EXPANDO_KEY];
+      if (!container) {
+        container = w[GLOBAL_PUBLISH_EXPANDO_KEY] = {};
+      }
+      container[name] = fn;
     }
-    container[name] = fn;
   }
 }

@@ -6,7 +6,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import {ɵɵdefineComponent, ɵɵproperty, ɵɵselect} from '../../src/render3/index';
-import {ɵɵbind, ɵɵcontainer, ɵɵcontainerRefreshEnd, ɵɵcontainerRefreshStart, ɵɵelementEnd, ɵɵelementStart, ɵɵembeddedViewEnd, ɵɵembeddedViewStart} from '../../src/render3/instructions/all';
+import {ɵɵcontainer, ɵɵcontainerRefreshEnd, ɵɵcontainerRefreshStart, ɵɵelementEnd, ɵɵelementStart, ɵɵembeddedViewEnd, ɵɵembeddedViewStart} from '../../src/render3/instructions/all';
 import {RenderFlags} from '../../src/render3/interfaces/definition';
 import {ɵɵpureFunction2} from '../../src/render3/pure_function';
 import {getDirectiveOnNode, renderToHtml} from '../../test/render3/render_util';
@@ -19,11 +19,11 @@ describe('object literals', () => {
     // TODO(issue/24571): remove '!'.
     config !: {[key: string]: any};
 
-    static ngComponentDef = ɵɵdefineComponent({
+    static ɵfac = function ObjectComp_Factory() { return objectComp = new ObjectComp(); };
+    static ɵcmp = ɵɵdefineComponent({
       type: ObjectComp,
       selectors: [['object-comp']],
-      factory: function ObjectComp_Factory() { return objectComp = new ObjectComp(); },
-      consts: 0,
+      decls: 0,
       vars: 1,
       template: function ObjectComp_Template() {},
       inputs: {config: 'config'}

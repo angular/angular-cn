@@ -10,6 +10,8 @@
 // about state in an instruction are correct before implementing any logic.
 // They are meant only to be called in dev mode as sanity checks.
 
+import {stringify} from './stringify';
+
 export function assertNumber(actual: any, msg: string) {
   if (typeof actual != 'number') {
     throwError(msg);
@@ -46,6 +48,12 @@ export function assertLessThan<T>(actual: T, expected: T, msg: string) {
   }
 }
 
+export function assertLessThanOrEqual<T>(actual: T, expected: T, msg: string) {
+  if (actual > expected) {
+    throwError(msg);
+  }
+}
+
 export function assertGreaterThan<T>(actual: T, expected: T, msg: string) {
   if (actual <= expected) {
     throwError(msg);
@@ -74,11 +82,13 @@ export function assertDomNode(node: any) {
   // If we're in a worker, `Node` will not be defined.
   assertEqual(
       (typeof Node !== 'undefined' && node instanceof Node) ||
-          (typeof node === 'object' && node.constructor.name === 'WebWorkerRenderNode'),
-      true, 'The provided value must be an instance of a DOM Node');
+          (typeof node === 'object' && node != null &&
+           node.constructor.name === 'WebWorkerRenderNode'),
+      true, `The provided value must be an instance of a DOM Node but got ${stringify(node)}`);
 }
 
 
 export function assertDataInRange(arr: any[], index: number) {
-  assertLessThan(index, arr ? arr.length : 0, 'index expected to be a valid data index');
+  const maxLen = arr ? arr.length : 0;
+  assertLessThan(index, maxLen, `Index expected to be less than ${maxLen} but got ${index}`);
 }

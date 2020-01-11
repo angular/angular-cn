@@ -10,41 +10,35 @@ import {Route} from './config';
 import {ActivatedRouteSnapshot, RouterStateSnapshot} from './router_state';
 
 /**
- * @description
+ * Identifies the call or event that triggered a navigation.
  *
- * Identifies the trigger of the navigation.
+ * 表示使用调用或是事件来触发导航。
  *
- * 表示导航过程中的触发器。
+ * * 'imperative': Triggered by `router.navigateByUrl()` or `router.navigate()`.
  *
- * * 'imperative'--triggered by `router.navigateByUrl` or `router.navigate`.
+ *   'imperative'：由 `router.navigateByUrl()` 或 `router.navigate()` 触发。
  *
- *   'imperative' —— 由 `router.navigateByUrl` 或 `router.navigate` 触发。
+ * * 'popstate' : Triggered by a `popstate` event.
  *
- * * 'popstate'--triggered by a popstate event
+ *   'popstate'：由 `popstate` 事件触发。
  *
- *   'popstate' —— 由 popstate 事件触发。
+ * * 'hashchange'-: Triggered by a `hashchange` event.
  *
- * * 'hashchange'--triggered by a hashchange event
- *
- *   'hashchange' —— 由 hashchange 事件触发。
+ *   'hashchange'：由 `hashchange` 事件触发。
  *
  * @publicApi
  */
 export type NavigationTrigger = 'imperative' | 'popstate' | 'hashchange';
 
 /**
- * @description
- *
- * Base for events the Router goes through, as opposed to events tied to a specific
- * Route. `RouterEvent`s will only be fired one time for any given navigation.
+ * Base for events the router goes through, as opposed to events tied to a specific
+ * route. Fired one time for any given navigation.
  *
  * 路由器相关事件的（而不是关于特定路由的）基类。对于任何指定的导航，`RouterEvent` 只会触发一次。
+ * 
+ * @usageNotes
  *
- * Example:
- *
- * 例子：
- *
- * ```
+ * ```ts
  * class MyService {
  *   constructor(public router: Router, logger: Logger) {
  *     router.events.pipe(
@@ -56,20 +50,19 @@ export type NavigationTrigger = 'imperative' | 'popstate' | 'hashchange';
  * }
  * ```
  *
+ * @see `Event`
  * @publicApi
  */
 export class RouterEvent {
   constructor(
-      /** @docsNotRequired */
+      /** A unique ID that the router assigns to every router navigation. */
       public id: number,
-      /** @docsNotRequired */
+      /** The URL that is the destination for this navigation. */
       public url: string) {}
 }
 
 /**
- * @description
- *
- * Represents an event triggered when a navigation starts.
+ * An event triggered when a navigation starts.
  *
  * 代表导航开始时触发的事件。
  *
@@ -77,46 +70,28 @@ export class RouterEvent {
  */
 export class NavigationStart extends RouterEvent {
   /**
-   * Identifies the trigger of the navigation.
-   *
-   * 表示导航过程中的触发器。
-   *
-   * * 'imperative'--triggered by `router.navigateByUrl` or `router.navigate`.
-   *
-   *   'imperative' —— 由 `router.navigateByUrl` 或 `router.navigate` 触发。
-   *
-   * * 'popstate'--triggered by a popstate event
-   *
-   *   'popstate' —— 由 popstate 事件触发。
-   *
-   * * 'hashchange'--triggered by a hashchange event
-   *
-   *   'hashchange' —— 由 hashchange 事件触发。
+   * Identifies the call or event that triggered the navigation.
+   * An `imperative` trigger is a call to `router.navigateByUrl()` or `router.navigate()`.
    *
    */
   navigationTrigger?: 'imperative'|'popstate'|'hashchange';
 
   /**
-   * This reflects the state object that was previously supplied to the pushState call. This is
-   * not null only when the navigation is triggered by a popstate event.
+   * The navigation state that was previously supplied to the `pushState` call,
+   * when the navigation is triggered by a `popstate` event. Otherwise null.
    *
-   * 这里包含的 `navigationId` 会被用于保存历史记录，以供浏览器导航回来。只有当这次导航是被 popstate 事件触发时，它才不为空。
+   * The state object is defined by `NavigationExtras`, and contains any
+   * developer-defined state value, as well as a unique ID that
+   * the router assigns to every router transition/navigation.
    *
-   * The router assigns a navigationId to every router transition/navigation. Even when the user
-   * clicks on the back button in the browser, a new navigation id will be created. So from
-   * the perspective of the router, the router never "goes back". By using the `restoredState`
-   * and its navigationId, you can implement behavior that differentiates between creating new
-   * states
-   * and popstate events. In the latter case you can restore some remembered state (e.g., scroll
-   * position).
+   * From the perspective of the router, the router never "goes back".
+   * When the user clicks on the back button in the browser,
+   * a new navigation ID is created.
    *
-   * 路由器会把一个 `navigationId` 赋予每一次路由器过渡/导航。即使用户点击了浏览器的后退按钮，也会创建一个新的 `navigationId`。
-   * 所以，从路由器的视角来看，路由器永远不会 "后退"。借助 `restoredState` 及其 navigationId，你可以区分开创建新状态和 `popstate` 事件的行为。
-   * 在 `popstate` 时，你可以恢复一些以前记录的状态（如滚动到的位置）。
+   * Use the ID in this previous-state object to differentiate between a newly created
+   * state and one returned to by a `popstate` event, so that you can restore some
+   * remembered state, such as scroll position.
    *
-   * See {@link NavigationExtras} for more information.
-   *
-   * 欲知详情，参见 {@link NavigationExtras}。
    */
   restoredState?: {[k: string]: any, navigationId: number}|null;
 
@@ -139,9 +114,7 @@ export class NavigationStart extends RouterEvent {
 }
 
 /**
- * @description
- *
- * Represents an event triggered when a navigation ends successfully.
+ * An event triggered when a navigation ends successfully.
  *
  * 表示当导航成功结束时触发的事件。
  *
@@ -165,9 +138,10 @@ export class NavigationEnd extends RouterEvent {
 }
 
 /**
- * @description
+ * An event triggered when a navigation is canceled, directly or indirectly.
  *
- * Represents an event triggered when a navigation is canceled.
+ * This can happen when a [route guard](guide/router#milestone-5-route-guards)
+ * returns `false` or initiates a redirect by returning a `UrlTree`.
  *
  * 表示当导航被取消时触发的事件。
  *
@@ -189,9 +163,7 @@ export class NavigationCancel extends RouterEvent {
 }
 
 /**
- * @description
- *
- * Represents an event triggered when a navigation fails due to an unexpected error.
+ * An event triggered when a navigation fails due to an unexpected error.
  *
  * 表示当导航出错时触发的事件。
  *
@@ -215,9 +187,7 @@ export class NavigationError extends RouterEvent {
 }
 
 /**
- * @description
- *
- * Represents an event triggered when routes are recognized.
+ *An event triggered when routes are recognized.
  *
  * 表示当路由被识别出来时触发的事件。
  *
@@ -243,9 +213,7 @@ export class RoutesRecognized extends RouterEvent {
 }
 
 /**
- * @description
- *
- * Represents the start of the Guard phase of routing.
+ * An event triggered at the start of the Guard phase of routing.
  *
  * 表示路由的守卫（`Guard`）阶段的开始。
  *
@@ -270,9 +238,7 @@ export class GuardsCheckStart extends RouterEvent {
 }
 
 /**
- * @description
- *
- * Represents the end of the Guard phase of routing.
+ * An event triggered at the end of the Guard phase of routing.
  *
  * 表示路由的守卫（`Guard`）阶段的结束。
  *
@@ -299,12 +265,10 @@ export class GuardsCheckEnd extends RouterEvent {
 }
 
 /**
- * @description
+ * An event triggered at the the start of the Resolve phase of routing.
  *
- * Represents the start of the Resolve phase of routing. The timing of this
- * event may change, thus it's experimental. In the current iteration it will run
- * in the "resolve" phase whether there's things to resolve or not. In the future this
- * behavior may change to only run when there are things to be resolved.
+ * Runs in the "resolve" phase whether or not there is anything to resolve.
+ * In future, may change to only run when there are things to be resolved.
  *
  * 表示路由解析（`Resolve`）阶段的开始。该事件的触发时机将来可能会改变，因为它是试验性的。
  * 在当前的迭代中，它将会在 `resolve` 阶段执行，而不管有没有东西要 `resolve`。
@@ -331,10 +295,8 @@ export class ResolveStart extends RouterEvent {
 }
 
 /**
- * @description
- *
- * Represents the end of the Resolve phase of routing. See note on
- * `ResolveStart` for use of this experimental API.
+ * An event triggered at the end of the Resolve phase of routing.
+ * @see `ResolveStart`.
  *
  * 表示路由解析（`Resolve`）阶段的结束。参见 `ResolveStart` 上的注释以了解这个试验性 API 的用法。
  *
@@ -359,9 +321,7 @@ export class ResolveEnd extends RouterEvent {
 }
 
 /**
- * @description
- *
- * Represents an event triggered before lazy loading a route config.
+ * An event triggered before lazy loading a route configuration.
  *
  * 表示在惰性加载某个路由配置前触发的事件。
  *
@@ -375,9 +335,7 @@ export class RouteConfigLoadStart {
 }
 
 /**
- * @description
- *
- * Represents an event triggered when a route has been lazy loaded.
+ * An event triggered when a route has been lazy loaded.
  *
  * 表示当某个路由被惰性加载时触发的事件。
  *
@@ -391,10 +349,10 @@ export class RouteConfigLoadEnd {
 }
 
 /**
- * @description
- *
- * Represents the start of end of the Resolve phase of routing. See note on
- * `ChildActivationEnd` for use of this experimental API.
+ * An event triggered at the start of the child-activation
+ * part of the Resolve phase of routing.
+ * @see  `ChildActivationEnd`
+ * @see `ResolveStart`
  *
  * @publicApi
  */
@@ -409,11 +367,10 @@ export class ChildActivationStart {
 }
 
 /**
- * @description
- *
- * Represents the start of end of the Resolve phase of routing. See note on
- * `ChildActivationStart` for use of this experimental API.
- *
+ * An event triggered at the end of the child-activation part
+ * of the Resolve phase of routing.
+ * @see `ChildActivationStart`
+ * @see `ResolveStart` *
  * @publicApi
  */
 export class ChildActivationEnd {
@@ -427,10 +384,10 @@ export class ChildActivationEnd {
 }
 
 /**
- * @description
- *
- * Represents the start of end of the Resolve phase of routing. See note on
- * `ActivationEnd` for use of this experimental API.
+ * An event triggered at the start of the activation part
+ * of the Resolve phase of routing.
+ * @see ActivationEnd`
+ * @see `ResolveStart`
  *
  * @publicApi
  */
@@ -445,10 +402,10 @@ export class ActivationStart {
 }
 
 /**
- * @description
- *
- * Represents the start of end of the Resolve phase of routing. See note on
- * `ActivationStart` for use of this experimental API.
+ * An event triggered at the end of the activation part
+ * of the Resolve phase of routing.
+ * @see `ActivationStart`
+ * @see `ResolveStart`
  *
  * @publicApi
  */
@@ -463,9 +420,7 @@ export class ActivationEnd {
 }
 
 /**
- * @description
- *
- * Represents a scrolling event.
+ * An event triggered by scrolling.
  *
  * 表示一个滚动事件。
  *
@@ -489,15 +444,13 @@ export class Scroll {
 }
 
 /**
- * @description
+ * Router events that allow you to track the lifecycle of the router.
  *
- * Represents a router event, allowing you to track the lifecycle of the router.
+ * 路由器事件能让你跟踪路由器的生命周期。
+ * 
+ * The sequence of router events is as follows:
  *
- * 表示一个路由器事件，允许你跟踪路由器本身的生命周期。
- *
- * The sequence of router events is:
- *
- * 路由器事件的顺序是：
+ * 路由器事件的顺序如下：
  *
  * - `NavigationStart`,
  * - `RouteConfigLoadStart`,

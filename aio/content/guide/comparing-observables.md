@@ -48,8 +48,8 @@ Observables are often compared to promises. Here are some key differences:
 new Observable((observer) => { subscriber_fn });
 // initiate execution
 observable.subscribe(() => {
-      // observer handles notifications
-    });
+  // observer handles notifications
+});
 </code-example>
 
 * Promises execute immediately, and just once. The computation of the result is initiated when the promise is created. There is no way to restart work. All `then` clauses (subscriptions) share the same computation.
@@ -61,8 +61,8 @@ observable.subscribe(() => {
 new Promise((resolve, reject) => { executer_fn });
 // handle return value
 promise.then((value) => {
-      // handle result here
-    });
+  // handle result here
+});
 </code-example>
 
 ### Chaining
@@ -73,7 +73,7 @@ promise.then((value) => {
 
    可观察对象会区分各种转换函数，比如映射和订阅。只有订阅才会激活订阅者函数，以开始计算那些值。
 
-<code-example hideCopy>observable.map((v) => 2*v);</code-example>
+<code-example hideCopy>observable.pipe(map((v) => 2*v));</code-example>
 
 * Promises do not differentiate between the last `.then` clauses (equivalent to subscription) and intermediate `.then` clauses (equivalent to map).
 
@@ -118,7 +118,7 @@ obs.subscribe(() => {
 
 <code-example hideCopy>
 promise.then(() => {
-      throw Error('my error');
+  throw Error('my error');
 });
 </code-example>
 
@@ -199,7 +199,7 @@ The following code snippets illustrate how the same kind of operation is defined
 
     <td>
 
-        <pre>obs.map((value) => value * 2 );</pre>
+        <pre>obs.pipe(map((value) => value * 2));</pre>
 
     </td>
 
@@ -476,8 +476,7 @@ An observable produces values over time. An array is created as a static set of 
 
     <td>
 
-      <pre>obs.concat(obsB)</pre>
-
+      <pre>concat(obs, obsB)</pre>
       <pre>➞1➞2➞3➞5➞7➞'a'➞'b'➞'c'</pre>
 
     </td>
@@ -501,8 +500,7 @@ An observable produces values over time. An array is created as a static set of 
 
     <td>
 
-      <pre>obs.filter((v) => v>3)</pre>
-
+      <pre>obs.pipe(filter((v) => v>3))</pre>
       <pre>➞5➞7</pre>
 
     </td>
@@ -526,8 +524,7 @@ An observable produces values over time. An array is created as a static set of 
 
     <td>
 
-      <pre>obs.find((v) => v>3)</pre>
-
+      <pre>obs.pipe(find((v) => v>3))</pre>
       <pre>➞5</pre>
 
     </td>
@@ -551,8 +548,7 @@ An observable produces values over time. An array is created as a static set of 
 
     <td>
 
-      <pre>obs.findIndex((v) => v>3)</pre>
-
+      <pre>obs.pipe(findIndex((v) => v>3))</pre>
       <pre>➞3</pre>
 
     </td>
@@ -576,9 +572,9 @@ An observable produces values over time. An array is created as a static set of 
 
     <td>
 
-      <pre>obs.forEach((v) => {
+      <pre>obs.pipe(tap((v) => {
   console.log(v);
-})
+}))
 1
 2
 3
@@ -611,8 +607,7 @@ An observable produces values over time. An array is created as a static set of 
 
     <td>
 
-      <pre>obs.map((v) => -v)</pre>
-
+      <pre>obs.pipe(map((v) => -v))</pre>
       <pre>➞-1➞-2➞-3➞-5➞-7</pre>
 
     </td>
@@ -636,10 +631,9 @@ An observable produces values over time. An array is created as a static set of 
 
     <td>
 
-      <pre>obs.scan((s,v)=> s+v, 0)</pre>
+      <pre>obs.pipe(reduce((s,v)=> s+v, 0))</pre>
 
-      <pre>➞1➞3➞6➞11➞18</pre>
-
+      <pre>➞18</pre>
     </td>
 
     <td>

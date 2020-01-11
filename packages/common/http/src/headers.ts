@@ -13,8 +13,9 @@ interface Update {
 }
 
 /**
- * `HttpHeaders` class represents the header configuration options for an HTTP request.
- * Instances should be assumed immutable with lazy parsing.
+ * Represents the header configuration options for an HTTP request.
+ * Instances are immutable. Modifying methods return a cloned
+ * instance with the change. The original object is never changed.
  *
  * Http 头的不可变集合，惰性解析。
  *
@@ -43,7 +44,6 @@ export class HttpHeaders {
    *
    * 完成该对象的惰性初始化（在读取之前需要）。
    */
-  // TODO(issue/24571): remove '!'.
   private lazyInit !: HttpHeaders | Function | null;
 
   /**
@@ -95,7 +95,7 @@ export class HttpHeaders {
   }
 
   /**
-   * Checks for existence of a header by a given name.
+   * Checks for existence of a given header.
    *
    * 检查是否存在指定名称的头。
    *
@@ -103,7 +103,7 @@ export class HttpHeaders {
    *
    * 要检查是否存在的头名称
    *
-   * @returns Whether the header exits.
+   * @returns True if the header exists, false otherwise.
    *
    * 这个头是否存在。
    *
@@ -115,15 +115,15 @@ export class HttpHeaders {
   }
 
   /**
-   * Returns the first header value that matches a given name.
+   * Retrieves the first value of a given header.
    *
    * 返回匹配指定名称的第一个头的值。
    *
-   * @param name The header name to retrieve.
+   * @param name The header name.
    *
    * 要取的头名称
    *
-   * @returns A string if the header exists, null otherwise
+   * @returns The value string if the header exists, null otherwise
    *
    * 如果头存在则返回一个字符串，否则返回 null
    *
@@ -136,7 +136,7 @@ export class HttpHeaders {
   }
 
   /**
-   * Returns the names of the headers.
+   * Retrieves the names of the headers.
    *
    * 返回所有的头名称。
    *
@@ -151,11 +151,11 @@ export class HttpHeaders {
   }
 
   /**
-   * Returns a list of header values for a given header name.
+   * Retrieves a list of values for a given header.
    *
    * 返回头中具有指定名称的值的列表。
    *
-   * @param name The header name from which to retrieve the values.
+   * @param name The header name from which to retrieve values.
    *
    * 准备获取值的头名称
    *
@@ -171,36 +171,38 @@ export class HttpHeaders {
   }
 
   /**
-   * Appends a new header value to the existing set of
-   * header values.
+   * Appends a new value to the existing set of values for a header
+   * and returns them in a clone of the original instance.
    *
    * @param name The header name for which to append the values.
+   * @param value The value to append.
    *
-   * @returns A clone of the HTTP header object with the value appended.
+   * @returns A clone of the HTTP headers object with the value appended to the given header.
    */
 
   append(name: string, value: string|string[]): HttpHeaders {
     return this.clone({name, value, op: 'a'});
   }
   /**
-   * Sets a header value for a given name. If the header name already exists,
-   * its value is replaced with the given value.
+   * Sets or modifies a value for a given header in a clone of the original instance.
+   * If the header already exists, its value is replaced with the given value
+   * in the returned object.
    *
    * @param name The header name.
-   * @param value Provides the value to set or overide for a given name.
+   * @param value The value or values to set or overide for the given header.
    *
-   * @returns A clone of the HTTP header object with the newly set header value.
+   * @returns A clone of the HTTP headers object with the newly set header value.
    */
   set(name: string, value: string|string[]): HttpHeaders {
     return this.clone({name, value, op: 's'});
   }
   /**
-   * Deletes all header values for a given name.
+   * Deletes values for a given header in a clone of the original instance.
    *
    * @param name The header name.
-   * @param value The header values to delete for a given name.
+   * @param value The value or values to delete for the given header.
    *
-   * @returns A clone of the HTTP header object.
+   * @returns A clone of the HTTP headers object with the given value deleted.
    */
   delete (name: string, value?: string|string[]): HttpHeaders {
     return this.clone({name, value, op: 'd'});

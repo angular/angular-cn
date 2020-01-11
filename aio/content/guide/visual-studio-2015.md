@@ -15,7 +15,7 @@ This cookbook describes the steps required to set up and use Angular app files i
 <div class="alert is-helpful">
 
 There is no *live example* for this cookbook because it describes Visual Studio, not 
-the Angular application itself. It uses the starter Angular application created by the CLI command [`ng new`](cli/new) as an example. 
+the Angular application itself. It uses the starter Angular application created by the CLI command [`ng new`](cli/new) as an example.
 
 本文中没有*在线例子*，因为它介绍的是 Visual Studio，而不是《快速上手》应用程序本身。它使用 CLI 命令 [`ng new`](cli/new) 创建的 Angular 入门应用作为例子。
 
@@ -36,8 +36,8 @@ Visual Studio 2015, follow these steps:
 
 If you prefer a `File | New Project` experience and are using **ASP.NET Core**, 
 then consider the _experimental_
-<a href="http://blog.stevensanderson.com/2016/10/04/angular2-template-for-visual-studio/">ASP.NET Core + Angular template for Visual Studio 2015</a>. 
-Note that the resulting code does not map to the docs. Adjust accordingly.   
+<a href="http://blog.stevensanderson.com/2016/10/04/angular2-template-for-visual-studio/">ASP.NET Core + Angular template for Visual Studio 2015</a>.
+Note that the resulting code does not map to the docs. Adjust accordingly.
 
 如果你希望使用**ASP.NET Core**并体验全新项目，
     参见*预览版*<a href="http://blog.stevensanderson.com/2016/10/04/angular2-template-for-visual-studio/" target="_blank">ASP.NET Core + Angular 的 Visual Studio 2015 模板</a>。 
@@ -51,7 +51,7 @@ Note that the resulting code does not map to the docs. Adjust accordingly.
 
 Install **[Node.js® and npm](https://nodejs.org/en/download/)**
 if they are not already on your machine.
-See [Local Environment Setup](guide/setup-local "Setting up for Local Development") for supported versions and instructions. 
+See [Local Environment Setup](guide/setup-local "Setting up for Local Development") for supported versions and instructions.
 
 如果你的电脑里没有 Node.js®和 npm，请安装**[它们](https://nodejs.org/en/download/)**。
 参见[搭建本地开发环境](guide/setup-local "Setting up for Local Development")以了解所支持的版本和安装步骤。
@@ -223,6 +223,7 @@ Include the files in the Visual Studio project as follows:
 
   * src/tsconfig.json
 
+
 <h2 id='restore'>Step 4: Restore the required packages</h2>
 
 <h2 id='restore'>第四步: 恢复需要的包 </h2>
@@ -232,7 +233,7 @@ Restore the packages required for an Angular application as follows:
 按下面的步骤恢复 Angular 应用程序需要的包：
 
 * Right-click on the `package.json` file in Solution Explorer and select `Restore Packages`.
-  <br>This uses `npm` to install all of the packages defined in the `package.json` file. 
+  <br>This uses `npm` to install all of the packages defined in the `package.json` file.
   It may take some time.
 
    在 Solution Explorer 中右键点击 `package.json`，选择 `Restore Packages`。
@@ -274,8 +275,8 @@ Right-click `index.html` in Solution Explorer and select option `Set As Start Pa
 
 ### 按 F5 以在 VS 中运行
 
-Most Visual Studio developers like to press the F5 key and see the IIS server come up. 
-To use the IIS server with the Getting Started app, you must make the following three changes. 
+Most Visual Studio developers like to press the F5 key and see the IIS server come up.
+To use the IIS server with the Getting Started app, you must make the following three changes.
 
 大多数 Visual Studio 开发者喜欢按 F5 键来启动 IIS 服务器。
 要在这个《快速上手》应用中使用 IIS 服务器，你要做下列修改：
@@ -288,7 +289,6 @@ To use the IIS server with the Getting Started app, you must make the following 
 instead of `node_modules` without the slash. 
 
    同样在 `index.html` 中，修改脚本来用带有斜杠的 `/node_modules` 代替不带斜杠的 `node_modules`。
-
 3. In `src/systemjs.config.js`, near the top of the file, 
 change the npm `path` to `/node_modules/` with a slash.
 
@@ -314,7 +314,7 @@ for reasons explained in the [Deployment](guide/deployment#fallback) guide.
 如果应用要使用路由，就要让服务器在用户要求 HTML 页面时始终返回 `index.html`。
 此中原因，在[发布](guide/deployment#fallback)一章中有解释。
 
-Everything seems fine while you move about _within_ the app. 
+Everything seems fine while you move about _within_ the app.
 But you'll see the problem right away if you refresh the browser
 or paste a link to an app page (called a "deep link") into the browser address bar.
 
@@ -338,14 +338,14 @@ This section walks through the steps to adapt the Getting Started application.
 
 #### 配置 IIS 重写规则
 
-Visual Studio ships with IIS Express, which has the rewrite module baked in. 
+Visual Studio ships with IIS Express, which has the rewrite module baked in.
 However, if you're using regular IIS you'll have to install the rewrite 
-module.  
+module.
 
 Visual Studio 自带了一个 IIS Express，其中有一个重写（rewrite）模块。
 不过，如果使用标准版的 IIS ，就要自己去安装这个重写模块了。
 
-Tell Visual Studio how to handle requests for route app pages by adding these 
+Tell Visual Studio how to handle requests for route app pages by adding these
 rewrite rules near the bottom of the `web.config`:
 
 通过把下列重写规则添加到 `web.config` 的底部，就可以告诉 Visual Studio 如何处理到应用页面的请求。
@@ -371,7 +371,7 @@ rewrite rules near the bottom of the `web.config`:
 <div class="alert is-helpful">
 
 The match url, `<match url=".*" />`, will rewrite every request. You'll have to adjust this if 
-you want some requests to get through, such as web API requests. 
+you want some requests to get through, such as web API requests.
 
 匹配 url `<match url=".*" />` 语句将会重写每一个请求。如果需要直接放行某些请求，比如一些 Web API 请求，你就必须调整它才行。
 

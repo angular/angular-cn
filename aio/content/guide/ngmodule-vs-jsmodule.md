@@ -1,16 +1,6 @@
-# JavaScript Modules vs. NgModules
+# JavaScript modules vs. NgModules
 
 # JavaScript 模块 vs. NgModule
-
-#### Prerequisites
-
-#### 前提条件
-
-A basic understanding of [JavaScript/ECMAScript modules](https://hacks.mozilla.org/2015/08/es6-in-depth-modules/).
-
-对 [JavaScript/ECMAScript 模块](https://hacks.mozilla.org/2015/08/es6-in-depth-modules/) 有基本的了解。
-
-<hr>
 
 JavaScript and Angular use modules to organize code, and
 though they organize it differently, Angular apps rely on both.
@@ -44,6 +34,10 @@ import { AppComponent } from './app.component';
 JavaScript modules help you namespace, preventing accidental global variables.
 
 JavaScript 模块让你能为代码加上命名空间，防止因为全局变量而引起意外。
+
+For more information on JavaScript modules, see [JavaScript/ECMAScript modules](https://hacks.mozilla.org/2015/08/es6-in-depth-modules/).
+
+要了解 JavaScript 模块的更多知识，参见 [JavaScript/ECMAScript 模块](https://hacks.mozilla.org/2015/08/es6-in-depth-modules/)。
 
 ## NgModules
 

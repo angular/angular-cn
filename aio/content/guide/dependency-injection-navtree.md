@@ -4,15 +4,15 @@
 
 Application components often need to share information.
 You can often use loosely coupled techniques for sharing information,
-such as data binding and service sharing, 
-but sometimes it makes sense for one component to have a direct reference to another component. 
+such as data binding and service sharing,
+but sometimes it makes sense for one component to have a direct reference to another component.
 You need a direct reference, for instance, to access values or call methods on that component.
 
 应用的组件之间经常需要共享信息。你通常要用松耦合的技术来共享信息，比如数据绑定和服务共享。但是有时候让一个组件直接引用另一个组件还是很有意义的。
 例如，你需要通过另一个组件的直接引用来访问其属性或调用其方法。
 
 Obtaining a component reference is a bit tricky in Angular.
-Angular components themselves do not have a tree that you can 
+Angular components themselves do not have a tree that you can
 inspect or navigate programmatically. The parent-child relationship is indirect,
 established through the components' [view objects](guide/glossary#view).
 
@@ -20,7 +20,7 @@ established through the components' [view objects](guide/glossary#view).
 Angular 组件本身并没有一棵可以用编程方式检查或浏览的树。
 其父子关系是通过组件的[视图对象](guide/glossary#view)间接建立的。
 
-Each component has a *host view*, and can have additional *embedded views*. 
+Each component has a *host view*, and can have additional *embedded views*.
 An embedded view in component A is the
 host view of component B, which can in turn have embedded view.
 This means that there is a [view hierarchy](guide/glossary#view-hierarchy) for each component,
@@ -67,9 +67,7 @@ In the following example, the parent `AlexComponent` has several children includ
 {@a alex}
 
 
-<code-example path="dependency-injection-in-action/src/app/parent-finder.component.ts" region="alex-1" header="parent-finder.component.ts (AlexComponent v.1)" linenums="false">
-
-</code-example>
+<code-example path="dependency-injection-in-action/src/app/parent-finder.component.ts" region="alex-1" header="parent-finder.component.ts (AlexComponent v.1)"></code-example>
 
 
 
@@ -78,9 +76,7 @@ after injecting an `AlexComponent` into her constructor:
 
 在把 `AlexComponent` 注入到 `CathyComponent` 的构造函数中之后，*Cathy* 可以报告她是否能访问 *Alex*：
 
-<code-example path="dependency-injection-in-action/src/app/parent-finder.component.ts" region="cathy" header="parent-finder.component.ts (CathyComponent)" linenums="false">
-
-</code-example>
+<code-example path="dependency-injection-in-action/src/app/parent-finder.component.ts" region="cathy" header="parent-finder.component.ts (CathyComponent)"></code-example>
 
 
 
@@ -145,9 +141,7 @@ you see that the `Alex` component *extends* (*inherits*) from a class named `Bas
 
 这个例子中的 `CraigComponent` 体现了此问题。[往回看](#alex)，你可以看到 `Alex` 组件*扩展*（*继承*）了基类 `Base`。
 
-<code-example path="dependency-injection-in-action/src/app/parent-finder.component.ts" region="alex-class-signature" header="parent-finder.component.ts (Alex class signature)" linenums="false">
-
-</code-example>
+<code-example path="dependency-injection-in-action/src/app/parent-finder.component.ts" region="alex-class-signature" header="parent-finder.component.ts (Alex class signature)"></code-example>
 
 
 
@@ -155,9 +149,7 @@ The `CraigComponent` tries to inject `Base` into its `alex` constructor paramete
 
 `CraigComponent` 试图把 `Base` 注入到它的构造函数参数 `alex` 中，并汇报这次注入是否成功了。
 
-<code-example path="dependency-injection-in-action/src/app/parent-finder.component.ts" region="craig" header="parent-finder.component.ts (CraigComponent)" linenums="false">
-
-</code-example>
+<code-example path="dependency-injection-in-action/src/app/parent-finder.component.ts" region="craig" header="parent-finder.component.ts (CraigComponent)"></code-example>
 
 
 
@@ -200,9 +192,7 @@ and add that provider to the `providers` array of the `@Component()` metadata fo
 {@a alex-providers}
 
 
-<code-example path="dependency-injection-in-action/src/app/parent-finder.component.ts" region="alex-providers" header="parent-finder.component.ts (AlexComponent providers)" linenums="false">
-
-</code-example>
+<code-example path="dependency-injection-in-action/src/app/parent-finder.component.ts" region="alex-providers" header="parent-finder.component.ts (AlexComponent providers)"></code-example>
 
 
 [Parent](#parent-token) is the provider's class interface token.
@@ -216,9 +206,7 @@ the same way you've done it before.
 
 *Alex* 的第三个子组件 *Carol*，把其父组件注入到了自己的 `parent` 参数中 —— 和你以前做过的一样。
 
-<code-example path="dependency-injection-in-action/src/app/parent-finder.component.ts" region="carol-class" header="parent-finder.component.ts (CarolComponent class)" linenums="false">
-
-</code-example>
+<code-example path="dependency-injection-in-action/src/app/parent-finder.component.ts" region="carol-class" header="parent-finder.component.ts (CarolComponent class)"></code-example>
 
 
 
@@ -226,9 +214,9 @@ Here's *Alex* and family in action.
 
 下面是 *Alex* 及其家人的运行效果。
 
-<figure>
+<div class="lightbox">
   <img src="generated/images/guide/dependency-injection-in-action/alex.png" alt="Alex in action">
-</figure>
+</div>
 
 
 
@@ -256,9 +244,7 @@ Here's *Barry*.
 
 *Barry* 的代码如下。
 
-<code-example path="dependency-injection-in-action/src/app/parent-finder.component.ts" region="barry" header="parent-finder.component.ts (BarryComponent)" linenums="false">
-
-</code-example>
+<code-example path="dependency-injection-in-action/src/app/parent-finder.component.ts" region="barry" header="parent-finder.component.ts (BarryComponent)"></code-example>
 
 
 
@@ -308,11 +294,9 @@ Here's *Alice*, *Barry*, and family in action.
 
 下面是 *Alice*、*Barry* 及其家人的运行效果。
 
-<figure>
+<div class="lightbox">
   <img src="generated/images/guide/dependency-injection-in-action/alice.png" alt="Alice in action">
-</figure>
-
-
+</div>
 
 {@a parent-token}
 
@@ -329,9 +313,7 @@ The example defines a `Parent` class interface.
 
 下面的例子定义了一个类接口 `Parent`。
 
-<code-example path="dependency-injection-in-action/src/app/parent-finder.component.ts" region="parent" header="parent-finder.component.ts (Parent class-interface)" linenums="false">
-
-</code-example>
+<code-example path="dependency-injection-in-action/src/app/parent-finder.component.ts" region="parent" header="parent-finder.component.ts (Parent class-interface)"></code-example>
 
 
 
@@ -347,22 +329,18 @@ A component that could serve as a parent *should* implement the class interface 
 
 一个组件想要作为父组件使用，就*应该*像 `AliceComponent` 那样实现这个类接口。
 
-<code-example path="dependency-injection-in-action/src/app/parent-finder.component.ts" region="alice-class-signature" header="parent-finder.component.ts (AliceComponent class signature)" linenums="false">
-
-</code-example>
+<code-example path="dependency-injection-in-action/src/app/parent-finder.component.ts" region="alice-class-signature" header="parent-finder.component.ts (AliceComponent class signature)"></code-example>
 
 
 
-Doing so adds clarity to the code.  But it's not technically necessary.
+Doing so adds clarity to the code. But it's not technically necessary.
 Although `AlexComponent` has a `name` property, as required by its `Base` class,
 its class signature doesn't mention `Parent`.
 
 这样做可以增加代码的清晰度，但在技术上并不是必要的。
 虽然 `AlexComponent` 像 `Base` 类所要求的一样具有 `name` 属性，但它的类签名中并没有提及 `Parent`。
 
-<code-example path="dependency-injection-in-action/src/app/parent-finder.component.ts" region="alex-class-signature" header="parent-finder.component.ts (AlexComponent class signature)" linenums="false">
-
-</code-example>
+<code-example path="dependency-injection-in-action/src/app/parent-finder.component.ts" region="alex-class-signature" header="parent-finder.component.ts (AlexComponent class signature)"></code-example>
 
 
 
@@ -392,25 +370,19 @@ especially this awful mouthful with a [*forwardRef*](guide/dependency-injection-
 
 你很快就会厌倦为同一个父组件编写*别名提供商*的变体形式，特别是带有 [*forwardRef*](guide/dependency-injection-in-action#forwardref) 的那种。
 
-<code-example path="dependency-injection-in-action/src/app/parent-finder.component.ts" region="alex-providers" header="dependency-injection-in-action/src/app/parent-finder.component.ts" linenums="false">
-
-</code-example>
+<code-example path="dependency-injection-in-action/src/app/parent-finder.component.ts" region="alex-providers" header="dependency-injection-in-action/src/app/parent-finder.component.ts"></code-example>
 
 You can extract that logic into a helper function like the following.
 
 你可以像把这些逻辑抽取到辅助函数中，就像这样。
 
-<code-example path="dependency-injection-in-action/src/app/parent-finder.component.ts" region="provide-the-parent" header="dependency-injection-in-action/src/app/parent-finder.component.ts" linenums="false">
-
-</code-example>
+<code-example path="dependency-injection-in-action/src/app/parent-finder.component.ts" region="provide-the-parent" header="dependency-injection-in-action/src/app/parent-finder.component.ts"></code-example>
 
 Now you can add a simpler, more meaningful parent provider to your components.
 
 现在，你可以为组件添加一个更简单、更有意义的父组件提供商。
 
-<code-example path="dependency-injection-in-action/src/app/parent-finder.component.ts" region="alice-providers" header="dependency-injection-in-action/src/app/parent-finder.component.ts" linenums="false">
-
-</code-example>
+<code-example path="dependency-injection-in-action/src/app/parent-finder.component.ts" region="alice-providers" header="dependency-injection-in-action/src/app/parent-finder.component.ts"></code-example>
 
 
 You can do better. The current version of the helper function can only alias the `Parent` class interface.
@@ -423,16 +395,11 @@ Here's a revised version that defaults to `parent` but also accepts an optional 
 
 这是一个修订后的版本，它默认为 `parent`，但是也能接受另一个父类接口作为可选的第二参数。
 
-<code-example path="dependency-injection-in-action/src/app/parent-finder.component.ts" region="provide-parent" header="dependency-injection-in-action/src/app/parent-finder.component.ts" linenums="false">
-
-</code-example>
+<code-example path="dependency-injection-in-action/src/app/parent-finder.component.ts" region="provide-parent" header="dependency-injection-in-action/src/app/parent-finder.component.ts"></code-example>
 
 
 And here's how you could use it with a different parent type.
 
 下面是针对不同父组件类型的用法。
 
-<code-example path="dependency-injection-in-action/src/app/parent-finder.component.ts" region="beth-providers" header="dependency-injection-in-action/src/app/parent-finder.component.ts" linenums="false">
-
-</code-example>
-
+<code-example path="dependency-injection-in-action/src/app/parent-finder.component.ts" region="beth-providers" header="dependency-injection-in-action/src/app/parent-finder.component.ts"></code-example>

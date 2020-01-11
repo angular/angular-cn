@@ -1,4 +1,4 @@
-# Schematics for Libraries
+# Schematics for libraries
 
 # 库的原理图
 
@@ -7,7 +7,7 @@ When you create an Angular library, you can provide and package it with schemati
 With your schematics, your users can use  `ng add` to install an initial version of your library,
 `ng generate` to create artifacts defined in your library, and `ng update` to adjust their project for a new version of your library that introduces breaking changes.
 
-当创建 Angular 库时，你可以为同时为它打包进一组原理图，并把它与 Angular CLI 集成在一起。借助原理图，用户可以用 `ng add` 来安装你这个库的初始版本，可以用 `ng generate` 来创建你在库中定义的一些工件，可以用 `ng update` 来调整他们的项目，以支持你在库的新版本中引入的破坏性变更。
+当创建 Angular 库时，你可以为同时为它打包进一组原理图，并把它与 Angular CLI 集成在一起。借助原理图，用户可以用 `ng add` 来安装你这个库的初始版本，可以用 `ng generate` 来创建你在库中定义的一些工件，可以用 `ng update` 来调整他们的项目，以支持你在库的新版本中引入的重大变更。
 
 
 All three types of schematics can be part of a collection that you package with your library.
@@ -163,7 +163,7 @@ To tell the library how to build the schematics, add a `tsconfig.schematics.json
   `rootDir` 指出在你的 `schematics/` 文件夹中包含要编译的输入文件。
 
 
-* The `outDir` maps to the library's output folder. By default, this is  the `dist/my-lib` folder at the root of your workspace.
+* The `outDir` maps to the library's output folder. By default, this is the `dist/my-lib` folder at the root of your workspace.
 
   `outDir` 映射到了库的输出目录下。默认情况下，这是工作空间根目录下的 `dist/my-lib` 文件夹。
 
@@ -204,7 +204,7 @@ We'll assume that your library defines a service, `my-service`, that requires so
 我们假设你的库定义了一项需要进行某些设置的服务 `my-service`。你希望用户能够用下面的 CLI 命令来生成它。
 
 
-<code-example language="bash" linenums="false">
+<code-example language="bash">
 ng generate my-lib:my-service
 </code-example>
 
@@ -413,7 +413,7 @@ In either case, your code needs to identify the specific project to which this s
 
 
 You can do this using the `Tree` object that is passed in to the factory function.
-The `Tree` methods give you access to the complete file tree in your workspace, allowing you to  read and write files during the execution of the schematic.
+The `Tree` methods give you access to the complete file tree in your workspace, allowing you to read and write files during the execution of the schematic.
 
 你可以使用传给工厂函数的 `Tree` 对象来做到这一点。通过 `Tree` 的一些方法，你可以访问此工作空间的完整文件树，以便在运行原理图时读写文件。
 
@@ -512,7 +512,7 @@ A `Rule` can use external template files, transform them, and return another `Ru
 
   `classify()` 方法接受一个值，并返回标题格式（title case）的值。比如，如果提供的名字是 `my service`，它就会返回 `MyService`。
 
-* The `dasherize()` method takes a value and  returns the value in dashed and lowercase. For example, if the provided name is MyService, it is returned as `my-service.
+* The `dasherize()` method takes a value and returns the value in dashed and lowercase. For example, if the provided name is MyService, it is returned as `my-service.
 
   `dasherize()` 方法接受一个值，并以中线分隔并小写的形式返回值。比如，如果提供的名字是 MyService，它就会返回 “my-service” 的形式。
 
@@ -568,7 +568,7 @@ From the root of your workspace, run the `ng build` command for your library.
 在工作区的根目录下，运行库的 `ng build` 命令。
 
 
-<code-example language="bash" linenums="false">
+<code-example language="bash">
 
   ng build my-lib
 
@@ -579,7 +579,7 @@ Then, you change into your library directory to build the schematic
 然后，进入库目录，构建原理图
 
 
-<code-example language="bash" linenums="false">
+<code-example language="bash">
 
   cd projects/my-lib
   npm run build
@@ -596,7 +596,7 @@ Your library and schematics are packaged and placed in the `dist/my-lib` folder 
 这些库和原理图都已打包好了，就放在你工作区根目录下的 `dist/my-lib` 文件夹中。要运行这个原理图，你需要把这个库链接到 `node_modules` 文件夹中。在工作空间的根目录下，运行 `npm link` 命令，并把你的可分发库的路径作为参数。
 
 
-<code-example language="bash" linenums="false">
+<code-example language="bash">
 
 npm link dist/my-lib
 
@@ -612,7 +612,7 @@ Now that your library is installed, you can run the schematic using the `ng gene
 现在你的库已经安装完毕，可以使用 `ng generate` 命令来运行原理图了。
 
 
-<code-example language="bash" linenums="false">
+<code-example language="bash">
 
 ng generate my-lib:my-service --name my-data
 
@@ -623,7 +623,7 @@ In the console, you will see that the schematic was run and the `my-data.service
 在控制台中，你会看到原理图已经运行过了，`my-data.service.ts` 文件被创建在了你的app文件夹中。
 
 
-<code-example language="bash" linenums="false" hideCopy="true">
+<code-example language="bash" hideCopy="true">
 
 CREATE src/app/my-data.service.ts (208 bytes)
 

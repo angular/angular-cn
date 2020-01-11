@@ -51,7 +51,7 @@ Here's a simple root NgModule definition.
 
 下面是一个简单的根 NgModule 定义：
 
-<code-example path="architecture/src/app/mini-app.ts" region="module" header="src/app/app.module.ts" linenums="false"></code-example>
+<code-example path="architecture/src/app/mini-app.ts" region="module" header="src/app/app.module.ts"></code-example>
 
 <div class="alert is-helpful">
 
@@ -71,11 +71,9 @@ NgModules provide a *compilation context* for their components. A root NgModule 
 NgModule 为其中的组件提供了一个*编译上下文环境*。根模块总会有一个根组件，并在引导期间创建它。
 但是，任何模块都能包含任意数量的其它组件，这些组件可以通过路由器加载，也可以通过模板创建。那些属于这个 NgModule 的组件会共享同一个编译上下文环境。
 
-<figure>
-
-<img src="generated/images/guide/architecture/compilation-context.png" alt="Component compilation context" class="left">
-
-</figure>
+<div class="lightbox">
+  <img src="generated/images/guide/architecture/compilation-context.png" alt="Component compilation context" class="left">
+</div>
 
 <br class="clear">
 
@@ -85,11 +83,9 @@ A component and its template together define a *view*. A component can contain a
 一个视图层次结构中可以混合使用由不同 NgModule 中的组件定义的视图。
 这种情况很常见，特别是对一些 UI 库来说。
 
-<figure>
-
-<img src="generated/images/guide/architecture/view-hierarchy.png" alt="View hierarchy" class="left">
-
-</figure>
+<div class="lightbox">
+  <img src="generated/images/guide/architecture/view-hierarchy.png" alt="View hierarchy" class="left">
+</div>
 
 <br class="clear">
 
@@ -125,9 +121,9 @@ JavaScript 中，每个*文件*是一个模块，文件中定义的所有对象�
 通过 `export` 关键字，模块可以把它的某些对象声明为公共的。
 其它 JavaScript 模块可以使用*import 语句*来访问这些公共对象。
 
-<code-example path="architecture/src/app/app.module.ts" region="imports" linenums="false"></code-example>
+<code-example path="architecture/src/app/app.module.ts" region="imports"></code-example>
 
-<code-example path="architecture/src/app/app.module.ts" region="export" linenums="false"></code-example>
+<code-example path="architecture/src/app/app.module.ts" region="export"></code-example>
 
 <div class="alert is-helpful">
 
@@ -154,7 +150,7 @@ For example, import Angular's `Component` decorator from the `@angular/core` lib
 
 例如，像下面这样，从 `@angular/core` 库中导入 Angular 的 `Component` 装饰器：
 
-<code-example path="architecture/src/app/app.component.ts" region="import" linenums="false"></code-example>
+<code-example path="architecture/src/app/app.component.ts" region="import"></code-example>
 
 You also import NgModules from Angular *libraries* using JavaScript import statements.
 For example, the following code imports the `BrowserModule` NgModule from the `platform-browser` library.
@@ -162,14 +158,14 @@ For example, the following code imports the `BrowserModule` NgModule from the `p
 还可以使用 JavaScript 的导入语句从 Angular *库*中导入 Angular *模块*。
 比如，下列代码从 `platform-browser` 库中导入了 `BrowserModule` 这个 NgModule。
 
-<code-example path="architecture/src/app/mini-app.ts" region="import-browser-module" linenums="false"></code-example>
+<code-example path="architecture/src/app/mini-app.ts" region="import-browser-module"></code-example>
 
 In the example of the simple root module above, the application module needs material from within
 `BrowserModule`. To access that material, add it to the `@NgModule` metadata `imports` like this.
 
 在上面这个简单的根模块范例中，应用的根模块需要来自 `BrowserModule` 中的素材。要访问这些素材，就要把它加入 `@NgModule` 元数据的 `imports` 中，代码如下：
 
-<code-example path="architecture/src/app/mini-app.ts" region="ngmodule-imports" linenums="false"></code-example>
+<code-example path="architecture/src/app/mini-app.ts" region="ngmodule-imports"></code-example>
 
 In this way you're using the Angular and JavaScript module systems *together*. Although it's easy to confuse the two systems, which share the common vocabulary of "imports" and "exports", you will become familiar with the different contexts in which they are used.
 

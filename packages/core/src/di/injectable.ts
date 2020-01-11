@@ -35,7 +35,8 @@ export type InjectableProvider = ValueSansProvider | ExistingSansProvider |
  */
 export interface InjectableDecorator {
   /**
-   * Marks a class as available to `Injector` for creation.
+   * Decorator that marks a class as available to be
+   * provided and injected as a dependency.
    *
    * 标记性元数据，表示一个类可以由 `Injector` 进行创建。
    *
@@ -44,8 +45,12 @@ export interface InjectableDecorator {
    *
    * @usageNotes
    *
-   * The following example shows how service classes are properly marked as
-   * injectable.
+   * Marking a class with `@Injectable` ensures that the compiler
+   * will generate the necessary metadata to create the class's
+   * dependencies when the class is injected.
+   *
+   * The following example shows how a service class is properly
+   *  marked so that a supporting service can be injected upon creation.
    *
    * 下面的例子展示了如何正确的把服务类标记为可注入的（Injectable）。
    *
@@ -53,9 +58,11 @@ export interface InjectableDecorator {
    *
    */
   (): TypeDecorator;
-  (options?: {providedIn: Type<any>| 'root' | null}&InjectableProvider): TypeDecorator;
+  (options?: {providedIn: Type<any>| 'root' | 'platform' | 'any' | null}&
+   InjectableProvider): TypeDecorator;
   new (): Injectable;
-  new (options?: {providedIn: Type<any>| 'root' | null}&InjectableProvider): Injectable;
+  new (options?: {providedIn: Type<any>| 'root' | 'platform' | 'any' | null}&
+       InjectableProvider): Injectable;
 }
 
 /**
@@ -69,10 +76,14 @@ export interface Injectable {
   /**
    * Determines which injectors will provide the injectable,
    * by either associating it with an @NgModule or other `InjectorType`,
-   * or by specifying that this injectable should be provided in the
-   * 'root' injector, which will be the application-level injector in most apps.
+   * or by specifying that this injectable should be provided in the:
+   * - 'root' injector, which will be the application-level injector in most apps.
+   * - 'platform' injector, which would be the special singleton platform injector shared by all
+   * applications on the page.
+   * - 'any' injector, which would be the injector which receives the resolution. (Note this only
+   * works on NgModule Injectors and not on Element Injector)
    */
-  providedIn?: Type<any>|'root'|null;
+  providedIn?: Type<any>|'root'|'platform'|'any'|null;
 }
 
 /**
@@ -87,23 +98,16 @@ export const Injectable: InjectableDecorator = makeDecorator(
     'Injectable', undefined, undefined, undefined,
     (type: Type<any>, meta: Injectable) => SWITCH_COMPILE_INJECTABLE(type as any, meta));
 
-/**
- * Type representing injectable service.
- *
- * 表示可注入服务的类型。
- *
- * @publicApi
- */
-export interface InjectableType<T> extends Type<T> { ngInjectableDef: ɵɵInjectableDef<T>; }
 
 /**
  * Supports @Injectable() in JIT mode for Render2.
  */
-function render2CompileInjectable(
-    injectableType: InjectableType<any>,
-    options: {providedIn?: Type<any>| 'root' | null} & InjectableProvider): void {
+function render2CompileInjectable(injectableType: Type<any>, options?: {
+  providedIn?: Type<any>| 'root' | 'platform' | 'any' | null
+} & InjectableProvider): void {
   if (options && options.providedIn !== undefined && !getInjectableDef(injectableType)) {
-    injectableType.ngInjectableDef = ɵɵdefineInjectable({
+    (injectableType as InjectableType<any>).ɵprov = ɵɵdefineInjectable({
+      token: injectableType,
       providedIn: options.providedIn,
       factory: convertInjectableProviderToFactory(injectableType, options),
     });

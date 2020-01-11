@@ -1,28 +1,6 @@
-# Types of Feature Modules
+# Types of feature modules
 
 # 特性模块的分类
-
-#### Prerequisites
-
-#### 前提条件
-
-A basic understanding of the following concepts:
-
-对下列概念有基本的理解：
-
-* [Feature Modules](guide/feature-modules).
-
-   [特性模块](guide/feature-modules)
-
-* [JavaScript Modules vs. NgModules](guide/ngmodule-vs-jsmodule).
-
-   [JavaScript 模块与 NgModules](guide/ngmodule-vs-jsmodule)。
-
-* [Frequently Used Modules](guide/frequent-ngmodules).
-
-   [常用模块](guide/frequent-ngmodules)。
-
-<hr>
 
 There are five general categories of feature modules which
 tend to fall into the following groups:

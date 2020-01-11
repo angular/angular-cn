@@ -1,4 +1,4 @@
-# Reactive Forms
+# Reactive forms
 
 # 响应式表单
 
@@ -18,7 +18,7 @@ Try the <live-example title="Reactive Forms in Stackblitz">Reactive Forms live-e
 
 ## 响应式表单简介
 
-Reactive forms use an explicit and immutable approach to managing the state of a form at a given point in time. Each change to the form state returns a new state, which maintains the integrity of the model between changes. Reactive forms are built around observable streams, where form inputs and values are provided as streams of input values, which can be accessed synchronously. 
+Reactive forms use an explicit and immutable approach to managing the state of a form at a given point in time. Each change to the form state returns a new state, which maintains the integrity of the model between changes. Reactive forms are built around observable streams, where form inputs and values are provided as streams of input values, which can be accessed synchronously.
 
 响应式表单使用显式的、不可变的方式，管理表单在特定的时间点上的状态。对表单状态的每一次变更都会返回一个新的状态，这样可以在变化时维护模型的整体性。响应式表单是围绕 Observable 的流构建的，表单的输入和值都是通过这些输入值组成的流来提供的，它可以同步访问。
 
@@ -47,11 +47,9 @@ To use reactive forms, import `ReactiveFormsModule` from the `@angular/forms` pa
 
 要使用响应式表单，就要从 `@angular/forms` 包中导入 `ReactiveFormsModule` 并把它添加到你的 NgModule 的 `imports` 数组中。
 
-<code-example path="reactive-forms/src/app/app.module.ts" region="imports" header="src/app/app.module.ts (excerpt)">
+<code-example path="reactive-forms/src/app/app.module.ts" region="imports" header="src/app/app.module.ts (excerpt)"></code-example>
 
-</code-example>
-
-### Step 2: Generating and importing a new form control 
+### Step 2: Generating and importing a new form control
 
 ### 步骤 2 - 生成并导入一个新的表单控件
 
@@ -69,11 +67,9 @@ The `FormControl` class is the basic building block when using reactive forms. T
 
 当使用响应式表单时，`FormControl` 类是最基本的构造块。要注册单个的表单控件，请在组件中导入 `FormControl` 类，并创建一个 `FormControl` 的新实例，把它保存在类的某个属性中。
 
-<code-example path="reactive-forms/src/app/name-editor/name-editor.component.ts" region="create-control" header="src/app/name-editor/name-editor.component.ts">
+<code-example path="reactive-forms/src/app/name-editor/name-editor.component.ts" region="create-control" header="src/app/name-editor/name-editor.component.ts"></code-example>
 
-</code-example>
-
-Use the constructor of `FormControl` to set its initial value, which in this case is an empty string. By creating these controls in your component class, you get immediate access to listen for, update, and validate the state of the form input. 
+Use the constructor of `FormControl` to set its initial value, which in this case is an empty string. By creating these controls in your component class, you get immediate access to listen for, update, and validate the state of the form input.
 
 可以用 `FormControl` 的构造函数设置初始值，这个例子中它是空字符串。通过在你的组件类中创建这些控件，你可以直接对表单控件的状态进行监听、修改和校验。
 
@@ -85,9 +81,7 @@ After you create the control in the component class, you must associate it with 
 
 在组件类中创建了控件之后，你还要把它和模板中的一个表单控件关联起来。修改模板，为表单控件添加 `formControl` 绑定，`formControl` 是由 `ReactiveFormsModule` 中的 `FormControlDirective` 提供的。
 
-<code-example path="reactive-forms/src/app/name-editor/name-editor.component.html" region="control-binding" linenums="false" header="src/app/name-editor/name-editor.component.html">
-
-</code-example>
+<code-example path="reactive-forms/src/app/name-editor/name-editor.component.html" region="control-binding" header="src/app/name-editor/name-editor.component.html"></code-example>
 
 <div class="alert is-helpful">
 
@@ -105,23 +99,21 @@ Using the template binding syntax, the form control is now registered to the `na
 
 #### 显示组件
 
-The form control assigned to `name` is displayed when the component is added to a template. 
+The form control assigned to `name` is displayed when the component is added to a template.
 
 把该组件添加到模板时，将显示指派给 `name` 的表单控件。
 
-<code-example path="reactive-forms/src/app/app.component.1.html" region="app-name-editor" linenums="false" header="src/app/app.component.html (name editor)">
+<code-example path="reactive-forms/src/app/app.component.1.html" region="app-name-editor" header="src/app/app.component.html (name editor)"></code-example>
 
-</code-example>
-
-<figure>
+<div class="lightbox">
   <img src="generated/images/guide/reactive-forms/name-editor-1.png" alt="Name Editor">
-</figure>
+</div>
 
 ## Managing control values
 
 ## 管理控件的值
 
-Reactive forms give you access to the form control state and value at a point in time. You can manipulate 
+Reactive forms give you access to the form control state and value at a point in time. You can manipulate
 the current state and value through the component class or the component template. The following examples display the value of the form control instance and change it.
 
 响应式表单让你可以访问表单控件此刻的状态和值。你可以通过组件类或组件模板来操纵其当前状态和值。下面的例子会显示及修改 `FormConrol` 实例的值。
@@ -132,7 +124,7 @@ the current state and value through the component class or the component templat
 
 ### 显示表单控件的值
 
-You can display the value in these ways: 
+You can display the value in these ways:
 
 你可以用两种方式显示它的值：
 
@@ -140,7 +132,7 @@ You can display the value in these ways:
 
   通过可观察对象 `valueChanges`，你可以在模板中使用 `AsyncPipe` 或在组件类中使用 `subscribe()` 方法来监听表单值的变化。
 
-* With the `value` property. which gives you a snapshot of the current value. 
+* With the `value` property, which gives you a snapshot of the current value.
 
   使用 `value` 属性。它能让你获得当前值的一份快照。
 
@@ -148,9 +140,7 @@ The following example shows you how to display the current value using interpola
 
 下面的例子展示了如何在模板中使用插值表达式显示当前值。
 
-<code-example path="reactive-forms/src/app/name-editor/name-editor.component.html" region="display-value" linenums="false" header="src/app/name-editor/name-editor.component.html (control value)">
-
-</code-example>
+<code-example path="reactive-forms/src/app/name-editor/name-editor.component.html" region="display-value" header="src/app/name-editor/name-editor.component.html (control value)"></code-example>
 
 The displayed value changes as you update the form control element.
 
@@ -169,7 +159,7 @@ Read about other `FormControl` properties and methods in the [Reactive forms API
 
 ### 替换表单控件的值
 
-Reactive forms have methods to change a control's value programmatically, which gives you the flexibility to update the value without user interaction. A form control instance provides a `setValue()` method that updates the value of the form control and validates the structure of the value provided against the control's structure. For example, when retrieving form data from a backend API or service, use the `setValue()` method to update the control to its new value, replacing the old value entirely. 
+Reactive forms have methods to change a control's value programmatically, which gives you the flexibility to update the value without user interaction. A form control instance provides a `setValue()` method that updates the value of the form control and validates the structure of the value provided against the control's structure. For example, when retrieving form data from a backend API or service, use the `setValue()` method to update the control to its new value, replacing the old value entirely.
 
 响应式表单还有一些方法可以用编程的方式修改控件的值，它让你可以灵活的修改控件的值而不需要借助用户交互。`FormControl` 提供了一个 `setValue()` 方法，它会修改这个表单控件的值，并且验证与控件结构相对应的值的结构。比如，当从后端 API 或服务接收到了表单数据时，可以通过 `setValue()` 方法来把原来的值替换为新的值。
 
@@ -181,21 +171,19 @@ The following example adds a method to the component class to update the value o
 
 </code-example>
 
-Update the template with a button to simulate a name update. When you click the **Update Name** button, the value entered in the form control element is reflected as its current value. 
+Update the template with a button to simulate a name update. When you click the **Update Name** button, the value entered in the form control element is reflected as its current value.
 
 修改模板，添加一个按钮，用于模拟改名操作。在点 `Update Name` 按钮之前表单控件元素中输入的任何值都会回显为它的当前值。
 
-<code-example path="reactive-forms/src/app/name-editor/name-editor.component.html" region="update-value" linenums="false" header="src/app/name-editor/name-editor.component.html (update value)">
-
-</code-example>
+<code-example path="reactive-forms/src/app/name-editor/name-editor.component.html" region="update-value" header="src/app/name-editor/name-editor.component.html (update value)"></code-example>
 
 The form model is the source of truth for the control, so when you click the button, the value of the input is changed within the component class, overriding its current value.
 
 由于表单模型是该控件的权威数据源，因此当你单击该按钮时，组件中该输入框的值也变化了，覆盖掉它的当前值。
 
-<figure>
+<div class="lightbox">
   <img src="generated/images/guide/reactive-forms/name-editor-2.png" alt="Name Editor Update">
-</figure>
+</div>
 
 <div class="alert is-helpful">
 
@@ -256,20 +244,18 @@ A form group tracks the status and changes for each of its controls, so if one o
 
 这个表单组还能跟踪其中每个控件的状态及其变化，所以如果其中的某个控件的状态或值变化了，父控件也会发出一次新的状态变更或值变更事件。该控件组的模型来自它的所有成员。在定义了这个模型之后，你必须更新模板，来把该模型反映到视图中。
 
-<code-example path="reactive-forms/src/app/profile-editor/profile-editor.component.1.html" region="formgroup" linenums="false" header="src/app/profile-editor/profile-editor.component.html (template form group)">
-
-</code-example>
+<code-example path="reactive-forms/src/app/profile-editor/profile-editor.component.1.html" region="formgroup" header="src/app/profile-editor/profile-editor.component.html (template form group)"></code-example>
 
 Note that just as a form group contains a group of controls, the *profile form* `FormGroup` is bound to the `form` element with the `FormGroup` directive, creating a communication layer between the model and the form containing the inputs. The `formControlName` input provided by the `FormControlName` directive binds each individual input to the form control defined in `FormGroup`. The form controls communicate with their respective elements. They also communicate changes to the form group instance, which provides the source of truth for the model value.
 
 注意，就像 `FormGroup` 所包含的那控件一样，*profileForm* 这个 `FormGroup` 也通过 `FormGroup` 指令绑定到了 `form` 元素，在该模型和表单中的输入框之间创建了一个通讯层。
-由 `FormControlName` 指令提供的 `formControlName` 属性把每个输入框和 `FormGroup` 中定义的表单控件绑定起来。这些表单控件会和相应的元素通讯，它们还把更改传递给 `FormGroup`，这个 `FormGroup` 是模型值的权威数据源。
+由 `FormControlName` 指令提供的 `formControlName` 属性把每个输入框和 `FormGroup` 中定义的表单控件绑定起来。这些表单控件会和相应的元素通讯，它们还把更改传给 `FormGroup`，这个 `FormGroup` 是模型值的权威数据源。
 
 ### Saving form data
 
 ### 保存表单数据
 
-The `ProfileEditor` component accepts input from the user, but in a real scenario you want to capture the form value and make available for further processing outside the component. The `FormGroup` directive listens for the `submit` event emitted by the `form` element and emits an `ngSubmit` event that you can bind to a callback function. 
+The `ProfileEditor` component accepts input from the user, but in a real scenario you want to capture the form value and make available for further processing outside the component. The `FormGroup` directive listens for the `submit` event emitted by the `form` element and emits an `ngSubmit` event that you can bind to a callback function.
 
 `ProfileEditor` 组件从用户那里获得输入，但在真实的场景中，你可能想要先捕获表单的值，等将来在组件外部进行处理。
 `FormGroup` 指令会监听 `form` 元素发出的 `submit` 事件，并发出一个 `ngSubmit` 事件，让你可以绑定一个回调函数。
@@ -278,9 +264,7 @@ Add an `ngSubmit` event listener to the `form` tag with the `onSubmit()` callbac
 
 把 `onSubmit()` 回调方法添加为 `form` 标签上的 `ngSubmit` 事件监听器。
 
-<code-example path="reactive-forms/src/app/profile-editor/profile-editor.component.html" region="ng-submit" linenums="false" header="src/app/profile-editor/profile-editor.component.html (submit event)">
-
-</code-example>
+<code-example path="reactive-forms/src/app/profile-editor/profile-editor.component.html" region="ng-submit" header="src/app/profile-editor/profile-editor.component.html (submit event)"></code-example>
 
 The `onSubmit()` method in the `ProfileEditor` component captures the current value of `profileForm`. Use `EventEmitter` to keep the form encapsulated and to provide the form value outside the component. The following example uses `console.warn` to log a message to the browser console.
 
@@ -290,7 +274,7 @@ The `onSubmit()` method in the `ProfileEditor` component captures the current va
 
 </code-example>
 
-The `submit` event is emitted by the `form` tag using the native DOM event. You trigger the event by clicking a button with `submit` type. This allows the user to press the **Enter** key to submit the completed form. 
+The `submit` event is emitted by the `form` tag using the native DOM event. You trigger the event by clicking a button with `submit` type. This allows the user to press the **Enter** key to submit the completed form.
 
 `form` 标签所发出的 `submit` 事件是原生 DOM 事件，通过点击类型为 `submit` 的按钮可以触发本事件。这还让用户可以用回车键来提交填完的表单。
 
@@ -298,9 +282,7 @@ Use a `button` element to add a button to the bottom of the form to trigger the 
 
 往表单的底部添加一个 `button`，用于触发表单提交。
 
-<code-example path="reactive-forms/src/app/profile-editor/profile-editor.component.html" region="submit-button" linenums="false" header="src/app/profile-editor/profile-editor.component.html (submit button)">
-
-</code-example>
+<code-example path="reactive-forms/src/app/profile-editor/profile-editor.component.html" region="submit-button" header="src/app/profile-editor/profile-editor.component.html (submit button)"></code-example>
 
 <div class="alert is-helpful">
 
@@ -318,17 +300,15 @@ To display the `ProfileEditor` component that contains the form, add it to a com
 
 要显示包含此表单的 `ProfileEditor` 组件，请把它添加到组件模板中。
 
-<code-example path="reactive-forms/src/app/app.component.1.html" region="app-profile-editor" linenums="false" header="src/app/app.component.html (profile editor)">
-
-</code-example>
+<code-example path="reactive-forms/src/app/app.component.1.html" region="app-profile-editor" header="src/app/app.component.html (profile editor)"></code-example>
 
 `ProfileEditor` allows you to manage the form control instances for the `firstName` and `lastName` controls within the form group instance.
 
 `ProfileEditor` 让你能管理 `FormGroup` 中的 `firstName` 和 `lastName` 等 `FormControl` 实例。
 
-<figure>
+<div class="lightbox">
   <img src="generated/images/guide/reactive-forms/profile-editor-1.png" alt="Profile Editor">
-</figure>
+</div>
 
 ## Creating nested form groups
 
@@ -346,9 +326,7 @@ An address is a good example of information that can be grouped together. Form g
 
 “地址”就是可以把信息进行分组的绝佳范例。`FormGroup` 可以同时接纳 `FormControl` 和 `FormGroup` 作为子控件。这使得那些比较复杂的表单模型可以更易于维护、更有逻辑性。要想在 `profileForm` 中创建一个嵌套的分组，请添加一个内嵌的名叫 `address` 的元素指向这个 `FormGroup` 实例。
 
-<code-example path="reactive-forms/src/app/profile-editor/profile-editor.component.1.ts" region="nested-formgroup" linenums="false" header="src/app/profile-editor/profile-editor.component.ts (nested form group)">
-
-</code-example>
+<code-example path="reactive-forms/src/app/profile-editor/profile-editor.component.1.ts" region="nested-formgroup" header="src/app/profile-editor/profile-editor.component.ts (nested form group)"></code-example>
 
 In this example, `address group` combines the current `firstName` and `lastName` controls with the new `street`, `city`, `state`, and `zip` controls. Even though the `address` element in the form group is a child of the overall `profileForm` element in the form group, the same rules apply with value and status changes. Changes in status and value from the nested form group propagate to the parent form group, maintaining consistency with the overall model.
 
@@ -366,17 +344,15 @@ Add the `address` form group containing the `street`, `city`, `state`, and `zip`
 
 把包含 `street`、`city`、`state` 和 `zip`  字段的 `address` 表单组添加到 `ProfileEditor` 模板中。
 
-<code-example path="reactive-forms/src/app/profile-editor/profile-editor.component.1.html" region="formgroupname" linenums="false" header="src/app/profile-editor/profile-editor.component.html (template nested form group)">
-
-</code-example>
+<code-example path="reactive-forms/src/app/profile-editor/profile-editor.component.1.html" region="formgroupname" header="src/app/profile-editor/profile-editor.component.html (template nested form group)"></code-example>
 
 The `ProfileEditor` form is displayed as one group, but the model is broken down further to represent the logical grouping areas.
 
 `ProfileEditor` 表单显示为一个组，但是将来这个模型会被进一步细分，以表示逻辑分组区域。
 
-<figure>
+<div class="lightbox">
   <img src="generated/images/guide/reactive-forms/profile-editor-2.png" alt="Profile Editor Update">
-</figure>
+</div>
 
 <div class="alert is-helpful">
 
@@ -398,16 +374,16 @@ When updating the value for a form group instance that contains multiple control
 
 ### 修补（Patching）模型值
 
-There are two ways to update the model value: 
+There are two ways to update the model value:
 
 有两种更新模型值的方式：
 
-* Use the `setValue()` method to set a new value for an individual control. The `setValue()` method strictly adheres to the structure of the form group and replaces the entire value for the control. 
+* Use the `setValue()` method to set a new value for an individual control. The `setValue()` method strictly adheres to the structure of the form group and replaces the entire value for the control.
 
   使用 `setValue()` 方法来为单个控件设置新值。
   `setValue()` 方法会严格遵循表单组的结构，并整体性替换控件的值。
 
-* Use the `patchValue()` method to replace any properties defined in the object that have changed in the form model. 
+* Use the `patchValue()` method to replace any properties defined in the object that have changed in the form model.
 
   使用 `patchValue()` 方法可以用对象中所定义的任何属性为表单模型进行替换。
 
@@ -427,9 +403,7 @@ Simulate an update by adding a button to the template to update the user profile
 
 通过往模板中添加一个按钮来模拟一次更新操作，以修改用户档案。
 
-<code-example path="reactive-forms/src/app/profile-editor/profile-editor.component.1.html" region="patch-value" linenums="false" header="src/app/profile-editor/profile-editor.component.html (update value)">
-
-</code-example>
+<code-example path="reactive-forms/src/app/profile-editor/profile-editor.component.1.html" region="patch-value" header="src/app/profile-editor/profile-editor.component.html (update value)"></code-example>
 
 When a user clicks the button, the `profileForm` model is updated with new values for `firstName` and `street`. Notice that `street` is provided in an object inside the `address` property. This is necessary because the `patchValue()` method applies the update against the model structure. `PatchValue()` only updates properties that the form model defines.
 
@@ -439,7 +413,7 @@ When a user clicks the button, the `profileForm` model is updated with new value
 
 ## 使用 `FormBuilder` 来生成表单控件
 
-Creating form control instances manually can become repetitive when dealing with multiple forms. The `FormBuilder` service provides convenient methods for generating controls. 
+Creating form control instances manually can become repetitive when dealing with multiple forms. The `FormBuilder` service provides convenient methods for generating controls.
 
 当需要与多个表单打交道时，手动创建多个表单控件实例会非常繁琐。`FormBuilder` 服务提供了一些便捷方法来生成表单控件。`FormBuilder` 在幕后也使用同样的方式来创建和返回这些实例，只是用起来更简单。
 
@@ -475,7 +449,7 @@ The `FormBuilder` service is an injectable provider that is provided with the re
 
 ### 步骤 3 - 生成表单控件
 
-The `FormBuilder` service has three methods: `control()`, `group()`, and `array()`. These are factory methods for generating instances in your component classes including form controls, form groups, and form arrays. 
+The `FormBuilder` service has three methods: `control()`, `group()`, and `array()`. These are factory methods for generating instances in your component classes including form controls, form groups, and form arrays.
 
 `FormBuilder` 服务有三个方法：`control()`、`group()` 和 `array()`。这些方法都是工厂方法，用于在组件类中分别生成 `FormControl`、`FormGroup` 和 `FormArray`。
 
@@ -506,6 +480,7 @@ Compare using the form builder to creating the instances manually.
 <code-tabs>
 
   <code-pane path="reactive-forms/src/app/profile-editor/profile-editor.component.1.ts" region="formgroup-compare" header="src/app/profile-editor/profile-editor.component.ts (instances)">
+
   </code-pane>
 
   <code-pane path="reactive-forms/src/app/profile-editor/profile-editor.component.2.ts" region="formgroup-compare" header="src/app/profile-editor/profile-editor.component.ts (form builder)">
@@ -558,9 +533,7 @@ HTML5 has a set of built-in attributes that you can use for native validation, i
 
 HTML5 有一组内置的属性，用来进行原生验证，包括 `required`、`minlength`、`maxlength` 等。虽然是*可选的*，不过你也可以在表单的输入元素上把它们添加为附加属性来使用它们。这里我们把 `required` 属性添加到 `firstName` 输入元素上。
 
-<code-example path="reactive-forms/src/app/profile-editor/profile-editor.component.html" region="required-attribute" linenums="false" header="src/app/profile-editor/profile-editor.component.html (required attribute)">
-
-</code-example>
+<code-example path="reactive-forms/src/app/profile-editor/profile-editor.component.html" region="required-attribute" header="src/app/profile-editor/profile-editor.component.html (required attribute)"></code-example>
 
 <div class="alert is-important">
 
@@ -582,13 +555,11 @@ Display the current status of `profileForm` using interpolation.
 
 使用插值表达式显示 `profileForm` 的当前状态。
 
-<code-example path="reactive-forms/src/app/profile-editor/profile-editor.component.html" region="display-status" linenums="false" header="src/app/profile-editor/profile-editor.component.html (display status)">
+<code-example path="reactive-forms/src/app/profile-editor/profile-editor.component.html" region="display-status" header="src/app/profile-editor/profile-editor.component.html (display status)"></code-example>
 
-</code-example>
-
-<figure>
+<div class="lightbox">
   <img src="generated/images/guide/reactive-forms/profile-editor-3.png" alt="Profile Editor Validation">
-</figure>
+</div>
 
 The **Submit** button is disabled because `profileForm` is invalid due to the required `firstName` form control. After you fill out the `firstName` input, the form becomes valid and the **Submit** button is enabled.
 
@@ -643,12 +614,12 @@ The aliases control in the form group instance is now populated with a single co
 
 ### 步骤 3 - 访问 `FormArray` 控件
 
-A getter provides easy access to the aliases in the form array instance compared to repeating the `profileForm.get()` method to get each instance. The form array instance represents an undefined number of controls in an array. It's convenient to access a control through a getter, and this approach is easy to repeat for additional controls. 
+A getter provides easy access to the aliases in the form array instance compared to repeating the `profileForm.get()` method to get each instance. The form array instance represents an undefined number of controls in an array. It's convenient to access a control through a getter, and this approach is easy to repeat for additional controls.
 
 相对于重复使用 `profileForm.get()` 方法获取每个实例的方式，getter 可以让你轻松访问表单数组各个实例中的别名。
 表单数组实例用一个数组来代表未定数量的控件。通过 getter 来访问控件很方便，这种方法还能很容易地重复处理更多控件。
 
-Use the getter syntax to create an `aliases` class property to retrieve the alias's form array  control from the parent form group.
+Use the getter syntax to create an `aliases` class property to retrieve the alias's form array control from the parent form group.
 
 使用 getter 语法创建类属性 `aliases`，以从父表单组中接收表示绰号的表单数组控件。
 
@@ -680,7 +651,7 @@ In the template, each control is displayed as a separate input field.
 
 ### 步骤 4 - 在模板中显示表单数组
 
-To attach the aliases from your form model, you must add it to the template. Similar to the `formGroupName` input provided by `FormGroupNameDirective`, `formArrayName` binds communication from the form array instance to the template with `FormArrayNameDirective`. 
+To attach the aliases from your form model, you must add it to the template. Similar to the `formGroupName` input provided by `FormGroupNameDirective`, `formArrayName` binds communication from the form array instance to the template with `FormArrayNameDirective`.
 
 要想为表单模型添加 `aliases` ，你必须把它加入到模板中供用户输入。和 `FormGroupNameDirective` 提供的 `formGroupName` 一样，`FormArrayNameDirective` 也使用 `formArrayName` 在这个 `FormArray` 实例和模板之间建立绑定。
 
@@ -688,17 +659,15 @@ Add the template HTML below after the `<div>` closing the `formGroupName` elemen
 
 在 `formGroupName` `<div>` 元素的结束标签下方，添加一段模板 HTML。
 
-<code-example path="reactive-forms/src/app/profile-editor/profile-editor.component.html" region="formarrayname" linenums="false" header="src/app/profile-editor/profile-editor.component.html (aliases form array template)">
+<code-example path="reactive-forms/src/app/profile-editor/profile-editor.component.html" region="formarrayname" header="src/app/profile-editor/profile-editor.component.html (aliases form array template)"></code-example>
 
-</code-example>
-
-The `*ngFor` directive iterates over each form control instance provided by the aliases form array instance. Because form array elements are unnamed, you assign the index to the `i` variable and pass it to each control to bind it to the `formControlName` input. 
+The `*ngFor` directive iterates over each form control instance provided by the aliases form array instance. Because form array elements are unnamed, you assign the index to the `i` variable and pass it to each control to bind it to the `formControlName` input.
 
 `*ngFor` 指令对 `aliases` `FormArray` 提供的每个 `FormControl` 进行迭代。因为 `FormArray` 中的元素是匿名的，所以你要把*索引号*赋值给 `i` 变量，并且把它传给每个控件的 `formControlName` 输入属性。
 
-<figure>
+<div class="lightbox">
   <img src="generated/images/guide/reactive-forms/profile-editor-4.png" alt="Profile Editor Aliases">
-</figure>
+</div>
 
 Each time a new alias instance is added, the new form array instance is provided its control based on the index. This allows you to track each individual control when calculating the status and value of the root control.
 
@@ -850,7 +819,7 @@ Listed below are the base classes and services used to create and manage form co
 
     </td>
 
-  </tr>  
+  </tr>
 
 </table>
 

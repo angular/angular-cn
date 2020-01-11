@@ -36,16 +36,15 @@ The subcommands for `ng generate` are shorthand for the corresponding schematic.
 `@schematics/angular` 集合中的原理图是 `ng generate` 和 `ng add` 命令的默认原理图。此包里包含一些有名字的原理图，可用于配置 `ng generate` 子命令的选项，比如 `ng generate component` 和 `ng generate service` 。`ng generate` 的子命令是相应原理图的简写。你可以用长格式来指定要生成的原理图（或原理图集合）：
 
 
-<code-example language="bash" linenums="false">
+<code-example language="bash">
 ng generate my-schematic-collection:my-schematic-name
 </code-example>
 
-&mdash;or&mdash;
+or
 
-\- 或者 -
+或者
 
-
-<code-example language="bash" linenums="false">
+<code-example language="bash">
 ng generate my-schematic-name --collection collection-name
 </code-example>
 
@@ -82,14 +81,14 @@ As a library developer, you can create your own collections of custom schematics
   *添加（Add）原理图*允许开发人员使用 `ng add` 在 Angular工作空间中安装你的库。
 
 
-* *Generation schematics* can tell the `ng generate` subcommands how to modify projects, add configurations and scripts, and scaffold  artifacts that are defined in your library.
+* *Generation schematics* can tell the `ng generate` subcommands how to modify projects, add configurations and scripts, and scaffold artifacts that are defined in your library.
 
   *生成（Generation）原理图*可以告诉 `ng generate` 子命令如何修改项目、添加配置和脚本，以及为库中定义的工件提供脚手架。
 
 
 * An *update schematic* can tell the `ng update` command how to update your library's dependencies and adjust for breaking changes when you release a new version.
 
-  *更新（Update）原理图*可以告诉 `ng update` 命令，如何更新库的依赖，并在发布新版本时调整其中的破坏性变更。
+  *更新（Update）原理图*可以告诉 `ng update` 命令，如何更新库的依赖，并在发布新版本时调整其中的重大变更。
 
 
 For more details of what these look like and how to create them, see:
@@ -130,7 +129,7 @@ For example, `@ng-bootstrap/schematics` adds [ng-bootstrap](https://ng-bootstrap
 
 
 An add schematic can also update a project with configuration changes, add additional dependencies (such as polyfills), or scaffold package-specific initialization code.
-For example, the `@angular/pwa` schematic turns your application into a PWA by adding an app manifest and service worker, and the `@angular/elements`  schematic adds  the `document-register-element.js` polyfill and dependencies for Angular Elements.
+For example, the `@angular/pwa` schematic turns your application into a PWA by adding an app manifest and service worker, and the `@angular/elements`  schematic adds the `document-register-element.js` polyfill and dependencies for Angular Elements.
 
 "添加原理图" 还可以通过更改配置、添加额外依赖（比如腻子脚本），或者添加程序包特有的初始化代码来修改项目。例如，`@angular/pwa` 原理图会通过添加一个应用清单（manifest）和 Service Worker，来把你的应用变成一个 PWA，`@angular/elements` 原理图添加了 `document-register-element.js` 腻子脚本和 Angular Elelments 的依赖项。
 
@@ -153,7 +152,7 @@ The following command uses one of these schematics to render an Angular Material
 例如，Angular Material 为它定义的一些 UI 组件提供了生成器原理图。下面的命令会使用其中一个原理图来渲染一个 Angular Material 的 `<mat-table>` 组件，它预先配置了一个用于排序和分页的数据源。
 
 
-<code-example language="bash" linenums="false">
+<code-example language="bash">
 ng generate @angular/material:table <component-name>
 </code-example>
 
@@ -167,7 +166,7 @@ ng generate @angular/material:table <component-name>
 `ng update` 命令可以用来更新工作空间的库依赖。如果你没有提供任何选项或使用了 help 选项，该命令会检查你的工作空间并建议要更新哪些库。
 
 
-<code-example language="bash" linenums="false">
+<code-example language="bash">
 ng update
     We analyzed your package.json, there are some packages to update:
 
@@ -219,7 +218,7 @@ For example, suppose you want to update the Angular Material library.
 例如，假设你要更新 Angular Material 库。
 
 
-<code-example language="bash" linenums="false">
+<code-example language="bash">
 ng update @angular/material
 </code-example>
 

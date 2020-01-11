@@ -43,13 +43,14 @@ import {isUrlTree} from './utils/type_guards';
  */
 export interface NavigationExtras {
   /**
-   * Enables relative navigation from the current ActivatedRoute.
+   * Specifies a root URI to use for relative navigation.
    *
    * 允许从当前激活的路由进行相对导航。
    *
-   * Configuration:
-   *
-   * 配置：
+   * For example, consider the following route configuration where the parent route
+   * has two children.
+   * 
+   * 比如，考虑下列路由器配置，parent 路由拥有两个子路由。
    *
    * ```
    * [{
@@ -65,9 +66,8 @@ export interface NavigationExtras {
   * }]
    * ```
    *
-   * Navigate to list route from child route:
-   *
-   * 从 `child` 路由导航到 `list` 路由：
+   * The following `go()` function navigates to the `list` route by
+   * interpreting the destination URI as relative to the activated `child`  route
    *
    * ```
    *  @Component({...})
@@ -107,22 +107,20 @@ export interface NavigationExtras {
   fragment?: string;
 
   /**
-   * DEPRECATED: Use `queryParamsHandling` instead to preserve
+   * **DEPRECATED**: Use `queryParamsHandling: "preserve"` instead to preserve
    * query parameters for the next navigation.
    *
    * 已废弃，请改用 `queryParamsHandling` 来为后续导航保留查询参数。
-   *
-   * ```
-   * // Preserve query params from /results?page=1 to /view?page=1
-   * this.router.navigate(['/view'], { preserveQueryParams: true });
-   * ```
-   *
+   * 
    * @deprecated since v4
    */
   preserveQueryParams?: boolean;
 
   /**
-   * Configuration strategy for how to handle query parameters for the next navigation.
+   * How to handle query parameters in the router link for the next navigation.
+   * One of:
+   * * `merge` : Merge new with current parameters.
+   * * `preserve` : Preserve current parameters.
    *
    *  配置后续导航时对查询（`?`）参数的处理策略。
    *
@@ -133,7 +131,7 @@ export interface NavigationExtras {
    */
   queryParamsHandling?: QueryParamsHandling|null;
   /**
-   * Preserves the fragment for the next navigation
+   * When true, preserves the URL fragment for the next navigation
    *
    * 在后续导航时保留`#`片段
    *
@@ -144,7 +142,7 @@ export interface NavigationExtras {
    */
   preserveFragment?: boolean;
   /**
-   * Navigates without pushing a new state into history.
+   * When true, navigates without pushing a new state into history.
    *
    * 导航时不要把新状态记入历史
    *
@@ -155,7 +153,7 @@ export interface NavigationExtras {
    */
   skipLocationChange?: boolean;
   /**
-   * Navigates while replacing the current state in history.
+   * When true, navigates while replacing the current state in history.
    *
    * 导航时不要把当前状态记入历史
    *
@@ -166,28 +164,28 @@ export interface NavigationExtras {
    */
   replaceUrl?: boolean;
   /**
-   * State passed to any navigation. This value will be accessible through the `extras` object
-   * returned from `router.getCurrentNavigation()` while a navigation is executing. Once a
-   * navigation completes, this value will be written to `history.state` when the `location.go`
-   * or `location.replaceState` method is called before activating of this route. Note that
-   * `history.state` will not pass an object equality test because the `navigationId` will be
-   * added to the state before being written.
+   * Developer-defined state that can be passed to any navigation.
+   * Access this value through the `Navigation.extras` object
+   * returned from `router.getCurrentNavigation()` while a navigation is executing.
    *
-   * While `history.state` can accept any type of value, because the router adds the `navigationId`
-   * on each navigation, the `state` must always be an object.
+   * After a navigation completes, the router writes an object containing this
+   * value together with a `navigationId` to `history.state`.
+   * The value is written when `location.go()` or `location.replaceState()`
+   * is called before activating this route.
+   *
+   * Note that `history.state` does not pass an object equality test because
+   * the router adds the `navigationId` on each navigation.
    */
   state?: {[k: string]: any};
 }
 
 /**
- * @description
- *
- * Error handler that is invoked when a navigation errors.
+ * Error handler that is invoked when a navigation error occurs.
  *
  * 错误处理器会在导航出错时调用。
  *
- * If the handler returns a value, the navigation promise will be resolved with this value.
- * If the handler throws an exception, the navigation promise will be rejected with
+ * If the handler returns a value, the navigation promise is resolved with this value.
+ * If the handler throws an exception, the navigation promise is rejected with
  * the exception.
  *
  * 如果该处理器返回一个值，那么本次导航返回的 Promise 就会使用这个值进行解析（resolve）。
@@ -211,10 +209,8 @@ export type RestoredState = {
 };
 
 /**
- * @description
- *
- * Information about any given navigation. This information can be gotten from the router at
- * any time using the `router.getCurrentNavigation()` method.
+ * Information about a navigation operation. Retrieve the most recent
+ * navigation object with the `router.getCurrentNavigation()` method.
  *
  * @publicApi
  */
@@ -224,35 +220,37 @@ export type Navigation = {
    */
   id: number;
   /**
-   * Target URL passed into the {@link Router#navigateByUrl} call before navigation. This is
+   * The target URL passed into the `Router#navigateByUrl()` call before navigation. This is
    * the value before the router has parsed or applied redirects to it.
    */
   initialUrl: string | UrlTree;
   /**
-   * The initial target URL after being parsed with {@link UrlSerializer.extract()}.
+   * The initial target URL after being parsed with `UrlSerializer.extract()`.
    */
   extractedUrl: UrlTree;
   /**
-   * Extracted URL after redirects have been applied. This URL may not be available immediately,
-   * therefore this property can be `undefined`. It is guaranteed to be set after the
-   * {@link RoutesRecognized} event fires.
+   * The extracted URL after redirects have been applied.
+   * This URL may not be available immediately, therefore this property can be `undefined`.
+   * It is guaranteed to be set after the `RoutesRecognized` event fires.
    */
   finalUrl?: UrlTree;
   /**
-   * Identifies the trigger of the navigation.
+   * Identifies how this navigation was triggered.
    *
-   * * 'imperative'--triggered by `router.navigateByUrl` or `router.navigate`.
-   * * 'popstate'--triggered by a popstate event
-   * * 'hashchange'--triggered by a hashchange event
+   * * 'imperative'--Triggered by `router.navigateByUrl` or `router.navigate`.
+   * * 'popstate'--Triggered by a popstate event.
+   * * 'hashchange'--Triggered by a hashchange event.
    */
   trigger: 'imperative' | 'popstate' | 'hashchange';
   /**
-   * The NavigationExtras used in this navigation. See {@link NavigationExtras} for more info.
+   * Options that controlled the strategy used for this navigation.
+   * See `NavigationExtras`.
    */
   extras: NavigationExtras;
   /**
-   * Previously successful Navigation object. Only a single previous Navigation is available,
-   * therefore this previous Navigation will always have a `null` value for `previousNavigation`.
+   * The previously successful `Navigation` object. Only one previous navigation
+   * is available, therefore this previous `Navigation` object has a `null` value
+   * for its own `previousNavigation`.
    */
   previousNavigation: Navigation | null;
 };
@@ -305,7 +303,7 @@ function defaultRouterHook(snapshot: RouterStateSnapshot, runExtras: {
 /**
  * @description
  *
- * An NgModule that provides navigation and URL manipulation capabilities.
+ * A service that provides navigation and URL manipulation capabilities.
  *
  * 一个提供导航和操纵 URL 能力的 NgModule。
  *
@@ -353,8 +351,9 @@ export class Router {
   errorHandler: ErrorHandler = defaultErrorHandler;
 
   /**
-   * Malformed uri error handler is invoked when `Router.parseUrl(url)` throws an
-   * error due to containing an invalid character. The most common case would be a `%` sign
+   * A handler for errors thrown by `Router.parseUrl(url)`
+   * when `url` contains an invalid character.
+   * The most common case is a `%` sign
    * that's not encoded and is not part of a percent encoded sequence.
    *
    * uri 格式无效错误的处理器，在 `Router.parseUrl(url)` 由于 `url` 包含无效字符而报错时调用。
@@ -386,14 +385,15 @@ export class Router {
   };
 
   /**
-   * Extracts and merges URLs. Used for AngularJS to Angular migrations.
+   * A strategy for extracting and merging URLs.
+   * Used for AngularJS to Angular migrations.
    *
    * 提取并合并 URL。在 AngularJS 向 Angular 迁移时会用到。
    */
   urlHandlingStrategy: UrlHandlingStrategy = new DefaultUrlHandlingStrategy();
 
   /**
-   * The strategy for re-using routes.
+   * A strategy for re-using routes.
    */
   routeReuseStrategy: RouteReuseStrategy = new DefaultRouteReuseStrategy();
 
@@ -433,30 +433,17 @@ export class Router {
   paramsInheritanceStrategy: 'emptyOnly'|'always' = 'emptyOnly';
 
   /**
-   * Defines when the router updates the browser URL. The default behavior is to update after
-   * successful navigation. However, some applications may prefer a mode where the URL gets
-   * updated at the beginning of navigation. The most common use case would be updating the
-   * URL early so if navigation fails, you can show an error message with the URL that failed.
-   * Available options are:
-   *
-   * 定义路由器要何时更新浏览器的 URL。默认行为是在每次成功的导航之后更新。
-   * 不过，有些应用会更愿意在导航开始时就更新。最常见的情况是尽早更新 URL，这样当导航失败时，你就可以在出错的 URL 上显示一条错误信息了。
-   * 可用的选项包括：
-   *
-   * - `'deferred'`, the default, updates the browser URL after navigation has finished.
-   *
-   *   `'deferred'`，默认值，在导航完毕后更新浏览器 URL。
-   *
-   * - `'eager'`, updates browser URL at the beginning of navigation.
-   *
-   *   `'eager'`，在导航开始时更新浏览器的 URL。
+   * Determines when the router updates the browser URL.
+   * By default (`"deferred"`), updates the browser URL after navigation has finished.
+   * Set to `'eager'` to update the browser URL at the beginning of navigation.
+   * You can choose to update early so that, if navigation fails,
+   * you can show an error message with the URL that failed.
    */
   urlUpdateStrategy: 'deferred'|'eager' = 'deferred';
 
   /**
-   * See {@link RouterModule} for more information.
-   *
-   * 欲知详情，参见 {@link RouterModule}。
+   * Enables a bug fix that corrects relative link resolution in components with empty paths.
+   * @see `RouterModule`
    */
   relativeLinkResolution: 'legacy'|'corrected' = 'legacy';
 
@@ -809,10 +796,27 @@ export class Router {
                   const navCancel =
                       new NavigationCancel(t.id, this.serializeUrl(t.extractedUrl), e.message);
                   eventsSubject.next(navCancel);
-                  t.resolve(false);
 
-                  if (redirecting) {
-                    this.navigateByUrl(e.url);
+                  // When redirecting, we need to delay resolving the navigation
+                  // promise and push it to the redirect navigation
+                  if (!redirecting) {
+                    t.resolve(false);
+                  } else {
+                    // setTimeout is required so this navigation finishes with
+                    // the return EMPTY below. If it isn't allowed to finish
+                    // processing, there can be multiple navigations to the same
+                    // URL.
+                    setTimeout(() => {
+                      const mergedTree = this.urlHandlingStrategy.merge(e.url, this.rawUrlTree);
+                      const extras = {
+                        skipLocationChange: t.extras.skipLocationChange,
+                        replaceUrl: this.urlUpdateStrategy === 'eager'
+                      };
+
+                      return this.scheduleNavigation(
+                          mergedTree, 'imperative', null, extras,
+                          {resolve: t.resolve, reject: t.reject, promise: t.promise});
+                    }, 0);
                   }
 
                   /* All other errors should reset to the router's internal URL reference to the
@@ -950,8 +954,8 @@ export class Router {
    *
    * 把一个命令数组应用于当前的 URL 树，并创建一个新的 URL 树。
    *
-   * When given an activate route, applies the given commands starting from the route.
-   * When not given a route, applies the given command starting from the root.
+   * When given an activated route, applies the given commands starting from the route.
+   * Otherwise, applies the given command starting from the root.
    *
    * 如果指定了激活路由，就以该路由为起点应用这些命令。
    * 如果没有指定激活路由，就以根路由为起点应用这些命令。
@@ -960,7 +964,8 @@ export class Router {
    *
    * 要应用的命令数组。
    *
-   * @param navigationExtras
+   * @param navigationExtras Options that control the navigation strategy. This function
+   * only utilizes properties in `NavigationExtras` that would change the provided URL.
    * @returns The new URL tree.
    *
    * 新的 URL Tree。
@@ -977,9 +982,8 @@ export class Router {
    * // you can collapse static segments like this (this works only with the first passed-in value):
    * router.createUrlTree(['/team/33/user', userId]);
    *
-   * // If the first segment can contain slashes, and you do not want the router to split it, you
-   * // can do the following:
-   *
+   * // If the first segment can contain slashes, and you do not want the router to split it,
+   * // you can do the following:
    * router.createUrlTree([{segmentPath: '/one/two'}]);
    *
    * // create /team/33/(user/11//right:chat)
@@ -1052,10 +1056,6 @@ export class Router {
    *
    * @usageNotes
    *
-   * ### Example
-   *
-   * ### 用法
-   *
    * ```
    * router.navigateByUrl("/team/33/user/11");
    *
@@ -1101,10 +1101,6 @@ export class Router {
    *   当出错时拒绝（reject）。
    *
    * @usageNotes
-   *
-   * ### Example
-   *
-   * ### 用法
    *
    * ```
    * router.navigate(['team', 33, 'user', 11], {relativeTo: route});
@@ -1193,7 +1189,8 @@ export class Router {
 
   private scheduleNavigation(
       rawUrl: UrlTree, source: NavigationTrigger, restoredState: RestoredState|null,
-      extras: NavigationExtras): Promise<boolean> {
+      extras: NavigationExtras,
+      priorPromise?: {resolve: any, reject: any, promise: Promise<boolean>}): Promise<boolean> {
     const lastNavigation = this.getTransition();
     // If the user triggers a navigation imperatively (e.g., by using navigateByUrl),
     // and that navigation results in 'replaceState' that leads to the same URL,
@@ -1218,13 +1215,20 @@ export class Router {
       return Promise.resolve(true);  // return value is not used
     }
 
-    let resolve: any = null;
-    let reject: any = null;
+    let resolve: any;
+    let reject: any;
+    let promise: Promise<boolean>;
+    if (priorPromise) {
+      resolve = priorPromise.resolve;
+      reject = priorPromise.reject;
+      promise = priorPromise.promise;
 
-    const promise = new Promise<boolean>((res, rej) => {
-      resolve = res;
-      reject = rej;
-    });
+    } else {
+      promise = new Promise<boolean>((res, rej) => {
+        resolve = res;
+        reject = rej;
+      });
+    }
 
     const id = ++this.navigationId;
     this.setTransition({

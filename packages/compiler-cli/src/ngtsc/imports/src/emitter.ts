@@ -5,17 +5,18 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-
-import {Expression, ExternalExpr, WrappedNodeExpr} from '@angular/compiler';
-import {ExternalReference} from '@angular/compiler/src/compiler';
+import {Expression, ExternalExpr, ExternalReference, WrappedNodeExpr} from '@angular/compiler';
 import * as ts from 'typescript';
 
-import {LogicalFileSystem, LogicalProjectPath} from '../../path';
+import {LogicalFileSystem, LogicalProjectPath, PathSegment, absoluteFromSourceFile, dirname, relative} from '../../file_system';
+import {stripExtension} from '../../file_system/src/util';
 import {ReflectionHost} from '../../reflection';
-import {getSourceFile, isDeclaration, nodeNameForError, resolveModuleName} from '../../util/src/typescript';
+import {getSourceFile, isDeclaration, nodeNameForError} from '../../util/src/typescript';
 
 import {findExportedNameOfNode} from './find_export';
 import {ImportMode, Reference} from './references';
+import {ModuleResolver} from './resolver';
+
 
 
 /**
@@ -118,8 +119,7 @@ export class AbsoluteModuleStrategy implements ReferenceEmitStrategy {
 
   constructor(
       protected program: ts.Program, protected checker: ts.TypeChecker,
-      protected options: ts.CompilerOptions, protected host: ts.CompilerHost,
-      private reflectionHost: ReflectionHost) {}
+      protected moduleResolver: ModuleResolver, private reflectionHost: ReflectionHost) {}
 
   emit(ref: Reference<ts.Node>, context: ts.SourceFile, importMode: ImportMode): Expression|null {
     if (ref.bestGuessOwningModule === null) {
@@ -165,13 +165,8 @@ export class AbsoluteModuleStrategy implements ReferenceEmitStrategy {
   protected enumerateExportsOfModule(specifier: string, fromFile: string):
       Map<ts.Declaration, string>|null {
     // First, resolve the module specifier to its entry point, and get the ts.Symbol for it.
-    const resolvedModule = resolveModuleName(specifier, fromFile, this.options, this.host);
-    if (resolvedModule === undefined) {
-      return null;
-    }
-
-    const entryPointFile = this.program.getSourceFile(resolvedModule.resolvedFileName);
-    if (entryPointFile === undefined) {
+    const entryPointFile = this.moduleResolver.resolveModule(specifier, fromFile);
+    if (entryPointFile === null) {
       return null;
     }
 
@@ -180,7 +175,13 @@ export class AbsoluteModuleStrategy implements ReferenceEmitStrategy {
       return null;
     }
     const exportMap = new Map<ts.Declaration, string>();
-    exports.forEach((declaration, name) => { exportMap.set(declaration.node, name); });
+    exports.forEach((declaration, name) => {
+      // It's okay to skip inline declarations, since by definition they're not target-able with a
+      // ts.Declaration anyway.
+      if (declaration.node !== null) {
+        exportMap.set(declaration.node, name);
+      }
+    });
     return exportMap;
   }
 }
@@ -194,7 +195,7 @@ export class AbsoluteModuleStrategy implements ReferenceEmitStrategy {
  * Instead, `LogicalProjectPath`s are used.
  */
 export class LogicalProjectStrategy implements ReferenceEmitStrategy {
-  constructor(private checker: ts.TypeChecker, private logicalFs: LogicalFileSystem) {}
+  constructor(private reflector: ReflectionHost, private logicalFs: LogicalFileSystem) {}
 
   emit(ref: Reference<ts.Node>, context: ts.SourceFile): Expression|null {
     const destSf = getSourceFile(ref.node);
@@ -218,7 +219,7 @@ export class LogicalProjectStrategy implements ReferenceEmitStrategy {
       return null;
     }
 
-    const name = findExportedNameOfNode(ref.node, destSf, this.checker);
+    const name = findExportedNameOfNode(ref.node, destSf, this.reflector);
     if (name === null) {
       // The target declaration isn't exported from the file it's declared in. This is an issue!
       return null;
@@ -232,14 +233,36 @@ export class LogicalProjectStrategy implements ReferenceEmitStrategy {
 }
 
 /**
- * A `ReferenceEmitStrategy` which uses a `FileToModuleHost` to generate absolute import references.
+ * A `ReferenceEmitStrategy` which constructs relatives paths between `ts.SourceFile`s.
+ *
+ * This strategy can be used if there is no `rootDir`/`rootDirs` structure for the project which
+ * necessitates the stronger logic of `LogicalProjectStrategy`.
  */
-export class FileToModuleStrategy implements ReferenceEmitStrategy {
-  constructor(private checker: ts.TypeChecker, private fileToModuleHost: FileToModuleHost) {}
+export class RelativePathStrategy implements ReferenceEmitStrategy {
+  constructor(private reflector: ReflectionHost) {}
 
   emit(ref: Reference<ts.Node>, context: ts.SourceFile): Expression|null {
     const destSf = getSourceFile(ref.node);
-    const name = findExportedNameOfNode(ref.node, destSf, this.checker);
+    let moduleName = stripExtension(
+        relative(dirname(absoluteFromSourceFile(context)), absoluteFromSourceFile(destSf)));
+    if (!moduleName.startsWith('../')) {
+      moduleName = ('./' + moduleName) as PathSegment;
+    }
+
+    const name = findExportedNameOfNode(ref.node, destSf, this.reflector);
+    return new ExternalExpr({moduleName, name});
+  }
+}
+
+/**
+ * A `ReferenceEmitStrategy` which uses a `FileToModuleHost` to generate absolute import references.
+ */
+export class FileToModuleStrategy implements ReferenceEmitStrategy {
+  constructor(private reflector: ReflectionHost, private fileToModuleHost: FileToModuleHost) {}
+
+  emit(ref: Reference<ts.Node>, context: ts.SourceFile): Expression|null {
+    const destSf = getSourceFile(ref.node);
+    const name = findExportedNameOfNode(ref.node, destSf, this.reflector);
     if (name === null) {
       return null;
     }

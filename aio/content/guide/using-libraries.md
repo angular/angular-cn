@@ -1,4 +1,4 @@
-# Using Published Libraries
+# Using published libraries
 
 # 使用已发布的库
 
@@ -37,7 +37,7 @@ For example, suppose you have a library named `d3`:
 
 比如，假设你有一个名为 `d3` 的库：
 
-<code-example format="." language="bash">
+<code-example language="bash">
 npm install d3 --save
 npm install @types/d3 --save-dev
 </code-example>
@@ -117,7 +117,7 @@ For example, to use the [Bootstrap 4](https://getbootstrap.com/docs/4.0/getting-
 
 例如，要使用 [Bootstrap 4](https://getbootstrap.com/docs/4.0/getting-started/introduction/)，首先就要使用 npm 包管理器来安装该库及其依赖：
 
-<code-example format="." language="bash">
+<code-example language="bash">
 npm install jquery --save
 npm install popper.js --save
 npm install bootstrap --save
@@ -184,7 +184,7 @@ Some scripts extend other libraries; for instance with JQuery plugins:
 $('.test').myPlugin();
 ```
 
-In this case, the installed `@types/jquery` doesn't include `myPlugin`, so you need to add an interface  in `src/typings.d.ts`. For example:
+In this case, the installed `@types/jquery` doesn't include `myPlugin`, so you need to add an interface in `src/typings.d.ts`. For example:
 
 在这种情况下，所安装的 `@types/jquery` 就不包含 `myPlugin`，所以你需要在 `src/typings.d.ts` 中添加一个接口。例如：
 

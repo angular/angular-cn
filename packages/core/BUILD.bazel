@@ -17,8 +17,9 @@ ng_module(
         "//packages/core/src/interface",
         "//packages/core/src/reflection",
         "//packages/core/src/util",
+        "//packages/localize",
+        "//packages/zone.js/lib:zone_d_ts",
         "@npm//rxjs",
-        "@npm//zone.js",
     ],
 )
 
@@ -28,7 +29,7 @@ ng_package(
         "package.json",
         "//packages/core/testing:package.json",
     ],
-    entry_point = "packages/core/index.js",
+    entry_point = ":index.ts",
     packages = [
         "//packages/core/schematics:npm_package",
     ],

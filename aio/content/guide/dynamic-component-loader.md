@@ -1,4 +1,4 @@
-# Dynamic Component Loader
+# Dynamic component loader
 
 # 动态组件加载器
 
@@ -64,9 +64,7 @@ mark valid insertion points in the template.
 
 广告条使用一个名叫 `AdDirective` 的辅助指令来在模板中标记出有效的插入点。
 
-<code-example path="dynamic-component-loader/src/app/ad.directive.ts" header="src/app/ad.directive.ts" linenums="false">
-
-</code-example>
+<code-example path="dynamic-component-loader/src/app/ad.directive.ts" header="src/app/ad.directive.ts"></code-example>
 
 `AdDirective` injects `ViewContainerRef` to gain access to the view
 container of the element that will host the dynamically added component.
@@ -101,9 +99,7 @@ where to dynamically load components.
 要应用 `AdDirective`，回忆一下来自 `ad.directive.ts` 的选择器 `ad-host`。把它应用到 `<ng-template>`（不用带方括号）。
 这下，Angular 就知道该把组件动态加载到哪里了。
 
-<code-example path="dynamic-component-loader/src/app/ad-banner.component.ts" region="ad-host" header="src/app/ad-banner.component.ts (template)" linenums="false">
-
-</code-example>
+<code-example path="dynamic-component-loader/src/app/ad-banner.component.ts" region="ad-host" header="src/app/ad-banner.component.ts (template)"></code-example>
 
 The `<ng-template>` element is a good choice for dynamic components
 because it doesn't render any additional output.
@@ -139,9 +135,7 @@ and loads a new component every 3 seconds by calling `loadComponent()`.
 
 通过 `getAds()` 方法，`AdBannerComponent` 可以循环遍历 `AdItems` 的数组，并且每三秒调用一次 `loadComponent()` 来加载新组件。
 
-<code-example path="dynamic-component-loader/src/app/ad-banner.component.ts" region="class" header="src/app/ad-banner.component.ts (excerpt)" linenums="false">
-
-</code-example>
+<code-example path="dynamic-component-loader/src/app/ad-banner.component.ts" region="class" header="src/app/ad-banner.component.ts (excerpt)"></code-example>
 
 The `loadComponent()` method is doing a lot of the heavy lifting here.
 Take it step by step. First, it picks an ad.
@@ -219,9 +213,7 @@ add dynamically loaded components to the `NgModule`'s `entryComponents` array:
 
 要想确保编译器照常生成工厂类，就要把这些动态加载的组件添加到 `NgModule` 的 `entryComponents` 数组中：
 
-<code-example path="dynamic-component-loader/src/app/app.module.ts" region="entry-components" header="src/app/app.module.ts (entry components)" linenums="false">
-
-</code-example>
+<code-example path="dynamic-component-loader/src/app/app.module.ts" region="entry-components" header="src/app/app.module.ts (entry components)"></code-example>
 
 {@a common-interface}
 
@@ -264,9 +256,9 @@ Here are two sample components and the `AdComponent` interface for reference:
 
  最终的广告栏是这样的：
 
-<figure>
+<div class="lightbox">
   <img src="generated/images/guide/dynamic-component-loader/ads-example.gif" alt="Ads">
-</figure>
+</div>
 
 See the <live-example name="dynamic-component-loader"></live-example>.
 

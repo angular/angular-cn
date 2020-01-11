@@ -8,7 +8,7 @@
 
 import {CommonModule} from '@angular/common';
 import {AfterContentInit, Component, ComponentFactoryResolver, ComponentRef, ContentChildren, Directive, DoCheck, HostBinding, HostListener, Injectable, Input, NgModule, OnChanges, OnInit, QueryList, ViewChild, ViewChildren, ViewContainerRef} from '@angular/core';
-import {bypassSanitizationTrustHtml, bypassSanitizationTrustUrl} from '@angular/core/src/sanitization/bypass';
+import {bypassSanitizationTrustHtml, bypassSanitizationTrustStyle, bypassSanitizationTrustUrl} from '@angular/core/src/sanitization/bypass';
 import {TestBed} from '@angular/core/testing';
 import {ivyEnabled, onlyInIvy} from '@angular/private/testing';
 
@@ -121,7 +121,7 @@ describe('host bindings', () => {
       class ParentCmp {
         private _prop = '';
 
-        @ViewChild('template', {read: ViewContainerRef, static: false})
+        @ViewChild('template', {read: ViewContainerRef})
         vcr: ViewContainerRef = null !;
 
         private child: ComponentRef<ChildCmp> = null !;
@@ -314,7 +314,7 @@ describe('host bindings', () => {
 
     @Component({template: '<span dir></span>'})
     class App {
-      @ViewChild(Dir, {static: false}) directiveInstance !: Dir;
+      @ViewChild(Dir) directiveInstance !: Dir;
     }
 
     TestBed.configureTestingModule({declarations: [App, Dir]});
@@ -403,7 +403,7 @@ describe('host bindings', () => {
         `
     })
     class App {
-      @ViewChild(HostBindingDir, {static: false}) hostBindingDir !: HostBindingDir;
+      @ViewChild(HostBindingDir) hostBindingDir !: HostBindingDir;
     }
 
     TestBed.configureTestingModule({declarations: [App, SomeDir, HostTitleComp, HostBindingDir]});
@@ -471,7 +471,7 @@ describe('host bindings', () => {
 
        @Component({template: '<div someDir hostBindingDir></div>'})
        class App {
-         @ViewChild(HostBindingDir, {static: false}) hostBindingDir !: HostBindingDir;
+         @ViewChild(HostBindingDir) hostBindingDir !: HostBindingDir;
        }
 
        TestBed.configureTestingModule({declarations: [App, SomeDir, HostBindingDir]});
@@ -539,7 +539,7 @@ describe('host bindings', () => {
 
     @Component({template: '<input hostBindingDir [disabled]="isDisabled">'})
     class App {
-      @ViewChild(HostBindingInputDir, {static: false}) hostBindingInputDir !: HostBindingInputDir;
+      @ViewChild(HostBindingInputDir) hostBindingInputDir !: HostBindingInputDir;
       isDisabled = true;
     }
 
@@ -629,7 +629,7 @@ describe('host bindings', () => {
         `
     })
     class App {
-      @ViewChild(NameComp, {static: false}) nameComp !: NameComp;
+      @ViewChild(NameComp) nameComp !: NameComp;
       name = '';
     }
 
@@ -685,8 +685,8 @@ describe('host bindings', () => {
         `
     })
     class App {
-      @ViewChild(HostBindingComp, {static: false}) hostBindingComp !: HostBindingComp;
-      @ViewChild(NameComp, {static: false}) nameComp !: NameComp;
+      @ViewChild(HostBindingComp) hostBindingComp !: HostBindingComp;
+      @ViewChild(NameComp) nameComp !: NameComp;
       name = '';
       otherName = '';
     }
@@ -760,8 +760,8 @@ describe('host bindings', () => {
 
     @Component({template: '<host-binding-comp hostDir></host-binding-comp>'})
     class App {
-      @ViewChild(HostBindingComp, {static: false}) hostBindingComp !: HostBindingComp;
-      @ViewChild(HostBindingDir, {static: false}) hostBindingDir !: HostBindingDir;
+      @ViewChild(HostBindingComp) hostBindingComp !: HostBindingComp;
+      @ViewChild(HostBindingDir) hostBindingDir !: HostBindingDir;
     }
 
     TestBed.configureTestingModule({declarations: [App, HostBindingComp, HostBindingDir]});
@@ -799,7 +799,7 @@ describe('host bindings', () => {
 
     @Component({template: `<host-binding-comp></host-binding-comp>{{ name }}`})
     class App {
-      @ViewChild(HostBindingComp, {static: false}) hostBindingComp !: HostBindingComp;
+      @ViewChild(HostBindingComp) hostBindingComp !: HostBindingComp;
       name = '';
     }
 
@@ -849,8 +849,8 @@ describe('host bindings', () => {
       `
         })
         class App {
-          @ViewChild(SubDirective, {static: false}) subDir !: SubDirective;
-          @ViewChild(SuperDirective, {static: false}) superDir !: SuperDirective;
+          @ViewChild(SubDirective) subDir !: SubDirective;
+          @ViewChild(SuperDirective) superDir !: SuperDirective;
         }
 
         TestBed.configureTestingModule({declarations: [App, SuperDirective, SubDirective]});
@@ -958,7 +958,7 @@ describe('host bindings', () => {
 
       @Component({template: '<host-binding-to-styles></host-binding-to-styles>'})
       class App {
-        @ViewChild(HostBindingToStyles, {static: false}) hostBindingDir !: HostBindingToStyles;
+        @ViewChild(HostBindingToStyles) hostBindingDir !: HostBindingToStyles;
       }
 
       TestBed.configureTestingModule({declarations: [App, HostBindingToStyles]});
@@ -987,7 +987,7 @@ describe('host bindings', () => {
 
       @Component({template: '<div hostStyles containerDir></div>'})
       class App {
-        @ViewChild(HostBindingToStyles, {static: false}) hostBindingDir !: HostBindingToStyles;
+        @ViewChild(HostBindingToStyles) hostBindingDir !: HostBindingToStyles;
       }
 
       TestBed.configureTestingModule({declarations: [App, HostBindingToStyles, ContainerDir]});
@@ -1021,10 +1021,11 @@ describe('host bindings', () => {
   });
 
   describe('sanitization', () => {
+    function identity(value: any) { return value; }
     function verify(
-        tag: string, prop: string, value: any, expectedSanitizedValue: any, bypassFn: any,
-        isAttribute: boolean = true) {
-      it('should sanitize potentially unsafe properties and attributes', () => {
+        tag: string, prop: string, value: any, expectedSanitizedValue: any, bypassFn: Function,
+        isAttribute: boolean = true, throws: boolean = false) {
+      it(`should sanitize <${tag} ${prop}> ${isAttribute ? 'properties' : 'attributes'}`, () => {
         @Directive({
           selector: '[unsafeUrlHostBindingDir]',
           host: {
@@ -1037,7 +1038,7 @@ describe('host bindings', () => {
 
         @Component({template: `<${tag} unsafeUrlHostBindingDir></${tag}>`})
         class App {
-          @ViewChild(UnsafeDir, {static: false}) unsafeDir !: UnsafeDir;
+          @ViewChild(UnsafeDir) unsafeDir !: UnsafeDir;
         }
 
         TestBed.configureTestingModule({declarations: [App, UnsafeDir]});
@@ -1051,17 +1052,29 @@ describe('host bindings', () => {
         expect(current()).toEqual(expectedSanitizedValue);
 
         fixture.componentInstance.unsafeDir.value = bypassFn(value);
-        fixture.detectChanges();
-        expect(current()).toEqual(expectedSanitizedValue);
+        if (throws) {
+          expect(() => fixture.detectChanges()).toThrowError(/Required a safe URL, got a \w+/);
+        } else {
+          fixture.detectChanges();
+          expect(current()).toEqual(bypassFn == identity ? expectedSanitizedValue : value);
+        }
       });
     }
 
     verify(
         'a', 'href', 'javascript:alert(1)', 'unsafe:javascript:alert(1)',
         bypassSanitizationTrustUrl);
+    verify('a', 'href', 'javascript:alert(1.1)', 'unsafe:javascript:alert(1.1)', identity);
+    verify(
+        'a', 'href', 'javascript:alert(1.2)', 'unsafe:javascript:alert(1.2)',
+        bypassSanitizationTrustStyle, true, true);
     verify(
         'blockquote', 'cite', 'javascript:alert(2)', 'unsafe:javascript:alert(2)',
         bypassSanitizationTrustUrl);
+    verify('blockquote', 'cite', 'javascript:alert(2.1)', 'unsafe:javascript:alert(2.1)', identity);
+    verify(
+        'blockquote', 'cite', 'javascript:alert(2.2)', 'unsafe:javascript:alert(2.2)',
+        bypassSanitizationTrustHtml, true, true);
     verify(
         'b', 'innerHTML', '<img src="javascript:alert(3)">',
         '<img src="unsafe:javascript:alert(3)">', bypassSanitizationTrustHtml,

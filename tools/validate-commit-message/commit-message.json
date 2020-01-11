@@ -13,7 +13,6 @@
     "test"
   ],
   "scopes": [
-    "aio",
     "animations",
     "bazel",
     "benchpress",
@@ -27,6 +26,7 @@
     "http",
     "ivy",
     "language-service",
+    "ngcc",
     "platform-browser",
     "platform-browser-dynamic",
     "platform-server",
@@ -36,6 +36,7 @@
     "service-worker",
     "upgrade",
     "packaging",
-    "changelog"
+    "changelog",
+    "zone.js"
   ]
 }

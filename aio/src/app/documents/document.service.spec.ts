@@ -29,11 +29,11 @@ describe('DocumentService', () => {
 
   function getServices(initialUrl: string = '') {
     const injector = createInjector(initialUrl);
-    httpMock = injector.get(HttpTestingController) as HttpTestingController;
+    httpMock = injector.inject(HttpTestingController);
     return {
-      locationService: injector.get(LocationService) as MockLocationService,
-      docService: injector.get(DocumentService) as DocumentService,
-      logger: injector.get(Logger) as MockLogger
+      locationService: injector.inject(LocationService) as any as MockLocationService,
+      docService: injector.inject(DocumentService) as any as DocumentService,
+      logger: injector.inject(Logger) as any as MockLogger,
     };
   }
 
@@ -46,6 +46,7 @@ describe('DocumentService', () => {
       docService.currentDocument.subscribe();
 
       httpMock.expectOne(CONTENT_URL_PREFIX + 'initial/doc.json');
+      expect().nothing();  // Prevent jasmine from complaining about no expectations.
     });
 
     it('should emit a document each time the location changes', () => {
@@ -184,6 +185,7 @@ describe('DocumentService', () => {
       docService.currentDocument.subscribe();
 
       httpMock.expectOne(CONTENT_URL_PREFIX + 'index.json');
+      expect().nothing();  // Prevent jasmine from complaining about no expectations.
     });
 
     it('should map the "folder" locations to the correct document request', () => {
@@ -191,6 +193,7 @@ describe('DocumentService', () => {
       docService.currentDocument.subscribe();
 
       httpMock.expectOne(CONTENT_URL_PREFIX + 'guide.json');
+      expect().nothing();  // Prevent jasmine from complaining about no expectations.
     });
   });
 });

@@ -55,12 +55,12 @@ export const DISABLED = 'DISABLED';
 function _find(control: AbstractControl, path: Array<string|number>| string, delimiter: string) {
   if (path == null) return null;
 
-  if (!(path instanceof Array)) {
-    path = (<string>path).split(delimiter);
+  if (!Array.isArray(path)) {
+    path = path.split(delimiter);
   }
-  if (path instanceof Array && (path.length === 0)) return null;
+  if (Array.isArray(path) && path.length === 0) return null;
 
-  return (<Array<string|number>>path).reduce((v: AbstractControl, name) => {
+  return path.reduce((v: AbstractControl | null, name) => {
     if (v instanceof FormGroup) {
       return v.controls.hasOwnProperty(name as string) ? v.controls[name] : null;
     }
@@ -443,6 +443,10 @@ export abstract class AbstractControl {
    * this overwrites any existing sync validators.
    *
    * 设置该控件上所激活的同步验证器。调用它将会覆盖所有现存的同步验证器。
+   *
+   * When you add or remove a validator at run time, you must call
+   * `updateValueAndValidity()` for the new validation to take effect.
+   *
    */
   setValidators(newValidator: ValidatorFn|ValidatorFn[]|null): void {
     this.validator = coerceToValidator(newValidator);
@@ -453,6 +457,10 @@ export abstract class AbstractControl {
    * overwrites any existing async validators.
    *
    * 设置该控件上所激活的异步验证器。调用它就会覆盖所有现存的异步验证器。
+   *
+   * When you add or remove a validator at run time, you must call
+   * `updateValueAndValidity()` for the new validation to take effect.
+   *
    */
   setAsyncValidators(newValidator: AsyncValidatorFn|AsyncValidatorFn[]|null): void {
     this.asyncValidator = coerceToAsyncValidator(newValidator);
@@ -462,6 +470,10 @@ export abstract class AbstractControl {
    * Empties out the sync validator list.
    *
    * 清空同步验证器列表。
+   *
+   * When you add or remove a validator at run time, you must call
+   * `updateValueAndValidity()` for the new validation to take effect.
+   *
    */
   clearValidators(): void { this.validator = null; }
 
@@ -469,6 +481,10 @@ export abstract class AbstractControl {
    * Empties out the async validator list.
    *
    * 清空异步验证器列表。
+   *
+   * When you add or remove a validator at run time, you must call
+   * `updateValueAndValidity()` for the new validation to take effect.
+   *
    */
   clearAsyncValidators(): void { this.asyncValidator = null; }
 
@@ -483,7 +499,7 @@ export abstract class AbstractControl {
    * 把该控件标记为 `touched`。控件获得焦点并失去焦点不会修改这个值。与 `markAsDirty` 相对。
    *
    *  @param opts Configuration options that determine how the control propagates changes
-   * and emits events events after marking is applied.
+   * and emits events after marking is applied.
    *
    * 在应用完此标记后，该配置项会决定控件如何传播变更及发出事件。
    *
@@ -1760,7 +1776,7 @@ export class FormGroup extends AbstractControl {
    *
    * 对于已禁用的控件，返回 `false`。如果你只想检查它是否存在于该组中，请改用 {@link AbstractControl#get get} 代替。
    *
-   * @param name The control name to check for existence in the collection
+   * @param controlName The control name to check for existence in the collection
    *
    * 要在集合中检查是否存在的控件名
    *
@@ -1797,7 +1813,7 @@ export class FormGroup extends AbstractControl {
    * ```
    *
    * @throws When strict checks fail, such as setting the value of a control
-   * that doesn't exist or if you excluding the value of a control.
+   * that doesn't exist or if you exclude a value of a control that does exist.
    *
    * 当严格的检查失败时，比如设置了不存在的或被排除出去的控件的值。
    *
@@ -1916,7 +1932,7 @@ export class FormGroup extends AbstractControl {
    * 你可以通过传入一个与表单结构相匹配的以控件名为 key 的 Map，来把表单重置为特定的状态。
    * 其状态可以是一个单独的值，也可以是一个同时具有值和禁用状态的表单状态对象。
    *
-   * @param formState Resets the control with an initial value,
+   * @param value Resets the control with an initial value,
    * or an object that defines the initial value and disabled state.
    *
    * 使用一个初始值或包含初始值与禁用状态的对象重置该控件。

@@ -455,9 +455,9 @@ everything work seamlessly:
   只有那些来自 Angular 根注入器的服务才能被降级。同样的，在框架之间共享的是同一个单例对象。
   当你注册一个要降级的服务时，要明确指定一个打算在 AngularJS 中使用的*字符串令牌*。
 
-<figure>
+<div class="lightbox">
   <img src="generated/images/guide/upgrade/injectors.png" alt="The two injectors in a hybrid application">
-</figure>
+</div>
 
 #### Components and the DOM
 
@@ -510,9 +510,9 @@ ways:
 
    通过透传(transclude)或投影(project)来自另一个框架的内容。`UpgradeModule` 牵线搭桥，把 AngularJS 的透传概念和 Angular 的内容投影概念关联起来。
 
-<figure>
+<div class="lightbox">
   <img src="generated/images/guide/upgrade/dom.png" alt="DOM element ownership in a hybrid application">
-</figure>
+</div>
 
 Whenever you use a component that belongs to the other framework, a
 switch between framework boundaries occurs. However, that switch only
@@ -579,12 +579,12 @@ AngularJS and Angular approaches. Here's what happens:
 
    `UpgradeModule` 将在每一次离开 Angular zone 时调用 AngularJS 的 `$rootScope.$apply()`。这样也就同样会在每个事件之后触发 AngularJS 的变更检测。
 
-<figure>
+<div class="lightbox">
   <img src="generated/images/guide/upgrade/change_detection.png" alt="Change detection in a hybrid application">
-</figure>
+</div>
 
 In practice, you do not need to call `$apply()`,
-regardless of whether it is in AngularJS on Angular. The
+regardless of whether it is in AngularJS or Angular. The
 `UpgradeModule` does it for us. You *can* still call `$apply()` so there
 is no need to remove such calls from existing code. Those calls just trigger
 additional AngularJS change detection checks in a hybrid application.
@@ -691,11 +691,10 @@ will result in the same thing:
 </code-example>
 
 To begin converting your AngularJS application to a hybrid, you need to load the Angular framework.
-You can see how this can be done with SystemJS by following the instructions in [Setup](guide/setup),
-selectively copying code from the [QuickStart github repository](https://github.com/angular/quickstart).
+You can see how this can be done with SystemJS by following the instructions in [Setup for Upgrading to AngularJS](guide/upgrade-setup) for selectively copying code from the [QuickStart github repository](https://github.com/angular/quickstart).
 
 要想把 AngularJS 应用变成 Hybrid 应用，就要先加载 Angular 框架。
-根据 [搭建本地开发环境](guide/setup)中给出的步骤，选择性的把<a href="https://github.com/angular/quickstart" target="_blank">“快速上手”的 Github 仓库</a>中的代码复制过来。
+根据[准备升级到 AngularJS](guide/upgrade-setup) 中给出的步骤，选择性的把<a href="https://github.com/angular/quickstart" target="_blank">“快速上手”的 Github 仓库</a>中的代码复制过来。
 
 You also need to install the `@angular/upgrade` package via `npm install @angular/upgrade --save`
 and add a mapping for the `@angular/upgrade/static` package:
@@ -1307,7 +1306,7 @@ After this, the service is injectable anywhere in AngularJS code:
 ## 惰性加载 AngularJS
 
 
-When building applications, you want to ensure that only the required resources are loaded when necessary. Whether that be loading of assets or code, making sure everything that can be deferred until needed keeps your application running efficiently. This is especially true when running different frameworks in the same application. 
+When building applications, you want to ensure that only the required resources are loaded when necessary. Whether that be loading of assets or code, making sure everything that can be deferred until needed keeps your application running efficiently. This is especially true when running different frameworks in the same application.
 
 在构建应用时，你需要确保只在必要的时候才加载所需的资源，无论是加载静态资产（Asset）还是代码。要确保任何事都尽量推迟到必要时才去做，以便让应用更高效的运行。当要在同一个应用中运行不同的框架时，更是如此。
 
@@ -1322,12 +1321,12 @@ When migrating large applications from AngularJS to Angular using a hybrid appro
 当你采用混合式应用的方式将大型应用从 AngularJS 迁移到 Angular 时，你首先要迁移一些最常用的特性，并且只在必要的时候才使用那些不太常用的特性。这样做有助于确保应用程序在迁移过程中仍然能为用户提供无缝的体验。
 
 
-In most environments where both Angular and AngularJS are used to render the application, both frameworks are loaded in the initial bundle being sent to the client. This results in both increased bundle size and possible reduced performance. 
+In most environments where both Angular and AngularJS are used to render the application, both frameworks are loaded in the initial bundle being sent to the client. This results in both increased bundle size and possible reduced performance.
 
 在大多数需要同时用 Angular 和 AngularJS 渲染应用的环境中，这两个框架都会包含在发送给客户端的初始发布包中。这会导致发布包的体积增大、性能降低。
 
 
-Overall application performance is affected in cases where the user stays on Angular-rendered pages because the AngularJS framework and application are still loaded and running, even if they are never accessed. 
+Overall application performance is affected in cases where the user stays on Angular-rendered pages because the AngularJS framework and application are still loaded and running, even if they are never accessed.
 
 当用户停留在由 Angular 呈现的页面上时，应用的整体性能也会受到影响。这是因为 AngularJS 的框架和应用仍然被加载并运行了 —— 即使它们从未被访问过。
 
@@ -1376,6 +1375,9 @@ The service uses the `import()` method to load your bundled AngularJS applicatio
 
 该服务使用 `import()` 方法惰性加载打包好的 AngularJS 应用。这会减少应用初始包的大小，因为你尚未加载用户目前不需要的代码。你还要提供一种方法，在加载完毕后手动*启动*它。 AngularJS 提供了一种使用 [angular.bootstrap()](https://docs.angularjs.org/api/ng/function/angular.bootstrap) 方法并传入一个 HTML 元素来手动引导应用的方法。你的 AngularJS 应用也应该公开一个用来引导 AngularJS 应用的 `bootstrap` 方法。
 
+To ensure any necessary teardown is triggered in the AngularJS app, such as removal of global listeners, you also implement a method to call the `$rootScope.destroy()` method.
+
+要确保 AngularJS 应用中的任何清理工作都触发过（比如移除全局监听器），你还可以实现一个方法来调用 `$rootScope.destroy()` 方法。
 
 <code-example path="upgrade-lazy-load-ajs/src/app/angularjs-app/index.ts" header="angularjs-app">
 </code-example>
@@ -1407,9 +1409,9 @@ In your Angular application, you need a component as a placeholder for your Angu
 <code-example path="upgrade-lazy-load-ajs/src/app/angular-js/angular-js.component.ts" header="src/app/angular-js/angular-js.component.ts">
 </code-example>
 
-When the Angular Router matches a route that uses AngularJS, the `AngularJSComponent` is rendered, and the content is rendered within the AngularJS [`ng-view`](https://docs.angularjs.org/api/ngRoute/directive/ngView) directive. 
+When the Angular Router matches a route that uses AngularJS, the `AngularJSComponent` is rendered, and the content is rendered within the AngularJS [`ng-view`](https://docs.angularjs.org/api/ngRoute/directive/ngView) directive. When the user navigates away from the route, the `$rootScope` is destroyed on the AngularJS application.
 
-当 Angular 的路由器匹配到使用 AngularJS 的路由时，会渲染 `AngularJSComponent`，并在 AngularJS 的 [`ng-view`](https://docs.angularjs.org/api/ngRoute/directive/ngView) 指令中渲染内容。
+当 Angular 的路由器匹配到使用 AngularJS 的路由时，会渲染 `AngularJSComponent`，并在 AngularJS 的 [`ng-view`](https://docs.angularjs.org/api/ngRoute/directive/ngView) 指令中渲染内容。当用户导航离开本路由时，`$rootScope` 会在 AngularJS 应用中被销毁。
 
 
 ### Configure a custom route matcher for AngularJS routes
@@ -1448,7 +1450,7 @@ When your application matches a route that needs AngularJS, the AngularJS app is
 ## 使用统一的 Angular 位置服务（Location）
 
 
-In AngularJS, the [$location service](https://docs.angularjs.org/api/ng/service/$location) handles all routing configuration and navigation, encoding and decoding of URLS, redirects, and interactions with browser APIs. Angular uses its own underlying `Location` service for all of these tasks. 
+In AngularJS, the [$location service](https://docs.angularjs.org/api/ng/service/$location) handles all routing configuration and navigation, encoding and decoding of URLS, redirects, and interactions with browser APIs. Angular uses its own underlying `Location` service for all of these tasks.
 
 在 AngularJS 中，[$location 服务](https://docs.angularjs.org/api/ng/service/$location)会处理所有路由配置和导航工作，并对各个 URL 进行编码和解码、重定向、以及与浏览器 API 交互。 Angular 在所有这些任务中都使用了自己的底层服务 `Location`。
 
@@ -1488,7 +1490,7 @@ The `useHash` property defaults to `false`, and the `hashPrefix` defaults to an 
 
 ```ts
 LocationUpgradeModule.config({
-  useHash: true
+  useHash: true,
   hashPrefix: '!'
 })
 ```
@@ -1531,7 +1533,7 @@ Once you introduce the Angular Router, using the Angular Router triggers navigat
 
 You can take advantage of Ahead-of-time (AOT) compilation on hybrid apps just like on any other
 Angular application.
-The setup for an hybrid app is mostly the same as described in
+The setup for a hybrid app is mostly the same as described in
 [the Ahead-of-time Compilation chapter](guide/aot-compiler)
 save for differences in `index.html` and `main-aot.ts`
 
@@ -2125,11 +2127,11 @@ Turn to the [Angular animations](guide/animations) guide to learn about that.
 </div>
 
 Install Angular into the project, along with the SystemJS module loader.
-Take a look at the results of the [Setup](guide/setup) instructions
+Take a look at the results of the [upgrade setup instructions](guide/upgrade-setup)
 and get the following configurations from there:
 
 用 SystemJS 模块加载器把 Angular 安装到项目中。
-看看[搭建本地开发环境](guide/setup)中的指南，并从那里获得如下配置：
+看看[升级的准备工作](guide/upgrade-setup)中的指南，并从那里获得如下配置：
 
 * Add Angular and the other new dependencies to `package.json`
 
@@ -2186,9 +2188,9 @@ to load the actual application:
 </code-example>
 
 You also need to make a couple of adjustments
-to the `systemjs.config.js` file installed during [setup](guide/setup).
+to the `systemjs.config.js` file installed during [upgrade setup](guide/upgrade-setup).
 
-你还需要对[搭建环境](guide/setup)期间安装的 `systemjs.config.js` 文件做一些调整。
+你还需要对[升级的准备工作](guide/upgrade-setup)期间安装的 `systemjs.config.js` 文件做一些调整。
 
 Point the browser to the project root when loading things through SystemJS,
 instead of using the  `<base>` URL.
@@ -2354,8 +2356,7 @@ service in `phone.service.ts` with a TypeScript class decorated as `@Injectable`
 
 现在，你已经准备好了升级 `Phones` 服务本身。你将为 `phone.service.ts` 文件中基于 ngResource 的服务加上 `@Injectable` 装饰器：
 
-<code-example path="upgrade-phonecat-2-hybrid/app/core/phone/phone.service.ts" region="classdef" header="app/core/phone/phone.service.ts (skeleton)" linenums="false">
-</code-example>
+<code-example path="upgrade-phonecat-2-hybrid/app/core/phone/phone.service.ts" region="classdef" header="app/core/phone/phone.service.ts (skeleton)"></code-example>
 
 The `@Injectable` decorator will attach some dependency injection metadata
 to the class, letting Angular know about its dependencies. As described
@@ -2384,8 +2385,7 @@ a type you don't have yet. Add a simple interface for it:
 该方法现在返回一个 `Phone` 类型或 `Phone[]` 类型的可观察对象(Observable)。
 这是一个你从未用过的类型，因此你得为它新增一个简单的接口：
 
-<code-example path="upgrade-phonecat-2-hybrid/app/core/phone/phone.service.ts" region="phonedata-interface" header="app/core/phone/phone.service.ts (interface)" linenums="false">
-</code-example>
+<code-example path="upgrade-phonecat-2-hybrid/app/core/phone/phone.service.ts" region="phonedata-interface" header="app/core/phone/phone.service.ts (interface)"></code-example>
 
 `@angular/upgrade/static` has a `downgradeInjectable` method for the purpose of making
 Angular services available to AngularJS code. Use it to plug in the `Phone` service:
@@ -2393,8 +2393,7 @@ Angular services available to AngularJS code. Use it to plug in the `Phone` serv
 `@angular/upgrade/static` 有一个 `downgradeInjectable` 方法，可以使 Angular 服务在 AngularJS 的代码中可用。
 使用它来插入 `Phone` 服务：
 
-<code-example path="upgrade-phonecat-2-hybrid/app/core/phone/phone.service.ts" region="downgrade-injectable" header="app/core/phone/phone.service.ts (downgrade)" linenums="false">
-</code-example>
+<code-example path="upgrade-phonecat-2-hybrid/app/core/phone/phone.service.ts" region="downgrade-injectable" header="app/core/phone/phone.service.ts (downgrade)"></code-example>
 
 Here's the full, final code for the service:
 
@@ -2427,7 +2426,7 @@ with the AngularJS to Angular upgrade you're also migrating code from scripts to
 这也是你在升级所有组件时将会做的事。在从 AngularJS 向 Angular 升级的同时，你也把代码从脚本移植为模块。
 
 At this point, you can switch the two components to use the new service
-instead of the old one.  While you `$inject` it as the downgraded `phone` factory,
+instead of the old one. While you `$inject` it as the downgraded `phone` factory,
 it's really an instance of the `Phone` class and you annotate its type accordingly:
 
 这时，你可以把两个控制器从使用老的服务切换成使用新的。你像降级过的 `phones` 工厂一样 `$inject` 它，
@@ -2496,8 +2495,7 @@ with Angular's two-way `[(ngModel)]` binding syntax:
 
 现在，将组件的模版也转换为 Angular 语法。在搜索控件中，把 AngularJS 的 `$ctrl` 表达式替换成 Angular 的双向绑定语法 `[(ngModel)]`：
 
-<code-example path="upgrade-phonecat-2-hybrid/app/phone-list/phone-list.template.html" region="controls" header="app/phone-list/phone-list.template.html (search controls)" linenums="false">
-</code-example>
+<code-example path="upgrade-phonecat-2-hybrid/app/phone-list/phone-list.template.html" region="controls" header="app/phone-list/phone-list.template.html (search controls)"></code-example>
 
 Replace the list's `ng-repeat` with an `*ngFor` as
 [described in the Template Syntax page](guide/template-syntax#directives).
@@ -2507,8 +2505,7 @@ Replace the image tag's `ng-src` with a binding to the native `src` property.
 该语法在[模板语法指南中讲过](guide/template-syntax#directives)。
 再把 `img` 标签的 `ng-src` 替换为一个标准的 `src` 属性(property)绑定。
 
-<code-example path="upgrade-phonecat-2-hybrid/app/phone-list/phone-list.template.html" region="list" header="app/phone-list/phone-list.template.html (phones)" linenums="false">
-</code-example>
+<code-example path="upgrade-phonecat-2-hybrid/app/phone-list/phone-list.template.html" region="list" header="app/phone-list/phone-list.template.html (phones)"></code-example>
 
 #### No Angular _filter_ or _orderBy_ filters
 
@@ -2593,8 +2590,7 @@ Do that in a new file called `ajs-upgraded-providers.ts` and import it in `app.m
 <code-example path="upgrade-phonecat-2-hybrid/app/ajs-upgraded-providers.ts" header="app/ajs-upgraded-providers.ts">
 </code-example>
 
-<code-example path="upgrade-phonecat-2-hybrid/app/app.module.ts" region="routeparams" header="app/app.module.ts ($routeParams)" linenums="false">
-</code-example>
+<code-example path="upgrade-phonecat-2-hybrid/app/app.module.ts" region="routeparams" header="app/app.module.ts ($routeParams)"></code-example>
 
 Convert the phone detail component template into Angular syntax as follows:
 
@@ -2619,7 +2615,7 @@ There are several notable changes here:
 * You're using the property binding syntax around `ng-class`. Though Angular
   does have [a very similar `ngClass`](guide/template-syntax#directives)
   as AngularJS does, its value is not magically evaluated as an expression.
-  In Angular, you always specify  in the template when an attribute's value is
+  In Angular, you always specify in the template when an attribute's value is
   a property expression, as opposed to a literal string.
 
    你在 `ng-class` 周围使用了属性绑定语法。虽然 Angular 中有一个
@@ -2679,8 +2675,7 @@ Rename the file to `checkmark.pipe.ts` to conform with Angular conventions:
 实现方式和以前一样，但把它们包装进 `transform` 方法中就可以了。
 把该文件改名成 `checkmark.pipe.ts`，以符合 Angular 中的命名约定：
 
-<code-example path="upgrade-phonecat-2-hybrid/app/core/checkmark/checkmark.pipe.ts" header="app/core/checkmark/checkmark.pipe.ts" linenums="false">
-</code-example>
+<code-example path="upgrade-phonecat-2-hybrid/app/core/checkmark/checkmark.pipe.ts" header="app/core/checkmark/checkmark.pipe.ts"></code-example>
 
 Now import and declare the newly created pipe and
 remove the filter &lt;script&gt; tag from `index.html`:
@@ -2782,8 +2777,7 @@ It replaces the old AngularJS `ng-view` directive:
 把这个 `<phonecat-app>` 元素插入到 `index.html` 中。
 用它来代替 AngularJS 中的 `ng-view` 指令：
 
-<code-example path="upgrade-phonecat-3-final/index.html" region="appcomponent" header="index.html (body)" linenums="false">
-</code-example>
+<code-example path="upgrade-phonecat-3-final/index.html" region="appcomponent" header="index.html (body)"></code-example>
 
 #### Create the _Routing Module_
 
@@ -2848,8 +2842,7 @@ and let that directive construct the appropriate URL to the `PhoneDetailComponen
 在电话列表中，你不用再被迫硬编码电话详情的链接了。
 你可以通过把每个电话的 `id` 绑定到 `routerLink` 指令来生成它们了，该指令的构造函数会为 `PhoneDetailComponent` 生成正确的 URL：
 
-<code-example path="upgrade-phonecat-3-final/app/phone-list/phone-list.template.html" region="list" header="app/phone-list/phone-list.template.html (list with links)" linenums="false">
-</code-example>
+<code-example path="upgrade-phonecat-3-final/app/phone-list/phone-list.template.html" region="list" header="app/phone-list/phone-list.template.html (list with links)"></code-example>
 
 <div class="alert is-helpful">
 

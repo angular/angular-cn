@@ -15,9 +15,9 @@
 """Runs ts_api_guardian
 """
 
-load("@build_bazel_rules_nodejs//:defs.bzl", "nodejs_binary", "nodejs_test")
+load("@build_bazel_rules_nodejs//:index.bzl", "nodejs_binary", "nodejs_test")
 
-COMMON_MODULE_IDENTIFIERS = ["angular", "jasmine", "protractor"]
+COMMON_MODULE_IDENTIFIERS = ["angular", "jasmine", "protractor", "Symbol"]
 
 def ts_api_guardian_test(
         name,
@@ -61,7 +61,7 @@ def ts_api_guardian_test(
     nodejs_test(
         name = name,
         data = data,
-        entry_point = "angular/tools/ts-api-guardian/bin/ts-api-guardian",
+        entry_point = "@angular//tools/ts-api-guardian:bin/ts-api-guardian",
         templated_args = args + ["--verify", golden, actual],
         **kwargs
     )
@@ -70,7 +70,7 @@ def ts_api_guardian_test(
         name = name + ".accept",
         testonly = True,
         data = data,
-        entry_point = "angular/tools/ts-api-guardian/bin/ts-api-guardian",
+        entry_point = "@angular//tools/ts-api-guardian:bin/ts-api-guardian",
         templated_args = args + ["--out", golden, actual],
         **kwargs
     )

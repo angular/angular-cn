@@ -14,21 +14,21 @@ The sample application and all tests in this guide are available for inspection 
 该指南中的测试针对的是一个很像[《英雄指南》教程](tutorial)的 [Angular CLI](cli) 范例应用。
 这个范例应用及其所有测试都可以在下面的链接中进行查看和试用：
 
-- <live-example embedded-style>Sample app</live-example>
+- <live-example embedded-style noDownload>Sample app</live-example>
 
-   <live-example embedded-style>范例应用</live-example>
+   <live-example embedded-style noDownload>范例应用</live-example>
 
-- <live-example stackblitz="specs">Tests</live-example>
+- <live-example stackblitz="specs" noDownload>Tests</live-example>
 
-   <live-example stackblitz="specs">测试</live-example>
+   <live-example stackblitz="specs" noDownload>测试</live-example>
 
 <hr>
 
 ## Setup
 
-## 准备工作
+## 建立环境
 
-The Angular CLI downloads and install everything you need to test an Angular application with the [Jasmine test framework](https://jasmine.github.io/).
+The Angular CLI downloads and installs everything you need to test an Angular application with the [Jasmine test framework](https://jasmine.github.io/).
 
 Angular CLI 会下载并安装试用 [Jasmine 测试框架](https://jasmine.github.io/) 测试 Angular 应用时所需的一切。
 
@@ -69,9 +69,9 @@ A chrome browser also opens and displays the test output in the "Jasmine HTML Re
 
 它还会打开 Chrome 浏览器并在“ Jasmine HTML 报告器”中显示测试输出，就像这样：
 
-<figure>
+<div class="lightbox">
   <img src='generated/images/guide/testing/initial-jasmine-html-reporter.png' alt="Jasmine HTML Reporter in the browser">
-</figure>
+</div>
 
 Most people find this browser output easier to read than the console log.
 You can click on a test row to re-run just that test or click on a description to re-run the tests in the selected test group ("test suite").
@@ -162,15 +162,15 @@ Adopt these two conventions in your own projects for _every kind_ of test file.
 
 ## 建立持续集成环境
 
-One of the best ways to keep your project bug free is through a test suite, but it's easy to forget to run tests all the time. 
+One of the best ways to keep your project bug free is through a test suite, but it's easy to forget to run tests all the time.
 Continuous integration (CI) servers let you set up your project repository so that your tests run on every commit and pull request.
 
 避免项目出 BUG 的最佳方式之一，就是使用测试套件。但是很容易忘了一直运行它。
 持续集成（CI）服务器让你可以配置项目的代码仓库，以便每次提交和收到 Pull Request 时就会运行你的测试。
 
-There are paid CI services like Circle CI and Travis CI, and you can also host your own for free using Jenkins and others. 
-Although Circle CI and Travis CI are paid services, they are provided free for open source projects. 
-You can create a public project on GitHub and add these services without paying. 
+There are paid CI services like Circle CI and Travis CI, and you can also host your own for free using Jenkins and others.
+Although Circle CI and Travis CI are paid services, they are provided free for open source projects.
+You can create a public project on GitHub and add these services without paying.
 Contributions to the Angular repo are automatically run through a whole suite of Circle CI tests.
 
 已经有一些像 Circle CI 和 Travis CI 这样的付费 CI 服务器，你还可以使用 Jenkins 或其它软件来搭建你自己的免费 CI 服务器。
@@ -200,7 +200,7 @@ jobs:
   build:
     working_directory: ~/my-project
     docker:
-      - image: circleci/node:8-browsers
+      - image: circleci/node:10-browsers
     steps:
       - checkout
       - restore_cache:
@@ -214,7 +214,7 @@ jobs:
       - run: npm run e2e -- --protractor-config=e2e/protractor-ci.conf.js
 ```
 
-This configuration caches `node_modules/` and uses [`npm run`](https://docs.npmjs.com/cli/run-script) to run CLI commands, because `@angular/cli` is not installed globally. 
+This configuration caches `node_modules/` and uses [`npm run`](https://docs.npmjs.com/cli/run-script) to run CLI commands, because `@angular/cli` is not installed globally.
 The double dash (`--`) is needed to pass arguments into the `npm` script.
 
 该配置会缓存 `node_modules/` 并使用 [`npm run`](https://docs.npmjs.com/cli/run-script) 来运行 CLI 命令，因为 `@angular/cli` 并没有装到全局。
@@ -224,7 +224,7 @@ Step 3: Commit your changes and push them to your repository.
 
 步骤三：提交你的修改，并把它们推送到你的代码仓库中。
 
-Step 4: [Sign up for Circle CI](https://circleci.com/docs/2.0/first-steps/) and [add your project](https://circleci.com/add-projects). 
+Step 4: [Sign up for Circle CI](https://circleci.com/docs/2.0/first-steps/) and [add your project](https://circleci.com/add-projects).
 Your project should start building.
 
 步骤四：[注册 Circle CI](https://circleci.com/docs/2.0/first-steps/)，并[添加你的项目](https://circleci.com/add-projects)。你的项目将会开始构建。
@@ -247,8 +247,7 @@ sudo: false
 
 language: node_js
 node_js:
-  - "8"
-
+  - "10"
 addons:
   apt:
     sources:
@@ -276,7 +275,7 @@ Step 2: Commit your changes and push them to your repository.
 
 步骤二：提交你的更改，并把它们推送到你的代码仓库。
 
-Step 3: [Sign up for Travis CI](https://travis-ci.org/auth) and [add your project](https://travis-ci.org/profile). 
+Step 3: [Sign up for Travis CI](https://travis-ci.org/auth) and [add your project](https://travis-ci.org/profile).
 You'll need to push a new commit to trigger a build.
 
 步骤三：[注册 Travis CI](https://travis-ci.org/auth) 并[添加你的项目](https://travis-ci.org/profile)。
@@ -294,9 +293,9 @@ When the CLI commands `ng test` and `ng e2e` are generally running the CI tests 
 
 当 CLI 命令 `ng test` 和 `ng e2e` 经常要在你的环境中运行 CI 测试时，你可能需要再调整一下配置，以运行 Chrome 浏览器测试。
 
-There are configuration files for both the [Karma JavaScript test runner](https://karma-runner.github.io/latest/config/configuration-file.html) 
-and [Protractor](https://www.protractortest.org/#/api-overview) end-to-end testing tool, 
-which  you must adjust to start Chrome without sandboxing.
+There are configuration files for both the [Karma JavaScript test runner](https://karma-runner.github.io/latest/config/configuration-file.html)
+and [Protractor](https://www.protractortest.org/#/api-overview) end-to-end testing tool,
+which you must adjust to start Chrome without sandboxing.
 
 有一些文件是给 [Karma（直译 "报应"）](https://karma-runner.github.io/latest/config/configuration-file.html)测试运行器和 [Protractor（直译 "量角器"）](https://www.protractortest.org/#/api-overview) 端到端测试运行器使用的，你必须改为不用沙箱的 Chrome 启动方式。
 
@@ -357,8 +356,8 @@ Now you can run the following commands to use the `--no-sandbox` flag:
 
 ## 启用代码覆盖率报告
 
-The CLI can run unit tests and create code coverage reports. 
-Code coverage reports show you  any parts of our code base that may not be properly tested by your unit tests.
+The CLI can run unit tests and create code coverage reports.
+Code coverage reports show you any parts of our code base that may not be properly tested by your unit tests.
 
 CLI 可以运行单元测试，并创建代码覆盖率报告。
 代码覆盖率报告会向你展示代码库中有哪些可能未使用单元测试正常测试过的代码。
@@ -371,7 +370,7 @@ To generate a coverage report run the following command in the root of your proj
   ng test --no-watch --code-coverage
 </code-example>
 
-When  the tests are complete, the command creates a new `/coverage` folder in the project. Open the `index.html` file to see a report with your source code and code coverage values.
+When the tests are complete, the command creates a new `/coverage` folder in the project. Open the `index.html` file to see a report with your source code and code coverage values.
 
 当测试完成时，该命令会在项目中创建一个新的 `/coverage` 目录。打开其 `index.html` 文件以查看带有源码和代码覆盖率值的报告。
 
@@ -391,13 +390,13 @@ If you want to create code-coverage reports every time you test, you can set the
 
 ### 代码覆盖率实施
 
-The code coverage percentages let you estimate how much of your code is tested.  
-If your team decides on a set minimum amount to be unit tested, you can enforce this minimum with the Angular CLI. 
+The code coverage percentages let you estimate how much of your code is tested.
+If your team decides on a set minimum amount to be unit tested, you can enforce this minimum with the Angular CLI.
 
 代码覆盖率能让你估计要测试的代码量。
 如果你的开发组决定要设置单元测试的最小数量，就可以使用 Angular CLI 来守住这条底线。
 
-For example, suppose you want the code base to have a minimum of 80% code coverage. 
+For example, suppose you want the code base to have a minimum of 80% code coverage.
 To enable this, open the [Karma](https://karma-runner.github.io) test platform configuration file, `karma.conf.js`, and add the following in the `coverageIstanbulReporter:` key.
 
 比如，假设你希望代码有最少 80% 的代码覆盖率。
@@ -451,7 +450,7 @@ The `MasterService` is a simple example:
 
 `MasterService` 就是一个简单的例子：
 
-<code-example path="testing/src/app/demo/demo.ts" region="MasterService" header="app/demo/demo.ts" linenums="false"></code-example>
+<code-example path="testing/src/app/demo/demo.ts" region="MasterService" header="app/demo/demo.ts"></code-example>
 
 `MasterService` delegates its only method, `getValue`, to the injected `ValueService`.
 
@@ -545,12 +544,25 @@ array of the services that you'll test or mock.
 <code-example
   path="testing/src/app/demo/demo.testbed.spec.ts"
   region="value-service-before-each"
-  header="app/demo/demo.testbed.spec.ts (provide ValueService in beforeEach">
+  header="app/demo/demo.testbed.spec.ts (provide ValueService in beforeEach)">
 </code-example>
 
-Then inject it inside a test by calling `TestBed.get()` with the service class as the argument.
+Then inject it inside a test by calling `TestBed.inject()` with the service class as the argument.
 
-然后通过调用 `TestBed.get()`（参数为该服务类）把它注入到一个测试中。
+然后通过调用 `TestBed.inject()`（参数为该服务类）把它注入到一个测试中。
+
+<div class="alert is-helpful">
+
+**Note:** We used to have `TestBed.get()` instead of `TestBed.inject()`.
+The `get` method wasn't type safe, it always returned `any`, and this is error prone.
+We decided to migrate to a new function instead of updating the existing one given
+the large scale use that would have an immense amount of breaking changes.
+
+**注意：** 我们以前使用的是 `TestBed.get()`，而不是 `TestBed.inject()`。
+`get` 方法不是类型安全的，它总是返回 `any`，这很容易出错。
+考虑到大规模使用时会产生大量重大变更，我们决定将其迁移到新功能，而不是修改现有功能。
+
+</div>
 
 <code-example
   path="testing/src/app/demo/demo.testbed.spec.ts"
@@ -576,8 +588,7 @@ In the following example, the mock is a spy object.
 
 <code-example
   path="testing/src/app/demo/demo.testbed.spec.ts"
-  region="master-service-before-each" linenums="false">
-</code-example>
+  region="master-service-before-each"></code-example>
 
 The test consumes that spy in the same way it did earlier.
 
@@ -614,8 +625,7 @@ Begin by putting re-usable, preparatory code in a _setup_ function instead of `b
 <code-example
   path="testing/src/app/demo/demo.spec.ts"
   region="no-before-each-setup"
-  header="app/demo/demo.spec.ts (setup)" linenums="false">
-</code-example>
+  header="app/demo/demo.spec.ts (setup)"></code-example>
 
 The `setup()` function returns an object literal
 with the variables, such as `masterService`, that a test might reference.
@@ -632,8 +642,7 @@ with steps that manipulate the test subject and assert expectations.
 
 <code-example
   path="testing/src/app/demo/demo.spec.ts"
-  region="no-before-each-test" linenums="false">
-</code-example>
+  region="no-before-each-test"></code-example>
 
 Notice how the test uses
 [_destructuring assignment_](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment)
@@ -722,8 +731,7 @@ which covers testing with the `HttpClientTestingModule` in detail.
 
 A component, unlike all other parts of an Angular application,
 combines an HTML template and a TypeScript class.
-The component truly is the template and the class _working together_.
-and to adequately test a component, you should test that they work together
+The component truly is the template and the class _working together_. To adequately test a component, you should test that they work together
 as intended.
 
 组件与 Angular 应用中的其它部分不同，它是由 HTML 模板和 TypeScript 类组成的。
@@ -759,8 +767,7 @@ Consider this `LightswitchComponent` which toggles a light on and off
 <code-example
   path="testing/src/app/demo/demo.ts"
   region="LightswitchComp"
-  header="app/demo/demo.ts (LightswitchComp)" linenums="false">
-</code-example>
+  header="app/demo/demo.ts (LightswitchComp)"></code-example>
 
 You might decide only to test that the `clicked()` method
 toggles the light's _on/off_ state and sets the message appropriately.
@@ -779,8 +786,7 @@ Do the same with the component class.
 <code-example
   path="testing/src/app/demo/demo.spec.ts"
   region="Lightswitch"
-  header="app/demo/demo.spec.ts (Lightswitch tests)" linenums="false">
-</code-example>
+  header="app/demo/demo.spec.ts (Lightswitch tests)"></code-example>
 
 Here is the `DashboardHeroComponent` from the _Tour of Heroes_ tutorial.
 
@@ -789,8 +795,7 @@ Here is the `DashboardHeroComponent` from the _Tour of Heroes_ tutorial.
 <code-example
   path="testing/src/app/dashboard/dashboard-hero.component.ts"
   region="class"
-  header="app/dashboard/dashboard-hero.component.ts (component)" linenums="false">
-</code-example>
+  header="app/dashboard/dashboard-hero.component.ts (component)"></code-example>
 
 It appears within the template of a parent component,
 which binds a _hero_ to the `@Input` property and
@@ -806,8 +811,7 @@ or its parent component.
 <code-example
   path="testing/src/app/dashboard/dashboard-hero.component.spec.ts"
   region="class-only"
-  header="app/dashboard/dashboard-hero.component.spec.ts (class tests)" linenums="false">
-</code-example>
+  header="app/dashboard/dashboard-hero.component.spec.ts (class tests)"></code-example>
 
 When a component has dependencies, you may wish to use the `TestBed` to both
 create the component and its dependencies.
@@ -821,18 +825,16 @@ The following `WelcomeComponent` depends on the `UserService` to know the name o
 <code-example
   path="testing/src/app/welcome/welcome.component.ts"
   region="class"
-  header="app/welcome/welcome.component.ts" linenums="false">
-</code-example>
+  header="app/welcome/welcome.component.ts"></code-example>
 
 You might start by creating a mock of the `UserService` that meets the minimum needs of this component.
 
-你可能要先创建一个满足本组件最小需求的模拟板 `UserService`。
+你可能要先创建一个满足本组件最小需求的模拟版 `UserService`。
 
 <code-example
   path="testing/src/app/welcome/welcome.component.spec.ts"
   region="mock-user-service"
-  header="app/welcome/welcome.component.spec.ts (MockUserService)" linenums="false">
-</code-example>
+  header="app/welcome/welcome.component.spec.ts (MockUserService)"></code-example>
 
 Then provide and inject _both the_ **component** _and the service_ in the `TestBed` configuration.
 
@@ -841,8 +843,7 @@ Then provide and inject _both the_ **component** _and the service_ in the `TestB
 <code-example
   path="testing/src/app/welcome/welcome.component.spec.ts"
   region="class-only-before-each"
-  header="app/welcome/welcome.component.spec.ts (class-only setup)" linenums="false">
-</code-example>
+  header="app/welcome/welcome.component.spec.ts (class-only setup)"></code-example>
 
 Then exercise the component class, remembering to call the [lifecycle hook methods](guide/lifecycle-hooks) as Angular does when running the app.
 
@@ -851,8 +852,7 @@ Then exercise the component class, remembering to call the [lifecycle hook metho
 <code-example
   path="testing/src/app/welcome/welcome.component.spec.ts"
   region="class-only-tests"
-  header="app/welcome/welcome.component.spec.ts (class-only tests)" linenums="false">
-</code-example>
+  header="app/welcome/welcome.component.spec.ts (class-only tests)"></code-example>
 
 ### Component DOM testing
 
@@ -943,8 +943,7 @@ It also generates an initial test file for the component, `banner-external.compo
 <code-example
   path="testing/src/app/banner/banner-initial.component.spec.ts"
   region="v1"
-  header="app/banner/banner-external.component.spec.ts (initial)" linenums="false">
-</code-example>
+  header="app/banner/banner-external.component.spec.ts (initial)"></code-example>
 
 #### Reduce the setup
 
@@ -968,8 +967,7 @@ For now, you can radically reduce this test file to a more manageable size:
 <code-example
   path="testing/src/app/banner/banner-initial.component.spec.ts"
   region="v2"
-  header="app/banner/banner-initial.component.spec.ts (minimal)" linenums="false">
-</code-example>
+  header="app/banner/banner-initial.component.spec.ts (minimal)"></code-example>
 
 In this example, the metadata object passed to `TestBed.configureTestingModule`
 simply declares `BannerComponent`, the component to test.
@@ -1068,8 +1066,7 @@ you refactor to pull the setup into a Jasmine `beforeEach()` and some supporting
 <code-example
   path="testing/src/app/banner/banner-initial.component.spec.ts"
   region="v3"
-  linenums="false">
-</code-example>
+ ></code-example>
 
 Now add a test that gets the component's element from `fixture.nativeElement` and
 looks for the expected text.
@@ -1287,8 +1284,7 @@ the component's `title` property like this.
 <code-example
   path="testing/src/app/banner/banner.component.ts"
   region="component"
-  header="app/banner/banner.component.ts" linenums="false">
-</code-example>
+  header="app/banner/banner.component.ts"></code-example>
 
 Simple as this is, you decide to add a test to confirm that component
 actually displays the right content where you think it should.
@@ -1312,8 +1308,7 @@ and assign it to the `h1` variable.
 <code-example
   path="testing/src/app/banner/banner.component.spec.ts"
   region="setup"
-  header="app/banner/banner.component.spec.ts (setup)" linenums="false">
-</code-example>
+  header="app/banner/banner.component.spec.ts (setup)"></code-example>
 
 {@a detect-changes}
 
@@ -1359,8 +1354,7 @@ a fact confirmed in the revised test:
 可以在这个修改后的测试中确定这一点：
 
 <code-example
-  path="testing/src/app/banner/banner.component.spec.ts" region="test-w-o-detect-changes" linenums="false">
-</code-example>
+  path="testing/src/app/banner/banner.component.spec.ts" region="test-w-o-detect-changes"></code-example>
 
 #### _detectChanges()_
 
@@ -1409,19 +1403,19 @@ First import it from the testing utility library:
 使用 `ComponentFixtureAutoDetect` 服务提供商来配置 `TestBed` 就可以做到这一点。
 首先从测试工具库中导入它：
 
-<code-example path="testing/src/app/banner/banner.component.detect-changes.spec.ts" region="import-ComponentFixtureAutoDetect" header="app/banner/banner.component.detect-changes.spec.ts (import)" linenums="false"></code-example>
+<code-example path="testing/src/app/banner/banner.component.detect-changes.spec.ts" region="import-ComponentFixtureAutoDetect" header="app/banner/banner.component.detect-changes.spec.ts (import)"></code-example>
 
 Then add it to the `providers` array of the testing module configuration:
 
 然后把它添加到测试模块配置的 `providers` 数组中：
 
-<code-example path="testing/src/app/banner/banner.component.detect-changes.spec.ts" region="auto-detect" header="app/banner/banner.component.detect-changes.spec.ts (AutoDetect)" linenums="false"></code-example>
+<code-example path="testing/src/app/banner/banner.component.detect-changes.spec.ts" region="auto-detect" header="app/banner/banner.component.detect-changes.spec.ts (AutoDetect)"></code-example>
 
 Here are three tests that illustrate how automatic change detection works.
 
 这三个测试阐明了自动变更检测的工作原理。
 
-<code-example path="testing/src/app/banner/banner.component.detect-changes.spec.ts" region="auto-detect-tests" header="app/banner/banner.component.detect-changes.spec.ts (AutoDetect Tests)" linenums="false"></code-example>
+<code-example path="testing/src/app/banner/banner.component.detect-changes.spec.ts" region="auto-detect-tests" header="app/banner/banner.component.detect-changes.spec.ts (AutoDetect Tests)"></code-example>
 
 The first test shows the benefit of automatic change detection.
 
@@ -1501,8 +1495,7 @@ as the following variant of `BannerComponent` does.
 <code-example
   path="testing/src/app/banner/banner-external.component.ts"
   region="metadata"
-  header="app/banner/banner-external.component.ts (metadata)" linenums="false">
-</code-example>
+  header="app/banner/banner-external.component.ts (metadata)"></code-example>
 
 This syntax tells the Angular compiler to read the external files during component compilation.
 
@@ -1550,7 +1543,7 @@ It knows who the user is based on a property of the injected `UserService`:
 
 `WelcomeComponent` 为登陆的用户显示一条欢迎信息。它从注入的 `UserService` 的属性得知用户的身份：
 
-<code-example path="testing/src/app/welcome/welcome.component.ts" header="app/welcome/welcome.component.ts" linenums="false"></code-example>
+<code-example path="testing/src/app/welcome/welcome.component.ts" header="app/welcome/welcome.component.ts"></code-example>
 
 The `WelcomeComponent` has decision logic that interacts with the service, logic that makes this component worth testing.
 Here's the testing module configuration for the spec file, `app/welcome/welcome.component.spec.ts`:
@@ -1558,7 +1551,7 @@ Here's the testing module configuration for the spec file, `app/welcome/welcome.
 `WelcomeComponent` 带有与服务交互的决策逻辑，这些逻辑让该组件值得测试。
 下面是 `app/welcome/welcome.component.spec.ts` 中的测试模块配置：
 
-<code-example path="testing/src/app/welcome/welcome.component.spec.ts" region="config-test-module" header="app/welcome/welcome.component.spec.ts" linenums="false"></code-example>
+<code-example path="testing/src/app/welcome/welcome.component.spec.ts" region="config-test-module" header="app/welcome/welcome.component.spec.ts"></code-example>
 
 This time, in addition to declaring the _component-under-test_,
 the configuration adds a `UserService` provider to the `providers` list.
@@ -1597,8 +1590,7 @@ and its tests:
 <code-example
   path="testing/src/app/welcome/welcome.component.spec.ts"
   region="user-service-stub"
-  header="app/welcome/welcome.component.spec.ts" linenums="false">
-</code-example>
+  header="app/welcome/welcome.component.spec.ts"></code-example>
 
 {@a get-injected-service}
 
@@ -1630,22 +1622,22 @@ The component injector is a property of the fixture's `DebugElement`.
   header="WelcomeComponent's injector">
 </code-example>
 
-{@a testbed-get}
+{@a testbed-inject}
 
-#### _TestBed.get()_
+#### _TestBed.inject()_
 
-You _may_ also be able to get the service from the root injector via `TestBed.get()`.
+You _may_ also be able to get the service from the root injector via `TestBed.inject()`.
 This is easier to remember and less verbose.
 But it only works when Angular injects the component with the service instance in the test's root injector.
 
-你也可能通过 `TestBed.get()` 来使用根注入器获取该服务。
+你也可能通过 `TestBed.inject()` 来使用根注入器获取该服务。
 这样更容易记住而且不那么啰嗦。
 不过这只有当 Angular 组件需要的恰好是该测试的根注入器时才能正常工作。
 
 In this test suite, the _only_ provider of `UserService` is the root testing module,
-so it is safe to call `TestBed.get()` as follows:
+so it is safe to call `TestBed.inject()` as follows:
 
-在这个测试套件中，`UserService` *唯一*的提供商就是根测试模块中的，因此调用 `TestBed.get()` 就是安全的，代码如下：
+在这个测试套件中，`UserService` *唯一*的提供商就是根测试模块中的，因此调用 `TestBed.inject()` 就是安全的，代码如下：
 
 <code-example
   path="testing/src/app/welcome/welcome.component.spec.ts"
@@ -1655,11 +1647,11 @@ so it is safe to call `TestBed.get()` as follows:
 
 <div class="alert is-helpful">
 
-For a use case in which `TestBed.get()` does not work,
+For a use case in which `TestBed.inject()` does not work,
 see the [_Override component providers_](#component-override) section that
 explains when and why you must get the service from the component's injector instead.
 
-对于那些不能用 `TestBed.get()` 的测试用例，请参见[改写组件的提供商](#component-override)一节，那里解释了何时以及为何必须改从组件自身的注入器中获取服务。
+对于那些不能用 `TestBed.inject()` 的测试用例，请参见[改写组件的提供商](#component-override)一节，那里解释了何时以及为何必须改从组件自身的注入器中获取服务。
 
 </div>
 
@@ -1678,7 +1670,7 @@ a clone of the provided `userServiceStub`.
 请不要引用测试代码里提供给测试模块的 `userServiceStub` 对象。**这样不行！**
 被注入组件的 `userService` 实例是完全**不一样**的对象，它提供的是 `userServiceStub` 的克隆。
 
-<code-example path="testing/src/app/welcome/welcome.component.spec.ts" region="stub-not-injected" header="app/welcome/welcome.component.spec.ts" linenums="false"></code-example>
+<code-example path="testing/src/app/welcome/welcome.component.spec.ts" region="stub-not-injected" header="app/welcome/welcome.component.spec.ts"></code-example>
 
 {@a welcome-spec-setup}
 
@@ -1686,17 +1678,17 @@ a clone of the provided `userServiceStub`.
 
 #### 最终的准备及测试代码
 
-Here's the complete `beforeEach()`, using `TestBed.get()`:
+Here's the complete `beforeEach()`, using `TestBed.inject()`:
 
-下面是使用 `TestBed.get()` 的完整的 `beforeEach()`：
+下面是使用 `TestBed.inject()` 的完整的 `beforeEach()`：
 
-<code-example path="testing/src/app/welcome/welcome.component.spec.ts" region="setup" header="app/welcome/welcome.component.spec.ts" linenums="false"></code-example>
+<code-example path="testing/src/app/welcome/welcome.component.spec.ts" region="setup" header="app/welcome/welcome.component.spec.ts"></code-example>
 
 And here are some tests:
 
 下面是一些测试程序:
 
-<code-example path="testing/src/app/welcome/welcome.component.spec.ts" region="tests" header="app/welcome/welcome.component.spec.ts" linenums="false"></code-example>
+<code-example path="testing/src/app/welcome/welcome.component.spec.ts" region="tests" header="app/welcome/welcome.component.spec.ts"></code-example>
 
 The first is a sanity test; it confirms that the stubbed `UserService` is called and working.
 
@@ -1705,11 +1697,11 @@ The first is a sanity test; it confirms that the stubbed `UserService` is called
 <div class="alert is-helpful">
 
 The second parameter to the Jasmine matcher (e.g., `'expected name'`) is an optional failure label.
-If the expectation fails, Jasmine displays appends this label to the expectation failure message.
+If the expectation fails, Jasmine appends this label to the expectation failure message.
 In a spec with multiple expectations, it can help clarify what went wrong and which expectation failed.
 
 Jasmine 匹配器的第二个参数（比如 `'expected name'`）是一个可选的失败标签。
-如果这个期待语句失败了，Jasmine 就会把这个标签追加到这条个期待语句的失败信息后面。
+如果这个期待语句失败了，Jasmine 就会把这个标签追加显示到这条个期待语句的失败信息后面。
 对于具有多个期待语句的规约，它可以帮助澄清到底什么出错了，以及哪个期待语句失败了。
 
 </div>
@@ -1739,10 +1731,9 @@ The `TwainComponent` displays Mark Twain quotes.
 <code-example
   path="testing/src/app/twain/twain.component.ts"
   region="template"
-  header="app/twain/twain.component.ts (template)" linenums="false">
-</code-example>
+  header="app/twain/twain.component.ts (template)"></code-example>
 
-Note that value of the component's `quote` property passes through an `AsyncPipe`.
+Note that the value of the component's `quote` property passes through an `AsyncPipe`.
 That means the property returns either a `Promise` or an `Observable`.
 
 注意该组件的 `quote` 属性的值是通过 `AsyncPipe` 传进来的。
@@ -1756,12 +1747,11 @@ the `quote` property returns an `Observable`.
 <code-example
   path="testing/src/app/twain/twain.component.ts"
   region="get-quote"
-  header="app/twain/twain.component.ts (getQuote)" linenums="false">
-</code-example>
+  header="app/twain/twain.component.ts (getQuote)"></code-example>
 
 The `TwainComponent` gets quotes from an injected `TwainService`.
 The component starts the returned `Observable` with a placeholder value (`'...'`),
-before the service can returns its first quote.
+before the service can return its first quote.
 
 `TwainComponent` 会从一个注入进来的 `TwainService` 来获取这些引文。
 在服务返回第一条引文之前，该组件会先返回一个占位值（`'...'`）的 `Observable`。
@@ -1793,8 +1783,7 @@ They should emulate such calls. The setup in this `app/twain/twain.component.spe
 <code-example
   path="testing/src/app/twain/twain.component.spec.ts"
   region="setup"
-  header="app/twain/twain.component.spec.ts (setup)" linenums="false">
-</code-example>
+  header="app/twain/twain.component.spec.ts (setup)"></code-example>
 
 {@a service-spy}
 
@@ -1856,9 +1845,11 @@ value becomes available. The test must become _asynchronous_.
 
 #### 使用 `fakeAsync()` 进行异步测试
 
-To use `fakeAsync()` functionality, you need to import `zone-testing`, for details, please read [setup guide](guide/setup#appendix-test-using-fakeasyncasync).
+To use `fakeAsync()` functionality, you must import `zone.js/dist/zone-testing` in your test setup file.
+If you created your project with the Angular CLI, `zone-testing` is already imported in `src/test.ts`.
 
-要使用 `fakeAsync()` 功能，你需要导入 `zone-testing`，欲知详情，参见[环境准备指南](guide/setup#appendix-test-using-fakeasyncasync)。
+要使用 `fakeAsync()` 功能，你必须导入 `zone.js/dist/zone-testing`。
+如果你是用 Angular CLI 创建的项目，那么 `src/test.ts` 中就已经导入好了 `zone-testing`。
 
 The following test confirms the expected behavior when the service returns an `ErrorObservable`.
 
@@ -1887,6 +1878,16 @@ There is no nested syntax (like a `Promise.then()`) to disrupt the flow of contr
 测试体看上去是同步的。
 这里没有嵌套式语法（如 `Promise.then()`）来打断控制流。
 
+<div class="alert is-helpful">
+
+Limitation: The `fakeAsync()` function won't work if the test body makes an `XMLHttpRequest` (XHR) call.
+XHR calls within a test are rare, but if you need to call XHR, see [`async()`](#async), below.
+
+限制：如果测试体中发起了 `XMLHttpRequest`（XHR）调用，则 `fakeAsync()` 函数将不起作用。
+测试中很少进行 XHR 调用，但是如果你需要调用 XHR，请参见下面的 [`async()`](#async) 部分。
+
+</div>
+
 {@a tick}
 
 #### The _tick()_ function
@@ -1898,12 +1899,12 @@ You do have to call `tick()` to advance the (virtual) clock.
 你必须调用 `tick()` 函数来向前推动（虚拟）时钟。
 
 Calling `tick()` simulates the passage of time until all pending asynchronous activities finish.
-In this case, it waits for the error handler's `setTimeout()`;
+In this case, it waits for the error handler's `setTimeout()`.
 
 调用 `tick()` 会模拟时光的流逝，直到所有未决的异步活动都结束为止。
 在这个例子中，它会等待错误处理器中的 `setTimeout()`。
 
-The `tick()` function accepts milliseconds as parameter (defaults to 0 if not provided). The parameter represents how much the virtual clock advances. For example, if you have a `setTimeout(fn, 100)` in a `fakeAsync()` test, you need to use tick(100) to trigger the fn callback.
+The `tick()` function accepts milliseconds as a parameter (defaults to 0 if not provided). The parameter represents how much the virtual clock advances. For example, if you have a `setTimeout(fn, 100)` in a `fakeAsync()` test, you need to use tick(100) to trigger the fn callback.
 
 `tick()` 函数接受一个毫秒值作为参数（如果没有提供则默认为 0）。该参数表示虚拟时钟要前进多少。
 比如，如果你的 `fakeAsync()` 测试中有一个 `setTimeout(fn, 100)` 函数，你就需要用 `tick(100)` 来触发它的 fn 回调。 
@@ -1941,7 +1942,7 @@ Jasmine also provides a `clock` feature to mock dates. Angular automatically run
 
 Jasmine 也提供了 `clock` 特性来模拟日期。在 `fakeAsync()` 方法内，Angular 会自动运行那些调用 `jasmine.clock().install()` 和调用 `jasmine.clock().uninstall()` 之间的测试。`fakeAsync()` 不是必须的，而且如果嵌套它会抛出错误。
 
-By default, this feature is disabled. To enable it, set a global flag before import `zone-testing`.
+By default, this feature is disabled. To enable it, set a global flag before importing `zone-testing`.
 
 默认情况下，该特性是禁用的。要启用它，请在导入 `zone-testing` 之前设置一个全局标志。
 
@@ -1993,15 +1994,15 @@ If you run other `macroTask` such as `HTMLCanvasElement.toBlob()`, `Unknown macr
 <code-tabs>
   <code-pane
     path="testing/src/app/shared/canvas.component.spec.ts"
-    header="src/app/shared/canvas.component.spec.ts" linenums="false">
+    header="src/app/shared/canvas.component.spec.ts">
   </code-pane>
   <code-pane
     path="testing/src/app/shared/canvas.component.ts"
-    header="src/app/shared/canvas.component.ts" linenums="false">
+    header="src/app/shared/canvas.component.ts">
   </code-pane>
 </code-tabs>
 
-If you want to support such case, you need to define the `macroTask` you want to support in `beforeEach()`.
+If you want to support such a case, you need to define the `macroTask` you want to support in `beforeEach()`.
 For example:
 
 如果你要支持这种情况，就要在 `beforeEach()` 中定义你要支持的 `macroTask`。比如：
@@ -2036,7 +2037,7 @@ You might be satisfied with the test coverage of these tests.
 
 你可能对这些测试的覆盖率已经很满足了。
 
-But you might be troubled by the fact that the real service doesn't quite behave this way.
+However, you might be troubled by the fact that the real service doesn't quite behave this way.
 The real service sends requests to a remote server.
 A server takes time to respond and the response certainly won't be available immediately
 as in the previous two tests.
@@ -2059,9 +2060,8 @@ from the `getQuote()` spy like this.
 
 #### 可观察对象的异步助手
 
-The async observable was produced by an `asyncData` helper
-The `asyncData` helper is a utility function that you'll have to write yourself.
-Or you can copy this one from the sample code.
+The async observable was produced by an `asyncData` helper.
+The `asyncData` helper is a utility function that you'll have to write yourself, or you can copy this one from the sample code.
 
 这个异步的可观察对象是用 `asyncData` 辅助函数生成的。
 `asyncData` 助手是一个工具函数，你可以自己写一个，也可以从下面的范例代码中复制一份。
@@ -2142,21 +2142,21 @@ Then you can assert that the quote element displays the expected text.
 
 #### 使用 `async()` 进行异步测试
 
-To use `async()` functionality, you need to import `zone-testing`, for details, please read [setup guide](guide/setup#appendix-test-using-fakeasyncasync).
+To use `async()` functionality, you must import `zone.js/dist/zone-testing` in your test setup file.
+If you created your project with the Angular CLI, `zone-testing` is already imported in `src/test.ts`.
 
-要使用 `async()` 功能，你需要导入 `zone-testing`，欲知详情，参见[环境准备指南](guide/setup#appendix-test-using-fakeasyncasync)。
+要使用 `async()` 功能，你必须导入 `zone.js/dist/zone-testing`。
+如果你是用 Angular CLI 创建的项目，那么 `src/test.ts` 中就已经导入好了 `zone-testing`。
 
 The `fakeAsync()` utility function has a few limitations.
-In particular, it won't work if the test body makes an `XHR` call.
+In particular, it won't work if the test body makes an `XMLHttpRequest` (XHR) call.
+XHR calls within a test are rare so you can generally stick with [`fakeAsync()`](#fake-async).
+But if you ever do need to call `XMLHttpRequest`, you'll want to know about `async()`.
 
 `fakeAsync()` 工具函数有一些限制。
-特别是，如果测试中发起了 `XHR` 调用，它就没用了。
-
-`XHR` calls within a test are rare so you can generally stick with `fakeAsync()`.
-But if you ever do need to call `XHR`, you'll want to know about `async()`.
-
-测试中的 `XHR` 调用比较罕见，所以你通常会使用 `fakeAsync()`。
-不过你可能迟早会需要调用 `XHR`，那就来了解一些 `async()` 的知识吧。
+特别是，如果测试中发起了 `XMLHttpRequest`（XHR） 调用，它就没用了。
+测试中的 `XHR` 调用比较罕见，所以你通常会使用 [`fakeAsync()`](#fake-async)。
+不过你可能迟早会需要调用 `XMLHttpRequest`，那就来了解一些 `async()` 的知识吧。
 
 <div class="alert is-helpful">
 
@@ -2238,8 +2238,7 @@ Now you are responsible for chaining promises, handling errors, and calling `don
 
 现在，你就要负责对 Promise 进行链接、处理错误，并在适当的时机调用 `done()` 了。
 
-Writing test functions with `done()`, is more cumbersome than `async()`and `fakeAsync()`.
-But it is occasionally necessary when code involves the `intervalTimer()` like `setInterval`.
+Writing test functions with `done()`, is more cumbersome than `async()`and `fakeAsync()`, but it is occasionally necessary when code involves the `intervalTimer()` like `setInterval`.
 
 写带有 `done()` 的测试函数会比 `async` 和 `fakeAsync` 方式更加冗长。
 不过有些时候它是必要的。
@@ -2253,8 +2252,7 @@ The first one subscribes to the `Observable` exposed to the template by the comp
 
 <code-example
   path="testing/src/app/twain/twain.component.spec.ts"
-  region="quote-done-test" linenums="false">
-</code-example>
+  region="quote-done-test"></code-example>
 
 The RxJS `last()` operator emits the observable's last value before completing, which will be the test quote.
 The `subscribe` callback calls `detectChanges()` to
@@ -2275,8 +2273,7 @@ can give you that information and make assertions about the state of the view.
 
 <code-example
   path="testing/src/app/twain/twain.component.spec.ts"
-  region="spy-done-test" linenums="false">
-</code-example>
+  region="spy-done-test"></code-example>
 
 <hr>
 
@@ -2326,8 +2323,7 @@ Then import the symbols you need.
 <code-example
   path="testing/src/app/twain/twain.component.marbles.spec.ts"
   region="import-marbles"
-  header="app/twain/twain.component.marbles.spec.ts (import marbles)" linenums="false">
-</code-example>
+  header="app/twain/twain.component.marbles.spec.ts (import marbles)"></code-example>
 
 Here's the complete test for getting a quote:
 
@@ -2335,8 +2331,7 @@ Here's the complete test for getting a quote:
 
 <code-example
   path="testing/src/app/twain/twain.component.marbles.spec.ts"
-  region="get-quote-test" linenums="false">
-</code-example>
+  region="get-quote-test"></code-example>
 
 Notice that the Jasmine test is synchronous. There's no `fakeAsync()`.
 Marble testing uses a test scheduler to simulate the passage of time
@@ -2357,8 +2352,7 @@ In the second argument you map the value marker (`x`) to the emitted value (`tes
 
 <code-example
   path="testing/src/app/twain/twain.component.marbles.spec.ts"
-  region="test-quote-marbles" linenums="false">
-</code-example>
+  region="test-quote-marbles"></code-example>
 
 The marble library constructs the corresponding observable, which the
 test sets as the `getQuote` spy's return value.
@@ -2372,8 +2366,7 @@ you tell the `TestScheduler` to _flush_ its queue of prepared tasks like this.
 
 <code-example
   path="testing/src/app/twain/twain.component.marbles.spec.ts"
-  region="test-scheduler-flush" linenums="false">
-</code-example>
+  region="test-scheduler-flush"></code-example>
 
 This step serves a purpose analogous to `tick()` and `whenStable()` in the
 earlier `fakeAsync()` and `async()` examples.
@@ -2392,8 +2385,7 @@ Here's the marble testing version of the `getQuote()` error test.
 
 <code-example
   path="testing/src/app/twain/twain.component.marbles.spec.ts"
-  region="error-test" linenums="false">
-</code-example>
+  region="error-test"></code-example>
 
 It's still an async test, calling `fakeAsync()` and `tick()`, because the component itself
 calls `setTimeout()` when processing errors.
@@ -2406,8 +2398,7 @@ Look at the marble observable definition.
 
 <code-example
   path="testing/src/app/twain/twain.component.marbles.spec.ts"
-  region="error-marbles" linenums="false">
-</code-example>
+  region="error-marbles"></code-example>
 
 This is a _cold_ observable that waits three frames and then emits an error,
 The hash (`#`) indicates the timing of the error that is specified in the third argument.
@@ -2489,8 +2480,7 @@ The `DashboardHeroComponent` is embedded in the `DashboardComponent` template li
 <code-example
   path="testing/src/app/dashboard/dashboard.component.html"
   region="dashboard-hero"
-  header="app/dashboard/dashboard.component.html (excerpt)" linenums="false">
-</code-example>
+  header="app/dashboard/dashboard.component.html (excerpt)"></code-example>
 
 The `DashboardHeroComponent` appears in an `*ngFor` repeater, which sets each component's `hero` input property
 to the looping value and listens for the component's `selected` event.
@@ -2506,8 +2496,7 @@ Here's the component's full definition:
 <code-example
   path="testing/src/app/dashboard/dashboard-hero.component.ts"
   region="component"
-  header="app/dashboard/dashboard-hero.component.ts (component)" linenums="false">
-</code-example>
+  header="app/dashboard/dashboard-hero.component.ts (component)"></code-example>
 
 While testing a component this simple has little intrinsic value, it's worth knowing how.
 You can use one of these approaches:
@@ -2534,8 +2523,7 @@ A quick look at the `DashboardComponent` constructor discourages the first appro
 <code-example
   path="testing/src/app/dashboard/dashboard.component.ts"
   region="ctor"
-  header="app/dashboard/dashboard.component.ts (constructor)" linenums="false">
-</code-example>
+  header="app/dashboard/dashboard.component.ts (constructor)"></code-example>
 
 The `DashboardComponent` depends on the Angular router and the `HeroService`.
 You'd probably have to replace them both with test doubles, which is a lot of work.
@@ -2572,8 +2560,7 @@ Here's the meat of the spec file setup.
 <code-example
   path="testing/src/app/dashboard/dashboard-hero.component.spec.ts"
   region="setup"
-  header="app/dashboard/dashboard-hero.component.spec.ts (setup)" linenums="false">
-</code-example>
+  header="app/dashboard/dashboard-hero.component.spec.ts (setup)"></code-example>
 
 Note how the setup code assigns a test hero (`expectedHero`) to the component's `hero` property,
 emulating the way the `DashboardComponent` would set it
@@ -2657,7 +2644,7 @@ The Angular `DebugElement.triggerEventHandler` can raise _any data-bound event_ 
 The second parameter is the event object passed to the handler.
 
 Angular 的 `DebugElement.triggerEventHandler` 可以用**事件的名字**触发**任何数据绑定事件**。
-第二个参数是传递给事件处理器的事件对象。
+第二个参数是传给事件处理器的事件对象。
 
 The test triggered a "click" event with a `null` event object.
 
@@ -2717,15 +2704,14 @@ in a helper such as the `click()` function below:
 <code-example
   path="testing/src/testing/index.ts"
   region="click-event"
-  header="testing/index.ts (click helper)" linenums="false">
-</code-example>
+  header="testing/index.ts (click helper)"></code-example>
 
 The first parameter is the _element-to-click_. If you wish, you can pass a
 custom event object as the second parameter. The default is a (partial)
 <a href="https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent/button">left-button mouse event object</a>
 accepted by many handlers including the `RouterLink` directive.
 
-第一个参数是**用来点击的元素**。如果你愿意，可以将自定义的事件对象传递给第二个参数。
+第一个参数是**用来点击的元素**。如果你愿意，可以将自定义的事件对象传给第二个参数。
 默认的是（局部的）<a href="https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent/button" target="_blank">鼠标左键事件对象</a>，
 它被许多事件处理器接受，包括 `RouterLink` 指令。
 
@@ -2786,8 +2772,7 @@ that can be made satisfactorily with a _test host_ like this one:
   path="testing/src/app/dashboard/dashboard-hero.component.spec.ts"
   region="test-host"
   header="app/dashboard/dashboard-hero.component.spec.ts (test host)"
-  linenums="false">
-</code-example>
+ ></code-example>
 
 This test host binds to `DashboardHeroComponent` as the `DashboardComponent` would
 but without the noise of the `Router`, the `HeroService`, or the `*ngFor` repeater.
@@ -2811,7 +2796,7 @@ The setup for the _test-host_ tests is similar to the setup for the stand-alone 
 
 这个*测试宿主*中的准备代码和独立测试中的准备过程类似：
 
-<code-example path="testing/src/app/dashboard/dashboard-hero.component.spec.ts" region="test-host-setup" header="app/dashboard/dashboard-hero.component.spec.ts (test host setup)" linenums="false"></code-example>
+<code-example path="testing/src/app/dashboard/dashboard-hero.component.spec.ts" region="test-host-setup" header="app/dashboard/dashboard-hero.component.spec.ts (test host setup)"></code-example>
 
 This testing module configuration shows three important differences:
 
@@ -2848,8 +2833,7 @@ The tests themselves are almost identical to the stand-alone version:
 <code-example
   path="testing/src/app/dashboard/dashboard-hero.component.spec.ts"
   region="test-host-tests"
-  header="app/dashboard/dashboard-hero.component.spec.ts (test-host)" linenums="false">
-</code-example>
+  header="app/dashboard/dashboard-hero.component.spec.ts (test-host)"></code-example>
 
 Only the selected event test differs. It confirms that the selected `DashboardHeroComponent` hero
 really does find its way up through the event binding to the host component.
@@ -2881,8 +2865,7 @@ which it injects together with the `HeroService`.
 <code-example
   path="testing/src/app/dashboard/dashboard.component.ts"
   region="ctor"
-  header="app/dashboard/dashboard.component.ts (constructor)" linenums="false">
-</code-example>
+  header="app/dashboard/dashboard.component.ts (constructor)"></code-example>
 
 Mocking the `HeroService` with a spy is a [familiar story](#component-with-async-service).
 But the `Router` has a complicated API and is entwined with other services and application preconditions. Might it be difficult to mock?
@@ -2915,8 +2898,7 @@ as providing a `HeroService` spy.
 <code-example
   path="testing/src/app/dashboard/dashboard.component.spec.ts"
   region="router-spy"
-  header="app/dashboard/dashboard.component.spec.ts (spies)" linenums="false">
-</code-example>
+  header="app/dashboard/dashboard.component.spec.ts (spies)"></code-example>
 
 The following test clicks the displayed hero and confirms that
 `Router.navigateByUrl` is called with the expected url.
@@ -2926,8 +2908,7 @@ The following test clicks the displayed hero and confirms that
 <code-example
   path="testing/src/app/dashboard/dashboard.component.spec.ts"
   region="navigate-test"
-  header="app/dashboard/dashboard.component.spec.ts (navigate test)" linenums="false">
-</code-example>
+  header="app/dashboard/dashboard.component.spec.ts (navigate test)"></code-example>
 
 {@a routed-component-w-param}
 
@@ -2961,7 +2942,7 @@ Here's the `HeroDetailComponent` constructor:
 
 下面是 `HeroDetailComponent` 的构造函数：
 
-<code-example path="testing/src/app/hero/hero-detail.component.ts" region="ctor" header="app/hero/hero-detail.component.ts (constructor)" linenums="false"></code-example>
+<code-example path="testing/src/app/hero/hero-detail.component.ts" region="ctor" header="app/hero/hero-detail.component.ts (constructor)"></code-example>
 
 The `HeroDetail` component needs the `id` parameter so it can fetch
 the corresponding hero via the `HeroDetailService`.
@@ -2978,7 +2959,7 @@ for the `id` to change during its lifetime.
 它不能仅仅引用 `ActivatedRoute.paramMap` 的 `id` 属性。
 该组件不得不*订阅* `ActivatedRoute.paramMap` 这个可观察对象，要做好它在生命周期中随时会发生变化的准备。
 
-<code-example path="testing/src/app/hero/hero-detail.component.ts" region="ng-on-init" header="app/hero/hero-detail.component.ts (ngOnInit)" linenums="false"></code-example>
+<code-example path="testing/src/app/hero/hero-detail.component.ts" region="ng-on-init" header="app/hero/hero-detail.component.ts (ngOnInit)"></code-example>
 
 <div class="alert is-helpful">
 
@@ -3010,7 +2991,7 @@ during a test.
 
    你需要路由器的辅助函数 `convertToParamMap()` 来创建 `ParamMap`。
 
-- Other _routed components_ tests need a test double for `ActivatedRoute`.
+- Other _routed component_ tests need a test double for `ActivatedRoute`.
 
    针对*路由目标组件*的其它测试需要一个 `ActivatedRoute` 的测试替身。
 
@@ -3027,8 +3008,7 @@ The following `ActivatedRouteStub` class serves as a test double for `ActivatedR
 <code-example
   path="testing/src/testing/activated-route-stub.ts"
   region="activated-route-stub"
-  header="testing/activated-route-stub.ts (ActivatedRouteStub)" linenums="false">
-</code-example>
+  header="testing/activated-route-stub.ts (ActivatedRouteStub)"></code-example>
 
 Consider placing such helpers in a `testing` folder sibling to the `app` folder.
 This sample puts `ActivatedRouteStub` in `testing/activated-route-stub.ts`.
@@ -3055,7 +3035,7 @@ Here's a test demonstrating the component's behavior when the observed `id` refe
 
 下面的测试程序是演示组件在被观察的 `id` 指向现有英雄时的行为：
 
-<code-example path="testing/src/app/hero/hero-detail.component.spec.ts" region="route-good-id" header="app/hero/hero-detail.component.spec.ts (existing id)" linenums="false"></code-example>
+<code-example path="testing/src/app/hero/hero-detail.component.spec.ts" region="route-good-id" header="app/hero/hero-detail.component.spec.ts (existing id)"></code-example>
 
 <div class="alert is-helpful">
 
@@ -3079,7 +3059,7 @@ This test expects the component to try to navigate to the `HeroListComponent`.
 
 这个测试中会期待该组件尝试导航到 `HeroListComponent`。
 
-<code-example path="testing/src/app/hero/hero-detail.component.spec.ts" region="route-bad-id" header="app/hero/hero-detail.component.spec.ts (bad id)" linenums="false"></code-example>
+<code-example path="testing/src/app/hero/hero-detail.component.spec.ts" region="route-bad-id" header="app/hero/hero-detail.component.spec.ts (bad id)"></code-example>
 
 While this app doesn't have a route to the `HeroDetailComponent` that omits the `id` parameter, it might add such a route someday.
 The component should do something reasonable when there is no `id`.
@@ -3096,8 +3076,7 @@ New heroes have `id=0` and a blank `name`. This test confirms that the component
 <code-example
   path="testing/src/app/hero/hero-detail.component.spec.ts"
   region="route-no-id"
-  header="app/hero/hero-detail.component.spec.ts (no id)" linenums="false">
-</code-example>
+  header="app/hero/hero-detail.component.spec.ts (no id)"></code-example>
 
 <hr>
 
@@ -3121,8 +3100,7 @@ The `AppComponent`, for example, displays a navigation bar with anchors and thei
 
 <code-example
   path="testing/src/app/app.component.html"
-  header="app/app.component.html" linenums="false">
-</code-example>
+  header="app/app.component.html"></code-example>
 
 While the `AppComponent` _class_ is empty,
 you may want to write unit tests to confirm that the links are wired properly
@@ -3181,8 +3159,7 @@ and directive that play little or no role in the tests.
 <code-example
   path="testing/src/app/app.component.spec.ts"
   region="component-stubs"
-  header="app/app.component.spec.ts (stub declaration)" linenums="false">
-</code-example>
+  header="app/app.component.spec.ts (stub declaration)"></code-example>
 
 The stub selectors match the selectors for the corresponding real components.
 But their templates and classes are empty.
@@ -3197,8 +3174,7 @@ components, directives, and pipes that need to be real.
 <code-example
   path="testing/src/app/app.component.spec.ts"
   region="testbed-stubs"
-  header="app/app.component.spec.ts (TestBed stubs)" linenums="false">
-</code-example>
+  header="app/app.component.spec.ts (TestBed stubs)"></code-example>
 
 The `AppComponent` is the test subject, so of course you declare the real version.
 
@@ -3224,8 +3200,7 @@ In the second approach, add `NO_ERRORS_SCHEMA` to the `TestBed.schemas` metadata
 <code-example
   path="testing/src/app/app.component.spec.ts"
   region="no-errors-schema"
-  header="app/app.component.spec.ts (NO_ERRORS_SCHEMA)" linenums="false">
-</code-example>
+  header="app/app.component.spec.ts (NO_ERRORS_SCHEMA)"></code-example>
 
 The `NO_ERRORS_SCHEMA` tells the Angular compiler to ignore unrecognized elements and attributes.
 
@@ -3285,8 +3260,7 @@ as seen in this example.
 <code-example
   path="testing/src/app/app.component.spec.ts"
   region="mixed-setup"
-  header="app/app.component.spec.ts (mixed setup)" linenums="false">
-</code-example>
+  header="app/app.component.spec.ts (mixed setup)"></code-example>
 
 The Angular compiler creates the `BannerComponentStub` for the `<app-banner>` element
 and applies the `RouterLinkStubDirective` to the anchors with the `routerLink` attribute,
@@ -3318,8 +3292,7 @@ seen in the `AppComponent` template.
 <code-example
   path="testing/src/testing/router-link-directive-stub.ts"
   region="router-link"
-  header="testing/router-link-directive-stub.ts (RouterLinkDirectiveStub)" linenums="false">
-</code-example>
+  header="testing/router-link-directive-stub.ts (RouterLinkDirectiveStub)"></code-example>
 
 The URL bound to the `[routerLink]` attribute flows in to the directive's `linkParams` property.
 
@@ -3362,8 +3335,7 @@ A little more setup triggers the initial data binding and gets references to the
 <code-example
   path="testing/src/app/app.component.spec.ts"
   region="test-setup"
-  header="app/app.component.spec.ts (test setup)" linenums="false">
-</code-example>
+  header="app/app.component.spec.ts (test setup)"></code-example>
 
 Three points of special interest:
 
@@ -3389,8 +3361,7 @@ The `AppComponent` links to validate are as follows:
 <code-example
   path="testing/src/app/app.component.html"
   region="links"
-  header="app/app.component.html (navigation links)" linenums="false">
-</code-example>
+  header="app/app.component.html (navigation links)"></code-example>
 
 {@a app-component-tests}
 
@@ -3399,7 +3370,7 @@ as expected:
 
 下面这些测试用来确认那些链接是否如预期般连接到了 `RouterLink` 指令中：
 
-<code-example path="testing/src/app/app.component.spec.ts" region="tests" header="app/app.component.spec.ts (selected tests)" linenums="false"></code-example>
+<code-example path="testing/src/app/app.component.spec.ts" region="tests" header="app/app.component.spec.ts (selected tests)"></code-example>
 
 <div class="alert is-helpful">
 
@@ -3474,17 +3445,16 @@ The `HeroDetailComponent` is a simple view with a title, two hero fields, and tw
 
 `HeroDetailComponent` 是带有标题、两个英雄字段和两个按钮的简单视图。
 
-<figure>
+<div class="lightbox">
   <img src='generated/images/guide/testing/hero-detail.component.png' alt="HeroDetailComponent in action">
-</figure>
+</div>
 
 But there's plenty of template complexity even in this simple form.
 
 但即使是这么简单的表单，其模板中也涉及到不少复杂性。
 
 <code-example
-  path="testing/src/app/hero/hero-detail.component.html" header="app/hero/hero-detail.component.html" linenums="false">
-</code-example>
+  path="testing/src/app/hero/hero-detail.component.html" header="app/hero/hero-detail.component.html"></code-example>
 
 Tests that exercise the component need ...
 
@@ -3526,8 +3496,7 @@ Here is such a `Page` class for the `hero-detail.component.spec.ts`
 <code-example
   path="testing/src/app/hero/hero-detail.component.spec.ts"
   region="page"
-  header="app/hero/hero-detail.component.spec.ts (Page)" linenums="false">
-</code-example>
+  header="app/hero/hero-detail.component.spec.ts (Page)"></code-example>
 
 Now the important hooks for component manipulation and inspection are neatly organized and accessible from an instance of `Page`.
 
@@ -3540,8 +3509,7 @@ A `createComponent` method creates a `page` object and fills in the blanks once 
 <code-example
   path="testing/src/app/hero/hero-detail.component.spec.ts"
   region="create-component"
-  header="app/hero/hero-detail.component.spec.ts (createComponent)" linenums="false">
-</code-example>
+  header="app/hero/hero-detail.component.spec.ts (createComponent)"></code-example>
 
 The [_HeroDetailComponent_ tests](#tests-w-test-double) in an earlier section demonstrate how `createComponent` and `page`
 keep the tests short and _on message_.
@@ -3557,8 +3525,7 @@ Here are a few more `HeroDetailComponent` tests to reinforce the point.
 <code-example
   path="testing/src/app/hero/hero-detail.component.spec.ts"
   region="selected-tests"
-  header="app/hero/hero-detail.component.spec.ts (selected tests)" linenums="false">
-</code-example>
+  header="app/hero/hero-detail.component.spec.ts (selected tests)"></code-example>
 
 <hr>
 
@@ -3595,8 +3562,7 @@ the following version of the `BannerComponent` does.
 
 <code-example
   path="testing/src/app/banner/banner-external.component.ts"
-  header="app/banner/banner-external.component.ts (external template & css)" linenums="false">
-</code-example>
+  header="app/banner/banner-external.component.ts (external template & css)"></code-example>
 
 The test fails when the `TestBed` tries to create the component.
 
@@ -3606,8 +3572,7 @@ The test fails when the `TestBed` tries to create the component.
   path="testing/src/app/banner/banner.component.spec.ts"
   region="configure-and-create"
   header="app/banner/banner.component.spec.ts (setup that fails)"
-  avoid linenums="false">
-</code-example>
+  avoid></code-example>
 
 Recall that the app hasn't been compiled.
 So when you call `createComponent()`, the `TestBed` compiles implicitly.
@@ -3686,8 +3651,7 @@ Write the first async `beforeEach` like this.
 <code-example
   path="testing/src/app/banner/banner-external.component.spec.ts"
   region="async-before-each"
-  header="app/banner/banner-external.component.spec.ts (async beforeEach)" linenums="false">
-</code-example>
+  header="app/banner/banner-external.component.spec.ts (async beforeEach)"></code-example>
 
 The `async()` helper function takes a parameterless function with the body of the setup.
 
@@ -3744,8 +3708,7 @@ which include creating the component and querying for elements to inspect.
 <code-example
   path="testing/src/app/banner/banner-external.component.spec.ts"
   region="sync-before-each"
-  header="app/banner/banner-external.component.spec.ts (synchronous beforeEach)" linenums="false">
-</code-example>
+  header="app/banner/banner-external.component.spec.ts (synchronous beforeEach)"></code-example>
 
 You can count on the test runner to wait for the first asynchronous `beforeEach` to finish before calling the second.
 
@@ -3769,8 +3732,7 @@ into a `then(...)` callback.
 <code-example
   path="testing/src/app/banner/banner-external.component.spec.ts"
   region="one-before-each"
-  header="app/banner/banner-external.component.spec.ts (one beforeEach)" linenums="false">
-</code-example>
+  header="app/banner/banner-external.component.spec.ts (one beforeEach)"></code-example>
 
 #### _compileComponents()_ is harmless
 
@@ -3850,8 +3812,7 @@ One approach is to configure the testing module from the individual pieces as in
 <code-example
   path="testing/src/app/hero/hero-detail.component.spec.ts"
   region="setup-forms-module"
-  header="app/hero/hero-detail.component.spec.ts (FormsModule setup)" linenums="false">
-</code-example>
+  header="app/hero/hero-detail.component.spec.ts (FormsModule setup)"></code-example>
 
 <div class="alert is-helpful">
 
@@ -3884,8 +3845,7 @@ The test configuration can use the `SharedModule` too as seen in this alternativ
 <code-example
   path="testing/src/app/hero/hero-detail.component.spec.ts"
   region="setup-shared-module"
-  header="app/hero/hero-detail.component.spec.ts (SharedModule setup)" linenums="false">
-</code-example>
+  header="app/hero/hero-detail.component.spec.ts (SharedModule setup)"></code-example>
 
 It's a bit tighter and smaller, with fewer import statements (not shown).
 
@@ -3904,7 +3864,7 @@ Try a test configuration that imports the `HeroModule` like this one:
 `HeroDetailComponent` 是 `HeroModule` 这个[特性模块](guide/feature-modules)的一部分，它聚合了更多相互依赖的片段，包括 `SharedModule`。
 试试下面这个导入了 `HeroModule` 的测试配置：
 
-<code-example path="testing/src/app/hero/hero-detail.component.spec.ts" region="setup-hero-module" header="app/hero/hero-detail.component.spec.ts (HeroModule setup)" linenums="false"></code-example>
+<code-example path="testing/src/app/hero/hero-detail.component.spec.ts" region="setup-hero-module" header="app/hero/hero-detail.component.spec.ts (HeroModule setup)"></code-example>
 
 That's _really_ crisp. Only the _test doubles_ in the `providers` remain. Even the `HeroDetailComponent` declaration is gone.
 
@@ -3938,7 +3898,7 @@ The `HeroDetailComponent` provides its own `HeroDetailService`.
 
 `HeroDetailComponent` 提供自己的 `HeroDetailService` 服务。
 
-<code-example path="testing/src/app/hero/hero-detail.component.ts" region="prototype" header="app/hero/hero-detail.component.ts (prototype)" linenums="false"></code-example>
+<code-example path="testing/src/app/hero/hero-detail.component.ts" region="prototype" header="app/hero/hero-detail.component.ts (prototype)"></code-example>
 
 It's not possible to stub the component's `HeroDetailService` in the `providers` of the `TestBed.configureTestingModule`.
 Those are providers for the _testing module_, not the component. They prepare the dependency injector at the _fixture level_.
@@ -3973,7 +3933,7 @@ Fortunately, the `HeroDetailService` delegates responsibility for remote data ac
 
 幸运的是，`HeroDetailService` 将远程数据访问的责任交给了注入进来的 `HeroService`。
 
-<code-example path="testing/src/app/hero/hero-detail.service.ts" region="prototype" header="app/hero/hero-detail.service.ts (prototype)" linenums="false"></code-example>
+<code-example path="testing/src/app/hero/hero-detail.service.ts" region="prototype" header="app/hero/hero-detail.service.ts (prototype)"></code-example>
 
 The [previous test configuration](#feature-module-import) replaces the real `HeroService` with a `TestHeroService`
 that intercepts server requests and fakes their responses.
@@ -3992,7 +3952,7 @@ as seen in the following setup variation:
 
 `TestBed.overrideComponent` 方法可以将组件的 `providers` 替换为容易管理的**测试替身**，参见下面的变体准备代码：
 
-<code-example path="testing/src/app/hero/hero-detail.component.spec.ts" region="setup-override" header="app/hero/hero-detail.component.spec.ts (Override setup)" linenums="false"></code-example>
+<code-example path="testing/src/app/hero/hero-detail.component.spec.ts" region="setup-override" header="app/hero/hero-detail.component.spec.ts (Override setup)"></code-example>
 
 Notice that `TestBed.configureTestingModule` no longer provides a (fake) `HeroService` because it's [not needed](#spy-stub).
 
@@ -4008,7 +3968,7 @@ Focus on the `overrideComponent` method.
 
 注意这个 `overrideComponent` 方法。
 
-<code-example path="testing/src/app/hero/hero-detail.component.spec.ts" region="override-component-method" header="app/hero/hero-detail.component.spec.ts (overrideComponent)" linenums="false"></code-example>
+<code-example path="testing/src/app/hero/hero-detail.component.spec.ts" region="override-component-method" header="app/hero/hero-detail.component.spec.ts (overrideComponent)"></code-example>
 
 It takes two arguments: the component type to override (`HeroDetailComponent`) and an override metadata object.
 The [override metadata object](#metadata-override-object) is a generic defined as follows:
@@ -4016,7 +3976,7 @@ The [override metadata object](#metadata-override-object) is a generic defined a
 它接受两个参数：要改写的组件类型（`HeroDetailComponent`），以及用于改写的元数据对象。
 [用于改写的元数据对象](#metadata-override-object)是一个泛型，其定义如下：
 
-<code-example format="." language="javascript">
+<code-example language="javascript">
   type MetadataOverride&lt;T&gt; = {
     add?: Partial&lt;T&gt;;
     remove?: Partial&lt;T&gt;;
@@ -4034,7 +3994,7 @@ The type parameter, `T`, is the kind of metadata you'd pass to the `@Component` 
 
 这个类型参数 `T` 就是你传给 `@Component` 装饰器的元数据：
 
-<code-example format="." language="javascript">
+<code-example language="javascript">
   selector?: string;
   template?: string;
   templateUrl?: string;
@@ -4067,7 +4027,7 @@ Accordingly, the stub implements its methods as spies:
 通过对该服务的方法进行刺探，`HeroDetailComponent` 的关联测试将会对 `HeroDetailService` 是否被调用过进行断言。
 因此，这个桩类会把它的方法实现为刺探方法：
 
-<code-example path="testing/src/app/hero/hero-detail.component.spec.ts" region="hds-spy" header="app/hero/hero-detail.component.spec.ts (HeroDetailServiceSpy)" linenums="false"></code-example>
+<code-example path="testing/src/app/hero/hero-detail.component.spec.ts" region="hds-spy" header="app/hero/hero-detail.component.spec.ts (HeroDetailServiceSpy)"></code-example>
 
 {@a override-tests}
 
@@ -4080,7 +4040,7 @@ and confirm that service methods were called.
 
 现在，测试程序可以通过操控这个 spy-stub 的 `testHero`，直接控制组件的英雄，并确认那个服务方法被调用过。
 
-<code-example path="testing/src/app/hero/hero-detail.component.spec.ts" region="override-tests" header="app/hero/hero-detail.component.spec.ts (override tests)" linenums="false"></code-example>
+<code-example path="testing/src/app/hero/hero-detail.component.spec.ts" region="override-tests" header="app/hero/hero-detail.component.spec.ts (override tests)"></code-example>
 
 {@a more-overrides}
 
@@ -4110,7 +4070,7 @@ Explore the options and combinations on your own.
 An _attribute directive_ modifies the behavior of an element, component or another directive.
 Its name reflects the way the directive is applied: as an attribute on a host element.
 
-**属性指令**修改元素、组件和其它指令的行为。正如它们的名字所示，它们是作为宿主元素的属性来被使用的。
+**属性型指令**修改元素、组件和其它指令的行为。正如它们的名字所示，它们是作为宿主元素的属性来被使用的。
 
 The sample application's `HighlightDirective` sets the background color of an element
 based on either a data bound color or a default color (lightgray).
@@ -4120,20 +4080,20 @@ for no reason other than to show that it can.
 本例子应用的 `HighlightDirective` 使用数据绑定的颜色或者默认颜色来设置元素的背景色。
 它同时设置元素的 `customProperty` 属性为 `true`，这里仅仅是为了显示它能这么做而已，并无其它原因。
 
-<code-example path="testing/src/app/shared/highlight.directive.ts" header="app/shared/highlight.directive.ts" linenums="false"></code-example>
+<code-example path="testing/src/app/shared/highlight.directive.ts" header="app/shared/highlight.directive.ts"></code-example>
 
 It's used throughout the application, perhaps most simply in the `AboutComponent`:
 
 它的使用贯穿整个应用，也许最简单的使用在 `AboutComponent` 里：
 
-<code-example path="testing/src/app/about/about.component.ts" header="app/about/about.component.ts" linenums="false"></code-example>
+<code-example path="testing/src/app/about/about.component.ts" header="app/about/about.component.ts"></code-example>
 
 Testing the specific use of the `HighlightDirective` within the `AboutComponent` requires only the
 techniques explored above (in particular the ["Shallow test"](#nested-component-tests) approach).
 
 要想在 `AboutComponent` 中测试 `HighlightDirective` 的具体用法，只要使用在[“浅层测试”](#nested-component-tests)部分用过的技术即可。
 
-<code-example path="testing/src/app/about/about.component.spec.ts" region="tests" header="app/about/about.component.spec.ts" linenums="false"></code-example>
+<code-example path="testing/src/app/about/about.component.spec.ts" region="tests" header="app/about/about.component.spec.ts"></code-example>
 
 However, testing a single use case is unlikely to explore the full range of a directive's capabilities.
 Finding and testing all components that use the directive is tedious, brittle, and almost as unlikely to afford full coverage.
@@ -4154,11 +4114,11 @@ A better solution is to create an artificial test component that demonstrates al
 
 更好的方法是创建一个能展示该指令所有用法的人造测试组件。
 
-<code-example path="testing/src/app/shared/highlight.directive.spec.ts" region="test-component" header="app/shared/highlight.directive.spec.ts (TestComponent)" linenums="false"></code-example>
+<code-example path="testing/src/app/shared/highlight.directive.spec.ts" region="test-component" header="app/shared/highlight.directive.spec.ts (TestComponent)"></code-example>
 
-<figure>
+<div class="lightbox">
   <img src='generated/images/guide/testing/highlight-directive-spec.png' alt="HighlightDirective spec in action">
-</figure>
+</div>
 
 <div class="alert is-helpful">
 
@@ -4232,7 +4192,7 @@ Here's a naive implementation with a regular expression.
 假设 `TitleCasePipe` 将每个单词的第一个字母变成大写。
 下面是使用正则表达式实现的简单代码：
 
-<code-example path="testing/src/app/shared/title-case.pipe.ts" header="app/shared/title-case.pipe.ts" linenums="false"></code-example>
+<code-example path="testing/src/app/shared/title-case.pipe.ts" header="app/shared/title-case.pipe.ts"></code-example>
 
 Anything that uses a regular expression is worth testing thoroughly.
 Use simple Jasmine to explore the expected cases and the edge cases.
@@ -4280,9 +4240,9 @@ Debug specs in the browser in the same way that you debug an application.
 
      点击“DEBUG”按钮；它打开一页新浏览器标签并重新开始运行测试程序
 
-  1. Open the browser's “Developer Tools” (`Ctrl-Shift-I` on windows; `Command-Option-I` in OSX).
+  1. Open the browser's “Developer Tools” (`Ctrl-Shift-I` on Windows; `Command-Option-I` in macOS).
 
-     打开浏览器的“Developer Tools”(Windows 上的 Ctrl-Shift-I 或者 OSX 上的 Command-Option-I)。
+     打开浏览器的“Developer Tools”(Windows 上的 Ctrl-Shift-I 或者 macOS 上的 Command-Option-I)。
 
   1. Pick the "sources" section.
 
@@ -4300,9 +4260,9 @@ Debug specs in the browser in the same way that you debug an application.
 
      刷新浏览器...然后它就会停在断点上。
 
-<figure>
+<div class="lightbox">
   <img src='generated/images/guide/testing/karma-1st-spec-debug.png' alt="Karma debugging">
-</figure>
+</div>
 
 <hr>
 
@@ -4562,9 +4522,9 @@ to get the basics before trying to absorb the full API.
 The module definition passed to `configureTestingModule`
 is a subset of the `@NgModule` metadata properties.
 
-传递给 `configureTestingModule` 的模块定义是 `@NgModule` 元数据属性的子集。
+传给 `configureTestingModule` 的模块定义是 `@NgModule` 元数据属性的子集。
 
-<code-example format="." language="javascript">
+<code-example language="javascript">
   type TestModuleMetadata = {
     providers?: any[];
     declarations?: any[];
@@ -4581,7 +4541,7 @@ appropriate to the method, that is, the parameter of an `@NgModule`,
 
 每一个重载方法接受一个 `MetadataOverride<T>`，这里 `T` 是适合这个方法的元数据类型，也就是 `@NgModule`、`@Component`、`@Directive` 或者 `@Pipe` 的参数。
 
-<code-example format="." language="javascript">
+<code-example language="javascript">
   type MetadataOverride&lt;T&gt; = {
     add?: Partial&lt;T&gt;;
     remove?: Partial&lt;T&gt;;
@@ -4593,7 +4553,7 @@ appropriate to the method, that is, the parameter of an `@NgModule`,
 
 {@a testbed-api-summary}
 
-The `TestBed` API consists of static class methods that either update or reference a _global_ instance of the`TestBed`.
+The `TestBed` API consists of static class methods that either update or reference a _global_ instance of the `TestBed`.
 
 `TestBed` 的 API 包含了一系列静态类方法，它们更新或者引用**全局**的 `TestBed` 实例。
 
@@ -4785,10 +4745,9 @@ Here are the most important static methods, in order of likely utility.
 
     <td style="vertical-align: top">
 
-      {@a testbed-get}
+      {@a testbed-inject}
 
-      <code>get</code>
-
+      <code>inject</code>
     </td>
 
     <td>
@@ -4806,17 +4765,17 @@ Here are the most important static methods, in order of likely utility.
 
       如果该服务是可选的呢？
 
-      The `TestBed.get()` method takes an optional second parameter,
+      The `TestBed.inject()` method takes an optional second parameter,
       the object to return if Angular can't find the provider
       (`null` in this example):
 
-      `TestBed.get()` 方法可以接受可选的第二参数，当 Angular 找不到指定的服务提供商时，就会返回该对象（下面这个例子中是 `null` ）：
+      `TestBed.inject()` 方法可以接受可选的第二参数，当 Angular 找不到指定的服务提供商时，就会返回该对象（下面这个例子中是 `null` ）：
 
-      <code-example path="testing/src/app/demo/demo.testbed.spec.ts" region="testbed-get-w-null" header="app/demo/demo.testbed.spec.ts" linenums="false"></code-example>
+      <code-example path="testing/src/app/demo/demo.testbed.spec.ts" region="testbed-get-w-null" header="app/demo/demo.testbed.spec.ts"></code-example>
 
-      After calling `get`, the `TestBed` configuration is frozen for the duration of the current spec.
+      After calling `TestBed.inject`, the `TestBed` configuration is frozen for the duration of the current spec.
 
-      一旦调用，`TestBed` 的配置就会在当前测试期间被冻结。
+      调用了 `TestBed.inject` 之后然后通过调用，`TestBed` 的配置就会在当前测试期间被冻结。
 
     </td>
 
@@ -5075,7 +5034,7 @@ Here are the most useful methods for testers.
       调用它来初始化组件（它调用 `ngOnInit`）。或者在你的测试代码改变了组件的数据绑定属性值后调用它。
       Angular 不能检测到你已经改变了 `personComponent.name` 属性，也不会更新 `name` 的绑定，直到你调用了 `detectChanges`。
 
-      Runs `checkNoChanges`afterwards to confirm that there are no circular updates unless
+      Runs `checkNoChanges` afterwards to confirm that there are no circular updates unless
       called as `detectChanges(false)`;
 
       之后，运行 `checkNoChanges`，来确认没有循环更新，除非它被这样调用：`detectChanges(false)`。
@@ -5540,7 +5499,7 @@ The following example finds all `DebugElements` with a reference to a template l
 这个条件方法是任何接受一个 `DebugElement` 并返回真值的方法。
 下面的例子查询所有拥有名为 `content` 的模块本地变量的所有 `DebugElement`：
 
-<code-example path="testing/src/app/demo/demo.testbed.spec.ts" region="custom-predicate" header="app/demo/demo.testbed.spec.ts" linenums="false"></code-example>
+<code-example path="testing/src/app/demo/demo.testbed.spec.ts" region="custom-predicate" header="app/demo/demo.testbed.spec.ts"></code-example>
 
 The Angular `By` class has three static methods for common predicates:
 
@@ -5558,7 +5517,7 @@ Angular 的 `By` 类为常用条件方法提供了三个静态方法：
 
    `By.directive(directive)` - 返回 Angular 能匹配一个指令类实例的所有元素。
 
-<code-example path="testing/src/app/hero/hero-list.component.spec.ts" region="by" header="app/hero/hero-list.component.spec.ts" linenums="false"></code-example>
+<code-example path="testing/src/app/hero/hero-list.component.spec.ts" region="by" header="app/hero/hero-list.component.spec.ts"></code-example>
 
 <hr>
 

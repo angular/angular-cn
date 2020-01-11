@@ -148,6 +148,9 @@ export declare class GuardsCheckStart extends RouterEvent {
     toString(): string;
 }
 
+/** @deprecated */
+export declare type InitialNavigation = true | false | 'enabled' | 'disabled' | 'legacy_enabled' | 'legacy_disabled';
+
 export declare type LoadChildren = LoadChildrenCallback | DeprecatedLoadChildren;
 
 export declare type LoadChildrenCallback = () => Type<any> | NgModuleFactory<any> | Observable<Type<any>> | Promise<NgModuleFactory<any> | Type<any> | any>;
@@ -254,6 +257,8 @@ export declare abstract class PreloadingStrategy {
 export declare const PRIMARY_OUTLET = "primary";
 
 export declare function provideRoutes(routes: Routes): any;
+
+export declare type QueryParamsHandling = 'merge' | 'preserve' | '';
 
 export interface Resolve<T> {
     resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<T> | Promise<T> | T;

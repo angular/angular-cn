@@ -1,4 +1,4 @@
-# Server-side Rendering (SSR): An intro to Angular Universal
+# Server-side rendering (SSR) with Angular Universal
 
 # Angular Universal：Angular 统一平台简介
 
@@ -6,7 +6,7 @@ This guide describes **Angular Universal**, a technology that renders Angular ap
 
 本指南讲的是**Angular Universal（统一平台）**，一项在服务端运行 Angular 应用的技术。
 
-A normal Angular application executes in the _browser_, rendering pages in the DOM in response to user actions. 
+A normal Angular application executes in the _browser_, rendering pages in the DOM in response to user actions.
 Angular Universal executes on the _server_, generating _static_ application pages that later get bootstrapped on
 the client. This means that the application generally renders more quickly, giving users a chance to view the application
 layout before it becomes fully interactive.
@@ -15,12 +15,12 @@ layout before it becomes fully interactive.
 而**Angular Universal** 会在*服务端*运行，生成一些*静态*的应用页面，稍后再通过客户端进行启动。
 这意味着该应用的渲染通常会更快，让用户可以在应用变得完全可交互之前，先查看应用的布局。
 
-For a more detailed look at different techniques and concepts surrounding SSR, please check out this 
+For a more detailed look at different techniques and concepts surrounding SSR, please check out this
 [article](https://developers.google.com/web/updates/2019/02/rendering-on-the-web).
 
 要了解 SSR 的其它技术和概念的详细信息，请参见[这篇文章](https://developers.google.com/web/updates/2019/02/rendering-on-the-web)。
 
-You can easily prepare an app for server-side rendering using the [Angular CLI](guide/glossary#cli). 
+You can easily prepare an app for server-side rendering using the [Angular CLI](guide/glossary#cli).
 The CLI schematic `@nguniversal/express-engine` performs the required steps, as described below.
 
 你可以使用 [Angular CLI](guide/glossary#cli) 来轻松为应用做好服务端渲染的准备。CLI 的 `@nguniversal/express-engine` 模板会执行下面所讲的必要步骤。
@@ -41,7 +41,7 @@ The CLI schematic `@nguniversal/express-engine` performs the required steps, as 
 ## Universal 教程
 
 
-The [Tour of Heroes tutorial](tutorial) is the foundation for this walkthrough. 
+The [Tour of Heroes tutorial](tutorial) is the foundation for this walkthrough.
 
 这次演练的基础是[“英雄指南”教程](tutorial) 。
 
@@ -57,9 +57,9 @@ To create the server-side app module, `app.server.module.ts`, run the following 
 要创建服务端应用模块 `app.server.module.ts`，请运行以下 CLI 命令。
 
 
-<code-example format="." language="bash">
+<code-example language="bash">
 
-ng add @nguniversal/express-engine --clientProject angular.io-example
+ng add @nguniversal/express-engine
 
 </code-example>
 
@@ -68,7 +68,7 @@ The command creates the following folder structure.
 该命令会创建如下文件夹结构。
 
 
-<code-example format="." language="none" linenums="false">
+<code-example language="none">
 src/
   index.html                 <i>app web page</i>
   main.ts                    <i>bootstrapper for client app</i>
@@ -82,7 +82,6 @@ tsconfig.app.json            <i>TypeScript client configuration</i>
 tsconfig.server.json         <i>* TypeScript server configuration</i>
 tsconfig.spec.json           <i>TypeScript spec configuration</i>
 package.json                 <i>npm configuration</i>
-webpack.server.config.js     <i>* webpack server configuration</i>
 </code-example>
 
 The files marked with `*` are new and not in the original tutorial sample.
@@ -100,7 +99,7 @@ To start rendering your app with Universal on your local system, use the followi
 要使用 Universal 在本地系统中渲染你的应用，请使用如下命令。
 
 
-<code-example format="." language="bash" linenums="false">
+<code-example language="bash">
 npm run build:ssr && npm run serve:ssr
 </code-example>
 
@@ -117,7 +116,7 @@ You can click a hero on the Dashboard page to display its Details page.
 通过 `routerLinks` 导航时能正常工作，因为它们使用的是原生的链接标签（`<a>`）。你可以从仪表盘进入 英雄列表页面，然后返回。你可以点击仪表盘页面上的一个英雄来显示他的详情页面。
 
 
-If you throttle your network speed so that the client-side scripts take longer to download (instructions below), 
+If you throttle your network speed so that the client-side scripts take longer to download (instructions below),
 you'll notice:
 
 如果你限制下网速（稍后会讲操作步骤），让客户端脚本下载时间变长，你会注意到：
@@ -141,7 +140,7 @@ you'll notice:
 
 
 User events other than `routerLink` clicks aren't supported.
-You must wait for the full client app to bootstrap and run, or buffer the events using libraries like 
+You must wait for the full client app to bootstrap and run, or buffer the events using libraries like
 [preboot](https://github.com/angular/preboot), which allow you to replay these events once the client-side scripts load.
 
 不支持除了点击 `routerLink` 以外的任何用户事件。你必须等待完整的客户端应用启动并运行，或者使用 [preboot 之类的](https://github.com/angular/preboot)库来缓冲这些事件，这样你就可以在客户端脚本加载完毕后重放这些事件。
@@ -162,7 +161,7 @@ You can simulate a slower network to see the transition more clearly as follows:
 
    打开 Chrome 开发者工具，进入 Network 标签页。
 
-1. Find the [Network Throttling](https://developers.google.com/web/tools/chrome-devtools/network-performance/reference#throttling) 
+1. Find the [Network Throttling](https://developers.google.com/web/tools/chrome-devtools/network-performance/reference#throttling)
    dropdown on the far right of the menu bar.
 
    找一下菜单栏最右侧的 [Network Throttling](https://developers.google.com/web/tools/chrome-devtools/network-performance/reference#throttling) 下拉菜单。
@@ -205,7 +204,7 @@ There are three main reasons to create a Universal version of your app.
 
 ### 帮助网络爬虫（SEO）
 
-Google, Bing, Facebook, Twitter, and other social media sites rely on web crawlers to index your application content and 
+Google, Bing, Facebook, Twitter, and other social media sites rely on web crawlers to index your application content and
 make that content searchable on the web.
 
 Google、Bing、Facebook、Twitter 和其它社交媒体网站都依赖网络爬虫去索引你的应用内容，并且让它的内容可以通过网络搜索到。
@@ -243,7 +242,7 @@ Displaying the first page quickly can be critical for user engagement.
 
 快速显示第一页对于吸引用户是至关重要的。
 
-[53 percent of mobile site visits are abandoned](https://www.thinkwithgoogle.com/marketing-resources/data-measurement/mobile-page-speed-new-industry-benchmarks/) 
+[53 percent of mobile site visits are abandoned](https://www.thinkwithgoogle.com/marketing-resources/data-measurement/mobile-page-speed-new-industry-benchmarks/)
 if pages take longer than 3 seconds to load.
 Your app may have to launch faster to engage these users before they decide to do something else.
 
@@ -259,7 +258,7 @@ The pages don't handle browser events, but they _do_ support navigation through 
 这些页面不会处理浏览器事件，不过它们*可以*用 `[routerLink](guide/router#router-link)` 在这个网站中导航。
 
 In practice, you'll serve a static version of the landing page to hold the user's attention.
-At the same time, you'll load the full Angular app behind it. 
+At the same time, you'll load the full Angular app behind it.
 The user perceives near-instant performance from the landing page
 and gets the full interactive experience after the full app loads.
 
@@ -272,7 +271,7 @@ and gets the full interactive experience after the full app loads.
 
 ## Universal Web 服务器
 
-A Universal web server responds to application page requests with static HTML rendered by the [Universal template engine](#universal-engine). 
+A Universal web server responds to application page requests with static HTML rendered by the [Universal template engine](#universal-engine).
 The server receives and responds to HTTP requests from clients (usually browsers), and serves static assets such as scripts, CSS, and images.
 It may respond to data requests, either directly or as a proxy to a separate data server.
 
@@ -286,30 +285,30 @@ The sample web server for this guide is based on the popular [Express](https://e
 
 <div class="alert is-helpful">
 
-  **Note:** _Any_ web server technology can serve a Universal app as long as it can call Universal's `renderModuleFactory()` function.
+  **Note:** _Any_ web server technology can serve a Universal app as long as it can call Universal's `renderModule()` function.
   The principles and decision points discussed here apply to any web server technology.
 
-  **注意：** **任何一种** Web 服务器技术都可以作为 Universal 应用的服务器，只要它能调用 Universal 的 `renderModuleFactory()` 函数。
+  **注意：** **任何一种** Web 服务器技术都可以作为 Universal 应用的服务器，只要它能调用 Universal 的 `renderModule()` 函数。
   这里所讨论的这些原则和决策点也适用于任何 Web 服务器技术。
 
 </div>
 
-Universal applications use the Angular `platform-server` package (as opposed to `platform-browser`), which provides 
+Universal applications use the Angular `platform-server` package (as opposed to `platform-browser`), which provides
 server implementations of the DOM, `XMLHttpRequest`, and other low-level features that don't rely on a browser.
 
 Universal 应用使用 `platform-server` 包（而不是 `platform-browser`），它提供了 DOM 的服务端实现、`XMLHttpRequest` 以及其它不依赖浏览器的底层特性。
 
 The server ([Node Express](https://expressjs.com/) in this guide's example)
 passes client requests for application pages to the NgUniversal `ngExpressEngine`. Under the hood, this
-calls Universal's `renderModuleFactory()` function, while providing caching and other helpful utilities.
+calls Universal's `renderModule()` function, while providing caching and other helpful utilities.
 
-服务器（这个例子中使用的是 [Node Express](https://expressjs.com/) 服务器）会把客户端对应用页面的请求传给 NgUniversal 的 `ngExpressEngine`。在内部实现上，它会调用 Universal 的 `renderModuleFactory()` 函数，它还提供了缓存等有用的工具函数。
+服务器（这个例子中使用的是 [Node Express](https://expressjs.com/) 服务器）会把客户端对应用页面的请求传给 NgUniversal 的 `ngExpressEngine`。在内部实现上，它会调用 Universal 的 `renderModule()` 函数，它还提供了缓存等有用的工具函数。
 
-The `renderModuleFactory()` function takes as inputs a *template* HTML page (usually `index.html`),
+The `renderModule()` function takes as inputs a *template* HTML page (usually `index.html`),
 an Angular *module* containing components,
 and a *route* that determines which components to display.
 
-`renderModuleFactory()` 函数接受一个*模板* HTML 页面（通常是 `index.html`）、一个包含组件的 Angular *模块*和一个用于决定该显示哪些组件的*路由*作为输入。
+`renderModule()` 函数接受一个*模板* HTML 页面（通常是 `index.html`）、一个包含组件的 Angular *模块*和一个用于决定该显示哪些组件的*路由*作为输入。
 
 The route comes from the client's request to the server.
 
@@ -319,10 +318,10 @@ Each request results in the appropriate view for the requested route.
 
 每次请求都会给出所请求路由的一个适当的视图。
 
-The `renderModuleFactory()` function renders the view within the `<app>` tag of the template, 
-creating a finished HTML page for the client. 
+The `renderModule()` function renders the view within the `<app>` tag of the template,
+creating a finished HTML page for the client.
 
-`renderModuleFactory()` 在模板中的 `<app>` 标记中渲染出这个视图，并为客户端创建一个完成的 HTML 页面。
+`renderModule()` 在模板中的 `<app>` 标记中渲染出这个视图，并为客户端创建一个完成的 HTML 页面。
 
 Finally, the server returns the rendered page to the client.
 
@@ -337,13 +336,13 @@ Because a Universal app doesn't execute in the browser, some of the browser APIs
 由于 Universal 应用并没有运行在浏览器中，因此该服务器上可能会缺少浏览器的某些 API 和其它能力。
 
 
-For example, server-side applications can't reference browser-only global objects such as `window`, `document`, `navigator`, or `location`. 
+For example, server-side applications can't reference browser-only global objects such as `window`, `document`, `navigator`, or `location`.
 
 比如，服务端应用不能引用浏览器独有的全局对象，比如 `window`、`document`、`navigator` 或 `location`。
 
-Angular provides some injectable abstractions over these objects, such as [`Location`](api/common/Location) 
+Angular provides some injectable abstractions over these objects, such as [`Location`](api/common/Location)
 or [`DOCUMENT`](api/common/DOCUMENT); it may substitute adequately for these APIs.
-If Angular doesn't provide it, it's possible to write new abstractions that delegate to the browser APIs while in the browser 
+If Angular doesn't provide it, it's possible to write new abstractions that delegate to the browser APIs while in the browser
 and to an alternative implementation while on the server (aka shimming).
 
 Angular 提供了一些这些对象的可注入的抽象层，比如 [`Location`](api/common/Location) 或 [`DOCUMENT`](api/common/DOCUMENT)，它可以作为你所调用的 API 的等效替身。
@@ -366,7 +365,7 @@ Universal 应用必须仅仅根据客户端过来的请求决定要渲染的内�
 The tutorial's `HeroService` and `HeroSearchService` delegate to the Angular `HttpClient` module to fetch application data.
 These services send requests to _relative_ URLs such as `api/heroes`.
 In a Universal app, HTTP URLs must be _absolute_(for example, `https://my-server.com/api/heroes`).
-This means you need to change your services to make requests with absolute URLs when running on the server and with relative 
+This means you need to change your services to make requests with absolute URLs when running on the server and with relative
 URLs when running in the browser.
 
 教程中的 `HeroService` 和 `HeroSearchService` 都委托了 Angular 的 `HttpClient` 模块来获取应用数据。
@@ -381,11 +380,11 @@ the work is already done. We'll assume this is the case, but it's trivial to pro
 
 解决方案之一是在服务器上运行时提供完整的 URL，并且写拦截器来获取这个值，并把它追加到请求 URL 的前部。假设你在使用 `ngExpressEngine`（就像本章的例子一样），大约一半儿的工作就已经就绪了。这里我们就基于此假设，但即使要自行实现同样的功能也很简单。
 
-Start by creating an [HttpInterceptor](api/common/http/HttpInterceptor):
+Start by creating an [HttpInterceptor](api/common/http/HttpInterceptor).
 
 我们从创建 [HttpInterceptor](api/common/http/HttpInterceptor) 开始：
 
-<code-example format="." language="typescript">
+<code-example language="typescript" header="universal-interceptor.ts">
 
 import {Injectable, Inject, Optional} from '@angular/core';
 import {HttpInterceptor, HttpHandler, HttpRequest, HttpHeaders} from '@angular/common/http';
@@ -413,11 +412,11 @@ export class UniversalInterceptor implements HttpInterceptor {
 
 </code-example>
 
-Next, provide the interceptor in the providers for the server `AppModule` (app.server.module.ts):
+Next, provide the interceptor in the providers for the server `AppModule`.
 
 接下来，在服务端的 `AppModule` (app.server.module.ts) 的 `providers` 中提供这个拦截器：
 
-<code-example format="." language="typescript">
+<code-example language="typescript" header="app.server.module.ts">
 
 import {HTTP_INTERCEPTORS} from '@angular/common/http';
 import {UniversalInterceptor} from './universal-interceptor';
@@ -452,10 +451,10 @@ The important bit in the `server.ts` file is the `ngExpressEngine()` function.
 <code-example path="universal/server.ts" header="server.ts" region="ngExpressEngine">
 </code-example>
 
-The `ngExpressEngine()` function is a wrapper around Universal's `renderModuleFactory()` function which turns a client's 
+The `ngExpressEngine()` function is a wrapper around Universal's `renderModule()` function which turns a client's
 requests into server-rendered HTML pages.
 
-`ngExpressEngine()` 是对 Universal 的 `renderModuleFactory()` 函数的封装。它会把客户端请求转换成服务端渲染的 HTML 页面。
+`ngExpressEngine()` 是对 Universal 的 `renderModule()` 函数的封装。它会把客户端请求转换成服务端渲染的 HTML 页面。
 你还要在某个适用于你服务端技术栈的*模板引擎*中调用这个函数。
 
 * The first parameter is `AppServerModule`.
@@ -464,9 +463,9 @@ It's the bridge between the Universal server-side renderer and the Angular appli
   第一个参数是 `AppServerModule`。
   它是 Universal 服务端渲染器和你的应用之间的桥梁。
 
-* The second parameter, `extraProviders`, is optional. It lets you specify dependency providers that apply only when 
+* The second parameter, `extraProviders`, is optional. It lets you specify dependency providers that apply only when
 running on this server.
-You can do this when your app needs information that can only be determined by the currently running server instance. 
+You can do this when your app needs information that can only be determined by the currently running server instance.
 One example could be the running server's *origin*, which could be used to [calculate absolute HTTP URLs](#http-urls) if
 not using the `Request` token as shown above.
 
@@ -485,10 +484,10 @@ which then forwards it to the client in the HTTP response.
 
 <div class="alert is-helpful">
 
-  **Note:**  These wrappers help hide the complexity of the `renderModuleFactory()` function. There are more wrappers 
+  **Note:**  These wrappers help hide the complexity of the `renderModule()` function. There are more wrappers
   for different backend technologies at the [Universal repository](https://github.com/angular/universal).
 
-  **注意：** 这个包装器帮助隐藏了 `renderModuleFactory()` 的复杂性。
+  **注意：** 这个包装器帮助隐藏了 `renderModule()` 的复杂性。
   在 [Universal 代码库中](https://github.com/angular/universal)还有更多针对其它后端技术的包装器。
 
 </div>
@@ -538,14 +537,13 @@ Because we use routing, we can easily recognize the three types of requests and 
 
    **静态资源**：所有其它请求。
 
-A Node Express server is a pipeline of middleware that filters and processes requests one after the other. 
+A Node Express server is a pipeline of middleware that filters and processes requests one after the other.
 You configure the Node Express server pipeline with calls to `app.get()` like this one for data requests.
 
 Node Express 服务器是一系列中间件构成的管道，它会挨个对 URL 请求进行过滤和处理。
 你可以调用 `app.get()` 来配置 Express 服务器的管道，就像下面这个数据请求一样：
 
-<code-example path="universal/server.ts" header="server.ts (data URL)" region="data-request" linenums="false">
-</code-example>
+<code-example path="universal/server.ts" header="server.ts (data URL)" region="data-request"></code-example>
 
 <div class="alert is-helpful">
 
@@ -566,8 +564,7 @@ The following code filters for request URLs with no extensions and treats them a
 
 下列代码会过滤出不带扩展名的 URL，并把它们当做导航请求进行处理。
 
-<code-example path="universal/server.ts" header="server.ts (navigation)" region="navigation-request" linenums="false">
-</code-example>
+<code-example path="universal/server.ts" header="server.ts (navigation)" region="navigation-request"></code-example>
 
 ### Serving static files safely
 
@@ -578,15 +575,14 @@ such as JavaScript, image, and style files.
 
 单独的 `app.use()` 会处理所有其它 URL，比如对 JavaScript 、图片和样式表等静态资源的请求。
 
-To ensure that clients can only download the files that they are permitted to see, put all client-facing asset files in 
+To ensure that clients can only download the files that they are permitted to see, put all client-facing asset files in
 the `/dist` folder and only honor requests for files from the `/dist` folder.
 
 要保证客户端只能下载那些*允许*他们访问的文件，你应该把所有面向客户端的资源文件都放在 `/dist` 目录下，并且只允许客户端请求来自 `/dist` 目录下的文件。
 
-The following Node Express code routes all remaining requests to `/dist`, and returns a `404 - NOT FOUND` error if the 
+The following Node Express code routes all remaining requests to `/dist`, and returns a `404 - NOT FOUND` error if the
 file isn't found.
 
 下列 Express 代码会把剩下的所有请求都路由到 `/dist` 目录下，如果文件未找到，就会返回 `404 - NOT FOUND`。
 
-<code-example path="universal/server.ts" header="server.ts (static files)" region="static" linenums="false">
-</code-example>
+<code-example path="universal/server.ts" header="server.ts (static files)" region="static"></code-example>

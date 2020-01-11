@@ -1,4 +1,4 @@
-# Angular Elements Overview
+# Angular elements overview
 
 # Angular 元素（Elements）概览
 
@@ -78,15 +78,13 @@ After you register your configured class with the browser's custom-element regis
 
 ```
 
-When your custom element is placed on a page, the browser creates an instance of the registered class and adds it to the DOM. The content is provided by the component's template, which  uses Angular template syntax, and is rendered using the component and DOM data. Input properties in the component correspond to input attributes for the element.
+When your custom element is placed on a page, the browser creates an instance of the registered class and adds it to the DOM. The content is provided by the component's template, which uses Angular template syntax, and is rendered using the component and DOM data. Input properties in the component correspond to input attributes for the element.
 
 当你的自定义元素放进页面中时，浏览器会创建一个已注册类的实例。其内容是由组件模板提供的，它使用 Angular 模板语法，并且使用组件和 DOM 数据进行渲染。组件的输入属性（Property）对应于该元素的输入属性（Attribute）。
 
-<figure>
-
-<img src="generated/images/guide/elements/customElement1.png" alt="Custom element in browser" class="left">
-
-</figure>
+<div class="lightbox">
+  <img src="generated/images/guide/elements/customElement1.png" alt="Custom element in browser" class="left">
+</div>
 
 <hr class="clear">
 
@@ -113,11 +111,9 @@ When the browser encounters the tag for the registered element, it uses the cons
 然后用 JavaScript 的 `customElements.define()` 函数把这个配置好的构造器和相关的自定义元素标签注册到浏览器的 `CustomElementRegistry` 中。
 当浏览器遇到这个已注册元素的标签时，就会使用该构造器来创建一个自定义元素的实例。
 
-<figure>
-
-<img src="generated/images/guide/elements/createElement.png" alt="Transform a component to a custom element" class="left">
-
-</figure>
+<div class="lightbox">
+  <img src="generated/images/guide/elements/createElement.png" alt="Transform a component to a custom element" class="left">
+</div>
 
 ### Mapping
 
@@ -228,9 +224,9 @@ The recently-developed [custom elements](https://developer.mozilla.org/en-US/doc
   <td>Firefox</td>
   <td>
 
-  Supported natively as of version 63. In older versions: Set the <code>dom.webcomponents.enabled</code> and <code>dom.webcomponents.customelements.enabled</code> preferences to true.
+  Supported natively.
 
-  在 63 版中原生支持。对于老版本，可以把 <code>dom.webcomponents.enabled</code> 和 <code>dom.webcomponents.customelements.enabled</code> 首选项设置为 true。
+  原生支持。
 
   </td>
 </tr>
@@ -339,7 +335,7 @@ Generic DOM APIs, such as `document.createElement()` or `document.querySelector(
 
 一般的 DOM API，比如 `document.createElement()` 或 `document.querySelector()`，会返回一个与指定的参数相匹配的元素类型。比如，调用 `document.createElement('a')` 会返回 `HTMLAnchorElement`，这样 TypeScript 就会知道它有一个 `href` 属性，而 `document.createElement('div')` 会返回 `HTMLDivElement`，这样 TypeScript 就会知道它没有 `href` 属性。
 
-When called with unknown elements, such as a custom element name (`popup-element` in our example), the methods will return a generic type, such as `HTMLELement`, since TypeScript can't infer the correct type of the returned element.
+When called with unknown elements, such as a custom element name (`popup-element` in our example), the methods will return a generic type, such as `HTMLElement`, since TypeScript can't infer the correct type of the returned element.
 
 当调用未知元素（比如自定义的元素名 `popup-element`）时，该方法会返回泛化类型，比如 `HTMLELement`，这时候 TypeScript 就无法推断出所返回元素的正确类型。
 
@@ -373,9 +369,9 @@ This is a good way to quickly get TypeScript features, such as type checking and
 
 这是一种让你的自定义元素快速获得 TypeScript 特性（比如类型检查和自动完成支持）的好办法，不过如果你要在多个地方使用它，可能会有点啰嗦，因为不得不在每个地方对返回类型做转换。
 
-An alternative way, that only requires defining each custom element's type once, is augmenting the `HTMLELementTagNameMap`, which TypeScript uses to infer the type of a returned element based on its tag name (for DOM methods such as `document.createElement()`, `document.querySelector()`, etc.):
+An alternative way, that only requires defining each custom element's type once, is augmenting the `HTMLElementTagNameMap`, which TypeScript uses to infer the type of a returned element based on its tag name (for DOM methods such as `document.createElement()`, `document.querySelector()`, etc.):
 
-另一种方式可以对每个自定义元素的类型只声明一次。你可以扩展 `HTMLELementTagNameMap`，TypeScript 会在 DOM 方法（如 `document.createElement()`、`document.querySelector()` 等）中用它来根据标签名推断返回元素的类型。
+另一种方式可以对每个自定义元素的类型只声明一次。你可以扩展 `HTMLElementTagNameMap`，TypeScript 会在 DOM 方法（如 `document.createElement()`、`document.querySelector()` 等）中用它来根据标签名推断返回元素的类型。
 
 ```ts
 declare global {

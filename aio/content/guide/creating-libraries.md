@@ -1,4 +1,4 @@
-# Creating Libraries
+﻿# Creating libraries
 
 # 创建库
 
@@ -23,9 +23,16 @@ Use the Angular CLI to generate a new library skeleton with the following comman
 
 使用 Angular CLI，用以下命令生成一个新库的骨架：
 
-<code-example format="." language="bash">
+<code-example language="bash">
+ ng new my-workspace --create-application=false
+ cd my-workspace
  ng generate library my-lib
 </code-example>
+
+<div class="alert is-helpful">
+     <p>You can use the monorepo model to use the same workspace for multiple projects. See <a href="guide/file-structure#multiple-projects">Setting up for a multi-project workspace</a>.</p>
+     <p>你可以使用单一仓库（monorepo）模式将同一个工作空间用于多个项目。请参见<a href="guide/file-structure#multiple-projects">设置多项目工作区</a>。</p>
+</div>
 
 This creates the `projects/my-lib` folder in your workspace, which contains a component and a service inside an NgModule.
 The workspace configuration file, `angular.json`, is updated with a project of type 'library'.
@@ -50,13 +57,13 @@ You can build, test, and lint the project with CLI commands:
 
 你可以使用 CLI 命令来构建、测试和 lint 这个项目：
 
-<code-example format="." language="bash">
+<code-example language="bash">
  ng build my-lib
  ng test my-lib
  ng lint my-lib
 </code-example>
 
-Notice that the configured builder for the  project is different from the default builder for app projects.
+Notice that the configured builder for the project is different from the default builder for app projects.
 This builder, among other things, ensures that the library is always built with the [AoT compiler](guide/aot-compiler), without the need to specify the `--prod` flag.
 
 注意，该项目配置的构建器与应用类项目的默认构建器不同。此构建器可以确保库永远使用 [AoT 编译器](guide/aot-compiler)构建，而不必再指定`--prod`标志。
@@ -94,7 +101,7 @@ Here are some things to consider in migrating application functionality to a lib
 
 * Components should expose their interactions through inputs for providing context, and outputs for communicating events to other components.
 
-    组件对外暴露交互方式时，应该通过输入参数来提供上下文，通过输出参数来将事件传递给其他组件。
+    组件对外暴露交互方式时，应该通过输入参数来提供上下文，通过输出参数来将事件传给其他组件。
 
 * Services should declare their own providers (rather than declaring providers in the NgModule or a component), so that they are *tree-shakable*. This allows the compiler to leave the service out of the bundle if it never gets injected into the application that imports the library. For more about this, see [Tree-shakable providers](guide/dependency-injection-providers#tree-shakable-providers).
 
@@ -163,7 +170,7 @@ A library can include [schematics](guide/glossary#schematic) that allow it to in
 
 * Include an update schematic so that `ng update` can update your library’s dependencies and provide migrations for breaking changes in new releases.
 
-    包含一个更新（update）原理图 ，以便 `ng update` 可以更新此库的依赖，并针对新版本中的破坏性变更提供辅助迁移。
+    包含一个更新（update）原理图 ，以便 `ng update` 可以更新此库的依赖，并针对新版本中的重大变更提供辅助迁移。
 
 To learn more, see [Schematics Overview](guide/schematics) and [Schematics for Libraries](guide/schematics-for-libraries).
 
@@ -173,13 +180,12 @@ To learn more, see [Schematics Overview](guide/schematics) and [Schematics for
 
 ## 发布你的库
 
-Use the Angular CLI and the npm package manager to build and publish your library as an npm package.
-Libraries are built in [AoT mode](guide/aot-compiler) by default, so you do not need to specify the `-prod` flag when building for publication.
+Use the Angular CLI and the npm package manager to build and publish your library as an npm package. It is not recommended to publish Ivy libraries to NPM repositories. Before publishing a library to NPM, build it using the `--prod` flag which will use the older compiler and runtime known as View Engine instead of Ivy.
 
-使用 Angular CLI 和 npm 包管理器来把你的库构建并发布成 npm 包。默认情况下，库是在 [AoT模式](guide/aot-compiler) 下构建的，因此在构建发布时你不需要指定`-prod`标志。
+使用 Angular CLI 和 npm 包管理器来把你的库构建并发布成 npm 包。不建议把 Ivy 格式的库发布到 NPM 仓库。在把某个库发布到 NPM 之前，使用 `--prod` 标志构建它，此标志会使用老的编译器和运行时，也就是视图引擎（View Engine），以代替 Ivy.
 
-<code-example format="." language="bash">
-ng build my-lib
+<code-example language="bash">
+ng build my-lib --prod
 cd dist/my-lib
 npm publish
 </code-example>
@@ -257,7 +263,7 @@ To use your own library in an app:
 
   构建该库。在构建之前，无法使用库。
 
- <code-example format="." language="bash">
+ <code-example language="bash">
  ng build my-lib
  </code-example>
 
@@ -280,7 +286,7 @@ For instance, if you clone your git repository and run `npm install`, your edito
 <div class="alert is-helpful">
 
 When you import something from a library in an Angular app, Angular looks for a mapping between the library name and a location on disk.
-When you install a library package, the mapping is in the `node_modules` folder. When you build your own library, it has to find the mapping  in your `tsconfig` paths.
+When you install a library package, the mapping is in the `node_modules` folder. When you build your own library, it has to find the mapping in your `tsconfig` paths.
 
 当你在 Angular 应用中从某个库导入一些东西时，Angular 就会寻找库名和磁盘上某个位置之间的映射关系。当你用 npm 包安装该库时，它就映射到 `node_modules` 目录下。当你自己构建库时，它就会在 `tsconfig` 路径中查找这个映射。
 
@@ -301,10 +307,38 @@ Every time a file is changed a partial build is performed that emits the amended
 
 每当你对它进行修改时，都可以重建你的库，但这个额外的步骤需要时间。*增量构建*功能可以改善库的开发体验。每当文件发生变化时，都会执行局部构建，并修补一些文件。
 
-Incremental builds can be run as a backround process in your dev environment. To take advantage of this feature add the `--watch` flag to the build command:
+Incremental builds can be run as a background process in your dev environment. To take advantage of this feature add the `--watch` flag to the build command:
 
 增量构建可以作为开发环境中的后台进程运行。要启用这个特性，可以在构建命令中加入 `--watch` 标志：
 
-<code-example format="." language="bash">
+<code-example language="bash">
 ng build my-lib --watch
 </code-example>
+
+<div class="alert is-important">
+
+The CLI `build` command uses a different builder and invokes a different build tool for libraries than it does for applications.
+
+CLI 的 `build` 命令为库使用与应用程序不同的构建器，并调用不同的构建工具。
+
+* The build system for apps, `@angular-devkit/build-angular`, is based on `webpack`, and is included in all new Angular CLI projects.
+
+  应用程序的构建体系（`@angular-devkit/build-angular`）基于 `webpack`，并被包含在所有新的 Angular CLI 项目中。
+
+* The build system for libraries is based on `ng-packagr`. It is only added to your dependencies when you add a library using `ng generate library my-lib`.
+
+  库的构建体系基于 `ng-packagr`。只有在使用 `ng generate library my-lib` 添加库时，它才会添加到依赖项中。
+
+The two build systems support different things, and even where they support the same things, they do those things differently.
+This means that the TypeScript source can result in different JavaScript code in a built library than it would in a built application.
+
+这两种构建体系支持不同的东西，即使它们支持相同的东西，它们的执行方式也不同。
+这意味着同一套 TypeScript 源码在生成库时生成的 JavaScript 代码可能与生成应用时生成的 JavaScript 代码也不同。
+
+For this reason, an app that depends on a library should only use TypeScript path mappings that point to the *built library*.
+TypeScript path mappings should *not* point to the library source `.ts` files.
+
+因此，依赖于库的应用应应该仅只使用指向*内置库*的 TypeScript 路径映射。
+TypeScript 的路径映射*不应该*指向库的 `.ts` 源文件。
+
+</div>

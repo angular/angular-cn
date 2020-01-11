@@ -1,4 +1,4 @@
-# Lifecycle Hooks
+# Lifecycle hooks
 
 # 生命周期钩子
 
@@ -6,15 +6,14 @@ A component has a lifecycle managed by Angular.
 
 每个组件都有一个被 Angular 管理的生命周期。
 
-Angular creates it, renders it, creates and renders its children,
-checks it when its data-bound properties change, and destroys it before removing it from the DOM.
+Angular creates and renders components along with their children, checks when their data-bound properties change, and destroys them before removing them from the DOM.
 
-Angular 创建它，渲染它，创建并渲染它的子组件，在它被绑定的属性发生变化时检查它，并在它从 DOM 中被移除前销毁它。
+Angular 创建和渲染组件及其子组件，当它们绑定的属性发生变化时检查它们，并在从 DOM 中移除它之前销毁它们。
 
 Angular offers **lifecycle hooks**
 that provide visibility into these key life moments and the ability to act when they occur.
 
-Angular 提供了**生命周期钩子**，把这些关键生命时刻暴露出来，赋予你在它们发生时采取行动的能力。
+Angular 提供了**生命周期钩子**，把它们生命中的这些关键时刻暴露出来，赋予你在它们发生时采取行动的能力。
 
 A directive has the same set of lifecycle hooks.
 
@@ -41,7 +40,7 @@ that Angular calls shortly after creating the component:
 每个接口都有唯一的一个钩子方法，它们的名字是由接口名再加上 `ng` 前缀构成的。比如，`OnInit` 接口的钩子方法叫做 `ngOnInit`，
 Angular 在创建组件后立刻调用它，：
 
-<code-example path="lifecycle-hooks/src/app/peek-a-boo.component.ts" region="ngOnInit" header="peek-a-boo.component.ts (excerpt)" linenums="false"></code-example>
+<code-example path="lifecycle-hooks/src/app/peek-a-boo.component.ts" region="ngOnInit" header="peek-a-boo.component.ts (excerpt)"></code-example>
 
 No directive or component will implement all of the lifecycle hooks.
 Angular only calls a directive/component hook method *if it is defined*.
@@ -518,9 +517,9 @@ This snapshot reflects the state of the log after the user clicked the *Create..
 
 用户点击**Create...**按钮，然后点击**Destroy...**按钮后，日志的状态如下图所示：
 
-<figure>
+<div class="lightbox">
   <img src="generated/images/guide/lifecycle-hooks/peek-a-boo.png" alt="Peek-a-boo">
-</figure>
+</div>
 
 The sequence of log messages follows the prescribed hook calling order:
 `OnChanges`, `OnInit`, `DoCheck`&nbsp;(3x), `AfterContentInit`, `AfterContentChecked`&nbsp;(3x),
@@ -593,7 +592,7 @@ that log messages to the parent via an injected `LoggerService`.
 
 这个鬼鬼祟祟的侦探指令很简单，几乎完全由 `ngOnInit()` 和 `ngOnDestroy()` 钩子组成，它通过一个注入进来的 `LoggerService` 把消息记录到父组件中去。
 
-<code-example path="lifecycle-hooks/src/app/spy.directive.ts" region="spy-directive" header="src/app/spy.directive.ts" linenums="false"></code-example>
+<code-example path="lifecycle-hooks/src/app/spy.directive.ts" region="spy-directive" header="src/app/spy.directive.ts"></code-example>
 
 You can apply the spy to any native or component element and it'll be initialized and destroyed
 at the same time as that element.
@@ -602,16 +601,16 @@ Here it is attached to the repeated hero `<div>`:
 你可以把这个侦探指令写到任何原生元素或组件元素上，它将与所在的组件同时初始化和销毁。
 下面是把它附加到用来重复显示英雄数据的这个 `<div>` 上。
 
-<code-example path="lifecycle-hooks/src/app/spy.component.html" region="template" header="src/app/spy.component.html" linenums="false"></code-example>
+<code-example path="lifecycle-hooks/src/app/spy.component.html" region="template" header="src/app/spy.component.html"></code-example>
 
 Each spy's birth and death marks the birth and death of the attached hero `<div>`
 with an entry in the *Hook Log* as seen here:
 
 每个“侦探”的出生和死亡也同时标记出了存放英雄的那个 `<div>` 的出生和死亡。*钩子记录*中的结构是这样的：
 
-<figure>
+<div class="lightbox">
   <img src='generated/images/guide/lifecycle-hooks/spy-directive.gif' alt="Spy Directive">
-</figure>
+</div>
 
 Adding a hero results in a new hero `<div>`. The spy's `ngOnInit()` logs that event.
 
@@ -728,7 +727,7 @@ This example monitors the `OnChanges` hook.
 一旦检测到该组件(或指令)的***输入属性***发生了变化，Angular 就会调用它的 `ngOnChanges()` 方法。
 本例监控 `OnChanges` 钩子。
 
-<code-example path="lifecycle-hooks/src/app/on-changes.component.ts" region="ng-on-changes" header="on-changes.component.ts (excerpt)" linenums="false"></code-example>
+<code-example path="lifecycle-hooks/src/app/on-changes.component.ts" region="ng-on-changes" header="on-changes.component.ts (excerpt)"></code-example>
 
 The `ngOnChanges()` method takes an object that maps each changed property name to a
 [SimpleChange](api/core/SimpleChange) object holding the current and previous property values.
@@ -741,7 +740,7 @@ The example component, `OnChangesComponent`, has two input properties: `hero` an
 
 这个例子中的 `OnChangesComponent` 组件有两个输入属性：`hero` 和 `power`。
 
-<code-example path="lifecycle-hooks/src/app/on-changes.component.ts" region="inputs" header="src/app/on-changes.component.ts" linenums="false"></code-example>
+<code-example path="lifecycle-hooks/src/app/on-changes.component.ts" region="inputs" header="src/app/on-changes.component.ts"></code-example>
 
 The host `OnChangesParentComponent` binds to them like this:
 
@@ -753,9 +752,9 @@ Here's the sample in action as the user makes changes.
 
 下面是此例子中的当用户做出更改时的操作演示：
 
-<figure>
+<div class="lightbox">
   <img src='generated/images/guide/lifecycle-hooks/on-changes-anim.gif' alt="OnChanges">
-</figure>
+</div>
 
 The log entries appear as the string value of the *power* property changes.
 But the `ngOnChanges` does not catch changes to `hero.name`
@@ -795,7 +794,7 @@ The *DoCheck* sample extends the *OnChanges* sample with the following `ngDoChec
 
 *DoCheck* 范例通过下面的 `ngDoCheck()` 钩子扩展了 *OnChanges* 范例：
 
-<code-example path="lifecycle-hooks/src/app/do-check.component.ts" region="ng-do-check" header="DoCheckComponent (ngDoCheck)" linenums="false"></code-example>
+<code-example path="lifecycle-hooks/src/app/do-check.component.ts" region="ng-do-check" header="DoCheckComponent (ngDoCheck)"></code-example>
 
 This code inspects certain _values of interest_, capturing and comparing their current state against previous values.
 It writes a special message to the log when there are no substantive changes to the `hero` or the `power`
@@ -805,9 +804,9 @@ so you can see how often `DoCheck` is called. The results are illuminating:
 当英雄或它的超能力发生了非实质性改变时，就会往日志中写一条特殊的消息。
 这样你可以看到 `DoCheck` 被调用的频率。结果非常显眼：
 
-<figure>
+<div class="lightbox">
   <img src='generated/images/guide/lifecycle-hooks/do-check-anim.gif' alt="DoCheck">
-</figure>
+</div>
 
 While the `ngDoCheck()` hook can detect when the hero's `name` has changed, it has a frightful cost.
 This hook is called with enormous frequency&mdash;after _every_
@@ -841,13 +840,13 @@ Here's a child view that displays a hero's name in an `<input>`:
 
 下面是一个子视图，它用来把英雄的名字显示在一个 `<input>` 中：
 
-<code-example path="lifecycle-hooks/src/app/after-view.component.ts" region="child-view" header="ChildComponent" linenums="false"></code-example>
+<code-example path="lifecycle-hooks/src/app/after-view.component.ts" region="child-view" header="ChildComponent"></code-example>
 
 The `AfterViewComponent` displays this child view *within its template*:
 
 `AfterViewComponent` 把这个子视图显示*在它的模板中*：
 
-<code-example path="lifecycle-hooks/src/app/after-view.component.ts" region="template" header="AfterViewComponent (template)" linenums="false"></code-example>
+<code-example path="lifecycle-hooks/src/app/after-view.component.ts" region="template" header="AfterViewComponent (template)"></code-example>
 
 The following hooks take action based on changing values *within the child view*,
 which can only be reached by querying for the child view via the property decorated with
@@ -855,7 +854,7 @@ which can only be reached by querying for the child view via the property decora
 
 下列钩子基于*子视图中*的每一次数据变更采取行动，它只能通过带[@ViewChild](api/core/ViewChild)装饰器的属性来访问子视图。
 
-<code-example path="lifecycle-hooks/src/app/after-view.component.ts" region="hooks" header="AfterViewComponent (class excerpts)" linenums="false"></code-example>
+<code-example path="lifecycle-hooks/src/app/after-view.component.ts" region="hooks" header="AfterViewComponent (class excerpts)"></code-example>
 
 {@a wait-a-tick}
 
@@ -867,7 +866,7 @@ The `doSomething()` method updates the screen when the hero name exceeds 10 char
 
 当英雄的名字超过 10 个字符时，`doSomething()` 方法就会更新屏幕。
 
-<code-example path="lifecycle-hooks/src/app/after-view.component.ts" region="do-something" header="AfterViewComponent (doSomething)" linenums="false"></code-example>
+<code-example path="lifecycle-hooks/src/app/after-view.component.ts" region="do-something" header="AfterViewComponent (doSomething)"></code-example>
 
 Why does the `doSomething()` method wait a tick before updating `comment`?
 
@@ -890,9 +889,9 @@ Here's *AfterView* in action:
 
 这里是 *AfterView* 的操作演示：
 
-<figure>
+<div class="lightbox">
   <img src='generated/images/guide/lifecycle-hooks/after-view-anim.gif' alt="AfterView">
-</figure>
+</div>
 
 Notice that Angular frequently calls `AfterViewChecked()`, often when there are no changes of interest.
 Write lean hook methods to avoid performance problems.
@@ -932,10 +931,10 @@ Consider this variation on the [previous _AfterView_](guide/lifecycle-hooks#afte
 This time, instead of including the child view within the template, it imports the content from
 the `AfterContentComponent`'s parent. Here's the parent's template:
 
-对比[前一个](guide/lifecycle-hooks#afterview)例子考虑这个变化。
+对比[前面的 AfterView](guide/lifecycle-hooks#afterview) 例子考虑这个变化。
 这次不再通过模板来把子视图包含进来，而是改为从 `AfterContentComponent` 的父组件中导入它。下面是父组件的模板：
 
-<code-example path="lifecycle-hooks/src/app/after-content.component.ts" region="parent-template" header="AfterContentParentComponent (template excerpt)" linenums="false"></code-example>
+<code-example path="lifecycle-hooks/src/app/after-content.component.ts" region="parent-template" header="AfterContentParentComponent (template excerpt)"></code-example>
 
 Notice that the `<app-child>` tag is tucked between the `<after-content>` tags.
 Never put content between a component's element tags *unless you intend to project that content
@@ -946,9 +945,9 @@ into the component*.
 
 Now look at the component's template:
 
-现在来看下 `<after-content>` 组件的模板：
+现在来看该组件的模板：
 
-<code-example path="lifecycle-hooks/src/app/after-content.component.ts" region="template" header="AfterContentComponent (template)" linenums="false"></code-example>
+<code-example path="lifecycle-hooks/src/app/after-content.component.ts" region="template" header="AfterContentComponent (template)"></code-example>
 
 The `<ng-content>` tag is a *placeholder* for the external content.
 It tells Angular where to insert that content.
@@ -958,9 +957,9 @@ In this case, the projected content is the `<app-child>` from the parent.
 它告诉 Angular 在哪里插入这些外来内容。
 在这里，被投影进去的内容就是来自父组件的 `<app-child>` 标签。
 
-<figure>
+<div class="lightbox">
   <img src='generated/images/guide/lifecycle-hooks/projected-child-view.png' alt="Projected Content">
-</figure>
+</div>
 
 <div class="alert is-helpful">
 
@@ -1005,7 +1004,7 @@ which can only be reached by querying for them via the property decorated with
 
 下列 *AfterContent* 钩子基于*子级内容*中值的变化而采取相应的行动，它只能通过带有[@ContentChild](api/core/ContentChild)装饰器的属性来查询到“子级内容”。
 
-<code-example path="lifecycle-hooks/src/app/after-content.component.ts" region="hooks" header="AfterContentComponent (class excerpts)" linenums="false"></code-example>
+<code-example path="lifecycle-hooks/src/app/after-content.component.ts" region="hooks" header="AfterContentComponent (class excerpts)"></code-example>
 
 {@a no-unidirectional-flow-worries}
 

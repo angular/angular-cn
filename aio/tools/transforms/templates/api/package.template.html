@@ -1,14 +1,14 @@
 {% extends 'base.template.html' -%}
 
-{% macro listItems(items, title, overridePath) %}
+{% macro listItems(items, title, originalTitle, overridePath) %}
   {% set filteredItems = items | filterByPropertyValue('internal', undefined) %}
   {% if filteredItems.length %}
   <section class="export-list">
-    <h3>{$ title $}</h3>
+    <h3 id="{$ originalTitle $}">{$ title $}</h3>
     <table class="is-full-width list-table">
       {% for item in filteredItems %}
       <tr>
-        <td><code class="code-anchor"><a href="{$ overridePath or item.path $}"{%- if item.deprecated != undefined %} class="deprecated-api-item"{% endif %}>{$ item.name $}</a></code></td>
+        <td><code class="code-anchor{% if item.deprecated %} deprecated-api-item{% endif %}"><a href="{$ overridePath or item.path $}"{%- if item.deprecated != undefined %} class="deprecated-api-item"{% endif %}>{$ item.name $}</a></code></td>
         <td>
           {% if item.deprecated !== undefined %}{$ ('**已废弃:** ' + item.deprecated) | marked $}{% endif %}
           {% if item.shortDescription %}{$ item.shortDescription | marked $}{% endif %}
@@ -38,8 +38,8 @@
 
   {% if doc.isPrimaryPackage %}
   <h2 id="entry-points">入口点</h2>
-  {$ listItems([doc.packageInfo.primary], '主要', '#primary-entry-point-exports') $}
-  {$ listItems(doc.packageInfo.secondary, '次要') $}
+  {$ listItems([doc.packageInfo.primary], '主要', 'primary', '#primary-entry-point-exports') $}
+  {$ listItems(doc.packageInfo.secondary, '次要', 'secondary') $}
   {% endif %}
 
   {% if doc.isPrimaryPackage %}
@@ -48,12 +48,12 @@
   <h2 id="entry-point-exports">入口点的导出</h2>
   {% endif %}
   {% include "includes/deprecation.html" %}
-  {$ listItems(doc.ngmodules, '模块') $}
-  {$ listItems(doc.classes, '类') $}
-  {$ listItems(doc.decorators, '装饰器') $}
-  {$ listItems(doc.functions, '函数') $}
-  {$ listItems(doc.structures, '结构') $}
-  {$ listItems(doc.directives, '指令') $}
-  {$ listItems(doc.pipes, '管道') $}
-  {$ listItems(doc.types, '类型') $}
+  {$ listItems(doc.ngmodules, '模块', 'ngmodules') $}
+  {$ listItems(doc.classes, '类', 'classes') $}
+  {$ listItems(doc.decorators, '装饰器', 'decorators') $}
+  {$ listItems(doc.functions, '函数', 'functions') $}
+  {$ listItems(doc.structures, '结构', 'structures') $}
+  {$ listItems(doc.directives, '指令', 'directives') $}
+  {$ listItems(doc.pipes, '管道', 'pipes') $}
+  {$ listItems(doc.types, '类型', 'types') $}
 {%- endblock %}

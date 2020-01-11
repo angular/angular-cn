@@ -1,5 +1,5 @@
 # BEGIN-INTERNAL
-load("@build_bazel_rules_nodejs//:defs.bzl", "npm_package")
+load("@build_bazel_rules_nodejs//:index.bzl", "npm_package")
 load("@npm_bazel_jasmine//:index.bzl", "jasmine_node_test")
 load("@npm_bazel_typescript//:index.bzl", "ts_library")
 
@@ -80,7 +80,6 @@ jasmine_node_test(
         # TODO: remove this once the boostrap.js workaround has been removed.
         ":package.json",
     ],
-    tags = ["local"],
 )
 # END-INTERNAL
 
@@ -89,3 +88,6 @@ filegroup(
     srcs = glob(["lib/*.js"]) + ["bin/ts-api-guardian"],
     visibility = ["//visibility:public"],
 )
+
+# Exported to be referenced as entry_point of the nodejs_binary
+exports_files(["bin/ts-api-guardian"])

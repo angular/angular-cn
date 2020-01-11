@@ -7,7 +7,6 @@
  */
 
 import {ParseSourceSpan} from '../parse_util';
-
 import * as o from './output_ast';
 import {SourceMapGenerator} from './source_map';
 
@@ -358,6 +357,18 @@ export abstract class AbstractEmitterVisitor implements o.StatementVisitor, o.Ex
     } else {
       ctx.print(ast, `${value}`);
     }
+    return null;
+  }
+
+  visitLocalizedString(ast: o.LocalizedString, ctx: EmitterVisitorContext): any {
+    const head = ast.serializeI18nHead();
+    ctx.print(ast, '$localize `' + head.raw);
+    for (let i = 1; i < ast.messageParts.length; i++) {
+      ctx.print(ast, '${');
+      ast.expressions[i - 1].visitExpression(this, ctx);
+      ctx.print(ast, `}${ast.serializeI18nTemplatePart(i).raw}`);
+    }
+    ctx.print(ast, '`');
     return null;
   }
 

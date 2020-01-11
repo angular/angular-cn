@@ -7,10 +7,12 @@
  */
 
 import {CommonModule} from '@angular/common';
-import {Attribute, ChangeDetectorRef, Component, Directive, ElementRef, EventEmitter, Host, HostBinding, INJECTOR, Inject, Injectable, InjectionToken, Injector, Input, LOCALE_ID, ModuleWithProviders, NgModule, Optional, Output, Pipe, PipeTransform, Self, SkipSelf, TemplateRef, ViewChild, ViewContainerRef, forwardRef} from '@angular/core';
+import {Attribute, ChangeDetectorRef, Component, ComponentFactoryResolver, ComponentRef, Directive, ElementRef, EventEmitter, Host, HostBinding, INJECTOR, Inject, Injectable, InjectionToken, Injector, Input, LOCALE_ID, ModuleWithProviders, NgModule, NgZone, Optional, Output, Pipe, PipeTransform, Self, SkipSelf, TemplateRef, ViewChild, ViewContainerRef, forwardRef, ɵDEFAULT_LOCALE_ID as DEFAULT_LOCALE_ID} from '@angular/core';
+import {ɵINJECTOR_SCOPE} from '@angular/core/src/core';
 import {ViewRef} from '@angular/core/src/render3/view_ref';
 import {TestBed} from '@angular/core/testing';
 import {ivyEnabled, onlyInIvy} from '@angular/private/testing';
+import {BehaviorSubject} from 'rxjs';
 
 describe('di', () => {
   describe('no dependencies', () => {
@@ -53,7 +55,7 @@ describe('di', () => {
         ]
       });
 
-      expect(TestBed.get(testToken) as string[]).toEqual(['A', 'B', 'C']);
+      expect(TestBed.inject(testToken)).toEqual(['A', 'B', 'C']);
     });
   });
 
@@ -403,7 +405,7 @@ describe('di', () => {
          </div>`
         })
         class MyComp {
-          @ViewChild(StructuralDirective, {static: false}) structuralDir !: StructuralDirective;
+          @ViewChild(StructuralDirective) structuralDir !: StructuralDirective;
         }
 
         TestBed.configureTestingModule(
@@ -447,8 +449,8 @@ describe('di', () => {
           </div>`
         })
         class MyApp {
-          @ViewChild(HostBindingDirective, {static: false}) hostBindingDir !: HostBindingDirective;
-          @ViewChild(DirectiveA, {static: false}) dirA !: DirectiveA;
+          @ViewChild(HostBindingDirective) hostBindingDir !: HostBindingDirective;
+          @ViewChild(DirectiveA) dirA !: DirectiveA;
         }
 
         TestBed.configureTestingModule(
@@ -561,7 +563,7 @@ describe('di', () => {
 
           @Component({template: '<div dirA></div>'})
           class MyComp {
-            @ViewChild(DirectiveA, {static: false}) dirA !: DirectiveA;
+            @ViewChild(DirectiveA) dirA !: DirectiveA;
           }
 
           TestBed.configureTestingModule({declarations: [DirectiveA, DirectiveB, MyComp]});
@@ -581,7 +583,7 @@ describe('di', () => {
 
           @Component({template: '<div dirC></div>'})
           class MyComp {
-            @ViewChild(DirectiveC, {static: false}) dirC !: DirectiveC;
+            @ViewChild(DirectiveC) dirC !: DirectiveC;
           }
 
           TestBed.configureTestingModule({declarations: [DirectiveC, MyComp]});
@@ -601,7 +603,7 @@ describe('di', () => {
 
           @Component({template: '<div dirB></div><div dirC></div>'})
           class MyComp {
-            @ViewChild(DirectiveC, {static: false}) dirC !: DirectiveC;
+            @ViewChild(DirectiveC) dirC !: DirectiveC;
           }
 
           TestBed.configureTestingModule({declarations: [DirectiveB, DirectiveC, MyComp]});
@@ -622,12 +624,12 @@ describe('di', () => {
 
         @Component({selector: 'my-comp', template: '<div dirA dirB="self"></div>'})
         class MyComp {
-          @ViewChild(DirectiveA, {static: false}) dirA !: DirectiveA;
+          @ViewChild(DirectiveA) dirA !: DirectiveA;
         }
 
         @Component({template: '<my-comp dirB="parent"></my-comp>'})
         class MyApp {
-          @ViewChild(MyComp, {static: false}) myComp !: MyComp;
+          @ViewChild(MyComp) myComp !: MyComp;
         }
 
         TestBed.configureTestingModule({declarations: [DirectiveA, DirectiveB, MyComp, MyApp]});
@@ -672,12 +674,12 @@ describe('di', () => {
             viewProviders: [{provide: String, useValue: 'Foo'}]
           })
           class MyComp {
-            @ViewChild(DirectiveString, {static: false}) dirString !: DirectiveString;
+            @ViewChild(DirectiveString) dirString !: DirectiveString;
           }
 
           @Component({template: '<my-comp></my-comp>'})
           class MyApp {
-            @ViewChild(MyComp, {static: false}) myComp !: MyComp;
+            @ViewChild(MyComp) myComp !: MyComp;
           }
 
           TestBed.configureTestingModule({declarations: [DirectiveString, MyComp, MyApp]});
@@ -696,12 +698,12 @@ describe('di', () => {
 
           @Component({selector: 'my-comp', template: '<div dirComp></div>'})
           class MyComp {
-            @ViewChild(DirectiveComp, {static: false}) dirComp !: DirectiveComp;
+            @ViewChild(DirectiveComp) dirComp !: DirectiveComp;
           }
 
           @Component({template: '<my-comp></my-comp>'})
           class MyApp {
-            @ViewChild(MyComp, {static: false}) myComp !: MyComp;
+            @ViewChild(MyComp) myComp !: MyComp;
           }
 
           TestBed.configureTestingModule({declarations: [DirectiveComp, MyComp, MyApp]});
@@ -760,7 +762,7 @@ describe('di', () => {
 
               @Component({template: '<my-comp dirB></my-comp>'})
               class MyApp {
-                @ViewChild(MyComp, {static: false}) myComp !: MyComp;
+                @ViewChild(MyComp) myComp !: MyComp;
               }
 
               TestBed.configureTestingModule(
@@ -777,8 +779,8 @@ describe('di', () => {
           @Component({template: '<div dirB><div *ngIf="showing" dirA></div></div>'})
           class MyApp {
             showing = false;
-            @ViewChild(DirectiveA, {static: false}) dirA !: DirectiveA;
-            @ViewChild(DirectiveB, {static: false}) dirB !: DirectiveB;
+            @ViewChild(DirectiveA) dirA !: DirectiveA;
+            @ViewChild(DirectiveB) dirB !: DirectiveB;
           }
 
           TestBed.configureTestingModule({declarations: [DirectiveA, DirectiveB, MyApp]});
@@ -866,6 +868,37 @@ describe('di', () => {
     });
   });
 
+  describe('Tree shakable injectors', () => {
+    it('should support tree shakable injectors scopes', () => {
+      @Injectable({providedIn: 'any'})
+      class AnyService {
+        constructor(public injector: Injector) {}
+      }
+
+      @Injectable({providedIn: 'root'})
+      class RootService {
+        constructor(public injector: Injector) {}
+      }
+
+      @Injectable({providedIn: 'platform'})
+      class PlatformService {
+        constructor(public injector: Injector) {}
+      }
+
+      const testBedInjector: Injector = TestBed.get(Injector);
+      const childInjector = Injector.create([], testBedInjector);
+
+      const anyService = childInjector.get(AnyService);
+      expect(anyService.injector).toBe(childInjector);
+
+      const rootService = childInjector.get(RootService);
+      expect(rootService.injector.get(ɵINJECTOR_SCOPE)).toBe('root');
+
+      const platformService = childInjector.get(PlatformService);
+      expect(platformService.injector.get(ɵINJECTOR_SCOPE)).toBe('platform');
+    });
+  });
+
   describe('service injection', () => {
 
     it('should create instance even when no injector present', () => {
@@ -916,6 +949,37 @@ describe('di', () => {
         expect(warnSpy).toHaveBeenCalledWith(
             `DEPRECATED: DI is instantiating a token "SubSubClass" that inherits its @Injectable decorator but does not provide one itself.\n` +
             `This will become an error in v10. Please add @Injectable() to the "SubSubClass" class.`);
+      }
+    });
+
+    it('should instantiate correct class when undecorated class extends an injectable', () => {
+      @Injectable()
+      class MyService {
+        id = 1;
+      }
+
+      class MyRootService extends MyService {
+        id = 2;
+      }
+
+      @Component({template: ''})
+      class App {
+      }
+
+      TestBed.configureTestingModule({declarations: [App], providers: [MyRootService]});
+      const warnSpy = spyOn(console, 'warn');
+      const fixture = TestBed.createComponent(App);
+      fixture.detectChanges();
+
+      const provider = TestBed.inject(MyRootService);
+
+      expect(provider instanceof MyRootService).toBe(true);
+      expect(provider.id).toBe(2);
+
+      if (ivyEnabled) {
+        expect(warnSpy).toHaveBeenCalledWith(
+            `DEPRECATED: DI is instantiating a token "MyRootService" that inherits its @Injectable decorator but does not provide one itself.\n` +
+            `This will become an error in v10. Please add @Injectable() to the "MyRootService" class.`);
       }
     });
   });
@@ -978,8 +1042,8 @@ describe('di', () => {
 
         @Component({template: '<div injectorDir otherInjectorDir></div>'})
         class MyComp {
-          @ViewChild(InjectorDir, {static: false}) injectorDir !: InjectorDir;
-          @ViewChild(OtherInjectorDir, {static: false}) otherInjectorDir !: OtherInjectorDir;
+          @ViewChild(InjectorDir) injectorDir !: InjectorDir;
+          @ViewChild(OtherInjectorDir) otherInjectorDir !: OtherInjectorDir;
         }
 
         TestBed.configureTestingModule({declarations: [InjectorDir, OtherInjectorDir, MyComp]});
@@ -1004,7 +1068,7 @@ describe('di', () => {
 
         @Component({template: '<div injectorDir></div>'})
         class MyComp {
-          @ViewChild(InjectorDir, {static: false}) injectorDir !: InjectorDir;
+          @ViewChild(InjectorDir) injectorDir !: InjectorDir;
         }
 
         TestBed.configureTestingModule({declarations: [InjectorDir, MyComp]});
@@ -1041,8 +1105,8 @@ describe('di', () => {
 
         @Component({template: '<div dir otherDir></div>'})
         class MyComp {
-          @ViewChild(MyDir, {static: false}) directive !: MyDir;
-          @ViewChild(MyOtherDir, {static: false}) otherDirective !: MyOtherDir;
+          @ViewChild(MyDir) directive !: MyDir;
+          @ViewChild(MyOtherDir) otherDirective !: MyOtherDir;
         }
 
         TestBed.configureTestingModule({declarations: [MyDir, MyOtherDir, MyComp]});
@@ -1073,7 +1137,7 @@ describe('di', () => {
 
            @Component({template: '<ng-template dir></ng-template>'})
            class MyComp {
-             @ViewChild(MyDir, {static: false}) directive !: MyDir;
+             @ViewChild(MyDir) directive !: MyDir;
            }
 
            TestBed.configureTestingModule({declarations: [MyDir, MyComp]});
@@ -1086,6 +1150,69 @@ describe('di', () => {
            // the nativeElement should be a comment
            expect(directive.elementRef.nativeElement.nodeType).toEqual(Node.COMMENT_NODE);
          });
+
+      it('should be available if used in conjunction with other tokens', () => {
+        @Injectable()
+        class ServiceA {
+          subject: any;
+          constructor(protected zone: NgZone) {
+            this.subject = new BehaviorSubject<any>(1);
+            // trigger change detection
+            zone.run(() => { this.subject.next(2); });
+          }
+        }
+
+        @Directive({selector: '[dir]'})
+        class DirectiveA {
+          constructor(public service: ServiceA, public elementRef: ElementRef) {}
+        }
+
+        @Component({
+          selector: 'child',
+          template: `<div id="test-id" dir></div>`,
+        })
+        class ChildComp {
+          @ViewChild(DirectiveA) directive !: DirectiveA;
+        }
+
+        @Component({
+          selector: 'root',
+          template: '...',
+        })
+        class RootComp {
+          public childCompRef !: ComponentRef<ChildComp>;
+
+          constructor(
+              public factoryResolver: ComponentFactoryResolver, public vcr: ViewContainerRef) {}
+
+          create() {
+            const factory = this.factoryResolver.resolveComponentFactory(ChildComp);
+            this.childCompRef = this.vcr.createComponent(factory);
+            this.childCompRef.changeDetectorRef.detectChanges();
+          }
+        }
+
+        // this module is needed, so that View Engine can generate factory for ChildComp
+        @NgModule({
+          declarations: [DirectiveA, RootComp, ChildComp],
+          entryComponents: [RootComp, ChildComp],
+        })
+        class ModuleA {
+        }
+
+        TestBed.configureTestingModule({
+          imports: [ModuleA],
+          providers: [ServiceA],
+        });
+
+        const fixture = TestBed.createComponent(RootComp);
+        fixture.autoDetectChanges();
+
+        fixture.componentInstance.create();
+
+        const {elementRef} = fixture.componentInstance.childCompRef.instance.directive;
+        expect(elementRef.nativeElement.id).toBe('test-id');
+      });
     });
 
     describe('TemplateRef', () => {
@@ -1111,8 +1238,8 @@ describe('di', () => {
               template: '<ng-template dir otherDir #dir="dir" #otherDir="otherDir"></ng-template>'
             })
             class MyComp {
-              @ViewChild(MyDir, {static: false}) directive !: MyDir;
-              @ViewChild(MyOtherDir, {static: false}) otherDirective !: MyOtherDir;
+              @ViewChild(MyDir) directive !: MyDir;
+              @ViewChild(MyOtherDir) otherDirective !: MyOtherDir;
             }
 
             TestBed.configureTestingModule({declarations: [MyDir, MyOtherDir, MyComp]});
@@ -1155,7 +1282,7 @@ describe('di', () => {
         }
         @Component({template: '<div optionalDir></div>'})
         class MyComp {
-          @ViewChild(OptionalDir, {static: false}) directive !: OptionalDir;
+          @ViewChild(OptionalDir) directive !: OptionalDir;
         }
 
         TestBed.configureTestingModule({declarations: [OptionalDir, MyComp]});
@@ -1184,8 +1311,8 @@ describe('di', () => {
             }
             @Component({template: '<div dir otherDir #dir="dir" #otherDir="otherDir"></div>'})
             class MyComp {
-              @ViewChild(MyDir, {static: false}) directive !: MyDir;
-              @ViewChild(MyOtherDir, {static: false}) otherDirective !: MyOtherDir;
+              @ViewChild(MyDir) directive !: MyDir;
+              @ViewChild(MyOtherDir) otherDirective !: MyOtherDir;
             }
 
             TestBed.configureTestingModule({declarations: [MyDir, MyOtherDir, MyComp]});
@@ -1202,6 +1329,37 @@ describe('di', () => {
             // Each ViewContainerRef instance should be unique
             expect(otherDirective.isSameInstance).toBe(false);
           });
+
+      it('should sync ViewContainerRef state between all injected instances', () => {
+        @Component({
+          selector: 'root',
+          template: `<ng-template #tmpl>Test</ng-template>`,
+        })
+        class Root {
+          @ViewChild(TemplateRef, {static: true})
+          tmpl !: TemplateRef<any>;
+
+          constructor(public vcr: ViewContainerRef, public vcr2: ViewContainerRef) {}
+
+          ngOnInit(): void { this.vcr.createEmbeddedView(this.tmpl); }
+        }
+
+        TestBed.configureTestingModule({
+          declarations: [Root],
+        });
+
+        const fixture = TestBed.createComponent(Root);
+        fixture.detectChanges();
+        const cmp = fixture.componentInstance;
+
+        expect(cmp.vcr.length).toBe(1);
+        expect(cmp.vcr2.length).toBe(1);
+        expect(cmp.vcr2.get(0)).toEqual(cmp.vcr.get(0));
+
+        cmp.vcr2.remove(0);
+        expect(cmp.vcr.length).toBe(0);
+        expect(cmp.vcr.get(0)).toBeNull();
+      });
     });
 
     describe('ChangeDetectorRef', () => {
@@ -1250,9 +1408,9 @@ describe('di', () => {
          () => {
            @Component({selector: 'my-app', template: '<my-comp dir otherDir #dir="dir"></my-comp>'})
            class MyApp {
-             @ViewChild(MyComp, {static: false}) component !: MyComp;
-             @ViewChild(MyDir, {static: false}) directive !: MyDir;
-             @ViewChild(MyOtherDir, {static: false}) otherDirective !: MyOtherDir;
+             @ViewChild(MyComp) component !: MyComp;
+             @ViewChild(MyDir) directive !: MyDir;
+             @ViewChild(MyOtherDir) otherDirective !: MyOtherDir;
            }
            TestBed.configureTestingModule({declarations: [MyApp, MyComp, MyDir, MyOtherDir]});
            const fixture = TestBed.createComponent(MyApp);
@@ -1273,8 +1431,8 @@ describe('di', () => {
            @Component({selector: 'my-comp', template: '<div dir otherDir #dir="dir"></div>'})
            class MyComp {
              constructor(public cdr: ChangeDetectorRef) {}
-             @ViewChild(MyDir, {static: false}) directive !: MyDir;
-             @ViewChild(MyOtherDir, {static: false}) otherDirective !: MyOtherDir;
+             @ViewChild(MyDir) directive !: MyDir;
+             @ViewChild(MyOtherDir) otherDirective !: MyOtherDir;
            }
            TestBed.configureTestingModule({declarations: [MyComp, MyDir, MyOtherDir]});
            const fixture = TestBed.createComponent(MyComp);
@@ -1300,9 +1458,9 @@ describe('di', () => {
            })
            class MyApp {
              constructor(public cdr: ChangeDetectorRef) {}
-             @ViewChild(MyComp, {static: false}) component !: MyComp;
-             @ViewChild(MyDir, {static: false}) directive !: MyDir;
-             @ViewChild(MyOtherDir, {static: false}) otherDirective !: MyOtherDir;
+             @ViewChild(MyComp) component !: MyComp;
+             @ViewChild(MyDir) directive !: MyDir;
+             @ViewChild(MyOtherDir) otherDirective !: MyOtherDir;
            }
            TestBed.configureTestingModule({declarations: [MyApp, MyComp, MyDir, MyOtherDir]});
            const fixture = TestBed.createComponent(MyApp);
@@ -1328,8 +1486,8 @@ describe('di', () => {
         class MyComp {
           showing = true;
           constructor(public cdr: ChangeDetectorRef) {}
-          @ViewChild(MyDir, {static: false}) directive !: MyDir;
-          @ViewChild(MyOtherDir, {static: false}) otherDirective !: MyOtherDir;
+          @ViewChild(MyDir) directive !: MyDir;
+          @ViewChild(MyOtherDir) otherDirective !: MyOtherDir;
         }
 
         TestBed.configureTestingModule({declarations: [MyComp, MyDir, MyOtherDir]});
@@ -1351,8 +1509,8 @@ describe('di', () => {
         class MyComp {
           showing = true;
           constructor(public cdr: ChangeDetectorRef) {}
-          @ViewChild(MyDir, {static: false}) directive !: MyDir;
-          @ViewChild(MyOtherDir, {static: false}) otherDirective !: MyOtherDir;
+          @ViewChild(MyDir) directive !: MyDir;
+          @ViewChild(MyOtherDir) otherDirective !: MyOtherDir;
         }
 
         TestBed.configureTestingModule({declarations: [MyComp, MyDir, MyOtherDir]});
@@ -1401,7 +1559,7 @@ describe('di', () => {
 
       @Component({template: '<div injectorDir></div>'})
       class MyComp {
-        @ViewChild(InjectorDir, {static: false}) injectorDirInstance !: InjectorDir;
+        @ViewChild(InjectorDir) injectorDirInstance !: InjectorDir;
       }
 
       TestBed.configureTestingModule({declarations: [InjectorDir, MyComp]});
@@ -1477,7 +1635,7 @@ describe('di', () => {
     const fixture = TestBed.createComponent(MyComp);
     fixture.detectChanges();
     // takes `LOCALE_ID` from module injector, since we skip Component level with @SkipSelf
-    expect(fixture.componentInstance.localeId).toBe('en-US');
+    expect(fixture.componentInstance.localeId).toBe(DEFAULT_LOCALE_ID);
   });
 
   it('should work when injecting dependency in Directives', () => {
@@ -1494,7 +1652,7 @@ describe('di', () => {
       providers: [{provide: LOCALE_ID, useValue: 'en-GB'}]
     })
     class MyComp {
-      @ViewChild(MyDir, {static: false}) myDir !: MyDir;
+      @ViewChild(MyDir) myDir !: MyDir;
       constructor(@Inject(LOCALE_ID) public localeId: string) {}
     }
 
@@ -1516,7 +1674,7 @@ describe('di', () => {
 
       @Component({template: '<div dir exist="existValue" other="ignore"></div>'})
       class MyComp {
-        @ViewChild(MyDir, {static: false}) directiveInstance !: MyDir;
+        @ViewChild(MyDir) directiveInstance !: MyDir;
       }
 
       TestBed.configureTestingModule({declarations: [MyDir, MyComp]});
@@ -1540,7 +1698,7 @@ describe('di', () => {
       @Component(
           {template: '<ng-template dir="initial" exist="existValue" other="ignore"></ng-template>'})
       class MyComp {
-        @ViewChild(MyDir, {static: false}) directiveInstance !: MyDir;
+        @ViewChild(MyDir) directiveInstance !: MyDir;
       }
 
       TestBed.configureTestingModule({declarations: [MyDir, MyComp]});
@@ -1565,7 +1723,7 @@ describe('di', () => {
         template: '<ng-container dir="initial" exist="existValue" other="ignore"></ng-container>'
       })
       class MyComp {
-        @ViewChild(MyDir, {static: false}) directiveInstance !: MyDir;
+        @ViewChild(MyDir) directiveInstance !: MyDir;
       }
 
       TestBed.configureTestingModule({declarations: [MyDir, MyComp]});
@@ -1592,7 +1750,7 @@ describe('di', () => {
             '<div dir style="margin: 1px; color: red;" class="hello there" other-attr="value"></div>'
       })
       class MyComp {
-        @ViewChild(MyDir, {static: false}) directiveInstance !: MyDir;
+        @ViewChild(MyDir) directiveInstance !: MyDir;
       }
 
       TestBed.configureTestingModule({declarations: [MyDir, MyComp]});
@@ -1603,7 +1761,8 @@ describe('di', () => {
 
       expect(directive.otherAttr).toBe('value');
       expect(directive.className).toBe('hello there');
-      expect(directive.inlineStyles).toBe('margin: 1px; color: red;');
+      expect(directive.inlineStyles).toMatch(/color:\s*red/);
+      expect(directive.inlineStyles).toMatch(/margin:\s*1px/);
     });
 
     it('should not inject attributes with namespace', () => {
@@ -1619,7 +1778,7 @@ describe('di', () => {
         template: '<div dir exist="existValue" svg:exist="testExistValue" other="otherValue"></div>'
       })
       class MyComp {
-        @ViewChild(MyDir, {static: false}) directiveInstance !: MyDir;
+        @ViewChild(MyDir) directiveInstance !: MyDir;
       }
 
       TestBed.configureTestingModule({declarations: [MyDir, MyComp]});
@@ -1650,7 +1809,7 @@ describe('di', () => {
             '<div dir exist="existValue" [binding]="bindingValue" (output)="outputValue" other="otherValue" ignore="ignoreValue"></div>'
       })
       class MyComp {
-        @ViewChild(MyDir, {static: false}) directiveInstance !: MyDir;
+        @ViewChild(MyDir) directiveInstance !: MyDir;
       }
 
       TestBed.configureTestingModule({declarations: [MyDir, MyComp]});
@@ -1664,5 +1823,114 @@ describe('di', () => {
       expect(directive.outputAttr).toBeNull();
       expect(directive.other).toBe('otherValue');
     });
+  });
+
+  it('should support dependencies in Pipes used inside ICUs', () => {
+    @Injectable()
+    class MyService {
+      transform(value: string): string { return `${value} (transformed)`; }
+    }
+
+    @Pipe({name: 'somePipe'})
+    class MyPipe {
+      constructor(private service: MyService) {}
+      transform(value: any): any { return this.service.transform(value); }
+    }
+
+    @Component({
+      template: `
+        <div i18n>{
+          count, select,
+          =1 {One}
+          other {Other value is: {{count | somePipe}}}
+        }</div>
+      `
+    })
+    class MyComp {
+      count = '2';
+    }
+
+    TestBed.configureTestingModule({
+      declarations: [MyPipe, MyComp],
+      providers: [MyService],
+    });
+    const fixture = TestBed.createComponent(MyComp);
+    fixture.detectChanges();
+
+    expect(fixture.nativeElement.innerHTML).toContain('Other value is: 2 (transformed)');
+  });
+
+  it('should support dependencies in Pipes used inside i18n blocks', () => {
+    @Injectable()
+    class MyService {
+      transform(value: string): string { return `${value} (transformed)`; }
+    }
+
+    @Pipe({name: 'somePipe'})
+    class MyPipe {
+      constructor(private service: MyService) {}
+      transform(value: any): any { return this.service.transform(value); }
+    }
+
+    @Component({
+      template: `
+        <ng-template #source i18n>
+          {{count | somePipe}} <span>items</span>
+        </ng-template>
+        <ng-container #target></ng-container>
+      `
+    })
+    class MyComp {
+      count = '2';
+
+      @ViewChild('target', {read: ViewContainerRef}) target !: ViewContainerRef;
+      @ViewChild('source', {read: TemplateRef}) source !: TemplateRef<any>;
+
+      create() { this.target.createEmbeddedView(this.source); }
+    }
+
+    TestBed.configureTestingModule({
+      declarations: [MyPipe, MyComp],
+      providers: [MyService],
+    });
+    const fixture = TestBed.createComponent(MyComp);
+    fixture.detectChanges();
+
+    fixture.componentInstance.create();
+    fixture.detectChanges();
+
+    expect(fixture.nativeElement.textContent.trim()).toBe('2 (transformed) items');
+  });
+
+  // TODO: https://angular-team.atlassian.net/browse/FW-1779
+  it('should prioritize useFactory over useExisting', () => {
+    abstract class Base {}
+    @Directive({selector: '[dirA]'})
+    class DirA implements Base {
+    }
+    @Directive({selector: '[dirB]'})
+    class DirB implements Base {
+    }
+
+    const PROVIDER = {provide: Base, useExisting: DirA, useFactory: () => new DirB()};
+
+    @Component({selector: 'child', template: '', providers: [PROVIDER]})
+    class Child {
+      constructor(readonly base: Base) {}
+    }
+
+    @Component({template: `<div dirA> <child></child> </div>`})
+    class App {
+      @ViewChild(DirA) dirA !: DirA;
+      @ViewChild(Child) child !: Child;
+    }
+
+    const fixture = TestBed.configureTestingModule({declarations: [DirA, DirB, App, Child]})
+                        .createComponent(App);
+    fixture.detectChanges();
+    expect(fixture.componentInstance.dirA)
+        .not.toEqual(
+            fixture.componentInstance.child.base,
+            'should not get dirA from parent, but create new dirB from the useFactory provider');
   });
 });

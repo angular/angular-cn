@@ -11,17 +11,16 @@ import {createTNode} from '@angular/core/src/render3/instructions/shared';
 import {AttributeMarker, TAttributes, TNode, TNodeType} from '../../src/render3/interfaces/node';
 import {CssSelector, CssSelectorList, SelectorFlags} from '../../src/render3/interfaces/projection';
 import {getProjectAsAttrValue, isNodeMatchingSelector, isNodeMatchingSelectorList} from '../../src/render3/node_selector_matcher';
-import {initializeStaticContext} from '../../src/render3/styling/class_and_style_bindings';
 
 function testLStaticData(tagName: string, attrs: TAttributes | null): TNode {
-  return createTNode(null, TNodeType.Element, 0, tagName, attrs);
+  return createTNode(null !, null, TNodeType.Element, 0, tagName, attrs);
 }
 
 describe('css selector matching', () => {
   function isMatching(
       tagName: string, attrsOrTNode: TAttributes | TNode | null, selector: CssSelector): boolean {
     const tNode = (!attrsOrTNode || Array.isArray(attrsOrTNode)) ?
-        createTNode(null, TNodeType.Element, 0, tagName, attrsOrTNode as TAttributes) :
+        createTNode(null !, null, TNodeType.Element, 0, tagName, attrsOrTNode as TAttributes) :
         (attrsOrTNode as TNode);
     return isNodeMatchingSelector(tNode, selector, false);
   }
@@ -95,14 +94,16 @@ describe('css selector matching', () => {
            ])).toBeTruthy(`Selector '[title]' should match <span id="my_id" title="test_title">`);
          });
 
-
+      /**
+       * We assume that compiler will lower-case all selectors when generating code
+       */
       it('should match single attribute with value', () => {
         expect(isMatching('span', ['title', 'My Title'], [
-          '', 'title', 'My Title'
+          '', 'title', 'my title'
         ])).toBeTruthy(`Selector '[title="My Title"]' should match <span title="My Title">'`);
 
         expect(isMatching('span', ['title', 'My Title'], [
-          '', 'title', 'Other Title'
+          '', 'title', 'other title'
         ])).toBeFalsy(`Selector '[title="Other Title"]' should NOT match <span title="My Title">`);
       });
 
@@ -112,7 +113,7 @@ describe('css selector matching', () => {
         ])).toBeFalsy(`Selector 'div[title]' should NOT match <span title="My Title">`);
 
         expect(isMatching('span', ['title', 'My Title'], [
-          'div', 'title', 'My Title'
+          'div', 'title', 'my title'
         ])).toBeFalsy(`Selector 'div[title="My Title"]' should NOT match <span title="My Title">`);
       });
 
@@ -148,7 +149,8 @@ describe('css selector matching', () => {
       });
 
       /**
-       * We assume that compiler will lower-case all attribute names when generating code
+       * We assume that compiler will lower-case all selectors and attribute names when generating
+       * code
        */
       it('should match attribute name case-sensitively', () => {
         expect(isMatching('span', ['foo', ''], [
@@ -160,14 +162,10 @@ describe('css selector matching', () => {
         ])).toBeFalsy(`Selector '[Foo]' should NOT match <span foo>`);
       });
 
-      it('should match attribute values case-sensitively', () => {
+      it('should match attribute values case-insensitively', () => {
         expect(isMatching('span', ['foo', 'Bar'], [
-          '', 'foo', 'Bar'
-        ])).toBeTruthy(`Selector '[foo="Bar"]' should match <span foo="Bar">`);
-
-        expect(isMatching('span', ['foo', 'Bar'], [
-          '', 'Foo', 'bar'
-        ])).toBeFalsy(`Selector '[Foo="bar"]' should match <span foo="Bar">`);
+          '', 'foo', 'bar'
+        ])).toBeTruthy(`Selector '[foo="bar"]' should match <span foo="Bar">`);
       });
 
       it('should match class as an attribute', () => {
@@ -289,14 +287,13 @@ describe('css selector matching', () => {
         ])).toBeTruthy(`Selector '.bar.foo' should match <span class="bar foo">`);
       });
 
-      it('should match class name case-sensitively', () => {
-        expect(isMatching('span', ['class', 'Foo'], [
-          '', SelectorFlags.CLASS, 'Foo'
-        ])).toBeTruthy(`Selector '.Foo' should match <span class="Foo">`);
-
+      /**
+       * We assume that compiler will lower-case all selectors when generating code
+       */
+      it('should match class name case-insensitively', () => {
         expect(isMatching('span', ['class', 'Foo'], [
           '', SelectorFlags.CLASS, 'foo'
-        ])).toBeFalsy(`Selector '.foo' should NOT match <span class-"Foo">`);
+        ])).toBeTruthy(`Selector '.Foo' should match <span class="Foo">`);
       });
 
       it('should work without a class attribute', () => {
@@ -330,18 +327,18 @@ describe('css selector matching', () => {
          () => {
            // selector: 'div.abc'
            const selector = ['div', SelectorFlags.CLASS, 'abc'];
-           const tNode = createTNode(null, TNodeType.Element, 0, 'div', []);
+           const tNode = createTNode(null !, null, TNodeType.Element, 0, 'div', []);
 
            // <div> (without attrs or styling context)
            expect(isMatching('div', tNode, selector)).toBeFalsy();
 
            // <div class="abc"> (with attrs but without styling context)
            tNode.attrs = ['class', 'abc'];
-           tNode.stylingTemplate = null;
+           tNode.classes = null;
            expect(isMatching('div', tNode, selector)).toBeTruthy();
 
            // <div class="abc"> (with styling context but without attrs)
-           tNode.stylingTemplate = initializeStaticContext([AttributeMarker.Classes, 'abc'], 0);
+           tNode.classes = ['abc', 'abc', true];
            tNode.attrs = null;
            expect(isMatching('div', tNode, selector)).toBeTruthy();
          });

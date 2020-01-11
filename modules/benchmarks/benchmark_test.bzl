@@ -1,4 +1,4 @@
-load("//packages/bazel:index.bzl", "protractor_web_test_suite")
+load("//tools:defaults.bzl", "protractor_web_test_suite")
 
 """
   Macro that can be used to define a benchmark test. This differentiates from
@@ -11,14 +11,12 @@ def benchmark_test(name, server, deps, tags = []):
         name = name,
         configuration = "//:protractor-perf.conf.js",
         data = [
-            "//packages/bazel/src/protractor/utils",
             "//packages/benchpress",
         ],
         on_prepare = "//modules/benchmarks:start-server.js",
         server = server,
         tags = tags,
         deps = [
-            "@npm//protractor",
             "@npm//yargs",
         ] + deps,
     )

@@ -245,6 +245,38 @@ Upper snake case uses words in all capital letters connected with underscores. F
   大写下划线形式（UPPER_UNDERSCORE_CASE）或叫大写蛇形形式（UPPER_SNAKE_CASE）：传统的常量写法（可以接受，但更推荐用小驼峰形式（camelCase））
   大蛇形形式使用下划线分隔的全大写单词。比如 "FIX_ME" 。
 
+
+{@a change-detection}
+## change detection
+
+## 变更检测（change detection）
+
+
+The mechanism by which the Angular framework synchronizes the state of an application's UI with the state of the data.
+The change detector checks the current state of the data model whenever it runs, and maintains it as the previous state to compare on the next iteration.
+
+Angular 框架会通过此机制将应用程序 UI 的状态与数据的状态同步。变更检测器在运行时会检查数据模型的当前状态，并在下一轮迭代时将其和先前保存的状态进行比较。
+
+
+As the application logic updates component data, values that are bound to DOM properties in the view can change.
+The change detector is responsible for updating the view to reflect the current data model.
+Similarly, the user can interact with the UI, causing events that change the state of the data model.
+These events can trigger change detection.
+
+当应用逻辑更改组件数据时，绑定到视图中 DOM 属性上的值也要随之更改。变更检测器负责更新视图以反映当前的数据模型。类似地，用户也可以与 UI 进行交互，从而引发要更改数据模型状态的事件。这些事件可以触发变更检测。
+
+
+Using the default ("CheckAlways") change-detection strategy, the change detector goes through the [view hierarchy](#view-tree) on each VM turn to check every [data-bound property](#data-binding) in the template. In the first phase, it compares the current state of the dependent data with the previous state, and collects changes.
+In the second phase, it updates the page DOM to reflect any new data values.
+
+使用默认的（“CheckAlways”）变更检测策略，变更检测器将遍历每个视图模型上的[视图层次结构](#view-tree) ，以检查模板中的每个[数据绑定属性](#data-binding)。在第一阶段，它将所依赖的数据的当前状态与先前状态进行比较，并收集更改。在第二阶段，它将更新页面上的 DOM 以反映出所有新的数据值。
+
+
+If you set the `OnPush` ("CheckOnce") change-detection strategy, the change detector runs only when [explicitly invoked](api/core/ChangeDetectorRef), or when it is triggered by an `Input` reference change or event handler. This typically improves performance. For more information, see [Optimize Angular's change detection](https://web.dev/faster-angular-change-detection/).
+
+如果设置了 `OnPush`（“CheckOnce”）变更检测策略，则变更检测器仅在[显式调用](api/core/ChangeDetectorRef)它或由 `@Input` 引用的变化或触发事件处理程序时运行。这通常可以提高性能。欲知详情，参见[优化 Angular 的变更检测](https://web.dev/faster-angular-change-detection/) 。
+
+
 {@a class-decorator}
 
 ## class decorator
@@ -626,7 +658,7 @@ To learn more, see [Browser Support](guide/browser-support).
 ## 元素（Element）
 
 Angular defines an `ElementRef` class to wrap render-specific native UI elements.
-In most cases, this allows you to use Angular templates and  data binding to access DOM elements
+In most cases, this allows you to use Angular templates and data binding to access DOM elements
 without reference to the native element.
 
 Angular 定义了 `ElementRef` 类来包装与渲染有关的原生 UI 元素。这让你可以在大多数情况下使用 Angular 的模板和数据绑定机制来访问 DOM 元素，而不必再引用原生元素。
@@ -642,7 +674,7 @@ Compare to [custom element](#custom-element).
 
 {@a entry-point}
 
-## Entry point
+## entry point
 
 ## 入口点（Entry Point）
 
@@ -801,6 +833,24 @@ Read more about [interpolation](guide/template-syntax#interpolation) in [Templat
 
 更多信息，见[模板语法](guide/template-syntax)中的[插值表达式](guide/template-syntax#interpolation)。
 
+
+{@a ivy}
+
+## Ivy
+
+## 常春藤引擎（Ivy）
+
+
+Ivy is the code name for Angular's [next-generation compilation and rendering pipeline](https://blog.angular.io/a-plan-for-version-8-0-and-ivy-b3318dfc19f7).
+With the version 9 release of Angular, the new compiler and runtime instructions are used by default instead of the older compiler and runtime, known as [View Engine](#ve).
+
+Ivy 是 Angular 的[下一代编译和渲染管道](https://blog.angular.io/a-plan-for-version-8-0-and-ivy-b3318dfc19f7)的代号。在 Angular 的版本 9 中，默认情况下使用新的编译器和运行时，而不再用旧的编译器和运行时，也就是 [View Engine](#ve) 。
+
+
+See [Angular Ivy](guide/ivy).
+
+参见 [Angular Ivy](guide/ivy)。
+
 {@a J}
 
 {@a javascript}
@@ -958,8 +1008,16 @@ Compare to [NgModule](#ngmodule).
 
 {@a N}
 
-{@a ngmodule}
 
+{@a ngcc}
+## ngcc
+
+Angular compatability compiler.
+If you build your app using [Ivy](#ivy), but it depends on libraries have not been compiled with Ivy, the CLI uses `ngcc` to automatically update the dependent libraries to use Ivy.
+
+Angular 兼容性编译器。如果使用 [Ivy](#ivy) 构建应用程序，但依赖未用 Ivy 编译的库，则 CLI 将使用 `ngcc` 自动更新依赖库以使用 Ivy。
+
+{@a ngmodule}
 ## NgModule
 
 A class definition preceded by the `@NgModule()` [decorator](#decorator), which declares and serves as a manifest for a block of code dedicated to an application domain, a workflow, or a closely related set of capabilities.
@@ -1069,6 +1127,33 @@ Angular 定义了很多管道，并且你还可可以自定义新的管道。
 To learn more, see [Pipes](guide/pipes).
 
 要了解更多，参见[管道](guide/pipes)页。
+
+{@a platform}
+
+## platform
+
+## 平台（platform）
+
+
+In Angular terminology, a platform is the context in which an Angular application runs.
+The most common platform for Angular applications is a web browser, but it can also be an operating system for a mobile device, or a web server.
+
+在 Angular 术语中，平台是供 Angular 应用程序在其中运行的上下文。 Angular 应用程序最常见的平台是 Web 浏览器，但它也可以是移动设备的操作系统或 Web 服务器。
+
+
+Support for the various Angular run-time platforms is provided by the `@angular/platform-*` packages. These packages allow applications that make use of `@angular/core` and `@angular/common` to execute in different environments by providing implementation for gathering user input and rendering UIs for the given platform. Isolating platform-specific functionality allows the developer to make platform-independent use of the rest of the framework.
+
+`@angular/platform-*` 软件包提供了对各种 Angular 运行时平台的支持。这些软件包通过提供用于收集用户输入和渲染指定平台 UI 的实现，以允许使用 `@angular/core` 和 `@angular/common` 的应用程序在不同的环境中执行。隔离平台相关的功能使开发人员可以独立于平台使用框架的其余部分。
+
+
+- When running in a web browser, [`BrowserModule`](api/platform-browser/BrowserModule) is imported from the `platform-browser` package, and supports services that simplify security and event processing, and allows applications to access browser-specific features, such as interpreting keyboard input and controlling the title of the document being displayed. All applications running in the browser use the same platform service.
+
+  在 Web 浏览器中运行时，[`BrowserModule`](api/platform-browser/BrowserModule) 是从 `platform-browser` 软件包中导入的，并支持简化安全性和事件处理的服务，并允许应用程序访问浏览器专有的功能，例如解释键盘输入和控制文档要显示的标题。浏览器中运行的所有应用程序都使用同一个平台服务。
+
+
+- When [server-side rendering](#server-side-rendering) (SSR) is used, the [`platform-server`](api/platform-server) package provides web server implementations of the `DOM`, `XMLHttpRequest`, and other low-level features that don't rely on a browser.
+
+  使用[服务端渲染](#server-side-rendering)（SSR）时，[`platform-server`](api/platform-server) 包将提供 `DOM`、`XMLHttpRequest` 和其他不依赖浏览器的其他底层功能的 Web 服务器端实现。
 
 {@a polyfill}
 ## polyfill
@@ -1255,9 +1340,9 @@ Add these schematics to the npm package that you use to publish and share your l
 
   公共库的开发者可以创建原理图，来让 CLI 生成他们自己的发布的库。欲知详情，参见 [devkit 文档](https://www.npmjs.com/package/@angular-devkit/schematics)。
 
-   For more information, see [Schematics](guide/schematics) and [Integrating Libraries with the CLI](guide/creating-libraries#integrating-with-the-cli).
+For more information, see [Schematics](guide/schematics) and [Integrating Libraries with the CLI](guide/creating-libraries#integrating-with-the-cli).
 
-   欲知详情，参见[原理图](guide/schematics)和[把库与 CLI 集成](guide/creating-libraries#integrating-with-the-cli)。
+欲知详情，参见[原理图](guide/schematics)和[把库与 CLI 集成](guide/creating-libraries#integrating-with-the-cli)。
 
 {@a schematics-cli}
 
@@ -1269,7 +1354,7 @@ Using Node 6.9 or above, install the Schematics CLI globally:
 Schematics 自带了一个命令行工具。
 使用 Node 6.9 或更高版本，可以全局安装这个 Schematics CLI：
 
-<code-example format="." language="bash">
+<code-example language="bash">
 npm install -g @angular-devkit/schematics-cli
 </code-example>
 
@@ -1293,7 +1378,7 @@ Import a scoped package in the same way that you import a normal package.
 
 和导入普通包相同的方式导入范围化包。
 
-<code-example path="architecture/src/app/app.component.ts" linenums="false" header="architecture/src/app/app.component.ts (import)" region="import">
+<code-example path="architecture/src/app/app.component.ts" header="architecture/src/app/app.component.ts (import)" region="import">
 
 </code-example>
 
@@ -1587,15 +1672,27 @@ View hierarchies can be loaded and unloaded dynamically as the user navigates th
 
 当用户在应用中导航时（比如使用[路由器](#router)），视图树可以动态加载或卸载。
 
+
+{@a ve}
+
+## View Engine
+
+## 视图引擎（View Engine）
+
+
+The compilation and rendering pipeline used by Angular before version 9. Compare [Ivy](#ivy).
+
+Angular 9 之前的版本使用的编译和渲染管道。可对比 [Ivy](#ivy)。
+
 {@a view-tree}
 
 ## view hierarchy
 
 ## 视图树（View hierarchy）
 
-A tree of related views that can be acted on as a unit. The root view is a component's *host view*.  A host view can be the root of a tree of *embedded views*, collected in a *view container* (`ViewContainerRef`) attached to an anchor element in the hosting component. The view hierarchy is a key part of Angular change detection.
+A tree of related views that can be acted on as a unit. The root view is a component's *host view*.  A host view can be the root of a tree of *embedded views*, collected in a *view container* (`ViewContainerRef`) attached to an anchor element in the hosting component. The view hierarchy is a key part of Angular [change detection](#change-detection).
 
-一棵相关视图的树，它们可以作为一个整体行动。其根视图就是组件的*宿主视图*。宿主视图可以是*内嵌视图*树的根，它被收集到了宿主组件上的一个*视图容器（`ViewContainerRef`）*中<!-- 再校对 -->。视图树是 Angular 变更检测的关键部件之一。
+一棵相关视图的树，它们可以作为一个整体行动。其根视图就是组件的*宿主视图*。宿主视图可以是*内嵌视图*树的根，它被收集到了宿主组件上的一个*视图容器（`ViewContainerRef`）*中<!-- 再校对 -->。视图树是 Angular [变更检测](#change-detection)的关键部件之一。
 
 The view hierarchy doesn't imply a component hierarchy. Views that are embedded in the context of a particular hierarchy can be host views of other components. Those components can be in the same NgModule as the hosting component, or belong to other NgModules.
 

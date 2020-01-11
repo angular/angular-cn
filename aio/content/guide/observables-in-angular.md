@@ -6,7 +6,7 @@ Angular makes use of observables as an interface to handle a variety of common a
 
 Angular 使用可观察对象作为处理各种常用异步操作的接口。比如：
 
-* The `EventEmitter` class extends `Observable`.
+* You can define [custom events](guide/template-syntax#custom-events-with-eventemitter) that send observable output data from a child to a parent component.
 
    `EventEmitter` 类派生自 `Observable`。
 
@@ -18,15 +18,17 @@ Angular 使用可观察对象作为处理各种常用异步操作的接口。比
 
    路由器和表单模块使用可观察对象来监听对用户输入事件的响应。
 
-## Event emitter
+## Transmitting data between components
 
-## 事件发送器 `EventEmitter`
+## 在组件之间传递数据
 
-Angular provides an `EventEmitter` class that is used when publishing values from a component through the `@Output()` decorator. `EventEmitter` extends `Observable`, adding an `emit()` method so it can send arbitrary values. When you call `emit()`, it passes the emitted value to the `next()` method of any subscribed observer.
+Angular provides an `EventEmitter` class that is used when publishing values from a component through the [`@Output()` decorator](guide/template-syntax#how-to-use-output).
+`EventEmitter` extends [RxJS `Subject`](https://rxjs.dev/api/index/class/Subject), adding an `emit()` method so it can send arbitrary values.
+When you call `emit()`, it passes the emitted value to the `next()` method of any subscribed observer.
 
-Angular 提供了一个 `EventEmitter` 类，它用来从组件的 `@Output()` 属性中发布一些值。`EventEmitter` 扩展了 `Observable`，并添加了一个 `emit()` 方法，这样它就可以发送任意值了。当你调用 `emit()` 时，就会把所发送的值传给订阅上来的观察者的 `next()` 方法。
+Angular 提供了一个 `EventEmitter` 类，它用来通过组件的 [`@Output()` 装饰器](guide/template-syntax#how-to-use-output) 发送一些值。`EventEmitter` 扩展了 [RxJS `Subject`](https://rxjs.dev/api/index/class/Subject)，并添加了一个 `emit()` 方法，这样它就可以发送任意值了。当你调用 `emit()` 时，就会把所发送的值传给订阅上来的观察者的 `next()` 方法。
 
-A good example of usage can be found on the [EventEmitter](https://angular.io/api/core/EventEmitter) documentation. Here is the example component that listens for open and close events:
+A good example of usage can be found in the [EventEmitter](https://angular.io/api/core/EventEmitter) documentation. Here is the example component that listens for open and close events:
 
 这种用法的例子参见 [EventEmitter](https://angular.cn/api/core/EventEmitter) 文档。下面这个范例组件监听了 `open` 和 `close` 事件：
 
@@ -86,9 +88,9 @@ The following example binds the `time` observable to the component's view. The o
 
 <code-example path="observables-in-angular/src/main.ts" header="Router events" region="router"></code-example>
 
-The [ActivatedRoute](https://angular.io/api/router/ActivatedRoute) is an injected router service that makes use of observables to get information about a route path and parameters. For example, `ActivateRoute.url` contains an observable that reports the route path or paths. Here's an example:
+The [ActivatedRoute](https://angular.io/api/router/ActivatedRoute) is an injected router service that makes use of observables to get information about a route path and parameters. For example, `ActivatedRoute.url` contains an observable that reports the route path or paths. Here's an example:
 
-[ActivatedRoute](https://angular.cn/api/router/ActivatedRoute) 是一个可注入的路由器服务，它使用可观察对象来获取关于路由路径和路由参数的信息。比如，`ActivateRoute.url` 包含一个用于汇报路由路径的可观察对象。例子如下：
+[ActivatedRoute](https://angular.cn/api/router/ActivatedRoute) 是一个可注入的路由器服务，它使用可观察对象来获取关于路由路径和路由参数的信息。比如，`ActivatedRoute.url` 包含一个用于汇报路由路径的可观察对象。例子如下：
 
 <code-example path="observables-in-angular/src/main.ts" header="ActivatedRoute" region="activated_route"></code-example>
 

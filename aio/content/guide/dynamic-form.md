@@ -1,4 +1,4 @@
-# Dynamic Forms
+# Dynamic forms
 
 # 动态表单
 
@@ -105,17 +105,13 @@ via the `type` property.
 
 `TextboxQuestion` 可以通过 `type` 属性来支持多种 HTML5 元素类型，比如文本、邮件、网址等。
 
-<code-example path="dynamic-form/src/app/question-textbox.ts" header="src/app/question-textbox.ts" linenums="false">
-
-</code-example>
+<code-example path="dynamic-form/src/app/question-textbox.ts" header="src/app/question-textbox.ts"></code-example>
 
 `DropdownQuestion` presents a list of choices in a select box.
 
 `DropdownQuestion` 表示一个带可选项列表的选择框。
 
-<code-example path="dynamic-form/src/app/question-dropdown.ts" header="src/app/question-dropdown.ts" linenums="false">
-
-</code-example>
+<code-example path="dynamic-form/src/app/question-dropdown.ts" header="src/app/question-dropdown.ts"></code-example>
 
 Next is `QuestionControlService`, a simple service for transforming the questions to a `FormGroup`.
 In a nutshell, the form group consumes the metadata from the question model and
@@ -124,9 +120,7 @@ allows you to specify default values and validation rules.
 接下来定义了 `QuestionControlService`，一个可以把问卷问题转换为 `FormGroup` 的服务。
 简而言之，这个 `FormGroup` 使用问卷模型的元数据，并允许你指定默认值和验证规则。
 
-<code-example path="dynamic-form/src/app/question-control.service.ts" header="src/app/question-control.service.ts" linenums="false">
-
-</code-example>
+<code-example path="dynamic-form/src/app/question-control.service.ts" header="src/app/question-control.service.ts"></code-example>
 
 {@a form-component}
 
@@ -181,7 +175,7 @@ The `ngSwitch` determines which type of question to display.
 
 请注意，这个组件能代表模型里的任何问题类型。目前，还只有两种问题类型，但可以添加更多类型。可以用 `ngSwitch` 决定显示哪种类型的问题。
 
-In both components  you're relying on Angular's **formGroup** to connect the template HTML to the
+In both components you're relying on Angular's **formGroup** to connect the template HTML to the
 underlying control objects, populated from the question model with display and validation rules.
 
 在这两个组件中，你依赖 Angular 的 **formGroup** 来把模板 HTML 和底层控件对象连接起来，该对象从问卷问题模型里获取渲染和验证规则。
@@ -260,9 +254,9 @@ The final form looks like this:
 
 完整的表单是这样的：
 
-<figure>
+<div class="lightbox">
   <img src="generated/images/guide/dynamic-form/dynamic-form.png" alt="Dynamic-Form">
-</figure>
+</div>
 
 [Back to top](guide/dynamic-form#top)
 

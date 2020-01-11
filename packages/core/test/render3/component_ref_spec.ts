@@ -12,7 +12,7 @@ import {RendererFactory2} from '../../src/render/api';
 import {injectComponentFactoryResolver} from '../../src/render3/component_ref';
 import {ɵɵdefineComponent} from '../../src/render3/index';
 import {domRendererFactory3} from '../../src/render3/interfaces/renderer';
-import {Sanitizer} from '../../src/sanitization/security';
+import {Sanitizer} from '../../src/sanitization/sanitizer';
 
 describe('ComponentFactory', () => {
   const cfr = injectComponentFactoryResolver();
@@ -20,13 +20,13 @@ describe('ComponentFactory', () => {
   describe('constructor()', () => {
     it('should correctly populate default properties', () => {
       class TestComponent {
-        static ngComponentDef = ɵɵdefineComponent({
+        static ɵfac = () => new TestComponent();
+        static ɵcmp = ɵɵdefineComponent({
           type: TestComponent,
           selectors: [['test', 'foo'], ['bar']],
-          consts: 0,
+          decls: 0,
           vars: 0,
           template: () => undefined,
-          factory: () => new TestComponent(),
         });
       }
 
@@ -41,15 +41,15 @@ describe('ComponentFactory', () => {
 
     it('should correctly populate defined properties', () => {
       class TestComponent {
-        static ngComponentDef = ɵɵdefineComponent({
+        static ɵfac = () => new TestComponent();
+        static ɵcmp = ɵɵdefineComponent({
           type: TestComponent,
           encapsulation: ViewEncapsulation.None,
           selectors: [['test', 'foo'], ['bar']],
-          consts: 0,
+          decls: 0,
           vars: 0,
           template: () => undefined,
           ngContentSelectors: ['*', 'a', 'b'],
-          factory: () => new TestComponent(),
           inputs: {
             in1: 'in1',
             in2: ['input-attr-2', 'in2'],
@@ -89,14 +89,14 @@ describe('ComponentFactory', () => {
       createRenderer3Spy = spyOn(domRendererFactory3, 'createRenderer').and.callThrough();
 
       class TestComponent {
-        static ngComponentDef = ɵɵdefineComponent({
+        static ɵfac = () => new TestComponent();
+        static ɵcmp = ɵɵdefineComponent({
           type: TestComponent,
           encapsulation: ViewEncapsulation.None,
           selectors: [['test']],
-          consts: 0,
+          decls: 0,
           vars: 0,
           template: () => undefined,
-          factory: () => new TestComponent(),
         });
       }
 

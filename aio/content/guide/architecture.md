@@ -55,7 +55,7 @@ NgModule 可以将其组件和一组相关代码（如服务）关联起来，�
 Every Angular app has a *root module*, conventionally named `AppModule`, which provides the bootstrap mechanism that launches the application. An app typically contains many functional modules.
 
 每个 Angular 应用都有一个*根模块*，通常命名为 `AppModule`。根模块提供了用来启动应用的引导机制。
-一个应用通常会包含很多功能模块。
+一个应用通常会包含很多特性模块。
 
 Like JavaScript modules, NgModules can import functionality from other NgModules, and allow their own functionality to be exported and used by other NgModules. For example, to use the router service in your app, you import the `Router` NgModule.
 
@@ -64,7 +64,7 @@ Like JavaScript modules, NgModules can import functionality from other NgModules
 
 Organizing your code into distinct functional modules helps in managing development of complex applications, and in designing for reusability. In addition, this technique lets you take advantage of *lazy-loading*&mdash;that is, loading modules on demand&mdash;to minimize the amount of code that needs to be loaded at startup.
 
-把你的代码组织成一些清晰的功能模块，可以帮助管理复杂应用的开发工作并实现可复用性设计。
+把你的代码组织成一些清晰的特性模块，可以帮助管理复杂应用的开发工作并实现可复用性设计。
 另外，这项技术还能让你获得*惰性加载*（也就是按需加载模块）的优点，以尽可能减小启动时需要加载的代码体积。
 
 <div class="alert is-helpful">
@@ -109,7 +109,7 @@ Template *directives* provide program logic, and *binding markup* connects your 
 There are two types of data binding:
 
 模板会把 HTML 和 Angular 的标记（markup）组合起来，这些标记可以在 HTML 元素显示出来之前修改它们。
-模板中的*指令*会提供程序逻辑，而*绑定标记*会把你应用中的数据和 DOM 连接在一起。
+模板中的*指令*会提供商逻辑，而*绑定标记*会把你应用中的数据和 DOM 连接在一起。
 有两种类型的数据绑定：
 
 * *Event binding* lets your app respond to user input in the target environment by updating your application data.
@@ -224,9 +224,9 @@ You've learned the basics about the main building blocks of an Angular applicati
 你已经学完了 Angular 应用的主要构造块的基础知识。
 下面这张图展示了这些基础部分之间是如何关联起来的。
 
-<figure>
+<div class="lightbox">
   <img src="generated/images/guide/architecture/overview2.png" alt="overview">
-</figure>
+</div>
 
 * Together, a component and template define an Angular view.
 

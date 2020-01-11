@@ -26,7 +26,7 @@ StackBlitz 项目默认是公开的，你可以通过项目的 URL 来共享你�
 
    在你的 StackBlitz 项目中，请先确保你已经分支或保存了项目。
 
-1. In the preview pane, you should see a URL that looks like `https://<Project ID>.stackblitz.io`.
+1. In the preview page, you should see a URL that looks like `https://<Project ID>.stackblitz.io`.
 
    在预览窗格，你会看到一个形如 `https://<Project ID>.stackblitz.io` 的 URL。
 
@@ -46,9 +46,9 @@ To build your application locally or for production, you will need to download t
 
 要在本地构建应用或未生产环境构建应用，你需要从 StackBlitz 项目中下载源代码。单击左侧菜单中的 `Download Project` 图标以下载文件。
 
-Once you have the source code downloaded and unzipped, use the [Angular Console](https://angularconsole.com "Angular Console web site") to serve the application, or you install Node and have the Angular CLI installed.
+Once you have the source code downloaded and unzipped, use the [Angular Console](https://angularconsole.com "Angular Console web site") to serve the application, or you install `Node.js` and have the Angular CLI installed.
 
-下载并解压源代码后，就可以使用 [Angular Console](https://angularconsole.com "Angular Console 的网站") 来启动开发服务器了，也可以先安装 Node 再安装 Angular CLI。
+下载并解压源代码后，就可以使用 [Angular Console](https://angularconsole.com "Angular Console 的网站") 来启动开发服务器了，也可以先安装 `Node.js` 再安装 Angular CLI。
 
 From the terminal, install the Angular CLI globally with:
 
@@ -82,13 +82,21 @@ This will produce the files that you need to deploy.
 
 这会产生你要部署的文件。
 
+<div class="alert is-helpful">
+
+If the above `ng build` command throws an error about missing packages, append the missing dependencies in your local project's `package.json` file to match the one in the downloaded StackBlitz project.
+
+如果上述 `ng build` 命令抛出缺少软件包的错误，请将缺少的依赖项添加到本地项目的 `package.json` 文件中，以便和下载的 StackBlitz 项目的依赖项保持一致。
+
+</div>
+
 #### Hosting the built project
 
 #### 托管已构建的项目
 
-The files in the `dist/my-project-name` folder are static and can be hosted on any web server capable of serving files (Node, Java, .NET) or any backend (Firebase, Google Cloud, App Engine, others).
+The files in the `dist/my-project-name` folder are static and can be hosted on any web server capable of serving files (`Node.js`, Java, .NET) or any backend (Firebase, Google Cloud, App Engine, others).
 
-`dist/my-project-name` 文件夹中的文件都是静态的，可以托管在任何能够提供文件服务的 Web 服务器上（Node，Java，.NET），也可以是任何后端（Firebase，Google Cloud，App Engine 等）。
+`dist/my-project-name` 文件夹中的文件都是静态的，可以托管在任何能够提供文件服务的 Web 服务器上（`Node.js`，Java，.NET），也可以是任何后端（Firebase，Google Cloud，App Engine 等）。
 
 ### Hosting an Angular app on Firebase
 
@@ -114,13 +122,25 @@ One of the easiest ways to get your site live is to host it using Firebase.
 
    把你的 CLI 和 Firebase 帐户联系起来，使用 `firebase login` 和 `firebase init` 来初始化这个联系。
 
-1. Follow the prompts to select the `Firebase` project you creating for hosting.
+1. Follow the prompts to select the `Firebase` project you are creating for hosting.
 
-   按照提示选择你为托管它而创建的 `Firebase` 项目。
+   遵照下列提示选择你为托管它而创建的 `Firebase` 项目。
 
-1. Deploy your application with `firebase deploy` because StackBlitz has created a `firebase.json` that tells Firebase how to serve your app.
+  - Select the `Hosting` option on the first prompt.
+  
+    在第一个提示中选择 `Hosting` 选项。
+  
+  - Select the project you previously created on Firebase.
+  
+    选择你以前在 Firebase 中创建的项目。
+  
+  - Select `dist/my-project-name` as the public directory.
+  
+    选择 `dist/my-project-name` 作为公开目录。
+  
+1. Deploy your application with `firebase deploy`, because the command `firebase init` has created a `firebase.json` file that tells Firebase how to serve your app.
 
-   用 `firebase deploy` 命令部署你的应用，这是因为 StackBlitz 已经创建好了一个 firebase.json，它会告诉 Firebase 如何用你的应用提供服务。
+   用 `firebase deploy` 命令部署你的应用，这是因为 `firebase init` 命令已经创建了一个 `firebase.json`，它会告诉 Firebase 如何用你的应用提供服务。
 
 1. Once deployed, visit https://your-firebase-project-name.firebaseapp.com to see it live!
 

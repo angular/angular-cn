@@ -92,9 +92,9 @@ You'll learn to build a template-driven form that looks like this:
 
 你将学习构建如下的“模板驱动”表单：
 
-<figure>
+<div class="lightbox">
   <img src="generated/images/guide/forms/hero-form-1.png" alt="Clean Form">
-</figure>
+</div>
 
 The *Hero Employment Agency* uses this form to maintain personal information about heroes.
 Every hero needs a job. It's the company mission to match the right hero with the right crisis.
@@ -110,9 +110,9 @@ If you delete the hero name, the form displays a validation error in an attentio
 
 如果删除了英雄的名字，表单就会用醒目的样式把验证错误显示出来。
 
-<figure>
+<div class="lightbox">
   <img src="generated/images/guide/forms/hero-form-2.png" alt="Invalid, Name Required">
-</figure>
+</div>
 
 Note that the *Submit* button is disabled, and the "required" bar to the left of the input control changes from green to red.
 
@@ -211,9 +211,7 @@ With this content:
 
 内容如下：
 
-<code-example path="forms/src/app/hero.ts" header="src/app/hero.ts">
-
-</code-example>
+<code-example path="forms/src/app/hero.ts" header="src/app/hero.ts"></code-example>
 
 It's an anemic model with few requirements and no behavior. Perfect for the demo.
 
@@ -232,9 +230,7 @@ You can create a new hero like this:
 
 可以这样创建新英雄：
 
-<code-example path="forms/src/app/hero-form/hero-form.component.ts" linenums="false" region="SkyDog">
-
-</code-example>
+<code-example path="forms/src/app/hero-form/hero-form.component.ts" region="SkyDog"></code-example>
 
 ## Create a form component
 
@@ -261,9 +257,7 @@ With this content:
 
 内容如下：
 
-<code-example path="forms/src/app/hero-form/hero-form.component.ts" linenums="false" header="src/app/hero-form/hero-form.component.ts (v1)" region="v1">
-
-</code-example>
+<code-example path="forms/src/app/hero-form/hero-form.component.ts" header="src/app/hero-form/hero-form.component.ts (v1)" region="v1"></code-example>
 
 There’s nothing special about this component, nothing form-specific,
 nothing to distinguish it from any component you've written before.
@@ -322,9 +316,7 @@ Update it with the following:
 
 对它做如下修改：
 
-<code-example path="forms/src/app/app.module.ts" header="src/app/app.module.ts">
-
-</code-example>
+<code-example path="forms/src/app/app.module.ts" header="src/app/app.module.ts"></code-example>
 
 <div class="alert is-helpful">
 
@@ -365,9 +357,7 @@ Replace the contents of its template with the following:
 
 把模板中的内容替换成如下代码：
 
-<code-example path="forms/src/app/app.component.html" header="src/app/app.component.html">
-
-</code-example>
+<code-example path="forms/src/app/app.component.html" header="src/app/app.component.html"></code-example>
 
 <div class="alert is-helpful">
 
@@ -390,9 +380,7 @@ Update the template file with the following contents:
 
 修改模板文件，内容如下：
 
-<code-example path="forms/src/app/hero-form/hero-form.component.html" region="start" header="src/app/hero-form/hero-form.component.html">
-
-</code-example>
+<code-example path="forms/src/app/hero-form/hero-form.component.html" region="start" header="src/app/hero-form/hero-form.component.html"></code-example>
 
 The language is simply HTML5. You're presenting two of the `Hero` fields, `name` and `alterEgo`, and
 opening them up for user input in input boxes.
@@ -446,9 +434,7 @@ To add the stylesheet, open `styles.css` and add the following import line at th
 
 要添加样式表，就打开 `styles.css`，并把下列代码添加到顶部：
 
-<code-example path="forms/src/styles.1.css" linenums="false" header="src/styles.css">
-
-</code-example>
+<code-example path="forms/src/styles.1.css" header="src/styles.css"></code-example>
 
 ## Add powers with _*ngFor_
 
@@ -471,9 +457,7 @@ Add the following HTML *immediately below* the *Alter Ego* group:
 
 在 *Alter Ego* 的紧下方添加如下 HTML：
 
-<code-example path="forms/src/app/hero-form/hero-form.component.html" linenums="false" header="src/app/hero-form/hero-form.component.html (powers)" region="powers">
-
-</code-example>
+<code-example path="forms/src/app/hero-form/hero-form.component.html" header="src/app/hero-form/hero-form.component.html (powers)" region="powers"></code-example>
 
 This code repeats the `<option>` tag for each power in the list of powers.
 The `pow` template input variable is a different power in each iteration;
@@ -492,9 +476,9 @@ Running the app right now would be disappointing.
 
 如果立即运行此应用，你将会失望。
 
-<figure>
+<div class="lightbox">
   <img src="generated/images/guide/forms/hero-form-3.png" alt="Early form with no binding">
-</figure>
+</div>
 
 You don't see hero data because you're not binding to the `Hero` yet.
 You know how to do that from earlier pages.
@@ -522,9 +506,7 @@ Find the `<input>` tag for *Name* and update it like this:
 
 找到 *Name* 对应的 `<input>` 标签，并且像这样修改它：
 
-<code-example path="forms/src/app/hero-form/hero-form.component.html" linenums="false" header="src/app/hero-form/hero-form.component.html (excerpt)" region="ngModelName-1">
-
-</code-example>
+<code-example path="forms/src/app/hero-form/hero-form.component.html" header="src/app/hero-form/hero-form.component.html (excerpt)" region="ngModelName-1"></code-example>
 
 <div class="alert is-helpful">
 
@@ -547,9 +529,7 @@ a template variable for the form. Update the `<form>` tag with
 
 你需要更多的工作来显示数据。在表单中声明一个模板变量。往 `<form>` 标签中加入 `#heroForm="ngForm"`，代码如下：
 
-<code-example path="forms/src/app/hero-form/hero-form.component.html" linenums="false" header="src/app/hero-form/hero-form.component.html (excerpt)" region="template-variable">
-
-</code-example>
+<code-example path="forms/src/app/hero-form/hero-form.component.html" header="src/app/hero-form/hero-form.component.html (excerpt)" region="template-variable"></code-example>
 
 The variable `heroForm` is now a reference to the `NgForm` directive that governs the form as a whole.
 
@@ -593,9 +573,9 @@ At some point it might look like this:
 如果现在运行这个应用，开始在*姓名*输入框中键入，添加和删除字符，将看到它们从插值结果中显示和消失。
 某一瞬间，它可能是这样的：
 
-<figure>
+<div class="lightbox">
   <img src="generated/images/guide/forms/ng-model-in-action.png" alt="ngModel in action">
-</figure>
+</div>
 
 The diagnostic is evidence that values really are flowing from the input box to the model and
 back again.
@@ -646,9 +626,7 @@ After revision, the core of the form should look like this:
 
 修改之后，这个表单的核心是这样的：
 
-<code-example path="forms/src/app/hero-form/hero-form.component.html" linenums="false" header="src/app/hero-form/hero-form.component.html (excerpt)" region="ngModel-2">
-
-</code-example>
+<code-example path="forms/src/app/hero-form/hero-form.component.html" header="src/app/hero-form/hero-form.component.html (excerpt)" region="ngModel-2"></code-example>
 
 <div class="alert is-helpful">
 
@@ -667,9 +645,9 @@ If you run the app now and change every hero model property, the form might disp
 
 如果现在运行本应用，修改 Hero 模型的每个属性，表单是这样的：
 
-<figure>
+<div class="lightbox">
   <img src="generated/images/guide/forms/ng-model-in-action-2.png" alt="ngModel in action">
-</figure>
+</div>
 
 The diagnostic near the top of the form
 confirms that all of your changes are reflected in the model.
@@ -802,12 +780,10 @@ You can leverage those class names to change the appearance of the control.
 Temporarily add a [template reference variable](guide/template-syntax#ref-vars) named `spy`
 to the _Name_ `<input>` tag and use it to display the input's CSS classes.
 
-往姓名 `<input>` 标签上添加名叫 **spy** 的临时[模板引用变量](guide/template-syntax#ref-vars)，
+往姓名 `<input>` 标签上添加名叫 `spy` 的临时[模板引用变量](guide/template-syntax#ref-vars)，
 然后用这个 spy 来显示它上面的所有 CSS 类。
 
-<code-example path="forms/src/app/hero-form/hero-form.component.html" linenums="false" header="src/app/hero-form/hero-form.component.html (excerpt)" region="ngModelName-2">
-
-</code-example>
+<code-example path="forms/src/app/hero-form/hero-form.component.html" header="src/app/hero-form/hero-form.component.html (excerpt)" region="ngModelName-2"></code-example>
 
 Now run the app and look at the _Name_ input box.
 Follow these steps *precisely*:
@@ -835,17 +811,17 @@ The actions and effects are as follows:
 
 动作和它对应的效果如下：
 
-<figure>
+<div class="lightbox">
   <img src="generated/images/guide/forms/control-state-transitions-anim.gif" alt="Control State Transition">
-</figure>
+</div>
 
 You should see the following transitions and class names:
 
 你会看到下列转换及其类名：
 
-<figure>
+<div class="lightbox">
   <img src="generated/images/guide/forms/ng-control-class-changes.png" alt="Control state transitions">
-</figure>
+</div>
 
 The `ng-valid`/`ng-invalid` pair is the most interesting, because you want to send a
 strong visual signal when the values are invalid. You also want to mark required fields.
@@ -867,26 +843,22 @@ on the left of the input box:
 
 可以在输入框的左侧添加带颜色的竖条，用于标记必填字段和无效输入：
 
-<figure>
+<div class="lightbox">
   <img src="generated/images/guide/forms/validity-required-indicator.png" alt="Invalid Form">
-</figure>
+</div>
 
 You achieve this effect by adding these class definitions to a new `forms.css` file
 that you add to the project as a sibling to `index.html`:
 
 在新建的 `forms.css` 文件中，添加两个样式来实现这一效果。把这个文件添加到项目中，与 `index.html` 相邻。
 
-<code-example path="forms/src/assets/forms.css" header="src/assets/forms.css">
-
-</code-example>
+<code-example path="forms/src/assets/forms.css" header="src/assets/forms.css"></code-example>
 
 Update the `<head>` of `index.html` to include this style sheet:
 
 修改 `index.html` 中的 `<head>`，以包含这个样式表：
 
-<code-example path="forms/src/index.html" linenums="false" header="src/index.html (styles)" region="styles">
-
-</code-example>
+<code-example path="forms/src/index.html" header="src/index.html (styles)" region="styles"></code-example>
 
 ## Show and hide validation error messages
 
@@ -903,9 +875,9 @@ When the user deletes the name, the form should look like this:
 
 当用户删除姓名时，应该是这样的：
 
-<figure>
+<div class="lightbox">
   <img src="generated/images/guide/forms/name-required-error.png" alt="Name required">
-</figure>
+</div>
 
 To achieve this effect, extend the `<input>` tag with the following:
 
@@ -921,11 +893,9 @@ To achieve this effect, extend the `<input>` tag with the following:
 
 Here's an example of an error message added to the _name_ input box:
 
-下面这个例子中把一条错误信息添加到了`name`输入框中：
+下面这个例子中把一条错误信息添加到了 `name` 输入框中：
 
-<code-example path="forms/src/app/hero-form/hero-form.component.html" linenums="false" header="src/app/hero-form/hero-form.component.html (excerpt)" region="name-with-error-msg">
-
-</code-example>
+<code-example path="forms/src/app/hero-form/hero-form.component.html" header="src/app/hero-form/hero-form.component.html (excerpt)" region="name-with-error-msg"></code-example>
 
 You need a template reference variable to access the input box's Angular control from within the template.
 Here you created a variable called `name` and gave it the value "ngModel".
@@ -951,9 +921,7 @@ control to the message `<div>` element's `hidden` property.
 
 你把 `div` 元素的 `hidden` 属性绑定到 `name` 控件的属性，这样就可以控制“姓名”字段错误信息的可见性了。
 
-<code-example path="forms/src/app/hero-form/hero-form.component.html" linenums="false" header="src/app/hero-form/hero-form.component.html (hidden-error-msg)" region="hidden-error-msg">
-
-</code-example>
+<code-example path="forms/src/app/hero-form/hero-form.component.html" header="src/app/hero-form/hero-form.component.html (hidden-error-msg)" region="hidden-error-msg"></code-example>
 
 In this example, you hide the message when the control is valid or pristine;
 "pristine" means the user hasn't changed the value since it was displayed in this form.
@@ -997,13 +965,9 @@ Place a *New Hero* button at the bottom of the form and bind its click event to 
 现在，你要在这个表单中添加新的英雄。
   在表单的底部放置“New Hero（新增英雄）”按钮，并把它的点击事件绑定到组件上的 `newHero` 方法。
 
-<code-example path="forms/src/app/hero-form/hero-form.component.html" region="new-hero-button-no-reset" header="src/app/hero-form/hero-form.component.html (New Hero button)">
+<code-example path="forms/src/app/hero-form/hero-form.component.html" region="new-hero-button-no-reset" header="src/app/hero-form/hero-form.component.html (New Hero button)"></code-example>
 
-</code-example>
-
-<code-example path="forms/src/app/hero-form/hero-form.component.ts" region="new-hero" header="src/app/hero-form/hero-form.component.ts (New Hero method)" linenums="false">
-
-</code-example>
+<code-example path="forms/src/app/hero-form/hero-form.component.ts" region="new-hero" header="src/app/hero-form/hero-form.component.ts (New Hero method)"></code-example>
 
 Run the application again, click the *New Hero* button, and the form clears.
 The *required* bars to the left of the input box are red, indicating invalid `name` and `power` properties.
@@ -1036,9 +1000,7 @@ by calling the form's `reset()` method after calling the `newHero()` method.
 
 你必须清除所有标记，在调用 `newHero()` 方法后调用表单的 `reset()` 方法即可。
 
-<code-example path="forms/src/app/hero-form/hero-form.component.html" region="new-hero-button-form-reset" header="src/app/hero-form/hero-form.component.html (Reset the form)">
-
-</code-example>
+<code-example path="forms/src/app/hero-form/hero-form.component.html" region="new-hero-button-form-reset" header="src/app/hero-form/hero-form.component.html (Reset the form)"></code-example>
 
 Now clicking "New Hero" resets both the form and its control flags.
 
@@ -1063,9 +1025,7 @@ to the hero form component's `onSubmit()` method:
 现在这样仅仅触发“表单提交”是没用的。
 要让它有用，就要把该表单的 `ngSubmit` 事件属性绑定到英雄表单组件的 `onSubmit()` 方法上：
 
-<code-example path="forms/src/app/hero-form/hero-form.component.html" linenums="false" header="src/app/hero-form/hero-form.component.html (ngSubmit)" region="ngSubmit">
-
-</code-example>
+<code-example path="forms/src/app/hero-form/hero-form.component.html" header="src/app/hero-form/hero-form.component.html (ngSubmit)" region="ngSubmit"></code-example>
 
 You'd already defined a template reference variable,
 `#heroForm`, and initialized it with the value "ngForm".
@@ -1080,9 +1040,7 @@ using an event binding. Here's the code:
 
 你要把表单的总体有效性通过 `heroForm` 变量绑定到此按钮的 `disabled` 属性上，代码如下：
 
-<code-example path="forms/src/app/hero-form/hero-form.component.html" linenums="false" header="src/app/hero-form/hero-form.component.html (submit-button)" region="submit-button">
-
-</code-example>
+<code-example path="forms/src/app/hero-form/hero-form.component.html" header="src/app/hero-form/hero-form.component.html (submit-button)" region="submit-button"></code-example>
 
 If you run the application now, you find that the button is enabled&mdash;although
 it doesn't do anything useful yet.
@@ -1145,9 +1103,7 @@ its `hidden` property to the `HeroFormComponent.submitted` property.
 
 先把表单包裹进 `<div>` 中，再把它的 `hidden` 属性绑定到 `HeroFormComponent.submitted` 属性。
 
-<code-example path="forms/src/app/hero-form/hero-form.component.html" linenums="false" header="src/app/hero-form/hero-form.component.html (excerpt)" region="edit-div">
-
-</code-example>
+<code-example path="forms/src/app/hero-form/hero-form.component.html" header="src/app/hero-form/hero-form.component.html (excerpt)" region="edit-div"></code-example>
 
 The main form is visible from the start because the
 `submitted` property is false until you submit the form,
@@ -1156,9 +1112,7 @@ as this fragment from the `HeroFormComponent` shows:
 主表单从一开始就是可见的，因为 `submitted` 属性是 false，直到提交了这个表单。
 来自 `HeroFormComponent` 的代码片段证实了这一点：
 
-<code-example path="forms/src/app/hero-form/hero-form.component.ts" linenums="false" header="src/app/hero-form/hero-form.component.ts (submitted)" region="submitted">
-
-</code-example>
+<code-example path="forms/src/app/hero-form/hero-form.component.ts" header="src/app/hero-form/hero-form.component.ts (submitted)" region="submitted"></code-example>
 
 When you click the *Submit* button, the `submitted` flag becomes true and the form disappears
 as planned.
@@ -1171,9 +1125,7 @@ Add the following HTML below the `<div>` wrapper you just wrote:
 现在，当表单处于已提交状态时，需要显示一些别的东西。
 在刚刚写的 `<div>` 包装下方，添加下列 HTML 语句：
 
-<code-example path="forms/src/app/hero-form/hero-form.component.html" linenums="false" header="src/app/hero-form/hero-form.component.html (excerpt)" region="submitted">
-
-</code-example>
+<code-example path="forms/src/app/hero-form/hero-form.component.html" header="src/app/hero-form/hero-form.component.html (excerpt)" region="submitted"></code-example>
 
 There's the hero again, displayed read-only with interpolation bindings.
 This `<div>` appears only while the component is in the submitted state.

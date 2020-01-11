@@ -15,21 +15,14 @@
 
 </th>
 
-<th>
-
-    <p><code>import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';</code>
-</p>
+<th><p><code>import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';</code></p>
 
 </th>
 
 </tr>
 <tr>
 
-<td>
-
-    <code><b>platformBrowserDynamic().bootstrapModule</b>(AppModule);</code>
-
-</td>
+<td><code><b>platformBrowserDynamic().bootstrapModule</b>(AppModule);</code></td>
 
 <td>
 
@@ -45,18 +38,9 @@
 <table class="is-full-width is-fixed-layout">
 <tbody><tr>
 
-<th>
+<th>NgModules</th>
 
-    NgModules
-
-</th>
-
-<th>
-
-    <p><code>import { NgModule } from '@angular/core';</code>
-</p>
-
-</th>
+<th><p><code>import { NgModule } from '@angular/core';</code></p></th>
 
 </tr>
 <tr>
@@ -631,11 +615,9 @@ is available to <code>declarations</code> of this module.</p>
 
 <td>
 
-    <p>Declares that a class has dependencies that should be injected into the constructor when the dependency injector is creating an instance of this class.
-</p>
+    <p>Declares that a class can be provided and injected by other classes. Without this decorator, the compiler won't generate enough metadata to allow the class to be created properly when it's injected somewhere.</p>
 
-    <p>声明某个类具有一些依赖。当依赖注入器要创建这个类的实例时，应该把这些依赖注入到它的构造函数中。</p>
-
+    <p>声明某个类可以注册为提供商，并能被另一个类注入。如果没有该装饰器，编译器就不会生成足够的元数据，当它被注入到别处时，就无法正常创建该类。</p>
 </td>
 
 </tr>

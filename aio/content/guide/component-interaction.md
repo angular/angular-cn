@@ -1,4 +1,4 @@
-# Component Interaction
+# Component interaction
 
 # 组件之间的交互
 
@@ -76,9 +76,9 @@ The running application displays three heroes:
 
 运行应用程序会显示三个英雄：
 
-<figure>
+<div class="lightbox">
   <img src="generated/images/guide/component-interaction/parent-to-child.png" alt="Parent-to-child">
-</figure>
+</div>
 
 <h3 class="no-toc">Test it</h3>
 
@@ -123,9 +123,9 @@ Here's the `NameParentComponent` demonstrating name variations including a name 
 
 </code-example>
 
-<figure>
+<div class="lightbox">
   <img src="generated/images/guide/component-interaction/setter.png" alt="Parent-to-child-setter">
-</figure>
+</div>
 
 <h3 class="no-toc">Test it</h3>
 
@@ -159,7 +159,7 @@ You may prefer this approach to the property setter when watching multiple, inte
 
 当需要监视多个、交互式输入属性的时候，本方法比用属性的 setter 更合适。
 
-Learn about `ngOnChanges()` in the [LifeCycle Hooks](guide/lifecycle-hooks) chapter.
+Learn about `ngOnChanges()` in the [Lifecycle Hooks](guide/lifecycle-hooks) chapter.
 
 学习关于 `ngOnChanges()` 的更多知识，参见[生命周期钩子](guide/lifecycle-hooks)一章。
 
@@ -185,9 +185,9 @@ Here's the output of a button-pushing sequence:
 
 下面是点击按钮的结果。
 
-<figure>
+<div class="lightbox">
   <img src="generated/images/guide/component-interaction/parent-to-child-on-changes.gif" alt="Parent-to-child-onchanges">
-</figure>
+</div>
 
 <h3 class="no-toc">Test it</h3>
 
@@ -245,9 +245,9 @@ and the method processes it:
 
 本框架把事件参数(用 `$event` 表示)传给事件处理方法，该方法会处理它：
 
-<figure>
+<div class="lightbox">
   <img src="generated/images/guide/component-interaction/child-to-parent.gif" alt="Child-to-parent">
-</figure>
+</div>
 
 <h3 class="no-toc">Test it</h3>
 
@@ -317,9 +317,9 @@ Here we see the parent and child working together.
 
 下面是父组件和子组件一起工作时的效果。
 
-<figure>
+<div class="lightbox">
   <img src="generated/images/guide/component-interaction/countdown-timer-anim.gif" alt="countdown timer">
-</figure>
+</div>
 
 {@a countdown-tests}
 
@@ -506,9 +506,9 @@ facilitated by the service:
 
 *History* 日志证明了：在父组件 `MissionControlComponent` 和子组件 `AstronautComponent` 之间，信息通过该服务实现了双向传递。
 
-<figure>
+<div class="lightbox">
   <img src="generated/images/guide/component-interaction/bidirectional-service.gif" alt="bidirectional-service">
-</figure>
+</div>
 
 <h3 class="no-toc">Test it</h3>
 

@@ -146,9 +146,9 @@ To simulate a network issue, disable network interaction for your application. I
 
    勾选 **Offline** 复选框。
 
-<figure>
+<div class="lightbox">
   <img src="generated/images/guide/service-worker/offline-checkbox.png" alt="The offline checkbox in the Network tab is checked">
-</figure>
+</div>
 
 Now the app has no access to network interaction.
 
@@ -166,9 +166,9 @@ If you look at the Network tab, you can verify that the service worker is active
 
 如果你看看 Network 页，就会发现 Service Worker 是激活的。
 
-<figure>
+<div class="lightbox">
   <img src="generated/images/guide/service-worker/sw-active.png" alt="Requests are marked as from ServiceWorker">
-</figure>
+</div>
 
 Notice that under the "Size" column, the requests state is `(from ServiceWorker)`. This means that the resources are not being loaded from the network. Instead, they are being loaded from the service worker's cache.
 
@@ -272,9 +272,9 @@ Now look at how the browser and service worker handle the updated application.
 
    再次在同一个窗口中打开 <http://localhost:8080>，发生了什么？
 
-<figure>
+<div class="lightbox">
   <img src="generated/images/guide/service-worker/welcome-msg-en.png" alt="It still says Welcome to Service Workers!">
-</figure>
+</div>
 
 What went wrong? Nothing, actually. The Angular service worker is doing its job and serving the version of the application that it has **installed**, even though there is an update available. In the interest of speed, the service worker doesn't wait to check for updates before it serves the application that it has cached.
 
@@ -288,9 +288,9 @@ If you look at the `http-server` logs, you can see the service worker requesting
 
    刷新页面。
 
-<figure>
+<div class="lightbox">
   <img src="generated/images/guide/service-worker/welcome-msg-fr.png" alt="The text has changed to say Bienvenue à app!">
-</figure>
+</div>
 
 The service worker installed the updated version of your app *in the background*, and the next time the page is loaded or reloaded, the service worker switches to the latest version.
 

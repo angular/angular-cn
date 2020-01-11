@@ -10,17 +10,6 @@ import {global} from '../../util/global';
 import {RElement} from '../interfaces/renderer';
 
 /**
- * Returns whether the values are different from a change detection stand point.
- *
- * Constraints are relaxed in checkNoChanges mode. See `devModeEqual` for details.
- */
-export function isDifferent(a: any, b: any): boolean {
-  // NaN is the only value that is not equal to itself so the first
-  // test checks if both a and b are not NaN
-  return !(a !== a && b !== b) && a !== b;
-}
-
-/**
  * Used for stringify render output in Ivy.
  * Important! This function is very performance-sensitive and we should
  * be extra careful not to introduce megamorphic reads in it.
@@ -92,14 +81,6 @@ export function ɵɵresolveBody(element: RElement & {ownerDocument: Document}) {
  *
  */
 export const INTERPOLATION_DELIMITER = `�`;
-
-/**
- * Determines whether or not the given string is a property metadata string.
- * See storeBindingMetadata().
- */
-export function isPropMetadataString(str: string): boolean {
-  return str.indexOf(INTERPOLATION_DELIMITER) >= 0;
-}
 
 /**
  * Unwrap a value which might be behind a closure (for forward declaration reasons).

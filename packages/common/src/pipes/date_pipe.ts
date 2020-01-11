@@ -6,7 +6,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 
-import {Inject, Injectable, LOCALE_ID, Pipe, PipeTransform} from '@angular/core';
+import {Inject, LOCALE_ID, Pipe, PipeTransform} from '@angular/core';
 import {formatDate} from '../i18n/format_date';
 import {invalidPipeArgumentError} from './invalid_pipe_argument_error';
 
@@ -216,7 +216,6 @@ import {invalidPipeArgumentError} from './invalid_pipe_argument_error';
  * @publicApi
  */
 // clang-format on
-@Injectable()
 @Pipe({name: 'date', pure: true})
 export class DatePipe implements PipeTransform {
   constructor(@Inject(LOCALE_ID) private locale: string) {}
@@ -233,8 +232,8 @@ export class DatePipe implements PipeTransform {
    * 要包含的日期、时间部分的格式，使用预定义选项或自定义格式字符串。
    *
    * @param timezone A timezone offset (such as `'+0430'`), or a standard
-   * UTC/GMT or continental US timezone abbreviation. Default is
-   * the local system timezone of the end-user's machine.
+   * UTC/GMT or continental US timezone abbreviation.
+   * When not supplied, uses the end-user's local system timezone.
    *
    * 一个时区偏移（比如`'+0430'`）或标准的 UTC/GMT 或美国大陆时区的缩写。默认为最终用户机器上的本地系统时区。
    *

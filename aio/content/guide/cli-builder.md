@@ -1,4 +1,4 @@
-# Angular CLI Builders
+# Angular CLI builders
 
 # Angular CLI 构建器（Builder）
 
@@ -52,7 +52,7 @@ This object contains a Boolean `success` field and an optional `error` field tha
 
 Angular provides some builders that are used by the CLI for commands such as `ng build`, `ng test`, and `ng lint`.
 Default target configurations for these and other built-in CLI builders can be found (and customized) in the "architect" section of the [workspace configuration file](guide/workspace-config), `angular.json`.
-You can also extend and customize Angular by creating your own builders, which you can run  using the [`ng run` CLI command](cli/run).
+You can also extend and customize Angular by creating your own builders, which you can run using the [`ng run` CLI command](cli/run).
 
 Angular 提供了一些构建器，供 CLI 命令使用，如 `ng build`、`ng test` 和 `ng lint` 等。这些内置 CLI 构建器的默认目标配置可以在[工作空间配置文件](guide/workspace-config) `angular.json` 的 `architect` 部分找到（并进行自定义）。可以通过创建自己的构建器来扩展和自定义 Angular，你可以使用 [`ng run` CLI 命令](cli/run)来运行你自己的构建器。
 
@@ -100,8 +100,7 @@ To create a builder, use the `createBuilder()` CLI Builder function, and return 
 
 举个例子，让我们创建一个用来执行 shell 命令的构建器。要创建构建器，请使用 CLI 构建器函数 `createBuilder()`，并返回一个 `BuilderOutput` 对象。
 
-```
-
+<code-example language="typescript" header="/command/index.ts">
 import { BuilderOutput, createBuilder } from '@angular-devkit/architect';
 
 export default createBuilder(_commandBuilder);
@@ -112,8 +111,7 @@ function _commandBuilder(
   ): Promise<BuilderOutput> {
   ...
 }
-
-```
+</code-example>
 
 Now let’s add some logic to it.
 The following code retrieves the command and arguments from the user options, spawns the new process, and waits for the process to finish.
@@ -121,7 +119,7 @@ If the process is successful (returns a code of 0), it resolves the return value
 
 现在，让我们为它添加一些逻辑。下列代码会从用户选项中检索命令和参数、生成新进程，并等待该进程完成。如果进程成功（返回代码为 0），就会解析成返回的值。
 
-```
+<code-example language="typescript" header="/command/index.ts">
 import { BuilderOutput, createBuilder } from '@angular-devkit/architect';
 import * as childProcess from 'child_process';
 
@@ -138,7 +136,8 @@ function _commandBuilder(
     });
   });
 }
-```
+
+</code-example>
 
 ### Handling output
 
@@ -154,7 +153,7 @@ We can retrieve a Logger instance from the context.
 
 我们可以从上下文中检索一个 Logger 实例。
 
-```
+<code-example language="typescript" header="/command/index.ts">
 import { BuilderOutput, createBuilder, BuilderContext } from '@angular-devkit/architect';
 import * as childProcess from 'child_process';
 
@@ -179,7 +178,7 @@ function _commandBuilder(
   });
 }
 
-```
+</code-example>
 
 ### Progress and status reporting
 
@@ -201,12 +200,12 @@ You can see an [example](https://github.com/angular/angular-cli/blob/ba21c855c0c
 
 In our example, the shell command either finishes or is still executing, so there’s no need for a progress report, but we can report status so that a parent builder that called our builder would know what’s going on.
 Use the `BuilderContext.reportStatus()` method to generate a status string of any length.
-(Note that there’s no guarantee that a long string will be shown entirely; it could be cut to fit the  UI that displays it.)
+(Note that there’s no guarantee that a long string will be shown entirely; it could be cut to fit the UI that displays it.)
 Pass an empty string to remove the status.
 
 在我们的例子中，shell 命令或者已完成或者正在执行，所以不需要进度报告，但是可以报告状态，以便调用此构建器的父构建器知道发生了什么。可以用 `BuilderContext.reportStatus()` 方法生成一个任意长度的状态字符串。（注意，无法保证长字符串会完全显示出来，可以裁剪它以适应界面显示。）传入一个空字符串可以移除状态。
 
-```
+<code-example language="typescript" header="/command/index.ts">
 import { BuilderOutput, createBuilder, BuilderContext } from '@angular-devkit/architect';
 import * as childProcess from 'child_process';
 
@@ -233,7 +232,8 @@ function _commandBuilder(
     });
   });
 }
-```
+
+</code-example>
 
 ## Builder input
 
@@ -262,8 +262,7 @@ We can provide the following schema for type validation of these values.
 
 我们可以提供如下模式来对这些值的类型进行验证。
 
-<code-example format="." language="json" linenums="false">
-
+<code-example language="json" header="command/schema.json">
 {
   "$schema": "http://json-schema.org/schema",
   "type": "object",
@@ -299,7 +298,7 @@ Create a file named `builders.json` file that looks like this.
 
 创建一个名为 `builders.json` 文件，它看起来像这样。
 
-<code-example format="." language="json" linenums="false">
+<code-example language="json" header="builders.json">
 
 {
   "builders": {
@@ -317,7 +316,7 @@ In the `package.json` file, add a `builders` key that tells the Architect tool w
 
 在 `package.json` 文件中，添加一个 `builders` 键，告诉建筑师工具可以在哪里找到这个构建器定义文件。
 
-<code-example format="." language="json" linenums="false">
+<code-example language="json" header="package.json">
 
 {
   "name": "@example/command-runner",
@@ -332,15 +331,15 @@ In the `package.json` file, add a `builders` key that tells the Architect tool w
 </code-example>
 
 The official name of our builder is now ` @example/command-runner:command`.
-The first part  of this is the package name (resolved using node resolution), and the second part is the builder name (resolved using the `builder.json` file).
+The first part of this is the package name (resolved using node resolution), and the second part is the builder name (resolved using the `builders.json` file).
 
-现在，这个构建器的正式名字是 `@example/command-runner:command`。第一部分是包名（使用 node 方案进行解析），第二部分是构建器名称（使用 `builder.json` 文件进行解析）。
+现在，这个构建器的正式名字是 `@example/command-runner:command`。第一部分是包名（使用 node 方案进行解析），第二部分是构建器名称（使用 `builders.json` 文件进行解析）。
 
 Using one of our `options` is very straightforward, we did this in the previous section when we accessed `options.command`.
 
 使用某个 `options` 是非常简单的。在上一节，我们就曾访问过 `options.command`。
 
-<code-example format="." language="typescript" linenums="false">
+<code-example language="typescript" header="/command/index.ts">
     context.reportStatus(`Executing "${options.command}"...`);
     const child = childProcess.spawn(options.command, options.args, { stdio: 'pipe' });
 
@@ -354,44 +353,44 @@ A builder must have a defined target that associates it with a specific input co
 
 构建器必须有一个已定义的目标，此目标会把构建器与特定的输入配置和[项目](guide/glossary#project)关联起来。
 
-Targets are defined in the `angular.json` [workspace configuration file](guide/workspace-config).
+Targets are defined in the `angular.json` [CLI configuration file](guide/workspace-config).
 A target specifies the builder to use, its default options configuration, and named alternative configurations.
 The Architect tool uses the target definition to resolve input options for a given run.
 
-目标是在[工作空间配置文件](guide/workspace-config) `angular.json` 中定义的。目标用于指定要使用的构建器、默认的选项配置，以及指定的备用配置。建筑师工具使用目标定义来为一次特定的执行解析输入选项。
+目标是在 [CLI 配置文件](guide/workspace-config) `angular.json` 中定义的。目标用于指定要使用的构建器、默认的选项配置，以及指定的备用配置。建筑师工具使用目标定义来为一次特定的执行解析输入选项。
 
 The  `angular.json` file has a section for each project, and the "architect" section of each project configures targets for builders used by CLI commands such as 'build', 'test', and 'lint'.
-By default, for example, the `build` command runs the builder  `@angular-devkit/build-angular:browser` to perform the build task, and passes in default option values as specified for the `build` target in `angular.json`.
+By default, for example, the `build` command runs the builder  `@angular-devkit/build-angular:browser` to perform the build task, and passes in default option values as specified for the `build` target in   `angular.json`.
 
 `angular.json` 文件中为每个项目都有一节配置，每个项目的 `architect` 部分都会为 CLI 命令（例如 `build`、`test` 和 `lint`）配置构建器目标。默认情况下，`build` 命令会运行 `@angular-devkit/build-angular:browser` 构建器来执行 `build` 任务，并传入 `angular.json` 中为 `build` 目标指定的默认选项值。
 
-<code-example format="." language="json" linenums="false">
+<code-example language="json" header="angular.json">
 {
   "myApp": {
     ...
     "architect": {
-        "build": {
-             "builder": "@angular-devkit/build-angular:browser",
-             "options": {
-            "outputPath": "dist/myApp",
-            "index": "src/index.html",
-        ...
-   },
-          "configurations": {
-            "production": {
-                 "fileReplacements": [
-                    {
-                         "replace": "src/environments/environment.ts",
-                         "with": "src/environments/environment.prod.ts"
-                    }
-                 ],
-               "optimization": true,
-               "outputHashing": "all",
-      ...
-            }
-             }
+      "build": {
+        "builder": "@angular-devkit/build-angular:browser",
+        "options": {
+          "outputPath": "dist/myApp",
+          "index": "src/index.html",
+          ...
         },
-       ...
+        "configurations": {
+          "production": {
+            "fileReplacements": [
+              {
+                "replace": "src/environments/environment.ts",
+                "with": "src/environments/environment.prod.ts"
+              }
+            ],
+            "optimization": true,
+            "outputHashing": "all",
+            ...
+          }
+        }
+      },
+      ...
 
 </code-example>
 
@@ -406,7 +405,7 @@ You might also add more alternative configurations to the `build` target, to def
 
 #### 目标字符串
 
-The  generic `ng run` CLI command takes as its first argument a target string of the form *project:target[:configuration]*.
+The generic `ng run` CLI command takes as its first argument a target string of the form *project:target[:configuration]*.
 
 通用的 `ng run` CLI 命令的第一个参数是形如 *project:target[:configuration]* 的目标字符串。
 
@@ -460,7 +459,7 @@ For more information see [Workspace Configuration](guide/workspace-config).
    You can also invoke a builder directly from another builder or test by calling `BuilderContext.scheduleBuilder()`.
    You pass an `options` object directly to the method, and those option values are validated against the schema of the builder without further adjustment.
 
-   你还可以通过调用 `BuilderContext.scheduleBuilder()` 从另一个构建器或测试中调用某个构建器。你可以直接把 `options` 对象传递给该方法，并且这些选项值会根据这个构建器的模式进行验证，而无需进一步调整。
+   你还可以通过调用 `BuilderContext.scheduleBuilder()` 从另一个构建器或测试中调用某个构建器。你可以直接把 `options` 对象传给该方法，并且这些选项值会根据这个构建器的模式进行验证，而无需进一步调整。
 
    Only the  `BuilderContext.scheduleTarget()` method resolves the configuration and overrides through the `angular.json` file.
 
@@ -490,7 +489,7 @@ If we create a new project with `ng new builder-test`, the generated `angular.js
 
 如果我们使用 `ng new builder-test` 创建一个新项目，那么生成的 `angular.json` 文件就是这样的，它只有默认的构建器参数。
 
-<code-example format="." language="json" linenums="false">
+<code-example language="json" header="angular.json">
 
 {
   // ...
@@ -556,21 +555,19 @@ We need to update the `angular.json` file to add a target for this builder to th
 
   这些配置键都是可选的，但我们先不展开。
 
-<code-example format="." language="json" linenums="false">
+<code-example language="json" header="angular.json">
 
 {
   "projects": {
     "builder-test": {
       "architect": {
-        "builder-test": {
-          "touch": {
-            "builder": "@example/command-runner:command",
-            "options": {
-              "command": "touch",
-              "args": [
-                "src/main.ts"
-              ]
-            }
+        "touch": {
+          "builder": "@example/command-runner:command",
+          "options": {
+            "command": "touch",
+            "args": [
+              "src/main.ts"
+            ]
           }
         },
         "build": {
@@ -658,16 +655,16 @@ The test uses the builder to run the `ls` command, then validates that it ran su
 
 下面是运行该命令构建器的测试范例。该测试使用该构建器来运行 `ls` 命令，然后验证它是否成功运行并列出了正确的文件。
 
-<code-example format="." language="typescript" linenums="false">
+<code-example language="typescript" header="command/index_spec.ts">
 
-import { Architect, ArchitectHost } from '@angular-devkit/architect';
+import { Architect } from '@angular-devkit/architect';
 import { TestingArchitectHost } from '@angular-devkit/architect/testing';
 // Our builder forwards the STDOUT of the command to the logger.
 import { logging, schema } from '@angular-devkit/core';
 
 describe('Command Runner Builder', () => {
   let architect: Architect;
-  let architectHost: ArchitectHost;
+  let architectHost: TestingArchitectHost;
 
   beforeEach(async () => {
     const registry = new schema.CoreSchemaRegistry();

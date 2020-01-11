@@ -14,7 +14,7 @@ const linksPackage = require('../links-package');
 const examplesPackage = require('../examples-package');
 const targetPackage = require('../target-package');
 const remarkPackage = require('../remark-package');
-const postProcessPackage = require('../post-process-package');
+const postProcessPackage = require('dgeni-packages/post-process-html');
 
 const { PROJECT_ROOT, CONTENTS_PATH, OUTPUT_PATH, DOCS_OUTPUT_PATH, TEMPLATES_PATH, AIO_PATH, requireFolder } = require('../config');
 
@@ -36,9 +36,10 @@ module.exports = new Package('angular-base', [
   .factory('packageInfo', function() { return require(path.resolve(PROJECT_ROOT, 'package.json')); })
   .factory(require('./readers/json'))
   .factory(require('./services/copyFolder'))
-  .factory(require('./services/filterPipes'))
-  .factory(require('./services/filterAmbiguousDirectiveAliases'))
   .factory(require('./services/getImageDimensions'))
+  .factory(require('./services/auto-link-filters/filterPipes'))
+  .factory(require('./services/auto-link-filters/filterAmbiguousDirectiveAliases'))
+  .factory(require('./services/auto-link-filters/ignoreHttpInUrls'))
 
   .factory(require('./post-processors/add-image-dimensions'))
   .factory(require('./post-processors/auto-link-code'))
@@ -128,9 +129,9 @@ module.exports = new Package('angular-base', [
   })
 
 
-  .config(function(postProcessHtml, addImageDimensions, autoLinkCode, filterPipes, filterAmbiguousDirectiveAliases) {
+  .config(function(postProcessHtml, addImageDimensions, autoLinkCode, filterPipes, filterAmbiguousDirectiveAliases, ignoreHttpInUrls) {
     addImageDimensions.basePath = path.resolve(AIO_PATH, 'src');
-    autoLinkCode.customFilters = [filterPipes, filterAmbiguousDirectiveAliases];
+    autoLinkCode.customFilters = [ignoreHttpInUrls, filterPipes, filterAmbiguousDirectiveAliases];
     postProcessHtml.plugins = [
       require('./post-processors/autolink-headings'),
       addImageDimensions,
