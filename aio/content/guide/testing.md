@@ -826,7 +826,7 @@ The following `WelcomeComponent` depends on the `UserService` to know the name o
 
 You might start by creating a mock of the `UserService` that meets the minimum needs of this component.
 
-你可能要先创建一个满足本组件最小需求的模拟板 `UserService`。
+你可能要先创建一个满足本组件最小需求的模拟版 `UserService`。
 
 <code-example
   path="testing/src/app/welcome/welcome.component.spec.ts"
