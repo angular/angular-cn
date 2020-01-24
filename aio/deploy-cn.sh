@@ -10,14 +10,6 @@ cd `dirname $0`
 
 yarn build
 
-yarn preview > /tmp/preview.log &
-
-sleep 3;
-
-node ./tools/translator/bin/prerender.js
-
-killall -9 node
-
 if [[ ! -d "./ng-docs.github.io" ]]
 then
     git clone https://asnowwolf:${GITHUB_ACCESS_TOKEN}@github.com/ng-docs/preview.angular.cn.git ./ng-docs.github.io
