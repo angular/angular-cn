@@ -168,6 +168,8 @@ yarn
 
 yarn install
 
+```
+
 When Angular sees this dev dependency, it provides the language service in the WebStorm environment.
 WebStorm then gives you colorization inside the template and autocomplete in addition to the Angular Language Service.
 
