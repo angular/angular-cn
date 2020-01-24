@@ -258,9 +258,6 @@ You should avoid situations where focus returns to the `body` element after a ro
 
 * [W3C - Web Accessibility Initiative](https://www.w3.org/WAI/people-use-web/)
 
-  [W3C - Web Accessibility Initiative](https://www.w3.org/WAI/people-use-web/)
-
-
 * [Rob Dodson A11ycasts](https://www.youtube.com/watch?v=HtTyRajRuyY)
 
   [Rob Dodson 的 A11y 播客](https://www.youtube.com/watch?v=HtTyRajRuyY)
