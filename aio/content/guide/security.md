@@ -87,7 +87,7 @@ is inserted into the DOM from a template, via property, attribute, style, class 
 Angular sanitizes and escapes untrusted values.
 
 为了系统性的防范 XSS 问题，Angular 默认把所有值都当做不可信任的。
-当值从模板中以属性（Property）、DOM 元素属性（Attribte)、CSS 类绑定或插值表达式等途径插入到 DOM 中的时候，
+当值从模板中以属性（Property）、DOM 元素属性（Attribte)、CSS 类绑定或插值等途径插入到 DOM 中的时候，
 Angular 将对这些值进行无害化处理（Sanitize），对不可信的值进行编码。
 
 _Angular templates are the same as executable code_: HTML, attributes, and binding expressions
@@ -146,14 +146,14 @@ Angular 会对前三项中种不可信的值进行无害化处理，但不能对
 The following template binds the value of `htmlSnippet`, once by interpolating it into an element's
 content, and once by binding it to the `innerHTML` property of an element:
 
-下面的例子绑定了 `htmlSnippet` 的值，一次把它放进插值表达式里，另一次把它绑定到元素的 `innerHTML` 属性上。
+下面的例子绑定了 `htmlSnippet` 的值，一次把它放进插值里，另一次把它绑定到元素的 `innerHTML` 属性上。
 
 <code-example path="security/src/app/inner-html-binding.component.html" header="src/app/inner-html-binding.component.html"></code-example>
 
 Interpolated content is always escaped&mdash;the HTML isn't interpreted and the browser displays
 angle brackets in the element's text content.
 
-插值表达式的内容总会被编码 - 其中的 HTML 不会被解释，所以浏览器会在元素的文本内容中显示尖括号。
+插值的内容总会被编码 - 其中的 HTML 不会被解释，所以浏览器会在元素的文本内容中显示尖括号。
 
 For the HTML to be interpreted, bind it to an HTML property such as `innerHTML`. But binding
 a value that an attacker might control into `innerHTML` normally causes an XSS

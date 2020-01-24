@@ -59,7 +59,7 @@ In the following sections, you'll learn how to get and set DOM (Document Object 
 
 Begin with the first form of data binding&mdash;interpolation&mdash;to see how much richer template HTML can be.
 
-首先看看数据绑定的第一种形式 —— 插值表达式，它展示了模板的 HTML 可以有多丰富。
+首先看看数据绑定的第一种形式 —— 插值，它展示了模板的 HTML 可以有多丰富。
 
 <hr/>
 
@@ -82,17 +82,17 @@ the syntax and code snippets described in this section.
 
 ### Interpolation `{{...}}`
 
-### 插值表达式 `{{...}}`
+### 插值 `{{...}}`
 
 Interpolation refers to embedding expressions into marked up text.
 By default, interpolation uses as its delimiter the double curly braces, `{{` and `}}`.
 
 所谓 "插值" 是指将表达式嵌入到标记文本中。
-默认情况下，插值表达式会用双花括号 `{{` 和 `}}` 作为分隔符。
+默认情况下，插值会用双花括号 `{{` 和 `}}` 作为分隔符。
 
 In the following snippet, `{{ currentCustomer }}` is an example of interpolation.
 
-在下面的代码片段中，`{{ currentCustomer }}` 就是插值表达式的例子。
+在下面的代码片段中，`{{ currentCustomer }}` 就是插值的例子。
 
 <code-example path="interpolation/src/app/app.component.html" region="interpolation-example1" header="src/app/app.component.html"></code-example>
 
@@ -100,7 +100,7 @@ The text between the braces is often the name of a component
 property. Angular replaces that name with the
 string value of the corresponding component property.
 
-插值表达式可以把计算后的字符串插入到 HTML 元素标签内的文本或对标签的属性进行赋值。
+花括号之间的文本通常是组件属性的名字。Angular 会把这个名字替换为响应组件属性的字符串值。
 
 <code-example path="interpolation/src/app/app.component.html" region="component-property" header="src/app/app.component.html"></code-example>
 
@@ -115,7 +115,7 @@ that Angular first **evaluates** and then **converts to a string**.
 The following interpolation illustrates the point by adding two numbers:
 
 一般来说，括号间的素材是一个**模板表达式**，Angular 先**对它求值**，再把它**转换成字符串**。
-  下列插值表达式通过把括号中的两个数字相加说明了这一点：
+  下列插值通过把括号中的两个数字相加说明了这一点：
 
 <code-example path="interpolation/src/app/app.component.html" region="convert-string" header="src/app/app.component.html"></code-example>
 

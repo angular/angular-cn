@@ -1298,7 +1298,7 @@ actually displays the right content where you think it should.
 You'll write a sequence of tests that inspect the value of the `<h1>` element
 that wraps the _title_ property interpolation binding.
 
-你将会写一系列测试来探查 `<h1>` 元素的值，这个值包含在了带有 `title` 属性的插值表达式绑定中。
+你将会写一系列测试来探查 `<h1>` 元素的值，这个值包含在了带有 `title` 属性的插值绑定中。
 
 You update the `beforeEach` to find that element with a standard HTML `querySelector`
 and assign it to the `h1` variable.

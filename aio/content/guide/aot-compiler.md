@@ -1464,7 +1464,7 @@ template compiler, the same way the `if` expression does in TypeScript. For exam
 interpolation if the value of `person` is initialized as shown below:
 
 在 `ngIf` 指令中使用的表达式用来在 Angular 模板编译器中窄化联合类型，就像 TypeScript 中的 `if` 表达式一样。
-比如，要在上述模板中消除 `Object is possibly 'undefined'` 错误，可以把它改成只在 `person` 的值初始化过的时候才生成这个插值表达式。
+比如，要在上述模板中消除 `Object is possibly 'undefined'` 错误，可以把它改成只在 `person` 的值初始化过的时候才生成这个插值。
 
 ```typescript
 

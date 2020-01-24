@@ -525,7 +525,7 @@ You're using Angular [interpolation binding](guide/template-syntax#interpolation
 to insert the current iteration's `hero.id` into each
 [`routerLink`](#routerlink).
 
-你正在 `*ngFor` 复写器中使用 Angular 的[插值表达式](guide/template-syntax#interpolation)来把当前迭代的 `hero.id` 插入到每个 [`routerLink`](#routerlink) 中。
+你正在 `*ngFor` 复写器中使用 Angular 的[插值绑定](guide/template-syntax#interpolation)来把当前迭代的 `hero.id` 插入到每个 [`routerLink`](#routerlink) 中。
 
 {@a heroes-component-links}
 

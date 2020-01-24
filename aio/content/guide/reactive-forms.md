@@ -138,7 +138,7 @@ You can display the value in these ways:
 
 The following example shows you how to display the current value using interpolation in the template.
 
-下面的例子展示了如何在模板中使用插值表达式显示当前值。
+下面的例子展示了如何在模板中使用插值显示当前值。
 
 <code-example path="reactive-forms/src/app/name-editor/name-editor.component.html" region="display-value" header="src/app/name-editor/name-editor.component.html (control value)"></code-example>
 
@@ -553,7 +553,7 @@ When you add a required field to the form control, its initial status is invalid
 
 Display the current status of `profileForm` using interpolation.
 
-使用插值表达式显示 `profileForm` 的当前状态。
+使用插值显示 `profileForm` 的当前状态。
 
 <code-example path="reactive-forms/src/app/profile-editor/profile-editor.component.html" region="display-status" header="src/app/profile-editor/profile-editor.component.html (display status)"></code-example>
 

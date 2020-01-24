@@ -178,7 +178,7 @@ This example from the `HeroListComponent` template uses three of these forms.
 * The `{{hero.name}}` [*interpolation*](guide/displaying-data#interpolation)
 displays the component's `hero.name` property value within the `<li>` element.
 
-   `{{hero.name}}`[*插值表达式*](guide/displaying-data#interpolation)在 `<li>` 标签中显示组件的 `hero.name` 属性的值。
+   `{{hero.name}}`这个[*插值*](guide/displaying-data#interpolation)在 `<li>` 标签中显示组件的 `hero.name` 属性的值。
 
 * The `[hero]` [*property binding*](guide/template-syntax#property-binding) passes the value of
 `selectedHero` from the parent `HeroListComponent` to the `hero` property of the child `HeroDetailComponent`.

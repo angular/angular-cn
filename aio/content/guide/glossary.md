@@ -430,7 +430,7 @@ Read about the following forms of binding in [Template Syntax](guide/template-sy
 
  * [Interpolation](guide/template-syntax#interpolation)
 
-    [插值表达式](guide/template-syntax#interpolation)
+    [插值](guide/template-syntax#interpolation)
 
  * [Property binding](guide/template-syntax#property-binding)
 
@@ -815,7 +815,7 @@ To learn more, see [input and output properties](guide/template-syntax#inputs-ou
 
 ## interpolation
 
-## 插值表达式 (interpolation)
+## 插值 (interpolation)
 
 A form of property [data binding](#data-binding) in which a [template expression](#template-expression) between double-curly braces renders as text.
 That text can be concatenated with neighboring text before it is assigned to an element property
@@ -831,7 +831,7 @@ or displayed between element tags, as in this example.
 
 Read more about [interpolation](guide/template-syntax#interpolation) in [Template Syntax](guide/template-syntax).
 
-更多信息，见[模板语法](guide/template-syntax)中的[插值表达式](guide/template-syntax#interpolation)。
+更多信息，见[模板语法](guide/template-syntax)中的[插值](guide/template-syntax#interpolation)。
 
 
 {@a ivy}

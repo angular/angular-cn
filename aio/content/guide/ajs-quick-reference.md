@@ -59,7 +59,7 @@ The following table lists some of the key AngularJS template features with their
 
       ### Bindings/interpolation
 
-      ### 绑定/插值表达式
+      ### 绑定/插值
 
       <code-example hideCopy>
         Your favorite hero is: {{vm.favoriteHero}}
@@ -84,7 +84,7 @@ The following table lists some of the key AngularJS template features with their
 
       ### Bindings/interpolation
 
-      ### 绑定/插值表达式
+      ### 绑定/插值
 
       <code-example hideCopy path="ajs-quick-reference/src/app/movie-list.component.html" region="interpolation"></code-example>
 
@@ -101,7 +101,7 @@ The following table lists some of the key AngularJS template features with their
       For more information, see the [Interpolation](guide/template-syntax#interpolation)
       section of the [Template Syntax](guide/template-syntax) page.
 
-      要了解更多，请参见[模板语法](guide/template-syntax)中的[插值表达式](guide/template-syntax#interpolation)部分。
+      要了解更多，请参见[模板语法](guide/template-syntax)中的[插值](guide/template-syntax#interpolation)部分。
 
     </td>
 

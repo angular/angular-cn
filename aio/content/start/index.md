@@ -182,7 +182,7 @@ To help you get going, the following steps use predefined product data from the 
     property value as text; property binding `[ ]` lets you
     use the property value in a template expression.
 
-    在预览窗格中，将鼠标悬停在显示的商品名称上，可以看到绑定的 name 属性值。它们都是商品名加上单词 "details" 的格式。插值表达式 `{{}}` 允许你把属性值渲染为文本；而属性绑定语法 `[]` 则允许你在模板表达式中使用属性值。
+    在预览窗格中，将鼠标悬停在显示的商品名称上，可以看到绑定的 name 属性值。它们都是商品名加上单词 "details" 的格式。插值 `{{}}` 允许你把属性值渲染为文本；而属性绑定语法 `[]` 则允许你在模板表达式中使用属性值。
 
     <div class="lightbox">
 
@@ -245,7 +245,7 @@ In the process, you've learned to use five common features of Angular's template
 
 * Interpolation `{{ }}`
 
-   插值表达式 `{{}}`
+   插值 `{{}}`
 
 * Property binding `[ ]`
 

@@ -56,7 +56,7 @@ contextual possibilities and hints as you type.
 This example shows autocomplete in an interpolation. As you type it out,
 you can hit tab to complete.
 
-自动补全可以在输入时为你提供当前情境下的候选内容和提示，从而提高开发速度。下面这个例子展示了插值表达式中的自动补全功能。当你进行输入的时候，就可以按 tab 键来自动补全。
+自动补全可以在输入时为你提供当前情境下的候选内容和提示，从而提高开发速度。下面这个例子展示了插值中的自动补全功能。当你进行输入的时候，就可以按 tab 键来自动补全。
 
 <div class="lightbox">
 

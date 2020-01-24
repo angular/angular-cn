@@ -34,14 +34,14 @@ snippets described in this page.
 
 ## Showing component properties with interpolation
 
-## 使用插值表达式显示组件属性
+## 使用插值显示组件属性
 
 The easiest way to display a component property
 is to bind the property name through interpolation.
 With interpolation, you put the property name in the view template, enclosed in double curly braces: `{{myHero}}`.
 
-要显示组件的属性，最简单的方式就是通过插值表达式 (interpolation) 来绑定属性名。
-要使用插值表达式，就把属性名包裹在双花括号里放进视图模板，如 `{{myHero}}`。
+要显示组件的属性，最简单的方式就是通过插值 (interpolation) 来绑定属性名。
+要使用插值，就把属性名包裹在双花括号里放进视图模板，如 `{{myHero}}`。
 
 Use the CLI command [`ng new displaying-data`](cli/new) to create a workspace and app named `displaying-data`.
 
@@ -69,7 +69,7 @@ You added two properties to the formerly empty component: `title` and `myHero`.
 The template displays the two component properties using double curly brace
 interpolation:
 
-修改完的模板会使用双花括号形式的插值表达式来显示这两个模板属性：
+修改完的模板会使用双花括号形式的插值来显示这两个模板属性：
 
 <code-example path="displaying-data/src/app/app.component.1.ts" header="src/app/app.component.ts (template)" region="template"></code-example>
 
@@ -237,7 +237,7 @@ to the item (the hero) in the current iteration. Angular uses that variable as t
 context for the interpolation in the double curly braces.
 
 Angular 为列表中的每个条目复制一个 `<li>` 元素，在每个迭代中，把 `hero` 变量设置为当前条目（英雄）。
-Angular 把 `hero` 变量作为双花括号插值表达式的上下文。
+Angular 把 `hero` 变量作为双花括号插值的上下文。
 
 <div class="alert is-helpful">
 
@@ -418,7 +418,7 @@ Now you know how to use:
 
 * **Interpolation** with double curly braces to display a component property.
 
-   带有双花括号的**插值表达式 (interpolation) **来显示一个组件属性。
+   带有双花括号的**插值 (interpolation) **来显示一个组件属性。
 
 * **ngFor** to display an array of items.
 

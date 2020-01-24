@@ -311,7 +311,7 @@ That gives you a reference to the child component and the ability to access
 This example wires parent buttons to the child's `start` and `stop` and
 uses interpolation to display the child's `seconds` property.
 
-这个例子把父组件的按钮绑定到子组件的 `start` 和 `stop` 方法，并用插值表达式来显示子组件的 `seconds` 属性。
+这个例子把父组件的按钮绑定到子组件的 `start` 和 `stop` 方法，并用插值来显示子组件的 `seconds` 属性。
 
 Here we see the parent and child working together.
 
@@ -405,7 +405,7 @@ The `#timer` local variable is gone from the component metadata.
 Instead, bind the buttons to the parent component's own `start` and `stop` methods and
 present the ticking seconds in an interpolation around the parent component's `seconds` method.
 
-组件元数据里就不再需要 `#timer` 本地变量了。而是把按钮绑定到父组件自己的 `start` 和 `stop` 方法，使用父组件的 `seconds` 方法的插值表达式来展示秒数变化。
+组件元数据里就不再需要 `#timer` 本地变量了。而是把按钮绑定到父组件自己的 `start` 和 `stop` 方法，使用父组件的 `seconds` 方法的插值来展示秒数变化。
 
 These methods access the injected timer component directly.
 

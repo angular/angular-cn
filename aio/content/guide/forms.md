@@ -464,7 +464,7 @@ The `pow` template input variable is a different power in each iteration;
 you display its name using the interpolation syntax.
 
 列表中的每一项超能力都会渲染成 `<option>` 标签。
-模板输入变量 `pow` 在每个迭代指向不同的超能力，使用双花括号插值表达式语法来显示它的名称。
+模板输入变量 `pow` 在每个迭代指向不同的超能力，使用双花括号插值语法来显示它的名称。
 
 {@a ngModel}
 
@@ -514,7 +514,7 @@ Find the `<input>` tag for *Name* and update it like this:
   so you can see what you're doing.
   You left yourself a note to throw it away when you're done.
 
-  在 input 标签后添加用于诊断的插值表达式，以看清正在发生什么事。
+  在 input 标签后添加用于诊断的插值，以看清正在发生什么事。
 给自己留个备注，提醒你完成后移除它。
 
 </div>
@@ -1130,7 +1130,7 @@ Add the following HTML below the `<div>` wrapper you just wrote:
 There's the hero again, displayed read-only with interpolation bindings.
 This `<div>` appears only while the component is in the submitted state.
 
-英雄又出现了，它通过插值表达式绑定显示为只读内容。
+英雄又出现了，它通过插值绑定显示为只读内容。
 这一小段 HTML 只在组件处于已提交状态时才会显示。
 
 The HTML includes an *Edit* button whose click event is bound to an expression

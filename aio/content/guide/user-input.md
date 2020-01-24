@@ -108,7 +108,7 @@ The [interpolation](guide/template-syntax#interpolation)
 displays the accumulating input box changes from the `values` property.
 
 在组件的 `onKey()` 方法中，把输入框的值和分隔符 (|) 追加组件的 `values` 属性。
-使用[插值表达式](guide/template-syntax#interpolation)来把存放累加结果的 `values` 属性回显到屏幕上。
+使用[插值](guide/template-syntax#interpolation)来把存放累加结果的 `values` 属性回显到屏幕上。
 
 Suppose the user enters the letters "abc", and then backspaces to remove them one by one.
 Here's what the UI displays:
@@ -211,7 +211,7 @@ The code uses the `box` variable to get the input element's `value` and display 
 with interpolation between `<p>` tags.
 
 这个模板引用变量名叫 `box`，在 `<input>` 元素声明，它引用 `<input>` 元素本身。
-代码使用 `box` 获得输入元素的 `value` 值，并通过插值表达式把它显示在 `<p>` 标签中。
+代码使用 `box` 获得输入元素的 `value` 值，并通过插值把它显示在 `<p>` 标签中。
 
 The template is completely self contained. It doesn't bind to the component,
 and the component does nothing.

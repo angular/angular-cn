@@ -255,4 +255,4 @@ Here are the code files discussed on this page.
 
 * You used the double curly braces of interpolation to display the app title.
 
-   你使用双花括号插值表达式显示了应用标题。
+   你使用双花括号插值显示了应用标题。
