@@ -463,12 +463,12 @@
         },
         {
           "url": "guide/i18n",
-          "title": "国际化 (i18n)",
+          "title": "国际化（i18n）",
           "tooltip": "把应用模板中的文本翻译成多种语言。"
         },
         {
           "url": "guide/accessibility",
-          "title": "无障碍(a11y)",
+          "title": "无障碍（a11y）",
           "tooltip": "设计能被所有用户访问的应用"
         },
         {
