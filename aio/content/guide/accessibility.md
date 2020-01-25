@@ -24,20 +24,20 @@ work well for all users, including those who rely on assistive technologies.
 
 ## Accessibility attributes
 
-## 无障碍属性
+## 无障碍属性（Attribute）
 
 
 Building accessible web experience often involves setting [ARIA attributes](https://developers.google.com/web/fundamentals/accessibility/semantics-aria)
 to provide semantic meaning where it might otherwise be missing.
 Use [attribute binding](guide/template-syntax#attribute-binding) template syntax to control the values of accessibility-related attributes.
 
-建立无障碍的Web体验通常会涉及设置 [ARIA 属性](https://developers.google.com/web/fundamentals/accessibility/semantics-aria)以提供可能会丢失的语义。使用 [Attribute 绑定](guide/template-syntax#attribute-binding)模板语法来控制与无障碍性相关的 Attribute 值。
+建立无障碍的 Web 体验通常会涉及设置 [ARIA 属性（Attribute）](https://developers.google.com/web/fundamentals/accessibility/semantics-aria) 以提供可能会丢失的语义。使用 [Attribute 绑定](guide/template-syntax#attribute-binding)模板语法来控制与无障碍性相关的属性（Attribute）值。
 
 
 When binding to ARIA attributes in Angular, you must use the `attr.` prefix, as the ARIA
 specification depends specifically on HTML attributes rather than properties on DOM elements.
 
-在 Angular 中绑定 ARIA 属性时，必须使用 `attr.` 前缀，因为 ARIA 规范针对的是 HTML 属性，而不是 DOM 元素的属性。
+在 Angular 中绑定 ARIA 属性（Attribute）时，必须使用 `attr.` 前缀，因为 ARIA 规范针对的是 HTML 属性（Attribute），而不是 DOM 元素的属性（Property）。
 
 
 ```html
@@ -48,7 +48,7 @@ specification depends specifically on HTML attributes rather than properties on 
 Note that this syntax is only necessary for attribute _bindings_.
 Static ARIA attributes require no extra syntax.
 
-注意，此语法仅对于 Attribute *绑定*是必需的。静态 ARIA 属性不需要额外的语法。
+注意，此语法仅对于属性（Attribute）*绑定*是必需的。静态 ARIA 属性（Attribute）不需要额外的语法。
 
 
 ```html
@@ -65,7 +65,7 @@ NOTE:
 
    By convention, HTML attributes use lowercase names (`tabindex`), while properties use camelCase names (`tabIndex`).
 
-   按照约定，HTML Attribute 使用小写名称（ `tabindex` ），而 Property 使用 camelCase 名称（ `tabIndex` ）。
+   按照约定，HTML 属性（Attribute）使用小写名称（ `tabindex` ），而 Property 使用 camelCase 名称（ `tabIndex` ）。
 
 
    See the [Template Syntax](https://angular.io/guide/template-syntax#html-attribute-vs-dom-property) guide for more background on the difference between attributes and properties.
@@ -116,7 +116,7 @@ When authoring Angular components, you should re-use these native elements direc
 For example, instead of creating a custom element for a new variety of button, you can create a component that uses an attribute selector with a native `<button>` element.
 This most commonly applies to `<button>` and `<a>`, but can be used with many other types of element.
 
-例如，您可以创建一个组件，它使用属性选择器指向原生 `<button>` 元素，而不是为各种新按钮创建自定义元素。通常这适用于 `<button>` 和 `<a>`，但也可以用于许多其他类型的元素。
+例如，您可以创建一个组件，它使用属性（Attribute）选择器指向原生 `<button>` 元素，而不是为各种新按钮创建自定义元素。通常这适用于 `<button>` 和 `<a>`，但也可以用于许多其他类型的元素。
 
 
 You can see examples of this pattern in Angular Material: [`MatButton`](https://github.com/angular/components/blob/master/src/material/button/button.ts#L66-L68), [`MatTabNav`](https://github.com/angular/components/blob/master/src/material/tabs/tab-nav-bar/tab-nav-bar.ts#L67), [`MatTable`](https://github.com/angular/components/blob/master/src/material/table/table.ts#L17).
@@ -152,12 +152,12 @@ You can see [`MatFormField`](https://material.angular.io/components/form-field/o
 
 The following example shows how to make a simple progress bar accessible by using host binding to control accessibility-related attributes.
 
-以下示例显示如何通过使用宿主（host）绑定来控制与无障碍性相关的属性，来把简单的进度条无障碍化。
+以下示例显示如何通过使用宿主（host）绑定来控制与无障碍性相关的属性（Attribute），来把简单的进度条无障碍化。
 
 
 * The component defines an accessibility-enabled element with both the standard HTML attribute `role`, and ARIA attributes. The ARIA attribute `aria-valuenow` is bound to the user's input.
 
-  该组件使用标准的 HTML 属性 `role` 和 ARIA 属性来定义要启用无障碍支持的元素。 ARIA 属性 `aria-valuenow` 绑定到用户的输入。
+  该组件使用标准的 HTML 属性（Attribute）`role` 和 ARIA 属性（Attribute）来定义要启用无障碍支持的元素。 ARIA 属性（Attribute）`aria-valuenow` 绑定到用户的输入。
 
 
    <code-example path="accessibility/src/app/progress-bar.component.ts" header="src/app/progress-bar.component.ts" region="progressbar-component"></code-example>
@@ -168,7 +168,7 @@ The following example shows how to make a simple progress bar accessible by usin
 
 * In the template, the `aria-label` attribute ensures that the control is accessible to screen readers.
 
-  在模板中，`aria-label` 属性可以确保屏幕阅读器能访问该控件。
+  在模板中，`aria-label` 属性（Attribute）可以确保屏幕阅读器能访问该控件。
 
 
    <code-example path="accessibility/src/app/app.component.html" header="src/app/app.component.html" region="template"></code-example>
