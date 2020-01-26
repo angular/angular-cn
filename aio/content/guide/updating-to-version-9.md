@@ -15,7 +15,7 @@ This guide contains everything you need to know about updating to the next Angul
 
 For step-by-step instructions on how to update to the latest Angular release (and leverage our automated migration tools to do so), use the interactive update guide at [update.angular.io](https://update.angular.io).
 
-有关如何更新到最新 Angular 版本的分布说明（并利用我们的自动迁移工具进行更新），请使用 [update.angular.io](https://update.angular.io) 上的交互式更新指南。
+有关如何更新到最新 Angular 版本的分步说明（并利用我们的自动迁移工具进行更新），请使用 [update.angular.io](https://update.angular.io) 上的交互式更新指南。
 
 
 If you're curious about the specific migrations being run by the CLI, see the [automated migrations section](#migrations) for details on what code is changing and why.
