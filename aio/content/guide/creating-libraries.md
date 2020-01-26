@@ -338,7 +338,7 @@ This means that the TypeScript source can result in different JavaScript code in
 For this reason, an app that depends on a library should only use TypeScript path mappings that point to the *built library*.
 TypeScript path mappings should *not* point to the library source `.ts` files.
 
-因此，依赖于库的应用应应该仅只使用指向*内置库*的 TypeScript 路径映射。
+因此，依赖于库的应用应该仅只使用指向*内置库*的 TypeScript 路径映射。
 TypeScript 的路径映射*不应该*指向库的 `.ts` 源文件。
 
 </div>
