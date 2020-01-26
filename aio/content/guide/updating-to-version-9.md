@@ -20,7 +20,7 @@ For step-by-step instructions on how to update to the latest Angular release (an
 
 If you're curious about the specific migrations being run by the CLI, see the [automated migrations section](#migrations) for details on what code is changing and why.
 
-如果您对 CLI 正在运行的特定迁移感到好奇，参见[“自动迁移”部分](#migrations)以了解关于要更改哪些代码以及更改原因的详细信息。
+如果您对 CLI 正在运行的某些迁移工作感到好奇，参见[“自动迁移”部分](#migrations)以了解关于要更改哪些代码以及更改原因的详细信息。
 
 
 ## Changes and Deprecations in Version 9
