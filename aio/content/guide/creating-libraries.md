@@ -8,7 +8,7 @@ You can create and publish new libraries to extend Angular functionality. If you
 
 A simple example might be a button that sends users to your company website, that would be included in all apps that your company builds.
 
-一个简单的例子就是把用户带到你公司网站上的按钮，该按钮会包含在你公司构建的所有应用中。
+简单的例子就是一个用来把用户带到你公司网站上的按钮，该按钮会包含在你公司构建的所有应用中。
 
 <div class="alert is-helpful">
      <p>For more details on how a library project is structured you can refer the <a href="guide/file-structure#library-project-files">Library Project Files</a></p>
