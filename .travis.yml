@@ -2,26 +2,21 @@ language: node_js
 sudo: false
 dist: trusty
 node_js:
-- 10.13.0
+  - 10.13.0
 addons:
   apt:
     sources:
-    - ubuntu-toolchain-r-test
+      - ubuntu-toolchain-r-test
     packages:
-    - g++-4.8
+      - g++-4.8
   chrome: stable
 branches:
   except:
-  - g3
-cache:
-  yarn: true
-  directories:
-  - "./node_modules"
-  - "./.chrome/chromium"
-  - "./aio/node_modules"
+    - g3
+cache: false
 before_install:
-- curl -o- -L https://yarnpkg.com/install.sh | bash -s -- --version 1.21.1
-- export PATH="$HOME/.yarn/bin:$PATH"
-- google-chrome-stable --headless --disable-gpu --remote-debugging-port=9222 http://localhost &
+  - curl -o- -L https://yarnpkg.com/install.sh | bash -s -- --version 1.21.1
+  - export PATH="$HOME/.yarn/bin:$PATH"
+  - google-chrome-stable --headless --disable-gpu --remote-debugging-port=9222 http://localhost &
 script:
-- "./aio/deploy-cn.sh"
+  - "./aio/deploy-cn.sh"

@@ -10,6 +10,16 @@ cd `dirname $0`
 
 yarn build
 
+yarn preview > /tmp/preview.log &
+
+pid=$!
+
+sleep 3;
+
+node ./tools/translator/bin/prerender.js
+
+kill -9 ${pid}
+
 if [[ ! -d "./ng-docs.github.io" ]]
 then
     git clone https://asnowwolf:${GITHUB_ACCESS_TOKEN}@github.com/ng-docs/preview.angular.cn.git ./ng-docs.github.io
@@ -19,8 +29,16 @@ cp -r dist/* ./ng-docs.github.io
 
 cd ./ng-docs.github.io
 
-git add .
+git add ./generated/docs/api/
 git commit --allow-empty -am "${commitMessage}"
+git add ./generated/docs/guide/
+git commit --amend --allow-empty -am "${commitMessage}"
+git add ./generated/docs/
+git commit --amend --allow-empty -am "${commitMessage}"
+git add ./generated/images/
+git commit --amend --allow-empty -am "${commitMessage}"
+git add .
+git commit --amend --allow-empty -am "${commitMessage}"
 
 git push
 
