@@ -157,7 +157,7 @@ Angular 支持大多数常用浏览器，包括下列版本：
 
     <td>
 
-      Nougat (7.0), Marshmallow (6.0), Lollipop (5.0, 5.1), KitKat (4.4)
+     X (10.0), Pie (9.0), Oreo (8.0), Nougat (7.0)
     </td>
 
   </tr>

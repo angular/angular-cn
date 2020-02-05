@@ -105,7 +105,7 @@ Another way to limit provider scope is by adding the service you want to limit t
 `providers` array. Component providers and NgModule providers are independent of each other. This
 method is helpful when you want to eagerly load a module that needs a service all to itself.
 Providing a service in the component limits the service only to that component (other components in
-the same module can’t access it.)
+the same module can’t access it).
 
 另一种限定提供商作用域的方式是把要限定的服务添加到组件的 `providers` 数组中。组件中的提供商和 NgModule 中的提供商是彼此独立的。
 当你要急性加载一个自带了全部所需服务的模块时，这种方式是有帮助的。

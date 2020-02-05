@@ -57,7 +57,7 @@ export function generateTypeCheckBlock(
     throw new Error(
         `Expected TypeReferenceNode when referencing the ctx param for ${ref.debugName}`);
   }
-  const paramList = [tcbCtxParam(ref.node, ctxRawType.typeName)];
+  const paramList = [tcbCtxParam(ref.node, ctxRawType.typeName, env.config.useContextGenericType)];
 
   const scopeStatements = scope.render();
   const innerBody = ts.createBlock([
@@ -73,7 +73,7 @@ export function generateTypeCheckBlock(
       /* modifiers */ undefined,
       /* asteriskToken */ undefined,
       /* name */ name,
-      /* typeParameters */ ref.node.typeParameters,
+      /* typeParameters */ env.config.useContextGenericType ? ref.node.typeParameters : undefined,
       /* parameters */ paramList,
       /* type */ undefined,
       /* body */ body);
@@ -925,12 +925,18 @@ class Scope {
  * parameters listed (without their generic bounds).
  */
 function tcbCtxParam(
-    node: ClassDeclaration<ts.ClassDeclaration>, name: ts.EntityName): ts.ParameterDeclaration {
+    node: ClassDeclaration<ts.ClassDeclaration>, name: ts.EntityName,
+    useGenericType: boolean): ts.ParameterDeclaration {
   let typeArguments: ts.TypeNode[]|undefined = undefined;
   // Check if the component is generic, and pass generic type parameters if so.
   if (node.typeParameters !== undefined) {
-    typeArguments =
-        node.typeParameters.map(param => ts.createTypeReferenceNode(param.name, undefined));
+    if (useGenericType) {
+      typeArguments =
+          node.typeParameters.map(param => ts.createTypeReferenceNode(param.name, undefined));
+    } else {
+      typeArguments =
+          node.typeParameters.map(() => ts.createKeywordTypeNode(ts.SyntaxKind.AnyKeyword));
+    }
   }
   const type = ts.createTypeReferenceNode(name, typeArguments);
   return ts.createParameter(
@@ -1174,7 +1180,10 @@ type TcbDirectiveInput = {
 function tcbGetDirectiveInputs(
     el: TmplAstElement | TmplAstTemplate, dir: TypeCheckableDirectiveMeta, tcb: Context,
     scope: Scope): TcbDirectiveInput[] {
-  const directiveInputs: TcbDirectiveInput[] = [];
+  // Only the first binding to a property is written.
+  // TODO(alxhub): produce an error for duplicate bindings to the same property, independently of
+  // this logic.
+  const directiveInputs = new Map<string, TcbDirectiveInput>();
   // `dir.inputs` is an object map of field names on the directive class to property names.
   // This is backwards from what's needed to match bindings - a map of properties to field names
   // is desired. Invert `dir.inputs` into `propMatch` to create this map.
@@ -1185,10 +1194,6 @@ function tcbGetDirectiveInputs(
                                  propMatch.set(inputs[key] as string, key);
   });
 
-  // To determine which of directive's inputs are unset, we keep track of the set of field names
-  // that have not been seen yet. A field is removed from this set once a binding to it is found.
-  const unsetFields = new Set(propMatch.values());
-
   el.inputs.forEach(processAttribute);
   el.attributes.forEach(processAttribute);
   if (el instanceof TmplAstTemplate) {
@@ -1196,11 +1201,16 @@ function tcbGetDirectiveInputs(
   }
 
   // Add unset directive inputs for each of the remaining unset fields.
-  for (const field of unsetFields) {
-    directiveInputs.push({type: 'unset', field});
+  // Note: it's actually important here that `propMatch.values()` isn't used, as there can be
+  // multiple fields which share the same property name and only one of them will be listed as a
+  // value in `propMatch`.
+  for (const field of Object.keys(inputs)) {
+    if (!directiveInputs.has(field)) {
+      directiveInputs.set(field, {type: 'unset', field});
+    }
   }
 
-  return directiveInputs;
+  return Array.from(directiveInputs.values());
 
   /**
    * Add a binding expression to the map for each input/template attribute of the directive that has
@@ -1223,8 +1233,10 @@ function tcbGetDirectiveInputs(
     }
     const field = propMatch.get(attr.name) !;
 
-    // Remove the field from the set of unseen fields, now that it's been assigned to.
-    unsetFields.delete(field);
+    // Skip the attribute if a previous binding also wrote to it.
+    if (directiveInputs.has(field)) {
+      return;
+    }
 
     let expr: ts.Expression;
     if (attr instanceof TmplAstBoundAttribute) {
@@ -1235,7 +1247,7 @@ function tcbGetDirectiveInputs(
       expr = ts.createStringLiteral(attr.value);
     }
 
-    directiveInputs.push({
+    directiveInputs.set(field, {
       type: 'binding',
       field: field,
       expression: expr,

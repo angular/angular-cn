@@ -9,10 +9,10 @@
 import {AST, AstPath, Attribute, BoundDirectivePropertyAst, BoundElementPropertyAst, BoundEventAst, BoundTextAst, CompileDirectiveSummary, CompileTypeMetadata, DirectiveAst, ElementAst, EmbeddedTemplateAst, Node, ParseSourceSpan, RecursiveTemplateAstVisitor, ReferenceAst, TemplateAst, TemplateAstPath, VariableAst, identifierName, templateVisitAll, tokenReference} from '@angular/compiler';
 import * as ts from 'typescript';
 
-import {AstType, ExpressionDiagnosticsContext, TypeDiagnostic} from './expression_type';
+import {AstType} from './expression_type';
 import {BuiltinType, Definition, Span, Symbol, SymbolDeclaration, SymbolQuery, SymbolTable} from './symbols';
 import {Diagnostic} from './types';
-import {getPathToNodeAtPosition} from './utils';
+import {findOutputBinding, getPathToNodeAtPosition} from './utils';
 
 export interface DiagnosticTemplateInfo {
   fileName?: string;
@@ -25,18 +25,9 @@ export interface DiagnosticTemplateInfo {
 
 export function getTemplateExpressionDiagnostics(info: DiagnosticTemplateInfo): Diagnostic[] {
   const visitor = new ExpressionDiagnosticsVisitor(
-      info, (path: TemplateAstPath, includeEvent: boolean) =>
-                getExpressionScope(info, path, includeEvent));
+      info, (path: TemplateAstPath) => getExpressionScope(info, path));
   templateVisitAll(visitor, info.templateAst);
   return visitor.diagnostics;
-}
-
-export function getExpressionDiagnostics(
-    scope: SymbolTable, ast: AST, query: SymbolQuery,
-    context: ExpressionDiagnosticsContext = {}): TypeDiagnostic[] {
-  const analyzer = new AstType(scope, query, context);
-  analyzer.getDiagnostics(ast);
-  return analyzer.diagnostics;
 }
 
 function getReferences(info: DiagnosticTemplateInfo): SymbolDeclaration[] {
@@ -194,26 +185,51 @@ function refinedVariableType(
   return query.getBuiltinType(BuiltinType.Any);
 }
 
-function getEventDeclaration(info: DiagnosticTemplateInfo, includeEvent?: boolean) {
-  let result: SymbolDeclaration[] = [];
-  if (includeEvent) {
-    // TODO: Determine the type of the event parameter based on the Observable<T> or EventEmitter<T>
-    // of the event.
-    result = [{name: '$event', kind: 'variable', type: info.query.getBuiltinType(BuiltinType.Any)}];
+function getEventDeclaration(
+    info: DiagnosticTemplateInfo, path: TemplateAstPath): SymbolDeclaration|undefined {
+  const event = path.tail;
+  if (!(event instanceof BoundEventAst)) {
+    // No event available in this context.
+    return;
   }
-  return result;
+
+  const genericEvent: SymbolDeclaration = {
+    name: '$event',
+    kind: 'variable',
+    type: info.query.getBuiltinType(BuiltinType.Any),
+  };
+
+  const outputSymbol = findOutputBinding(event, path, info.query);
+  if (!outputSymbol) {
+    // The `$event` variable doesn't belong to an output, so its type can't be refined.
+    // TODO: type `$event` variables in bindings to DOM events.
+    return genericEvent;
+  }
+
+  // The raw event type is wrapped in a generic, like EventEmitter<T> or Observable<T>.
+  const ta = outputSymbol.typeArguments();
+  if (!ta || ta.length !== 1) return genericEvent;
+  const eventType = ta[0];
+
+  return {...genericEvent, type: eventType};
 }
 
+/**
+ * Returns the symbols available in a particular scope of a template.
+ * @param info parsed template information
+ * @param path path of template nodes narrowing to the context the expression scope should be
+ * derived for.
+ */
 export function getExpressionScope(
-    info: DiagnosticTemplateInfo, path: TemplateAstPath, includeEvent: boolean): SymbolTable {
+    info: DiagnosticTemplateInfo, path: TemplateAstPath): SymbolTable {
   let result = info.members;
   const references = getReferences(info);
   const variables = getVarDeclarations(info, path);
-  const events = getEventDeclaration(info, includeEvent);
-  if (references.length || variables.length || events.length) {
+  const event = getEventDeclaration(info, path);
+  if (references.length || variables.length || event) {
     const referenceTable = info.query.createSymbolTable(references);
     const variableTable = info.query.createSymbolTable(variables);
-    const eventsTable = info.query.createSymbolTable(events);
+    const eventsTable = info.query.createSymbolTable(event ? [event] : []);
     result = info.query.mergeSymbolTable([result, referenceTable, variableTable, eventsTable]);
   }
   return result;
@@ -221,8 +237,7 @@ export function getExpressionScope(
 
 class ExpressionDiagnosticsVisitor extends RecursiveTemplateAstVisitor {
   private path: TemplateAstPath;
-  // TODO(issue/24571): remove '!'.
-  private directiveSummary !: CompileDirectiveSummary;
+  private directiveSummary: CompileDirectiveSummary|undefined;
 
   diagnostics: Diagnostic[] = [];
 
@@ -269,14 +284,12 @@ class ExpressionDiagnosticsVisitor extends RecursiveTemplateAstVisitor {
     if (directive && ast.value) {
       const context = this.info.query.getTemplateContext(directive.type.reference) !;
       if (context && !context.has(ast.value)) {
-        if (ast.value === '$implicit') {
-          this.reportError(
-              'The template context does not have an implicit value', spanOf(ast.sourceSpan));
-        } else {
-          this.reportError(
-              `The template context does not define a member called '${ast.value}'`,
-              spanOf(ast.sourceSpan));
-        }
+        const missingMember =
+            ast.value === '$implicit' ? 'an implicit value' : `a member called '${ast.value}'`;
+        this.reportDiagnostic(
+            `The template context of '${directive.type.reference.name}' does not define ${missingMember}.\n` +
+                `If the context type is a base type or 'any', consider refining it to a more specific type.`,
+            spanOf(ast.sourceSpan), ts.DiagnosticCategory.Suggestion);
       }
     }
   }
@@ -313,31 +326,25 @@ class ExpressionDiagnosticsVisitor extends RecursiveTemplateAstVisitor {
     return ast.sourceSpan.start.offset;
   }
 
-  private diagnoseExpression(ast: AST, offset: number, includeEvent: boolean) {
-    const scope = this.getExpressionScope(this.path, includeEvent);
-    this.diagnostics.push(...getExpressionDiagnostics(scope, ast, this.info.query, {
-                            event: includeEvent
-                          }).map(d => ({
-                                   span: offsetSpan(d.ast.span, offset + this.info.offset),
-                                   kind: d.kind,
-                                   message: d.message
-                                 })));
+  private diagnoseExpression(ast: AST, offset: number, event: boolean) {
+    const scope = this.getExpressionScope(this.path, event);
+    const analyzer = new AstType(scope, this.info.query, {event});
+    for (const {message, span, kind} of analyzer.getDiagnostics(ast)) {
+      span.start += offset;
+      span.end += offset;
+      this.reportDiagnostic(message as string, span, kind);
+    }
   }
 
   private push(ast: TemplateAst) { this.path.push(ast); }
 
   private pop() { this.path.pop(); }
 
-  private reportError(message: string, span: Span|undefined) {
-    if (span) {
-      this.diagnostics.push(
-          {span: offsetSpan(span, this.info.offset), kind: ts.DiagnosticCategory.Error, message});
-    }
-  }
-
-  private reportWarning(message: string, span: Span) {
-    this.diagnostics.push(
-        {span: offsetSpan(span, this.info.offset), kind: ts.DiagnosticCategory.Warning, message});
+  private reportDiagnostic(
+      message: string, span: Span, kind: ts.DiagnosticCategory = ts.DiagnosticCategory.Error) {
+    span.start += this.info.offset;
+    span.end += this.info.offset;
+    this.diagnostics.push({kind, span, message});
   }
 }
 
@@ -350,10 +357,6 @@ function hasTemplateReference(type: CompileTypeMetadata): boolean {
     }
   }
   return false;
-}
-
-function offsetSpan(span: Span, amount: number): Span {
-  return {start: span.start + amount, end: span.end + amount};
 }
 
 function spanOf(sourceSpan: ParseSourceSpan): Span {

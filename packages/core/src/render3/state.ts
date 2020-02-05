@@ -7,12 +7,10 @@
  */
 
 import {StyleSanitizeFn} from '../sanitization/style_sanitizer';
-import {assertDefined, assertEqual} from '../util/assert';
-
+import {assertDefined} from '../util/assert';
 import {assertLViewOrUndefined} from './assert';
-import {ComponentDef, DirectiveDef} from './interfaces/definition';
 import {TNode} from './interfaces/node';
-import {CONTEXT, DECLARATION_VIEW, LView, OpaqueViewState, TVIEW} from './interfaces/view';
+import {CONTEXT, DECLARATION_VIEW, LView, OpaqueViewState, TVIEW, TView} from './interfaces/view';
 
 
 /**
@@ -42,9 +40,17 @@ interface LFrame {
   lView: LView;
 
   /**
+   * Current `TView` associated with the `LFrame.lView`.
+   *
+   * One can get `TView` from `lFrame[TVIEW]` however because it is so common it makes sense to
+   * store it in `LFrame` for perf reasons.
+   */
+  tView: TView;
+
+  /**
    * Used to set the parent property when nodes are created and track query results.
    *
-   * This is used in conjection with `isParent`.
+   * This is used in conjunction with `isParent`.
    */
   previousOrParentTNode: TNode;
 
@@ -95,20 +101,6 @@ interface LFrame {
 
 
   /**
-   * Used when processing host bindings.
-   */
-  currentDirectiveDef: DirectiveDef<any>|ComponentDef<any>|null;
-
-  /**
-   * Used as the starting directive id value.
-   *
-   * All subsequent directives are incremented from this value onwards.
-   * The reason why this value is `1` instead of `0` is because the `0`
-   * value is reserved for the template.
-   */
-  activeDirectiveId: number;
-
-  /**
    * The root index from which pure function instructions should calculate their binding
    * indices. In component views, this is TView.bindingStartIndex. In a host binding
    * context, this is the TView.expandoStartIndex + any dirs/hostVars before the given dir.
@@ -120,6 +112,13 @@ interface LFrame {
    * We iterate over the list of Queries and increment current query index at every step.
    */
   currentQueryIndex: number;
+
+  /**
+   * When host binding is executing this points to the directive index.
+   * `TView.data[currentDirectiveIndex]` is `DirectiveDef`
+   * `LView[currentDirectiveIndex]` is directive instance.
+   */
+  currentDirectiveIndex: number;
 }
 
 /**
@@ -165,19 +164,11 @@ interface InstructionState {
    * Necessary to support ChangeDetectorRef.checkNoChanges().
    */
   checkNoChangesMode: boolean;
-
-  /**
-   * Function to be called when the element is exited.
-   *
-   * NOTE: The function is here for tree shakable purposes since it is only needed by styling.
-   */
-  elementExitFn: (() => void)|null;
 }
 
 export const instructionState: InstructionState = {
   lFrame: createLFrame(null),
   bindingsEnabled: true,
-  elementExitFn: null,
   checkNoChangesMode: false,
 };
 
@@ -192,14 +183,6 @@ export function increaseElementDepthCount() {
 
 export function decreaseElementDepthCount() {
   instructionState.lFrame.elementDepthCount--;
-}
-
-export function getCurrentDirectiveDef(): DirectiveDef<any>|ComponentDef<any>|null {
-  return instructionState.lFrame.currentDirectiveDef;
-}
-
-export function setCurrentDirectiveDef(def: DirectiveDef<any>| ComponentDef<any>| null): void {
-  instructionState.lFrame.currentDirectiveDef = def;
 }
 
 export function getBindingsEnabled(): boolean {
@@ -254,135 +237,17 @@ export function ɵɵdisableBindings(): void {
 }
 
 /**
- * Return the current LView.
- *
- * The return value can be `null` if the method is called outside of template. This can happen if
- * directive is instantiated by module injector (rather than by node injector.)
+ * Return the current `LView`.
  */
 export function getLView(): LView {
-  // TODO(misko): the return value should be `LView|null` but doing so breaks a lot of code.
-  const lFrame = instructionState.lFrame;
-  return lFrame === null ? null ! : lFrame.lView;
+  return instructionState.lFrame.lView;
 }
 
 /**
- * Flags used for an active element during change detection.
- *
- * These flags are used within other instructions to inform cleanup or
- * exit operations to run when an element is being processed.
- *
- * Note that these flags are reset each time an element changes (whether it
- * happens when `advance()` is run or when change detection exits out of a template
- * function or when all host bindings are processed for an element).
+ * Return the current `TView`.
  */
-export const enum ActiveElementFlags {
-  Initial = 0b00,
-  RunExitFn = 0b01,
-  Size = 1,
-}
-
-/**
- * Determines whether or not a flag is currently set for the active element.
- */
-export function hasActiveElementFlag(flag: ActiveElementFlags) {
-  return (instructionState.lFrame.selectedIndex & flag) === flag;
-}
-
-/**
- * Sets a flag is for the active element.
- */
-function setActiveElementFlag(flag: ActiveElementFlags) {
-  instructionState.lFrame.selectedIndex |= flag;
-}
-
-/**
- * Sets the active directive host element and resets the directive id value
- * (when the provided elementIndex value has changed).
- *
- * @param elementIndex the element index value for the host element where
- *                     the directive/component instance lives
- */
-export function setActiveHostElement(elementIndex: number | null) {
-  if (hasActiveElementFlag(ActiveElementFlags.RunExitFn)) {
-    executeElementExitFn();
-  }
-  setSelectedIndex(elementIndex === null ? -1 : elementIndex);
-  instructionState.lFrame.activeDirectiveId = 0;
-}
-
-export function executeElementExitFn() {
-  instructionState.elementExitFn !();
-  instructionState.lFrame.selectedIndex &= ~ActiveElementFlags.RunExitFn;
-}
-
-/**
- * Queues a function to be run once the element is "exited" in CD.
- *
- * Change detection will focus on an element either when the `advance()`
- * instruction is called or when the template or host bindings instruction
- * code is invoked. The element is then "exited" when the next element is
- * selected or when change detection for the template or host bindings is
- * complete. When this occurs (the element change operation) then an exit
- * function will be invoked if it has been set. This function can be used
- * to assign that exit function.
- *
- * @param fn
- */
-export function setElementExitFn(fn: () => void): void {
-  setActiveElementFlag(ActiveElementFlags.RunExitFn);
-  if (instructionState.elementExitFn === null) {
-    instructionState.elementExitFn = fn;
-  }
-  ngDevMode &&
-      assertEqual(instructionState.elementExitFn, fn, 'Expecting to always get the same function');
-}
-
-/**
- * Returns the current id value of the current directive.
- *
- * For example we have an element that has two directives on it:
- * <div dir-one dir-two></div>
- *
- * dirOne->hostBindings() (id == 1)
- * dirTwo->hostBindings() (id == 2)
- *
- * Note that this is only active when `hostBinding` functions are being processed.
- *
- * Note that directive id values are specific to an element (this means that
- * the same id value could be present on another element with a completely
- * different set of directives).
- */
-export function getActiveDirectiveId() {
-  return instructionState.lFrame.activeDirectiveId;
-}
-
-/**
- * Increments the current directive id value.
- *
- * For example we have an element that has two directives on it:
- * <div dir-one dir-two></div>
- *
- * dirOne->hostBindings() (index = 1)
- * // increment
- * dirTwo->hostBindings() (index = 2)
- *
- * Depending on whether or not a previous directive had any inherited
- * directives present, that value will be incremented in addition
- * to the id jumping up by one.
- *
- * Note that this is only active when `hostBinding` functions are being processed.
- *
- * Note that directive id values are specific to an element (this means that
- * the same id value could be present on another element with a completely
- * different set of directives).
- */
-export function incrementActiveDirectiveId() {
-  // Each directive gets a uniqueId value that is the same for both
-  // create and update calls when the hostBindings function is called. The
-  // directive uniqueId is not set anywhere--it is just incremented between
-  // each hostBindings call and is useful for helping instruction code
-  // uniquely determine which directive is currently active when executed.
-  instructionState.lFrame.activeDirectiveId += 1;
+export function getTView(): TView {
+  return instructionState.lFrame.tView;
 }
 
 /**
@@ -425,6 +290,7 @@ export function getContextLView(): LView {
 }
 
 export function getCheckNoChangesMode(): boolean {
+  // TODO(misko): remove this from the LView since it is ngDevMode=true mode only.
   return instructionState.checkNoChangesMode;
 }
 
@@ -437,8 +303,7 @@ export function getBindingRoot() {
   const lFrame = instructionState.lFrame;
   let index = lFrame.bindingRootIndex;
   if (index === -1) {
-    const lView = lFrame.lView;
-    index = lFrame.bindingRootIndex = lView[TVIEW].bindingStartIndex;
+    index = lFrame.bindingRootIndex = lFrame.tView.bindingStartIndex;
   }
   return index;
 }
@@ -468,10 +333,25 @@ export function incrementBindingIndex(count: number): number {
  * Bindings inside the host template are 0 index. But because we don't know ahead of time
  * how many host bindings we have we can't pre-compute them. For this reason they are all
  * 0 index and we just shift the root so that they match next available location in the LView.
- * @param value
+ *
+ * @param bindingRootIndex Root index for `hostBindings`
+ * @param currentDirectiveIndex `TData[currentDirectiveIndex]` will point to the current directive
+ *        whose `hostBindings` are being processed.
  */
-export function setBindingRoot(value: number) {
-  instructionState.lFrame.bindingRootIndex = value;
+export function setBindingRootForHostBindings(
+    bindingRootIndex: number, currentDirectiveIndex: number) {
+  const lFrame = instructionState.lFrame;
+  lFrame.bindingIndex = lFrame.bindingRootIndex = bindingRootIndex;
+  lFrame.currentDirectiveIndex = currentDirectiveIndex;
+}
+
+/**
+ * When host binding is executing this points to the directive index.
+ * `TView.data[getCurrentDirectiveIndex()]` is `DirectiveDef`
+ * `LView[getCurrentDirectiveIndex()]` is directive instance.
+ */
+export function getCurrentDirectiveIndex(): number {
+  return instructionState.lFrame.currentDirectiveIndex;
 }
 
 export function getCurrentQueryIndex(): number {
@@ -501,8 +381,6 @@ export function enterDI(newView: LView, tNode: TNode) {
     newLFrame.elementDepthCount = DEV_MODE_VALUE;
     newLFrame.currentNamespace = DEV_MODE_VALUE;
     newLFrame.currentSanitizer = DEV_MODE_VALUE;
-    newLFrame.currentDirectiveDef = DEV_MODE_VALUE;
-    newLFrame.activeDirectiveId = DEV_MODE_VALUE;
     newLFrame.bindingRootIndex = DEV_MODE_VALUE;
     newLFrame.currentQueryIndex = DEV_MODE_VALUE;
   }
@@ -533,19 +411,20 @@ export const leaveDI = leaveView;
 export function enterView(newView: LView, tNode: TNode | null): void {
   ngDevMode && assertLViewOrUndefined(newView);
   const newLFrame = allocLFrame();
+  const tView = newView[TVIEW];
   instructionState.lFrame = newLFrame;
   newLFrame.previousOrParentTNode = tNode !;
   newLFrame.isParent = true;
   newLFrame.lView = newView;
+  newLFrame.tView = tView;
   newLFrame.selectedIndex = 0;
   newLFrame.contextLView = newView !;
   newLFrame.elementDepthCount = 0;
+  newLFrame.currentDirectiveIndex = -1;
   newLFrame.currentNamespace = null;
   newLFrame.currentSanitizer = null;
-  newLFrame.currentDirectiveDef = null;
-  newLFrame.activeDirectiveId = 0;
   newLFrame.bindingRootIndex = -1;
-  newLFrame.bindingIndex = newView === null ? -1 : newView[TVIEW].bindingStartIndex;
+  newLFrame.bindingIndex = tView.bindingStartIndex;
   newLFrame.currentQueryIndex = 0;
 }
 
@@ -564,13 +443,13 @@ function createLFrame(parent: LFrame | null): LFrame {
     previousOrParentTNode: null !,  //
     isParent: true,                 //
     lView: null !,                  //
+    tView: null !,                  //
     selectedIndex: 0,               //
     contextLView: null !,           //
     elementDepthCount: 0,           //
     currentNamespace: null,         //
     currentSanitizer: null,         //
-    currentDirectiveDef: null,      //
-    activeDirectiveId: 0,           //
+    currentDirectiveIndex: -1,      //
     bindingRootIndex: -1,           //
     bindingIndex: -1,               //
     currentQueryIndex: 0,           //
@@ -579,13 +458,6 @@ function createLFrame(parent: LFrame | null): LFrame {
   };
   parent !== null && (parent.child = lFrame);  // link the new LFrame for reuse.
   return lFrame;
-}
-
-export function leaveViewProcessExit() {
-  if (hasActiveElementFlag(ActiveElementFlags.RunExitFn)) {
-    executeElementExitFn();
-  }
-  leaveView();
 }
 
 export function leaveView() {
@@ -610,13 +482,13 @@ function walkUpViews(nestingLevel: number, currentView: LView): LView {
 }
 
 /**
- * Gets the most recent index passed to {@link select}
+ * Gets the currently selected element index.
  *
  * Used with {@link property} instruction (and more in the future) to identify the index in the
  * current `LView` to act on.
  */
 export function getSelectedIndex() {
-  return instructionState.lFrame.selectedIndex >> ActiveElementFlags.Size;
+  return instructionState.lFrame.selectedIndex;
 }
 
 /**
@@ -629,7 +501,7 @@ export function getSelectedIndex() {
  * run if and when the provided `index` value is different from the current selected index value.)
  */
 export function setSelectedIndex(index: number) {
-  instructionState.lFrame.selectedIndex = index << ActiveElementFlags.Size;
+  instructionState.lFrame.selectedIndex = index;
 }
 
 

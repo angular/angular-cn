@@ -6,12 +6,12 @@
  * found in the LICENSE file at https://angular.io/license
  */
 
-import {AstPath, CompileDirectiveSummary, CompileTypeMetadata, CssSelector, DirectiveAst, ElementAst, EmbeddedTemplateAst, HtmlAstPath, Identifiers, Node, ParseSourceSpan, RecursiveTemplateAstVisitor, RecursiveVisitor, TemplateAst, TemplateAstPath, identifierName, templateVisitAll, visitAll} from '@angular/compiler';
+import {AstPath, BoundEventAst, CompileDirectiveSummary, CompileTypeMetadata, CssSelector, DirectiveAst, ElementAst, EmbeddedTemplateAst, HtmlAstPath, Identifiers, Node, ParseSourceSpan, RecursiveTemplateAstVisitor, RecursiveVisitor, TemplateAst, TemplateAstPath, identifierName, templateVisitAll, visitAll} from '@angular/compiler';
 import * as ts from 'typescript';
 
 import {AstResult, SelectorInfo} from './common';
 import {DiagnosticTemplateInfo} from './expression_diagnostics';
-import {Span} from './types';
+import {Span, Symbol, SymbolQuery} from './types';
 
 export interface SpanHolder {
   sourceSpan: ParseSourceSpan;
@@ -102,7 +102,7 @@ export function diagnosticInfoFromTemplateInfo(info: AstResult): DiagnosticTempl
 export function findTemplateAstAt(ast: TemplateAst[], position: number): TemplateAstPath {
   const path: TemplateAst[] = [];
   const visitor = new class extends RecursiveTemplateAstVisitor {
-    visit(ast: TemplateAst, context: any): any {
+    visit(ast: TemplateAst): any {
       let span = spanOf(ast);
       if (inSpan(position, span)) {
         const len = path.length;
@@ -164,8 +164,8 @@ export function findTightestNode(node: ts.Node, position: number): ts.Node|undef
 }
 
 interface DirectiveClassLike {
-  decoratorId: ts.Identifier;  // decorator identifier
-  classDecl: ts.ClassDeclaration;
+  decoratorId: ts.Identifier;  // decorator identifier, like @Component
+  classId: ts.Identifier;
 }
 
 /**
@@ -178,11 +178,11 @@ interface DirectiveClassLike {
  *
  * For example,
  *     v---------- `decoratorId`
- * @NgModule({
- *   declarations: [],
- * })
- * class AppModule {}
- *          ^----- `classDecl`
+ * @NgModule({           <
+ *   declarations: [],   < classDecl
+ * })                    <
+ * class AppModule {}    <
+ *          ^----- `classId`
  *
  * @param node Potential node that represents an Angular directive.
  */
@@ -200,7 +200,7 @@ export function getDirectiveClassLike(node: ts.Node): DirectiveClassLike|undefin
     if (ts.isObjectLiteralExpression(arg)) {
       return {
         decoratorId: expr.expression,
-        classDecl: node,
+        classId: node.name,
       };
     }
   }
@@ -246,4 +246,40 @@ export function getPathToNodeAtPosition(nodes: Node[], position: number): HtmlAs
   };
   visitAll(visitor, nodes);
   return new AstPath<Node>(path, position);
+}
+
+
+/**
+ * Inverts an object's key-value pairs.
+ */
+export function invertMap(obj: {[name: string]: string}): {[name: string]: string} {
+  const result: {[name: string]: string} = {};
+  for (const name of Object.keys(obj)) {
+    const v = obj[name];
+    result[v] = name;
+  }
+  return result;
+}
+
+
+/**
+ * Finds the directive member providing a template output binding, if one exists.
+ * @param info aggregate template AST information
+ * @param path narrowing
+ */
+export function findOutputBinding(
+    binding: BoundEventAst, path: TemplateAstPath, query: SymbolQuery): Symbol|undefined {
+  const element = path.first(ElementAst);
+  if (element) {
+    for (const directive of element.directives) {
+      const invertedOutputs = invertMap(directive.directive.outputs);
+      const fieldName = invertedOutputs[binding.name];
+      if (fieldName) {
+        const classSymbol = query.getTypeSymbol(directive.directive.type.reference);
+        if (classSymbol) {
+          return classSymbol.members().get(fieldName);
+        }
+      }
+    }
+  }
 }

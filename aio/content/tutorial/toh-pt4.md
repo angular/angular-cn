@@ -1,4 +1,4 @@
-# Services
+# Create services
 
 # 服务
 
@@ -22,26 +22,27 @@ They should focus on presenting data and delegate data access to a service.
 它们应该聚焦于展示数据，而把数据访问的职责委托给某个服务。
 
 In this tutorial, you'll create a `HeroService` that all application classes can use to get heroes.
-Instead of creating that service with the [`new` keyword](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/new), 
-you'll rely on Angular [*dependency injection*](guide/dependency-injection) 
+Instead of creating that service with the [`new` keyword](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/new),
+you'll rely on Angular [*dependency injection*](guide/dependency-injection)
 to inject it into the `HeroesComponent` constructor.
 
 本节课，你将创建一个 `HeroService`，应用中的所有类都可以使用它来获取英雄列表。
 不要使用 [`new` 关键字](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/new)来创建此服务，而要依靠 Angular 的[*依赖注入*](guide/dependency-injection)机制把它注入到 `HeroesComponent` 的构造函数中。
 
 Services are a great way to share information among classes that _don't know each other_.
-You'll create a `MessageService` and inject it in two places:
+You'll create a `MessageService` and inject it in two places.
 
 服务是在多个“互相不知道”的类之间共享信息的好办法。
 你将创建一个 `MessageService`，并且把它注入到两个地方：
 
-1. in `HeroService` which uses the service to send a message
+1. Inject in HeroService, which uses the service to send a message.
 
-   `HeroService` 中，它会使用该服务发送消息
+   注入到 `HeroService` 中，它会使用该服务发送消息
 
-2. in `MessagesComponent` which displays that message
+2. Inject in MessagesComponent, which displays that message, and also displays the ID
+when the user clicks a hero.
 
-   `MessagesComponent` 中，它会显示其中的消息。
+   注入到 `MessagesComponent` 中，它会显示其中的消息。当用户点击某个英雄时，它还会显示该英雄的 ID。
 
 ## Create the `HeroService`
 
@@ -598,9 +599,24 @@ as listed in one of the ["final code review"](#final-code-review) tabs below.
 
 当你把 [最终代码](#final-code-review) 某一页的内容添加到 `messages.component.css` 中时，这些消息会变得好看一些。
 
+## Add additional messages to hero service
+
+## 为 hero 服务添加额外的消息
+
+The following example shows how to send and display a message each time the user clicks on
+a hero, showing a history of the user's selections. This will be helpful when you get to the
+next section on [Routing](tutorial/toh-pt5).
+
+下面的例子展示了当用户点击某个英雄时，如何发送和显示一条消息，以及如何显示该用户的选取历史。当你学到后面的[路由](tutorial/toh-pt5)一章时，这会很有帮助。
+
+<code-example header="src/app/heroes/heroes.component.ts"
+path="toh-pt4/src/app/heroes/heroes.component.ts">
+</code-example>
+
 The browser refreshes and the page displays the list of heroes.
-Scroll to the bottom to see the message from the `HeroService` in the message area.
-Click the "clear" button and the message area disappears.
+Refresh the browser to see the list of heroes, and scroll to the bottom to see the
+messages from the HeroService. Each time you click a hero, a new message appears to record
+the selection. Use the "clear" button to clear the message history.
 
 刷新浏览器，页面显示出了英雄列表。
 滚动到底部，就会在消息区看到来自 `HeroService` 的消息。

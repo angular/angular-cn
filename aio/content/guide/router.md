@@ -4958,7 +4958,7 @@ Observable completes after retrieving the first value from the Observable return
 `Router` 守卫要求这个可观察对象必须可结束（`complete`），也就是说它已经发出了所有值。
 你可以为 `take` 操作符传入一个参数 `1`，以确保这个可观察对象会在从 `getCrisis` 方法所返回的可观察对象中取到第一个值之后就会结束。
 
-If it doesn't return a valid `Crisis`, return an empty `Observable`, canceling the previous in-flight navigation to the `CrisisDetailComponent` and navigate the user back to the `CrisisListComponent`. The update resolver service looks like this:
+If it doesn't return a valid `Crisis`, return an empty `Observable`, canceling the previous in-flight navigation to the `CrisisDetailComponent` and navigate the user back to the `CrisisListComponent`. The updated resolver service looks like this:
 
 如果它没有返回有效的 `Crisis`，就会返回一个 `Observable`，以取消以前到 `CrisisDetailComponent` 的在途导航，并把用户导航回 `CrisisListComponent`。修改后的 `resolver` 服务是这样的：
 

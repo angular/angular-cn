@@ -43,7 +43,7 @@ Here's an example that demonstrates the basic usage model by showing how an obse
 
 下面这个例子中示范了这种基本用法，它展示了如何使用可观察对象来对当前地理位置进行更新。
 
-<code-example path="observables/src/geolocation.ts" header="Observe geolocation updates"></code-example>
+<code-example class="no-auto-link" path="observables/src/geolocation.ts" header="Observe geolocation updates"></code-example>
 
 ## Defining observers
 

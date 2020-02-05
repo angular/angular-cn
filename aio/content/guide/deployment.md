@@ -315,40 +315,6 @@ modified to serve `index.html`:
 
   try_files $uri $uri/ /index.html;
 
-  ```
-
-* [Golang](https://golang.org/): create a Golang server using ([gorilla/mux](https://github.com/gorilla/mux)) with a basic Golang file that configures the server `main.go`:
-
-  [Golang](https://golang.org/)：使用 [gorilla/mux](https://github.com/gorilla/mux) 和一个用来配置服务器的基础 Golang 文件 `main.go` 创建一个 Golang 服务器。
-
-  ``` go
-  package main
-
-  import (
-  	"net/http"
-  	"os"
-  	"github.com/gorilla/mux"
-  )
-  var httpPort = "80"
-  var folderDist = "./dist" // ng build output folder
-
-  func serverHandler(w http.ResponseWriter, r *http.Request) {
-  	if _, err := os.Stat(folderDist + r.URL.Path); err != nil {
-  		http.ServeFile(w, r, folderDist+"/index.html")
-  		return
-  	}
-  	http.ServeFile(w, r, folderDist+r.URL.Path)
-  }
-
-  func main() {
-  	r := mux.NewRouter()
-  	r.NotFoundHandler = r.NewRoute().HandlerFunc(serverHandler).GetHandler()
-  	http.Handle("/", r)
-  	http.ListenAndServe(":"+httpPort, nil)
-  }
-
-  ```
-
 * [Ruby](https://www.ruby-lang.org/): create a Ruby server using ([sinatra](http://sinatrarb.com/)) with a basic Ruby file that configures the server `server.rb`:
 
   [Ruby](https://www.ruby-lang.org/)：使用 [sinatra](http://sinatrarb.com/) 和用来配置服务器的基础 Ruby 文件 `server.rb` 创建一个 Ruby 服务器：

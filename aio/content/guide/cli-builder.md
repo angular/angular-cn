@@ -93,24 +93,17 @@ npm install @example/my-builder
 
 ## Creating a builder
 
-## 创建一个构建器
+## 创建构建器
 
-As an example, let’s create a builder that executes a shell command.
-To create a builder, use the `createBuilder()` CLI Builder function, and return a `BuilderOutput` object.
+As an example, let's create a builder that executes a shell command.
+To create a builder, use the `createBuilder()` CLI Builder function, and return a `Promise<BuilderOutput>` object.
 
-举个例子，让我们创建一个用来执行 shell 命令的构建器。要创建构建器，请使用 CLI 构建器函数 `createBuilder()`，并返回一个 `BuilderOutput` 对象。
+举个例子，让我们创建一个用来执行 shell 命令的构建器。要创建构建器，请使用 CLI 构建器函数 `createBuilder()`，并返回一个 `Promise<BuilderOutput>` 对象。
 
-<code-example language="typescript" header="/command/index.ts">
-import { BuilderOutput, createBuilder } from '@angular-devkit/architect';
-
-export default createBuilder(_commandBuilder);
-
-function _commandBuilder(
-  options: JsonObject,
-  context: BuilderContext,
-  ): Promise<BuilderOutput> {
-  ...
-}
+<code-example 
+  path="cli-builder/src/my-builder.ts" 
+  header="src/my-builder.ts (builder skeleton)" 
+  region="builder-skeleton">
 </code-example>
 
 Now let’s add some logic to it.
@@ -119,24 +112,10 @@ If the process is successful (returns a code of 0), it resolves the return value
 
 现在，让我们为它添加一些逻辑。下列代码会从用户选项中检索命令和参数、生成新进程，并等待该进程完成。如果进程成功（返回代码为 0），就会解析成返回的值。
 
-<code-example language="typescript" header="/command/index.ts">
-import { BuilderOutput, createBuilder } from '@angular-devkit/architect';
-import * as childProcess from 'child_process';
-
-export default createBuilder(_commandBuilder);
-
-function _commandBuilder(
-  options: JsonObject,
-  context: BuilderContext,
-): Promise<BuilderOutput> {
-  const child = childProcess.spawn(options.command, options.args);
-  return new Promise<BuilderOutput>(resolve => {
-    child.on('close', code => {
-      resolve({success: code === 0});
-    });
-  });
-}
-
+<code-example 
+  path="cli-builder/src/my-builder.ts" 
+  header="src/my-builder.ts (builder)" 
+  region="builder">
 </code-example>
 
 ### Handling output
@@ -153,31 +132,10 @@ We can retrieve a Logger instance from the context.
 
 我们可以从上下文中检索一个 Logger 实例。
 
-<code-example language="typescript" header="/command/index.ts">
-import { BuilderOutput, createBuilder, BuilderContext } from '@angular-devkit/architect';
-import * as childProcess from 'child_process';
-
-export default createBuilder(_commandBuilder);
-
-function _commandBuilder(
-  options: JsonObject,
-  context: BuilderContext,
-): Promise<BuilderOutput> {
-  const child = childProcess.spawn(options.command, options.args, {stdio: 'pipe'});
-  child.stdout.on('data', (data) => {
-    context.logger.info(data.toString());
-  });
-  child.stderr.on('data', (data) => {
-    context.logger.error(data.toString());
-  });
-
-  return new Promise<BuilderOutput>(resolve => {
-    child.on('close', code => {
-      resolve({success: code === 0});
-    });
-  });
-}
-
+<code-example 
+  path="cli-builder/src/my-builder.ts" 
+  header="src/my-builder.ts (handling output)" 
+  region="handling-output">
 </code-example>
 
 ### Progress and status reporting
@@ -205,34 +163,10 @@ Pass an empty string to remove the status.
 
 在我们的例子中，shell 命令或者已完成或者正在执行，所以不需要进度报告，但是可以报告状态，以便调用此构建器的父构建器知道发生了什么。可以用 `BuilderContext.reportStatus()` 方法生成一个任意长度的状态字符串。（注意，无法保证长字符串会完全显示出来，可以裁剪它以适应界面显示。）传入一个空字符串可以移除状态。
 
-<code-example language="typescript" header="/command/index.ts">
-import { BuilderOutput, createBuilder, BuilderContext } from '@angular-devkit/architect';
-import * as childProcess from 'child_process';
-
-export default createBuilder(_commandBuilder);
-
-function _commandBuilder(
-  options: JsonObject,
-  context: BuilderContext,
-): Promise<BuilderOutput> {
-  context.reportStatus(`Executing "${options.command}"...`);
-  const child = childProcess.spawn(options.command, options.args, {stdio: 'pipe'});
-
-  child.stdout.on('data', (data) => {
-    context.logger.info(data.toString());
-  });
-  child.stderr.on('data', (data) => {
-    context.logger.error(data.toString());
-  });
-
-  return new Promise<BuilderOutput>(resolve => {
-    context.reportStatus(`Done.`);
-    child.on('close', code => {
-      resolve({success: code === 0});
-    });
-  });
-}
-
+<code-example 
+  path="cli-builder/src/my-builder.ts" 
+  header="src/my-builder.ts (progess reporting)" 
+  region="progress-reporting">
 </code-example>
 
 ## Builder input
@@ -339,10 +273,10 @@ Using one of our `options` is very straightforward, we did this in the previous 
 
 使用某个 `options` 是非常简单的。在上一节，我们就曾访问过 `options.command`。
 
-<code-example language="typescript" header="/command/index.ts">
-    context.reportStatus(`Executing "${options.command}"...`);
-    const child = childProcess.spawn(options.command, options.args, { stdio: 'pipe' });
-
+<code-example 
+  path="cli-builder/src/my-builder.ts" 
+  header="src/my-builder.ts (report status)" 
+  region="report-status">
 </code-example>
 
 ### Target configuration
@@ -475,7 +409,7 @@ Let’s create a simple `angular.json` file that puts target configurations into
 
 让我们创建一个简单的 `angular.json` 文件，它会把目标配置放到上下文中。
 
-We can publish the builder to npm (see [Publishing your Library](https://angular.io/guide/creating-libraries#publishing-your-library)), and install it using the following command:
+We can publish the builder to npm (see [Publishing your Library](guide/creating-libraries#publishing-your-library)), and install it using the following command:
 
 我们可以把这个构建器发布到 npm（请参阅[发布你的库](https://angular.io/guide/creating-libraries#publishing-your-library)），并使用如下命令来安装它：
 
@@ -543,7 +477,7 @@ We need to update the `angular.json` file to add a target for this builder to th
 
   我们会为项目的 `architect` 对象添加一个新的目标小节。
 
-* The target named "touch" uses our builder, which we published to `@example/command-runner`. (See [Publishing your Library](https://angular.io/guide/creating-libraries#publishing-your-library))
+* The target named "touch" uses our builder, which we published to `@example/command-runner`. (See [Publishing your Library](guide/creating-libraries#publishing-your-library))
 
   名为 `touch` 的目标使用了我们的构建器，它发布到了 `@example/command-runner`。 （参见[发布你的库](https://angular.io/guide/creating-libraries#publishing-your-library) ）
 
@@ -642,7 +576,7 @@ Use integration testing for your builder, so that you can use the Architect sche
 
 对构建器进行集成测试，以便你可以使用建筑师的调度器来创建一个上下文，就像这个[例子](https://github.com/mgechev/cli-builders-demo)中一样。
 
-* In the builder source directory, we have created a new test file `index.spec.ts`. The code creates new instances of `JsonSchemaRegistry` (for schema validation), `TestingArchitectHost` (an in-memory implementation of `ArchitectHost`), and `Architect`.
+* In the builder source directory, we have created a new test file `my-builder.spec.ts`. The code creates new instances of `JsonSchemaRegistry` (for schema validation), `TestingArchitectHost` (an in-memory implementation of `ArchitectHost`), and `Architect`.
 
   在构建器的源码目录下，我们创建了一个新的测试文件 `index.spec.ts`。该代码创建了 `JsonSchemaRegistry`（用于模式验证）、`TestingArchitectHost`（对 `ArchitectHost` 的内存实现）和 `Architect` 的新实例。
 
@@ -651,70 +585,18 @@ Use integration testing for your builder, so that you can use the Architect sche
   我们紧挨着这个构建器的 [`package.json`](https://github.com/mgechev/cli-builders-demo/blob/master/command-builder/builders.json) 文件添加了一个 `builders.json` 文件，并修改了 `package.json` 文件以指向它。
 
 Here’s an example of a test that runs the command builder.
-The test uses the builder to run the `ls` command, then validates that it ran successfully and listed the proper files.
+The test uses the builder to run the `node --print 'foo'` command, then validates that the `logger` contains an entry for `foo`.
 
-下面是运行该命令构建器的测试范例。该测试使用该构建器来运行 `ls` 命令，然后验证它是否成功运行并列出了正确的文件。
+下面是运行该命令构建器的测试范例。该测试使用该构建器来运行 `node --print 'foo'` 命令，然后验证 `logger` 中是否包含一条 `foo` 记录。
 
-<code-example language="typescript" header="command/index_spec.ts">
-
-import { Architect } from '@angular-devkit/architect';
-import { TestingArchitectHost } from '@angular-devkit/architect/testing';
-// Our builder forwards the STDOUT of the command to the logger.
-import { logging, schema } from '@angular-devkit/core';
-
-describe('Command Runner Builder', () => {
-  let architect: Architect;
-  let architectHost: TestingArchitectHost;
-
-  beforeEach(async () => {
-    const registry = new schema.CoreSchemaRegistry();
-    registry.addPostTransform(schema.transforms.addUndefinedDefaults);
-
-    // TestingArchitectHost() takes workspace and current directories.
-    // Since we don't use those, both are the same in this case.
-    architectHost = new TestingArchitectHost(__dirname, __dirname);
-    architect = new Architect(architectHost, registry);
-
-    // This will either take a Node package name, or a path to the directory
-    // for the package.json file.
-    await architectHost.addBuilderFromPackage('..');
-  });
-
-  // This might not work in Windows.
-  it('can run ls', async () => {
-    // Create a logger that keeps an array of all messages that were logged.
-    const logger = new logging.Logger('');
-    const logs = [];
-    logger.subscribe(ev => logs.push(ev.message));
-
-    // A "run" can have multiple outputs, and contains progress information.
-    const run = await architect.scheduleBuilder('@example/command-runner:command', {
-      command: 'ls',
-      args: [__dirname],
-    }, { logger });  // We pass the logger for checking later.
-
-    // The "result" member (of type BuilderOutput) is the next output.
-    const output = await run.result;
-
-    // Stop the builder from running. This stops Architect from keeping
-    // the builder-associated states in memory, since builders keep waiting
-    // to be scheduled.
-    await run.stop();
-
-    // Expect that it succeeded.
-    expect(output.success).toBe(true);
-
-    // Expect that this file was listed. It should be since we're running
-    // `ls $__dirname`.
-    expect(logs).toContain('index.spec.ts');
-  });
-});
-
+<code-example 
+  path="cli-builder/src/my-builder.spec.ts" 
+  header="src/my-builder.spec.ts">
 </code-example>
 
 <div class="alert is-helpful">
 
-   When running this test in your repo, you need the [`ts-node`](https://github.com/TypeStrong/ts-node) package. You can avoid this by renaming `index.spec.ts` to `index.spec.js`.
+   When running this test in your repo, you need the [`ts-node`](https://github.com/TypeStrong/ts-node) package. You can avoid this by renaming `my-builder.spec.ts` to `my-builder.spec.js`.
 
    在你的仓库中运行这个测试时，需要使用 [`ts-node`](https://github.com/TypeStrong/ts-node) 包。你可以把 `index.spec.ts` 重命名为 `index.spec.js` 来回避它。
 

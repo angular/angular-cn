@@ -1,4 +1,4 @@
-# The Application Shell
+# Create a new project
 
 # 应用的外壳
 

@@ -55,7 +55,7 @@ See our [template type-checking guide](guide/template-typecheck) for more inform
   CLI 应用程序默认情况下以 [AOT 模式](/guide/aot-compiler)编译（包括模板类型检查）。以前仅使用 JIT 构建的用户可能会看到新的类型错误。有关更多信息和调试提示，请参见我们的[模板类型检查指南](guide/template-typecheck) 。
 
 
-- Typescript 3.4 and 3.5 are no longer supported. Please update to Typescript 3.6.
+- Typescript 3.4 and 3.5 are no longer supported. Please update to Typescript 3.7.
 
   不再支持 TypeScript 3.4 和 3.5。请更新至 Typescript 3.6。
 
@@ -80,6 +80,8 @@ See our [template type-checking guide](guide/template-typecheck) for more inform
 | API | 替代品 | 备注 |
 | [`entryComponents`](api/core/NgModule#entryComponents) | none | See [`entryComponents`](guide/deprecations#entryComponents) |
 | [`entryComponents`](api/core/NgModule#entryComponents) | 无 | 参见 [`entryComponents`](guide/deprecations#entryComponents) |
+| [`CurrencyPipe` - `DEFAULT_CURRENCY_CODE`](api/common/CurrencyPipe#currency-code-deprecation)| `{provide: DEFAULT_CURRENCY_CODE, useValue: 'USD'}` | From v11 the default code will be extracted from the locale data given by `LOCAL_ID`, rather than `USD`. |
+| [`CurrencyPipe` - `DEFAULT_CURRENCY_CODE`](api/common/CurrencyPipe#currency-code-deprecation)| `{provide: DEFAULT_CURRENCY_CODE, useValue: 'USD'}` | 从 v11 开始，默认代码将从由 `LOCAL_ID` 提供的语言环境数据中提取，而不再是固定值 `USD`。 |
 | [`ANALYZE_FOR_ENTRY_COMPONENTS`](api/core/ANALYZE_FOR_ENTRY_COMPONENTS) | none | See [`ANALYZE_FOR_ENTRY_COMPONENTS`](guide/deprecations#entryComponents) |
 | [`ANALYZE_FOR_ENTRY_COMPONENTS`](api/core/ANALYZE_FOR_ENTRY_COMPONENTS) | 无 | 见[`ANALYZE_FOR_ENTRY_COMPONENTS`](guide/deprecations#entryComponents) |
 | `ModuleWithProviders` without a generic | `ModuleWithProviders` with a generic | See [`ModuleWithProviders` section](guide/deprecations#moduleWithProviders) |

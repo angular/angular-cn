@@ -43,27 +43,21 @@ Observables are often compared to promises. Here are some key differences:
 
    在有消费者订阅之前，可观察对象不会执行。`subscribe()` 会执行一次定义好的行为，并且可以再次调用它。每次订阅都是单独计算的。重新订阅会导致重新计算这些值。
 
-<code-example hideCopy>
-// declare a publishing operation
-new Observable((observer) => { subscriber_fn });
-// initiate execution
-observable.subscribe(() => {
-  // observer handles notifications
-});
-</code-example>
+<code-example 
+    path="comparing-observables/src/observables.ts" 
+    header="src/observables.ts (observable)" 
+    region="observable">
+  </code-example>
 
 * Promises execute immediately, and just once. The computation of the result is initiated when the promise is created. There is no way to restart work. All `then` clauses (subscriptions) share the same computation.
 
    承诺会立即执行，并且只执行一次。当承诺创建时，会立即计算出结果。没有办法重新做一次。所有的 `then` 语句（订阅）都会共享同一次计算。
 
-<code-example hideCopy>
-// initiate execution
-new Promise((resolve, reject) => { executer_fn });
-// handle return value
-promise.then((value) => {
-  // handle result here
-});
-</code-example>
+<code-example 
+    path="comparing-observables/src/promises.ts" 
+    header="src/promises.ts (promise)"
+    region="promise">
+  </code-example>
 
 ### Chaining
 
@@ -73,14 +67,16 @@ promise.then((value) => {
 
    可观察对象会区分各种转换函数，比如映射和订阅。只有订阅才会激活订阅者函数，以开始计算那些值。
 
-<code-example hideCopy>observable.pipe(map((v) => 2*v));</code-example>
-
+<code-example path="comparing-observables/src/observables.ts" 
+    header="src/observables.ts (chain)" 
+    region="chain"></code-example>
 * Promises do not differentiate between the last `.then` clauses (equivalent to subscription) and intermediate `.then` clauses (equivalent to map).
 
    承诺并不区分最后的 `.then()` 语句（等价于订阅）和中间的 `.then()` 语句（等价于映射）。
 
-<code-example hideCopy>promise.then((v) => 2*v);</code-example>
-
+<code-example path="comparing-observables/src/promises.ts"
+    header="src/promises.ts (chain)" 
+    region="chain"></code-example>
 ### Cancellation
 
 ### 可取消
@@ -89,10 +85,11 @@ promise.then((value) => {
 
    可观察对象的订阅是可取消的。取消订阅会移除监听器，使其不再接受将来的值，并通知订阅者函数取消正在进行的工作。
 
-<code-example hideCopy>
-const sub = obs.subscribe(...);
-sub.unsubscribe();
-</code-example>
+<code-example 
+    path="comparing-observables/src/observables.ts" 
+    header="src/observables.ts (unsubcribe)" 
+    region="unsubscribe">
+  </code-example>
 
 * Promises are not cancellable.
 
@@ -106,21 +103,21 @@ sub.unsubscribe();
 
    可观察对象的错误处理工作交给了订阅者的错误处理器，并且该订阅者会自动取消对这个可观察对象的订阅。
 
-<code-example hideCopy>
-obs.subscribe(() => {
-  throw Error('my error');
-});
-</code-example>
+<code-example 
+    path="comparing-observables/src/observables.ts" 
+    header="src/observables.ts (error)"
+    region="error">
+  </code-example>
 
 * Promises push errors to the child promises.
 
    承诺会把错误推给其子承诺。
 
-<code-example hideCopy>
-promise.then(() => {
-  throw Error('my error');
-});
-</code-example>
+<code-example 
+    path="comparing-observables/src/promises.ts" 
+    header="src/promises.ts (error)"
+    region="error">
+  </code-example>
 
 ### Cheat sheet
 
@@ -172,7 +169,8 @@ The following code snippets illustrate how the same kind of operation is defined
 
     <td>
 
-      <pre>new Observable((observer) => {
+      <pre>
+new Observable((observer) => {
   observer.next(123);
 });</pre>
 
@@ -180,7 +178,8 @@ The following code snippets illustrate how the same kind of operation is defined
 
     <td>
 
-      <pre>new Promise((resolve, reject) => {
+      <pre>
+new Promise((resolve, reject) => {
   resolve(123);
 });</pre>
 
@@ -222,7 +221,8 @@ The following code snippets illustrate how the same kind of operation is defined
 
     <td>
 
-      <pre>sub = obs.subscribe((value) => {
+      <pre>
+sub = obs.subscribe((value) => {
   console.log(value)
 });</pre>
 
@@ -230,7 +230,8 @@ The following code snippets illustrate how the same kind of operation is defined
 
     <td>
 
-      <pre>promise.then((value) => {
+      <pre>
+promise.then((value) => {
   console.log(value);
 });</pre>
 
@@ -331,7 +332,6 @@ subscription.unsubscribe();</pre>
 <pre>function handler(e) {
   console.log(‘Clicked’, e);
 }
-
 // Setup & begin listening
 button.addEventListener(‘click’, handler);
 // Stop listening

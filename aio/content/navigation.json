@@ -108,64 +108,18 @@
       "tooltip": "Angular 的基本原理",
       "children": [
         {
-          "title": "英雄指南",
-          "tooltip": "英雄指南是这里大量 Angular 范例的基础",
-          "children": [
-            {
-              "url": "tutorial",
-              "title": "简介",
-              "tooltip": "《英雄指南》教程简介"
-            },
-            {
-              "url": "tutorial/toh-pt0",
-              "title": "应用的“外壳”",
-              "tooltip": "创建应用的外壳"
-            },
-            {
-              "url": "tutorial/toh-pt1",
-              "title": "1. 英雄编辑器",
-              "tooltip": "第一部分：构建一个简单的英雄编辑器"
-            },
-            {
-              "url": "tutorial/toh-pt2",
-              "title": "2. 显示英雄列表",
-              "tooltip": "第二部分：构建一个主从结构的页面，用于展现英雄列表。"
-            },
-            {
-              "url": "tutorial/toh-pt3",
-              "title": "3. 主从组件",
-              "tooltip": "第三部分：把主从结构的页面重构成多个组件。"
-            },
-            {
-              "url": "tutorial/toh-pt4",
-              "title": "4. 服务",
-              "tooltip": "第四部分：创建一个可复用的服务来管理英雄数据。"
-            },
-            {
-              "url": "tutorial/toh-pt5",
-              "title": "5. 路由",
-              "tooltip": "第五部分：添加 Angular 路由器，并且学习在视图之间导航。"
-            },
-            {
-              "url": "tutorial/toh-pt6",
-              "title": "6. HTTP",
-              "tooltip": "第六部分：通过 HTTP 来获取并保存英雄数据。"
-            }
-          ]
-        },
-        {
-          "title": "架构",
-          "tooltip": "Angular 应用的基本构造块。",
+          "title": "Angular 的基本概念",
+          "tooltip": "介绍 Angular 应用中的一些基本概念。",
           "children": [
             {
               "url": "guide/architecture",
-              "title": "架构概览",
-              "tooltip": "Angular 应用的基本构造块"
+              "title": "基本概念简介",
+              "tooltip": "Angular 应用中的基本构造块。"
             },
             {
               "url": "guide/architecture-modules",
-              "title": "模块（NgModule）简介",
-              "tooltip": "关于模块。"
+              "title": "模块简介",
+              "tooltip": "关于 Angular 模块（NgModules）。"
             },
             {
               "url": "guide/architecture-components",
@@ -180,13 +134,59 @@
             {
               "url": "guide/architecture-next-steps",
               "title": "后续步骤",
-              "tooltip": "学完基础知识之后……"
+              "tooltip": "超越基础阶段。"
             }
           ]
         },
         {
+          "title": "英雄指南",
+          "tooltip": "英雄指南是这里大量 Angular 范例的基础",
+          "children": [
+          {
+            "url": "tutorial",
+            "title": "简介",
+            "tooltip": "《英雄指南》教程简介"
+          },
+          {
+            "url": "tutorial/toh-pt0",
+            "title": "应用的“外壳”",
+            "tooltip": "创建应用的外壳"
+          },
+          {
+            "url": "tutorial/toh-pt1",
+            "title": "1. 英雄编辑器",
+            "tooltip": "第一部分：构建一个简单的英雄编辑器"
+          },
+          {
+            "url": "tutorial/toh-pt2",
+            "title": "2. 显示英雄列表",
+            "tooltip": "第二部分：构建一个主从结构的页面，用于展现英雄列表。"
+          },
+          {
+            "url": "tutorial/toh-pt3",
+            "title": "3. 创建特性组件",
+            "tooltip": "第三部分：把主从结构的视图重构成几个独立的组件。"
+          },
+          {
+            "url": "tutorial/toh-pt4",
+            "title": "4. 添加服务",
+            "tooltip": "第四部分：创建一个可复用的服务来管理英雄数据。"
+          },
+          {
+            "url": "tutorial/toh-pt5",
+            "title": "5. 添加应用内导航",
+            "tooltip": "第五部分：添加 Angular 路由器，并且学习在视图之间导航。"
+          },
+          {
+            "url": "tutorial/toh-pt6",
+            "title": "6. 从服务器获取数据",
+            "tooltip": "第六部分：通过 HTTP 来获取并保存英雄数据。"
+          }
+          ]
+        },
+        {
           "title": "组件与模板",
-          "tooltip": "使用数据绑定构建动态视图",
+          "tooltip": "通过数据绑定构建动态视图",
           "children": [
             {
               "url": "guide/displaying-data",
@@ -308,12 +308,7 @@
           ]
         },
         {
-          "url": "guide/bootstrapping",
-          "title": "引导启动",
-          "tooltip": "在应用的根模块（AppModule）中告诉 Angular 如何构造并引导引用。"
-        },
-        {
-          "title": "NgModule",
+          "title": "NgModules",
           "tooltip": "Angular 中的模块",
           "children": [
             {
@@ -325,6 +320,11 @@
               "url": "guide/ngmodule-vs-jsmodule",
               "title": "JS 模块 vs NgModule",
               "tooltip": "JavaScript 模块和 NgModule 之间的差异"
+            },
+            {
+              "url": "guide/bootstrapping",
+              "title": "应用的根模块",
+              "tooltip": "告诉 Angular 如何在根 \"AppModule\" 中构造和引导应用。"
             },
             {
               "url": "guide/frequent-ngmodules",
@@ -604,8 +604,8 @@
           "hidden": true
         },
         {
-          "title": "AoT 预先编译器",
-          "tooltip": "理解 AoT 预先编译器。",
+          "title": "AOT 预先编译器",
+          "tooltip": "理解 AOT 预先编译器。",
           "children": [
             {
               "url": "guide/aot-compiler",
@@ -615,12 +615,12 @@
             {
               "url": "guide/angular-compiler-options",
               "title": "Angular 编译器选项",
-              "tooltip": "配置 AoT 编译。"
+              "tooltip": "配置 AOT 编译。"
            },
            {
               "url": "guide/aot-metadata-errors",
-              "title": "AoT 元数据错误",
-              "tooltip": "解决 AoT 编译错误。"
+              "title": "AOT 元数据错误",
+              "tooltip": "解决 AOT 编译错误。"
            },
            {
             "url": "guide/template-typecheck",

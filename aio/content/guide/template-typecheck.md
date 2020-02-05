@@ -284,6 +284,8 @@ In case of a false positive like these, there are a few options:
 | `strictOutputEventTypes` | 对于绑定到组件/指令 `@Output()` 或动画事件的事件绑定， `$event` 是否具有正确的类型。如果禁用，它将为 `any` 。 |
 | `strictDomEventTypes` | Whether `$event` will have the correct type for event bindings to DOM events. If disabled, it will be `any`. |
 | `strictDomEventTypes` | 对于与 DOM 事件的事件绑定，`$event` 是否具有正确的类型。如果禁用，它将为 `any` 。 |
+|`strictContextGenerics`|Whether the type parameters of generic components will be inferred correctly (including any generic bounds). If disabled, any type parameters will be `any`.|
+|`strictContextGenerics`|泛型组件的类型参数是否应该被正确推断（包括泛型上界和下界）. 如果禁用它，所有的类型参数都会被当做 `any`。|
 
 If you still have issues after troubleshooting with these flags, you can fall back to full mode by disabling `strictTemplates`.
 

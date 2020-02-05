@@ -756,7 +756,7 @@ is a _tag function_ native to JavaScript ES2015.
 
 [`String.raw()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/raw) 是一个 ES2015 原生的*标签函数*。
 
-The AoT compiler does not support tagged template expressions; avoid them in metadata expressions.
+The AOT compiler does not support tagged template expressions; avoid them in metadata expressions.
 
 AOT 编译器不支持带标签函数的模板表达式，避免在元数据表达式中使用它们。
 

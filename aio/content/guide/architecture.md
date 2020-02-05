@@ -1,20 +1,22 @@
-# Architecture overview
+# Introduction to Angular concepts
 
 # 架构概览
 
-Angular is a platform and framework for building client applications in HTML and TypeScript.
-Angular is written in TypeScript. It implements core and optional functionality as a set of TypeScript libraries that you import into your apps.
+Angular is a platform and framework for building single-page client applications in HTML and TypeScript.
+Angular is written in TypeScript.
+It implements core and optional functionality as a set of TypeScript libraries that you import into your apps.
 
 Angular 是一个用 HTML 和 TypeScript 构建客户端应用的平台与框架。
 Angular 本身就是用 TypeScript 写成的。它将核心功能和可选功能作为一组 TypeScript 库进行实现，你可以把它们导入你的应用中。
 
-The basic building blocks of an Angular application are *NgModules*, which provide a compilation context for *components*. NgModules collect related code into functional sets; an Angular app is defined by a set of NgModules. An app always has at least a *root module* that enables bootstrapping, and typically has many more *feature modules*.
+The architecture of an Angular application relies on certain fundamental concepts.
+The basic building blocks are *NgModules*, which provide a compilation context for *components*. NgModules collect related code into functional sets; an Angular app is defined by a set of NgModules. An app always has at least a *root module* that enables bootstrapping, and typically has many more *feature modules*.
 
 Angular 的基本构造块是 *NgModule*，它为*组件*提供了编译的上下文环境。
 NgModule 会把相关的代码收集到一些功能集中。Angular 应用就是由一组 NgModule 定义出的。
 应用至少会有一个用于引导应用的*根模块*，通常还会有很多*特性模块*。
 
-* Components define *views*, which are sets of screen elements that Angular can choose among and modify according to your program logic and data. 
+* Components define *views*, which are sets of screen elements that Angular can choose among and modify according to your program logic and data.
 
    组件定义*视图*。视图是一组可见的屏幕元素，Angular 可以根据你的程序逻辑和数据来选择和修改它们。
   每个应用都至少有一个根组件。
@@ -41,6 +43,14 @@ An app's components typically define many views, arranged hierarchically. Angula
 
 应用的组件通常会定义很多视图，并进行分级组织。 Angular 提供了 `Router` 服务来帮助你定义视图之间的导航路径。
 路由器提供了先进的浏览器内导航功能。
+
+<div class="alert is-helpful">
+
+  See the [Angular Glossary](guide/glossary) for basic definitions of important Angular terms and usage.
+
+  参见 [Angular 词汇表](guide/glossary) 以了解对 Angular 重要名词和用法的基本定义。
+
+</div>
 
 ## Modules
 
@@ -125,7 +135,7 @@ Before a view is displayed, Angular evaluates the directives and resolves the bi
 在视图显示出来之前，Angular 会先根据你的应用数据和逻辑来运行模板中的指令并解析绑定表达式，以修改 HTML 元素和 DOM。
 Angular 支持*双向数据绑定*，这意味着 DOM 中发生的变化（比如用户的选择）同样可以反映回你的程序数据中。
 
-Your templates can use *pipes* to improve the user experience by transforming values for display. 
+Your templates can use *pipes* to improve the user experience by transforming values for display.
 For example, use pipes to display dates and currency values that are appropriate for a user's locale.
 Angular provides predefined pipes for common transformations, and you can also define your own pipes.
 

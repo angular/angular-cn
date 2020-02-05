@@ -46,7 +46,7 @@ The [Tour of Heroes tutorial](tutorial) is the foundation for this walkthrough.
 这次演练的基础是[“英雄指南”教程](tutorial) 。
 
 In this example, the Angular CLI compiles and bundles the Universal version of the app with the
-[Ahead-of-Time (AoT) compiler](guide/aot-compiler).
+[Ahead-of-Time (AOT) compiler](guide/aot-compiler).
 A Node Express web server compiles HTML pages with Universal based on client requests.
 
 在这个例子中，Angular CLI 使用 [预先（AoT）编译器](guide/aot-compiler)编译并打包了该应用的 Universal 版本。 Node Express Web 服务器则会根据客户端的请求，利用 Universal 编译 HTML 页面。

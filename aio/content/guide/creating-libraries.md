@@ -64,7 +64,7 @@ You can build, test, and lint the project with CLI commands:
 </code-example>
 
 Notice that the configured builder for the project is different from the default builder for app projects.
-This builder, among other things, ensures that the library is always built with the [AoT compiler](guide/aot-compiler), without the need to specify the `--prod` flag.
+This builder, among other things, ensures that the library is always built with the [AOT compiler](guide/aot-compiler), without the need to specify the `--prod` flag.
 
 注意，该项目配置的构建器与应用类项目的默认构建器不同。此构建器可以确保库永远使用 [AoT 编译器](guide/aot-compiler)构建，而不必再指定`--prod`标志。
 

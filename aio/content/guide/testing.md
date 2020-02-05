@@ -945,6 +945,16 @@ It also generates an initial test file for the component, `banner-external.compo
   region="v1"
   header="app/banner/banner-external.component.spec.ts (initial)"></code-example>
 
+<div class="alert is-helpful">
+
+Because `compileComponents` is asynchronous, it uses 
+the [`async`](api/core/testing/async) utility 
+function imported from `@angular/core/testing`.
+
+Please refer to the [async](#async) section for more details.
+
+</div>
+
 #### Reduce the setup
 
 #### 缩减环境准备代码

@@ -9,6 +9,7 @@ ts_library(
     ),
     deps = [
         "//packages/core",
+        "//packages/core/src/util",
         "@npm//@types/jasmine",
         "@npm//@types/node",
     ],

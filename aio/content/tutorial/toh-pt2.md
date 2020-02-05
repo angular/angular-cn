@@ -1,4 +1,4 @@
-# Display a Heroes List
+# Display a selection list
 
 # 显示英雄列表
 

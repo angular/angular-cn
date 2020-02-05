@@ -135,6 +135,8 @@ export declare class AnimationEvent {
       const diags = env.driveDiagnostics();
       expect(diags.length).toBe(1);
       expect(diags[0].messageText).toEqual(`Type 'string' is not assignable to type 'number'.`);
+      // The reported error code should be in the TS error space, not a -99 "NG" code.
+      expect(diags[0].code).toBeGreaterThan(0);
     });
 
     it('should support inputs and outputs with names that are not JavaScript identifiers', () => {
@@ -172,6 +174,33 @@ export declare class AnimationEvent {
       expect(diags[0].messageText).toEqual(`Type 'number' is not assignable to type 'string'.`);
       expect(diags[1].messageText)
           .toEqual(`Argument of type 'string' is not assignable to parameter of type 'number'.`);
+    });
+
+    it('should support one input property mapping to multiple fields', () => {
+      env.write('test.ts', `
+        import {Component, Directive, Input, NgModule} from '@angular/core';
+
+        @Directive({
+          selector: '[dir]',
+        })
+        export class Dir {
+
+          @Input('propertyName') fieldA!: string;
+          @Input('propertyName') fieldB!: string;
+        }
+
+        @Component({
+          selector: 'test-cmp',
+          template: '<div dir propertyName="test"></div>',
+        })
+        export class Cmp {}
+
+        @NgModule({declarations: [Dir, Cmp]})
+        export class Module {}
+      `);
+
+      const diags = env.driveDiagnostics();
+      expect(diags.length).toBe(0);
     });
 
     it('should check event bindings', () => {
@@ -945,7 +974,8 @@ export declare class AnimationEvent {
     });
 
     it('should constrain types using type parameter bounds', () => {
-      env.tsconfig({fullTemplateTypeCheck: true, strictInputTypes: true});
+      env.tsconfig(
+          {fullTemplateTypeCheck: true, strictInputTypes: true, strictContextGenerics: true});
       env.write('test.ts', `
     import {CommonModule} from '@angular/common';
     import {Component, Input, NgModule} from '@angular/core';
@@ -1145,6 +1175,71 @@ export declare class AnimationEvent {
       expect(diags.length).toEqual(1);
       expect(getSourceCodeForDiagnostic(diags[0])).toEqual('y = !y');
     });
+
+    it('should still type-check when fileToModuleName aliasing is enabled, but alias exports are not in the .d.ts file',
+       () => {
+         // The template type-checking file imports directives/pipes in order to type-check their
+         // usage. When `UnifiedModulesHost` aliasing is enabled, these imports would ordinarily use
+         // aliased values. However, such aliases are not guaranteed to exist in the .d.ts files,
+         // and so feeding such imports back into TypeScript does not work.
+         //
+         // Instead, direct imports should be used within template type-checking code. This test
+         // verifies that template type-checking is able to cope with such a scenario where
+         // aliasing is enabled and alias re-exports don't exist in .d.ts files.
+         env.tsconfig({
+           // Setting this private flag turns on aliasing.
+           '_useHostForImportGeneration': true,
+           // Because the tsconfig is overridden, template type-checking needs to be turned back on
+           // explicitly as well.
+           'fullTemplateTypeCheck': true,
+         });
+
+         // 'alpha' declares the directive which will ultimately be imported.
+         env.write('alpha.d.ts', `
+          import {ɵɵDirectiveDefWithMeta, ɵɵNgModuleDefWithMeta} from '@angular/core';
+
+          export declare class ExternalDir {
+            input: string;
+            static ɵdir: ɵɵDirectiveDefWithMeta<ExternalDir, '[test]', never, { 'input': "input" }, never, never>;
+          }
+
+          export declare class AlphaModule {
+            static ɵmod: ɵɵNgModuleDefWithMeta<AlphaModule, [typeof ExternalDir], never, [typeof ExternalDir]>;
+          }
+         `);
+
+         // 'beta' re-exports AlphaModule from alpha.
+         env.write('beta.d.ts', `
+          import {ɵɵNgModuleDefWithMeta} from '@angular/core';
+          import {AlphaModule} from './alpha';
+
+          export declare class BetaModule {
+            static ɵmod: ɵɵNgModuleDefWithMeta<BetaModule, never, never, [typeof AlphaModule]>;
+          }
+         `);
+
+         // The application imports BetaModule from beta, gaining visibility of ExternalDir from
+         // alpha.
+         env.write('test.ts', `
+          import {Component, NgModule} from '@angular/core';
+          import {BetaModule} from './beta';
+
+          @Component({
+            selector: 'cmp',
+            template: '<div test input="value"></div>',
+          })
+          export class Cmp {}
+
+          @NgModule({
+            declarations: [Cmp],
+            imports: [BetaModule],
+          })
+          export class Module {}
+         `);
+
+         const diags = env.driveDiagnostics();
+         expect(diags.length).toBe(0);
+       });
 
     describe('input coercion', () => {
       beforeEach(() => {

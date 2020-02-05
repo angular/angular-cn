@@ -16,9 +16,59 @@ import {Identifiers as R3} from '../r3_identifiers';
 
 import {hyphenate, parse as parseStyle} from './style_parser';
 import {ValueConverter} from './template';
-import {getInterpolationArgsLength} from './util';
+import {DefinitionMap, getInterpolationArgsLength} from './util';
 
 const IMPORTANT_FLAG = '!important';
+
+/**
+ * Minimum amount of binding slots required in the runtime for style/class bindings.
+ *
+ * Styling in Angular uses up two slots in the runtime LView/TData data structures to
+ * record binding data, property information and metadata.
+ *
+ * When a binding is registered it will place the following information in the `LView`:
+ *
+ * slot 1) binding value
+ * slot 2) cached value (all other values collected before it in string form)
+ *
+ * When a binding is registered it will place the following information in the `TData`:
+ *
+ * slot 1) prop name
+ * slot 2) binding index that points to the previous style/class binding (and some extra config
+ * values)
+ *
+ * Let's imagine we have a binding that looks like so:
+ *
+ * ```
+ * <div [style.width]="x" [style.height]="y">
+ * ```
+ *
+ * Our `LView` and `TData` data-structures look like so:
+ *
+ * ```typescript
+ * LView = [
+ *   // ...
+ *   x, // value of x
+ *   "width: x",
+ *
+ *   y, // value of y
+ *   "width: x; height: y",
+ *   // ...
+ * ];
+ *
+ * TData = [
+ *   // ...
+ *   "width", // binding slot 20
+ *   0,
+ *
+ *   "height",
+ *   20,
+ *   // ...
+ * ];
+ * ```
+ *
+ * */
+export const MIN_STYLING_BINDING_SLOTS_REQUIRED = 2;
 
 /**
  * A styling expression summary that is to be processed by the compiler
@@ -44,6 +94,7 @@ interface BoundStylingEntry {
   name: string|null;
   unit: string|null;
   sourceSpan: ParseSourceSpan;
+  sanitize: boolean;
   value: AST;
 }
 
@@ -116,11 +167,7 @@ export class StylingBuilder {
   private _initialStyleValues: string[] = [];
   private _initialClassValues: string[] = [];
 
-  // certain style properties ALWAYS need sanitization
-  // this is checked each time new styles are encountered
-  private _useDefaultSanitizer = false;
-
-  constructor(private _elementIndexExpr: o.Expression, private _directiveExpr: o.Expression|null) {}
+  constructor(private _directiveExpr: o.Expression|null) {}
 
   /**
    * Registers a given input to the styling builder to be later used when producing AOT code.
@@ -179,14 +226,13 @@ export class StylingBuilder {
     const {property, hasOverrideFlag, unit: bindingUnit} = parseProperty(name);
     const entry: BoundStylingEntry = {
       name: property,
+      sanitize: property ? isStyleSanitizable(property) : true,
       unit: unit || bindingUnit, value, sourceSpan, hasOverrideFlag
     };
     if (isMapBased) {
-      this._useDefaultSanitizer = true;
       this._styleMapInput = entry;
     } else {
       (this._singleStyleInputs = this._singleStyleInputs || []).push(entry);
-      this._useDefaultSanitizer = this._useDefaultSanitizer || isStyleSanitizable(name);
       registerIntoMap(this._stylesIndex, property);
     }
     this._lastStylingInput = entry;
@@ -202,8 +248,8 @@ export class StylingBuilder {
       return null;
     }
     const {property, hasOverrideFlag} = parseProperty(name);
-    const entry:
-        BoundStylingEntry = {name: property, value, sourceSpan, hasOverrideFlag, unit: null};
+    const entry: BoundStylingEntry =
+        {name: property, value, sourceSpan, sanitize: false, hasOverrideFlag, unit: null};
     if (isMapBased) {
       if (this._classMapInput) {
         throw new Error(
@@ -279,27 +325,11 @@ export class StylingBuilder {
    * responsible for registering initial styles (within a directive hostBindings' creation block),
    * as well as any of the provided attribute values, to the directive host element.
    */
-  buildHostAttrsInstruction(
-      sourceSpan: ParseSourceSpan|null, attrs: o.Expression[],
-      constantPool: ConstantPool): StylingInstruction|null {
+  assignHostAttrs(attrs: o.Expression[], definitionMap: DefinitionMap): void {
     if (this._directiveExpr && (attrs.length || this._hasInitialValues)) {
-      return {
-        reference: R3.elementHostAttrs,
-        calls: [{
-          sourceSpan,
-          allocateBindingSlots: 0,
-          params: () => {
-            // params => elementHostAttrs(attrs)
-            this.populateInitialStylingAttrs(attrs);
-            const attrArray = !attrs.some(attr => attr instanceof o.WrappedNodeExpr) ?
-                getConstantLiteralFromArray(constantPool, attrs) :
-                o.literalArr(attrs);
-            return [attrArray];
-          }
-        }]
-      };
+      this.populateInitialStylingAttrs(attrs);
+      definitionMap.set('hostAttrs', o.literalArr(attrs));
     }
-    return null;
   }
 
   /**
@@ -335,7 +365,7 @@ export class StylingBuilder {
     // map-based bindings allocate two slots: one for the
     // previous binding value and another for the previous
     // className or style attribute value.
-    let totalBindingSlotsRequired = 2;
+    let totalBindingSlotsRequired = MIN_STYLING_BINDING_SLOTS_REQUIRED;
 
     // these values must be outside of the update block so that they can
     // be evaluated (the AST visit call) during creation time so that any
@@ -357,17 +387,23 @@ export class StylingBuilder {
         allocateBindingSlots: totalBindingSlotsRequired,
         params: (convertFn: (value: any) => o.Expression | o.Expression[]) => {
           const convertResult = convertFn(mapValue);
-          return Array.isArray(convertResult) ? convertResult : [convertResult];
+          const params = Array.isArray(convertResult) ? convertResult : [convertResult];
+
+          // [style] instructions will sanitize all their values. For this reason we
+          // need to include the sanitizer as a param.
+          if (!isClassBased) {
+            params.push(o.importExpr(R3.defaultStyleSanitizer));
+          }
+          return params;
         }
       }]
     };
   }
 
   private _buildSingleInputs(
-      reference: o.ExternalReference, inputs: BoundStylingEntry[], mapIndex: Map<string, number>,
-      allowUnits: boolean, valueConverter: ValueConverter,
-      getInterpolationExpressionFn?: (value: Interpolation) => o.ExternalReference):
-      StylingInstruction[] {
+      reference: o.ExternalReference, inputs: BoundStylingEntry[], valueConverter: ValueConverter,
+      getInterpolationExpressionFn: ((value: Interpolation) => o.ExternalReference)|null,
+      isClassBased: boolean): StylingInstruction[] {
     const instructions: StylingInstruction[] = [];
 
     inputs.forEach(input => {
@@ -375,7 +411,14 @@ export class StylingBuilder {
           instructions[instructions.length - 1];
       const value = input.value.visit(valueConverter);
       let referenceForCall = reference;
-      let totalBindingSlotsRequired = 1;  // each styling binding value is stored in the LView
+
+      // each styling binding value is stored in the LView
+      // but there are two values stored for each binding:
+      //   1) the value itself
+      //   2) an intermediate value (concatenation of style up to this point).
+      //      We need to store the intermediate value so that we don't allocate
+      //      the strings on each CD.
+      let totalBindingSlotsRequired = MIN_STYLING_BINDING_SLOTS_REQUIRED;
 
       if (value instanceof Interpolation) {
         totalBindingSlotsRequired += value.expressions.length;
@@ -390,7 +433,7 @@ export class StylingBuilder {
         allocateBindingSlots: totalBindingSlotsRequired,
         supportsInterpolation: !!getInterpolationExpressionFn,
         params: (convertFn: (value: any) => o.Expression | o.Expression[]) => {
-          // params => stylingProp(propName, value)
+          // params => stylingProp(propName, value, suffix|sanitizer)
           const params: o.Expression[] = [];
           params.push(o.literal(input.name));
 
@@ -401,8 +444,16 @@ export class StylingBuilder {
             params.push(convertResult);
           }
 
-          if (allowUnits && input.unit) {
-            params.push(o.literal(input.unit));
+          // [style.prop] bindings may use suffix values (e.g. px, em, etc...) and they
+          // can also use a sanitizer. Sanitization occurs for url-based entries. Having
+          // the suffix value and a sanitizer together into the instruction doesn't make
+          // any sense (url-based entries cannot be sanitized).
+          if (!isClassBased) {
+            if (input.unit) {
+              params.push(o.literal(input.unit));
+            } else if (input.sanitize) {
+              params.push(o.importExpr(R3.defaultStyleSanitizer));
+            }
           }
 
           return params;
@@ -427,7 +478,7 @@ export class StylingBuilder {
   private _buildClassInputs(valueConverter: ValueConverter): StylingInstruction[] {
     if (this._singleClassInputs) {
       return this._buildSingleInputs(
-          R3.classProp, this._singleClassInputs, this._classesIndex, false, valueConverter);
+          R3.classProp, this._singleClassInputs, valueConverter, null, true);
     }
     return [];
   }
@@ -435,21 +486,10 @@ export class StylingBuilder {
   private _buildStyleInputs(valueConverter: ValueConverter): StylingInstruction[] {
     if (this._singleStyleInputs) {
       return this._buildSingleInputs(
-          R3.styleProp, this._singleStyleInputs, this._stylesIndex, true, valueConverter,
-          getStylePropInterpolationExpression);
+          R3.styleProp, this._singleStyleInputs, valueConverter,
+          getStylePropInterpolationExpression, false);
     }
     return [];
-  }
-
-  private _buildSanitizerFn(): StylingInstruction {
-    return {
-      reference: R3.styleSanitizer,
-      calls: [{
-        sourceSpan: this._firstStylingInput ? this._firstStylingInput.sourceSpan : null,
-        allocateBindingSlots: 0,
-        params: () => [o.importExpr(R3.defaultStyleSanitizer)]
-      }]
-    };
   }
 
   /**
@@ -459,9 +499,6 @@ export class StylingBuilder {
   buildUpdateLevelInstructions(valueConverter: ValueConverter) {
     const instructions: StylingInstruction[] = [];
     if (this.hasBindings) {
-      if (this._useDefaultSanitizer) {
-        instructions.push(this._buildSanitizerFn());
-      }
       const styleMapInstruction = this.buildStyleMapInstruction(valueConverter);
       if (styleMapInstruction) {
         instructions.push(styleMapInstruction);
@@ -487,9 +524,10 @@ function isStyleSanitizable(prop: string): boolean {
   // Note that browsers support both the dash case and
   // camel case property names when setting through JS.
   return prop === 'background-image' || prop === 'backgroundImage' || prop === 'background' ||
-      prop === 'border-image' || prop === 'borderImage' || prop === 'filter' ||
-      prop === 'list-style' || prop === 'listStyle' || prop === 'list-style-image' ||
-      prop === 'listStyleImage' || prop === 'clip-path' || prop === 'clipPath';
+      prop === 'border-image' || prop === 'borderImage' || prop === 'border-image-source' ||
+      prop === 'borderImageSource' || prop === 'filter' || prop === 'list-style' ||
+      prop === 'listStyle' || prop === 'list-style-image' || prop === 'listStyleImage' ||
+      prop === 'clip-path' || prop === 'clipPath';
 }
 
 /**

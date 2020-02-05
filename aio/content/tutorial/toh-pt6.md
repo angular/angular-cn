@@ -1,4 +1,4 @@
-# HTTP
+# Get data from a server
 
 In this tutorial, you'll add the following data persistence features with help from
 Angular's `HttpClient`.
@@ -224,7 +224,7 @@ This particular `HttpClient.get()` call returns an `Observable<Hero[]>`; that is
 ### `HttpClient.get()` 返回响应数据
 
 `HttpClient.get()` returns the body of the response as an untyped JSON object by default.
-Applying the optional type specifier, `<Hero[]>` , gives you a typed result object.
+Applying the optional type specifier, `<Hero[]>` , adds TypeScript capabilities, which reduce errors during compile time.
 
 `HttpClient.get()` 默认情况下把响应体当做无类型的 JSON 对象进行返回。
 如果指定了可选的模板类型 `<Hero[]>`，就会给返回你一个类型化的对象。

@@ -6,10 +6,12 @@
  * found in the LICENSE file at https://angular.io/license
  */
 
-import {Inject, LOCALE_ID, Pipe, PipeTransform} from '@angular/core';
+import {DEFAULT_CURRENCY_CODE, Inject, LOCALE_ID, Pipe, PipeTransform} from '@angular/core';
 import {formatCurrency, formatNumber, formatPercent} from '../i18n/format_number';
 import {getCurrencySymbol} from '../i18n/locale_data_api';
+
 import {invalidPipeArgumentError} from './invalid_pipe_argument_error';
+
 
 /**
  * @ngModule CommonModule
@@ -179,9 +181,7 @@ export class PercentPipe implements PipeTransform {
    */
   transform(value: any, digitsInfo?: string, locale?: string): string|null {
     if (isEmpty(value)) return null;
-
     locale = locale || this._locale;
-
     try {
       const num = strToNumber(value);
       return formatPercent(num, locale, digitsInfo);
@@ -202,6 +202,26 @@ export class PercentPipe implements PipeTransform {
  * 把数字转换成金额字符串，
  * 根据本地化规则进行格式化，这些规则会决定分组大小和分组分隔符、小数点字符以及其它与本地化环境有关的配置项。
  *
+ * {@a currency-code-deprecation}
+ * <div class="alert is-helpful">
+ *
+ * **Deprecation notice:**
+ *
+ * The default currency code is currently always `USD` but this is deprecated from v9.
+ *
+ * **In v11 the default currency code will be taken from the current locale identified by
+ * the `LOCAL_ID` token. See the [i18n guide](guide/i18n#setting-up-the-locale-of-your-app) for
+ * more information.**
+ *
+ * If you need the previous behavior then set it by creating a `DEFAULT_CURRENCY_CODE` provider in
+ * your application `NgModule`:
+ *
+ * ```ts
+ * {provide: DEFAULT_CURRENCY_CODE, useValue: 'USD'}
+ * ```
+ *
+ * </div>
+ *
  * @see `getCurrencySymbol()`
  * @see `formatCurrency()`
  *
@@ -219,7 +239,9 @@ export class PercentPipe implements PipeTransform {
  */
 @Pipe({name: 'currency'})
 export class CurrencyPipe implements PipeTransform {
-  constructor(@Inject(LOCALE_ID) private _locale: string) {}
+  constructor(
+      @Inject(LOCALE_ID) private _locale: string,
+      @Inject(DEFAULT_CURRENCY_CODE) private _defaultCurrencyCode: string = 'USD') {}
 
   /**
    *
@@ -228,9 +250,10 @@ export class CurrencyPipe implements PipeTransform {
    * 要格式化为货币的数字。
    *
    * @param currencyCode The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) currency code,
-   * such as `USD` for the US dollar and `EUR` for the euro.
+   * such as `USD` for the US dollar and `EUR` for the euro. The default currency code can be
+   * configured using the `DEFAULT_CURRENCY_CODE` injection token.
    *
-   * [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) 中的货币代码，比如 `USD` 表示美元，`EUR` 表示欧元。
+   * [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) 中的货币代码，比如 `USD` 表示美元，`EUR` 表示欧元。可以用 `DEFAULT_CURRENCY_CODE` 这个注入令牌来配置默认货币代码。
    *
    * @param display The format for the currency indicator. One of the following:
    *
@@ -314,7 +337,7 @@ export class CurrencyPipe implements PipeTransform {
       display = display ? 'symbol' : 'code';
     }
 
-    let currency: string = currencyCode || 'USD';
+    let currency: string = currencyCode || this._defaultCurrencyCode;
     if (display !== 'code') {
       if (display === 'symbol' || display === 'symbol-narrow') {
         currency = getCurrencySymbol(currency, display === 'symbol' ? 'wide' : 'narrow', locale);

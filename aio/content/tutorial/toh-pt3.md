@@ -1,4 +1,4 @@
-# Master/Detail Components
+# Create a feature component
 
 # 主从组件
 

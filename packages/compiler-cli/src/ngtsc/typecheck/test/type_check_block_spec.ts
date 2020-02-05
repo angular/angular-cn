@@ -51,6 +51,19 @@ describe('type check blocks', () => {
     expect(tcb(TEMPLATE, DIRECTIVES)).toContain('"inputA": ("value")');
   });
 
+  it('should handle multiple bindings to the same property', () => {
+    const TEMPLATE = `<div dir-a [inputA]="1" [inputA]="2"></div>`;
+    const DIRECTIVES: TestDeclaration[] = [{
+      type: 'directive',
+      name: 'DirA',
+      selector: '[dir-a]',
+      inputs: {inputA: 'inputA'},
+    }];
+    const block = tcb(TEMPLATE, DIRECTIVES);
+    expect(block).toContain('"inputA": (1)');
+    expect(block).not.toContain('"inputA": (2)');
+  });
+
   it('should handle empty bindings', () => {
     const TEMPLATE = `<div dir-a [inputA]=""></div>`;
     const DIRECTIVES: TestDeclaration[] = [{
@@ -313,6 +326,7 @@ describe('type check blocks', () => {
       checkTypeOfNonDomReferences: true,
       checkTypeOfPipes: true,
       strictSafeNavigationTypes: true,
+      useContextGenericType: true,
     };
 
     describe('config.applyTemplateContextGuards', () => {
@@ -363,19 +377,30 @@ describe('type check blocks', () => {
     });
 
     describe('config.checkTypeOfBindings', () => {
-      const TEMPLATE = `<div dir [dirInput]="a" [nonDirInput]="b"></div>`;
 
       it('should check types of bindings when enabled', () => {
+        const TEMPLATE = `<div dir [dirInput]="a" [nonDirInput]="b"></div>`;
         const block = tcb(TEMPLATE, DIRECTIVES);
         expect(block).toContain('Dir.ngTypeCtor({ "dirInput": ((ctx).a) })');
         expect(block).toContain('(ctx).b;');
       });
+
       it('should not check types of bindings when disabled', () => {
+        const TEMPLATE = `<div dir [dirInput]="a" [nonDirInput]="b"></div>`;
         const DISABLED_CONFIG:
             TypeCheckingConfig = {...BASE_CONFIG, checkTypeOfInputBindings: false};
         const block = tcb(TEMPLATE, DIRECTIVES, DISABLED_CONFIG);
         expect(block).toContain('Dir.ngTypeCtor({ "dirInput": (((ctx).a as any)) })');
         expect(block).toContain('((ctx).b as any);');
+      });
+
+      it('should wrap the cast to any in parentheses when required', () => {
+        const TEMPLATE = `<div dir [dirInput]="a === b"></div>`;
+        const DISABLED_CONFIG:
+            TypeCheckingConfig = {...BASE_CONFIG, checkTypeOfInputBindings: false};
+        const block = tcb(TEMPLATE, DIRECTIVES, DISABLED_CONFIG);
+        expect(block).toContain(
+            'Dir.ngTypeCtor({ "dirInput": (((((ctx).a) === ((ctx).b)) as any)) })');
       });
     });
 
@@ -541,6 +566,21 @@ describe('type check blocks', () => {
         const block = tcb(TEMPLATE, DIRECTIVES, DISABLED_CONFIG);
         expect(block).toContain('(((ctx).a) != null ? ((ctx).a)!.method() : null as any)');
         expect(block).toContain('(((ctx).a) != null ? ((ctx).a)!.b : null as any)');
+      });
+    });
+
+    describe('config.strictContextGenerics', () => {
+      const TEMPLATE = `Test`;
+
+      it('should use the generic type of the context when enabled', () => {
+        const block = tcb(TEMPLATE);
+        expect(block).toContain('function Test_TCB<T extends string>(ctx: Test<T>)');
+      });
+
+      it('should use any for the context generic type when disabled', () => {
+        const DISABLED_CONFIG: TypeCheckingConfig = {...BASE_CONFIG, useContextGenericType: false};
+        const block = tcb(TEMPLATE, undefined, DISABLED_CONFIG);
+        expect(block).toContain('function Test_TCB(ctx: Test<any>)');
       });
     });
   });

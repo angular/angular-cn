@@ -1,6 +1,6 @@
 """Re-export of some bazel rules with repository-wide defaults."""
 
-load("@build_bazel_rules_nodejs//:index.bzl", _nodejs_binary = "nodejs_binary", _npm_package = "npm_package")
+load("@build_bazel_rules_nodejs//:index.bzl", _nodejs_binary = "nodejs_binary", _pkg_npm = "pkg_npm")
 load("@npm_bazel_jasmine//:index.bzl", _jasmine_node_test = "jasmine_node_test")
 load("@npm_bazel_karma//:index.bzl", _karma_web_test = "karma_web_test", _karma_web_test_suite = "karma_web_test_suite")
 load("@npm_bazel_typescript//:index.bzl", _ts_devserver = "ts_devserver", _ts_library = "ts_library")
@@ -93,7 +93,7 @@ def ts_devserver(**kwargs):
         **kwargs
     )
 
-def ts_library(tsconfig = None, testonly = False, deps = [], module_name = None, **kwargs):
+def ts_library(name, tsconfig = None, testonly = False, deps = [], module_name = None, **kwargs):
     """Default values for ts_library"""
     deps = deps + ["@npm//tslib"]
     if testonly:
@@ -108,11 +108,23 @@ def ts_library(tsconfig = None, testonly = False, deps = [], module_name = None,
         module_name = _default_module_name(testonly)
 
     _ts_library(
+        name = name,
         tsconfig = tsconfig,
         testonly = testonly,
         deps = deps,
         module_name = module_name,
         **kwargs
+    )
+
+    # Select the es5 .js output of the ts_library for use in downstream boostrap targets
+    # with `output_group = "es5_sources"`. This exposes an internal detail of ts_library
+    # that is not ideal.
+    # TODO(gregmagolan): clean this up by using tsc() in these cases rather than ts_library
+    native.filegroup(
+        name = "%s_es5" % name,
+        srcs = [":%s" % name],
+        testonly = testonly,
+        output_group = "es5_sources",
     )
 
 def ng_module(name, tsconfig = None, entry_point = None, testonly = False, deps = [], module_name = None, bundle_dts = True, **kwargs):
@@ -160,7 +172,7 @@ def ng_package(name, readme_md = None, license_banner = None, deps = [], **kwarg
         deps = deps,
         readme_md = readme_md,
         license_banner = license_banner,
-        replacements = PKG_GROUP_REPLACEMENTS,
+        substitutions = PKG_GROUP_REPLACEMENTS,
         ng_packager = _INTERNAL_NG_PACKAGE_PACKAGER,
         terser_config_file = _INTERNAL_NG_PACKAGE_DEFALUT_TERSER_CONFIG_FILE,
         rollup_config_tmpl = _INTERNAL_NG_PACKAGE_DEFAULT_ROLLUP_CONFIG_TMPL,
@@ -168,11 +180,11 @@ def ng_package(name, readme_md = None, license_banner = None, deps = [], **kwarg
         **kwargs
     )
 
-def npm_package(name, replacements = {}, **kwargs):
+def pkg_npm(name, substitutions = {}, **kwargs):
     """Default values for npm_package"""
-    _npm_package(
+    _pkg_npm(
         name = name,
-        replacements = dict(replacements, **PKG_GROUP_REPLACEMENTS),
+        substitutions = dict(substitutions, **PKG_GROUP_REPLACEMENTS),
         **kwargs
     )
 
@@ -244,10 +256,34 @@ def nodejs_binary(data = [], **kwargs):
         **kwargs
     )
 
-def jasmine_node_test(deps = [], **kwargs):
-    """Default values for jasmine_node_test"""
-    deps = deps + [
-        # Very common dependencies for tests
+def jasmine_node_test(bootstrap = [], **kwargs):
+    """Default values for jasmine_node_test
+
+    Args:
+      bootstrap: A list of labels of scripts to run before the entry_point.
+
+                 The labels can either be individual files or a filegroup that contain a single
+                 file.
+
+                 The label is automatically added to the deps of jasmine_node_test.
+                 If the label ends in `_es5` which by convention selects the es5 outputs
+                 of a ts_library rule, then corresponding ts_library target sans `_es5`
+                 is also added to the deps of jasmine_node_test.
+
+                 For example with,
+
+                 jasmine_node_test(
+                     name = "test",
+                     bootstrap = ["//tools/testing:node_es5"],
+                     deps = [":test_lib"],
+                 )
+
+                 the `//tools/testing:node` target will automatically get added to deps
+                 by this macro. This removes the need for duplicate deps on the
+                 target and makes the usage of this rule less verbose."""
+
+    # Very common dependencies for tests
+    deps = kwargs.pop("deps", []) + [
         "@npm//chokidar",
         "@npm//domino",
         "@npm//jasmine-core",
@@ -256,9 +292,24 @@ def jasmine_node_test(deps = [], **kwargs):
         "@npm//tslib",
         "@npm//xhr2",
     ]
+    configuration_env_vars = kwargs.pop("configuration_env_vars", []) + [
+        "angular_ivy_enabled",
+    ]
+    templated_args = kwargs.pop("templated_args", [])
+    for label in bootstrap:
+        deps += [label]
+        templated_args += ["--node_options=--require=$(rlocation $(location %s))" % label]
+        if label.endswith("_es5"):
+            # If this label is a filegroup derived from a ts_library then automatically
+            # add the ts_library target (which is the label sans `_es5`) to deps so we pull
+            # in all of its transitive deps. This removes the need for duplicate deps on the
+            # target and makes the usage of this rule less verbose.
+            deps += [label[:-4]]
+
     _jasmine_node_test(
         deps = deps,
-        configuration_env_vars = ["angular_ivy_enabled"],
+        configuration_env_vars = configuration_env_vars,
+        templated_args = templated_args,
         **kwargs
     )
 
@@ -319,7 +370,7 @@ def rollup_bundle(name, testonly = False, **kwargs):
             name + ".js",
         ],
         args = [
-            "$(location :%s.es2015.js)" % name,
+            "$(execpath :%s.es2015.js)" % name,
             "--types",
             "--skipLibCheck",
             "--target",
@@ -328,7 +379,7 @@ def rollup_bundle(name, testonly = False, **kwargs):
             "es2015,dom",
             "--allowJS",
             "--outFile",
-            "$(location :%s.js)" % name,
+            "$(execpath :%s.js)" % name,
         ],
         data = [
             name + ".es2015.js",
@@ -350,7 +401,7 @@ def rollup_bundle(name, testonly = False, **kwargs):
             name + ".es5umd.js",
         ],
         args = [
-            "$(location :%s.umd.js)" % name,
+            "$(execpath :%s.umd.js)" % name,
             "--types",
             "--skipLibCheck",
             "--target",
@@ -359,7 +410,7 @@ def rollup_bundle(name, testonly = False, **kwargs):
             "es2015,dom",
             "--allowJS",
             "--outFile",
-            "$(location :%s.es5umd.js)" % name,
+            "$(execpath :%s.es5umd.js)" % name,
         ],
         data = [
             name + ".umd.js",

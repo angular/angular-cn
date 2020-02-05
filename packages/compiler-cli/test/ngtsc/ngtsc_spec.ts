@@ -192,6 +192,32 @@ runInEachFileSystem(os => {
       expect(jsContents).toContain('inject(Dep, 8)');
     });
 
+    it('should compile @Injectable with constructor overloads', () => {
+      env.write('test.ts', `
+      import {Injectable, Optional} from '@angular/core';
+
+      @Injectable()
+      class Dep {}
+
+      @Injectable()
+      class OptionalDep {}
+
+      @Injectable()
+      class Service {
+        constructor(dep: Dep);
+
+        constructor(dep: Dep, @Optional() optionalDep?: OptionalDep) {}
+      }
+    `);
+      env.driveMain();
+      const jsContents = env.getContents('test.js');
+
+      expect(jsContents)
+          .toContain(
+              `Service.ɵfac = function Service_Factory(t) { ` +
+              `return new (t || Service)(i0.ɵɵinject(Dep), i0.ɵɵinject(OptionalDep, 8)); };`);
+    });
+
     it('should compile Directives without errors', () => {
       env.write('test.ts', `
         import {Directive} from '@angular/core';
@@ -2184,7 +2210,7 @@ runInEachFileSystem(os => {
       env.driveMain();
       const jsContents = env.getContents('test.js');
       const hostBindingsFn = `
-      hostBindings: function FooCmp_HostBindings(rf, ctx, elIndex) {
+      hostBindings: function FooCmp_HostBindings(rf, ctx) {
         if (rf & 1) {
           i0.ɵɵlistener("click", function FooCmp_click_HostBindingHandler($event) { return ctx.onClick(); })("click", function FooCmp_click_HostBindingHandler($event) { return ctx.onDocumentClick($event.target); }, false, i0.ɵɵresolveDocument)("scroll", function FooCmp_scroll_HostBindingHandler($event) { return ctx.onWindowScroll(); }, false, i0.ɵɵresolveWindow);
         }
@@ -2224,29 +2250,67 @@ runInEachFileSystem(os => {
           }
         })
         class FooCmp {}
-    `);
+      `);
       const errors = env.driveDiagnostics();
       expect(trim(errors[0].messageText as string))
           .toContain('Cannot have a pipe in an action expression');
     });
 
-    it('should throw in case pipes are used in host bindings', () => {
+    it('should throw in case pipes are used in host bindings (defined as `value | pipe`)', () => {
       env.write(`test.ts`, `
-        import {Component} from '@angular/core';
+            import {Component} from '@angular/core';
 
-        @Component({
-          selector: 'test',
-          template: '...',
-          host: {
-            '[id]': 'id | myPipe'
-          }
-        })
-        class FooCmp {}
-    `);
+            @Component({
+              selector: 'test',
+              template: '...',
+              host: {
+                '[id]': 'id | myPipe'
+              }
+            })
+            class FooCmp {}
+         `);
       const errors = env.driveDiagnostics();
       expect(trim(errors[0].messageText as string))
           .toContain('Host binding expression cannot contain pipes');
     });
+
+    it('should throw in case pipes are used in host bindings (defined as `!(value | pipe)`)',
+       () => {
+         env.write(`test.ts`, `
+            import {Component} from '@angular/core';
+
+            @Component({
+              selector: 'test',
+              template: '...',
+              host: {
+                '[id]': '!(id | myPipe)'
+              }
+            })
+            class FooCmp {}
+         `);
+         const errors = env.driveDiagnostics();
+         expect(trim(errors[0].messageText as string))
+             .toContain('Host binding expression cannot contain pipes');
+       });
+
+    it('should throw in case pipes are used in host bindings (defined as `(value | pipe) === X`)',
+       () => {
+         env.write(`test.ts`, `
+            import {Component} from '@angular/core';
+
+            @Component({
+              selector: 'test',
+              template: '...',
+              host: {
+                '[id]': '(id | myPipe) === true'
+              }
+            })
+            class FooCmp {}
+         `);
+         const errors = env.driveDiagnostics();
+         expect(trim(errors[0].messageText as string))
+             .toContain('Host binding expression cannot contain pipes');
+       });
 
     it('should generate host bindings for directives', () => {
       env.write(`test.ts`, `
@@ -2276,9 +2340,9 @@ runInEachFileSystem(os => {
       env.driveMain();
       const jsContents = env.getContents('test.js');
       const hostBindingsFn = `
-      hostBindings: function FooCmp_HostBindings(rf, ctx, elIndex) {
+      hostVars: 4,
+      hostBindings: function FooCmp_HostBindings(rf, ctx) {
         if (rf & 1) {
-          i0.ɵɵallocHostVars(3);
           i0.ɵɵlistener("click", function FooCmp_click_HostBindingHandler($event) { return ctx.onClick($event); })("click", function FooCmp_click_HostBindingHandler($event) { return ctx.onBodyClick($event); }, false, i0.ɵɵresolveBody)("change", function FooCmp_change_HostBindingHandler($event) { return ctx.onChange(ctx.arg1, ctx.arg2, ctx.arg3); });
         }
         if (rf & 2) {
@@ -2312,7 +2376,7 @@ runInEachFileSystem(os => {
     `);
       env.driveMain();
       const jsContents = env.getContents('test.js');
-      expect(jsContents).toContain('i0.ɵɵelementHostAttrs(["test", test])');
+      expect(jsContents).toContain('hostAttrs: ["test", test]');
     });
 
     it('should accept enum values as host bindings', () => {
@@ -2355,7 +2419,7 @@ runInEachFileSystem(os => {
       env.driveMain();
       const jsContents = env.getContents('test.js');
       const hostBindingsFn = `
-      hostBindings: function Dir_HostBindings(rf, ctx, elIndex) {
+      hostBindings: function Dir_HostBindings(rf, ctx) {
         if (rf & 1) {
           i0.ɵɵlistener("change", function Dir_change_HostBindingHandler($event) { return ctx.onChange(ctx.arg); });
         }
@@ -3488,6 +3552,54 @@ runInEachFileSystem(os => {
       });
     });
 
+    // Run checks that are present in preanalysis phase in both sync and async mode, to make sure
+    // the error messages are consistently thrown from `analyzeSync` and `analyzeAsync` functions.
+    ['sync', 'async'].forEach(mode => {
+      describe(`preanalysis phase checks [${mode}]`, () => {
+        let driveDiagnostics: () => Promise<ReadonlyArray<ts.Diagnostic>>;
+        beforeEach(() => {
+          if (mode === 'async') {
+            env.enablePreloading();
+            driveDiagnostics = () => env.driveDiagnosticsAsync();
+          } else {
+            driveDiagnostics = () => Promise.resolve(env.driveDiagnostics());
+          }
+        });
+
+        it('should throw if @Component is missing a template', async() => {
+          env.write('test.ts', `
+            import {Component} from '@angular/core';
+
+            @Component({
+              selector: 'test',
+            })
+            export class TestCmp {}
+          `);
+
+          const diags = await driveDiagnostics();
+          expect(diags[0].messageText).toBe('component is missing a template');
+          expect(diags[0].file !.fileName).toBe(absoluteFrom('/test.ts'));
+        });
+
+        it('should throw if `styleUrls` is defined incorrectly in @Component', async() => {
+          env.write('test.ts', `
+            import {Component} from '@angular/core';
+
+            @Component({
+              selector: 'test',
+              template: '...',
+              styleUrls: '...'
+            })
+            export class TestCmp {}
+          `);
+
+          const diags = await driveDiagnostics();
+          expect(diags[0].messageText).toBe('styleUrls must be an array of strings');
+          expect(diags[0].file !.fileName).toBe(absoluteFrom('/test.ts'));
+        });
+      });
+    });
+
     describe('flat module indices', () => {
       it('should generate a basic flat module index', () => {
         env.tsconfig({
@@ -4198,10 +4310,8 @@ runInEachFileSystem(os => {
            env.driveMain();
            const jsContents = env.getContents('test.js');
            const hostBindingsFn = `
-        hostBindings: function UnsafeAttrsDirective_HostBindings(rf, ctx, elIndex) {
-          if (rf & 1) {
-            i0.ɵɵallocHostVars(6);
-          }
+        hostVars: 6,
+        hostBindings: function UnsafeAttrsDirective_HostBindings(rf, ctx) {
           if (rf & 2) {
             i0.ɵɵattribute("href", ctx.attrHref, i0.ɵɵsanitizeUrlOrResourceUrl)("src", ctx.attrSrc, i0.ɵɵsanitizeUrlOrResourceUrl)("action", ctx.attrAction, i0.ɵɵsanitizeUrl)("profile", ctx.attrProfile, i0.ɵɵsanitizeResourceUrl)("innerHTML", ctx.attrInnerHTML, i0.ɵɵsanitizeHtml)("title", ctx.attrSafeTitle);
           }
@@ -4248,10 +4358,8 @@ runInEachFileSystem(os => {
            env.driveMain();
            const jsContents = env.getContents('test.js');
            const hostBindingsFn = `
-        hostBindings: function UnsafePropsDirective_HostBindings(rf, ctx, elIndex) {
-          if (rf & 1) {
-            i0.ɵɵallocHostVars(6);
-          }
+        hostVars: 6,
+        hostBindings: function UnsafePropsDirective_HostBindings(rf, ctx) {
           if (rf & 2) {
             i0.ɵɵhostProperty("href", ctx.propHref, i0.ɵɵsanitizeUrlOrResourceUrl)("src", ctx.propSrc, i0.ɵɵsanitizeUrlOrResourceUrl)("action", ctx.propAction, i0.ɵɵsanitizeUrl)("profile", ctx.propProfile, i0.ɵɵsanitizeResourceUrl)("innerHTML", ctx.propInnerHTML, i0.ɵɵsanitizeHtml)("title", ctx.propSafeTitle);
           }
@@ -4283,10 +4391,8 @@ runInEachFileSystem(os => {
            env.driveMain();
            const jsContents = env.getContents('test.js');
            const hostBindingsFn = `
-        hostBindings: function FooCmp_HostBindings(rf, ctx, elIndex) {
-          if (rf & 1) {
-            i0.ɵɵallocHostVars(6);
-          }
+        hostVars: 6,
+        hostBindings: function FooCmp_HostBindings(rf, ctx) {
           if (rf & 2) {
             i0.ɵɵhostProperty("src", ctx.srcProp)("href", ctx.hrefProp)("title", ctx.titleProp);
             i0.ɵɵattribute("src", ctx.srcAttr)("href", ctx.hrefAttr)("title", ctx.titleAttr);

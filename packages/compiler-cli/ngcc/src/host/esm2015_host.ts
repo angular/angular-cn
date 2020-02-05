@@ -8,7 +8,7 @@
 
 import * as ts from 'typescript';
 
-import {ClassDeclaration, ClassMember, ClassMemberKind, ConcreteDeclaration, CtorParameter, Declaration, Decorator, TypeScriptReflectionHost, TypeValueReference, isDecoratorIdentifier, reflectObjectLiteral} from '../../../src/ngtsc/reflection';
+import {ClassDeclaration, ClassMember, ClassMemberKind, ConcreteDeclaration, CtorParameter, Declaration, Decorator, KnownDeclaration, TypeScriptReflectionHost, TypeValueReference, isDecoratorIdentifier, reflectObjectLiteral,} from '../../../src/ngtsc/reflection';
 import {isWithinPackage} from '../analysis/util';
 import {Logger} from '../logging/logger';
 import {BundleProgram} from '../packages/bundle_program';
@@ -50,7 +50,7 @@ export const CONSTRUCTOR_PARAMS = 'ctorParameters' as ts.__String;
  */
 export class Esm2015ReflectionHost extends TypeScriptReflectionHost implements NgccReflectionHost {
   /**
-   * A mapping from source declarations typings declarations, which are both publicly exported.
+   * A mapping from source declarations to typings declarations, which are both publicly exported.
    *
    * There should be one entry for every public export visible from the root file of the source
    * tree. Note that by definition the key and value declarations will not be in the same TS
@@ -351,6 +351,17 @@ export class Esm2015ReflectionHost extends TypeScriptReflectionHost implements N
       if (aliasedIdentifier !== null) {
         return this.getDeclarationOfIdentifier(aliasedIdentifier);
       }
+    }
+
+    // If the identifier resolves to the global JavaScript `Object`, return a
+    // declaration that denotes it as the known `JsGlobalObject` declaration.
+    if (superDeclaration !== null && this.isJavaScriptObjectDeclaration(superDeclaration)) {
+      return {
+        known: KnownDeclaration.JsGlobalObject,
+        expression: id,
+        viaModule: null,
+        node: null,
+      };
     }
 
     return superDeclaration;
@@ -1562,14 +1573,14 @@ export class Esm2015ReflectionHost extends TypeScriptReflectionHost implements N
       Map<ts.Declaration, ts.Declaration> {
     const declarationMap = new Map<ts.Declaration, ts.Declaration>();
     const dtsDeclarationMap = new Map<string, ts.Declaration>();
-    const dtsFiles = getNonRootFiles(dts);
     const typeChecker = dts.program.getTypeChecker();
+
+    const dtsFiles = getNonRootPackageFiles(dts);
     for (const dtsFile of dtsFiles) {
-      if (isWithinPackage(dts.package, dtsFile)) {
-        this.collectDtsExportedDeclarations(dtsDeclarationMap, dtsFile, typeChecker);
-      }
+      this.collectDtsExportedDeclarations(dtsDeclarationMap, dtsFile, typeChecker);
     }
-    const srcFiles = getNonRootFiles(src);
+
+    const srcFiles = getNonRootPackageFiles(src);
     for (const srcFile of srcFiles) {
       this.collectSrcExportedDeclarations(declarationMap, dtsDeclarationMap, srcFile);
     }
@@ -1696,6 +1707,30 @@ export class Esm2015ReflectionHost extends TypeScriptReflectionHost implements N
 
     const exportDecl = namespaceExports.get(expression.name.text) !;
     return {...exportDecl, viaModule: namespaceDecl.viaModule};
+  }
+
+  /** Checks if the specified declaration resolves to the known JavaScript global `Object`. */
+  protected isJavaScriptObjectDeclaration(decl: Declaration): boolean {
+    if (decl.node === null) {
+      return false;
+    }
+    const node = decl.node;
+    // The default TypeScript library types the global `Object` variable through
+    // a variable declaration with a type reference resolving to `ObjectConstructor`.
+    if (!ts.isVariableDeclaration(node) || !ts.isIdentifier(node.name) ||
+        node.name.text !== 'Object' || node.type === undefined) {
+      return false;
+    }
+    const typeNode = node.type;
+    // If the variable declaration does not have a type resolving to `ObjectConstructor`,
+    // we cannot guarantee that the declaration resolves to the global `Object` variable.
+    if (!ts.isTypeReferenceNode(typeNode) || !ts.isIdentifier(typeNode.typeName) ||
+        typeNode.typeName.text !== 'ObjectConstructor') {
+      return false;
+    }
+    // Finally, check if the type definition for `Object` originates from a default library
+    // definition file. This requires default types to be enabled for the host program.
+    return this.src.program.isSourceFileDefaultLibrary(node.getSourceFile());
   }
 }
 
@@ -2035,7 +2070,8 @@ function getRootFileOrFail(bundle: BundleProgram): ts.SourceFile {
   return rootFile;
 }
 
-function getNonRootFiles(bundle: BundleProgram): ts.SourceFile[] {
+function getNonRootPackageFiles(bundle: BundleProgram): ts.SourceFile[] {
   const rootFile = bundle.program.getSourceFile(bundle.path);
-  return bundle.program.getSourceFiles().filter(f => f !== rootFile);
+  return bundle.program.getSourceFiles().filter(
+      f => (f !== rootFile) && isWithinPackage(bundle.package, f));
 }

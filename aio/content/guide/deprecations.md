@@ -58,6 +58,7 @@ v9 - v12
 | ---- | -------------- | ----------------- |
 | 区域 | API 或特性 | 可能会在什么时候移除 |
 | `@angular/common` | [`ReflectiveInjector`](#reflectiveinjector) | <!--v8--> v10 |
+| `@angular/common`             | [`CurrencyPipe` - `DEFAULT_CURRENCY_CODE`](api/common/CurrencyPipe#currency-code-deprecation) | <!--v9--> v11 |
 | `@angular/core` | [`CollectionChangeRecord`](#core) | <!--v7--> v10 |
 | `@angular/core` | [`DefaultIterableDiffer`](#core) | <!--v7--> v10 |
 | `@angular/core` | [`ReflectiveKey`](#core) | <!--v8--> v10 |
@@ -110,6 +111,15 @@ Tip: In the [API reference section](api) of this doc site, deprecated APIs are i
 
 
 </div>
+
+{@a common}
+### @angular/common
+
+| API                                                                                           | Replacement                                         | Deprecation announced | Notes |
+| --------------------------------------------------------------------------------------------- | --------------------------------------------------- | --------------------- | ----- |
+| [`CurrencyPipe` - `DEFAULT_CURRENCY_CODE`](api/common/CurrencyPipe#currency-code-deprecation) | `{provide: DEFAULT_CURRENCY_CODE, useValue: 'USD'}` | v9                    | From v11 the default code will be extracted from the locale data given by `LOCAL_ID`, rather than `USD`. |
+| [`CurrencyPipe` - `DEFAULT_CURRENCY_CODE`](api/common/CurrencyPipe#currency-code-deprecation) | `{provide: DEFAULT_CURRENCY_CODE, useValue: 'USD'}` | v9                    |  从 v11 开始，默认代码将从由 `LOCAL_ID` 提供的语言环境数据中提取，而不再是固定值 `USD`。 |
+
 
 {@a core}
 ### @angular/core
@@ -446,7 +456,7 @@ However, in practice, Angular simply ignores two-way bindings to template variab
 ```
 
 {@a undecorated-base-classes}
-### Undecorated base classes using Angular features 
+### Undecorated base classes using Angular features
 
 ### 使用 Angular 特性的不带修饰器的基类
 
@@ -517,8 +527,8 @@ class Dir extends Base {
 }
 ```
 
-In version 9, the CLI has an automated migration that will update your code for you when `ng update` is run. 
-See [the dedicated migration guide](guide/migration-undecorated-classes) for more information about the change and more examples. 
+In version 9, the CLI has an automated migration that will update your code for you when `ng update` is run.
+See [the dedicated migration guide](guide/migration-undecorated-classes) for more information about the change and more examples.
 
 在版本 9 中，CLI 具有自动迁移功能，它将在运行 `ng update` 时为您更新代码。有关更改的更多信息和更多示例，请参见[专用的迁移指南](guide/migration-undecorated-classes) 。
 

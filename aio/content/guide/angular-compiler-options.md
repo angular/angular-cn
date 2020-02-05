@@ -3,7 +3,7 @@
 # Angular 编译器选项
 
 
-When you use [AoT compilation](guide/aot-compiler), you can control how your application is compiled by specifying *template* compiler options in the `tsconfig.json` [TypeScript configuration file](guide/typescript-configuration).
+When you use [AOT compilation](guide/aot-compiler), you can control how your application is compiled by specifying *template* compiler options in the `tsconfig.json` [TypeScript configuration file](guide/typescript-configuration).
 
 使用 [AoT 编译](guide/aot-compiler) 时，可以通过在 `tsconfig.json` [TypeScript 配置文件中](guide/typescript-configuration)指定*模板*编译器选项来控制如何编译应用程序。
 
@@ -34,7 +34,7 @@ The template options object, `angularCompilerOptions`, is a sibling to the `comp
 
 ## 用 `extends` 语法配置继承方式
 
-Like the TypeScript compiler, The Angular AoT compiler also supports `extends` in the `angularCompilerOptions` section of the TypeScript configuration file, `tsconfig.json`.
+Like the TypeScript compiler, The Angular AOT compiler also supports `extends` in the `angularCompilerOptions` section of the TypeScript configuration file, `tsconfig.json`.
 The `extends` property is at the top level, parallel to `compilerOptions` and `angularCompilerOptions`.
 
 像 TypeScript 编译器一样，Angular 的 AOT 编译器也支持对 TypeScript 配置文件 `tsconfig.json` 的 `angularCompilerOptions` 进行 `extends`。`extends` 属性位于顶级，和 `compilerOptions` 和 `angularCompilerOptions` 平级。
@@ -75,7 +75,7 @@ For more information, see the [TypeScript Handbook](https://www.typescriptlang.o
 ## 模板选项
 
 
-The following options are available for configuring the AoT template compiler.
+The following options are available for configuring the AOT template compiler.
 
 以下选项可用于配置 AoT 模板编译器。
 

@@ -173,12 +173,20 @@ yarn install
 When Angular sees this dev dependency, it provides the language service in the WebStorm environment.
 WebStorm then gives you colorization inside the template and autocomplete in addition to the Angular Language Service.
 
+当 Angular 插件发现这个开发依赖时，就会在 WebStorm 环境中提供语言服务。
+除了 Angular 语言服务提供的这些功能之外，WebStorm 还会提供自动补齐和模板代码着色功能。
+
 ### Sublime Text
 
 In [Sublime Text](https://www.sublimetext.com/), the Language Service supports only in-line templates when installed as a plug-in.
 You need a custom Sublime plug-in (or modifications to the current plug-in) for completions in HTML files.
 
+在 [Sublime Text](https://www.sublimetext.com/) 中，当安装为插件时，语言服务仅支持内联模板。
+你需要自定义 Sublime 插件（或修改当前插件），来实现 HTML 文件中的自动补齐。
+
 To use the Language Service for in-line templates, you must first add an extension to allow TypeScript, then install the Angular Language Service plug-in. Starting with TypeScript 2.3, TypeScript has a plug-in model that the language service can use.
+
+要想在内联模板中使用语言服务，你必须首先添加一个扩展，以支持 TypeScript，然后安装 Angular 语言服务插件。从 TypeScript 2.3 开始，TypeScript 提供了一个插件模型，供语言服务使用。
 
 1. Install the latest version of TypeScript in a local `node_modules` directory:
 

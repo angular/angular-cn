@@ -79,11 +79,11 @@ export class ComponentDecoratorHandler implements
       private reflector: ReflectionHost, private evaluator: PartialEvaluator,
       private metaRegistry: MetadataRegistry, private metaReader: MetadataReader,
       private scopeReader: ComponentScopeReader, private scopeRegistry: LocalModuleScopeRegistry,
-      private isCore: boolean, private resourceLoader: ResourceLoader, private rootDirs: string[],
-      private defaultPreserveWhitespaces: boolean, private i18nUseExternalIds: boolean,
-      private enableI18nLegacyMessageIdFormat: boolean, private moduleResolver: ModuleResolver,
-      private cycleAnalyzer: CycleAnalyzer, private refEmitter: ReferenceEmitter,
-      private defaultImportRecorder: DefaultImportRecorder,
+      private isCore: boolean, private resourceLoader: ResourceLoader,
+      private rootDirs: ReadonlyArray<string>, private defaultPreserveWhitespaces: boolean,
+      private i18nUseExternalIds: boolean, private enableI18nLegacyMessageIdFormat: boolean,
+      private moduleResolver: ModuleResolver, private cycleAnalyzer: CycleAnalyzer,
+      private refEmitter: ReferenceEmitter, private defaultImportRecorder: DefaultImportRecorder,
       private depTracker: DependencyTracker|null,
       private injectableRegistry: InjectableClassRegistry,
       private annotateForClosureCompiler: boolean) {}
@@ -109,6 +109,7 @@ export class ComponentDecoratorHandler implements
     if (decorator !== undefined) {
       return {
         trigger: decorator.node,
+        decorator,
         metadata: decorator,
       };
     } else {
@@ -272,7 +273,7 @@ export class ComponentDecoratorHandler implements
         const resourceStr = this.resourceLoader.load(resourceUrl);
         styles.push(resourceStr);
         if (this.depTracker !== null) {
-          this.depTracker.addResourceDependency(node.getSourceFile(), resourceUrl);
+          this.depTracker.addResourceDependency(node.getSourceFile(), absoluteFrom(resourceUrl));
         }
       }
     }
@@ -674,7 +675,7 @@ export class ComponentDecoratorHandler implements
       resourceUrl: string): ParsedTemplateWithSource {
     const templateStr = this.resourceLoader.load(resourceUrl);
     if (this.depTracker !== null) {
-      this.depTracker.addResourceDependency(node.getSourceFile(), resourceUrl);
+      this.depTracker.addResourceDependency(node.getSourceFile(), absoluteFrom(resourceUrl));
     }
 
     const template = this._parseTemplate(

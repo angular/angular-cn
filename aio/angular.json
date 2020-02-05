@@ -99,6 +99,9 @@
                 }
               ],
               "serviceWorker": true
+            },
+            "ci": {
+              "progress": false
             }
           }
         },
@@ -121,7 +124,7 @@
               "browserTarget": "site:build:archive"
             },
             "ci": {
-              "progress": false
+              "browserTarget": "site:build:ci"
             }
           }
         },

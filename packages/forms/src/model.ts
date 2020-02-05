@@ -406,9 +406,10 @@ export abstract class AbstractControl {
 
   /**
    * A multicasting observable that emits an event every time the value of the control changes, in
-   * the UI or programmatically.
+   * the UI or programmatically. It also emits an event each time you call enable() or disable()
+   * without passing along {emitEvent: false} as a function argument.
    *
-   * 一个多播 Observable（可观察对象），每当控件的值发生变化时，它就会发出一个事件 —— 无论是通过 UI 还是通过程序。
+   * 一个多播 Observable（可观察对象），每当控件的值发生变化时，它就会发出一个事件 —— 无论是通过 UI 还是通过程序。每当你调用 `enable()` 或 `disable()`，但没有传入 `{emitEvent: false}` 参数时，它也同样会发出一个事件。
    */
   // TODO(issue/24571): remove '!'.
   public readonly valueChanges !: Observable<any>;

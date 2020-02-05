@@ -286,7 +286,7 @@ Here's the updated directive in full:
 <code-example path="attribute-directives/src/app/highlight.directive.2.ts" header="src/app/highlight.directive.ts"></code-example>
 
 Run the app and confirm that the background color appears when
-the mouse hovers over the `p` and disappears as it moves out.
+the pointer hovers over the paragraph element and disappears as the pointer moves out.
 
 运行本应用并确认：当把鼠标移到 `p` 上的时候，背景色就出现了，而移开时就消失了。
 

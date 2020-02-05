@@ -546,10 +546,21 @@ Learn more in [Dependency Injection in Angular](guide/dependency-injection).
 A lookup token associated with a dependency [provider](#provider), for use with the [dependency injection](#di) system.
 
 一种用来查阅的令牌，它关联到一个依赖[提供商](#provider)，用于[依赖注入](#di)系统中。
+{@a differential-loading}
+
+## differential loading
+
+## 差异化加载
+
+A build technique that creates two bundles for an application. One smaller bundle is for modern browsers. A second, larger bundle allows the application to run correctly in older browsers (such as IE11) that do not support all modern browser APIs.
+
+一种构建技术，它会为同一个应用创建两个发布包。一个是较小的发布包，是针对现代浏览器的。另一个是较大的发布包，能让该应用正确的运行在像 IE 11 这样的老式浏览器上，这些浏览器不能支持全部现代浏览器的 API。
+
+For more information, see the [Deployment](guide/deployment#differential-loading) guide.
+
+欲知详情，参见 [Deployment](guide/deployment#differential-loading) 一章。
 
 {@a directive}
-
-
 {@a directives}
 
 ## directive

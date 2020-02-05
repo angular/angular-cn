@@ -939,7 +939,7 @@ finds the `FlowerService` and never sees the 🌺 (red hibiscus).
 
 Use the `viewProviders` array as another way to provide services in the
 `@Component()` decorator. Using `viewProviders` makes services
-visibile in the `<#VIEW>`.
+visible in the `<#VIEW>`.
 
 使用 `viewProviders` 数组是在 `@Component()` 装饰器中提供服务的另一种方法。使用 `viewProviders` 使服务在 `<#VIEW>` 中可见。
 

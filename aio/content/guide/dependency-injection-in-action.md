@@ -364,7 +364,7 @@ Using a custom provider allows you to provide a concrete implementation for impl
 
 </code-example>
 
-The `factory` function returns the `localStorage` property that is attached to the browser window object. The `Inject` decorator is a constructor parameter used to specify a custom provider of a dependency. This custom provider can now be overridden during testing with a mock API of `localStorage` instead of interactive with real browser APIs.
+The `factory` function returns the `localStorage` property that is attached to the browser window object. The `Inject` decorator is a constructor parameter used to specify a custom provider of a dependency. This custom provider can now be overridden during testing with a mock API of `localStorage` instead of interacting with real browser APIs.
 
 `factory` 函数返回 window 对象上的 `localStorage` 属性。`Inject` 装饰器修饰一个构造函数参数，用于为某个依赖提供自定义提供商。现在，就可以在测试期间使用 `localStorage` 的 Mock API 来覆盖这个提供商了，而不必与真实的浏览器 API 进行交互。
 

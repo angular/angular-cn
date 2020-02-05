@@ -148,13 +148,9 @@ export class TypeScriptServiceHost implements LanguageServiceHost {
    * and templateReferences.
    * In addition to returning information about NgModules, this method plays the
    * same role as 'synchronizeHostData' in tsserver.
-   * @param ensureSynchronized whether or not the Language Service should make sure analyzedModules
-   *   are synced to the last update of the project. If false, returns the set of analyzedModules
-   *   that is already cached. This is useful if the project must not be reanalyzed, even if its
-   *   file watchers (which are disjoint from the TypeScriptServiceHost) detect an update.
    */
-  getAnalyzedModules(ensureSynchronized = true): NgAnalyzedModules {
-    if (!ensureSynchronized || this.upToDate()) {
+  getAnalyzedModules(): NgAnalyzedModules {
+    if (this.upToDate()) {
       return this.analyzedModules;
     }
 
@@ -288,9 +284,9 @@ export class TypeScriptServiceHost implements LanguageServiceHost {
     const visit = (child: tss.Node) => {
       const candidate = getDirectiveClassLike(child);
       if (candidate) {
-        const {decoratorId, classDecl} = candidate;
-        const declarationSpan = spanOf(decoratorId);
-        const className = classDecl.name !.text;
+        const {classId} = candidate;
+        const declarationSpan = spanOf(classId);
+        const className = classId.getText();
         const classSymbol = this.reflector.getStaticSymbol(sourceFile.fileName, className);
         // Ask the resolver to check if candidate is actually Angular directive
         if (!this.resolver.isDirective(classSymbol)) {
@@ -448,14 +444,6 @@ export class TypeScriptServiceHost implements LanguageServiceHost {
       return;
     }
     return this.getTemplateAst(template);
-  }
-
-  /**
-   * Gets a StaticSymbol from a file and symbol name.
-   * @return Angular StaticSymbol matching the file and name, if any
-   */
-  getStaticSymbol(file: string, name: string): StaticSymbol|undefined {
-    return this.reflector.getStaticSymbol(file, name);
   }
 
   /**

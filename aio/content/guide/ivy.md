@@ -59,6 +59,10 @@ CLI commands run `ngcc` as needed when performing an Angular build.
 可以使用通过 View Engine 编译器创建的库来构建 Ivy 应用程序。此兼容性由称为 Angular 兼容性编译器（ `ngcc` ）的工具提供。 CLI 命令在执行 Angular 构建时会根据需要运行 `ngcc` 。
 
 
+For more information on how to publish libraries see [Publishing your Library](guide/creating-libraries#publishing-your-library).
+
+要了解关于如何发布库的知识，参见[发布库](guide/creating-libraries#publishing-your-library)部分。
+
 {@a speeding-up-ngcc-compilation}
 ### Speeding up ngcc compilation
 

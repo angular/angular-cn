@@ -96,9 +96,6 @@ export function getDeclarationDiagnostics(
         span: error.span,
       });
     }
-    if (!metadata) {
-      continue;  // declaration is not an Angular directive
-    }
     if (metadata.isComponent) {
       if (!modules.ngModuleByPipeOrDirective.has(declaration.type)) {
         results.push({
@@ -230,26 +227,4 @@ export function ngDiagnosticToTsDiagnostic(
     code: 0,
     source: 'ng',
   };
-}
-
-/**
- * Return elements filtered by unique span.
- * @param elements
- */
-export function uniqueBySpan<T extends{span: ng.Span}>(elements: T[]): T[] {
-  const result: T[] = [];
-  const map = new Map<number, Set<number>>();
-  for (const element of elements) {
-    const {span} = element;
-    let set = map.get(span.start);
-    if (!set) {
-      set = new Set();
-      map.set(span.start, set);
-    }
-    if (!set.has(span.end)) {
-      set.add(span.end);
-      result.push(element);
-    }
-  }
-  return result;
 }

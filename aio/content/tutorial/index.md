@@ -1,28 +1,34 @@
-<h1 class="no-toc">Tour of Heroes App and Tutorial</h1>
+<h1 class="no-toc">Tour of Heroes app and tutorial</h1>
 
 <h1 class="no-toc">教程：英雄指南</h1>
 
 <div class="callout is-helpful">
 
-<header>Getting Started Tutorial</header>
+<header>Getting Started</header>
 
 <header>快速起步 - Stackblitz</header>
 
 
-If you're new to Angular, see the [**Getting Started tutorial.**](start) 
-The Getting Started tutorial covers the same major topics as this Tour of Heroes&mdash;components, template syntax, routing, services, and accessing data via HTTP&mdash;in a condensed format, following the most current best practices. 
+If you're new to Angular, you might want to try the [**Getting Started**](start) quick-start app first.
+The Getting Started tutorial covers the same major topics&mdash;components, template syntax, routing, services, and accessing data via HTTP&mdash;in a condensed format, following the most current best practices. It uses a partially-completed StackBlitz project, so that you can make modifications and see the results in real time.
 
 如果你刚刚接触 Angular，请参见[**新的快速上手**](start)。
 这个快速上手教程涵盖了与《英雄指南》相同的主题：组件、模板语法、路由、服务以及通过 HTTP 访问数据等，但是格式更简单，且遵循了绝大部分最佳实践。
 
-**This Tour of Heroes tutorial** is the conceptual basis for many examples in this documentation set. Reading this introduction page provides sufficient context for working with those examples. You do not need to do this tutorial to understand those other examples. The Tour of Heroes tutorial is maintained here for context and continuity. 
+In this tutorial, you build your own app from the ground up, providing experience with the development process as well as a more thorough introduction to basic concepts.
 
-**这份《英雄指南》教程**是本文档中很多范例的基础。阅读此简介页面可以为那些例子提供充足的上下文。你不用实做这个教程就能理解其它范例。这份《英雄指南》教程只是为了保持一个上下文和连续性。
+在这份教程中，你将从零开始构建出自己的应用，在此开发过程中获得的经验比对那些基本概念的介绍更加全面。
 
-</div> 
+The **Tour of Heroes app** that you create with this tutorial serves as the conceptual basis for many examples throughout Angular documentation.
+Reading this introduction page provides sufficient context for working with those examples.
+You do not need to do this tutorial to understand those other examples.  
 
-This _Tour of Heroes_ tutorial provides an introduction to the fundamentals of Angular. 
-It shows you how to set up your local development environment and develop an app using the [Angular CLI tool](cli "CLI command reference"). 
+**这份《英雄指南》教程**是本文档中很多范例的基础。阅读此简介页面可以为那些例子提供充足的上下文。阅读此简介页可以为使用这些示例提供足够的上下文。你不用实做这个教程就足以理解其它范例。
+
+</div>
+
+This _Tour of Heroes_ tutorial provides an introduction to the fundamentals of Angular.
+It shows you how to set up your local development environment and develop an app using the [Angular CLI tool](cli "CLI command reference").
 
 这份《英雄指南》教程提供了一个对 Angular 基础知识的简介。
 它会告诉你如何搭建本地开发环境，并使用 [Angular CLI 工具](cli "CLI command reference")开发一个应用。
@@ -64,7 +70,6 @@ By the end of this tutorial you will be able to do the following:
 * Enable users to select a hero from a master list and edit that hero in the details view. 
 
    让用户可以在主列表中选择一个英雄，然后在详情视图中编辑他。
-
 * Format data with pipes.
 
    使用管道来格式化数据。
@@ -78,7 +83,7 @@ By the end of this tutorial you will be able to do the following:
    使用路由在不同的视图及其组件之间导航。
 
 You'll learn enough Angular to get started and gain confidence that
-Angular can do whatever you need it to do. 
+Angular can do whatever you need it to do.
 
 你将学到足够的 Angular 知识，并确信 Angular 确实能提供你所需的支持。
 

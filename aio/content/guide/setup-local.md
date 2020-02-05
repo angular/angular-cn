@@ -32,7 +32,7 @@ Before you begin, make sure your development environment includes `Node.js®` an
 {@a nodejs}
 ### Node.js
 
-Angular requires `Node.js` version 10.9.0 or later.
+Angular requires a [current, active LTS, or maintenance LTS](https://nodejs.org/about/releases/) version of `Node.js`. See the `engines` key for the specific version requirements in our [package.json](https://unpkg.com/@angular/cli/package.json).
 
 Angular 需要 `Node.js` 版本 10.9.0 或更高版本。
 

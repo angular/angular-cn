@@ -35,8 +35,12 @@ export class TypeScriptReflectionHost implements ReflectionHost {
   getConstructorParameters(clazz: ClassDeclaration): CtorParameter[]|null {
     const tsClazz = castDeclarationToClassOrDie(clazz);
 
-    // First, find the constructor.
-    const ctor = tsClazz.members.find(ts.isConstructorDeclaration);
+    // First, find the constructor with a `body`. The constructors without a `body` are overloads
+    // whereas we want the implementation since it's the one that'll be executed and which can
+    // have decorators.
+    const ctor = tsClazz.members.find(
+        (member): member is ts.ConstructorDeclaration =>
+            ts.isConstructorDeclaration(member) && member.body !== undefined);
     if (ctor === undefined) {
       return null;
     }
@@ -94,7 +98,7 @@ export class TypeScriptReflectionHost implements ReflectionHost {
   getExportsOfModule(node: ts.Node): Map<string, Declaration>|null {
     // In TypeScript code, modules are only ts.SourceFiles. Throw if the node isn't a module.
     if (!ts.isSourceFile(node)) {
-      throw new Error(`getDeclarationsOfModule() called on non-SourceFile in TS code`);
+      throw new Error(`getExportsOfModule() called on non-SourceFile in TS code`);
     }
     const map = new Map<string, Declaration>();
 
@@ -304,12 +308,12 @@ export class TypeScriptReflectionHost implements ReflectionHost {
     if (symbol.valueDeclaration !== undefined) {
       return {
         node: symbol.valueDeclaration,
-        viaModule,
+        known: null, viaModule,
       };
     } else if (symbol.declarations !== undefined && symbol.declarations.length > 0) {
       return {
         node: symbol.declarations[0],
-        viaModule,
+        known: null, viaModule,
       };
     } else {
       return null;

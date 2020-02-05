@@ -1,4 +1,4 @@
-# The Hero Editor
+# The hero editor
 
 # 英雄编辑器
 
@@ -117,7 +117,7 @@ the browser should refresh and display both the application title and the hero n
 
 如果 CLI 的 `ng serve` 命令仍在运行，浏览器就会自动刷新，并且同时显示出应用的标题和英雄的名字。
 
-## Create a Hero class
+## Create a Hero interface
 
 ## 创建 `Hero` 类
 
@@ -125,14 +125,14 @@ A real hero is more than a name.
 
 真实的英雄当然不止一个名字。
 
-Create a `Hero` class in its own file in the `src/app` folder.
+Create a `Hero` interface in its own file in the `src/app` folder.
 Give it `id` and `name` properties.
 
 在 `src/app` 文件夹中为 `Hero` 类创建一个文件，并添加 `id` 和 `name` 属性。
 
 <code-example path="toh-pt1/src/app/hero.ts"  header="src/app/hero.ts"></code-example>
 
-Return to the `HeroesComponent` class and import the `Hero` class.
+Return to the `HeroesComponent` class and import the `Hero` interface.
 
 回到 `HeroesComponent` 类，并且导入这个 `Hero` 类。
 
