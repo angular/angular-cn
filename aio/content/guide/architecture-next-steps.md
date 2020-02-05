@@ -13,11 +13,9 @@ about the features and tools that can help you develop and deliver Angular appli
 
   参考“[英雄指南”](tutorial/index)教程，了解如何将这些基本构建块放在一起，来创建设计精良的应用。
 
-
 * Check out the [Glossary](guide/glossary) to understand Angular-specific terms and usage.
 
   查看[词汇表](guide/glossary) ，了解 Angular 特有的术语和用法。
-
 
 * Use the documentation to learn about key features in more depth, according to your stage of development and areas of interest.
 
@@ -33,11 +31,9 @@ about the features and tools that can help you develop and deliver Angular appli
 
   [NgModules](guide/ngmodules)一章中提供了关于 Angular 应用模块化结构的深度信息。
 
-
 * The [Routing and navigation](guide/router) guide provides in-depth information on how to construct applications that allow a user to navigate to different [views](guide/glossary#view) within your single-page app.
 
   [路由与导航](guide/router)一章中提供了一些深度信息，教你如何构造出一个允许用户导航到单页面应用中不同[视图](guide/glossary#view) 的应用。
-
 
 * The [Dependency injection](guide/dependency-injection) guide provides in-depth information on how to construct an application such that each component class can acquire the services and objects it needs to perform its function.
 
@@ -71,11 +67,9 @@ Additional pages and sections describe some basic programming techniques for Ang
 
   [Angular 自定义元素](guide/elements)：如何使用 Web Components 把组件打包成*自定义元素*，Web Components 是一种以框架无关的方式定义新 HTML 元素的 Web 标准。
 
-
 * [Forms](guide/forms-overview): Support complex data entry scenarios with HTML-based input validation.
 
   [表单](guide/forms-overview)：通过基于 HTML 的输入验证，来支持复杂的数据录入场景。
-
 
 * [Animations](guide/animations): Use Angular's animation library to animate component behavior
 without deep knowledge of animation techniques or CSS.
@@ -98,11 +92,9 @@ Angular 为单页面应用提供了一个框架，其中的大多数逻辑和数
 
   [HTTP](guide/http)：与服务器通信，通过 HTTP 客户端来获取数据、保存数据，并调用服务端的动作。
 
-
 * [Server-side rendering](guide/universal): Angular Universal generates static application pages on the server through server-side rendering (SSR). This allows you to run your Angular app on the server in order to improve performance and show the first page quickly on mobile and low-powered devices, and also facilitate web crawlers.
 
   [服务器端渲染](guide/universal)：Angular Universal 通过服务器端渲染（SSR）在服务器上生成静态应用页面。这允许你在服务器上运行 Angular 应用，以提高性能，并在移动设备和低功耗设备上快速显示首屏，同时也方便了网页抓取工具。
-
 
 * [Service workers and PWA](guide/service-worker-intro): Use a service worker to reduce dependency on the network and significantly improve the user experience.
 
@@ -126,7 +118,6 @@ The **Development Workflow** section describes the tools and processes you use t
 
   [CLI 命令参考手册](cli)：Angular CLI 是一个命令行工具，可用于创建项目、生成应用和库代码，以及执行各种持续开发任务，如测试、打包和部署。
 
-
 * [Compilation](guide/aot-compiler): Angular provides just-in-time (JIT) compilation for the development environment, and ahead-of-time (AOT) compilation for the production environment.
 
   [编译](guide/aot-compiler)：Angular 为开发环境提供了 JIT（即时）编译方式，为生产环境提供了 AOT（预先）编译方式。
@@ -135,21 +126,17 @@ The **Development Workflow** section describes the tools and processes you use t
 
   [测试平台](guide/testing)：对应用的各个部件运行单元测试，让它们好像在和 Angular 框架交互一样。
 
-
 * [Deployment](guide/deployment): Learn techniques for deploying your Angular application to a remote server.
 
   [部署](guide/deployment)：学习如何把 Angular 应用部署到远端服务器上。
-
 
 * [Security guidelines](guide/security): Learn about Angular's built-in protections against common web-app vulnerabilities and attacks such as cross-site scripting attacks.
 
   [安全指南](guide/security)：学习 Angular 对常见 Web 应用的弱点和工具（比如跨站脚本攻击）提供的内置防护措施。
 
-
 * [Internationalization](guide/i18n): Make your app available in multiple languages with Angular's internationalization (i18n) tools.
 
   [国际化](guide/i18n) ：借助 Angular 的国际化（i18n）工具，可以让你的应用支持多语言环境。
-
 
 * [Accessibility](guide/accessibility): Make your app accessible to all users.
 
@@ -164,7 +151,6 @@ The **Development Workflow** section describes the tools and processes you use t
 * [Workspace and file structure](guide/file-structure): Understand the structure of Angular workspace and project folders.
 
  [工作区与文件结构](guide/file-structure)：理解 Angular 工作区与项目文件夹的结构。
-
 
 * [Building and serving](guide/build): Learn to define different build and proxy server configurations for your project, such as development, staging, and production.
 
@@ -191,11 +177,9 @@ The **Development Workflow** section describes the tools and processes you use t
 
   [Angular 库](guide/libraries)：学习如何使用和创建可复用的库。
 
-
 * [Schematics](guide/schematics): Learn about customizing and extending the CLI's generation capabilities.
 
   学习[原理图](guide/schematics) ：学习如何自定义和扩展 CLI 的生成（`generate`）能力。
-
 
 * [CLI builders](guide/cli-builder): Learn about customizing and extending the CLI's ability to apply tools to perform complex tasks, such as building and testing applications.
 

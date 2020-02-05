@@ -35,21 +35,17 @@ When making modifications, you don't actually change the base, but add those mod
 
   虚拟文件系统用 `Tree`（树）表示。`Tree` 数据结构包含一个*基础状态 base*（一组已经存在的文件）和一个 *暂存区 staging*（需要应用到 base 的更改列表）。在进行修改的过程中，你并没有真正改变它的 base，而是把那些修改添加到了暂存区。
 
-
 * A `Rule` object defines a function that takes a `Tree`, applies transformations, and returns a new `Tree`. The main file for a schematic, `index.ts`, defines a set of rules that implement the schematic's logic.
 
   `Rule`（规则）对象定义了一个函数，它接受 `Tree`，进行变换，并返回一个新的 `Tree` 。原理图的主文件 `index.ts` 定义了一组实现原理图逻辑的规则。
-
 
 * A transformation is represented by an `Action`. There are four action types: `Create`, `Rename`, `Overwrite`, and `Delete`.
 
   变换由 `Action`（动作）表示。有四种动作类型：`Create`、`Rename`、`Overwrite` 和 `Delete` 。
 
-
 * Each schematic runs in a context, represented by a `SchematicContext` object.
 
   每个原理图都在一个上下文中运行，上下文由一个 `SchematicContext` 对象表示。
-
 
 The context object passed into a rule provides access to utility functions and metadata that the schematic may need to work with, including a logging API to help with debugging.
 The context also defines a *merge strategy* that determines how changes are merged from the staged tree into the base tree. A change can be accepted or ignored, or throw an exception.
