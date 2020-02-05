@@ -1607,6 +1607,8 @@ The translation process that transforms one version of JavaScript to another ver
 
 ## tree
 
+## 目录树（tree）
+
 In [schematics](#schematic), a virtual file system represented by the `Tree` class.
 Schematic [rules](#rule) take a tree object as input, operate on them, and return a new tree object.
 

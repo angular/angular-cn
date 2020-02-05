@@ -2438,6 +2438,8 @@ You can also apply an `NgFor` to a component element, as in the following exampl
 
 <header>*ngFor microsyntax</header>
 
+<header>`*ngFor` 微语法</header>
+
 The string assigned to `*ngFor` is not a [template expression](guide/template-syntax#template-expressions). Rather,
 it's a *microsyntax*&mdash;a little language of its own that Angular interprets.
 The string `"let item of items"` means:
