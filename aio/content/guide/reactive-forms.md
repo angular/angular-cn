@@ -33,7 +33,7 @@ Reactive forms differ from template-driven forms in distinct ways. Reactive form
 
 ## Getting started
 
-## 快速起步
+## 快速上手
 
 This section describes how to add a single form control. In the example, the user enters their name into an input field, captures that input value, and displays the current value of the form control element.
 

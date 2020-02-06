@@ -332,7 +332,7 @@ This section walks through the steps to adapt the Getting Started application.
 
 你就要配置服务器，为那些"未知"的页面返回 `index.html`。
 `lite-server` 开发服务器内置了这项功能。如果要切换到 F5 + IIS，你就要自己来配置 IIS 实现它了。
-接下来看看对快速起步应用做配置的步骤。
+接下来看看对快速上手应用做配置的步骤。
 
 #### Configure IIS rewrite rules
 

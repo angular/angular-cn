@@ -17,7 +17,7 @@ A simple example might be a button that sends users to your company website, tha
 
 ## Getting started
 
-## 快速起步
+## 快速上手
 
 Use the Angular CLI to generate a new library skeleton with the following command:
 

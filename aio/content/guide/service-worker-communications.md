@@ -16,7 +16,7 @@ A basic understanding of the following:
 
 * [Getting Started with Service Workers](guide/service-worker-getting-started).
 
-   [Service Worker 快速起步](guide/service-worker-getting-started)。
+   [Service Worker 快速上手](guide/service-worker-getting-started)。
 
 <hr />
 

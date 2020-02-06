@@ -6,7 +6,7 @@
 
 <header>Getting Started</header>
 
-<header>快速起步 - Stackblitz</header>
+<header>快速上手 - Stackblitz</header>
 
 
 If you're new to Angular, you might want to try the [**Getting Started**](start) quick-start app first.

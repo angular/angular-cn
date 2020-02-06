@@ -19,7 +19,7 @@ Tutorials and guides include downloadable examples to accelerate your projects.
       <p>Play with and extend a small ready-made Angular app, without any setup</p>
       <p>不需要任何设置，快速创建你的第一个 Angular 应用。</p>
       <p class="card-footer">Getting Started</p>
-      <p class="card-footer">快速起步</p>
+      <p class="card-footer">快速上手</p>
   </a>
   <a href="guide/setup-local" class="docs-card"
     title="Angular Local Environment Setup">

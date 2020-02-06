@@ -1,6 +1,6 @@
 # Getting started with service workers
 
-# Service Worker 快速起步
+# Service Worker 快速上手
 
 This document explains how to enable Angular service worker support in projects that you created with the [Angular CLI](cli). It then uses a simple example to show you a service worker in action, demonstrating loading and basic caching.
 

@@ -201,4 +201,4 @@ For additional recommendations and examples, see:
 
 To begin using Angular service workers, see [Getting Started with service workers](guide/service-worker-getting-started).
 
-要开始使用 Angular Serivce Worker，参见 [Service Worker 快速起步](guide/service-worker-getting-started)。
+要开始使用 Angular Serivce Worker，参见 [Service Worker 快速上手](guide/service-worker-getting-started)。

@@ -167,14 +167,14 @@ You will see:
 
 * If you are new to Angular, see the [Getting Started](start) tutorial. Getting Started helps you quickly learn the essentials of Angular, in the context of building a basic online store app.
 
-  如果你不熟悉 Angular，请参阅[快速起步](start)教程。在构建基本的在线商店应用的过程中，快速起步可以帮助你快速学习 Angular 的基本知识。
+  如果你不熟悉 Angular，请参阅[快速上手](start)教程。在构建基本的在线商店应用的过程中，快速上手可以帮助你快速学习 Angular 的基本知识。
 
 <div class="alert is-helpful">
 
   Getting Started assumes the [StackBlitz](https://stackblitz.com/) online development environment.
   To learn how to export an app from StackBlitz to your local environment, skip ahead to the [Deployment](start/deployment "Getting Started: Deployment") section.
 
-  “快速起步”假设以 [StackBlitz](https://stackblitz.com/) 作为在线开发环境 。要了解如何将应用从 StackBlitz 导出到本地环境，请跳到[部署](start/deployment "入门：部署")部分。
+  “快速上手”假设以 [StackBlitz](https://stackblitz.com/) 作为在线开发环境 。要了解如何将应用从 StackBlitz 导出到本地环境，请跳到[部署](start/deployment "入门：部署")部分。
 
 </div>
 

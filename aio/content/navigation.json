@@ -476,7 +476,7 @@
             },
             {
               "url": "guide/service-worker-getting-started",
-              "title": "快速起步",
+              "title": "快速上手",
               "tooltip": "在 CLI 项目中启用 Service Worker，并在浏览器中查看效果。"
             },
             {
