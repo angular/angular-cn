@@ -23,12 +23,6 @@
     {
       "url": "translations/cn/home",
       "title": "关于中文版"
-    },
-    {
-      "title": "2019 ngChina @ 杭州",
-      "tooltip": "2019 ngChina 开发者大会",
-      "url": "https://ng-china.org",
-      "highlight": true
     }
   ],
   "TopBarNarrow": [
@@ -776,11 +770,6 @@
       "title": "-",
       "tooltip": "分割线",
       "divider": true
-    },
-    {
-      "title": "2019 ngChina @ 杭州",
-      "tooltip": "2019 ngChina 开发者大会",
-      "url": "https://ng-china.org"
     },
     {
       "title": "互助问答",
