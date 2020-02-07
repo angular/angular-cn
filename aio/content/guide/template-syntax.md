@@ -208,7 +208,7 @@ Other notable differences from JavaScript syntax include:
 
 * New [template expression operators](guide/template-syntax#expression-operators), such as `|`, `?.` and `!`
 
-  新的[模板表达式运算符](guide/template-syntax#expression-operators)，例如`|`，`?.` 和 `!`
+  新的[模板表达式运算符](guide/template-syntax#expression-operators)，例如 `|`，`?.` 和 `!`
 
 ### Expression context
 
@@ -348,7 +348,7 @@ In Angular terms, an idempotent expression always returns
 *exactly the same thing* until one of its dependent values changes.
 
 [幂等](https://en.wikipedia.org/wiki/Idempotence)的表达式是最理想的，因为它没有副作用，并且可以提高 Angular 的变更检测性能。
-用Angular术语来说，幂等表达式总会返回*完全相同的东西*，除非其依赖值之一发生了变化。
+用 Angular 术语来说，幂等表达式总会返回*完全相同的东西*，除非其依赖值之一发生了变化。
 
 Dependent values should not change during a single turn of the event loop.
 If an idempotent expression returns a string or a number, it returns the same string or number when called twice in a row. If the expression returns an object, including an `array`, it returns the same object *reference* when called twice in a row.
@@ -754,7 +754,7 @@ For more information, see the [MDN Interfaces documentation](https://developer.m
 Comparing the [`<td>` attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/td) attributes to the [`<td>` properties](https://developer.mozilla.org/en-US/docs/Web/API/HTMLTableCellElement) provides a helpful example for differentiation.
 In particular, you can navigate from the attributes page to the properties via "DOM interface" link, and navigate the inheritance hierarchy up to `HTMLTableCellElement`.
 
-欲知详情，参见 [MDN接口文档](https://developer.mozilla.org/en-US/docs/Web/API#Interfaces)，其中包含所有标准 DOM 元素及其 Property 的 API 文档。
+欲知详情，参见 [MDN 接口文档](https://developer.mozilla.org/en-US/docs/Web/API#Interfaces)，其中包含所有标准 DOM 元素及其 Property 的 API 文档。
 [`<td>` Attribute](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/td) 与 [`<td>` Property](https://developer.mozilla.org/en-US/docs/Web/API/HTMLTableCellElement) 之间的比较是一个很有用的例子。
 特别是，您可以通过 “DOM 接口” 链接从 Attribute 页面导航到 Property 页面，并在继承层次中导航到 `HTMLTableCellElement`。
 
@@ -1117,7 +1117,7 @@ binding the `src` property of an image element to a component's `itemImageUrl` p
 Here's an example of binding to the `colSpan` property. Notice that it's not `colspan`,
 which is the attribute, spelled with a lowercase `s`.
 
-这是绑定到 `colSpan` Property 的示例。请注意，它不是 `colspan`，后者是 Attribute，用小写的s拼写。
+这是绑定到 `colSpan` Property 的示例。请注意，它不是 `colspan`，后者是 Attribute，用小写的 s 拼写。
 
 
 <code-example path="property-binding/src/app/app.component.html" region="colSpan" header="src/app/app.component.html"></code-example>
@@ -1549,58 +1549,123 @@ Instead, you'd use property binding and write it like this:
 
 ### 类绑定
 
+Here's how to set the `class` attribute without a binding in plain HTML:
 
-Add and remove CSS class names from an element's `class` attribute with
-a **class binding**.
-
-使用**类绑定**可以从元素的 `class` 属性中添加和删除 CSS 类名称。
-
-
-Here's how to set the attribute without binding in plain HTML:
-
-下面是在普通 HTML 中不用绑定来设置 Attribute 的方法：
+下面是在普通 HTML 中不用绑定来设置 `class` Attribute 的方法：
 
 
 ```html
 
 <!-- standard class attribute setting -->
 
-<div class="item clearance special">Item clearance special</div>
-
+<div class="foo bar">Some text</div>
 ```
 
-Class binding syntax resembles property binding, but instead of an element property between brackets, start with the prefix `class`,
-optionally followed by a dot (`.`) and the name of a CSS class: `[class.class-name]`.
+You can also add and remove CSS class names from an element's `class` attribute with a **class binding**.
 
-类绑定语法类似于 Property 绑定，但其括号之间不是元素的 Property，而是由前缀 `class`、点（`.`）和 CSS 类名（点和 CSS 类名可选）组成 `[class.class-name]` ： `[class.class-name]` 。
+你还可以使用**类绑定**来为一个元素添加和移除 CSS 类。
+
+To create a single class binding, start with the prefix `class` followed by a dot (`.`) and the name of the CSS class (for example, `[class.foo]="hasFoo"`). 
+Angular adds the class when the bound expression is truthy, and it removes the class when the expression is falsy (with the exception of `undefined`, see [styling delegation](#styling-delegation)).
+
+要创建单个类的绑定，请使用 `class` 前缀，紧跟一个点（`.`），再跟上 CSS 类名，比如 `[class.foo]="hasFoo"`。
+当绑定表达式为真值的时候，Angular 就会加上这个类，为假值则会移除，但 `undefined` 是假值中的例外，参见[样式委派](#styling-delegation) 部分。
+
+To create a binding to multiple classes, use a generic `[class]` binding without the dot (for example, `[class]="classExpr"`).
+The expression can be a space-delimited string of class names, or you can format it as an object with class names as the keys and truthy/falsy expressions as the values. 
+With object format, Angular will add a class only if its associated value is truthy. 
+
+要想创建多个类的绑定，请使用通用的 `[class]` 形式来绑定类，而不要带点，比如 `[class]="classExpr"`。
+该表达式可以是空格分隔的类名字符串，或者用一个以类名为键、真假值表达式为值的对象。
+当使用对象格式时，Angular 只会加上那些相关的值为真的类名。
+
+It's important to note that with any object-like expression (`object`, `Array`, `Map`, `Set`, etc), the identity of the object must change for the class list to be updated.
+Updating the property without changing object identity will have no effect.
+
+一定要注意，在对象型表达式中（如 `object`、`Array`、`Map`、`Set` 等），当这个类列表改变时，对象的引用也必须修改。仅仅修改其属性而不修改对象引用是无法生效的。
+
+If there are multiple bindings to the same class name, conflicts are resolved using [styling precedence](#styling-precedence).
+
+如果有多处绑定到了同一个类名，出现的冲突将根据[样式的优先级规则](#styling-precedence)进行解决。
+
+ <style>
+  td, th {vertical-align: top}
+</style>
+
+<table width="100%">
+  <col width="15%">
+  </col>
+  <col width="20%">
+  </col>
+  <col width="35%">
+  </col>
+  <col width="30%">
+  </col>
+  <tr>
+    <th>
+      Binding Type
+    </th>
+    <th>
+      Syntax
+    </th>
+    <th>
+      Input Type
+    </th>
+    <th>
+      Example Input Values
+    </th>
+  </tr>
+  <tr>
+    <th>
+      绑定类型
+    </th>
+    <th>
+      语法
+    </th>
+    <th>
+      输入类型
+    </th>
+    <th>
+      输入值范例
+    </th>
+  </tr>
+  <tr>
+    <td>Single class binding</td>
+    <td><code>[class.foo]="hasFoo"</code></td>
+    <td><code>boolean | undefined | null</code></td>
+    <td><code>true</code>, <code>false</code></td>
+  </tr>
+  <tr>
+    <td>单个类绑定</td>
+    <td><code>[class.foo]="hasFoo"</code></td>
+    <td><code>boolean | undefined | null</code></td>
+    <td><code>true</code>, <code>false</code></td>
+  </tr>
+  <tr>
+    <td rowspan=3>Multi-class binding</td>
+    <td rowspan=3><code>[class]="classExpr"</code></td>
+    <td><code>string</code></td>
+    <td><code>"my-class-1 my-class-2 my-class-3"</code></td>
+  </tr>
+  <tr>
+    <td rowspan=3>多个类绑定</td>
+    <td rowspan=3><code>[class]="classExpr"</code></td>
+    <td><code>string</code></td>
+    <td><code>"my-class-1 my-class-2 my-class-3"</code></td>
+  </tr>
+  <tr>
+    <td><code>{[key: string]: boolean | undefined | null}</code></td>
+    <td><code>{foo: true, bar: false}</code></td>
+  </tr>
+  <tr>
+    <td><code>Array</code><<code>string</code>></td>
+    <td><code>['foo', 'bar']</code></td>
+  </tr>
+</table>
 
 
-You can replace that with a binding to a string of the desired class names; this is an all-or-nothing, replacement binding.
-
-可以把它改写为绑定到所需 CSS 类名的绑定；这是一个或者全有或者全无的替换型绑定。
-（译注：即当 resetClasses 有值时 class 这个 attribute 设置的内容会被完全覆盖）
-
- <code-example path="attribute-binding/src/app/app.component.html" region="class-override" header="src/app/app.component.html"></code-example>
-
-You can also add a class to an element without overwriting the classes already on the element:
-
-您还可以将一个类添加到元素上，而不会覆盖该元素上已经存在的类：
-
-
- <code-example path="attribute-binding/src/app/app.component.html" region="add-class" header="src/app/app.component.html"></code-example>
-
-Finally, you can bind to a specific class name.
-Angular adds the class when the template expression evaluates to truthy.
-It removes the class when the expression is falsy.
-
-最后，可以绑定到特定的类名。
-  当模板表达式的求值结果是真值时，Angular 会添加这个类，反之则移除它。
-
-<code-example path="attribute-binding/src/app/app.component.html" region="is-special" header="src/app/app.component.html"></code-example>
-
-While this technique is suitable for toggling a single class name,
-consider the [`NgClass`](guide/template-syntax#ngClass) directive when
-managing multiple class names at the same time.
+The [NgClass](#ngclass) directive can be used as an alternative to direct `[class]` bindings. 
+However, using the above class binding syntax without `NgClass` is preferred because due to improvements in class binding in Angular, `NgClass` no longer provides significant value, and might eventually be removed in the future.
 
 尽管此技术适用于切换单个类名，但在需要同时管理多个类名时请考虑使用 [`NgClass`](guide/template-syntax#ngClass) 指令。
 
@@ -1611,32 +1676,26 @@ managing multiple class names at the same time.
 
 ### 样式绑定
 
-You can set inline styles with a **style binding**.
+Here's how to set the `style` attribute without a binding in plain HTML:
 
-通过**样式绑定**，可以设置内联样式。
+下面演示了如何不通过绑定在普通 HTML 中设置 `style` 属性：
 
-Style binding syntax resembles property binding.
-Instead of an element property between brackets, start with the prefix `style`,
-followed by a dot (`.`) and the name of a CSS style property: `[style.style-property]`.
+```html
+<!-- standard style attribute setting -->
+<div style="color: blue">Some text</div>
+```
 
-样式绑定的语法与属性绑定类似。
-但方括号中的部分不是元素的属性名，而由**`style`**前缀，一个点 (`.`)和 CSS 样式的属性名组成。
-形如：`[style.style-property]`。
+You can also set styles dynamically with a **style binding**.
 
-<code-example path="attribute-binding/src/app/app.component.html" region="style-binding" header="src/app/app.component.html"></code-example>
+你还可以通过**样式绑定**来动态设置样式。
 
-Some style binding styles have a unit extension.
-The following example conditionally sets the font size in  “em” and “%” units.
+To create a single style binding, start with the prefix `style` followed by a dot (`.`) and the name of the CSS style property (for example, `[style.width]="width"`). 
+The property will be set to the value of the bound expression, which is normally a string.
+Optionally, you can add a unit extension like `em` or `%`, which requires a number type.
 
-有些样式绑定中的样式带有单位。在这里，以根据条件用 “em” 和 “%” 来设置字体大小的单位。
-
-<code-example path="attribute-binding/src/app/app.component.html" region="style-binding-condition" header="src/app/app.component.html"></code-example>
-
-This technique is suitable for setting a single style, but consider
-the [`NgStyle`](guide/template-syntax#ngStyle) directive when setting several inline styles at the same time.
-
-此技术适用于设置单个样式，当需要同时设置多个内联样式时请考虑使用 [`NgStyle`](guide/template-syntax#ngStyle) 指令。
-
+要想创建单个样式的绑定，请以 `style` 前缀开头，紧跟一个点（`.`），再跟着 CSS 样式的属性名，比如 `[style.width]="width"`。
+该属性将会被设置为绑定表达式的值，该值通常为字符串。
+不过你还可以添加一个单位表达式，比如 `em` 或 `%`，这时候该值就要是一个 `number` 类型。
 
 <div class="alert is-helpful">
 
@@ -1649,7 +1708,269 @@ Note that a _style property_ name can be written in either
 
 </div>
 
+If there are multiple styles you'd like to toggle, you can bind to the `[style]` property directly without the dot (for example, `[style]="styleExpr"`).
+The expression attached to the `[style]` binding is most often a string list of styles like `"width: 100px; height: 100px;"`. 
+
+如果要切换多个样式，你可以直接绑定到 `[style]` 属性而不用点（比如， `[style]="styleExpr"`）。赋给 `[style]` 的绑定表达式通常是一系列样式组成的字符串，比如 `"width: 100px; height: 100px;"` 。
+
+
+You can also format the expression as an object with style names as the keys and style values as the values, like `{width: '100px', height: '100px'}`. 
+It's important to note that with any object-like expression (`object`, `Array`, `Map`, `Set`, etc), the identity of the object must change for the class list to be updated.
+Updating the property without changing object identity will have no effect.
+
+你也可以把该表达式格式化成一个以样式名为键、以样式值为值的对象，比如 `{width: '100px', height: '100px'}` 。一定要注意，对于任何对象型的表达式（ 如 `object` ， `Array` ， `Map` ， `Set` 等），当这个样式列表改变时，对象的引用也必须修改。仅仅修改其属性而不修改对象引用是无法生效的。。
+
+
+If there are multiple bindings to the same style property, conflicts are resolved using [styling precedence rules](#styling-precedence).
+
+如果有多处绑定了同一个样式属性，则会使用[样式的优先级规则](#styling-precedence)来解决冲突。
+
+
+<style>
+  td, th {vertical-align: top}
+</style>
+
+<table width="100%">
+  <col width="15%">
+  </col>
+  <col width="20%">
+  </col>
+  <col width="35%">
+  </col>
+  <col width="30%">
+  </col>
+  <tr>
+    <th>
+      Binding Type
+    </th>
+    <th>
+      Syntax
+    </th>
+    <th>
+      Input Type
+    </th>
+    <th>
+      Example Input Values
+    </th>
+  </tr>
+  <tr>
+    <th>
+      绑定类型
+    </th>
+    <th>
+      语法
+    </th>
+    <th>
+      输入类型
+    </th>
+    <th>
+      输入值范例
+    </th>
+  </tr>
+  <tr>
+    <td>Single style binding</td>
+    <td><code>[style.width]="width"</code></td>
+    <td><code>string | undefined | null</code></td>
+    <td><code>"100px"</code></td>
+  </tr>
+  <tr>
+    <td>单一样式绑定</td>
+    <td><code>[style.width]="width"</code></td>
+    <td><code>string | undefined | null</code></td>
+    <td><code>"100px"</code></td>
+  </tr>
+  <tr>
+  <tr>
+    <td>Single style binding with units</td>
+    <td><code>[style.width.px]="width"</code></td>
+    <td><code>number | undefined | null</code></td>
+    <td><code>100</code></td>
+  </tr>
+  <tr>
+    <td>带单位的单一样式绑定</td>
+    <td><code>[style.width.px]="width"</code></td>
+    <td><code>number | undefined | null</code></td>
+    <td><code>100</code></td>
+  </tr>
+    <tr>
+    <td rowspan=3>Multi-style binding</td>
+    <td rowspan=3><code>[style]="styleExpr"</code></td>
+    <td><code>string</code></td>
+    <td><code>"width: 100px; height: 100px"</code></td>
+  </tr>
+    <tr>
+    <td rowspan=3>多个样式绑定</td>
+    <td rowspan=3><code>[style]="styleExpr"</code></td>
+    <td><code>string</code></td>
+    <td><code>"width: 100px; height: 100px"</code></td>
+  </tr>
+  <tr>
+    <td><code>{[key: string]: string | undefined | null}</code></td>
+    <td><code>{width: '100px', height: '100px'}</code></td>
+  </tr>
+  <tr>
+    <td><code>Array</code><<code>string</code>></td>
+    <td><code>['width', '100px']</code></td>
+  </tr>
+</table>
+
+The [NgStyle](#ngstyle) directive can be used as an alternative to direct `[style]` bindings. 
+However, using the above style binding syntax without `NgStyle` is preferred because due to improvements in style binding in Angular, `NgStyle` no longer provides significant value, and might eventually be removed in the future.
+
+[NgStyle](#ngstyle) 指令可以作为 `[style]` 绑定的替代指令。但是，应该把上面这种 `[style]` 样式绑定语法作为首选，因为随着 Angular 中样式绑定的改进，`NgStyle` 将不再提供重要的价值，并最终在未来的某个版本中删除。
+
+
 <hr/>
+
+{@a styling-precedence}
+### Styling Precedence
+
+### 样式的优先级规则
+
+
+A single HTML element can have its CSS class list and style values bound to a multiple sources (for example, host bindings from multiple directives).
+
+一个 HTML 元素可以把它的 CSS 类列表和样式值绑定到多个来源（例如，来自多个指令的宿主 `host` 绑定）。
+
+
+When there are multiple bindings to the same class name or style property, Angular uses a set of precedence rules to resolve conflicts and determine which classes or styles are ultimately applied to the element.
+
+当对同一个类名或样式属性存在多个绑定时，Angular 会使用一组优先级规则来解决冲突，并确定最终哪些类或样式会应用到该元素中。
+
+
+<div class="alert is-helpful">
+
+<h4>Styling precedence (highest to lowest)</h4>
+
+<h4>样式的优先级规则（从高到低）</h4>
+
+1. Template bindings
+
+   模板绑定
+
+
+   1. Property binding (for example, `<div [class.foo]="hasFoo">` or `<div [style.color]="color">`)
+
+      属性绑定（例如 `<div [class.foo]="hasFoo">` 或 `<div [style.color]="color">`）
+
+   1. Map binding (for example, `<div [class]="classExpr">` or `<div [style]="styleExpr">`)
+
+      Map 绑定（例如，`<div [class]="classExpr">` 或 `<div [style]="styleExpr">` ）
+
+   1. Static value (for example, `<div class="foo">` or `<div style="color: blue">`) 
+
+      静态值（例如 `<div class="foo">` 或 `<div style="color: blue">` ）
+
+1. Directive host bindings
+
+   指令宿主绑定
+
+
+   1. Property binding (for example, `host: {'[class.foo]': 'hasFoo'}` or `host: {'[style.color]': 'color'}`)
+
+      属性绑定（例如，`host: {'[class.foo]': 'hasFoo'}` 或 `host: {'[style.color]': 'color'}` ）
+
+   1. Map binding (for example, `host: {'[class]': 'classExpr'}` or `host: {'[style]': 'styleExpr'}`)
+
+      Map 绑定（例如， `host: {'[class]': 'classExpr'}` 或者 `host: {'[style]': 'styleExpr'}` ）
+
+   1. Static value (for example, `host: {'class': 'foo'}` or `host: {'style': 'color: blue'}`)    
+
+      静态值（例如， `host: {'class': 'foo'}` 或 `host: {'style': 'color: blue'}` ）
+
+1. Component host bindings
+
+   组件宿主绑定
+
+
+   1. Property binding (for example, `host: {'[class.foo]': 'hasFoo'}` or `host: {'[style.color]': 'color'}`)
+
+      属性绑定（例如， `host: {'[class.foo]': 'hasFoo'}` 或 `host: {'[style.color]': 'color'}` ）
+
+   1. Map binding (for example, `host: {'[class]': 'classExpr'}` or `host: {'[style]': 'styleExpr'}`)
+
+      Map 绑定（例如， `host: {'[class]': 'classExpr'}` 或者 `host: {'[style]': 'styleExpr'}` ）
+
+   1. Static value (for example, `host: {'class': 'foo'}` or `host: {'style': 'color: blue'}`)    
+
+      静态值（例如， `host: {'class': 'foo'}` 或 `host: {'style': 'color: blue'}` ）
+
+
+</div>
+
+The more specific a class or style binding is, the higher its precedence.
+
+某个类或样式绑定越具体，它的优先级就越高。
+
+
+A binding to a specific class (for example, `[class.foo]`) will take precedence over a generic `[class]` binding, and a binding to a specific style (for example, `[style.bar]`) will take precedence over a generic `[style]` binding.
+
+对具体类（例如 `[class.foo]` ）的绑定优先于一般化的 `[class]` 绑定，对具体样式（例如 `[style.bar]` ）的绑定优先于一般化的 `[style]` 绑定。
+
+
+<code-example path="attribute-binding/src/app/app.component.html" region="basic-specificity" header="src/app/app.component.html"></code-example>
+
+Specificity rules also apply when it comes to bindings that originate from different sources. 
+It's possible for an element to have bindings in the template where it's declared, from host bindings on matched directives, and from host bindings on matched components.
+
+当处理不同来源的绑定时，也适用这种基于具体度的规则。
+某个元素可能在声明它的模板中有一些绑定、在所匹配的指令中有一些宿主绑定、在所匹配的组件中有一些宿主绑定。
+
+
+Template bindings are the most specific because they apply to the element directly and exclusively, so they have the highest precedence.
+
+模板中的绑定是最具体的，因为它们直接并且唯一地应用于该元素，所以它们具有最高的优先级。
+
+
+Directive host bindings are considered less specific because directives can be used in multiple locations, so they have a lower precedence than template bindings.
+
+指令的宿主绑定被认为不太具体，因为指令可以在多个位置使用，所以它们的优先级低于模板绑定。
+
+
+Directives often augment component behavior, so host bindings from components have the lowest precedence. 
+
+指令经常会增强组件的行为，所以组件的宿主绑定优先级最低。
+
+
+<code-example path="attribute-binding/src/app/app.component.html" region="source-specificity" header="src/app/app.component.html"></code-example>
+
+In addition, bindings take precedence over static attributes. 
+
+另外，绑定总是优先于静态属性。
+
+
+In the following case, `class` and `[class]` have similar specificity, but the `[class]` binding will take precedence because it is dynamic.
+
+在下面的例子中， `class` 和 `[class]` 具有相似的具体度，但 `[class]` 绑定优先，因为它是动态的。
+
+
+<code-example path="attribute-binding/src/app/app.component.html" region="dynamic-priority" header="src/app/app.component.html"></code-example>
+
+{@a styling-delegation}
+### Delegating to styles with lower precedence
+
+### 委托优先级较低的样式
+
+
+It is possible for higher precedence styles to "delegate" to lower precedence styles using `undefined` values.
+Whereas setting a style property to `null` ensures the style is removed, setting it to `undefined` will cause Angular to fall back to the next-highest precedence binding to that style.
+
+更高优先级的样式可以使用 `undefined` 值“委托”给低级的优先级样式。虽然把 style 属性设置为 `null` 可以确保该样式被移除，但把它设置为 `undefined` 会导致 Angular 回退到该样式的次高优先级。
+
+
+For example, consider the following template: 
+
+例如，考虑以下模板：
+
+
+<code-example path="attribute-binding/src/app/app.component.html" region="style-delegation" header="src/app/app.component.html"></code-example>
+
+Imagine that the `dirWithHostBinding` directive and the `comp-with-host-binding` component both have a `[style.width]` host binding.
+In that case, if `dirWithHostBinding` sets its binding to `undefined`, the `width` property will fall back to the value of the `comp-with-host-binding` host binding.
+However, if `dirWithHostBinding` sets its binding to `null`, the `width` property will be removed entirely.
+
+想象一下， `dirWithHostBinding` 指令和 `comp-with-host-binding` 组件都有 `[style.width]` 宿主绑定。在这种情况下，如果 `dirWithHostBinding` 把它的绑定设置为 `undefined` ，则 `width` 属性将回退到 `comp-with-host-binding` 主机绑定的值。但是，如果 `dirWithHostBinding` 把它的绑定设置为 `null` ，那么 `width` 属性就会被完全删除。
+
 
 {@a event-binding}
 

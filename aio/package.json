@@ -24,7 +24,7 @@
     "build-local-with-viewengine": "yarn ~~build",
     "prebuild-local-with-viewengine-ci": "node scripts/switch-to-viewengine && yarn setup-local-ci",
     "build-local-with-viewengine-ci": "yarn ~~build --progress=false",
-    "extract-cli-command-docs": "node tools/transforms/cli-docs-package/extract-cli-commands.js 94d07909c",
+    "extract-cli-command-docs": "node tools/transforms/cli-docs-package/extract-cli-commands.js d452f0873",
     "lint": "yarn check-env && yarn docs-lint && ng lint && yarn example-lint && yarn tools-lint",
     "test": "yarn check-env && ng test",
     "pree2e": "yarn check-env && yarn update-webdriver",
@@ -107,8 +107,8 @@
     "zone.js": "~0.10.2"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "0.900.0-rc.11",
-    "@angular/cli": "9.0.0-rc.11",
+    "@angular-devkit/build-angular": "0.900.0-rc.14",
+    "@angular/cli": "9.0.0-rc.14",
     "@angular/compiler-cli": "9.0.0-rc.11",
     "@angular/language-service": "9.0.0-rc.11",
     "@types/html-minifier": "^3.5.3",

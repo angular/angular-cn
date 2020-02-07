@@ -194,7 +194,7 @@ Let's assume that we are routing from the *Home => About*.
 
 我们假设正在从 *Home* 转场到 *About*，`Home => About`。
 
-<code-example path="animations/src/app/animations.ts" header="src/app/animations.ts" region="query" language="typescript"></code-example>
+<code-example path="animations/src/app/animations.ts" header="src/app/animations.ts (Continuation from above)" region="query" language="typescript"></code-example>
 
 The animation code does the following after styling the views:
 

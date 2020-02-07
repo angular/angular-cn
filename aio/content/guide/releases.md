@@ -115,6 +115,14 @@ We work toward a regular schedule of releases, so that you can plan and coordina
 
 我们会定期发布新版本，以便随着 Angular 的不断演进，你可以提前计划并协调这些升级工作。
 
+<div class="alert is-helpful">
+
+Disclaimer: Dates are offered as general guidance and will be adjusted by us when necessary to ensure delivery of a high-quality platform. 
+
+免责条款：这些日期仅供参考，如有必要，我们会对其进行调整，以确保提供高质量的平台。
+
+</div>
+
 In general, you can expect the following release cycle:
 
 通常，你可以期待下列发布周期：
@@ -134,35 +142,6 @@ In general, you can expect the following release cycle:
 This cadence of releases gives you access to new features as soon as they are ready, while maintaining the stability and reliability of the platform for production users.
 
 这种发布节奏能让你尽快用上已就绪的新特性，同时，为生产环境下的用户维护本平台的稳定性和可靠性。
-
-{@a schedule}
-
-## Release schedule
-
-## 发布计划
-
-<div class="alert is-helpful">
-
-Disclaimer: The dates are offered as general guidance and may be adjusted by us when necessary to ensure delivery of a high-quality platform.
-
-免责声明：这些日期只是作为一般性的指导，在必要时我们会进行调整，以确保始终提供高质量的平台。
-
-</div>
-
-The following table contains our current target release dates for the next two major versions of Angular:
-
-下表中包含 Angular 接下来两个主版本的目标发布日期：
-
-Date | Stable Release | Compatibility
- ---------------------- | -------------- | -------------
-日期 | 稳定版 | 兼容性
- 2019 年 10/11 月  | 9.0.0          | ^8.0.0
- 2020 年 5 月      | 10.0.0         | ^9.0.0
- Compatibility note: The primary goal of the backward compatibility promise is to ensure that changes in the core framework and tooling don't break the existing ecosystem of components and applications and don't put undue upgrade/migration burden on Angular application and component authors.
-
-兼容性说明：向后兼容性承诺的主要目标是确保在核心框架和核心工具中的变化不会破坏现有组件和应用的生态系统，并且不要给 Angular 应用和组件的开发者带来额外的升级/迁移负担。
-
-
 
 {@a lts}
 {@a support}
@@ -229,9 +208,9 @@ To help ensure that you have sufficient time and a clear path to update, this is
 
   ** 宣布弃用：** 我们会在[变更记录](https://github.com/angular/angular/blob/master/CHANGELOG.md "Angular change log")中宣布要弃用的那些 API 和特性。启用的 API 在[文档](api?status=deprecated)中会显示成带~~删除线~~的样式。当我们宣布一项弃用时，我们还会宣布一个建议的升级路径。为便于查找，我们在[弃用列表](guide/deprecations)中包含一个关于弃用 API 和特性的汇总表。
 
-* **Deprecation period:** When an API or a feature is deprecated, it will still be present in the [next two major releases](#schedule). After that, deprecated APIs and features will be candidates for removal. A deprecation can be announced in any release, but the removal of a deprecated API or feature will happen only in major release. Until a deprecated API or feature is removed, it will be maintained according to the LTS support policy, meaning that only critical and security issues will be fixed.
+* **Deprecation period:** When an API or a feature is deprecated, it will still be present in the next two major releases. After that, deprecated APIs and features will be candidates for removal. A deprecation can be announced in any release, but the removal of a deprecated API or feature will happen only in major release. Until a deprecated API or feature is removed, it will be maintained according to the LTS support policy, meaning that only critical and security issues will be fixed.
 
-  **弃用阶段：** 当 API 或特性已弃用时，它在[接下来的两个主版本](#schedule)中仍然会存在。再往后，弃用的 API 和特性将会进入候选弃用状态。可能会在任何一次发布中宣布弃用，但是只会在主版本中移除已弃用的 API 或特性。除非已弃用的 API 或特性已被移除，否则我们仍然会根据 LTS 支持策略来维护它，也就是说，只会修复严重问题和安全问题。
+  **弃用阶段：** 当 API 或特性已弃用时，它在接下来的两个主版本中仍然会存在。再往后，弃用的 API 和特性将会进入候选弃用状态。可能会在任何一次发布中宣布弃用，但是只会在主版本中移除已弃用的 API 或特性。除非已弃用的 API 或特性已被移除，否则我们仍然会根据 LTS 支持策略来维护它，也就是说，只会修复严重问题和安全问题。
 
 * **npm dependencies:** We only make npm dependency updates that require changes to your apps in a major release.
 In minor releases, we update peer dependencies by expanding the supported versions, but we do not require projects to update these dependencies until a future major version. This means that during minor Angular releases, npm dependency updates within Angular applications and libraries are optional.

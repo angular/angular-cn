@@ -122,7 +122,3 @@ For simple updates, the CLI command [`ng update`](cli/update) is all you need. W
 * Versioning, release, support, and deprecation practices: [Angular versioning and releases](guide/releases "Angular versioning and releases")
 
    版本、发布、支持与废弃的实践：[Angular 的版本与发布](guide/releases "Angular versioning and releases")
-
-* Release schedule: [Angular versioning and releases](guide/releases#schedule "Angular versioning and releases")
-
-   发布计划：[Angular 的版本与发布](guide/releases#schedule "Angular versioning and releases")

@@ -947,11 +947,15 @@ It also generates an initial test file for the component, `banner-external.compo
 
 <div class="alert is-helpful">
 
-Because `compileComponents` is asynchronous, it uses 
-the [`async`](api/core/testing/async) utility 
+Because `compileComponents` is asynchronous, it uses
+the [`async`](api/core/testing/async) utility
 function imported from `@angular/core/testing`.
 
+由于 `compileComponents` 是异步的，所以它要使用从 `@angular/core/testing` 中导入的工具函数 [`async`](api/core/testing/async)。
+
 Please refer to the [async](#async) section for more details.
+
+欲知详情，请参见 [async](#async) 部分。
 
 </div>
 
@@ -1904,17 +1908,17 @@ XHR calls within a test are rare, but if you need to call XHR, see [`async()`](#
 
 #### `tick()` 函数
 
-You do have to call `tick()` to advance the (virtual) clock.
+You do have to call [tick()](api/core/testing/tick) to advance the (virtual) clock.
 
 你必须调用 `tick()` 函数来向前推动（虚拟）时钟。
 
-Calling `tick()` simulates the passage of time until all pending asynchronous activities finish.
+Calling [tick()](api/core/testing/tick) simulates the passage of time until all pending asynchronous activities finish.
 In this case, it waits for the error handler's `setTimeout()`.
 
 调用 `tick()` 会模拟时光的流逝，直到所有未决的异步活动都结束为止。
 在这个例子中，它会等待错误处理器中的 `setTimeout()`。
 
-The `tick()` function accepts milliseconds as a parameter (defaults to 0 if not provided). The parameter represents how much the virtual clock advances. For example, if you have a `setTimeout(fn, 100)` in a `fakeAsync()` test, you need to use tick(100) to trigger the fn callback.
+The [tick()](api/core/testing/tick) function accepts milliseconds as a parameter (defaults to 0 if not provided). The parameter represents how much the virtual clock advances. For example, if you have a `setTimeout(fn, 100)` in a `fakeAsync()` test, you need to use tick(100) to trigger the fn callback.
 
 `tick()` 函数接受一个毫秒值作为参数（如果没有提供则默认为 0）。该参数表示虚拟时钟要前进多少。
 比如，如果你的 `fakeAsync()` 测试中有一个 `setTimeout(fn, 100)` 函数，你就需要用 `tick(100)` 来触发它的 fn 回调。 
@@ -1924,7 +1928,7 @@ The `tick()` function accepts milliseconds as a parameter (defaults to 0 if not 
   region="fake-async-test-tick">
 </code-example>
 
-The `tick()` function is one of the Angular testing utilities that you import with `TestBed`.
+The [tick()](api/core/testing/tick) function is one of the Angular testing utilities that you import with `TestBed`.
 It's a companion to `fakeAsync()` and you can only call it within a `fakeAsync()` body.
 
 `tick()` 函数是你从 `TestBed` 中导入的 Angular 测试实用工具之一。
@@ -2137,7 +2141,7 @@ The first quote hasn't arrived yet.
 注意，这个 `<quote>` 元素应该在 `ngOnInit()` 之后显示占位值（`'...'`），
 但第一个引文却没有出现。
 
-To flush the first quote from the observable, you call `tick()`.
+To flush the first quote from the observable, you call [tick()](api/core/testing/tick).
 Then call `detectChanges()` to tell Angular to update the screen.
 
 要刷出可观察对象中的第一个引文，你就要先调用 `tick()`，然后调用 `detectChanges()` 来要求 Angular 刷新屏幕。
@@ -2209,7 +2213,7 @@ When using an `intervalTimer()` such as `setInterval()` in `async()`, remember t
 #### _whenStable_
 
 The test must wait for the `getQuote()` observable to emit the next quote.
-Instead of calling `tick()`, it calls `fixture.whenStable()`.
+Instead of calling [tick()](api/core/testing/tick), it calls `fixture.whenStable()`.
 
 该测试必须等待 `getQuote()` 的可观察对象发出下一条引言。
 它不再调用 `tick()`，而是调用 `fixture.whenStable()`。
@@ -2378,7 +2382,7 @@ you tell the `TestScheduler` to _flush_ its queue of prepared tasks like this.
   path="testing/src/app/twain/twain.component.marbles.spec.ts"
   region="test-scheduler-flush"></code-example>
 
-This step serves a purpose analogous to `tick()` and `whenStable()` in the
+This step serves a purpose analogous to [tick()](api/core/testing/tick) and `whenStable()` in the
 earlier `fakeAsync()` and `async()` examples.
 The balance of the test is the same as those examples.
 
@@ -2397,7 +2401,7 @@ Here's the marble testing version of the `getQuote()` error test.
   path="testing/src/app/twain/twain.component.marbles.spec.ts"
   region="error-test"></code-example>
 
-It's still an async test, calling `fakeAsync()` and `tick()`, because the component itself
+It's still an async test, calling `fakeAsync()` and [tick()](api/core/testing/tick), because the component itself
 calls `setTimeout()` when processing errors.
 
 它仍然是异步测试，要调用 `fakeAsync()` 和 `tick()`，这是因为组件自身在处理错误的时候调用 `setTimeout()`。
