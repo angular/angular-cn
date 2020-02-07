@@ -156,7 +156,7 @@ Don't use `--create-ivy-entry-points` as this will cause Node not to resolve the
 {@a opting-out-of-angular-ivy}
 ## Opting out of Ivy in version 9
 
-## 选择性禁用1版本 9 中的 Ivy
+## 选择性禁用版本 9 中的 Ivy
 
 
 In version 9, Ivy is the default.
