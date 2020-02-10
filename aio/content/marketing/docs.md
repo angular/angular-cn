@@ -56,6 +56,25 @@ Most Angular code can be written with just the latest JavaScript, using [types](
 下列代码范例都是用最新版本的 [TypeScript](https://www.typescriptlang.org/ "TypeScript") 写的。
 大多数 Angular 代码都只能用最新的 JavaScript 编写，它会用 [类型](https://www.typescriptlang.org/docs/handbook/classes.html "TypeScript Types") 实现依赖注入，还会用[装饰器](https://www.typescriptlang.org/docs/handbook/decorators.html "Decorators")来提供元数据。
 
+## 私有化部署本文档（译者）
+
+有些企业内部的防火墙比较严格，如果无法打开 <https://angular.cn>，你可以在企业内部进行私有化部署。步骤如下：
+
+本文档的预编译版本位于 [Github](https://github.com/ng-docs/ng-docs.github.io) 上，如果你想进行私有化部署，请把它 Clone 下来，在 nginx 等服务器上按照静态网站的形式做部署即可，除此之外不需要任何服务端环境。
+
+以 Nginx 为例，你需要在 nginx 上做如下改动：
+
+```
+server {
+    root /path/to/ng-docs.github.io/;
+    location / {
+        try_files $uri $uri.html $uri/ /index.html;
+    }
+}
+```
+
+注意其中的 `$uri.html`，这是本文档相对于常规 Angular 应用的主要差别，因为本文档进行了预先渲染（Prerender），这项工作可以让你在不需要 Node 服务器的情况下获得等同于服务端渲染的体验改善。
+
 ## Feedback
 
 ## 反馈
