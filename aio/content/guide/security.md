@@ -207,7 +207,7 @@ technique to prevent XSS. To enable CSP, configure your web server to return an 
 [An Introduction to Content Security Policy](http://www.html5rocks.com/en/tutorials/security/content-security-policy/)
 on the HTML5Rocks website.
 
-[内容安全策略(CSP)](https://developer.mozilla.org/en-)是用来防范 XSS 的纵深防御技术。
+[内容安全策略(CSP)](https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP)是用来防范 XSS 的纵深防御技术。
 要打开 CSP，请配置你的 Web 服务器，让它返回合适的 HTTP 头 `Content_Security_Policy`。
 要了解关于内容安全策略的更多信息，请参阅 HTML5Rocks 上的[内容安全策略简介](http://www.html5rocks.com/en/tutorials/security/content-security-policy/)
 
