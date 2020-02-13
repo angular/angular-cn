@@ -57,7 +57,7 @@ See our [template type-checking guide](guide/template-typecheck) for more inform
 
 - Typescript 3.4 and 3.5 are no longer supported. Please update to Typescript 3.7.
 
-  不再支持 TypeScript 3.4 和 3.5。请更新至 Typescript 3.6。
+  不再支持 TypeScript 3.4 和 3.5。请更新至 Typescript 3.7。
 
 
 - `tslib` is now listed as a peer dependency rather than a direct dependency. If you are not using the CLI, you must manually install `tslib`, using `yarn add tslib` or `npm install tslib --save`.
