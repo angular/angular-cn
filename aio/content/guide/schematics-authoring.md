@@ -37,11 +37,11 @@ When making modifications, you don't actually change the base, but add those mod
 
 * A `Rule` object defines a function that takes a `Tree`, applies transformations, and returns a new `Tree`. The main file for a schematic, `index.ts`, defines a set of rules that implement the schematic's logic.
 
-  `Rule`（规则）对象定义了一个函数，它接受 `Tree`，进行变换，并返回一个新的 `Tree` 。原理图的主文件 `index.ts` 定义了一组实现原理图逻辑的规则。
+  `Rule`（规则）对象定义了一个函数，它接受 `Tree`，进行转换，并返回一个新的 `Tree` 。原理图的主文件 `index.ts` 定义了一组实现原理图逻辑的规则。
 
 * A transformation is represented by an `Action`. There are four action types: `Create`, `Rename`, `Overwrite`, and `Delete`.
 
-  变换由 `Action`（动作）表示。有四种动作类型：`Create`、`Rename`、`Overwrite` 和 `Delete` 。
+  转换由 `Action`（动作）表示。有四种动作类型：`Create`、`Rename`、`Overwrite` 和 `Delete` 。
 
 * Each schematic runs in a context, represented by a `SchematicContext` object.
 
