@@ -330,7 +330,7 @@ Angular has more pre-defined directives that either alter the layout structure
 or modify aspects of DOM elements and components
 (for example, [ngStyle](guide/template-syntax#ngStyle) and [ngClass](guide/template-syntax#ngClass)).
 
-Angular 还有很多预定义指令既不修改布局结构（比如 [ngSwitch](guide/template-syntax#ngSwitch)），也不修改 DOM 元素和组件的样子（比如 [ngStyle](guide/template-syntax#ngStyle) 和 [ngClass](guide/template-syntax#ngClass)）。
+Angular 还有很多预定义指令，有些修改布局结构（比如 [ngSwitch](guide/template-syntax#ngSwitch)），有些修改 DOM 元素和组件的样子（比如 [ngStyle](guide/template-syntax#ngStyle) 和 [ngClass](guide/template-syntax#ngClass)）。
 
 <div class="alert is-helpful">
 
