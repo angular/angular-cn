@@ -192,7 +192,7 @@ The template displays this data-bound property.
 Find this example in <live-example name="dependency-injection-in-action">live code</live-example>
 and confirm that the three `HeroBioComponent` instances have their own cached hero data.
 
-到<live-example name="dependency-injection-in-action">在线例子</live-example>中找到这个例子，确认三个 `HeroBioComponent` 实例拥有自己独立的英雄数据缓存。
+到<live-example name="dependency-injection-in-action">现场演练</live-example>中找到这个例子，确认三个 `HeroBioComponent` 实例拥有自己独立的英雄数据缓存。
 
 <div class="lightbox">
   <img src="generated/images/guide/dependency-injection-in-action/hero-bios.png" alt="Bios">

@@ -103,7 +103,7 @@ There are multiple ways to prevent this:
 
 **Note:** There are two example apps where you can see this scenario; the more advanced <live-example noDownload name="ngmodules">NgModules live example</live-example>, which contains `forRoot()` and `forChild()` in the routing modules and the `GreetingModule`, and the simpler <live-example name="lazy-loading-ngmodules" noDownload>Lazy Loading live example</live-example>. For an introductory explanation see the [Lazy Loading Feature Modules](guide/lazy-loading-ngmodules) guide.
 
-**注意：**有两个范例应用可以让你查看这种情况，更高级的方式参见 <live-example noDownload name="ngmodules">NgModules 在线例子</live-example>，它在路由模块中包含 `forRoot()` 和 `forChild()`，而 `GreetingModule` 是一个比较简单的<live-example name="lazy-loading-ngmodules" noDownload>惰性加载范例</live-example>。在[惰性加载模块](guide/lazy-loading-ngmodules)中有简要的解释。
+**注意：**有两个范例应用可以让你查看这种情况，更高级的方式参见 <live-example noDownload name="ngmodules">NgModules 现场演练</live-example>，它在路由模块中包含 `forRoot()` 和 `forChild()`，而 `GreetingModule` 是一个比较简单的<live-example name="lazy-loading-ngmodules" noDownload>惰性加载范例</live-example>。在[惰性加载模块](guide/lazy-loading-ngmodules)中有简要的解释。
 
 </div>
 
@@ -179,7 +179,7 @@ This sequence ensures that whatever you add explicitly to
 the `AppModule` providers takes precedence over the providers
 of imported modules.
 
-在这个 <live-example name="ngmodules">在线例子</live-example>中，根模块 `AppModule` 导入了 `GreetingModule`，并把它的 `providers` 添加到了 `AppModule` 的服务提供商列表中。特别是，Angular 会把所有从其它模块导入的提供商追加到本模块的 `@NgModule.providers` 中列出的提供商之前。这种顺序可以确保你在 `AppModule` 的 `providers` 中显式列出的提供商，其优先级高于导入模块中给出的提供商。
+在这个 <live-example name="ngmodules">现场演练</live-example>中，根模块 `AppModule` 导入了 `GreetingModule`，并把它的 `providers` 添加到了 `AppModule` 的服务提供商列表中。特别是，Angular 会把所有从其它模块导入的提供商追加到本模块的 `@NgModule.providers` 中列出的提供商之前。这种顺序可以确保你在 `AppModule` 的 `providers` 中显式列出的提供商，其优先级高于导入模块中给出的提供商。
 
 The sample app imports `GreetingModule` and uses its `forRoot()` method one time, in `AppModule`. Registering it once like this prevents multiple instances.
 

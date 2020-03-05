@@ -60,7 +60,7 @@ The `stagger()` function allows you to define a timing gap between each queried 
 
 The Filter/Stagger tab in the live example shows a list of heroes with an introductory sequence. The entire list of heroes cascades in, with a slight delay from top to bottom.
 
-这个在线例子中的 Filter/Stagger 标签显示了一个带有前导序列的英雄列表。整个英雄列表会级联进入，从上到下逐个做轻微的延迟。
+这个现场演练中的 Filter/Stagger 标签显示了一个带有前导序列的英雄列表。整个英雄列表会级联进入，从上到下逐个做轻微的延迟。
 
 The following example demonstrates how to use `query()` and `stagger()` functions on the entry of an animated element.
 

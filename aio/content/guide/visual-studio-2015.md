@@ -17,7 +17,7 @@ This cookbook describes the steps required to set up and use Angular app files i
 There is no *live example* for this cookbook because it describes Visual Studio, not 
 the Angular application itself. It uses the starter Angular application created by the CLI command [`ng new`](cli/new) as an example.
 
-本文中没有*在线例子*，因为它介绍的是 Visual Studio，而不是《快速上手》应用程序本身。它使用 CLI 命令 [`ng new`](cli/new) 创建的 Angular 入门应用作为例子。
+本文中没有*现场演练*，因为它介绍的是 Visual Studio，而不是《快速上手》应用程序本身。它使用 CLI 命令 [`ng new`](cli/new) 创建的 Angular 入门应用作为例子。
 
 </div>
 

@@ -27,7 +27,7 @@ It explains basic principles of the template language and describes most of the 
 Many code snippets illustrate the points and concepts, all of them available
 in the <live-example title="Template Syntax Live Code"></live-example>.
 
-这里还有很多代码片段用来解释技术点和概念，它们全都在<live-example title="模板语法的在线例子"></live-example>中。
+这里还有很多代码片段用来解释技术点和概念，它们全都在<live-example title="模板语法的现场演练"></live-example>中。
 
 {@a html}
 

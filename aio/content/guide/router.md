@@ -1172,7 +1172,7 @@ The application has three main feature areas:
 
 Try it by clicking on this <live-example title="Hero Employment Agency Live Example">live example link</live-example>.
 
-点击<live-example title="英雄职介中心的在线例子"></live-example>试用一下。
+点击<live-example title="英雄职介中心的现场演练"></live-example>试用一下。
 
 Once the app warms up, you'll see a row of navigation buttons
 and the *Heroes* view with its list of heroes.
@@ -2072,11 +2072,11 @@ Follow these steps:
 
 * Copy the contents of the `heroes/heroes.component.css` from the live example into the `hero-list.component.css` file.
 
-  把在线例子中 `heroes/heroes.component.css` 文件的内容复制到 `hero-list.component.css` 文件中。
+  把现场演练中 `heroes/heroes.component.css` 文件的内容复制到 `hero-list.component.css` 文件中。
 
 * Copy the contents of the `heroes/heroes.component.ts` from the live example into the `hero-list.component.ts` file.
 
-  把在线例子中 `heroes/heroes.component.ts` 文件的内容复制到 `hero-list.component.ts` 文件中。
+  把现场演练中 `heroes/heroes.component.ts` 文件的内容复制到 `hero-list.component.ts` 文件中。
 
   * Change the component class name to `HeroListComponent`.
 

@@ -10,7 +10,7 @@
 
 Try the <live-example title="Reactive Forms in Stackblitz">Reactive Forms live-example</live-example>.
 
-试试<live-example title="Reactive Forms in Stackblitz">响应式表单的在线例子</live-example>。
+试试<live-example title="Reactive Forms in Stackblitz">响应式表单的现场演练</live-example>。
 
 {@a intro}
 
