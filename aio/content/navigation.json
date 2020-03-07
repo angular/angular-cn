@@ -136,46 +136,46 @@
           "title": "英雄指南",
           "tooltip": "英雄指南是这里大量 Angular 范例的基础",
           "children": [
-          {
-            "url": "tutorial",
-            "title": "简介",
-            "tooltip": "《英雄指南》教程简介"
-          },
-          {
-            "url": "tutorial/toh-pt0",
-            "title": "应用的“外壳”",
-            "tooltip": "创建应用的外壳"
-          },
-          {
-            "url": "tutorial/toh-pt1",
-            "title": "1. 英雄编辑器",
-            "tooltip": "第一部分：构建一个简单的英雄编辑器"
-          },
-          {
-            "url": "tutorial/toh-pt2",
-            "title": "2. 显示英雄列表",
-            "tooltip": "第二部分：构建一个主从结构的页面，用于展现英雄列表。"
-          },
-          {
-            "url": "tutorial/toh-pt3",
-            "title": "3. 创建特性组件",
-            "tooltip": "第三部分：把主从结构的视图重构成几个独立的组件。"
-          },
-          {
-            "url": "tutorial/toh-pt4",
-            "title": "4. 添加服务",
-            "tooltip": "第四部分：创建一个可复用的服务来管理英雄数据。"
-          },
-          {
-            "url": "tutorial/toh-pt5",
-            "title": "5. 添加应用内导航",
-            "tooltip": "第五部分：添加 Angular 路由器，并且学习在视图之间导航。"
-          },
-          {
-            "url": "tutorial/toh-pt6",
-            "title": "6. 从服务器获取数据",
-            "tooltip": "第六部分：通过 HTTP 来获取并保存英雄数据。"
-          }
+            {
+              "url": "tutorial",
+              "title": "简介",
+              "tooltip": "《英雄指南》教程简介"
+            },
+            {
+              "url": "tutorial/toh-pt0",
+              "title": "应用的“外壳”",
+              "tooltip": "创建应用的外壳"
+            },
+            {
+              "url": "tutorial/toh-pt1",
+              "title": "1. 英雄编辑器",
+              "tooltip": "第一部分：构建一个简单的英雄编辑器"
+            },
+            {
+              "url": "tutorial/toh-pt2",
+              "title": "2. 显示英雄列表",
+              "tooltip": "第二部分：构建一个主从结构的页面，用于展现英雄列表。"
+            },
+            {
+              "url": "tutorial/toh-pt3",
+              "title": "3. 创建特性组件",
+              "tooltip": "第三部分：把主从结构的视图重构成几个独立的组件。"
+            },
+            {
+              "url": "tutorial/toh-pt4",
+              "title": "4. 添加服务",
+              "tooltip": "第四部分：创建一个可复用的服务来管理英雄数据。"
+            },
+            {
+              "url": "tutorial/toh-pt5",
+              "title": "5. 添加应用内导航",
+              "tooltip": "第五部分：添加 Angular 路由器，并且学习在视图之间导航。"
+            },
+            {
+              "url": "tutorial/toh-pt6",
+              "title": "6. 从服务器获取数据",
+              "tooltip": "第六部分：通过 HTTP 来获取并保存英雄数据。"
+            }
           ]
         },
         {
@@ -610,19 +610,19 @@
               "url": "guide/angular-compiler-options",
               "title": "Angular 编译器选项",
               "tooltip": "配置 AOT 编译。"
-           },
-           {
+            },
+            {
               "url": "guide/aot-metadata-errors",
               "title": "AOT 元数据错误",
               "tooltip": "解决 AOT 编译错误。"
-           },
-           {
-            "url": "guide/template-typecheck",
-            "title": "模板类型检查",
-            "tooltip": "Angular 中的模板类型检查。"
-         }
-        ]
-      },
+            },
+            {
+              "url": "guide/template-typecheck",
+              "title": "模板类型检查",
+              "tooltip": "Angular 中的模板类型检查。"
+            }
+          ]
+        },
         {
           "url": "guide/build",
           "title": "构建与运行",
@@ -792,7 +792,7 @@
       "url": "https://ng.mobile.ant.design/"
     },
     {
-      "url": "https://flutter-io.cn/",
+      "url": "https://flutter.cn/",
       "tooltip": "Flutter 中文文档站",
       "title": "友站：Flutter 中文"
     }
