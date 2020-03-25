@@ -14,6 +14,7 @@ export interface NavigationNode {
   hidden?: boolean;
   divider?: boolean;
   highlight?: boolean;
+  external?: boolean;
   children?: NavigationNode[];
 }
 

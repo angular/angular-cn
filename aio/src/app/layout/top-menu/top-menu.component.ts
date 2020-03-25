@@ -11,11 +11,12 @@ import { NavigationNode } from 'app/navigation/navigation.service';
   template: `
     <ul role="navigation">
       <li *ngFor="let node of nodes">
-        <a class="nav-link" [class.highlight]="node.highlight" [href]="node.url" [title]="node.title">
+        <a class="nav-link" [class.highlight]="node.highlight" [href]="node.url" [title]="node.tooltip || node.title"
+           [target]="node.external?'_blank':null">
           <span class="nav-link-inner">{{ node.title }}</span>
         </a>
       </li>
-    </ul>`
+    </ul>`,
 })
 export class TopMenuComponent {
   @Input() nodes: NavigationNode[];
