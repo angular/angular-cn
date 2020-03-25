@@ -17,8 +17,9 @@
       "title": "会议"
     },
     {
-      "url": "https://blog.angular.io/",
-      "title": "博客"
+      "url": "https://blog.wangke.io/",
+      "title": "译者博客",
+      "tooltip": "译者汪志成的博客，包括翻译文章和原创文章"
     },
     {
       "url": "translations/cn/home",
@@ -785,6 +786,11 @@
       "title": "ng-zorro 组件库",
       "tooltip": "Ant Design 的 Angular 实现，服务于企业级后台产品。",
       "url": "https://ng.ant.design/"
+    },
+    {
+      "title": "华为 DevUI 组件库",
+      "tooltip": "“华为云” 开源的企业级组件库，核心设计思想是：致简、沉浸、灵活",
+      "url": "https://devui.design/"
     },
     {
       "title": "ng-zorro mobile 组件库",
