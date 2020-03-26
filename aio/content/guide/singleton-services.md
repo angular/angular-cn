@@ -270,7 +270,7 @@ Of course it finds the instance imported by the root `AppModule`.
 Now `parentModule` exists and the constructor throws the error.
 
 Angular 创建惰性加载模块时会给它一个自己的注入器，它是根注入器的*子注入器*。
-`@SkipSelf()` 让 Angular 在其父注入器中查找 `CoreModule`，这次，它的父注入器是根注入器（而上次的父注入器是空）。
+`@SkipSelf()` 让 Angular 在其父注入器中查找 `GreetingModule`，这次，它的父注入器是根注入器（而上次的父注入器是空）。
 当然，这次它找到了由根模块 `AppModule` 导入的实例。
 该构造函数检测到存在 `parentModule`，于是抛出一个错误。
 
