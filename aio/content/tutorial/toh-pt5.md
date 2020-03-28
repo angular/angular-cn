@@ -37,7 +37,7 @@ When you’re done, users will be able to navigate the app like this:
 In Angular, the best practice is to load and configure the router in a separate, top-level module
 that is dedicated to routing and imported by the root `AppModule`.
 
-在 Angular 中，最好在一个独立的顶级模块中加载和配置路由器，它专注于路由功能，然后由根模块 `AppModule` 导入它。
+在 Angular 中，最好在一个独立的顶层模块中加载和配置路由器，它专注于路由功能，然后由根模块 `AppModule` 导入它。
 
 By convention, the module class name is `AppRoutingModule` and it belongs in the `app-routing.module.ts` in the `src/app` folder.
 
@@ -143,7 +143,7 @@ configures it with the `routes` in one step by calling
   The `forRoot()` method supplies the service providers and directives needed for routing,
   and performs the initial navigation based on the current browser URL.
 
-  这个方法之所以叫 `forRoot()`，是因为你要在应用的顶级配置这个路由器。
+  这个方法之所以叫 `forRoot()`，是因为你要在应用的顶层配置这个路由器。
   `forRoot()` 方法会提供路由所需的服务提供商和指令，还会基于浏览器的当前 URL 执行首次导航。
 
 </div>
@@ -336,7 +336,7 @@ The _class_ is similar to the `HeroesComponent` class.
 
 This `getHeroes()` returns the sliced list of heroes at positions 1 and 5, returning only four of the Top Heroes (2nd, 3rd, 4th, and 5th).
 
-这个 `getHeroes()` 函数会截取第 2 到 第 5 位英雄，也就是说只返回四个顶级英雄（第二，第三，第四和第五）。
+这个 `getHeroes()` 函数会截取第 2 到 第 5 位英雄，也就是说只返回四个顶层英雄（第二，第三，第四和第五）。
 
 <code-example path="toh-pt5/src/app/dashboard/dashboard.component.ts" header="src/app/dashboard/dashboard.component.ts" region="getHeroes">
 </code-example>

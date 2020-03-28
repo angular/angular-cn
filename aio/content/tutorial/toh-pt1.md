@@ -275,7 +275,7 @@ Other critical metadata is in [`@NgModule`](guide/ngmodules) decorators.
 
 The most important `@NgModule` decorator annotates the top-level **AppModule** class.
 
-最重要的 `@NgModule` 装饰器位于顶级类 **AppModule** 上。
+最重要的 `@NgModule` 装饰器位于顶层类 **AppModule** 上。
 
 The Angular CLI generated an `AppModule` class in `src/app/app.module.ts` when it created the project.
 This is where you _opt-in_ to the `FormsModule`.

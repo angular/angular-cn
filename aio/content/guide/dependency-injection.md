@@ -50,7 +50,7 @@ from the [The Tour of Heroes](tutorial/). This simple version doesn't use DI; we
 `HeroesComponent` is the top-level heroes component.
 Its only purpose is to display `HeroListComponent`, which displays a list of hero names.
 
-`HeroesComponent` 是顶级英雄管理组件。
+`HeroesComponent` 是顶层英雄管理组件。
 它唯一的目的是显示 `HeroListComponent`，该组件会显示一个英雄名字的列表。
 
 This version of the `HeroListComponent` gets heroes from the `HEROES` array, an in-memory collection

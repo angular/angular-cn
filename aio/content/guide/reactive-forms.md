@@ -779,7 +779,7 @@ Listed below are the base classes and services used to create and manage form co
 
       Manages the value and validity state of a group of `AbstractControl` instances. The group's properties include its child controls. The top-level form in your component is `FormGroup`.
 
-      管理一组 `AbstractControl` 实例的值和有效性状态。该组的属性中包括了它的子控件。组件中的顶级表单就是 `FormGroup`。
+      管理一组 `AbstractControl` 实例的值和有效性状态。该组的属性中包括了它的子控件。组件中的顶层表单就是 `FormGroup`。
 
     </td>
 

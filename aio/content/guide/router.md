@@ -1539,7 +1539,7 @@ Technically, `pathMatch = 'full'` results in a route hit when the *remaining*, u
 In this example, the redirect is in a top level route so the *remaining* URL and the *entire* URL are the same thing.
 
 从技术角度说，`pathMatch = 'full'` 导致 URL 中*剩下的*、未匹配的部分必须等于 `''`。
-在这个例子中，跳转路由在一个顶级路由中，因此*剩下的*URL 和*完整的*URL 是一样的。
+在这个例子中，跳转路由在一个顶层路由中，因此*剩下的*URL 和*完整的*URL 是一样的。
 
 The other possible `pathMatch` value is `'prefix'` which tells the router
 to match the redirect route when the *remaining* URL ***begins*** with the redirect route's _prefix_ path.
@@ -2248,7 +2248,7 @@ Only call `RouterModule.forRoot()` in the root `AppRoutingModule`
 (or the `AppModule` if that's where you register top level application routes).
 In any other module, you must call the **`RouterModule.forChild`** method to register additional routes.
 
-只在根模块 `AppRoutingModule` 中调用 `RouterModule.forRoot()`（如果在 `AppModule` 中注册应用的顶级路由，那就在 `AppModule` 中调用）。
+只在根模块 `AppRoutingModule` 中调用 `RouterModule.forRoot()`（如果在 `AppModule` 中注册应用的顶层路由，那就在 `AppModule` 中调用）。
 在其它模块中，你就必须调用**`RouterModule.forChild`**方法来注册附属路由。
 
 </div>
@@ -3632,7 +3632,7 @@ But child routes *extend* the path of the parent route.
 With each step down the route tree,
 you add a slash followed by the route path, unless the path is _empty_.
 
-在顶级，以 `/` 开头的路径指向的总是应用的根。
+在顶层，以 `/` 开头的路径指向的总是应用的根。
 但这里是子路由。
 它们是在父路由路径的基础上做出的扩展。
 在路由树中每深入一步，你就会在该路由的路径上添加一个斜线 `/`（除非该路由的路径是*空的*）。
@@ -3696,7 +3696,7 @@ The feature routes are now provided by the `HeroesModule` and the `CrisisCenter`
 
 The `app-routing.module.ts` file retains the top-level application routes such as the default and wildcard routes.
 
-`app-routing.module.ts` 文件中只有应用的顶级路由，比如默认路由和通配符路由。
+`app-routing.module.ts` 文件中只有应用的顶层路由，比如默认路由和通配符路由。
 
 <code-example path="router/src/app/app-routing.module.3.ts" header="src/app/app-routing.module.ts (v3)" region="v3"></code-example>
 

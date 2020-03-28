@@ -72,11 +72,11 @@ typical characteristics, in real world apps, you may see hybrids.
 
      They typically have a top component that acts as the feature root and private, supporting sub-components descend from it.
 
-     它们通常会有一个顶级组件来充当该特性的根组件，并且通常是私有的。用来支持它的各级子组件。
+     它们通常会有一个顶层组件来充当该特性的根组件，并且通常是私有的。用来支持它的各级子组件。
 
      Domain feature modules consist mostly of declarations. Only the top component is exported.
 
-     领域特性模块大部分由 `declarations` 组成，只有顶级组件会被导出。
+     领域特性模块大部分由 `declarations` 组成，只有顶层组件会被导出。
 
      Domain feature modules rarely have providers. When they do, the lifetime of the provided services should be the same as the lifetime of the module.
 
@@ -350,7 +350,7 @@ The following table summarizes the key characteristics of each feature module gr
 
        Top component
 
-       顶级组件
+       顶层组件
 
    </td>
 

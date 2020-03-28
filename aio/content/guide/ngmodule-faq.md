@@ -538,8 +538,8 @@ Add the custom `HttpBackend` provider to the top component's `providers` list ra
 Recall that Angular creates a child injector for each component instance and populates the injector
 with the component's own providers.
 
-那就创建一个“顶级组件”来扮演该模块中所有组件的根。
-把这个自定义的 `HttpBackend` 提供商添加到这个顶级组件的 `providers` 列表中，而不是该模块的 `providers` 中。
+那就创建一个“顶层组件”来扮演该模块中所有组件的根。
+把这个自定义的 `HttpBackend` 提供商添加到这个顶层组件的 `providers` 列表中，而不是该模块的 `providers` 中。
 回忆一下，Angular 会为每个组件实例创建一个子注入器，并使用组件自己的 `providers` 来配置这个注入器。
 
 When a child of this component asks for the `HttpBackend` service,
@@ -552,13 +552,13 @@ Child components make proper HTTP requests no matter what other modules do to `H
 
 Be sure to create module components as children of this module's top component.
 
-确保把模块中的组件都创建成这个顶级组件的子组件。
+确保把模块中的组件都创建成这个顶层组件的子组件。
 
 You can embed the child components in the top component's template.
 Alternatively, make the top component a routing host by giving it a `<router-outlet>`.
 Define child routes and let the router load module components into that outlet.
 
-你可以把这些子组件都嵌在顶级组件的模板中。或者，给顶级组件一个 `<router-outlet>`，让它作为路由的宿主。
+你可以把这些子组件都嵌在顶层组件的模板中。或者，给顶层组件一个 `<router-outlet>`，让它作为路由的宿主。
 定义子路由，并让路由器把模块中的组件加载进该路由出口（outlet）中。
 
 Though you can limit access to a service by providing it in a lazy loaded module or providing it in a component, providing services in a component can lead to multiple instances of those services. Thus, the lazy loading is preferable.

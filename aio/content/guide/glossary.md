@@ -168,7 +168,7 @@ In Angular, an app's root NgModule (`AppModule`) has a `bootstrap` property that
 During the bootstrap process, Angular creates and inserts these components into the `index.html` host web page.
 You can bootstrap multiple apps in the same `index.html`. Each app contains its own components.
 
-在 Angular 中，应用的根模块（`AppModule`）有一个 `bootstrap` 属性，用于指出该应用的的顶级[组件](#component)。
+在 Angular 中，应用的根模块（`AppModule`）有一个 `bootstrap` 属性，用于指出该应用的的顶层[组件](#component)。
 在引导期间，Angular 会创建这些组件，并插入到宿主页面 `index.html` 中。
 你可以在同一个 `index.html` 中引导多个应用，每个应用都有一些自己的组件。
 

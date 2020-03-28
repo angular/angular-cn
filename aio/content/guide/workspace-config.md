@@ -14,11 +14,11 @@ Angular [工作区](guide/glossary#workspace)根目录下的 `angular.json` 文�
 
 At the top level of `angular.json`, a few properties configure the workspace, and a `projects` section contains the remaining per-project configuration options. CLI defaults set at the workspace level can be overridden by defaults set at the project level, and defaults set at the project level can be overridden on the command line.
 
-在 `angular.json` 的顶级，一些属性用于配置工作区，其中的 `projects` 区则包含其余的针对每个项目的配置项。CLI 在工作空间级的默认设置可以被项目级的设置所覆盖，而项目级的设置可以被命令行中的设置所覆盖。
+在 `angular.json` 的顶层，一些属性用于配置工作区，其中的 `projects` 区则包含其余的针对每个项目的配置项。CLI 在工作空间级的默认设置可以被项目级的设置所覆盖，而项目级的设置可以被命令行中的设置所覆盖。
 
 The following properties, at the top level of the file, configure the workspace.
 
-下列属性位于文件的顶级，用于配置工作空间。
+下列属性位于文件的顶层，用于配置工作空间。
 
 * `version`: The configuration-file version.
 
@@ -85,7 +85,7 @@ When you create a library project with `ng generate library`, the library projec
 
 The following top-level configuration properties are available for each project, under `projects:<project_name>`.
 
-每个项目的 `projects:<project_name>`  下都有以下顶级配置属性。
+每个项目的 `projects:<project_name>`  下都有以下顶层配置属性。
 
 <code-example language="json">
     "my-app": {
@@ -264,7 +264,7 @@ Note that all options in the configuration file must use [camelCase](guide/gloss
 
 The `architect/build` section configures defaults for options of the `ng build` command. It has the following top-level properties.
 
-`architect/build` 节会为 `ng build` 命令的选项配置默认值。它具有下列顶级属性。
+`architect/build` 节会为 `ng build` 命令的选项配置默认值。它具有下列顶层属性。
 
 | PROPERTY | DESCRIPTION |
 | :-------------- | :---------------------------- |

@@ -307,7 +307,7 @@ Those elements can still animate.
 
 To disable all animations for an Angular app, place the `@.disabled` host binding on the topmost Angular component.
 
-要禁用 Angular 应用中的所有动画，只要把 `@.disabled` 绑定放在顶级的 Angular 组件上即可。
+要禁用 Angular 应用中的所有动画，只要把 `@.disabled` 绑定放在顶层的 Angular 组件上即可。
 
 <code-example path="animations/src/app/app.component.ts" header="src/app/app.component.ts" region="toggle-app-animations" language="typescript"></code-example>
 

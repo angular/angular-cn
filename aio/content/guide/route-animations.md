@@ -30,7 +30,7 @@ Routing enables users to navigate between different routes in an application. Wh
 
 The Angular router comes with high-level animation functions that let you animate the transitions between views when a route changes. To produce an animation sequence when switching between routes, you need to define nested animation sequences. Start with the top-level component that hosts the view, and nest additional animations in the components that host the embedded views.
 
-Angular 路由器天生带有高级动画功能，它可以让你为在路由变化时为视图之间设置转场动画。要想在路由切换时生成动画序列，你需要首先定义出嵌套的动画序列。从宿主视图的顶级组件开始，在这些内嵌视图的宿主组件中嵌套添加其它动画。
+Angular 路由器天生带有高级动画功能，它可以让你为在路由变化时为视图之间设置转场动画。要想在路由切换时生成动画序列，你需要首先定义出嵌套的动画序列。从宿主视图的顶层组件开始，在这些内嵌视图的宿主组件中嵌套添加其它动画。
 
 To enable routing transition animation, do the following:
 
@@ -50,7 +50,7 @@ To enable routing transition animation, do the following:
 
 Let's illustrate a router transition animation by navigating between two routes, *Home* and *About* associated with the `HomeComponent` and `AboutComponent` views respectively. Both of these component views are children of the top-most view, hosted by `AppComponent`. We'll implement a router transition animation that slides in the new view to the right and slides out the old view when the user navigates between the two routes.
 
-让我们以两个路由之间的导航过程来解释一下路由转场动画，*Home* 和 *About* 分别与 `HomeComponent` 和 `AboutComponent` 的视图相关联。所有这些组件视图都是顶级视图的子节点，其宿主是 `AppComponent`。我们将实现路由器过渡动画，该动画会在出现新视图时向右滑动，并当用户在两个路由之间导航时把旧视图滑出。
+让我们以两个路由之间的导航过程来解释一下路由转场动画，*Home* 和 *About* 分别与 `HomeComponent` 和 `AboutComponent` 的视图相关联。所有这些组件视图都是顶层视图的子节点，其宿主是 `AppComponent`。我们将实现路由器过渡动画，该动画会在出现新视图时向右滑动，并当用户在两个路由之间导航时把旧视图滑出。
 
 </br>
 
@@ -74,7 +74,7 @@ Use the `RouterModule.forRoot` method to define a set of routes. Also, import th
 
 **Note:** Use the `RouterModule.forRoot` method in the root module, `AppModule`, to register top-level application routes and providers. For feature modules, call the `RouterModule.forChild` method to register additional routes.
 
-**注意：**在根模块 `AppModule` 中使用 `RouterModule.forRoot` 方法来注册一些顶级应用路由和提供商。对于特性模块，调用 `RouterModule.forChild` 方法来注册其它路由。
+**注意：**在根模块 `AppModule` 中使用 `RouterModule.forRoot` 方法来注册一些顶层应用路由和提供商。对于特性模块，调用 `RouterModule.forChild` 方法来注册其它路由。
 
 </div>
 

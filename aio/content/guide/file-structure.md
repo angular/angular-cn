@@ -124,7 +124,7 @@ For a multi-project workspace, additional projects in the `projects/` folder con
 
 Files at the top level of `src/` support testing and running your application. Subfolders contain the application source and application-specific configuration.
 
-顶级文件 `src/` 为测试并运行你的应用提供支持。其子文件夹中包含应用源代码和应用的专属配置。
+顶层文件 `src/` 为测试并运行你的应用提供支持。其子文件夹中包含应用源代码和应用的专属配置。
 
 
 | APP SUPPORT FILES | PURPOSE                                                                                                                                                                                                                                                                                                                                                                                         |

@@ -22,7 +22,7 @@ Angular 当前有三种执行此操作的模式，具体取决于 [TypeScript �
 
 In the most basic type-checking mode, with the `fullTemplateTypeCheck` flag set to `false`, Angular validates only top-level expressions in a template.
 
-在最基本的类型检查模式下，将 `fullTemplateTypeCheck` 标志设置为 `false` ，Angular 仅验证模板中的顶级表达式。
+在最基本的类型检查模式下，将 `fullTemplateTypeCheck` 标志设置为 `false` ，Angular 仅验证模板中的顶层表达式。
 
 
 If you write `<map [city]="user.address.city">`, the compiler verifies the following:

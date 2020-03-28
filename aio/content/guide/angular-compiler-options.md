@@ -37,7 +37,7 @@ The template options object, `angularCompilerOptions`, is a sibling to the `comp
 Like the TypeScript compiler, The Angular AOT compiler also supports `extends` in the `angularCompilerOptions` section of the TypeScript configuration file, `tsconfig.json`.
 The `extends` property is at the top level, parallel to `compilerOptions` and `angularCompilerOptions`.
 
-像 TypeScript 编译器一样，Angular 的 AOT 编译器也支持对 TypeScript 配置文件 `tsconfig.json` 的 `angularCompilerOptions` 进行 `extends`。`extends` 属性位于顶级，和 `compilerOptions` 和 `angularCompilerOptions` 平级。
+像 TypeScript 编译器一样，Angular 的 AOT 编译器也支持对 TypeScript 配置文件 `tsconfig.json` 的 `angularCompilerOptions` 进行 `extends`。`extends` 属性位于顶层，和 `compilerOptions` 和 `angularCompilerOptions` 平级。
 
 
 A TypeScript configuration can inherit settings from another file using the `extends` property.

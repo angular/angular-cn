@@ -63,7 +63,7 @@ Angular 提供了一些构建器，供 CLI 命令使用，如 `ng build`、`ng t
 A builder resides in a "project" folder that is similar in structure to an Angular workspace, with global configuration files at the top level, and more specific configuration in a source folder with the code files that define the behavior.
 For example, your `myBuilder` folder could contain the following files.
 
-构建器位于一个 `project` 文件夹中，该文件夹的结构类似于 Angular 工作区，包括位于顶级的全局配置文件，以及位于工作代码所在源文件夹中的更具体的配置。例如，`myBuilder` 文件夹中可能包含如下文件。
+构建器位于一个 `project` 文件夹中，该文件夹的结构类似于 Angular 工作区，包括位于顶层的全局配置文件，以及位于工作代码所在源文件夹中的更具体的配置。例如，`myBuilder` 文件夹中可能包含如下文件。
 
 | FILES                    | PURPOSE                                                                                      |
 | :----------------------- | :------------------------------------------------------------------------------------------- |
