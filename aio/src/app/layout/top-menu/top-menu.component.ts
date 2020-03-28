@@ -12,7 +12,7 @@ import { NavigationNode } from 'app/navigation/navigation.service';
     <ul role="navigation">
       <li *ngFor="let node of nodes">
         <a class="nav-link" [class.highlight]="node.highlight" [href]="node.url" [title]="node.tooltip || node.title"
-           [target]="node.external?'_blank':undefined">
+           [target]="node.external?'_blank':'_self'">
           <span class="nav-link-inner">{{ node.title }}</span>
         </a>
       </li>
