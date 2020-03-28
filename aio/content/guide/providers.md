@@ -59,7 +59,7 @@ You should always provide your service in the root injector unless there is a ca
 
 It's also possible to specify that a service should be provided in a particular `@NgModule`. For example, if you don't want `UserService` to be available to applications unless they import a `UserModule` you've created, you can specify that the service should be provided in the module:
 
-也可以规定某个服务只有在特定的 `@NgModule` 中提供。比如，如果你你希望只有当消费方导入了你创建的 `UserModule` 时才让 `UserService` 在应用中生效，那就可以指定该服务要在该模块中提供：
+也可以规定某个服务只有在特定的 `@NgModule` 中提供。比如，如果你希望只有当消费方导入了你创建的 `UserModule` 时才让 `UserService` 在应用中生效，那就可以指定该服务要在该模块中提供：
 
 <code-example path="providers/src/app/user.service.1.ts"  header="src/app/user.service.ts"></code-example>
 
