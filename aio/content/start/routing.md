@@ -118,7 +118,7 @@ The product details component handles the display of each product. The Angular R
 
    1. Define the `product` property and inject the `ActivatedRoute` into the constructor by adding it as an argument within the constructor's parentheses.
 
-      定义 `product` 属性，并将路由作为参数添加到构造函数的括号中，以便把 `ActivatedRoute` 注入到构造函数中。
+      定义 `product` 属性，并将 `ActivatedRoute` 作为参数添加到构造函数的括号中，以便把它注入到构造函数中。
 
       <code-example header="src/app/product-details/product-details.component.ts" path="getting-started/src/app/product-details/product-details.component.1.ts" region="props-methods">
       </code-example>
