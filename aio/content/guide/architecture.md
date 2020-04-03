@@ -119,7 +119,7 @@ Template *directives* provide program logic, and *binding markup* connects your 
 There are two types of data binding:
 
 模板会把 HTML 和 Angular 的标记（markup）组合起来，这些标记可以在 HTML 元素显示出来之前修改它们。
-模板中的*指令*会提供商逻辑，而*绑定标记*会把你应用中的数据和 DOM 连接在一起。
+模板中的*指令*会提供程序逻辑，而*绑定标记*会把你应用中的数据和 DOM 连接在一起。
 有两种类型的数据绑定：
 
 * *Event binding* lets your app respond to user input in the target environment by updating your application data.
