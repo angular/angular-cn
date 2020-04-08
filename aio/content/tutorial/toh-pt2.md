@@ -214,7 +214,7 @@ The parentheses around `click` tell Angular to listen for the `<li>` element's  
 When the user clicks in the `<li>`, Angular executes the `onSelect(hero)` expression.
 
 
-In the next section, define an `click` 外面的圆括号会让 Angular 监听这个 `<li>` 元素的 `click` 事件。
+`click` 外面的圆括号会让 Angular 监听这个 `<li>` 元素的 `click` 事件。
 当用户点击 `<li>` 时，Angular 就会执行表达式 `onSelect(hero)`。
 
 `onSelect()` method in `HeroesComponent` to
