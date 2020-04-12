@@ -1138,7 +1138,7 @@ to the next handler in the chain.
 If a cachable request is found in the cache, the interceptor returns an `of()` _observable_ with
 the cached response, by-passing the `next` handler (and all other interceptors downstream).
 
-如果可缓存的请求在缓存中找到了，该拦截器就会通过 `of()` 函数返回一个已缓存的响应体的*可观察对象*，然后把它传给 `next` 处理器（以及所有其它下游拦截器）。
+如果可缓存的请求在缓存中找到了，该拦截器就会通过 `of()` 函数返回一个已缓存的响应体的*可观察对象*，然后绕过 `next` 处理器（以及所有其它下游拦截器）。
 
 If a cachable request is not in cache, the code calls `sendRequest`.
 
