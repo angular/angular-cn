@@ -2097,13 +2097,13 @@ Parent directives listen for the event by binding to this property and accessing
 Consider an `ItemDetailComponent` that presents item information and responds to user actions.
 Although the `ItemDetailComponent` has a delete button, it doesn't know how to delete the hero. It can only raise an event reporting the user's delete request.
 
-假设 `HeroDetailComponent` 用于显示英雄的信息，并响应用户的动作。
-虽然 `HeroDetailComponent` 包含删除按钮，但它自己并不知道该如何删除这个英雄。
+假设 `ItemDetailComponent` 用于显示英雄的信息，并响应用户的动作。
+虽然 `ItemDetailComponent` 包含删除按钮，但它自己并不知道该如何删除这个英雄。
 最好的做法是触发事件来报告“删除用户”的请求。
 
 Here are the pertinent excerpts from that `ItemDetailComponent`:
 
-下面的代码节选自 `HeroDetailComponent`：
+下面的代码节选自 `ItemDetailComponent`：
 
 <code-example path="event-binding/src/app/item-detail/item-detail.component.html" header="src/app/item-detail/item-detail.component.html (template)" region="line-through"></code-example>
 
@@ -2114,12 +2114,12 @@ When the user clicks *delete*, the component invokes the `delete()` method,
 telling the `EventEmitter` to emit an `Item` object.
 
 组件定义了 `deleteRequest` 属性，它是 `EventEmitter` 实例。
-当用户点击*删除*时，组件会调用 `delete()` 方法，让 `EventEmitter` 发出一个 `Hero` 对象。
+当用户点击*删除*时，组件会调用 `delete()` 方法，让 `EventEmitter` 发出一个 `Item` 对象。
 
 Now imagine a hosting parent component that binds to the `deleteRequest` event
 of the `ItemDetailComponent`.
 
-现在，假设有个宿主的父组件，它绑定了 `HeroDetailComponent` 的 `deleteRequest` 事件。
+现在，假设有个宿主的父组件，它绑定了 `ItemDetailComponent` 的 `deleteRequest` 事件。
 
 <code-example path="event-binding/src/app/app.component.html" header="src/app/app.component.html (event-binding-to-component)" region="event-binding-to-component"></code-example>
 
@@ -2127,8 +2127,8 @@ When the `deleteRequest` event fires, Angular calls the parent component's
 `deleteItem()` method, passing the *item-to-delete* (emitted by `ItemDetail`)
 in the `$event` variable.
 
-当 `deleteRequest` 事件触发时，Angular 调用父组件的 `deleteHero` 方法，
-在 `$event` 变量中传入*要删除的英雄*（来自 `HeroDetail`）。
+当 `deleteRequest` 事件触发时，Angular 调用父组件的 `deleteItem` 方法，
+在 `$event` 变量中传入*要删除的英雄*（来自 `ItemDetail`）。
 
 ### Template statements have side effects
 
