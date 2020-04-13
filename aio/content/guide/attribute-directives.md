@@ -43,7 +43,7 @@ Two examples are [NgFor](guide/template-syntax#ngFor) and [NgIf](guide/template-
 Learn about them in the [Structural Directives](guide/structural-directives) guide.
 
 *结构型*指令修改视图的结构。例如，[NgFor](guide/template-syntax#ngFor) 和 [NgIf](guide/template-syntax#ngIf)。
-要了解更多，参见[结构型指令](guide/structural-directives) guide。
+要了解更多，参见[结构型指令](guide/structural-directives) 指南。
 
 *Attribute directives* are used as attributes of elements.
 The built-in [NgStyle](guide/template-syntax#ngStyle) directive in the
