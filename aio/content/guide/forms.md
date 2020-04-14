@@ -347,7 +347,7 @@ Update it with the following:
 
 ## Revise *app.component.html*
 
-## 修改 *app.component.ts*
+## 修改 *app.component.html*
 
 `AppComponent` is the application's root component. It will host the new `HeroFormComponent`.
 
