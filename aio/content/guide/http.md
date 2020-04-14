@@ -475,7 +475,7 @@ If you're following along with these code snippets, note that you must import th
 Many servers require extra headers for save operations.
 For example, they may require a "Content-Type" header to explicitly declare the MIME type of the request body; or the server may require an authorization token.
 
-许多服务器需要额外的标头进行保存操作。例如，它们可能需要 `Content-Type` 标头来显式声明请求正文的 MIME 类型；否则服务器可能需要一个授权令牌。
+许多服务器需要额外的标头进行保存操作。例如，它们可能需要 `Content-Type` 标头来显式声明请求正文的 MIME 类型；或者服务器可能需要一个授权令牌。
 
 
 ### Adding headers
