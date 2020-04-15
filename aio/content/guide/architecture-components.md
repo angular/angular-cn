@@ -87,7 +87,7 @@ Angular inserts an instance of the `HeroListComponent` view between those tags.
 
 * `providers`: An array of [providers](guide/glossary#provider) for services that the component requires. In the example, this tells Angular how to provide the `HeroService` instance that the component's constructor uses to get the list of heroes to display.
 
-   `providers`：当前组件所需的服务[提供商](guide/glossary#provider)的一个数组。在这个例子中，它告诉 Angular 该如何提供一个 `HeroService` 实例，以获取要显示的英雄列表。
+   `providers`：当前组件所需的服务[提供者](guide/glossary#provider)的一个数组。在这个例子中，它告诉 Angular 该如何提供一个 `HeroService` 实例，以获取要显示的英雄列表。
 
 ## Templates and views
 

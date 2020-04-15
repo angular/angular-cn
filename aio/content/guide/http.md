@@ -829,7 +829,7 @@ You should provide interceptors in `AppModule` as well.
 After importing the `HTTP_INTERCEPTORS` injection token from `@angular/common/http`,
 write the `NoopInterceptor` provider like this:
 
-在从 `@angular/common/http` 中导入了 `HTTP_INTERCEPTORS` 注入令牌之后，编写如下的 `NoopInterceptor` 提供商注册语句：
+在从 `@angular/common/http` 中导入了 `HTTP_INTERCEPTORS` 注入令牌之后，编写如下的 `NoopInterceptor` 提供者注册语句：
 
 <code-example
   path="http/src/app/http-interceptors/index.ts"
@@ -841,7 +841,7 @@ This required setting tells Angular that `HTTP_INTERCEPTORS` is a token for a _m
 that injects an array of values, rather than a single value.
 
 注意 `multi: true` 选项。
-这个必须的选项会告诉 Angular `HTTP_INTERCEPTORS` 是一个*多重提供商*的令牌，表示它会注入一个多值的数组，而不是单一的值。
+这个必须的选项会告诉 Angular `HTTP_INTERCEPTORS` 是一个*多重提供者*的令牌，表示它会注入一个多值的数组，而不是单一的值。
 
 You _could_ add this provider directly to the providers array of the `AppModule`.
 However, it's rather verbose and there's a good chance that
@@ -849,7 +849,7 @@ you'll create more interceptors and provide them in the same way.
 You must also pay [close attention to the order](#interceptor-order)
 in which you provide these interceptors.
 
-你*也可以*直接把这个提供商添加到 `AppModule` 中的提供商数组中，不过那样会非常啰嗦。况且，你将来还会用这种方式创建更多的拦截器并提供它们。
+你*也可以*直接把这个提供者添加到 `AppModule` 中的提供者数组中，不过那样会非常啰嗦。况且，你将来还会用这种方式创建更多的拦截器并提供它们。
 你还要[特别注意提供这些拦截器的顺序](#interceptor-order)。
 
 Consider creating a "barrel" file that gathers all the interceptor providers into an `httpInterceptorProviders` array, starting with this first one, the `NoopInterceptor`.

@@ -151,7 +151,7 @@ which coordinates DOM object properties with data object properties.
 Sometimes refers to a [dependency-injection](#dependency-injection) binding
 between a [token](#token) and a dependency [provider](#provider).
 
-有时也会指在“[令牌（Token）](#token)”和依赖[提供商（Provider）](#provider)
+有时也会指在“[令牌（Token）](#token)”和依赖[提供者（Provider）](#provider)
 之间的[依赖注入](#dependency-injection) 绑定。
 
 {@a bootstrap}
@@ -531,7 +531,7 @@ A design pattern and mechanism for creating and delivering some parts of an appl
 In Angular, dependencies are typically services, but they also can be values, such as strings or functions.
 An [injector](#injector) for an app (created automatically during bootstrap) instantiates dependencies when needed, using a configured [provider](#provider) of the service or value.
 
-在 Angular 中，依赖通常是服务，但是也可以是值，比如字符串或函数。应用的[注入器](#injector)（它是在启动期间自动创建的）会使用该服务或值的配置好的[提供商](#provider)来按需实例化这些依赖。各个不同的提供商可以为同一个服务提供不同的实现。
+在 Angular 中，依赖通常是服务，但是也可以是值，比如字符串或函数。应用的[注入器](#injector)（它是在启动期间自动创建的）会使用该服务或值的配置好的[提供者](#provider)来按需实例化这些依赖。各个不同的提供者可以为同一个服务提供不同的实现。
 
 Learn more in [Dependency Injection in Angular](guide/dependency-injection).
 
@@ -545,7 +545,7 @@ Learn more in [Dependency Injection in Angular](guide/dependency-injection).
 
 A lookup token associated with a dependency [provider](#provider), for use with the [dependency injection](#di) system.
 
-一种用来查阅的令牌，它关联到一个依赖[提供商](#provider)，用于[依赖注入](#di)系统中。
+一种用来查阅的令牌，它关联到一个依赖[提供者](#provider)，用于[依赖注入](#di)系统中。
 {@a differential-loading}
 
 ## differential loading
@@ -784,7 +784,7 @@ using a configured [provider](#provider).
 Injectors are created for NgModules automatically as part of the bootstrap process
 and are inherited through the component hierarchy.
 
-Angular [依赖注入系统](#dependency-injection)中可以在缓存中根据名字查找依赖，也可以通过配置过的[提供商](#provider)来创建依赖。
+Angular [依赖注入系统](#dependency-injection)中可以在缓存中根据名字查找依赖，也可以通过配置过的[提供者](#provider)来创建依赖。
 启动过程中会自动为每个模块创建一个注入器，并被组件树继承。
 
 
@@ -798,7 +798,7 @@ Angular [依赖注入系统](#dependency-injection)中可以在缓存中根据�
 
 * You can configure injectors with different providers that can provide different implementations of the same dependency.
 
-   你可以为同一个依赖使用不同的提供商来配置这些注入器，这些提供商可以为同一个依赖提供不同的实现。
+   你可以为同一个依赖使用不同的提供者来配置这些注入器，这些提供者可以为同一个依赖提供不同的实现。
 
 Learn more about the injector hierarchy in [Hierarchical Dependency Injectors](guide/hierarchical-dependency-injection).
 
@@ -1202,19 +1202,19 @@ The [`angular.json`](guide/workspace-config) file configures all projects in a [
 
 ## provider
 
-## 提供商 (provider)
+## 提供者 (provider)
 
 An object that implements one of the [`Provider`](api/core/Provider) interfaces. A provider object defines how to obtain an injectable dependency associated with a [DI token](#token).
 An [injector](#injector) uses the provider to create a new instance of a dependency
 for a class that requires it.
 
-一个实现了 [`Provider`](api/core/Provider) 接口的对象。一个提供商对象定义了如何获取与 [DI 令牌（token）](#token) 相关联的可注入依赖。
-[注入器](#injector)会使用这个提供商来创建它所依赖的那些类的实例。
+一个实现了 [`Provider`](api/core/Provider) 接口的对象。一个提供者对象定义了如何获取与 [DI 令牌（token）](#token) 相关联的可注入依赖。
+[注入器](#injector)会使用这个提供者来创建它所依赖的那些类的实例。
 
 Angular registers its own providers with every injector, for services that Angular defines.
 You can register your own providers for services that your app needs.
 
-Angular 会为每个注入器注册一些 Angular 自己的服务。你也可以注册应用自己所需的服务提供商。
+Angular 会为每个注入器注册一些 Angular 自己的服务。你也可以注册应用自己所需的服务提供者。
 
 See also [service](#service), [dependency injection](#di).
 
@@ -1281,7 +1281,7 @@ A tool that configures and implements navigation among states and [views](#view)
 
 The `Router` module is an [NgModule](#ngmodule) that provides the necessary service providers and directives for navigating through application views. A [routing component](#routing-component) is one that imports the `Router` module and whose template contains a `RouterOutlet` element where it can display views produced by the router.
 
-`Router` 模块是一个 [NgModule](#ngmodule)，它提供在应用视图间导航时需要的服务提供商和指令。[路由组件](#routing-component)是一种组件，它导入了 `Router` 模块，并且其模板中包含 `RouterOutlet` 元素，路由器生成的视图就会被显示在那里。
+`Router` 模块是一个 [NgModule](#ngmodule)，它提供在应用视图间导航时需要的服务提供者和指令。[路由组件](#routing-component)是一种组件，它导入了 `Router` 模块，并且其模板中包含 `RouterOutlet` 元素，路由器生成的视图就会被显示在那里。
 
 The router defines navigation among views on a single page, as opposed to navigation among pages. It interprets URL-like links to determine which views to create or destroy, and which components to load or unload. It allows you to take advantage of [lazy loading](#lazy-load) in your Angular apps.
 
@@ -1430,8 +1430,8 @@ The `@Injectable()` metadata allows the service class to be used with the [depen
 The injectable class is instantiated by a [provider](#provider).
 [Injectors](#injector) maintain lists of providers and use them to provide service instances when they are required by components or other services.
 
-`@Injectable` 元数据让服务类能用于[依赖注入](#di)机制中。可注入的类是用[提供商](#provider)进行实例化的。
-[各个注入器](#injector)会维护一个提供商的列表，并根据组件或其它服务的需要，用它们来提供服务的实例。
+`@Injectable` 元数据让服务类能用于[依赖注入](#di)机制中。可注入的类是用[提供者](#provider)进行实例化的。
+[各个注入器](#injector)会维护一个提供者的列表，并根据组件或其它服务的需要，用它们来提供服务的实例。
 
 To learn more, see [Introduction to Services and Dependency Injection](guide/architecture-services).
 
@@ -1592,7 +1592,7 @@ Read about how to write template expressions in  [Template expressions](guide/te
 
 An opaque identifier used for efficient table lookup. In Angular, a [DI token](#di-token) is used to find [providers](#provider) of dependencies in the [dependency injection](#di) system.
 
-用于高效查表的不透明标识符（译注：不透明是指你不必了解其细节）。在 Angular 中，[DI 令牌](#di-token)用于在[依赖注入](#di)系统中查找[服务提供商](#provider)。
+用于高效查表的不透明标识符（译注：不透明是指你不必了解其细节）。在 Angular 中，[DI 令牌](#di-token)用于在[依赖注入](#di)系统中查找[服务提供者](#provider)。
 
 {@a transpile}
 

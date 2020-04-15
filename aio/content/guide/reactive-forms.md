@@ -439,7 +439,7 @@ Import the `FormBuilder` class from the `@angular/forms` package.
 
 The `FormBuilder` service is an injectable provider that is provided with the reactive forms module. Inject this dependency by adding it to the component constructor.
 
-`FormBuilder` 是一个可注入的服务提供商，它是由 `ReactiveFormModule` 提供的。只要把它添加到组件的构造函数中就可以注入这个依赖。
+`FormBuilder` 是一个可注入的服务提供者，它是由 `ReactiveFormModule` 提供的。只要把它添加到组件的构造函数中就可以注入这个依赖。
 
 <code-example path="reactive-forms/src/app/profile-editor/profile-editor.component.2.ts" region="inject-form-builder" header="src/app/profile-editor/profile-editor.component.ts (constructor)">
 

@@ -176,7 +176,7 @@ You can find a parent component with a [class interface](guide/dependency-inject
 
 The parent must cooperate by providing an *alias* to itself in the name of a class interface token.
 
-该父组件必须合作，以类接口令牌为名，为自己定义一个*别名提供商*。
+该父组件必须合作，以类接口令牌为名，为自己定义一个*别名提供者*。
 
 Recall that Angular always adds a component instance to its own injector;
 that's why you could inject *Alex* into *Cathy* [earlier](#known-parent).
@@ -187,7 +187,7 @@ Write an [*alias provider*](guide/dependency-injection-in-action#useexisting)&md
 definition&mdash;that creates an *alternative* way to inject the same component instance
 and add that provider to the `providers` array of the `@Component()` metadata for the `AlexComponent`.
 
-编写一个 [*别名提供商*](guide/dependency-injection-in-action#useexisting)（一个 `provide` 对象字面量，其中有一个 `useExisting` 定义），创造了另一种方式来注入同一个组件实例，并把那个提供商添加到 `AlexComponent` `@Component()` 元数据的 `providers` 数组中。
+编写一个 [*别名提供者*](guide/dependency-injection-in-action#useexisting)（一个 `provide` 对象字面量，其中有一个 `useExisting` 定义），创造了另一种方式来注入同一个组件实例，并把那个提供者添加到 `AlexComponent` `@Component()` 元数据的 `providers` 数组中。
 
 {@a alex-providers}
 
@@ -198,7 +198,7 @@ and add that provider to the `providers` array of the `@Component()` metadata fo
 [Parent](#parent-token) is the provider's class interface token.
 The [*forwardRef*](guide/dependency-injection-in-action#forwardref) breaks the circular reference you just created by having the `AlexComponent` refer to itself.
 
-[Parent](#parent-token) 是该提供商的类接口。
+[Parent](#parent-token) 是该提供者的类接口。
 [*forwardRef*](guide/dependency-injection-in-action#forwardref) 用于打破循环引用，因为在你刚才这个定义中 `AlexComponent` 引用了自身。
 
 *Carol*, the third of *Alex*'s child components, injects the parent into its `parent` parameter,
@@ -252,7 +252,7 @@ Here's *Barry*.
 If you're going to keep writing [*alias providers*](guide/dependency-injection-in-action#useexisting) like this you should create a [helper function](#provideparent).
 
 *Barry* 的 `providers` 数组看起来和 [*Alex*](#alex-providers) 的一样。
-如果你准备继续像这样编写[*别名提供商*](guide/dependency-injection-in-action#useexisting)，就应该创建一个[辅助函数](#provideparent)。
+如果你准备继续像这样编写[*别名提供者*](guide/dependency-injection-in-action#useexisting)，就应该创建一个[辅助函数](#provideparent)。
 
 For now, focus on *Barry*'s constructor.
 
@@ -368,7 +368,7 @@ It doesn't in this example *only* to demonstrate that the code will compile and 
 Writing variations of the same parent *alias provider* gets old quickly,
 especially this awful mouthful with a [*forwardRef*](guide/dependency-injection-in-action#forwardref).
 
-你很快就会厌倦为同一个父组件编写*别名提供商*的变体形式，特别是带有 [*forwardRef*](guide/dependency-injection-in-action#forwardref) 的那种。
+你很快就会厌倦为同一个父组件编写*别名提供者*的变体形式，特别是带有 [*forwardRef*](guide/dependency-injection-in-action#forwardref) 的那种。
 
 <code-example path="dependency-injection-in-action/src/app/parent-finder.component.ts" region="alex-providers" header="dependency-injection-in-action/src/app/parent-finder.component.ts"></code-example>
 
@@ -380,7 +380,7 @@ You can extract that logic into a helper function like the following.
 
 Now you can add a simpler, more meaningful parent provider to your components.
 
-现在，你可以为组件添加一个更简单、更有意义的父组件提供商。
+现在，你可以为组件添加一个更简单、更有意义的父组件提供者。
 
 <code-example path="dependency-injection-in-action/src/app/parent-finder.component.ts" region="alice-providers" header="dependency-injection-in-action/src/app/parent-finder.component.ts"></code-example>
 

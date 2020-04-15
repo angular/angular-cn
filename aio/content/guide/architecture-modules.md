@@ -7,7 +7,7 @@ NgModules are containers for a cohesive block of code dedicated to an applicatio
 
 Angular 应用是模块化的，它拥有自己的模块化系统，称作 *NgModule*。
 一个 NgModule 就是一个容器，用于存放一些内聚的代码块，这些代码块专注于某个应用领域、某个工作流或一组紧密相关的功能。
-它可以包含一些组件、服务提供商或其它代码文件，其作用域由包含它们的 NgModule 定义。
+它可以包含一些组件、服务提供者或其它代码文件，其作用域由包含它们的 NgModule 定义。
 它还可以导入一些由其它模块中导出的功能，并导出一些指定的功能供其它 NgModule 使用。
 
 Every Angular app has at least one NgModule class, [the *root module*](guide/bootstrapping), which is conventionally named `AppModule` and resides in a file named `app.module.ts`. You launch your app by *bootstrapping* the root NgModule.
@@ -41,7 +41,7 @@ NgModule 是一个带有 `@NgModule()` 装饰器的类。`@NgModule()` 装饰器
 * `providers`: Creators of [services](guide/architecture-services) that this NgModule contributes to the global collection of services; they become accessible in all parts of the app. (You can also specify providers at the component level, which is often preferred.)
 
    `providers` —— 本模块向全局服务中贡献的那些[服务](guide/architecture-services)的创建器。
-  这些服务能被本应用中的任何部分使用。（你也可以在组件级别指定服务提供商，这通常是首选方式。）
+  这些服务能被本应用中的任何部分使用。（你也可以在组件级别指定服务提供者，这通常是首选方式。）
 
 * `bootstrap`: The main application view, called the *root component*, which hosts all other app views. Only the *root NgModule* should set the `bootstrap` property.
 

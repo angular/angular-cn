@@ -415,7 +415,7 @@ Before you can use Angular's HTTP client, you must configure your app to use `Ht
 
 Angular's `HttpClientModule` registers the providers your app needs to use a single instance of the `HttpClient` service throughout your app.
 
-Angular 的 `HttpClientModule` 中注册了在整个应用中使用 `HttpClient` 服务的单个实例所需的服务提供商。
+Angular 的 `HttpClientModule` 中注册了在整个应用中使用 `HttpClient` 服务的单个实例所需的服务提供者。
 
 1. Open `app.module.ts`.
 

@@ -1006,7 +1006,7 @@ Later you'll call `TestBed.configureTestingModule()` with
 imports, providers, and more declarations to suit your testing needs.
 Optional `override` methods can further fine-tune aspects of the configuration.
 
-稍后你将会调用带有导入模块、服务提供商和更多可声明对象的 `TestBed.configureTestingModule()` 来满足测试所需。
+稍后你将会调用带有导入模块、服务提供者和更多可声明对象的 `TestBed.configureTestingModule()` 来满足测试所需。
 将来还可以用可选的 `override` 方法对这些配置进行微调。
 
 </div>
@@ -1414,7 +1414,7 @@ Some testers prefer that the Angular test environment run change detection autom
 That's possible by configuring the `TestBed` with the `ComponentFixtureAutoDetect` provider.
 First import it from the testing utility library:
 
-使用 `ComponentFixtureAutoDetect` 服务提供商来配置 `TestBed` 就可以做到这一点。
+使用 `ComponentFixtureAutoDetect` 服务提供者来配置 `TestBed` 就可以做到这一点。
 首先从测试工具库中导入它：
 
 <code-example path="testing/src/app/banner/banner.component.detect-changes.spec.ts" region="import-ComponentFixtureAutoDetect" header="app/banner/banner.component.detect-changes.spec.ts (import)"></code-example>
@@ -1651,7 +1651,7 @@ But it only works when Angular injects the component with the service instance i
 In this test suite, the _only_ provider of `UserService` is the root testing module,
 so it is safe to call `TestBed.inject()` as follows:
 
-在这个测试套件中，`UserService` *唯一*的提供商就是根测试模块中的，因此调用 `TestBed.inject()` 就是安全的，代码如下：
+在这个测试套件中，`UserService` *唯一*的提供者就是根测试模块中的，因此调用 `TestBed.inject()` 就是安全的，代码如下：
 
 <code-example
   path="testing/src/app/welcome/welcome.component.spec.ts"
@@ -1665,7 +1665,7 @@ For a use case in which `TestBed.inject()` does not work,
 see the [_Override component providers_](#component-override) section that
 explains when and why you must get the service from the component's injector instead.
 
-对于那些不能用 `TestBed.inject()` 的测试用例，请参见[改写组件的提供商](#component-override)一节，那里解释了何时以及为何必须改从组件自身的注入器中获取服务。
+对于那些不能用 `TestBed.inject()` 的测试用例，请参见[改写组件的提供者](#component-override)一节，那里解释了何时以及为何必须改从组件自身的注入器中获取服务。
 
 </div>
 
@@ -3788,7 +3788,7 @@ But more complex components often depend on other components, directives, pipes,
 and these must be added to the testing module too.
 
 `DashbaordComponent` 非常简单。它不需要帮助。
-但是更加复杂的组件通常依赖其它组件、指令、管道和提供商，
+但是更加复杂的组件通常依赖其它组件、指令、管道和提供者，
 所以这些必须也被添加到测试模块中。
 
 Fortunately, the `TestBed.configureTestingModule` parameter parallels
@@ -3906,7 +3906,7 @@ the module is small, as feature modules tend to be.
 
 ### Override component providers
 
-### 改写组件的服务提供商
+### 改写组件的服务提供者
 
 The `HeroDetailComponent` provides its own `HeroDetailService`.
 
@@ -3918,13 +3918,13 @@ It's not possible to stub the component's `HeroDetailService` in the `providers`
 Those are providers for the _testing module_, not the component. They prepare the dependency injector at the _fixture level_.
 
 在 `TestBed.configureTestingModule` 的 `providers` 中 stub 伪造组件的 `HeroDetailService` 是不可行的。
-这些是**测试模块**的提供商，而非组件的。组件级别的供应商应该在**fixture 级别**准备的依赖注入器。
+这些是**测试模块**的提供者，而非组件的。组件级别的供应商应该在**fixture 级别**准备的依赖注入器。
 
 Angular creates the component with its _own_ injector, which is a _child_ of the fixture injector.
 It registers the component's providers (the `HeroDetailService` in this case) with the child injector.
 
 Angular 会使用自己的注入器来创建这些组件，这个注入器是夹具的注入器的子注入器。
-它使用这个子注入器注册了该组件服务提供商（这里是 `HeroDetailService` ）。
+它使用这个子注入器注册了该组件服务提供者（这里是 `HeroDetailService` ）。
 
 A test cannot get to child injector services from the fixture injector.
 And `TestBed.configureTestingModule` can't configure them either.
@@ -4487,7 +4487,7 @@ Here's a summary of the stand-alone functions, in order of likely utility:
 
       A provider token for a service that turns on [automatic change detection](#automatic-change-detection).
 
-      一个服务提供商令牌，用于开启[自动变更检测](#automatic-change-detection)。
+      一个服务提供者令牌，用于开启[自动变更检测](#automatic-change-detection)。
 
     </td>
 
@@ -4625,7 +4625,7 @@ Here are the most important static methods, in order of likely utility.
       Call `configureTestingModule` to refine the testing module configuration for a particular set of tests
       by adding and removing imports, declarations (of components, directives, and pipes), and providers.
 
-      调用 `configureTestingModule` 来为一套特定的测试定义测试模块配置，添加和删除导入、（组件、指令和管道的）声明和服务提供商。
+      调用 `configureTestingModule` 来为一套特定的测试定义测试模块配置，添加和删除导入、（组件、指令和管道的）声明和服务提供者。
     </td>
 
   </tr>
@@ -4783,7 +4783,7 @@ Here are the most important static methods, in order of likely utility.
       the object to return if Angular can't find the provider
       (`null` in this example):
 
-      `TestBed.inject()` 方法可以接受可选的第二参数，当 Angular 找不到指定的服务提供商时，就会返回该对象（下面这个例子中是 `null` ）：
+      `TestBed.inject()` 方法可以接受可选的第二参数，当 Angular 找不到指定的服务提供者时，就会返回该对象（下面这个例子中是 `null` ）：
 
       <code-example path="testing/src/app/demo/demo.testbed.spec.ts" region="testbed-get-w-null" header="app/demo/demo.testbed.spec.ts"></code-example>
 

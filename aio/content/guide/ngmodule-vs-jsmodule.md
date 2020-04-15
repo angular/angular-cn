@@ -98,7 +98,7 @@ it owns or imports from other modules. It doesn't declare or export any other ki
 * Unlike JavaScript modules, an NgModule can extend the _entire_ application with services
 by adding providers to the `@NgModule.providers` list.
 
-   与 JavaScript 模块不同，NgModule 可以通过把服务提供商加到 `@NgModule.providers` 列表中，来用服务扩展*整个*应用。
+   与 JavaScript 模块不同，NgModule 可以通过把服务提供者加到 `@NgModule.providers` 列表中，来用服务扩展*整个*应用。
 
 <hr />
 
@@ -120,4 +120,4 @@ For more information on NgModules, see:
 
 * [Providers](guide/providers).
 
-   [服务提供商](guide/providers)。
+   [服务提供者](guide/providers)。

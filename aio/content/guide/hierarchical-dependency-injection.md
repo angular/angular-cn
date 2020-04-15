@@ -8,7 +8,7 @@ achieve the desired visibility of injectables in your apps.
 By understanding these rules, you can determine in which
 NgModule, Component or Directive you should declare a provider.
 
-Angular 中的注入器有一些规则，您可以利用这些规则来在应用程序中获得所需的可注入对象可见性。通过了解这些规则，可以确定应在哪个 NgModule、组件或指令中声明服务提供商。
+Angular 中的注入器有一些规则，您可以利用这些规则来在应用程序中获得所需的可注入对象可见性。通过了解这些规则，可以确定应在哪个 NgModule、组件或指令中声明服务提供者。
 
 
 ## Two injector hierarchies
@@ -75,7 +75,7 @@ a need to inject it. Read more
 about [tree-shakable providers](guide/dependency-injection-providers#tree-shakable-providers)
 in [DI Providers](guide/dependency-injection-providers).
 
-摇树优化对于库特别有用，因为使用该库的应用程序不需要注入它。在 [DI 提供商中](guide/dependency-injection-providers)了解有关[可摇树优化的提供商](guide/dependency-injection-providers#tree-shakable-providers)的更多信息。
+摇树优化对于库特别有用，因为使用该库的应用程序不需要注入它。在 [DI 提供者中](guide/dependency-injection-providers)了解有关[可摇树优化的提供者](guide/dependency-injection-providers#tree-shakable-providers)的更多信息。
 
 
 </div>
@@ -155,7 +155,7 @@ many apps you have running.
 You can configure additional platform-specific providers at the
 platform level by supplying `extraProviders` using the `platformBrowser()` function.
 
-`platformBrowserDynamic()` 方法创建一个由 `PlatformModule` 配置的注入器，该注入器包含特定平台的依赖项。这允许多个应用共享同一套平台配置。例如，无论您运行多少个应用程序，浏览器都只有一个 URL 栏。您可以使用 `platformBrowser()` 函数提供 `extraProviders`，从而在平台级别配置特定平台的额外提供商。
+`platformBrowserDynamic()` 方法创建一个由 `PlatformModule` 配置的注入器，该注入器包含特定平台的依赖项。这允许多个应用共享同一套平台配置。例如，无论您运行多少个应用程序，浏览器都只有一个 URL 栏。您可以使用 `platformBrowser()` 函数提供 `extraProviders`，从而在平台级别配置特定平台的额外提供者。
 
 
 The next parent injector in the hierarchy is the `NullInjector()`,
@@ -194,7 +194,7 @@ All requests forward up to the root injector, whether you configured it
 with the `bootstrapModule()` method, or registered all providers
 with `root` in their own services.
 
-无论是使用 `bootstrapModule()` 的方法配置它，还是将所有提供商都用 `root` 注册到其自己的服务中，所有请求最终都会转发到 `root` 注入器。
+无论是使用 `bootstrapModule()` 的方法配置它，还是将所有提供者都用 `root` 注册到其自己的服务中，所有请求最终都会转发到 `root` 注入器。
 
 
 <div class="alert is-helpful">
@@ -206,7 +206,7 @@ If you configure an app-wide provider in the `@NgModule()` of
 `@Injectable()` metadata. You can do this to configure a
 non-default provider of a service that is shared with multiple apps.
 
-如果你在 `AppModule` 的 `@NgModule()` 中配置应用级提供商，它就会覆盖一个在 `@Injectable()` 的 `root` 元数据中配置的提供商。您可以用这种方式，来配置供多个应用共享的服务的非默认提供商。
+如果你在 `AppModule` 的 `@NgModule()` 中配置应用级提供者，它就会覆盖一个在 `@Injectable()` 的 `root` 元数据中配置的提供者。您可以用这种方式，来配置供多个应用共享的服务的非默认提供者。
 
 
 Here is an example of the case where the component router
@@ -215,7 +215,7 @@ a non-default [location strategy](guide/router#location-strategy)
 by listing its provider
 in the `providers` list of the `AppModule`.
 
-下面的例子中，通过把 [location 策略](guide/router#location-strategy) 的提供商添加到 `AppModule` 的 `providers` 列表中，为路由器配置了非默认的 [location 策略](guide/router#location-strategy)。
+下面的例子中，通过把 [location 策略](guide/router#location-strategy) 的提供者添加到 `AppModule` 的 `providers` 列表中，为路由器配置了非默认的 [location 策略](guide/router#location-strategy)。
 
 <code-example path="dependency-injection-in-action/src/app/app.module.ts" region="providers" header="src/app/app.module.ts (providers)">
 
@@ -290,7 +290,7 @@ directive.
 Components and directives on the same element share an injector.
 
 组件是一种特殊类型的指令，这意味着 `@Directive()` 具有 `providers` 属性，`@Component()` 也同样如此。
-这意味着指令和组件都可以使用 `providers` 属性来配置提供商。当使用 `providers` 属性为组件或指令配置提供商时，该提供程商就属于该组件或指令的 `ElementInjector`。同一元素上的组件和指令共享同一个注入器。
+这意味着指令和组件都可以使用 `providers` 属性来配置提供者。当使用 `providers` 属性为组件或指令配置提供者时，该提供程商就属于该组件或指令的 `ElementInjector`。同一元素上的组件和指令共享同一个注入器。
 
 
 {@a resolution-rules}
@@ -322,7 +322,7 @@ If the component's injector lacks the provider, it passes the request
 up to its parent component's `ElementInjector`.
 
 当组件声明依赖项时，Angular 会尝试使用它自己的 `ElementInjector` 来满足该依赖。
-如果组件的注入器缺少提供商，它将把请求传给其父组件的 `ElementInjector` 。
+如果组件的注入器缺少提供者，它将把请求传给其父组件的 `ElementInjector` 。
 
 
 The requests keep forwarding up until Angular finds an injector that can
@@ -336,7 +336,7 @@ it goes back to the element where the request originated and looks
 in the `ModuleInjector` hierarchy.
 If Angular still doesn't find the provider, it throws an error.
 
-如果 Angular 在任何 `ElementInjector` 中都找不到提供商，它将返回到发起请求的元素，并在 `ModuleInjector` 层次结构中进行查找。如果 Angular 仍然找不到提供商，它将引发错误。
+如果 Angular 在任何 `ElementInjector` 中都找不到提供者，它将返回到发起请求的元素，并在 `ModuleInjector` 层次结构中进行查找。如果 Angular 仍然找不到提供者，它将引发错误。
 
 
 If you have registered a provider for the same DI token at
@@ -345,7 +345,7 @@ it uses to resolve the dependency. If, for example, a provider
 is registered locally in the component that needs a service,
 Angular doesn't look for another provider of the same service.
 
-如果您已在不同级别注册了相同 DI 令牌的提供商，则 Angular 会用遇到的第一个来解析该依赖。例如，如果提供商已经在需要此服务的组件中本地注册了，则 Angular 不会再寻找同一服务的其他提供商。
+如果您已在不同级别注册了相同 DI 令牌的提供者，则 Angular 会用遇到的第一个来解析该依赖。例如，如果提供者已经在需要此服务的组件中本地注册了，则 Angular 不会再寻找同一服务的其他提供者。
 
 
 ## Resolution modifiers
@@ -453,14 +453,14 @@ with `@Self()` and `@Optional()` will return `null` because
 `@Self()` tells the injector to stop searching in the current
 host element.
 
-在这个例子中，有一个父提供商，注入服务将返回该值，但是，使用 `@Self()` 和 `@Optional()` 注入的服务将返回 `null` 因为 `@Self()` 告诉注入器在当前宿主元素上就要停止搜索。
+在这个例子中，有一个父提供者，注入服务将返回该值，但是，使用 `@Self()` 和 `@Optional()` 注入的服务将返回 `null` 因为 `@Self()` 告诉注入器在当前宿主元素上就要停止搜索。
 
 
 Another example shows the component class with a provider
 for `FlowerService`. In this case, the injector looks no further
 than the current `ElementInjector` because it finds the `FlowerService` and returns the yellow flower 🌼.
 
-另一个示例显示了具有 `FlowerService` 提供商的组件类。在这个例子中，注入器没有超出当前 `ElementInjector` 就停止了，因为它已经找到了 `FlowerService` 并返回了黄色花朵🌼。
+另一个示例显示了具有 `FlowerService` 提供者的组件类。在这个例子中，注入器没有超出当前 `ElementInjector` 就停止了，因为它已经找到了 `FlowerService` 并返回了黄色花朵🌼。
 
 
 <code-example path="resolution-modifiers/src/app/self/self.component.ts" header="resolution-modifiers/src/app/self/self.component.ts" region="self-component">
@@ -519,7 +519,7 @@ class Person {
 
 `@Host()` lets you designate a component as the last stop in the injector tree when searching for providers. Even if there is a service instance further up the tree, Angular won't continue looking. Use `@Host()` as follows:
 
-`@Host()` 使您可以在搜索提供商时将当前组件指定为注入器树的最后一站。即使树的更上级有一个服务实例，Angular 也不会继续寻找。使用 `@Host()` 的例子如下：
+`@Host()` 使您可以在搜索提供者时将当前组件指定为注入器树的最后一站。即使树的更上级有一个服务实例，Angular 也不会继续寻找。使用 `@Host()` 的例子如下：
 
 
 <code-example path="resolution-modifiers/src/app/host/host.component.ts" header="resolution-modifiers/src/app/host/host.component.ts" region="host-component">
@@ -677,7 +677,7 @@ this location in the logical tree its value would be `Value`.
 - `@Provide(Token=Value)` demonstrates that there is a declaration of
 `Token` provider with value `Value` at this location in the logical tree.
 
-  `@Provide(Token=Value)` 表示，在逻辑树中的此位置存在一个值为 `Value` 的 `Token` 提供商的声明。
+  `@Provide(Token=Value)` 表示，在逻辑树中的此位置存在一个值为 `Value` 的 `Token` 提供者的声明。
 
 
 - `@NgModule(Token)` demonstrates that a fallback `NgModule` injector
@@ -856,7 +856,7 @@ injection token can't be found in the `ElementInjector`s.
 Now, in the `ChildComponent` class, add a provider for `FlowerService`
 to demonstrate more complex resolution rules in the upcoming sections:
 
-现在，在 `ChildComponent` 类中，为 `FlowerService` 添加一个提供商，以便在接下来的小节中演示更复杂的解析规则：
+现在，在 `ChildComponent` 类中，为 `FlowerService` 添加一个提供者，以便在接下来的小节中演示更复杂的解析规则：
 
 
 <code-example path="providers-viewproviders/src/app/child/child.component.1.ts" header="providers-viewproviders/src/app/child.component.ts" region="flowerservice">
@@ -1235,7 +1235,7 @@ ending `ElementInjector` using the visibility decorators `@Host()`,
 
 ### Visibility of provided tokens
 
-### 提供商令牌的可见性
+### 提供者令牌的可见性
 
 
 Visibility decorators influence where the search for the injection
@@ -1572,7 +1572,7 @@ The ability to configure one or more providers at different levels
 opens up useful possibilities.
 For a look at the following scenarios in a working app, see the <live-example>heroes use case examples</live-example>.
 
-在不同级别配置一个或多个提供商的能力开辟了很有用的可能性。要查看正在运行的应用中的以下情况，请参阅<live-example>英雄示例</live-example>。
+在不同级别配置一个或多个提供者的能力开辟了很有用的可能性。要查看正在运行的应用中的以下情况，请参阅<live-example>英雄示例</live-example>。
 
 
 ### Scenario: service isolation
@@ -1718,7 +1718,7 @@ The `HeroTaxReturnComponent` has its own provider of the `HeroTaxReturnService`.
 Recall that every component _instance_ has its own injector.
 Providing the service at the component level ensures that _every_ instance of the component gets its own, private instance of the service, and no tax return gets overwritten.
 
-`HeroTaxReturnComponent` 有它自己的 `HeroTaxReturnService` 提供商。
+`HeroTaxReturnComponent` 有它自己的 `HeroTaxReturnService` 提供者。
 回忆一下，每个组件的*实例*都有它自己的注入器。
 在组件级提供服务可以确保组件的*每个*实例都得到一个自己的、私有的服务实例，而报税单也不会再被意外覆盖了。
 
@@ -1734,7 +1734,7 @@ You can review it and download it from the <live-example></live-example>.
 
 ### Scenario: specialized providers
 
-### 场景：专门的提供商
+### 场景：专门的提供者
 
 Another reason to re-provide a service at another level is to substitute a _more specialized_ implementation of that service, deeper in the component tree.
 
@@ -1745,7 +1745,7 @@ Suppose you configured the root injector (marked as A) with _generic_ providers 
 `CarService`, `EngineService` and `TiresService`.
 
 考虑一个依赖于一系列服务的 Car 组件。
-假设你在根注入器（代号 A）中配置了*通用的*提供商：`CarService`、`EngineService` 和 `TiresService`。
+假设你在根注入器（代号 A）中配置了*通用的*提供者：`CarService`、`EngineService` 和 `TiresService`。
 
 You create a car component (A) that displays a car constructed from these three generic services.
 
@@ -1754,11 +1754,11 @@ You create a car component (A) that displays a car constructed from these three 
 Then you create a child component (B) that defines its own, _specialized_ providers for `CarService` and `EngineService`
 that have special capabilities suitable for whatever is going on in component (B).
 
-然后，你创建一个子组件（B），它为 `CarService` 和 `EngineService` 定义了自己*特有的*提供商，它们具有适用于组件 B 的特有能力。
+然后，你创建一个子组件（B），它为 `CarService` 和 `EngineService` 定义了自己*特有的*提供者，它们具有适用于组件 B 的特有能力。
 
 Component (B) is the parent of another component (C) that defines its own, even _more specialized_ provider for `CarService`.
 
-组件 B 是另一个组件 C 的父组件，而组件 C 又定义了自己的，*更特殊的*`CarService` 提供商。
+组件 B 是另一个组件 C 的父组件，而组件 C 又定义了自己的，*更特殊的*`CarService` 提供者。
 
 <div class="lightbox">
 
@@ -1768,7 +1768,7 @@ Component (B) is the parent of another component (C) that defines its own, even 
 
 Behind the scenes, each component sets up its own injector with zero, one, or more providers defined for that component itself.
 
-在幕后，每个组件都有自己的注入器，这个注入器带有为组件本身准备的 0 个、1 个或多个提供商。
+在幕后，每个组件都有自己的注入器，这个注入器带有为组件本身准备的 0 个、1 个或多个提供者。
 
 When you resolve an instance of `Car` at the deepest component (C),
 its injector produces an instance of `Car` resolved by injector (C) with an `Engine` resolved by injector (B) and
@@ -1790,4 +1790,4 @@ its injector produces an instance of `Car` resolved by injector (C) with an `Eng
 
 For more information on Angular dependency injection, see the [DI Providers](guide/dependency-injection-providers) and [DI in Action](guide/dependency-injection-in-action) guides.
 
-要了解关于 Angular 依赖注入的更多信息，参见 [DI 提供商](guide/dependency-injection-providers)和 [DI 实战](guide/dependency-injection-in-action) 两章。
+要了解关于 Angular 依赖注入的更多信息，参见 [DI 提供者](guide/dependency-injection-providers)和 [DI 实战](guide/dependency-injection-in-action) 两章。

@@ -77,7 +77,7 @@ The `@NgModule` decorator identifies `AppModule` as an `NgModule` class.
 
 * **_providers_**&mdash;the service providers.
 
-   **_providers_** —— 各种服务提供商。
+   **_providers_** —— 各种服务提供者。
 
 * **_bootstrap_**&mdash;the _root_ component that Angular creates and inserts
 into the `index.html` host web page.
@@ -235,7 +235,7 @@ them when using feature modules and lazy loading. For more information, see
 [Providers](guide/providers).
 
 `providers` 数组中列出了该应用所需的服务。当直接把服务列在这里时，它们是全应用范围的。
-当你使用特性模块和惰性加载时，它们是范围化的。要了解更多，参见[服务提供商](guide/providers)。
+当你使用特性模块和惰性加载时，它们是范围化的。要了解更多，参见[服务提供者](guide/providers)。
 
 ## The `bootstrap` array
 

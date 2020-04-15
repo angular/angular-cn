@@ -115,7 +115,7 @@ To incorporate the feature module into your app, you have to let the root module
 
 Now the `AppModule` knows about the feature module. If you were to add any service providers to the feature module, `AppModule` would know about those too, as would any other feature modules. However, NgModules don’t expose their components.
 
-现在 `AppModule` 知道这个特性模块了。如果你往该特性模块中加入过任何服务提供商，`AppModule` 也同样会知道它，其它模块中也一样。不过，NgModule 并不会暴露出它们的组件。
+现在 `AppModule` 知道这个特性模块了。如果你往该特性模块中加入过任何服务提供者，`AppModule` 也同样会知道它，其它模块中也一样。不过，NgModule 并不会暴露出它们的组件。
 
 ## Rendering a feature module’s component template
 
@@ -164,7 +164,7 @@ You may also be interested in the following:
 
 * [Providers](guide/providers).
 
-   [服务提供商](guide/providers)。
+   [服务提供者](guide/providers)。
 
 * [Types of Feature Modules](guide/module-types).
 

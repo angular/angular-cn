@@ -74,7 +74,7 @@ Use the `RouterModule.forRoot` method to define a set of routes. Also, import th
 
 **Note:** Use the `RouterModule.forRoot` method in the root module, `AppModule`, to register top-level application routes and providers. For feature modules, call the `RouterModule.forChild` method to register additional routes.
 
-**注意：**在根模块 `AppModule` 中使用 `RouterModule.forRoot` 方法来注册一些顶层应用路由和提供商。对于特性模块，调用 `RouterModule.forChild` 方法来注册其它路由。
+**注意：**在根模块 `AppModule` 中使用 `RouterModule.forRoot` 方法来注册一些顶层应用路由和提供者。对于特性模块，调用 `RouterModule.forChild` 方法来注册其它路由。
 
 </div>
 

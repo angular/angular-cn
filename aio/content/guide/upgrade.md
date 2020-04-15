@@ -716,7 +716,7 @@ It also imports `UpgradeModule` from `@angular/upgrade/static`, which exports pr
 for upgrading and downgrading services and components.
 
 最小化的 `NgModule` 导入了 `BrowserModule`，它是每个基于浏览器的 Angular 应用必备的。
-它还从 `@angular/upgrade/static` 中导入了 `UpgradeModule`，它导出了一些服务提供商，这些提供商会用于升级、降级服务和组件。
+它还从 `@angular/upgrade/static` 中导入了 `UpgradeModule`，它导出了一些服务提供者，这些提供者会用于升级、降级服务和组件。
 
 In the constructor of the `AppModule`, use dependency injection to get a hold of the `UpgradeModule` instance,
 and use it to bootstrap the AngularJS app in the `AppModule.ngDoBootstrap` method.
@@ -1193,7 +1193,7 @@ In these situations, it is possible to *upgrade* an AngularJS provider to
 Angular. This makes it possible to then inject it somewhere in Angular
 code. For example, you might have a service called `HeroesService` in AngularJS:
 
-在这些情况下，把一个 AngularJS 提供商*升级到*Angular 也是有可能的。这就让它将来有可能被注入到 Angular 代码中的某些地方。
+在这些情况下，把一个 AngularJS 提供者*升级到*Angular 也是有可能的。这就让它将来有可能被注入到 Angular 代码中的某些地方。
 比如，你可能在 AngularJS 中有一个名叫 `HeroesService` 的服务：
 
 <code-example path="upgrade-module/src/app/ajs-to-a-providers/heroes.service.ts" header="heroes.service.ts">
@@ -1202,14 +1202,14 @@ code. For example, you might have a service called `HeroesService` in AngularJS:
 You can upgrade the service using a Angular [factory provider](guide/dependency-injection-providers#factory-providers)
 that requests the service from the AngularJS `$injector`.
 
-你可以用 Angular 的[工厂提供商](guide/dependency-injection-providers#factory-providers)升级该服务，
+你可以用 Angular 的[工厂提供者](guide/dependency-injection-providers#factory-providers)升级该服务，
 它从 AngularJS 的 `$injector` 请求服务。
 
 Many developers prefer to declare the factory provider in a separate `ajs-upgraded-providers.ts` file
 so that they are all together, making it easier to reference them, create new ones and
 delete them once the upgrade is over.
 
-很多开发者都喜欢在一个独立的 `ajs-upgraded-providers.ts` 中声明这个工厂提供商，以便把它们都放在一起，这样便于引用、创建新的以及在升级完毕时删除它们。
+很多开发者都喜欢在一个独立的 `ajs-upgraded-providers.ts` 中声明这个工厂提供者，以便把它们都放在一起，这样便于引用、创建新的以及在升级完毕时删除它们。
 
 It's also recommended to export the `heroesServiceFactory` function so that Ahead-of-Time
 compilation can pick it up.
@@ -1254,7 +1254,7 @@ provider can be upgraded.
 
 在这个例子中，你升级了服务类。当注入它时，你可以使用 TypeScript 类型注解来获得这些额外的好处。
 它没有影响该依赖的处理过程，同时还得到了启用静态类型检查的好处。
-任何 AngularJS 中的服务、工厂和提供商都能被升级 —— 尽管这不是必须的。
+任何 AngularJS 中的服务、工厂和提供者都能被升级 —— 尽管这不是必须的。
 
 </div>
 
@@ -1279,7 +1279,7 @@ For example, you might have an Angular service called `Heroes`:
 
 Again, as with Angular components, register the provider with the `NgModule` by adding it to the module's `providers` list.
 
-仿照 Angular 组件，把该提供商加入 `NgModule` 的 `providers` 列表中，以注册它。
+仿照 Angular 组件，把该提供者加入 `NgModule` 的 `providers` 列表中，以注册它。
 
 <code-example path="upgrade-module/src/app/a-to-ajs-providers/app.module.ts" region="ngmodule" header="app.module.ts">
 </code-example>
@@ -1506,12 +1506,12 @@ LocationUpgradeModule.config({
 
 This registers a drop-in replacement for the `$location` provider in AngularJS. Once registered, all navigation, routing broadcast messages, and any necessary digest cycles in AngularJS triggered during navigation are handled by Angular. This gives you a single way to navigate within both sides of your hybrid application consistently.
 
-这会为 AngularJS 中的 `$location` 提供商注册一个替代品。一旦注册成功，导航过程中所有由 AngularJS 触发的导航、路由广播消息以及任何必需的变更检测周期都会改由 Angular 进行处理。这样，你就可以通过这个唯一的途径在此混合应用的两个框架间进行导航了。
+这会为 AngularJS 中的 `$location` 提供者注册一个替代品。一旦注册成功，导航过程中所有由 AngularJS 触发的导航、路由广播消息以及任何必需的变更检测周期都会改由 Angular 进行处理。这样，你就可以通过这个唯一的途径在此混合应用的两个框架间进行导航了。
 
 
 For usage of the `$location` service as a provider in AngularJS, you need to downgrade the `$locationShim` using a factory provider.
 
-要想在 AngularJS 中使用 `$location` 服务作为提供商，你需要使用一个工厂提供商来降级 `$locationShim`。
+要想在 AngularJS 中使用 `$location` 服务作为提供者，你需要使用一个工厂提供者来降级 `$locationShim`。
 
 
 ```ts
@@ -2583,8 +2583,8 @@ to make `$routeParams` an Angular injectable.
 Do that in a new file called `ajs-upgraded-providers.ts` and import it in `app.module.ts`:
 
 不幸的是，AngularJS 的依赖不会自动在 Angular 的组件中可用。
-你必须使用[工厂提供商（factory provider）](guide/upgrade#making-angularjs-dependencies-injectable-to-angular)
-来把 `$routeParams` 包装成 Angular 的服务提供商。
+你必须使用[工厂提供者（factory provider）](guide/upgrade#making-angularjs-dependencies-injectable-to-angular)
+来把 `$routeParams` 包装成 Angular 的服务提供者。
 新建一个名叫 `ajs-upgraded-providers.ts` 的文件，并且在 `app.module.ts` 中导入它：
 
 <code-example path="upgrade-phonecat-2-hybrid/app/ajs-upgraded-providers.ts" header="app/ajs-upgraded-providers.ts">
@@ -2807,7 +2807,7 @@ It passes the `routes` to the `RouterModule.forRoot` method which does the rest.
 A couple of extra providers enable routing with "hash" URLs such as `#!/phones`
 instead of the default "push state" strategy.
 
-一些额外的提供商让路由器使用“hash”策略解析 URL，比如 `#!/phones`，而不是默认的“Push State”策略。
+一些额外的提供者让路由器使用“hash”策略解析 URL，比如 `#!/phones`，而不是默认的“Push State”策略。
 
 Now update the `AppModule` to import this `AppRoutingModule` and also the
 declare the root `AppComponent` as the bootstrap component.

@@ -344,8 +344,8 @@
             },
             {
               "url": "guide/providers",
-              "title": "服务提供商",
-              "tooltip": "服务提供商与 NgModule"
+              "title": "服务提供者",
+              "tooltip": "服务提供者与 NgModule"
             },
             {
               "url": "guide/singleton-services",
@@ -390,8 +390,8 @@
             },
             {
               "url": "guide/dependency-injection-providers",
-              "title": "DI 提供商",
-              "tooltip": "各种提供商类型的更多知识。"
+              "title": "DI 提供者",
+              "tooltip": "各种提供者类型的更多知识。"
             },
             {
               "url": "guide/dependency-injection-in-action",

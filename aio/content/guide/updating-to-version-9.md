@@ -183,7 +183,7 @@ Read about the migrations the CLI handles for you automatically:
 
 - [Migrating missing `@Injectable()` decorators and incomplete provider definitions](guide/migration-injectable)
 
-  [迁移缺失的 `@Injectable()` 装饰器和不完整的服务提供商定义](guide/migration-injectable)
+  [迁移缺失的 `@Injectable()` 装饰器和不完整的服务提供者定义](guide/migration-injectable)
 
 - [Migrating dynamic queries](guide/migration-dynamic-flag)
 

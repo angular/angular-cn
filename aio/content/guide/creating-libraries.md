@@ -70,7 +70,7 @@ This builder, among other things, ensures that the library is always built with 
 
 To make library code reusable you must define a public API for it. This "user layer" defines what is available to consumers of your library. A user of your library should be able to access public functionality (such as NgModules, service providers and general utility functions) through a single import path.
 
-要让库代码可以复用，你必须为它定义一个公共的 API。这个“用户层”定义了库中消费者的可用内容。该库的用户应该可以通过单个的导入路径来访问公共功能（如NgModules、服务提供商和工具函数）。
+要让库代码可以复用，你必须为它定义一个公共的 API。这个“用户层”定义了库中消费者的可用内容。该库的用户应该可以通过单个的导入路径来访问公共功能（如NgModules、服务提供者和工具函数）。
 
 The public API for your library is maintained in the `public-api.ts` file in your library folder.
 Anything exported from this file is made public when your library is imported into an application.
@@ -105,11 +105,11 @@ Here are some things to consider in migrating application functionality to a lib
 
 * Services should declare their own providers (rather than declaring providers in the NgModule or a component), so that they are *tree-shakable*. This allows the compiler to leave the service out of the bundle if it never gets injected into the application that imports the library. For more about this, see [Tree-shakable providers](guide/dependency-injection-providers#tree-shakable-providers).
 
-    服务应该声明自己的提供商（而不是在 NgModule 或组件中声明提供商），这样它们才是*可摇树优化的* 。这样，如果该服务从未被注入到导入该库的应用中，编译器就会把该服务从发布包中删除。欲知详情，请参阅[可摇树优化的提供商](guide/dependency-injection-providers#tree-shakable-providers) 。
+    服务应该声明自己的提供者（而不是在 NgModule 或组件中声明提供者），这样它们才是*可摇树优化的* 。这样，如果该服务从未被注入到导入该库的应用中，编译器就会把该服务从发布包中删除。欲知详情，请参阅[可摇树优化的提供者](guide/dependency-injection-providers#tree-shakable-providers) 。
 
 * If you register global service providers or share providers across multiple NgModules, use the [`forRoot()` and `forChild()` patterns](guide/singleton-services) provided by the [RouterModule](api/router/RouterModule).
 
-    如果你在多个 NgModule 中注册全局服务提供商或共享提供商，请使用 [RouterModule](api/router/RouterModule) 提供的 [`forRoot()` 和 `forChild()` 模式](guide/singleton-services) 。
+    如果你在多个 NgModule 中注册全局服务提供者或共享提供者，请使用 [RouterModule](api/router/RouterModule) 提供的 [`forRoot()` 和 `forChild()` 模式](guide/singleton-services) 。
 
 * Check all internal dependencies.
 

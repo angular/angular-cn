@@ -121,17 +121,17 @@ Add a `getHeroes` method to return the _mock heroes_.
 You must make the `HeroService` available to the dependency injection system
 before Angular can _inject_ it into the `HeroesComponent` by registering a _provider_. A provider is something that can create or deliver a service; in this case, it instantiates the `HeroService` class to provide the service.
 
-你必须先注册一个*服务提供商*，来让 `HeroService` 在依赖注入系统中可用，Angular 才能把它注入到 `HeroesComponent` 中。所谓服务提供商就是某种可用来创建或交付一个服务的东西；在这里，它通过实例化 `HeroService` 类，来提供该服务。
+你必须先注册一个*服务提供者*，来让 `HeroService` 在依赖注入系统中可用，Angular 才能把它注入到 `HeroesComponent` 中。所谓服务提供者就是某种可用来创建或交付一个服务的东西；在这里，它通过实例化 `HeroService` 类，来提供该服务。
 
 To make sure that the `HeroService` can provide this service, register it
 with the _injector_, which is the object that is responsible for choosing
 and injecting the provider where the app requires it.
 
-为了确保 `HeroService` 可以提供该服务，就要使用*注入器*来注册它。注入器是一个对象，负责当应用要求获取它的实例时选择和注入该提供商。
+为了确保 `HeroService` 可以提供该服务，就要使用*注入器*来注册它。注入器是一个对象，负责当应用要求获取它的实例时选择和注入该提供者。
 
 By default, the Angular CLI command `ng generate service` registers a provider with the _root injector_ for your service by including provider metadata, that is `providedIn: 'root'` in the `@Injectable()` decorator.
 
-默认情况下，Angular CLI 命令 `ng generate service` 会通过给 `@Injectable()` 装饰器添加 `providedIn: 'root'` 元数据的形式，用*根注入器*将你的服务注册成为提供商。
+默认情况下，Angular CLI 命令 `ng generate service` 会通过给 `@Injectable()` 装饰器添加 `providedIn: 'root'` 元数据的形式，用*根注入器*将你的服务注册成为提供者。
 
 ```
 
@@ -145,14 +145,14 @@ When you provide the service at the root level, Angular creates a single, shared
 Registering the provider in the `@Injectable` metadata also allows Angular to optimize an app by removing the service if it turns out not to be used after all.
 
 当你在顶层提供该服务时，Angular 就会为 `HeroService` 创建一个单一的、共享的实例，并把它注入到任何想要它的类上。
-在 `@Injectable` 元数据中注册该提供商，还能允许 Angular 通过移除那些完全没有用过的服务来进行优化。
+在 `@Injectable` 元数据中注册该提供者，还能允许 Angular 通过移除那些完全没有用过的服务来进行优化。
 
 <div class="alert is-helpful">
 
 To learn more about providers, see the [Providers section](guide/providers).
 To learn more about injectors, see the [Dependency Injection guide](guide/dependency-injection).
 
-要了解关于提供商的更多知识，参见[提供商部分](guide/providers)。
+要了解关于提供者的更多知识，参见[提供者部分](guide/providers)。
 要了解关于注入器的更多知识，参见[依赖注入指南](guide/dependency-injection)。
 
 </div>
@@ -678,7 +678,7 @@ Here are the code files discussed on this page and your app should look like thi
 
 * You registered the `HeroService` as the _provider_ of its service at the root level so that it can be injected anywhere in the app.
 
-   你在根注入器中把 `HeroService` 注册为该服务的提供商，以便在别处可以注入它。
+   你在根注入器中把 `HeroService` 注册为该服务的提供者，以便在别处可以注入它。
 
 * You used [Angular Dependency Injection](guide/dependency-injection) to inject it into a component.
 

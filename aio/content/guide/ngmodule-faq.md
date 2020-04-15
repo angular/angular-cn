@@ -173,7 +173,7 @@ should import `BrowserModule` from `@angular/platform-browser`.
 
 `BrowserModule` provides services that are essential to launch and run a browser app.
 
-`BrowserModule` 提供了启动和运行浏览器应用的那些基本的服务提供商。
+`BrowserModule` 提供了启动和运行浏览器应用的那些基本的服务提供者。
 
 `BrowserModule` also re-exports `CommonModule` from `@angular/common`,
 which means that components in the `AppModule` module also have access to
@@ -187,7 +187,7 @@ They need the common directives. They don't need to re-install the app-wide prov
 
 在其它任何模块中都*不要导入*`BrowserModule`。
 *特性模块*和*惰性加载模块*应该改成导入 `CommonModule`。
-它们需要通用的指令。它们不需要重新初始化全应用级的提供商。
+它们需要通用的指令。它们不需要重新初始化全应用级的提供者。
 
 Importing `CommonModule` also frees feature modules for use on _any_ target platform, not just browsers.
 
@@ -278,7 +278,7 @@ Its only purpose is to add http service providers to the application as a whole.
 
    纯服务模块没有公开（导出）的声明。
   例如，没必要重新导出 `HttpClientModule`，因为它不导出任何东西。
-  它唯一的用途是一起把 http 的那些服务提供商添加到应用中。
+  它唯一的用途是一起把 http 的那些服务提供者添加到应用中。
 
 <hr/>
 
@@ -319,7 +319,7 @@ Its only purpose is to add http service providers to the application as a whole.
 不要费心去导出纯服务类。
 纯服务类的模块不会导出任何可供其它模块使用的[可声明类](guide/ngmodule-faq#q-declarable)。
 例如，不用重新导出 `HttpClientModule`，因为它没有导出任何东西。
-它唯一的用途是把那些 http 服务提供商一起添加到应用中。
+它唯一的用途是把那些 http 服务提供者一起添加到应用中。
 
 <hr/>
 
@@ -329,7 +329,7 @@ Its only purpose is to add http service providers to the application as a whole.
 
 The `forRoot()` static method is a convention that makes it easy for developers to configure services and providers that are intended to be singletons. A good example of `forRoot()` is the `RouterModule.forRoot()` method.
 
-静态方法 `forRoot()` 是一个约定，它可以让开发人员更轻松的配置模块的想要单例使用的服务及其提供商。`RouterModule.forRoot()` 就是一个很好的例子。
+静态方法 `forRoot()` 是一个约定，它可以让开发人员更轻松的配置模块的想要单例使用的服务及其提供者。`RouterModule.forRoot()` 就是一个很好的例子。
 
 Apps pass a `Routes` object to `RouterModule.forRoot()` in order to configure the app-wide `Router` service with routes.
 `RouterModule.forRoot()` returns a [ModuleWithProviders](api/core/ModuleWithProviders).
@@ -363,29 +363,29 @@ configure services in root and feature modules respectively.
 
 Follow this convention when you write similar modules with configurable service providers.
 
-当你写类似的需要可配置的服务提供商时，请遵循这个约定。
+当你写类似的需要可配置的服务提供者时，请遵循这个约定。
 
 <hr/>
 
 ## Why is a service provided in a feature module visible everywhere?
 
-## 为什么服务提供商在特性模块中的任何地方都是可见的？
+## 为什么服务提供者在特性模块中的任何地方都是可见的？
 
 Providers listed in the `@NgModule.providers` of a bootstrapped module have application scope.
 Adding a service provider to `@NgModule.providers` effectively publishes the service to the entire application.
 
-列在引导模块的 `@NgModule.providers` 中的服务提供商具有**全应用级作用域**。
-往 `NgModule.providers` 中添加服务提供商将导致该服务被发布到整个应用中。
+列在引导模块的 `@NgModule.providers` 中的服务提供者具有**全应用级作用域**。
+往 `NgModule.providers` 中添加服务提供者将导致该服务被发布到整个应用中。
 
 When you import an NgModule,
 Angular adds the module's service providers (the contents of its `providers` list)
 to the application root injector.
 
-当你导入一个模块时，Angular 就会把该模块的服务提供商（也就是它的 `providers` 列表中的内容）加入该应用的*根注入器*中。
+当你导入一个模块时，Angular 就会把该模块的服务提供者（也就是它的 `providers` 列表中的内容）加入该应用的*根注入器*中。
 
 This makes the provider visible to every class in the application that knows the provider's lookup token, or name.
 
-这会让该提供商对应用中所有知道该提供商令牌（token）的类都可见。
+这会让该提供者对应用中所有知道该提供者令牌（token）的类都可见。
 
 Extensibility through NgModule imports is a primary goal of the NgModule system.
 Merging NgModule providers into the application injector
@@ -393,7 +393,7 @@ makes it easy for a module library to enrich the entire application with new ser
 By adding the `HttpClientModule` once, every application component can make HTTP requests.
 
 通过 NgModule 导入来实现可扩展性是 NgModule 体系的主要设计目标。
-把 NgModule 的提供商并入应用程序的注入器可以让库模块使用新的服务来强化应用程序变得更容易。
+把 NgModule 的提供者并入应用程序的注入器可以让库模块使用新的服务来强化应用程序变得更容易。
 只要添加一次 `HttpClientModule`，那么应用中的每个组件就都可以发起 Http 请求了。
 
 However, this might feel like an unwelcome surprise if you expect the module's services
@@ -415,12 +415,12 @@ To limit access to a service, consider lazy loading the NgModule that provides t
 
 ## Why is a service provided in a lazy-loaded module visible only to that module?
 
-## 为什么在惰性加载模块中声明的服务提供商只对该模块自身可见？
+## 为什么在惰性加载模块中声明的服务提供者只对该模块自身可见？
 
 Unlike providers of the modules loaded at launch,
 providers of lazy-loaded modules are *module-scoped*.
 
-和启动时就加载的模块中的提供商不同，惰性加载模块中的提供商是*局限于模块*的。
+和启动时就加载的模块中的提供者不同，惰性加载模块中的提供者是*局限于模块*的。
 
 When the Angular router lazy-loads a module, it creates a new execution context.
 That [context has its own injector](guide/ngmodule-faq#q-why-child-injector "Why Angular creates a child injector"),
@@ -431,13 +431,13 @@ which is a direct child of the application injector.
 
 The router adds the lazy module's providers and the providers of its imported NgModules to this child injector.
 
-路由器把该惰性加载模块的提供商和它导入的模块的提供商添加到这个子注入器中。
+路由器把该惰性加载模块的提供者和它导入的模块的提供者添加到这个子注入器中。
 
 These providers are insulated from changes to application providers with the same lookup token.
 When the router creates a component within the lazy-loaded context,
 Angular prefers service instances created from these providers to the service instances of the application root injector.
 
-这些提供商不会被拥有相同令牌的应用级别提供商的变化所影响。
+这些提供者不会被拥有相同令牌的应用级别提供者的变化所影响。
 当路由器在惰性加载环境中创建组件时，Angular 优先使用惰性加载模块中的服务实例，而不是来自应用的根注入器的。
 
 <hr/>
@@ -449,18 +449,18 @@ Angular prefers service instances created from these providers to the service in
 When two imported modules, loaded at the same time, list a provider with the same token,
 the second module's provider "wins". That's because both providers are added to the same injector.
 
-当同时加载了两个导入的模块，它们都列出了使用同一个令牌的提供商时，后导入的模块会“获胜”，这是因为这两个提供商都被添加到了同一个注入器中。
+当同时加载了两个导入的模块，它们都列出了使用同一个令牌的提供者时，后导入的模块会“获胜”，这是因为这两个提供者都被添加到了同一个注入器中。
 
 When Angular looks to inject a service for that token,
 it creates and delivers the instance created by the second provider.
 
-当 Angular 尝试根据令牌注入服务时，它使用第二个提供商来创建并交付服务实例。
+当 Angular 尝试根据令牌注入服务时，它使用第二个提供者来创建并交付服务实例。
 
 _Every_ class that injects this service gets the instance created by the second provider.
 Even classes declared within the first module get the instance created by the second provider.
 
-*每个*注入了该服务的类获得的都是由第二个提供商创建的实例。
-即使是声明在第一个模块中的类，它取得的实例也是来自第二个提供商的。
+*每个*注入了该服务的类获得的都是由第二个提供者创建的实例。
+即使是声明在第一个模块中的类，它取得的实例也是来自第二个提供者的。
 
 If NgModule A provides a service for token 'X' and imports an NgModule B
 that also provides a service for token 'X', then NgModule A's service definition "wins".
@@ -490,13 +490,13 @@ that is, they are available for injection throughout the application.
 Imported providers are easily replaced by providers from another imported NgModule.
 Such replacement might be by design. It could be unintentional and have adverse consequences.
 
-导入的提供商很容易被由其它导入模块中的提供商替换掉。
+导入的提供者很容易被由其它导入模块中的提供者替换掉。
 这虽然是故意这样设计的，但是也可能引起意料之外的结果。
 
 As a general rule, import modules with providers _exactly once_, preferably in the application's _root module_.
 That's also usually the best place to configure, wrap, and override them.
 
-作为一个通用的规则，应该*只导入一次*带提供商的模块，最好在应用的*根模块*中。
+作为一个通用的规则，应该*只导入一次*带提供者的模块，最好在应用的*根模块*中。
 那里也是配置、包装和改写这些服务的最佳位置。
 
 Suppose a module requires a customized `HttpBackend` that adds a special header for all Http requests.
@@ -505,7 +505,7 @@ or merely imports the `HttpClientModule`, it could override this module's `HttpB
 losing the special header. The server will reject http requests from this module.
 
 假设模块需要一个定制过的 `HttpBackend`，它为所有的 Http 请求添加一个特别的请求头。
-  如果应用中其它地方的另一个模块也定制了 `HttpBackend` 或仅仅导入了 `HttpClientModule`，它就会改写当前模块的 `HttpBackend` 提供商，丢掉了这个特别的请求头。
+  如果应用中其它地方的另一个模块也定制了 `HttpBackend` 或仅仅导入了 `HttpClientModule`，它就会改写当前模块的 `HttpBackend` 提供者，丢掉了这个特别的请求头。
   这样服务器就会拒绝来自该模块的请求。
 
 To avoid this problem, import the `HttpClientModule` only in the `AppModule`, the application _root module_.
@@ -514,7 +514,7 @@ To avoid this problem, import the `HttpClientModule` only in the `AppModule`, th
 
 If you must guard against this kind of "provider corruption", *don't rely on a launch-time module's `providers`.*
 
-如果你必须防范这种“提供商腐化”现象，那就*不要依赖于“启动时加载”模块的 `providers`*。
+如果你必须防范这种“提供者腐化”现象，那就*不要依赖于“启动时加载”模块的 `providers`*。
 
 Load the module lazily if you can.
 Angular gives a [lazy-loaded module](guide/ngmodule-faq#q-lazy-loaded-module-provider-visibility) its own child injector.
@@ -522,7 +522,7 @@ The module's providers are visible only within the component tree created with t
 
 只要可能，就让模块惰性加载。
 Angular 给了[惰性加载模块](guide/ngmodule-faq#q-lazy-loaded-module-provider-visibility)自己的子注入器。
-该模块中的提供商只对由该注入器创建的组件树可见。
+该模块中的提供者只对由该注入器创建的组件树可见。
 
 If you must load the module eagerly, when the application starts,
 *provide the service in a component instead.*
@@ -539,7 +539,7 @@ Recall that Angular creates a child injector for each component instance and pop
 with the component's own providers.
 
 那就创建一个“顶层组件”来扮演该模块中所有组件的根。
-把这个自定义的 `HttpBackend` 提供商添加到这个顶层组件的 `providers` 列表中，而不是该模块的 `providers` 中。
+把这个自定义的 `HttpBackend` 提供者添加到这个顶层组件的 `providers` 列表中，而不是该模块的 `providers` 中。
 回忆一下，Angular 会为每个组件实例创建一个子注入器，并使用组件自己的 `providers` 来配置这个注入器。
 
 When a child of this component asks for the `HttpBackend` service,
@@ -571,16 +571,16 @@ Though you can limit access to a service by providing it in a lazy loaded module
 
 ## Should I add application-wide providers to the root `AppModule` or the root `AppComponent`?
 
-## 我应该把全应用级提供商添加到根模块 `AppModule` 中还是根组件 `AppComponent` 中？
+## 我应该把全应用级提供者添加到根模块 `AppModule` 中还是根组件 `AppComponent` 中？
 
  Define application-wide providers by specifying `providedIn: 'root'` on its `@Injectable()` decorator (in the case of services) or at `InjectionToken` construction (in the case where tokens are provided). Providers that are created this way automatically are made available to the entire application and don't need to be listed in any module.
 
-通过在服务的 `@Injectable()` 装饰器中（例如服务）指定 `providedIn: 'root'` 来定义全应用级提供商，或者 `InjectionToken` 的构造器（例如提供令牌的地方），都可以定义全应用级提供商。
-通过这种方式创建的服务提供商会自动在整个应用中可用，而不用把它列在任何模块中。
+通过在服务的 `@Injectable()` 装饰器中（例如服务）指定 `providedIn: 'root'` 来定义全应用级提供者，或者 `InjectionToken` 的构造器（例如提供令牌的地方），都可以定义全应用级提供者。
+通过这种方式创建的服务提供者会自动在整个应用中可用，而不用把它列在任何模块中。
 
 If a provider cannot be configured in this way (perhaps because it has no sensible default value), then register application-wide providers in the root `AppModule`, not in the `AppComponent`.
 
-如果某个提供商不能用这种方式配置（可能因为它没有有意义的默认值），那就在根模块 `AppModule` 中注册这些全应用级服务，而不是在 `AppComponent` 中。
+如果某个提供者不能用这种方式配置（可能因为它没有有意义的默认值），那就在根模块 `AppModule` 中注册这些全应用级服务，而不是在 `AppComponent` 中。
 
 Lazy-loaded modules and their components can inject `AppModule` services;
 they can't inject `AppComponent` services.
@@ -595,7 +595,7 @@ from components outside the `AppComponent` tree. This is a rare use case.
 
 More generally, [prefer registering providers in NgModules](guide/ngmodule-faq#q-component-or-module) to registering in components.
 
-更一般地说，[优先把提供商注册进模块中](guide/ngmodule-faq#q-component-or-module)，而不是组件中。
+更一般地说，[优先把提供者注册进模块中](guide/ngmodule-faq#q-component-or-module)，而不是组件中。
 
 <h3 class="no-toc">Discussion</h3>
 
@@ -605,8 +605,8 @@ Angular registers all startup module providers with the application root injecto
 The services that root injector providers create have application scope, which
 means they are available to the entire application.
 
-Angular 把所有启动期模块的提供商都注册进了应用的根注入器中。
-这些服务是由根注入器中的提供商创建的，并且在整个应用中都可用。
+Angular 把所有启动期模块的提供者都注册进了应用的根注入器中。
+这些服务是由根注入器中的提供者创建的，并且在整个应用中都可用。
 它们具有*应用级作用域*。
 
 Certain services, such as the `Router`, only work when you register them in the application root injector.
@@ -617,7 +617,7 @@ By contrast, Angular registers `AppComponent` providers with the `AppComponent`'
 `AppComponent` services are available only to that component and its component tree.
 They have component scope.
 
-相反，Angular 使用 `AppComponent` 自己的注入器注册了 `AppComponent` 的提供商。
+相反，Angular 使用 `AppComponent` 自己的注入器注册了 `AppComponent` 的提供者。
 `AppComponent` 服务只在该组件及其子组件树中才能使用。
 它们具有*组件级作用域*。
 
@@ -637,24 +637,24 @@ This means that lazy-loaded modules can't reach them.
 
 ## Should I add other providers to a module or a component?
 
-## 我应该把其它提供商注册到模块中还是组件中？
+## 我应该把其它提供者注册到模块中还是组件中？
 
 Providers should be configured using `@Injectable` syntax. If possible, they should be provided in the application root (`providedIn: 'root'`). Services that are configured this way are lazily loaded if they are only used from a lazily loaded context.
 
-提供商应该使用 `@Injectable` 语法进行配置。只要可能，就应该把它们在应用的根注入器中提供（`providedIn: 'root'`）。
+提供者应该使用 `@Injectable` 语法进行配置。只要可能，就应该把它们在应用的根注入器中提供（`providedIn: 'root'`）。
 如果它们只被惰性加载的上下文中使用，那么这种方式配置的服务就是惰性加载的。
 
 If it's the consumer's decision whether a provider is available application-wide or not,
 then register providers in modules (`@NgModule.providers`) instead of registering in components (`@Component.providers`).
 
-如果要由消费方来决定是否把它作为全应用级提供商，那么就要在模块中（`@NgModule.providers`）注册提供商，而不是组件中（`@Component.providers`）。
+如果要由消费方来决定是否把它作为全应用级提供者，那么就要在模块中（`@NgModule.providers`）注册提供者，而不是组件中（`@Component.providers`）。
 
 Register a provider with a component when you _must_ limit the scope of a service instance
 to that component and its component tree.
 Apply the same reasoning to registering a provider with a directive.
 
-当你*必须*把服务实例的范围限制到某个组件及其子组件树时，就把提供商注册到该组件中。
-指令的提供商也同样照此处理。
+当你*必须*把服务实例的范围限制到某个组件及其子组件树时，就把提供者注册到该组件中。
+指令的提供者也同样照此处理。
 
 For example, an editing component that needs a private copy of a caching service should register
 the service with the component.
@@ -704,7 +704,7 @@ Now consider a lazy loaded module that also provides a service called `UserServi
 When the router lazy loads a module, it creates a child injector and registers the `UserService`
 provider with that child injector. The child injector is _not_ the root injector.
 
-当路由器准备惰性加载 `HeroModule` 的时候，它会创建一个子注入器，并且把 `UserService` 的提供商注册到那个子注入器中。子注入器和根注入器是*不同*的。
+当路由器准备惰性加载 `HeroModule` 的时候，它会创建一个子注入器，并且把 `UserService` 的提供者注册到那个子注入器中。子注入器和根注入器是*不同*的。
 
 When Angular creates a lazy component for that module and injects `UserService`,
 it finds a `UserService` provider in the lazy module's _child injector_
@@ -713,7 +713,7 @@ This is an entirely different `UserService` instance
 than the app-wide singleton version that Angular injected in one of the eagerly loaded components.
 
 当 Angular 创建一个惰性加载的 `HeroComponent` 时，它必须注入一个 `UserService`。
-这次，它会从惰性加载模块的*子注入器*中查找 `UserService` 的提供商，并用它创建一个 `UserService` 的新实例。
+这次，它会从惰性加载模块的*子注入器*中查找 `UserService` 的提供者，并用它创建一个 `UserService` 的新实例。
 这个 `UserService` 实例与 Angular 在主动加载的组件中注入的那个全应用级单例对象截然不同。
 
 This scenario causes your app to create a new instance every time, instead of using the singleton.
@@ -739,8 +739,8 @@ I'd like to see the error so I can include it.-->
 Angular adds `@NgModule.providers` to the application root injector, unless the NgModule is lazy-loaded.
 For a lazy-loaded NgModule, Angular creates a _child injector_ and adds the module's providers to the child injector.
 
-Angular 会把 `@NgModule.providers` 中的提供商添加到应用的根注入器中……
-除非该模块是惰性加载的，这种情况下，Angular 会创建一*子注入器*，并且把该模块的提供商添加到这个子注入器中。
+Angular 会把 `@NgModule.providers` 中的提供者添加到应用的根注入器中……
+除非该模块是惰性加载的，这种情况下，Angular 会创建一*子注入器*，并且把该模块的提供者添加到这个子注入器中。
 
 This means that an NgModule behaves differently depending on whether it's loaded during application start
 or lazy-loaded later. Neglecting that difference can lead to [adverse consequences](guide/ngmodule-faq#q-why-bad).
@@ -749,22 +749,22 @@ or lazy-loaded later. Neglecting that difference can lead to [adverse consequenc
 
 Why doesn't Angular add lazy-loaded providers to the app root injector as it does for eagerly loaded NgModules?
 
-为什么 Angular 不能像主动加载模块那样把惰性加载模块的提供商也添加到应用程序的根注入器中呢？为什么会出现这种不一致？
+为什么 Angular 不能像主动加载模块那样把惰性加载模块的提供者也添加到应用程序的根注入器中呢？为什么会出现这种不一致？
 
 The answer is grounded in a fundamental characteristic of the Angular dependency-injection system.
 An injector can add providers _until it's first used_.
 Once an injector starts creating and delivering services, its provider list is frozen; no new providers are allowed.
 
 归根结底，这来自于 Angular 依赖注入系统的一个基本特征：
-在注入器还没有被第一次使用之前，可以不断为其添加提供商。
-一旦注入器已经创建和开始交付服务，它的提供商列表就被冻结了，不再接受新的提供商。
+在注入器还没有被第一次使用之前，可以不断为其添加提供者。
+一旦注入器已经创建和开始交付服务，它的提供者列表就被冻结了，不再接受新的提供者。
 
 When an applications starts, Angular first configures the root injector with the providers of all eagerly loaded NgModules
 _before_ creating its first component and injecting any of the provided services.
 Once the application begins, the app root injector is closed to new providers.
 
-当应用启动时，Angular 会首先使用所有主动加载模块中的提供商来配置根注入器，这发生在它创建第一个组件以及注入任何服务之前。
-一旦应用开始工作，应用的根注入器就不再接受新的提供商了。
+当应用启动时，Angular 会首先使用所有主动加载模块中的提供者来配置根注入器，这发生在它创建第一个组件以及注入任何服务之前。
+一旦应用开始工作，应用的根注入器就不再接受新的提供者了。
 
 Time passes and application logic triggers lazy loading of an NgModule.
 Angular must add the lazy-loaded module's providers to an injector somewhere.
@@ -772,8 +772,8 @@ It can't add them to the app root injector because that injector is closed to ne
 So Angular creates a new child injector for the lazy-loaded module context.
 
 之后，应用逻辑开始惰性加载某个模块。
-Angular 必须把这个惰性加载模块中的提供商添加到*某个*注入器中。
-但是它无法将它们添加到应用的根注入器中，因为根注入器已经不再接受新的提供商了。
+Angular 必须把这个惰性加载模块中的提供者添加到*某个*注入器中。
+但是它无法将它们添加到应用的根注入器中，因为根注入器已经不再接受新的提供者了。
 于是，Angular 在惰性加载模块的上下文中创建了一个新的子注入器。
 
 <hr/>

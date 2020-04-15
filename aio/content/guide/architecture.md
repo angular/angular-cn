@@ -23,7 +23,7 @@ NgModule 会把相关的代码收集到一些功能集中。Angular 应用就是
 
 * Components use *services*, which provide specific functionality not directly related to views. Service providers can be *injected* into components as *dependencies*, making your code modular, reusable, and efficient.
 
-   组件使用*服务*。服务会提供那些与视图不直接相关的功能。服务提供商可以作为*依赖*被*注入*到组件中，
+   组件使用*服务*。服务会提供那些与视图不直接相关的功能。服务提供者可以作为*依赖*被*注入*到组件中，
   这能让你的代码更加模块化、更加可复用、更加高效。
 
 Both components and services are simply classes, with *decorators* that mark their type and provide metadata that tells Angular how to use them.

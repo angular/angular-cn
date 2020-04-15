@@ -110,7 +110,7 @@ export class MyComponent {}
 
 The compiler generates the component factory, which includes the `useValue` provider code, in a separate module. _That_ factory module can't reach back to _this_ source module to access the local (non-exported) `foo` variable.
 
-编译器会在单独的模块中生成这个 `userValue` 提供商的代码。*那个*工厂模块不能访问*这个*源码模块，无法访问这个（未导出的）`foo` 变量。
+编译器会在单独的模块中生成这个 `userValue` 提供者的代码。*那个*工厂模块不能访问*这个*源码模块，无法访问这个（未导出的）`foo` 变量。
 
 You could fix the problem by initializing `foo`.
 
@@ -124,7 +124,7 @@ let foo = 42; // initialized
 
 The compiler will [fold](guide/aot-compiler#code-folding) the expression into the provider as if you had written this.
 
-编译器会将表达式[折叠](guide/aot-compiler#code-folding)到提供商中，就像你自己写的一样。
+编译器会将表达式[折叠](guide/aot-compiler#code-folding)到提供者中，就像你自己写的一样。
 
 
 ```ts
@@ -346,7 +346,7 @@ export abstract class MyStrategy { }
 
 For example, you may have set a providers `useFactory` property to a locally defined function that you neglected to export.
 
-比如，你可能已经把某个服务提供商的 `useFactory` 属性设置成了一个局部定义但忘了导出的函数。
+比如，你可能已经把某个服务提供者的 `useFactory` 属性设置成了一个局部定义但忘了导出的函数。
 
 ```ts
 
@@ -401,7 +401,7 @@ _Function calls are not supported. Consider replacing the function or lambda wit
 The compiler does not currently support [function expressions or lambda functions](guide/aot-compiler#function-expression).
 For example, you cannot set a provider's `useFactory` to an anonymous function or arrow function like this.
 
-编译器当前不支持[函数表达式或 lambda 函数](guide/aot-compiler#function-expression) 。例如，您不能将提供商的 `useFactory` 设置为这样的匿名函数或箭头函数。
+编译器当前不支持[函数表达式或 lambda 函数](guide/aot-compiler#function-expression) 。例如，您不能将提供者的 `useFactory` 设置为这样的匿名函数或箭头函数。
 
 
 ```ts
@@ -418,7 +418,7 @@ For example, you cannot set a provider's `useFactory` to an anonymous function o
 
 You also get this error if you call a function or method in a provider's `useValue`.
 
-如果你在某个提供商的 `useValue` 中调用函数或方法，也会导致这个错误。
+如果你在某个提供者的 `useValue` 中调用函数或方法，也会导致这个错误。
 
 ```ts
 
@@ -435,7 +435,7 @@ import { calculateValue } from './utilities';
 
 To correct this error, export a function from the module and refer to the function in a `useFactory` provider instead.
 
-要改正这个问题，就要从模块中导出这个函数，并改成在服务提供商的 `useFactory` 中引用该函数。
+要改正这个问题，就要从模块中导出这个函数，并改成在服务提供者的 `useFactory` 中引用该函数。
 
 ```ts
 
@@ -582,7 +582,7 @@ you can finesse the problem in four steps:
 
 1. Add a `useFactory` provider with that factory function.
 
-   使用该工厂函数添加一个 `useFactory` 提供商。
+   使用该工厂函数添加一个 `useFactory` 提供者。
 
 1. Use `@Inject` to inject the instance.
 

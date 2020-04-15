@@ -76,7 +76,7 @@ replace every use of the `HEROES` mock data.
 
 The DI framework lets you supply data to a component from an injectable _service_ class, defined in its own file. To demonstrate, we'll create an injectable service class that provides a list of heroes, and register that class as a provider of that service.
 
-DI 框架让你能从一个可注入的*服务*类（独立文件）中为组件提供数据。为了演示，我们还会创建一个用来提供英雄列表的、可注入的服务类，并把它注册为该服务的提供商。
+DI 框架让你能从一个可注入的*服务*类（独立文件）中为组件提供数据。为了演示，我们还会创建一个用来提供英雄列表的、可注入的服务类，并把它注册为该服务的提供者。
 
 <div class="alert is-helpful">
 
@@ -132,13 +132,13 @@ The `@Injectable()` is an essential ingredient in every Angular service definiti
 
 ### Configure an injector with a service provider
 
-### 用服务提供商配置注入器
+### 用服务提供者配置注入器
 
 The class we have created provides a service. The `@Injectable()` decorator marks it as a service
 that can be injected, but Angular can't actually inject it anywhere until you configure
 an Angular [dependency injector](guide/glossary#injector) with a [provider](guide/glossary#provider) of that service.
 
-我们创建的类提供了一个服务。`@Injectable()` 装饰器把它标记为可供注入的服务，不过在你使用该服务的 [provider](guide/glossary#provider) 提供商配置好 Angular 的[依赖注入器](guide/glossary#injector)之前，Angular 实际上无法将其注入到任何位置。
+我们创建的类提供了一个服务。`@Injectable()` 装饰器把它标记为可供注入的服务，不过在你使用该服务的 [provider](guide/glossary#provider) 提供者配置好 Angular 的[依赖注入器](guide/glossary#injector)之前，Angular 实际上无法将其注入到任何位置。
 
 The injector is responsible for creating service instances and injecting them into classes like `HeroListComponent`.
 You rarely create an Angular injector yourself. Angular creates injectors for you as it executes the app, starting with the _root injector_ that it creates during the [bootstrap process](guide/bootstrapping).
@@ -149,15 +149,15 @@ You rarely create an Angular injector yourself. Angular creates injectors for yo
 A provider tells an injector _how to create the service_.
 You must configure an injector with a provider before that injector can create a service (or provide any other kind of dependency).
 
-提供商会告诉注入器*如何创建该服务*。
-要想让注入器能够创建服务（或提供其它类型的依赖），你必须使用某个提供商配置好注入器。
+提供者会告诉注入器*如何创建该服务*。
+要想让注入器能够创建服务（或提供其它类型的依赖），你必须使用某个提供者配置好注入器。
 
 A provider can be the service class itself, so that the injector can use `new` to create an instance.
 You might also define more than one class to provide the same service in different ways,
 and configure different injectors with different providers.
 
-提供商可以是服务类本身，因此注入器可以使用 `new` 来创建实例。
-你还可以定义多个类，以不同的方式提供同一个服务，并使用不同的提供商来配置不同的注入器。
+提供者可以是服务类本身，因此注入器可以使用 `new` 来创建实例。
+你还可以定义多个类，以不同的方式提供同一个服务，并使用不同的提供者来配置不同的注入器。
 
 <div class="alert is-helpful">
 
@@ -172,7 +172,7 @@ from the injector of its parent NgModule, or from the `root` injector.
 
 * Learn more about the [different kinds of providers](guide/dependency-injection-providers).
 
-  更多知识，参见 [提供商的不同类型](guide/dependency-injection-providers)。
+  更多知识，参见 [提供者的不同类型](guide/dependency-injection-providers)。
 
 * Learn more about how the [injector hierarchy](guide/hierarchical-dependency-injection) works.
 
@@ -182,7 +182,7 @@ from the injector of its parent NgModule, or from the `root` injector.
 
 You can configure injectors with providers at different levels of your app, by setting a metadata value in one of three places:
 
-你可以在三种位置之一设置元数据，以便在应用的不同层级使用提供商来配置注入器：
+你可以在三种位置之一设置元数据，以便在应用的不同层级使用提供者来配置注入器：
 
 * In the `@Injectable()` decorator for the service itself.
 
@@ -198,7 +198,7 @@ You can configure injectors with providers at different levels of your app, by s
 
 The `@Injectable()` decorator has the `providedIn` metadata option, where you can specify the provider of the decorated service class with the `root` injector, or with the injector for a specific NgModule.
 
-`@Injectable()` 装饰器具有一个名叫 `providedIn` 的元数据选项，在那里你可以指定把被装饰类的提供商放到 `root` 注入器中，或某个特定 NgModule 的注入器中。
+`@Injectable()` 装饰器具有一个名叫 `providedIn` 的元数据选项，在那里你可以指定把被装饰类的提供者放到 `root` 注入器中，或某个特定 NgModule 的注入器中。
 
 The `@NgModule()` and `@Component()` decorators have the `providers` metadata option, where you can configure providers for NgModule-level or component-level injectors.
 
@@ -209,11 +209,11 @@ The `@NgModule()` and `@Component()` decorators have the `providers` metadata op
 Components are directives, and the `providers` option is inherited from `@Directive()`. You can also configure providers for directives and pipes at the same level as the component.
 
 所有组件都是指令，而 `providers` 选项是从 `@Directive()` 中继承来的。
-你也可以与组件一样的级别为指令、管道配置提供商。
+你也可以与组件一样的级别为指令、管道配置提供者。
 
 Learn more about [where to configure providers](guide/hierarchical-dependency-injection).
 
-欲知详情，参见[该在哪里配置提供商](guide/hierarchical-dependency-injection)。
+欲知详情，参见[该在哪里配置提供者](guide/hierarchical-dependency-injection)。
 
 </div>
 
@@ -270,7 +270,7 @@ Services are singletons _within the scope of an injector_. That is, there is at 
 There is only one root injector for an app. Providing `UserService` at the `root` or `AppModule` level means it is registered with the root injector. There is just one `UserService` instance in the entire app and every class that injects `UserService` gets this service instance _unless_ you configure another provider with a _child injector_.
 
 应用只有一个根注入器。在 `root` 或 `AppModule` 级提供 `UserService` 意味着它注册到了根注入器上。
-在整个应用中只有一个 `UserService` 实例，每个要求注入 `UserService` 的类都会得到这一个服务实例，*除非*你在*子注入器*中配置了另一个提供商。
+在整个应用中只有一个 `UserService` 实例，每个要求注入 `UserService` 的类都会得到这一个服务实例，*除非*你在*子注入器*中配置了另一个提供者。
 
 Angular DI has a [hierarchical injection system](guide/hierarchical-dependency-injection), which means that nested injectors can create their own service instances.
 Angular regularly creates nested injectors. Whenever Angular creates a new instance of a component that has `providers` specified in `@Component()`, it also creates a new _child injector_ for that instance.
@@ -278,7 +278,7 @@ Similarly, when a new NgModule is lazy-loaded at run time, Angular can create an
 
 Angular DI 具有[分层注入体系](guide/hierarchical-dependency-injection)，这意味着下级注入器也可以创建它们自己的服务实例。
 Angular 会有规律的创建下级注入器。每当 Angular 创建一个在 `@Component()` 中指定了 `providers` 的组件实例时，它也会为该实例创建一个新的*子注入器*。
-类似的，当在运行期间加载一个新的 NgModule 时，Angular 也可以为它创建一个拥有自己的提供商的注入器。
+类似的，当在运行期间加载一个新的 NgModule 时，Angular 也可以为它创建一个拥有自己的提供者的注入器。
 
 Child modules and component injectors are independent of each other, and create their own separate instances of the provided services. When Angular destroys an NgModule or component instance, it also destroys that injector and that injector's service instances.
 
@@ -395,8 +395,8 @@ When you configure an injector with a provider, you associate that provider with
 The injector maintains an internal *token-provider* map that it references when
 asked for a dependency. The token is the key to the map.
 
-当使用提供商配置注入器时，就会把提供商和一个 [DI 令牌](guide/glossary#di-token)关联起来。
-注入器维护一个内部*令牌-提供商*的映射表，当请求一个依赖项时就会引用它。令牌就是这个映射表的键。
+当使用提供者配置注入器时，就会把提供者和一个 [DI 令牌](guide/glossary#di-token)关联起来。
+注入器维护一个内部*令牌-提供者*的映射表，当请求一个依赖项时就会引用它。令牌就是这个映射表的键。
 
 In simple examples, the dependency value is an *instance*, and
 the class *type* serves as its own lookup key.
@@ -419,11 +419,11 @@ Angular knows to inject the service associated with that `HeroService` class tok
 
 Many dependency values are provided by classes, but not all. The expanded *provide* object lets you associate different kinds of providers with a DI token.
 
-很多依赖项的值都是通过类来提供的，但不是全部。扩展的 *provide* 对象让你可以把多种不同种类的提供商和 DI 令牌关联起来。
+很多依赖项的值都是通过类来提供的，但不是全部。扩展的 *provide* 对象让你可以把多种不同种类的提供者和 DI 令牌关联起来。
 
 * Learn more about [different kinds of providers](guide/dependency-injection-providers).
 
-  欲知详情，参见[不同种类的提供商](guide/dependency-injection-providers)。
+  欲知详情，参见[不同种类的提供者](guide/dependency-injection-providers)。
 
 {@a optional}
 
@@ -452,7 +452,7 @@ When using `@Optional()`, your code must be prepared for a null value. If you
 don't register a logger provider anywhere, the injector sets the
 value of `logger` to null.
 
-当使用 `@Optional()` 时，你的代码必须能正确处理 null 值。如果你没有在任何地方注册过 logger 提供商，那么注入器就会把 `logger` 的值设置为 null。
+当使用 `@Optional()` 时，你的代码必须能正确处理 null 值。如果你没有在任何地方注册过 logger 提供者，那么注入器就会把 `logger` 的值设置为 null。
 
 <div class="alert is-helpful">
 
@@ -476,7 +476,7 @@ and you know how to ask for an injected object (such as a service) by
 adding a parameter to a constructor.
 
 本页中你学到了 Angular 依赖注入的基础知识。
-你可以注册多种提供商，并且知道了如何通过为构造函数添加参数来请求所注入的对象（比如服务）。
+你可以注册多种提供者，并且知道了如何通过为构造函数添加参数来请求所注入的对象（比如服务）。
 
 Dive deeper into the capabilities and advanced feature of the Angular DI system in the following pages:
 
@@ -489,7 +489,7 @@ Dive deeper into the capabilities and advanced feature of the Angular DI system 
 
 * Learn more about [DI tokens and providers](guide/dependency-injection-providers).
 
-  到 [DI 令牌与提供商](guide/dependency-injection-providers)中学习更多知识。
+  到 [DI 令牌与提供者](guide/dependency-injection-providers)中学习更多知识。
 
 * [Dependency Injection in Action](guide/dependency-injection-in-action) is a cookbook for some of the interesting things you can do with DI.
 

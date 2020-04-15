@@ -469,7 +469,7 @@ You can do this when your app needs information that can only be determined by t
 One example could be the running server's *origin*, which could be used to [calculate absolute HTTP URLs](#http-urls) if
 not using the `Request` token as shown above.
 
-  第二个参数 `extraProviders` 是可选的。它能让你指定一些在服务端运行时特有的服务提供商。
+  第二个参数 `extraProviders` 是可选的。它能让你指定一些在服务端运行时特有的服务提供者。
   只有当你的应用需要一些运行在服务器中才需要的信息时，才需要这么做。
   比如这个运行中的服务器的*源*地址，当像前面例子中那样无法使用 `Request` 令牌时，可用它来[计算 HTTP URL 的绝对地址](#http-urls)。
 

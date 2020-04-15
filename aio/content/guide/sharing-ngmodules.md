@@ -81,7 +81,7 @@ The most common way to get a hold of shared services is through Angular
 
 To read about sharing services, see [Providers](guide/providers).
 
-要进一步了解共享服务，参见[服务提供商](guide/providers)。
+要进一步了解共享服务，参见[服务提供者](guide/providers)。
 
 <hr />
 
@@ -95,7 +95,7 @@ You may also be interested in the following:
 
 * [Providers](guide/providers).
 
-   [服务提供商](guide/providers)。
+   [服务提供者](guide/providers)。
 
 * [Types of Feature Modules](guide/module-types).
 

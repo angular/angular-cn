@@ -13,7 +13,7 @@ making some of them public, through the `exports` property, so that external com
 NgModule 是一个带有 `@NgModule` 装饰器的类。
 `@NgModule` 的参数是一个元数据对象，用于描述如何编译组件的模板，以及如何在运行时创建注入器。
 它会标出该模块自己的组件、指令和管道，通过 `exports` 属性公开其中的一部分，以便外部组件使用它们。
-`NgModule` 还能把一些服务提供商添加到应用的依赖注入器中。
+`NgModule` 还能把一些服务提供者添加到应用的依赖注入器中。
 
 For an example app showcasing all the techniques that NgModules related pages
 cover, see the <live-example></live-example>. For explanations on the individual techniques, visit the relevant NgModule pages under the NgModules
@@ -130,7 +130,7 @@ You may also be interested in the following:
 
 * [Providers](guide/providers).
 
-   [服务提供商](guide/providers)。
+   [服务提供者](guide/providers)。
 
 * [Types of NgModules](guide/module-types).
 

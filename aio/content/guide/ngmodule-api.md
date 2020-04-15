@@ -146,12 +146,12 @@ The following table summarizes the `@NgModule` metadata properties.
 
       A list of dependency-injection providers.
 
-      依赖注入提供商的列表。
+      依赖注入提供者的列表。
 
       Angular registers these providers with the NgModule's injector.
       If it is the NgModule used for bootstrapping then it is the root injector.
 
-      Angular 会使用该模块的注入器注册这些提供商。
+      Angular 会使用该模块的注入器注册这些提供者。
       如果该模块是启动模块，那就会使用根注入器。
 
       These services become available for injection into any component, directive, pipe or service which is a child of this injector.
@@ -177,7 +177,7 @@ The following table summarizes the `@NgModule` metadata properties.
 
       For more information on injector hierarchy and scoping, see [Providers](guide/providers) and the [DI Guide](guide/dependency-injection).
 
-      要深入了解关于多级注入器及其作用域，参见[服务提供商](guide/providers)。
+      要深入了解关于多级注入器及其作用域，参见[服务提供者](guide/providers)。
 
     </td>
 
@@ -380,7 +380,7 @@ You may also be interested in the following:
 
 * [Providers](guide/providers).
 
-   [服务提供商](guide/providers)。
+   [服务提供者](guide/providers)。
 
 * [Types of Feature Modules](guide/module-types).
 

@@ -80,7 +80,7 @@ typical characteristics, in real world apps, you may see hybrids.
 
      Domain feature modules rarely have providers. When they do, the lifetime of the provided services should be the same as the lifetime of the module.
 
-     领域特性模块很少会有服务提供商。如果有，那么这些服务的生命周期必须和该模块的生命周期完全相同。
+     领域特性模块很少会有服务提供者。如果有，那么这些服务的生命周期必须和该模块的生命周期完全相同。
 
      Domain feature modules are typically imported exactly once by a larger feature module.
 
@@ -125,7 +125,7 @@ typical characteristics, in real world apps, you may see hybrids.
 
      Routed feature modules rarely have providers for reasons explained in [Lazy Loading Feature Modules](/guide/lazy-loading-ngmodules). When they do, the lifetime of the provided services should be the same as the lifetime of the module. Don't provide application-wide singleton services in a routed feature module or in a module that the routed module imports.
 
-     路由特性模块很少会有服务提供商，原因参见[惰性加载的特性模块](/guide/lazy-loading-ngmodules)中的解释。如果那样做，那么它所提供的服务的生命周期必须与该模块的生命周期完全相同。不要在路由特性模块或被路由特性模块所导入的模块中提供全应用级的单例服务。
+     路由特性模块很少会有服务提供者，原因参见[惰性加载的特性模块](/guide/lazy-loading-ngmodules)中的解释。如果那样做，那么它所提供的服务的生命周期必须与该模块的生命周期完全相同。不要在路由特性模块或被路由特性模块所导入的模块中提供全应用级的单例服务。
 
    </td>
 
@@ -173,7 +173,7 @@ typical characteristics, in real world apps, you may see hybrids.
 
          Adds guard and resolver service providers to the module's providers.
 
-         把路由守卫和解析器的服务提供商添加到该模块的 `providers` 中。
+         把路由守卫和解析器的服务提供者添加到该模块的 `providers` 中。
 
      </li>
 
@@ -227,7 +227,7 @@ typical characteristics, in real world apps, you may see hybrids.
 
      Service modules provide utility services such as data access and messaging. Ideally, they consist entirely of providers and have no declarations. Angular's `HttpClientModule` is a good example of a service module.
 
-     服务模块提供了一些工具服务，比如数据访问和消息。理论上，它们应该是完全由服务提供商组成的，不应该有可声明对象。Angular 的 `HttpClientModule` 就是一个服务模块的好例子。
+     服务模块提供了一些工具服务，比如数据访问和消息。理论上，它们应该是完全由服务提供者组成的，不应该有可声明对象。Angular 的 `HttpClientModule` 就是一个服务模块的好例子。
 
      The root `AppModule` is the only module that should import service modules.
 
@@ -259,7 +259,7 @@ typical characteristics, in real world apps, you may see hybrids.
 
      A widget module should rarely have providers.
 
-     窗口部件模块很少会有服务提供商。
+     窗口部件模块很少会有服务提供者。
 
      Import widget modules in any module whose component templates need the widgets.
 
@@ -298,7 +298,7 @@ The following table summarizes the key characteristics of each feature module gr
 
      Providers
 
-     提供商 `providers`
+     提供者 `providers`
 
    </th>
 
@@ -553,4 +553,4 @@ You may also be interested in the following:
 
 * [Providers](guide/providers).
 
-   [服务提供商](guide/providers)。
+   [服务提供者](guide/providers)。

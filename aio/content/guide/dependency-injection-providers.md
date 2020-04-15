@@ -1,6 +1,6 @@
 # Dependency providers
 
-# 依赖提供商
+# 依赖提供者
 
 A dependency [provider](guide/glossary#provider) configures an injector
 with a [DI token](guide/glossary#di-token),
@@ -8,14 +8,14 @@ which that injector uses to provide the concrete, runtime version of a dependenc
 The injector relies on the provider configuration to create instances of the dependencies
 that it injects into components, directives, pipes, and other services.
 
-依赖[提供商](guide/glossary#provider)会使用 [DI 令牌](guide/glossary#di-token)来配置注入器，注入器会用它来提供这个依赖值的具体的、运行时版本。
-注入器依靠 "提供商配置" 来创建依赖的实例，并把该实例注入到组件、指令、管道和其它服务中。
+依赖[提供者](guide/glossary#provider)会使用 [DI 令牌](guide/glossary#di-token)来配置注入器，注入器会用它来提供这个依赖值的具体的、运行时版本。
+注入器依靠 "提供者配置" 来创建依赖的实例，并把该实例注入到组件、指令、管道和其它服务中。
 
 You must configure an injector with a provider, or it won't know how to create the dependency.
 The most obvious way for an injector to create an instance of a service class is with the class itself.
 If you specify the service class itself as the provider token, the default behavior is for the injector to instantiate that class with `new`.
 
-你必须使用提供商来配置注入器，否则注入器就无法知道如何创建此依赖。
+你必须使用提供者来配置注入器，否则注入器就无法知道如何创建此依赖。
 注入器创建服务实例的最简单方法，就是用这个服务类本身来创建它。
 如果你把服务类作为此服务的 DI 令牌，注入器的默认行为就是 `new` 出这个类实例。
 
@@ -30,7 +30,7 @@ You can, however, configure an injector with an alternative provider,
 in order to deliver some other object that provides the needed logging functionality.
 For instance:
 
-不过，你也可以用一个替代提供商来配置注入器，这样就可以指定另一些同样能提供日志功能的对象。
+不过，你也可以用一个替代提供者来配置注入器，这样就可以指定另一些同样能提供日志功能的对象。
 比如：
 
 * You can provide a substitute class.
@@ -43,7 +43,7 @@ For instance:
 
 * Your provider can call a logger factory function.
 
-  你的提供商可以调用一个工厂函数来创建 logger。
+  你的提供者可以调用一个工厂函数来创建 logger。
 
 {@a provide}
 
@@ -55,8 +55,8 @@ The class-provider syntax is a shorthand expression that expands
 into a provider configuration, defined by the [`Provider` interface](api/core/Provider).
 The following code snippets shows how a class that is given as the `providers` value is expanded into a full provider object.
 
-类提供商的语法实际上是一种简写形式，它会扩展成一个由 [`Provider` 接口](api/core/Provider)定义的提供商配置对象。
-下面的代码片段展示了 `providers` 中给出的类会如何扩展成完整的提供商配置对象。
+类提供者的语法实际上是一种简写形式，它会扩展成一个由 [`Provider` 接口](api/core/Provider)定义的提供者配置对象。
+下面的代码片段展示了 `providers` 中给出的类会如何扩展成完整的提供者配置对象。
 
 <code-example path="dependency-injection/src/app/providers.component.ts" region="providers-logger">
 </code-example>
@@ -66,7 +66,7 @@ The following code snippets shows how a class that is given as the `providers` v
 
 The expanded provider configuration is an object literal with two properties.
 
-扩展的提供商配置是一个具有两个属性的对象字面量。
+扩展的提供者配置是一个具有两个属性的对象字面量。
 
 * The `provide` property holds the [token](guide/dependency-injection#token)
 that serves as the key for both locating a dependency value and configuring the injector.
@@ -78,8 +78,8 @@ The provider-definition key can be `useClass`, as in the example.
 It can also be `useExisting`, `useValue`, or `useFactory`.
 Each of these keys provides a different type of dependency, as discussed below.
 
-  第二个属性是一个提供商定义对象，它告诉注入器要如何创建依赖值。
-  提供商定义对象中的 key 可以是 `useClass` —— 就像这个例子中一样。
+  第二个属性是一个提供者定义对象，它告诉注入器要如何创建依赖值。
+  提供者定义对象中的 key 可以是 `useClass` —— 就像这个例子中一样。
   也可以是 `useExisting`、`useValue` 或 `useFactory`。
   每一个 key 都用于提供一种不同类型的依赖，我们稍后会讨论。
 
@@ -87,7 +87,7 @@ Each of these keys provides a different type of dependency, as discussed below.
 
 ## Alternative class providers
 
-## 替代类提供商
+## 替代类提供者
 
 Different classes can provide the same service.
 For example, the following code tells the injector
@@ -104,7 +104,7 @@ using the `Logger` token.
 
 ### Class providers with dependencies
 
-### 带依赖的类提供商
+### 带依赖的类提供者
 
 Another class, `EvenBetterLogger`, might display the user name in the log message.
 This logger gets the user from an injected `UserService` instance.
@@ -117,8 +117,8 @@ This logger gets the user from an injected `UserService` instance.
 The injector needs providers for both this new logging service and its dependent `UserService`. Configure this alternative logger with the `useClass` provider-definition key, like `BetterLogger`. The following array specifies both providers in the `providers` metadata option of the parent module or component.
 
 注入器需要提供这个新的日志服务以及该服务所依赖的 `UserService` 对象。
-使用 `useClass` 作为提供商定义对象的 key ，来配置一个 logger 的替代品，比如 `BetterLogger`。
-下面的数组同时在父模块和组件的 `providers` 元数据选项中指定了这些提供商。
+使用 `useClass` 作为提供者定义对象的 key ，来配置一个 logger 的替代品，比如 `BetterLogger`。
+下面的数组同时在父模块和组件的 `providers` 元数据选项中指定了这些提供者。
 
 <code-example path="dependency-injection/src/app/providers.component.ts" region="providers-5"></code-example>
 
@@ -126,7 +126,7 @@ The injector needs providers for both this new logging service and its dependent
 
 ### Aliased class providers
 
-### 别名类提供商
+### 别名类提供者
 
 Suppose an old component depends upon the `OldLogger` class.
 `OldLogger` has the same interface as `NewLogger`, but for some reason
@@ -160,7 +160,7 @@ To make sure there is only one instance of `NewLogger`, alias `OldLogger` with t
 
 ## Value providers
 
-## 值提供商
+## 值提供者
 
 Sometimes it's easier to provide a ready-made object rather than ask the injector to create it from a class.
 To inject an object you have already created,
@@ -177,7 +177,7 @@ The following code defines a variable that creates such an object to play the lo
 
 The following provider object uses the `useValue` key to associate the variable with the `Logger` token.
 
-下面的提供商定义对象使用 `useValue` 作为 key 来把该变量与 `Logger` 令牌关联起来。
+下面的提供者定义对象使用 `useValue` 作为 key 来把该变量与 `Logger` 令牌关联起来。
 
 <code-example path="dependency-injection/src/app/providers.component.ts" region="providers-7"></code-example>
 
@@ -244,7 +244,7 @@ Another solution to choosing a provider token for non-class dependencies is
 to define and use an `InjectionToken` object.
 The following example shows how to define such a token.
 
-另一个为非类依赖选择提供商令牌的解决方案是定义并使用 `InjectionToken` 对象。
+另一个为非类依赖选择提供者令牌的解决方案是定义并使用 `InjectionToken` 对象。
 下面的例子展示了如何定义那样一个令牌。
 
 <code-example path="dependency-injection/src/app/app.config.ts" region="token" header="src/app/app.config.ts"></code-example>
@@ -257,7 +257,7 @@ The token description is another developer aid.
 
 Register the dependency provider using the `InjectionToken` object:
 
-使用 `InjectionToken` 对象注册依赖提供商：
+使用 `InjectionToken` 对象注册依赖提供者：
 
 <code-example path="dependency-injection/src/app/providers.component.ts" region="providers-9"></code-example>
 
@@ -283,7 +283,7 @@ it supports typing of the configuration object within the class.
 
 ## Factory providers
 
-## 工厂提供商
+## 工厂提供者
 
 Sometimes you need to create a dependent value dynamically,
 based on information you won't have until run time.
@@ -296,8 +296,8 @@ Also, your injectable service might not have independent access to the source of
 In cases like this you can use a *factory provider*.
 Factory providers can also be useful when creating an instance of a dependency from a third-party library that wasn't designed to work with DI.
 
-这种情况下，你可以使用*工厂提供商*。
-当需要从第三方库创建依赖项实例时，工厂提供商也很有用，因为第三方库不是为 DI 而设计的。
+这种情况下，你可以使用*工厂提供者*。
+当需要从第三方库创建依赖项实例时，工厂提供者也很有用，因为第三方库不是为 DI 而设计的。
 
 For example, suppose `HeroService` must hide *secret* heroes from normal users.
 Only authorized users should see secret heroes.
@@ -326,11 +326,11 @@ To resolve this, we give the `HeroService` constructor a boolean flag to control
 
 You can inject `Logger`, but you can't inject the  `isAuthorized` flag. Instead, you can use a factory provider to create a new logger instance for `HeroService`.
 
-你可以注入 `Logger` 但是不能注入 `isAuthorized` 标志。不过你可以改用工厂提供商来为 `HeroService` 创建一个新的 logger 实例。
+你可以注入 `Logger` 但是不能注入 `isAuthorized` 标志。不过你可以改用工厂提供者来为 `HeroService` 创建一个新的 logger 实例。
 
 A factory provider needs a factory function.
 
-工厂提供商需要一个工厂函数。
+工厂提供者需要一个工厂函数。
 
 <code-example path="dependency-injection/src/app/heroes/hero.service.provider.ts" region="factory" header="src/app/heroes/hero.service.provider.ts (excerpt)"></code-example>
 
@@ -339,20 +339,20 @@ You inject both `Logger` and `UserService` into the factory provider
 and let the injector pass them along to the factory function.
 
 虽然 `HeroService` 不能访问 `UserService`，但是工厂函数可以。
-你把 `Logger` 和 `UserService` 注入到了工厂提供商中，并让注入器把它们传给这个工厂函数。
+你把 `Logger` 和 `UserService` 注入到了工厂提供者中，并让注入器把它们传给这个工厂函数。
 
 <code-example path="dependency-injection/src/app/heroes/hero.service.provider.ts" region="provider" header="src/app/heroes/hero.service.provider.ts (excerpt)"></code-example>
 
 * The `useFactory` field tells Angular that the provider is a factory function whose implementation is `heroServiceFactory`.
 
-  `useFactory` 字段告诉 Angular 该提供商是一个工厂函数，该函数的实现代码是 `heroServiceFactory`。 
+  `useFactory` 字段告诉 Angular 该提供者是一个工厂函数，该函数的实现代码是 `heroServiceFactory`。 
 
 * The `deps` property is an array of [provider tokens](guide/dependency-injection#token).
 The `Logger` and `UserService` classes serve as tokens for their own class providers.
 The injector resolves these tokens and injects the corresponding services into the matching factory function parameters.
 
-  `deps` 属性是一个[提供商令牌](guide/dependency-injection#token)数组。
-  `Logger` 和 `UserService` 类作为它们自己的类提供商令牌使用。
+  `deps` 属性是一个[提供者令牌](guide/dependency-injection#token)数组。
+  `Logger` 和 `UserService` 类作为它们自己的类提供者令牌使用。
   注入器解析这些令牌，并把与之对应的服务注入到相应的工厂函数参数表中。
 
 Notice that you captured the factory provider in an exported variable, `heroServiceProvider`.
@@ -361,9 +361,9 @@ You can configure a provider of `HeroService` with this variable wherever you ne
 In this sample, you need it only in `HeroesComponent`,
 where `heroServiceProvider` replaces `HeroService` in the metadata `providers` array.
 
-注意，你把这个工厂提供商保存到了一个导出的变量 `heroServiceProvider` 中。
-这个额外的步骤让工厂提供商可被复用。
-你可以在任何需要它的地方用这个变量来配置 `HeroService` 的提供商。
+注意，你把这个工厂提供者保存到了一个导出的变量 `heroServiceProvider` 中。
+这个额外的步骤让工厂提供者可被复用。
+你可以在任何需要它的地方用这个变量来配置 `HeroService` 的提供者。
 在这个例子中，你只在 `HeroesComponent` 中用到了它。你在该组件元数据的 `providers` 数组中用 `heroServiceProvider` 替换了 `HeroService`。
 
 The following shows the new and the old implementations side-by-side.
@@ -382,7 +382,7 @@ The following shows the new and the old implementations side-by-side.
 
 ## Predefined tokens and multiple providers
 
-## 预定义令牌与多提供商
+## 预定义令牌与多提供者
 
 Angular provides a number of built-in injection-token constants that you can use to customize the behavior of
 various systems.
@@ -393,7 +393,7 @@ For example, you can use the following built-in tokens as hooks into the framewo
 A provider object can associate any of these injection tokens with one or more callback functions that take app-specific initialization actions.
 
 比如，你可以使用下列内置令牌来切入 Angular 框架的启动和初始化过程。
-提供商对象可以把任何一个注入令牌与一个或多个用来执行应用初始化操作的回调函数关联起来。
+提供者对象可以把任何一个注入令牌与一个或多个用来执行应用初始化操作的回调函数关联起来。
 
 * [PLATFORM_INITIALIZER](api/core/PLATFORM_INITIALIZER): Callback is invoked when a platform is initialized.
 
@@ -410,7 +410,7 @@ A provider object can associate any of these injection tokens with one or more c
 The provider object can have a third option, `multi: true`, which you can use with `APP_INITIALIZER`
 to register multiple handlers for the provide event.
 
-该提供商对象还有第三个选项 `multi: true`，把它和 `APP_INITIALIZER` 一起使用可以为特定的事件注册多个处理器。
+该提供者对象还有第三个选项 `multi: true`，把它和 `APP_INITIALIZER` 一起使用可以为特定的事件注册多个处理器。
 
 For example, when bootstrapping an application, you can register many initializers using the same token.
 
@@ -429,8 +429,8 @@ For example, you can register a custom form validator using the built-in [NG_VAL
 and provide multiple instances of a given validator provider by using the `multi: true` property in the provider object.
 Angular adds your custom validators to the existing collection.
 
-在其它地方，多个提供商也同样可以和单个令牌关联起来。
-比如，你可以使用内置的 [NG_VALIDATORS](api/forms/NG_VALIDATORS) 令牌注册自定义表单验证器，还可以在提供商定义对象中使用 `multi: true` 属性来为指定的验证器令牌提供多个验证器实例。
+在其它地方，多个提供者也同样可以和单个令牌关联起来。
+比如，你可以使用内置的 [NG_VALIDATORS](api/forms/NG_VALIDATORS) 令牌注册自定义表单验证器，还可以在提供者定义对象中使用 `multi: true` 属性来为指定的验证器令牌提供多个验证器实例。
 Angular 会把你的自定义验证器添加到现有验证器的集合中。
 
 The Router also makes use of multiple providers associated with a single token.
@@ -438,7 +438,7 @@ When you provide multiple sets of routes using [RouterModule.forRoot](api/router
 and [RouterModule.forChild](api/router/RouterModule#forchild) in a single module,
 the [ROUTES](api/router/ROUTES) token combines all the different provided sets of routes into a single value.
 
-路由器也同样用多个提供商关联到了一个令牌。
+路由器也同样用多个提供者关联到了一个令牌。
 当你在单个模块中用 [RouterModule.forRoot](api/router/RouterModule#forroot) 和 [RouterModule.forChild](api/router/RouterModule#forchild) 提供了多组路由时，[ROUTES](api/router/ROUTES) 令牌会把这些不同的路由组都合并成一个单一值。
 
 <div class="alert is-helpful">
@@ -454,7 +454,7 @@ Search for [Constants in API documentation](api?type=const) to find more built-i
 
 ## Tree-shakable providers
 
-## 可摇树优化的提供商
+## 可摇树优化的提供者
 
 Tree shaking refers to a compiler option that removes code from the final bundle if the app doesn't reference that code.
 When providers are tree-shakable, the Angular compiler removes the associated
@@ -462,7 +462,7 @@ services from the final output when it determines that your application doesn't 
 This significantly reduces the size of your bundles.
 
 摇树优化是指一个编译器选项，意思是把应用中未引用过的代码从最终生成的包中移除。
-如果提供商是可摇树优化的，Angular 编译器就会从最终的输出内容中移除应用代码中从未用过的服务。
+如果提供者是可摇树优化的，Angular 编译器就会从最终的输出内容中移除应用代码中从未用过的服务。
 这会显著减小你的打包体积。
 
 <div class="alert is-helpful">
@@ -483,7 +483,7 @@ Thus, services in the NgModule `providers` array or at component level are not t
 
 The following example of non-tree-shakable providers in Angular configures a service provider for the injector of an NgModule.
 
-下面这个不可摇树优化的 Angular 提供商的例子为 NgModule 注入器配置了一个服务提供商。
+下面这个不可摇树优化的 Angular 提供者的例子为 NgModule 注入器配置了一个服务提供者。
 
 <code-example path="dependency-injection/src/app/tree-shaking/service-and-module.ts"  header="src/app/tree-shaking/service-and-modules.ts"></code-example>
 
@@ -497,19 +497,19 @@ as in the following example.
 
 When `ngc` runs, it compiles `AppModule` into a module factory, which contains definitions for all the providers declared in all the modules it includes. At runtime, this factory becomes an injector that instantiates these services.
 
-当运行 `ngc` 时，它会把 `AppModule` 编译到模块工厂中，工厂包含该模块及其导入的所有模块中声明的所有提供商。在运行时，该工厂会变成负责实例化所有这些服务的注入器。
+当运行 `ngc` 时，它会把 `AppModule` 编译到模块工厂中，工厂包含该模块及其导入的所有模块中声明的所有提供者。在运行时，该工厂会变成负责实例化所有这些服务的注入器。
 
 Tree-shaking doesn't work here because Angular can't decide to exclude one chunk of code (the provider definition for the service within the module factory) based on whether another chunk of code (the service class) is used. To make services tree-shakable, the information about how to construct an instance of the service (the provider definition) needs to be a part of the service class itself.
 
-这里摇树优化不起作用，因为 Angular 无法根据是否用到了其它代码块（服务类），来决定是否能排除这块代码（模块工厂中的服务提供商定义）。要让服务可以被摇树优化，关于如何构建该服务实例的信息（即提供商定义），就应该是服务类本身的一部分。
+这里摇树优化不起作用，因为 Angular 无法根据是否用到了其它代码块（服务类），来决定是否能排除这块代码（模块工厂中的服务提供者定义）。要让服务可以被摇树优化，关于如何构建该服务实例的信息（即提供者定义），就应该是服务类本身的一部分。
 
 ### Creating tree-shakable providers
 
-### 创建可摇树优化的提供商
+### 创建可摇树优化的提供者
 
 You can make a provider tree-shakable by specifying it in the `@Injectable()` decorator on the service itself, rather than in the metadata for the NgModule or component that depends on the service.
 
-只要在服务本身的 `@Injectable()` 装饰器中指定，而不是在依赖该服务的 NgModule 或组件的元数据中指定，你就可以制作一个可摇树优化的提供商。
+只要在服务本身的 `@Injectable()` 装饰器中指定，而不是在依赖该服务的 NgModule 或组件的元数据中指定，你就可以制作一个可摇树优化的提供者。
 
 The following example shows the tree-shakable equivalent to the `ServiceModule` example above.
 
@@ -527,6 +527,6 @@ The service can be instantiated by configuring a factory function, as in the fol
 
 To override a tree-shakable provider, configure the injector of a specific NgModule or component with another provider, using the `providers: []` array syntax of the `@NgModule()` or `@Component()` decorator.
 
-要想覆盖可摇树优化的提供商，请使用其它提供商来配置指定的 NgModule 或组件的注入器，只要使用 `@NgModule()` 或 `@Component()` 装饰器中的 `providers: []` 数组就可以了。
+要想覆盖可摇树优化的提供者，请使用其它提供者来配置指定的 NgModule 或组件的注入器，只要使用 `@NgModule()` 或 `@Component()` 装饰器中的 `providers: []` 数组就可以了。
 
 </div>

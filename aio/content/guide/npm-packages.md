@@ -122,7 +122,7 @@ Package name                               | Description
 [**@angular/<br />platform&#8209;browser**](api/platform-browser) | Everything DOM and browser related, especially the pieces that help render into the DOM. This package also includes the `bootstrapModuleFactory()` method for bootstrapping applications for production builds that pre-compile with [AOT](guide/aot-compiler).
 [**@angular/<br />platform&#8209;browser**](api/platform-browser) | 与 DOM 和浏览器有关的一切，特别是那些帮助往 DOM 中渲染的部分。这个包中还包括 `bootstrapModuleFactory()` 方法，该方法可以使用 [AOT](guide/aot-compiler) 编译器构建的生产环境发布包来引导应用。
 [**@angular/<br />platform&#8209;browser&#8209;dynamic**](api/platform-browser-dynamic) | Includes [providers](api/core/Provider) and methods to compile and run the app on the client using the [JIT compiler](guide/aot-compiler).
-[**@angular/<br />platform&#8209;browser&#8209;dynamic**](api/platform-browser-dynamic) | 包含那些用来在 [JIT 编译器](guide/aot-compiler)的客户端上编译并运行应用的[提供商](api/core/Provider)和方法。
+[**@angular/<br />platform&#8209;browser&#8209;dynamic**](api/platform-browser-dynamic) | 包含那些用来在 [JIT 编译器](guide/aot-compiler)的客户端上编译并运行应用的[提供者](api/core/Provider)和方法。
 [**@angular/router**](api/router) | The router module navigates among your app pages when the browser URL changes. For more information, see [Routing and Navigation](guide/router).
 [**@angular/router**](api/router) | 当浏览器的 URL 变化时，路由器模块可以在应用的页面之间进行导航。欲知详情，参见[路由与导航](guide/router)。
 

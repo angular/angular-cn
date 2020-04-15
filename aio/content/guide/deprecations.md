@@ -619,7 +619,7 @@ This type represents an `NgModule` along with additional providers.
 Angular version 9 deprecates use of `ModuleWithProviders` without an explicitly generic type, where the generic type refers to the type of the `NgModule`.
 In a future version of Angular, the generic will no longer be optional.
 
-一些 Angular 库，例如 `@angular/router` 和 `@ngrx/store`，实现了一种返回 `ModuleWithProviders` 类型的 API（通常借助名为 `forRoot()` 的方法）。此类型表示 `NgModule` 以及其它服务提供商。 Angular 版本 9 不建议使用不带显式泛型类型的 `ModuleWithProviders`，泛型类型是指 `NgModule` 的类型。在 Angular 的未来版本中，泛型将不再是可选的。
+一些 Angular 库，例如 `@angular/router` 和 `@ngrx/store`，实现了一种返回 `ModuleWithProviders` 类型的 API（通常借助名为 `forRoot()` 的方法）。此类型表示 `NgModule` 以及其它服务提供者。 Angular 版本 9 不建议使用不带显式泛型类型的 `ModuleWithProviders`，泛型类型是指 `NgModule` 的类型。在 Angular 的未来版本中，泛型将不再是可选的。
 
 
 If you're using the CLI, `ng update` should [migrate your code automatically](guide/migration-module-with-providers).

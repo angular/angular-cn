@@ -112,7 +112,7 @@ Use `forRoot()` to
 separate providers from a module so you can import that module into the root module
 with `providers` and child modules without `providers`.
 
-使用 `forRoot()` 来把提供商从该模块中分离出去，这样你就能在根模块中导入该模块时带上 `providers` ，并且在子模块中导入它时不带 `providers`。
+使用 `forRoot()` 来把提供者从该模块中分离出去，这样你就能在根模块中导入该模块时带上 `providers` ，并且在子模块中导入它时不带 `providers`。
 
 1. Create a static method `forRoot()` on the module.
 
@@ -120,7 +120,7 @@ with `providers` and child modules without `providers`.
 
 2. Place the providers into the `forRoot()` method.
 
-   把这些提供商放进 `forRoot()` 方法中。
+   把这些提供者放进 `forRoot()` 方法中。
 
 <code-example path="ngmodules/src/app/greeting/greeting.module.ts" region="for-root" header="src/app/greeting/greeting.module.ts"></code-example>
 
@@ -168,7 +168,7 @@ a simple object with the following properties:
 
 * `providers`: the configured providers.
 
-   `providers` - 配置好的服务提供商
+   `providers` - 配置好的服务提供者
 
 In the <live-example name="ngmodules">live example</live-example>
 the root `AppModule` imports the `GreetingModule` and adds the
@@ -179,7 +179,7 @@ This sequence ensures that whatever you add explicitly to
 the `AppModule` providers takes precedence over the providers
 of imported modules.
 
-在这个 <live-example name="ngmodules">现场演练</live-example>中，根模块 `AppModule` 导入了 `GreetingModule`，并把它的 `providers` 添加到了 `AppModule` 的服务提供商列表中。特别是，Angular 会把所有从其它模块导入的提供商追加到本模块的 `@NgModule.providers` 中列出的提供商之前。这种顺序可以确保你在 `AppModule` 的 `providers` 中显式列出的提供商，其优先级高于导入模块中给出的提供商。
+在这个 <live-example name="ngmodules">现场演练</live-example>中，根模块 `AppModule` 导入了 `GreetingModule`，并把它的 `providers` 添加到了 `AppModule` 的服务提供者列表中。特别是，Angular 会把所有从其它模块导入的提供者追加到本模块的 `@NgModule.providers` 中列出的提供者之前。这种顺序可以确保你在 `AppModule` 的 `providers` 中显式列出的提供者，其优先级高于导入模块中给出的提供者。
 
 The sample app imports `GreetingModule` and uses its `forRoot()` method one time, in `AppModule`. Registering it once like this prevents multiple instances.
 
@@ -255,7 +255,7 @@ The `@Optional()` decorator means not finding the service is OK.
 The injector returns `null`, the `parentModule` parameter is null,
 and the constructor concludes uneventfully.
 
-默认情况下，当注入器找不到想找的提供商时，会抛出一个错误。
+默认情况下，当注入器找不到想找的提供者时，会抛出一个错误。
 但 `@Optional()` 装饰器表示找不到该服务也无所谓。
 于是注入器会返回 `null`，`parentModule` 参数也就被赋成了空值，而构造函数没有任何异常。
 

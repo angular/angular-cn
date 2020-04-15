@@ -885,7 +885,7 @@ Here are the key `Router` terms and their meanings:
       A separate NgModule that provides the necessary service providers
       and directives for navigating through application views.
 
-      一个独立的 NgModule，用于提供所需的服务提供商，以及用来在应用视图之间进行导航的指令。
+      一个独立的 NgModule，用于提供所需的服务提供者，以及用来在应用视图之间进行导航的指令。
 
     </td>
 
@@ -1364,14 +1364,14 @@ In order to use the Router, you must first register the `RouterModule` from the 
 
 要使用路由器，必须先注册来自 `@angular/router` 包中的 `RouterModule`。
 定义一个路由数组 `appRoutes` 并把它传给 `RouterModule.forRoot()` 方法。
-它会返回一个模块，其中包含配置好的 `Router` 服务提供商，以及路由库所需的其它提供商。
+它会返回一个模块，其中包含配置好的 `Router` 服务提供者，以及路由库所需的其它提供者。
 一旦启动了应用，`Router` 就会根据当前的浏览器 URL 进行首次导航。
 
 <div class="alert is-important">
 
   **Note:** The `RouterModule.forRoot` method is a pattern used to register application-wide providers. Read more about application-wide providers in the [Singleton services](guide/singleton-services#forRoot-router) guide.
 
-  **注意：** `RouterModule.forRoot` 方法是用于注册全应用级提供商的编码模式。要详细了解全应用级提供商，参见[单例服务](guide/singleton-services#forRoot-router) 一章。
+  **注意：** `RouterModule.forRoot` 方法是用于注册全应用级提供者的编码模式。要详细了解全应用级提供者，参见[单例服务](guide/singleton-services#forRoot-router) 一章。
 
 </div>
 
@@ -1849,7 +1849,7 @@ The **Routing Module** has several characteristics:
 
 * Provides a well-known location for routing service providers including guards and resolvers.
 
-   为路由服务提供商（包括守卫和解析器等）提供一个共同的地方。
+   为路由服务提供者（包括守卫和解析器等）提供一个共同的地方。
 
 * Does **not** declare components.
 
@@ -2239,7 +2239,7 @@ In the `AppRoutingModule`, you used the static **`RouterModule.forRoot()`** meth
 In a feature module you use the static **`forChild`** method.
 
 这里有少量但是关键的不同点。
-在 `AppRoutingModule` 中，你使用了静态的 `RouterModule.`**`forRoot`**方法来注册路由和全应用级服务提供商。
+在 `AppRoutingModule` 中，你使用了静态的 `RouterModule.`**`forRoot`**方法来注册路由和全应用级服务提供者。
 在特性模块中，你要改用**`forChild`**静态方法。
 
 <div class="alert is-helpful">
@@ -5929,7 +5929,7 @@ URLs with hashes. Here's a "hash URL" that routes to the *Crisis Center*.
 
 The router supports both styles with two `LocationStrategy` providers:
 
-路由器通过两种 `LocationStrategy` 提供商来支持所有这些风格：
+路由器通过两种 `LocationStrategy` 提供者来支持所有这些风格：
 
 1. `PathLocationStrategy`&mdash;the default "HTML5 pushState" style.
 
@@ -5951,7 +5951,7 @@ You can switch to the `HashLocationStrategy` with an override during the bootstr
 Learn about providers and the bootstrap process in the
 [Dependency Injection guide](guide/dependency-injection#bootstrap).
 
-要学习关于“提供商”和启动过程的更多知识，参见[依赖注入](guide/dependency-injection#bootstrap)一章。
+要学习关于“提供者”和启动过程的更多知识，参见[依赖注入](guide/dependency-injection#bootstrap)一章。
 
 </div>
 

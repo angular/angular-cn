@@ -250,7 +250,7 @@ The corresponding `ForbiddenValidatorDirective` serves as a wrapper around the `
 Angular recognizes the directive's role in the validation process because the directive registers itself
 with the `NG_VALIDATORS` provider, a provider with an extensible collection of validators.
 
-Angular 在验证过程中能识别出指令的作用，是因为指令把自己注册成了 `NG_VALIDATORS` 提供商，该提供商拥有一组可扩展的验证器。
+Angular 在验证过程中能识别出指令的作用，是因为指令把自己注册成了 `NG_VALIDATORS` 提供者，该提供者拥有一组可扩展的验证器。
 
 <code-example path="form-validation/src/app/shared/forbidden-name.directive.ts" region="directive-providers" header="shared/forbidden-name.directive.ts (providers)"></code-example>
 

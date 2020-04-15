@@ -55,7 +55,7 @@
 
     <p>Defines a module that contains components, directives, pipes, and providers.</p>
 
-    <p>定义一个模块，其中可以包含组件、指令、管道和服务提供商。</p>
+    <p>定义一个模块，其中可以包含组件、指令、管道和服务提供者。</p>
 
 </td>
 
@@ -120,7 +120,7 @@ is available to <code>declarations</code> of this module.</p>
 
     <p>List of dependency injection providers visible both to the contents of this module and to importers of this module.</p>
 
-    <p>依赖注入提供商的列表，本模块以及本模块导入的所有模块中的内容都可以看见它们。</p>
+    <p>依赖注入提供者的列表，本模块以及本模块导入的所有模块中的内容都可以看见它们。</p>
 
 </td>
 
@@ -617,7 +617,7 @@ is available to <code>declarations</code> of this module.</p>
 
     <p>Declares that a class can be provided and injected by other classes. Without this decorator, the compiler won't generate enough metadata to allow the class to be created properly when it's injected somewhere.</p>
 
-    <p>声明某个类可以注册为提供商，并能被另一个类注入。如果没有该装饰器，编译器就不会生成足够的元数据，当它被注入到别处时，就无法正常创建该类。</p>
+    <p>声明某个类可以注册为提供者，并能被另一个类注入。如果没有该装饰器，编译器就不会生成足够的元数据，当它被注入到别处时，就无法正常创建该类。</p>
 </td>
 
 </tr>
@@ -675,7 +675,7 @@ is available to <code>declarations</code> of this module.</p>
 
     <p>List of dependency injection providers for this directive and its children.</p>
 
-    <p>该指令及其子指令的依赖注入提供商列表。</p>
+    <p>该指令及其子指令的依赖注入提供者列表。</p>
 
 </td>
 
@@ -733,7 +733,7 @@ so the <code>@Directive</code> configuration applies to components as well</p>
 
     <p>List of dependency injection providers scoped to this component's view.</p>
 
-    <p>依赖注入提供商列表，但它们的范围被限定为当前组件的视图。</p>
+    <p>依赖注入提供者列表，但它们的范围被限定为当前组件的视图。</p>
 
 </td>
 
@@ -1119,7 +1119,7 @@ so the <code>@Directive</code> configuration applies to components as well</p>
 
     <p>Sets or overrides the provider for <code>MyService</code> to the <code>MyMockService</code> class.</p>
 
-    <p>把 <code>MyService</code> 的服务提供商设置或改写为 <code>MyMockService</code> 类。</p>
+    <p>把 <code>MyService</code> 的服务提供者设置或改写为 <code>MyMockService</code> 类。</p>
 
 </td>
 
@@ -1135,7 +1135,7 @@ so the <code>@Directive</code> configuration applies to components as well</p>
 
     <p>Sets or overrides the provider for <code>MyService</code> to the <code>myFactory</code> factory function.</p>
 
-    <p>把 <code>MyService</code> 的服务提供商设置或改写为 <code>myFactory</code> 工厂函数。</p>
+    <p>把 <code>MyService</code> 的服务提供者设置或改写为 <code>myFactory</code> 工厂函数。</p>
 
 </td>
 
@@ -1151,7 +1151,7 @@ so the <code>@Directive</code> configuration applies to components as well</p>
 
     <p>Sets or overrides the provider for <code>MyValue</code> to the value <code>41</code>.</p>
 
-    <p>把 <code>MyValue</code> 的服务提供商改写为一个特定的值 <code>41</code> 。</p>
+    <p>把 <code>MyValue</code> 的服务提供者改写为一个特定的值 <code>41</code> 。</p>
 
 </td>
 

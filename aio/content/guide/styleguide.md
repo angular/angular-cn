@@ -2636,7 +2636,7 @@ that may need features from another common module; for example,
 
 **Avoid** specifying app-wide singleton providers in a `SharedModule`. Intentional singletons are OK. Take care.
 
-**避免**在 `SharedModule` 中指定应用级的单例服务提供商。如果是刻意要得到多个服务单例也行，不过还是要小心。
+**避免**在 `SharedModule` 中指定应用级的单例服务提供者。如果是刻意要得到多个服务单例也行，不过还是要小心。
 
 </div>
 

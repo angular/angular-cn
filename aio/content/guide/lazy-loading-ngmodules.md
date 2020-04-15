@@ -299,7 +299,7 @@ You may also be interested in the following:
 
 * [Providers](guide/providers).
 
-   [服务提供商](guide/providers)。
+   [服务提供者](guide/providers)。
 
 * [Types of Feature Modules](guide/module-types).
 
