@@ -196,7 +196,7 @@ The following table summarizes the `@NgModule` metadata properties.
       A list of modules which should be folded into this module. Folded means it is
       as if all the imported NgModule's exported properties were declared here.
 
-      要折叠（Folded）进本模块中的其它模块。折叠的意思是从被导入的模块中导出的那些软件资产同样会被声明在这里。
+      要整合（Folded）进本模块中的其它模块。折叠的意思是从被导入的模块中导出的那些软件资产同样会被声明在这里。
 
       Specifically, it is as if the list of modules whose exported components, directives, or pipes
       are referenced by the component templates were declared in this module.
