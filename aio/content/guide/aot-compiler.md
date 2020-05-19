@@ -81,39 +81,17 @@ Angular offers two ways to compile your application:
 
 Angular 提供了两种方式来编译你的应用：
 
-* **_Just-in-Time_ (JIT)**, which compiles your app in the browser at runtime.
+* **_Just-in-Time_ (JIT)**, which compiles your app in the browser at runtime. This was the default until Angular 8.
 
-   ***即时编译* (JIT)**，它会在运行期间在浏览器中编译你的应用。
+   ***即时编译* (JIT)**，它会在运行期间在浏览器中编译你的应用。Angular 8 及先前版本以此为默认选项。
 
-* **_Ahead-of-Time_ (AOT)**, which compiles your app at build time.
+* **_Ahead-of-Time_ (AOT)**, which compiles your app and libraries at build time. This is the default since Angular 9.
 
-   **预先（AOT）编译**，它会在构建时编译你的应用。
+   ***预先编译* (AOT)***，它会在构建时编译你的应用或库。从 Angular 9 开始这是默认选项。
 
-JIT compilation is the default when you run the [`ng build`](cli/build) (build only) or [`ng serve`](cli/serve)  (build and serve locally) CLI commands:
+When you run the [`ng build`](cli/build) (build only) or [`ng serve`](cli/serve) (build and serve locally) CLI commands, the type of compilation (JIT or AOT) depends on the value of the `aot` property in your build configuration specified in `angular.json`. By default, `aot` is set to `true` for new CLI apps.
 
-当你运行 [`ng build`](cli/build)（仅编译）或 [`ng serve`](cli/serve)（编译并启动本地服务器） 这两个 CLI 命令时 JIT 编译是默认选项：
-
-<code-example language="sh" class="code-shell">
-  ng build
-  ng serve
-</code-example>
-
-{@a compile}
-
-For AOT compilation, include the `--aot` option with the `ng build` or `ng serve` command:
-
-要进行 AOT 编译，只要让 `ng build` 或 `ng serve` 命令中包含 `--aot` 标志就行了：
-
-<code-example language="sh" class="code-shell">
-  ng build --aot
-  ng serve --aot
-</code-example>
-
-<div class="alert is-helpful">
-
-The `ng build` command with the `--prod` meta-flag (`ng build --prod`) compiles with AOT by default.
-
-带有 `--prod` 标志的 `ng build` 命令 (`ng build --prod`) 会默认使用 AOT 编译。
+当你运行 [`ng build`](cli/build)（仅编译）或 [`ng serve`](cli/serve)（编译并启动本地服务器） 这两个 CLI 命令时，编译方式（JIT 或者 AOT）取决于你在 `angular.json` 中编译选项中 `aot` 属性的取值。默认情况下，在 CLI 新起的项目中 `aot` 被设置为 `true`。
 
 See the [CLI command reference](cli) and [Building and serving Angular apps](guide/build) for more information.
 
