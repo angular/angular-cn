@@ -2402,7 +2402,7 @@ You can't apply `[(ngModel)]` to a non-form native element or a
 third-party custom component until you write a suitable value accessor. For more information, see
 the API documentation on [DefaultValueAccessor](https://angular.io/api/forms/DefaultValueAccessor).
 
-在编写适当的值访问器之前，不能将 `[(ngModel)]` 应用于非表单的原生元素或第三方自定义组件。欲知详情，参见[DefaultValueAccessor](https://angular.io/api/forms/DefaultValueAccessor)上的 API 文档。
+在编写适当的值访问器之前，不能将 `[(ngModel)]` 应用于非表单的原生元素或第三方自定义组件。欲知详情，参见[DefaultValueAccessor](https://angular.cn/api/forms/DefaultValueAccessor)上的 API 文档。
 
 You don't need a value accessor for an Angular component that
 you write because you can name the value and event properties

@@ -87,7 +87,7 @@ This method is for development and testing only, and is not a supported or secur
 
 The Angular CLI command `ng deploy` (introduced in version 8.3.0) executes the `deploy` [CLI builder](https://angular.io/guide/cli-builder) associated with your project. A number of third-party builders implement deployment capabilities to different platforms. You can add any of them to your project by running `ng add [package name]`.
 
-Angular CLI 命令 `ng deploy`（在版本 8.3.0 中引入）执行与你的项目关联的 `deploy` [CLI 构建器](https://angular.io/guide/cli-builder)。有许多第三方构建器实现了到不同平台的部署功能。你可以通过运行 `ng add [package name]` 把它们中的任何一个添加到项目中。
+Angular CLI 命令 `ng deploy`（在版本 8.3.0 中引入）执行与你的项目关联的 `deploy` [CLI 构建器](https://angular.cn/guide/cli-builder)。有许多第三方构建器实现了到不同平台的部署功能。你可以通过运行 `ng add [package name]` 把它们中的任何一个添加到项目中。
 
 When you add a package with deployment capability, it'll automatically update your workspace configuration (`angular.json` file) with a `deploy` section for the selected project. You can then use the `ng deploy` command to deploy that project.
 

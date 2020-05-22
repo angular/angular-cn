@@ -180,7 +180,7 @@ Angular 还提供了更多功能，不过你现在已经有了基础，可以让
 
 * Angular also has an extensive [network of 3rd-party tools and libraries](https://angular.io/resources "Angular resources list"). 
 
-  Angular 还拥有广泛的[第三方工具和库](https://angular.io/resources "Angular 资源列表")互助网。
+  Angular 还拥有广泛的[第三方工具和库](https://angular.cn/resources "Angular 资源列表")互助网。
 
 Keep current by following the [Angular blog](https://blog.angular.io/ "Angular blog").
 

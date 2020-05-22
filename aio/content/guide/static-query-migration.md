@@ -74,7 +74,7 @@ For more information on how to choose, see the [next question](#how-do-i-choose)
 In the official API docs, we have always recommended retrieving query results in [`ngAfterViewInit` for view queries](https://angular.io/api/core/ViewChild#description) and [`ngAfterContentInit` for content queries](https://angular.io/api/core/ContentChild#description).
 This is because by the time those lifecycle hooks run, change detection has completed for the relevant nodes and we can guarantee that we have collected all the possible query results.
 
-在官方 API 文档中，我们建议对于[视图查询](https://angular.io/api/core/ViewChild#description) 总是在 `ngAfterViewInit` 中获取查询结果，对于[内容查询](https://angular.io/api/core/ContentChild#description) 总是在 `ngAfterContentInit` 中获取查询结果。
+在官方 API 文档中，我们建议对于[视图查询](https://angular.cn/api/core/ViewChild#description) 总是在 `ngAfterViewInit` 中获取查询结果，对于[内容查询](https://angular.io/api/core/ContentChild#description) 总是在 `ngAfterContentInit` 中获取查询结果。
 这是因为当这些生命周期钩子运行时，相关节点的变更检测已完成，我们可以确信收集到了所有可能的查询结果。
 
 Most applications will want to use `{static: false}` for the same reason. This setting will ensure query matches that are dependent on binding resolution (e.g. results inside `*ngIf`s or `*ngFor`s) will be found by the query.

@@ -68,7 +68,7 @@ NOTE:
 
    See the [Template Syntax](https://angular.io/guide/template-syntax#html-attribute-vs-dom-property) guide for more background on the difference between attributes and properties.
 
-   有关 Attribute 和 Property 之间差异的更多背景信息，请参见[模板语法](https://angular.io/guide/template-syntax#html-attribute-vs-dom-property)一章。
+   有关 Attribute 和 Property 之间差异的更多背景信息，请参见[模板语法](https://angular.cn/guide/template-syntax#html-attribute-vs-dom-property)一章。
 
 </div>
 
