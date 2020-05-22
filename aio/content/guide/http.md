@@ -654,7 +654,7 @@ Execution of the HTTP request is _deferred_, allowing you to extend the
 observable with additional operations such as  `tap` and `catchError` before anything actually happens.
 
 `HttpClient` 的所有方法返回的可观察对象都设计为*冷的*。
-HTTP 请求的执行都是*延期执行的*，让你可以用 `tap` 和 `catchError` 这样的操作符来在实际执行什么之前，先对这个可观察对象进行扩展。
+HTTP 请求的执行都是*延期执行的*，让你可以用 `tap` 和 `catchError` 这样的操作符来在实际执行HTTP请求之前，先对这个可观察对象进行扩展。
 
 Calling `subscribe(...)` triggers execution of the observable and causes
 `HttpClient` to compose and send the HTTP request to the server.
