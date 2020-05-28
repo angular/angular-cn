@@ -311,7 +311,7 @@ resolves it in two phases:
    针对 `ElementInjector` 层次结构（其父级）
 
 
-1. Against the `ModuleInjector` hierarchy (its parents)
+2. Against the `ModuleInjector` hierarchy (its parents)
 
    针对 `ModuleInjector` 层次结构（其父级）
 
