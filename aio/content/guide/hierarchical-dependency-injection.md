@@ -25,7 +25,6 @@ in this hierarchy using an `@NgModule()` or `@Injectable()` annotation.
 
    `ModuleInjector` 层次结构 —— 使用 `@NgModule()` 或 `@Injectable()` 注解在此层次结构中配置 `ModuleInjector`。
 
-
 1. `ElementInjector` hierarchy&mdash;created implicitly at each
 DOM element. An `ElementInjector` is empty by default
 unless you configure it in the `providers` property on
@@ -310,8 +309,7 @@ resolves it in two phases:
 
    针对 `ElementInjector` 层次结构（其父级）
 
-
-2. Against the `ModuleInjector` hierarchy (its parents)
+1. Against the `ModuleInjector` hierarchy (its parents)
 
    针对 `ModuleInjector` 层次结构（其父级）
 
