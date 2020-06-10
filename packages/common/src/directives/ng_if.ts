@@ -232,18 +232,20 @@ export class NgIf<T = unknown> {
    * The presence of this method is a signal to the Ivy template type-check compiler that the
    * `NgIf` structural directive renders its template with a specific context type.
    */
-  static ngTemplateContextGuard<T>(dir: NgIf<T>, ctx: any): ctx is NgIfContext<T> { return true; }
+  static ngTemplateContextGuard<T>(dir: NgIf<T>, ctx: any): ctx is NgIfContext<NonNullable<T>> {
+    return true;
+  }
 }
 
 /**
  * @publicApi
  */
 export class NgIfContext<T = unknown> {
-  public $implicit: T = null !;
-  public ngIf: T = null !;
+  public $implicit: T = null!;
+  public ngIf: T = null!;
 }
 
-function assertTemplate(property: string, templateRef: TemplateRef<any>| null): void {
+function assertTemplate(property: string, templateRef: TemplateRef<any>|null): void {
   const isTemplateRefOrNull = !!(!templateRef || templateRef.createEmbeddedView);
   if (!isTemplateRefOrNull) {
     throw new Error(`${property} must be a TemplateRef, but received '${stringify(templateRef)}'.`);

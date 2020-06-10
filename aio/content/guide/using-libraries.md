@@ -5,7 +5,7 @@
 When building Angular applications you can take advantage of sophisticated first-party libraries, such as [Angular Material](https://material.angular.io/), as well as rich ecosystem of third-party libraries.
 See the [Angular Resources](https://angular.io/resources) page for links to the most popular ones.
 
-当构建 Angular 应用时，你可以从精致的第一方库，比如 [Angular Material](https://material.angular.cn/) ，以及丰富的第三方库生态系统中获益。参见 [Angular 资源集](/resources)页面，了解最常用的库链接。
+当构建 Angular 应用时，你可以从精致的第一方库，比如 [Angular Material](https://material.angular.cn/)，以及丰富的第三方库生态系统中获益。参见 [Angular 资源集](/resources)页面，了解最常用的库链接。
 
 ## Installing libraries
 
@@ -75,7 +75,6 @@ declare module 'host' {
 
     在使用该库的组件或文件中，添加如下代码。
 
-
 ```
 import * as host from 'host';
 const parsedUrl = host.parse('https://angular.io');
@@ -93,11 +92,11 @@ You can define more typings as needed.
 Libraries can be updated by their publishers, and also have their own dependencies which need to be kept current.
 To check for updates to your installed libraries, use the [`ng update` command](cli/update).
 
-库的发布者可以对这些库进行更新，而这些库也有自己的依赖，所有依赖都需要保持最新。要检查已安装库的更新，请使用 [`ng update`命令](cli/update)。
+库的发布者可以对这些库进行更新，而这些库也有自己的依赖，所有依赖都需要保持最新。要检查已安装库的更新，请使用 [`ng update` 命令](cli/update)。
 
 Use `ng update <lib_name>` to update individual library versions. The Angular CLI checks the latest published release of the library, and if the latest version is newer than your installed version, downloads it and updates your `package.json` to match the latest version.
 
-使用 `ng update <lib_name>` 来单独更新某个库的版本。 Angular CLI 会检查库中最新发布的版本，如果最新版本比你已安装的版本新，就会下载它并更新你的 `package.json` 以匹配最新版本。
+使用 `ng update <lib_name>` 来单独更新某个库的版本。Angular CLI 会检查库中最新发布的版本，如果最新版本比你已安装的版本新，就会下载它并更新你的 `package.json` 以匹配最新版本。
 
 When you update Angular to a new version, you need to make sure that any libraries you are using are current. If libraries have interdependencies, you might have to update them in a particular order.
 See the [Angular Update Guide](https://update.angular.io/) for help.
@@ -158,7 +157,7 @@ Once you import a library using the "scripts" array, you should **not** import i
 If you do, you'll end up with two different copies of the library: one imported as a global library, and one imported as a module.
 This is especially bad for libraries with plugins, like JQuery, because each copy will have different plugins.
 
-当你用 "scripts" 数组导入一个库后，就**不应该**在你的 TypeScript 代码中再用 import 语句来导入它了（比如：`import * as $ from 'jquery';`）。如果你这样做，就会得到该库两个不同的副本：一个作为全局库导入，另一个作为模块导入。这对于那些带有插件的库来说特别糟糕，比如JQuery，因为每个副本都会有不同的插件。
+当你用 "scripts" 数组导入一个库后，就**不应该**在你的 TypeScript 代码中再用 import 语句来导入它了（比如：`import * as $ from 'jquery';`）。如果你这样做，就会得到该库两个不同的副本：一个作为全局库导入，另一个作为模块导入。这对于那些带有插件的库来说特别糟糕，比如 JQuery，因为每个副本都会有不同的插件。
 
 Instead, download typings for your library (`npm install @types/jquery`) and follow the library installation steps. This gives you access to the global variables exposed by that library.
 
@@ -178,7 +177,7 @@ declare var libraryName: any;
 
 Some scripts extend other libraries; for instance with JQuery plugins:
 
-有些脚本扩展了其他库，例如 JQuery 插件：
+有些脚本扩展了其它库，例如 JQuery 插件：
 
 ```
 $('.test').myPlugin();

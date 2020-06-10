@@ -156,7 +156,7 @@ components, directives, and pipes.
 
 Import [BrowserModule](guide/ngmodule-faq#q-browser-vs-common-module) only in the root `AppModule`.
 
-只能在根模块 `AppModule` 中[导入_BrowserModule_](guide/ngmodule-faq#q-browser-vs-common-module)。
+只能在根模块 `AppModule` 中[导入 _BrowserModule_](guide/ngmodule-faq#q-browser-vs-common-module)。
 
 <hr/>
 
@@ -350,7 +350,7 @@ information on `forRoot()` see [the `forRoot()` pattern](guide/singleton-service
 For a service, instead of using `forRoot()`,  specify `providedIn: 'root'` on the service's `@Injectable()` decorator, which
 makes the service automatically available to the whole application and thus singleton by default.
 
-对于服务来说，除了可以使用 `forRoot()`外，更好的方式是在该服务的 `@Injectable()` 装饰器中指定 `providedIn: 'root'`，它让该服务自动在全应用级可用，这样它也就默认是单例的。
+对于服务来说，除了可以使用 `forRoot()` 外，更好的方式是在该服务的 `@Injectable()` 装饰器中指定 `providedIn: 'root'`，它让该服务自动在全应用级可用，这样它也就默认是单例的。
 
 `RouterModule` also offers a `forChild()` static method for configuring the routes of lazy-loaded modules.
 

@@ -1,6 +1,6 @@
 # AngularJS to Angular concepts: Quick reference
 
-# 关于AngularJS 与 Angular 概念的快速参考
+# 关于 AngularJS 与 Angular 概念的快速参考
 
 {@a top}
 
@@ -539,8 +539,8 @@ AngularJS 为模板提供了七十多个内置指令。
 
       <code-example hideCopy path="ajs-quick-reference/src/app/app.component.html" region="router-link"></code-example>
 
-      For more information on routing, see the [RouterLink binding](guide/router#router-link)
-      section of the [Routing & Navigation](guide/router) page.
+      For more information on routing, see [Defining a basic route](guide/router#basic-route)
+      in the [Routing & Navigation](guide/router) page.
 
       要了解关于路由的更多信息，请参见[路由与导航](guide/router)的[RouterLink 绑定](guide/router#router-link)部分。
 

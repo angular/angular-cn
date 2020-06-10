@@ -330,14 +330,13 @@ The following are all in `src/`
 
       使[即时 (JIT) 编译器](guide/glossary#jit)用编译应用并且在浏览器中[启动](guide/bootstrapping "启动应用")并运行应用。
       对于大多数项目的开发，这都是合理的选择。而且它是在像 Stackblitz 这样的*在线编程*环境中运行例子的唯一选择。
-      你将在本文档中学习其他编译和开发选择。
+      你将在本文档中学习其它编译和开发选择。
 
     </td>
 
   </tr>
 
 </table>
-
 
 ## Appendix: Develop locally with IE
 
@@ -384,4 +383,4 @@ import 'zone.js/dist/fake-async-test';
 
 You can still load those files separately, but the order is important, you must import `proxy` before `sync-test`, `async-test`, `fake-async-test` and `jasmine-patch`. And you also need to import `sync-test` before `jasmine-patch`, so it is recommended to just import `zone-testing` instead of loading those separated files.
 
-你仍然可以分别导入这些文件，不过导入顺序很重要，你必须在 `sync-test`、`async-test`、`fake-async-test` 和 `jasmine-patch` 之前导入 `proxy`。还要注意在 `jasmine-patch` 之前导入`sync-test`。所以，建议你只导入 `zone-testing` 而不要分别加载那些文件。
+你仍然可以分别导入这些文件，不过导入顺序很重要，你必须在 `sync-test`、`async-test`、`fake-async-test` 和 `jasmine-patch` 之前导入 `proxy`。还要注意在 `jasmine-patch` 之前导入 `sync-test`。所以，建议你只导入 `zone-testing` 而不要分别加载那些文件。

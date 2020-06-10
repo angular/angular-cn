@@ -1,33 +1,23 @@
 @description
 
-
 ## Transpile
 
 ## 转译（transpile)
 
-
 <div class="l-sub-section">
-
-
 
 The process of transforming code written in one form of JavaScript
 (such as TypeScript) into another form of JavaScript  (such as [ES5](_fragments/glossary-t2#es5)).
 
 把一种形式的 JavaScript（例如 TypeScript）转换成另一种形式的 JavaScript（例如 [ES5](_fragments/glossary-t2#es5)）的过程。
 
-
 </div>
-
-
 
 ## TypeScript
 
 ## TypeScript 语言
 
-
 <div class="l-sub-section">
-
-
 
 A version of JavaScript that supports most [ECMAScript 2015](_fragments/glossary-t2#es2015)
 language features such as [decorators](_fragments/glossary-t2#decorator).

@@ -1,38 +1,69 @@
 .api-body {
   max-width: 1200px;
 
-  table {
-    margin: 12px 0 24px;
+  h1 {
+    margin-top: -4px;
+  }
 
-    th {
-        text-transform: none;
-        @include font-size(16);
-        font-weight: bold;
-    }
+  details.overloads {
+    box-shadow: none;
 
-    tr {
-        border-bottom: 1px solid $lightgray;
-    }
+    .icon-action-header {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
 
-    td {
-      vertical-align: middle;
-    }
-
-    // This is overriding a style here:
-    // https://github.com/angular/angular/blob/95993e1/aio/src/styles/2-modules/_table.scss#L58-L62
-    tbody > tr > td tr td:first-child {
-      @media screen and (max-width: 480px) {
-        background-color: inherit;
+      a {
+        display: flex;
       }
     }
 
-    hr {
-      margin: 16px 0;
+    .detail-contents {
+      padding: 0;
+      border: 1px solid $lightgray;
+      border-radius: 2px;
+      box-shadow: none;
+
+      > *:not(hr) {
+        margin: 16px 24px;
+      }
     }
 
-    tr:last-child {
-      border-bottom: none;
+    summary {
+      height: inherit;
+      padding: 0;
+
+      h4 {
+        margin: 0;
+        clear: left;
+      }
+
+      .show-all {
+        display: initial;
+      }
+      .collapse-all {
+        display: none;
+      }
     }
+
+    &[open] > summary {
+      .show-all {
+        display: none;
+      }
+      .collapse-all {
+        display: initial;
+      }
+    }
+  }
+
+  details.overload {
+    box-shadow: none;
+    margin: 0;
+  }
+
+  table {
+    margin: 12px 0 24px;
 
     &.item-table {
       td {
@@ -44,10 +75,6 @@
       td {
         padding: 16px 24px;
       }
-    }
-
-    .short-description {
-      margin-left: 0;
     }
 
     &.parameters-table {
@@ -80,59 +107,19 @@
         vertical-align: top;
       }
     }
-  }
 
-  .class-overview {
-    position: relative;
+    &.method-table,
+    &.option-table,
+    &.list-table {
+      td > code {
+        background-color: inherit;
+        white-space: pre-wrap;
+      }
 
-    code-example {
-      clear: left;
-    }
-  }
-
-  .short-description {
-    margin-top: 8px;
-  }
-
-  h1 {
-    margin-top: -4px;
-  }
-}
-
-.github-links {
-  float: right;
-
-  .material-icons {
-    border-radius: 4px;
-    padding: 4px;
-    @include font-size(20);
-    &:hover {
-      background-color: $mist;
-    }
-  }
-}
-
-.api-body {
-  .class-overview {
-    position: relative;
-
-    code-example {
-      clear: left;
-    }
-  }
-
-  .method-table,
-  .option-table,
-  .list-table {
-    td > code {
-      background-color: inherit;
-      white-space: pre-wrap;
-    }
-
-    .with-github-links {
-      align-items: center;
-      display: flex;
-      justify-content: space-between;
+      .with-github-links {
+        align-items: center;
+        display: flex;
+        justify-content: space-between;
 
       .github-links {
         a {
@@ -146,88 +133,74 @@
       }
     }
 
-    h3 {
-      margin: 6px 0;
-      font-weight: 500;
-      clear: left;
+      h3 {
+        margin: 6px 0;
+        font-weight: 500;
+        clear: left;
+      }
+
+      h4 {
+        @include font-size(14);
+        font-weight: bold;
+        margin-top: 12px;
+      }
     }
 
-    h4 {
-      @include font-size(14);
+    th {
+      text-transform: none;
+      @include font-size(16);
       font-weight: bold;
-      margin-top: 12px;
     }
+
+    tr {
+      border-bottom: 1px solid $lightgray;
+
+      &:last-child {
+        border-bottom: none;
+      }
+    }
+
+    td {
+      vertical-align: middle;
+    }
+
+    // This is overriding a style here:
+    // https://github.com/angular/angular/blob/95993e1/aio/src/styles/2-modules/_table.scss#L58-L62
+    tbody > tr > td tr td:first-child {
+      @media screen and (max-width: 480px) {
+        background-color: inherit;
+      }
+    }
+
+    hr {
+      margin: 16px 0;
+    }
+
+    .short-description {
+      margin-left: 0;
+    }
+  }
+
+  .class-overview {
+    position: relative;
+
+    code-example {
+      clear: left;
+    }
+  }
+
+  .member-name .pln {
+    font-weight: 700;
+  }
+
+  .short-description {
+    margin-top: 8px;
   }
 
   .api-heading {
     @include font-size(14);
     margin: 16px;
   }
-
-  .parameters-table {
-    margin-top: 0;
-    @include font-size(14);
-    td:nth-child(1) {
-      width: 20%;
-    }
-  }
-
-  details.overloads {
-    box-shadow: none;
-
-    .icon-action-header {
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-      justify-content: space-between;
-
-      a {
-        display: flex;
-      }
-    }
-
-    .detail-contents {
-      padding: 0;
-      border: 1px solid $lightgray;
-      border-radius: 2px;
-      box-shadow: none;
-
-      > *:not(hr) {
-        margin: 16px 24px;
-      }
-    }
-
-    summary {
-      height: inherit;
-      padding: 0;
-      h4 {
-        margin: 0;
-        clear: left;
-      }
-
-      .show-all {
-        display: initial;
-      }
-      .collapse-all {
-        display: none;
-      }
-    }
-
-    &[open] > summary {
-      .show-all {
-        display: none;
-      }
-      .collapse-all {
-        display: initial;
-      }
-    }
-  }
-
-  details.overload {
-    box-shadow: none;
-    margin: 0;
-  }
-
 
   .from-constructor,
   .read-only-property,
@@ -270,6 +243,20 @@
   }
 }
 
+.github-links {
+  float: right;
+
+  .material-icons {
+    border-radius: 4px;
+    padding: 4px;
+    @include font-size(20);
+
+    &:hover {
+      background-color: $mist;
+    }
+  }
+}
+
 .breadcrumb-container {
   display: flex;
   flex-direction: row;
@@ -288,18 +275,6 @@
 
   h1 {
     margin: 0;
-  }
-}
-
-.github-links {
-  float: right;
-  .material-icons {
-    border-radius: 4px;
-    padding: 4px;
-    font-size: 20px;
-    &:hover {
-      background-color: $mist;
-    }
   }
 }
 

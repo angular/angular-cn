@@ -122,7 +122,9 @@ export class Location {
    * Reports the current state of the location history.
    * @returns The current value of the `history.state` object.
    */
-  getState(): unknown { return this._platformLocation.getState(); }
+  getState(): unknown {
+    return this._platformLocation.getState();
+  }
 
   /**
    * Normalizes the given path and compares to the current normalized path.
@@ -243,14 +245,18 @@ export class Location {
    *
    * 在所属平台（如浏览器）的历史堆栈中前进一步。
    */
-  forward(): void { this._platformStrategy.forward(); }
+  forward(): void {
+    this._platformStrategy.forward();
+  }
 
   /**
    * Navigates back in the platform's history.
    *
    * 在所属平台（如浏览器）的历史堆栈中后退一步。
    */
-  back(): void { this._platformStrategy.back(); }
+  back(): void {
+    this._platformStrategy.back();
+  }
 
   /**
    * Registers a URL change listener. Use to catch updates performed by the Angular
@@ -260,7 +266,9 @@ export class Location {
    */
   onUrlChange(fn: (url: string, state: unknown) => void) {
     this._urlChangeListeners.push(fn);
-    this.subscribe(v => { this._notifyUrlChangeListeners(v.url, v.state); });
+    this.subscribe(v => {
+      this._notifyUrlChangeListeners(v.url, v.state);
+    });
   }
 
   /** @internal */

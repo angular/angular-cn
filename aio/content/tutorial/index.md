@@ -8,57 +8,50 @@
 
 <header>快速上手 - Stackblitz</header>
 
+In this tutorial, you build your own app from the ground up, providing experience with the typical development process, as well as an introduction to basic app-design concepts, tools, and terminology.
 
-If you're new to Angular, you might want to try the [**Getting Started**](start) quick-start app first.
-The Getting Started tutorial covers the same major topics&mdash;components, template syntax, routing, services, and accessing data via HTTP&mdash;in a condensed format, following the most current best practices. It uses a partially-completed StackBlitz project, so that you can make modifications and see the results in real time.
+在本教程中，你将从头开始构建自己的应用，体验典型的开发过程。这里还有一些对基本的应用设计概念、工具和术语的介绍。
 
-如果你刚刚接触 Angular，请参见[**新的快速上手**](start)。
-这个快速上手教程涵盖了与《英雄指南》相同的主题：组件、模板语法、路由、服务以及通过 HTTP 访问数据等，但是格式更简单，且遵循了绝大部分最佳实践。
+If you're completely new to Angular, you might want to try the [**Try it now**](start) quick-start app first.
+It is based on a ready-made  partially-completed project, which you can examine and modify in the StacBlitz interactive development environment, where you can see the results in real time.
 
-In this tutorial, you build your own app from the ground up, providing experience with the development process as well as a more thorough introduction to basic concepts.
+如果你对 Angular 还不熟悉，你可能要先[**试一试**](start) 快速上手应用。它基于一个现成的、已部分完成的项目，你可以在 StacBlitz 的交互式开发环境中检查和修改，你还可以在那里实时查看结果。
 
-在这份教程中，你将从零开始构建出自己的应用，在此开发过程中获得的经验比对那些基本概念的介绍更加全面。
+The "Try it" tutorial covers the same major topics&mdash;components, template syntax, routing, services, and accessing data via HTTP&mdash;in a condensed format, following the most current best practices.
 
-The **Tour of Heroes app** that you create with this tutorial serves as the conceptual basis for many examples throughout Angular documentation.
-Reading this introduction page provides sufficient context for working with those examples.
-You do not need to do this tutorial to understand those other examples.  
-
-**这份《英雄指南》教程**是本文档中很多范例的基础。阅读此简介页面可以为那些例子提供充足的上下文。阅读此简介页可以为使用这些示例提供足够的上下文。你不用实做这个教程就足以理解其它范例。
+“试一试”教程遵循最新的最佳实践，以简明的格式，涵盖了与其相同的主要话题 - 组件、模板语法、路由、服务，以及通过 HTTP 访问数据。
 
 </div>
 
-This _Tour of Heroes_ tutorial provides an introduction to the fundamentals of Angular.
-It shows you how to set up your local development environment and develop an app using the [Angular CLI tool](cli "CLI command reference").
+This _Tour of Heroes_ tutorial shows you how to set up your local development environment and develop an app using the [Angular CLI tool](cli "CLI command reference"), and provides an introduction to the fundamentals of Angular.
 
-这份《英雄指南》教程提供了一个对 Angular 基础知识的简介。
-它会告诉你如何搭建本地开发环境，并使用 [Angular CLI 工具](cli "CLI command reference")开发一个应用。
+这个*“英雄指南”*教程向你展示了如何使用 [Angular CLI 工具](cli "CLI 命令参考：")搭建本地开发环境并开发应用，还对 [Angular CLI 工具](cli "CLI 命令参考：") 的基础知识进行了介绍。
 
-In this _Tour of Heroes_ tutorial, you will build an app that helps a staffing agency manage its stable of heroes.
+The _Tour of Heroes_ app that you build helps a staffing agency manage its stable of heroes.
+The app has many of the features you'd expect to find in any data-driven application.
+The finished app acquires and displays a list of heroes, edits a selected hero's detail, and navigates among different views of heroic data.
 
-在这个**英雄指南**教程中，你将构建一个应用，来帮助招聘机构管理一群英雄。
+你建立的*英雄指南*应用可以帮助人力资源管理局管理好自己的英雄。该应用具有许多在任何数据驱动的应用中都可能出现的功能。完成后的应用会获取并显示一些英雄列表、编辑所选英雄的详细信息，并在不同的英雄数据视图之间导航。
 
-This app has many of the features you'd expect to find in a data-driven application.
-It acquires and displays a list of heroes, edits a selected hero's detail, and navigates among different views of heroic data.
+You will find references to and expansions of this app domain in many of the examples used throughout the Angular documentation, but you don't necessarily need to work through this tutorial to understand those examples.
 
-这个入门级 app 包含很多数据驱动的应用所需的特性。
-它需要获取并显示英雄的列表、编辑所选英雄的详情，并且在英雄数据的不同视图之间导航。
+你会在这份 Angular 文档中用到的很多个例子中找到对此应用领域的引用和扩展，但是你并不一定非要通过这个教程来理解这些例子。
 
 By the end of this tutorial you will be able to do the following:
 
 在本教程的最后，你将完成下列工作：
 
-* Use built-in Angular directives to show and hide elements and display lists of hero data.
+* Use built-in Angular [directives](guide/glossary#directive "Directives definition") to show and hide elements and display lists of hero data.
 
-   使用Angular 的内置指令来显示 / 隐藏元素，并显示英雄数据的列表。
+   使用 Angular 的内置指令来显示 / 隐藏元素，并显示英雄数据的列表。
 
-* Create Angular components to display hero details and show an array of heroes.
+* Create Angular [components](guide/glossary#component "Components definition") to display hero details and show an array of heroes.
 
    创建 Angular 组件以显示英雄的详情，并显示一个英雄数组。
 
-* Use one-way data binding for read-only data.
+* Use one-way [data binding](guide/glossary#data-binding "Data binding definition") for read-only data.
 
    为只读数据使用单向数据绑定。
-
 * Add editable fields to update a model with two-way data binding.
 
    添加可编辑字段，使用双向数据绑定来更新模型。
@@ -70,15 +63,15 @@ By the end of this tutorial you will be able to do the following:
 * Enable users to select a hero from a master list and edit that hero in the details view. 
 
    让用户可以在主列表中选择一个英雄，然后在详情视图中编辑他。
-* Format data with pipes.
+* Format data with [pipes](guide/glossary#pipe "Pipe definition").
 
    使用管道来格式化数据。
 
-* Create a shared service to assemble the heroes.
+* Create a shared [service](guide/glossary#service "Service definition") to assemble the heroes.
 
    创建共享的服务来管理这些英雄。
 
-* Use routing to navigate among different views and their components.
+* Use [routing](guide/glossary#router "Router definition") to navigate among different views and their components.
 
    使用路由在不同的视图及其组件之间导航。
 
@@ -98,8 +91,6 @@ After completing all tutorial steps, the final app will look like this: <live-ex
 完成本教程的所有步骤之后，最终的应用会是这样的：<live-example name="toh-pt6"></live-example>。
 
 </div>
-
-
 
 ## What you'll build
 

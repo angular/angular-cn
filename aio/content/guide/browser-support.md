@@ -56,9 +56,9 @@ Angular 支持大多数常用浏览器，包括下列版本：
 
     <td>
 
-      latest
+      latest and extended support release (ESR)
 
-      最新版
+      最新版以及扩展支持版本（ESR）
 
     </td>
 
@@ -90,10 +90,13 @@ Angular 支持大多数常用浏览器，包括下列版本：
 
     <td>
 
-      11, 10, 9
-("compatibility view" mode not supported)
+      11, 10*, 9* ("compatibility view" mode not supported) 
 
-      11, 10, 9（不支持“兼容视图”模式）
+      11, 10*, 9* (不支持“兼容性视图”)
+
+      *deprecated in v10, see the <a href="/guide/deprecations#ie-9-10">deprecations guide</a>.
+
+      *在 v10 中弃用，参见<a href="/guide/deprecations#ie-9-10">弃用指南</a>。
 
     </td>
 
@@ -205,53 +208,44 @@ In Angular CLI version 8 and higher, applications are built using *differential 
 
 在 Angular CLI 版本 8 和更高版本中，应用程序是使用*差异化加载*的方式构建的，*差异化加载*是一种策略，CLI 会构建两个单独的捆绑包作为已部署应用程序的一部分。
 
-
 * The first bundle contains modern ES2015 syntax, takes advantage of built-in support in modern browsers, ships less polyfills, and results in a smaller bundle size.
 
   第一个捆绑包中包含现代 ES2015 语法，利用了现代浏览器中的内置支持，减少了 polyfill 的发布，并减小了捆绑包的大小。
-
 
 * The second bundle contains code in the old ES5 syntax, along with all necessary polyfills. This results in a larger bundle size, but supports older browsers.
 
   第二个捆绑包中包含旧 ES5 语法中的代码以及所有必要的 polyfill。这会导致更大的捆绑包大小，但支持较旧的浏览器。
 
-
 This strategy allows you to continue to build your web application to support multiple browsers, but only load the necessary code that the browser needs.
 For more information about how this works, see [Differential Loading](guide/deployment#differential-loading) in the [Deployment guide](guide/deployment).
 
-通过此策略，您可以继续构建 Web 应用程序以支持多个浏览器，但仅加载当前浏览器所需的必要代码。有关此工作原理的更多信息，请参见《[部署指南》](guide/deployment)中的“[差异化加载](guide/deployment#differential-loading) ”。
-
+通过此策略，你可以继续构建 Web 应用程序以支持多个浏览器，但仅加载当前浏览器所需的必要代码。有关此工作原理的更多信息，请参见《[部署指南》](guide/deployment)中的“[差异化加载](guide/deployment#differential-loading) ”。
 
 ## Enabling polyfills with CLI projects
 
 ## 在 CLI 项目中启用腻子脚本
-
 
 The [Angular CLI](cli) provides support for polyfills.
 If you are not using the CLI to create your projects, see [Polyfill instructions for non-CLI users](#non-cli).
 
 [Angular CLI](cli) 提供了对腻子脚本的支持。如果未使用 CLI 创建项目，请参阅[针对非 CLI 用户的腻子脚本说明](#non-cli)。
 
-
 When you create a project with the `ng new` command, a `src/polyfills.ts` configuration file is created as part of your project folder.
 This file incorporates the mandatory and many of the optional polyfills as JavaScript `import` statements.
 
 使用 `ng new` 命令创建项目时，会在项目文件夹中创建一个 `src/polyfills.ts` 配置文件。该文件包含许多强制性和可选腻子脚本的 JavaScript `import` 语句。
 
-
 * The npm packages for the [_mandatory_ polyfills](#polyfill-libs) (such as `zone.js`) are installed automatically for you when you create your project with `ng new`, and their corresponding `import` statements are already enabled in the `src/polyfills.ts` configuration file.
 
-  使用 `ng new` 创建项目时，会自动为您安装[*强制性*](#polyfill-libs) `zone.js` 的 npm 捆绑包（例如 `zone.js` ），并且它对应的 `import` 语句已在 `src/polyfills.ts` 配置文件中启用。
-
+  使用 `ng new` 创建项目时，会自动为你安装[*强制性*](#polyfill-libs) `zone.js` 的 npm 捆绑包（例如 `zone.js` ），并且它对应的 `import` 语句已在 `src/polyfills.ts` 配置文件中启用。
 
 * If you need an _optional_ polyfill, you must install its npm package, then uncomment or create the corresponding import statement in the `src/polyfills.ts` configuration file.
 
-  如果需要*可选的*腻子脚本，则必须安装其 npm 捆绑包，然后取消注释或在`src/polyfills.ts`配置文件中创建相应的import语句。
-
+  如果需要*可选的*腻子脚本，则必须安装其 npm 捆绑包，然后取消注释或在 `src/polyfills.ts` 配置文件中创建相应的 import 语句。
 
 For example, if you need the optional [web animations polyfill](http://caniuse.com/#feat=web-animation), you could install it with `npm`, using the following command (or the `yarn` equivalent):
 
-比如，如果需要可选的 [Web 动画腻子脚本](http://caniuse.com/#feat=web-animation) ，则可以使用以下命令来通过 `npm`（或等效的`yarn` ）安装它：
+比如，如果需要可选的 [Web 动画腻子脚本](http://caniuse.com/#feat=web-animation)，则可以使用以下命令来通过 `npm`（或等效的 `yarn` ）安装它：
 
 <code-example language="sh" class="code-shell">
   # install the optional web animations polyfill
@@ -263,7 +257,6 @@ For many polyfills, you can simply un-comment the corresponding `import` stateme
 
 然后你还要在 `src/polyfills.ts` 文件中添加导入语句。
 对于大多数腻子脚本，你可以直接在此文件中反注释对应的 `import` 语句，如下所示。
-
 
 <code-example header="src/polyfills.ts">
   /**
@@ -405,7 +398,7 @@ Some features of Angular may require additional polyfills.
       <p>If AnimationBuilder is used, enables scrubbing
       support for IE/Edge and Safari.
       (Chrome and Firefox support this natively).</p>
-      
+
       <p>如果用到了 AnimationBuilder，还要启用 IE/Edge 和 Safari 的 scrubbing（擦除）支持
       （Chrome 和 Firefox 对此提供了原生支持）</p>
     </td>
@@ -470,9 +463,9 @@ Some features of Angular may require additional polyfills.
     <td>
 
       [Router](guide/router) when using
-      [hash-based routing](guide/router#appendix-locationstrategy-and-browser-url-styles)
-      
-      当使用[基于 hash 的路由](guide/router#appendix-locationstrategy-and-browser-url-styles)时。
+      [hash-based routing](guide/router#location-strategy)
+
+      当使用[基于 hash 的路由](guide/router#location-strategy)时。
     </td>
 
     <td>
@@ -488,8 +481,6 @@ Some features of Angular may require additional polyfills.
   </tr>
 
 </table>
-
-
 
 ### Suggested polyfills
 

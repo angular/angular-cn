@@ -94,7 +94,7 @@ export interface CanActivate {
 }
 
 export type CanActivateFn = (route: ActivatedRouteSnapshot, state: RouterStateSnapshot) =>
-    Observable<boolean|UrlTree>| Promise<boolean|UrlTree>| boolean | UrlTree;
+    Observable<boolean|UrlTree>|Promise<boolean|UrlTree>|boolean|UrlTree;
 
 /**
  * @description
@@ -187,7 +187,7 @@ export interface CanActivateChild {
 }
 
 export type CanActivateChildFn = (childRoute: ActivatedRouteSnapshot, state: RouterStateSnapshot) =>
-    Observable<boolean|UrlTree>| Promise<boolean|UrlTree>| boolean | UrlTree;
+    Observable<boolean|UrlTree>|Promise<boolean|UrlTree>|boolean|UrlTree;
 
 /**
  * @description
@@ -277,7 +277,7 @@ export interface CanDeactivate<T> {
 export type CanDeactivateFn<T> =
     (component: T, currentRoute: ActivatedRouteSnapshot, currentState: RouterStateSnapshot,
      nextState?: RouterStateSnapshot) =>
-        Observable<boolean|UrlTree>| Promise<boolean|UrlTree>| boolean | UrlTree;
+        Observable<boolean|UrlTree>|Promise<boolean|UrlTree>|boolean|UrlTree;
 
 /**
  * @description
@@ -361,6 +361,10 @@ export interface Resolve<T> {
  * @description
  *
  * Interface that a class can implement to be a guard deciding if children can be loaded.
+ * If all guards return `true`, navigation will continue. If any guard returns `false`,
+ * navigation will be cancelled. If any guard returns a `UrlTree`, current navigation will
+ * be cancelled and a new navigation will be kicked off to the `UrlTree` returned from the
+ * guard.
  *
  * 一个接口，某些类可以实现它以扮演一个守卫，来决定该路由的子路由能否加载。
  *
@@ -426,8 +430,9 @@ export interface Resolve<T> {
  * @publicApi
  */
 export interface CanLoad {
-  canLoad(route: Route, segments: UrlSegment[]): Observable<boolean>|Promise<boolean>|boolean;
+  canLoad(route: Route, segments: UrlSegment[]):
+      Observable<boolean|UrlTree>|Promise<boolean|UrlTree>|boolean|UrlTree;
 }
 
 export type CanLoadFn = (route: Route, segments: UrlSegment[]) =>
-    Observable<boolean>| Promise<boolean>| boolean;
+    Observable<boolean|UrlTree>|Promise<boolean|UrlTree>|boolean|UrlTree;

@@ -72,7 +72,7 @@ Bill Luan, Greater China Regional Lead, Developer Relations, Google
 当然，即便如此，我们理解错误的可能性也还是有的，所以我们的译稿都提供了中英文对照，如果你对某些语句有疑问，只要点一下它，就可以显示对应的英文版内容，读者可自行对照理解。
 
 对于英文词汇，我们尽量采用业内成熟的译法，以利于口头交流。对少部分在 Angular 之外比较罕见的专有名词，我们会在译文中写成中英双语。
-这部分做了初步的梳理，但是仍可能有遗漏，如果你发现哪里有问题，请到我们的<a href="https://github.com/angular/angular-cn" target="_blank">github</a>上提出 issue 或 Pull Request 。
+这部分做了初步的梳理，但是仍可能有遗漏，如果你发现哪里有问题，请到我们的<a href="https://github.com/angular/angular-cn" target="_blank">github</a>上提出 issue 或 Pull Request。
 
 ## 授权方式
 

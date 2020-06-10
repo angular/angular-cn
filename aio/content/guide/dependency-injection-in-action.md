@@ -127,7 +127,6 @@ Each of these components has its own `HeroService` instance managing its own ind
 
 </div>
 
-
 {@a multiple-service-instances}
 
 ## Multiple service instances (sandboxing)
@@ -151,12 +150,11 @@ This is called *sandboxing* because each service and component instance has its 
 
 In this example, `HeroBiosComponent` presents three instances of `HeroBioComponent`.
 
-在这个例子中，`HeroBiosComponent` 呈现了 `HeroBioComponent` 的三个实例。
+在这个例子中，`HeroBiosComponent` 渲染了 `HeroBioComponent` 的三个实例。
 
 <code-example path="dependency-injection-in-action/src/app/hero-bios.component.ts" region="simple" header="ap/hero-bios.component.ts">
 
 </code-example>
-
 
 Each `HeroBioComponent` can edit a single hero's biography.
 `HeroBioComponent` relies on `HeroCacheService` to fetch, cache, and perform other persistence operations on that hero.
@@ -176,7 +174,6 @@ Instead, each `HeroBioComponent` gets its *own* `HeroCacheService` instance
 by listing `HeroCacheService` in its metadata `providers` array.
 
 它们应该通过在自己的元数据(metadata)`providers` 数组里面列出 `HeroCacheService`, 这样每个 `HeroBioComponent` 就能*拥有*自己独立的 `HeroCacheService` 实例了。
-
 
 <code-example path="dependency-injection-in-action/src/app/hero-bio.component.ts" region="component" header="src/app/hero-bio.component.ts">
 
@@ -263,7 +260,7 @@ that parent component becomes the host. The following example covers this second
 These decorators can be used individually or together, as shown in the example.
 This `HeroBiosAndContactsComponent` is a revision of `HeroBiosComponent` which you looked at [above](guide/dependency-injection-in-action#hero-bios-component).
 
-如下例所示，这些装饰器可以独立使用，也可以同时使用。这个`HeroBiosAndContactsComponent` 是你[以前](guide/dependency-injection-in-action#hero-bios-component)见过的那个 `HeroBiosComponent` 的修改版。
+如下例所示，这些装饰器可以独立使用，也可以同时使用。这个 `HeroBiosAndContactsComponent` 是你[以前](guide/dependency-injection-in-action#hero-bios-component)见过的那个 `HeroBiosComponent` 的修改版。
 
 <code-example path="dependency-injection-in-action/src/app/hero-bios.component.ts" region="hero-bios-and-contacts" header="src/app/hero-bios.component.ts (HeroBiosAndContactsComponent)">
 
@@ -291,7 +288,6 @@ The result is shown below, with the hero's telephone number from `HeroContactCom
 <div class="lightbox">
   <img src="generated/images/guide/dependency-injection-in-action/hero-bio-and-content.png" alt="bio and contact">
 </div>
-
 
 Here's `HeroContactComponent`, which demonstrates the qualifying decorators.
 
@@ -417,7 +413,7 @@ Angular sets the constructor's `el` parameter to the injected `ElementRef`.
 (An `ElementRef` is a wrapper around a DOM element,
 whose `nativeElement` property exposes the DOM element for the directive to manipulate.)
 
-Angular 把构造函数参数 `el` 设置为注入的 `ElementRef`，该 `ElementRef` 代表了宿主的 DOM 元素， 它的 `nativeElement` 属性把该 DOM 元素暴露给了指令。
+Angular 把构造函数参数 `el` 设置为注入的 `ElementRef`，该 `ElementRef` 代表了宿主的 DOM 元素，它的 `nativeElement` 属性把该 DOM 元素暴露给了指令。
 
 The sample code applies the directive's `myHighlight` attribute to two `<div>` tags,
 first without a value (yielding the default color) and then with an assigned color value.
@@ -425,7 +421,6 @@ first without a value (yielding the default color) and then with an assigned col
 下面的代码把指令的 `myHighlight` 属性(Attribute)填加到两个 `<div>` 标签里，一个没有赋值，一个赋值了颜色。
 
 <code-example path="dependency-injection-in-action/src/app/app.component.html" region="highlight" header="src/app/app.component.html (highlight)"></code-example>
-
 
 The following image shows the effect of mousing over the `<hero-bios-and-contacts>` tag.
 
@@ -857,7 +852,6 @@ as long as those members are typed but not implemented. Look again at the TypeSc
 
 </div>
 
-
 {@a injection-token}
 
 ### 'InjectionToken' objects
@@ -928,7 +922,6 @@ and displays them in the order they arrive from the database.
 
 </code-example>
 
-
 <div class="alert is-helpful">
 
 ### Keep constructors simple
@@ -944,7 +937,6 @@ That's why you call the `HeroService` from within the `ngOnInit` rather than the
 这就是为什么你要在 `ngOnInit` 里面调用 `HeroService`，而不是在构造函数中。
 
 </div>
-
 
 Users want to see the heroes in alphabetical order.
 Rather than modify the original component, sub-class it and create a
@@ -963,7 +955,6 @@ then pass it down to the base class inside the constructor.
 <code-example path="dependency-injection-in-action/src/app/sorted-heroes.component.ts" region="sorted-heroes" header="src/app/sorted-heroes.component.ts (SortedHeroesComponent)">
 
 </code-example>
-
 
 Now take note of the `afterGetHeroes()` method.
 Your first instinct might have been to create an `ngOnInit` method in `SortedHeroesComponent` and do the sorting there.
@@ -1022,7 +1013,6 @@ Break the circularity with `forwardRef`.
 使用 `forwardRef` 来打破这种循环：
 
 <code-example path="dependency-injection-in-action/src/app/parent-finder.component.ts" region="alex-providers" header="parent-finder.component.ts (AlexComponent providers)"></code-example>
-
 
 <!--- Waiting for good examples
 

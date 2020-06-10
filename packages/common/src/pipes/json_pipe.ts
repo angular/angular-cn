@@ -34,5 +34,7 @@ export class JsonPipe implements PipeTransform {
    *
    * 任何类型的要转换成 JSON 字符串格式的值
    */
-  transform(value: any): string { return JSON.stringify(value, null, 2); }
+  transform(value: any): string {
+    return JSON.stringify(value, null, 2);
+  }
 }

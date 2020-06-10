@@ -85,6 +85,8 @@ export class AppComponent implements OnInit {
 
   versionInfo: VersionInfo;
 
+  private currentUrl: string;
+
   get isOpened() { return this.isSideBySide && this.isSideNavDoc; }
   get mode() { return this.isSideBySide ? 'side' : 'over'; }
 
@@ -156,27 +158,27 @@ export class AppComponent implements OnInit {
       this.navigationService.versionInfo,
       this.navigationService.navigationViews.pipe(map(views => views['docVersions'])),
     ]).subscribe(([versionInfo, versions]) => {
-        // TODO(pbd): consider whether we can lookup the stable and next versions from the internet
-        const computedVersions: NavigationNode[] = [
-          { title: 'next', url: 'https://next.angular.io' },
-          { title: 'stable', url: 'https://angular.cn' },
-        ];
-        if (this.deployment.mode === 'archive') {
-          computedVersions.push({ title: `v${versionInfo.major}` });
-        }
-        this.docVersions = [...computedVersions, ...versions];
+      // TODO(pbd): consider whether we can lookup the stable and next versions from the internet
+      const computedVersions: NavigationNode[] = [
+        { title: 'next', url: 'https://next.angular.io/' },
+        { title: 'stable', url: 'https://angular.cn/' },
+      ];
+      if (this.deployment.mode === 'archive') {
+        computedVersions.push({ title: `v${versionInfo.major}` });
+      }
+      this.docVersions = [...computedVersions, ...versions];
 
-        // Find the current version - eithers title matches the current deployment mode
-        // or its title matches the major version of the current version info
-        this.currentDocVersion = this.docVersions.find(version =>
-          version.title === this.deployment.mode || version.title === `v${versionInfo.major}`)!;
-        this.currentDocVersion.title += ` (v${versionInfo.raw})`;
-      });
+      // Find the current version - eithers title matches the current deployment mode
+      // or its title matches the major version of the current version info
+      this.currentDocVersion = this.docVersions.find(version =>
+        version.title === this.deployment.mode || version.title === `v${versionInfo.major}`)!;
+      this.currentDocVersion.title += ` (v${versionInfo.raw})`;
+    });
 
     this.navigationService.navigationViews.subscribe(views => {
-      this.footerNodes  = views['Footer']  || [];
+      this.footerNodes = views['Footer'] || [];
       this.sideNavNodes = views['SideNav'] || [];
-      this.topMenuNodes = views['TopBar']  || [];
+      this.topMenuNodes = views['TopBar'] || [];
       this.topMenuNarrowNodes = views['TopBarNarrow'] || this.topMenuNodes;
     });
 
@@ -196,6 +198,8 @@ export class AppComponent implements OnInit {
       this.navigationService.currentNodes,   // ...needed to determine `sidenav` state
     ]).pipe(first())
       .subscribe(() => this.updateShell());
+
+    this.locationService.currentUrl.subscribe(url => this.currentUrl = url);
   }
 
   onDocReady() {
@@ -239,7 +243,8 @@ export class AppComponent implements OnInit {
   onDocVersionChange(versionIndex: number) {
     const version = this.docVersions[versionIndex];
     if (version.url) {
-      this.locationService.go(version.url);
+      const versionUrl = version.url  + (!version.url.endsWith('/') ? '/' : '');
+      this.locationService.go(`${versionUrl}${this.currentUrl}`);
     }
   }
 
@@ -271,7 +276,7 @@ export class AppComponent implements OnInit {
     }
 
     // Deal with anchor clicks; climb DOM tree until anchor found (or null)
-    let target: HTMLElement|null = eventTarget;
+    let target: HTMLElement | null = eventTarget;
     while (target && !(target instanceof HTMLAnchorElement)) {
       target = target.parentElement;
     }
@@ -414,7 +419,7 @@ export class AppComponent implements OnInit {
     if (key === '/' || keyCode === 191) {
       this.focusSearchBox();
     }
-    if (key === 'Escape' || keyCode === 27 ) {
+    if (key === 'Escape' || keyCode === 27) {
       // escape key
       if (this.showSearchResults) {
         this.hideSearchResults();

@@ -180,7 +180,7 @@ So, use the aliases `:enter` and `:leave` to target HTML elements that are inser
 
 The `:enter` transition runs when any `*ngIf` or `*ngFor` views are placed on the page, and `:leave` runs when those views are removed from the page.
 
-当任何 `*ngIf` 或 `*ngFor` 中的视图放进页面中时，会运行 `:enter` 转场；当移除这些视图时，就会运行 `:leave` 转场。 
+当任何 `*ngIf` 或 `*ngFor` 中的视图放进页面中时，会运行 `:enter` 转场；当移除这些视图时，就会运行 `:leave` 转场。
 
 This example has a special trigger for the enter and leave animation called `myInsertRemoveTrigger`. The HTML template contains the following code.
 
@@ -332,7 +332,7 @@ The animation `trigger()` function emits *callbacks* when it starts and when it 
 In the HTML template, the animation event is passed back via `$event`, as `@trigger.start` and `@trigger.done`, where `trigger` is the name of the trigger being used.
 In this example, the trigger `openClose` appears as follows.
 
-在 HTML 模板中，动画事件可以通过 `$event` 传递回来，比如 `@trigger.start` 和 `@trigger.done` ，这里的 `trigger` 表示所使用的触发器名字。在我们的例子中，`openClose` 触发器将会是这样的：
+在 HTML 模板中，动画事件可以通过 `$event` 传递回来，比如 `@trigger.start` 和 `@trigger.done`，这里的 `trigger` 表示所使用的触发器名字。在我们的例子中，`openClose` 触发器将会是这样的：
 
 <code-example path="animations/src/app/open-close.component.3.html" header="src/app/open-close.component.html" region="callbacks">
 </code-example>

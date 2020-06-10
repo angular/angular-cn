@@ -8,28 +8,16 @@ load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 # Fetch rules_nodejs so we can install our npm dependencies
 http_archive(
     name = "build_bazel_rules_nodejs",
-    sha256 = "6bcef105e75cac3c5f8212e0d0431b6ec1aaa1963e093b0091474ab98ecf29d2",
-    urls = ["https://github.com/bazelbuild/rules_nodejs/releases/download/1.2.2/rules_nodejs-1.2.2.tar.gz"],
+    sha256 = "f9e7b9f42ae202cc2d2ce6d698ccb49a9f7f7ea572a78fd451696d03ef2ee116",
+    urls = ["https://github.com/bazelbuild/rules_nodejs/releases/download/1.6.0/rules_nodejs-1.6.0.tar.gz"],
 )
 
-# Check the bazel version and download npm dependencies
-load("@build_bazel_rules_nodejs//:index.bzl", "check_bazel_version", "check_rules_nodejs_version", "node_repositories", "yarn_install")
+# Check the rules_nodejs version and download npm dependencies
+# Note: bazel (version 2 and after) will check the .bazelversion file so we don't need to
+# assert on that.
+load("@build_bazel_rules_nodejs//:index.bzl", "check_rules_nodejs_version", "node_repositories", "yarn_install")
 
-# Bazel version must be at least the following version because:
-#   - 0.26.0 managed_directories feature added which is required for nodejs rules 0.30.0
-#   - 0.27.0 has a fix for managed_directories after `rm -rf node_modules`
-check_bazel_version(
-    message = """
-You no longer need to install Bazel on your machine.
-Angular has a dependency on the @bazel/bazel package which supplies it.
-Try running `yarn bazel` instead.
-    (If you did run that, check that you've got a fresh `yarn install`)
-
-""",
-    minimum_bazel_version = "2.0.0",
-)
-
-check_rules_nodejs_version(minimum_version_string = "1.2.2")
+check_rules_nodejs_version(minimum_version_string = "1.6.0")
 
 # Setup the Node.js toolchain
 node_repositories(
@@ -42,8 +30,11 @@ node_repositories(
     package_json = ["//:package.json"],
 )
 
+load("//integration:angular_integration_test.bzl", "npm_package_archives")
+
 yarn_install(
     name = "npm",
+    manual_build_file_contents = npm_package_archives(),
     package_json = "//:package.json",
     yarn_lock = "//:yarn.lock",
 )

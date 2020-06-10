@@ -18,7 +18,8 @@ import {FormBuilder} from './form_builder';
  *
  * 导出模板驱动表单所需的提供商和指令，使其可用于导入了该模块的 NgModule 中。
  *
- * @see [Forms Guide](/guide/forms)
+ * @see [Forms Overview](/guide/forms-overview)
+ * @see [Template-driven Forms Guide](/guide/forms)
  *
  * @publicApi
  */
@@ -36,11 +37,11 @@ export class FormsModule {
  *
  * 导出响应式表单所需的基础设施和指令，使其能用于任何导入了本模块的 NgModule 中。
  *
- * @see [Forms](guide/reactive-forms)
+ * @see [Forms Overview](guide/forms-overview)
  *
- * [表单](guide/reactive-forms)
+ * [表单概览](guide/forms-overview)
  *
- * @see [Reactive Forms Guide](/guide/reactive-forms)
+ * @see [Reactive Forms Guide](guide/reactive-forms)
  *
  * [响应式表单](/guide/reactive-forms)
  *
@@ -69,14 +70,13 @@ export class ReactiveFormsModule {
    *
    */
   static withConfig(opts: {
-    /** @deprecated as of v6 */ warnOnNgModelWithFormControl: 'never' | 'once' | 'always'
+    /** @deprecated as of v6 */ warnOnNgModelWithFormControl: 'never'|'once'|'always'
   }): ModuleWithProviders<ReactiveFormsModule> {
     return {
       ngModule: ReactiveFormsModule,
-      providers: [{
-        provide: NG_MODEL_WITH_FORM_CONTROL_WARNING,
-        useValue: opts.warnOnNgModelWithFormControl
-      }]
+      providers: [
+        {provide: NG_MODEL_WITH_FORM_CONTROL_WARNING, useValue: opts.warnOnNgModelWithFormControl}
+      ]
     };
   }
 }

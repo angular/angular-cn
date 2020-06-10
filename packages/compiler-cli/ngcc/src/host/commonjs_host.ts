@@ -7,13 +7,14 @@
  */
 
 import * as ts from 'typescript';
+
 import {absoluteFrom} from '../../../src/ngtsc/file_system';
 import {Declaration, Import} from '../../../src/ngtsc/reflection';
 import {Logger} from '../logging/logger';
 import {BundleProgram} from '../packages/bundle_program';
-import {FactoryMap, isDefined, stripExtension} from '../utils';
+import {FactoryMap, getTsHelperFnFromIdentifier, isDefined, stripExtension} from '../utils';
 
-import {ExportDeclaration, ExportStatement, ReexportStatement, RequireCall, findNamespaceOfIdentifier, findRequireCallReference, isExportStatement, isReexportStatement, isRequireCall} from './commonjs_umd_utils';
+import {ExportDeclaration, ExportStatement, findNamespaceOfIdentifier, findRequireCallReference, isExportStatement, isReexportStatement, isRequireCall, ReexportStatement, RequireCall} from './commonjs_umd_utils';
 import {Esm5ReflectionHost} from './esm5_host';
 import {NgccClassSymbol} from './ngcc_host';
 
@@ -34,11 +35,6 @@ export class CommonJsReflectionHost extends Esm5ReflectionHost {
   }
 
   getImportOfIdentifier(id: ts.Identifier): Import|null {
-    const superImport = super.getImportOfIdentifier(id);
-    if (superImport !== null) {
-      return superImport;
-    }
-
     const requireCall = this.findCommonJsImport(id);
     if (requireCall === null) {
       return null;
@@ -160,7 +156,10 @@ export class CommonJsReflectionHost extends Esm5ReflectionHost {
     const reexports: ExportDeclaration[] = [];
     importedExports.forEach((decl, name) => {
       if (decl.node !== null) {
-        reexports.push({name, declaration: {node: decl.node, known: null, viaModule}});
+        reexports.push({
+          name,
+          declaration: {node: decl.node, known: null, viaModule, identity: decl.identity}
+        });
       } else {
         reexports.push(
             {name, declaration: {node: null, known: null, expression: decl.expression, viaModule}});
@@ -188,7 +187,7 @@ export class CommonJsReflectionHost extends Esm5ReflectionHost {
     }
 
     const viaModule = !importInfo.from.startsWith('.') ? importInfo.from : null;
-    return {node: importedFile, known: null, viaModule};
+    return {node: importedFile, known: getTsHelperFnFromIdentifier(id), viaModule, identity: null};
   }
 
   private resolveModuleName(moduleName: string, containingFile: ts.SourceFile): ts.SourceFile

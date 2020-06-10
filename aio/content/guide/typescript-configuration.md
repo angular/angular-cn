@@ -77,12 +77,11 @@ Angular 应用的初始 `tsconfig.json` 通常是这样的。
     ]
   },
   "angularCompilerOptions": {
-    "fullTemplateTypeCheck": true,
+    "strictTemplates": true,
     "strictInjectionParameters": true
   }
 }
 </code-example>
-
 
 {@a noImplicitAny}
 

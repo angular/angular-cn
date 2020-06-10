@@ -207,6 +207,9 @@
     "name": "TNODE"
   },
   {
+    "name": "TRANSPLANTED_VIEWS_TO_REFRESH"
+  },
+  {
     "name": "TVIEW"
   },
   {
@@ -588,6 +591,9 @@
     "name": "getContextLView"
   },
   {
+    "name": "getCurrentDirectiveDef"
+  },
+  {
     "name": "getCurrentDirectiveIndex"
   },
   {
@@ -612,10 +618,10 @@
     "name": "getFactoryDef"
   },
   {
-    "name": "getFirstNativeNode"
+    "name": "getFirstLContainer"
   },
   {
-    "name": "getHostDirectiveDef"
+    "name": "getFirstNativeNode"
   },
   {
     "name": "getInjectableDef"
@@ -652,6 +658,9 @@
   },
   {
     "name": "getNativeByTNode"
+  },
+  {
+    "name": "getNextLContainer"
   },
   {
     "name": "getNodeInjectable"
@@ -706,6 +715,9 @@
   },
   {
     "name": "getSelectedIndex"
+  },
+  {
+    "name": "getSelectedTNode"
   },
   {
     "name": "getSymbolIterator"
@@ -858,6 +870,9 @@
     "name": "isInHostBindings"
   },
   {
+    "name": "isInlineTemplate"
+  },
+  {
     "name": "isJsObject"
   },
   {
@@ -912,6 +927,9 @@
     "name": "leaveView"
   },
   {
+    "name": "leaveViewLight"
+  },
+  {
     "name": "listenerInternal"
   },
   {
@@ -949,6 +967,9 @@
   },
   {
     "name": "markDuplicates"
+  },
+  {
+    "name": "markTransplantedViewsForRefresh"
   },
   {
     "name": "markViewDirty"
@@ -1011,13 +1032,13 @@
     "name": "refreshComponent"
   },
   {
+    "name": "refreshContainsDirtyView"
+  },
+  {
     "name": "refreshContentQueries"
   },
   {
     "name": "refreshDynamicEmbeddedViews"
-  },
-  {
-    "name": "refreshTransplantedViews"
   },
   {
     "name": "refreshView"
@@ -1090,6 +1111,9 @@
   },
   {
     "name": "setCheckNoChangesMode"
+  },
+  {
+    "name": "setCurrentDirectiveIndex"
   },
   {
     "name": "setCurrentQueryIndex"
@@ -1189,6 +1213,9 @@
   },
   {
     "name": "updateStyling"
+  },
+  {
+    "name": "updateTransplantedViewCount"
   },
   {
     "name": "viewAttachedToChangeDetector"

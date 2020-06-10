@@ -8,6 +8,14 @@ Getting data could be as simple as creating a local variable or as complex as st
 每个应用开始的时候差不多都是一些简单任务：获取数据、转换它们，然后把它们显示给用户。
 获取数据可能简单到创建一个局部变量就行，也可能复杂到从 WebSocket 中获取数据流。
 
+<div class="alert is-helpful">
+
+  For the sample app that this page describes, see the <live-example></live-example>.
+
+  这里所说的范例应用，参见<live-example></live-example>。
+
+</div>
+
 Once data arrives, you could push their raw `toString` values directly to the view,
 but that rarely makes for a good user experience.
 For example, in most use cases, users prefer to see a date in a simple format like
@@ -29,10 +37,6 @@ In fact, you might like to apply them in your HTML templates as you do styles.
 Introducing Angular pipes, a way to write display-value transformations that you can declare in your HTML.
 
 通过引入 Angular 管道（一种编写"从显示到值"转换逻辑的途径），你可以把它声明在 HTML 中。
-
-You can run the <live-example></live-example> in Stackblitz and download the code from there.
-
-你可以运行<live-example></live-example>，在 Stackblitz 中试用并下载本页的代码。
 
 ## Using pipes
 
@@ -251,7 +255,7 @@ Note the following:
 
 * If you choose to inject your pipe into a class, you must provide it in the `providers` array of your `NgModule`.
 
-   如果选择将管道注入(`inject`)类中，则必须将管道包含字在`NgModule`的`providers`数组中。
+   如果选择将管道注入(`inject`)类中，则必须将管道包含字在 `NgModule` 的 `providers` 数组中。
 
 <div class="callout is-helpful">
 

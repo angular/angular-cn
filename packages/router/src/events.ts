@@ -28,7 +28,7 @@ import {ActivatedRouteSnapshot, RouterStateSnapshot} from './router_state';
  *
  * @publicApi
  */
-export type NavigationTrigger = 'imperative' | 'popstate' | 'hashchange';
+export type NavigationTrigger = 'imperative'|'popstate'|'hashchange';
 
 /**
  * Base for events the router goes through, as opposed to events tied to a specific
@@ -110,7 +110,9 @@ export class NavigationStart extends RouterEvent {
   }
 
   /** @docsNotRequired */
-  toString(): string { return `NavigationStart(id: ${this.id}, url: '${this.url}')`; }
+  toString(): string {
+    return `NavigationStart(id: ${this.id}, url: '${this.url}')`;
+  }
 }
 
 /**
@@ -133,7 +135,8 @@ export class NavigationEnd extends RouterEvent {
 
   /** @docsNotRequired */
   toString(): string {
-    return `NavigationEnd(id: ${this.id}, url: '${this.url}', urlAfterRedirects: '${this.urlAfterRedirects}')`;
+    return `NavigationEnd(id: ${this.id}, url: '${this.url}', urlAfterRedirects: '${
+        this.urlAfterRedirects}')`;
   }
 }
 
@@ -159,7 +162,9 @@ export class NavigationCancel extends RouterEvent {
   }
 
   /** @docsNotRequired */
-  toString(): string { return `NavigationCancel(id: ${this.id}, url: '${this.url}')`; }
+  toString(): string {
+    return `NavigationCancel(id: ${this.id}, url: '${this.url}')`;
+  }
 }
 
 /**
@@ -208,7 +213,8 @@ export class RoutesRecognized extends RouterEvent {
 
   /** @docsNotRequired */
   toString(): string {
-    return `RoutesRecognized(id: ${this.id}, url: '${this.url}', urlAfterRedirects: '${this.urlAfterRedirects}', state: ${this.state})`;
+    return `RoutesRecognized(id: ${this.id}, url: '${this.url}', urlAfterRedirects: '${
+        this.urlAfterRedirects}', state: ${this.state})`;
   }
 }
 
@@ -233,7 +239,8 @@ export class GuardsCheckStart extends RouterEvent {
   }
 
   toString(): string {
-    return `GuardsCheckStart(id: ${this.id}, url: '${this.url}', urlAfterRedirects: '${this.urlAfterRedirects}', state: ${this.state})`;
+    return `GuardsCheckStart(id: ${this.id}, url: '${this.url}', urlAfterRedirects: '${
+        this.urlAfterRedirects}', state: ${this.state})`;
   }
 }
 
@@ -260,7 +267,8 @@ export class GuardsCheckEnd extends RouterEvent {
   }
 
   toString(): string {
-    return `GuardsCheckEnd(id: ${this.id}, url: '${this.url}', urlAfterRedirects: '${this.urlAfterRedirects}', state: ${this.state}, shouldActivate: ${this.shouldActivate})`;
+    return `GuardsCheckEnd(id: ${this.id}, url: '${this.url}', urlAfterRedirects: '${
+        this.urlAfterRedirects}', state: ${this.state}, shouldActivate: ${this.shouldActivate})`;
   }
 }
 
@@ -290,7 +298,8 @@ export class ResolveStart extends RouterEvent {
   }
 
   toString(): string {
-    return `ResolveStart(id: ${this.id}, url: '${this.url}', urlAfterRedirects: '${this.urlAfterRedirects}', state: ${this.state})`;
+    return `ResolveStart(id: ${this.id}, url: '${this.url}', urlAfterRedirects: '${
+        this.urlAfterRedirects}', state: ${this.state})`;
   }
 }
 
@@ -316,7 +325,8 @@ export class ResolveEnd extends RouterEvent {
   }
 
   toString(): string {
-    return `ResolveEnd(id: ${this.id}, url: '${this.url}', urlAfterRedirects: '${this.urlAfterRedirects}', state: ${this.state})`;
+    return `ResolveEnd(id: ${this.id}, url: '${this.url}', urlAfterRedirects: '${
+        this.urlAfterRedirects}', state: ${this.state})`;
   }
 }
 
@@ -331,7 +341,9 @@ export class RouteConfigLoadStart {
   constructor(
       /** @docsNotRequired */
       public route: Route) {}
-  toString(): string { return `RouteConfigLoadStart(path: ${this.route.path})`; }
+  toString(): string {
+    return `RouteConfigLoadStart(path: ${this.route.path})`;
+  }
 }
 
 /**
@@ -345,7 +357,9 @@ export class RouteConfigLoadEnd {
   constructor(
       /** @docsNotRequired */
       public route: Route) {}
-  toString(): string { return `RouteConfigLoadEnd(path: ${this.route.path})`; }
+  toString(): string {
+    return `RouteConfigLoadEnd(path: ${this.route.path})`;
+  }
 }
 
 /**
@@ -471,5 +485,5 @@ export class Scroll {
  *
  * @publicApi
  */
-export type Event = RouterEvent | RouteConfigLoadStart | RouteConfigLoadEnd | ChildActivationStart |
-    ChildActivationEnd | ActivationStart | ActivationEnd | Scroll;
+export type Event = RouterEvent|RouteConfigLoadStart|RouteConfigLoadEnd|ChildActivationStart|
+    ChildActivationEnd|ActivationStart|ActivationEnd|Scroll;

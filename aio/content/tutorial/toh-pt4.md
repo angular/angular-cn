@@ -1,4 +1,4 @@
-# Create services
+# Add services
 
 # 服务
 
@@ -62,7 +62,6 @@ The command generates a skeleton `HeroService` class in `src/app/hero.service.ts
 
 <code-example path="toh-pt4/src/app/hero.service.1.ts" region="new"
  header="src/app/hero.service.ts (new service)"></code-example>
-
 
 ### `@Injectable()` services
 
@@ -203,7 +202,7 @@ Add a private `heroService` parameter of type `HeroService` to the constructor.
 
 往构造函数中添加一个私有的 `heroService`，其类型为 `HeroService`。
 
-<code-example path="toh-pt4/src/app/heroes/heroes.component.ts" header="src/app/heroes/heroes.component.ts" region="ctor">
+<code-example path="toh-pt4/src/app/heroes/heroes.component.1.ts" header="src/app/heroes/heroes.component.ts" region="ctor">
 </code-example>
 
 The parameter simultaneously defines a private `heroService` property and identifies it as a `HeroService` injection site.

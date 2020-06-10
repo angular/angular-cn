@@ -173,8 +173,6 @@ Angular 认为这些值是不安全的，并自动进行无害化处理。它会
   <img src='generated/images/guide/security/binding-inner-html.png' alt='A screenshot showing interpolated and bound HTML values'>
 </div>
 
-
-
 ### Direct use of the DOM APIs and explicit sanitization calls
 
 ### 避免直接使用 DOM API
@@ -288,7 +286,6 @@ this, mark the URL value as a trusted URL using the `bypassSecurityTrustUrl` cal
 通常，Angular 会自动无害化这个 URL 并禁止危险的代码。为了防止这种行为，可以调用 `bypassSecurityTrustUrl` 把这个 URL 值标记为一个可信任的 URL：
 
 <code-example path="security/src/app/bypass-security.component.ts" header="src/app/bypass-security.component.ts (trust-url)" region="trust-url"></code-example>
-
 
 <div class="lightbox">
   <img src='generated/images/guide/security/bypass-security-component.png' alt='A screenshot showing an alert box created from a trusted URL'>

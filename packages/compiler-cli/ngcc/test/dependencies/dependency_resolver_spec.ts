@@ -8,19 +8,20 @@
 
 import {DepGraph} from 'dependency-graph';
 
-import {FileSystem, absoluteFrom, getFileSystem, relativeFrom} from '../../../src/ngtsc/file_system';
+import {absoluteFrom, AbsoluteFsPath, FileSystem, getFileSystem, relativeFrom} from '../../../src/ngtsc/file_system';
 import {runInEachFileSystem} from '../../../src/ngtsc/file_system/testing';
-import {DependencyInfo} from '../../src/dependencies/dependency_host';
+import {DependencyInfo, EntryPointWithDependencies} from '../../src/dependencies/dependency_host';
 import {DependencyResolver, SortedEntryPointsInfo} from '../../src/dependencies/dependency_resolver';
 import {DtsDependencyHost} from '../../src/dependencies/dts_dependency_host';
 import {EsmDependencyHost} from '../../src/dependencies/esm_dependency_host';
 import {ModuleResolver} from '../../src/dependencies/module_resolver';
+import {NgccConfiguration} from '../../src/packages/configuration';
 import {EntryPoint} from '../../src/packages/entry_point';
 import {MockLogger} from '../helpers/mock_logger';
 
 
 interface DepMap {
-  [path: string]: {resolved: string[], missing: string[]};
+  [path: string]: {resolved: string[], missing: string[], deepImports?: AbsoluteFsPath[]};
 }
 
 runInEachFileSystem(() => {
@@ -30,15 +31,19 @@ runInEachFileSystem(() => {
     let dtsHost: EsmDependencyHost;
     let resolver: DependencyResolver;
     let fs: FileSystem;
+    let config: NgccConfiguration;
+    let logger: MockLogger;
     let moduleResolver: ModuleResolver;
 
     beforeEach(() => {
       _ = absoluteFrom;
       fs = getFileSystem();
+      config = new NgccConfiguration(fs, _('/'));
+      logger = new MockLogger();
       moduleResolver = new ModuleResolver(fs);
       host = new EsmDependencyHost(fs, moduleResolver);
       dtsHost = new DtsDependencyHost(fs);
-      resolver = new DependencyResolver(fs, new MockLogger(), {esm5: host, esm2015: host}, dtsHost);
+      resolver = new DependencyResolver(fs, logger, config, {esm5: host, esm2015: host}, dtsHost);
     });
 
     describe('sortEntryPointsByDependency()', () => {
@@ -53,7 +58,9 @@ runInEachFileSystem(() => {
 
       beforeEach(() => {
         first = {
+          name: 'first',
           path: _('/first'),
+          package: _('/first'),
           packageJson: {esm5: './index.js'},
           compiledByAngular: true,
           ignoreMissingDependencies: false,
@@ -61,6 +68,7 @@ runInEachFileSystem(() => {
         } as EntryPoint;
         second = {
           path: _('/second'),
+          package: _('/second'),
           packageJson: {esm2015: './sub/index.js'},
           compiledByAngular: true,
           ignoreMissingDependencies: false,
@@ -68,6 +76,7 @@ runInEachFileSystem(() => {
         } as EntryPoint;
         third = {
           path: _('/third'),
+          package: _('/third'),
           packageJson: {fesm5: './index.js'},
           compiledByAngular: true,
           ignoreMissingDependencies: false,
@@ -75,6 +84,7 @@ runInEachFileSystem(() => {
         } as EntryPoint;
         fourth = {
           path: _('/fourth'),
+          package: _('/fourth'),
           packageJson: {fesm2015: './sub2/index.js'},
           compiledByAngular: true,
           ignoreMissingDependencies: false,
@@ -82,6 +92,7 @@ runInEachFileSystem(() => {
         } as EntryPoint;
         fifth = {
           path: _('/fifth'),
+          package: _('/fifth'),
           packageJson: {module: './index.js'},
           compiledByAngular: true,
           ignoreMissingDependencies: false,
@@ -90,6 +101,7 @@ runInEachFileSystem(() => {
 
         sixthIgnoreMissing = {
           path: _('/sixth'),
+          package: _('/sixth'),
           packageJson: {module: './index.js'},
           compiledByAngular: true,
           ignoreMissingDependencies: true,
@@ -119,7 +131,8 @@ runInEachFileSystem(() => {
             .and.callFake(createFakeComputeDependencies(dependencies));
         spyOn(dtsHost, 'collectDependencies')
             .and.callFake(createFakeComputeDependencies(dtsDependencies));
-        const result = resolver.sortEntryPointsByDependency([fifth, first, fourth, second, third]);
+        const result = resolver.sortEntryPointsByDependency(
+            getEntryPointsWithDeps(resolver, [fifth, first, fourth, second, third]));
         expect(result.entryPoints).toEqual([fifth, fourth, third, second, first]);
       });
 
@@ -132,7 +145,8 @@ runInEachFileSystem(() => {
           [_('/first/index.d.ts')]: {resolved: [], missing: [_('/missing')]},
           [_('/second/sub/index.d.ts')]: {resolved: [], missing: []},
         }));
-        const result = resolver.sortEntryPointsByDependency([first, second]);
+        const result =
+            resolver.sortEntryPointsByDependency(getEntryPointsWithDeps(resolver, [first, second]));
         expect(result.entryPoints).toEqual([second]);
         expect(result.invalidEntryPoints).toEqual([
           {entryPoint: first, missingDependencies: [_('/missing')]},
@@ -151,7 +165,8 @@ runInEachFileSystem(() => {
           [_('/third/index.d.ts')]: {resolved: [], missing: []},
         }));
         // Note that we will process `first` before `second`, which has the missing dependency.
-        const result = resolver.sortEntryPointsByDependency([first, second, third]);
+        const result = resolver.sortEntryPointsByDependency(
+            getEntryPointsWithDeps(resolver, [first, second, third]));
         expect(result.entryPoints).toEqual([third]);
         expect(result.invalidEntryPoints).toEqual([
           {entryPoint: second, missingDependencies: [_('/missing')]},
@@ -171,7 +186,8 @@ runInEachFileSystem(() => {
           [_('/third/index.d.ts')]: {resolved: [], missing: []},
         }));
         // Note that we will process `first` after `second`, which has the missing dependency.
-        const result = resolver.sortEntryPointsByDependency([second, first, third]);
+        const result = resolver.sortEntryPointsByDependency(
+            getEntryPointsWithDeps(resolver, [second, first, third]));
         expect(result.entryPoints).toEqual([third]);
         expect(result.invalidEntryPoints).toEqual([
           {entryPoint: second, missingDependencies: [_('/missing')]},
@@ -190,7 +206,8 @@ runInEachFileSystem(() => {
              [_('/sixth/index.d.ts')]: {resolved: [], missing: [_('/missing')]},
            }));
            // Note that we will process `first` after `second`, which has the missing dependency.
-           const result = resolver.sortEntryPointsByDependency([sixthIgnoreMissing, first]);
+           const result = resolver.sortEntryPointsByDependency(
+               getEntryPointsWithDeps(resolver, [sixthIgnoreMissing, first]));
            expect(result.entryPoints).toEqual([sixthIgnoreMissing, first]);
            expect(result.invalidEntryPoints).toEqual([]);
          });
@@ -206,7 +223,8 @@ runInEachFileSystem(() => {
           [_('/second/sub/index.d.ts')]: {resolved: [first.path], missing: []},
           [_('/sixth/index.d.ts')]: {resolved: [second.path], missing: []},
         }));
-        const result = resolver.sortEntryPointsByDependency([first, second, sixthIgnoreMissing]);
+        const result = resolver.sortEntryPointsByDependency(
+            getEntryPointsWithDeps(resolver, [first, second, sixthIgnoreMissing]));
         // sixth has no missing dependencies, but it has _invalid_ dependencies, so it's not
         // compiled.
         expect(result.entryPoints).toEqual([]);
@@ -223,7 +241,8 @@ runInEachFileSystem(() => {
           [_('/second/sub/index.d.ts')]: {resolved: [], missing: [_('/missing2')]},
           [_('/third/index.d.ts')]: {resolved: [first.path, second.path], missing: []},
         }));
-        const result = resolver.sortEntryPointsByDependency([first, second, third]);
+        const result = resolver.sortEntryPointsByDependency(
+            getEntryPointsWithDeps(resolver, [first, second, third]));
         expect(result.entryPoints).toEqual([]);
         expect(result.invalidEntryPoints).toEqual([
           {entryPoint: first, missingDependencies: [_('/missing1')]},
@@ -232,17 +251,75 @@ runInEachFileSystem(() => {
         ]);
       });
 
+      it('should log a warning for deep imports', () => {
+        spyOn(host, 'collectDependencies').and.callFake(createFakeComputeDependencies({
+          [_('/first/index.js')]: {resolved: [], missing: [], deepImports: [_('/deep/one')]},
+        }));
+        spyOn(dtsHost, 'collectDependencies').and.callFake(createFakeComputeDependencies({
+          [_('/first/index.d.ts')]: {resolved: [], missing: []},
+        }));
+        const result =
+            resolver.sortEntryPointsByDependency(getEntryPointsWithDeps(resolver, [first]));
+        expect(result.entryPoints).toEqual([first]);
+        expect(logger.logs.warn).toEqual([[
+          `Entry point 'first' contains deep imports into '${
+              _('/deep/one')}'. This is probably not a problem, but may cause the compilation of entry points to be out of order.`
+        ]]);
+      });
+
+      it('should not log a warning for ignored deep imports', () => {
+        spyOn(host, 'collectDependencies').and.callFake(createFakeComputeDependencies({
+          [_('/project/node_modules/test-package/index.js')]: {
+            resolved: [],
+            missing: [],
+            deepImports: [
+              _('/project/node_modules/deep/one'), _('/project/node_modules/deep/two'),
+              _('/project/node_modules/deeper/one'), _('/project/node_modules/deeper/two')
+            ]
+          },
+        }));
+        spyOn(dtsHost, 'collectDependencies').and.callFake(createFakeComputeDependencies({
+          [_('/project/node_modules/test-package/index.d.ts')]: {resolved: [], missing: []},
+        }));
+        // Setup the configuration to ignore deep imports that contain either "deep/" or "two".
+        fs.ensureDir(_('/project'));
+        fs.writeFile(
+            _('/project/ngcc.config.js'),
+            `module.exports = { packages: { 'test-package': { ignorableDeepImportMatchers: [/deep\\//, /two/] } } };`);
+        config = new NgccConfiguration(fs, _('/project'));
+        resolver = new DependencyResolver(fs, logger, config, {esm5: host, esm2015: host}, dtsHost);
+        const testEntryPoint = {
+          name: 'test-package',
+          path: _('/project/node_modules/test-package'),
+          package: _('/project/node_modules/test-package'),
+          packageJson: {esm5: './index.js'},
+          compiledByAngular: true,
+          ignoreMissingDependencies: false,
+          typings: _('/project/node_modules/test-package/index.d.ts'),
+        } as EntryPoint;
+
+        const result = resolver.sortEntryPointsByDependency(
+            getEntryPointsWithDeps(resolver, [testEntryPoint]));
+        expect(result.entryPoints).toEqual([testEntryPoint]);
+        expect(logger.logs.warn).toEqual([[
+          `Entry point 'test-package' contains deep imports into '${
+              _('/project/node_modules/deeper/one')}'. This is probably not a problem, but may cause the compilation of entry points to be out of order.`
+        ]]);
+      });
+
       it('should error if the entry point does not have a suitable format', () => {
-        expect(() => resolver.sortEntryPointsByDependency([
-          { path: '/first', packageJson: {}, compiledByAngular: true } as EntryPoint
-        ])).toThrowError(`There is no appropriate source code format in '/first' entry-point.`);
+        expect(() => resolver.sortEntryPointsByDependency(getEntryPointsWithDeps(resolver, [
+          {path: '/first', packageJson: {}, compiledByAngular: true} as EntryPoint
+        ]))).toThrowError(`There is no appropriate source code format in '/first' entry-point.`);
       });
 
       it('should error if there is no appropriate DependencyHost for the given formats', () => {
-        resolver = new DependencyResolver(fs, new MockLogger(), {esm2015: host}, host);
-        expect(() => resolver.sortEntryPointsByDependency([first]))
+        resolver = new DependencyResolver(fs, new MockLogger(), config, {esm2015: host}, host);
+        expect(
+            () => resolver.sortEntryPointsByDependency(getEntryPointsWithDeps(resolver, [first])))
             .toThrowError(
-                `Could not find a suitable format for computing dependencies of entry-point: '${first.path}'.`);
+                `Could not find a suitable format for computing dependencies of entry-point: '${
+                    first.path}'.`);
       });
 
       it('should capture any dependencies that were ignored', () => {
@@ -250,7 +327,8 @@ runInEachFileSystem(() => {
             .and.callFake(createFakeComputeDependencies(dependencies));
         spyOn(dtsHost, 'collectDependencies')
             .and.callFake(createFakeComputeDependencies(dtsDependencies));
-        const result = resolver.sortEntryPointsByDependency([fifth, first, fourth, second, third]);
+        const result = resolver.sortEntryPointsByDependency(
+            getEntryPointsWithDeps(resolver, [fifth, first, fourth, second, third]));
         expect(result.ignoredDependencies).toEqual([
           {entryPoint: first, dependencyPath: _('/ignored-1')},
           {entryPoint: third, dependencyPath: _('/ignored-2')},
@@ -262,7 +340,8 @@ runInEachFileSystem(() => {
             .and.callFake(createFakeComputeDependencies(dependencies));
         spyOn(dtsHost, 'collectDependencies')
             .and.callFake(createFakeComputeDependencies(dtsDependencies));
-        const result = resolver.sortEntryPointsByDependency([fifth, first, fourth, second, third]);
+        const result = resolver.sortEntryPointsByDependency(
+            getEntryPointsWithDeps(resolver, [fifth, first, fourth, second, third]));
 
         expect(result.graph).toEqual(jasmine.any(DepGraph));
         expect(result.graph.size()).toBe(5);
@@ -274,7 +353,7 @@ runInEachFileSystem(() => {
             .and.callFake(createFakeComputeDependencies(dependencies));
         spyOn(dtsHost, 'collectDependencies')
             .and.callFake(createFakeComputeDependencies(dtsDependencies));
-        const entryPoints = [fifth, first, fourth, second, third];
+        const entryPoints = getEntryPointsWithDeps(resolver, [fifth, first, fourth, second, third]);
         let sorted: SortedEntryPointsInfo;
 
         sorted = resolver.sortEntryPointsByDependency(entryPoints, first);
@@ -296,7 +375,7 @@ runInEachFileSystem(() => {
         spyOn(dtsHost, 'collectDependencies').and.callFake(createFakeComputeDependencies({
           [_('/first/index.d.ts')]: {resolved: [], missing: [_('/missing')]},
         }));
-        const entryPoints = [first];
+        const entryPoints = getEntryPointsWithDeps(resolver, [first]);
         let sorted: SortedEntryPointsInfo;
 
         sorted = resolver.sortEntryPointsByDependency(entryPoints, first);
@@ -312,7 +391,7 @@ runInEachFileSystem(() => {
         spyOn(dtsHost, 'collectDependencies').and.callFake(createFakeComputeDependencies({
           [_('/first/index.d.ts')]: {resolved: [], missing: ['fs']},
         }));
-        const entryPoints = [first];
+        const entryPoints = getEntryPointsWithDeps(resolver, [first]);
         let sorted: SortedEntryPointsInfo;
 
         sorted = resolver.sortEntryPointsByDependency(entryPoints, first);
@@ -326,14 +405,15 @@ runInEachFileSystem(() => {
         const esm2015Host = new EsmDependencyHost(fs, moduleResolver);
         const dtsHost = new DtsDependencyHost(fs);
         resolver = new DependencyResolver(
-            fs, new MockLogger(), {esm5: esm5Host, esm2015: esm2015Host}, dtsHost);
+            fs, new MockLogger(), config, {esm5: esm5Host, esm2015: esm2015Host}, dtsHost);
         spyOn(esm5Host, 'collectDependencies')
             .and.callFake(createFakeComputeDependencies(dependencies));
         spyOn(esm2015Host, 'collectDependencies')
             .and.callFake(createFakeComputeDependencies(dependencies));
         spyOn(dtsHost, 'collectDependencies')
             .and.callFake(createFakeComputeDependencies(dtsDependencies));
-        const result = resolver.sortEntryPointsByDependency([fifth, first, fourth, second, third]);
+        const result = resolver.sortEntryPointsByDependency(
+            getEntryPointsWithDeps(resolver, [fifth, first, fourth, second, third]));
         expect(result.entryPoints).toEqual([fifth, fourth, third, second, first]);
 
         expect(esm5Host.collectDependencies)
@@ -382,7 +462,7 @@ runInEachFileSystem(() => {
           [_('/second/sub/index.d.ts')]: {resolved: [], missing: [_('/missing2')]},
           [_('/third/index.d.ts')]: {resolved: [second.path], missing: []},
         }));
-        const entryPoints = [first, second, third];
+        const entryPoints = getEntryPointsWithDeps(resolver, [first, second, third]);
         const sorted = resolver.sortEntryPointsByDependency(entryPoints);
         expect(sorted.entryPoints).toEqual([first]);
         expect(sorted.invalidEntryPoints).toEqual([
@@ -396,8 +476,16 @@ runInEachFileSystem(() => {
           deps[entryPointPath].resolved.forEach(dep => dependencies.add(absoluteFrom(dep)));
           deps[entryPointPath].missing.forEach(
               dep => missing.add(fs.isRooted(dep) ? absoluteFrom(dep) : relativeFrom(dep)));
+          if (deps[entryPointPath].deepImports) {
+            deps[entryPointPath].deepImports!.forEach(dep => deepImports.add(dep));
+          }
           return {dependencies, missing, deepImports};
         };
+      }
+
+      function getEntryPointsWithDeps(
+          resolver: DependencyResolver, entryPoints: EntryPoint[]): EntryPointWithDependencies[] {
+        return entryPoints.map(entryPoint => resolver.getEntryPointWithDependencies(entryPoint));
       }
     });
   });

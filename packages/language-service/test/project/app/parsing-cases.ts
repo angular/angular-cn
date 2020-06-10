@@ -10,40 +10,6 @@ import {Component, Directive, EventEmitter, Input, OnChanges, Output, SimpleChan
 
 import {Hero} from './app.component';
 
-@Component({
-  template: `
-    <h1>
-      Some <~{incomplete-open-lt}a~{incomplete-open-a} ~{incomplete-open-attr} text
-    </h1>`,
-})
-export class CaseIncompleteOpen {
-}
-
-@Component({
-  template: '<h1>Some <a> ~{missing-closing} text</h1>',
-})
-export class CaseMissingClosing {
-}
-
-@Component({
-  template: '<h1>Some <unknown ~{unknown-element}> text</h1>',
-})
-export class CaseUnknown {
-}
-
-@Component({
-  template: '<h1>{{data | ~{before-pipe}lowe~{in-pipe}rcase~{after-pipe} }}',
-})
-export class Pipes {
-  data = 'Some string';
-}
-
-@Component({
-  template: '<h1 h~{no-value-attribute}></h1>',
-})
-export class NoValueAttribute {
-}
-
 @Directive({
   selector: '[string-model]',
 })
@@ -70,45 +36,6 @@ export class HintModel {
   hintChange: EventEmitter<string> = new EventEmitter();
 }
 
-interface Person {
-  name: string;
-  age: number;
-  street: string;
-}
-
-@Component({
-  template: `
-    <div *ngFor="let person of people | async">
-      {{person.~{async-person-name}name}}
-    </div>
-    <div *ngIf="promisedPerson | async as person">
-      {{person.~{promised-person-name}name}}
-    </div>
-  `,
-})
-export class AsyncForUsingComponent {
-  people: Promise<Person[]> = Promise.resolve([]);
-  promisedPerson: Promise<Person> = Promise.resolve({
-    name: 'John Doe',
-    age: 42,
-    street: '123 Angular Ln',
-  });
-}
-
-@Component({
-  template: `
-    <div #div>
-      <test-comp #test1>
-        {{~{test-comp-content}}}
-        {{test1.~{test-comp-after-test}name}}
-        {{div.~{test-comp-after-div}.innerText}}
-      </test-comp>
-    </div>
-    <test-comp #test2></test-comp>`,
-})
-export class References {
-}
-
 class CounterDirectiveContext<T> {
   constructor(public $implicit: T) {}
 }
@@ -124,6 +51,21 @@ export class CounterDirective implements OnChanges {
     for (let i = 0; i < this.counter; ++i) {
       this.container.createEmbeddedView(this.template, new CounterDirectiveContext<number>(i + 1));
     }
+  }
+}
+
+interface WithContextDirectiveContext {
+  $implicit: {implicitPerson: Hero;};
+  nonImplicitPerson: Hero;
+}
+
+@Directive({selector: '[withContext]'})
+export class WithContextDirective {
+  constructor(_template: TemplateRef<WithContextDirectiveContext>) {}
+
+  static ngTemplateContextGuard(dir: WithContextDirective, ctx: unknown):
+      ctx is WithContextDirectiveContext {
+    return true;
   }
 }
 
@@ -148,19 +90,21 @@ export class TemplateReference {
    */
   title = 'Some title';
   hero: Hero = {id: 1, name: 'Windstorm'};
+  heroP = Promise.resolve(this.hero);
   heroes: Hero[] = [this.hero];
+  heroesP = Promise.resolve(this.heroes);
   tupleArray: [string, Hero] = ['test', this.hero];
   league: Hero[][] = [this.heroes];
   heroesByName: {[name: string]: Hero} = {};
   primitiveIndexType: {[name: string]: string} = {};
   anyValue: any;
+  optional?: string;
+  // Use to test the `index` variable conflict between the `ngFor` and component context.
+  index = null;
   myClick(event: any) {}
-}
-
-@Component({
-  template: '{{~{empty-interpolation}}}',
-})
-export class EmptyInterpolation {
-  title = 'Some title';
-  subTitle = 'Some sub title';
+  birthday = new Date();
+  readonlyHeroes: ReadonlyArray<Readonly<Hero>> = this.heroes;
+  constNames = [{name: 'name'}] as const;
+  private myField = 'My Field';
+  strOrNumber: string|number = '';
 }

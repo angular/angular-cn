@@ -305,7 +305,7 @@ We'll be using [Headless Chrome](https://developers.google.com/web/updates/2017/
 
 * In the Karma configuration file, `karma.conf.js`, add a custom launcher called ChromeHeadlessCI below browsers:
 
-  在 Karma 配置文件 `karma.conf.js` 中，浏览器的紧下方，添加自定义的启动器，名叫 ChromeNoSandbox。 
+  在 Karma 配置文件 `karma.conf.js` 中，浏览器的紧下方，添加自定义的启动器，名叫 ChromeNoSandbox。
 ```
 browsers: ['Chrome'],
 customLaunchers: {
@@ -774,14 +774,22 @@ toggles the light's _on/off_ state and sets the message appropriately.
 
 你可能要测试 `clicked()` 方法能否正确切换灯的开关状态并设置合适的消息。
 
-This component class has no dependencies.
-To test a service with no dependencies, you create it with `new`, poke at its API,
-and assert expectations on its public state.
-Do the same with the component class.
+This component class has no dependencies. To test these types of classes, follow the same steps as you would for a service that has no dependencies:
 
 该组件类没有依赖。
-要测试一个没有依赖的服务，你会用 `new` 来创建它，调用它的 API，然后对它的公开状态进行断言。
-组件类也可以这么做。
+要测试一个没有依赖的服务，可以咨询与无依赖的服务相同的步骤：
+
+1. Create a component using the new keyword.
+
+   创建一个使用新关键字的组件。
+
+2. Poke at its API.
+
+   测试其 API。
+
+3. Assert expectations on its public state.
+
+   对其期望的公开状态进行断言。
 
 <code-example
   path="testing/src/app/demo/demo.spec.ts"
@@ -801,7 +809,7 @@ It appears within the template of a parent component,
 which binds a _hero_ to the `@Input` property and
 listens for an event raised through the _selected_ `@Output` property.
 
-它呈现在父组件的模板中，那里把一个英雄绑定到了 `@Input` 属性上，并且通过 `@Output` 属性监听*选中英雄*时的事件。
+它渲染在父组件的模板中，那里把一个英雄绑定到了 `@Input` 属性上，并且通过 `@Output` 属性监听*选中英雄*时的事件。
 
 You can test that the class code works without creating the `DashboardHeroComponent`
 or its parent component.
@@ -1361,8 +1369,7 @@ an asynchronous activity (e.g., AJAX) completes.
 
 在产品阶段，当 Angular 创建组件、用户输入或者异步动作（比如 AJAX）完成时，会自动触发变更检测。
 
-The `TestBed.createComponent` does _not_ trigger change detection.
-a fact confirmed in the revised test:
+The `TestBed.createComponent` does _not_ trigger change detection; a fact confirmed in the revised test:
 
 但 `TestBed.createComponent` *不能*触发变更检测。
 可以在这个修改后的测试中确定这一点：
@@ -1550,7 +1557,7 @@ To correct the problem, call `compileComponents()` as explained [below](#compile
 
 Components often have service dependencies.
 
-组件经常依赖其他服务。
+组件经常依赖其它服务。
 
 The `WelcomeComponent` displays a welcome message to the logged in user.
 It knows who the user is based on a property of the injected `UserService`:
@@ -1596,8 +1603,7 @@ It is far easier and safer to create and register a test double in place of the 
 注入真实的 `UserService` 有可能很麻烦。真实的服务可能询问用户登录凭据，也可能试图连接认证服务器。
 可能很难处理这些行为。所以在真实的 `UserService` 的位置创建和注册 `UserService` 替身，会让测试更加容易和安全。
 
-This particular test suite supplies a minimal mock of the `UserService` that satisfies the needs of the `WelcomeComponent`
-and its tests:
+This particular test suite supplies a minimal mock of the `UserService` that satisfies the needs of the `WelcomeComponent` and its tests:
 
 这个测试套件提供了 `UserService` 的一个最小化模拟对象，它能满足 `WelcomeComponent` 及其测试的需求：
 
@@ -1668,23 +1674,6 @@ explains when and why you must get the service from the component's injector ins
 对于那些不能用 `TestBed.inject()` 的测试用例，请参见[改写组件的提供者](#component-override)一节，那里解释了何时以及为何必须改从组件自身的注入器中获取服务。
 
 </div>
-
-{@a service-from-injector}
-
-#### Always get the service from an injector
-
-#### 总是从注入其中获取服务
-
-Do _not_ reference the `userServiceStub` object
-that's provided to the testing module in the body of your test.
-**It does not work!**
-The `userService` instance injected into the component is a completely _different_ object,
-a clone of the provided `userServiceStub`.
-
-请不要引用测试代码里提供给测试模块的 `userServiceStub` 对象。**这样不行！**
-被注入组件的 `userService` 实例是完全**不一样**的对象，它提供的是 `userServiceStub` 的克隆。
-
-<code-example path="testing/src/app/welcome/welcome.component.spec.ts" region="stub-not-injected" header="app/welcome/welcome.component.spec.ts"></code-example>
 
 {@a welcome-spec-setup}
 
@@ -1880,8 +1869,7 @@ Note that the `it()` function receives an argument of the following form.
 
 ```javascript
 
-fakeAsync(() => { /* test body */ })`
-
+fakeAsync(() => { /* test body */ })
 ```
 
 The `fakeAsync()` function enables a linear coding style by running the test body in a special `fakeAsync test zone`.
@@ -1918,10 +1906,10 @@ In this case, it waits for the error handler's `setTimeout()`.
 调用 `tick()` 会模拟时光的流逝，直到所有未决的异步活动都结束为止。
 在这个例子中，它会等待错误处理器中的 `setTimeout()`。
 
-The [tick()](api/core/testing/tick) function accepts milliseconds as a parameter (defaults to 0 if not provided). The parameter represents how much the virtual clock advances. For example, if you have a `setTimeout(fn, 100)` in a `fakeAsync()` test, you need to use tick(100) to trigger the fn callback.
+The [tick()](api/core/testing/tick) function accepts milliseconds and tickOptions as parameters, the millisecond (defaults to 0 if not provided) parameter represents how much the virtual clock advances. For example, if you have a `setTimeout(fn, 100)` in a `fakeAsync()` test, you need to use tick(100) to trigger the fn callback. The tickOptions is an optional parameter with a property called `processNewMacroTasksSynchronously` (defaults to true) represents whether to invoke new generated macro tasks when ticking.
 
 `tick()` 函数接受一个毫秒值作为参数（如果没有提供则默认为 0）。该参数表示虚拟时钟要前进多少。
-比如，如果你的 `fakeAsync()` 测试中有一个 `setTimeout(fn, 100)` 函数，你就需要用 `tick(100)` 来触发它的 fn 回调。 
+比如，如果你的 `fakeAsync()` 测试中有一个 `setTimeout(fn, 100)` 函数，你就需要用 `tick(100)` 来触发它的 fn 回调。
 
 <code-example
   path="testing/src/app/demo/async-helper.spec.ts"
@@ -1933,6 +1921,26 @@ It's a companion to `fakeAsync()` and you can only call it within a `fakeAsync()
 
 `tick()` 函数是你从 `TestBed` 中导入的 Angular 测试实用工具之一。
 它和 `fakeAsync()` 一同使用，并且你只能在 `fakeAsync()` 体中调用它。
+
+#### tickOptions
+
+<code-example
+  path="testing/src/app/demo/async-helper.spec.ts"
+  region="fake-async-test-tick-new-macro-task-sync">
+</code-example>
+
+In this example, we have a new macro task (nested setTimeout), by default, when we `tick`, the setTimeout `outside` and `nested` will both be triggered.
+
+在这个例子中，我们有一个新的宏任务（嵌套的 setTimeout），默认情况下，当我们 `tick` 时，`setTimeout` 的 `outside` 和 `nested` 都会被触发。
+
+<code-example
+  path="testing/src/app/demo/async-helper.spec.ts"
+  region="fake-async-test-tick-new-macro-task-async">
+</code-example>
+
+And in some case, we don't want to trigger the new macro task when ticking, we can use `tick(milliseconds, {processNewMacroTasksSynchronously: false})` to not invoke new macro task.
+
+某些情况下，我们在 ticking 时可能不希望触发新的宏任务，这时可以使用 `tick(milliseconds, {processNewMacroTasksSynchronously: false})` 来阻止。
 
 #### Comparing dates inside fakeAsync()
 
@@ -1991,57 +1999,53 @@ You can also use RxJS scheduler in `fakeAsync()` just like using `setTimeout()` 
 
 #### 支持更多宏任务（macroTasks）
 
-By default `fakeAsync()` supports the following `macroTasks`.
+By default, `fakeAsync()` supports the following macro tasks.
 
 默认情况下，`fakeAsync()` 支持下列 `macroTasks`。
 
-- setTimeout
-- setInterval
-- requestAnimationFrame
-- webkitRequestAnimationFrame
-- mozRequestAnimationFrame
+- `setTimeout`
+- `setInterval`
+- `requestAnimationFrame`
+- `webkitRequestAnimationFrame`
+- `mozRequestAnimationFrame`
 
-If you run other `macroTask` such as `HTMLCanvasElement.toBlob()`, `Unknown macroTask scheduled in fake async test` error will be thrown.
+If you run other macro tasks such as `HTMLCanvasElement.toBlob()`, an _"Unknown macroTask scheduled in fake async test"_ error will be thrown.
 
 如果你运行其它 `macroTasks`（比如 `HTMLCanvasElement.toBlob()`）就会抛出一条 `Unknown macroTask scheduled in fake async test` 错误。
 
 <code-tabs>
   <code-pane
+    header="src/app/shared/canvas.component.spec.ts (failing)"
     path="testing/src/app/shared/canvas.component.spec.ts"
-    header="src/app/shared/canvas.component.spec.ts">
+    region="without-toBlob-macrotask">
   </code-pane>
   <code-pane
+    header="src/app/shared/canvas.component.ts"
     path="testing/src/app/shared/canvas.component.ts"
-    header="src/app/shared/canvas.component.ts">
+    region="main">
   </code-pane>
 </code-tabs>
 
-If you want to support such a case, you need to define the `macroTask` you want to support in `beforeEach()`.
+If you want to support such a case, you need to define the macro task you want to support in `beforeEach()`.
 For example:
 
 如果你要支持这种情况，就要在 `beforeEach()` 中定义你要支持的 `macroTask`。比如：
 
-```javascript
-beforeEach(() => {
-  window['__zone_symbol__FakeAsyncTestMacroTask'] = [
-    {
-      source: 'HTMLCanvasElement.toBlob',
-      callbackArgs: [{ size: 200 }]
-    }
-  ];
-});
+<code-example
+  header="src/app/shared/canvas.component.spec.ts (excerpt)"
+  path="testing/src/app/shared/canvas.component.spec.ts"
+  region="enable-toBlob-macrotask">
+</code-example>
 
-it('toBlob should be able to run in fakeAsync', fakeAsync(() => {
-    const canvas: HTMLCanvasElement = document.getElementById('canvas') as HTMLCanvasElement;
-    let blob = null;
-    canvas.toBlob(function(b) {
-      blob = b;
-    });
-    tick();
-    expect(blob.size).toBe(200);
-  })
-);
-```
+Note that in order to make the `<canvas>` element Zone.js-aware in your app, you need to import the `zone-patch-canvas` patch (either in `polyfills.ts` or in the specific file that uses `<canvas>`):
+
+注意，为了让 `<canvas>` 元素变成支持 Zone.js 的，你需要导入 `zone-patch-canvas` 补丁（无论是在 `polyfills.ts` 中还是在用到了 `<canvas>` 的具体文件中）：
+
+<code-example
+  header="src/polyfills.ts or src/app/shared/canvas.component.ts"
+  path="testing/src/app/shared/canvas.component.ts"
+  region="import-canvas-patch">
+</code-example>
 
 #### Async observables
 
@@ -2098,7 +2102,6 @@ it adds the subscriber to a new observable created with that factory.
 [RxJS 的 `defer()` （延期）操作符](http://reactivex.io/documentation/operators/defer.html) 会返回一个可观察对象。
 它获取一个工厂函数，这个工厂函数或者返回 Promise 或者返回 Observable。
 当有人订阅了这个 `defer` 的可观察对象时，它就会把这个订阅者添加到由那个工厂函数创建的新的可观察对象中。
-
 
 The `defer()` operator transforms the `Promise.resolve()` into a new observable that,
 like `HttpClient`, emits once and completes.
@@ -2977,7 +2980,7 @@ for the `id` to change during its lifetime.
 
 <div class="alert is-helpful">
 
-The [Router](guide/router#route-parameters) guide covers `ActivatedRoute.paramMap` in more detail.
+The [ActivatedRoute in action](guide/router#activated-route-in-action) section of the [Router](guide/router) guide covers `ActivatedRoute.paramMap` in more detail.
 
 [路由与导航](guide/router#route-parameters)一章中详细讲解了 `ActivatedRoute.paramMap`。
 
@@ -3393,7 +3396,7 @@ It tests the `RouterLinkDirectiveStub` rather than the _component_.
 This is a common failing of directive stubs.
 
 其实*这个例子中*的“click”测试误入歧途了。
-它测试的重点其实是 `RouterLinkDirectiveStub` ，而不是该组件。
+它测试的重点其实是 `RouterLinkDirectiveStub`，而不是该组件。
 这是写桩指令时常见的错误。
 
 It has a legitimate purpose in this guide.
@@ -4691,7 +4694,7 @@ Here are the most important static methods, in order of likely utility.
       The `overrideModule` method can reach deeply into the current testing module to
       modify one of these inner modules.
 
-      替换指定的 `NgModule` 的元数据。回想一下，模块可以导入其他模块。
+      替换指定的 `NgModule` 的元数据。回想一下，模块可以导入其它模块。
       `overrideModule` 方法可以深入到当前测试模块深处，修改其中一个内部模块。
 
     </td>
@@ -5535,15 +5538,15 @@ Angular 的 `By` 类为常用条件方法提供了三个静态方法：
 
 <hr>
 
-{@a faq}
+{@a useful-tips}
 
-## Frequently Asked Questions
+## Useful tips
 
 ## 常见问题
 
 {@a q-spec-file-location}
 
-#### Why put spec file next to the file it tests?
+#### Place your spec file next to the file it tests
 
 #### 为什么要把测试文件和被测文件放在一起？
 
@@ -5572,11 +5575,9 @@ as the application source code files that they test:
 
    当你重命名源代码文件（无可避免），你记得重命名测试程序文件。
 
-<hr>
-
 {@a q-specs-in-test-folder}
 
-#### When would I put specs in a test folder?
+#### Place your spec files in a test folder
 
 #### 什么时候我该把测试文件放进单独的 `test` 文件夹中？
 
@@ -5597,21 +5598,23 @@ next to their corresponding helper files.
 
 当然，**测试助手对象**的测试 spec 文件也属于 `test` 目录，与它们对应的助手文件相邻。
 
-{@a q-e2e}
+{@a q-kiss}
 
-#### Why not rely on E2E tests of DOM integration?
+#### Keep it simple
 
-#### 为什么不依赖 E2E 测试来保障 DOM 集成后的正确性？
+#### 保持简单
 
-The component DOM tests described in this guide often require extensive setup and
-advanced techniques whereas the [unit tests](#component-class-testing)
-are comparatively simple.
+[Component class testing](#component-class-testing) should be kept very clean and simple.
+It should test only a single unit. On a first glance, you should be able to understand
+what the test is testing. If it's doing more, then it doesn't belong here.
 
-本指南中讲的组件 DOM 测试通常需要大量的准备工作以及高级技巧，不像[只针对类的测试](#component-class-testing)那样简单。
+[组件类测试](#component-class-testing)应该保持非常干净和简单。它应该只测试一个单元。应该乍一看就能了解测试的内容。如果还要做更多事，那它就不属于这里。
 
-#### Why not defer DOM integration tests to end-to-end (E2E) testing?
+{@a q-end-to-end}
 
-#### 为什么不等到端到端（E2E）测试阶段再对 DOM 进行集成测试呢？
+#### Use E2E (end-to-end) to test more than a single unit
+
+#### 使用 E2E（端到端）来测试多个单元
 
 E2E tests are great for high-level validation of the entire system.
 But they can't give you the comprehensive test coverage that you'd expect from unit tests.

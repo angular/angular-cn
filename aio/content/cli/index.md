@@ -63,7 +63,7 @@ When you use the [ng serve](cli/serve) command to build an app and serve it loca
 
 <div class="alert is-helpful">
 
-when you run `ng new my-first-project` a new folder, named `my-first-project`, will be created in the current working directory. since you want to be able to create files inside that folder, make sure you have sufficient rights in the current working directory before running the command.
+When you run `ng new my-first-project` a new folder, named `my-first-project`, will be created in the current working directory. Since you want to be able to create files inside that folder, make sure you have sufficient rights in the current working directory before running the command.
 
 当你运行 `ng new my-first-project` 时，将在当前工作目录中创建一个名为 `my-first-project` 的新文件夹。由于你希望在该文件夹中创建文件，因此在运行命令之前，请确保你在当前工作目录中具有足够的权限。
 
@@ -203,7 +203,6 @@ Schematic options are supplied to the command in the same format as immediate co
 [ng generate](cli/generate) 和 [ng add](cli/add) 命令会把要生成或要添加到当前项目中的工件或库作为参数。
 除了通用选项之外，每个工件或库还可以用*原理图*定义自己的选项。
 原理图的选项和内置命令的选项使用同样的格式。
-
 
 ### Building with Bazel
 

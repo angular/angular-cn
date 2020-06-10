@@ -1,10 +1,10 @@
 /**
-* @license
-* Copyright Google Inc. All Rights Reserved.
-*
-* Use of this source code is governed by an MIT-style license that can be
-* found in the LICENSE file at https://angular.io/license
-*/
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
 
 import {SafeValue, unwrapSafeValue} from '../../sanitization/bypass';
 import {stylePropNeedsSanitization, ɵɵsanitizeStyle} from '../../sanitization/sanitization';
@@ -19,14 +19,15 @@ import {DirectiveDef} from '../interfaces/definition';
 import {AttributeMarker, TAttributes, TNode, TNodeFlags, TNodeType} from '../interfaces/node';
 import {RElement, Renderer3} from '../interfaces/renderer';
 import {SanitizerFn} from '../interfaces/sanitization';
-import {TStylingKey, TStylingRange, getTStylingRangeNext, getTStylingRangeNextDuplicate, getTStylingRangePrev, getTStylingRangePrevDuplicate} from '../interfaces/styling';
+import {getTStylingRangeNext, getTStylingRangeNextDuplicate, getTStylingRangePrev, getTStylingRangePrevDuplicate, TStylingKey, TStylingRange} from '../interfaces/styling';
 import {HEADER_OFFSET, LView, RENDERER, TData, TView} from '../interfaces/view';
 import {applyStyling} from '../node_manipulation';
-import {getCurrentDirectiveIndex, getCurrentStyleSanitizer, getLView, getSelectedIndex, getTView, incrementBindingIndex, setCurrentStyleSanitizer} from '../state';
+import {getCurrentDirectiveDef, getCurrentStyleSanitizer, getLView, getSelectedIndex, getTView, incrementBindingIndex, setCurrentStyleSanitizer} from '../state';
 import {insertTStylingBinding} from '../styling/style_binding_list';
 import {getLastParsedKey, getLastParsedValue, parseClassName, parseClassNameNext, parseStyle, parseStyleNext} from '../styling/styling_parser';
 import {NO_CHANGE} from '../tokens';
 import {getNativeByIndex} from '../util/view_utils';
+
 import {setDirectiveInputsWhichShadowsStyling} from './property';
 
 
@@ -46,7 +47,7 @@ import {setDirectiveInputsWhichShadowsStyling} from './property';
  *
  * @codeGenApi
  */
-export function ɵɵstyleSanitizer(sanitizer: StyleSanitizeFn | null): void {
+export function ɵɵstyleSanitizer(sanitizer: StyleSanitizeFn|null): void {
   setCurrentStyleSanitizer(sanitizer);
 }
 
@@ -72,8 +73,8 @@ export function ɵɵstyleSanitizer(sanitizer: StyleSanitizeFn | null): void {
  * @codeGenApi
  */
 export function ɵɵstyleProp(
-    prop: string, value: string | number | SafeValue | undefined | null,
-    suffix?: string | null): typeof ɵɵstyleProp {
+    prop: string, value: string|number|SafeValue|undefined|null,
+    suffix?: string|null): typeof ɵɵstyleProp {
   checkStylingProperty(prop, value, suffix, false);
   return ɵɵstyleProp;
 }
@@ -93,8 +94,7 @@ export function ɵɵstyleProp(
  *
  * @codeGenApi
  */
-export function ɵɵclassProp(
-    className: string, value: boolean | undefined | null): typeof ɵɵclassProp {
+export function ɵɵclassProp(className: string, value: boolean|undefined|null): typeof ɵɵclassProp {
   checkStylingProperty(className, value, null, true);
   return ɵɵclassProp;
 }
@@ -119,9 +119,7 @@ export function ɵɵclassProp(
  *
  * @codeGenApi
  */
-export function ɵɵstyleMap(
-    styles: {[styleName: string]: any} | Map<string, string|number|null|undefined>| string |
-    undefined | null): void {
+export function ɵɵstyleMap(styles: {[styleName: string]: any}|string|undefined|null): void {
   checkStylingMap(styleKeyValueArraySet, styleStringParser, styles, false);
 }
 
@@ -160,9 +158,8 @@ export function styleStringParser(keyValueArray: KeyValueArray<any>, text: strin
  *
  * @codeGenApi
  */
-export function ɵɵclassMap(
-    classes: {[className: string]: boolean | undefined | null} |
-    Map<string, boolean|undefined|null>| Set<string>| string[] | string | undefined | null): void {
+export function ɵɵclassMap(classes: {[className: string]: boolean|undefined|null}|string|undefined|
+                           null): void {
   checkStylingMap(keyValueArraySet, classStringParser, classes, true);
 }
 
@@ -190,8 +187,8 @@ export function classStringParser(keyValueArray: KeyValueArray<any>, text: strin
  * @param isClassBased `true` if `class` change (`false` if `style`)
  */
 export function checkStylingProperty(
-    prop: string, value: any | NO_CHANGE,
-    suffixOrSanitizer: SanitizerFn | string | undefined | null, isClassBased: boolean): void {
+    prop: string, value: any|NO_CHANGE, suffixOrSanitizer: SanitizerFn|string|undefined|null,
+    isClassBased: boolean): void {
   const lView = getLView();
   const tView = getTView();
   // Styling instructions use 2 slots per binding.
@@ -264,8 +261,9 @@ export function checkStylingMap(
       ngDevMode && isClassBased === false && staticPrefix !== null &&
           assertEqual(
               staticPrefix.endsWith(';'), true, 'Expecting static portion to end with \';\'');
-      if (typeof value === 'string') {
-        value = concatStringsWithSpace(staticPrefix, value as string);
+      if (staticPrefix !== null) {
+        // We want to make sure that falsy values of `value` become empty strings.
+        value = concatStringsWithSpace(staticPrefix, value ? value : '');
       }
       // Given `<div [style] my-dir>` such that `my-dir` has `@Input('style')`.
       // This takes over the `[style]` binding. (Same for `[class]`)
@@ -291,14 +289,14 @@ function isInHostBindings(tView: TView, bindingIndex: number): boolean {
 }
 
 /**
-* Collects the necessary information to insert the binding into a linked list of style bindings
-* using `insertTStylingBinding`.
-*
-* @param tView `TView` where the binding linked list will be stored.
-* @param tStylingKey Property/key of the binding.
-* @param bindingIndex Index of binding associated with the `prop`
-* @param isClassBased `true` if `class` change (`false` if `style`)
-*/
+ * Collects the necessary information to insert the binding into a linked list of style bindings
+ * using `insertTStylingBinding`.
+ *
+ * @param tView `TView` where the binding linked list will be stored.
+ * @param tStylingKey Property/key of the binding.
+ * @param bindingIndex Index of binding associated with the `prop`
+ * @param isClassBased `true` if `class` change (`false` if `style`)
+ */
 function stylingFirstUpdatePass(
     tView: TView, tStylingKey: TStylingKey, bindingIndex: number, isClassBased: boolean): void {
   ngDevMode && assertFirstUpdatePass(tView);
@@ -339,7 +337,7 @@ function stylingFirstUpdatePass(
  */
 export function wrapInStaticStylingKey(
     tData: TData, tNode: TNode, stylingKey: TStylingKey, isClassBased: boolean): TStylingKey {
-  const hostDirectiveDef = getHostDirectiveDef(tData);
+  const hostDirectiveDef = getCurrentDirectiveDef(tData);
   let residual = isClassBased ? tNode.residualClasses : tNode.residualStyles;
   if (hostDirectiveDef === null) {
     // We are in template node.
@@ -479,9 +477,10 @@ function getTemplateHeadTStylingKey(tData: TData, tNode: TNode, isClassBased: bo
 function setTemplateHeadTStylingKey(
     tData: TData, tNode: TNode, isClassBased: boolean, tStylingKey: TStylingKey): void {
   const bindings = isClassBased ? tNode.classBindings : tNode.styleBindings;
-  ngDevMode && assertNotEqual(
-                   getTStylingRangeNext(bindings), 0,
-                   'Expecting to have at least one template styling binding.');
+  ngDevMode &&
+      assertNotEqual(
+          getTStylingRangeNext(bindings), 0,
+          'Expecting to have at least one template styling binding.');
   tData[getTStylingRangePrev(bindings)] = tStylingKey;
 }
 
@@ -525,7 +524,7 @@ function collectResidual(tData: TData, tNode: TNode, isClassBased: boolean): Key
  * @param isClassBased `true` if `class` (`false` if `style`)
  */
 function collectStylingFromDirectives(
-    hostDirectiveDef: DirectiveDef<any>| null, tData: TData, tNode: TNode, stylingKey: TStylingKey,
+    hostDirectiveDef: DirectiveDef<any>|null, tData: TData, tNode: TNode, stylingKey: TStylingKey,
     isClassBased: boolean): TStylingKey {
   // We need to loop because there can be directives which have `hostAttrs` but don't have
   // `hostBindings` so this loop catches up to the current directive..
@@ -561,7 +560,7 @@ function collectStylingFromDirectives(
  * @param isClassBased `true` if `class` (`false` if `style`)
  */
 function collectStylingFromTAttrs(
-    stylingKey: TStylingKey | undefined, attrs: TAttributes | null,
+    stylingKey: TStylingKey|undefined, attrs: TAttributes|null,
     isClassBased: boolean): TStylingKey {
   const desiredMarker = isClassBased ? AttributeMarker.Classes : AttributeMarker.Styles;
   let currentMarker = AttributeMarker.ImplicitAttributes;
@@ -582,17 +581,6 @@ function collectStylingFromTAttrs(
     }
   }
   return stylingKey === undefined ? null : stylingKey;
-}
-
-/**
- * Retrieve the current `DirectiveDef` which is active when `hostBindings` style instruction is
- * being executed (or `null` if we are in `template`.)
- *
- * @param tData Current `TData` where the `DirectiveDef` will be looked up at.
- */
-export function getHostDirectiveDef(tData: TData): DirectiveDef<any>|null {
-  const currentDirectiveIndex = getCurrentDirectiveIndex();
-  return currentDirectiveIndex === -1 ? null : tData[currentDirectiveIndex] as DirectiveDef<any>;
 }
 
 /**
@@ -626,30 +614,26 @@ export function getHostDirectiveDef(tData: TData): DirectiveDef<any>|null {
  */
 export function toStylingKeyValueArray(
     keyValueArraySet: (keyValueArray: KeyValueArray<any>, key: string, value: any) => void,
-    stringParser: (styleKeyValueArray: KeyValueArray<any>, text: string) => void, value: string|
-    string[]|{[key: string]: any}|Map<any, any>|Set<any>|null|undefined): KeyValueArray<any> {
+    stringParser: (styleKeyValueArray: KeyValueArray<any>, text: string) => void,
+    value: string|string[]|{[key: string]: any}|SafeValue|null|undefined): KeyValueArray<any> {
   if (value == null /*|| value === undefined */ || value === '') return EMPTY_ARRAY as any;
   const styleKeyValueArray: KeyValueArray<any> = [] as any;
-  if (Array.isArray(value)) {
-    for (let i = 0; i < value.length; i++) {
-      keyValueArraySet(styleKeyValueArray, value[i], true);
+  const unwrappedValue = unwrapSafeValue(value) as string | string[] | {[key: string]: any};
+  if (Array.isArray(unwrappedValue)) {
+    for (let i = 0; i < unwrappedValue.length; i++) {
+      keyValueArraySet(styleKeyValueArray, unwrappedValue[i], true);
     }
-  } else if (typeof value === 'object') {
-    if (value instanceof Map) {
-      value.forEach((v, k) => keyValueArraySet(styleKeyValueArray, k, v));
-    } else if (value instanceof Set) {
-      value.forEach((k) => keyValueArraySet(styleKeyValueArray, k, true));
-    } else {
-      for (const key in value) {
-        if (value.hasOwnProperty(key)) {
-          keyValueArraySet(styleKeyValueArray, key, value[key]);
-        }
+  } else if (typeof unwrappedValue === 'object') {
+    for (const key in unwrappedValue) {
+      if (unwrappedValue.hasOwnProperty(key)) {
+        keyValueArraySet(styleKeyValueArray, key, unwrappedValue[key]);
       }
     }
-  } else if (typeof value === 'string') {
-    stringParser(styleKeyValueArray, value);
+  } else if (typeof unwrappedValue === 'string') {
+    stringParser(styleKeyValueArray, unwrappedValue);
   } else {
-    ngDevMode && throwError('Unsupported styling type ' + typeof value + ': ' + value);
+    ngDevMode &&
+        throwError('Unsupported styling type ' + typeof unwrappedValue + ': ' + unwrappedValue);
   }
   return styleKeyValueArray;
 }
@@ -663,7 +647,7 @@ export function toStylingKeyValueArray(
  * @param key Style key to add. (This key will be checked if it needs sanitization)
  * @param value The value to set (If key needs sanitization it will be sanitized)
  */
-function styleKeyValueArraySet(keyValueArray: KeyValueArray<any>, key: string, value: any) {
+export function styleKeyValueArraySet(keyValueArray: KeyValueArray<any>, key: string, value: any) {
   if (stylePropNeedsSanitization(key)) {
     value = ɵɵsanitizeStyle(value);
   }
@@ -674,11 +658,10 @@ function styleKeyValueArraySet(keyValueArray: KeyValueArray<any>, key: string, v
  * Update map based styling.
  *
  * Map based styling could be anything which contains more than one binding. For example `string`,
- * `Map`, `Set` or object literal. Dealing with all of these types would complicate the logic so
+ * or object literal. Dealing with all of these types would complicate the logic so
  * instead this function expects that the complex input is first converted into normalized
  * `KeyValueArray`. The advantage of normalization is that we get the values sorted, which makes it
- * very
- * cheap to compute deltas between the previous and current value.
+ * very cheap to compute deltas between the previous and current value.
  *
  * @param tView Associated `TView.data` contains the linked list of binding priorities.
  * @param tNode `TNode` where the binding is located.
@@ -718,7 +701,7 @@ function updateStylingMap(
         setKey = newKey;
         setValue = newValue;
       }
-    } else if (newKey === null || oldKey !== null && oldKey < newKey !) {
+    } else if (newKey === null || oldKey !== null && oldKey < newKey!) {
       // DELETE: oldKey key is missing or we did not find the oldKey in the newValue
       // (because the keyValueArray is sorted and `newKey` is found later alphabetically).
       // `"background" < "color"` so we need to delete `"background"` because it is not found in the
@@ -761,7 +744,7 @@ function updateStylingMap(
  */
 function updateStyling(
     tView: TView, tNode: TNode, lView: LView, renderer: Renderer3, prop: string,
-    value: string | undefined | null | boolean, isClassBased: boolean, bindingIndex: number) {
+    value: string|undefined|null|boolean, isClassBased: boolean, bindingIndex: number) {
   if (tNode.type !== TNodeType.Element) {
     // It is possible to have styling on non-elements (such as ng-container).
     // This is rare, but it does happen. In such a case, just ignore the binding.
@@ -818,7 +801,7 @@ function updateStyling(
  * @param isClassBased `true` if `class` (`false` if `style`)
  */
 function findStylingValue(
-    tData: TData, tNode: TNode | null, lView: LView, prop: string, index: number,
+    tData: TData, tNode: TNode|null, lView: LView, prop: string, index: number,
     isClassBased: boolean): any {
   // `TNode` to use for resolving static styling. Also controls search direction.
   //   - `TNode` search next and quit as soon as `isStylingValuePresent(value)` is true.
@@ -863,7 +846,7 @@ function findStylingValue(
     // consult residual styling
     let residual = isClassBased ? tNode.residualClasses : tNode.residualStyles;
     if (residual != null /** OR residual !=== undefined */) {
-      value = keyValueArrayGet(residual !, prop);
+      value = keyValueArrayGet(residual!, prop);
     }
   }
   return value;
@@ -891,7 +874,7 @@ function isStylingValuePresent(value: any): boolean {
  * @param suffixOrSanitizer
  */
 function normalizeAndApplySuffixOrSanitizer(
-    value: any, suffixOrSanitizer: SanitizerFn | string | undefined | null): string|null|undefined|
+    value: any, suffixOrSanitizer: SanitizerFn|string|undefined|null): string|null|undefined|
     boolean {
   if (value == null /** || value === undefined */) {
     // do nothing

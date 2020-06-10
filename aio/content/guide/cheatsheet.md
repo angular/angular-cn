@@ -358,7 +358,7 @@ is available to <code>declarations</code> of this module.</p>
 
     <p>The safe navigation operator (<code>?</code>) means that the <code>employer</code> field is optional and if <code>undefined</code>, the rest of the expression should be ignored.</p>
 
-    <p>安全导航操作符（<code>?</code>）表示<code>employer</code>字段是可选的，如果它是 <code>undefined</code> ，那么表达式其余的部分就会被忽略，并返回 <code>undefined</code>。</p>
+    <p>安全导航操作符（<code>?</code>）表示<code>employer</code>字段是可选的，如果它是 <code>undefined</code>，那么表达式其余的部分就会被忽略，并返回 <code>undefined</code>。</p>
 
 </td>
 
@@ -749,7 +749,7 @@ so the <code>@Directive</code> configuration applies to components as well</p>
 
     <p>Inline template or external template URL of the component's view.</p>
 
-    <p>当前组件视图的内联模板或外部模板的 URL 。</p>
+    <p>当前组件视图的内联模板或外部模板的 URL。</p>
 
 </td>
 
@@ -804,7 +804,7 @@ so the <code>@Directive</code> configuration applies to components as well</p>
     <p>Declares an input property that you can update via property binding (example:
 <code>&lt;my-cmp [myProperty]="someExpression"&gt;</code>).</p>
 
-    <p>声明一个输入属性，你可以通过属性绑定来更新它，如 <code>&lt;my-cmp [myProperty]="someExpression"&gt;</code>。 </p>
+    <p>声明一个输入属性，你可以通过属性绑定来更新它，如 <code>&lt;my-cmp [myProperty]="someExpression"&gt;</code>。</p>
 
 </td>
 
@@ -1151,7 +1151,7 @@ so the <code>@Directive</code> configuration applies to components as well</p>
 
     <p>Sets or overrides the provider for <code>MyValue</code> to the value <code>41</code>.</p>
 
-    <p>把 <code>MyValue</code> 的服务提供者改写为一个特定的值 <code>41</code> 。</p>
+    <p>把 <code>MyValue</code> 的服务提供者改写为一个特定的值 <code>41</code>。</p>
 
 </td>
 

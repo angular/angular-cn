@@ -42,7 +42,7 @@ In the above code snippet, `transAnimation` is made reusable by declaring it as 
 
 **Note:** The `height`, `opacity`, `backgroundColor`, and `time` inputs are replaced during runtime.
 
-**注意：**`height`、`opacity`、`backgroundColor` 和 `time` 这几个输入项会在运行期间被替换掉。 
+**注意：**`height`、`opacity`、`backgroundColor` 和 `time` 这几个输入项会在运行期间被替换掉。
 
 </div>
 

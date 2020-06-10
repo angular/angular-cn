@@ -1,14 +1,21 @@
+# Using observables to pass values
 
-# Observables
+# 使用可观察对象（Observable）来传递值
 
-# 可观察对象（Observable）
+Observables provide support for passing messages between parts of your application.
+They are used frequently in Angular and are the recommended technique for event handling, asynchronous programming, and handling multiple values.
 
-Observables provide support for passing messages between publishers and subscribers in your application. Observables offer significant benefits over other techniques for event handling, asynchronous programming, and handling multiple values.
+可观察对象对在应用的各个部分之间传递消息提供了支持。
+它们在 Angular 中频繁使用，并且推荐把它们用于事件处理、异步编程以及处理多个值等场景。
 
-可观察对象支持在应用中的发布者和订阅者之间传递消息。
-在需要进行事件处理、异步编程和处理多个值的时候，可观察对象相对其它技术有着显著的优点。
+The observer pattern is a software design pattern in which an object, called the *subject*, maintains a list of its dependents, called *observers*, and notifies them automatically of state changes.
+This pattern is similar (but not identical) to the [publish/subscribe](https://en.wikipedia.org/wiki/Publish%E2%80%93subscribe_pattern) design pattern.
 
-Observables are declarative&mdash;that is, you define a function for publishing values, but it is not executed until a consumer subscribes to it. The subscribed consumer then receives notifications until the function completes, or until they unsubscribe.
+观察者（Observer）模式是一个软件设计模式，它有一个对象，称之为*主体 Subject*，负责维护一个依赖项（称之为观察者 Observer）的列表，并且在状态变化时自动通知它们。
+该模式和[发布/订阅](https://en.wikipedia.org/wiki/Publish%E2%80%93subscribe_pattern)模式非常相似（但不完全一样）。
+
+Observables are declarative&mdash;that is, you define a function for publishing values, but it is not executed until a consumer subscribes to it.
+The subscribed consumer then receives notifications until the function completes, or until they unsubscribe.
 
 可观察对象是声明式的 —— 也就是说，虽然你定义了一个用于发布值的函数，但是在有消费者订阅它之前，这个函数并不会实际执行。
 订阅之后，当这个函数执行完或取消订阅时，订阅者就会收到通知。
@@ -57,11 +64,11 @@ A handler for receiving observable notifications implements the `Observer` inter
 |:---------|:-------------------------------------------|
 | 通知类型 | 说明 |
 | `next` | Required. A handler for each delivered value. Called zero or more times after execution starts. |
-| `next` | 必要。用来处理每个送达值。在开始执行后可能执行零次或多次。 |
+| `next` | 必要。用来处理每个送达值。在开始执行后可能执行零次或多次。|
 | `error` | Optional. A handler for an error notification. An error halts execution of the observable instance. |
-| `error` |  可选。用来处理错误通知。错误会中断这个可观察对象实例的执行过程。  |
+| `error` |  可选。用来处理错误通知。错误会中断这个可观察对象实例的执行过程。 |
 | `complete` | Optional. A handler for the execution-complete notification. Delayed values can continue to be delivered to the next handler after execution is complete. |
-| `complete` |  可选。用来处理执行完毕（complete）通知。当执行完毕后，这些值就会继续传给下一个处理器。  |
+| `complete` |  可选。用来处理执行完毕（complete）通知。当执行完毕后，这些值就会继续传给下一个处理器。 |
 
 An observer object can define any combination of these handlers. If you don't supply a handler for a notification type, the observer ignores notifications of that type.
 

@@ -50,8 +50,8 @@ import {HttpEvent} from './response';
  * To use the same instance of `HttpInterceptors` for the entire app, import the `HttpClientModule`
  * only in your `AppModule`, and add the interceptors to the root application injector .
  * If you import `HttpClientModule` multiple times across different modules (for example, in lazy
- * loading modules), each import creates a new copy of the `HttpClientModule`, which overwrites the interceptors
- * provided in the root module.
+ * loading modules), each import creates a new copy of the `HttpClientModule`, which overwrites the
+ * interceptors provided in the root module.
  *
  * 要想在整个应用中使用 `HttpInterceptors` 的同一个实例，就只能在 `AppModule` 模块中导入 `HttpClientModule`，并且把拦截器都添加到应用的根注入器中。
  * 如果你在不同的模块中多次导入 `HttpClientModule`，则每次导入都会创建 `HttpClientModule` 的一个新复本，它将会覆盖根模块上提供的那些拦截器。

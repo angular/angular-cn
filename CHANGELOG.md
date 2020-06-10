@@ -1,3 +1,774 @@
+<a name="9.1.6"></a>
+## [9.1.6](https://github.com/angular/angular/compare/9.1.5...9.1.6) (2020-05-08)
+
+### Bug Fixes
+
+* **compiler-cli**: Revert "fix(compiler-cli): fix case-sensitivity issues in NgtscCompilerHost (#36968)" (#37003)
+
+
+
+<a name="10.0.0-next.6"></a>
+# [10.0.0-next.6](https://github.com/angular/angular/compare/10.0.0-next.5...10.0.0-next.6) (2020-05-07)
+
+
+### Bug Fixes
+
+* **bazel:** ng_package rule should update "package.json" of ts_library targets ([#36944](https://github.com/angular/angular/issues/36944)) ([d5293d2](https://github.com/angular/angular/commit/d5293d2))
+* **compiler:** remove outdated and invalid warning for unresolved DI parameters ([#36985](https://github.com/angular/angular/issues/36985)) ([d0280a0](https://github.com/angular/angular/commit/d0280a0))
+* **compiler:** switch to 'referencedFiles' for shim generation ([#36211](https://github.com/angular/angular/issues/36211)) ([4213e8d](https://github.com/angular/angular/commit/4213e8d))
+* **compiler-cli:** `isCaseSensitive()` returns correct value ([#36859](https://github.com/angular/angular/issues/36859)) ([fc4741f](https://github.com/angular/angular/commit/fc4741f))
+* **compiler-cli:** don't try to tag non-ts files as shims ([#36987](https://github.com/angular/angular/issues/36987)) ([42d1091](https://github.com/angular/angular/commit/42d1091))
+* **compiler-cli:** ensure `getRootDirs()` handles case-sensitivity ([#36859](https://github.com/angular/angular/issues/36859)) ([3f3e9b7](https://github.com/angular/angular/commit/3f3e9b7))
+* **compiler-cli:** ensure `MockFileSystem` handles case-sensitivity ([#36859](https://github.com/angular/angular/issues/36859)) ([26eacd4](https://github.com/angular/angular/commit/26eacd4))
+* **compiler-cli:** ensure LogicalFileSystem handles case-sensitivity ([#36859](https://github.com/angular/angular/issues/36859)) ([53a8459](https://github.com/angular/angular/commit/53a8459))
+* **compiler-cli:** fix bug tracking indirect NgModule dependencies ([#36211](https://github.com/angular/angular/issues/36211)) ([bab90a7](https://github.com/angular/angular/commit/bab90a7))
+* **compiler-cli:** fix case-sensitivity issues in NgtscCompilerHost ([#36859](https://github.com/angular/angular/issues/36859)) ([0ec0ff3](https://github.com/angular/angular/commit/0ec0ff3))
+* **compiler-cli:** normalize mock Windows file paths correctly ([#36859](https://github.com/angular/angular/issues/36859)) ([b682bd1](https://github.com/angular/angular/commit/b682bd1))
+* **compiler-cli:** use CompilerHost to ensure canonical file paths ([#36859](https://github.com/angular/angular/issues/36859)) ([a10c126](https://github.com/angular/angular/commit/a10c126))
+* **core:** handle pluralize functions that expect a number ([#36901](https://github.com/angular/angular/issues/36901)) ([2ff4b35](https://github.com/angular/angular/commit/2ff4b35)), closes [#36888](https://github.com/angular/angular/issues/36888)
+* **core:** properly get root nodes from embedded views with <ng-content> ([#36051](https://github.com/angular/angular/issues/36051)) ([e30e132](https://github.com/angular/angular/commit/e30e132)), closes [#35967](https://github.com/angular/angular/issues/35967)
+* **forms:** handle numeric values properly in the validator ([#36157](https://github.com/angular/angular/issues/36157)) ([88a235d](https://github.com/angular/angular/commit/88a235d)), closes [#35591](https://github.com/angular/angular/issues/35591)
+* **forms:** number input fires valueChanges twice ([#36087](https://github.com/angular/angular/issues/36087)) ([97d6d90](https://github.com/angular/angular/commit/97d6d90)), closes [#12540](https://github.com/angular/angular/issues/12540)
+* **localize:** ensure `getLocation()` works ([#36853](https://github.com/angular/angular/issues/36853)) ([70b25a3](https://github.com/angular/angular/commit/70b25a3))
+* **ngcc:** support ModuleWithProviders functions that delegate ([#36948](https://github.com/angular/angular/issues/36948)) ([fafa50d](https://github.com/angular/angular/commit/fafa50d)), closes [#36892](https://github.com/angular/angular/issues/36892)
+
+
+### Features
+
+
+* **bazel:** simplify ng_package by dropping esm5 and fesm5 ([#36944](https://github.com/angular/angular/issues/36944)) ([9dbb30f](https://github.com/angular/angular/commit/9dbb30f))
+* **compiler-cli:** report error if undecorated class with Angular features is discovered ([#36921](https://github.com/angular/angular/issues/36921)) ([4c92cf4](https://github.com/angular/angular/commit/4c92cf4))
+* **core:** undecorated-classes-with-decorated-fields migration should handle classes with lifecycle hooks ([#36921](https://github.com/angular/angular/issues/36921)) ([c6ecdc9](https://github.com/angular/angular/commit/c6ecdc9))
+* **ngcc:** support for new APF where `module` points to esm2015 output ([#36944](https://github.com/angular/angular/issues/36944)) ([c98a4d6](https://github.com/angular/angular/commit/c98a4d6))
+* **language-service:** [ivy] Parse Angular compiler options ([#36922](https://github.com/angular/angular/issues/36922)) ([dbd0f8e](https://github.com/angular/angular/commit/dbd0f8e))
+* remove TypeScript 3.6 and 3.7 support ([#36329](https://github.com/angular/angular/issues/36329)) ([fbd281c](https://github.com/angular/angular/commit/fbd281c))
+
+
+### Performance Improvements
+
+* **compiler-cli:** perform template type-checking incrementally ([#36211](https://github.com/angular/angular/issues/36211)) ([ecffc35](https://github.com/angular/angular/commit/ecffc35))
+* **compiler-cli:** split Ivy template type-checking into multiple files ([#36211](https://github.com/angular/angular/issues/36211)) ([b861e9c](https://github.com/angular/angular/commit/b861e9c))
+
+
+### BREAKING CHANGES
+
+* TypeScript versions 3.6 and 3.7 are no longer supported, please update to TypeScript 3.8
+
+* **forms:** Number inputs no longer listen to the `change` event.
+
+Tests which trigger `change` events need to be updated to trigger `input` events instead.
+
+The `change` event was in place to support IE9, as we found that `input` events were not fired with backspace or cut actions. If you need to maintain IE9 support, you will need to add a change event listener to number inputs and call the `onChange` method of `NumberValueAccessor` manually.
+
+Lastly, old versions of WebDriver would synthetically trigger the `change` event on `WebElement.clear` and `WebElement.sendKeys`. If you are using an old version of WebDriver, you may need to update tests to ensure `input` events are triggered. For example, you could use `element.sendKeys(Keys.chord(Keys.CONTROL, "a"), Keys.BACK_SPACE);` in place of `element.clear()`.
+* **forms:** The `minLength` and `maxLength` validators now verify that the form control's value has a
+numeric `length` property, and only validate for length if that's the case.
+
+Previously, falsey values without the length property (such as `0` or
+`false` values) were triggering validation errors. If your code relies on
+the old behavior, you can include other validators such as [min][1] or
+[requiredTrue][2] to the list of validators for a particular field.
+
+[1]: https://angular.io/api/forms/Validators#min
+[2]: https://angular.io/api/forms/Validators#requiredTrue
+* **bazel:** esm5 and fesm5 format is no longer distributed in
+Angular's npm packages e.g. @angular/core
+
+If you are not using Angular CLI to build your application or library,
+and you need to be able to build es5 artifacts, then you will need to
+downlevel the distributed Angular code to es5 on your own.
+
+Angular CLI will automatically downlevel the code to es5 if differential
+loading is enabled in the Angular project, so no action is required from
+Angular CLI users.
+
+
+<a name="9.1.5"></a>
+## [9.1.5](https://github.com/angular/angular/compare/9.1.4...9.1.5) (2020-05-07)
+
+
+### Bug Fixes
+
+* **compiler-cli:** `isCaseSensitive()` returns correct value ([#36968](https://github.com/angular/angular/issues/36968)) ([4becc1b](https://github.com/angular/angular/commit/4becc1b))
+* **compiler-cli:** ensure `getRootDirs()` handles case-sensitivity ([#36968](https://github.com/angular/angular/issues/36968)) ([5bddeea](https://github.com/angular/angular/commit/5bddeea))
+* **compiler-cli:** ensure `MockFileSystem` handles case-sensitivity ([#36968](https://github.com/angular/angular/issues/36968)) ([b6c042d](https://github.com/angular/angular/commit/b6c042d))
+* **compiler-cli:** ensure LogicalFileSystem handles case-sensitivity ([#36968](https://github.com/angular/angular/issues/36968)) ([65337fb](https://github.com/angular/angular/commit/65337fb))
+* **compiler-cli:** fix case-sensitivity issues in NgtscCompilerHost ([#36968](https://github.com/angular/angular/issues/36968)) ([4abd603](https://github.com/angular/angular/commit/4abd603))
+* **compiler-cli:** normalize mock Windows file paths correctly ([#36968](https://github.com/angular/angular/issues/36968)) ([654868f](https://github.com/angular/angular/commit/654868f))
+* **compiler-cli:** use CompilerHost to ensure canonical file paths ([#36968](https://github.com/angular/angular/issues/36968)) ([7e9d5f5](https://github.com/angular/angular/commit/7e9d5f5))
+* **core:** handle pluralize functions that expect a number ([#36901](https://github.com/angular/angular/issues/36901)) ([e5317d5](https://github.com/angular/angular/commit/e5317d5)), closes [#36888](https://github.com/angular/angular/issues/36888)
+* **core:** properly get root nodes from embedded views with <ng-content> ([#36051](https://github.com/angular/angular/issues/36051)) ([a576852](https://github.com/angular/angular/commit/a576852)), closes [#35967](https://github.com/angular/angular/issues/35967)
+* **core:** Refresh transplanted views at insertion point only ([#35968](https://github.com/angular/angular/issues/35968)) ([c8c2272](https://github.com/angular/angular/commit/c8c2272)), closes [#35400](https://github.com/angular/angular/issues/35400) [#21324](https://github.com/angular/angular/issues/21324)
+* **localize:** ensure `getLocation()` works ([#36920](https://github.com/angular/angular/issues/36920)) ([701016d](https://github.com/angular/angular/commit/701016d))
+* **ngcc:** do not run in parallel mode if there are less than 3 CPU cores ([#36626](https://github.com/angular/angular/issues/36626)) ([3800455](https://github.com/angular/angular/commit/3800455))
+* **ngcc:** give up re-spawing crashed worker process after 3 attempts ([#36626](https://github.com/angular/angular/issues/36626)) ([1863733](https://github.com/angular/angular/commit/1863733))
+* **ngcc:** handle `ENOMEM` errors in worker processes ([#36626](https://github.com/angular/angular/issues/36626)) ([901b980](https://github.com/angular/angular/commit/901b980))
+* **ngcc:** support ModuleWithProviders functions that delegate ([#36948](https://github.com/angular/angular/issues/36948)) ([9d13ee0](https://github.com/angular/angular/commit/9d13ee0)), closes [#36892](https://github.com/angular/angular/issues/36892)
+* **ngcc:** support recovering when a worker process crashes ([#36626](https://github.com/angular/angular/issues/36626)) ([f30307a](https://github.com/angular/angular/commit/f30307a)), closes [#36278](https://github.com/angular/angular/issues/36278)
+* **ngcc:** partially support TS 3.9 wrapped ES2015 classes ([#36884](https://github.com/angular/angular/issues/36884)) ([ebb4733](https://github.com/angular/angular/commit/ebb4733))
+
+
+### Performance Improvements
+
+* **ngcc:** only compute basePaths in TargetedEntryPointFinder when needed ([#36881](https://github.com/angular/angular/issues/36881)) ([5ea51b2](https://github.com/angular/angular/commit/5ea51b2)), closes [#36874](https://github.com/angular/angular/issues/36874)
+* **ngcc:** speed up the `getBasePaths()` computation ([#36881](https://github.com/angular/angular/issues/36881)) ([b6d0e21](https://github.com/angular/angular/commit/b6d0e21))
+
+
+
+<a name="10.0.0-next.5"></a>
+# [10.0.0-next.5](https://github.com/angular/angular/compare/10.0.0-next.4...10.0.0-next.5) (2020-05-04)
+
+
+### Bug Fixes
+
+* **core:** log error instead of warning for unknown properties and elements ([#36399](https://github.com/angular/angular/issues/36399)) ([9d9d46f](https://github.com/angular/angular/commit/9d9d46f)), closes [#35699](https://github.com/angular/angular/issues/35699)
+* **core:** Refresh transplanted views at insertion point only ([#35968](https://github.com/angular/angular/issues/35968)) ([1786586](https://github.com/angular/angular/commit/1786586)), closes [#35400](https://github.com/angular/angular/issues/35400) [#21324](https://github.com/angular/angular/issues/21324)
+* **ngcc:** do not run in parallel mode if there are less than 3 CPU cores ([#36626](https://github.com/angular/angular/issues/36626)) ([4c63241](https://github.com/angular/angular/commit/4c63241))
+* **ngcc:** give up re-spawning crashed worker process after 3 attempts ([#36626](https://github.com/angular/angular/issues/36626)) ([793cb32](https://github.com/angular/angular/commit/793cb32))
+* **ngcc:** handle `ENOMEM` errors in worker processes ([#36626](https://github.com/angular/angular/issues/36626)) ([4779c4b](https://github.com/angular/angular/commit/4779c4b))
+* **ngcc:** provide a unique exit code for timeouts ([#36838](https://github.com/angular/angular/issues/36838)) ([d805526](https://github.com/angular/angular/commit/d805526))
+* **ngcc:** support recovering when a worker process crashes ([#36626](https://github.com/angular/angular/issues/36626)) ([966598c](https://github.com/angular/angular/commit/966598c)), closes [#36278](https://github.com/angular/angular/issues/36278)
+* **ngcc:** support TS 3.9 wrapped ES2015 classes ([#36884](https://github.com/angular/angular/issues/36884)) ([db4c59d](https://github.com/angular/angular/commit/db4c59d))
+* **router:** cancel navigation when at least one resolver completes with no "next" emission ([#24621](https://github.com/angular/angular/issues/24621)) ([d9c4840](https://github.com/angular/angular/commit/d9c4840)), closes [#24195](https://github.com/angular/angular/issues/24195)
+
+
+### Code Refactoring
+
+* **common:** remove WrappedValue from AsyncPipe ([#36633](https://github.com/angular/angular/issues/36633)) ([49be32c](https://github.com/angular/angular/commit/49be32c)), closes [#29927](https://github.com/angular/angular/issues/29927)
+
+
+### Features
+
+* **localize:** support merging multiple translation files ([#36792](https://github.com/angular/angular/issues/36792)) ([72f534f](https://github.com/angular/angular/commit/72f534f))
+* **ngcc:** allow async locking timeouts to be configured ([#36838](https://github.com/angular/angular/issues/36838)) ([38f805c](https://github.com/angular/angular/commit/38f805c))
+* **ngcc:** support marking an in-progress task as unprocessed ([#36626](https://github.com/angular/angular/issues/36626)) ([4665c35](https://github.com/angular/angular/commit/4665c35))
+* **ngcc:** support reverting a file written by `FileWriter` ([#36626](https://github.com/angular/angular/issues/36626)) ([772ccf0](https://github.com/angular/angular/commit/772ccf0))
+* **service-worker:** include `CacheQueryOptions` options in ngsw-config ([#34663](https://github.com/angular/angular/issues/34663)) ([dc9f4b9](https://github.com/angular/angular/commit/dc9f4b9)), closes [#28443](https://github.com/angular/angular/issues/28443)
+* **service-worker:** use `ignoreVary: true` when retrieving responses from cache ([#34663](https://github.com/angular/angular/issues/34663)) ([ee35e22](https://github.com/angular/angular/commit/ee35e22)), closes [#36638](https://github.com/angular/angular/issues/36638)
+
+
+### Performance Improvements
+
+* **ngcc:** only compute basePaths in TargetedEntryPointFinder when needed ([#36881](https://github.com/angular/angular/issues/36881)) ([ec6b9cc](https://github.com/angular/angular/commit/ec6b9cc)), closes [#36874](https://github.com/angular/angular/issues/36874)
+* **ngcc:** speed up the `getBasePaths()` computation ([#36881](https://github.com/angular/angular/issues/36881)) ([e037840](https://github.com/angular/angular/commit/e037840))
+
+
+### BREAKING CHANGES
+
+* **core:** Warnings about unknown elements are now logged as errors. This won't break your app, but it may trip up tools that expect nothing to be logged via `console.error`.
+* **router:** Any resolver which return EMPTY will cancel navigation.
+If you want to allow the navigation to continue, you will need to update the resolvers to emit
+some value, (i.e. defaultIfEmpty(...), of(...), etc).
+* **service-worker:** Previously, [Vary](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Vary)
+headers would be taken into account when retrieving resources from the
+cache, completely preventing the retrieval of cached assets (due to
+ServiceWorker implementation details) and leading to unpredictable
+behavior due to inconsistent/buggy implementations in different
+browsers.
+
+Now, `Vary` headers are ignored when retrieving resources from the
+ServiceWorker caches, which can result in resources being retrieved even
+when their headers are different. If your application needs to
+differentiate its responses based on request headers, please make sure
+the Angular ServiceWorker is [configured](https://angular.io/guide/service-worker-config)
+to avoid caching the affected resources.
+* **common:** This change could result in ExpressionChangedAfterItHasBeenChecked errors that
+were not detected before. The error could previously have gone undetected
+because two WrappedValues are considered "equal" in all cases for the purposes
+of the check, even if their respective unwrapped values are not.
+
+Additionally, `[val]=(observable | async).someProperty` will no longer
+trigger change detection if the value of `someProperty` is identical to
+the value in the previous emit. If you need to force change detection,
+either update the binding to use an object whose reference changes or
+subscribe to the observable and call markForCheck as needed.
+
+
+
+<a name="10.0.0-next.4"></a>
+# [10.0.0-next.4](https://github.com/angular/angular/compare/10.0.0-next.3...10.0.0-next.4) (2020-04-29)
+
+
+### Bug Fixes
+
+* **compiler:** normalize line endings in ICU expansions ([#36741](https://github.com/angular/angular/issues/36741)) ([70dd27f](https://github.com/angular/angular/commit/70dd27f)), closes [#36725](https://github.com/angular/angular/issues/36725)
+* **core:** attempt to recover from user errors during creation ([#36381](https://github.com/angular/angular/issues/36381)) ([3d82aa7](https://github.com/angular/angular/commit/3d82aa7)), closes [#31221](https://github.com/angular/angular/issues/31221)
+* **core:** handle synthetic props in Directive host bindings correctly ([#35568](https://github.com/angular/angular/issues/35568)) ([f27deea](https://github.com/angular/angular/commit/f27deea)), closes [#35501](https://github.com/angular/angular/issues/35501)
+* **language-service:** disable update the `[@angular](https://github.com/angular)/core` module ([#36783](https://github.com/angular/angular/issues/36783)) ([dd049ca](https://github.com/angular/angular/commit/dd049ca))
+* **localize:** include legacy ids when describing messages ([#36761](https://github.com/angular/angular/issues/36761)) ([47f9867](https://github.com/angular/angular/commit/47f9867))
+* **ngcc:** recognize enum declarations emitted in JavaScript ([#36550](https://github.com/angular/angular/issues/36550)) ([89c5890](https://github.com/angular/angular/commit/89c5890)), closes [#35584](https://github.com/angular/angular/issues/35584)
+
+
+### Features
+
+* **router:** allow CanLoad guard to return UrlTree ([#36610](https://github.com/angular/angular/issues/36610)) ([00e6cb1](https://github.com/angular/angular/commit/00e6cb1)), closes [#26521](https://github.com/angular/angular/issues/26521) [#28306](https://github.com/angular/angular/issues/28306)
+
+
+
+<a name="9.1.4"></a>
+## [9.1.4](https://github.com/angular/angular/compare/9.1.3...9.1.4) (2020-04-29)
+
+
+### Bug Fixes
+
+* **core:** attempt to recover from user errors during creation ([#36381](https://github.com/angular/angular/issues/36381)) ([d743331](https://github.com/angular/angular/commit/d743331)), closes [#31221](https://github.com/angular/angular/issues/31221)
+* **core:** handle synthetic props in Directive host bindings correctly ([#35568](https://github.com/angular/angular/issues/35568)) ([0f389fa](https://github.com/angular/angular/commit/0f389fa)), closes [#35501](https://github.com/angular/angular/issues/35501)
+* **language-service:** disable update the `[@angular](https://github.com/angular)/core` module ([#36783](https://github.com/angular/angular/issues/36783)) ([d3a77ea](https://github.com/angular/angular/commit/d3a77ea))
+* **localize:** include legacy ids when describing messages ([#36761](https://github.com/angular/angular/issues/36761)) ([aa94cd5](https://github.com/angular/angular/commit/aa94cd5))
+* **ngcc:** recognize enum declarations emitted in JavaScript ([#36550](https://github.com/angular/angular/issues/36550)) ([c440165](https://github.com/angular/angular/commit/c440165)), closes [#35584](https://github.com/angular/angular/issues/35584)
+
+
+
+<a name="10.0.0-next.3"></a>
+# [10.0.0-next.3](https://github.com/angular/angular/compare/10.0.0-next.2...10.0.0-next.3) (2020-04-22)
+
+
+### Bug Fixes
+
+* **common:** format day-periods that cross midnight ([#36611](https://github.com/angular/angular/issues/36611)) ([c6e5fc4](https://github.com/angular/angular/commit/c6e5fc4)), closes [#36566](https://github.com/angular/angular/issues/36566)
+* **compiler:** avoid generating i18n attributes in plain form ([#36422](https://github.com/angular/angular/issues/36422)) ([88b0985](https://github.com/angular/angular/commit/88b0985))
+* **core:** do not use unbound attributes as inputs to structural directives ([#36441](https://github.com/angular/angular/issues/36441)) ([acf6075](https://github.com/angular/angular/commit/acf6075))
+* **core:** handle empty translations correctly ([#36499](https://github.com/angular/angular/issues/36499)) ([b1f1d3f](https://github.com/angular/angular/commit/b1f1d3f)), closes [#36476](https://github.com/angular/angular/issues/36476)
+* **core:** missing-injectable migration should not migrate `@NgModule` classes ([#36369](https://github.com/angular/angular/issues/36369)) ([28995db](https://github.com/angular/angular/commit/28995db)), closes [#35700](https://github.com/angular/angular/issues/35700)
+* **core:** pipes injecting viewProviders when used on a component host node ([#36512](https://github.com/angular/angular/issues/36512)) ([81d23b3](https://github.com/angular/angular/commit/81d23b3)), closes [#36146](https://github.com/angular/angular/issues/36146)
+* **core:** prevent unknown property check for AOT-compiled components ([#36072](https://github.com/angular/angular/issues/36072)) ([4a9f0be](https://github.com/angular/angular/commit/4a9f0be)), closes [#35945](https://github.com/angular/angular/issues/35945)
+* **core:** properly identify modules affected by overrides in TestBed ([#36649](https://github.com/angular/angular/issues/36649)) ([942b986](https://github.com/angular/angular/commit/942b986)), closes [#36619](https://github.com/angular/angular/issues/36619)
+* **language-service:** properly evaluate types in comparable expressions ([#36529](https://github.com/angular/angular/issues/36529)) ([8be0972](https://github.com/angular/angular/commit/8be0972))
+* **ngcc:** display unlocker process output in sync mode ([#36637](https://github.com/angular/angular/issues/36637)) ([cabf997](https://github.com/angular/angular/commit/cabf997)), closes [/github.com/nodejs/node/issues/3596#issuecomment-250890218](https://github.com//github.com/nodejs/node/issues/3596/issues/issuecomment-250890218)
+* **ngcc:** do not use cached file-system ([#36687](https://github.com/angular/angular/issues/36687)) ([0c2ed4c](https://github.com/angular/angular/commit/0c2ed4c)), closes [/github.com/angular/angular-cli/issues/16860#issuecomment-614694269](https://github.com//github.com/angular/angular-cli/issues/16860/issues/issuecomment-614694269)
+
+
+### BREAKING CHANGES
+
+* **common:** format day-periods that cross midnight
+
+    When formatting a time with the `b` or `B` format codes, the rendered
+    string was not correctly handling day periods that spanned midnight.
+    Instead the logic was falling back to the default case of `AM`.
+
+    Now the logic has been updated so that it matches times that are within
+    a day period that spans midnight, so it will now render the correct
+    output, such as `at night` in the case of English.
+
+    Applications that are using either `formatDate()` or `DatePipe` and any
+    of the `b` or `B` format codes will be affected by this change.
+
+
+
+<a name="9.1.3"></a>
+## [9.1.3](https://github.com/angular/angular/compare/9.1.2...9.1.3) (2020-04-22)
+
+
+### Bug Fixes
+
+* **compiler:** avoid generating i18n attributes in plain form ([#36422](https://github.com/angular/angular/issues/36422)) ([08b8b51](https://github.com/angular/angular/commit/08b8b51))
+* **core:** do not use unbound attributes as inputs to structural directives ([#36441](https://github.com/angular/angular/issues/36441)) ([c0ed57d](https://github.com/angular/angular/commit/c0ed57d))
+* **core:** handle empty translations correctly ([#36499](https://github.com/angular/angular/issues/36499)) ([a5ea100](https://github.com/angular/angular/commit/a5ea100)), closes [#36476](https://github.com/angular/angular/issues/36476)
+* **core:** missing-injectable migration should not migrate `@NgModule` classes ([#36369](https://github.com/angular/angular/issues/36369)) ([0bd50e2](https://github.com/angular/angular/commit/0bd50e2)), closes [#35700](https://github.com/angular/angular/issues/35700)
+* **core:** pipes injecting viewProviders when used on a component host node ([#36512](https://github.com/angular/angular/issues/36512)) ([5ae8473](https://github.com/angular/angular/commit/5ae8473)), closes [#36146](https://github.com/angular/angular/issues/36146)
+* **core:** prevent unknown property check for AOT-compiled components ([#36072](https://github.com/angular/angular/issues/36072)) ([fe1d9ba](https://github.com/angular/angular/commit/fe1d9ba)), closes [#35945](https://github.com/angular/angular/issues/35945)
+* **core:** properly identify modules affected by overrides in TestBed ([#36649](https://github.com/angular/angular/issues/36649)) ([9724169](https://github.com/angular/angular/commit/9724169)), closes [#36619](https://github.com/angular/angular/issues/36619)
+* **language-service:** properly evaluate types in comparable expressions ([#36529](https://github.com/angular/angular/issues/36529)) ([5bab498](https://github.com/angular/angular/commit/5bab498))
+* **ngcc:** display unlocker process output in sync mode ([#36637](https://github.com/angular/angular/issues/36637)) ([da159bd](https://github.com/angular/angular/commit/da159bd)), closes [/github.com/nodejs/node/issues/3596#issuecomment-250890218](https://github.com//github.com/nodejs/node/issues/3596/issues/issuecomment-250890218)
+* **ngcc:** do not use cached file-system ([#36687](https://github.com/angular/angular/issues/36687)) ([18be33a](https://github.com/angular/angular/commit/18be33a)), closes [/github.com/angular/angular-cli/issues/16860#issuecomment-614694269](https://github.com//github.com/angular/angular-cli/issues/16860/issues/issuecomment-614694269)
+
+
+
+<a name="10.0.0-next.2"></a>
+# [10.0.0-next.2](https://github.com/angular/angular/compare/10.0.0-next.1...10.0.0-next.2) (2020-04-15)
+
+
+### Bug Fixes
+
+* **common:** `locales/global/*.js` are not ES5 compliant ([#36342](https://github.com/angular/angular/issues/36342)) ([078b0be](https://github.com/angular/angular/commit/078b0be)), closes [angular/angular-cli#16394](https://github.com/angular/angular-cli/issues/16394)
+* **compiler:** handle type references to namespaced symbols correctly ([#36106](https://github.com/angular/angular/issues/36106)) ([4aa4e6f](https://github.com/angular/angular/commit/4aa4e6f)), closes [#36006](https://github.com/angular/angular/issues/36006)
+* **core:** undecorated-classes-with-decorated-fields migration should avoid error if base class has no value declaration ([#36543](https://github.com/angular/angular/issues/36543)) ([ca67748](https://github.com/angular/angular/commit/ca67748)), closes [#36522](https://github.com/angular/angular/issues/36522)
+* **ngcc:** correctly detect external files from nested `node_modules/` ([#36559](https://github.com/angular/angular/issues/36559)) ([6ab43d7](https://github.com/angular/angular/commit/6ab43d7)), closes [#36526](https://github.com/angular/angular/issues/36526)
+* **ngcc:** display output from the unlocker process on Windows ([#36569](https://github.com/angular/angular/issues/36569)) ([e041ac6](https://github.com/angular/angular/commit/e041ac6))
+* **ngcc:** do not spawn unlocker processes on cluster workers ([#36569](https://github.com/angular/angular/issues/36569)) ([66effde](https://github.com/angular/angular/commit/66effde)), closes [#35861](https://github.com/angular/angular/issues/35861)
+* **ngcc:** do not warn if `paths` mapping does not exist ([#36525](https://github.com/angular/angular/issues/36525)) ([717df13](https://github.com/angular/angular/commit/717df13)), closes [#36518](https://github.com/angular/angular/issues/36518)
+* **ngcc:** force ngcc to exit on error ([#36622](https://github.com/angular/angular/issues/36622)) ([663b768](https://github.com/angular/angular/commit/663b768)), closes [#36616](https://github.com/angular/angular/issues/36616)
+* **router:** pass correct component to canDeactivate checks when using two or more sibling router-outlets ([#36302](https://github.com/angular/angular/issues/36302)) ([80e6c07](https://github.com/angular/angular/commit/80e6c07)), closes [#34614](https://github.com/angular/angular/issues/34614)
+* **upgrade:** update $locationShim to handle Location changes before initialization ([#36498](https://github.com/angular/angular/issues/36498)) ([0cc53fb](https://github.com/angular/angular/commit/0cc53fb)), closes [#36492](https://github.com/angular/angular/issues/36492)
+
+
+### Performance Improvements
+
+* **ngcc:** only load  if it is needed ([#36486](https://github.com/angular/angular/issues/36486)) ([3bedfda](https://github.com/angular/angular/commit/3bedfda))
+* **ngcc:** read dependencies from entry-point manifest ([#36486](https://github.com/angular/angular/issues/36486)) ([a185efb](https://github.com/angular/angular/commit/a185efb)), closes [#issuecomment-608401834](https://github.com/angular/angular/issues/issuecomment-608401834)
+* **ngcc:** reduce the size of the entry-point manifest file ([#36486](https://github.com/angular/angular/issues/36486)) ([ec0ce60](https://github.com/angular/angular/commit/ec0ce60))
+
+
+
+<a name="9.1.2"></a>
+## [9.1.2](https://github.com/angular/angular/compare/9.1.1...9.1.2) (2020-04-15)
+
+
+### Bug Fixes
+
+* **compiler:** handle type references to namespaced symbols correctly ([#36106](https://github.com/angular/angular/issues/36106)) ([468cf69](https://github.com/angular/angular/commit/468cf69)), closes [#36006](https://github.com/angular/angular/issues/36006)
+* **core:** undecorated-classes-with-decorated-fields migration should avoid error if base class has no value declaration ([#36543](https://github.com/angular/angular/issues/36543)) ([3992341](https://github.com/angular/angular/commit/3992341)), closes [#36522](https://github.com/angular/angular/issues/36522)
+* **ngcc:** correctly detect external files from nested `node_modules/` ([#36559](https://github.com/angular/angular/issues/36559)) ([8c559ef](https://github.com/angular/angular/commit/8c559ef)), closes [#36526](https://github.com/angular/angular/issues/36526)
+* **ngcc:** display output from the unlocker process on Windows ([#36569](https://github.com/angular/angular/issues/36569)) ([12266b2](https://github.com/angular/angular/commit/12266b2))
+* **ngcc:** do not spawn unlocker processes on cluster workers ([#36569](https://github.com/angular/angular/issues/36569)) ([e385abc](https://github.com/angular/angular/commit/e385abc)), closes [#35861](https://github.com/angular/angular/issues/35861)
+* **ngcc:** do not warn if `paths` mapping does not exist ([#36525](https://github.com/angular/angular/issues/36525)) ([33eee43](https://github.com/angular/angular/commit/33eee43)), closes [#36518](https://github.com/angular/angular/issues/36518)
+* **ngcc:** force ngcc to exit on error ([#36622](https://github.com/angular/angular/issues/36622)) ([933cbfb](https://github.com/angular/angular/commit/933cbfb)), closes [#36616](https://github.com/angular/angular/issues/36616)
+* **router:** pass correct component to canDeactivate checks when using two or more sibling router-outlets ([#36302](https://github.com/angular/angular/issues/36302)) ([8e7f903](https://github.com/angular/angular/commit/8e7f903)), closes [#34614](https://github.com/angular/angular/issues/34614)
+* **upgrade:** update $locationShim to handle Location changes before initialization ([#36498](https://github.com/angular/angular/issues/36498)) ([a67afcc](https://github.com/angular/angular/commit/a67afcc)), closes [#36492](https://github.com/angular/angular/issues/36492)
+
+### Performance Improvements
+* **ngcc:** only load  if it is needed ([#36486](https://github.com/angular/angular/issues/36486)) ([e06512b](https://github.com/angular/angular/commit/e06512b))                                                                             * **ngcc:** read dependencies from entry-point manifest ([#36486](https://github.com/angular/angular/issues/36486)) ([918e628](https://github.com/angular/angular/commit/918e628)), closes [#issuecomment-608401834](https://github.com/angular/angular/issues/issuecomment-608401834)
+* **ngcc:** reduce the size of the entry-point manifest file ([#36486](https://github.com/angular/angular/issues/36486)) ([603b094](https://github.com/angular/angular/commit/603b094))
+
+
+<a name="10.0.0-next.1"></a>
+# [10.0.0-next.1](https://github.com/angular/angular/compare/10.0.0-next.0...10.0.0-next.1) (2020-04-08)
+
+This release contains various API docs improvements.
+
+<a name="10.0.0-next.0"></a>
+# [10.0.0-next.0](https://github.com/angular/angular/compare/9.1.0-rc.0...10.0.0-next.0) (2020-04-08)
+
+
+### Bug Fixes
+
+* **common:** let `KeyValuePipe` accept type unions with `null` ([#36093](https://github.com/angular/angular/issues/36093)) ([d783519](https://github.com/angular/angular/commit/d783519)), closes [#35743](https://github.com/angular/angular/issues/35743)
+* **compiler:** avoid undefined expressions in holey array ([#36343](https://github.com/angular/angular/issues/36343)) ([5516802](https://github.com/angular/angular/commit/5516802))
+* **compiler:** record correct end of expression ([#34690](https://github.com/angular/angular/issues/34690)) ([df890d7](https://github.com/angular/angular/commit/df890d7)), closes [#33477](https://github.com/angular/angular/issues/33477)
+* **compiler:** resolve enum values in binary operations ([#36461](https://github.com/angular/angular/issues/36461)) ([64022f5](https://github.com/angular/angular/commit/64022f5)), closes [#35584](https://github.com/angular/angular/issues/35584)
+* **compiler-cli:** pass real source spans where they are empty ([#31805](https://github.com/angular/angular/issues/31805)) ([e893c5a](https://github.com/angular/angular/commit/e893c5a))
+* **core:** avoid migration error when non-existent symbol is imported ([#36367](https://github.com/angular/angular/issues/36367)) ([d43c306](https://github.com/angular/angular/commit/d43c306)), closes [#36346](https://github.com/angular/angular/issues/36346)
+* **core:** ngOnDestroy on multi providers called with incorrect context ([#35840](https://github.com/angular/angular/issues/35840)) ([95fc3d4](https://github.com/angular/angular/commit/95fc3d4)), closes [#35231](https://github.com/angular/angular/issues/35231)
+* **core:** run `APP_INITIALIZER`s before accessing `LOCALE_ID` token in Ivy TestBed ([#36237](https://github.com/angular/angular/issues/36237)) ([1649743](https://github.com/angular/angular/commit/1649743)), closes [#36230](https://github.com/angular/angular/issues/36230)
+* **core:** undecorated-classes-with-decorated-fields migration does not decorate derived classes ([#35339](https://github.com/angular/angular/issues/35339)) ([32eafef](https://github.com/angular/angular/commit/32eafef)), closes [#34376](https://github.com/angular/angular/issues/34376)
+* **core:** workaround Terser inlining bug ([#36200](https://github.com/angular/angular/issues/36200)) ([0ce8ad3](https://github.com/angular/angular/commit/0ce8ad3))
+* **elements:** correctly handle setting inputs to `undefined` ([#36140](https://github.com/angular/angular/issues/36140)) ([9ba46d9](https://github.com/angular/angular/commit/9ba46d9))
+* **elements:** correctly set `SimpleChange#firstChange` for pre-existing inputs ([#36140](https://github.com/angular/angular/issues/36140)) ([b14ac96](https://github.com/angular/angular/commit/b14ac96)), closes [#36130](https://github.com/angular/angular/issues/36130)
+* **language-service:** infer type of elements of array-like objects ([#36312](https://github.com/angular/angular/issues/36312)) ([fe2b692](https://github.com/angular/angular/commit/fe2b692)), closes [#36191](https://github.com/angular/angular/issues/36191)
+* **language-service:** use the `HtmlAst` to get the span of HTML tag ([#36371](https://github.com/angular/angular/issues/36371)) ([81195a2](https://github.com/angular/angular/commit/81195a2))
+* **localize:** allow ICU expansion case to start with any character except `}` ([#36123](https://github.com/angular/angular/issues/36123)) ([fced8ee](https://github.com/angular/angular/commit/fced8ee)), closes [#31586](https://github.com/angular/angular/issues/31586)
+* **ngcc:** add process title ([#36448](https://github.com/angular/angular/issues/36448)) ([76a8cd5](https://github.com/angular/angular/commit/76a8cd5)), closes [/github.com/angular/angular/issues/36414#issuecomment-609644282](https://github.com//github.com/angular/angular/issues/36414/issues/issuecomment-609644282)
+* **ngcc:** allow ngcc configuration to match pre-release versions of packages ([#36370](https://github.com/angular/angular/issues/36370)) ([326240e](https://github.com/angular/angular/commit/326240e))
+* **ngcc:** correctly detect imported TypeScript helpers ([#36284](https://github.com/angular/angular/issues/36284)) ([ca25c95](https://github.com/angular/angular/commit/ca25c95)), closes [#36089](https://github.com/angular/angular/issues/36089)
+* **ngcc:** correctly identify relative Windows-style import paths ([#36372](https://github.com/angular/angular/issues/36372)) ([aecf9de](https://github.com/angular/angular/commit/aecf9de))
+* **ngcc:** correctly identify the package path of secondary entry-points ([#36249](https://github.com/angular/angular/issues/36249)) ([995cd15](https://github.com/angular/angular/commit/995cd15)), closes [#35747](https://github.com/angular/angular/issues/35747)
+* **ngcc:** detect non-emitted, non-imported TypeScript helpers ([#36418](https://github.com/angular/angular/issues/36418)) ([5fa7b8b](https://github.com/angular/angular/commit/5fa7b8b))
+* **ngcc:** do not spawn more processes than intended in parallel mode ([#36280](https://github.com/angular/angular/issues/36280)) ([5cee709](https://github.com/angular/angular/commit/5cee709)), closes [#35719](https://github.com/angular/angular/issues/35719) [#36278](https://github.com/angular/angular/issues/36278) [/github.com/angular/angular/blob/b8e9a30d3b6/packages/compiler-cli/ngcc/src/main.ts#L429](https://github.com//github.com/angular/angular/blob/b8e9a30d3b6/packages/compiler-cli/ngcc/src/main.ts/issues/L429) [/github.com/angular/angular/blob/b8e9a30d3b6/packages/compiler-cli/ngcc/src/execution/cluster/master.ts#L108](https://github.com//github.com/angular/angular/blob/b8e9a30d3b6/packages/compiler-cli/ngcc/src/execution/cluster/master.ts/issues/L108) [/github.com/angular/angular/blob/b8e9a30d3b6/packages/compiler-cli/ngcc/src/execution/cluster/master.ts#L110](https://github.com//github.com/angular/angular/blob/b8e9a30d3b6/packages/compiler-cli/ngcc/src/execution/cluster/master.ts/issues/L110) [/github.com/angular/angular/blob/b8e9a30d3b6/packages/compiler-cli/ngcc/src/execution/cluster/master.ts#L199](https://github.com//github.com/angular/angular/blob/b8e9a30d3b6/packages/compiler-cli/ngcc/src/execution/cluster/master.ts/issues/L199)
+* **ngcc:** do not write entry-point manifest outside node_modules ([#36299](https://github.com/angular/angular/issues/36299)) ([c6dd900](https://github.com/angular/angular/commit/c6dd900)), closes [#36296](https://github.com/angular/angular/issues/36296)
+* **ngcc:** don't crash on cyclic source-map references ([#36452](https://github.com/angular/angular/issues/36452)) ([ee70a18](https://github.com/angular/angular/commit/ee70a18)), closes [#35727](https://github.com/angular/angular/issues/35727) [#35757](https://github.com/angular/angular/issues/35757)
+* **ngcc:** handle bad path mappings when finding entry-points ([#36331](https://github.com/angular/angular/issues/36331)) ([cc4b813](https://github.com/angular/angular/commit/cc4b813)), closes [#36313](https://github.com/angular/angular/issues/36313) [#36283](https://github.com/angular/angular/issues/36283)
+* **ngcc:** handle entry-points within container folders ([#36305](https://github.com/angular/angular/issues/36305)) ([38ad1d9](https://github.com/angular/angular/commit/38ad1d9)), closes [#35756](https://github.com/angular/angular/issues/35756) [#36216](https://github.com/angular/angular/issues/36216)
+* **ngcc:** sniff `main` property for ESM5 format ([#36396](https://github.com/angular/angular/issues/36396)) ([2463548](https://github.com/angular/angular/commit/2463548)), closes [#35788](https://github.com/angular/angular/issues/35788)
+* **ngcc:** support ignoring deep-imports via package config ([#36423](https://github.com/angular/angular/issues/36423)) ([f9fb833](https://github.com/angular/angular/commit/f9fb833)), closes [#35750](https://github.com/angular/angular/issues/35750)
+* **ngcc:** support simple `browser` property in entry-points ([#36396](https://github.com/angular/angular/issues/36396)) ([6b3aa60](https://github.com/angular/angular/commit/6b3aa60)), closes [#36062](https://github.com/angular/angular/issues/36062)
+* **ngcc:** use path-mappings from tsconfig in dependency resolution ([#36180](https://github.com/angular/angular/issues/36180)) ([380de1e](https://github.com/angular/angular/commit/380de1e)), closes [#36119](https://github.com/angular/angular/issues/36119)
+* **ngcc:** use preserve whitespaces from tsconfig if provided ([#36189](https://github.com/angular/angular/issues/36189)) ([b8e9a30](https://github.com/angular/angular/commit/b8e9a30)), closes [#35871](https://github.com/angular/angular/issues/35871)
+* **platform-server:** update `xhr2` dependency ([#36366](https://github.com/angular/angular/issues/36366)) ([b59bc0e](https://github.com/angular/angular/commit/b59bc0e)), closes [#36358](https://github.com/angular/angular/issues/36358)
+* **router:** allow UrlMatcher to return null ([#36402](https://github.com/angular/angular/issues/36402)) ([568e9df](https://github.com/angular/angular/commit/568e9df)), closes [#29824](https://github.com/angular/angular/issues/29824)
+* **router:** state data missing in routerLink ([#36462](https://github.com/angular/angular/issues/36462)) ([e0415db](https://github.com/angular/angular/commit/e0415db)), closes [#33173](https://github.com/angular/angular/issues/33173)
+* **service-worker:** by default register the SW after 30s even the app never stabilizes ([#35870](https://github.com/angular/angular/issues/35870)) ([29e8a64](https://github.com/angular/angular/commit/29e8a64)), closes [#34464](https://github.com/angular/angular/issues/34464)
+* **service-worker:** prevent SW registration strategies from affecting app stabilization ([#35870](https://github.com/angular/angular/issues/35870)) ([2d7c95f](https://github.com/angular/angular/commit/2d7c95f))
+
+
+### Features
+
+* **compiler:** add dependency info and ng-content selectors to metadata ([#35695](https://github.com/angular/angular/issues/35695)) ([32ce8b1](https://github.com/angular/angular/commit/32ce8b1))
+* **compiler:** Propagate value span of ExpressionBinding to ParsedProperty ([#36133](https://github.com/angular/angular/issues/36133)) ([d714b95](https://github.com/angular/angular/commit/d714b95))
+* **core:** undecorated-classes migration should handle derived abstract classes ([#35339](https://github.com/angular/angular/issues/35339)) ([c24ad56](https://github.com/angular/angular/commit/c24ad56))
+* **service-worker:** support timeout in `registerWhenStable` SW registration strategy ([#35870](https://github.com/angular/angular/issues/35870)) ([00efacf](https://github.com/angular/angular/commit/00efacf)), closes [#34464](https://github.com/angular/angular/issues/34464)
+
+
+### BREAKING CHANGES
+
+* **router:** UrlMatcher's type now reflects that it could always return
+    null.
+
+    If you implemented your own Router or Recognizer class, please update it to
+    handle matcher returning null.
+
+
+
+<a name="9.1.1"></a>
+## [9.1.1](https://github.com/angular/angular/compare/9.1.0...9.1.1) (2020-04-07)
+
+
+### Bug Fixes
+
+* **compiler:** avoid undefined expressions in holey array ([#36343](https://github.com/angular/angular/issues/36343)) ([90cae34](https://github.com/angular/angular/commit/90cae34))
+* **compiler:** resolve enum values in binary operations ([#36461](https://github.com/angular/angular/issues/36461)) ([cbc25bb](https://github.com/angular/angular/commit/cbc25bb)), closes [#35584](https://github.com/angular/angular/issues/35584)
+* **compiler-cli:** pass real source spans where they are empty ([#31805](https://github.com/angular/angular/issues/31805)) ([4894220](https://github.com/angular/angular/commit/4894220))
+* **core:** avoid migration error when non-existent symbol is imported ([#36367](https://github.com/angular/angular/issues/36367)) ([dff52ec](https://github.com/angular/angular/commit/dff52ec)), closes [#36346](https://github.com/angular/angular/issues/36346)
+* **core:** ngOnDestroy on multi providers called with incorrect context ([#35840](https://github.com/angular/angular/issues/35840)) ([af42694](https://github.com/angular/angular/commit/af42694)), closes [#35231](https://github.com/angular/angular/issues/35231)
+* **core:** run `APP_INITIALIZER`s before accessing `LOCALE_ID` token in Ivy TestBed ([#36237](https://github.com/angular/angular/issues/36237)) ([5c28af0](https://github.com/angular/angular/commit/5c28af0)), closes [#36230](https://github.com/angular/angular/issues/36230)
+* **core:** undecorated-classes-with-decorated-fields migration does not decorate derived classes ([#35339](https://github.com/angular/angular/issues/35339)) ([5ff5a11](https://github.com/angular/angular/commit/5ff5a11)), closes [#34376](https://github.com/angular/angular/issues/34376)
+* **core:** undecorated-classes migration should handle derived abstract classes ([#35339](https://github.com/angular/angular/issues/35339)) ([a631b99](https://github.com/angular/angular/commit/a631b99))
+* **language-service:** infer type of elements of array-like objects ([#36312](https://github.com/angular/angular/issues/36312)) ([ff523c9](https://github.com/angular/angular/commit/ff523c9)), closes [#36191](https://github.com/angular/angular/issues/36191)
+* **language-service:** use the `HtmlAst` to get the span of HTML tag ([#36371](https://github.com/angular/angular/issues/36371)) ([ffa4e11](https://github.com/angular/angular/commit/ffa4e11))
+* **ngcc:** add process title ([#36448](https://github.com/angular/angular/issues/36448)) ([136596d](https://github.com/angular/angular/commit/136596d)), closes [/github.com/angular/angular/issues/36414#issuecomment-609644282](https://github.com//github.com/angular/angular/issues/36414/issues/issuecomment-609644282)
+* **ngcc:** allow ngcc configuration to match pre-release versions of packages ([#36370](https://github.com/angular/angular/issues/36370)) ([cb0a2a0](https://github.com/angular/angular/commit/cb0a2a0))
+* **ngcc:** correctly detect imported TypeScript helpers ([#36284](https://github.com/angular/angular/issues/36284)) ([879457c](https://github.com/angular/angular/commit/879457c)), closes [#36089](https://github.com/angular/angular/issues/36089)
+* **ngcc:** correctly identify relative Windows-style import paths ([#36372](https://github.com/angular/angular/issues/36372)) ([0daa488](https://github.com/angular/angular/commit/0daa488))
+* **ngcc:** correctly identify the package path of secondary entry-points ([#36249](https://github.com/angular/angular/issues/36249)) ([e53b686](https://github.com/angular/angular/commit/e53b686)), closes [#35747](https://github.com/angular/angular/issues/35747)
+* **ngcc:** detect non-emitted, non-imported TypeScript helpers ([#36418](https://github.com/angular/angular/issues/36418)) ([93b32d3](https://github.com/angular/angular/commit/93b32d3))
+* **ngcc:** do not spawn more processes than intended in parallel mode ([#36280](https://github.com/angular/angular/issues/36280)) ([6ea232e](https://github.com/angular/angular/commit/6ea232e)), closes [#35719](https://github.com/angular/angular/issues/35719) [#36278](https://github.com/angular/angular/issues/36278) [/github.com/angular/angular/blob/b8e9a30d3b6/packages/compiler-cli/ngcc/src/main.ts#L429](https://github.com//github.com/angular/angular/blob/b8e9a30d3b6/packages/compiler-cli/ngcc/src/main.ts/issues/L429) [/github.com/angular/angular/blob/b8e9a30d3b6/packages/compiler-cli/ngcc/src/execution/cluster/master.ts#L108](https://github.com//github.com/angular/angular/blob/b8e9a30d3b6/packages/compiler-cli/ngcc/src/execution/cluster/master.ts/issues/L108) [/github.com/angular/angular/blob/b8e9a30d3b6/packages/compiler-cli/ngcc/src/execution/cluster/master.ts#L110](https://github.com//github.com/angular/angular/blob/b8e9a30d3b6/packages/compiler-cli/ngcc/src/execution/cluster/master.ts/issues/L110) [/github.com/angular/angular/blob/b8e9a30d3b6/packages/compiler-cli/ngcc/src/execution/cluster/master.ts#L199](https://github.com//github.com/angular/angular/blob/b8e9a30d3b6/packages/compiler-cli/ngcc/src/execution/cluster/master.ts/issues/L199)
+* **ngcc:** do not write entry-point manifest outside node_modules ([#36299](https://github.com/angular/angular/issues/36299)) ([bb8744d](https://github.com/angular/angular/commit/bb8744d)), closes [#36296](https://github.com/angular/angular/issues/36296)
+* **ngcc:** don't crash on cyclic source-map references ([#36452](https://github.com/angular/angular/issues/36452)) ([56af303](https://github.com/angular/angular/commit/56af303)), closes [#35727](https://github.com/angular/angular/issues/35727) [#35757](https://github.com/angular/angular/issues/35757)
+* **ngcc:** handle bad path mappings when finding entry-points ([#36331](https://github.com/angular/angular/issues/36331)) ([7bb3588](https://github.com/angular/angular/commit/7bb3588)), closes [#36313](https://github.com/angular/angular/issues/36313) [#36283](https://github.com/angular/angular/issues/36283)
+* **ngcc:** handle entry-points within container folders ([#36305](https://github.com/angular/angular/issues/36305)) ([392ef93](https://github.com/angular/angular/commit/392ef93)), closes [#35756](https://github.com/angular/angular/issues/35756) [#36216](https://github.com/angular/angular/issues/36216)
+* **ngcc:** sniff `main` property for ESM5 format ([#36396](https://github.com/angular/angular/issues/36396)) ([93cbef2](https://github.com/angular/angular/commit/93cbef2)), closes [#35788](https://github.com/angular/angular/issues/35788)
+* **ngcc:** support ignoring deep-imports via package config ([#36423](https://github.com/angular/angular/issues/36423)) ([31eaf78](https://github.com/angular/angular/commit/31eaf78)), closes [#35750](https://github.com/angular/angular/issues/35750)
+* **ngcc:** support simple `browser` property in entry-points ([#36396](https://github.com/angular/angular/issues/36396)) ([b0d680d](https://github.com/angular/angular/commit/b0d680d)), closes [#36062](https://github.com/angular/angular/issues/36062)
+* **platform-server:** update `xhr2` dependency ([#36366](https://github.com/angular/angular/issues/36366)) ([14ae3c0](https://github.com/angular/angular/commit/14ae3c0)), closes [#36358](https://github.com/angular/angular/issues/36358)
+* **router:** state data missing in routerLink ([#36462](https://github.com/angular/angular/issues/36462)) ([0e7a89a](https://github.com/angular/angular/commit/0e7a89a)), closes [#33173](https://github.com/angular/angular/issues/33173)
+
+
+<a name="9.1.0"></a>
+# [9.1.0](https://github.com/angular/angular/compare/9.0.0...9.1.0) (2020-03-25)
+
+### Release Highlights
+
+To learn about the release highlights and our CLI-powered automated update workflow for your projects please check out the [v9.1 release announcement](https://blog.angular.io/version-9-1-of-angular-now-available-typescript-3-8-faster-builds-and-more-eb292f989428).
+
+* TypeScript 3.8 update
+* ngcc improvements
+  * performance optimizations
+  * concurrency & reliability improvements for monorepo use-cases (npm postinstall script no longer recommended)
+* i18n now supports RTL locale info
+* Ivy compatibility fixes
+
+
+### Features
+
+* **bazel:** enable ivy template type-checking in g3 ([#35672](https://github.com/angular/angular/issues/35672)) ([8f5b7f3](https://github.com/angular/angular/commit/8f5b7f3))
+* **bazel:** transform generated shims (in Ivy) with tsickle ([#35975](https://github.com/angular/angular/issues/35975)) ([e3ecdc6](https://github.com/angular/angular/commit/e3ecdc6)), closes [#35848](https://github.com/angular/angular/issues/35848)
+* **compiler-cli:** implement NgTscPlugin on top of the NgCompiler API ([#34792](https://github.com/angular/angular/issues/34792)) ([3c69442dbd](https://github.com/angular/angular/commit/3c69442dbd))
+* **compiler:** Add sourceSpan and keySpan to TemplateBinding ([#35897](https://github.com/angular/angular/issues/35897)) ([06779cf](https://github.com/angular/angular/commit/06779cf))
+* **compiler:** Propagate source span and value span to Variable AST ([#36047](https://github.com/angular/angular/issues/36047)) ([31bec8c](https://github.com/angular/angular/commit/31bec8c))
+* **compiler:** add dependency info and ng-content selectors to metadata ([#35695](https://github.com/angular/angular/issues/35695)) ([fb70083](https://github.com/angular/angular/commit/fb70083))
+* **language-service:** improve non-callable error message ([#35271](https://github.com/angular/angular/issues/35271)) ([acc483e](https://github.com/angular/angular/commit/acc483e))
+* **language-service:** modularize error messages ([#35678](https://github.com/angular/angular/issues/35678)) ([47a1811](https://github.com/angular/angular/commit/47a1811)), closes [#32663](https://github.com/angular/angular/issues/32663)
+* **ngcc:** implement source-map flattening ([#35132](https://github.com/angular/angular/issues/35132)) ([df816c9](https://github.com/angular/angular/commit/df816c9))
+* **ngcc:** pause async ngcc processing if another process has the lockfile ([#35131](https://github.com/angular/angular/issues/35131)) ([eef0753](https://github.com/angular/angular/commit/eef0753))
+* **ngcc:** support invalidating the entry-point manifest ([#35931](https://github.com/angular/angular/issues/35931)) ([8ea61a1](https://github.com/angular/angular/commit/8ea61a1))
+* **zone.js** add a temp solution to support passive event listeners. ([#34503](https://github.com/angular/angular/issues/34503)) ([f9d483e](https://github.com/angular/angular/commit/f9d483e))
+* **zone.js** add an tickOptions parameter with property processNewMacroTasksSynchronously. ([#33838](https://github.com/angular/angular/issues/33838)) ([17b862c](https://github.com/angular/angular/commit/17b862c)), closes [#33799](https://github.com/angular/angular/issues/33799)
+* **zone.js** add interface definitions which zone extends EventTarget ([#35304](https://github.com/angular/angular/issues/35304)) ([4acb676](https://github.com/angular/angular/commit/4acb676)), closes [#35173](https://github.com/angular/angular/issues/35173)
+* **zone.js** support passive event options by defining global variables in zone.js config file ([#34503](https://github.com/angular/angular/issues/34503)) ([d7d359e](https://github.com/angular/angular/commit/d7d359e))
+* define all zone.js configurations to typescript interfaces ([#35329](https://github.com/angular/angular/issues/35329)) ([03d88c7](https://github.com/angular/angular/commit/03d88c7))
+* typescript 3.8 support ([#35864](https://github.com/angular/angular/issues/35864)) ([95c729f](https://github.com/angular/angular/commit/95c729f))
+
+
+### Performance Improvements
+
+* **core:** add micro benchmark for destroy hook invocation ([#35784](https://github.com/angular/angular/issues/35784)) ([0653db1](https://github.com/angular/angular/commit/0653db1))
+* **core:** adding micro benchmark for host bindings ([#35705](https://github.com/angular/angular/issues/35705)) ([8fed1fe](https://github.com/angular/angular/commit/8fed1fe)), closes [#35568](https://github.com/angular/angular/issues/35568)
+* **core:** avoid recursive scope recalculation when TestBed.overrideModule is used ([#35454](https://github.com/angular/angular/issues/35454)) ([0a1a989](https://github.com/angular/angular/commit/0a1a989))
+* **core:** use multiple directives in host bindings micro benchmark ([#35736](https://github.com/angular/angular/issues/35736)) ([5bc39f8](https://github.com/angular/angular/commit/5bc39f8))
+* **ivy:** remove unused event argument in listener instructions ([#35097](https://github.com/angular/angular/issues/35097)) ([9228d7f](https://github.com/angular/angular/commit/9228d7f))
+* **ngcc:** link segment markers for faster traversal ([#36027](https://github.com/angular/angular/issues/36027)) ([47025e0](https://github.com/angular/angular/commit/47025e0))
+* **ngcc:** only create tasks for non-processed formats ([#35719](https://github.com/angular/angular/issues/35719)) ([d7efc45](https://github.com/angular/angular/commit/d7efc45))
+* **ngcc:** reduce directory traversing ([#35756](https://github.com/angular/angular/issues/35756)) ([e0a35e1](https://github.com/angular/angular/commit/e0a35e1)), closes [#35717](https://github.com/angular/angular/issues/35717)
+* **ngcc:** spawn workers lazily ([#35719](https://github.com/angular/angular/issues/35719)) ([dc40a93](https://github.com/angular/angular/commit/dc40a93)), closes [#35717](https://github.com/angular/angular/issues/35717)
+* **ngcc:** store the position of SegmentMarkers to avoid unnecessary computation ([#36027](https://github.com/angular/angular/issues/36027)) ([772bb5e](https://github.com/angular/angular/commit/772bb5e))
+* **ngcc:** use binary search when flattening mappings ([#36027](https://github.com/angular/angular/issues/36027)) ([348ff0c](https://github.com/angular/angular/commit/348ff0c))
+* **ngcc:** use line start positions for computing offsets in source-map flattening ([#36027](https://github.com/angular/angular/issues/36027)) ([e890082](https://github.com/angular/angular/commit/e890082))
+* **ngcc:** use the `EntryPointManifest` in `DirectoryWalkerEntryPointFinder` ([#35931](https://github.com/angular/angular/issues/35931)) ([ec9f4d5](https://github.com/angular/angular/commit/ec9f4d5))
+
+
+### Bug Fixes
+
+* **animations:** Remove ɵAnimationDriver from private exports ([#35690](https://github.com/angular/angular/issues/35690)) ([ec789b0](https://github.com/angular/angular/commit/ec789b0))
+* **animations:** allow computeStyle to work on elements created in Node ([#35810](https://github.com/angular/angular/issues/35810)) ([17cf04e](https://github.com/angular/angular/commit/17cf04e))
+* **animations:** false positive when detecting Node in Webpack builds ([#35134](https://github.com/angular/angular/issues/35134)) ([dc4ae4b](https://github.com/angular/angular/commit/dc4ae4b)), closes [#35117](https://github.com/angular/angular/issues/35117)
+* **animations:** process shorthand `margin` and `padding` styles correctly ([#35701](https://github.com/angular/angular/issues/35701)) ([35c9f0d](https://github.com/angular/angular/commit/35c9f0d)), closes [#35463](https://github.com/angular/angular/issues/35463)
+* **bazel:** devserver shows blank page in Windows ([#35159](https://github.com/angular/angular/issues/35159)) ([727f92f](https://github.com/angular/angular/commit/727f92f))
+* **bazel:** do not use manifest paths for generated imports within compilation unit ([#35841](https://github.com/angular/angular/issues/35841)) ([9581658](https://github.com/angular/angular/commit/9581658))
+* **bazel:** ng_package rule creates incorrect UMD module exports ([#35792](https://github.com/angular/angular/issues/35792)) ([5c2a908](https://github.com/angular/angular/commit/5c2a908)), closes [angular/components#18652](https://github.com/angular/components/issues/18652)
+* **bazel:** prod server doesn't serve files in windows ([#35991](https://github.com/angular/angular/issues/35991)) ([96e3449](https://github.com/angular/angular/commit/96e3449))
+* **bazel:** spawn prod server using port 4200 ([#35160](https://github.com/angular/angular/issues/35160)) ([829f506](https://github.com/angular/angular/commit/829f506))
+* **bazel:** update ibazel to 0.11.1 ([#35158](https://github.com/angular/angular/issues/35158)) ([4e6d237](https://github.com/angular/angular/commit/4e6d237))
+* **bazel:** update several packages for better windows support ([#35991](https://github.com/angular/angular/issues/35991)) ([32f099a](https://github.com/angular/angular/commit/32f099a))
+* **bazel:** update typescript peer dependency range ([#36013](https://github.com/angular/angular/issues/36013)) ([5e3a898](https://github.com/angular/angular/commit/5e3a898))
+* **common:** let `KeyValuePipe` accept type unions with `null` ([#36093](https://github.com/angular/angular/issues/36093)) ([407fa42](https://github.com/angular/angular/commit/407fa42)), closes [#35743](https://github.com/angular/angular/issues/35743)
+* **compiler-cli:** TypeScript peer dependency range ([#36008](https://github.com/angular/angular/issues/36008)) ([5f7d066](https://github.com/angular/angular/commit/5f7d066))
+* **compiler-cli:** suppress extraRequire errors in Closure Compiler ([#35737](https://github.com/angular/angular/issues/35737)) ([c296bfc](https://github.com/angular/angular/commit/c296bfc))
+* **compiler:** Propagate value span of ExpressionBinding to ParsedProperty ([#36133](https://github.com/angular/angular/issues/36133)) ([2ce5fa3](https://github.com/angular/angular/commit/2ce5fa3))
+* **compiler:** do not recurse to find static symbols of same module ([#35262](https://github.com/angular/angular/issues/35262)) ([e179c58](https://github.com/angular/angular/commit/e179c58))
+* **compiler:** record correct end of expression ([#34690](https://github.com/angular/angular/issues/34690)) ([df890d7](https://github.com/angular/angular/commit/df890d7)), closes [#33477](https://github.com/angular/angular/issues/33477)
+* **compiler:** report errors for missing binding names ([#34595](https://github.com/angular/angular/issues/34595)) ([d13cab7](https://github.com/angular/angular/commit/d13cab7))
+* **compiler:** support directive inputs with interpolations on `<ng-template>`s ([#35984](https://github.com/angular/angular/issues/35984)) ([79659ee](https://github.com/angular/angular/commit/79659ee)), closes [#35752](https://github.com/angular/angular/issues/35752)
+* **compiler:** support i18n attributes on `<ng-template>` tags ([#35681](https://github.com/angular/angular/issues/35681)) ([40da51f](https://github.com/angular/angular/commit/40da51f))
+* **compiler:** type-checking error for duplicate variables in templates ([#35674](https://github.com/angular/angular/issues/35674)) ([2c41bb8](https://github.com/angular/angular/commit/2c41bb8)), closes [#35186](https://github.com/angular/angular/issues/35186)
+* **compiler:** use FatalDiagnosticError to generate better error messages ([#35244](https://github.com/angular/angular/issues/35244)) ([646655d](https://github.com/angular/angular/commit/646655d))
+* **core:** Add `style="{{exp}}"` based interpolation ([#34202](https://github.com/angular/angular/issues/34202)) ([2562a3b](https://github.com/angular/angular/commit/2562a3b)), closes [#33575](https://github.com/angular/angular/issues/33575)
+* **core:** Remove `debugger` statement ([#35763](https://github.com/angular/angular/issues/35763)) ([8f38eb7](https://github.com/angular/angular/commit/8f38eb7)), closes [#35470](https://github.com/angular/angular/issues/35470)
+* **core:** Remove `debugger` statement when assert is thrown ([#35763](https://github.com/angular/angular/issues/35763)) ([4003538](https://github.com/angular/angular/commit/4003538)), closes [#35470](https://github.com/angular/angular/issues/35470)
+* **core:** add `noSideEffects()` to `make*Decorator()` functions ([#35769](https://github.com/angular/angular/issues/35769)) ([dc6a791](https://github.com/angular/angular/commit/dc6a791))
+* **core:** add `noSideEffects()` to `ɵɵdefineComponent()` ([#35769](https://github.com/angular/angular/issues/35769)) ([ba36127](https://github.com/angular/angular/commit/ba36127))
+* **core:** add strictLiteralTypes to align core + VE checking of literals ([#35462](https://github.com/angular/angular/issues/35462)) ([4253662](https://github.com/angular/angular/commit/4253662))
+* **core:** adhere to bootstrap options for JIT compiled components ([#35534](https://github.com/angular/angular/issues/35534)) ([e342ffd](https://github.com/angular/angular/commit/e342ffd)), closes [#35230](https://github.com/angular/angular/issues/35230)
+* **core:** allow null / undefined values in query results ([#35796](https://github.com/angular/angular/issues/35796)) ([5652fb1](https://github.com/angular/angular/commit/5652fb1)), closes [#35673](https://github.com/angular/angular/issues/35673)
+* **core:** better handing of ICUs outside of i18n blocks ([#35347](https://github.com/angular/angular/issues/35347)) ([c013dd4](https://github.com/angular/angular/commit/c013dd4))
+* **core:** better inference for circularly referenced directive types ([#35622](https://github.com/angular/angular/issues/35622)) ([173a1ac](https://github.com/angular/angular/commit/173a1ac)), closes [#35372](https://github.com/angular/angular/issues/35372) [#35603](https://github.com/angular/angular/issues/35603) [#35522](https://github.com/angular/angular/issues/35522)
+* **core:** correctly concatenate static and dynamic binding to `class` when shadowed ([#35350](https://github.com/angular/angular/issues/35350)) ([8c75f21](https://github.com/angular/angular/commit/8c75f21)), closes [#35335](https://github.com/angular/angular/issues/35335)
+* **core:** don't re-invoke pure pipes that throw and arguments are the same ([#35827](https://github.com/angular/angular/issues/35827)) ([19cfaf7](https://github.com/angular/angular/commit/19cfaf7))
+* **core:** emulate a View Engine type-checking bug with safe navigation ([#35462](https://github.com/angular/angular/issues/35462)) ([a61fe41](https://github.com/angular/angular/commit/a61fe41))
+* **core:** error in AOT when pipe inherits constructor from injectable that uses DI ([#35468](https://github.com/angular/angular/issues/35468)) ([e17bde9](https://github.com/angular/angular/commit/e17bde9)), closes [#35277](https://github.com/angular/angular/issues/35277)
+* **core:** error when accessing NgModuleRef.componentFactoryResolver in constructor ([#35637](https://github.com/angular/angular/issues/35637)) ([835618c](https://github.com/angular/angular/commit/835618c)), closes [#35580](https://github.com/angular/angular/issues/35580)
+* **core:** handle `<ng-template>` with local refs in i18n blocks ([#35758](https://github.com/angular/angular/issues/35758)) ([ef75875](https://github.com/angular/angular/commit/ef75875))
+* **core:** incorrectly generating shared pure function between null and object literal ([#35481](https://github.com/angular/angular/issues/35481)) ([22786c8](https://github.com/angular/angular/commit/22786c8)), closes [#33705](https://github.com/angular/angular/issues/33705) [#35298](https://github.com/angular/angular/issues/35298)
+* **core:** injecting incorrect provider when re-providing injectable with useClass ([#34574](https://github.com/angular/angular/issues/34574)) ([0bc35a7](https://github.com/angular/angular/commit/0bc35a7)), closes [#34110](https://github.com/angular/angular/issues/34110)
+* **core:** log error instead of warning for unknown properties and elements ([#35798](https://github.com/angular/angular/issues/35798)) ([00f3c58](https://github.com/angular/angular/commit/00f3c58)), closes [#35699](https://github.com/angular/angular/issues/35699)
+* **core:** make subclass inherit developer-defined data ([#35105](https://github.com/angular/angular/issues/35105)) ([a756161](https://github.com/angular/angular/commit/a756161))
+* **core:** provide a more detailed error message for NG6002/NG6003 ([#35620](https://github.com/angular/angular/issues/35620)) ([2d89b5d](https://github.com/angular/angular/commit/2d89b5d))
+* **core:** remove side effects from `ɵɵNgOnChangesFeature()` ([#35769](https://github.com/angular/angular/issues/35769)) ([9cf85d2](https://github.com/angular/angular/commit/9cf85d2))
+* **core:** remove side effects from `ɵɵgetInheritedFactory()` ([#35769](https://github.com/angular/angular/issues/35769)) ([c195d22](https://github.com/angular/angular/commit/c195d22))
+* **core:** remove support for `Map`/`Set` in `[class]`/`[style]` bindings ([#35392](https://github.com/angular/angular/issues/35392)) ([2ca7984](https://github.com/angular/angular/commit/2ca7984))
+* **core:** support sanitizer value in the [style] bindings ([#35564](https://github.com/angular/angular/issues/35564)) ([3af103a](https://github.com/angular/angular/commit/3af103a)), closes [#35476](https://github.com/angular/angular/issues/35476)
+* **core:** treat `[class]` and `[className]` as unrelated bindings ([#35668](https://github.com/angular/angular/issues/35668)) ([a153b61](https://github.com/angular/angular/commit/a153b61)), closes [#35577](https://github.com/angular/angular/issues/35577)
+* **core:** unable to NgModuleRef.injector in module constructor ([#35731](https://github.com/angular/angular/issues/35731)) ([1f8a243](https://github.com/angular/angular/commit/1f8a243)), closes [#35677](https://github.com/angular/angular/issues/35677) [#35639](https://github.com/angular/angular/issues/35639)
+* **core:** undecorated-classes-with-di migration should handle libraries generated with CLI versions past v6.2.0 ([#35824](https://github.com/angular/angular/issues/35824)) ([59607dc](https://github.com/angular/angular/commit/59607dc)), closes [#34985](https://github.com/angular/angular/issues/34985)
+* **core:** use proper configuration to compile Injectable in JIT ([#35706](https://github.com/angular/angular/issues/35706)) ([7b13977](https://github.com/angular/angular/commit/7b13977))
+* **core:** verify parsed ICU expression at runtime before executing it ([#35923](https://github.com/angular/angular/issues/35923)) ([8c2d842](https://github.com/angular/angular/commit/8c2d842)), closes [#35689](https://github.com/angular/angular/issues/35689)
+* **core:** workaround Terser inlining bug ([#36200](https://github.com/angular/angular/issues/36200)) ([f71d132](https://github.com/angular/angular/commit/f71d132))
+* **elements:** correctly handle setting inputs to `undefined` ([#36140](https://github.com/angular/angular/issues/36140)) ([e066bdd](https://github.com/angular/angular/commit/e066bdd))
+* **elements:** correctly set `SimpleChange#firstChange` for pre-existing inputs ([#36140](https://github.com/angular/angular/issues/36140)) ([447a600](https://github.com/angular/angular/commit/447a600)), closes [#36130](https://github.com/angular/angular/issues/36130)
+* **elements:** schematics fail with schema.json not found error ([#35211](https://github.com/angular/angular/issues/35211)) ([94d002b](https://github.com/angular/angular/commit/94d002b)), closes [#35154](https://github.com/angular/angular/issues/35154)
+* **forms:** change Array.reduce usage to Array.forEach ([#35349](https://github.com/angular/angular/issues/35349)) ([554c2cb](https://github.com/angular/angular/commit/554c2cb))
+* **ivy:** `LFrame` needs to release memory on `leaveView()` ([#35156](https://github.com/angular/angular/issues/35156)) ([b9b512f](https://github.com/angular/angular/commit/b9b512f)), closes [#35148](https://github.com/angular/angular/issues/35148)
+* **ivy:** add attributes and classes to host elements based on selector ([#34481](https://github.com/angular/angular/issues/34481)) ([f95b8ce](https://github.com/angular/angular/commit/f95b8ce))
+* **ivy:** ensure module imports are instantiated before the module being declared ([#35172](https://github.com/angular/angular/issues/35172)) ([b6a3a73](https://github.com/angular/angular/commit/b6a3a73))
+* **ivy:** error if directive with synthetic property binding is on same node as directive that injects ViewContainerRef ([#35343](https://github.com/angular/angular/issues/35343)) ([d6bc63f](https://github.com/angular/angular/commit/d6bc63f)), closes [#35342](https://github.com/angular/angular/issues/35342)
+* **ivy:** narrow `NgIf` context variables in template type checker ([#35125](https://github.com/angular/angular/issues/35125)) ([40039d8](https://github.com/angular/angular/commit/40039d8)), closes [#34572](https://github.com/angular/angular/issues/34572)
+* **ivy:** queries should match elements inside ng-container with the descendants: false option ([#35384](https://github.com/angular/angular/issues/35384)) ([3f4e02b](https://github.com/angular/angular/commit/3f4e02b)), closes [#34768](https://github.com/angular/angular/issues/34768)
+* **ivy:** repeat template guards to narrow types in event handlers ([#35193](https://github.com/angular/angular/issues/35193)) ([dea1b96](https://github.com/angular/angular/commit/dea1b96)), closes [#35073](https://github.com/angular/angular/issues/35073)
+* **ivy:** set namespace for host elements of dynamically created components ([#35136](https://github.com/angular/angular/issues/35136)) ([480a4c3](https://github.com/angular/angular/commit/480a4c3))
+* **ivy:** support dynamic query tokens in AOT mode ([#35307](https://github.com/angular/angular/issues/35307)) ([3e3a1ef](https://github.com/angular/angular/commit/3e3a1ef)), closes [#34267](https://github.com/angular/angular/issues/34267)
+* **ivy:** wrong context passed to ngOnDestroy when resolved multiple times ([#35249](https://github.com/angular/angular/issues/35249)) ([5fbfe69](https://github.com/angular/angular/commit/5fbfe69)), closes [#35167](https://github.com/angular/angular/issues/35167)
+* **language-service:** Suggest ? and ! operator on nullable receiver ([#35200](https://github.com/angular/angular/issues/35200)) ([3cc24a9](https://github.com/angular/angular/commit/3cc24a9))
+* **language-service:** fix calculation of pipe spans ([#35986](https://github.com/angular/angular/issues/35986)) ([406419b](https://github.com/angular/angular/commit/406419b))
+* **language-service:** get the right 'ElementAst' in the nested HTML tag ([#35317](https://github.com/angular/angular/issues/35317)) ([8e354da](https://github.com/angular/angular/commit/8e354da))
+* **language-service:** infer $implicit value for ngIf template contexts ([#35941](https://github.com/angular/angular/issues/35941)) ([18b1bd4](https://github.com/angular/angular/commit/18b1bd4))
+* **language-service:** infer context type of structural directives ([#35537](https://github.com/angular/angular/issues/35537)) ([#35561](https://github.com/angular/angular/issues/35561)) ([54fd33f](https://github.com/angular/angular/commit/54fd33f))
+* **language-service:** provide completions for the structural directive that only injects the 'ViewContainerRef' ([#35466](https://github.com/angular/angular/issues/35466)) ([66c06eb](https://github.com/angular/angular/commit/66c06eb))
+* **language-service:** provide hover for interpolation in attribute value ([#35494](https://github.com/angular/angular/issues/35494)) ([049f118](https://github.com/angular/angular/commit/049f118)), closes [PR#34847](https://github.com/PR/issues/34847)
+* **language-service:** resolve the real path for symlink ([#35895](https://github.com/angular/angular/issues/35895)) ([4e1d780](https://github.com/angular/angular/commit/4e1d780))
+* **language-service:** resolve the variable from the template context first ([#35982](https://github.com/angular/angular/issues/35982)) ([3d46a45](https://github.com/angular/angular/commit/3d46a45))
+* **localize:** allow ICU expansion case to start with any character except `}` ([#36123](https://github.com/angular/angular/issues/36123)) ([0767d37](https://github.com/angular/angular/commit/0767d37)), closes [#31586](https://github.com/angular/angular/issues/31586)
+* **localize:** improve matching and parsing of XLIFF 1.2 translation files ([#35793](https://github.com/angular/angular/issues/35793)) ([350ac11](https://github.com/angular/angular/commit/350ac11))
+* **localize:** improve matching and parsing of XLIFF 2.0 translation files ([#35793](https://github.com/angular/angular/issues/35793)) ([08071e5](https://github.com/angular/angular/commit/08071e5))
+* **localize:** improve matching and parsing of XTB translation files ([#35793](https://github.com/angular/angular/issues/35793)) ([0e2a577](https://github.com/angular/angular/commit/0e2a577))
+* **localize:** improve placeholder mismatch error message ([#35593](https://github.com/angular/angular/issues/35593)) ([53f059e](https://github.com/angular/angular/commit/53f059e))
+* **localize:** merge translation from all  XLIFF `<file>` elements ([#35936](https://github.com/angular/angular/issues/35936)) ([fc4c3c3](https://github.com/angular/angular/commit/fc4c3c3)), closes [#35839](https://github.com/angular/angular/issues/35839)
+* **localize:** show helpful error when providing an invalid cli option ([#36010](https://github.com/angular/angular/issues/36010)) ([aad02e8](https://github.com/angular/angular/commit/aad02e8))
+* **localize:** support minified ES5 `$localize` calls ([#35562](https://github.com/angular/angular/issues/35562)) ([df75451](https://github.com/angular/angular/commit/df75451)), closes [#35376](https://github.com/angular/angular/issues/35376)
+* **ngcc:** add default config for `angular2-highcharts` ([#35527](https://github.com/angular/angular/issues/35527)) ([3cc8127](https://github.com/angular/angular/commit/3cc8127)), closes [#35399](https://github.com/angular/angular/issues/35399)
+* **ngcc:** allow deep-import warnings to be ignored ([#35683](https://github.com/angular/angular/issues/35683)) ([20b0c80](https://github.com/angular/angular/commit/20b0c80)), closes [#35615](https://github.com/angular/angular/issues/35615)
+* **ngcc:** capture path-mapped entry-points that start with same string ([#35592](https://github.com/angular/angular/issues/35592)) ([71b5970](https://github.com/angular/angular/commit/71b5970)), closes [#35536](https://github.com/angular/angular/issues/35536)
+* **ngcc:** consistently delegate to TypeScript host for typing files ([#36089](https://github.com/angular/angular/issues/36089)) ([9e70bcb](https://github.com/angular/angular/commit/9e70bcb)), closes [#35078](https://github.com/angular/angular/issues/35078)
+* **ngcc:** correctly detect emitted TS helpers in ES5 ([#35191](https://github.com/angular/angular/issues/35191)) ([bd6a39c](https://github.com/angular/angular/commit/bd6a39c))
+* **ngcc:** correctly detect outer aliased class identifiers in ES5 ([#35527](https://github.com/angular/angular/issues/35527)) ([fde8915](https://github.com/angular/angular/commit/fde8915)), closes [#35399](https://github.com/angular/angular/issues/35399)
+* **ngcc:** do not crash on entry-point that fails to compile ([#36083](https://github.com/angular/angular/issues/36083)) ([ff665b9](https://github.com/angular/angular/commit/ff665b9))
+* **ngcc:** do not crash on overlapping entry-points ([#36083](https://github.com/angular/angular/issues/36083)) ([c9f554c](https://github.com/angular/angular/commit/c9f554c))
+* **ngcc:** ensure that path-mapped secondary entry-points are processed correctly ([#35227](https://github.com/angular/angular/issues/35227)) ([c3c1140](https://github.com/angular/angular/commit/c3c1140)), closes [#35188](https://github.com/angular/angular/issues/35188)
+* **ngcc:** handle imports in dts files when processing CommonJS ([#35191](https://github.com/angular/angular/issues/35191)) ([b6e8847](https://github.com/angular/angular/commit/b6e8847)), closes [#34356](https://github.com/angular/angular/issues/34356)
+* **ngcc:** handle mappings outside the content when flattening source-maps ([#35718](https://github.com/angular/angular/issues/35718)) ([73cf7d5](https://github.com/angular/angular/commit/73cf7d5)), closes [#35709](https://github.com/angular/angular/issues/35709)
+* **ngcc:** handle missing sources when flattening source-maps ([#35718](https://github.com/angular/angular/issues/35718)) ([72c4fda](https://github.com/angular/angular/commit/72c4fda)), closes [#35709](https://github.com/angular/angular/issues/35709)
+* **ngcc:** handle multiple original sources when flattening source-maps ([#36027](https://github.com/angular/angular/issues/36027)) ([a40be00](https://github.com/angular/angular/commit/a40be00))
+* **ngcc:** introduce a new LockFile implementation that uses a child-process ([#35861](https://github.com/angular/angular/issues/35861)) ([c55f900](https://github.com/angular/angular/commit/c55f900)), closes [#35761](https://github.com/angular/angular/issues/35761)
+* **ngcc:** show helpful error when providing an invalid option ([#36010](https://github.com/angular/angular/issues/36010)) ([1f89c61](https://github.com/angular/angular/commit/1f89c61))
+* **ngcc:** use path-mappings from tsconfig in dependency resolution ([#36180](https://github.com/angular/angular/issues/36180)) ([6defe96](https://github.com/angular/angular/commit/6defe96)), closes [#36119](https://github.com/angular/angular/issues/36119)
+* **ngcc:** use preserve whitespaces from tsconfig if provided ([#36189](https://github.com/angular/angular/issues/36189)) ([aef4323](https://github.com/angular/angular/commit/aef4323)), closes [#35871](https://github.com/angular/angular/issues/35871)
+* **platform-browser:** add missing peerDependency on `[@angular](https://github.com/angular)/animations` ([#35949](https://github.com/angular/angular/issues/35949)) ([64d6f13](https://github.com/angular/angular/commit/64d6f13)), closes [#35888](https://github.com/angular/angular/issues/35888)
+* **router:** removed unused ApplicationRef dependency ([#35642](https://github.com/angular/angular/issues/35642)) ([c839c05](https://github.com/angular/angular/commit/c839c05)), closes [/github.com/angular/angular/commit/5a849829c42330d7e88e83e916e6e36380c97a97#diff-c0baae5e1df628e1a217e8dc38557](https://github.com//github.com/angular/angular/commit/5a849829c42330d7e88e83e916e6e36380c97a97/issues/diff-c0baae5e1df628e1a217e8dc38557)
+* **router:** state data missing in routerLink ([#33203](https://github.com/angular/angular/issues/33203)) ([de67978](https://github.com/angular/angular/commit/de67978))
+* **service-worker:** treat 503 as offline ([#35595](https://github.com/angular/angular/issues/35595)) ([96cdf03](https://github.com/angular/angular/commit/96cdf03)), closes [#35571](https://github.com/angular/angular/issues/35571)
+* fix flaky test cases of passive events ([#35679](https://github.com/angular/angular/issues/35679)) ([8ef29b6](https://github.com/angular/angular/commit/8ef29b6))
+
+<a name="9.0.7"></a>
+## [9.0.7](https://github.com/angular/angular/compare/9.0.6...9.0.7) (2020-03-18)
+
+
+### Bug Fixes
+
+* **compiler:** do not recurse to find static symbols of same module ([#35262](https://github.com/angular/angular/issues/35262)) ([a52b568](https://github.com/angular/angular/commit/a52b568))
+* **compiler:** support directive inputs with interpolations on `<ng-template>`s ([#35984](https://github.com/angular/angular/issues/35984)) ([a6bf31b](https://github.com/angular/angular/commit/a6bf31b)), closes [#35752](https://github.com/angular/angular/issues/35752)
+* **core:** don't re-invoke pure pipes that throw and arguments are the same ([#35827](https://github.com/angular/angular/issues/35827)) ([3fa632b](https://github.com/angular/angular/commit/3fa632b))
+* **core:** verify parsed ICU expression at runtime before executing it ([#35923](https://github.com/angular/angular/issues/35923)) ([9cd115d](https://github.com/angular/angular/commit/9cd115d)), closes [#35689](https://github.com/angular/angular/issues/35689)
+* **language-service:** infer $implicit value for ngIf template contexts ([#35941](https://github.com/angular/angular/issues/35941)) ([f5e4410](https://github.com/angular/angular/commit/f5e4410))
+* **ngcc:** a new LockFile implementation that uses a child-process ([#35934](https://github.com/angular/angular/issues/35934)) ([743ce7b](https://github.com/angular/angular/commit/743ce7b)), closes [#35761](https://github.com/angular/angular/issues/35761)
+* **ngcc:** consistently delegate to TypeScript host for typing files ([#36089](https://github.com/angular/angular/issues/36089)) ([76d7188](https://github.com/angular/angular/commit/76d7188)), closes [#35078](https://github.com/angular/angular/issues/35078)
+* **ngcc:** handle multiple original sources when flattening source-maps ([#36027](https://github.com/angular/angular/issues/36027)) ([e6167cf](https://github.com/angular/angular/commit/e6167cf))
+
+
+### Performance Improvements
+
+* **ngcc:** link segment markers for faster traversal ([#36027](https://github.com/angular/angular/issues/36027)) ([a0fa63b](https://github.com/angular/angular/commit/a0fa63b))
+* **ngcc:** store the position of SegmentMarkers to avoid unnecessary computation ([#36027](https://github.com/angular/angular/issues/36027)) ([4ce9098](https://github.com/angular/angular/commit/4ce9098))
+* **ngcc:** use binary search when flattening mappings ([#36027](https://github.com/angular/angular/issues/36027)) ([8768fc4](https://github.com/angular/angular/commit/8768fc4))
+* **ngcc:** use line start positions for computing offsets in source-map flattening ([#36027](https://github.com/angular/angular/issues/36027)) ([daa2a08](https://github.com/angular/angular/commit/daa2a08))
+
+
+
+<a name="9.0.6"></a>
+## [9.0.6](https://github.com/angular/angular/compare/9.0.5...9.0.6) (2020-03-10)
+
+
+### Bug Fixes
+
+* **bazel:** do not use manifest paths for generated imports within compilation unit ([#35841](https://github.com/angular/angular/issues/35841)) ([5ea9a61](https://github.com/angular/angular/commit/5ea9a61))
+* **compiler:** process `imports` first and `declarations` second while calculating scopes ([#35850](https://github.com/angular/angular/issues/35850)) ([6f2fd6e](https://github.com/angular/angular/commit/6f2fd6e)), closes [#35502](https://github.com/angular/angular/issues/35502)
+* **core:** add `noSideEffects()` to `make*Decorator()` functions ([#35769](https://github.com/angular/angular/issues/35769)) ([#35846](https://github.com/angular/angular/issues/35846)) ([4fe3f37](https://github.com/angular/angular/commit/4fe3f37))
+* **core:** add `noSideEffects()` to `ɵɵdefineComponent()` ([#35769](https://github.com/angular/angular/issues/35769)) ([#35846](https://github.com/angular/angular/issues/35846)) ([68ca32f](https://github.com/angular/angular/commit/68ca32f))
+* **core:** remove side effects from `ɵɵgetInheritedFactory()` ([#35769](https://github.com/angular/angular/issues/35769)) ([#35846](https://github.com/angular/angular/issues/35846)) ([000c834](https://github.com/angular/angular/commit/000c834))
+* **core:** remove side effects from `ɵɵNgOnChangesFeature()` ([#35769](https://github.com/angular/angular/issues/35769)) ([#35846](https://github.com/angular/angular/issues/35846)) ([d24ce21](https://github.com/angular/angular/commit/d24ce21))
+* **core:** undecorated-classes-with-di migration should handle libraries generated with CLI versions past v6.2.0 ([#35824](https://github.com/angular/angular/issues/35824)) ([eaf5b58](https://github.com/angular/angular/commit/eaf5b58)), closes [#34985](https://github.com/angular/angular/issues/34985)
+* **language-service:** resolve the variable from the template context first ([#35982](https://github.com/angular/angular/issues/35982)) ([f882ff0](https://github.com/angular/angular/commit/f882ff0))
+* **localize:** improve matching and parsing of XLIFF 1.2 translation files ([#35793](https://github.com/angular/angular/issues/35793)) ([677d666](https://github.com/angular/angular/commit/677d666))
+* **localize:** improve matching and parsing of XLIFF 2.0 translation files ([#35793](https://github.com/angular/angular/issues/35793)) ([689964b](https://github.com/angular/angular/commit/689964b))
+* **localize:** improve matching and parsing of XTB translation files ([#35793](https://github.com/angular/angular/issues/35793)) ([9f68ff9](https://github.com/angular/angular/commit/9f68ff9))
+* **localize:** merge translation from all  XLIFF `<file>` elements ([#35936](https://github.com/angular/angular/issues/35936)) ([83d7819](https://github.com/angular/angular/commit/83d7819)), closes [#35839](https://github.com/angular/angular/issues/35839)
+* **platform-browser:** add missing peerDependency on `[@angular](https://github.com/angular)/animations` ([#35949](https://github.com/angular/angular/issues/35949)) ([db9704a](https://github.com/angular/angular/commit/db9704a)), closes [#35888](https://github.com/angular/angular/issues/35888)
+* **router:** state data missing in routerLink ([#33203](https://github.com/angular/angular/issues/33203)) ([773d7b8](https://github.com/angular/angular/commit/773d7b8))
+
+
+### Performance Improvements
+
+* **ngcc:** reduce directory traversing ([#35756](https://github.com/angular/angular/issues/35756)) ([2eaf420](https://github.com/angular/angular/commit/2eaf420)), closes [#35717](https://github.com/angular/angular/issues/35717)
+
+
+<a name="9.0.5"></a>
+## [9.0.5](https://github.com/angular/angular/compare/9.0.4...9.0.5) (2020-03-04)
+
+
+### Bug Fixes
+
+* **animations:** allow computeStyle to work on elements created in Node ([#35810](https://github.com/angular/angular/issues/35810)) ([2b63b7f](https://github.com/angular/angular/commit/2b63b7f))
+* **animations:** process shorthand `margin` and `padding` styles correctly ([#35701](https://github.com/angular/angular/issues/35701)) ([2e251b7](https://github.com/angular/angular/commit/2e251b7)), closes [#35463](https://github.com/angular/angular/issues/35463)
+* **bazel:** ng_package rule creates incorrect UMD module exports ([#35792](https://github.com/angular/angular/issues/35792)) ([c272351](https://github.com/angular/angular/commit/c272351)), closes [angular/components#18652](https://github.com/angular/components/issues/18652)
+* **compiler:** support i18n attributes on `<ng-template>` tags ([#35681](https://github.com/angular/angular/issues/35681)) ([d1966fc](https://github.com/angular/angular/commit/d1966fc))
+* **compiler:** type-checking error for duplicate variables in templates ([#35674](https://github.com/angular/angular/issues/35674)) ([1207295](https://github.com/angular/angular/commit/1207295)), closes [#35186](https://github.com/angular/angular/issues/35186)
+* **core:** allow null / undefined values in query results ([#35796](https://github.com/angular/angular/issues/35796)) ([120ce42](https://github.com/angular/angular/commit/120ce42)), closes [#35673](https://github.com/angular/angular/issues/35673)
+* **core:** handle `<ng-template>` with local refs in i18n blocks ([#35758](https://github.com/angular/angular/issues/35758)) ([5a14a15](https://github.com/angular/angular/commit/5a14a15))
+* **core:** log error instead of warning for unknown properties and elements ([#35798](https://github.com/angular/angular/issues/35798)) ([218e82e](https://github.com/angular/angular/commit/218e82e)), closes [#35699](https://github.com/angular/angular/issues/35699)
+* **core:** Remove `debugger` statement ([#35763](https://github.com/angular/angular/issues/35763)) ([e201a84](https://github.com/angular/angular/commit/e201a84)), closes [#35470](https://github.com/angular/angular/issues/35470)
+* **core:** Remove `debugger` statement when assert is thrown ([#35763](https://github.com/angular/angular/issues/35763)) ([d3ee052](https://github.com/angular/angular/commit/d3ee052)), closes [#35470](https://github.com/angular/angular/issues/35470)
+* **core:** treat `[class]` and `[className]` as unrelated bindings ([#35668](https://github.com/angular/angular/issues/35668)) ([48025eb](https://github.com/angular/angular/commit/48025eb)), closes [#35577](https://github.com/angular/angular/issues/35577)
+* **core:** unable to NgModuleRef.injector in module constructor ([#35731](https://github.com/angular/angular/issues/35731)) ([1980d69](https://github.com/angular/angular/commit/1980d69)), closes [#35677](https://github.com/angular/angular/issues/35677) [#35639](https://github.com/angular/angular/issues/35639)
+* **core:** use proper configuration to compile Injectable in JIT ([#35706](https://github.com/angular/angular/issues/35706)) ([df0859f](https://github.com/angular/angular/commit/df0859f))
+* **ivy:** narrow `NgIf` context variables in template type checker ([#35125](https://github.com/angular/angular/issues/35125)) ([fcad075](https://github.com/angular/angular/commit/fcad075)), closes [#34572](https://github.com/angular/angular/issues/34572)
+* **ivy:** support dynamic query tokens in AOT mode ([#35307](https://github.com/angular/angular/issues/35307)) ([52fc087](https://github.com/angular/angular/commit/52fc087)), closes [#34267](https://github.com/angular/angular/issues/34267)
+
+
+### Features
+
+* **language-service:** modularize error messages ([#35678](https://github.com/angular/angular/issues/35678)) ([bcff873](https://github.com/angular/angular/commit/bcff873)), closes [#32663](https://github.com/angular/angular/issues/32663)
+
+
+### Performance Improvements
+
+* **core:** add micro benchmark for destroy hook invocation ([#35784](https://github.com/angular/angular/issues/35784)) ([a07917b](https://github.com/angular/angular/commit/a07917b))
+* **core:** adding micro benchmark for host bindings ([#35705](https://github.com/angular/angular/issues/35705)) ([4ec7cd1](https://github.com/angular/angular/commit/4ec7cd1)), closes [#35568](https://github.com/angular/angular/issues/35568)
+* **core:** use multiple directives in host bindings micro benchmark ([#35736](https://github.com/angular/angular/issues/35736)) ([e13fcba](https://github.com/angular/angular/commit/e13fcba))
+* **ngcc:** only create tasks for non-processed formats ([#35719](https://github.com/angular/angular/issues/35719)) ([#35832](https://github.com/angular/angular/issues/35832)) ([3fdd304](https://github.com/angular/angular/commit/3fdd304))
+* **ngcc:** spawn workers lazily ([#35719](https://github.com/angular/angular/issues/35719)) ([#35832](https://github.com/angular/angular/issues/35832)) ([525dc6a](https://github.com/angular/angular/commit/525dc6a)), closes [#35717](https://github.com/angular/angular/issues/35717)
+
+
+<a name="9.0.4"></a>
+## [9.0.4](https://github.com/angular/angular/compare/9.0.3...9.0.4) (2020-02-27)
+
+
+### Bug Fixes
+
+* **ngcc:** allow deep-import warnings to be ignored ([#35683](https://github.com/angular/angular/issues/35683)) ([9064f4e](https://github.com/angular/angular/commit/9064f4e)), closes [#35615](https://github.com/angular/angular/issues/35615)
+* **ngcc:** handle mappings outside the content when flattening source-maps ([#35718](https://github.com/angular/angular/issues/35718)) ([bfe7657](https://github.com/angular/angular/commit/bfe7657)), closes [#35709](https://github.com/angular/angular/issues/35709)
+* **ngcc:** handle missing sources when flattening source-maps ([#35718](https://github.com/angular/angular/issues/35718)) ([7ff845b](https://github.com/angular/angular/commit/7ff845b)), closes [#35709](https://github.com/angular/angular/issues/35709)
+
+
+<a name="9.0.3"></a>
+## [9.0.3](https://github.com/angular/angular/compare/9.0.2...9.0.3) (2020-02-27)
+
+
+### Bug Fixes
+
+* **animations:** false positive when detecting Node in Webpack builds ([#35134](https://github.com/angular/angular/issues/35134)) ([224aaae](https://github.com/angular/angular/commit/224aaae)), closes [#35117](https://github.com/angular/angular/issues/35117)
+* **animations:** Remove ɵAnimationDriver from private exports ([#35690](https://github.com/angular/angular/issues/35690)) ([c2dbcd3](https://github.com/angular/angular/commit/c2dbcd3))
+* **compiler:** use FatalDiagnosticError to generate better error messages ([#35244](https://github.com/angular/angular/issues/35244)) ([72664ca](https://github.com/angular/angular/commit/72664ca))
+* **core:** make subclass inherit developer-defined data ([#35105](https://github.com/angular/angular/issues/35105)) ([f5e1faa](https://github.com/angular/angular/commit/f5e1faa))
+* **core:** support sanitizer value in the [style] bindings ([#35564](https://github.com/angular/angular/issues/35564)) ([36dc1c7](https://github.com/angular/angular/commit/36dc1c7)), closes [#35476](https://github.com/angular/angular/issues/35476)
+* **core:** Add `style="{{exp}}"` based interpolation ([#34202](https://github.com/angular/angular/issues/34202)) ([d63ba9c](https://github.com/angular/angular/commit/d63ba9c)), closes [#33575](https://github.com/angular/angular/issues/33575)
+* **core:** add strictLiteralTypes to align core + VE checking of literals ([#35462](https://github.com/angular/angular/issues/35462)) ([628f957](https://github.com/angular/angular/commit/628f957))
+* **core:** better inference for circularly referenced directive types ([#35622](https://github.com/angular/angular/issues/35622)) ([4c2bd64](https://github.com/angular/angular/commit/4c2bd64)), closes [#35372](https://github.com/angular/angular/issues/35372) [#35603](https://github.com/angular/angular/issues/35603) [#35522](https://github.com/angular/angular/issues/35522)
+* **core:** emulate a View Engine type-checking bug with safe navigation ([#35462](https://github.com/angular/angular/issues/35462)) ([02599e4](https://github.com/angular/angular/commit/02599e4))
+* **core:** error in AOT when pipe inherits constructor from injectable that uses DI ([#35468](https://github.com/angular/angular/issues/35468)) ([bb09cd0](https://github.com/angular/angular/commit/bb09cd0)), closes [#35277](https://github.com/angular/angular/issues/35277)
+* **core:** error when accessing NgModuleRef.componentFactoryResolver in constructor ([#35637](https://github.com/angular/angular/issues/35637)) ([d690488](https://github.com/angular/angular/commit/d690488)), closes [#35580](https://github.com/angular/angular/issues/35580)
+* **core:** incorrectly generating shared pure function between null and object literal ([#35481](https://github.com/angular/angular/issues/35481)) ([8a531e2](https://github.com/angular/angular/commit/8a531e2)), closes [#33705](https://github.com/angular/angular/issues/33705) [#35298](https://github.com/angular/angular/issues/35298)
+* **core:** injecting incorrect provider when re-providing injectable with useClass ([#34574](https://github.com/angular/angular/issues/34574)) ([79aaaa3](https://github.com/angular/angular/commit/79aaaa3)), closes [#34110](https://github.com/angular/angular/issues/34110)
+* **core:** provide a more detailed error message for NG6002/NG6003 ([#35620](https://github.com/angular/angular/issues/35620)) ([e6c416f](https://github.com/angular/angular/commit/e6c416f))
+* **language-service:** get the right 'ElementAst' in the nested HTML tag ([#35317](https://github.com/angular/angular/issues/35317)) ([7403ba1](https://github.com/angular/angular/commit/7403ba1))
+* **language-service:** infer context type of structural directives ([#35537](https://github.com/angular/angular/issues/35537)) ([#35561](https://github.com/angular/angular/issues/35561)) ([a491f7e](https://github.com/angular/angular/commit/a491f7e))
+* **language-service:** provide hover for interpolation in attribute value ([#35494](https://github.com/angular/angular/issues/35494)) ([0700279](https://github.com/angular/angular/commit/0700279)), closes [PR#34847](https://github.com/PR/issues/34847)
+* **localize:** improve placeholder mismatch error message ([#35593](https://github.com/angular/angular/issues/35593)) ([1112875](https://github.com/angular/angular/commit/1112875))
+* **localize:** support minified ES5 `$localize` calls ([#35562](https://github.com/angular/angular/issues/35562)) ([bc7a8a8](https://github.com/angular/angular/commit/bc7a8a8)), closes [#35376](https://github.com/angular/angular/issues/35376)
+* **ngcc:** add default config for `angular2-highcharts` ([#35527](https://github.com/angular/angular/issues/35527)) ([aebd662](https://github.com/angular/angular/commit/aebd662)), closes [#35399](https://github.com/angular/angular/issues/35399)
+* **ngcc:** capture path-mapped entry-points that start with same string ([#35592](https://github.com/angular/angular/issues/35592)) ([d83f62d](https://github.com/angular/angular/commit/d83f62d)), closes [#35536](https://github.com/angular/angular/issues/35536)
+* **ngcc:** correctly detect emitted TS helpers in ES5 ([#35191](https://github.com/angular/angular/issues/35191)) ([af4fe3a](https://github.com/angular/angular/commit/af4fe3a))
+* **ngcc:** correctly detect outer aliased class identifiers in ES5 ([#35527](https://github.com/angular/angular/issues/35527)) ([39bd9a7](https://github.com/angular/angular/commit/39bd9a7)), closes [#35399](https://github.com/angular/angular/issues/35399)
+* **ngcc:** handle imports in dts files when processing CommonJS ([#35191](https://github.com/angular/angular/issues/35191)) ([12e3db8](https://github.com/angular/angular/commit/12e3db8)), closes [#34356](https://github.com/angular/angular/issues/34356)
+* **router:** removed unused ApplicationRef dependency ([#35642](https://github.com/angular/angular/issues/35642)) ([2f140f5](https://github.com/angular/angular/commit/2f140f5)), closes [/github.com/angular/angular/commit/5a849829c42330d7e88e83e916e6e36380c97a97#diff-c0baae5e1df628e1a217e8dc38557](https://github.com//github.com/angular/angular/commit/5a849829c42330d7e88e83e916e6e36380c97a97/issues/diff-c0baae5e1df628e1a217e8dc38557)
+* **service-worker:** treat 503 as offline ([#35595](https://github.com/angular/angular/issues/35595)) ([64a415b](https://github.com/angular/angular/commit/64a415b)), closes [#35571](https://github.com/angular/angular/issues/35571)
+
+
+### Features
+
+* **ngcc:** implement source-map flattening ([#35132](https://github.com/angular/angular/issues/35132)) ([0a8e8cd](https://github.com/angular/angular/commit/0a8e8cd))
+* **zone.js** add an tickOptions parameter with property processNewMacroTasksSynchronously. ([#33838](https://github.com/angular/angular/issues/33838)) ([7d2ea93](https://github.com/angular/angular/commit/7d2ea93)), closes [#33799](https://github.com/angular/angular/issues/33799)
+
+
+### Performance Improvements
+
+* **core:** avoid recursive scope recalculation when TestBed.overrideModule is used ([#35454](https://github.com/angular/angular/issues/35454)) ([349539e](https://github.com/angular/angular/commit/349539e))
+* **core:** remove unused event argument in listener instructions ([#35097](https://github.com/angular/angular/issues/35097)) ([afc5b3e](https://github.com/angular/angular/commit/afc5b3e))
+
+
+
+<a name="9.0.2"></a>
+## [9.0.2](https://github.com/angular/angular/compare/9.0.1...9.0.2) (2020-02-19)
+
+
+### Bug Fixes
+
+* **core:** better handing of ICUs outside of i18n blocks ([#35347](https://github.com/angular/angular/issues/35347)) ([4fb5e21](https://github.com/angular/angular/commit/4fb5e21))
+* **core:** correctly concatenate static and dynamic binding to `class` when shadowed ([#35350](https://github.com/angular/angular/issues/35350)) ([8220363](https://github.com/angular/angular/commit/8220363)), closes [#35335](https://github.com/angular/angular/issues/35335)
+* **core:** remove support for `Map`/`Set` in `[class]`/`[style]` bindings ([#35392](https://github.com/angular/angular/issues/35392)) ([1797390](https://github.com/angular/angular/commit/1797390))
+* **ivy:** `LFrame` needs to release memory on `leaveView()` ([#35156](https://github.com/angular/angular/issues/35156)) ([4b1dcaf](https://github.com/angular/angular/commit/4b1dcaf)), closes [#35148](https://github.com/angular/angular/issues/35148)
+* **ivy:** add attributes and classes to host elements based on selector ([#34481](https://github.com/angular/angular/issues/34481)) ([03a8b16](https://github.com/angular/angular/commit/03a8b16))
+* **ivy:** error if directive with synthetic property binding is on same node as directive that injects ViewContainerRef ([#35343](https://github.com/angular/angular/issues/35343)) ([a30fd29](https://github.com/angular/angular/commit/a30fd29)), closes [#35342](https://github.com/angular/angular/issues/35342)
+* **ivy:** queries should match elements inside ng-container with the descendants: false option ([#35384](https://github.com/angular/angular/issues/35384)) ([fd4ce84](https://github.com/angular/angular/commit/fd4ce84)), closes [#34768](https://github.com/angular/angular/issues/34768)
+* **ivy:** wrong context passed to ngOnDestroy when resolved multiple times ([#35249](https://github.com/angular/angular/issues/35249)) ([0671e54](https://github.com/angular/angular/commit/0671e54)), closes [#35167](https://github.com/angular/angular/issues/35167)
+
+
+
+<a name="9.0.1"></a>
+## [9.0.1](https://github.com/angular/angular/compare/9.0.0...9.0.1) (2020-02-12)
+
+
+### Bug Fixes
+
+* **bazel:** devserver shows blank page in Windows ([#35159](https://github.com/angular/angular/issues/35159)) ([727f92f](https://github.com/angular/angular/commit/727f92f))
+* **bazel:** spawn prod server using port 4200 ([#35160](https://github.com/angular/angular/issues/35160)) ([829f506](https://github.com/angular/angular/commit/829f506))
+* **bazel:** update ibazel to 0.11.1 ([#35158](https://github.com/angular/angular/issues/35158)) ([4e6d237](https://github.com/angular/angular/commit/4e6d237))
+* **compiler:** report errors for missing binding names ([#34595](https://github.com/angular/angular/issues/34595)) ([d13cab7](https://github.com/angular/angular/commit/d13cab7))
+* **elements:** schematics fail with schema.json not found error ([#35211](https://github.com/angular/angular/issues/35211)) ([94d002b](https://github.com/angular/angular/commit/94d002b)), closes [#35154](https://github.com/angular/angular/issues/35154)
+* **forms:** change Array.reduce usage to Array.forEach ([#35349](https://github.com/angular/angular/issues/35349)) ([554c2cb](https://github.com/angular/angular/commit/554c2cb))
+* **ivy:** ensure module imports are instantiated before the module being declared ([#35172](https://github.com/angular/angular/issues/35172)) ([b6a3a73](https://github.com/angular/angular/commit/b6a3a73))
+* **ivy:** repeat template guards to narrow types in event handlers ([#35193](https://github.com/angular/angular/issues/35193)) ([dea1b96](https://github.com/angular/angular/commit/dea1b96)), closes [#35073](https://github.com/angular/angular/issues/35073)
+* **ivy:** set namespace for host elements of dynamically created components ([#35136](https://github.com/angular/angular/issues/35136)) ([480a4c3](https://github.com/angular/angular/commit/480a4c3))
+* **language-service:** Suggest ? and ! operator on nullable receiver ([#35200](https://github.com/angular/angular/issues/35200)) ([3cc24a9](https://github.com/angular/angular/commit/3cc24a9))
+* **ngcc:** ensure that path-mapped secondary entry-points are processed correctly ([#35227](https://github.com/angular/angular/issues/35227)) ([c3c1140](https://github.com/angular/angular/commit/c3c1140)), closes [#35188](https://github.com/angular/angular/issues/35188)
+
+
+
 <a name="9.0.0"></a>
 # [9.0.0](https://github.com/angular/angular/compare/8.2.14...9.0.0) (2020-02-06)
 
@@ -9,6 +780,7 @@ To learn about the release highlights and our CLI-powered automated update workf
 #### Dependency updates
 @angular/core now requires:
 - RxJS 6.5
+
 @angular/compiler-cli now requires:
 - TypeScript 3.6 or 3.7
 

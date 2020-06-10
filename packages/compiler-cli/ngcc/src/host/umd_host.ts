@@ -12,9 +12,11 @@ import {absoluteFrom} from '../../../src/ngtsc/file_system';
 import {Declaration, Import} from '../../../src/ngtsc/reflection';
 import {Logger} from '../logging/logger';
 import {BundleProgram} from '../packages/bundle_program';
-import {FactoryMap, stripExtension} from '../utils';
-import {ExportDeclaration, ExportStatement, ReexportStatement, findNamespaceOfIdentifier, findRequireCallReference, isExportStatement, isReexportStatement, isRequireCall} from './commonjs_umd_utils';
-import {Esm5ReflectionHost, stripParentheses} from './esm5_host';
+import {FactoryMap, getTsHelperFnFromIdentifier, stripExtension} from '../utils';
+
+import {ExportDeclaration, ExportStatement, findNamespaceOfIdentifier, findRequireCallReference, isExportStatement, isReexportStatement, isRequireCall, ReexportStatement} from './commonjs_umd_utils';
+import {Esm5ReflectionHost} from './esm5_host';
+import {stripParentheses} from './utils';
 
 export class UmdReflectionHost extends Esm5ReflectionHost {
   protected umdModules =
@@ -33,11 +35,6 @@ export class UmdReflectionHost extends Esm5ReflectionHost {
   }
 
   getImportOfIdentifier(id: ts.Identifier): Import|null {
-    const superImport = super.getImportOfIdentifier(id);
-    if (superImport !== null) {
-      return superImport;
-    }
-
     // Is `id` a namespaced property access, e.g. `Directive` in `core.Directive`?
     // If so capture the symbol of the namespace, e.g. `core`.
     const nsIdentifier = findNamespaceOfIdentifier(id);
@@ -47,8 +44,7 @@ export class UmdReflectionHost extends Esm5ReflectionHost {
   }
 
   getDeclarationOfIdentifier(id: ts.Identifier): Declaration|null {
-    return (!id.getSourceFile().isDeclarationFile && this.getUmdImportedDeclaration(id)) ||
-        super.getDeclarationOfIdentifier(id);
+    return this.getUmdImportedDeclaration(id) || super.getDeclarationOfIdentifier(id);
   }
 
   getExportsOfModule(module: ts.Node): Map<string, Declaration>|null {
@@ -67,7 +63,8 @@ export class UmdReflectionHost extends Esm5ReflectionHost {
     return this.umdImportPaths.get(importParameter);
   }
 
-  /** Get the top level statements for a module.
+  /**
+   * Get the top level statements for a module.
    *
    * In UMD modules these are the body of the UMD factory function.
    *
@@ -183,7 +180,10 @@ export class UmdReflectionHost extends Esm5ReflectionHost {
     const reexports: ExportDeclaration[] = [];
     importedExports.forEach((decl, name) => {
       if (decl.node !== null) {
-        reexports.push({name, declaration: {node: decl.node, known: null, viaModule}});
+        reexports.push({
+          name,
+          declaration: {node: decl.node, known: null, viaModule, identity: decl.identity}
+        });
       } else {
         reexports.push(
             {name, declaration: {node: null, known: null, expression: decl.expression, viaModule}});
@@ -215,7 +215,12 @@ export class UmdReflectionHost extends Esm5ReflectionHost {
 
     // We need to add the `viaModule` because  the `getExportsOfModule()` call
     // did not know that we were importing the declaration.
-    return {node: importedFile, known: null, viaModule: importInfo.from};
+    return {
+      node: importedFile,
+      known: getTsHelperFnFromIdentifier(id),
+      viaModule: importInfo.from,
+      identity: null
+    };
   }
 
   private resolveModuleName(moduleName: string, containingFile: ts.SourceFile): ts.SourceFile

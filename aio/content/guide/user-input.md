@@ -390,6 +390,35 @@ Following is all the code discussed in this page.
 
 </code-tabs>
 
+Angular also supports passive event listeners. For example, you can use the following steps to make the scroll event passive.
+
+Angular 还支持被动事件侦听器。例如，你可以使用以下步骤使滚动事件变为被动监听。
+
+1. Create a file `zone-flags.ts` under `src` directory.
+
+   在 `src` 目录下创建一个 `zone-flags.ts` 文件。
+
+2. Add the following line into this file.
+
+   往这个文件中添加如下语句。
+
+```
+(window as any)['__zone_symbol__PASSIVE_EVENTS'] = ['scroll'];
+```
+
+3. In the `src/polyfills.ts` file, before importing zone.js, import the newly created `zone-flags`.
+
+   在 `src/polyfills.ts` 文件中，导入 `zone.js` 之前，先导入新创建的 `zone-flags` 文件。
+
+```
+import './zone-flags';
+import 'zone.js/dist/zone';  // Included with Angular CLI.
+```
+
+After those steps, if you add event listeners for the `scroll` event, the listeners will be `passive`.
+
+经过这些步骤，你添加 `scroll` 事件的监听器时，它就是被动（`passive`）的。
+
 ## Summary
 
 ## 小结

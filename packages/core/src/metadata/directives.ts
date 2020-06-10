@@ -11,7 +11,7 @@ import {Provider} from '../di';
 import {Type} from '../interface/type';
 import {compileComponent as render3CompileComponent, compileDirective as render3CompileDirective} from '../render3/jit/directive';
 import {compilePipe as render3CompilePipe} from '../render3/jit/pipe';
-import {TypeDecorator, makeDecorator, makePropDecorator} from '../util/decorators';
+import {makeDecorator, makePropDecorator, TypeDecorator} from '../util/decorators';
 import {noop} from '../util/noop';
 
 import {ViewEncapsulation} from './view';
@@ -93,7 +93,7 @@ export interface DirectiveDecorator {
    *
    * 参见 `Directive` 装饰器中。
    */
-  new (obj?: Directive): Directive;
+  new(obj?: Directive): Directive;
 }
 
 /**
@@ -180,7 +180,7 @@ export interface Directive {
    * When `bindingProperty` is not provided, it is assumed to be equal to `directiveProperty`.
    *
    * 当没有提供 `bindingProperty` 时，就假设它和 `directiveProperty` 一样。
-   * 
+   *
    * @usageNotes
    *
    * The following example creates a component with two data-bound properties.
@@ -239,7 +239,7 @@ export interface Directive {
    * class ChildDir {
    *  bankNameChange: EventEmitter<string> = new EventEmitter<string>();
    * }
-   * 
+   *
    * @Component({
    *   selector: 'main',
    *   template: `
@@ -580,7 +580,7 @@ export interface ComponentDecorator {
    *
    * 参见 `@Component` 装饰器。
    */
-  new (obj: Component): Component;
+  new(obj: Component): Component;
 }
 
 /**
@@ -721,7 +721,7 @@ export interface Component extends Directive {
    * {@link ComponentFactoryResolver}.
    *
    * 一个组件的集合，它应该和当前组件一起编译。对于这里列出的每个组件，Angular 都会创建一个 {@link ComponentFactory} 并保存进 {@link ComponentFactoryResolver} 中。
-   * 
+   *
    * @deprecated Since 9.0.0. With Ivy, this property is no longer necessary.
    */
   entryComponents?: Array<Type<any>|any[]>;
@@ -787,7 +787,7 @@ export interface PipeDecorator {
    *
    * 参见 `Pipe` 装饰器。
    */
-  new (obj: Pipe): Pipe;
+  new(obj: Pipe): Pipe;
 }
 
 /**
@@ -840,60 +840,60 @@ export const Pipe: PipeDecorator = makeDecorator(
  */
 export interface InputDecorator {
   /**
-  * Decorator that marks a class field as an input property and supplies configuration metadata.
-  * The input property is bound to a DOM property in the template. During change detection,
-  * Angular automatically updates the data property with the DOM property's value.
-  *
+   * Decorator that marks a class field as an input property and supplies configuration metadata.
+   * The input property is bound to a DOM property in the template. During change detection,
+   * Angular automatically updates the data property with the DOM property's value.
+   *
    * 一个装饰器，用来把某个类字段标记为输入属性，并提供配置元数据。
    * 该输入属性会绑定到模板中的某个 DOM 属性。当变更检测时，Angular 会自动使用这个 DOM 属性的值来更新此数据属性。
    *
   * @usageNotes
-  *
-  * You can supply an optional name to use in templates when the
-  * component is instantiated, that maps to the
-  * name of the bound property. By default, the original
-  * name of the bound property is used for input binding.
+   *
+   * You can supply an optional name to use in templates when the
+   * component is instantiated, that maps to the
+   * name of the bound property. By default, the original
+   * name of the bound property is used for input binding.
   *
   * 你可以提供一个可选的仅供模板中使用的名字，在组件实例化时，会把这个名字映射到可绑定属性上。
   * 默认情况下，输入绑定的名字就是这个可绑定属性的原始名称。
-  *
-  * The following example creates a component with two input properties,
-  * one of which is given a special binding name.
+   *
+   * The following example creates a component with two input properties,
+   * one of which is given a special binding name.
   *
   * 下面的例子创建了一个带有两个输入属性的组件，其中一个还指定了绑定名。
-  *
-  * ```typescript
-  * @Component({
-  *   selector: 'bank-account',
-  *   template: `
-  *     Bank Name: {{bankName}}
-  *     Account Id: {{id}}
-  *   `
-  * })
-  * class BankAccount {
-  *   // This property is bound using its original name.
-  *   @Input() bankName: string;
-  *   // this property value is bound to a different property name
-  *   // when this component is instantiated in a template.
-  *   @Input('account-id') id: string;
-  *
-  *   // this property is not bound, and is not automatically updated by Angular
-  *   normalizedBankName: string;
-  * }
-  *
-  * @Component({
-  *   selector: 'app',
-  *   template: `
-  *     <bank-account bankName="RBC" account-id="4747"></bank-account>
-  *   `
-  * })
-  * class App {}
-  * ```
-  *
-  * @see [Input and Output properties](guide/template-syntax#input-and-output-properties)
-  */
+   *
+   * ```typescript
+   * @Component({
+   *   selector: 'bank-account',
+   *   template: `
+   *     Bank Name: {{bankName}}
+   *     Account Id: {{id}}
+   *   `
+   * })
+   * class BankAccount {
+   *   // This property is bound using its original name.
+   *   @Input() bankName: string;
+   *   // this property value is bound to a different property name
+   *   // when this component is instantiated in a template.
+   *   @Input('account-id') id: string;
+   *
+   *   // this property is not bound, and is not automatically updated by Angular
+   *   normalizedBankName: string;
+   * }
+   *
+   * @Component({
+   *   selector: 'app',
+   *   template: `
+   *     <bank-account bankName="RBC" account-id="4747"></bank-account>
+   *   `
+   * })
+   * class App {}
+   * ```
+   *
+   * @see [Input and Output properties](guide/template-syntax#input-and-output-properties)
+   */
   (bindingPropertyName?: string): any;
-  new (bindingPropertyName?: string): any;
+  new(bindingPropertyName?: string): any;
 }
 
 /**
@@ -929,31 +929,31 @@ export const Input: InputDecorator =
  */
 export interface OutputDecorator {
   /**
-  * Decorator that marks a class field as an output property and supplies configuration metadata.
-  * The DOM property bound to the output property is automatically updated during change detection.
-  *
-  * 一个装饰器，用于把一个类字段标记为输出属性，并提供配置元数据。
+   * Decorator that marks a class field as an output property and supplies configuration metadata.
+   * The DOM property bound to the output property is automatically updated during change detection.
+   *
+   * 一个装饰器，用于把一个类字段标记为输出属性，并提供配置元数据。
   * 凡是绑定到输出属性上的 DOM 属性，Angular 在变更检测期间都会自动进行更新。
   *
   * @usageNotes
-  *
-  * You can supply an optional name to use in templates when the
-  * component is instantiated, that maps to the
-  * name of the bound property. By default, the original
-  * name of the bound property is used for output binding.
-  *
-  * 你可以提供一个可选的仅供模板中使用的名字，在组件实例化时，会把这个名字映射到可绑定属性上。
+   *
+   * You can supply an optional name to use in templates when the
+   * component is instantiated, that maps to the
+   * name of the bound property. By default, the original
+   * name of the bound property is used for output binding.
+   *
+   * 你可以提供一个可选的仅供模板中使用的名字，在组件实例化时，会把这个名字映射到可绑定属性上。
   * 默认情况下，输出绑定的名字就是这个可绑定属性的原始名称。
   *
   * See `Input` decorator for an example of providing a binding name.
   *
   * 参见 `@Input` 的例子了解如何指定一个绑定名。
-  *  
-  * @see [Input and Output properties](guide/template-syntax#input-and-output-properties)
-  *
-  */
+   *
+   * @see [Input and Output properties](guide/template-syntax#input-and-output-properties)
+   *
+   */
   (bindingPropertyName?: string): any;
-  new (bindingPropertyName?: string): any;
+  new(bindingPropertyName?: string): any;
 }
 
 /**
@@ -965,8 +965,8 @@ export interface OutputDecorator {
  */
 export interface Output {
   /**
-  * The name of the DOM property to which the output property is bound.
-  */
+   * The name of the DOM property to which the output property is bound.
+   */
   bindingPropertyName?: string;
 }
 
@@ -1023,7 +1023,7 @@ export interface HostBindingDecorator {
    *
    */
   (hostPropertyName?: string): any;
-  new (hostPropertyName?: string): any;
+  new(hostPropertyName?: string): any;
 }
 
 /**
@@ -1061,7 +1061,7 @@ export interface HostListenerDecorator {
    * and provides a handler method to run when that event occurs.
    */
   (eventName: string, args?: string[]): any;
-  new (eventName: string, args?: string[]): any;
+  new(eventName: string, args?: string[]): any;
 }
 
 /**

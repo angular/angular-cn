@@ -26,7 +26,6 @@ If you already have projects running on your machine that use other versions of 
 
 </div>
 
-
 ## `package.json`
 
 Both `npm` and `yarn` install the packages that are identified in a [`package.json`](https://docs.npmjs.com/files/package.json) file.
@@ -66,7 +65,6 @@ For more information, see the CLI wiki page [Library Support](https://github.com
 **代码库开发者：**默认情况下，CLI 命令 [`ng generate library`](cli/generate) 会为新的代码库项目创建一个 `package.json`。这个 `package.json` 会在把该代码库发布到 npm 时用到。
 要了解更多信息，参见 CLI 的 wiki 页面[代码库支持](https://github.com/angular/angular-cli/wiki/stories-create-library)。
 </div>
-
 
 {@a dependencies}
 ## Dependencies
@@ -114,7 +112,7 @@ Package name                               | Description
 [**@angular/common**](api/common) | The commonly-needed services, pipes, and directives provided by the Angular team. The [`HttpClientModule`](api/common/http/HttpClientModule) is also here, in the [`@angular/common/http`](api/common/http) subfolder. For more information, see the [HttpClient guide](guide/http).
 [**@angular/common**](api/common) | Angular 开发组提供的常用服务、管道和指令。[`HttpClientModule`](api/common/http/HttpClientModule) 也位于这里的 [`@angular/common/http`](api/common/http) 子目录下。欲知详情，参见 [HttpClient](guide/http)。
 **@angular/compiler** | Angular's template compiler. It understands templates and can convert them to code that makes the application run and render. Typically you don’t interact with the compiler directly; rather, you use it indirectly via `platform-browser-dynamic` when JIT compiling in the browser. For more information, see the [Ahead-of-time Compilation guide](guide/aot-compiler).
-**@angular/compiler** | Angular的模板编译器。它能理解模板并把模板转换成代码，这些代码可以运行并渲染应用程序。通常，你不必直接与这个编译器打交道，而是当浏览器进行 JIT 编译时，通过 `platform-browser-dynamic` 间接使用它。欲知详情，参见 [AOT （预先）编译](guide/aot-compiler)。
+**@angular/compiler** | Angular 的模板编译器。它能理解模板并把模板转换成代码，这些代码可以运行并渲染应用程序。通常，你不必直接与这个编译器打交道，而是当浏览器进行 JIT 编译时，通过 `platform-browser-dynamic` 间接使用它。欲知详情，参见 [AOT （预先）编译](guide/aot-compiler)。
 [**@angular/core**](api/core) | Critical runtime parts of the framework that are needed by every application. Includes all metadata decorators, `Component`, `Directive`,  dependency injection, and the component lifecycle hooks.
 [**@angular/core**](api/core) | 本框架最关键的运行时部件，每个应用都需要它们。包括全部元数据装饰器（比如 `Component`, `Directive`）、依赖注入和组件生命周期等。
 [**@angular/forms**](api/forms) | Support for both [template-driven](guide/forms) and [reactive forms](guide/reactive-forms). For information about choosing the best forms approach for your app, see [Introduction to forms](guide/forms-overview).
@@ -125,7 +123,6 @@ Package name                               | Description
 [**@angular/<br />platform&#8209;browser&#8209;dynamic**](api/platform-browser-dynamic) | 包含那些用来在 [JIT 编译器](guide/aot-compiler)的客户端上编译并运行应用的[提供者](api/core/Provider)和方法。
 [**@angular/router**](api/router) | The router module navigates among your app pages when the browser URL changes. For more information, see [Routing and Navigation](guide/router).
 [**@angular/router**](api/router) | 当浏览器的 URL 变化时，路由器模块可以在应用的页面之间进行导航。欲知详情，参见[路由与导航](guide/router)。
-
 
 {@a support-packages}
 ### Support packages
@@ -142,7 +139,7 @@ Package name                               | Description
 [**rxjs**](https://github.com/ReactiveX/rxjs) | Many Angular APIs return [_observables_](guide/glossary#observable). RxJS is an implementation of the proposed [Observables specification](https://github.com/tc39/proposal-observable) currently before the [TC39](https://www.ecma-international.org/memento/tc39.htm) committee, which determines standards for the JavaScript language.
 [**rxjs**](https://github.com/ReactiveX/rxjs) | 很多 Angular API 都会返回[*可观察对象*](guide/glossary#observable)。RxJS 是对计划中的 [Observable 规范的实现](https://github.com/tc39/proposal-observable)，它正在等待 [TC39](http://www.ecma-international.org/memento/TC39.htm) 委员会来决定是否将其纳入语言规范。
 [**zone.js**](https://github.com/angular/zone.js) | Angular relies on zone.js to run Angular's change detection processes when native JavaScript operations raise events. Zone.js is an implementation of a [specification](https://gist.github.com/mhevery/63fdcdf7c65886051d55) currently before the [TC39](https://www.ecma-international.org/memento/tc39.htm) committee that determines standards for the JavaScript language.
-[**zone.js**](https://github.com/angular/zone.js) | 当原生 JavaScript 操作发生事件时，Angular 要依靠 zone.js 来运行 Angular 的变更检测过程。 Zone.js 是对一个[规范](https://gist.github.com/mhevery/63fdcdf7c65886051d55)的实现，它正在等待 [TC39](http://www.ecma-international.org/memento/TC39.htm) 委员会来决定是否将其纳入语言规范。
+[**zone.js**](https://github.com/angular/zone.js) | 当原生 JavaScript 操作发生事件时，Angular 要依靠 zone.js 来运行 Angular 的变更检测过程。Zone.js 是对一个[规范](https://gist.github.com/mhevery/63fdcdf7c65886051d55)的实现，它正在等待 [TC39](http://www.ecma-international.org/memento/TC39.htm) 委员会来决定是否将其纳入语言规范。
 
 {@a polyfills}
 ### Polyfill packages
@@ -158,11 +155,6 @@ how you can add them.
 很多浏览器欠缺对 Angular 所需的某些最新 HTML 标准、特性的原生支持。
 [腻子脚本](https://en.wikipedia.org/wiki/Polyfill_(programming) 可以模拟这些缺失的特性。
 [浏览器支持](guide/browser-support)一章中解释了哪些浏览器分别需要哪些腻子脚本，以及如何添加它们。
-
-The `package.json` for a new Angular workspace installs the [core-js](https://github.com/zloirock/core-js) package,
-which polyfills missing features for several popular browser.
-
-默认的 `package.json` 会为新的 Angular 工作区安装 **[core-js](https://github.com/zloirock/core-js)** 包，它会弥补很多常用浏览器缺失的特性。
 
 {@a dev-dependencies}
 

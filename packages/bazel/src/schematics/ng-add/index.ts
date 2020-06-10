@@ -9,10 +9,10 @@
  */
 
 import {JsonAstObject, parseJsonAst} from '@angular-devkit/core';
-import {Rule, SchematicContext, SchematicsException, Tree, apply, applyTemplates, chain, mergeWith, url} from '@angular-devkit/schematics';
+import {apply, applyTemplates, chain, mergeWith, Rule, SchematicContext, SchematicsException, Tree, url} from '@angular-devkit/schematics';
 import {NodePackageInstallTask} from '@angular-devkit/schematics/tasks';
 import {getWorkspace, getWorkspacePath} from '@schematics/angular/utility/config';
-import {NodeDependencyType, addPackageJsonDependency, getPackageJsonDependency, removePackageJsonDependency} from '@schematics/angular/utility/dependencies';
+import {addPackageJsonDependency, getPackageJsonDependency, NodeDependencyType, removePackageJsonDependency} from '@schematics/angular/utility/dependencies';
 import {findPropertyInAstObject, insertPropertyInAstObjectInOrder} from '@schematics/angular/utility/json-utils';
 import {validateProjectName} from '@schematics/angular/utility/validation';
 
@@ -38,15 +38,15 @@ function addDevDependenciesToPackageJson(options: Schema) {
     // TODO: use a Record<string, string> when the tsc lib setting allows us
     const devDependencies: [string, string][] = [
       ['@angular/bazel', angularCore.version],
-      ['@bazel/bazel', '2.0.0'],
-      ['@bazel/ibazel', '0.11.1'],
-      ['@bazel/karma', '1.2.2'],
-      ['@bazel/protractor', '1.2.2'],
-      ['@bazel/rollup', '1.2.2'],
-      ['@bazel/terser', '1.2.2'],
-      ['@bazel/typescript', '1.2.2'],
+      ['@bazel/bazel', '2.1.0'],
+      ['@bazel/ibazel', '0.12.3'],
+      ['@bazel/karma', '1.6.0'],
+      ['@bazel/protractor', '1.6.0'],
+      ['@bazel/rollup', '1.6.0'],
+      ['@bazel/terser', '1.6.0'],
+      ['@bazel/typescript', '1.6.0'],
       ['history-server', '1.3.1'],
-      ['html-insert-assets', '0.2.0'],
+      ['html-insert-assets', '0.5.0'],
       ['karma', '4.4.1'],
       ['karma-chrome-launcher', '3.1.0'],
       ['karma-firefox-launcher', '1.2.0'],
@@ -137,7 +137,7 @@ function updateGitignore() {
  */
 function updateAngularJsonToUseBazelBuilder(options: Schema): Rule {
   return (host: Tree) => {
-    const name = options.name !;
+    const name = options.name!;
     const workspacePath = getWorkspacePath(host);
     if (!workspacePath) {
       throw new Error('Could not find angular.json');
@@ -235,7 +235,8 @@ function backupAngularJson(): Rule {
       return;
     }
     host.create(
-        `${workspacePath}.bak`, '// This is a backup file of the original angular.json. ' +
+        `${workspacePath}.bak`,
+        '// This is a backup file of the original angular.json. ' +
             'This file is needed in case you want to revert to the workflow without Bazel.\n\n' +
             host.read(workspacePath));
   };

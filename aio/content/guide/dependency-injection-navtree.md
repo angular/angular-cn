@@ -51,7 +51,6 @@ This section describes some techniques for doing that.
 {@a find-parent}
 {@a known-parent}
 
-
 ### Find a parent component of known type
 
 ### 查找已知类型的父组件
@@ -66,10 +65,7 @@ In the following example, the parent `AlexComponent` has several children includ
 
 {@a alex}
 
-
 <code-example path="dependency-injection-in-action/src/app/parent-finder.component.ts" region="alex-1" header="parent-finder.component.ts (AlexComponent v.1)"></code-example>
-
-
 
 *Cathy* reports whether or not she has access to *Alex*
 after injecting an `AlexComponent` into her constructor:
@@ -77,8 +73,6 @@ after injecting an `AlexComponent` into her constructor:
 在把 `AlexComponent` 注入到 `CathyComponent` 的构造函数中之后，*Cathy* 可以报告她是否能访问 *Alex*：
 
 <code-example path="dependency-injection-in-action/src/app/parent-finder.component.ts" region="cathy" header="parent-finder.component.ts (CathyComponent)"></code-example>
-
-
 
 Notice that even though the [@Optional](guide/dependency-injection-in-action#optional) qualifier
 is there for safety,
@@ -88,7 +82,6 @@ confirms that the `alex` parameter is set.
 注意，虽然为了安全起见我们用了 [@Optional](guide/dependency-injection-in-action#optional) 限定符，但是<live-example name="dependency-injection-in-action"></live-example>中仍然会确认 `alex` 参数是否有值。
 
 {@a base-parent}
-
 
 ### Unable to find a parent by its base class
 
@@ -103,18 +96,15 @@ Imagine a component for rendering breaking news about a financial instrument.
 For business reasons, this news component makes frequent calls
 directly into its parent instrument as changing market data streams by.
 
-可复用组件可能是多个组件的子组件。想象一个用于呈现相关金融工具的突发新闻的组件。
+可复用组件可能是多个组件的子组件。想象一个用于渲染相关金融工具的突发新闻的组件。
 出于商业原因，当市场上的数据流发生变化时，这些新组件会频繁调用其父组件。
 
 The app probably defines more than a dozen financial instrument components.
 If you're lucky, they all implement the same base class whose API your `NewsComponent` understands.
 
-
-该应用可能定义了十几个金融工具组件。理想情况下，它们全都实现了同一个基类，你的 `NewsComponent` 也能理解其 API。 
+该应用可能定义了十几个金融工具组件。理想情况下，它们全都实现了同一个基类，你的 `NewsComponent` 也能理解其 API。
 
 <div class="alert is-helpful">
-
-
 
 Looking for components that implement an interface would be better.
 That's not possible because TypeScript interfaces disappear
@@ -126,8 +116,6 @@ There's no artifact to look for.
 因此，找无可找。
 
 </div>
-
-
 
 This isn't necessarily good design.
 This example is examining *whether a component can
@@ -143,28 +131,22 @@ you see that the `Alex` component *extends* (*inherits*) from a class named `Bas
 
 <code-example path="dependency-injection-in-action/src/app/parent-finder.component.ts" region="alex-class-signature" header="parent-finder.component.ts (Alex class signature)"></code-example>
 
-
-
 The `CraigComponent` tries to inject `Base` into its `alex` constructor parameter and reports if it succeeded.
 
 `CraigComponent` 试图把 `Base` 注入到它的构造函数参数 `alex` 中，并汇报这次注入是否成功了。
 
 <code-example path="dependency-injection-in-action/src/app/parent-finder.component.ts" region="craig" header="parent-finder.component.ts (CraigComponent)"></code-example>
 
-
-
 Unfortunately, this doesn't work.
 The <live-example name="dependency-injection-in-action"></live-example>
 confirms that the `alex` parameter is null.
 *You cannot inject a parent by its base class.*
-
 
 不幸的是，这不行！
 <live-example name="dependency-injection-in-action"></live-example> 确认了 `alex` 参数为空。
 因此，*你不能通过父组件的基类注入它*。
 
 {@a class-interface-parent}
-
 
 ### Find a parent by its class interface
 
@@ -191,9 +173,7 @@ and add that provider to the `providers` array of the `@Component()` metadata fo
 
 {@a alex-providers}
 
-
 <code-example path="dependency-injection-in-action/src/app/parent-finder.component.ts" region="alex-providers" header="parent-finder.component.ts (AlexComponent providers)"></code-example>
-
 
 [Parent](#parent-token) is the provider's class interface token.
 The [*forwardRef*](guide/dependency-injection-in-action#forwardref) breaks the circular reference you just created by having the `AlexComponent` refer to itself.
@@ -208,8 +188,6 @@ the same way you've done it before.
 
 <code-example path="dependency-injection-in-action/src/app/parent-finder.component.ts" region="carol-class" header="parent-finder.component.ts (CarolComponent class)"></code-example>
 
-
-
 Here's *Alex* and family in action.
 
 下面是 *Alex* 及其家人的运行效果。
@@ -218,17 +196,14 @@ Here's *Alex* and family in action.
   <img src="generated/images/guide/dependency-injection-in-action/alex.png" alt="Alex in action">
 </div>
 
-
-
 {@a parent-tree}
-
 
 ### Find a parent in a tree with _@SkipSelf()_
 
 ### 使用 `@SkipSelf()` 在树中查找父组件 
 
 Imagine one branch of a component hierarchy: *Alice* -> *Barry* -> *Carol*.
-Both *Alice* and *Barry* implement the `Parent' class interface.
+Both *Alice* and *Barry* implement the `Parent` class interface.
 
 想象一下组件树的一个分支：*Alice* -> *Barry* -> *Carol*。
 无论 *Alice* 还是 *Barry* 都实现了类接口 `Parent`。
@@ -245,8 +220,6 @@ Here's *Barry*.
 *Barry* 的代码如下。
 
 <code-example path="dependency-injection-in-action/src/app/parent-finder.component.ts" region="barry" header="parent-finder.component.ts (BarryComponent)"></code-example>
-
-
 
 *Barry*'s `providers` array looks just like [*Alex*'s](#alex-providers).
 If you're going to keep writing [*alias providers*](guide/dependency-injection-in-action#useexisting) like this you should create a [helper function](#provideparent).
@@ -269,7 +242,6 @@ For now, focus on *Barry*'s constructor.
   </code-pane>
 
 </code-tabs>
-
 
 It's identical to *Carol*'s constructor except for the additional `@SkipSelf` decorator.
 
@@ -300,7 +272,6 @@ Here's *Alice*, *Barry*, and family in action.
 
 {@a parent-token}
 
-
 ###  Parent class interface
 
 ### 父类接口
@@ -314,8 +285,6 @@ The example defines a `Parent` class interface.
 下面的例子定义了一个类接口 `Parent`。
 
 <code-example path="dependency-injection-in-action/src/app/parent-finder.component.ts" region="parent" header="parent-finder.component.ts (Parent class-interface)"></code-example>
-
-
 
 The `Parent` class interface defines a `name` property with a type declaration but *no implementation*.
 The `name` property is the only member of a parent component that a child component can call.
@@ -331,8 +300,6 @@ A component that could serve as a parent *should* implement the class interface 
 
 <code-example path="dependency-injection-in-action/src/app/parent-finder.component.ts" region="alice-class-signature" header="parent-finder.component.ts (AliceComponent class signature)"></code-example>
 
-
-
 Doing so adds clarity to the code. But it's not technically necessary.
 Although `AlexComponent` has a `name` property, as required by its `Base` class,
 its class signature doesn't mention `Parent`.
@@ -342,11 +309,7 @@ its class signature doesn't mention `Parent`.
 
 <code-example path="dependency-injection-in-action/src/app/parent-finder.component.ts" region="alex-class-signature" header="parent-finder.component.ts (AlexComponent class signature)"></code-example>
 
-
-
 <div class="alert is-helpful">
-
-
 
 `AlexComponent` *should* implement `Parent` as a matter of proper style.
 It doesn't in this example *only* to demonstrate that the code will compile and run without the interface.
@@ -356,10 +319,7 @@ It doesn't in this example *only* to demonstrate that the code will compile and 
 
 </div>
 
-
-
 {@a provideparent}
-
 
 ### `provideParent()` helper function
 
@@ -384,7 +344,6 @@ Now you can add a simpler, more meaningful parent provider to your components.
 
 <code-example path="dependency-injection-in-action/src/app/parent-finder.component.ts" region="alice-providers" header="dependency-injection-in-action/src/app/parent-finder.component.ts"></code-example>
 
-
 You can do better. The current version of the helper function can only alias the `Parent` class interface.
 The application might have a variety of parent types, each with its own class interface token.
 
@@ -396,7 +355,6 @@ Here's a revised version that defaults to `parent` but also accepts an optional 
 这是一个修订后的版本，它默认为 `parent`，但是也能接受另一个父类接口作为可选的第二参数。
 
 <code-example path="dependency-injection-in-action/src/app/parent-finder.component.ts" region="provide-parent" header="dependency-injection-in-action/src/app/parent-finder.component.ts"></code-example>
-
 
 And here's how you could use it with a different parent type.
 

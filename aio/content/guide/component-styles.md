@@ -62,7 +62,7 @@ They are _not inherited_ by any components nested within the template nor by any
 In this example, the `h1` style applies only to the `HeroAppComponent`,
 not to the nested `HeroMainComponent` nor to `<h1>` tags anywhere else in the application.
 
-在这个例子中，`h1` 的样式只对 `HeroAppComponent` 生效，既不会作用于内嵌的 `HeroMainComponent` ，也不会作用于应用中其它任何地方的 `<h1>` 标签。
+在这个例子中，`h1` 的样式只对 `HeroAppComponent` 生效，既不会作用于内嵌的 `HeroMainComponent`，也不会作用于应用中其它任何地方的 `<h1>` 标签。
 
 This scoping restriction is a ***styling modularity feature***.
 
@@ -403,7 +403,6 @@ as explained in the [CLI wiki](https://github.com/angular/angular-cli/wiki/stori
 "CSS Preprocessor integration").
 <!-- 2018-10-16: The link above is still the best source for this information. -->
 
-
 当使用 `ng generate component` 命令生成组件文件时，CLI 会默认生成一个空白的 CSS 样式文件（`.css`）。
 你可以配置 CLI，让它默认使用你喜欢的 CSS 预处理器，参见 [CLI 官方文档](https://github.com/angular/angular-cli/wiki/stories-css-preprocessors
                                  "CSS Preprocessor integration") 中的解释。
@@ -451,7 +450,7 @@ Choose from the following modes:
   For details, see [Inspecting generated CSS](guide/component-styles#inspect-generated-css) below.
 
    `Emulated` 模式（**默认值**）通过预处理（并改名）CSS 代码来模拟 Shadow DOM 的行为，以达到把 CSS 样式局限在组件视图中的目的。
-  更多信息，见[附录 1](guide/component-styles#inspect-generated-css) 。(译注：只进不出，全局样式能进来，组件样式出不去)
+  更多信息，见[附录 1](guide/component-styles#inspect-generated-css)。(译注：只进不出，全局样式能进来，组件样式出不去)
 
 * `None` means that Angular does no view encapsulation.
   Angular adds the CSS to the global styles.

@@ -6,7 +6,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 
-import {Directive, Input, OnChanges, SimpleChanges, StaticProvider, forwardRef} from '@angular/core';
+import {Directive, forwardRef, Input, OnChanges, SimpleChanges, StaticProvider} from '@angular/core';
 import {Observable} from 'rxjs';
 
 import {AbstractControl} from '../model';
@@ -87,7 +87,7 @@ export interface Validator {
  * async validator directive with a custom error key.
  *
  * ```typescript
- * import { of as observableOf } from 'rxjs';
+ * import { of } from 'rxjs';
  *
  * @Directive({
  *   selector: '[customAsyncValidator]',
@@ -96,7 +96,7 @@ export interface Validator {
  * })
  * class CustomAsyncValidatorDirective implements AsyncValidator {
  *   validate(control: AbstractControl): Observable<ValidationErrors|null> {
- *     return observableOf({'custom': true});
+ *     return of({'custom': true});
  *   }
  * }
  * ```
@@ -169,16 +169,18 @@ export const CHECKBOX_REQUIRED_VALIDATOR: StaticProvider = {
 })
 export class RequiredValidator implements Validator {
   // TODO(issue/24571): remove '!'.
-  private _required !: boolean;
+  private _required!: boolean;
   // TODO(issue/24571): remove '!'.
-  private _onChange !: () => void;
+  private _onChange!: () => void;
 
   /**
    * @description
    * Tracks changes to the required attribute bound to this directive.
    */
   @Input()
-  get required(): boolean|string { return this._required; }
+  get required(): boolean|string {
+    return this._required;
+  }
 
   set required(value: boolean|string) {
     this._required = value != null && value !== false && `${value}` !== 'false';
@@ -200,7 +202,9 @@ export class RequiredValidator implements Validator {
    *
    * @param fn The callback function
    */
-  registerOnValidatorChange(fn: () => void): void { this._onChange = fn; }
+  registerOnValidatorChange(fn: () => void): void {
+    this._onChange = fn;
+  }
 }
 
 
@@ -218,7 +222,7 @@ export class RequiredValidator implements Validator {
  *
  * ### 使用模板驱动表单为复选框添加必填项验证器
  *
- * The following example shows how to add a checkbox required validator to an input attached to an ngModel binding.
+ * The following example shows how to add a checkbox required validator to an input attached to an* ngModel binding.
  *
  * 下面的例子展示了如何为一个带有 ngModel 绑定的检查框添加必填项验证器。
  *
@@ -273,7 +277,7 @@ export const EMAIL_VALIDATOR: any = {
  *
  * ### 添加 email 验证器
  *
- * The following example shows how to add an email validator to an input attached to an ngModel binding.
+ * The following example shows how to add an email validator to an input attached to an ngModel* binding.
  *
  * 下面的例子演示了如何为一个带有 ngModel 绑定的输入框添加 email 验证器。
  *
@@ -293,9 +297,9 @@ export const EMAIL_VALIDATOR: any = {
 })
 export class EmailValidator implements Validator {
   // TODO(issue/24571): remove '!'.
-  private _enabled !: boolean;
+  private _enabled!: boolean;
   // TODO(issue/24571): remove '!'.
-  private _onChange !: () => void;
+  private _onChange!: () => void;
 
   /**
    * @description
@@ -322,7 +326,9 @@ export class EmailValidator implements Validator {
    *
    * @param fn The callback function
    */
-  registerOnValidatorChange(fn: () => void): void { this._onChange = fn; }
+  registerOnValidatorChange(fn: () => void): void {
+    this._onChange = fn;
+  }
 }
 
 /**
@@ -332,7 +338,9 @@ export class EmailValidator implements Validator {
  *
  * @publicApi
  */
-export interface ValidatorFn { (control: AbstractControl): ValidationErrors|null; }
+export interface ValidatorFn {
+  (control: AbstractControl): ValidationErrors|null;
+}
 
 /**
  * @description
@@ -389,19 +397,18 @@ export const MIN_LENGTH_VALIDATOR: any = {
   providers: [MIN_LENGTH_VALIDATOR],
   host: {'[attr.minlength]': 'minlength ? minlength : null'}
 })
-export class MinLengthValidator implements Validator,
-    OnChanges {
+export class MinLengthValidator implements Validator, OnChanges {
   // TODO(issue/24571): remove '!'.
-  private _validator !: ValidatorFn;
+  private _validator!: ValidatorFn;
   // TODO(issue/24571): remove '!'.
-  private _onChange !: () => void;
+  private _onChange!: () => void;
 
   /**
    * @description
    * Tracks changes to the the minimum length bound to this directive.
    */
   // TODO(issue/24571): remove '!'.
-  @Input() minlength !: string | number;
+  @Input() minlength!: string|number;
 
   /**
    * @description
@@ -432,7 +439,9 @@ export class MinLengthValidator implements Validator,
    *
    * @param fn The callback function
    */
-  registerOnValidatorChange(fn: () => void): void { this._onChange = fn; }
+  registerOnValidatorChange(fn: () => void): void {
+    this._onChange = fn;
+  }
 
   private _createValidator(): void {
     this._validator = Validators.minLength(
@@ -485,19 +494,18 @@ export const MAX_LENGTH_VALIDATOR: any = {
   providers: [MAX_LENGTH_VALIDATOR],
   host: {'[attr.maxlength]': 'maxlength ? maxlength : null'}
 })
-export class MaxLengthValidator implements Validator,
-    OnChanges {
+export class MaxLengthValidator implements Validator, OnChanges {
   // TODO(issue/24571): remove '!'.
-  private _validator !: ValidatorFn;
+  private _validator!: ValidatorFn;
   // TODO(issue/24571): remove '!'.
-  private _onChange !: () => void;
+  private _onChange!: () => void;
 
   /**
    * @description
    * Tracks changes to the the maximum length bound to this directive.
    */
   // TODO(issue/24571): remove '!'.
-  @Input() maxlength !: string | number;
+  @Input() maxlength!: string|number;
 
   /**
    * @description
@@ -528,7 +536,9 @@ export class MaxLengthValidator implements Validator,
    *
    * @param fn The callback function
    */
-  registerOnValidatorChange(fn: () => void): void { this._onChange = fn; }
+  registerOnValidatorChange(fn: () => void): void {
+    this._onChange = fn;
+  }
 
   private _createValidator(): void {
     this._validator = Validators.maxLength(
@@ -583,19 +593,18 @@ export const PATTERN_VALIDATOR: any = {
   providers: [PATTERN_VALIDATOR],
   host: {'[attr.pattern]': 'pattern ? pattern : null'}
 })
-export class PatternValidator implements Validator,
-    OnChanges {
+export class PatternValidator implements Validator, OnChanges {
   // TODO(issue/24571): remove '!'.
-  private _validator !: ValidatorFn;
+  private _validator!: ValidatorFn;
   // TODO(issue/24571): remove '!'.
-  private _onChange !: () => void;
+  private _onChange!: () => void;
 
   /**
    * @description
    * Tracks changes to the pattern bound to this directive.
    */
   // TODO(issue/24571): remove '!'.
-  @Input() pattern !: string | RegExp;
+  @Input() pattern!: string|RegExp;
 
   /**
    * @description
@@ -616,7 +625,9 @@ export class PatternValidator implements Validator,
    * Method that validates whether the value matches the
    * the pattern requirement.
    */
-  validate(control: AbstractControl): ValidationErrors|null { return this._validator(control); }
+  validate(control: AbstractControl): ValidationErrors|null {
+    return this._validator(control);
+  }
 
   /**
    * @description
@@ -624,7 +635,11 @@ export class PatternValidator implements Validator,
    *
    * @param fn The callback function
    */
-  registerOnValidatorChange(fn: () => void): void { this._onChange = fn; }
+  registerOnValidatorChange(fn: () => void): void {
+    this._onChange = fn;
+  }
 
-  private _createValidator(): void { this._validator = Validators.pattern(this.pattern); }
+  private _createValidator(): void {
+    this._validator = Validators.pattern(this.pattern);
+  }
 }

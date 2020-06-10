@@ -120,7 +120,7 @@ export class HttpRequest<T> {
    *
    */
   // TODO(issue/24571): remove '!'.
-  readonly headers !: HttpHeaders;
+  readonly headers!: HttpHeaders;
 
   /**
    * Whether this request should be made in a way that exposes progress events.
@@ -166,7 +166,7 @@ export class HttpRequest<T> {
    * 外发的 URL 参数。
    */
   // TODO(issue/24571): remove '!'.
-  readonly params !: HttpParams;
+  readonly params!: HttpParams;
 
   /**
    * The outgoing URL with all URL parameters set.
@@ -365,7 +365,7 @@ export class HttpRequest<T> {
     body?: T|null,
     method?: string,
     url?: string,
-    setHeaders?: {[name: string]: string | string[]},
+    setHeaders?: {[name: string]: string|string[]},
     setParams?: {[param: string]: string},
   }): HttpRequest<T>;
   clone<V>(update: {
@@ -377,7 +377,7 @@ export class HttpRequest<T> {
     body?: V|null,
     method?: string,
     url?: string,
-    setHeaders?: {[name: string]: string | string[]},
+    setHeaders?: {[name: string]: string|string[]},
     setParams?: {[param: string]: string},
   }): HttpRequest<V>;
   clone(update: {
@@ -389,7 +389,7 @@ export class HttpRequest<T> {
     body?: any|null,
     method?: string,
     url?: string,
-    setHeaders?: {[name: string]: string | string[]},
+    setHeaders?: {[name: string]: string|string[]},
     setParams?: {[param: string]: string};
   } = {}): HttpRequest<any> {
     // For method, url, and responseType, take the current value unless
@@ -421,20 +421,23 @@ export class HttpRequest<T> {
       // Set every requested header.
       headers =
           Object.keys(update.setHeaders)
-              .reduce((headers, name) => headers.set(name, update.setHeaders ![name]), headers);
+              .reduce((headers, name) => headers.set(name, update.setHeaders![name]), headers);
     }
 
     // Check whether the caller has asked to set params.
     if (update.setParams) {
       // Set every requested param.
       params = Object.keys(update.setParams)
-                   .reduce((params, param) => params.set(param, update.setParams ![param]), params);
+                   .reduce((params, param) => params.set(param, update.setParams![param]), params);
     }
 
     // Finally, construct the new HttpRequest using the pieces from above.
-    return new HttpRequest(
-        method, url, body, {
-                               params, headers, reportProgress, responseType, withCredentials,
-                           });
+    return new HttpRequest(method, url, body, {
+      params,
+      headers,
+      reportProgress,
+      responseType,
+      withCredentials,
+    });
   }
 }

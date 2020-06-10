@@ -70,7 +70,7 @@ See [Keeping Up to Date](guide/updating).
 Next, you’ll need a feature module with a component to route to.
 To make one, enter the following command in the terminal, where `customers` is the name of the feature module. The path for loading the `customers` feature modules is also `customers` because it is specified with the `--route` option:
 
-接下来，您将需要一个包含路由的目标组件的特性模块。
+接下来，你将需要一个包含路由的目标组件的特性模块。
 要创建它，在终端中输入如下命令，其中 `customers` 是特性模块的名称。加载 `customers` 特性模块的路径也是 `customers`，因为它是通过 `--route` 选项指定的：
 
 <code-example language="bash">
@@ -188,13 +188,13 @@ The final entry defines a default route. The empty path matches everything that 
 
 Next, take a look at the `customers.module.ts` file. If you’re using the CLI and following the steps outlined in this page, you don’t have to do anything here.
 
-接下来，仔细看看 `customers.module.ts` 文件。如果您使用的是 CLI，并按照此页面中的步骤进行操作，则无需在此处执行任何操作。
+接下来，仔细看看 `customers.module.ts` 文件。如果你使用的是 CLI，并按照此页面中的步骤进行操作，则无需在此处执行任何操作。
 
 <code-example path="lazy-loading-ngmodules/src/app/customers/customers.module.ts" id="customers.module.ts" region="customers-module" header="src/app/customers/customers.module.ts"></code-example>
 
 The `customers.module.ts` file imports the `customers-routing.module.ts` and `customers.component.ts` files. `CustomersRoutingModule` is listed in the `@NgModule` `imports` array giving `CustomersModule` access to its own routing module. `CustomersComponent` is in the `declarations` array, which means `CustomersComponent` belongs to the `CustomersModule`.
 
-`customers.module.ts` 文件导入了 `customers-routing.module.ts` 和 `customers.component.ts` 文件。 `@NgModule` 的 `imports` 数组中列出了 `CustomersRoutingModule` ，让 `CustomersModule` 可以访问它自己的路由模块。`CustomersComponent` 位于 `declarations` 数组中，这意味着 `CustomersComponent` 属于 `CustomersModule`。
+`customers.module.ts` 文件导入了 `customers-routing.module.ts` 和 `customers.component.ts` 文件。`@NgModule` 的 `imports` 数组中列出了 `CustomersRoutingModule`，让 `CustomersModule` 可以访问它自己的路由模块。`CustomersComponent` 位于 `declarations` 数组中，这意味着 `CustomersComponent` 属于 `CustomersModule`。
 
 The `app-routing.module.ts` then imports the feature module, `customers.module.ts` using JavaScript's dynamic import.
 
@@ -243,7 +243,7 @@ Click on the Orders or Customers button. If you see a chunk appear, everything i
 
 To see it again, or to test after working in the project, clear everything out by clicking the circle with a line through it in the upper left of the Network Tab:
 
-要想再次查看它或测试本项目后面的行为，只要点击 Network 页左上放的 `清除` 图标即可。
+要想再次查看它或测试本项目后面的行为，只要点击 Network 页左上放的 ` 清除 ` 图标即可。
 
 <div class="lightbox">
 

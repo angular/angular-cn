@@ -8,6 +8,7 @@
 
 import * as ts from 'typescript';
 
+import {ErrorCode, ngErrorCode} from '../../src/ngtsc/diagnostics';
 import {absoluteFrom as _, getFileSystem} from '../../src/ngtsc/file_system';
 import {runInEachFileSystem} from '../../src/ngtsc/file_system/testing';
 import {loadStandardTestFiles} from '../helpers/src/mock_file_loading';
@@ -18,7 +19,7 @@ const testFiles = loadStandardTestFiles();
 
 runInEachFileSystem(() => {
   describe('ngtsc type checking', () => {
-    let env !: NgtscTestEnvironment;
+    let env!: NgtscTestEnvironment;
 
     beforeEach(() => {
       env = NgtscTestEnvironment.setup(testFiles);
@@ -70,7 +71,7 @@ export declare class NgIf<T = unknown> {
   ngIfThen: TemplateRef<NgIfContext<T>> | null;
   constructor(_viewContainer: ViewContainerRef, templateRef: TemplateRef<NgIfContext<T>>);
   static ngTemplateGuard_ngIf: 'binding';
-  static ngTemplateContextGuard<T>(dir: NgIf<T>, ctx: any): ctx is NgIfContext<T>;
+  static ngTemplateContextGuard<T>(dir: NgIf<T>, ctx: any): ctx is NgIfContext<NonNullable<T>>;
   static ɵdir: i0.ɵɵDirectiveDefWithMeta<NgIf<any>, '[ngIf]', never, {'ngIf': 'ngIf'}, {}, never>;
 }
 
@@ -238,6 +239,85 @@ export declare class AnimationEvent {
       //     .toEqual(
       //         `Argument of type 'FocusEvent' is not assignable to parameter of type 'string'.`);
       expect(diags[2].messageText).toEqual(`Property 'focused' does not exist on type 'TestCmp'.`);
+    });
+
+    // https://github.com/angular/angular/issues/35073
+    it('ngIf should narrow on output types', () => {
+      env.tsconfig({strictTemplates: true});
+      env.write('test.ts', `
+        import {CommonModule} from '@angular/common';
+        import {Component, NgModule} from '@angular/core';
+
+        @Component({
+          selector: 'test',
+          template: '<div *ngIf="person" (click)="handleEvent(person.name)"></div>',
+        })
+        class TestCmp {
+          person?: { name: string; };
+          handleEvent(name: string) {}
+        }
+
+        @NgModule({
+          imports: [CommonModule],
+          declarations: [TestCmp],
+        })
+        class Module {}
+      `);
+
+      const diags = env.driveDiagnostics();
+      expect(diags.length).toBe(0);
+    });
+
+    it('ngIf should narrow on output types across multiple guards', () => {
+      env.tsconfig({strictTemplates: true});
+      env.write('test.ts', `
+        import {CommonModule} from '@angular/common';
+        import {Component, NgModule} from '@angular/core';
+
+        @Component({
+          selector: 'test',
+          template: '<div *ngIf="person"><div *ngIf="person.name" (click)="handleEvent(person.name)"></div></div>',
+        })
+        class TestCmp {
+          person?: { name?: string; };
+          handleEvent(name: string) {}
+        }
+
+        @NgModule({
+          imports: [CommonModule],
+          declarations: [TestCmp],
+        })
+        class Module {}
+      `);
+
+      const diags = env.driveDiagnostics();
+      expect(diags.length).toBe(0);
+    });
+
+    it('should support a directive being used in its own input expression', () => {
+      env.tsconfig({strictTemplates: true});
+      env.write('test.ts', `
+        import {Component, Directive, NgModule, Input} from '@angular/core';
+
+        @Component({
+          selector: 'test',
+          template: '<target-cmp #ref [foo]="ref.bar"></target-cmp>',
+        })
+        export class TestCmp {}
+
+        @Component({template: '', selector: 'target-cmp'})
+        export class TargetCmp {
+          readonly bar = 'test';
+          @Input() foo: string;
+        }
+
+        @NgModule({
+          declarations: [TestCmp, TargetCmp],
+        })
+        export class Module {}
+      `);
+      const diags = env.driveDiagnostics();
+      expect(diags.length).toBe(0);
     });
 
     describe('strictInputTypes', () => {
@@ -726,6 +806,54 @@ export declare class AnimationEvent {
       env.driveMain();
     });
 
+    it('should check usage of NgIf when using "let" to capture $implicit context variable', () => {
+      env.tsconfig({strictTemplates: true});
+      env.write('test.ts', `
+    import {CommonModule} from '@angular/common';
+    import {Component, NgModule} from '@angular/core';
+
+    @Component({
+      selector: 'test',
+      template: '<div *ngIf="user; let u">{{u.name}}</div>',
+    })
+    class TestCmp {
+      user: {name: string}|null;
+    }
+
+    @NgModule({
+      declarations: [TestCmp],
+      imports: [CommonModule],
+    })
+    class Module {}
+    `);
+
+      env.driveMain();
+    });
+
+    it('should check usage of NgIf when using "as" to capture `ngIf` context variable', () => {
+      env.tsconfig({strictTemplates: true});
+      env.write('test.ts', `
+    import {CommonModule} from '@angular/common';
+    import {Component, NgModule} from '@angular/core';
+
+    @Component({
+      selector: 'test',
+      template: '<div *ngIf="user as u">{{u.name}}</div>',
+    })
+    class TestCmp {
+      user: {name: string}|null;
+    }
+
+    @NgModule({
+      declarations: [TestCmp],
+      imports: [CommonModule],
+    })
+    class Module {}
+    `);
+
+      env.driveMain();
+    });
+
     it('should check basic usage of NgFor', () => {
       env.write('test.ts', `
     import {CommonModule} from '@angular/common';
@@ -774,8 +902,7 @@ export declare class AnimationEvent {
       expect(diags.length).toBe(1);
       expect(diags[0].messageText)
           .toEqual(`Property 'does_not_exist' does not exist on type '{ name: string; }'.`);
-      expect(diags[0].start).toBe(199);
-      expect(diags[0].length).toBe(19);
+      expect(getSourceCodeForDiagnostic(diags[0])).toBe('does_not_exist');
     });
 
     it('should accept an NgFor iteration over an any-typed value', () => {
@@ -998,8 +1125,7 @@ export declare class AnimationEvent {
       const diags = env.driveDiagnostics();
       expect(diags.length).toBe(1);
       expect(diags[0].messageText).toEqual(`Property 'does_not_exist' does not exist on type 'T'.`);
-      expect(diags[0].start).toBe(206);
-      expect(diags[0].length).toBe(19);
+      expect(getSourceCodeForDiagnostic(diags[0])).toBe('does_not_exist');
     });
 
     describe('microsyntax variables', () => {
@@ -1176,6 +1302,36 @@ export declare class AnimationEvent {
       expect(getSourceCodeForDiagnostic(diags[0])).toEqual('y = !y');
     });
 
+    it('should detect a duplicate variable declaration', () => {
+      env.write('test.ts', `
+        import {Component, NgModule} from '@angular/core';
+        import {CommonModule} from '@angular/common';
+
+        @Component({
+          selector: 'test',
+          template: \`
+            <div *ngFor="let i of items; let i = index">
+              {{i}}
+            </div>
+          \`,
+        })
+        export class TestCmp {
+          items!: string[];
+        }
+
+        @NgModule({
+          declarations: [TestCmp],
+          imports: [CommonModule],
+        })
+        export class Module {}
+      `);
+
+      const diags = env.driveDiagnostics();
+      expect(diags.length).toEqual(1);
+      expect(diags[0].code).toEqual(ngErrorCode(ErrorCode.DUPLICATE_VARIABLE_DECLARATION));
+      expect(getSourceCodeForDiagnostic(diags[0])).toContain('let i = index');
+    });
+
     it('should still type-check when fileToModuleName aliasing is enabled, but alias exports are not in the .d.ts file',
        () => {
          // The template type-checking file imports directives/pipes in order to type-check their
@@ -1344,8 +1500,9 @@ export declare class AnimationEvent {
     });
 
     describe('legacy schema checking with the DOM schema', () => {
-      beforeEach(
-          () => { env.tsconfig({ivyTemplateTypeCheck: true, fullTemplateTypeCheck: false}); });
+      beforeEach(() => {
+        env.tsconfig({ivyTemplateTypeCheck: true, fullTemplateTypeCheck: false});
+      });
 
       it('should check for unknown elements', () => {
         env.write('test.ts', `
@@ -1576,7 +1733,7 @@ export declare class AnimationEvent {
           }
         });
 
-        it('should be correct for direct templates', async() => {
+        it('should be correct for direct templates', async () => {
           env.write('test.ts', `
           import {Component, NgModule} from '@angular/core';
 
@@ -1592,11 +1749,11 @@ export declare class AnimationEvent {
 
           const diags = await driveDiagnostics();
           expect(diags.length).toBe(1);
-          expect(diags[0].file !.fileName).toBe(_('/test.ts'));
-          expect(getSourceCodeForDiagnostic(diags[0])).toBe('user.does_not_exist');
+          expect(diags[0].file!.fileName).toBe(_('/test.ts'));
+          expect(getSourceCodeForDiagnostic(diags[0])).toBe('does_not_exist');
         });
 
-        it('should be correct for indirect templates', async() => {
+        it('should be correct for indirect templates', async () => {
           env.write('test.ts', `
           import {Component, NgModule} from '@angular/core';
 
@@ -1614,12 +1771,12 @@ export declare class AnimationEvent {
 
           const diags = await driveDiagnostics();
           expect(diags.length).toBe(1);
-          expect(diags[0].file !.fileName).toBe(_('/test.ts') + ' (TestCmp template)');
-          expect(getSourceCodeForDiagnostic(diags[0])).toBe('user.does_not_exist');
-          expect(getSourceCodeForDiagnostic(diags[0].relatedInformation ![0])).toBe('TEMPLATE');
+          expect(diags[0].file!.fileName).toBe(_('/test.ts') + ' (TestCmp template)');
+          expect(getSourceCodeForDiagnostic(diags[0])).toBe('does_not_exist');
+          expect(getSourceCodeForDiagnostic(diags[0].relatedInformation![0])).toBe('TEMPLATE');
         });
 
-        it('should be correct for external templates', async() => {
+        it('should be correct for external templates', async () => {
           env.write('template.html', `<p>
           {{user.does_not_exist}}
         </p>`);
@@ -1637,9 +1794,9 @@ export declare class AnimationEvent {
 
           const diags = await driveDiagnostics();
           expect(diags.length).toBe(1);
-          expect(diags[0].file !.fileName).toBe(_('/template.html'));
-          expect(getSourceCodeForDiagnostic(diags[0])).toBe('user.does_not_exist');
-          expect(getSourceCodeForDiagnostic(diags[0].relatedInformation ![0]))
+          expect(diags[0].file!.fileName).toBe(_('/template.html'));
+          expect(getSourceCodeForDiagnostic(diags[0])).toBe('does_not_exist');
+          expect(getSourceCodeForDiagnostic(diags[0].relatedInformation![0]))
               .toBe(`'./template.html'`);
         });
       });
@@ -1679,10 +1836,50 @@ export declare class AnimationEvent {
            expect(diags.length).toBe(0);
          });
     });
+
+    describe('stability', () => {
+      beforeEach(() => {
+        env.write('test.ts', `
+          import {Component} from '@angular/core';
+
+          @Component({
+            selector: 'test-cmp',
+            template: '{{expr}}'
+          })
+          export class TestCmp {
+            expr = 'string';
+          }
+        `);
+      });
+
+      // This section tests various scenarios which have more complex ts.Program setups and thus
+      // exercise edge cases of the template type-checker.
+      it('should accept a program with a flat index', () => {
+        // This test asserts that flat indices don't have any negative interactions with the
+        // generation of template type-checking code in the program.
+        env.tsconfig({fullTemplateTypeCheck: true, flatModuleOutFile: 'flat.js'});
+
+        expect(env.driveDiagnostics()).toEqual([]);
+      });
+
+      it('should not leave references to shims after execution', () => {
+        // This test verifies that proper cleanup is performed for the technique being used to
+        // include shim files in the ts.Program, and that none are left in the referencedFiles of
+        // any ts.SourceFile after compilation.
+        env.enableMultipleCompilations();
+
+        env.driveMain();
+        for (const sf of env.getTsProgram().getSourceFiles()) {
+          for (const ref of sf.referencedFiles) {
+            expect(ref.fileName).not.toContain('.ngtypecheck.ts');
+          }
+        }
+      });
+    });
   });
 });
 
 function getSourceCodeForDiagnostic(diag: ts.Diagnostic): string {
-  const text = diag.file !.text;
-  return text.substr(diag.start !, diag.length !);
+  const text = diag.file!.text;
+  return text.substr(diag.start!, diag.length!);
 }

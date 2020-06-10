@@ -108,6 +108,9 @@
     "name": "SANITIZER"
   },
   {
+    "name": "TRANSPLANTED_VIEWS_TO_REFRESH"
+  },
+  {
     "name": "TVIEW"
   },
   {
@@ -264,6 +267,9 @@
     "name": "getFactoryDef"
   },
   {
+    "name": "getFirstLContainer"
+  },
+  {
     "name": "getFirstNativeNode"
   },
   {
@@ -286,6 +292,9 @@
   },
   {
     "name": "getNativeByTNode"
+  },
+  {
+    "name": "getNextLContainer"
   },
   {
     "name": "getNodeInjectable"
@@ -381,10 +390,16 @@
     "name": "leaveView"
   },
   {
+    "name": "leaveViewLight"
+  },
+  {
     "name": "locateHostElement"
   },
   {
     "name": "markAsComponentHost"
+  },
+  {
+    "name": "markTransplantedViewsForRefresh"
   },
   {
     "name": "nativeAppendChild"
@@ -411,13 +426,13 @@
     "name": "refreshComponent"
   },
   {
+    "name": "refreshContainsDirtyView"
+  },
+  {
     "name": "refreshContentQueries"
   },
   {
     "name": "refreshDynamicEmbeddedViews"
-  },
-  {
-    "name": "refreshTransplantedViews"
   },
   {
     "name": "refreshView"
@@ -453,6 +468,9 @@
     "name": "setBindingRootForHostBindings"
   },
   {
+    "name": "setCurrentDirectiveIndex"
+  },
+  {
     "name": "setCurrentQueryIndex"
   },
   {
@@ -481,6 +499,9 @@
   },
   {
     "name": "unwrapRNode"
+  },
+  {
+    "name": "updateTransplantedViewCount"
   },
   {
     "name": "viewAttachedToChangeDetector"

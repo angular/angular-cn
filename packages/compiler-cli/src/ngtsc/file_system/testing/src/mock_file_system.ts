@@ -21,9 +21,13 @@ export abstract class MockFileSystem implements FileSystem {
     this._cwd = this.normalize(cwd);
   }
 
-  isCaseSensitive() { return this._isCaseSensitive; }
+  isCaseSensitive() {
+    return this._isCaseSensitive;
+  }
 
-  exists(path: AbsoluteFsPath): boolean { return this.findFromPath(path).entity !== null; }
+  exists(path: AbsoluteFsPath): boolean {
+    return this.findFromPath(path).entity !== null;
+  }
 
   readFile(path: AbsoluteFsPath): string {
     const {entity} = this.findFromPath(path);
@@ -115,7 +119,7 @@ export abstract class MockFileSystem implements FileSystem {
   }
 
   ensureDir(path: AbsoluteFsPath): void {
-    const segments = this.splitPath(path);
+    const segments = this.splitPath(path).map(segment => this.getCanonicalPath(segment));
     let current: Folder = this._fileTree;
 
     // Convert the root folder to a canonical empty string `''` (on Windows it would be `'C:'`).
@@ -142,7 +146,9 @@ export abstract class MockFileSystem implements FileSystem {
     delete entity[basename];
   }
 
-  isRoot(path: AbsoluteFsPath): boolean { return this.dirname(path) === path; }
+  isRoot(path: AbsoluteFsPath): boolean {
+    return this.dirname(path) === path;
+  }
 
   extname(path: AbsoluteFsPath|PathSegment): string {
     const match = /.+(\.[^.]*)$/.exec(path);
@@ -159,9 +165,13 @@ export abstract class MockFileSystem implements FileSystem {
     }
   }
 
-  pwd(): AbsoluteFsPath { return this._cwd; }
+  pwd(): AbsoluteFsPath {
+    return this._cwd;
+  }
 
-  chdir(path: AbsoluteFsPath): void { this._cwd = this.normalize(path); }
+  chdir(path: AbsoluteFsPath): void {
+    this._cwd = this.normalize(path);
+  }
 
   getDefaultLibLocation(): AbsoluteFsPath {
     // Mimic the node module resolution algorithm and start in the current directory, then look
@@ -201,8 +211,29 @@ export abstract class MockFileSystem implements FileSystem {
   abstract normalize<T extends PathString>(path: T): T;
   protected abstract splitPath<T extends PathString>(path: T): string[];
 
-  dump(): Folder { return cloneFolder(this._fileTree); }
-  init(folder: Folder): void { this._fileTree = cloneFolder(folder); }
+  dump(): Folder {
+    return this.cloneFolder(this._fileTree);
+  }
+  init(folder: Folder): void {
+    this._fileTree = this.cloneFolder(folder);
+  }
+
+  private cloneFolder(folder: Folder): Folder {
+    const clone: Folder = {};
+    for (const path in folder) {
+      const item = folder[path];
+      const canonicalPath = this.getCanonicalPath(path);
+      if (isSymLink(item)) {
+        clone[canonicalPath] = new SymLink(this.getCanonicalPath(item.path));
+      } else if (isFolder(item)) {
+        clone[canonicalPath] = this.cloneFolder(item);
+      } else {
+        clone[canonicalPath] = folder[path];
+      }
+    }
+    return clone;
+  }
+
 
   protected findFromPath(path: AbsoluteFsPath, options?: {followSymLinks: boolean}): FindResult {
     const followSymLinks = !!options && options.followSymLinks;
@@ -215,7 +246,7 @@ export abstract class MockFileSystem implements FileSystem {
     segments[0] = '';
     let current: Entity|null = this._fileTree;
     while (segments.length) {
-      current = current[segments.shift() !];
+      current = current[this.getCanonicalPath(segments.shift()!)];
       if (current === undefined) {
         return {path, entity: null};
       }
@@ -238,17 +269,23 @@ export abstract class MockFileSystem implements FileSystem {
   }
 
   protected splitIntoFolderAndFile(path: AbsoluteFsPath): [AbsoluteFsPath, string] {
-    const segments = this.splitPath(path);
-    const file = segments.pop() !;
+    const segments = this.splitPath(this.getCanonicalPath(path));
+    const file = segments.pop()!;
     return [path.substring(0, path.length - file.length - 1) as AbsoluteFsPath, file];
+  }
+
+  protected getCanonicalPath<T extends string>(p: T): T {
+    return this.isCaseSensitive() ? p : p.toLowerCase() as T;
   }
 }
 export interface FindResult {
   path: AbsoluteFsPath;
   entity: Entity|null;
 }
-export type Entity = Folder | File | SymLink;
-export interface Folder { [pathSegments: string]: Entity; }
+export type Entity = Folder|File|SymLink;
+export interface Folder {
+  [pathSegments: string]: Entity;
+}
 export type File = string;
 export class SymLink {
   constructor(public path: AbsoluteFsPath) {}
@@ -256,38 +293,31 @@ export class SymLink {
 
 class MockFileStats implements FileStats {
   constructor(private entity: Entity) {}
-  isFile(): boolean { return isFile(this.entity); }
-  isDirectory(): boolean { return isFolder(this.entity); }
-  isSymbolicLink(): boolean { return isSymLink(this.entity); }
+  isFile(): boolean {
+    return isFile(this.entity);
+  }
+  isDirectory(): boolean {
+    return isFolder(this.entity);
+  }
+  isSymbolicLink(): boolean {
+    return isSymLink(this.entity);
+  }
 }
 
 class MockFileSystemError extends Error {
-  constructor(public code: string, public path: string, message: string) { super(message); }
+  constructor(public code: string, public path: string, message: string) {
+    super(message);
+  }
 }
 
-export function isFile(item: Entity | null): item is File {
+export function isFile(item: Entity|null): item is File {
   return typeof item === 'string';
 }
 
-export function isSymLink(item: Entity | null): item is SymLink {
+export function isSymLink(item: Entity|null): item is SymLink {
   return item instanceof SymLink;
 }
 
-export function isFolder(item: Entity | null): item is Folder {
+export function isFolder(item: Entity|null): item is Folder {
   return item !== null && !isFile(item) && !isSymLink(item);
-}
-
-function cloneFolder(folder: Folder): Folder {
-  const clone: Folder = {};
-  for (const path in folder) {
-    const item = folder[path];
-    if (isSymLink(item)) {
-      clone[path] = new SymLink(item.path);
-    } else if (isFolder(item)) {
-      clone[path] = cloneFolder(item);
-    } else {
-      clone[path] = folder[path];
-    }
-  }
-  return clone;
 }

@@ -6,11 +6,19 @@ _Angular elements_ are Angular components packaged as _custom elements_ (also ca
 
 *Angular 元素*就是打包成*自定义元素*的 Angular 组件。所谓自定义元素就是一套与具体框架无关的用于定义新 HTML 元素的 Web 标准。
 
-[Custom elements](https://developer.mozilla.org/en-US/docs/Web/Web_Components/Using_custom_elements) are a Web Platform feature currently supported by Chrome, Firefox, Opera, and Safari, and available in other browsers through polyfills (see [Browser Support](#browser-support)).
+<div class="alert is-helpful">
+
+  For the sample app that this page describes, see the <live-example></live-example>.
+
+  这里所说的范例应用，请参见<live-example></live-example>。
+
+</div>
+
+[Custom elements](https://developer.mozilla.org/en-US/docs/Web/Web_Components/Using_custom_elements) are a Web Platform feature currently supported by Chrome, Edge (Chromium-based), Firefox, Opera, and Safari, and available in other browsers through polyfills (see [Browser Support](#browser-support)).
 A custom element extends HTML by allowing you to define a tag whose content is created and controlled by JavaScript code.
 The browser maintains a `CustomElementRegistry` of defined custom elements, which maps an instantiable JavaScript class to an HTML tag.
 
-[自定义元素](https://developer.mozilla.org/en-US/docs/Web/Web_Components/Using_custom_elements)这项特性目前受到了 Chrome、Opera 和 Safari 的支持，在其它浏览器中也能通过腻子脚本（参见[浏览器支持](#browser-support)）加以支持。
+[自定义元素](https://developer.mozilla.org/en-US/docs/Web/Web_Components/Using_custom_elements)这项特性目前受到了 Chrome、Edge（基于 Chromium 的版本）、Opera 和 Safari 的支持，在其它浏览器中也能通过腻子脚本（参见[浏览器支持](#browser-support)）加以支持。
 自定义元素扩展了 HTML，它允许你定义一个由 JavaScript 代码创建和控制的标签。
 浏览器会维护一个自定义元素的注册表 `CustomElementRegistry`，它把一个可实例化的 JavaScript 类映射到 HTML 标签上。
 
@@ -145,7 +153,7 @@ For more information, see Web Component documentation for [Creating custom event
 
 ## 自定义元素的浏览器支持
 
-The recently-developed [custom elements](https://developer.mozilla.org/en-US/docs/Web/Web_Components/Using_custom_elements) Web Platform feature is currently supported natively in a number of browsers. Support is pending or planned in other browsers.
+The recently-developed [custom elements](https://developer.mozilla.org/en-US/docs/Web/Web_Components/Using_custom_elements) Web Platform feature is currently supported natively in a number of browsers.
 
 最近开发的 Web 平台特性：[自定义元素](https://developer.mozilla.org/en-US/docs/Web/Web_Components/Using_custom_elements)目前在一些浏览器中实现了原生支持，而其它浏览器或者尚未决定，或者已经制订了计划。
 
@@ -190,7 +198,9 @@ The recently-developed [custom elements](https://developer.mozilla.org/en-US/doc
 
   <td>
 
-      Opera
+      Edge (Chromium-based)
+
+      Edge (基于 Chromium 的)
 
   </td>
 
@@ -201,13 +211,12 @@ The recently-developed [custom elements](https://developer.mozilla.org/en-US/doc
       原生支持。
 
   </td>
-
 </tr>
 <tr>
 
   <td>
 
-      Safari
+      Firefox
 
   </td>
 
@@ -218,10 +227,9 @@ The recently-developed [custom elements](https://developer.mozilla.org/en-US/doc
       原生支持。
 
   </td>
-
 </tr>
 <tr>
-  <td>Firefox</td>
+  <td>Opera</td>
   <td>
 
   Supported natively.
@@ -231,21 +239,14 @@ The recently-developed [custom elements](https://developer.mozilla.org/en-US/doc
   </td>
 </tr>
 <tr>
-
+  <td>Safari</td>
   <td>
 
-      Edge
+  Supported natively.
+
+  原生支持。
 
   </td>
-
-  <td>
-
-      Working on an implementation. <br>    
-
-      正在实现。<br>
-
-  </td>
-
 </tr>
 </table>
 
@@ -318,14 +319,6 @@ For comparison, the demo shows both methods. One button adds the popup using the
 
   </code-pane>
 </code-tabs>
-
-<!--
-  StackBlitz transpiles code to ES5. The live example will not work without a polyfill.
-  Only offer a `.zip` to download for now.
--->
-You can download the full code for the example <live-example downloadOnly>here</live-example>.
-
-你可以到 <live-example downloadOnly>这里</live-example> 下载本例子的完整代码。
 
 ## Typings for custom elements
 

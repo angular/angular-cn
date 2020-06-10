@@ -10,17 +10,15 @@ import {$, browser} from 'protractor';
 import {runBenchmark} from '../../../e2e_util/perf_util';
 
 describe('benchmarks', () => {
-
-  it('should work for create', done => {
+  it('should work for create', async () => {
     browser.rootEl = '#root';
-    runBenchmark({
+    await runBenchmark({
       id: 'create',
       url: '',
       ignoreBrowserSynchronization: true,
       params: [],
       prepare: () => $('#reset').click(),
       work: () => $('#init').click()
-    }).then(done, done.fail);
+    });
   });
-
 });

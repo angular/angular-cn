@@ -145,7 +145,7 @@ The following *negative* example defines the `AppComponent`, bootstraps the app,
 defines the `Hero` model object, and loads heroes from the server all in the same file.
 *Don't do this*.
 
-下面的*负面*例子定义了 `AppComponent`，它来引导应用程序，定义了 `Hero` 模型对象，并从服务器加载了英雄 ... 所有都在同一个文件。 *不要这么做*。
+下面的*负面*例子定义了 `AppComponent`，它来引导应用程序，定义了 `Hero` 模型对象，并从服务器加载了英雄 ... 所有都在同一个文件。*不要这么做*。
 
 <code-example path="styleguide/src/01-01/app/heroes/hero.component.avoid.ts" header="app/heroes/hero.component.ts">
 
@@ -866,7 +866,6 @@ As always, strive for consistency.
 
 </div>
 
-
 <code-example path="styleguide/src/02-05/main.ts" header="main.ts">
 
 </code-example>
@@ -1011,7 +1010,6 @@ For example, the prefix `toh` represents **T**our **o**f **H**eroes and the pref
 
 #### 风格 02-06
 
-
 <div class="s-rule do">
 
 **Do** Use lower camel case for naming the selectors of directives.
@@ -1035,8 +1033,6 @@ For example, the prefix `toh` represents **T**our **o**f **H**eroes and the pref
 **为何？** Angular 的 HTML 解析器是大小写敏感的，可以识别小驼峰形式。
 
 </div>
-
-
 
 <a href="#toc">Back to top</a>
 
@@ -1644,7 +1640,6 @@ A consistent class and file name convention make these modules easy to spot and 
   </tr>
 
 </table>
-
 
 <a href="#toc">Back to top</a>
 
@@ -2778,9 +2773,6 @@ Yet there is a real danger of that happening if the `SharedModule` provides a se
 
 </code-tabs>
 
-
-
-
 <a href="#toc">Back to top</a>
 
 <a href="#toc">回到顶部</a>
@@ -2963,7 +2955,7 @@ There are a few cases where you give a component an attribute, such as when you 
 
 **Do** specify _component-relative_ URLs, prefixed with `./`.
 
-**坚持**指定*相对于模块的* URL ，给它加上 `./` 前缀。
+**坚持**指定*相对于模块的* URL，给它加上 `./` 前缀。
 
 </div>
 

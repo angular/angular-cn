@@ -13,7 +13,7 @@ By separating a component's view-related functionality from other kinds of proce
 you can make your component classes lean and efficient.
 
 Angular 把组件和服务区分开，以提高模块性和复用性。
-通过把组件中和视图有关的功能与其他类型的处理分离开，你可以让组件类更加精简、高效。
+通过把组件中和视图有关的功能与其它类型的处理分离开，你可以让组件类更加精简、高效。
 
 Ideally, a component's job is to enable the user experience and nothing more.
 A component should present properties and methods for data binding,
@@ -133,7 +133,7 @@ or you can register providers with specific modules or components.
 You register providers in the metadata of the service (in the `@Injectable()` decorator),
 or in the `@NgModule()` or `@Component()` metadata
 
-对于要用到的任何服务，你必须至少注册一个*提供者*。服务可以在自己的元数据中把自己注册为提供者，这样可以让自己随处可用。或者，你也可以为特定的模块或组件注册提供者。要注册提供者，就要在服务的 `@Injectable()` 装饰器中提供它的元数据，或者在`@NgModule()` 或 `@Component()` 的元数据中。
+对于要用到的任何服务，你必须至少注册一个*提供者*。服务可以在自己的元数据中把自己注册为提供者，这样可以让自己随处可用。或者，你也可以为特定的模块或组件注册提供者。要注册提供者，就要在服务的 `@Injectable()` 装饰器中提供它的元数据，或者在 `@NgModule()` 或 `@Component()` 的元数据中。
 
 * By default, the Angular CLI command [`ng generate service`](cli/generate) registers a provider with the root injector for your service by including provider metadata in the `@Injectable()` decorator. The tutorial uses this method to register the provider of HeroService class definition.
 

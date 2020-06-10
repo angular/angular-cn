@@ -40,21 +40,20 @@ const UpdateWorker: Worker = {
 // name. e.g. "largeTable.ng2_switch.createDestroy". We determine the name of the
 // Bazel package where this test runs from the current test target. The Bazel target
 // looks like: "//modules/benchmarks/src/largetable/{pkg_name}:{target_name}".
-const testPackageName = process.env['BAZEL_TARGET'] !.split(':')[0].split('/').pop();
+const testPackageName = process.env['BAZEL_TARGET']!.split(':')[0].split('/').pop();
 
 describe('largetable benchmark perf', () => {
-
   afterEach(verifyNoBrowserErrors);
 
   [CreateOnlyWorker, CreateAndDestroyWorker, UpdateWorker].forEach((worker) => {
     describe(worker.id, () => {
-      it(`should run benchmark for ${testPackageName}`, done => {
-        runTableBenchmark({
+      it(`should run benchmark for ${testPackageName}`, async () => {
+        await runTableBenchmark({
           id: `largeTable.${testPackageName}.${worker.id}`,
           url: '/',
           ignoreBrowserSynchronization: true,
           worker: worker
-        }).then(done, done.fail);
+        });
       });
     });
   });

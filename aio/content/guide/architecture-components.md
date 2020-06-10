@@ -1,9 +1,9 @@
-# Introduction to components
+# Introduction to components and templates
 
 # 组件简介
 
-A *component* controls a patch of screen called a *view*.
-For example, individual components define and control each of the following views from the [Tutorial](tutorial):
+A *component* controls a patch of screen called a [*view*](guide/glossary#view "Definition of view").
+For example, individual components define and control each of the following views from the [Tour of Heroes tutorial](tutorial):
 
 *组件*控制屏幕上被称为*视图*的一小片区域。比如，[教程](tutorial/index)中的下列视图都是由一个个组件所定义和控制的：
 
@@ -30,7 +30,7 @@ Its `selectHero()` method sets a `selectedHero` property when the user clicks to
 The component acquires the heroes from a service, which is a TypeScript [parameter property](http://www.typescriptlang.org/docs/handbook/classes.html#parameter-properties) on the constructor.
 The service is provided to the component through the dependency injection system.
 
-比如，`HeroListComponent` 中有一个 名为`heroes`的属性，它储存着一个数组的英雄数据。
+比如，`HeroListComponent` 中有一个 名为 `heroes` 的属性，它储存着一个数组的英雄数据。
 `HeroListComponent` 还有一个 `selectHero()` 方法，当用户从列表中选择一个英雄时，它会设置 `selectedHero` 属性的值。
 该组件会从服务获取英雄列表，它是一个 TypeScript 的构造器[参数型属性](http://www.typescriptlang.org/docs/handbook/classes.html#parameter-properties)。本服务通过依赖注入系统提供给该组件。
 
@@ -39,7 +39,7 @@ The service is provided to the component through the dependency injection system
 Angular creates, updates, and destroys components as the user moves through the application. Your app can take action at each moment in this lifecycle through optional [lifecycle hooks](guide/lifecycle-hooks), like `ngOnInit()`.
 
 当用户在应用中穿行时，Angular 就会创建、更新、销毁一些组件。
-你的应用可以通过一些可选的[生命周期钩子](guide/lifecycle-hooks)（比如`ngOnInit()`）来在每个特定的时机采取行动。
+你的应用可以通过一些可选的[生命周期钩子](guide/lifecycle-hooks)（比如 `ngOnInit()`）来在每个特定的时机采取行动。
 
 ## Component metadata
 
@@ -178,7 +178,7 @@ This example from the `HeroListComponent` template uses three of these forms.
 * The `{{hero.name}}` [*interpolation*](guide/displaying-data#interpolation)
 displays the component's `hero.name` property value within the `<li>` element.
 
-   `{{hero.name}}`这个[*插值*](guide/displaying-data#interpolation)在 `<li>` 标签中显示组件的 `hero.name` 属性的值。
+   `{{hero.name}}` 这个[*插值*](guide/displaying-data#interpolation)在 `<li>` 标签中显示组件的 `hero.name` 属性的值。
 
 * The `[hero]` [*property binding*](guide/template-syntax#property-binding) passes the value of
 `selectedHero` from the parent `HeroListComponent` to the `hero` property of the child `HeroDetailComponent`.

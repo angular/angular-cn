@@ -411,7 +411,6 @@ Each budget entry is a JSON object with the following properties:
 
  </table>
 
-
 {@a browser-compat}
 
 ## Configuring browser compatibility
@@ -488,7 +487,7 @@ To do this, add the following to the top of the global styles file (or within a 
 为此，请将以下内容添加到全局样式文件的顶部（或用在特定的 css 选择器范围内）：
 
 ```
-/* autoprefixer grid: autoplace /
+/* autoprefixer grid: autoplace */
 ```
 
 or
@@ -496,13 +495,12 @@ or
 或
 
 ```
-/ autoprefixer grid: no-autoplace */
+/* autoprefixer grid: no-autoplace */
 ```
 
 For more information, see [Autoprefixer documentation](https://autoprefixer.github.io/).
 
 欲知详情，参见 [Autoprefixer 文档](https://autoprefixer.github.io/)。
-
 
 {@a proxy}
 

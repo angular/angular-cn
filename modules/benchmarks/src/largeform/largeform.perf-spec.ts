@@ -26,14 +26,12 @@ const CreateAndDestroyWorker = {
 };
 
 describe('largeform benchmark spec', () => {
-
   afterEach(verifyNoBrowserErrors);
 
   [CreateAndDestroyWorker].forEach((worker) => {
     describe(worker.id, () => {
-      it('should run for ng2', done => {
-        runLargeFormBenchmark({url: '/', id: `largeform.ng2.${worker.id}`, worker: worker})
-            .then(done, done.fail);
+      it('should run for ng2', async () => {
+        await runLargeFormBenchmark({url: '/', id: `largeform.ng2.${worker.id}`, worker: worker});
       });
     });
   });

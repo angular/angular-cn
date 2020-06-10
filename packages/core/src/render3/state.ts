@@ -7,10 +7,13 @@
  */
 
 import {StyleSanitizeFn} from '../sanitization/style_sanitizer';
-import {assertDefined} from '../util/assert';
+import {assertDefined, assertEqual} from '../util/assert';
 import {assertLViewOrUndefined} from './assert';
+import {DirectiveDef} from './interfaces/definition';
 import {TNode} from './interfaces/node';
-import {CONTEXT, DECLARATION_VIEW, LView, OpaqueViewState, TVIEW, TView} from './interfaces/view';
+import {CONTEXT, DECLARATION_VIEW, LView, OpaqueViewState, TData, TVIEW, TView} from './interfaces/view';
+import {MATH_ML_NAMESPACE, SVG_NAMESPACE} from './namespaces';
+import {getTNode} from './util/view_utils';
 
 
 /**
@@ -269,9 +272,9 @@ export function getPreviousOrParentTNode(): TNode {
   return instructionState.lFrame.previousOrParentTNode;
 }
 
-export function setPreviousOrParentTNode(tNode: TNode, _isParent: boolean) {
+export function setPreviousOrParentTNode(tNode: TNode, isParent: boolean) {
   instructionState.lFrame.previousOrParentTNode = tNode;
-  instructionState.lFrame.isParent = _isParent;
+  instructionState.lFrame.isParent = isParent;
 }
 
 export function getIsParent(): boolean {
@@ -342,7 +345,7 @@ export function setBindingRootForHostBindings(
     bindingRootIndex: number, currentDirectiveIndex: number) {
   const lFrame = instructionState.lFrame;
   lFrame.bindingIndex = lFrame.bindingRootIndex = bindingRootIndex;
-  lFrame.currentDirectiveIndex = currentDirectiveIndex;
+  setCurrentDirectiveIndex(currentDirectiveIndex);
 }
 
 /**
@@ -352,6 +355,26 @@ export function setBindingRootForHostBindings(
  */
 export function getCurrentDirectiveIndex(): number {
   return instructionState.lFrame.currentDirectiveIndex;
+}
+
+/**
+ * Sets an index of a directive whose `hostBindings` are being processed.
+ *
+ * @param currentDirectiveIndex `TData` index where current directive instance can be found.
+ */
+export function setCurrentDirectiveIndex(currentDirectiveIndex: number): void {
+  instructionState.lFrame.currentDirectiveIndex = currentDirectiveIndex;
+}
+
+/**
+ * Retrieve the current `DirectiveDef` which is active when `hostBindings` instruction is being
+ * executed.
+ *
+ * @param tData Current `TData` where the `DirectiveDef` will be looked up at.
+ */
+export function getCurrentDirectiveDef(tData: TData): DirectiveDef<any>|null {
+  const currentDirectiveIndex = instructionState.lFrame.currentDirectiveIndex;
+  return currentDirectiveIndex === -1 ? null : tData[currentDirectiveIndex] as DirectiveDef<any>;
 }
 
 export function getCurrentQueryIndex(): number {
@@ -371,30 +394,9 @@ export function enterDI(newView: LView, tNode: TNode) {
   ngDevMode && assertLViewOrUndefined(newView);
   const newLFrame = allocLFrame();
   instructionState.lFrame = newLFrame;
-  newLFrame.previousOrParentTNode = tNode !;
+  newLFrame.previousOrParentTNode = tNode!;
   newLFrame.lView = newView;
-  if (ngDevMode) {
-    // resetting for safety in dev mode only.
-    newLFrame.isParent = DEV_MODE_VALUE;
-    newLFrame.selectedIndex = DEV_MODE_VALUE;
-    newLFrame.contextLView = DEV_MODE_VALUE;
-    newLFrame.elementDepthCount = DEV_MODE_VALUE;
-    newLFrame.currentNamespace = DEV_MODE_VALUE;
-    newLFrame.currentSanitizer = DEV_MODE_VALUE;
-    newLFrame.bindingRootIndex = DEV_MODE_VALUE;
-    newLFrame.currentQueryIndex = DEV_MODE_VALUE;
-  }
 }
-
-const DEV_MODE_VALUE: any =
-    'Value indicating that DI is trying to read value which it should not need to know about.';
-
-/**
- * This is a light weight version of the `leaveView` which is needed by the DI system.
- *
- * Because the implementation is same it is only an alias
- */
-export const leaveDI = leaveView;
 
 /**
  * Swap the current lView with a new lView.
@@ -408,24 +410,28 @@ export const leaveDI = leaveView;
  * @param tNode Element to which the View is a child of
  * @returns the previously active lView;
  */
-export function enterView(newView: LView, tNode: TNode | null): void {
+export function enterView(newView: LView, tNode: TNode|null): void {
   ngDevMode && assertLViewOrUndefined(newView);
   const newLFrame = allocLFrame();
+  if (ngDevMode) {
+    assertEqual(newLFrame.isParent, true, 'Expected clean LFrame');
+    assertEqual(newLFrame.lView, null, 'Expected clean LFrame');
+    assertEqual(newLFrame.tView, null, 'Expected clean LFrame');
+    assertEqual(newLFrame.selectedIndex, 0, 'Expected clean LFrame');
+    assertEqual(newLFrame.elementDepthCount, 0, 'Expected clean LFrame');
+    assertEqual(newLFrame.currentDirectiveIndex, -1, 'Expected clean LFrame');
+    assertEqual(newLFrame.currentNamespace, null, 'Expected clean LFrame');
+    assertEqual(newLFrame.currentSanitizer, null, 'Expected clean LFrame');
+    assertEqual(newLFrame.bindingRootIndex, -1, 'Expected clean LFrame');
+    assertEqual(newLFrame.currentQueryIndex, 0, 'Expected clean LFrame');
+  }
   const tView = newView[TVIEW];
   instructionState.lFrame = newLFrame;
-  newLFrame.previousOrParentTNode = tNode !;
-  newLFrame.isParent = true;
+  newLFrame.previousOrParentTNode = tNode!;
   newLFrame.lView = newView;
   newLFrame.tView = tView;
-  newLFrame.selectedIndex = 0;
-  newLFrame.contextLView = newView !;
-  newLFrame.elementDepthCount = 0;
-  newLFrame.currentDirectiveIndex = -1;
-  newLFrame.currentNamespace = null;
-  newLFrame.currentSanitizer = null;
-  newLFrame.bindingRootIndex = -1;
+  newLFrame.contextLView = newView!;
   newLFrame.bindingIndex = tView.bindingStartIndex;
-  newLFrame.currentQueryIndex = 0;
 }
 
 /**
@@ -438,44 +444,89 @@ function allocLFrame() {
   return newLFrame;
 }
 
-function createLFrame(parent: LFrame | null): LFrame {
+function createLFrame(parent: LFrame|null): LFrame {
   const lFrame: LFrame = {
-    previousOrParentTNode: null !,  //
-    isParent: true,                 //
-    lView: null !,                  //
-    tView: null !,                  //
-    selectedIndex: 0,               //
-    contextLView: null !,           //
-    elementDepthCount: 0,           //
-    currentNamespace: null,         //
-    currentSanitizer: null,         //
-    currentDirectiveIndex: -1,      //
-    bindingRootIndex: -1,           //
-    bindingIndex: -1,               //
-    currentQueryIndex: 0,           //
-    parent: parent !,               //
-    child: null,                    //
+    previousOrParentTNode: null!,  //
+    isParent: true,                //
+    lView: null!,                  //
+    tView: null!,                  //
+    selectedIndex: 0,              //
+    contextLView: null!,           //
+    elementDepthCount: 0,          //
+    currentNamespace: null,        //
+    currentSanitizer: null,        //
+    currentDirectiveIndex: -1,     //
+    bindingRootIndex: -1,          //
+    bindingIndex: -1,              //
+    currentQueryIndex: 0,          //
+    parent: parent!,               //
+    child: null,                   //
   };
   parent !== null && (parent.child = lFrame);  // link the new LFrame for reuse.
   return lFrame;
 }
 
+/**
+ * A lightweight version of leave which is used with DI.
+ *
+ * This function only resets `previousOrParentTNode` and `LView` as those are the only properties
+ * used with DI (`enterDI()`).
+ *
+ * NOTE: This function is reexported as `leaveDI`. However `leaveDI` has return type of `void` where
+ * as `leaveViewLight` has `LFrame`. This is so that `leaveViewLight` can be used in `leaveView`.
+ */
+function leaveViewLight(): LFrame {
+  const oldLFrame = instructionState.lFrame;
+  instructionState.lFrame = oldLFrame.parent;
+  oldLFrame.previousOrParentTNode = null!;
+  oldLFrame.lView = null!;
+  return oldLFrame;
+}
+
+/**
+ * This is a lightweight version of the `leaveView` which is needed by the DI system.
+ *
+ * NOTE: this function is an alias so that we can change the type of the function to have `void`
+ * return type.
+ */
+export const leaveDI: () => void = leaveViewLight;
+
+/**
+ * Leave the current `LView`
+ *
+ * This pops the `LFrame` with the associated `LView` from the stack.
+ *
+ * IMPORTANT: We must zero out the `LFrame` values here otherwise they will be retained. This is
+ * because for performance reasons we don't release `LFrame` but rather keep it for next use.
+ */
 export function leaveView() {
-  instructionState.lFrame = instructionState.lFrame.parent;
+  const oldLFrame = leaveViewLight();
+  oldLFrame.isParent = true;
+  oldLFrame.tView = null!;
+  oldLFrame.selectedIndex = 0;
+  oldLFrame.contextLView = null!;
+  oldLFrame.elementDepthCount = 0;
+  oldLFrame.currentDirectiveIndex = -1;
+  oldLFrame.currentNamespace = null;
+  oldLFrame.currentSanitizer = null;
+  oldLFrame.bindingRootIndex = -1;
+  oldLFrame.bindingIndex = -1;
+  oldLFrame.currentQueryIndex = 0;
 }
 
 export function nextContextImpl<T = any>(level: number): T {
   const contextLView = instructionState.lFrame.contextLView =
-      walkUpViews(level, instructionState.lFrame.contextLView !);
+      walkUpViews(level, instructionState.lFrame.contextLView!);
   return contextLView[CONTEXT] as T;
 }
 
 function walkUpViews(nestingLevel: number, currentView: LView): LView {
   while (nestingLevel > 0) {
-    ngDevMode && assertDefined(
-                     currentView[DECLARATION_VIEW],
-                     'Declaration view should be defined if nesting level is greater than 0.');
-    currentView = currentView[DECLARATION_VIEW] !;
+    ngDevMode &&
+        assertDefined(
+            currentView[DECLARATION_VIEW],
+            'Declaration view should be defined if nesting level is greater than 0.');
+    currentView = currentView[DECLARATION_VIEW]!;
     nestingLevel--;
   }
   return currentView;
@@ -504,6 +555,13 @@ export function setSelectedIndex(index: number) {
   instructionState.lFrame.selectedIndex = index;
 }
 
+/**
+ * Gets the `tNode` that represents currently selected element.
+ */
+export function getSelectedTNode() {
+  const lFrame = instructionState.lFrame;
+  return getTNode(lFrame.tView, lFrame.selectedIndex);
+}
 
 /**
  * Sets the namespace used to create elements to `'http://www.w3.org/2000/svg'` in global state.
@@ -511,7 +569,7 @@ export function setSelectedIndex(index: number) {
  * @codeGenApi
  */
 export function ɵɵnamespaceSVG() {
-  instructionState.lFrame.currentNamespace = 'http://www.w3.org/2000/svg';
+  instructionState.lFrame.currentNamespace = SVG_NAMESPACE;
 }
 
 /**
@@ -520,7 +578,7 @@ export function ɵɵnamespaceSVG() {
  * @codeGenApi
  */
 export function ɵɵnamespaceMathML() {
-  instructionState.lFrame.currentNamespace = 'http://www.w3.org/1998/MathML/';
+  instructionState.lFrame.currentNamespace = MATH_ML_NAMESPACE;
 }
 
 /**
@@ -545,7 +603,7 @@ export function getNamespace(): string|null {
   return instructionState.lFrame.currentNamespace;
 }
 
-export function setCurrentStyleSanitizer(sanitizer: StyleSanitizeFn | null) {
+export function setCurrentStyleSanitizer(sanitizer: StyleSanitizeFn|null) {
   instructionState.lFrame.currentSanitizer = sanitizer;
 }
 

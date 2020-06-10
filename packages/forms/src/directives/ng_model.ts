@@ -6,7 +6,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 
-import {Directive, EventEmitter, Host, Inject, Input, OnChanges, OnDestroy, Optional, Output, Self, SimpleChanges, forwardRef} from '@angular/core';
+import {Directive, EventEmitter, forwardRef, Host, Inject, Input, OnChanges, OnDestroy, Optional, Output, Self, SimpleChanges} from '@angular/core';
 
 import {FormControl, FormHooks} from '../model';
 import {NG_ASYNC_VALIDATORS, NG_VALIDATORS} from '../validators';
@@ -90,10 +90,11 @@ const resolvedPromise = (() => Promise.resolve(null))();
  * 如果使用 `[()]` 语法来双向绑定到 `ngModel`，那么视图中值的变化会随时同步回组件类中的领域模型。
  *
  * To inspect the properties of the associated `FormControl` (like validity state),
- * export the directive into a local template variable using `ngModel` as the key (ex: `#myVar="ngModel"`).
- * You then access the control using the directive's `control` property,
- * but most properties used (like `valid` and `dirty`) fall through to the control anyway for direct access.
- * See a full list of properties directly available in `AbstractControlDirective`.
+ * export the directive into a local template variable using `ngModel` as the key (ex:* `#myVar="ngModel"`). You then access the control using the directive's `control` property,
+  but
+ * most properties used (like `valid` and `dirty`) fall through to the control anyway for direct
+ * access.
+  See a full list of properties directly available in `AbstractControlDirective`.
  *
  * 如果你希望查看与 `FormControl` 相关的属性（比如校验状态），你也可以使用 `ngModel` 作为键，把该指令导出到一个局部模板变量中（如：`#myVar="ngModel"`）。
  * 你也可以使用该指令的 `control` 属性来访问此控件，实际上你要用到的大多数属性（如 `valid` 和 `dirty`）都会委托给该控件，这样你就可以直接访问这些属性了。
@@ -169,8 +170,8 @@ const resolvedPromise = (() => Promise.resolve(null))();
  *
  * ### 通过选项设置 ngModel 的 name 属性
  *
- * The following example shows you an alternate way to set the name attribute. The name attribute is used
- * within a custom form component, and the name `@Input` property serves a different purpose.
+ * The following example shows you an alternate way to set the name attribute. The name attribute is
+ * used within a custom form component, and the name `@Input` property serves a different purpose.
  *
  * 下面的例子展示了设置 name 属性的另一种方式。该 name 属性要和自定义表单组件一起使用，而该自定义组件的 `@Input` 属性 name 已用作其它用途。
  *
@@ -190,8 +191,7 @@ const resolvedPromise = (() => Promise.resolve(null))();
   providers: [formControlBinding],
   exportAs: 'ngModel'
 })
-export class NgModel extends NgControl implements OnChanges,
-    OnDestroy {
+export class NgModel extends NgControl implements OnChanges, OnDestroy {
   public readonly control: FormControl = new FormControl();
 
   // At runtime we coerce arbitrary values assigned to the "disabled" input to a "boolean".
@@ -218,14 +218,14 @@ export class NgModel extends NgControl implements OnChanges,
    * uses this name as a key to retrieve this control's value.
    */
   // TODO(issue/24571): remove '!'.
-  @Input() name !: string;
+  @Input() name!: string;
 
   /**
    * @description
    * Tracks whether the control is disabled.
    */
   // TODO(issue/24571): remove '!'.
-  @Input('disabled') isDisabled !: boolean;
+  @Input('disabled') isDisabled!: boolean;
 
   /**
    * @description
@@ -257,8 +257,7 @@ export class NgModel extends NgControl implements OnChanges,
    *
    */
   // TODO(issue/24571): remove '!'.
-  @Input('ngModelOptions')
-  options !: {name?: string, standalone?: boolean, updateOn?: FormHooks};
+  @Input('ngModelOptions') options!: {name?: string, standalone?: boolean, updateOn?: FormHooks};
 
   /**
    * @description
@@ -267,151 +266,156 @@ export class NgModel extends NgControl implements OnChanges,
    */
   @Output('ngModelChange') update = new EventEmitter();
 
-  constructor(@Optional() @Host() parent: ControlContainer,
-              @Optional() @Self() @Inject(NG_VALIDATORS) validators: Array<Validator|ValidatorFn>,
-              @Optional() @Self() @Inject(NG_ASYNC_VALIDATORS) asyncValidators: Array<AsyncValidator|AsyncValidatorFn>,
-              @Optional() @Self() @Inject(NG_VALUE_ACCESSOR)
-              valueAccessors: ControlValueAccessor[]) {
-                super();
-                this._parent = parent;
-                this._rawValidators = validators || [];
-                this._rawAsyncValidators = asyncValidators || [];
-                this.valueAccessor = selectValueAccessor(this, valueAccessors);
-              }
+  constructor(
+      @Optional() @Host() parent: ControlContainer,
+      @Optional() @Self() @Inject(NG_VALIDATORS) validators: Array<Validator|ValidatorFn>,
+      @Optional() @Self() @Inject(NG_ASYNC_VALIDATORS) asyncValidators:
+          Array<AsyncValidator|AsyncValidatorFn>,
+      @Optional() @Self() @Inject(NG_VALUE_ACCESSOR) valueAccessors: ControlValueAccessor[]) {
+    super();
+    this._parent = parent;
+    this._rawValidators = validators || [];
+    this._rawAsyncValidators = asyncValidators || [];
+    this.valueAccessor = selectValueAccessor(this, valueAccessors);
+  }
 
-              /**
-               * @description
-               * A lifecycle method called when the directive's inputs change. For internal use
-               * only.
-               *
-               * @param changes A object of key/value pairs for the set of changed inputs.
-               */
-              ngOnChanges(changes: SimpleChanges) {
-                this._checkForErrors();
-                if (!this._registered) this._setUpControl();
-                if ('isDisabled' in changes) {
-                  this._updateDisabled(changes);
-                }
+  /**
+   * @description
+   * A lifecycle method called when the directive's inputs change. For internal use
+   * only.
+   *
+   * @param changes A object of key/value pairs for the set of changed inputs.
+   */
+  ngOnChanges(changes: SimpleChanges) {
+    this._checkForErrors();
+    if (!this._registered) this._setUpControl();
+    if ('isDisabled' in changes) {
+      this._updateDisabled(changes);
+    }
 
-                if (isPropertyUpdated(changes, this.viewModel)) {
-                  this._updateValue(this.model);
-                  this.viewModel = this.model;
-                }
-              }
+    if (isPropertyUpdated(changes, this.viewModel)) {
+      this._updateValue(this.model);
+      this.viewModel = this.model;
+    }
+  }
 
-              /**
-               * @description
-               * Lifecycle method called before the directive's instance is destroyed. For internal
-               * use only.
-               */
-              ngOnDestroy(): void { this.formDirective && this.formDirective.removeControl(this); }
+  /**
+   * @description
+   * Lifecycle method called before the directive's instance is destroyed. For internal
+   * use only.
+   */
+  ngOnDestroy(): void {
+    this.formDirective && this.formDirective.removeControl(this);
+  }
 
-              /**
-               * @description
-               * Returns an array that represents the path from the top-level form to this control.
-               * Each index is the string name of the control on that level.
-               */
-              get path(): string[] {
-                return this._parent ? controlPath(this.name, this._parent) : [this.name];
-              }
+  /**
+   * @description
+   * Returns an array that represents the path from the top-level form to this control.
+   * Each index is the string name of the control on that level.
+   */
+  get path(): string[] {
+    return this._parent ? controlPath(this.name, this._parent) : [this.name];
+  }
 
-              /**
-               * @description
-               * The top-level directive for this control if present, otherwise null.
-               */
-              get formDirective(): any { return this._parent ? this._parent.formDirective : null; }
+  /**
+   * @description
+   * The top-level directive for this control if present, otherwise null.
+   */
+  get formDirective(): any {
+    return this._parent ? this._parent.formDirective : null;
+  }
 
-              /**
-               * @description
-               * Synchronous validator function composed of all the synchronous validators
-               * registered with this directive.
-               */
-              get validator(): ValidatorFn|null { return composeValidators(this._rawValidators); }
+  /**
+   * @description
+   * Synchronous validator function composed of all the synchronous validators
+   * registered with this directive.
+   */
+  get validator(): ValidatorFn|null {
+    return composeValidators(this._rawValidators);
+  }
 
-              /**
-               * @description
-               * Async validator function composed of all the async validators registered with this
-               * directive.
-               */
-              get asyncValidator(): AsyncValidatorFn|null {
-                return composeAsyncValidators(this._rawAsyncValidators);
-              }
+  /**
+   * @description
+   * Async validator function composed of all the async validators registered with this
+   * directive.
+   */
+  get asyncValidator(): AsyncValidatorFn|null {
+    return composeAsyncValidators(this._rawAsyncValidators);
+  }
 
-              /**
-               * @description
-               * Sets the new value for the view model and emits an `ngModelChange` event.
-               *
-               * @param newValue The new value emitted by `ngModelChange`.
-               */
-              viewToModelUpdate(newValue: any): void {
-                this.viewModel = newValue;
-                this.update.emit(newValue);
-              }
+  /**
+   * @description
+   * Sets the new value for the view model and emits an `ngModelChange` event.
+   *
+   * @param newValue The new value emitted by `ngModelChange`.
+   */
+  viewToModelUpdate(newValue: any): void {
+    this.viewModel = newValue;
+    this.update.emit(newValue);
+  }
 
-              private _setUpControl(): void {
-                this._setUpdateStrategy();
-                this._isStandalone() ? this._setUpStandalone() :
-                                       this.formDirective.addControl(this);
-                this._registered = true;
-              }
+  private _setUpControl(): void {
+    this._setUpdateStrategy();
+    this._isStandalone() ? this._setUpStandalone() : this.formDirective.addControl(this);
+    this._registered = true;
+  }
 
-              private _setUpdateStrategy(): void {
-                if (this.options && this.options.updateOn != null) {
-                  this.control._updateOn = this.options.updateOn;
-                }
-              }
+  private _setUpdateStrategy(): void {
+    if (this.options && this.options.updateOn != null) {
+      this.control._updateOn = this.options.updateOn;
+    }
+  }
 
-              private _isStandalone(): boolean {
-                return !this._parent || !!(this.options && this.options.standalone);
-              }
+  private _isStandalone(): boolean {
+    return !this._parent || !!(this.options && this.options.standalone);
+  }
 
-              private _setUpStandalone(): void {
-                setUpControl(this.control, this);
-                this.control.updateValueAndValidity({emitEvent: false});
-              }
+  private _setUpStandalone(): void {
+    setUpControl(this.control, this);
+    this.control.updateValueAndValidity({emitEvent: false});
+  }
 
-              private _checkForErrors(): void {
-                if (!this._isStandalone()) {
-                  this._checkParentType();
-                }
-                this._checkName();
-              }
+  private _checkForErrors(): void {
+    if (!this._isStandalone()) {
+      this._checkParentType();
+    }
+    this._checkName();
+  }
 
-              private _checkParentType(): void {
-                if (!(this._parent instanceof NgModelGroup) &&
-                    this._parent instanceof AbstractFormGroupDirective) {
-                  TemplateDrivenErrors.formGroupNameException();
-                } else if (
-                    !(this._parent instanceof NgModelGroup) && !(this._parent instanceof NgForm)) {
-                  TemplateDrivenErrors.modelParentException();
-                }
-              }
+  private _checkParentType(): void {
+    if (!(this._parent instanceof NgModelGroup) &&
+        this._parent instanceof AbstractFormGroupDirective) {
+      TemplateDrivenErrors.formGroupNameException();
+    } else if (!(this._parent instanceof NgModelGroup) && !(this._parent instanceof NgForm)) {
+      TemplateDrivenErrors.modelParentException();
+    }
+  }
 
-              private _checkName(): void {
-                if (this.options && this.options.name) this.name = this.options.name;
+  private _checkName(): void {
+    if (this.options && this.options.name) this.name = this.options.name;
 
-                if (!this._isStandalone() && !this.name) {
-                  TemplateDrivenErrors.missingNameException();
-                }
-              }
+    if (!this._isStandalone() && !this.name) {
+      TemplateDrivenErrors.missingNameException();
+    }
+  }
 
-              private _updateValue(value: any): void {
-                resolvedPromise.then(
-                    () => { this.control.setValue(value, {emitViewToModelChange: false}); });
-              }
+  private _updateValue(value: any): void {
+    resolvedPromise.then(() => {
+      this.control.setValue(value, {emitViewToModelChange: false});
+    });
+  }
 
-              private _updateDisabled(changes: SimpleChanges) {
-                const disabledValue = changes['isDisabled'].currentValue;
+  private _updateDisabled(changes: SimpleChanges) {
+    const disabledValue = changes['isDisabled'].currentValue;
 
-                const isDisabled =
-                    disabledValue === '' || (disabledValue && disabledValue !== 'false');
+    const isDisabled = disabledValue === '' || (disabledValue && disabledValue !== 'false');
 
-                resolvedPromise.then(() => {
-                  if (isDisabled && !this.control.disabled) {
-                    this.control.disable();
-                  } else if (!isDisabled && this.control.disabled) {
-                    this.control.enable();
-                  }
-                });
-              }
+    resolvedPromise.then(() => {
+      if (isDisabled && !this.control.disabled) {
+        this.control.disable();
+      } else if (!isDisabled && this.control.disabled) {
+        this.control.enable();
+      }
+    });
+  }
 }

@@ -9,11 +9,11 @@ It includes information about prerequisites, installing the CLI, creating an ini
 
 <div class="callout is-helpful">
 
-<header>Learning Angular</header>
+<header>Try Angular without local setup</header>
 
 <header>学习 Angular</header>
 
-If you are new to Angular, see [Getting Started](start). Getting Started helps you quickly learn the essentials of Angular, in the context of building a basic online store app. It leverages the [StackBlitz](https://stackblitz.com/) online development environment, so you don't need to set up your local environment until you're ready.
+If you are new to Angular, you might want to start with [Try it now!](start), which introduces the essentials of Angular in the context of a ready-made basic online store app that you can examine and modify. This standalone tutorial takes advantage of the interactive [StackBlitz](https://stackblitz.com/) environment for online development. You don't need to set up your local environment until you're ready.
 
 如果你不熟悉 Angular，请参阅[快速上手](start)。在构建基本版在线商店应用的过程中，快速上手可以帮助你快速学习 Angular 的基本知识。它充分利用了 [StackBlitz](https://stackblitz.com/) 在线开发环境，因此在你准备就绪之前，都不需要建立本地环境。
 
@@ -25,12 +25,24 @@ If you are new to Angular, see [Getting Started](start). Getting Started helps y
 
 ## 前提条件
 
-Before you begin, make sure your development environment includes `Node.js®` and an npm package manager.
+To use the Angular framework, you should be familiar with the following:
 
-在开始之前，请确保你的开发环境中包括 `Node.js®` 和 npm 包管理器。
+要想使用 Angular 框架，你要先熟悉下列技术：
+
+* [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript/A_re-introduction_to_JavaScript)
+* [HTML](https://developer.mozilla.org/docs/Learn/HTML/Introduction_to_HTML)
+* [CSS](https://developer.mozilla.org/docs/Learn/CSS/First_steps)
+
+Knowledge of [TypeScript](https://www.typescriptlang.org/) is helpful, but not required.
+
+关于 [TypeScript](https://www.typescriptlang.org/) 的知识会很有用，但不是必须的。
 
 {@a nodejs}
 ### Node.js
+
+Make sure your development environment includes `Node.js®` and an npm package manager.
+
+确保你的开发环境中包括 `Node.js®` 和一个包管理器。
 
 Angular requires a [current, active LTS, or maintenance LTS](https://nodejs.org/about/releases/) version of `Node.js`. See the `engines` key for the specific version requirements in our [package.json](https://unpkg.com/@angular/cli/package.json).
 
@@ -38,7 +50,7 @@ Angular 需要 `Node.js` 版本 10.9.0 或更高版本。
 
 * To check your version, run `node -v` in a terminal/console window.
 
-  要检查你的版本，请在终端/控制台窗口中运行 `node -v` 。
+  要检查你的版本，请在终端/控制台窗口中运行 `node -v`。
 
 * To get `Node.js`, go to [nodejs.org](https://nodejs.org "Nodejs.org").
 
@@ -59,7 +71,7 @@ This setup guide uses the [npm client](https://docs.npmjs.com/cli/install) comma
 
 To check that you have the npm client installed, run `npm -v` in a terminal/console window.
 
-要检查你是否安装了 npm 客户端，请在终端/控制台窗口中运行 `npm -v` 。
+要检查你是否安装了 npm 客户端，请在终端/控制台窗口中运行 `npm -v`。
 
 {@a install-cli}
 
@@ -114,7 +126,7 @@ To create a new workspace and initial starter app:
 
 The Angular CLI installs the necessary Angular npm packages and other dependencies. This can take a few minutes.
 
-Angular CLI 会安装必要的 Angular npm 包和其他依赖包。这可能要花几分钟的时间。
+Angular CLI 会安装必要的 Angular npm 包和其它依赖包。这可能要花几分钟的时间。
 
 The CLI creates a new workspace and a simple Welcome app, ready to run.
 
@@ -165,24 +177,19 @@ You will see:
 
 ## 下一步
 
-* If you are new to Angular, see the [Getting Started](start) tutorial. Getting Started helps you quickly learn the essentials of Angular, in the context of building a basic online store app.
+* For a more thorough introduction to the fundamental concepts and terminology of Angular single-page app architecture and design principles, read the [Angular Concepts](guide/architecture) section.
 
-  如果你不熟悉 Angular，请参阅[快速上手](start)教程。在构建基本的在线商店应用的过程中，快速上手可以帮助你快速学习 Angular 的基本知识。
+  关于 Angular 单页应用程序架构和设计原理的基本概念和术语的详尽介绍，参见 [Angular 的基本概念](guide/architecture)部分。
 
-<div class="alert is-helpful">
+* Work through the [Tour of Heroes Tutorial](tutorial), a complete hands-on exercise that introduces you to the app development process using the Angular CLI and walks through important subsystems.
 
-  Getting Started assumes the [StackBlitz](https://stackblitz.com/) online development environment.
-  To learn how to export an app from StackBlitz to your local environment, skip ahead to the [Deployment](start/deployment "Getting Started: Deployment") section.
-
-  “快速上手”假设以 [StackBlitz](https://stackblitz.com/) 作为在线开发环境 。要了解如何将应用从 StackBlitz 导出到本地环境，请跳到[部署](start/deployment "入门：部署")部分。
-
-</div>
+  走一遍[英雄指南教程](tutorial)，这是一个完整的动手练习题，它将教你使用 Angular CLI 进行应用开发的过程，并逐步介绍重要的子系统。
 
 * To learn more about using the Angular CLI, see the [CLI Overview](cli "CLI Overview"). In addition to creating the initial workspace and app scaffolding, you can use the CLI to generate Angular code such as components and services. The CLI supports the full development cycle, including building, testing, bundling, and deployment.
 
-  要了解关于使用 Angular CLI 的更多信息，请参阅 [CLI 概述](cli "CLI 概述") 。除了创建初始工作空间和应用搭建之外，你还可以使用 CLI 来生成 Angular 代码，比如组件和服务。 CLI 支持完整的开发周期，包括构建、测试、打包和部署。
+  要了解关于使用 Angular CLI 的更多信息，请参阅 [CLI 概述](cli "CLI 概述")。除了创建初始工作空间和应用搭建之外，你还可以使用 CLI 来生成 Angular 代码，比如组件和服务。CLI 支持完整的开发周期，包括构建、测试、打包和部署。
 
 * For more information about the Angular files generated by `ng new`, see [Workspace and Project File Structure](guide/file-structure).
 
-  要了解更多关于 `ng new` 生成的 Angular 文件的信息，请参阅[工作区和项目文件结构](guide/file-structure) 。
+  要了解更多关于 `ng new` 生成的 Angular 文件的信息，请参阅[工作区和项目文件结构](guide/file-structure)。
 

@@ -37,4 +37,6 @@
  *
  * @publicApi
  */
-export interface PipeTransform { transform(value: any, ...args: any[]): any; }
+export interface PipeTransform {
+  transform(value: any, ...args: any[]): any;
+}

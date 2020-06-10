@@ -2,30 +2,30 @@
 
 # 后续步骤：工具与技巧
 
-
 After you understand the basic Angular building blocks, you can learn more
 about the features and tools that can help you develop and deliver Angular applications.
 
-在了解了基本的Angular构建块之后，你可以进一步了解可以帮助你开发和交付Angular应用的特性和工具。
+在了解了基本的 Angular 构建块之后，你可以进一步了解可以帮助你开发和交付 Angular 应用的特性和工具。
 
-
-* Work through the [Tour of Heroes](tutorial/index) tutorial to get a feel for how to fit the basic building blocks together to create a well-designed application.
+* Work through the [Tour of Heroes](tutorial) tutorial to get a feel for how to fit the basic building blocks together to create a well-designed application.
 
   参考“[英雄指南”](tutorial/index)教程，了解如何将这些基本构建块放在一起，来创建设计精良的应用。
 
 * Check out the [Glossary](guide/glossary) to understand Angular-specific terms and usage.
 
-  查看[词汇表](guide/glossary) ，了解 Angular 特有的术语和用法。
+  查看[词汇表](guide/glossary)，了解 Angular 特有的术语和用法。
 
 * Use the documentation to learn about key features in more depth, according to your stage of development and areas of interest.
 
   根据你的开发阶段和感兴趣的领域，使用该文档更深入地学习某些关键特性。
 
-
 ## Application architecture
 
 ## 应用架构
 
+* The [Components and templates](guide/displaying-data) guide explains how to connect the application data in your [components](guide/glossary#component) to your page-display [templates](guide/glossary#template), to create a complete interactive application.
+
+  [组件与模板](guide/displaying-data)一章中介绍了如何把组件中的应用数据与页面显示[模板](guide/glossary#template)联系起来，以创建一个完整的交互式应用。
 
 * The [NgModules](guide/ngmodules) guide provides in-depth information on the modular structure of an Angular application.
 
@@ -39,21 +39,17 @@ about the features and tools that can help you develop and deliver Angular appli
 
   [依赖注入](guide/dependency-injection)一章提供了一些深度信息，教你如何让每个组件类都可以获取实现其功能所需的服务和对象。
 
-
 ## Responsive programming
 
 ## 响应式编程
-
 
 The **Components and Templates** guide provides guidance and details of the [template syntax](guide/template-syntax) that you use to display your component data when and where you want it within a view, and to collect input from users that you can respond to.
 
 **“组件和模板”**一章提供了[模板语法](guide/template-syntax)的指南和详细信息，用于在视图中随时随地显示组件数据，并从用户那里收集输入，以便做出响应。
 
-
 Additional pages and sections describe some basic programming techniques for Angular apps.
 
 其它页面和章节则描述了 Angular 应用的一些基本编程技巧。
-
 
 * [Lifecycle hooks](guide/lifecycle-hooks): Tap into key moments in the lifetime of a component, from its creation to its destruction, by implementing the lifecycle hook interfaces.
 
@@ -76,11 +72,9 @@ without deep knowledge of animation techniques or CSS.
 
   [动画](guide/animations)：使用 Angular 的动画库，你可以让组件支持动画行为，而不用深入了解动画技术或 CSS。
 
-
 ## Client-server interaction
 
 ## “客户端-服务器”交互
-
 
 Angular provides a framework for single-page apps, where most of the logic and data resides on the client.
 Most apps still need to access a server using the `HttpClient` to access and save data.
@@ -104,7 +98,6 @@ Angular 为单页面应用提供了一个框架，其中的大多数逻辑和数
 
   [Web worker](guide/web-worker)：学习如何在后台线程中运行 CPU 密集型的计算。
 
-
 ## Support for the development cycle
 
 ## 为开发周期提供支持
@@ -112,7 +105,6 @@ Angular 为单页面应用提供了一个框架，其中的大多数逻辑和数
 The **Development Workflow** section describes the tools and processes you use to compile, test, and  and deploy Angular applications.
 
 **“开发工作流”**部分描述了用于编译、测试和部署 Angular 应用的工具和过程。
-
 
 * [CLI Command Reference](cli): The Angular CLI is a command-line tool that you use to create projects, generate application and library code, and perform a variety of ongoing development tasks such as testing, bundling, and deployment.
 
@@ -142,11 +134,9 @@ The **Development Workflow** section describes the tools and processes you use t
 
   [无障碍性](guide/accessibility)：让所有用户都能访问你的应用。
 
-
 ## File structure, configuration, and dependencies
 
 ## 文件结构、配置和依赖
-
 
 * [Workspace and file structure](guide/file-structure): Understand the structure of Angular workspace and project folders.
 
@@ -170,8 +160,7 @@ The **Development Workflow** section describes the tools and processes you use t
 
 ## Extending Angular
 
-## 扩展Angular
-
+## 扩展 Angular
 
 * [Angular libraries](guide/libraries): Learn about using and creating re-usable libraries.
 
@@ -183,4 +172,4 @@ The **Development Workflow** section describes the tools and processes you use t
 
 * [CLI builders](guide/cli-builder): Learn about customizing and extending the CLI's ability to apply tools to perform complex tasks, such as building and testing applications.
 
-  [CLI构建器](guide/cli-builder)：学习如何自定义和扩展 CLI 的能力，让它使用工具来执行复杂任务，比如构建和测试应用。
+  [CLI 构建器](guide/cli-builder)：学习如何自定义和扩展 CLI 的能力，让它使用工具来执行复杂任务，比如构建和测试应用。

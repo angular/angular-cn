@@ -124,12 +124,12 @@ export interface OnInit {
  */
 export interface DoCheck {
   /**
-     * A callback method that performs change-detection, invoked
-     * after the default change-detector runs.
-     * See `KeyValueDiffers` and `IterableDiffers` for implementing
-     * custom change checking for collections.
-     *
-     * 一个回调方法。它会在默认的变更检测器执行之后调用，并进行变更检测。
+   * A callback method that performs change-detection, invoked
+   * after the default change-detector runs.
+   * See `KeyValueDiffers` and `IterableDiffers` for implementing
+   * custom change checking for collections.
+   *
+   * 一个回调方法。它会在默认的变更检测器执行之后调用，并进行变更检测。
      * 参见 `KeyValueDiffers` 和 `IterableDiffers`，以实现针对集合对象的自定义变更检测逻辑。
      */
   ngDoCheck(): void;
@@ -160,7 +160,7 @@ export interface DoCheck {
 export interface OnDestroy {
   /**
    * A callback method that performs custom clean-up, invoked immediately
-   * after a directive, pipe, or service instance is destroyed.
+   * before a directive, pipe, or service instance is destroyed.
    *
    * 一个用于执行清理逻辑的回调方法，会在指令、管道、服务的实例被销毁后立即调用。
    */

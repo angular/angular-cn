@@ -50,6 +50,7 @@ export function devModeEqual(a: any, b: any): boolean {
  * ```
  *
  * @publicApi
+ * @deprecated from v10 stop using. (No replacement, deemed unnecessary.)
  */
 export class WrappedValue {
   /** @deprecated from 5.3, use `unwrap()` instead - will switch to protected
@@ -58,13 +59,17 @@ export class WrappedValue {
    */
   wrapped: any;
 
-  constructor(value: any) { this.wrapped = value; }
+  constructor(value: any) {
+    this.wrapped = value;
+  }
 
   /** Creates a wrapped value.
    *
    * 创建一个包装过的值。
    */
-  static wrap(value: any): WrappedValue { return new WrappedValue(value); }
+  static wrap(value: any): WrappedValue {
+    return new WrappedValue(value);
+  }
 
   /**
    * Returns the underlying value of a wrapped value.
@@ -72,13 +77,17 @@ export class WrappedValue {
    *
    * 如果值（`value`）是包装过的，则返回它幕后的值；否则直接返回它本身。
    **/
-  static unwrap(value: any): any { return WrappedValue.isWrapped(value) ? value.wrapped : value; }
+  static unwrap(value: any): any {
+    return WrappedValue.isWrapped(value) ? value.wrapped : value;
+  }
 
   /** Returns true if `value` is a wrapped value.
    *
    * 如果 `value` 是包装过的值，则返回 `true`。
    */
-  static isWrapped(value: any): value is WrappedValue { return value instanceof WrappedValue; }
+  static isWrapped(value: any): value is WrappedValue {
+    return value instanceof WrappedValue;
+  }
 }
 
 export function isListLikeIterable(obj: any): boolean {

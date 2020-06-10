@@ -69,15 +69,15 @@ For example, your `myBuilder` folder could contain the following files.
 | :----------------------- | :------------------------------------------------------------------------------------------- |
 | 文件                     | 目的                                                                                         |
 | `src/my-builder.ts`      | Main source file for the builder definition.                                                 |
-| `src/my-builder.ts`      | 这个构建器定义的主要源码。                                                                 |
+| `src/my-builder.ts`      | 这个构建器定义的主要源码。                                                                |
 | `src/my-builder.spec.ts` | Source file for tests.                                                                       |
-| `src/my-builder.spec.ts` | 测试的源码。                                                                               |
+| `src/my-builder.spec.ts` | 测试的源码。                                                                              |
 | `src/schema.json`        | Definition of builder input options.                                                         |
-| `src/schema.json`        | 构建器输入选项的定义。                                                                      |
+| `src/schema.json`        | 构建器输入选项的定义。                                                                     |
 | `builders.json`          | Testing configuration.                                                                       |
-| `builders.json`          | 测试配置。                                                                                   |
+| `builders.json`          | 测试配置。                                                                                  |
 | `package.json`           | Dependencies. See <https://docs.npmjs.com/files/package.json>.                               |
-| `package.json`           | 依赖包。参见<https://docs.npmjs.com/files/package.json> 。                                   |
+| `package.json`           | 依赖包。参见<https://docs.npmjs.com/files/package.json>。                                  |
 | `tsconfig.json`          | [TypeScript configuration](https://www.typescriptlang.org/docs/handbook/tsconfig-json.html). |
 | `tsconfig.json`          | [TypeScript 配置文件](https://www.typescriptlang.org/docs/handbook/tsconfig-json.html)        |
 
@@ -154,7 +154,7 @@ The status string is unmodified unless you pass in a new string value.
 
 You can see an [example](https://github.com/angular/angular-cli/blob/ba21c855c0c8b778005df01d4851b5a2176edc6f/packages/angular_devkit/build_angular/src/tslint/index.ts#L107) of how the `tslint` builder reports progress.
 
-你可以看看 `tslint` 构建器如何报告进度的[例子](https://github.com/angular/angular-cli/blob/ba21c855c0c8b778005df01d4851b5a2176edc6f/packages/angular_devkit/build_angular/src/tslint/index.ts#L107) 。
+你可以看看 `tslint` 构建器如何报告进度的[例子](https://github.com/angular/angular-cli/blob/ba21c855c0c8b778005df01d4851b5a2176edc6f/packages/angular_devkit/build_angular/src/tslint/index.ts#L107)。
 
 In our example, the shell command either finishes or is still executing, so there’s no need for a progress report, but we can report status so that a parent builder that called our builder would know what’s going on.
 Use the `BuilderContext.reportStatus()` method to generate a status string of any length.
@@ -186,11 +186,11 @@ You define builder inputs in a JSON schema associated with that builder.
 The Architect tool collects the resolved input values into an `options` object, and validates their types against the schema before passing them to the builder function.
 (The Schematics library does the same kind of validation of user input).
 
-你可以在该构建器的相关 JSON 模式中定义构建器都有哪些输入。 建筑师工具会把解析后的输入值收集到一个 `options` 对象中，并在将其传给构建器函数之前先根据这个模式验证它们的类型。（Schematics 库也对用户输入做了同样的验证）。
+你可以在该构建器的相关 JSON 模式中定义构建器都有哪些输入。建筑师工具会把解析后的输入值收集到一个 `options` 对象中，并在将其传给构建器函数之前先根据这个模式验证它们的类型。（Schematics 库也对用户输入做了同样的验证）。
 
 For our example builder, we expect the `options` value to be a `JsonObject` with two keys: a `command` that is a string, and an `args` array of string values.
 
-对于这个示例构建器，我们希望 `options` 值是带有两个键的 `JsonObject`：一个是字符串型的 `command` ，一个是字符串数组型的 `args`。
+对于这个示例构建器，我们希望 `options` 值是带有两个键的 `JsonObject`：一个是字符串型的 `command`，一个是字符串数组型的 `args`。
 
 We can provide the following schema for type validation of these values.
 
@@ -220,7 +220,7 @@ We can provide the following schema for type validation of these values.
 This is a very simple example, but the use of a schema for validation can be very powerful.
 For more information, see the [JSON schemas website](http://json-schema.org/).
 
-这是一个非常简单的例子，但这种模式验证也可以非常强大。要了解更多信息，请参阅 [JSON 模式网站](http://json-schema.org/) 。
+这是一个非常简单的例子，但这种模式验证也可以非常强大。要了解更多信息，请参阅 [JSON 模式网站](http://json-schema.org/)。
 
 </div>
 
@@ -372,7 +372,7 @@ To invoke a builder, you schedule a task to be run when all configuration resolu
 The builder function is not executed until the scheduler returns a `BuilderRun` control object.
 The CLI typically schedules tasks by calling the `BuilderContext.scheduleTarget()` function, and then resolves input options using the target definition in the `angular.json` file.
 
-在调度器返回 `BuilderRun` 控件对象之前，不会执行该构建器函数。 CLI 通常会通过调用 `BuilderContext.scheduleTarget()` 函数来调度任务，然后使用 `angular.json` 文件中的目标定义来解析输入选项。
+在调度器返回 `BuilderRun` 控件对象之前，不会执行该构建器函数。CLI 通常会通过调用 `BuilderContext.scheduleTarget()` 函数来调度任务，然后使用 `angular.json` 文件中的目标定义来解析输入选项。
 
 Architect resolves input options for a given target by taking the default options object, then overwriting values from the configuration used (if any), then further overwriting values from the overrides object passed to `BuilderContext.scheduleTarget()`.
 For the Angular CLI, the overrides object is built from command line arguments.
@@ -479,7 +479,7 @@ We need to update the `angular.json` file to add a target for this builder to th
 
 * The target named "touch" uses our builder, which we published to `@example/command-runner`. (See [Publishing your Library](guide/creating-libraries#publishing-your-library))
 
-  名为 `touch` 的目标使用了我们的构建器，它发布到了 `@example/command-runner`。 （参见[发布你的库](https://angular.io/guide/creating-libraries#publishing-your-library) ）
+  名为 `touch` 的目标使用了我们的构建器，它发布到了 `@example/command-runner`。（参见[发布你的库](https://angular.io/guide/creating-libraries#publishing-your-library) ）
 
 * The options object provides default values for the two inputs that we defined; `command`, which is the Unix command to execute, and `args`, an array that contains the file to operate on.
 
@@ -610,7 +610,7 @@ Architect expects builders to run once (by default) and return.
 This behavior is not entirely compatible with a builder that watches for changes (like Webpack, for example).
 Architect can support watch mode, but there are some things to look out for.
 
-建筑师希望构建器运行一次（默认情况下）并返回。这种行为与那些需要监视文件更改的构建器（例如 Webpack）并不完全兼容。 建筑师可以支持监视模式，但要注意一些问题。
+建筑师希望构建器运行一次（默认情况下）并返回。这种行为与那些需要监视文件更改的构建器（例如 Webpack）并不完全兼容。建筑师可以支持监视模式，但要注意一些问题。
 
 * To be used with watch mode, a builder handler function should return an Observable. Architect subscribes to the Observable until it completes and might reuse it if the builder is scheduled again with the same arguments.
 

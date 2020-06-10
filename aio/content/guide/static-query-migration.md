@@ -63,7 +63,7 @@ Note: this flag only applies to `@ViewChild` and `@ContentChild` queries specifi
 If you see this comment, it means that the schematic couldn't statically figure out the correct flag. In this case, you'll have to add the correct flag based on your application's behavior.
 For more information on how to choose, see the [next question](#how-do-i-choose).
 
-如果你看到这个注释，就意味着原理图无法自己找到恰当的标志。在这种情况下，你必须根据应用的行为添加正确的标志。要了解如何进行选择，请参阅[下一个问题](#how-do-i-choose) 。
+如果你看到这个注释，就意味着原理图无法自己找到恰当的标志。在这种情况下，你必须根据应用的行为添加正确的标志。要了解如何进行选择，请参阅[下一个问题](#how-do-i-choose)。
 
 {@a how-do-i-choose}
 
@@ -74,7 +74,7 @@ For more information on how to choose, see the [next question](#how-do-i-choose)
 In the official API docs, we have always recommended retrieving query results in [`ngAfterViewInit` for view queries](https://angular.io/api/core/ViewChild#description) and [`ngAfterContentInit` for content queries](https://angular.io/api/core/ContentChild#description).
 This is because by the time those lifecycle hooks run, change detection has completed for the relevant nodes and we can guarantee that we have collected all the possible query results.
 
-在官方 API 文档中，我们建议对于[视图查询](https://angular.io/api/core/ViewChild#description) 总是在 `ngAfterViewInit`中获取查询结果，对于[内容查询](https://angular.io/api/core/ContentChild#description) 总是在 `ngAfterContentInit` 中获取查询结果。
+在官方 API 文档中，我们建议对于[视图查询](https://angular.io/api/core/ViewChild#description) 总是在 `ngAfterViewInit` 中获取查询结果，对于[内容查询](https://angular.io/api/core/ContentChild#description) 总是在 `ngAfterContentInit` 中获取查询结果。
 这是因为当这些生命周期钩子运行时，相关节点的变更检测已完成，我们可以确信收集到了所有可能的查询结果。
 
 Most applications will want to use `{static: false}` for the same reason. This setting will ensure query matches that are dependent on binding resolution (e.g. results inside `*ngIf`s or `*ngFor`s) will be found by the query.
@@ -96,7 +96,7 @@ Change detection has already run on that view, so creating a new view with the t
 In this case, you will want to set the `static` flag to `true` and create your view in `ngOnInit`.
 In most other cases, the best practice is to use `{static: false}`.
 
-这个选项的引入是为了支持动态创建嵌入式视图。如果你要查询一个 `TemplateRef` 以便动态创建一个视图，将无法在 `ngAfterViewInit` 中这样做。这是因为变量检测已在该视图上运行过，所以这时候使用该模板创建一个新视图就会抛出 `ExpressionHasChangedAfterChecked` 错误。在这种情况下，你要把 `static` 标志设置为 `true`，并在 `ngOnInit` 中创建你的视图。在其他大多数情况下，最好的做法是使用 `{static: false}`。
+这个选项的引入是为了支持动态创建嵌入式视图。如果你要查询一个 `TemplateRef` 以便动态创建一个视图，将无法在 `ngAfterViewInit` 中这样做。这是因为变量检测已在该视图上运行过，所以这时候使用该模板创建一个新视图就会抛出 `ExpressionHasChangedAfterChecked` 错误。在这种情况下，你要把 `static` 标志设置为 `true`，并在 `ngOnInit` 中创建你的视图。在其它大多数情况下，最好的做法是使用 `{static: false}`。
 
 However, to facilitate the migration to version 8, you may also want to set the `static` flag to `true` if your component code already depends on the query results being available some time **before** `ngAfterViewInit` (for view queries) or `ngAfterContentInit` (for content queries).
 For example, if your component relies on the query results being populated in the `ngOnInit` hook or in `@Input` setters, you will need to either set the flag to `true` or re-work your component to adjust to later timing.
@@ -131,7 +131,7 @@ This classification determined when query results would become available to user
 - **Static queries** were queries where the result could be determined statically because the result didn't depend on runtime values like bindings.
 Results from queries classified as static were available before change detection ran for that view (accessible in `ngOnInit`).
 
-  **静态查询**的查询结果是可以静态确定的，因为其结果并不依赖运行期间的值（比如数据绑定）。静态查询的结果在该视图运行变更检测之前就是可用的（可以在`ngOnInit`访问）。
+  **静态查询**的查询结果是可以静态确定的，因为其结果并不依赖运行期间的值（比如数据绑定）。静态查询的结果在该视图运行变更检测之前就是可用的（可以在 `ngOnInit` 访问）。
 
 - **Dynamic queries** were queries where the result could NOT be determined statically because the result depended on runtime values (aka bindings).
 Results from queries classified as dynamic were not available until after change detection ran for that view (accessible in `ngAfterContentInit` for content queries or `ngAfterViewInit` for view queries).
@@ -140,7 +140,7 @@ Results from queries classified as dynamic were not available until after change
 
 For example, let's say we have a component, `Comp`. Inside it, we have this query:
 
-例如，假设我们有一个组件 `Comp` 。在其中，我们有这样一个查询：
+例如，假设我们有一个组件 `Comp`。在其中，我们有这样一个查询：
 
 ```
 @ViewChild(Foo) foo: Foo;

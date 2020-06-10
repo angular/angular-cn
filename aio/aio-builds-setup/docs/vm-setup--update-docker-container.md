@@ -15,9 +15,9 @@ The script assumes that the preview server source code is in the repository's
 `aio/aio-builds-setup/` directory and expects the following inputs:
 
 - **$1**: `HOST_REPO_DIR`
-- **$2**: `HOST_LOCALCERTS_DIR`
-- **$3**: `HOST_SECRETS_DIR`
-- **$4**: `HOST_BUILDS_DIR`
+- **$2**: `HOST_SECRETS_DIR`
+- **$3**: `HOST_BUILDS_DIR`
+- **$4**: `HOST_LOCALCERTS_DIR`
 - **$5**: `HOST_LOGS_DIR`
 
 See [here](vm-setup--create-host-dirs-and-files.md) for more info on what each input directory is
@@ -31,22 +31,22 @@ used for.
 ## Run the script manually
 You may choose to manually run the script, when necessary. Example:
 
-```
+```sh
 update-preview-server.sh \
     /path/to/repo \
-    /path/to/localcerts \
     /path/to/secrets \
     /path/to/builds \
+    /path/to/localcerts \
     /path/to/logs
 ```
 
 
 ## Run the script automatically
 You may choose to automatically trigger the script, e.g. using a cronjob. For example, the following
-cronjob entry would run the script every hour and update the preview server (assuming the user has
-the necessary permissions):
+cronjob entry would run the script every 30 minutes, update the preview server (if necessary) and
+log its output to `update-preview-server.log` (assuming the user has the necessary permissions):
 
 ```
 # Periodically check for changes and update the preview server (if necessary)
-*/30 *  * * *   /path/to/update-preview-server.sh /path/to/repo /path/to/localcerts /path/to/secrets /path/to/builds /path/to/logs
+*/30 *  * * *   /path/to/update-preview-server.sh /path/to/repo /path/to/secrets /path/to/builds /path/to/localcerts /path/to/logs >> /path/to/update-preview-server.log 2>&1
 ```

@@ -4,7 +4,7 @@
 
 You can create and publish new libraries to extend Angular functionality. If you find that you need to solve the same problem in more than one app (or want to share your solution with other developers), you have a candidate for a library.
 
-你可以创建和发布新库来扩展 Angular 的功能。如果你发现需要在多个应用中解决同样的问题（或者想与其他开发者共享你的解决方案），你就有了一个潜在的库。
+你可以创建和发布新库来扩展 Angular 的功能。如果你发现需要在多个应用中解决同样的问题（或者想与其它开发者共享你的解决方案），你就有了一个潜在的库。
 
 A simple example might be a button that sends users to your company website, that would be included in all apps that your company builds.
 
@@ -66,11 +66,11 @@ You can build, test, and lint the project with CLI commands:
 Notice that the configured builder for the project is different from the default builder for app projects.
 This builder, among other things, ensures that the library is always built with the [AOT compiler](guide/aot-compiler), without the need to specify the `--prod` flag.
 
-注意，该项目配置的构建器与应用类项目的默认构建器不同。此构建器可以确保库永远使用 [AoT 编译器](guide/aot-compiler)构建，而不必再指定`--prod`标志。
+注意，该项目配置的构建器与应用类项目的默认构建器不同。此构建器可以确保库永远使用 [AoT 编译器](guide/aot-compiler)构建，而不必再指定 `--prod` 标志。
 
 To make library code reusable you must define a public API for it. This "user layer" defines what is available to consumers of your library. A user of your library should be able to access public functionality (such as NgModules, service providers and general utility functions) through a single import path.
 
-要让库代码可以复用，你必须为它定义一个公共的 API。这个“用户层”定义了库中消费者的可用内容。该库的用户应该可以通过单个的导入路径来访问公共功能（如NgModules、服务提供者和工具函数）。
+要让库代码可以复用，你必须为它定义一个公共的 API。这个“用户层”定义了库中消费者的可用内容。该库的用户应该可以通过单个的导入路径来访问公共功能（如 NgModules、服务提供者和工具函数）。
 
 The public API for your library is maintained in the `public-api.ts` file in your library folder.
 Anything exported from this file is made public when your library is imported into an application.
@@ -101,15 +101,15 @@ Here are some things to consider in migrating application functionality to a lib
 
 * Components should expose their interactions through inputs for providing context, and outputs for communicating events to other components.
 
-    组件对外暴露交互方式时，应该通过输入参数来提供上下文，通过输出参数来将事件传给其他组件。
+    组件对外暴露交互方式时，应该通过输入参数来提供上下文，通过输出参数来将事件传给其它组件。
 
 * Services should declare their own providers (rather than declaring providers in the NgModule or a component), so that they are *tree-shakable*. This allows the compiler to leave the service out of the bundle if it never gets injected into the application that imports the library. For more about this, see [Tree-shakable providers](guide/dependency-injection-providers#tree-shakable-providers).
 
-    服务应该声明自己的提供者（而不是在 NgModule 或组件中声明提供者），这样它们才是*可摇树优化的* 。这样，如果该服务从未被注入到导入该库的应用中，编译器就会把该服务从发布包中删除。欲知详情，请参阅[可摇树优化的提供者](guide/dependency-injection-providers#tree-shakable-providers) 。
+    服务应该声明自己的提供者（而不是在 NgModule 或组件中声明提供者），这样它们才是*可摇树优化的*。这样，如果该服务从未被注入到导入该库的应用中，编译器就会把该服务从发布包中删除。欲知详情，请参阅[可摇树优化的提供者](guide/dependency-injection-providers#tree-shakable-providers)。
 
 * If you register global service providers or share providers across multiple NgModules, use the [`forRoot()` and `forChild()` patterns](guide/singleton-services) provided by the [RouterModule](api/router/RouterModule).
 
-    如果你在多个 NgModule 中注册全局服务提供者或共享提供者，请使用 [RouterModule](api/router/RouterModule) 提供的 [`forRoot()` 和 `forChild()` 模式](guide/singleton-services) 。
+    如果你在多个 NgModule 中注册全局服务提供者或共享提供者，请使用 [RouterModule](api/router/RouterModule) 提供的 [`forRoot()` 和 `forChild()` 模式](guide/singleton-services)。
 
 * Check all internal dependencies.
 
@@ -148,7 +148,7 @@ If that form will need additional customization by the user, it might work best 
 However, if the forms will always be the same and not need much customization by developers, then you could create a dynamic component that takes the configuration and generates the form.
 In general, the more complex the customization, the more useful the schematic approach.
 
-假设你要读取配置文件，然后根据该配置生成表单。如果该表单需要用户进行额外的自定义，它可能最适合用作 schematic。但是，如果这些表单总是一样的，开发人员不需要做太多自定义工作，那么你就可以创建一个动态的组件来获取配置并生成表单。通常，自定义越复杂， schematic 方式就越有用。
+假设你要读取配置文件，然后根据该配置生成表单。如果该表单需要用户进行额外的自定义，它可能最适合用作 schematic。但是，如果这些表单总是一样的，开发人员不需要做太多自定义工作，那么你就可以创建一个动态的组件来获取配置并生成表单。通常，自定义越复杂，schematic 方式就越有用。
 
 {@a integrating-with-the-cli}
 
@@ -158,7 +158,7 @@ In general, the more complex the customization, the more useful the schematic ap
 
 A library can include [schematics](guide/glossary#schematic) that allow it to integrate with the Angular CLI.
 
-库中可以包含那些能与 Angular CLI 集成的 [schematics](guide/glossary#schematic) 。
+库中可以包含那些能与 Angular CLI 集成的 [schematics](guide/glossary#schematic)。
 
 * Include an installation schematic so that `ng add` can add your library to a project.
 
@@ -166,11 +166,11 @@ A library can include [schematics](guide/glossary#schematic) that allow it to in
 
 * Include generation schematics in your library so that `ng generate` can scaffold your defined artifacts (components, services, tests, and so on) in a project.
 
-    包含一些生成型 schematic ，以便 `ng generate` 可以为项目中的已定义工件（组件，服务，测试等）生成脚手架。
+    包含一些生成型 schematic，以便 `ng generate` 可以为项目中的已定义工件（组件，服务，测试等）生成脚手架。
 
 * Include an update schematic so that `ng update` can update your library’s dependencies and provide migrations for breaking changes in new releases.
 
-    包含一个更新（update）原理图 ，以便 `ng update` 可以更新此库的依赖，并针对新版本中的重大变更提供辅助迁移。
+    包含一个更新（update）原理图，以便 `ng update` 可以更新此库的依赖，并针对新版本中的重大变更提供辅助迁移。
 
 To learn more, see [Schematics Overview](guide/schematics) and [Schematics for Libraries](guide/schematics-for-libraries).
 
@@ -194,6 +194,26 @@ If you've never published a package in npm before, you must create a user accoun
 
 如果你之前从未在 npm 中发布过包，就必须创建一个用户帐号。[点此阅读发布 npm 包](https://docs.npmjs.com/getting-started/publishing-npm-packages)的更多信息。
 
+{@a lib-assets}
+
+## Managing assets in a library
+
+## 管理库中的资产（assets）
+
+Starting with version 9.x of the [ng-packagr](https://github.com/ng-packagr/ng-packagr/blob/master/README.md) tool, you can configure the tool to automatically copy assets into your library package as part of the build process.
+You can use this feature when your library needs to publish optional theming files, Sass mixins, or documentation (like a changelog).
+
+从 [ng-packagr](https://github.com/ng-packagr/ng-packagr/blob/master/README.md) 工具的 9.x 版本开始，你可以配置它，以便在构建过程中自动把资产复制到库的发布包里。
+如果你的库需要发布一些可选的主题文件、Sass mixins 或文档（比如变更记录），可以使用这个特性。
+
+* Learn how to [copy assets into your library as part of the build](https://github.com/ng-packagr/ng-packagr/blob/master/docs/copy-assets.md).
+
+  你可以学习如何[把资产复制到你的发布库中](https://github.com/ng-packagr/ng-packagr/blob/master/docs/copy-assets.md)。
+
+* Learn more about how to use the tool to [embed assets in CSS](https://github.com/ng-packagr/ng-packagr/blob/master/docs/embed-assets-css.md).
+
+  你还可以学习如何使用本工具[把资产内联到 CSS 中](https://github.com/ng-packagr/ng-packagr/blob/master/docs/embed-assets-css.md)。
+
 ## Linked libraries
 
 ## 链接库
@@ -216,7 +236,7 @@ Angular libraries should list all `@angular/*` dependencies as peer dependencies
 This ensures that when modules ask for Angular, they all get the exact same module.
 If a library lists `@angular/core` in `dependencies` instead of `peerDependencies`, it might get a different Angular module instead, which would cause your application to break.
 
-Angular 库应该把所有 `@angular/*` 依赖项都列为同级依赖。这确保了当各个模块请求 Angular 时，都会得到完全相同的模块。如果某个库在 `dependencies` 列出 `@angular/core` 而不是用 `peerDependencies` ，它可能会得到一个不同的 Angular 模块，这会破坏你的应用。
+Angular 库应该把所有 `@angular/*` 依赖项都列为同级依赖。这确保了当各个模块请求 Angular 时，都会得到完全相同的模块。如果某个库在 `dependencies` 列出 `@angular/core` 而不是用 `peerDependencies`，它可能会得到一个不同的 Angular 模块，这会破坏你的应用。
 
 While developing a library, you must install all peer dependencies through `devDependencies` to ensure that the library compiles properly.
 A linked library will then have its own set of Angular libraries that it uses for building, located in its `node_modules` folder.
@@ -227,7 +247,7 @@ However, this can cause problems while building or running your application.
 To get around this problem you can use TypeScript path mapping to tell TypeScript that it should load some modules from a specific location.
 List all the peer dependencies that your library uses in the workspace TypeScript configuration file `./tsconfig.json`, and point them at the local copy in the app's `node_modules` folder.
 
-为了解决此问题，你可以使用 TypeScript 路径映射来告诉 TypeScript 它应该从指定的位置加载某些模块。在 TypeScript 配置文件`./tsconfig.json` 中列出该库使用的所有同级依赖，并把它们指向应用的 `node_modules` 文件夹中的本地副本。
+为了解决此问题，你可以使用 TypeScript 路径映射来告诉 TypeScript 它应该从指定的位置加载某些模块。在 TypeScript 配置文件 `./tsconfig.json` 中列出该库使用的所有同级依赖，并把它们指向应用的 `node_modules` 文件夹中的本地副本。
 
 ```
 {
@@ -281,7 +301,7 @@ To use your own library in an app:
 The build step is important if you haven't published your library as an npm package and then installed the package back into your app from npm.
 For instance, if you clone your git repository and run `npm install`, your editor will show the `my-lib` imports as missing if you haven't yet built your library.
 
-如果你没有把库发布为 npm 包，然后把它从 npm 安装到你的应用中，那么构建步骤就是必要的。例如，如果你克隆了 git 仓库并运行了 `npm install` ，编辑器就会把 `my-lib` 的导入显示为缺失状态（如果你还没有构建过该库）。
+如果你没有把库发布为 npm 包，然后把它从 npm 安装到你的应用中，那么构建步骤就是必要的。例如，如果你克隆了 git 仓库并运行了 `npm install`，编辑器就会把 `my-lib` 的导入显示为缺失状态（如果你还没有构建过该库）。
 
 <div class="alert is-helpful">
 
@@ -293,7 +313,7 @@ When you install a library package, the mapping is in the `node_modules` folder.
 Generating a library with the Angular CLI automatically adds its path to the `tsconfig` file.
 The Angular CLI uses the `tsconfig` paths to tell the build system where to find the library.
 
-用 Angular CLI 生成库时，会自动把它的路径添加到 `tsconfig` 文件中。 Angular CLI 使用 `tsconfig` 路径告诉构建系统在哪里寻找这个库。
+用 Angular CLI 生成库时，会自动把它的路径添加到 `tsconfig` 文件中。Angular CLI 使用 `tsconfig` 路径告诉构建系统在哪里寻找这个库。
 
 </div>
 

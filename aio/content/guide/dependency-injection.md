@@ -66,7 +66,6 @@ As soon as you try to test this component or get heroes from a remote server,
 you have to change the implementation of `HeroesListComponent` and
 replace every use of the `HEROES` mock data.
 
-
 这种方法在原型阶段有用，但是不够健壮、不利于维护。
 一旦你想要测试该组件或想从远程服务器获得英雄列表，就不得不修改 `HeroesListComponent` 的实现，并且替换每一处使用了 `HEROES` 模拟数据的地方。
 
@@ -125,7 +124,6 @@ The `@Injectable()` is an essential ingredient in every Angular service definiti
 
 <code-example path="dependency-injection/src/app/heroes/hero.service.3.ts" header="src/app/heroes/hero.service.ts">
 </code-example>
-
 
 {@a injector-config}
 {@a bootstrap}
@@ -493,4 +491,4 @@ Dive deeper into the capabilities and advanced feature of the Angular DI system 
 
 * [Dependency Injection in Action](guide/dependency-injection-in-action) is a cookbook for some of the interesting things you can do with DI.
 
-  [依赖注入实战](guide/dependency-injection-in-action)中讲了一些你能用 DI 做的一些有意思的事。  
+  [依赖注入实战](guide/dependency-injection-in-action)中讲了一些你能用 DI 做的一些有意思的事。 

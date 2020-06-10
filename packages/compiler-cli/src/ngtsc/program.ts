@@ -10,14 +10,13 @@ import {GeneratedFile} from '@angular/compiler';
 import * as ts from 'typescript';
 
 import * as api from '../transformers/api';
-import {nocollapseHack} from '../transformers/nocollapse_hack';
 import {verifySupportedTypeScriptVersion} from '../typescript_support';
 
-import {NgCompilerHost} from './core';
+import {NgCompiler, NgCompilerHost} from './core';
 import {NgCompilerOptions} from './core/api';
-import {NgCompiler} from './core/src/compiler';
 import {IndexedComponent} from './indexer';
 import {NOOP_PERF_RECORDER, PerfRecorder, PerfTracker} from './perf';
+import {ReusedProgramStrategy} from './typecheck';
 
 
 
@@ -67,18 +66,25 @@ export class NgtscProgram implements api.Program {
     }
     this.closureCompilerEnabled = !!options.annotateForClosureCompiler;
 
-    this.host = NgCompilerHost.wrap(delegateHost, rootNames, options);
-
     const reuseProgram = oldProgram && oldProgram.reuseTsProgram;
+    this.host = NgCompilerHost.wrap(delegateHost, rootNames, options, reuseProgram ?? null);
+
     this.tsProgram = ts.createProgram(this.host.inputFiles, options, this.host, reuseProgram);
     this.reuseTsProgram = this.tsProgram;
 
+    this.host.postProgramCreationCleanup();
+
+    const reusedProgramStrategy = new ReusedProgramStrategy(
+        this.tsProgram, this.host, this.options, this.host.shimExtensionPrefixes);
+
     // Create the NgCompiler which will drive the rest of the compilation.
-    this.compiler =
-        new NgCompiler(this.host, options, this.tsProgram, reuseProgram, this.perfRecorder);
+    this.compiler = new NgCompiler(
+        this.host, options, this.tsProgram, reusedProgramStrategy, reuseProgram, this.perfRecorder);
   }
 
-  getTsProgram(): ts.Program { return this.tsProgram; }
+  getTsProgram(): ts.Program {
+    return this.tsProgram;
+  }
 
   getTsOptionDiagnostics(cancellationToken?: ts.CancellationToken|
                          undefined): readonly ts.Diagnostic[] {
@@ -138,8 +144,8 @@ export class NgtscProgram implements api.Program {
   }
 
   getNgSemanticDiagnostics(
-      fileName?: string|undefined, cancellationToken?: ts.CancellationToken|
-                                   undefined): readonly(ts.Diagnostic|api.Diagnostic)[] {
+      fileName?: string|undefined, cancellationToken?: ts.CancellationToken|undefined):
+      readonly(ts.Diagnostic|api.Diagnostic)[] {
     let sf: ts.SourceFile|undefined = undefined;
     if (fileName !== undefined) {
       sf = this.tsProgram.getSourceFile(fileName);
@@ -162,14 +168,17 @@ export class NgtscProgram implements api.Program {
    * This is used by the Angular CLI to allow for spawning (async) child compilations for things
    * like SASS files used in `styleUrls`.
    */
-  loadNgStructureAsync(): Promise<void> { return this.compiler.analyzeAsync(); }
+  loadNgStructureAsync(): Promise<void> {
+    return this.compiler.analyzeAsync();
+  }
 
   listLazyRoutes(entryRoute?: string|undefined): api.LazyRoute[] {
     return this.compiler.listLazyRoutes(entryRoute);
   }
 
   emit(opts?: {
-    emitFlags?: api.EmitFlags | undefined; cancellationToken?: ts.CancellationToken | undefined;
+    emitFlags?: api.EmitFlags|undefined;
+    cancellationToken?: ts.CancellationToken | undefined;
     customTransformers?: api.CustomTransformers | undefined;
     emitCallback?: api.TsEmitCallback | undefined;
     mergeEmitResultsCallback?: api.TsMergeEmitResultsCallback | undefined;
@@ -180,8 +189,8 @@ export class NgtscProgram implements api.Program {
 
     const writeFile: ts.WriteFileCallback =
         (fileName: string, data: string, writeByteOrderMark: boolean,
-         onError: ((message: string) => void) | undefined,
-         sourceFiles: ReadonlyArray<ts.SourceFile>| undefined) => {
+         onError: ((message: string) => void)|undefined,
+         sourceFiles: ReadonlyArray<ts.SourceFile>|undefined) => {
           if (sourceFiles !== undefined) {
             // Record successful writes for any `ts.SourceFile` (that's not a declaration file)
             // that's an input to this write.
@@ -192,16 +201,6 @@ export class NgtscProgram implements api.Program {
 
               this.compiler.incrementalDriver.recordSuccessfulEmit(writtenSf);
             }
-          }
-
-          // If Closure annotations are being produced, tsickle should be adding `@nocollapse` to
-          // any static fields present. However, tsickle doesn't yet handle synthetic fields added
-          // during other transformations, so this hack is in place to ensure Ivy definitions get
-          // properly annotated, pending an upstream fix in tsickle.
-          //
-          // TODO(alxhub): remove when tsickle properly annotates synthetic fields.
-          if (this.closureCompilerEnabled && fileName.endsWith('.js')) {
-            data = nocollapseHack(data);
           }
           this.host.writeFile(fileName, data, writeByteOrderMark, onError, sourceFiles);
         };
@@ -232,7 +231,8 @@ export class NgtscProgram implements api.Program {
         program: this.tsProgram,
         host: this.host,
         options: this.options,
-        emitOnlyDtsFiles: false, writeFile,
+        emitOnlyDtsFiles: false,
+        writeFile,
         customTransformers: {
           before: beforeTransforms,
           after: customTransforms && customTransforms.afterTs,
@@ -268,11 +268,16 @@ export class NgtscProgram implements api.Program {
   }
 }
 
-const defaultEmitCallback: api.TsEmitCallback =
-    ({program, targetSourceFile, writeFile, cancellationToken, emitOnlyDtsFiles,
-      customTransformers}) =>
-        program.emit(
-            targetSourceFile, writeFile, cancellationToken, emitOnlyDtsFiles, customTransformers);
+const defaultEmitCallback: api.TsEmitCallback = ({
+  program,
+  targetSourceFile,
+  writeFile,
+  cancellationToken,
+  emitOnlyDtsFiles,
+  customTransformers
+}) =>
+    program.emit(
+        targetSourceFile, writeFile, cancellationToken, emitOnlyDtsFiles, customTransformers);
 
 function mergeEmitResults(emitResults: ts.EmitResult[]): ts.EmitResult {
   const diagnostics: ts.Diagnostic[] = [];

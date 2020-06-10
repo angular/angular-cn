@@ -13,7 +13,7 @@ import {convertInjectableProviderToFactory} from '../di/util';
 import {Type} from '../interface/type';
 import {SchemaMetadata} from '../metadata/schema';
 import {compileNgModule as render3CompileNgModule} from '../render3/jit/module';
-import {TypeDecorator, makeDecorator} from '../util/decorators';
+import {makeDecorator, TypeDecorator} from '../util/decorators';
 
 
 /**
@@ -114,8 +114,7 @@ export interface NgModuleDef<T> {
  *
  * 对 NgModule 及其相关 providers 的包装。
  *
- * @param T the module type. In Ivy applications, this must be explicitly
- * provided.
+ * @param T the module type.
  *
  * 模块类型。在 Ivy 应用中，它必须显式提供。
  *
@@ -124,8 +123,7 @@ export interface NgModuleDef<T> {
  *
  * @publicApi
  */
-export interface ModuleWithProviders<
-    T = any /** TODO(alxhub): remove default when callers pass explicit type param */> {
+export interface ModuleWithProviders<T> {
   ngModule: Type<T>;
   providers?: Provider[];
 }
@@ -146,7 +144,7 @@ export interface NgModuleDecorator {
    * 把一个类标记为 NgModule，并提供配置元数据。
    */
   (obj?: NgModule): TypeDecorator;
-  new (obj?: NgModule): NgModule;
+  new(obj?: NgModule): NgModule;
 }
 
 /**
@@ -471,7 +469,9 @@ export const NgModule: NgModuleDecorator = makeDecorator(
  *
  * @publicApi
  */
-export interface DoBootstrap { ngDoBootstrap(appRef: ApplicationRef): void; }
+export interface DoBootstrap {
+  ngDoBootstrap(appRef: ApplicationRef): void;
+}
 
 function preR3NgModuleCompile(moduleType: Type<any>, metadata?: NgModule): void {
   let imports = (metadata && metadata.imports) || [];

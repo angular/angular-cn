@@ -2,7 +2,6 @@
 
 # AOT 元数据错误
 
-
 The following are metadata errors you may encounter, with explanations and suggested corrections.
 
 你可能遇到一些元数据错误，下面是对它们的解释和纠正建议。
@@ -27,7 +26,6 @@ The following are metadata errors you may encounter, with explanations and sugge
 ## Expression form not supported
 
 ## 不支持表达形式 (Expression form not supported)
-
 
 <div class="alert is-helpful">
 
@@ -66,7 +64,6 @@ and be wary of new or unusual TypeScript features.
 
 通过在编写 Angular 元数据时坚持使用编译器的[受限表达式语法](guide/aot-compiler#expression-syntax)来避免此错误，并小心新的或不常用的 TypeScript 功能。
 
-
 <hr>
 
 {@a reference-to-a-local-symbol}
@@ -74,7 +71,6 @@ and be wary of new or unusual TypeScript features.
 ## Reference to a local (non-exported) symbol
 
 ## 引用本地（未导出的）符号 (Reference to a local (non-exported) symbol)
-
 
 <div class="alert is-helpful">
 
@@ -125,7 +121,6 @@ let foo = 42; // initialized
 The compiler will [fold](guide/aot-compiler#code-folding) the expression into the provider as if you had written this.
 
 编译器会将表达式[折叠](guide/aot-compiler#code-folding)到提供者中，就像你自己写的一样。
-
 
 ```ts
 
@@ -193,7 +188,6 @@ Prefixing the declaration with `export` merely produces a new error, "[`Only ini
 ## Only initialized variables and constants
 
 ## 只支持初始化过的变量和常量 (Only initialized variables and constants)
-
 
 <div class="alert is-helpful">
 
@@ -276,7 +270,6 @@ export class MyComponent {}
 
 ## 引用未导出过的类 (Reference to a non-exported class)
 
-
 <div class="alert is-helpful">
 
 _Reference to a non-exported class <class name>. Consider exporting the class._
@@ -313,7 +306,6 @@ To correct this error, export the referenced class.
 
 Angular 在单独的模块中生成类工厂，并且该工厂[只能访问导出的类](guide/aot-compiler#exported-symbols)。要更正此错误，请导出所引用的类。
 
-
 ```ts
 
 // CORRECTED
@@ -334,7 +326,6 @@ export abstract class MyStrategy { }
 ## Reference to a non-exported function
 
 ## 引用未导出过的函数 (Reference to a non-exported function)
-
 
 <div class="alert is-helpful">
 
@@ -365,8 +356,7 @@ Angular generates a class factory in a separate module and that
 factory [can only access exported functions](guide/aot-compiler#exported-symbols).
 To correct this error, export the function.
 
-Angular 在单独的模块中生成类工厂，该工厂[只能访问导出的函数](guide/aot-compiler#exported-symbols) 。要更正此错误，请导出此函数。
-
+Angular 在单独的模块中生成类工厂，该工厂[只能访问导出的函数](guide/aot-compiler#exported-symbols)。要更正此错误，请导出此函数。
 
 ```ts
 
@@ -389,7 +379,6 @@ export function myStrategy() { ... }
 
 ## 不支持函数调用 (Function calls are not supported)
 
-
 <div class="alert is-helpful">
 
 _Function calls are not supported. Consider replacing the function or lambda with a reference to an exported function._
@@ -401,8 +390,7 @@ _Function calls are not supported. Consider replacing the function or lambda wit
 The compiler does not currently support [function expressions or lambda functions](guide/aot-compiler#function-expression).
 For example, you cannot set a provider's `useFactory` to an anonymous function or arrow function like this.
 
-编译器当前不支持[函数表达式或 lambda 函数](guide/aot-compiler#function-expression) 。例如，您不能将提供者的 `useFactory` 设置为这样的匿名函数或箭头函数。
-
+编译器当前不支持[函数表达式或 lambda 函数](guide/aot-compiler#function-expression)。例如，你不能将提供者的 `useFactory` 设置为这样的匿名函数或箭头函数。
 
 ```ts
 
@@ -465,7 +453,6 @@ export function someValueFactory() {
 
 ## 不支持解构变量或常量 (Destructured variable or constant not supported)
 
-
 <div class="alert is-helpful">
 
 _Referencing an exported destructured variable or constant is not supported by the template compiler. Consider simplifying this to avoid destructuring._
@@ -522,7 +509,6 @@ import { configuration } from './configuration';
 ## Could not resolve type
 
 ## 无法解析类型 (Could not resolve type)
-
 
 <div class="alert is-helpful">
 
@@ -641,20 +627,17 @@ export class MyComponent {
 
 ## 期望的名字 (Name expected)
 
-
 <div class="alert is-helpful">
 
 *The compiler expected a name in an expression it was evaluating.*
 
 *编译器在正在计算的表达式中期望有一个名字。*
 
-
 </div>
 
 This can happen if you use a number as a property name as in the following example.
 
 如果将数字用作属性名称，则可能发生这种情况，如以下示例所示。
-
 
 ```ts
 
@@ -681,7 +664,6 @@ provider: [{ provide: Foo, useValue: { '0': 'test' } }]
 ## Unsupported enum member name
 
 ## 不支持的枚举成员名称 (Unsupported enum member name)
-
 
 <div class="alert is-helpful">
 
@@ -726,7 +708,6 @@ Avoid referring to enums with complicated initializers or computed properties.
 
 ## 不支持带标签的模板表达式 (Tagged template expressions are not supported)
 
-
 <div class="alert is-helpful">
 
 _Tagged template expressions are not supported in metadata._
@@ -737,8 +718,7 @@ _Tagged template expressions are not supported in metadata._
 
 The compiler encountered a JavaScript ES2015 [tagged template expression](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals#Tagged_template_literals) such as the following.
 
-编译器遇到了 JavaScript ES2015 [带标记的模板表达式](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals#Tagged_template_literals) ，如下所示。
-
+编译器遇到了 JavaScript ES2015 [带标记的模板表达式](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals#Tagged_template_literals)，如下所示。
 
 ```ts
 
@@ -767,7 +747,6 @@ AOT 编译器不支持带标签函数的模板表达式，避免在元数据表�
 ## Symbol reference expected
 
 ## 期待符号的引用 (Symbol reference expected)
-
 
 <div class="alert is-helpful">
 

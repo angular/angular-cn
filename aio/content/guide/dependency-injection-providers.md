@@ -71,7 +71,7 @@ The expanded provider configuration is an object literal with two properties.
 * The `provide` property holds the [token](guide/dependency-injection#token)
 that serves as the key for both locating a dependency value and configuring the injector.
 
-  `provide` 属性存有[令牌](guide/dependency-injection#token)，它作为一个 key ，在定位依赖值和配置注入器时使用。
+  `provide` 属性存有[令牌](guide/dependency-injection#token)，它作为一个 key，在定位依赖值和配置注入器时使用。
 
 * The second property is a provider definition object, which tells the injector how to create the dependency value.
 The provider-definition key can be `useClass`, as in the example.
@@ -117,7 +117,7 @@ This logger gets the user from an injected `UserService` instance.
 The injector needs providers for both this new logging service and its dependent `UserService`. Configure this alternative logger with the `useClass` provider-definition key, like `BetterLogger`. The following array specifies both providers in the `providers` metadata option of the parent module or component.
 
 注入器需要提供这个新的日志服务以及该服务所依赖的 `UserService` 对象。
-使用 `useClass` 作为提供者定义对象的 key ，来配置一个 logger 的替代品，比如 `BetterLogger`。
+使用 `useClass` 作为提供者定义对象的 key，来配置一个 logger 的替代品，比如 `BetterLogger`。
 下面的数组同时在父模块和组件的 `providers` 元数据选项中指定了这些提供者。
 
 <code-example path="dependency-injection/src/app/providers.component.ts" region="providers-5"></code-example>
@@ -277,7 +277,6 @@ it supports typing of the configuration object within the class.
 
 </div>
 
-
 {@a factory-provider}
 {@a factory-providers}
 
@@ -345,7 +344,7 @@ and let the injector pass them along to the factory function.
 
 * The `useFactory` field tells Angular that the provider is a factory function whose implementation is `heroServiceFactory`.
 
-  `useFactory` 字段告诉 Angular 该提供者是一个工厂函数，该函数的实现代码是 `heroServiceFactory`。 
+  `useFactory` 字段告诉 Angular 该提供者是一个工厂函数，该函数的实现代码是 `heroServiceFactory`。
 
 * The `deps` property is an array of [provider tokens](guide/dependency-injection#token).
 The `Logger` and `UserService` classes serve as tokens for their own class providers.
@@ -476,7 +475,7 @@ Thus, services in the NgModule `providers` array or at component level are not t
 
 理想情况下，如果应用没有注入服务，它就不应该包含在最终输出中。
 不过，Angular 要能在构建期间识别出该服务是否需要。
-由于还可能用 `injector.get(Service)` 的形式直接注入服务，所以 Angular 无法准确识别出代码中可能发生此注入的全部位置，因此为保险起见，只能把服务包含在注入器中。 
+由于还可能用 `injector.get(Service)` 的形式直接注入服务，所以 Angular 无法准确识别出代码中可能发生此注入的全部位置，因此为保险起见，只能把服务包含在注入器中。
 因此，在 NgModule 或 组件级别提供的服务是无法被摇树优化掉的。
 
 </div>

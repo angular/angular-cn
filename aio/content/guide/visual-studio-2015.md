@@ -40,7 +40,7 @@ then consider the _experimental_
 Note that the resulting code does not map to the docs. Adjust accordingly.
 
 如果你希望使用**ASP.NET Core**并体验全新项目，
-    参见*预览版*<a href="http://blog.stevensanderson.com/2016/10/04/angular2-template-for-visual-studio/" target="_blank">ASP.NET Core + Angular 的 Visual Studio 2015 模板</a>。 
+    参见*预览版*<a href="http://blog.stevensanderson.com/2016/10/04/angular2-template-for-visual-studio/" target="_blank">ASP.NET Core + Angular 的 Visual Studio 2015 模板</a>。
     注意，最终代码与本文不对应，请适当调节。
 
 </div>
@@ -55,9 +55,6 @@ See [Local Environment Setup](guide/setup-local "Setting up for Local Developmen
 
 如果你的电脑里没有 Node.js®和 npm，请安装**[它们](https://nodejs.org/en/download/)**。
 参见[搭建本地开发环境](guide/setup-local "Setting up for Local Development")以了解所支持的版本和安装步骤。
-
-
-
 
 <h2 id='prereq2'>Prerequisite: Visual Studio 2015 Update 3</h2>
 
@@ -150,8 +147,7 @@ restart it to make sure everything is clean.
   第一步：创建一个 Angular 的初学者应用
 </h2>
 
- 
- Follow the instructions in [Local Environment Setup](guide/setup-local "Setting up for Local Development") to create a starter Angular app using the CLI command [`ng new`](cli/new). 
+Follow the instructions in [Local Environment Setup](guide/setup-local "Setting up for Local Development") to create a starter Angular app using the CLI command [`ng new`](cli/new). 
 
  遵循[建立本地环境](guide/setup-local "Setting up for Local Development")中的步骤，使用 CLI 命令 [`ng new`](cli/new) 创建一个 Angular 的初学者应用。
 
@@ -223,7 +219,6 @@ Include the files in the Visual Studio project as follows:
 
   * src/tsconfig.json
 
-
 <h2 id='restore'>Step 4: Restore the required packages</h2>
 
 <h2 id='restore'>第四步: 恢复需要的包 </h2>
@@ -283,7 +278,7 @@ To use the IIS server with the Getting Started app, you must make the following 
 
 1. In `index.html`, change base href from `<base href="/">` to `<base href="/src/">`.
 
-   在 `index.html` 中，把基地址从 `<base href="/">` 改为 `<base href="/src/">` 。
+   在 `index.html` 中，把基地址从 `<base href="/">` 改为 `<base href="/src/">`。
 
 2. Also in `index.html`, change  the scripts to use `/node_modules` with a slash 
 instead of `node_modules` without the slash. 
@@ -343,7 +338,7 @@ However, if you're using regular IIS you'll have to install the rewrite
 module.
 
 Visual Studio 自带了一个 IIS Express，其中有一个重写（rewrite）模块。
-不过，如果使用标准版的 IIS ，就要自己去安装这个重写模块了。
+不过，如果使用标准版的 IIS，就要自己去安装这个重写模块了。
 
 Tell Visual Studio how to handle requests for route app pages by adding these
 rewrite rules near the bottom of the `web.config`:

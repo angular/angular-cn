@@ -1,20 +1,39 @@
-# Displaying data
+# Displaying data in views
 
-# 显示数据
+# 在视图中显示数据
 
-You can display data by binding controls in an HTML template to properties of an Angular component.
+Angular [components](guide/glossary#component) form the data structure of your application.
+The HTML [template](guide/glossary#template) associated with a component provides the means to display that data in the context of a web page.
+Together, a component's class and template form a [view](guide/glossary#view) of your application data.
 
-你可以通过把 HTML 模板中的控件绑定到 Angular 组件的属性来显示数据。
+各种 Angular [组件](guide/glossary#component)构成了应用的数据结构。
+组件关联到的 HTML [模板](guide/glossary#template)提供了在 Web 页面的上下文中显示数据的各种方法。
+组件类和模板，共同构成了应用数据的一个[视图](guide/glossary#view)。
 
-In this page, you'll create a component with a list of heroes.
-You'll display the list of hero names and
-conditionally show a message below the list.
+The process of combining data values with their representation on the page is called [data binding](guide/glossary#data-binding).
+You display your data to a user (and collect data from the user) by *binding* controls in the HTML template to the data properties of the component class.
 
-本章中，你将创建一个带英雄列表的组件。
-你将显示英雄名字的列表，并根据条件在列表下方显示一条消息。
+在页面上把数据的值及其表现形式组合起来的过程，就叫做[数据绑定](guide/glossary#data-binding)。
+通过将 HTML 模板中的各个控件*绑定*到组件类中的各种数据属性，你就把数据展示给了用户（并从该用户收集数据）。
 
+In addition, you can add logic to the template by including [directives](guide/glossary#directive), which tell Angular how to modify the page as it is rendered.
+
+另外，你可以使用[指令](guide/glossary#directive)来向模板中添加逻辑，指令告诉 Angular 在渲染页面时要如何修改。
+
+Angular defines a *template language* that expands HTML notation with syntax that allows you to define various kinds of data binding and logical directives.
+When the page is rendered, Angular interprets the template syntax to update the HTML according to your logic and current data state.
+Before you read the complete [template syntax guide](guide/template-syntax), the exercises on this page give you a quick demonstration of how template syntax works.
+
+Angular 定义了一种*模板语言*，它扩展了 HTML 标记，其扩展语法可以让你定义各种各样的数据绑定和逻辑指令。
+当渲染完此页面之后，Angular 会解释这种模板语法，来根据你的逻辑更新 HTML 和数据的当前状态。
+在你读完[模板语法这章](guide/template-syntax)之前，本页中的练习可以先让你快速了解下这种模板语法的工作方式。
+
+In this demo, you'll create a component with a list of heroes.
+You'll display the list of hero names and conditionally show a message below the list.
 The final UI looks like this:
 
+在这个示例中，你将创建一个带有英雄列表的组件。
+你会显示出这些英雄的名字清单，某些情况下，还会在清单下方显示一条消息。
 最终的用户界面是这样的：
 
 <div class="lightbox">
@@ -36,8 +55,7 @@ snippets described in this page.
 
 ## 使用插值显示组件属性
 
-The easiest way to display a component property
-is to bind the property name through interpolation.
+The easiest way to display a component property is to bind the property name through interpolation.
 With interpolation, you put the property name in the view template, enclosed in double curly braces: `{{myHero}}`.
 
 要显示组件的属性，最简单的方式就是通过插值 (interpolation) 来绑定属性名。
@@ -133,63 +151,67 @@ The next few sections review some of the coding choices in the app.
 
 回顾一下前面所做的决定，看看还有哪些其它选择。
 
-## Template inline or template file?
+## Choosing the template source
 
-## 内联 (inline) 模板还是模板文件？
+## 选择模板来源
 
+The `@Component` metadata tells Angular where to find the component's template.
 You can store your component's template in one of two places.
-You can define it *inline* using the `template` property, or you can define
-the template in a separate HTML file and link to it in
-the component metadata using the `@Component` decorator's `templateUrl` property.
 
-你可以在两种地方存放组件模板。
-你可以使用 `template` 属性把它定义为*内联*的，或者把模板定义在一个独立的 HTML 文件中，
-再通过 `@Component` 装饰器中的 `templateUrl` 属性，
-在组件元数据中把它链接到组件。
+`@Component` 元数据告诉 Angular 要到哪里去找该组件的模板。
+你有两种方式存放组件的模板。
 
-The choice between inline and separate HTML is a matter of taste,
-circumstances, and organization policy.
-Here the app uses inline HTML because the template is small and the demo
-is simpler without the additional HTML file.
+* You can define the template *inline* using the `template` property of the `@Component` decorator. An inline template is useful for a small demo or test.
 
-到底选择内联 HTML 还是独立 HTML 取决于个人喜好、具体状况和组织级策略。
-上面的应用选择内联 HTML ，是因为模板很小，而且没有额外的 HTML 文件显得这个演示简单些。
+  你可以使用 `@Component` 装饰器的 `template` 属性来定义*内联*模板。内联模板对于小型示例或测试很有用。
+
+* Alternatively, you can define the template in a separate HTML file and link to that file in the `templateUrl` property of the `@Component` decorator. This configuration is typical for anything more complex than a small test or demo, and is the default when you generate a new component.
+
+   此外，你还可以把模板定义在单独的 HTML 文件中，并且让 `@Component` 装饰器的 `templateUrl` 属性指向该文件。这种配置方式通常用于所有比小型测试或示例更复杂的场景中，它也是生成新组件时的默认值。
 
 In either style, the template data bindings have the same access to the component's properties.
+Here the app uses inline HTML because the template is small and the demo is simpler without the additional HTML file.
 
 无论用哪种风格，模板数据绑定在访问组件属性方面都是完全一样的。
+这里的应用使用了内联 HTML，是因为该模板很小，而且示例也很简单，用不到外部 HTML 文件。
 
 <div class="alert is-helpful">
 
-  By default, the Angular CLI command [`ng generate component`](cli/generate) generates components with a template file. You can override that with:
+  By default, the Angular CLI command [`ng generate component`](cli/generate) generates components with a template file.
+  You can override that by adding the "-t" (short for `inlineTemplate=true`) option:
 
   默认情况下，Angular CLI 命令 [`ng generate component`](cli/generate) 在生成组件时会带有模板文件，你可以通过参数来覆盖它：
 
   <code-example hideCopy language="sh" class="code-shell">
-    ng generate component hero -it
+    ng generate component hero -t
   </code-example>
 
 </div>
 
-## Constructor or variable initialization?
+## Initialization
 
-## 使用构造函数还是变量初始化？
+## 初始化
 
-Although this example uses variable assignment to initialize the components, you could instead declare and initialize the properties using a constructor:
+The following example uses variable assignment to initialize the components.
 
-虽然这个例子使用了变量赋值的方式初始化组件，你还可以使用构造函数来声明和初始化属性。
+下面的例子使用变量赋值来对组件进行初始化。
 
 <code-example path="displaying-data/src/app/app-ctor.component.1.ts" region="class"></code-example>
 
-This app uses more terse "variable assignment" style simply for brevity.
+You could instead declare and initialize the properties using a constructor.
+ This app uses more terse "variable assignment" style simply for brevity.
 
-为了让本应用更加简短，它采用了更简单的“变量赋值”风格。
+你可以用构造函数来代替这些属性的声明和初始化语句。
 
 {@a ngFor}
 
-## Showing an array property with ***ngFor**
+## Add logic to loop through data
 
-## 使用 ***ngFor*** 显示数组属性
+## 添加循环遍历数据的逻辑
+
+The `*ngFor` directive (predefined by Angular) lets you loop through data. The following example uses the directive to show all of the values in an array property.
+
+`*ngFor` 指令（Angular 预置）可以让你循环遍历数据。下面的例子使用该指令来显示数组型属性中的所有值。
 
 To display a list of heroes, begin by adding an array of hero names to the component and redefine `myHero` to be the first name in the array.
 
@@ -216,7 +238,7 @@ It marks that `<li>` element (and its children) as the "repeater template":
 <div class="alert is-important">
 
 Don't forget the leading asterisk (\*) in `*ngFor`. It is an essential part of the syntax.
-For more information, see the [Template Syntax](guide/template-syntax#ngFor) page.
+Read more about `ngFor` and `*` in the [ngFor section](guide/template-syntax#ngfor) of the [Template Syntax](guide/template-syntax) page.
 
 不要忘记 `*ngFor` 中的前导星号 (\*)。它是语法中不可或缺的一部分。
 更多信息，见[模板语法](guide/template-syntax#ngFor)。
@@ -257,8 +279,6 @@ Now the heroes appear in an unordered list.
   <img src="generated/images/guide/displaying-data/hero-names-list.png" alt="After ngfor">
 </div>
 
-
-
 ## Creating a class for the data
 
 ## 为数据创建一个类
@@ -283,7 +303,7 @@ of hero names into an array of `Hero` objects. For that you'll need a `Hero` cla
   ng generate class hero
 </code-example>
 
-With the following code:
+This command creates the following code.
 
 代码如下：
 
@@ -380,12 +400,14 @@ Read more about `ngIf` and `*` in the [ngIf section](guide/template-syntax#ngIf)
 The template expression inside the double quotes,
 `*ngIf="heroes.length > 3"`, looks and behaves much like TypeScript.
 When the component's list of heroes has more than three items, Angular adds the paragraph
-to the DOM and the message appears. If there are three or fewer items, Angular omits the
-paragraph, so no message appears. For more information,
-see the [template expressions](guide/template-syntax#template-expressions) section of the
-[Template Syntax](guide/template-syntax) page.
+to the DOM and the message appears.
+If there are three or fewer items, Angular omits the paragraph, so no message appears.
 
-双引号中的模板表达式 `*ngIf="heros.length > 3"`，外观和行为很象 TypeScript 。
+双引号内的模板表达式 `*ngIf="heroes.length > 3"` 的外观和行为与 TypeScript 非常相似。当组件的英雄列表包含三个以上的条目时，Angular 会将这段话添加到 DOM 中，这条消息就显示出来了。如果只有三个或更少的条目，Angular 就会省略该段落，也就不会显示任何消息。
+
+For more information, see [template expressions](guide/template-syntax#template-expressions).
+
+双引号中的模板表达式 `*ngIf="heros.length > 3"`，外观和行为很象 TypeScript。
 当组件中的英雄列表有三个以上的条目时，Angular 就会把这个段落添加到 DOM 中，于是消息显示了出来。
 如果有三个或更少的条目，则 Angular 会省略这些段落，所以不显示消息。
 更多信息，见[模板语法](guide/template-syntax)中的[模板表达式](guide/template-syntax#template-expressions)。
@@ -407,7 +429,6 @@ The browser should refresh automatically and the message should disappear.
 试一下。因为这个数组中有四个条目，所以消息应该显示出来。
 回到 `app.component.ts`，从英雄数组中删除或注释掉一个元素。
 浏览器应该自动刷新，消息应该会消失。
-
 ## Summary
 
 ## 小结

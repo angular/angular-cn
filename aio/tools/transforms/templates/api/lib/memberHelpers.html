@@ -180,7 +180,7 @@
 {% if nonInternalMethods.length %}
 <section class="{$ containerClass $}">
   <a name="methods"></a>
-  <h2>{$ headingText $}</h2>
+  <h2 id="{$ containerClass $}">{$ headingText $}</h2>
   {% for member in nonInternalMethods %}
     {$ renderMethodDetail(versionInfo, member, itemClass) $}
   {% endfor %}
@@ -194,7 +194,7 @@
 {% if nonInternalProperties.length -%}
 <section class="{$ containerClass $}">
   <a name="properties"></a>
-  <h{$ headingLevel $}>{$ headingText $}</h{$ headingLevel $}>
+  <h{$ headingLevel $} id="{$ containerClass $}">{$ headingText $}</h{$ headingLevel $}>
   <table class="is-full-width list-table property-table">
     <thead>
       <tr>

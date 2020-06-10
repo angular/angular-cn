@@ -68,7 +68,7 @@ This page demonstrates building a simple _appHighlight_ attribute
 directive to set an element's background color
 when the user hovers over that element. You can apply it like this:
 
-本章展示了如何创建一个简单的属性型指令 _appHighlight_ ，当用户把鼠标悬停在一个元素上时，改变它的背景色。你可以这样用它：
+本章展示了如何创建一个简单的属性型指令 _appHighlight_，当用户把鼠标悬停在一个元素上时，改变它的背景色。你可以这样用它：
 
 <code-example path="attribute-directives/src/app/app.component.1.html" header="src/app/app.component.html (applied)" region="applied"></code-example>
 
@@ -127,7 +127,7 @@ Angular 会在模板中定位每个拥有名叫 `appHighlight` 属性的元素�
 
 The _attribute selector_ pattern explains the name of this kind of directive.
 
-正因如此，这类指令被称为 **属性选择器** 。
+正因如此，这类指令被称为 **属性选择器**。
 
 <div class="alert is-helpful">
 

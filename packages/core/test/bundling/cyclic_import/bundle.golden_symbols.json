@@ -117,6 +117,9 @@
     "name": "SANITIZER"
   },
   {
+    "name": "TRANSPLANTED_VIEWS_TO_REFRESH"
+  },
+  {
     "name": "TVIEW"
   },
   {
@@ -166,6 +169,9 @@
   },
   {
     "name": "attachPatchData"
+  },
+  {
+    "name": "autoRegisterModuleById"
   },
   {
     "name": "baseResolveDirective"
@@ -309,6 +315,9 @@
     "name": "getContainerRenderParent"
   },
   {
+    "name": "getCurrentDirectiveIndex"
+  },
+  {
     "name": "getDirectiveDef"
   },
   {
@@ -319,6 +328,9 @@
   },
   {
     "name": "getFactoryDef"
+  },
+  {
+    "name": "getFirstLContainer"
   },
   {
     "name": "getFirstNativeNode"
@@ -349,6 +361,9 @@
   },
   {
     "name": "getNativeByTNode"
+  },
+  {
+    "name": "getNextLContainer"
   },
   {
     "name": "getNodeInjectable"
@@ -459,6 +474,9 @@
     "name": "isFactory"
   },
   {
+    "name": "isInlineTemplate"
+  },
+  {
     "name": "isLContainer"
   },
   {
@@ -486,10 +504,16 @@
     "name": "leaveView"
   },
   {
+    "name": "leaveViewLight"
+  },
+  {
     "name": "locateHostElement"
   },
   {
     "name": "markAsComponentHost"
+  },
+  {
+    "name": "markTransplantedViewsForRefresh"
   },
   {
     "name": "matchTemplateAttribute"
@@ -525,13 +549,13 @@
     "name": "refreshComponent"
   },
   {
+    "name": "refreshContainsDirtyView"
+  },
+  {
     "name": "refreshContentQueries"
   },
   {
     "name": "refreshDynamicEmbeddedViews"
-  },
-  {
-    "name": "refreshTransplantedViews"
   },
   {
     "name": "refreshView"
@@ -579,6 +603,9 @@
     "name": "setBindingRootForHostBindings"
   },
   {
+    "name": "setCurrentDirectiveIndex"
+  },
+  {
     "name": "setCurrentQueryIndex"
   },
   {
@@ -622,6 +649,9 @@
   },
   {
     "name": "unwrapRNode"
+  },
+  {
+    "name": "updateTransplantedViewCount"
   },
   {
     "name": "viewAttachedToChangeDetector"

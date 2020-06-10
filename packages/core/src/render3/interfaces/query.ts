@@ -7,7 +7,7 @@
  */
 
 import {Type} from '../../interface/type';
-import {QueryList} from '../../linker';
+import {QueryList} from '../../linker/query_list';
 
 import {TNode} from './node';
 import {TView} from './view';
@@ -145,7 +145,7 @@ export interface TQueries {
   template(tView: TView, tNode: TNode): void;
 
   /**
-  * A proxy method that iterates over all the TQueries in a given TView and calls the corresponding
+   * A proxy method that iterates over all the TQueries in a given TView and calls the corresponding
    * `embeddedTView` on each and every TQuery.
    * @param tNode
    */

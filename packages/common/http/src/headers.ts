@@ -28,7 +28,7 @@ export class HttpHeaders {
    * 一个内部映射表，key 是头名称的小写形式，value 是其值。
    */
   // TODO(issue/24571): remove '!'.
-  private headers !: Map<string, string[]>;
+  private headers!: Map<string, string[]>;
 
 
   /**
@@ -44,7 +44,7 @@ export class HttpHeaders {
    *
    * 完成该对象的惰性初始化（在读取之前需要）。
    */
-  private lazyInit !: HttpHeaders | Function | null;
+  private lazyInit!: HttpHeaders|Function|null;
 
   /**
    * Queued updates to be materialized the next initialization.
@@ -69,7 +69,7 @@ export class HttpHeaders {
             const value = line.slice(index + 1).trim();
             this.maybeSetNormalizedName(name, key);
             if (this.headers.has(key)) {
-              this.headers.get(key) !.push(value);
+              this.headers.get(key)!.push(value);
             } else {
               this.headers.set(key, [value]);
             }
@@ -204,7 +204,7 @@ export class HttpHeaders {
    *
    * @returns A clone of the HTTP headers object with the given value deleted.
    */
-  delete (name: string, value?: string|string[]): HttpHeaders {
+  delete(name: string, value?: string|string[]): HttpHeaders {
     return this.clone({name, value, op: 'd'});
   }
 
@@ -232,8 +232,8 @@ export class HttpHeaders {
   private copyFrom(other: HttpHeaders) {
     other.init();
     Array.from(other.headers.keys()).forEach(key => {
-      this.headers.set(key, other.headers.get(key) !);
-      this.normalizedNames.set(key, other.normalizedNames.get(key) !);
+      this.headers.set(key, other.headers.get(key)!);
+      this.normalizedNames.set(key, other.normalizedNames.get(key)!);
     });
   }
 
@@ -250,7 +250,7 @@ export class HttpHeaders {
     switch (update.op) {
       case 'a':
       case 's':
-        let value = update.value !;
+        let value = update.value!;
         if (typeof value === 'string') {
           value = [value];
         }
@@ -290,6 +290,6 @@ export class HttpHeaders {
   forEach(fn: (name: string, values: string[]) => void) {
     this.init();
     Array.from(this.normalizedNames.keys())
-        .forEach(key => fn(this.normalizedNames.get(key) !, this.headers.get(key) !));
+        .forEach(key => fn(this.normalizedNames.get(key)!, this.headers.get(key)!));
   }
 }

@@ -2,7 +2,7 @@
 
 # 架构概览
 
-Angular is a platform and framework for building single-page client applications in HTML and TypeScript.
+Angular is a platform and framework for building single-page client applications using HTML and TypeScript.
 Angular is written in TypeScript.
 It implements core and optional functionality as a set of TypeScript libraries that you import into your apps.
 
@@ -33,7 +33,7 @@ Both components and services are simply classes, with *decorators* that mark the
 * The metadata for a component class associates it with a *template* that defines a view. A template combines ordinary HTML with Angular *directives* and *binding markup* that allow Angular to modify the HTML before rendering it for display.
 
    组件类的元数据将组件类和一个用来定义视图的*模板*关联起来。
-  模板把普通的 HTML 和 Angular *指令*与*绑定标记（markup）*组合起来，这样 Angular 就可以在呈现 HTML 之前先修改这些 HTML。
+  模板把普通的 HTML 和 Angular *指令*与*绑定标记（markup）*组合起来，这样 Angular 就可以在渲染 HTML 之前先修改这些 HTML。
 
 * The metadata for a service class provides the information Angular needs to make it available to components through *dependency injection (DI)*.
 
@@ -41,7 +41,7 @@ Both components and services are simply classes, with *decorators* that mark the
 
 An app's components typically define many views, arranged hierarchically. Angular provides the `Router` service to help you define navigation paths among views. The router provides sophisticated in-browser navigational capabilities.
 
-应用的组件通常会定义很多视图，并进行分级组织。 Angular 提供了 `Router` 服务来帮助你定义视图之间的导航路径。
+应用的组件通常会定义很多视图，并进行分级组织。Angular 提供了 `Router` 服务来帮助你定义视图之间的导航路径。
 路由器提供了先进的浏览器内导航功能。
 
 <div class="alert is-helpful">
@@ -49,6 +49,14 @@ An app's components typically define many views, arranged hierarchically. Angula
   See the [Angular Glossary](guide/glossary) for basic definitions of important Angular terms and usage.
 
   参见 [Angular 词汇表](guide/glossary) 以了解对 Angular 重要名词和用法的基本定义。
+
+</div>
+
+<div class="alert is-helpful">
+
+  For the sample app that this page describes, see the <live-example></live-example>.
+
+  要想查看本页所讲的范例程序，参见<live-example></live-example>。
 
 </div>
 
@@ -258,7 +266,6 @@ Each of these subjects is introduced in more detail in the following pages.
 
 这些主题的详情在下列页面中有介绍：
 
-
 * [Introduction to Modules](guide/architecture-modules)
 
   [模块简介](guide/architecture-modules)
@@ -290,14 +297,6 @@ Each of these subjects is introduced in more detail in the following pages.
 * [Introduction to services and dependency injection](guide/architecture-services)
 
    [服务与依赖注入简介](guide/architecture-services)
-
-<div class="alert is-helpful">
-
-   Note that the code referenced on these pages is available as a <live-example></live-example>.
-
-   注意，这些页面中的代码都在<live-example></live-example>中。
-
-</div>
 
 When you're familiar with these fundamental building blocks, you can explore them in more detail in the documentation. To learn about more tools and techniques that are available to help you build and deploy Angular applications, see [Next steps: tools and techniques](guide/architecture-next-steps).
 

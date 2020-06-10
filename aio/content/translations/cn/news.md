@@ -8,7 +8,6 @@
 
 官方网站：[Ant Design Of Angular](https://ng.ant.design)
 
-
 ### 关于 NG-ZORRO
 
 众所周知，Ant Design 作为一门设计语言面世，经历过多年的迭代和积累，它对 UI 的设计思想已经成为一套事实标准，受到众多前端开发者及企业的追捧和喜爱，也是 React 开发者手中的神兵利器。今天，NG-ZORRO 正式开源，希望它能够让 Angular 开发者也享受到 Ant Design 的优秀设计。

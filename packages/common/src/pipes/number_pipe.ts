@@ -364,7 +364,7 @@ function isEmpty(value: any): boolean {
  *
  * 把字符串转换成数字（如果需要）。
  */
-function strToNumber(value: number | string): number {
+function strToNumber(value: number|string): number {
   // Convert strings to numbers
   if (typeof value === 'string' && !isNaN(Number(value) - parseFloat(value))) {
     return Number(value);

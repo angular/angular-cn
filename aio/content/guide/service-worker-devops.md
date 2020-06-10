@@ -61,7 +61,7 @@ updated to version `X + 1` already, the lazy loading operation will fail.
 
 当使用惰性加载模块时，文件的整体性就显得格外重要。
 某个 JS 包可能引用很多惰性块，而这些惰性块的文件名在应用的每次特定的构建中都是唯一的。
-如果运行应用的 `X` 版本视图加载一个惰性块，但该块的服务器已经升级到了 `X + 1`版本，这次惰性加载操作就会失败。
+如果运行应用的 `X` 版本视图加载一个惰性块，但该块的服务器已经升级到了 `X + 1` 版本，这次惰性加载操作就会失败。
 
 The version identifier of the app is determined by the contents of all
 resources, and it changes if any of them change. In practice, the version
@@ -70,9 +70,9 @@ hashes for all known content. If any of the cached files change, the file's
 hash will change in `ngsw.json`, causing the Angular service worker to
 treat the active set of files as a new version.
 
-本应用的版本标识符由其所有资源的内容决定，如果它们中的任何一个发生了变化，则版本标识符也随之改变。 
+本应用的版本标识符由其所有资源的内容决定，如果它们中的任何一个发生了变化，则版本标识符也随之改变。
 实际上，版本是由 `ngsw.json` 文件的内容决定的，包含了所有已知内容的哈希值。
-如果任何一个被缓存的文件发生了变化，则该文件的哈希也将在`ngsw.json`中随之变化，从而导致 Angular Service Worker 将这个活动文件的集合视为一个新版本。
+如果任何一个被缓存的文件发生了变化，则该文件的哈希也将在 `ngsw.json` 中随之变化，从而导致 Angular Service Worker 将这个活动文件的集合视为一个新版本。
 
 With the versioning behavior of the Angular service worker, an application
 server can ensure that the Angular app always has a consistent set of files.
@@ -103,7 +103,7 @@ caches the entire app. Consequently, it is essential that the service worker
 gets the correct content.
 
 长周期缓存的潜在副作用之一就是可能无意中缓存了无效的资源。
-在普通的HTTP缓存中，硬刷新或缓存过期限制了缓存这种无效文件导致的负面影响。
+在普通的 HTTP 缓存中，硬刷新或缓存过期限制了缓存这种无效文件导致的负面影响。
 而 Service Worker 会忽略这样的约束，事实上会对整个应用程序进行长期缓存。
 因此，让 Service Worker 获得正确的内容就显得至关重要。
 
@@ -158,7 +158,7 @@ content that is unknown at build time or are updated
 more frequently than the app is deployed.
 
 `ngsw.json` 清单中唯一带哈希值的资源就是构建清单时 `dist` 目录中的资源。
-而其他资源，特别是从 CDN 加载的资源，其内容在构建时是未知的，或者会比应用程序部署得更频繁。
+而其它资源，特别是从 CDN 加载的资源，其内容在构建时是未知的，或者会比应用程序部署得更频繁。
 
 If the Angular service worker does not have a hash to validate
 a given resource, it still caches its contents but it honors
@@ -170,7 +170,7 @@ to refresh the resource in the background. This way, broken
 unhashed resources do not remain in the cache beyond their
 configured lifetimes.
 
-如果 Angular Service Worker 没有哈希可以验证给定的资源，它仍然会缓存它的内容，但会使用 “重新验证时失效” 的策略来承认HTTP缓存头。
+如果 Angular Service Worker 没有哈希可以验证给定的资源，它仍然会缓存它的内容，但会使用 “重新验证时失效” 的策略来承认 HTTP 缓存头。
 也就是说，当被缓存资源的 HTTP 缓存头指出该资源已过期时，Angular Service Worker 将继续提供内容，并尝试在后台刷新资源。
 这样，那些被破坏的非哈希资源留在缓存中的时间就不会超出为它配置的生命周期。
 
@@ -251,14 +251,14 @@ The Angular service worker is a small script that runs in web browsers.
 From time to time, the service worker will be updated with bug
 fixes and feature improvements.
 
-Angular Service Worker 是一个运行在Web浏览器中的小脚本。
+Angular Service Worker 是一个运行在 Web 浏览器中的小脚本。
 有时，这个 Service Worker 也可能会需要更新，以修复错误和增强特性。
 
 The Angular service worker is downloaded when the app is first opened
 and when the app is accessed after a period of inactivity. If the
 service worker has changed, the service worker will be updated in the background.
 
-首次打开应用时或在一段非活动时间之后再访问应用程序时，就会下载 Angular Service Worker。 如果 Service Worker 发生了变化，Service Worker 就会在后台进行更新。
+首次打开应用时或在一段非活动时间之后再访问应用程序时，就会下载 Angular Service Worker。如果 Service Worker 发生了变化，Service Worker 就会在后台进行更新。
 
 Most updates to the Angular service worker are transparent to the
 app&mdash;the old caches are still valid and content is still served
@@ -445,7 +445,7 @@ API in the browser.
 
 在这个例子中，Service Worker 拥有一个版本的应用程序缓存并用它服务于两个不同的选项卡。
 请注意，这个版本哈希值是上面列出的“最新清单的哈希”。
-它的两个客户运行的都是最新版本。每个客户都用浏览器中 `Clients` API的 ID 列了出来。
+它的两个客户运行的都是最新版本。每个客户都用浏览器中 `Clients` API 的 ID 列了出来。
 
 #### Idle task queue
 
@@ -558,7 +558,7 @@ script `safety-worker.js`, which when loaded will unregister itself
 from the browser. This script can be used as a last resort to get rid
 of unwanted service workers already installed on client pages.
 
-`@angular/service-worker` NPM 包中还包含一个小脚本`safety-worker.js`，当它被加载时就会把它自己从浏览器中注销。
+`@angular/service-worker` NPM 包中还包含一个小脚本 `safety-worker.js`，当它被加载时就会把它自己从浏览器中注销。
 这个脚本可以作为终极武器来摆脱那些已经安装在客户端页面上的不想要的 Service Worker。
 
 It's important to note that you cannot register this worker directly,
@@ -606,7 +606,6 @@ To remedy this, you may need to kill the old worker using one of the above
 techniques ([Fail-safe](#fail-safe) or [Safety Worker](#safety-worker)).
 
 为了解决这个问题，你可能需要用上述技巧（[故障安全](#fail-safe)或[Safety Worker](#safety-worker)）之一杀死老的 Worker。
-
 
 ## More on Angular service workers
 

@@ -377,7 +377,7 @@ describes additional `NgFor` directive properties and context properties.
 
 These microsyntax mechanisms are also available to you when you write your own structural directives.
 For example, microsyntax in Angular allows you to write `<div *ngFor="let item of items">{{item}}</div>`
-instead of `<ng-template ngFor [ngForOf]="items"><div>{{item}}</div></ng-template>`.
+instead of `<ng-template ngFor let-item [ngForOf]="items"><div>{{item}}</div></ng-template>`.
 The following sections provide detailed information on constraints, grammar,
 and translation of microsyntax.
 
@@ -481,7 +481,6 @@ The following tables describe each portion of the microsyntax grammar.
     <td colspan="3"><code>as = :export "as" :local ";"?</code></td>
   </tr>
 </table>
-
 
 ### Translation
 
@@ -748,7 +747,7 @@ That's the fate of the middle "Hip!" in the phrase "Hip! Hip! Hooray!".
 
 Angular erases the middle "Hip!", leaving the cheer a bit less enthusiastic.
 
-Angular 抹掉了中间的那个 "Hip!" ，让欢呼声显得不再那么热烈了。
+Angular 抹掉了中间的那个 "Hip!"，让欢呼声显得不再那么热烈了。
 
 <div class="lightbox">
   <img src='generated/images/guide/structural-directives/template-rendering.png' alt="template tag rendering">
@@ -885,7 +884,6 @@ The drop down works properly.
 
 </div>
 
-
 The `<ng-container>` is a syntax element recognized by the Angular parser.
 It's not a directive, component, class, or interface.
 It's more like the curly braces in a JavaScript `if`-block:
@@ -943,7 +941,7 @@ Creating a directive is similar to creating a component.
 
 * Set the CSS *attribute selector* that identifies the directive when applied to an element in a template.
 
-   设置 CSS *属性选择器* ，以便在模板中标识出这个指令该应用于哪个元素。
+   设置 CSS *属性选择器*，以便在模板中标识出这个指令该应用于哪个元素。
 
 Here's how you might begin:
 
@@ -1063,6 +1061,124 @@ When the `condition` is truthy, the top (A) paragraph is removed and the bottom 
 <div class="lightbox">
   <img src='generated/images/guide/structural-directives/unless-anim.gif' alt="UnlessDirective in action">
 </div>
+
+{@a directive-type-checks}
+
+## Improving template type checking for custom directives
+
+## 改进自定义指令的模板类型检查
+
+You can improve template type checking for custom directives by adding template guard properties to your directive definition.
+These properties help the Angular template type checker find mistakes in the template at compile time, which can avoid runtime errors those mistakes can cause.
+
+你可以通过在指令定义中添加模板守护属性来改进自定义指令的模板类型检查。这些属性可以帮助 Angular 模板类型检查器在编译期间发现模板中的错误，避免这些失误导致运行期错误。
+
+Use the type-guard properties to inform the template type checker of an expected type, thus improving compile-time type-checking for that template.
+
+使用类型守护属性可以告诉模板类型检查器你所期望的类型，从而改进该模板的编译期类型检查。
+
+* A property `ngTemplateGuard_(someInputProperty)` lets you specify a more accurate type for an input expression within the template.
+
+  属性 `ngTemplateGuard_(someInputProperty)` 允许你为模板中的输入表达式指定一个更准确的类型。
+
+* The `ngTemplateContextGuard` static property declares the type of the template context.
+
+  `ngTemplateContextGuard` 静态属性声明了模板上下文的类型。
+
+This section provides example of both kinds of type-guard property.
+
+本节提供了这两种类型守护属性的例子。
+
+<div class="alert is-helpful">
+
+   For more information, see [Template type checking guide](guide/template-typecheck "Template type-checking guide").
+
+   有关更多信息，请参阅[模板类型检查指南](guide/template-typecheck "模板类型检查指南")。
+
+</div>
+
+{@a narrowing-input-types}
+
+### Make in-template type requirements more specific with template guards
+
+### 使用模板守护功能可以让模板内的类型需求更具体
+
+A structural directive in a template controls whether that template is rendered at run time, based on its input expression.
+To help the compiler catch template type errors, you should specify as closely as possible the required type of a directive's input expression when it occurs inside the template.
+
+模板中的结构型指令会根据输入表达式来控制是否要在运行时渲染该模板。为了帮助编译器捕获模板类型中的错误，你应该尽可能详细地指定模板内指令的输入表达式所期待的类型。
+
+A type guard function *narrows* the expected type of an input expression to a subset of types that might be passed to the directive within the template at run time.
+You can provide such a function to help the type-checker infer the proper type for the expression at compile time.
+
+类型守护函数会把输入表达式所期待的类型*窄化*为在运行时可能传给指令的子类型。你可以提供这样一个函数来帮助类型检查器在编译期间推断出该表达式的正确类型。
+
+For example, the `NgIf` implementation uses type-narrowing to ensure that the
+template is only instantiated if the input expression to `*ngIf` is truthy.
+To provide the specific type requirement, the `NgIf` directive defines a [static property `ngTemplateGuard_ngIf: 'binding'`](api/common/NgIf#static-properties).
+The `binding` value is a special case for a common kind of type-narrowing where the input expression is evaluated in order to satisfy the type requirement.
+
+例如，`NgIf` 的实现使用类型窄化来确保只有当 `*ngIf` 的输入表达式为真时，模板才会被实例化。为了提供具体的类型要求，`NgIf` 指令定义了一个[静态属性 `ngTemplateGuard_ngIf: 'binding'`](api/common/NgIf#static-properties)。`binding` 值是一种常见的类型窄化的例子，它会对输入表达式进行求值，以满足类型要求。
+
+To provide a more specific type for an input expression to a directive within the template, add a `ngTemplateGuard_xx` property to the directive, where the suffix to the static property name is the `@Input` field name.
+The value of the property can be either a general type-narrowing function based on its return type, or the string `"binding"` as in the case of `NgIf`.
+
+要为模板中的指令提供一个更具体的输入表达式类型，就要把 `ngTemplateGuard_xx` 属性添加到该指令中，其静态属性名的后缀（xx）是 `@Input` 字段名。该属性的值既可以是针对其返回类型的通用类型窄化函数，也可以是字符串 `"binding"` 就像 `NgIf` 一样。
+
+For example, consider the following structural directive that takes the result of a template expression as an input.
+
+例如，考虑以下结构型指令，它以模板表达式的结果作为输入。
+
+<code-example language="ts" header="IfLoadedDirective">
+export type Loaded<T> = { type: 'loaded', data: T };
+export type Loading = { type: 'loading' };
+export type LoadingState<T> = Loaded<T> | Loading;
+export class IfLoadedDirective<T> {
+    @Input('ifLoaded') set state(state: LoadingState<T>) {}
+    static ngTemplateGuard_state<T>(dir: IfLoadedDirective<T>, expr: LoadingState<T>): expr is Loaded<T> { return true; };
+export interface Person {
+  name: string;
+}
+
+@Component({
+  template: `<div *ifLoaded="state">{{ state.data }}</div>`,
+})
+export class AppComponent {
+  state: LoadingState<Person>;
+}
+</code-example>
+
+In this example, the `LoadingState<T>` type permits either of two states, `Loaded<T>` or `Loading`. The expression used as the directive’s `state` input is of the umbrella type `LoadingState`, as it’s unknown what the loading state is at that point.
+
+在这个例子中，`LoadingState<T>` 类型允许两种状态之一，`Loaded<T>` 或 `Loading`。此表达式用作该指令的 `state` 输入是一个总括类型 `LoadingState`，因为此处的加载状态是未知的。
+
+The `IfLoadedDirective` definition declares the static field `ngTemplateGuard_state`, which expresses the narrowing behavior.
+Within the `AppComponent` template, the `*ifLoaded` structural directive should render this template only when `state` is actually `Loaded<Person>`.
+The type guard allows the type checker to infer that the acceptable type of `state` within the template is a `Loaded<T>`, and further infer that `T` must be an instance of `Person`.
+
+`IfLoadedDirective` 定义声明了静态字段 `ngTemplateGuard_state`，表示其窄化行为。在 `AppComponent` 模板中，`*ifLoaded` 结构型指令只有当实际的 `state` 是 `Loaded<Person>` 类型时，才会渲染该模板。类型守护允许类型检查器推断出模板中可接受的 `state` 类型是 `Loaded<T>`，并进一步推断出 `T` 必须是 `Person` 一个实例。
+
+{@a narrowing-context-type}
+
+### Typing the directive's context
+
+### 为指令上下文指定类型
+
+If your structural directive provides a context to the instantiated template, you can properly type it inside the template by providing a static `ngTemplateContextGuard` function.
+The following snippet shows an example of such a function.
+
+如果你的结构型指令要为实例化的模板提供一个上下文，可以通过提供静态的 `ngTemplateContextGuard` 函数在模板中给它提供合适的类型。下面的代码片段展示了该函数的一个例子。
+
+<code-example language="ts" header="myDirective.ts">
+@Directive({…})
+export class ExampleDirective {
+    // Make sure the template checker knows the type of the context with which the
+    // template of this directive will be rendered
+    static ngTemplateContextGuard(dir: ExampleDirective, ctx: unknown): ctx is ExampleContext { return true; };
+
+    // …
+}
+</code-example>
 
 {@a summary}
 

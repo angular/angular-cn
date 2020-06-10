@@ -41,7 +41,9 @@ describe('ngc transformer command-line', () => {
     basePath = support.basePath;
     outDir = path.join(basePath, 'built');
     process.chdir(basePath);
-    write = (fileName: string, content: string) => { support.write(fileName, content); };
+    write = (fileName: string, content: string) => {
+      support.write(fileName, content);
+    };
 
     write('tsconfig-base.json', `{
       "compilerOptions": {
@@ -96,8 +98,9 @@ describe('ngc transformer command-line', () => {
   });
 
   describe('errors', () => {
-
-    beforeEach(() => { errorSpy.and.stub(); });
+    beforeEach(() => {
+      errorSpy.and.stub();
+    });
 
     it('should not print the stack trace if user input file does not exist', () => {
       writeConfig(`{
@@ -231,7 +234,6 @@ describe('ngc transformer command-line', () => {
   });
 
   describe('compile ngfactory files', () => {
-
     it('should compile ngfactory files that are not referenced by root files', () => {
       writeConfig(`{
           "extends": "./tsconfig-base.json",
@@ -1122,7 +1124,6 @@ describe('ngc transformer command-line', () => {
     });
 
     describe('with external symbol re-exports enabled', () => {
-
       it('should be able to compile multiple libraries with summaries', () => {
         // Note: we need to emit the generated code for the libraries
         // into the node_modules, as that is the only way that we
@@ -1559,11 +1560,15 @@ describe('ngc transformer command-line', () => {
       originalTimeout = jasmine.DEFAULT_TIMEOUT_INTERVAL;
       jasmine.DEFAULT_TIMEOUT_INTERVAL = 10000;
       const timerToken = 100;
-      spyOn(ts.sys, 'setTimeout').and.callFake((callback: () => void) => {
+      // TODO: @JiaLiPassion, need to wait @types/jasmine to handle optional method case
+      // https://github.com/DefinitelyTyped/DefinitelyTyped/issues/43486
+      spyOn(ts.sys as any, 'setTimeout').and.callFake((callback: () => void) => {
         timer = callback;
         return timerToken;
       });
-      spyOn(ts.sys, 'clearTimeout').and.callFake((token: number) => {
+      // TODO: @JiaLiPassion, need to wait @types/jasmine to handle optional method case
+      // https://github.com/DefinitelyTyped/DefinitelyTyped/issues/43486
+      spyOn(ts.sys as any, 'clearTimeout').and.callFake((token: number) => {
         if (token == timerToken) {
           timer = undefined;
         }
@@ -1615,7 +1620,9 @@ describe('ngc transformer command-line', () => {
       `);
     });
 
-    afterEach(() => { jasmine.DEFAULT_TIMEOUT_INTERVAL = originalTimeout; });
+    afterEach(() => {
+      jasmine.DEFAULT_TIMEOUT_INTERVAL = originalTimeout;
+    });
 
     function writeAppConfig(location: string) {
       writeConfig(`{
@@ -1670,11 +1677,13 @@ describe('ngc transformer command-line', () => {
         `);
        }));
 
-    it('should recompile when the html file changes',
-       expectRecompile(() => { write('greet.html', '<p> Hello {{name}} again!</p>'); }));
+    it('should recompile when the html file changes', expectRecompile(() => {
+         write('greet.html', '<p> Hello {{name}} again!</p>');
+       }));
 
-    it('should recompile when the css file changes',
-       expectRecompile(() => { write('greet.css', `p.greeting { color: blue }`); }));
+    it('should recompile when the css file changes', expectRecompile(() => {
+         write('greet.css', `p.greeting { color: blue }`);
+       }));
   });
 
   describe('regressions', () => {
@@ -2039,8 +2048,8 @@ describe('ngc transformer command-line', () => {
       expect(exitCode).toBe(1, 'Compile was expected to fail');
       const srcPathWithSep = `lib/`;
       expect(messages[0])
-          .toEqual(
-              `${srcPathWithSep}test.component.ts(6,21): Error during template compile of 'TestComponent'
+          .toEqual(`${
+              srcPathWithSep}test.component.ts(6,21): Error during template compile of 'TestComponent'
   Tagged template expressions are not supported in metadata in 't1'
     't1' references 't2' at ${srcPathWithSep}indirect1.ts(3,27)
       't2' contains the error at ${srcPathWithSep}indirect2.ts(4,27).
@@ -2049,7 +2058,6 @@ describe('ngc transformer command-line', () => {
   });
 
   describe('tree shakeable services', () => {
-
     function compileService(source: string): string {
       write('service.ts', source);
 
@@ -2323,17 +2331,17 @@ describe('ngc transformer command-line', () => {
       }));
       write('lib1/index.ts', `
         import {Directive} from '@angular/core';
-        
+
         @Directive()
         export class BaseClass {}
       `);
       write('index.ts', `
         import {NgModule, Directive} from '@angular/core';
         import {BaseClass} from 'lib1_built';
-        
+
         @Directive({selector: 'my-dir'})
         export class MyDirective extends BaseClass {}
-        
+
         @NgModule({declarations: [MyDirective]})
         export class AppModule {}
       `);

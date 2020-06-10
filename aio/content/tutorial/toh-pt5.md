@@ -1,4 +1,4 @@
-# Add in-app navigation (routing)
+# Add in-app navigation with routing
 
 # 路由
 
@@ -77,13 +77,12 @@ Replace it with the following:
 
 First, `AppRoutingModule` imports `RouterModule` and `Routes` so the app can have routing functionality. The next import, `HeroesComponent`, will give the Router somewhere to go once you configure the routes.
 
-首先，`AppRoutingModule` 会导入`RouterModule` 和 `Routes`，以便该应用具有路由功能。配置好路由后，接着导入 `HeroesComponent`，它将告诉路由器要去什么地方。
+首先，`AppRoutingModule` 会导入 `RouterModule` 和 `Routes`，以便该应用具有路由功能。配置好路由后，接着导入 `HeroesComponent`，它将告诉路由器要去什么地方。
 
 Notice that the `CommonModule` references and `declarations` array are unnecessary, so are no
 longer part of `AppRoutingModule`. The following sections explain the rest of the `AppRoutingModule` in more detail.
 
 注意，对 `CommonModule` 的引用和 `declarations` 数组不是必要的，因此它们不再是 `AppRoutingModule` 的一部分。以下各节将详细介绍 `AppRoutingModule` 的其余部分。
-
 
 ### Routes
 

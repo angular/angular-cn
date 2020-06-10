@@ -51,7 +51,7 @@ An Angular [component](#component) packaged as a [custom element](#custom-elemen
 
 Learn more in [Angular Elements Overview](guide/elements).
 
-参见 [_Angular 元素_](guide/elements) 一文。
+参见 [_Angular 元素 _](guide/elements) 一文。
 
 {@a annotation}
 
@@ -73,7 +73,7 @@ App shell is a way to render a portion of your application via a route at build 
 This gives users a meaningful first paint of your application that appears quickly because the browser can render static HTML and CSS without the need to initialize JavaScript.
 
 应用外壳是一种在构建期间通过路由为应用渲染出部分内容的方式。
-这样就能为用户快速呈现出一个有意义的首屏页面，因为浏览器可以在初始化脚本之前渲染出静态的 HTML 和 CSS。
+这样就能为用户快速渲染出一个有意义的首屏页面，因为浏览器可以在初始化脚本之前渲染出静态的 HTML 和 CSS。
 
 Learn more in [The App Shell Model](https://developers.google.com/web/fundamentals/architecture/app-shell).
 
@@ -238,25 +238,21 @@ For example, "convert_link_mode".
   下划线形式（underscore_case）或叫蛇形形式（snake_case）：在 Angular 中没有典型用法。蛇形形式使用下划线连接各个单词。
   比如 "convert_link_mode"。
 
-
 * UPPER_UNDERSCORE_CASE (or UPPER_SNAKE_CASE, or SCREAMING_SNAKE_CASE): Traditional for constants (acceptable, but prefer camelCase).
 Upper snake case uses words in all capital letters connected with underscores. For example, "FIX_ME".
 
   大写下划线形式（UPPER_UNDERSCORE_CASE）或叫大写蛇形形式（UPPER_SNAKE_CASE）：传统的常量写法（可以接受，但更推荐用小驼峰形式（camelCase））
-  大蛇形形式使用下划线分隔的全大写单词。比如 "FIX_ME" 。
-
+  大蛇形形式使用下划线分隔的全大写单词。比如 "FIX_ME"。
 
 {@a change-detection}
 ## change detection
 
 ## 变更检测（change detection）
 
-
 The mechanism by which the Angular framework synchronizes the state of an application's UI with the state of the data.
 The change detector checks the current state of the data model whenever it runs, and maintains it as the previous state to compare on the next iteration.
 
 Angular 框架会通过此机制将应用程序 UI 的状态与数据的状态同步。变更检测器在运行时会检查数据模型的当前状态，并在下一轮迭代时将其和先前保存的状态进行比较。
-
 
 As the application logic updates component data, values that are bound to DOM properties in the view can change.
 The change detector is responsible for updating the view to reflect the current data model.
@@ -265,17 +261,14 @@ These events can trigger change detection.
 
 当应用逻辑更改组件数据时，绑定到视图中 DOM 属性上的值也要随之更改。变更检测器负责更新视图以反映当前的数据模型。类似地，用户也可以与 UI 进行交互，从而引发要更改数据模型状态的事件。这些事件可以触发变更检测。
 
-
 Using the default ("CheckAlways") change-detection strategy, the change detector goes through the [view hierarchy](#view-tree) on each VM turn to check every [data-bound property](#data-binding) in the template. In the first phase, it compares the current state of the dependent data with the previous state, and collects changes.
 In the second phase, it updates the page DOM to reflect any new data values.
 
-使用默认的（“CheckAlways”）变更检测策略，变更检测器将遍历每个视图模型上的[视图层次结构](#view-tree) ，以检查模板中的每个[数据绑定属性](#data-binding)。在第一阶段，它将所依赖的数据的当前状态与先前状态进行比较，并收集更改。在第二阶段，它将更新页面上的 DOM 以反映出所有新的数据值。
-
+使用默认的（“CheckAlways”）变更检测策略，变更检测器将遍历每个视图模型上的[视图层次结构](#view-tree)，以检查模板中的每个[数据绑定属性](#data-binding)。在第一阶段，它将所依赖的数据的当前状态与先前状态进行比较，并收集更改。在第二阶段，它将更新页面上的 DOM 以反映出所有新的数据值。
 
 If you set the `OnPush` ("CheckOnce") change-detection strategy, the change detector runs only when [explicitly invoked](api/core/ChangeDetectorRef), or when it is triggered by an `Input` reference change or event handler. This typically improves performance. For more information, see [Optimize Angular's change detection](https://web.dev/faster-angular-change-detection/).
 
-如果设置了 `OnPush`（“CheckOnce”）变更检测策略，则变更检测器仅在[显式调用](api/core/ChangeDetectorRef)它或由 `@Input` 引用的变化或触发事件处理程序时运行。这通常可以提高性能。欲知详情，参见[优化 Angular 的变更检测](https://web.dev/faster-angular-change-detection/) 。
-
+如果设置了 `OnPush`（“CheckOnce”）变更检测策略，则变更检测器仅在[显式调用](api/core/ChangeDetectorRef)它或由 `@Input` 引用的变化或触发事件处理程序时运行。这通常可以提高性能。欲知详情，参见[优化 Angular 的变更检测](https://web.dev/faster-angular-change-detection/)。
 
 {@a class-decorator}
 
@@ -350,7 +343,7 @@ See also [Schematics CLI](#schematics-cli).
 
 ## 组件 (component)
 
-A class with the `@Component()` [decorator](#decorator) that associates it with a companion [template](#template). Together, the component and template define a [view](#view).
+A class with the `@Component()` [decorator](#decorator) that associates it with a companion [template](#template). Together, the component class and template define a [view](#view).
 
 一个带有 `@Component()` [装饰器](#decorator)的类，和它的伴生[模板](#template)关联在一起。组件及其模板共同定义了一个[视图](#view)。
 
@@ -363,7 +356,7 @@ An Angular component class is responsible for exposing data and handling most of
 
 Angular 的组件类负责暴露数据，并通过[数据绑定机制](#data-binding)来处理绝大多数视图的显示和用户交互逻辑。
 
-Read more about components, templates, and views in [Architecture Overview](guide/architecture).
+Read more about component classes, templates, and views in [Introduction to Angular concepts](guide/architecture).
 
 要了解更多关于组件、模板和视图的知识，参见 [架构概览](guide/architecture) 一章。
 
@@ -504,7 +497,7 @@ A function that modifies a class or property definition. Decorators (also called
 TypeScript adds support for decorators.
 
 一个函数，用来修饰紧随其后的类或属性定义。
-装饰器（也叫注解）是 JavaScript 的一种语言[特性](https://github.com/wycats/javascript-decorators)，是一项位于阶段2（stage 2）的试验特性。
+装饰器（也叫注解）是 JavaScript 的一种语言[特性](https://github.com/wycats/javascript-decorators)，是一项位于阶段 2（stage 2）的试验特性。
 
 Angular defines decorators that attach metadata to classes or properties
 so that it knows what those classes or properties mean and how they should work.
@@ -748,7 +741,6 @@ To learn more, see [Form Validation](guide/form-validation).
 
 {@a I}
 
-
 {@a immutability}
 
 ## immutability
@@ -770,7 +762,7 @@ each change to the data model produces a new data model rather than modifying th
 An Angular class or other definition that provides a dependency using the [dependency injection](#di) mechanism. An injectable [service](#service) class must be marked by the `@Injectable()` [decorator](#decorator). Other items, such as constant values, can also be injectable.
 
 Angular 中的类或其它概念使用[依赖注入](#di)机制来提供依赖。
-可供注入的[服务](#service)类必须使用`@Injectable()` [装饰器](#decorator)标出来。其它条目，比如常量值，也可用于注入。
+可供注入的[服务](#service)类必须使用 `@Injectable()` [装饰器](#decorator)标出来。其它条目，比如常量值，也可用于注入。
 
 {@a injector}
 
@@ -786,7 +778,6 @@ and are inherited through the component hierarchy.
 
 Angular [依赖注入系统](#dependency-injection)中可以在缓存中根据名字查找依赖，也可以通过配置过的[提供者](#provider)来创建依赖。
 启动过程中会自动为每个模块创建一个注入器，并被组件树继承。
-
 
 * An injector provides a singleton instance of a dependency, and can inject this same instance in multiple components.
 
@@ -844,19 +835,16 @@ Read more about [interpolation](guide/template-syntax#interpolation) in [Templat
 
 更多信息，见[模板语法](guide/template-syntax)中的[插值](guide/template-syntax#interpolation)。
 
-
 {@a ivy}
 
 ## Ivy
 
 ## 常春藤引擎（Ivy）
 
-
 Ivy is the code name for Angular's [next-generation compilation and rendering pipeline](https://blog.angular.io/a-plan-for-version-8-0-and-ivy-b3318dfc19f7).
 With the version 9 release of Angular, the new compiler and runtime instructions are used by default instead of the older compiler and runtime, known as [View Engine](#ve).
 
-Ivy 是 Angular 的[下一代编译和渲染管道](https://blog.angular.io/a-plan-for-version-8-0-and-ivy-b3318dfc19f7)的代号。在 Angular 的版本 9 中，默认情况下使用新的编译器和运行时，而不再用旧的编译器和运行时，也就是 [View Engine](#ve) 。
-
+Ivy 是 Angular 的[下一代编译和渲染管道](https://blog.angular.io/a-plan-for-version-8-0-and-ivy-b3318dfc19f7)的代号。在 Angular 的版本 9 中，默认情况下使用新的编译器和运行时，而不再用旧的编译器和运行时，也就是 [View Engine](#ve)。
 
 See [Angular Ivy](guide/ivy).
 
@@ -1019,11 +1007,10 @@ Compare to [NgModule](#ngmodule).
 
 {@a N}
 
-
 {@a ngcc}
 ## ngcc
 
-Angular compatability compiler.
+Angular compatibility compiler.
 If you build your app using [Ivy](#ivy), but it depends on libraries have not been compiled with Ivy, the CLI uses `ngcc` to automatically update the dependent libraries to use Ivy.
 
 Angular 兼容性编译器。如果使用 [Ivy](#ivy) 构建应用程序，但依赖未用 Ivy 编译的库，则 CLI 将使用 `ngcc` 自动更新依赖库以使用 Ivy。
@@ -1044,7 +1031,7 @@ NgModule 类的元数据中包括一些供应用使用的组件、指令和管�
 NgModules are typically named after the file in which the exported thing is defined. For example, the Angular [DatePipe](api/common/DatePipe) class belongs to a feature module named `date_pipe` in the file `date_pipe.ts`. You import them from an Angular [scoped package](#scoped-package) such as `@angular/core`.
 
 NgModule 通常会根据它导出的内容决定其文件名，比如，Angular 的 [DatePipe](api/common/DatePipe) 类就属于 `date_pipe.ts` 文件中一个名叫 `date_pipe` 的特性模块。
-你可以从 Angular 的[范围化包](#scoped-package)中导入它们，比如 `@angular/core` 。
+你可以从 Angular 的[范围化包](#scoped-package)中导入它们，比如 `@angular/core`。
 
 Every Angular application has a root module. By convention, the class is called `AppModule` and resides in a file named `app.module.ts`.
 
@@ -1145,26 +1132,22 @@ To learn more, see [Pipes](guide/pipes).
 
 ## 平台（platform）
 
-
 In Angular terminology, a platform is the context in which an Angular application runs.
 The most common platform for Angular applications is a web browser, but it can also be an operating system for a mobile device, or a web server.
 
-在 Angular 术语中，平台是供 Angular 应用程序在其中运行的上下文。 Angular 应用程序最常见的平台是 Web 浏览器，但它也可以是移动设备的操作系统或 Web 服务器。
-
+在 Angular 术语中，平台是供 Angular 应用程序在其中运行的上下文。Angular 应用程序最常见的平台是 Web 浏览器，但它也可以是移动设备的操作系统或 Web 服务器。
 
 Support for the various Angular run-time platforms is provided by the `@angular/platform-*` packages. These packages allow applications that make use of `@angular/core` and `@angular/common` to execute in different environments by providing implementation for gathering user input and rendering UIs for the given platform. Isolating platform-specific functionality allows the developer to make platform-independent use of the rest of the framework.
 
 `@angular/platform-*` 软件包提供了对各种 Angular 运行时平台的支持。这些软件包通过提供用于收集用户输入和渲染指定平台 UI 的实现，以允许使用 `@angular/core` 和 `@angular/common` 的应用程序在不同的环境中执行。隔离平台相关的功能使开发人员可以独立于平台使用框架的其余部分。
 
-
 - When running in a web browser, [`BrowserModule`](api/platform-browser/BrowserModule) is imported from the `platform-browser` package, and supports services that simplify security and event processing, and allows applications to access browser-specific features, such as interpreting keyboard input and controlling the title of the document being displayed. All applications running in the browser use the same platform service.
 
   在 Web 浏览器中运行时，[`BrowserModule`](api/platform-browser/BrowserModule) 是从 `platform-browser` 软件包中导入的，并支持简化安全性和事件处理的服务，并允许应用程序访问浏览器专有的功能，例如解释键盘输入和控制文档要显示的标题。浏览器中运行的所有应用程序都使用同一个平台服务。
 
-
 - When [server-side rendering](#server-side-rendering) (SSR) is used, the [`platform-server`](api/platform-server) package provides web server implementations of the `DOM`, `XMLHttpRequest`, and other low-level features that don't rely on a browser.
 
-  使用[服务端渲染](#server-side-rendering)（SSR）时，[`platform-server`](api/platform-server) 包将提供 `DOM`、`XMLHttpRequest` 和其他不依赖浏览器的其他底层功能的 Web 服务器端实现。
+  使用[服务端渲染](#server-side-rendering)（SSR）时，[`platform-server`](api/platform-server) 包将提供 `DOM`、`XMLHttpRequest` 和其它不依赖浏览器的其它底层功能的 Web 服务器端实现。
 
 {@a polyfill}
 ## polyfill
@@ -1337,7 +1320,6 @@ A schematic defines [rules](#rule) that operate on a virtual file system called 
 
 脚手架库会定义如何借助创建、修改、重构或移动文件和代码等操作来生成或转换某个项目。每个原理图定义了[一些规则](#rule)，以操作一个被称为[文件树](#file-tree)的虚拟文件系统。
 
-
 The [Angular CLI](#cli) uses schematics to generate and modify [Angular projects](#project) and parts of projects.
 
 Angular [CLI](#cli) 使用原理图来生成和修改 [Angular 项目](#project)及其部件。
@@ -1505,7 +1487,7 @@ For example, the Architect builder invoked by the `ng build` command to compile 
 
 The Architect tool provides a set of builders. The [`ng new` command](cli/new) provides a set of targets for the initial application project. The [`ng generate application`](cli/generate#application) and [`ng generate library`](cli/generate#library) commands provide a set of targets for each new [project](#project). These targets, their options and configurations, can be customized to meet the needs of your project. For example, you may want to add a "staging" or "testing" configuration to a project's "build" target.
 
-建筑师工具提供了一组构建器。[`ng new` 命令](cli/new)为初始应用项目提供了一组目标。[`ng generate application`](cli/generate#application) 和 [`ng generate library`](cli/generate#library) 命令则为每个新[项目](#project)提供了一组目标。这些目标的选项和配置都可以进行自定义，以便适应你项目的需求。比如，你可能会想为项目的 "build" 目标添加一个 "staging" 或 "testing" 配置。 
+建筑师工具提供了一组构建器。[`ng new` 命令](cli/new)为初始应用项目提供了一组目标。[`ng generate application`](cli/generate#application) 和 [`ng generate library`](cli/generate#library) 命令则为每个新[项目](#project)提供了一组目标。这些目标的选项和配置都可以进行自定义，以便适应你项目的需求。比如，你可能会想为项目的 "build" 目标添加一个 "staging" 或 "testing" 配置。
 
 You can also define a custom builder, and add a target to the project configuration that uses your custom builder. You can then run the target using the [`ng run`](cli/run) CLI command.
 
@@ -1517,17 +1499,17 @@ You can also define a custom builder, and add a target to the project configurat
 
 ## 模板 (template)
 
-Code associated with a component that defines how to render the component's [view](#view).
+Code that defines how to render a component's [view](#view).
 
 模板是与组件相关的代码，用来定义如何在 HTML 中渲染组件的[视图](#view)。
 
 A template combines straight HTML with Angular [data-binding](#data-binding) syntax, [directives](#directive),
 and [template expressions](#template-expression) (logical constructs).
-The Angular elements insert or calculate values that modify the HTML elements before the page is displayed.
+The Angular elements insert or calculate values that modify the HTML elements before the page is displayed. Learn more about Angular template language in the [Template Syntax](guide/template-syntax) guide.
 
 模板会把纯 HTML 和 Angular 的[数据绑定](#data-binding)语法、[指令](#directive)和[模板表达式](#template-expression)组合起来。Angular 的元素会插入或计算那些值，以便在页面显示出来之前修改 HTML 元素。
 
-A template is associated with a [component](#component) class through the `@Component()` [decorator](#decorator). The HTML can be provided inline, as the value of the `template` property, or in a separate HTML file linked through the `templateUrl` property. 
+A template is associated with a [component class](#component) through the `@Component()` [decorator](#decorator). The template code can be provided inline, as the value of the `template` property, or in a separate HTML file linked through the `templateUrl` property. 
 
 模板通过 `@Component()` [装饰器](#decorator)与[组件](#component)类关联起来。其 HTML 可以作为 `template` 属性的值用内联的方式提供，也可以通过 `templateUrl` 属性链接到一个独立的 HTML 文件。
 
@@ -1660,17 +1642,17 @@ To learn more, see [Angular Universal: server-side rendering](guide/universal).
 ## 视图 (view)
 
 The smallest grouping of display elements that can be created and destroyed together.
-Angular renders a view under the control of one or more [directives](#directive),
-especially [component](#component) directives and their companion [templates](#template).
+Angular renders a view under the control of one or more [directives](#directive).
 
 视图是可显示元素的最小分组单位，它们会被同时创建和销毁。
-Angular 在一个或多个[指令 (directive)](#directive) 的控制下渲染视图，
-尤其是[组件 (component)](#component) 指令及其[模板 (template)](#template)。
+Angular 在一个或多个[指令 (directive)](#directive) 的控制下渲染视图。
 
-A view is specifically represented by a `ViewRef` instance associated with the component.
-A view that belongs to a component is called a *host view*.
-Views are typically collected into [view hierarchies](#view-tree).
+A [component](#component) class and its associated [template](#template) define a view.
+A view is specifically represented by a `ViewRef` instance associated with a component.
+A view that belongs immediately to a component is called a *host view*.
+Views are typically collected into [view hierarchies](#view-tree). 
 
+[组件 (component)](#component) 类及其关联的[模板 (template)](#template)定义了一个视图。
 具体实现上，视图由一个与该组件相关的 `ViewRef` 实例表示。
 属于某个组件的视图叫做*宿主视图*。
 通常会把视图组织成一些[视图树（view hierarchies）](#view-tree)。
@@ -1685,13 +1667,11 @@ View hierarchies can be loaded and unloaded dynamically as the user navigates th
 
 当用户在应用中导航时（比如使用[路由器](#router)），视图树可以动态加载或卸载。
 
-
 {@a ve}
 
 ## View Engine
 
 ## 视图引擎（View Engine）
-
 
 The compilation and rendering pipeline used by Angular before version 9. Compare [Ivy](#ivy).
 

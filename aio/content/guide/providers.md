@@ -1,4 +1,4 @@
-# Providers
+# Providing dependencies in modules
 
 # 服务提供者
 
@@ -87,7 +87,7 @@ This behavior necessarily changes when you use lazy loading. Lazy loading is whe
 
 When the Angular router lazy-loads a module, it creates a new injector. This injector is a child of the root application injector. Imagine a tree of injectors; there is a single root injector and then a child injector for each lazy loaded module. The router adds all of the providers from the root injector to the child injector. When the router creates a component within the lazy-loaded context, Angular prefers service instances created from these providers to the service instances of the application root injector.
 
-当 Angular 的路由器惰性加载一个模块时，它会创建一个新的注入器。这个注入器是应用的根注入器的一个子注入器。想象一棵注入器树，它有唯一的根注入器，而每一个惰性加载模块都有一个自己的子注入器。路由器会把根注入器中的所有提供者添加到子注入器中。如果路由器在惰性加载时创建组件， Angular 会更倾向于使用从这些提供者中创建的服务实例，而不是来自应用的根注入器的服务实例。
+当 Angular 的路由器惰性加载一个模块时，它会创建一个新的注入器。这个注入器是应用的根注入器的一个子注入器。想象一棵注入器树，它有唯一的根注入器，而每一个惰性加载模块都有一个自己的子注入器。路由器会把根注入器中的所有提供者添加到子注入器中。如果路由器在惰性加载时创建组件，Angular 会更倾向于使用从这些提供者中创建的服务实例，而不是来自应用的根注入器的服务实例。
 
 Any component created within a lazy loaded module’s context, such as by router navigation, gets the local instance of the service, not the instance in the root application injector. Components in external modules continue to receive the instance created for the application root.
 

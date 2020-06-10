@@ -44,28 +44,36 @@ export class HttpUrlEncodingCodec implements HttpParameterCodec {
    * @param key The key name.
    * @returns The encoded key name.
    */
-  encodeKey(key: string): string { return standardEncoding(key); }
+  encodeKey(key: string): string {
+    return standardEncoding(key);
+  }
 
   /**
    * Encodes the value of a URL parameter or query-string.
    * @param value The value.
    * @returns The encoded value.
    */
-  encodeValue(value: string): string { return standardEncoding(value); }
+  encodeValue(value: string): string {
+    return standardEncoding(value);
+  }
 
   /**
    * Decodes an encoded URL parameter or query-string key.
    * @param key The encoded key name.
    * @returns The decoded key name.
    */
-  decodeKey(key: string): string { return decodeURIComponent(key); }
+  decodeKey(key: string): string {
+    return decodeURIComponent(key);
+  }
 
   /**
    * Decodes an encoded URL parameter or query-string value.
    * @param value The encoded value.
    * @returns The decoded value.
    */
-  decodeValue(value: string) { return decodeURIComponent(value); }
+  decodeValue(value: string) {
+    return decodeURIComponent(value);
+  }
 }
 
 
@@ -104,10 +112,11 @@ interface Update {
   op: 'a'|'d'|'s';
 }
 
-/** Options used to construct an `HttpParams` instance.
+/**
+ * Options used to construct an `HttpParams` instance.
  *
  * 用于构造 `HttpParams` 实例的选项。
- * 
+ *
  * @publicApi
  */
 export interface HttpParamsOptions {
@@ -123,7 +132,7 @@ export interface HttpParamsOptions {
    *
    * HTTP 参数的对象映射表。与 `fromString` 互斥。
    */
-  fromObject?: {[param: string]: string | ReadonlyArray<string>};
+  fromObject?: {[param: string]: string|ReadonlyArray<string>};
 
   /** Encoding codec used to parse and serialize the parameters.
    *
@@ -161,7 +170,7 @@ export class HttpParams {
       this.map = new Map<string, string[]>();
       Object.keys(options.fromObject).forEach(key => {
         const value = (options.fromObject as any)[key];
-        this.map !.set(key, Array.isArray(value) ? value : [value]);
+        this.map!.set(key, Array.isArray(value) ? value : [value]);
       });
     } else {
       this.map = null;
@@ -176,7 +185,7 @@ export class HttpParams {
    */
   has(param: string): boolean {
     this.init();
-    return this.map !.has(param);
+    return this.map!.has(param);
   }
 
   /**
@@ -189,7 +198,7 @@ export class HttpParams {
    */
   get(param: string): string|null {
     this.init();
-    const res = this.map !.get(param);
+    const res = this.map!.get(param);
     return !!res ? res[0] : null;
   }
 
@@ -203,7 +212,7 @@ export class HttpParams {
    */
   getAll(param: string): string[]|null {
     this.init();
-    return this.map !.get(param) || null;
+    return this.map!.get(param) || null;
   }
 
   /**
@@ -212,7 +221,7 @@ export class HttpParams {
    */
   keys(): string[] {
     this.init();
-    return Array.from(this.map !.keys());
+    return Array.from(this.map!.keys());
   }
 
   /**
@@ -223,7 +232,9 @@ export class HttpParams {
    *
    * 构造一个新的 `body`，添加一个具有给定参数名的值。
    */
-  append(param: string, value: string): HttpParams { return this.clone({param, value, op: 'a'}); }
+  append(param: string, value: string): HttpParams {
+    return this.clone({param, value, op: 'a'});
+  }
 
   /**
    * Replaces the value for a parameter.
@@ -233,7 +244,9 @@ export class HttpParams {
    *
    * 构造一个新的 `body`，具有一个给定参数名的新值。
    */
-  set(param: string, value: string): HttpParams { return this.clone({param, value, op: 's'}); }
+  set(param: string, value: string): HttpParams {
+    return this.clone({param, value, op: 's'});
+  }
 
   /**
    * Removes a given value or all values from a parameter.
@@ -244,7 +257,9 @@ export class HttpParams {
    *
    * 构造一个新的 `body`，如果指定了 `value`，则移除具有指定 `value` 和指定 `param` 的条目；如果没有指定 `value`，则移除指定 `param` 对应的所有值。
    */
-  delete (param: string, value?: string): HttpParams { return this.clone({param, value, op: 'd'}); }
+  delete(param: string, value?: string): HttpParams {
+    return this.clone({param, value, op: 'd'});
+  }
 
   /**
    * Serializes the body to an encoded string, where key-value pairs (separated by `=`) are
@@ -260,7 +275,7 @@ export class HttpParams {
           // `a: ['1']` produces `'a=1'`
           // `b: []` produces `''`
           // `c: ['1', '2']` produces `'c=1&c=2'`
-          return this.map !.get(key) !.map(value => eKey + '=' + this.encoder.encodeValue(value))
+          return this.map!.get(key)!.map(value => eKey + '=' + this.encoder.encodeValue(value))
               .join('&');
         })
         // filter out empty values because `b: []` produces `''`
@@ -270,7 +285,7 @@ export class HttpParams {
   }
 
   private clone(update: Update): HttpParams {
-    const clone = new HttpParams({ encoder: this.encoder } as HttpParamsOptions);
+    const clone = new HttpParams({encoder: this.encoder} as HttpParamsOptions);
     clone.cloneFrom = this.cloneFrom || this;
     clone.updates = (this.updates || []).concat([update]);
     return clone;
@@ -282,29 +297,29 @@ export class HttpParams {
     }
     if (this.cloneFrom !== null) {
       this.cloneFrom.init();
-      this.cloneFrom.keys().forEach(key => this.map !.set(key, this.cloneFrom !.map !.get(key) !));
-      this.updates !.forEach(update => {
+      this.cloneFrom.keys().forEach(key => this.map!.set(key, this.cloneFrom!.map!.get(key)!));
+      this.updates!.forEach(update => {
         switch (update.op) {
           case 'a':
           case 's':
-            const base = (update.op === 'a' ? this.map !.get(update.param) : undefined) || [];
-            base.push(update.value !);
-            this.map !.set(update.param, base);
+            const base = (update.op === 'a' ? this.map!.get(update.param) : undefined) || [];
+            base.push(update.value!);
+            this.map!.set(update.param, base);
             break;
           case 'd':
             if (update.value !== undefined) {
-              let base = this.map !.get(update.param) || [];
+              let base = this.map!.get(update.param) || [];
               const idx = base.indexOf(update.value);
               if (idx !== -1) {
                 base.splice(idx, 1);
               }
               if (base.length > 0) {
-                this.map !.set(update.param, base);
+                this.map!.set(update.param, base);
               } else {
-                this.map !.delete(update.param);
+                this.map!.delete(update.param);
               }
             } else {
-              this.map !.delete(update.param);
+              this.map!.delete(update.param);
               break;
             }
         }

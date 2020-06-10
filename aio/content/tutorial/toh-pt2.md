@@ -213,7 +213,6 @@ This is an example of Angular's [event binding](guide/template-syntax#event-bind
 The parentheses around `click` tell Angular to listen for the `<li>` element's  `click` event.
 When the user clicks in the `<li>`, Angular executes the `onSelect(hero)` expression.
 
-
 `click` 外面的圆括号会让 Angular 监听这个 `<li>` 元素的 `click` 事件。
 当用户点击 `<li>` 时，Angular 就会执行表达式 `onSelect(hero)`。
 
@@ -305,7 +304,6 @@ The details area is blank.
 Click a hero in the list of heroes and its details appear.
 The app seems to be working again.
 The heroes appear in a list and details about the clicked hero appear at the bottom of the page.
-
 
 浏览器刷新之后，英雄名字的列表又出现了。
 详情部分仍然是空。

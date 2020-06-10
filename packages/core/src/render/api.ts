@@ -189,7 +189,7 @@ export abstract class Renderer2 {
    * 用于在产品模式下进行优化。
    */
   // TODO(issue/24571): remove '!'.
-  destroyNode !: ((node: any) => void) | null;
+  destroyNode!: ((node: any) => void)|null;
   /**
    * Appends a child to a given parent node in the host element DOM.
    *
@@ -218,7 +218,7 @@ export abstract class Renderer2 {
    *
    * 新的子节点。
    *
-   * @param refChild The existing child node that should precede the new node.
+   * @param refChild The existing child node before which `newChild` is inserted.
    *
    * 将会插入在这个新节点之前的现有节点。
    */

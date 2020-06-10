@@ -170,7 +170,7 @@ In the example of the simple root module above, the application module needs mat
 In this way you're using the Angular and JavaScript module systems *together*. Although it's easy to confuse the two systems, which share the common vocabulary of "imports" and "exports", you will become familiar with the different contexts in which they are used.
 
 通过这种方式，你可以*同时*使用 Angular 和 JavaScript 的这两种模块系统。
-虽然这两种模块系统容易混淆（它们共享了同样的词汇 `import` 和`export`），不过只要多用用你就会熟悉它们各自的语境了。
+虽然这两种模块系统容易混淆（它们共享了同样的词汇 `import` 和 `export`），不过只要多用用你就会熟悉它们各自的语境了。
 
 <div class="alert is-helpful">
 

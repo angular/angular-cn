@@ -18,7 +18,7 @@ This document contains the practices that we follow to provide you with a leadin
 
 The practices described in this document apply to Angular 2.0 and later. If you are currently using AngularJS, see [Upgrading from AngularJS](guide/upgrade "Upgrading from Angular JS"). _AngularJS_ is the name for all v1.x versions of Angular.
 
-本文档中提及的这些实践适用于 Angular 2.0 及以后的版本。如果你正在使用 AngularJS，请参见[从 AngularJS 升级](guide/upgrade "Upgrading from Angular JS")。*AngularJS*专指 Angular 所有的 v1.x 版本。 
+本文档中提及的这些实践适用于 Angular 2.0 及以后的版本。如果你正在使用 AngularJS，请参见[从 AngularJS 升级](guide/upgrade "Upgrading from Angular JS")。*AngularJS*专指 Angular 所有的 v1.x 版本。
 
 </div>
 
@@ -55,7 +55,7 @@ The version number is incremented based on the level of change included in the r
 
 **Note:** As of Angular version 7, the major versions of Angular core and the CLI are aligned. This means that in order to use the CLI as you develop an Angular app, the version of `@angular/core` and the CLI need to be the same.
 
-**注意：**从 Angular 版本 7 开始，Angular Core 和 CLI 的主要版本已对齐。这意味着在开发Angular 应用程序时使用的 `@angular/core` 和 CLI 的版本必须相同。
+**注意：**从 Angular 版本 7 开始，Angular Core 和 CLI 的主要版本已对齐。这意味着在开发 Angular 应用程序时使用的 `@angular/core` 和 CLI 的版本必须相同。
 
 </div>
 
@@ -85,25 +85,21 @@ See [Keeping Up-to-Date](guide/updating "Updating your projects") for more infor
 
 ### 预览发布
 
-We let you preview what's coming by providing Beta releases and Release Candidates (`rc`) for each major and minor release:
+We let you preview what's coming by providing "Next" and Release Candidates (`rc`) pre-releases for each major and minor release:
 
-我们还会通过提供 Beta 版和 RC（候选发布）版来让你预览每个即将到来的大版本和小版本。
+我们还会通过提供 Next 版和 RC（候选发布）版来让你预览每个即将到来的大版本和小版本。
 
-<!--
-* **Next:** The release that is under active development. The next release is indicated by a release tag appended with the  `next` identifier, such as  `8.1.0-next.0`. For the next version of the documentation, see [next.angular.io](https://next.angular.io).
--->
+* **Next:** The release that is under active development and testing. The next release is indicated by a release tag appended with the  `-next` identifier, such as  `8.1.0-next.0`.
 
-* **Beta:** A release that is under active development and testing. A Beta release is indicated by a release tag appended with the  `beta` identifier, such as  `8.0.0-beta.0`.
+  **Next 版**：这是正在活跃开发和测试中的发布。Next 版的发布标签带有 `-next` 后缀，比如 `8.1.0-next.0`。
 
-  **Beta**：一个仍然在开发和测试中的版本。Beta 版的发布标签带有 `beta` 标志，比如 `8.0.0-beta.0`。
+* **Release candidate:** A release that is feature complete and in final testing. A release candidate is indicated by a release tag appended with the `-rc` identifier, such as version `8.1.0-rc.0`.
 
-* **Release candidate:** A release that is feature complete and in final testing. A release candidate is indicated by a release tag appended with the `rc` identifier, such as version `8.1.0-rc`.
+  **RC 版**：一个特性已经完成，正在进行最终测试的版本。RC 版的发布标签带有 `-rc` 标志，比如 `8.1.0-rc.0`。
 
-  **RC 版**：一个特性已经完成，正在进行最终测试的版本。RC 版的发布标签带有 `rc` 标志，比如 `8.1.0-rc`。
+The latest `next` or `rc` pre-release version of the documentation is available at [next.angular.io](https://next.angular.io).
 
-The next version of the documentation is available at [next.angular.io](https://next.angular.io). This includes any documentation for Beta or Release Candidate features and APIs.
-
-下一个版本的文档位于 [next.angular.io](https://next.angular.io)。其中包括 Beta 或 RC 中的特性和 API。
+`next` 或 `rc` 预发布版的文档位于 [next.angular.io](https://next.angular.io)。
 
 {@a frequency}
 
@@ -117,7 +113,7 @@ We work toward a regular schedule of releases, so that you can plan and coordina
 
 <div class="alert is-helpful">
 
-Disclaimer: Dates are offered as general guidance and will be adjusted by us when necessary to ensure delivery of a high-quality platform. 
+Disclaimer: Dates are offered as general guidance and will be adjusted by us when necessary to ensure delivery of a high-quality platform.
 
 免责条款：这些日期仅供参考，如有必要，我们会对其进行调整，以确保提供高质量的平台。
 
@@ -135,11 +131,11 @@ In general, you can expect the following release cycle:
 
    每个主版本中包含 1~3 个小版本
 
-* A patch release almost every week
+* A patch release and pre-release (`next` or `rc`) build almost every week
 
    差不多每周一个补丁版本
 
-This cadence of releases gives you access to new features as soon as they are ready, while maintaining the stability and reliability of the platform for production users.
+This cadence of releases gives eager developers access to new features as soon as they are fully developed and pass through our code review and integration testing processes, while maintaining the stability and reliability of the platform for production users that prefer to receive features after they have been validated by Google and other developers that use the pre-release builds.
 
 这种发布节奏能让你尽快用上已就绪的新特性，同时，为生产环境下的用户维护本平台的稳定性和可靠性。
 
@@ -166,17 +162,16 @@ The following table provides the status for Angular versions under support.
 下表中提供了目前受支持的 Angular 版本的状态。
 
 Version | Status | Released     | Active Ends  | LTS Ends
-------- | ------ | ------------ | ------------ | ------------ 
+------- | ------ | ------------ | ------------ | ------------
 版本 | 状态 | 发布     | 停止活动  | LTS 结束
-^8.0.0  | Active | May 28, 2019 | Nov 28, 2019 | Nov 28, 2020
-^8.0.0  | 活跃 | 2019年5月28日 | 2019年11月28日 | 2020年11月28日
-^7.0.0  | LTS    | Oct 18, 2018 | Apr 18, 2019 | Apr 18, 2020
-^7.0.0  | LTS    | 2018年10月18日 | 2019年4月18日 | 2020年4月18日
+^9.0.0  | Active | Feb 06, 2020 | Aug 06, 2020 | Aug 06, 2021
+^9.0.0  | 活跃 | 2020 年 2 月 6 日 | 2020 年 8 月 6 日 | 2021 年 8 月 6 日
+^8.0.0  | LTS    | May 28, 2019 | Nov 28, 2019 | Nov 28, 2020
+^8.0.0  | LTS    | 2019 年 5 月 28 日 | 2019 年 11 月 28 日 | 2020 年 11 月 28 日
 
-Angular versions ^4.0.0, ^5.0.0 and ^6.0.0 are no longer under support.
+Angular versions ^4.0.0, ^5.0.0, ^6.0.0 and ^7.0.0 are no longer under support.
 
-不再为 ^4.0.0、^5.0.0 和 ^6.0.0 版提供支持。
-
+不再为 ^4.0.0、^5.0.0、^6.0.0 和 ^7.0.0 版提供支持。
 
 {@a deprecation}
 

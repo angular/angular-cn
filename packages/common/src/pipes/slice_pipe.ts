@@ -120,5 +120,7 @@ export class SlicePipe implements PipeTransform {
     return value.slice(start, end);
   }
 
-  private supports(obj: any): boolean { return typeof obj === 'string' || Array.isArray(obj); }
+  private supports(obj: any): boolean {
+    return typeof obj === 'string' || Array.isArray(obj);
+  }
 }

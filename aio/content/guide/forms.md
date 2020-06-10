@@ -13,6 +13,14 @@ user efficiently and effectively through the workflow.
 
 在开发表单时，创建数据方面的体验是非常重要的，它能指引用户明晰、高效的完成工作流程。
 
+<div class="alert is-helpful">
+
+  For the sample app that this page describes, see the <live-example></live-example>.
+
+  这里所说的范例应用，参见<live-example></live-example>。
+
+</div>
+
 ## Introduction to Template-driven forms
 
 ## 模板驱动表单简介
@@ -50,10 +58,6 @@ This page shows you how to build a simple form from scratch. Along the way you'l
 * Share information across HTML elements using template reference variables.
 
    使用模板引用变量在 HTML 元素之间共享信息
-
-You can run the <live-example></live-example> in Stackblitz and download the code from there.
-
-你可以运行<live-example></live-example>，在 Stackblitz 中试用并下载本页的代码。
 
 {@a template-driven}
 
@@ -426,7 +430,7 @@ Bootstrap 为这个表单提供了一些样式。
   the styles of any external library. Angular apps can use any CSS library or none at all.
 
   Angular 不需要 `container`、`form-group`、`form-control` 和 `btn` 类，
-或者外部库的任何样式。Angular 应用可以使用任何 CSS 库…… ，或者啥都不用。
+或者外部库的任何样式。Angular 应用可以使用任何 CSS 库……，或者啥都不用。
 
 </div>
 

@@ -2,38 +2,31 @@
 
 # 更新到 Angular 版本 9
 
-
-This guide contains everything you need to know about updating to the next Angular version.
+This guide contains information related to updating to version 9 of Angular.
 
 本指南包含关于更新到下一个 Angular 版本所需的全部知识。
-
 
 ## Updating CLI Apps
 
 ## 更新 CLI 应用
 
-
 For step-by-step instructions on how to update to the latest Angular release (and leverage our automated migration tools to do so), use the interactive update guide at [update.angular.io](https://update.angular.io).
 
 有关如何更新到最新 Angular 版本的分步说明（并利用我们的自动迁移工具进行更新），请使用 [update.angular.io](https://update.angular.io) 上的交互式更新指南。
 
-
 If you're curious about the specific migrations being run by the CLI, see the [automated migrations section](#migrations) for details on what code is changing and why.
 
-如果您对 CLI 正在运行的某些迁移工作感到好奇，参见[“自动迁移”部分](#migrations)以了解关于要更改哪些代码以及更改原因的详细信息。
-
+如果你对 CLI 正在运行的某些迁移工作感到好奇，参见[“自动迁移”部分](#migrations)以了解关于要更改哪些代码以及更改原因的详细信息。
 
 ## Changes and Deprecations in Version 9
 
 ## 版本 9 中的更改和弃用
 
-
 <div class="alert is-helpful">
 
    For information about Angular's deprecation and removal practices, see [Angular Release Practices](guide/releases#deprecation-practices "Angular Release Practices: Deprecation practices").
 
-   有关 Angular 弃用和移除实践的信息，参见 [Angular 的发布实践](guide/releases#deprecation-practices "Angular 发布惯例：弃用惯例") 。
-
+   有关 Angular 弃用和移除实践的信息，参见 [Angular 的发布实践](guide/releases#deprecation-practices "Angular 发布惯例：弃用惯例")。
 
 </div>
 
@@ -42,38 +35,31 @@ If you're curious about the specific migrations being run by the CLI, see the [a
 
 ### 新的重大变化
 
-
 - Angular now compiles with Ivy by default. See the [Ivy compatibility section](#ivy).
 
-  Angular 现在默认使用 Ivy 进行编译。参见 [Ivy 兼容性部分](#ivy) 。
-
+  Angular 现在默认使用 Ivy 进行编译。参见 [Ivy 兼容性部分](#ivy)。
 
 - CLI apps compile in [AOT mode](/guide/aot-compiler) by default (which includes template type-checking).
 Users who only built with JIT before may see new type errors.
 See our [template type-checking guide](guide/template-typecheck) for more information and debugging tips.
 
-  CLI 应用程序默认情况下以 [AOT 模式](/guide/aot-compiler)编译（包括模板类型检查）。以前仅使用 JIT 构建的用户可能会看到新的类型错误。有关更多信息和调试提示，请参见我们的[模板类型检查指南](guide/template-typecheck) 。
-
+  CLI 应用程序默认情况下以 [AOT 模式](/guide/aot-compiler)编译（包括模板类型检查）。以前仅使用 JIT 构建的用户可能会看到新的类型错误。有关更多信息和调试提示，请参见我们的[模板类型检查指南](guide/template-typecheck)。
 
 - Typescript 3.4 and 3.5 are no longer supported. Please update to Typescript 3.7.
 
   不再支持 TypeScript 3.4 和 3.5。请更新至 Typescript 3.7。
 
-
 - `tslib` is now listed as a peer dependency rather than a direct dependency. If you are not using the CLI, you must manually install `tslib`, using `yarn add tslib` or `npm install tslib --save`.
 
-  `tslib` 现在被列为对等(peer)依赖，而不是直接依赖。如果不使用 CLI，则必须手动安装 `tslib` ，使用 `yarn add tslib` 或 `npm install tslib --save` 。
-
+  `tslib` 现在被列为对等(peer)依赖，而不是直接依赖。如果不使用 CLI，则必须手动安装 `tslib`，使用 `yarn add tslib` 或 `npm install tslib --save`。
 
 {@a deprecations}
 
 {@a 弃用}
 
-
 ### New Deprecations
 
 ### 新的弃用
-
 
 | API | Replacement | Notes |
 | --- | ----------- | ----- |
@@ -81,23 +67,22 @@ See our [template type-checking guide](guide/template-typecheck) for more inform
 | [`entryComponents`](api/core/NgModule#entryComponents) | none | See [`entryComponents`](guide/deprecations#entryComponents) |
 | [`entryComponents`](api/core/NgModule#entryComponents) | 无 | 参见 [`entryComponents`](guide/deprecations#entryComponents) |
 | [`CurrencyPipe` - `DEFAULT_CURRENCY_CODE`](api/common/CurrencyPipe#currency-code-deprecation)| `{provide: DEFAULT_CURRENCY_CODE, useValue: 'USD'}` | From v11 the default code will be extracted from the locale data given by `LOCAL_ID`, rather than `USD`. |
-| [`CurrencyPipe` - `DEFAULT_CURRENCY_CODE`](api/common/CurrencyPipe#currency-code-deprecation)| `{provide: DEFAULT_CURRENCY_CODE, useValue: 'USD'}` | 从 v11 开始，默认代码将从由 `LOCAL_ID` 提供的语言环境数据中提取，而不再是固定值 `USD`。 |
+| [`CurrencyPipe` - `DEFAULT_CURRENCY_CODE`](api/common/CurrencyPipe#currency-code-deprecation)| `{provide: DEFAULT_CURRENCY_CODE, useValue: 'USD'}` | 从 v11 开始，默认代码将从由 `LOCAL_ID` 提供的语言环境数据中提取，而不再是固定值 `USD`。|
 | [`ANALYZE_FOR_ENTRY_COMPONENTS`](api/core/ANALYZE_FOR_ENTRY_COMPONENTS) | none | See [`ANALYZE_FOR_ENTRY_COMPONENTS`](guide/deprecations#entryComponents) |
 | [`ANALYZE_FOR_ENTRY_COMPONENTS`](api/core/ANALYZE_FOR_ENTRY_COMPONENTS) | 无 | 见[`ANALYZE_FOR_ENTRY_COMPONENTS`](guide/deprecations#entryComponents) |
-| `ModuleWithProviders` without a generic | `ModuleWithProviders` with a generic | See [`ModuleWithProviders` section](guide/deprecations#moduleWithProviders) |
-| 不带泛型的 `ModuleWithProviders` | 带泛型的 `ModuleWithProviders` | 参见 [`ModuleWithProviders` 部分](guide/deprecations#moduleWithProviders) |
-| Undecorated base classes that use Angular features | Base classes with `@Directive()` decorator that use Angular features | See [undecorated base classes section](guide/deprecations#undecorated-base-classes) |
-| 使用 Angular 特性的不带装饰器的基类 | 具有 Angular 特性的带 `@Directive()` 装饰器的基类 | 请参见[不带装饰器的基类部分](guide/deprecations#undecorated-base-classes) |
+| `ModuleWithProviders` without a generic | `ModuleWithProviders` with a generic | |
+| 不带泛型的 `ModuleWithProviders` | 带泛型的 `ModuleWithProviders` | |
+| Undecorated base classes that use Angular features | Base classes with `@Directive()` decorator that use Angular features |  |
+| 使用 Angular 特性的不带装饰器的基类 | 具有 Angular 特性的带 `@Directive()` 装饰器的基类 | |
 | `esm5` and `fesm5` distribution in `@angular/*` npm packages | `esm2015` and `fesm2015` entrypoints | See [`esm5` and `fesm5`](guide/deprecations#esm5-fesm5) |
 | `@angular/*` npm 软件包中的 `esm5` 和 `fesm5` 分发版 | `esm2015` 和 `fesm2015` 入口点 | 参见 [`esm5` 和 `fesm5`](guide/deprecations#esm5-fesm5) |
 | [`TestBed.get`](api/core/testing/TestBed#get) | [`TestBed.inject`](api/core/testing/TestBed#inject) | Same behavior, but type safe. |
-| [`TestBed.get`](api/core/testing/TestBed#get) | [`TestBed.inject`](api/core/testing/TestBed#inject) | 行为相同，但类型安全。 |
+| [`TestBed.get`](api/core/testing/TestBed#get) | [`TestBed.inject`](api/core/testing/TestBed#inject) | 行为相同，但类型安全。|
 
 {@a removals}
 ### New Removals of Deprecated APIs
 
 ### 新删除的已弃用 API
-
 
 | Package | API | Replacement | Notes |  |
 | ------- | --- | ----------- | ----- | --- |
@@ -133,7 +118,7 @@ See our [template type-checking guide](guide/template-typecheck) for more inform
 | `@angular/forms` | `ngForm` element selector | `ng-form` element selector | none |  |
 | `@angular/forms` | `ngForm` 元素选择器 | `ng-form` 元素选择器 | 无 |  |
 | `@angular/service-worker` | `versionedFiles` | `files` | In the service worker configuration file `ngsw-config.json`, replace `versionedFiles` with `files`. See [Service Worker Configuration](guide/service-worker-config#assetgroups). |  |
-| `@angular/service-worker` | `versionedFiles` | `files` | 在 Service Worker 配置文件 `ngsw-config.json` ，用 `files` 替换 `versionedFiles` 。参见 [Service Worker 配置](guide/service-worker-config#assetgroups) 。 |  |
+| `@angular/service-worker` | `versionedFiles` | `files` | 在 Service Worker 配置文件 `ngsw-config.json`，用 `files` 替换 `versionedFiles`。参见 [Service Worker 配置](guide/service-worker-config#assetgroups)。|  |
 
 {@a ivy}
 
@@ -141,37 +126,30 @@ See our [template type-checking guide](guide/template-typecheck) for more inform
 
 ## Ivy 的特性与兼容性
 
-
 In Version 9, Angular Ivy is the default rendering engine. If you haven't heard of Ivy, you can read more about it in the [Angular Ivy guide](guide/ivy).
 
-在版本 9 中，Angular Ivy 是默认渲染引擎。如果您还没有听说过 Ivy，则可以在 [Angular Ivy 指南](guide/ivy)中阅读有关它的更多信息。
-
+在版本 9 中，Angular Ivy 是默认渲染引擎。如果你还没有听说过 Ivy，则可以在 [Angular Ivy 指南](guide/ivy)中阅读有关它的更多信息。
 
 * Among other features, Ivy introduces more comprehensive type-checking within templates. For details, see [Template Type-checking](guide/template-typecheck).
 
-  除其他功能外，Ivy 在模板中引入了更全面的类型检查。有关详细信息，请参见[模板类型检查](guide/template-typecheck) 。
-
+  除其它功能外，Ivy 在模板中引入了更全面的类型检查。有关详细信息，请参见[模板类型检查](guide/template-typecheck)。
 
 * For general guidance on debugging and a list of minor changes associated with Ivy, see the [Ivy compatibility guide](guide/ivy-compatibility).
 
-  关于调试的一般性指南以及与 Ivy 相关的较小更改的列表，请参见 [Ivy 兼容性指南](guide/ivy-compatibility) 。
-
+  关于调试的一般性指南以及与 Ivy 相关的较小更改的列表，请参见 [Ivy 兼容性指南](guide/ivy-compatibility)。
 
 * For help with opting out of Ivy, see the instructions [here](guide/ivy#opting-out-of-angular-ivy).
 
   有关选择性禁用 Ivy 的帮助，参见[此处](guide/ivy#opting-out-of-angular-ivy)的说明。
-
 
 {@a migrations}
 ## Automated Migrations for Version 9
 
 ## 版本 9 的自动迁移
 
-
 Read about the migrations the CLI handles for you automatically:
 
-了解 CLI 自动为您处理的迁移：
-
+了解 CLI 自动为你处理的迁移：
 
 - [Migrating from `Renderer` to `Renderer2`](guide/migration-renderer)
 

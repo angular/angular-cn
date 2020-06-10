@@ -19,9 +19,9 @@ There are two ways to make a service a singleton in Angular:
 
 在 Angular 中有两种方式来生成单例服务：
 
-* Declare `root` for the value of the `@Injectable()` `providedIn` property
+* Set the `providedIn` property of the `@Injectable()` to `"root"`.
 
-  把 `@Injectable()` 的 `providedIn` 属性声明为 `root`。
+  把 `@Injectable()` 中的 `providedIn` 属性设置为 `"root"`。
 
 * Include the service in the `AppModule` or in a module that is only imported by the `AppModule`
 
@@ -107,12 +107,11 @@ There are multiple ways to prevent this:
 
 </div>
 
-
 Use `forRoot()` to
 separate providers from a module so you can import that module into the root module
 with `providers` and child modules without `providers`.
 
-使用 `forRoot()` 来把提供者从该模块中分离出去，这样你就能在根模块中导入该模块时带上 `providers` ，并且在子模块中导入它时不带 `providers`。
+使用 `forRoot()` 来把提供者从该模块中分离出去，这样你就能在根模块中导入该模块时带上 `providers`，并且在子模块中导入它时不带 `providers`。
 
 1. Create a static method `forRoot()` on the module.
 
@@ -123,7 +122,6 @@ with `providers` and child modules without `providers`.
    把这些提供者放进 `forRoot()` 方法中。
 
 <code-example path="ngmodules/src/app/greeting/greeting.module.ts" region="for-root" header="src/app/greeting/greeting.module.ts"></code-example>
-
 
 {@a forRoot-router}
 

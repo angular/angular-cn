@@ -45,7 +45,6 @@ Next, still in the `AppModule`, add `HttpClient` to the `imports` array:
 <code-example path="toh-pt6/src/app/app.module.ts" region="import-httpclientmodule" header="src/app/app.module.ts (imports array excerpt)">
 </code-example>
 
-
 ## Simulate a data server
 
 ## 模拟数据服务器
@@ -63,7 +62,7 @@ applying them to an in-memory data store, and returning simulated responses.
 
 By using the In-memory Web API, you won't have to set up a server to learn about `HttpClient`.
 
-通过使用内存 Web API，你不用架设服务器就可以学习 `HttpClient` 了。 
+通过使用内存 Web API，你不用架设服务器就可以学习 `HttpClient` 了。
 
 <div class="alert is-important">
 
@@ -181,7 +180,6 @@ as an `Observable<Hero[]>`.
 </code-example>
 
 Convert that method to use `HttpClient` as follows:
-
 
 把该方法转换成使用 `HttpClient` 的，代码如下：
 

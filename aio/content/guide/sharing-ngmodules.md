@@ -60,7 +60,7 @@ to import `FormsModule`, `SharedModule` can still export
 way, you can give other modules access to `FormsModule` without
 having to import it directly into the `@NgModule` decorator.
 
-即使 `SharedModule` 中声明的组件没有绑定过 `[(ngModel)]`，而且`SharedModule` 也不需要导入 `FormsModule`，`SharedModule` 仍然可以导出 `FormsModule`，而不必把它列在 `imports` 中。
+即使 `SharedModule` 中声明的组件没有绑定过 `[(ngModel)]`，而且 `SharedModule` 也不需要导入 `FormsModule`，`SharedModule` 仍然可以导出 `FormsModule`，而不必把它列在 `imports` 中。
 这种方式下，你可以让其它模块也能访问 `FormsModule`，而不用直接在自己的 `@NgModule` 装饰器中导入它。
 
 ### Using components vs services from other modules

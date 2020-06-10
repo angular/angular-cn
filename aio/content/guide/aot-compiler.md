@@ -17,7 +17,7 @@ This guide explains how to specify metadata and apply available compiler options
 
 <div class="alert is-helpful">
 
-  <a href="https://www.youtube.com/watch?v=kW9cJsvcsGo">Watch compiler author Tobias Bosch explain the Angular compiler</a> at AngularConnect 2016.
+  <a href="https://www.youtube.com/watch?v=anphffaCZrQ">Watch Alex Rickabaugh explain the Angular compiler</a> at AngularConnect 2019.
 
   观看编译器作者 Tobias Bosch 在 AngularConnect 2016 大会里，对<a href="http://v.youku.com/v_show/id_XMTc1NTE4NTkwOA==.html?from=y1.7-1.4" target="_blank">Angular 编译器</a>的演讲。
 
@@ -27,16 +27,14 @@ This guide explains how to specify metadata and apply available compiler options
 
 Here are some reasons you might want to use AOT.
 
-下面是您可能要使用 AOT 的部分原因。
-
+下面是你可能要使用 AOT 的部分原因。
 
 * *Faster rendering*
    With AOT, the browser downloads a pre-compiled version of the application.
    The browser loads executable code so it can render the application immediately, without waiting to compile the app first.
 
   *更快的渲染*。
-  借助AOT，浏览器可以下载应用的预编译版本。浏览器加载的是可执行代码，因此它可以立即呈现应用，而无需等待先编译好应用。
-
+  借助 AOT，浏览器可以下载应用的预编译版本。浏览器加载的是可执行代码，因此它可以立即渲染应用，而无需等待先编译好应用。
 
 * *Fewer asynchronous requests*
    The compiler _inlines_ external HTML templates and CSS style sheets within the application JavaScript,
@@ -45,7 +43,6 @@ Here are some reasons you might want to use AOT.
   *更少的异步请求*。
   编译器会在应用 JavaScript 中内*联*外部 HTML 模板和 CSS 样式表，从而消除了对那些源文件的单独 ajax 请求。
 
-
 * *Smaller Angular framework download size*
    There's no need to download the Angular compiler if the app is already compiled.
    The compiler is roughly half of Angular itself, so omitting it dramatically reduces the application payload.
@@ -53,14 +50,12 @@ Here are some reasons you might want to use AOT.
   *较小的 Angular 框架下载大小*。
   如果已编译应用程序，则无需下载 Angular 编译器。编译器大约是 Angular 本身的一半，因此省略编译器会大大减少应用程序的有效载荷。
 
-
 * *Detect template errors earlier*
    The AOT compiler detects and reports template binding errors during the build step
    before users can see them.
 
-  *尽早检测模板错误*。 
+  *尽早检测模板错误*。
   AOT 编译器会在构建步骤中检测并报告模板绑定错误，然后用户才能看到它们。
-
 
 * *Better security*
    AOT compiles HTML templates and components into JavaScript files long before they are served to the client.
@@ -69,7 +64,6 @@ Here are some reasons you might want to use AOT.
 
   *更高的安全性*。
   AOT 在将 HTML 模板和组件提供给客户端之前就将其编译为 JavaScript 文件。没有要读取的模板，没有潜藏风险的客户端 HTML 或 JavaScript eval，受到注入攻击的机会就更少了。
-
 
 {@a overview}
 
@@ -81,45 +75,21 @@ Angular offers two ways to compile your application:
 
 Angular 提供了两种方式来编译你的应用：
 
-* **_Just-in-Time_ (JIT)**, which compiles your app in the browser at runtime.
+* **_Just-in-Time_ (JIT)**, which compiles your app in the browser at runtime. This was the default until Angular 8.
 
-   ***即时编译* (JIT)**，它会在运行期间在浏览器中编译你的应用。
+  ***即时编译* (JIT)**，它会在运行期间在浏览器中编译你的应用。这是 Angular 8 及更早版本的默认值。
 
-* **_Ahead-of-Time_ (AOT)**, which compiles your app at build time.
+* **_Ahead-of-Time_ (AOT)**, which compiles your app and libraries at build time. This is the default since Angular 9.
 
-   **预先（AOT）编译**，它会在构建时编译你的应用。
+   **预先（AOT）编译**，它会在构建时编译你的应用和库。这是 Angular 9 及后续版本的默认值。
 
-JIT compilation is the default when you run the [`ng build`](cli/build) (build only) or [`ng serve`](cli/serve)  (build and serve locally) CLI commands:
+When you run the [`ng build`](cli/build) (build only) or [`ng serve`](cli/serve) (build and serve locally) CLI commands, the type of compilation (JIT or AOT) depends on the value of the `aot` property in your build configuration specified in `angular.json`. By default, `aot` is set to `true` for new CLI apps.
 
-当你运行 [`ng build`](cli/build)（仅编译）或 [`ng serve`](cli/serve)（编译并启动本地服务器） 这两个 CLI 命令时 JIT 编译是默认选项：
-
-<code-example language="sh" class="code-shell">
-  ng build
-  ng serve
-</code-example>
-
-{@a compile}
-
-For AOT compilation, include the `--aot` option with the `ng build` or `ng serve` command:
-
-要进行 AOT 编译，只要让 `ng build` 或 `ng serve` 命令中包含 `--aot` 标志就行了：
-
-<code-example language="sh" class="code-shell">
-  ng build --aot
-  ng serve --aot
-</code-example>
-
-<div class="alert is-helpful">
-
-The `ng build` command with the `--prod` meta-flag (`ng build --prod`) compiles with AOT by default.
-
-带有 `--prod` 标志的 `ng build` 命令 (`ng build --prod`) 会默认使用 AOT 编译。
+当运行 CLI 命令 [`ng build`](cli/build) (只构建) 或 [`ng serve`](cli/serve) (构建并启动本地服务器) 时，编译类型（JIT 或 AOT）取决于你在 `angular.json` 中的构建配置所指定的 `aot` 属性。默认情况下，对于新的 CLI 应用，其 `aot` 为 `true`。
 
 See the [CLI command reference](cli) and [Building and serving Angular apps](guide/build) for more information.
 
 要了解更多，请参见[CLI 文档](cli)，和 [构建与运行 Angular 应用](guide/build)。
-
-</div>
 
 ## How AOT works
 
@@ -129,8 +99,7 @@ The Angular AOT compiler extracts **metadata** to interpret the parts of the app
 You can specify the metadata explicitly in **decorators** such as `@Component()` and `@Input()`, or implicitly in the constructor declarations of the decorated classes.
 The metadata tells Angular how to construct instances of your application classes and interact with them at runtime.
 
-Angular AOT 编译器会提取**元数据**来解释应由 Angular 管理的应用程序部分。您可以在**装饰器**（例如 `@Component()` 和 `@Input()`）中显式指定元数据，也可以在**被装饰的类**的构造函数声明中隐式指定元数据。元数据告诉 Angular 要如何构造应用程序类的实例并在运行时与它们进行交互。
-
+Angular AOT 编译器会提取**元数据**来解释应由 Angular 管理的应用程序部分。你可以在**装饰器**（例如 `@Component()` 和 `@Input()`）中显式指定元数据，也可以在**被装饰的类**的构造函数声明中隐式指定元数据。元数据告诉 Angular 要如何构造应用程序类的实例并在运行时与它们进行交互。
 
 In the following example, the `@Component()` metadata object and the class constructor tell Angular how to create and display an instance of `TypicalComponent`.
 
@@ -159,18 +128,15 @@ Angular 编译器只提取**一次**元数据，并且为 `TypicalComponent` 生
 
 ### 编译的各个阶段
 
-
 There are three phases of AOT compilation.
 
 AOT 编译分为三个阶段。
 
-
 * Phase 1 is *code analysis*.
    In this phase, the TypeScript compiler and  *AOT collector* create a representation of the source. The collector does not attempt to interpret the metadata it collects. It represents the metadata as best it can and records errors when it detects a metadata syntax violation.
 
-  阶段 1 是*代码分析* 。
+  阶段 1 是*代码分析*。
   在此阶段，TypeScript 编译器和 *AOT 收集器*会创建源码的表现层。收集器不会尝试解释其收集到的元数据。它只是尽可能地表达元数据，并在检测到元数据语法冲突时记录错误。
-
 
 * Phase 2 is *code generation*.
     In this phase, the compiler's `StaticReflector` interprets the metadata collected in phase 1, performs additional validation of the metadata, and throws an error if it detects a metadata restriction violation.
@@ -178,12 +144,10 @@ AOT 编译分为三个阶段。
   第二阶段是*代码生成*。
   在此阶段，编译器的 `StaticReflector` 会解释在阶段 1 中收集的元数据，对元数据执行附加验证，如果检测到元数据违反了限制，则抛出错误。
 
-
 * Phase 3 is *template type checking*.
    In this optional phase, the Angular *template compiler* uses the TypeScript compiler to validate the binding expressions in templates. You can enable this phase explicitly by setting the `fullTemplateTypeCheck` configuration option; see [Angular compiler options](guide/angular-compiler-options).
 
-  阶段 3 是*模板类型检查*。在此可选阶段，Angular *模板编译器*使用 TypeScript 编译器来验证模板中的绑定表达式。您可以通过设置 `fullTemplateTypeCheck` 配置选项来明确启用此阶段。请参阅 [Angular 编译器选项](guide/angular-compiler-options) 。
-
+  阶段 3 是*模板类型检查*。在此可选阶段，Angular *模板编译器*使用 TypeScript 编译器来验证模板中的绑定表达式。你可以通过设置 `fullTemplateTypeCheck` 配置选项来明确启用此阶段。请参阅 [Angular 编译器选项](guide/angular-compiler-options)。
 
 ### Metadata restrictions
 
@@ -211,16 +175,14 @@ You write metadata in a _subset_ of TypeScript that must conform to the followin
 
 For additional guidelines and instructions on preparing an application for AOT compilation, see [Angular: Writing AOT-friendly applications](https://medium.com/sparkles-blog/angular-writing-aot-friendly-applications-7b64c8afbe3f).
 
-有关准备 AOT 编译应用程序的其他准则和说明，请参阅 [Angular：编写 AOT 友好的应用程序](https://medium.com/sparkles-blog/angular-writing-aot-friendly-applications-7b64c8afbe3f) 。
-
+有关准备 AOT 编译应用程序的其它准则和说明，请参阅 [Angular：编写 AOT 友好的应用程序](https://medium.com/sparkles-blog/angular-writing-aot-friendly-applications-7b64c8afbe3f)。
 
 <div class="alert is-helpful">
 
 Errors in AOT compilation commonly occur because of metadata that does not conform to the compiler's requirements (as described more fully below).
 For help in understanding and resolving these problems, see [AOT Metadata Errors](guide/aot-metadata-errors).
 
-AOT 编译中的错误通常是由于元数据不符合编译器的要求而发生的（下面将更全面地介绍）。为了帮助您理解和解决这些问题，请参阅 [AOT 元数据错误](guide/aot-metadata-errors) 。
-
+AOT 编译中的错误通常是由于元数据不符合编译器的要求而发生的（下面将更全面地介绍）。为了帮助你理解和解决这些问题，请参阅 [AOT 元数据错误](guide/aot-metadata-errors)。
 
 </div>
 
@@ -228,11 +190,9 @@ AOT 编译中的错误通常是由于元数据不符合编译器的要求而发�
 
 ### 配置 AOT 编译
 
-
 You can provide options in the `tsconfig.json` [TypeScript configuration file](guide/typescript-configuration) that control the compilation process. See [Angular compiler options](guide/angular-compiler-options) for a complete list of available options.
 
-您可以在 `tsconfig.json` [TypeScript 配置文件](guide/typescript-configuration)中提供控制编译过程的选项。有关可用选项的完整列表，请参见 [Angular 编译器](guide/angular-compiler-options)选项。
-
+你可以在 `tsconfig.json` [TypeScript 配置文件](guide/typescript-configuration)中提供控制编译过程的选项。有关可用选项的完整列表，请参见 [Angular 编译器](guide/angular-compiler-options)选项。
 
 ## Phase 1: Code analysis
 
@@ -667,7 +627,6 @@ In version 5 and later, the compiler automatically performs this rewriting while
 
 在版本 5 和更高版本中，编译器会在发出 `.js` 文件时自动执行此重写。
 
-
 {@a exported-symbols}
 
 {@a code-folding}
@@ -680,7 +639,7 @@ The compiler can only resolve references to **_exported_** symbols.
 The collector, however, can evaluate an expression during collection and record the result in the `.metadata.json`, rather than the original expression.
 This allows you to make limited use of non-exported symbols within expressions.
 
-编译器只会解析到**_已导出_**符号的引用。
+编译器只会解析到**_ 已导出 _**符号的引用。
 收集器可以在收集期间执行表达式，并用其结果记录到 `.metadata.json` 中（而不是原始表达式中）。
 这样可以让你把非导出符号的使用限制在表达式中。
 
@@ -1204,11 +1163,9 @@ The compiler, however, can later refuse to generate a call to a _particular_ fun
 
 只要语法有效，收集器就可以用 `new` 来表示函数调用或对象创建。但是，编译器在后面可以拒绝生成对*特定*函数的调用或对*特定*对象的创建。
 
-
 The compiler can only create instances of certain classes, supports only core decorators, and only supports calls to macros (functions or static methods) that return expressions.
 
 编译器只能创建某些类的实例，仅支持核心装饰器，并且仅支持对返回表达式的宏（函数或静态方法）的调用。
-
 
 * New instances
 
@@ -1361,20 +1318,17 @@ It does not, however, rewrite the `.d.ts` file, so TypeScript doesn't recognize 
 
 ## Phase 3: Template type checking
 
-## 阶段3：模板类型检查
-
+## 阶段 3：模板类型检查
 
 One of the Angular compiler's most helpful features is the ability to type-check expressions within templates, and catch any errors before they cause crashes at runtime.
 In the template type-checking phase, the Angular template compiler uses the TypeScript compiler to validate the binding expressions in templates.
 
 Angular 编译器最有用的功能之一就是能够对模板中的表达式进行类型检查，在由于出错而导致运行时崩溃之前就捕获任何错误。在模板类型检查阶段，Angular 模板编译器会使用 TypeScript 编译器来验证模板中的绑定表达式。
 
-
 Enable this phase explicitly by adding the compiler option `"fullTemplateTypeCheck"` in the `"angularCompilerOptions"` of the project's `tsconfig.json`
 (see [Angular Compiler Options](guide/angular-compiler-options)).
 
-通过在该项目的 `tsconfig.json` 的 `"angularCompilerOptions"`中添加编译器选项 `"fullTemplateTypeCheck"`，可以显式启用本阶段（见[ Angular 编译器选项](guide/angular-compiler-options) ）。
-
+通过在该项目的 `tsconfig.json` 的 `"angularCompilerOptions"` 中添加编译器选项 `"fullTemplateTypeCheck"`，可以显式启用本阶段（见[ Angular 编译器选项](guide/angular-compiler-options) ）。
 
 <div class="alert is-helpful">
 
@@ -1382,19 +1336,18 @@ In [Angular Ivy](guide/ivy), the template type checker has been completely rewri
 
 在 [Angular Ivy 中](guide/ivy) 中，模板类型检查器已被完全重写，以使其功能更强大，更严格。这意味着它可以捕获以前的类型检查器无法检测到的各种新错误。
 
-
 As a result, templates that previously compiled under View Engine can fail type checking under Ivy. This can happen because Ivy's stricter checking catches genuine errors, or because application code is not typed correctly, or because the application uses libraries in which typings are inaccurate or not specific enough.
 
 这就导致了，以前在 View Engine 下能通过编译的模板可能无法在 Ivy 下通过类型检查。之所以会发生这种情况，是因为 Ivy 更严格的检查会捕获真正的错误：或者因为应用程序代码中的类型不正确，或者因为应用程序使用的库中的类型不正确或不够具体。
-
 
 This stricter type checking is not enabled by default in version 9, but can be enabled by setting the `strictTemplates` configuration option.
 We do expect to make strict type checking the default in the future.
 
 在版本 9 中，默认未启用此更严格的类型检查，但可以通过设置 `strictTemplates` 配置选项来启用它。我们真的希望将来可以把严格类型检查作为默认值。
 
+For more information about type-checking options, and about improvements to template type checking in version 9 and above, see [Template type checking](guide/template-typecheck).
 
-<!-- For more information about type-checking options, and about improvements to template type checking in version 9 and above, see [Template type checking](guide/template-type-checking). -->
+关于这些类型检查选项的更多信息以及 Angular 9 及后续版本对模板类型检查做出的改进，请参见 [模板类型检查](guide/template-typecheck)。
 
 </div>
 
@@ -1446,7 +1399,7 @@ The error location is the beginning of the text node that contains the interpola
   location is the location of the attribute that contains the error.
 
 错误的位置是从包含出错的插值表达式的那个文本节点开始的。
-  如果错误是一个属性绑定，比如 `[value]="person.address.street"` ，错误的位置就是那个包含错误的属性的位置。
+  如果错误是一个属性绑定，比如 `[value]="person.address.street"`，错误的位置就是那个包含错误的属性的位置。
 
 The validation uses the TypeScript type checker and the options supplied to the TypeScript compiler to control
   how detailed the type validation is. For example, if the `strictTypeChecks` is specified, the error  ```my.component.ts.MyComponent.html(1,1): : Object is possibly 'undefined'``` is reported as well as the above error message.
@@ -1482,25 +1435,9 @@ Using `*ngIf` allows the TypeScript compiler to infer that the `person` used in 
 
 使用 `*ngIf` 能让 TypeScript 编译器推断出这个绑定表达式中使用的 `person` 永远不会是 `undefined`。
 
-#### Custom `ngIf` like directives
+For more information about input type narrowing, see [Input setter coercion](guide/template-typecheck#input-setter-coercion) and [Improving template type checking for custom directives](guide/structural-directives#directive-type-checks).
 
-#### 类似于的 `ngIf` 的自定义指令
-
-Directives that behave like `*ngIf` can declare that they want the same treatment by including
-a static member marker that is a signal to the template compiler to treat them
-like `*ngIf`. This static member for `*ngIf` is:
-
-那些行为与 `*ngIf` 类似的指令可以通过包含一个静态成员作为标记，来告诉模板编译器它们希望和 `*ngIf` 享受同等待遇。这个 `*ngIf` 的静态成员就是：
-
-```typescript
-
-  public static ngIfUseIfTypeGuard: void;
-
-```
-
-This declares that the input property `ngIf` of the `NgIf` directive should be treated as a guard to the use of its template, implying that the template will only be instantiated if the `ngIf` input property is true.
-
-它声明了 `NgIf` 指令的 `ngIf` 属性应该在用到它的模板中看做一个守卫，以表明只有当 `ngIf` 这个输入属性为 `true` 时，才应该生成那个模板。
+关于输入类型窄化的更多信息，请参见 [Input setter 的强制类型转换](guide/template-typecheck#input-setter-coercion)和[为自定义指令强化模板类型检查](guide/structural-directives#directive-type-checks)
 
 ### Non-null type assertion operator
 

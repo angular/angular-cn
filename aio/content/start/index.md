@@ -1,4 +1,4 @@
-# Getting Started with Angular: Your First App
+# Part 1: Getting started with a basic Angular app
 
 # Angular 入门：你的第一个应用
 
@@ -7,7 +7,7 @@ Welcome to Angular!
 Angular 欢迎你！
 
 This tutorial introduces you to the essentials of Angular by walking you through a simple e-commerce site with a catalog, shopping cart, and check-out form.
-To help you get started right away, this guide uses a simple ready-made application that you can examine and play with interactively.
+To help you get started right away, this guide uses a simple ready-made application that you can examine and modify interactively (without having to [set up a local work environment](guide/setup-local "Setup guide")).
 
 本教程将通过一个简单的电子商务网站，向你介绍 Angular 的基本知识。该网站具有商品名录、购物车和结账表单。
 为了帮助你更好地起步，本指南提供了一个已完成的简单应用，你可以在其中试验及互动。
@@ -26,7 +26,7 @@ To help you get started right away, this guide uses a simple ready-made applicat
 
 {@a new-project}
 
-## Create a new project
+## Create the sample project
 
 ## 创建一个新项目
 
@@ -94,13 +94,13 @@ example apps.
 
 </div>
 
-<div class="alert is-helpful">
+<div class="alert is-important">
 
 If you go directly to the [StackBlitz online development environment](https://stackblitz.com/) and choose to [start a new Angular workspace](https://stackblitz.com/fork/angular), you get a generic stub application, rather than this [illustrative sample](#new-project). Once you have been introduced to the basic concepts here, this can be helpful for working interactively while you are learning Angular.
 
-如果直接进入 [StackBlitz 在线开发环境](https://stackblitz.com/) 并选择 [start a new Angular workspace](https://stackblitz.com/fork/angular) ，你将获得一个通用的应用骨架，而不是此[解说性范例](#new-project)。等介绍完这里的基本概念后，它对于你在学习 Angular 时交互式的进行工作很有帮助。
+如果直接进入 [StackBlitz 在线开发环境](https://stackblitz.com/) 并选择 [start a new Angular workspace](https://stackblitz.com/fork/angular)，你将获得一个通用的应用骨架，而不是此[解说性范例](#new-project)。等介绍完这里的基本概念后，它对于你在学习 Angular 时交互式的进行工作很有帮助。
 
-In actual development you will typically use the [Angular CLI](guide/glossary#command-line-interface-cli), a powerful command-line tool that lets you generate and modify applications. For more information, see the [CLI Overview](cli).
+In actual development you will typically use the [Angular CLI](guide/glossary#command-line-interface-cli "Definition of CLI"), a powerful command-line tool that lets you generate and modify applications. For a full step-by-step guide that shows how to use the CLI to create a new project and all of its parts, see [Tutorial: Tour of Heroes](tutorial).
 
 在实际开发中，通常会使用 [Angular CLI](guide/glossary#command-line-interface-cli)，这是一个功能强大的命令行工具，可以让你生成和修改应用程序。有关更多信息，请参见 [CLI 概述](cli)。
 
@@ -146,7 +146,7 @@ To help you get going, the following steps use predefined product data from the 
 
       <div class="alert is-helpful">
 
-      `*ngFor` is a "structural directive". Structural directives shape or reshape the DOM's structure, typically by adding, removing, and manipulating the elements to which they are attached. Any directive with an asterisk, `*`, is a structural directive.
+      `*ngFor` is a "structural directive". Structural directives shape or reshape the DOM's structure, typically by adding, removing, and manipulating the elements to which they are attached. Directives with an asterisk, `*`, are structural directives.
 
       `*ngFor` 是一个 "结构型指令"。结构型指令会通过添加、删除和操纵它们的宿主元素等方式塑造或重塑 DOM 的结构。任何带有星号 `*` 的指令都是结构型指令。
       </div>
@@ -257,8 +257,7 @@ In the process, you've learned to use five common features of Angular's template
 
 <div class="alert is-helpful">
 
-For more information about the full capabilities of Angular's
-template syntax, see [Template Syntax](guide/template-syntax "Template Syntax").
+For a fuller introduction to Angular's template syntax, see [Introduction to components and templates](guide/architecture-components#template-syntax "Template Syntax").
 
 要了解关于 Angular 模板语法全部特性的信息，请参阅[模板语法指南](guide/template-syntax "模板语法")。
 
@@ -346,7 +345,7 @@ The next section expands the app's capabilities by adding a new component&mdash;
 
 <div class="alert is-helpful">
 
-For more information about components and how they interact with templates, see [Introduction to Components](guide/architecture-components "Architecture > Introduction to Components").
+For more information about components and how they interact with templates, see [Introduction to Components](guide/architecture-components "Concepts > Introduction to Components and Templates").
 
 要了解关于组件及其与模板交互的更多信息，请参阅[“组件简介”](guide/architecture-components "架构>组件简介")。
 
@@ -513,7 +512,7 @@ To make the "Notify Me" button work, you need to configure two things:
   When the Angular CLI generates a new component, it includes an empty constructor, the `OnInit` interface, and the `ngOnInit()` method.
   Since the following example isn't using them, they are omitted here for brevity.
 
-  当 Angular CLI 生成一个新组件时，它包含一个空的构造函数，`OnInit` 接口和 `ngOnInit()`方法。
+  当 Angular CLI 生成一个新组件时，它包含一个空的构造函数，`OnInit` 接口和 `ngOnInit()` 方法。
   以下示例未使用它们，为了简洁起见，此处将其省略。
   
 </div>
@@ -580,10 +579,10 @@ To continue exploring Angular, choose either of the following options:
 
 要继续探索 Angular，请选择以下选项之一：
 
-* [Continue to the "Routing" section](start/routing "Getting Started: Routing") to create a product details page that can be accessed by clicking a product name and that has its own URL pattern.
+* [Continue to the "In-app navigation" section](start/start-routing "Try it: In-app navigation") to create a product details page that can be accessed by clicking a product name and that has its own URL pattern.
 
-   [继续浏览“路由”部分](start/routing "入门：路由")，创建一个商品详情页面，通过单击商品名称，可以访问该页面，该页面有自己的 URL 模式。
+   [继续浏览“路由”部分](start/start-routing "入门：路由")，创建一个商品详情页面，通过单击商品名称，可以访问该页面，该页面有自己的 URL 模式。
 
-* [Skip ahead to the "Deployment" section](start/deployment "Getting Started: Deployment") to move to local development, or deploy your app to Firebase or your own server.
+* [Skip ahead to the "Deployment" section](start/start-deployment "Try it: Deployment") to move to local development, or deploy your app to Firebase or your own server.
 
-   [跳到“部署”部分，](start/deployment "入门：部署")把你的应用转移到本地开发、部署到 Firebase 或你自己的服务器。
+   [跳到“部署”部分，](start/start-deployment "入门：部署")把你的应用转移到本地开发、部署到 Firebase 或你自己的服务器。

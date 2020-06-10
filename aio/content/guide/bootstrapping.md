@@ -1,4 +1,4 @@
-# Bootstrapping
+# Launching your app with a root module
 
 # 启动过程
 
@@ -16,18 +16,18 @@ A basic understanding of the following:
 
 <hr />
 
-An `NgModule` describes how the application parts fit together.
-Every application has at least one Angular module, the _root_ module
-that you bootstrap to launch the application.
-By convention, it is usually called `AppModule`.
+An NgModule describes how the application parts fit together.
+Every application has at least one Angular module, the _root_ module,
+which must be present for bootstrapping the application on launch.
+By convention and by default, this NgModule is named `AppModule`.
 
 `NgModule` 用于描述应用的各个部分如何组织在一起。
 每个应用有至少一个 Angular 模块，*根*模块就是你用来启动此应用的模块。
 按照惯例，它通常命名为 `AppModule`。
 
-If you use the [Angular CLI](cli) to generate an app, the default `AppModule` is as follows:
+When you use the [Angular CLI](cli) command `ng new` to generate an app, the default `AppModule` is as follows.
 
-如果你使用 [Angular CLI](cli) 来生成一个应用，其默认的 `AppModule` 是这样的：
+当你使用 [Angular CLI](cli) 命令 `ng new` 生成一个应用时，其默认的 `AppModule` 是这样的：
 
 ```typescript
 
@@ -105,7 +105,7 @@ You must declare every component in exactly one `NgModule` class.
 If you use a component without declaring it, Angular returns an
 error message.
 
-每个组件都应该（且只能）声明（declare）在一个 `NgModule` 类中。 如果你使用了未声明过的组件，Angular 就会报错。
+每个组件都应该（且只能）声明（declare）在一个 `NgModule` 类中。如果你使用了未声明过的组件，Angular 就会报错。
 
 The `declarations` array only takes declarables. Declarables
 are components, [directives](guide/attribute-directives) and [pipes](guide/pipes).

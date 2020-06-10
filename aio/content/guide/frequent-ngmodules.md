@@ -230,7 +230,7 @@ are for the whole app so it should only be in the root module,
 not in feature modules. Feature modules only need the common
 directives in `CommonModule`; they don’t need to re-install app-wide providers.
 
-对于运行在浏览器中的应用来说，都必须在根模块中 `AppModule` 导入 `BrowserModule` ，因为它提供了启动和运行浏览器应用时某些必须的服务。`BrowserModule` 的提供者是面向整个应用的，所以它只能在根模块中使用，而不是特性模块。
+对于运行在浏览器中的应用来说，都必须在根模块中 `AppModule` 导入 `BrowserModule`，因为它提供了启动和运行浏览器应用时某些必须的服务。`BrowserModule` 的提供者是面向整个应用的，所以它只能在根模块中使用，而不是特性模块。
 特性模块只需要 `CommonModule` 中的常用指令，它们不需要重新安装所有全应用级的服务。
 
 If you do import `BrowserModule` into a lazy loaded feature module,

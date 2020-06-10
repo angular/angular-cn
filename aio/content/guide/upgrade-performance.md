@@ -21,11 +21,9 @@ propagated between the two frameworks. It allows you to upgrade incrementally wh
 speed of your hybrid apps and leveraging the latest of Angular in AngularJS apps early in the
 process of upgrading.
 
-
 本指南介绍了一些用来将 AngularJS 项目高效地逐块迁移到 Angular 平台上的工具。
 本章和[从 AngularJS 升级](guide/upgrade)很像，但是这里会用辅助函数 {@link downgradeModule downgradeModule()} 取代 {@link UpgradeModule UpgradeModule}。这会影响到应用如何启动，以及变更检测事件如何在两个框架之间传播。
 它能让你逐步升级，并提高混合式应用的运行速度，并让你能在升级过程中尽早用上 Angular 中的最新特性。
-
 
 ## Preparation
 
@@ -77,7 +75,6 @@ upgrade/static} utilities remain the same. For more information, see the
   虽然你处理变更检测的方式和 `downgradeModule()`（本章的重点）不同，不过读一下[变更检测](guide/upgrade#change-detection)部分还是能为后续内容提供一些有用的上下文知识。
 
 </div>
-
 
 #### Change Detection with `downgradeModule()`
 
@@ -218,7 +215,6 @@ angular.module('mainAngularJsModule', [
 ]);
 ```
 
-
 #### Specifying a factory for the Angular module
 
 #### 为 Angular 模块指定一个工厂
@@ -310,7 +306,7 @@ A few examples are:
 - You use Angular for a feature that is not critical for the initial rendering of the app and you
   can afford a small delay in favor of better initial load performance.
 
-  你可以把 Angular 用于应用中那些在初始呈现时不太重要的特性，并且愿意为了更好地初始加载性能，而忍受加载该特性时的一点延迟。
+  你可以把 Angular 用于应用中那些在初始渲染时不太重要的特性，并且愿意为了更好地初始加载性能，而忍受加载该特性时的一点延迟。
 
 ### Bootstrapping with `downgradeModule()`
 
@@ -460,7 +456,6 @@ See [Upgrading from AngularJS](guide/upgrade) to learn about:
 
 </div>
 
-
 ## Using ahead-of-time compilation with hybrid apps
 
 ## 使用混合式应用进行预先编译
@@ -496,7 +491,7 @@ angular.module('mainAngularJsModule', [
 
 And that is all you need to do to get the full benefit of AOT for hybrid Angular apps.
 
-这就是当你想让混合式应用受益于 AOT 时所要做的一切。 
+这就是当你想让混合式应用受益于 AOT 时所要做的一切。
 
 ## Conclusion
 

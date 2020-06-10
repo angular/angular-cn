@@ -1,14 +1,14 @@
 {% import "lib/memberHelpers.html" as memberHelpers -%}
 
-{$ memberHelpers.renderProperties(doc.staticProperties, 'static-properties', 'static-property', '静态属性') $}
+{$ memberHelpers.renderProperties(doc.staticProperties, 'static-properties', 'static-properties', '静态属性') $}
 
-{$ memberHelpers.renderMethodDetails(versionInfo, doc.staticMethods, 'static-methods', 'static-method', '静态方法') $}
+{$ memberHelpers.renderMethodDetails(versionInfo, doc.staticMethods, 'static-methods', 'static-methods', '静态方法') $}
 
 {% if doc.constructorDoc %}
 <h2 id="constructor">构造函数</h2>
 {$ memberHelpers.renderMethodDetail(versionInfo, doc.constructorDoc, 'constructor') $}
 {% endif %}
 
-{$ memberHelpers.renderProperties(doc.properties, 'instance-properties', 'instance-property', '属性') $}
+{$ memberHelpers.renderProperties(doc.properties, 'instance-properties', 'instance-properties', '属性') $}
 
-{$ memberHelpers.renderMethodDetails(versionInfo, doc.methods, 'instance-methods', 'instance-method', '方法') $}
+{$ memberHelpers.renderMethodDetails(versionInfo, doc.methods, 'instance-methods', 'instance-methods', '方法') $}

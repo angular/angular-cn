@@ -18,7 +18,7 @@ describe('Google3 missing injectable tslint rule', () => {
   let tmpDir: string;
 
   beforeEach(() => {
-    tmpDir = join(process.env['TEST_TMPDIR'] !, 'google3-test');
+    tmpDir = join(process.env['TEST_TMPDIR']!, 'google3-test');
     shx.mkdir('-p', tmpDir);
 
     writeFile('tsconfig.json', JSON.stringify({compilerOptions: {module: 'es2015'}}));
@@ -29,11 +29,10 @@ describe('Google3 missing injectable tslint rule', () => {
   function runTSLint(fix = true) {
     const program = Linter.createProgram(join(tmpDir, 'tsconfig.json'));
     const linter = new Linter({fix, rulesDirectory: [rulesDirectory]}, program);
-    const config = Configuration.parseConfigFile(
-        {rules: {'no-missing-injectable': true}, linterOptions: {typeCheck: true}});
+    const config = Configuration.parseConfigFile({rules: {'no-missing-injectable': true}});
 
     program.getRootFileNames().forEach(fileName => {
-      linter.lint(fileName, program.getSourceFile(fileName) !.getFullText(), config);
+      linter.lint(fileName, program.getSourceFile(fileName)!.getFullText(), config);
     });
 
     return linter;
@@ -43,7 +42,9 @@ describe('Google3 missing injectable tslint rule', () => {
     writeFileSync(join(tmpDir, fileName), content);
   }
 
-  function getFile(fileName: string) { return readFileSync(join(tmpDir, fileName), 'utf8'); }
+  function getFile(fileName: string) {
+    return readFileSync(join(tmpDir, fileName), 'utf8');
+  }
 
   describe('NgModule', () => createTests('NgModule', 'providers'));
   describe('Directive', () => createTests('Directive', 'providers'));
@@ -78,7 +79,7 @@ describe('Google3 missing injectable tslint rule', () => {
   });
 
   function createTests(
-      type: 'NgModule' | 'Directive' | 'Component', propName: 'providers' | 'viewProviders') {
+      type: 'NgModule'|'Directive'|'Component', propName: 'providers'|'viewProviders') {
     it('should create proper failures for missing injectable providers', () => {
       writeFile('index.ts', `
         import { ${type} } from '@angular/core';
@@ -267,6 +268,4 @@ describe('Google3 missing injectable tslint rule', () => {
           .toMatch(/import { Inject, Injectable } from '@angular\/core';/);
     });
   }
-
-
 });

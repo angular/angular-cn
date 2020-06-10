@@ -11,8 +11,8 @@ import {BehaviorSubject, Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
 
 import {Data, ResolveData, Route} from './config';
-import {PRIMARY_OUTLET, ParamMap, Params, convertToParamMap} from './shared';
-import {UrlSegment, UrlSegmentGroup, UrlTree, equalSegments} from './url_tree';
+import {convertToParamMap, ParamMap, Params, PRIMARY_OUTLET} from './shared';
+import {equalSegments, UrlSegment, UrlSegmentGroup, UrlTree} from './url_tree';
 import {shallowEqual, shallowEqualArrays} from './utils/collection';
 import {Tree, TreeNode} from './utils/tree';
 
@@ -57,10 +57,12 @@ export class RouterState extends Tree<ActivatedRoute> {
     setRouterState(<RouterState>this, root);
   }
 
-  toString(): string { return this.snapshot.toString(); }
+  toString(): string {
+    return this.snapshot.toString();
+  }
 }
 
-export function createEmptyState(urlTree: UrlTree, rootComponent: Type<any>| null): RouterState {
+export function createEmptyState(urlTree: UrlTree, rootComponent: Type<any>|null): RouterState {
   const snapshot = createEmptyStateSnapshot(urlTree, rootComponent);
   const emptyUrl = new BehaviorSubject([new UrlSegment('', {})]);
   const emptyParams = new BehaviorSubject({});
@@ -75,7 +77,7 @@ export function createEmptyState(urlTree: UrlTree, rootComponent: Type<any>| nul
 }
 
 export function createEmptyStateSnapshot(
-    urlTree: UrlTree, rootComponent: Type<any>| null): RouterStateSnapshot {
+    urlTree: UrlTree, rootComponent: Type<any>|null): RouterStateSnapshot {
   const emptyParams = {};
   const emptyData = {};
   const emptyQueryParams = {};
@@ -103,15 +105,15 @@ export class ActivatedRoute {
    *
    * 本路由此刻的快照
    */
-  snapshot !: ActivatedRouteSnapshot;
+  snapshot!: ActivatedRouteSnapshot;
   /** @internal */
   _futureSnapshot: ActivatedRouteSnapshot;
   /** @internal */
-  _routerState !: RouterState;
+  _routerState!: RouterState;
   /** @internal */
-  _paramMap !: Observable<ParamMap>;
+  _paramMap!: Observable<ParamMap>;
   /** @internal */
-  _queryParamMap !: Observable<ParamMap>;
+  _queryParamMap!: Observable<ParamMap>;
 
   /** @internal */
   constructor(
@@ -158,41 +160,55 @@ export class ActivatedRoute {
    *
    * 用于匹配本路由的配置项。
    */
-  get routeConfig(): Route|null { return this._futureSnapshot.routeConfig; }
+  get routeConfig(): Route|null {
+    return this._futureSnapshot.routeConfig;
+  }
 
   /** The root of the router state.
    *
    * 路由器状态树的根节点。
    */
-  get root(): ActivatedRoute { return this._routerState.root; }
+  get root(): ActivatedRoute {
+    return this._routerState.root;
+  }
 
   /** The parent of this route in the router state tree.
    *
    * 在路由器状态树中，当前路由的父路由。
    */
-  get parent(): ActivatedRoute|null { return this._routerState.parent(this); }
+  get parent(): ActivatedRoute|null {
+    return this._routerState.parent(this);
+  }
 
   /** The first child of this route in the router state tree.
    *
    * 在路由器状态树中，当前路由的第一个子路由。
    */
-  get firstChild(): ActivatedRoute|null { return this._routerState.firstChild(this); }
+  get firstChild(): ActivatedRoute|null {
+    return this._routerState.firstChild(this);
+  }
 
   /** The children of this route in the router state tree.
    *
    * 在路由器状态树中，当前路由的所有子路由。
    */
-  get children(): ActivatedRoute[] { return this._routerState.children(this); }
+  get children(): ActivatedRoute[] {
+    return this._routerState.children(this);
+  }
 
   /** The path from the root of the router state tree to this route.
    *
    * 在路由器状态树中从根节点开始到当前路由的完整路径。
    */
-  get pathFromRoot(): ActivatedRoute[] { return this._routerState.pathFromRoot(this); }
+  get pathFromRoot(): ActivatedRoute[] {
+    return this._routerState.pathFromRoot(this);
+  }
 
-  /** An Observable that contains a map of the required and optional parameters
+  /**
+   * An Observable that contains a map of the required and optional parameters
    * specific to the route.
-   * The map supports retrieving single and multiple values from the same parameter. */
+   * The map supports retrieving single and multiple values from the same parameter.
+   */
   get paramMap(): Observable<ParamMap> {
     if (!this._paramMap) {
       this._paramMap = this.params.pipe(map((p: Params): ParamMap => convertToParamMap(p)));
@@ -217,7 +233,7 @@ export class ActivatedRoute {
   }
 }
 
-export type ParamsInheritanceStrategy = 'emptyOnly' | 'always';
+export type ParamsInheritanceStrategy = 'emptyOnly'|'always';
 
 /** @internal */
 export type Inherited = {
@@ -307,16 +323,16 @@ export class ActivatedRouteSnapshot {
   _resolve: ResolveData;
   /** @internal */
   // TODO(issue/24571): remove '!'.
-  _resolvedData !: Data;
+  _resolvedData!: Data;
   /** @internal */
   // TODO(issue/24571): remove '!'.
-  _routerState !: RouterStateSnapshot;
+  _routerState!: RouterStateSnapshot;
   /** @internal */
   // TODO(issue/24571): remove '!'.
-  _paramMap !: ParamMap;
+  _paramMap!: ParamMap;
   /** @internal */
   // TODO(issue/24571): remove '!'.
-  _queryParamMap !: ParamMap;
+  _queryParamMap!: ParamMap;
 
   /** @internal */
   constructor(
@@ -366,31 +382,41 @@ export class ActivatedRouteSnapshot {
    *
    * 路由器状态树的根节点
    */
-  get root(): ActivatedRouteSnapshot { return this._routerState.root; }
+  get root(): ActivatedRouteSnapshot {
+    return this._routerState.root;
+  }
 
   /** The parent of this route in the router state tree
    *
    * 在路由器状态树中，当前路由的父路由
    */
-  get parent(): ActivatedRouteSnapshot|null { return this._routerState.parent(this); }
+  get parent(): ActivatedRouteSnapshot|null {
+    return this._routerState.parent(this);
+  }
 
   /** The first child of this route in the router state tree
    *
    * 在路由器状态树中，当前路由的第一个子路由
    */
-  get firstChild(): ActivatedRouteSnapshot|null { return this._routerState.firstChild(this); }
+  get firstChild(): ActivatedRouteSnapshot|null {
+    return this._routerState.firstChild(this);
+  }
 
   /** The children of this route in the router state tree
    *
    * 在路由器状态树中，当前路由的所有子路由
    */
-  get children(): ActivatedRouteSnapshot[] { return this._routerState.children(this); }
+  get children(): ActivatedRouteSnapshot[] {
+    return this._routerState.children(this);
+  }
 
   /** The path from the root of the router state tree to this route
    *
    * 在路由器状态树中从根节点开始到当前路由的完整路径
    */
-  get pathFromRoot(): ActivatedRouteSnapshot[] { return this._routerState.pathFromRoot(this); }
+  get pathFromRoot(): ActivatedRouteSnapshot[] {
+    return this._routerState.pathFromRoot(this);
+  }
 
   get paramMap(): ParamMap {
     if (!this._paramMap) {
@@ -456,10 +482,12 @@ export class RouterStateSnapshot extends Tree<ActivatedRouteSnapshot> {
     setRouterState(<RouterStateSnapshot>this, root);
   }
 
-  toString(): string { return serializeNode(this._root); }
+  toString(): string {
+    return serializeNode(this._root);
+  }
 }
 
-function setRouterState<U, T extends{_routerState: U}>(state: U, node: TreeNode<T>): void {
+function setRouterState<U, T extends {_routerState: U}>(state: U, node: TreeNode<T>): void {
   node.value._routerState = state;
   node.children.forEach(c => setRouterState(state, c));
 }
@@ -512,5 +540,5 @@ export function equalParamsAndUrlSegments(
   const parentsMismatch = !a.parent !== !b.parent;
 
   return equalUrlParams && !parentsMismatch &&
-      (!a.parent || equalParamsAndUrlSegments(a.parent, b.parent !));
+      (!a.parent || equalParamsAndUrlSegments(a.parent, b.parent!));
 }

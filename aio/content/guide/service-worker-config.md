@@ -92,7 +92,7 @@ The `SwUpdate` service includes that data in the update notifications. Many apps
 
 Specifies the file that serves as the index page to satisfy navigation requests. Usually this is `/index.html`.
 
-指定用来充当索引页的文件以满足导航请求。通常是`/index.html`。
+指定用来充当索引页的文件以满足导航请求。通常是 `/index.html`。
 
 ## `assetGroups`
 
@@ -136,6 +136,9 @@ interface AssetGroup {
   resources: {
     files?: string[];
     urls?: string[];
+  };
+  cacheQueryOptions?: {
+    ignoreSearch?: boolean;
   };
 }
 
@@ -206,6 +209,16 @@ This section describes the resources to cache, broken up into the following grou
   这对于像 Google Fonts 服务这样的 CDN 非常有用。<br>
   **（不支持 glob 的逆模式，`?` 将会按字面匹配；也就是说它不会匹配除了 `?` 之外的任何字符。）**
 
+### `cacheQueryOptions`
+
+These options are used to modify the matching behavior of requests. They are passed to the browsers `Cache#match` function. See [MDN](https://developer.mozilla.org/en-US/docs/Web/API/Cache/match) for details. Currently, only the following options are supported:
+
+这些选项用来修改对请求进行匹配的行为。它们会传给浏览器的 `Cache#match` 函数。详情参见 [MDN](https://developer.mozilla.org/en-US/docs/Web/API/Cache/match)。目前，只支持下列选项：
+
+* `ignoreSearch`: Ignore query parameters. Defaults to `false`.
+
+  `ignoreSearch`: 忽略查询参数。默认为 `false`。
+
 ## `dataGroups`
 
 Unlike asset resources, data requests are not versioned along with the app. They're cached according to manually-configured policies that are more useful for situations such as API requests and other data dependencies.
@@ -229,6 +242,9 @@ export interface DataGroup {
     timeout?: string;
     strategy?: 'freshness' | 'performance';
   };
+  cacheQueryOptions?: {
+    ignoreSearch?: boolean;
+  };
 }
 
 ```
@@ -237,7 +253,7 @@ export interface DataGroup {
 
 Similar to `assetGroups`, every data group has a `name` which uniquely identifies it.
 
-和 `assetGroups` 下类似，每个数据组也都有一个 `name` ，用作它的唯一标识。
+和 `assetGroups` 下类似，每个数据组也都有一个 `name`，用作它的唯一标识。
 
 ### `urls`
 
@@ -356,6 +372,12 @@ Angular Service Worker 可以使用两种缓存策略之一来获取数据资源
 
    `freshness` 为数据的即时性而优化，优先从网络获取请求的数据。只有当网络超时时，请求才会根据 `timeout` 的设置回退到缓存中。这对于那些频繁变化的资源很有用，例如账户余额。
 
+### `cacheQueryOptions`
+
+See [assetGroups](#assetgroups) for details.
+
+详情参见 [assetGroups](#assetgroups)。
+
 ## `navigationUrls`
 
 This optional section enables you to specify a custom list of URLs that will be redirected to the index file.
@@ -404,7 +426,7 @@ While these default criteria are fine in most cases, it is sometimes desirable t
 
 This field contains an array of URLs and [glob-like](#glob-patterns) URL patterns that will be matched at runtime. It can contain both negative patterns (i.e. patterns starting with `!`) and non-negative patterns and URLs.
 
-该字段包含一个将要在运行期间匹配的 URL 和 [类似 glob 的](#glob-patterns) URL模式。
+该字段包含一个将要在运行期间匹配的 URL 和 [类似 glob 的](#glob-patterns) URL 模式。
 它既可以包含正向模式也可以包含反向模式（比如用 `!` 开头的模式）。
 
 Only requests whose URLs match _any_ of the non-negative URLs/patterns and _none_ of the negative ones will be considered navigation requests. The URL query will be ignored when matching.

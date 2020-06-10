@@ -5,8 +5,8 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import {AbsoluteFsPath, FileSystem, absoluteFrom, getFileSystem, relative} from '../../../src/ngtsc/file_system';
-import {TestFile, runInEachFileSystem} from '../../../src/ngtsc/file_system/testing';
+import {absoluteFrom, AbsoluteFsPath, FileSystem, getFileSystem, relative} from '../../../src/ngtsc/file_system';
+import {runInEachFileSystem, TestFile} from '../../../src/ngtsc/file_system/testing';
 import {loadTestFiles} from '../../../test/helpers';
 import {DependencyResolver} from '../../src/dependencies/dependency_resolver';
 import {DtsDependencyHost} from '../../src/dependencies/dts_dependency_host';
@@ -16,7 +16,7 @@ import {TargetedEntryPointFinder} from '../../src/entry_point_finder/targeted_en
 import {NGCC_VERSION} from '../../src/packages/build_marker';
 import {NgccConfiguration} from '../../src/packages/configuration';
 import {EntryPoint} from '../../src/packages/entry_point';
-import {PathMappings} from '../../src/utils';
+import {PathMappings} from '../../src/path_mappings';
 import {MockLogger} from '../helpers/mock_logger';
 
 runInEachFileSystem(() => {
@@ -33,8 +33,8 @@ runInEachFileSystem(() => {
       logger = new MockLogger();
       const srcHost = new EsmDependencyHost(fs, new ModuleResolver(fs));
       const dtsHost = new DtsDependencyHost(fs);
-      resolver = new DependencyResolver(fs, logger, {esm2015: srcHost}, dtsHost);
       config = new NgccConfiguration(fs, _Abs('/'));
+      resolver = new DependencyResolver(fs, logger, config, {esm2015: srcHost}, dtsHost);
     });
 
     describe('findEntryPoints()', () => {
@@ -166,6 +166,81 @@ runInEachFileSystem(() => {
             ]);
       });
 
+      it('should handle external node_modules folders (e.g. in a yarn workspace)', () => {
+        // Note that neither the basePath and targetPath contain each other
+        const basePath = _Abs('/nested_node_modules/packages/app/node_modules');
+        const targetPath = _Abs('/nested_node_modules/node_modules/package/entry-point');
+        loadTestFiles([
+          ...createPackage(_Abs('/nested_node_modules/node_modules'), 'package'),
+          ...createPackage(_Abs('/nested_node_modules/node_modules/package'), 'entry-point'),
+        ]);
+        const finder = new TargetedEntryPointFinder(
+            fs, config, logger, resolver, basePath, targetPath, undefined);
+        const {entryPoints} = finder.findEntryPoints();
+        expect(dumpEntryPointPaths(_Abs('/nested_node_modules'), entryPoints)).toEqual([
+          ['node_modules/package', 'node_modules/package/entry-point'],
+        ]);
+      });
+
+      it('should handle external node_modules folders (e.g. in a yarn workspace) for dependencies',
+         () => {
+           // The application being compiled is at `/project/packages/app` so the basePath sent to
+           // ngcc is the `node_modules` below it
+           const basePath = _Abs('/project/packages/app/node_modules');
+           // `packages/app` depends upon lib1, which has a private dependency on lib2 in its
+           // own `node_modules` folder
+           const lib2 = createPackage(
+               _Abs('/project/node_modules/lib1/node_modules'), 'lib2', ['lib3/entry-point']);
+           // `lib2` depends upon `lib3/entry-point` which has been hoisted all the way up to the
+           // top level `node_modules`
+           const lib3 = createPackage(_Abs('/project/node_modules'), 'lib3');
+           const lib3EntryPoint = createPackage(_Abs('/project/node_modules/lib3'), 'entry-point');
+           loadTestFiles([...lib2, ...lib3, ...lib3EntryPoint]);
+           // The targetPath being processed is `lib2` and we expect it to find the correct
+           // entry-point info for the `lib3/entry-point` dependency.
+           const targetPath = _Abs('/project/node_modules/lib1/node_modules/lib2');
+           const finder = new TargetedEntryPointFinder(
+               fs, config, logger, resolver, basePath, targetPath, undefined);
+           const {entryPoints} = finder.findEntryPoints();
+           expect(dumpEntryPointPaths(_Abs('/project/node_modules'), entryPoints)).toEqual([
+             ['lib3', 'lib3/entry-point'],
+             ['lib1/node_modules/lib2', 'lib1/node_modules/lib2'],
+           ]);
+         });
+
+      it('should handle external node_modules folders (e.g. in a yarn workspace) for scoped dependencies',
+         () => {
+           // The application being compiled is at `/project/packages/app` so the basePath sent to
+           // ngcc is the `node_modules` below it
+           const basePath = _Abs('/project/packages/app/node_modules');
+           // `packages/app` depends upon lib1, which has a private dependency on lib2 in its
+           // own `node_modules` folder
+           const lib2 = createPackage(
+               _Abs('/project/node_modules/lib1/node_modules'), 'lib2',
+               ['@scope/lib3/entry-point']);
+           // `lib2` depends upon `lib3/entry-point` which has been hoisted all the way up to the
+           // top level `node_modules`
+           const lib3 = createPackage(_Abs('/project/node_modules/@scope'), 'lib3');
+           const lib3EntryPoint = createPackage(
+               _Abs('/project/node_modules/@scope/lib3'), 'entry-point', ['lib4/entry-point']);
+           const lib4 =
+               createPackage(_Abs('/project/node_modules/@scope/lib3/node_modules'), 'lib4');
+           const lib4EntryPoint = createPackage(
+               _Abs('/project/node_modules/@scope/lib3/node_modules/lib4'), 'entry-point');
+           loadTestFiles([...lib2, ...lib3, ...lib3EntryPoint, ...lib4, ...lib4EntryPoint]);
+           // The targetPath being processed is `lib2` and we expect it to find the correct
+           // entry-point info for the `lib3/entry-point` dependency.
+           const targetPath = _Abs('/project/node_modules/lib1/node_modules/lib2');
+           const finder = new TargetedEntryPointFinder(
+               fs, config, logger, resolver, basePath, targetPath, undefined);
+           const {entryPoints} = finder.findEntryPoints();
+           expect(dumpEntryPointPaths(_Abs('/project/node_modules'), entryPoints)).toEqual([
+             ['@scope/lib3/node_modules/lib4', '@scope/lib3/node_modules/lib4/entry-point'],
+             ['@scope/lib3', '@scope/lib3/entry-point'],
+             ['lib1/node_modules/lib2', 'lib1/node_modules/lib2'],
+           ]);
+         });
+
       it('should handle dependencies via pathMappings', () => {
         const basePath = _Abs('/path_mapped/node_modules');
         const targetPath = _Abs('/path_mapped/node_modules/test');
@@ -189,7 +264,7 @@ runInEachFileSystem(() => {
         ]);
         const srcHost = new EsmDependencyHost(fs, new ModuleResolver(fs, pathMappings));
         const dtsHost = new DtsDependencyHost(fs, pathMappings);
-        resolver = new DependencyResolver(fs, logger, {esm2015: srcHost}, dtsHost);
+        resolver = new DependencyResolver(fs, logger, config, {esm2015: srcHost}, dtsHost);
         const finder = new TargetedEntryPointFinder(
             fs, config, logger, resolver, basePath, targetPath, pathMappings);
         const {entryPoints} = finder.findEntryPoints();
@@ -202,6 +277,64 @@ runInEachFileSystem(() => {
           ['test', 'test'],
         ]);
       });
+
+      it('should correctly compute the packagePath of secondary entry-points via pathMappings',
+         () => {
+           const basePath = _Abs('/path_mapped/node_modules');
+           const targetPath = _Abs('/path_mapped/dist/primary/secondary');
+           const pathMappings: PathMappings = {
+             baseUrl: '/path_mapped/dist',
+             paths: {'libs': ['primary'], 'extras': ['primary/*']}
+           };
+           loadTestFiles([
+             ...createPackage(_Abs('/path_mapped/dist'), 'primary'),
+             ...createPackage(_Abs('/path_mapped/dist/primary'), 'secondary'),
+           ]);
+           const srcHost = new EsmDependencyHost(fs, new ModuleResolver(fs, pathMappings));
+           const dtsHost = new DtsDependencyHost(fs, pathMappings);
+           resolver = new DependencyResolver(fs, logger, config, {esm2015: srcHost}, dtsHost);
+           const finder = new TargetedEntryPointFinder(
+               fs, config, logger, resolver, basePath, targetPath, pathMappings);
+           const {entryPoints} = finder.findEntryPoints();
+           expect(entryPoints.length).toEqual(1);
+           const entryPoint = entryPoints[0];
+           expect(entryPoint.name).toEqual('secondary');
+           expect(entryPoint.path).toEqual(_Abs('/path_mapped/dist/primary/secondary'));
+           expect(entryPoint.package).toEqual(_Abs('/path_mapped/dist/primary'));
+         });
+
+      it('should correctly compute an entry-point whose path starts with the same string as another entry-point, via pathMappings',
+         () => {
+           const basePath = _Abs('/path_mapped/node_modules');
+           const targetPath = _Abs('/path_mapped/node_modules/test');
+           const pathMappings: PathMappings = {
+             baseUrl: '/path_mapped/dist',
+             paths: {
+               'lib1': ['my-lib/my-lib', 'my-lib'],
+               'lib2': ['my-lib/a', 'my-lib/a'],
+               'lib3': ['my-lib/b', 'my-lib/b'],
+               'lib4': ['my-lib-other/my-lib-other', 'my-lib-other']
+             }
+           };
+           loadTestFiles([
+             ...createPackage(_Abs('/path_mapped/node_modules'), 'test', ['lib2', 'lib4']),
+             ...createPackage(_Abs('/path_mapped/dist/my-lib'), 'my-lib'),
+             ...createPackage(_Abs('/path_mapped/dist/my-lib'), 'a'),
+             ...createPackage(_Abs('/path_mapped/dist/my-lib'), 'b'),
+             ...createPackage(_Abs('/path_mapped/dist/my-lib-other'), 'my-lib-other'),
+           ]);
+           const srcHost = new EsmDependencyHost(fs, new ModuleResolver(fs, pathMappings));
+           const dtsHost = new DtsDependencyHost(fs, pathMappings);
+           resolver = new DependencyResolver(fs, logger, config, {esm2015: srcHost}, dtsHost);
+           const finder = new TargetedEntryPointFinder(
+               fs, config, logger, resolver, basePath, targetPath, pathMappings);
+           const {entryPoints} = finder.findEntryPoints();
+           expect(dumpEntryPointPaths(basePath, entryPoints)).toEqual([
+             ['../dist/my-lib/a', '../dist/my-lib/a'],
+             ['../dist/my-lib-other/my-lib-other', '../dist/my-lib-other/my-lib-other'],
+             ['test', 'test'],
+           ]);
+         });
 
       it('should handle pathMappings that map to files or non-existent directories', () => {
         const basePath = _Abs('/path_mapped/node_modules');
@@ -219,7 +352,7 @@ runInEachFileSystem(() => {
         ]);
         const srcHost = new EsmDependencyHost(fs, new ModuleResolver(fs, pathMappings));
         const dtsHost = new DtsDependencyHost(fs, pathMappings);
-        resolver = new DependencyResolver(fs, logger, {esm2015: srcHost}, dtsHost);
+        resolver = new DependencyResolver(fs, logger, config, {esm2015: srcHost}, dtsHost);
         const finder = new TargetedEntryPointFinder(
             fs, config, logger, resolver, basePath, targetPath, pathMappings);
         const {entryPoints} = finder.findEntryPoints();
@@ -232,7 +365,6 @@ runInEachFileSystem(() => {
           basePath: AbsoluteFsPath, entryPoints: EntryPoint[]): [string, string][] {
         return entryPoints.map(x => [relative(basePath, x.package), relative(basePath, x.path)]);
       }
-
     });
 
     describe('targetNeedsProcessingOrCleaning()', () => {
@@ -451,6 +583,7 @@ runInEachFileSystem(() => {
         {
           name: _Abs(`${basePath}/${packageName}/package.json`),
           contents: JSON.stringify({
+            name: packageName,
             typings: `./${packageName}.d.ts`,
             fesm2015: `./fesm2015/${packageName}.js`,
             esm5: `./esm5/${packageName}.js`,

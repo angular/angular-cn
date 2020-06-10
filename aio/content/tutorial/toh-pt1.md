@@ -230,7 +230,7 @@ Refactor the details area in the `HeroesComponent` template so it looks like thi
 
 Here it binds the `hero.name` property to the HTML textbox so that data can flow _in both directions:_ from the `hero.name` property to the textbox, and from the textbox back to the `hero.name`.
 
-这里把 `hero.name` 属性绑定到了 HTML 的 textbox 元素上，以便数据流可以**双向流动**：从 `hero.name` 属性流动到 textbox，并且从 textbox 流回到 `hero.name` 。
+这里把 `hero.name` 属性绑定到了 HTML 的 textbox 元素上，以便数据流可以**双向流动**：从 `hero.name` 属性流动到 textbox，并且从 textbox 流回到 `hero.name`。
 
 ### The missing _FormsModule_
 
