@@ -2,7 +2,7 @@ language: node_js
 sudo: false
 dist: trusty
 node_js:
-  - 10.13.0
+  - 12.14.1
 addons:
   apt:
     sources:
