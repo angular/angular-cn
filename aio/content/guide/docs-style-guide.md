@@ -1,6 +1,6 @@
 # Angular documentation style guide
 
-# Angular 文档样式指南
+# Angular 文档风格指南
 
 <!-- formerly Authors Style Guide -->
 
@@ -8,21 +8,21 @@ This style guide is for anyone who contributes to the Angular documentation (thi
 These guidelines should be followed by all authors.
 Deviations must be approved by a documentation editor.
 
-本风格指南适用于那些为 Angular 文档（本站点）做贡献的人。所有作者都应遵循这些准则。偏差必须由文档编辑器批准。
+本风格指南适用于那些为 Angular 文档（本站）做贡献的人。所有作者都应遵循这些准则。违反之处必须由本文档的编辑批准。
 
 The guidelines described here serve two purposes:
 
 这里描述的指导原则有两个目的：
 
-- To ensure a high-quality, consistent experience for Angular documentation users.
+* To ensure a high-quality, consistent experience for Angular documentation users.
 
   确保为 Angular 文档用户提供高质量，一致的体验。
 
-- To simplify the writing process for contributing authors.
-  This guide helps you make decisions about tone, voice, and style.
-  It also helps you find the right markup quickly.
+* To simplify the writing process for contributing authors.
+This guide helps you make decisions about tone, voice, and style.
+It also helps you find the right markup quickly.
 
-  简化贡献作者的写作过程。本指南可帮助你做出有关音调，语音和风格的决定。它还可以帮助你快速找到正确的标记。
+  简化贡献作者的写作过程。本指南可帮助你做出有关语调、声音和风格的决定。它还可以帮助你快速找到正确的标记（markup）。
 
 <div class="alert is-helpful">
 
@@ -30,7 +30,7 @@ This guide is a *living document*; it changes over time.
 We strive for consistency to the extent feasible, but you may find parts of our documentation that don't match this style guide.
 When in doubt, **follow this guide rather than imitating existing documents.**
 
-本指南是一份*活文件* ;它随着时间而变化。我们力求在可行的范围内保持一致性，但是你可能会发现我们的文档部分与这个样式指南不符。如有疑问，请**遵循本指南，而不是模仿现有文档。**
+本指南是一份*活文件* ;它随着时间而变化。我们力求在可行的范围内保持一致性，但是你可能会发现我们的文档部分与这个风格指南不符。如有疑问，请**遵循本指南，而不是模仿现有文档。**
 
 </div>
 
@@ -42,26 +42,26 @@ We ask all contributing authors to adhere to three aspects of style:
 
 我们要求所有撰文作者坚持以下三个方面：
 
-- **Writing style:** Word usage, grammar, capitalization, and punctuation.
-  Adherence to Angular's writing guidelines ensures a consistent "voice", helps ensure accuracy of the information, and facilitates use world-wide, by audiences with different backgrounds.
+* **Writing style:** Word usage, grammar, capitalization, and punctuation.
+Adherence to Angular's writing guidelines ensures a consistent "voice", helps ensure accuracy of the information, and facilitates use world-wide, by audiences with different backgrounds.
 
   **写作风格：**单词用法，语法，大小写和标点符号。坚持 Angular 的写作指南可以确保一致的“声音”，有助于确保信息的准确性，并有助于不同背景的观众在世界范围内使用。
 
-- **Markup style:** How to include images, tables, alert boxes, and code snippets.
-  Angular docs are written in Markdown, with custom extensions for this site. Correct markup ensures a consistent look-and-feel, and is essential for the doc to build and function correctly.
+* **Markup style:** How to include images, tables, alert boxes, and code snippets.
+Angular docs are written in Markdown, with custom extensions for this site. Correct markup ensures a consistent look-and-feel, and is essential for the doc to build and function correctly.
 
-  **标记样式：**如何包含图像，表格，警告框和代码片段。Angular 文档是用 Markdown 编写的，带有该站点的自定义扩展。正确的标记确保了外观的一致性，对于 doc 的正确构建和运行至关重要。
+  **标记风格：**如何包含图像，表格，警告框和代码片段。Angular 文档是用 Markdown 编写的，带有该站点的自定义扩展。正确的标记确保了外观的一致性，对于 doc 的正确构建和运行至关重要。
 
-- **Angular coding style:** Coding style for example apps and code snippets.
-  Code examples are encouraged for demonstrating how to apply the concepts and features discussed.
-  Angular has a custom framework that enables authors to include code snippets directly from example apps that are automatically tested as part of doc builds.
-  To contribute example code, you must understand Angular itself and the custom framework for Angular doc examples.
+* **Angular coding style:** Coding style for example apps and code snippets.
+Code examples are encouraged for demonstrating how to apply the concepts and features discussed.
+Angular has a custom framework that enables authors to include code snippets directly from example apps that are automatically tested as part of doc builds.
+To contribute example code, you must understand Angular itself and the custom framework for Angular doc examples.
 
   **Angular 的编码风格：**代码应用和代码片段的编码风格。我们鼓励使用代码示例演示如何应用所讨论的概念和特性。Angular 有一个自定义框架，可让作者直接从示例应用中包含代码片段，这些代码片段会作为 doc builds 的一部分进行自动测试。要提供代码示例代码，你必须要了解 Angular 本身以及 Angular doc examples 的自定义框架。
 
 For each aspect of style, the following table explains where to find the primary guidelines and what this Angular Documentation Style Guide offers.
 
-对于样式的每个方面，下表都解释了在何处查找主要指南以及 Angular Documentation Style Guide 提供的内容。
+对于风格的每个方面，下表都解释了在何处查找主要指南以及 Angular Documentation Style Guide 提供的内容。
 
 | Style | Guidelines |
 | ----- | ---------- |
@@ -70,17 +70,17 @@ For each aspect of style, the following table explains where to find the primary
 | **写作风格** | 主要： [Google Developer Documentation Style Guide](https://developers.google.com/style/)  
 本指南：指定 Angular 文档的所有特殊注意事项。|
 | **Markup style** | Primary: This guide<br />This guide: Specifies guidelines for markup of guides and tutorials, which are written primarily in Markdown. |
-| **标记样式** | 小学：本指南  
+| **标记风格** | 小学：本指南  
 本指南：指定指南和教程的标记指南，它们主要用 Markdown 编写。|
 | **Angular coding style** | Primary: [Angular Style Guide](guide/styleguide "Angular Application Code Style Guide").<br />This guide: How to create, store, and include code examples in guides and tutorials. |
-| **Angular 的编码风格** | 主要： [Angular 样式指南](guide/styleguide "Angular 应用代码风格指南")。 
+| **Angular 的编码风格** | 主要： [Angular 风格指南](guide/styleguide "Angular 应用代码风格指南")。 
 本指南：如何在指南和教程中创建，存储和包含代码示例。|
 
 <div class="alert is-helpful">
 
 Note: Angular API and CLI reference docs are generated from source code and/or related source files, which may have other markup styles and other ways of including code examples.
 
-注意：Angular API 和 CLI 参考文档都是从源代码和/或相关的源文件中生成的，这些文件可能有其它的标记样式，还包括代码示例等。
+注意：Angular API 和 CLI 参考文档都是从源代码和/或相关的源文件中生成的，这些文件可能有其它的标记风格，还包括代码示例等。
 
 </div>
 
@@ -100,19 +100,19 @@ Here are a few essential commands for guide page authors.
 
 以下是指南页面作者的一些基本命令。
 
-1. `yarn setup` — installs packages; builds docs, stackblitz, and zips.
+1. `yarn setup` &mdash; installs packages; builds docs, stackblitz, and zips.
 
    `yarn setup` - 安装包; build docs，stackblitz 和 zip。
 
-1. `yarn docs-watch --watch-only` — watches for saved content changes and refreshes the browser. The (optional) `--watch-only` flag skips the initial docs rebuild.
+1. `yarn docs-watch --watch-only` &mdash; watches for saved content changes and refreshes the browser. The (optional) `--watch-only` flag skips the initial docs rebuild.
 
    `yarn docs-watch --watch-only` - `yarn docs-watch --watch-only` 保存的内容更改并刷新浏览器。（可选）-- `--watch-only` 标志跳过了初始的 docs rebuild。
 
-1. `yarn start`  —  starts the doc viewer application so you can see your local changes in the browser.
+1. `yarn start`  &mdash;  starts the doc viewer application so you can see your local changes in the browser.
 
    `yarn start` - 启动 doc viewer 应用，以便在浏览器中查看本地更改。
 
-1. <http://localhost:4200/>  —  browse to the app running locally.
+1.  http://localhost:4200/  &mdash;  browse to the app running locally.
 
    [http：// localhost：4200 /](http://localhost:4200/) - 浏览到本地运行的应用。
 
@@ -124,9 +124,9 @@ You can combine `yarn docs-watch` and `yarn start` into one command with `yarn s
 
 ## 指南页面
 
-All but a few guide pages are [markdown](https://daringfireball.net/projects/markdown/syntax "markdown") files with an `.md` extension.
+ All but a few guide pages are [markdown](https://daringfireball.net/projects/markdown/syntax "markdown") files with an `.md` extension.
 
-除少量指南外，所有页面都是带有 `.md` 扩展名的[markdown](https://daringfireball.net/projects/markdown/syntax "降价促销")文件。
+ 除少量指南外，所有页面都是带有 `.md` 扩展名的[markdown](https://daringfireball.net/projects/markdown/syntax "降价促销")文件。
 
 Every guide page file is stored in the `content/guide` directory. Although the [side navigation](#navigation) panel displays as a hierarchy, the directory is flat with no sub-folders.
 The flat folder approach allows us to shuffle the apparent navigation structure without moving page files or redirecting old page URLs.
@@ -141,22 +141,23 @@ The reader requests a page by its Page URL. The doc viewer fetches the correspon
 
 读者可以通过网页页面的 URL 请求页面。doc viewer 会抓取相应的 JSON 文件并对其进行解释，并把它渲染为一个完整格式的 HTML 页面。
 
-Page URLs mirror the `content` file structure. The URL for the page of a guide is in the form `guide/{page-name}`. The page for *this* "Authors Style Guide" is located at `content/guide/docs-style-guide.md` and its URL is `guide/docs-style-guide`.
+Page URLs mirror the `content` file structure. The URL for the page of a guide is in the form `guide/{page-name}`. The page for _this_ "Authors Style Guide" is located at `content/guide/docs-style-guide.md` and its URL is `guide/docs-style-guide`.
 
 页面 URL 会镜像 `content` 文件结构。指南页面的网址是 `guide/{page-name}`。*本* “作者风采指南”的页面位于 `content/guide/docs-style-guide.md`，它的 URL 是 `guide/docs-style-guide`。
 
+
 <div class="alert is-helpful">
 
-*Tutorial* pages are exactly like guide pages. The only difference is that they reside in `content/tutorial` instead of `content/guide` and have URLs like `tutorial/{page-name}`.
+_Tutorial_ pages are exactly like guide pages. The only difference is that they reside in `content/tutorial` instead of `content/guide` and have URLs like `tutorial/{page-name}`.
 
 *教程*页和指南页完全一样。唯一的区别是它们驻留在 `content/tutorial` 而非 `content/guide` 并且拥有 `tutorial/{page-name}` 类的 URL。
 
-*API* pages are generated from Angular source code into the `src/generated/docs/api` directory.
+_API_ pages are generated from Angular source code into the `src/generated/docs/api` directory.
 The doc viewer translates URLs that begin `api/` into requests for document JSON files in that directory. This style guide does not discuss creation or maintenance of API pages.
 
 *API*页面是从 Angular 源代码生成到 `src/generated/docs/api` 目录下的。doc viewer 会把那些以 `api/` 开头的 URL 转换成该目录下的 document JSON 文件的请求。本风格指南中没有讨论 API 页面的创建或维护。
 
-*Marketing* pages are similar to guide pages. They're located in the `content/marketing` directory. While they can be markdown files, they may be static HTML pages or dynamic HTML pages that render with JSON data.
+_Marketing_ pages are similar to guide pages. They're located in the `content/marketing` directory. While they can be markdown files, they may be static HTML pages or dynamic HTML pages that render with JSON data.
 
 *营销*页面类似于指南页面。它们位于 `content/marketing` 目录中。虽然它们可以是 markdown 文件，但它们可能是静态 HTML 页面，也可能是用 JSON 数据渲染的动态 HTML 页面。
 
@@ -182,13 +183,13 @@ From time to time you'll have to step away from markdown and write a portion of 
 
 你不时要退出降价促销，并用 HTML 写一部分文档。Markdown 允许你把 HTML 和 markdown 混合在一起。
 
-Standard markdown processors don't allow you to put markdown *within* HTML tags. But the Angular documentation markdown processor **supports markdown within HTML**, as long as you follow one rule:
+Standard markdown processors don't allow you to put markdown _within_ HTML tags. But the Angular documentation markdown processor **supports markdown within HTML**, as long as you follow one rule:
 
 标准降价处理器不允许你把*内* HTML 标签降价。但 Angular 文档降价处理器只要你遵循一条规则就**支持 HTML 中的 markdown** ：
 
 <div class="alert is-critical">
 
-**Always** follow every opening and closing HTML tag with *a blank line*.
+**Always** follow every opening and closing HTML tag with _a blank line_.
 
 **一定**要用*空行*跟随每个打开和关闭的 HTML 标签。
 
@@ -204,7 +205,7 @@ Standard markdown processors don't allow you to put markdown *within* HTML tags.
 
 <div class="alert is-helpful">
 
-  It is customary but not required to *precede* the *closing HTML* tag with a blank line as well.
+  It is customary but not required to _precede_ the _closing HTML_ tag with a blank line as well.
 
 惯常但不要求*在* *结束 HTML*标记*之前*添加一个空白行。
 
@@ -286,7 +287,7 @@ The main section heading should be followed by a blank line and then the content
 Secondary section heading
 </h3>
 
-A secondary section heading is related to a main heading and *falls textually within* the bounds of that main heading.
+A secondary section heading is related to a main heading and _falls textually within_ the bounds of that main heading.
 
 第二节标题与一个主标题相关，并*在*该标题的*范围内*以*文本形式出现*。
 
@@ -344,7 +345,7 @@ This heading is not displayed in the TOC
 </h3>
 ```
 
-You can turn off TOC generation for the *entire* page by writing the title with an `<h1>` tag and the `no-toc` class.
+You can turn off TOC generation for the _entire_ page by writing the title with an `<h1>` tag and the `no-toc` class.
 
 你可以用标签 `<h1>` 标签和 `no-toc` 类来关闭*整个*页面的 TOC 生成。
 
@@ -367,7 +368,7 @@ But for a new guide page, you should suggest a navigation title and position in 
 
 修改 `navigation.json` 文件的权限仅限于少数核心团队成员。但是对于一个新的指南页面，你应该在左侧导航面板中推荐一个名为“side nav”的导航标题和位置。
 
-Look for the `SideNav` node in `navigation.json`. The `SideNav` node is an array of navigation nodes. Each node is either an *item* node for a single document or a *header* node with child nodes.
+Look for the `SideNav` node in `navigation.json`. The `SideNav` node is an array of navigation nodes. Each node is either an _item_ node for a single document or a _header_ node with child nodes.
 
 在 `navigation.json` 查找 `SideNav` 节点。`SideNav` 节点是一个导航节点数组。每个节点都是单个文档的*项目*节点，或者是带有子节点的*头*节点。
 
@@ -383,11 +384,11 @@ Find the header for your page. For example, a guide page that describes an Angul
 }
 ```
 
-A *header* node child can be an *item* node or another *header* node. If your guide page belongs under a sub-header, find that sub-header in the JSON.
+A _header_ node child can be an _item_ node or another _header_ node. If your guide page belongs under a sub-header, find that sub-header in the JSON.
 
 *头*节点子节点可以是一个*项目*节点，也可以是另一个*头*节点。如果你的指南页属于子标题，请在 JSON 中找到该子标题。
 
-Add an *item* node for your guide page as a child of the appropriate *header* node. It probably looks something like this one.
+Add an _item_ node for your guide page as a child of the appropriate _header_ node. It probably looks something like this one.
 
 为指南添加一个*item*节点，作为相应*头*节点的子节点。它可能看起来像这样。
 
@@ -403,29 +404,29 @@ A navigation node has the following properties:
 
 导航节点具有以下属性：
 
-- `url`- the URL of the guide page (*item node only*).
+* `url`- the URL of the guide page (_item node only_).
 
   `url` - 指南页面的 URL（ *仅限 item 节点* ）。
 
-- `title`- the text displayed in the side nav.
+* `title`- the text displayed in the side nav.
 
   `title` - 侧边导航栏中显示的文字。
 
-- `tooltip` - text that appears when the reader hovers over the navigation link.
+* `tooltip` - text that appears when the reader hovers over the navigation link.
 
   `tooltip` - 读者将鼠标悬停在导航链接上方时显示的文本。
 
-- `children` - an array of child nodes (*header node only*).
+* `children` - an array of child nodes (_header node only_).
 
   `children` - 子节点数组（ *仅限标头节点* ）。
 
-- `hidden` - defined and set true if this is a guide page that should *not* be displayed in the navigation panel. Rarely needed, it is a way to hide the page from navigation while making it available to readers who should know about it. *This* "Authors Style Guide" is a hidden page.
+* `hidden` - defined and set true if this is a guide page that should _not_ be displayed in the navigation panel. Rarely needed, it is a way to hide the page from navigation while making it available to readers who should know about it. _This_ "Authors Style Guide" is a hidden page.
 
   `hidden` - 如果这是一个*不*应该在导航面板中显示的指南页面，就定义并设置为 true。很少需要，它是一种隐藏页面导航的方法，同时让那些应该知道它的读者可以访问它。*这个* “作者风格指南”是一个隐藏的页面。
 
 <div class="alert is-critical">
 
-Do not create a node that is both a *header* and an *item* node. That is, do not specify the `url` property of a *header* node.
+Do not create a node that is both a _header_ and an _item_ node. That is, do not specify the `url` property of a _header_ node.
 
 不要创建既是*头部*又是*项目*节点的节点。也就是说，不要指定*头*节点的 `url` 属性。
 
@@ -447,7 +448,7 @@ Guides are rich in examples of working Angular code. Example code can be command
 
 本指南中包含很多 Angular 代码的工作示例。示例代码可以是终端窗口中输入的命令，TypeScript 或 HTML 的片段，也可以是整个代码文件。
 
-Whatever the source, the doc viewer renders them as "code snippets", either individually with the [*code-example*](#code-example "code-example") component or as a tabbed collection with the [*code-tabs*](#code-tabs "code-tabs") component.
+Whatever the source, the doc viewer renders them as "code snippets", either individually with the [_code-example_](#code-example "code-example") component or as a tabbed collection with the [_code-tabs_](#code-tabs "code-tabs") component.
 
 无论是什么源代码，doc Viewer 都会把它们渲染为“代码片段”，既可以单独使用[*代码示例*](#code-example "代码示例")组件，也可以作为带选项[*卡*](#code-tabs "代码标签")组件的标签式集合。
 
@@ -464,15 +465,15 @@ The following are some examples:
 
 你可以用一个简单的内联代码片段（markdown backtick syntax）来显示它。当引用代码或句子中的文件名时，就在术语的两边使用一个反引号。一些例子如下：
 
-- In the `app.component.ts`, add a `logger()` method.
+* In the `app.component.ts`, add a `logger()` method.
 
   在 `app.component.ts`，添加一个 `logger()` 方法。
 
-- The `name` property is `Sally`.
+* The `name` property is `Sally`.
 
   这个 `name` 属性是 `Sally`。
 
-- Add the component class name to the `declarations` array.
+* Add the component class name to the `declarations` array.
 
   将组件类名添加到 `declarations` 数组中。
 
@@ -497,7 +498,7 @@ The <code class="no-auto-link">item</code> property is `true`.
 ```
 
 For block code snippets, we generally prefer to display code with
-the Angular documentation *code-example* component represented by the `<code-example>` tag.
+the Angular documentation _code-example_ component represented by the `<code-example>` tag.
 The `<code-example>` tag has a `header` attribute that you use to identify the file that the example comes from. The header should be used whenever possible to establish the context of the example.
 See [Code snippets and code examples](guide/docs-style-guide#code-snippets-and-code-samples) for more details.
 
@@ -524,9 +525,9 @@ For terminal input and output, put the content between `<code-example>` tags, se
 </code-example>
 ```
 
-Inline, hand-coded snippets like this one are *not* testable and, therefore, are intrinsically unreliable.
+Inline, hand-coded snippets like this one are _not_ testable and, therefore, are intrinsically unreliable.
 This example belongs to the small set of pre-approved, inline snippets that includes
-user input in a command shell or the *output* of some process.
+user input in a command shell or the _output_ of some process.
 
 这里的内联手写代码片段是*不可*测试的，因此本质上是不可靠的。这个例子属于一小组预先批准的内联片段，它们包括命令 shell 中的用户输入或者某个进程的*输出*。
 
@@ -580,11 +581,11 @@ When possible, every snippet of code on a guide page should be derived from a co
 
 #### 文件来自一个文件的代码片断
 
-*This* "Authors Doc Style Guide" has its own sample application, located in the `content/examples/docs-style-guide` folder.
+_This_ "Authors Doc Style Guide" has its own sample application, located in the `content/examples/docs-style-guide` folder.
 
 *这个* “Authors Doc Style Guide”有自己的示例应用，它位于 `content/examples/docs-style-guide` 文件夹中。
 
-The following *code-example* displays the sample's `app.module.ts`.
+The following _code-example_ displays the sample's `app.module.ts`.
 
 下列*代码示例*展示了该示例的 `app.module.ts`。
 
@@ -601,7 +602,7 @@ Here's the brief markup that produced that lengthy snippet:
 </code-example>
 ```
 
-You identified the snippet's source file by setting the `path` attribute to sample folder's location *within* `content/examples`.
+You identified the snippet's source file by setting the `path` attribute to sample folder's location _within_ `content/examples`.
 In this example, that path is  `docs-style-guide/src/app/app.module.ts`.
 
 你通过*在“* `content/examples` 把 `path` 属性设置为 sample 文件夹的位置，来识别出该代码片段的源文件。在这个例子中，该路径是 `docs-style-guide/src/app/app.module.ts`。
@@ -622,12 +623,12 @@ located in the `content/examples/docs-style-guide` directory.
 
 <div class="alert is-important">
 
-The doc tooling reports an error if the file identified in the path does not exist **or is *git*-ignored**.
+The doc tooling reports an error if the file identified in the path does not exist **or is _git_-ignored**.
 
 如果路径中标识的文件不存在**或是*git* -ignored，**那么 doc 工具**会报错**。
 
-Most `.js` files are *git*-ignored.
-If you want to include an ignored code file in your project and display it in a guide you must *un-ignore* it.
+Most `.js` files are _git_-ignored.
+If you want to include an ignored code file in your project and display it in a guide you must _un-ignore_ it.
 
 大多数 `.js` 文件都是*git* -ignored。如果你想在项目中包含一个被忽略的代码文件并把它显示在指南中，你必须*取消*它。
 
@@ -647,35 +648,35 @@ The preferred way to un-ignore a file is to update the `content/examples/.gitign
 
 #### 代码示例属性
 
-You control the *code-example* output by setting one or more of its attributes:
+You control the _code-example_ output by setting one or more of its attributes:
 
 你通过设置一个或多个属性来控制*代码示例*输出：
 
-- `path`- the path to the file in the `content/examples` folder.
+* `path`- the path to the file in the `content/examples` folder.
 
   `path` - `content/examples` 文件夹中该文件的路径。
 
-- `header`- the header of the code listing.
+* `header`- the header of the code listing.
 
   `header` - 代码清单的标题。
 
-- `region`- displays the source file fragment with that region name; regions are identified by *docregion* markup in the source file, as explained [below](#region "Displaying a code fragment").
+* `region`- displays the source file fragment with that region name; regions are identified by _docregion_ markup in the source file, as explained [below](#region "Displaying a code fragment").
 
   `region` - 显示带有该地区名的源文件 fragment; *域名*由源文件中的*docregion*标记标识，[如下所述](#region "显示代码片段")。
 
-- `linenums`- value may be `true`, `false`, or a `number`. When not specified, line numbers default to `false` (i.e. no line numbers are displayed). The rarely used `number` option starts line numbering at the given value. `linenums=4` sets the starting line number to 4.
+* `linenums`- value may be `true`, `false`, or a `number`. When not specified, line numbers default to `false` (i.e. no line numbers are displayed). The rarely used `number` option starts line numbering at the given value. `linenums=4` sets the starting line number to 4.
 
   `linenums` - 值可能是 `true`，`false` 或者是 `number`。未指定时，行号默认为 `false` （即不显示行号）。很少使用的 `number` 选项会在给定的值下开始行编号。`linenums=4`，起始行号为 4。
 
-- `class`- code snippets can be styled with the CSS classes `no-box`, `code-shell`, and `avoid`.
+* `class`- code snippets can be styled with the CSS classes `no-box`, `code-shell`, and `avoid`.
 
-  `class` - code snippets 可以用 CSS 类的 `no-box`，`code-shell` 和 `avoid` 来设置样式。
+  `class` - code snippets 可以用 CSS 类的 `no-box`，`code-shell` 和 `avoid` 来设置风格。
 
-- `hideCopy`- hides the copy button
+* `hideCopy`- hides the copy button
 
   `hideCopy` - 隐藏复制按钮
 
-- `language`- the source code language such as `javascript`, `html`, `css`, `typescript`, `json`, or `sh`. This attribute only works for inline examples.
+* `language`- the source code language such as `javascript`, `html`, `css`, `typescript`, `json`, or `sh`. This attribute only works for inline examples.
 
   `language` - 源代码语言，比如 `javascript`，`html`，`css`，`typescript`，`json` 或 `sh`。该属性仅适用于内联示例。
 
@@ -694,8 +695,8 @@ Often you want to focus on a fragment of code within a sample code file. In this
   region="class">
 </code-example>
 
-First you surround that fragment in the source file with a named *docregion* as described [below](#source-code-markup).
-Then you reference that *docregion* in the `region` attribute of the `<code-example>` like this
+First you surround that fragment in the source file with a named _docregion_ as described [below](#source-code-markup).
+Then you reference that _docregion_ in the `region` attribute of the `<code-example>` like this
 
 首先，你使用命名的*docregion*在源文件中包围该片段，[如下所述](#source-code-markup)。然后，就像这样，在 `<code-example>` 的 `region` 属性中引用那个*docregion*
 
@@ -715,7 +716,7 @@ A couple of observations:
    `region` 值 `"class"` 是源文件中 `#docregion` 的名字。通过查看 `content/examples/docs-style-guide/src/app/app.module.ts`
 
 1. Omitting the `header` is fine when the source of the fragment is obvious. We just said that this is a fragment of the `app.module.ts` file which was displayed immediately above, in full, with a header.
-   There's no need to repeat the header.
+There's no need to repeat the header.
 
    当片段的来源很明显时，省略 `header` 是很好的。我们刚刚说过，这是 `app.module.ts` 文件的一个片段，里面是完整的，上面带有一个标题。没有必要重复这个标题。
 
@@ -736,9 +737,9 @@ When you do, set the `class` to `avoid`. The code snippet will be framed in brig
 执行此操作时，请将 `class` 设置为 `avoid`。该代码片段将以鲜红色框起，以引起读者的注意。
 
 Here's the markup for an "avoid" example in the
-[*Angular Style Guide*](guide/styleguide#style-05-03 "Style 05-03: components as elements").
+[_Angular Style Guide_](guide/styleguide#style-05-03 "Style 05-03: components as elements").
 
-这里是[*Angular Style 指南中*](guide/styleguide#style-05-03 "样式 05-03：components as elements elements") “avoid”示例的标记。
+这里是[*Angular Style 指南中*](guide/styleguide#style-05-03 "风格 05-03：components as elements elements") “avoid”示例的标记。
 
 ```html
 <code-example
@@ -757,7 +758,7 @@ Here's the markup for an "avoid" example in the
 
 ### 代码标签
 
-Code tabs display code much like *code examples* do.  The added advantage is that they can display multiple code samples within a tabbed interface.  Each tab is displayed using *code pane*.
+Code tabs display code much like _code examples_ do.  The added advantage is that they can display multiple code samples within a tabbed interface.  Each tab is displayed using _code pane_.
 
 代码选项卡会像*代码示例*那样显示代码。额外的好处是，它们可以在选项卡式界面中显示多个代码示例。使用*代码窗格*显示每个标签页。
 
@@ -765,7 +766,7 @@ Code tabs display code much like *code examples* do.  The added advantage is tha
 
 #### Code-tabs 属性
 
-- `linenums`: The value can be `true`, `false` or a number indicating the starting line number. If not specified, it defaults to `false`.
+* `linenums`: The value can be `true`, `false` or a number indicating the starting line number. If not specified, it defaults to `false`.
 
   `linenums` ：值可以是 `true`，`false`，也可以是表示起始行号的数字。如果没有指定，默认为 `false`。
 
@@ -773,15 +774,15 @@ Code tabs display code much like *code examples* do.  The added advantage is tha
 
 #### 代码窗格属性
 
-- `path` - a file in the content/examples folder
+* `path` - a file in the content/examples folder
 
   `path` - content / examples 文件夹中的一个文件
 
-- `header` - seen in the header of a tab
+* `header` - seen in the header of a tab
 
   `header` - 在标签的标题中看到
 
-- `linenums` - overrides the `linenums` property at the `code-tabs` level for this particular pane. The value can be `true`, `false` or a number indicating the starting line number. If not specified, it defaults to `false`.
+* `linenums` - overrides the `linenums` property at the `code-tabs` level for this particular pane. The value can be `true`, `false` or a number indicating the starting line number. If not specified, it defaults to `false`.
 
   `linenums` （覆盖 `linenums` - 覆盖此特定窗格的 `code-tabs` 级别的 `linenums` 属性。值可以是 `true`，`false`，也可以是表示起始行号的数字。如果没有指定，默认为 `false`。
 
@@ -816,7 +817,7 @@ Here's the markup for that example.
 这是该例子的标记。
 
 Note how the `linenums` attribute in the `<code-tabs>` explicitly enables numbering for all panes.
-The `linenums` attribute in the second pane disables line numbering for *itself only*.
+The `linenums` attribute in the second pane disables line numbering for _itself only_.
 
 注意 `<code-tabs>` 的 `linenums` 属性如何显式启用所有窗格的编号。第二个窗格中的 `linenums` 属性*只*为*自己*禁用了行号。
 
@@ -861,7 +862,7 @@ The sample source code for this page, located in `context/examples/docs-style-gu
 
 </div>
 
-Code snippet markup is always in the form of a comment. Here's the default *docregion* markup for a TypeScript or JavaScript file:
+Code snippet markup is always in the form of a comment. Here's the default _docregion_ markup for a TypeScript or JavaScript file:
 
 代码片段标记总是采用注释的形式。这是 TypeScript 或 JavaScript 文件的默认*docregion*标记：
 
@@ -903,24 +904,22 @@ JSON 文件中不支持代码片断标记，因为 JSON 文件中的注释是被
 
 #### *#docregion*
 
-#### *#docregion*
-
-The *#docregion* is the most important kind of code snippet markup.
+The _#docregion_ is the most important kind of code snippet markup.
 
 *#docregion*是最重要的一段代码段标记。
 
-The `<code-example>` and `<code-tabs>` components won't display a source code file unless it has a *#docregion*.
+The `<code-example>` and `<code-tabs>` components won't display a source code file unless it has a _#docregion_.
 
 `<code-example>` 和 `<code-tabs>` 组件除非有*#docregion，*否则不会显示源代码文件。
 
-The *#docregion* comment begins a code snippet region.
-Every line of code *after* that comment belongs in the region *until* the code fragment processor encounters the end of the file or a closing *#enddocregion*.
+The _#docregion_ comment begins a code snippet region.
+Every line of code _after_ that comment belongs in the region _until_ the code fragment processor encounters the end of the file or a closing _#enddocregion_.
 
 *#docregion 的*注释开始于代码片段区域。该注释*后面的*每一行代码都属于该区域，*直到*代码片段处理器遇到该文件的末尾或者结束*#enddocregion 为止*。
 
 <div class="alert is-helpful">
 
-The `src/main.ts` is a simple example of a file with a single *#docregion* at the top of the file.
+The `src/main.ts` is a simple example of a file with a single _#docregion_ at the top of the file.
 
 `src/main.ts` 是一个文件顶部带有*#docregion*的文件的简单例子。
 
@@ -932,10 +931,10 @@ The `src/main.ts` is a simple example of a file with a single *#docregion* at th
 
 #### Named *#docregions*
 
-#### 被命名为*#docregions*
+#### 命名的 *#docregions*
 
 You'll often display multiple snippets from different fragments within the same file.
-You distinguish among them by giving each fragment its own *#docregion name* as follows.
+You distinguish among them by giving each fragment its own _#docregion name_ as follows.
 
 你经常会在同一个文件中的不同片段中显示多个片段。你可以通过赋予每个片段自己的*#docregion 名称*来区分它们，如下所示。
 
@@ -955,15 +954,15 @@ Remember to refer to this region by name in the `region` attribute of the `<code
   region="class"></code-example>
 ```
 
-The *#docregion* with no name is the *default region*. Do *not* set the `region` attribute when referring to the default *#docregion*.
+The _#docregion_ with no name is the _default region_. Do _not_ set the `region` attribute when referring to the default _#docregion_.
 
 没有名字的*#docregion*是*默认的区域*。*不要*设置 `region` 指的是默认*#docregion*时属性。
 
-#### Nested *#docregions*
+#### Nested _#docregions_
 
 #### 嵌套的*#docregions*
 
-You can nest *#docregions* within *#docregions*
+You can nest _#docregions_ within _#docregions_
 
 *#docregions*内可以嵌套*#docregions*
 
@@ -990,11 +989,11 @@ The `src/app/app.module.ts` file has a good example of a nested region.
 #### 结合片段
 
 You can combine several fragments from the same file into a single code snippet by defining
-multiple *#docregions* with the *same region name*.
+multiple _#docregions_ with the _same region name_.
 
 你可以通过定义多个具有*相同区域名称的* *#docregions*，把*同*一个文件中的多个片段组合到一个代码片段中。
 
-Examine the `src/app/app.component.ts` file which defines two nested *#docregions*.
+Examine the `src/app/app.component.ts` file which defines two nested _#docregions_.
 
 检查那个定义了两个嵌套*#docregions*的 `src/app/app.component.ts` 文件。
 
@@ -1043,19 +1042,19 @@ Some observations:
 
 一些意见：
 
-- The `#docplaster` at the top is another bit of code snippet markup. It tells the processor how to join the fragments into a single snippet.
+* The `#docplaster` at the top is another bit of code snippet markup. It tells the processor how to join the fragments into a single snippet.
 
   顶部的 `#docplaster` 是另一段代码片段标记。它告诉处理器如何把片段连成一个片段。
 
-In this example, we tell the processor to put the fragments together without anything in between - without any "plaster".  Most sample files define this *empty plaster*.
+  In this example, we tell the processor to put the fragments together without anything in between - without any "plaster".  Most sample files define this _empty plaster_.
 
   在这个例子中，我们告诉处理器把碎片放在一起，两者之间没有任何东西 - 没有任何“石膏”。大多数样本文件定义了这个*空白膏药*
 
-If we neglected to add, `#docplaster`, the processor would insert the *default* plaster - an ellipsis comment - between the fragments. Try removing the `#docplaster` comment yourself to see the effect.
+  If we neglected to add, `#docplaster`, the processor would insert the _default_ plaster - an ellipsis comment - between the fragments. Try removing the `#docplaster` comment yourself to see the effect.
 
   如果我们忽略添加 `#docplaster`，处理器就会在片段之间插入一个*默认的* plaster `#docplaster` 省略号注释）。尝试自己删除 `#docplaster` 评论以查看效果。
 
-- One `#docregion` comment mentions ***two*** region names as does an `#enddocregion` comment. This is a convenient way to start (or stop) multiple regions on the same code line. You could have put these comments on separate lines and many authors prefer to do so.
+* One `#docregion` comment mentions **_two_** region names as does an `#enddocregion` comment. This is a convenient way to start (or stop) multiple regions on the same code line. You could have put these comments on separate lines and many authors prefer to do so.
 
   `#docregion` 一个注释提到了***两个***区域的名字，`#enddocregion` 注释也是如此。这是在同一代码行中启动（或停止）多个区域的便捷方式。你可以把这些注释放在不同的行上，很多作者都喜欢这样做。
 
@@ -1169,7 +1168,7 @@ Adding `<live-example></live-example>` to the page generates the two default lin
 
    指向 stackblitz 的链接，该堆栈是由默认的 `stackblitz.json` 文件定义的，该文件位于代码示例文件夹目录下，其名称与该引导页面同名。
 
-1. a link that downloads that sample.
+2. a link that downloads that sample.
 
    下载该示例的链接
 
@@ -1344,9 +1343,9 @@ text to which it applies, using the special `{@a name}` syntax like this.
 <code-example  language="html">
   &#123;@a ugly-anchors&#125;
 
-#### Ugly, long section header anchors
+  #### Ugly, long section header anchors
 
-#### 丑陋的长节头锚
+  #### 丑陋的长节头锚
 
 </code-example>
 
@@ -1380,11 +1379,11 @@ If you do, be sure to set the `id` attribute - not the `name` attribute! The doc
 
 ## 警报和 Calllouts
 
-Alerts and callouts present warnings, extra detail or references to other pages. They can also be used to provide commentary that *enriches* the reader's understanding of the content being presented.
+Alerts and callouts present warnings, extra detail or references to other pages. They can also be used to provide commentary that _enriches_ the reader's understanding of the content being presented.
 
 警报和标注会显示警告，额外的细节或对其它页面的引用。它们还可以用来提供评论，*丰富*读者对正在渲染的内容的理解。
 
-An alert or callout *must not* contain anything *essential* to that understanding. Don't put a critical instruction or a tutorial step in a subsection.
+An alert or callout _must not_ contain anything _essential_ to that understanding. Don't put a critical instruction or a tutorial step in a subsection.
 
 警告或标注*不得*含有对理解*至关重要的信息*。不要把一个重要的指令或一个指导步骤放进一个小节中。
 
@@ -1400,7 +1399,7 @@ Alerts draw attention to short important points. Alerts should not be used for m
 
   You'll learn about styles for live examples in the [section below](guide/docs-style-guide#live-examples "Live examples").
 
-你还会从[下面](guide/docs-style-guide#live-examples "实例")的[章节中](guide/docs-style-guide#live-examples "实例")了解实例的样式。
+你还会从[下面](guide/docs-style-guide#live-examples "实例")的[章节中](guide/docs-style-guide#live-examples "实例")了解实例的风格。
 
 </div>
 
@@ -1416,9 +1415,9 @@ You'll learn about styles for live examples in the [section below](guide/docs-st
 </div>
 ```
 
-There are three different *urgency levels* used to style the alerts based on the severity or importance of the content.
+There are three different _urgency levels_ used to style the alerts based on the severity or importance of the content.
 
-根据内容的严重程度或重要性，有三种不同的*紧急程度*用来对警报进行样式设置。
+根据内容的严重程度或重要性，有三种不同的*紧急程度*用来对警报进行风格设置。
 
 <div class="alert is-critical">
 
@@ -1480,14 +1479,14 @@ If you have more than two paragraphs, consider creating a new page or making it 
 
 如果你有两个以上的段落，考虑创建一个新的页面，或者让它成为主要内容的一部分。
 
-Callouts use the same *urgency levels* that alerts do.
+Callouts use the same _urgency levels_ that alerts do.
 
 标注使用与警报相同的*紧急程度*。
 
 <div class="callout is-critical">
 <header>A critical point</header>
 
-**Pitchfork hoodie semiotics**, roof party pop-up *paleo* messenger messenger bag cred Carles tousled Truffaut yr. Semiotics viral freegan VHS, Shoreditch disrupt McSweeney's. Intelligentsia kale chips Vice four dollar toast
+**Pitchfork hoodie semiotics**, roof party pop-up _paleo_ messenger messenger bag cred Carles tousled Truffaut yr. Semiotics viral freegan VHS, Shoreditch disrupt McSweeney's. Intelligentsia kale chips Vice four dollar toast
 
 **干草叉连帽衫符文系列**，屋顶派对弹出*古代*信使斜挎包信誉卡尔斯蓬乱的特吕弗年代。符号学：符拉西奇（Viroredweven）的“符号学”（Semiotics viral freegan VHS）。Intelligentsia 羽衣甘蓝筹码副四美元吐司
 
@@ -1496,7 +1495,7 @@ Callouts use the same *urgency levels* that alerts do.
 <div class="callout is-important">
 <header>An important point</header>
 
-**Pitchfork hoodie semiotics**, roof party pop-up *paleo* messenger bag cred Carles tousled Truffaut yr. Semiotics viral freegan VHS, Shoreditch disrupt McSweeney's. Intelligentsia kale chips Vice four dollar toast
+**Pitchfork hoodie semiotics**, roof party pop-up _paleo_ messenger bag cred Carles tousled Truffaut yr. Semiotics viral freegan VHS, Shoreditch disrupt McSweeney's. Intelligentsia kale chips Vice four dollar toast
 
 **干草叉连帽衫符文系列**，屋顶派对弹出式*古代*信使包信得卡尔斯凌乱的特吕弗。符号学：符拉西奇（Viroredweven）的“符号学”（Semiotics viral freegan VHS）。Intelligentsia 羽衣甘蓝筹码副四美元吐司
 
@@ -1505,7 +1504,7 @@ Callouts use the same *urgency levels* that alerts do.
 <div class="callout is-helpful">
 <header>A helpful or informational point</header>
 
-**Pitchfork hoodie semiotics**, roof party pop-up *paleo* messenger bag cred Carles tousled Truffaut yr. Semiotics viral freegan VHS, Shoreditch disrupt McSweeney's. Intelligentsia kale chips Vice four dollar toast
+**Pitchfork hoodie semiotics**, roof party pop-up _paleo_ messenger bag cred Carles tousled Truffaut yr. Semiotics viral freegan VHS, Shoreditch disrupt McSweeney's. Intelligentsia kale chips Vice four dollar toast
 
 **干草叉连帽衫符文系列**，屋顶派对弹出式*古代*信使包信得卡尔斯凌乱的特吕弗。符号学：符拉西奇（Viroredweven）的“符号学”（Semiotics viral freegan VHS）。Intelligentsia 羽衣甘蓝筹码副四美元吐司
 
@@ -1528,15 +1527,15 @@ Notice that:
 
 注意：
 
-- the callout header text is forced to all upper case
+* the callout header text is forced to all upper case
 
   callout 标题文本强制全部用大写形式写成
 
-- the callout body can be written in markdown
+* the callout body can be written in markdown
 
   标注体可以用 markdown 来书写
 
-- a blank line separates the `</header>` tag from the markdown content
+* a blank line separates the `</header>` tag from the markdown content
 
   一个空白行用来区分 `</header>` 标记和 markdown 内容
 
@@ -1560,47 +1559,45 @@ Trees can represent hierarchical data.
 
   <div class='children'>
 
-```
-<div class='file'>
-  src
-</div>
-
-<div class='children'>
-
-  <div class='file'>
-    app
-  </div>
-
-  <div class='children'>
-
     <div class='file'>
-      app.component.ts
+      src
+    </div>
+
+    <div class='children'>
+
+      <div class='file'>
+        app
+      </div>
+
+      <div class='children'>
+
+        <div class='file'>
+          app.component.ts
+        </div>
+
+        <div class='file'>
+          app.module.ts
+        </div>
+
+      </div>
+
+      <div class='file'>
+        styles.css
+      </div>
+
+      <div class='file'>
+        tsconfig.json
+      </div>
+
     </div>
 
     <div class='file'>
-      app.module.ts
+      node_modules ...
     </div>
 
-  </div>
-
-  <div class='file'>
-    styles.css
-  </div>
-
-  <div class='file'>
-    tsconfig.json
-  </div>
-
-</div>
-
-<div class='file'>
-  node_modules ...
-</div>
-
-<div class='file'>
-  package.json
-</div>
-```
+    <div class='file'>
+      package.json
+    </div>
 
   </div>
 
@@ -1677,24 +1674,18 @@ Use HTML tables to present tabular data.
     <!-- can use markdown too; remember blank lines -->
     <td>
 
-```
-  *Faster*
+      *Faster*
 
-</td>
-```
-
+    </td>
   </tr>
   <tr>
     <td><code>Angular v4</code></td>
     <td>Routing</td>
     <td>
 
-```
-  **Fastest :)**
+      **Fastest :)**
 
-</td>
-```
-
+    </td>
   </tr>
 </table>
 
@@ -1751,8 +1742,8 @@ Images for this "Authors Style Guide" page belong in the `content/images/guide/d
 
 将 images `content/images` 目录中的 `content/images` 在与该指南页面具有相同 URL 的文件夹中。这个“作者风格指南”页面的 `content/images/guide/docs-style-guide` 属于 `content/images/guide/docs-style-guide` 文件夹。
 
-Angular doc generation copies these image folders to the *runtime* location, `generated/images`.
-Set the image `src` attribute to begin in *that* directory.
+Angular doc generation copies these image folders to the _runtime_ location, `generated/images`.
+Set the image `src` attribute to begin in _that_ directory.
 
 Angular doc generation 会把这些图像文件夹拷贝到*runtime* `generated/images` 的*运行时*位置。将 image `src` 属性设置*为该*目录下的开始。
 
@@ -1766,7 +1757,7 @@ src="generated/images/guide/docs-style-guide/flying-hero.png"
 
 <h3 class="no-toc">Use the HTML <i>&lt;img&gt;</i> tag</h3>
 
-**Do not use the markdown image syntax, !\[...](...).**
+**Do not use the markdown image syntax, \!\[\.\.\.\]\(\.\.\.\).**
 
 **不要使用降价图像语法！\[...]（...）。**
 
@@ -1780,7 +1771,7 @@ For accessibility, always set the `alt` attribute with a meaningful description 
 
 You should nest the `<img>` tag within a `<div class="lightbox">` tag, which styles the image within a drop-shadow frame. You'll need the editor's permission to skip the `lightbox` class on its `div` encapsulation.
 
-你应该把 `<img>` 标签嵌套在一个 `<div class="lightbox">` 标签中，该标签用来为阴影框内的图像设置样式。你需要编辑的跳过许可 `lightbox` 于它的类 `div` 封装。
+你应该把 `<img>` 标签嵌套在一个 `<div class="lightbox">` 标签中，该标签用来为阴影框内的图像设置风格。你需要编辑的跳过许可 `lightbox` 于它的类 `div` 封装。
 
 Here's a conforming example
 
@@ -1798,7 +1789,7 @@ Here's a conforming example
 </div>
 ```
 
-*Note that the HTML image element does not have a closing tag.*
+_Note that the HTML image element does not have a closing tag._
 
 *请注意，HTML 图片元素没有结束标记。*
 
@@ -1908,7 +1899,7 @@ If you have a floating image inside an alert, callout, or a subsection, it is a 
 
 ![飞 Angular 英雄](generated/images/guide/docs-style-guide/flying-hero.png)
 
-A subsection with **markdown** formatted text.
+  A subsection with **markdown** formatted text.
 
 带有**markdown**格式文本的子**分区**。
 
