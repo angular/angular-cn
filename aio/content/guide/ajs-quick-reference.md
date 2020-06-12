@@ -542,7 +542,7 @@ AngularJS 为模板提供了七十多个内置指令。
       For more information on routing, see [Defining a basic route](guide/router#basic-route)
       in the [Routing & Navigation](guide/router) page.
 
-      要了解关于路由的更多信息，请参见[路由与导航](guide/router)的[RouterLink 绑定](guide/router#router-link)部分。
+      要了解关于路由的更多信息，请参见[路由与导航](guide/router)的[定义基础路由](guide/router#basic-route)部分。
 
     </td>
 

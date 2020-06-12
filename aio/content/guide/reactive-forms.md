@@ -190,7 +190,7 @@ Reactive forms provide access to information about a given control through prope
 These properties and methods of the underlying [AbstractControl](api/forms/AbstractControl "API reference.") class are used to control form state and determine when to display messages when handling [input validation](#basic-form-validation "Learn more about validating form input.").
 
 响应式表单还能通过每个实例的属性和方法提供关于特定控件的更多信息。[AbstractControl](api/forms/AbstractControl) 的这些属性和方法用于控制表单状态，并在处理表单校验时决定何时显示信息。
-欲知详情，参见稍后的[简单表单验证](#basic-form-validation)一节。
+欲知详情，参见稍后的[输入验证](#basic-form-validation)一节。
 
 Read about other `FormControl` properties and methods in the [API Reference](api/forms/FormControl "Detailed syntax reference.").
 

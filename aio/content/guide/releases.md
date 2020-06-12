@@ -133,11 +133,11 @@ In general, you can expect the following release cycle:
 
 * A patch release and pre-release (`next` or `rc`) build almost every week
 
-   差不多每周一个补丁版本
+   差不多每周一个发行版或预发行版(`next` 或 `rc`)的补丁版本
 
 This cadence of releases gives eager developers access to new features as soon as they are fully developed and pass through our code review and integration testing processes, while maintaining the stability and reliability of the platform for production users that prefer to receive features after they have been validated by Google and other developers that use the pre-release builds.
 
-这种发布节奏能让你尽快用上已就绪的新特性，同时，为生产环境下的用户维护本平台的稳定性和可靠性。
+这种发布的节奏能让渴望新功能的开发者在这些功能开发开发完成并通过我们的代码审查和集成测试流程后立即就可以使用，同时为那些喜欢在新功能经过 Google 和其他使用预发布版本的开发人员的验证后才采纳的生产环境用户，保持平台的稳定性和可靠性。
 
 {@a lts}
 {@a support}

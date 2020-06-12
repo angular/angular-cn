@@ -43,15 +43,16 @@ By the end of this tutorial you will be able to do the following:
 
 * Use built-in Angular [directives](guide/glossary#directive "Directives definition") to show and hide elements and display lists of hero data.
 
-   使用 Angular 的内置指令来显示 / 隐藏元素，并显示英雄数据的列表。
+   使用 Angular 的内置[指令](guide/glossary#directive "Directives definition")来显示 / 隐藏元素，并显示英雄数据的列表。
 
 * Create Angular [components](guide/glossary#component "Components definition") to display hero details and show an array of heroes.
 
-   创建 Angular 组件以显示英雄的详情，并显示一个英雄数组。
+   创建 Angular [组件](guide/glossary#component "Components definition")以显示英雄的详情，并显示一个英雄数组。
 
 * Use one-way [data binding](guide/glossary#data-binding "Data binding definition") for read-only data.
 
-   为只读数据使用单向数据绑定。
+   为只读数据使用单向[数据绑定](guide/glossary#data-binding "Data binding definition")。
+
 * Add editable fields to update a model with two-way data binding.
 
    添加可编辑字段，使用双向数据绑定来更新模型。
@@ -63,17 +64,18 @@ By the end of this tutorial you will be able to do the following:
 * Enable users to select a hero from a master list and edit that hero in the details view. 
 
    让用户可以在主列表中选择一个英雄，然后在详情视图中编辑他。
+
 * Format data with [pipes](guide/glossary#pipe "Pipe definition").
 
-   使用管道来格式化数据。
+   使用[管道](guide/glossary#pipe "Pipe definition")来格式化数据。
 
 * Create a shared [service](guide/glossary#service "Service definition") to assemble the heroes.
 
-   创建共享的服务来管理这些英雄。
+   创建共享的[服务](guide/glossary#service "Service definition")来管理这些英雄。
 
 * Use [routing](guide/glossary#router "Router definition") to navigate among different views and their components.
 
-   使用路由在不同的视图及其组件之间导航。
+   使用[路由](guide/glossary#router "Router definition")在不同的视图及其组件之间导航。
 
 You'll learn enough Angular to get started and gain confidence that
 Angular can do whatever you need it to do.

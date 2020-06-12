@@ -5,7 +5,7 @@
 At the end of [In-app Navigation](start/start-routing "Try it: In-app Navigation"), the online store application has a product catalog with two views: a product list and product details.
 Users can click on a product name from the list to see details in a new view, with a distinct URL, or route.
 
-在[路由](start/start-routing "入门：路由")的末尾，本应用实现了一个包含两个视图的商品名录：商品列表和商品详情。用户点击清单中的某个商品名称，就会在新视图中看到具有专门的 URL 或路由的详情页。
+在[应用内导航](start/start-routing "试一试：应用内导航")的末尾，本应用实现了一个包含两个视图的商品名录：商品列表和商品详情。用户点击清单中的某个商品名称，就会在新视图中看到具有专门的 URL 或路由的详情页。
 
 This page guides you through creating the shopping cart in three phases:
 
@@ -13,7 +13,7 @@ This page guides you through creating the shopping cart in three phases:
 
 * Update the product details view to include a "Buy" button, which adds the current product to a list of products that a cart service manages.
 
-  修改商品详情页，让它包含一个 “Buy” 按钮，它会把当前商品添加到由 "购物车服务" 管理的商品列表中。
+  修改商品详情视图，让它包含一个 “Buy” 按钮，它会把当前商品添加到由 "购物车服务" 管理的商品列表中。
 
 * Add a cart component, which displays the items in the cart.
 
@@ -204,7 +204,7 @@ This section walks you through using the cart service to add a product to the ca
 
 ## Create the cart view
 
-## 创建购物车页面
+## 创建购物车视图
 
 At this point, users can put items in the cart by clicking "Buy", but they can't yet see their cart.
 
@@ -212,11 +212,11 @@ At this point, users can put items in the cart by clicking "Buy", but they can't
 
 Create the cart view in two steps: 
 
-分两步创建购物车页面：
+分两步创建购物车视图：
 
 1. Create a cart component and configure routing to the new component. At this point, the cart view has only default text. 
 
-   创建一个购物车组件并配置指向这个新组件的路由。此时，购物车页面只会显示默认文本。
+   创建一个购物车组件并配置指向这个新组件的路由。此时，购物车视图只会显示默认文本。
 
 1. Display the cart items. 
 
@@ -228,7 +228,7 @@ Create the cart view in two steps:
 
  To create the cart view, begin by following the same steps you did to create the product details component and configure routing for the new component.
 
- 要创建购物车页面，首先要执行与创建商品详情组件相同的步骤，并为这个新组件设置路由。
+ 要创建购物车视图，首先要执行与创建商品详情组件相同的步骤，并为这个新组件设置路由。
 
 1. Generate a cart component, named `cart`.
 
@@ -346,7 +346,7 @@ You can use services to share data across components:
 
    1. Click on "My Store" to go to the product list view.
 
-      点击“My Store”，进入商品列表页面。
+      点击“My Store”，进入商品列表视图。
 
    1. Click on a product name to display its details.
 
@@ -376,7 +376,7 @@ You can use services to share data across components:
 
 StackBlitz tip: Any time the preview refreshes, the cart is cleared. If you make changes to the app, the page refreshes, so you'll need to buy products again to populate the cart.
 
-StackBlitz 提示：只要预览刷新，就会清除购物车。如果你对该应用进行了更改，页面就会刷新，你需要重新购买商品来填充购物车。
+StackBlitz 提示：只要预览刷新，就会清除购物车。如果你对该应用进行了更改，视图就会刷新，你需要重新购买商品来填充购物车。
 
 </div>
 
@@ -384,7 +384,7 @@ StackBlitz 提示：只要预览刷新，就会清除购物车。如果你对该
 
 For more information about services, see [Introduction to Services and Dependency Injection](guide/architecture-services "Concepts > Intro to Services and DI").
 
-要了解关于[服务](guide/architecture-services "架构>服务简介和 DI")的更多信息，请参阅[“服务和依赖注入简介”](guide/architecture-services "架构>服务简介和 DI")。
+要了解关于服务的更多信息，请参阅[“服务和依赖注入简介”](guide/architecture-services "概念>服务简介和 DI")。
 
 </div>
 
@@ -504,13 +504,13 @@ First, define a `get()` method.
 
 For more information about Angular's `HttpClient`, see the [Client-Server Interaction](guide/http "Server interaction through HTTP") guide.
 
-要了解关于 Angular `HttpClient` 的更多信息，请参阅[HttpClient 指南](guide/http "HttpClient 指南")。
+要了解关于 Angular `HttpClient` 的更多信息，请参阅[客户端-服务器集成](guide/http "HttpClient 指南")指南。
 
 </div>
 
 ## Define the shipping view
 
-## 定义配送页面
+## 定义配送视图
 
 Now that your app can retrieve shipping data, create a shipping component and  template.
 
@@ -577,7 +577,7 @@ Now that your app can retrieve shipping data, create a shipping component and  t
 
 1. Add a link from the cart view to the shipping view:
 
-   在购物车页面中添加一个到配送页面的链接：
+   在购物车视图中添加一个到配送视图的链接：
 
    <code-example header="src/app/cart/cart.component.html" path="getting-started/src/app/cart/cart.component.2.html"></code-example>
 
@@ -615,9 +615,9 @@ To continue exploring Angular, choose either of the following options:
 
 * [Continue to the "Forms" section](start/start-forms "Try it: Forms for User Input") to finish the app by adding the shopping cart view and a checkout form. 
 
-  [继续浏览“表单”部分](start/start-forms "入门：表单")，通过添加购物车页面和一个结账表单来完成该应用。
+  [继续浏览“表单”部分](start/start-forms "试一试：用表单接收用户输入")，通过添加购物车视图和一个结账表单来完成该应用。
 
 * [Skip ahead to the "Deployment" section](start/start-deployment "Try it: Deployment") to move to local development, or deploy your app to Firebase or your own server. 
 
-  [跳到“部署”部分，](start/start-deployment "入门：部署")把你的应用部署到 Firebase 或转成本地开发。
+  [跳到“部署”部分，](start/start-deployment "试一试：部署")把你的应用部署到 Firebase 或转成本地开发。
 

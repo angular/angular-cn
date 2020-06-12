@@ -1,6 +1,6 @@
 # Providing dependencies in modules
 
-# 服务提供者
+# 在模块中提供依赖
 
 A provider is an instruction to the [Dependency Injection](/guide/dependency-injection) system on how to obtain a value for a dependency. Most of the time, these dependencies are services that you create and provide.
 

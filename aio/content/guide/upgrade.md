@@ -1537,6 +1537,8 @@ And that's all you need do to get the full benefit of AOT for Angular apps!
 
 这就是你为获取 Angular 应用的 AOT 优势所要做的一切。
 
+-->
+
 ## PhoneCat Upgrade Tutorial
 
 ## PhoneCat 升级教程
@@ -1887,7 +1889,7 @@ Install type definitions for the existing libraries that
 you're using but that don't come with prepackaged types: AngularJS, AngularJS Material, and the
 Jasmine unit test framework.
 
-还要为那些没有自带类型信息的库（比如 AngularJS 和 Jasmine）安装类型定义文件。
+还要为那些没有自带类型信息的库（比如 AngularJS、AngularJS Material 和 Jasmine）安装类型定义文件。
 
 For the PhoneCat app, we can install the necessary type definitions by running the following command:
 

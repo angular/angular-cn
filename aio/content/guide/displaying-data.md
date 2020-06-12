@@ -241,7 +241,7 @@ Don't forget the leading asterisk (\*) in `*ngFor`. It is an essential part of t
 Read more about `ngFor` and `*` in the [ngFor section](guide/template-syntax#ngfor) of the [Template Syntax](guide/template-syntax) page.
 
 不要忘记 `*ngFor` 中的前导星号 (\*)。它是语法中不可或缺的一部分。
-更多信息，见[模板语法](guide/template-syntax#ngFor)。
+关于 `ngFor` 和 `*` 的更多信息，参见[模板语法](guide/template-syntax#ngFor)页的 [ngFor 部分](guide/template-syntax#ngfor)。
 
 </div>
 
@@ -305,7 +305,7 @@ of hero names into an array of `Hero` objects. For that you'll need a `Hero` cla
 
 This command creates the following code.
 
-代码如下：
+此命令创建了如下代码：
 
 <code-example path="displaying-data/src/app/hero.ts" header="src/app/hero.ts"></code-example>
 
@@ -429,6 +429,7 @@ The browser should refresh automatically and the message should disappear.
 试一下。因为这个数组中有四个条目，所以消息应该显示出来。
 回到 `app.component.ts`，从英雄数组中删除或注释掉一个元素。
 浏览器应该自动刷新，消息应该会消失。
+
 ## Summary
 
 ## 小结

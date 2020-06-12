@@ -368,7 +368,7 @@ First, enabling `strictNullChecks` and including `null` in an input's type, as a
 Additionally, it is possible to provide type hints that are specific to the template type checker. See [Improving template type checking for custom directives](guide/structural-directives#directive-type-checks), and [Input setter coercion](#input-setter-coercion) below.
 
 作为库作者，你可以采取多种措施为用户提供最佳体验。首先，启用 `strictNullChecks` 并在输入的类型中包括 `null`（如果适用），可以与消费者沟通，看他们是否可以提供可空的值。
-此外，可以提供特定模板类型检查器的类型提示，请参阅本指南的 [输入设置器强制转型](guide/template-typecheck#input-setter-coercion)部分。
+此外，可以提供特定模板类型检查器的类型提示，请参阅本指南的[为自定义指令改进模板类型检查](guide/structural-directives#directive-type-checks)和[输入设置器强制转型](guide/template-typecheck#input-setter-coercion)部分。
 
 {@a input-setter-coercion}
 

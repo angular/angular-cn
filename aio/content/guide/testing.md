@@ -776,12 +776,11 @@ toggles the light's _on/off_ state and sets the message appropriately.
 
 This component class has no dependencies. To test these types of classes, follow the same steps as you would for a service that has no dependencies:
 
-该组件类没有依赖。
-要测试一个没有依赖的服务，可以咨询与无依赖的服务相同的步骤：
+该组件类没有依赖。要测试这些类，请遵循与测试那些无依赖服务相同的步骤：
 
 1. Create a component using the new keyword.
 
-   创建一个使用新关键字的组件。
+   使用 `new` 关键子创建一个组件。
 
 2. Poke at its API.
 
@@ -1903,13 +1902,14 @@ You do have to call [tick()](api/core/testing/tick) to advance the (virtual) clo
 Calling [tick()](api/core/testing/tick) simulates the passage of time until all pending asynchronous activities finish.
 In this case, it waits for the error handler's `setTimeout()`.
 
-调用 `tick()` 会模拟时光的流逝，直到所有未决的异步活动都结束为止。
+调用 [`tick()`](api/core/testing/tick) 会模拟时光的流逝，直到所有未决的异步活动都结束为止。
 在这个例子中，它会等待错误处理器中的 `setTimeout()`。
 
 The [tick()](api/core/testing/tick) function accepts milliseconds and tickOptions as parameters, the millisecond (defaults to 0 if not provided) parameter represents how much the virtual clock advances. For example, if you have a `setTimeout(fn, 100)` in a `fakeAsync()` test, you need to use tick(100) to trigger the fn callback. The tickOptions is an optional parameter with a property called `processNewMacroTasksSynchronously` (defaults to true) represents whether to invoke new generated macro tasks when ticking.
 
-`tick()` 函数接受一个毫秒值作为参数（如果没有提供则默认为 0）。该参数表示虚拟时钟要前进多少。
+[tick()](api/core/testing/tick) 函数接受一个毫秒值和一个 `tickOptions` 作为参数（如果没有提供毫秒值则默认为 0）。该参数表示虚拟时钟要前进多少。
 比如，如果你的 `fakeAsync()` 测试中有一个 `setTimeout(fn, 100)` 函数，你就需要用 `tick(100)` 来触发它的 fn 回调。
+`tickOptions` 是一个可选参数，具有名为 `processNewMacroTasksSynchronously`（默认为 `true`）的属性，表示是否要在滴答时调用新生成的宏任务。
 
 <code-example
   path="testing/src/app/demo/async-helper.spec.ts"
@@ -1919,7 +1919,7 @@ The [tick()](api/core/testing/tick) function accepts milliseconds and tickOption
 The [tick()](api/core/testing/tick) function is one of the Angular testing utilities that you import with `TestBed`.
 It's a companion to `fakeAsync()` and you can only call it within a `fakeAsync()` body.
 
-`tick()` 函数是你从 `TestBed` 中导入的 Angular 测试实用工具之一。
+[tick()](api/core/testing/tick) 函数是你从 `TestBed` 中导入的 Angular 测试实用工具之一。
 它和 `fakeAsync()` 一同使用，并且你只能在 `fakeAsync()` 体中调用它。
 
 #### tickOptions
@@ -2029,7 +2029,7 @@ If you run other macro tasks such as `HTMLCanvasElement.toBlob()`, an _"Unknown 
 If you want to support such a case, you need to define the macro task you want to support in `beforeEach()`.
 For example:
 
-如果你要支持这种情况，就要在 `beforeEach()` 中定义你要支持的 `macroTask`。比如：
+如果你要支持这种情况，就要在 `beforeEach()` 中定义你要支持的宏任务。比如：
 
 <code-example
   header="src/app/shared/canvas.component.spec.ts (excerpt)"
@@ -2982,7 +2982,7 @@ for the `id` to change during its lifetime.
 
 The [ActivatedRoute in action](guide/router#activated-route-in-action) section of the [Router](guide/router) guide covers `ActivatedRoute.paramMap` in more detail.
 
-[路由与导航](guide/router#route-parameters)一章中详细讲解了 `ActivatedRoute.paramMap`。
+[路由与导航](guide/router#route-parameters)一章的 [ActivatedRoute 实战](guide/router#activated-route-in-action)部分详细讲解了 `ActivatedRoute.paramMap`。
 
 </div>
 
@@ -5579,15 +5579,15 @@ as the application source code files that they test:
 
 #### Place your spec files in a test folder
 
-#### 什么时候我该把测试文件放进单独的 `test` 文件夹中？
+#### 把测试文件放进 `test` 文件夹中
 
 Application integration specs can test the interactions of multiple parts
 spread across folders and modules.
 They don't really belong to any part in particular, so they don't have a
 natural home next to any one file.
 
-应用程序的整合测试 spec 文件可以测试横跨多个目录和模块的多个部分之间的互动。
-它们不属于任何部分，很自然，没有特别的地方存放它们。
+应用程序的集成测试 spec 文件可以测试横跨多个目录和模块的多个部分之间的互动。
+它们不属于任何部分，自然也没有专门的地方存放它们。
 
 It's often better to create an appropriate folder for them in the `tests` directory.
 
@@ -5608,7 +5608,7 @@ next to their corresponding helper files.
 It should test only a single unit. On a first glance, you should be able to understand
 what the test is testing. If it's doing more, then it doesn't belong here.
 
-[组件类测试](#component-class-testing)应该保持非常干净和简单。它应该只测试一个单元。应该乍一看就能了解测试的内容。如果还要做更多事，那它就不属于这里。
+[组件类测试](#component-class-testing)应该保持非常干净和简单。它应该只测试一个单元。应该一眼就能了解测试的内容。如果还要做更多事，那它就不属于这里。
 
 {@a q-end-to-end}
 

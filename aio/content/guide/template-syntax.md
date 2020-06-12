@@ -402,11 +402,11 @@ The template statement parser differs from the template expression parser and
 specifically supports both basic assignment (`=`) and chaining expressions with <code>;</code>.
 
 和模板表达式一样，模板*语句*使用的语言也像 JavaScript。
-  模板语句解析器和模板表达式解析器有所不同，特别之处在于它支持基本赋值 (`=`) 和表达式链 (`;` 和 `,`)。
+  模板语句解析器和模板表达式解析器有所不同，特别之处在于它支持基本赋值 (`=`) 和表达式链 (`;`)。
 
 However, certain JavaScript and template expression syntax is not allowed:
 
-然而，某些 JavaScript 语法仍然是不允许的：
+然而，某些 JavaScript 语法和模板表达式语法仍然是不允许的：
 
 * <code>new</code>
 
@@ -422,11 +422,11 @@ However, certain JavaScript and template expression syntax is not allowed:
 
 * the bitwise operators, such as `|` and `&`
 
-   位运算符 `|` 和 `&`
+   位运算符，例如 `|` 和 `&`
 
 * the [pipe operator](guide/template-syntax#pipe)
 
-   [模板表达式运算符](guide/template-syntax#expression-operators)
+   [管道运算符](guide/template-syntax#expression-operators)
 
 ### Statement context
 
@@ -1260,13 +1260,13 @@ the syntax and thinking are the same.
 
 In this scenario, `ItemListComponent` is nested within `AppComponent` and the `items` property expects an array of objects.
 
-在这种情况下，`ListItemComponent` 嵌套在 `AppComponent` 中，并且 `item` 属性需要一个对象。
+在这种情况下，`ItemListComponent` 嵌套在 `AppComponent` 中，并且 `items` 属性需要一个对象数组。
 
 <code-example path="property-binding/src/app/app.component.html" region="pass-object" header="src/app/app.component.html"></code-example>
 
 The `items` property is declared in the `ItemListComponent` with a type of `Item` and decorated with `@Input()`:
 
-`item` 属性是在 `ListItemComponent` 中用 `Item` 类型声明的，并带有 `@Input()` 装饰器：
+`items` 属性是在 `ItemListComponent` 中用 `Item` 类型声明的，并带有 `@Input()` 装饰器：
 
 <code-example path="property-binding/src/app/item-list/item-list.component.ts" region="item-input" header="src/app/item-list.component.ts"></code-example>
 
@@ -1285,13 +1285,13 @@ specify a different item in `app.component.ts` so that the new item will render:
 
 You just have to make sure, in this case, that you're supplying an array of objects because that's the type of `Item` and is what the nested component, `ItemListComponent`, expects.
 
-在这个例子中，你只需要确保你所提供的对象的类型，也就是这个 `item` 的类型是嵌套组件 `ListItemComponent` 所需要的类型。
+在这个例子中，你只需要确保你所提供的对象数组的类型，也就是这个 `Item` 的类型是嵌套组件 `ItemListComponent` 所需要的类型。
 
 In this example, `AppComponent` specifies a different `item` object
 (`currentItems`) and passes it to the nested `ItemListComponent`. `ItemListComponent` was able to use `currentItems` because it matches what an `Item` object is according to `item.ts`. The `item.ts` file is where
 `ItemListComponent` gets its definition of an `item`.
 
-在此示例中，`AppComponent` 指定了另一个 `item` 对象（ `currentItem` ）并将其传给嵌套的 `ListItemComponent`。`ListItemComponent` 之所以能够使用 `currentItem` 是因为它与 `item.ts` 中定义的 `Item` 对象的类型相匹配。在 `item.ts` 文件中，`ListItemComponent` 获得了其对 `item` 的定义。
+在此示例中，`AppComponent` 指定了另一个 `item` 对象（ `currentItems` ）并将其传给嵌套的 `ItemListComponent`。`ItemListComponent` 之所以能够使用 `currentItems` 是因为它与 `item.ts` 中定义的 `Item` 对象的类型相匹配。在 `item.ts` 文件中，`ItemListComponent` 获得了其对 `item` 的定义。
 
 ### Remember the brackets
 
@@ -1342,7 +1342,7 @@ not a template expression. Angular sets it and forgets about it.
 
 The `[item]` binding, on the other hand, remains a live binding to the component's `currentItems` property.
 
-另一方面，`[item]` 绑定仍然是与组件的 `currentItem` 属性的实时绑定。
+另一方面，`[item]` 绑定仍然是与组件的 `currentItems` 属性的实时绑定。
 
 ### Property binding vs. interpolation
 
@@ -3623,7 +3623,7 @@ Angular 的非空断言运算符 `!` 在 Angular 模板中具有相同的目的�
 When the Angular compiler turns your template into TypeScript code,
 it prevents TypeScript from reporting that `item.color` might be `null` or `undefined`.
 
-当 Angular 编译器把你的模板转换成 TypeScript 代码时，它会防止 TypeScript 不要报告此 `item` 可能为 `null` 或 `undefined` 的错误。
+当 Angular 编译器把你的模板转换成 TypeScript 代码时，它会防止 TypeScript 不要报告此 `item.color` 可能为 `null` 或 `undefined` 的错误。
 
 Unlike the [_safe navigation operator_](guide/template-syntax#safe-navigation-operator "Safe navigation operator (?)"),
 the non-null assertion operator does not guard against `null` or `undefined`.

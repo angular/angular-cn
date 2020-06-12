@@ -607,17 +607,17 @@ export class MyModule {
 {@a ie-9-10}
 ### IE 9 and 10 support
 
-### IE 9 和 10 支持 IE 9
+### IE 9 和 10 支持
 
 Support for IE 9 and 10 has been deprecated and will be removed in a future version.
 Supporting outdated browsers like these increases bundle size, code complexity, and test load, and also requires time and effort that could be spent on improvements to the framework.
 For example, fixing issues can be more difficult, as a straightforward fix for modern browsers could break old ones that have quirks due to not receiving updates from vendors.
 
-对 IE 9 和 10 的支持已被弃用，并将在以后的版本中删除。支持像这样过时的浏览器会增加 bundle 的大小，增加代码的复杂性和测试的负载，还需要花费大量的时间和精力来改进框架。例如，修复问题可能会更加困难，因为对于现代浏览器来说，直接修复可能会因为没有收到供应商的更新而破坏那些有怪癖的旧版本。
+对 IE 9 和 10 的支持已被弃用，并将在以后的版本中删除。支持像这样过时的浏览器会增加打包尺寸，增加代码的复杂性和测试的负担，还需要花费大量的时间和精力来改进框架。例如，修复问题可能会更加困难，因为对于现代浏览器那些直接的修复方式可能会破坏那些没有收到更新的怪异旧版本。
 
 The final decision was made on three key points:
 
-最终决定于三个关键点：
+它的最终决定取决于三点：
 
 - **Vendor support**: Microsoft dropped support of IE 9 and 10 on 1/12/16, meaning they no longer provide security updates or technical support.
 
@@ -625,7 +625,7 @@ The final decision was made on three key points:
 
 - **Usage statistics**: We looked at usage trends for IE 9 and 10 from various sources and all indicated that usage percentages were extremely small (fractions of 1%).
 
-  **用法统计** ：我们从不同来源查看了 IE 9 和 10 的使用趋势，并且都表明使用率非常小（1％的分数）。
+  **用法统计** ：我们从不同来源查看了 IE 9 和 10 的使用趋势，并且都表明其使用率非常小（不足 1％）。
 
 - **Feedback from partners**: We also reached out to some of our Angular customers and none expressed concern about dropping IE 9 and 10 support.
 
@@ -640,16 +640,16 @@ The final decision was made on three key points:
 The purpose of `WrappedValue` is to allow the same object instance to be treated as different for the purposes of change detection.
 It is commonly used with the `async` pipe in the case where the `Observable` produces the same instance of the value.
 
-`WrappedValue` 的目的是让同一个对象实例被视为不同的对象，以便进行变更检测。在 `Observable` 生成相同值的实例的情况下，它常用于 `async` 管道。
+`WrappedValue` 的目的是让同一个对象实例被视为不同的对象，以便进行变更检测。比如当 `Observable` 生成相同实例的时候，它常用于 `async` 管道。
 
 Given that this use case is relatively rare and special handling impacts application performance, we have deprecated it in v10.
 No replacement is planned for this deprecation.
 
-鉴于此用例相对较少，并且特殊处理会影响应用性能，因此我们已在第 10 版中弃用它。这次弃用并未计划更换。
+鉴于此用例相对较少，并且特殊处理会影响应用性能，因此我们已在第 10 版中弃用它。这项弃用并没有提供替代方案。
 
 If you rely on the behavior that the same object instance should cause change detection, you have two options:
 
-如果依赖同一个对象实例引起变更检测的行为，你有两个选择：
+如果你要依赖同一个对象实例引起变更检测的行为，那么有两个选择：
 
 - Clone the resulting value so that it has a new identity.
 
@@ -657,46 +657,46 @@ If you rely on the behavior that the same object instance should cause change de
 
 - Explicitly call [`ChangeDetectorRef.detectChanges()`](api/core/ChangeDetectorRef#detectchanges) to force the update. 
 
-  显式调用[`ChangeDetectorRef.detectChanges()`](api/core/ChangeDetectorRef#detectchanges)来强制进行更新。
+  显式调用 [`ChangeDetectorRef.detectChanges()`](api/core/ChangeDetectorRef#detectchanges) 进行强制更新。
 
 {@a removed}
 
 ## Removed APIs
 
-## 删除了 API
+## 删除的 API
 
 The following APIs have been removed starting with version 10.0.0\*:
 
-从 Version 10.0.0 \*开始，已经删除了以下 API：
+从 10.0.0 版开始，已经删除了以下 API：
 
 | Package | API | Replacement | Notes |
 | ------- | --- | ----------- | ----- |
-| 包裹 | API | 更换 | 笔记 |
+| 包 | API | 替代品 | 备注 |
 | `@angular/core` | Undecorated base classes that use Angular features | Add Angular decorator | See [migration guide](guide/migration-undecorated-classes) for more info |
-| `@angular/core` | 使用 Angular 特性的未修改的基类 | 添加 Angular 装饰器 | 有关详情，请参阅[迁移指南](guide/migration-undecorated-classes) |
+| `@angular/core` | 使用 Angular 特性的不带装饰器的基类 | 添加 Angular 装饰器 | 详情参阅[迁移指南](guide/migration-undecorated-classes) |
 | `@angular/core` | `ModuleWithProviders` without a generic | `ModuleWithProviders` with a generic | See [migration guide](guide/migration-module-with-providers) for more info |
-| `@angular/core` | `ModuleWithProviders` 没有泛型 | `ModuleWithProviders` 用泛型的 | 有关详情，请参阅[迁移指南](guide/migration-module-with-providers) |
+| `@angular/core` | 不带泛型的 `ModuleWithProviders` | 带泛型的 `ModuleWithProviders`  | 详情参阅[迁移指南](guide/migration-module-with-providers) |
 | `@angular/core` | Style Sanitization | no action needed | See [style sanitization API removal](#style-sanitization) for more info |
-| `@angular/core` | 风格消毒 | 不需要任何动作 | 有关更多信息，请参阅[样式清理 API 删除](#style-sanitization) |
+| `@angular/core` | 样式的无害化处理 | 不需要任何动作 | 详情参阅[移除了 样式无害化 API](#style-sanitization) |
 
 \*To see APIs removed in version 9, check out this guide on the [version 9 docs site](https://v9.angular.io/guide/deprecations#removed).
 
-\*要查看版本 9 中移除的 API，请查看[版本 9 docs 站点](https://v9.angular.io/guide/deprecations#removed)上的本指南。
+\*要查看版本 9 中移除的 API，请查看[版本 9 文档站](https://v9.angular.io/guide/deprecations#removed)上本指南。
 
 {@a esm5-fesm5}
 
 ### `esm5` and `fesm5` code formats in @angular/* npm packages
 
-### @angular/* npm 软件包中的 `esm5` 和 `fesm5` 代码格式
+### `@angular/*` npm 软件包中的 `esm5` 和 `fesm5` 代码格式
 
 As of Angular v8, the CLI primarily consumes the `fesm2015` variant of the code distributed via `@angular/*` npm packages.
 This renders the `esm5` and `fesm5` distributions obsolete and unnecessary, adding bloat to the package size and slowing down npm installations.
 
-从 Angular v8 开始，CLI 就主要使用 通过 `@angular/*` 系列 npm 包分发的 `fesm2015` 变体代码。这就让 `esm5` 和 `fesm5` 的发行版变得过时和不必要，只会增加软件包大小并拖累了 npm 的安装速度。
+从 Angular v8 开始，CLI 就主要使用通过 `@angular/*` 系列 npm 包分发的 `fesm2015` 变体代码。这就让 `esm5` 和 `fesm5` 的发行版变得过时和不必要，只会增加软件包大小并拖累 npm 的安装速度。
 
 This removal has no impact on CLI users, unless they modified their build configuration to explicitly consume these code distributions.
 
-移除它们不会对 CLI 用户产生任何影响，除非他们修改了自己的构建配置以显式使用这些代码发行版。
+移除它们不会对 CLI 用户产生任何影响，除非他们修改了自己的构建配置以显式使用代码的这些发行版。
 
 Any application still relying on the `esm5` and `fesm5` as the input to its build system will need to ensure that the build pipeline is capable of accepting JavaScript code conforming to ECMAScript 2015 (ES2015) language specification.
 
@@ -754,17 +754,17 @@ For more information about the npm package format, see the [Angular Package Form
 {@a ie-9-10}
 ### IE 9 and 10 support
 
-### 对 IE 9 和 10 的支持
+### IE 9 和 10 支持
 
 Support for IE 9 and 10 has been deprecated and will be removed in a future version.
 Supporting outdated browsers like these increases bundle size, code complexity, and test load, and also requires time and effort that could be spent on improvements to the framework.
 For example, fixing issues can be more difficult, as a straightforward fix for modern browsers could break old ones that have quirks due to not receiving updates from vendors.
 
-对 IE 9 和 10 的支持已被弃用，并将在以后的版本中删除。支持像这样过时的浏览器会增加 bundle 的大小，增加代码的复杂性和测试的负载，还需要花费大量的时间和精力来改进框架。例如，修复问题可能会更加困难，因为对于现代浏览器来说，直接修复可能会因为没有收到供应商的更新而破坏那些有怪癖的旧版本。
+对 IE 9 和 10 的支持已被弃用，并将在以后的版本中删除。支持像这样过时的浏览器会增加打包尺寸，增加代码的复杂性和测试的负担，还需要花费大量的时间和精力来改进框架。例如，修复问题可能会更加困难，因为对于现代浏览器那些直接的修复方式可能会破坏那些没有收到更新的怪异旧版本。
 
 The final decision was made on three key points:
 
-最终决定于三个关键点：
+它的最终决定取决于三点：
 
 - **Vendor support**: Microsoft dropped support of IE 9 and 10 on 1/12/16, meaning they no longer provide security updates or technical support.
 
@@ -772,7 +772,7 @@ The final decision was made on three key points:
 
 - **Usage statistics**: We looked at usage trends for IE 9 and 10 from various sources and all indicated that usage percentages were extremely small (fractions of 1%).
 
-  **用法统计** ：我们从不同来源查看了 IE 9 和 10 的使用趋势，并且都表明使用率非常小（1％的分数）。
+  **用法统计** ：我们从不同来源查看了 IE 9 和 10 的使用趋势，并且都表明其使用率非常小（不足 1％）。
 
 - **Feedback from partners**: We also reached out to some of our Angular customers and none expressed concern about dropping IE 9 and 10 support.
 
@@ -781,23 +781,25 @@ The final decision was made on three key points:
 {@a removed}
 ## Removed APIs
 
-## 已删除的 API
+## 删除的 API
 
-The following APIs have been removed starting with version 10.0.0*:
+The following APIs have been removed starting with version 10.0.0\*:
 
-从 9.0.0\*版开始，以下 API 已被删除：
+从 10.0.0 版开始，已经删除了以下 API：
 
-| Package          | API            | Replacement | Notes |
-| ---------------- | -------------- | ----------- | ----- |
-| 包 | API | 替代品 | 备注 |  |
-| `@angular/core`  | Undecorated base classes that use Angular features | Add Angular decorator | See [migration guide](guide/migration-undecorated-classes) for more info |
-| `@angular/core`  | 用到 Angular 特性的不带装饰器的基类 | 添加 Angular 装饰器 | 欲知详情，参见[迁移指南](guide/migration-undecorated-classes) |
-| `@angular/core`  | `ModuleWithProviders` without a generic             | `ModuleWithProviders` with a generic | See [migration guide](guide/migration-module-with-providers) for more info |
-| `@angular/core`  | 不带泛型的 `ModuleWithProviders`             | 带泛型的 `ModuleWithProviders` | 欲知详情，参见 [迁移指南](guide/migration-module-with-providers) |
+| Package | API | Replacement | Notes |
+| ------- | --- | ----------- | ----- |
+| 包 | API | 替代品 | 备注 |
+| `@angular/core` | Undecorated base classes that use Angular features | Add Angular decorator | See [migration guide](guide/migration-undecorated-classes) for more info |
+| `@angular/core` | 使用 Angular 特性的不带装饰器的基类 | 添加 Angular 装饰器 | 详情参阅[迁移指南](guide/migration-undecorated-classes) |
+| `@angular/core` | `ModuleWithProviders` without a generic | `ModuleWithProviders` with a generic | See [migration guide](guide/migration-module-with-providers) for more info |
+| `@angular/core` | 不带泛型的 `ModuleWithProviders` | 带泛型的 `ModuleWithProviders`  | 详情参阅[迁移指南](guide/migration-module-with-providers) |
+| `@angular/core` | Style Sanitization | no action needed | See [style sanitization API removal](#style-sanitization) for more info |
+| `@angular/core` | 样式的无害化处理 | 不需要任何动作 | 详情参阅[移除了 样式无害化 API](#style-sanitization) |
 
-*To see APIs removed in version 9, check out this guide on the [version 9 docs site](https://v9.angular.io/guide/deprecations#removed).
+\*To see APIs removed in version 9, check out this guide on the [version 9 docs site](https://v9.angular.io/guide/deprecations#removed).
 
-要查看版本 8 中删除的 API，请查看[版本 8 文档站点](https://v8.angular.io/guide/deprecations#removed)上的本指南。
+\*要查看版本 9 中移除的 API，请查看[版本 9 文档站](https://v9.angular.io/guide/deprecations#removed)上本指南。
 
 <!-- The following anchor is used by redirects from the removed API pages. Do not change or remove. -->
 {@a http}
@@ -880,9 +882,9 @@ For more information about using `@angular/common/http`, see the [HttpClient gui
 
 ### Style Sanitization for `[style]` and `[style.prop]` bindings
 
-### `[style]` 和 `[style.prop]` 绑定的 Style `[style.prop]`
+### `[style]` 和 `[style.prop]` 绑定的样式无害化
 
 Angular used to sanitize `[style]` and `[style.prop]` bindings to prevent malicious code from being inserted through `javascript:` expressions in CSS `url()` entries. However, most modern browsers no longer support the usage of these expressions, so sanitization was only maintained for the sake of IE 6 and 7. Given that Angular does not support either IE 6 or 7 and sanitization has a performance cost, we will no longer sanitize style bindings as of version 10 of Angular.
 
-Angular 用来清理 `[style]` 和 `[style.prop]` 绑定，以防止恶意代码通过 CSS `url()` 条目中的 `javascript:` expressions 进行插入。但是，大多数现代浏览器都不再支持这些表达式的使用，所以只有 IE 6 和 7 才能维护清理。鉴于 Angular 不支持 IE 6 或 7，并且清理有性能代价，我们将不再清理 Angular 版本 10 中的样式绑定。
+Angular 会清理 `[style]` 和 `[style.prop]` 绑定，以防止恶意代码通过 CSS `url()` 条目中的 `javascript:` 表达式进行插入。但是，大多数现代浏览器都已不再支持这些表达式的使用，所以这种清理只对 IE 6 和 7 才有意义。鉴于 Angular 不支持 IE 6 或 7，并且这种清理有性能代价，因此我们将不再清理 Angular 版本 10 中的样式绑定。
 

@@ -73,6 +73,7 @@ For example, `hero.component.ts` and `hero.component.html`.
 The guideline uses the shortcut `hero.component.ts|html|css|spec` to represent those various files. Using this shortcut makes this guide's file structures easier to read and more terse.
 
 本指南将会使用像 `hero.component.ts|html|css|spec` 的简写来表示上面描述的多个文件，目的是保持本指南的简洁性，增加描述文件结构时的可读性。
+
 {@a single-responsibility}
 
 ## Single responsibility

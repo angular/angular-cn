@@ -216,10 +216,10 @@ When the user clicks in the `<li>`, Angular executes the `onSelect(hero)` expres
 `click` 外面的圆括号会让 Angular 监听这个 `<li>` 元素的 `click` 事件。
 当用户点击 `<li>` 时，Angular 就会执行表达式 `onSelect(hero)`。
 
-`onSelect()` method in `HeroesComponent` to
+In the next section, define an `onSelect()` method in `HeroesComponent` to
 display the hero that was defined in the `*ngFor` expression.
 
-`HeroesComponent` 上的 `onSelect()` 方法 用来显示 `*ngFor` 表达式所定义的那个英雄（`hero`）。
+下一部分，会在 `HeroesComponent` 上定义一个 `onSelect()` 方法，用来显示 `*ngFor` 表达式所定义的那个英雄（`hero`）。
 
 ### Add the click event handler
 

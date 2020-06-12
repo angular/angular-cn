@@ -845,9 +845,12 @@ The `MinimalLogger` transpiles to this unoptimized, pre-minified JavaScript for 
 <code-example path="dependency-injection-in-action/src/app/minimal-logger.service.ts" region="minimal-logger-transpiled" header="dependency-injection-in-action/src/app/minimal-logger.service.ts"></code-example>
 
 Notice that it doesn't have any members. It never grows no matter how many members you add to the class,
-as long as those members are typed but not implemented. Look again at the TypeScript `MinimalLogger` class to confirm that it has no implementation.
+as long as those members are typed but not implemented. 
 
 注意，***只要不实现它***，不管添加多少成员，它都不会增长大小，因为这些成员虽然是有类型的，但却没有实现。
+
+Look again at the TypeScript `MinimalLogger` class to confirm that it has no implementation.
+
 你可以再看看 TypeScript 的 `MinimalLogger` 类，确定一下它是没有实现的。
 
 </div>

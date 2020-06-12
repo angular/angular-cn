@@ -1,6 +1,6 @@
 # Updating to Angular version 9
 
-# 更新到 Angular 版本 9
+# 更新到 Angular 9
 
 This guide contains information related to updating to version 9 of Angular.
 

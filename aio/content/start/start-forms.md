@@ -89,7 +89,7 @@ Now that you've defined the form model in the component class, you need a checko
 
 Use the following steps to add a checkout form at the bottom of the "Cart" view.
 
-使用下列步骤在“购物车”页面的底部添加一个结帐表单。
+使用下列步骤在“购物车”视图的底部添加一个结帐表单。
 
 1. Open `cart.component.html`.
 
@@ -142,5 +142,5 @@ Congratulations! You have a complete online store application with a product cat
 
 [Continue to the "Deployment" section](start/start-deployment "Try it: Deployment") to move to local development, or deploy your app to Firebase or your own server.
 
-[继续浏览“部署”部分，](start/start-deployment "入门：部署")把你的应用转移到本地开发、部署到 Firebase 或你自己的服务器。
+[继续浏览“部署”部分，](start/start-deployment "试一试：部署")把你的应用转移到本地开发、部署到 Firebase 或你自己的服务器。
 

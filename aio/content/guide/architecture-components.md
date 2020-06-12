@@ -5,7 +5,7 @@
 A *component* controls a patch of screen called a [*view*](guide/glossary#view "Definition of view").
 For example, individual components define and control each of the following views from the [Tour of Heroes tutorial](tutorial):
 
-*组件*控制屏幕上被称为*视图*的一小片区域。比如，[教程](tutorial/index)中的下列视图都是由一个个组件所定义和控制的：
+*组件*控制屏幕上被称为[*视图*](guide/glossary#view "Definition of view")的一小片区域。比如，[教程](tutorial/index)中的下列视图都是由一个个组件所定义和控制的：
 
 * The app root with the navigation links.
 

@@ -19,7 +19,7 @@ This guide explains how to specify metadata and apply available compiler options
 
   <a href="https://www.youtube.com/watch?v=anphffaCZrQ">Watch Alex Rickabaugh explain the Angular compiler</a> at AngularConnect 2019.
 
-  观看编译器作者 Tobias Bosch 在 AngularConnect 2016 大会里，对<a href="http://v.youku.com/v_show/id_XMTc1NTE4NTkwOA==.html?from=y1.7-1.4" target="_blank">Angular 编译器</a>的演讲。
+  <a href="https://www.youtube.com/watch?v=anphffaCZrQ">观看 Alex Rickabaugh 在 AngularConnect 2019 解释 Angular 编译器的演讲</a> .
 
 </div>
 

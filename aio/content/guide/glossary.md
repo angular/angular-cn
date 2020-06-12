@@ -345,7 +345,7 @@ See also [Schematics CLI](#schematics-cli).
 
 A class with the `@Component()` [decorator](#decorator) that associates it with a companion [template](#template). Together, the component class and template define a [view](#view).
 
-一个带有 `@Component()` [装饰器](#decorator)的类，和它的伴生[模板](#template)关联在一起。组件及其模板共同定义了一个[视图](#view)。
+一个带有 `@Component()` [装饰器](#decorator)的类，和它的伴生[模板](#template)关联在一起。组件类及其模板共同定义了一个[视图](#view)。
 
 A component is a special type of [directive](#directive).
 The `@Component()` decorator extends the `@Directive()` decorator with template-oriented features.
@@ -358,7 +358,7 @@ Angular 的组件类负责暴露数据，并通过[数据绑定机制](#data-bin
 
 Read more about component classes, templates, and views in [Introduction to Angular concepts](guide/architecture).
 
-要了解更多关于组件、模板和视图的知识，参见 [架构概览](guide/architecture) 一章。
+要了解更多关于组件类、模板和视图的知识，参见 [架构概览](guide/architecture) 一章。
 
 ## configuration
 
@@ -682,14 +682,14 @@ Compare to [custom element](#custom-element).
 
 ## 入口点（Entry Point）
 
-A JavaScript module(#module) that is intended to be imported by a user of [an
+A [JavaScript module](#module) that is intended to be imported by a user of [an
 npm package](guide/npm-packages). An entry-point module typically re-exports
 symbols from other internal modules. A package can contain multiple
 entry points. For example, the `@angular/core` package has two entry-point
 modules, which can be imported using the module names `@angular/core` and
 `@angular/core/testing`.
 
-JavaScript 模块(#module)的目的是供 [npm 包](guide/npm-packages)的用户进行导入。入口点模块通常会重新导出来自其它内部模块的一些符号。每个包可以包含多个入口点。比如 `@angular/core` 就有两个入口点模块，它们可以使用名字 `@angular/core` 和 `@angular/core/testing` 进行导入。
+[JavaScript 模块](#module)的目的是供 [npm 包](guide/npm-packages)的用户进行导入。入口点模块通常会重新导出来自其它内部模块的一些符号。每个包可以包含多个入口点。比如 `@angular/core` 就有两个入口点模块，它们可以使用名字 `@angular/core` 和 `@angular/core/testing` 进行导入。
 
 {@a F}
 
@@ -826,10 +826,9 @@ or displayed between element tags, as in this example.
 [属性数据绑定 (property data binding)](#data-binding) 的一种形式，位于双大括号中的[模板表达式 (template expression)](#template-expression)会被渲染成文本。
 在被赋值给元素属性或者显示在元素标签中之前，这些文本可能会先与周边的文本合并，参见下面的例子。
 
-<code-example language="html" escape="html">
-  <label>My current hero is {{hero.name}}</label>
-
-</code-example>
+```html
+<label>My current hero is {{hero.name}}</label>
+```
 
 Read more about [interpolation](guide/template-syntax#interpolation) in [Template Syntax](guide/template-syntax).
 
@@ -1501,7 +1500,7 @@ You can also define a custom builder, and add a target to the project configurat
 
 Code that defines how to render a component's [view](#view).
 
-模板是与组件相关的代码，用来定义如何在 HTML 中渲染组件的[视图](#view)。
+用来定义要如何在 HTML 中渲染组件[视图](#view)的代码。
 
 A template combines straight HTML with Angular [data-binding](#data-binding) syntax, [directives](#directive),
 and [template expressions](#template-expression) (logical constructs).
@@ -1511,7 +1510,7 @@ The Angular elements insert or calculate values that modify the HTML elements be
 
 A template is associated with a [component class](#component) through the `@Component()` [decorator](#decorator). The template code can be provided inline, as the value of the `template` property, or in a separate HTML file linked through the `templateUrl` property. 
 
-模板通过 `@Component()` [装饰器](#decorator)与[组件](#component)类关联起来。其 HTML 可以作为 `template` 属性的值用内联的方式提供，也可以通过 `templateUrl` 属性链接到一个独立的 HTML 文件。
+模板通过 `@Component()` [装饰器](#decorator)与[组件类](#component)类关联起来。模板代码可以作为 `template` 属性的值用内联的方式提供，也可以通过 `templateUrl` 属性链接到一个独立的 HTML 文件。
 
 Additional templates, represented by `TemplateRef` objects, can define alternative or *embedded* views, which can be referenced from multiple components.
 
@@ -1654,7 +1653,7 @@ Views are typically collected into [view hierarchies](#view-tree).
 
 [组件 (component)](#component) 类及其关联的[模板 (template)](#template)定义了一个视图。
 具体实现上，视图由一个与该组件相关的 `ViewRef` 实例表示。
-属于某个组件的视图叫做*宿主视图*。
+直属于某个组件的视图叫做*宿主视图*。
 通常会把视图组织成一些[视图树（view hierarchies）](#view-tree)。
 
 Properties of elements in a view can change dynamically, in response to user actions;

@@ -382,7 +382,7 @@ The following sections provide detailed information on constraints, grammar,
 and translation of microsyntax.
 
 当你编写自己的结构型指令时，也可以利用这些微语法机制。
-例如，Angular 中的微语法允许你写成 `<div *ngFor="let item of items">{{item}}</div>` 而不是 `<ng-template ngFor [ngForOf]="items"><div>{{item}}</div></ng-template>`。
+例如，Angular 中的微语法允许你写成 `<div *ngFor="let item of items">{{item}}</div>` 而不是 `<ng-template ngFor let-item [ngForOf]="items"><div>{{item}}</div></ng-template>`。
 以下各节提供了有关约束、语法和微语法翻译方式的详细信息。
 
 ### Constraints

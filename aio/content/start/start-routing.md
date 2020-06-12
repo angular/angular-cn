@@ -6,15 +6,15 @@ At the end of [part 1](start "Get started with a basic Angular app"), the online
 The app doesn't have any variable states or navigation.
 There is one URL, and that URL always displays the "My Store" page with a list of products and their descriptions.
 
-在[你的第一个应用](start "入门：你的第一个应用")结束时，这个在线商店应用会有一个基本的商品名录。该应用还没有任何可变的状态或导航。它只有一个 URL，该 URL 总是会显示“我的商店”页面，其中是商品列表及其描述。
+在[第一部分](start "入门：你的第一个应用")结束时，这个在线商店应用会有一个基本的商品名录。该应用还没有任何可变的状态或导航。它只有一个 URL，该 URL 总是会显示“我的商店”页面，其中是商品列表及其描述。
 
 This guide shows you how to use Angular [routing](guide/glossary#router "Router definition") to give the user in-app navigation. In a single-page app, instead of loading new pages, you show different components and data to the user based on where the user is in the application.
 
-本指南会教你如何使用 Angular 路由器来用一些独立页面显示完整的产品详情，这些页面有自己的 URL。
+本指南会告诉你如何使用 Angular [路由](guide/glossary#router "Router definition")来让用户进行应用内导航。在单页面应用中，你不会重新加载新页面，而是根据用户所在的位置，向他显示不同的组件和数据。
 
 The router lets you display full product details in separate [views](guide/glossary#view "View definition"), each with its own URL. Routing enables navigation from one view to the next (within the same page) as users perform tasks such as the following:
 
-Angular [路由器](guide/glossary#router "Router definition")能让你根据用户在应用中的位置向用户显示不同的组件和数据。当用户执行应用任务时，路由器可以从一个视图导航到另一个视图。比如：
+Angular [路由器](guide/glossary#router "Router definition")能让你在不同的[视图](guide/glossary#view "View definition")中显示产品的详情，每个产品都有自己的 URL。当用户执行应用任务时，路由器可以从一个视图导航到另一个视图（但在同一个页面）。比如：
 
 * Entering a URL in the address bar to navigate to a corresponding view.
 
@@ -23,6 +23,7 @@ Angular [路由器](guide/glossary#router "Router definition")能让你根据用
 * Clicking links on the page to navigate to a new view.
 
   点击页面上的链接，导航到新页面。
+
 * Clicking the browser's back and forward buttons to navigate backward and forward through the browser history.
 
   点击浏览器的后退和前进按钮，在浏览器的历史中前后导航。
@@ -33,7 +34,7 @@ Angular [路由器](guide/glossary#router "Router definition")能让你根据用
 
 The app is already set up to use the Angular `Router` and to use routing to navigate to the product list component you modified earlier. This section shows you how to define a route to show individual product details.
 
-该应用已经设置为使用 Angular 路由器，并通过路由导航到之前修改过的商品列表组件。本节会向你展示如何定义一个可以显示单个商品详情的路由。
+该应用已经设置为使用 Angular `Router`，并通过路由导航到之前修改过的商品列表组件。本节会向你展示如何定义一个可以显示单个商品详情的路由。
 
 1. Generate a new component for product details. Give the component the name `product-details`.
 
@@ -126,7 +127,7 @@ The product details component handles the display of each product. The Angular R
 
       By injecting the `ActivatedRoute`, you are configuring the component to use a *service*. The [Managing Data](start/start-data "Try it: Managing Data") page covers services in more detail.
 
-      通过注入 `ActivatedRoute`，你把该组件配置成了使用服务的。《快速上手》教程中的这部分只是简略使用了该语法，在[管理数据](start/start-data "Getting Started: Managing Data")部分深入讲解了服务的更多细节。
+      通过注入 `ActivatedRoute`，你把该组件配置成了使用服务的。《快速上手》教程中的这部分只是简略使用了该语法，在[管理数据](start/start-data "试一试: 管理数据")部分深入讲解了服务的更多细节。
 
 1. In the `ngOnInit()` method, subscribe to route parameters and fetch the product based on the `productId`.
 
@@ -173,6 +174,7 @@ Congratulations! You have integrated routing into your online store.
 * Products are linked from the product list view to individual products.
 
   从商品列表页面链接到了单个商品。
+
 * Users can click on a product name from the list to see details in a new view, with a distinct URL/route.
 
   用户可以点击列表中的某个商品名称来在新视图中查看其详细信息，并带有显著的 URL/路由。

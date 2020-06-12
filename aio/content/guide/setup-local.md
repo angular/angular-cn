@@ -15,7 +15,7 @@ It includes information about prerequisites, installing the CLI, creating an ini
 
 If you are new to Angular, you might want to start with [Try it now!](start), which introduces the essentials of Angular in the context of a ready-made basic online store app that you can examine and modify. This standalone tutorial takes advantage of the interactive [StackBlitz](https://stackblitz.com/) environment for online development. You don't need to set up your local environment until you're ready.
 
-如果你不熟悉 Angular，请参阅[快速上手](start)。在构建基本版在线商店应用的过程中，快速上手可以帮助你快速学习 Angular 的基本知识。它充分利用了 [StackBlitz](https://stackblitz.com/) 在线开发环境，因此在你准备就绪之前，都不需要建立本地环境。
+如果你不熟悉Angular，可能要从[立即尝试！](start)开始，它可以在查看和修改一个现成的基础版在线商店的上下文中介绍 Angular 的要点。这个独立的教程利用交互式的 [StackBlitz](https://stackblitz.com/) 环境进行在线开发。在你准备好这些之前，无需设置本地环境。
 
 </div>
 
@@ -183,7 +183,7 @@ You will see:
 
 * Work through the [Tour of Heroes Tutorial](tutorial), a complete hands-on exercise that introduces you to the app development process using the Angular CLI and walks through important subsystems.
 
-  走一遍[英雄指南教程](tutorial)，这是一个完整的动手练习题，它将教你使用 Angular CLI 进行应用开发的过程，并逐步介绍重要的子系统。
+  过一遍[英雄指南教程](tutorial)，这是一个完整的动手练习题，它将教你使用 Angular CLI 进行应用开发的过程，并逐步介绍重要的子系统。
 
 * To learn more about using the Angular CLI, see the [CLI Overview](cli "CLI Overview"). In addition to creating the initial workspace and app scaffolding, you can use the CLI to generate Angular code such as components and services. The CLI supports the full development cycle, including building, testing, bundling, and deployment.
 
