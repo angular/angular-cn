@@ -936,6 +936,11 @@
       "url": "https://devui.design/"
     },
     {
+      "title": "ng-nest 组件库",
+      "tooltip": "基于 Angular 和 Nest 的 Web 应用程序框架，UI 库中涵盖了企业开发中需要的大部分组件，table、form、tree、message、dialog、menu、tabs 等一共 60+ 基础组件",
+      "url": "https://ngnest.com/"
+    },
+    {
       "title": "ng-zorro mobile 组件库",
       "tooltip": "Ant Design Mobile 的 Angular 实现，服务于无线产品。",
       "url": "https://ng.mobile.ant.design/"
