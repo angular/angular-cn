@@ -57,7 +57,7 @@ export class ApiListComponent implements OnInit {
 
   statuses: Option[] = [
     { value: 'all', title: '全部' },
-    { value: 'stable', title: 'Stable'},
+    { value: 'stable', title: '稳定'},
     { value: 'deprecated', title: '弃用' },
     { value: 'security-risk', title: '安全风险' }
   ];
