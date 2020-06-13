@@ -160,7 +160,7 @@ export class AppComponent implements OnInit {
     ]).subscribe(([versionInfo, versions]) => {
       // TODO(pbd): consider whether we can lookup the stable and next versions from the internet
       const computedVersions: NavigationNode[] = [
-        { title: '英文最新版', url: 'https://next.angular.io/' },
+        { title: 'next 版', url: 'https://next.angular.io/' },
         { title: '同步翻译版', url: 'https://angular.cn/' },
       ];
       if (this.deployment.mode === 'archive') {
