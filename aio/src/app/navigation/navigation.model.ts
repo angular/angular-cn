@@ -9,6 +9,7 @@ export interface NavigationNode {
   // always have `title`.
   title: string;
 
+  mode?: string;
   url?: string;
   tooltip?: string;
   hidden?: boolean;
@@ -18,7 +19,7 @@ export interface NavigationNode {
   children?: NavigationNode[];
 }
 
-export type NavigationResponse = {__versionInfo: VersionInfo } & { [name: string]: NavigationNode[]|VersionInfo };
+export type NavigationResponse = { __versionInfo: VersionInfo } & { [name: string]: NavigationNode[] | VersionInfo };
 
 export interface NavigationViews {
   [name: string]: NavigationNode[];

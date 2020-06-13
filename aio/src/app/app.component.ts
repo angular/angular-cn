@@ -160,8 +160,8 @@ export class AppComponent implements OnInit {
     ]).subscribe(([versionInfo, versions]) => {
       // TODO(pbd): consider whether we can lookup the stable and next versions from the internet
       const computedVersions: NavigationNode[] = [
-        { title: 'next 版', url: 'https://next.angular.io/' },
-        { title: '同步翻译版', url: 'https://angular.cn/' },
+        { mode: 'next', title: 'next 版', url: 'https://next.angular.io/' },
+        { mode: 'stable', title: '同步翻译版', url: 'https://angular.cn/' },
       ];
       if (this.deployment.mode === 'archive') {
         computedVersions.push({ title: `v${versionInfo.major}` });
@@ -171,7 +171,7 @@ export class AppComponent implements OnInit {
       // Find the current version - eithers title matches the current deployment mode
       // or its title matches the major version of the current version info
       this.currentDocVersion = this.docVersions.find(version =>
-        version.title === this.deployment.mode || version.title === `v${versionInfo.major}`)!;
+        version.mode === this.deployment.mode || version.title === `v${versionInfo.major}`)!;
       this.currentDocVersion.title += ` (v${versionInfo.raw})`;
     });
 
