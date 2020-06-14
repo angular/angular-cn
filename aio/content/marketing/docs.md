@@ -34,7 +34,7 @@ Tutorials and guides include downloadable examples to accelerate your projects.
       <section>Take a Look</section>
       <section>走马观花</section>
       <p>Examine and work with a small ready-made Angular app, without any setup.</p>
-      <p>零设置，试用一个写好的 Angular 应用程序</p>
+      <p>零设置，试用一个现成的 Angular 应用</p>
       <p class="card-footer">Try it now</p>
       <p class="card-footer">现在试试</p>
   </a>
