@@ -34,14 +34,14 @@ Tutorials and guides include downloadable examples to accelerate your projects.
       <section>Take a Look</section>
       <section>走马观花</section>
       <p>Examine and work with a small ready-made Angular app, without any setup.</p>
-      <p>零设置，检查并使用一个小型的现有 Angular 应用程序。</p>
+      <p>零设置，试用一个写好的 Angular 应用程序</p>
       <p class="card-footer">Try it now</p>
       <p class="card-footer">现在试试</p>
   </a>
   <a href="tutorial" class="docs-card" title="Create an app">
       <section>Hello World</section>
       <p>Work through a full tutorial to create your first app.</p>
-      <p>创建整个应用的完整教程</p>
+      <p>一个完整教程，带你从头到尾创建首个应用</p>
       <p class="card-footer">Tour of Heroes tutorial</p>
       <p class="card-footer">英雄指南教程</p>
   </a>
