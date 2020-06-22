@@ -428,8 +428,8 @@
       ]
     },
     {
-      "title": "技巧",
-      "tooltip": "在你的环境中使用 Angular 的技巧",
+      "title": "其它技术",
+      "tooltip": "在你的环境中使用 Angular 的其它技术",
       "children": [
         {
           "title": "动画",
