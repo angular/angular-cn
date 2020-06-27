@@ -19,10 +19,13 @@ Angular's `HttpClient`.
 
    用户可以根据名字搜索英雄。
 
-When you're done with this page, the app should look like this <live-example></live-example>.
+<div class="alert is-helpful">
 
-当你完成这一章时，应用会变成这样：<live-example></live-example>。
+  For the sample app that this page describes, see the <live-example></live-example>.
 
+  要查看本页所讲的范例程序，参见<live-example></live-example>。
+
+</div>
 ## Enable HTTP services
 
 ## 启用 HTTP 服务
@@ -121,7 +124,8 @@ Replace the default contents of `in-memory-data.service.ts` with the following:
 
 <code-example path="toh-pt6/src/app/in-memory-data.service.ts" region="init" header="src/app/in-memory-data.service.ts"></code-example>
 
-The `in-memory-data.service.ts` file replaces `mock-heroes.ts`, which is now safe to delete.
+The `in-memory-data.service.ts` file will take over the function of `mock-heroes.ts`.
+However, don't delete `mock-heroes.ts` yet, as you still need it for a few more steps of this tutorial.
 
 `in-memory-data.service.ts` 文件已代替了 `mock-heroes.ts` 文件，现在后者可以安全的删除了。
 
@@ -854,10 +858,6 @@ If you enter characters that match any existing hero names, you'll see something
 ## Final code review
 
 ## 查看最终代码
-
-Your app should look like this <live-example></live-example>.
-
-你的应用现在变成了这样：<live-example></live-example>。
 
 Here are the code files discussed on this page (all in the `src/app/` folder).
 

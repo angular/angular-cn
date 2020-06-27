@@ -1,12 +1,12 @@
 /**
  * @license
- * Copyright Google Inc. All Rights Reserved.
+ * Copyright Google LLC All Rights Reserved.
  *
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
 
-import {AfterContentInit, ContentChildren, Directive, ElementRef, Input, OnChanges, OnDestroy, Optional, QueryList, Renderer2, SimpleChanges} from '@angular/core';
+import {AfterContentInit, ChangeDetectorRef, ContentChildren, Directive, ElementRef, Input, OnChanges, OnDestroy, Optional, QueryList, Renderer2, SimpleChanges} from '@angular/core';
 import {Subscription} from 'rxjs';
 
 import {Event, NavigationEnd} from '../events';
@@ -111,7 +111,7 @@ export class RouterLinkActive implements OnChanges, OnDestroy, AfterContentInit 
 
   constructor(
       private router: Router, private element: ElementRef, private renderer: Renderer2,
-      @Optional() private link?: RouterLink,
+      private readonly cdr: ChangeDetectorRef, @Optional() private link?: RouterLink,
       @Optional() private linkWithHref?: RouterLinkWithHref) {
     this.subscription = router.events.subscribe((s: Event) => {
       if (s instanceof NavigationEnd) {
@@ -146,6 +146,7 @@ export class RouterLinkActive implements OnChanges, OnDestroy, AfterContentInit 
       const hasActiveLinks = this.hasActiveLinks();
       if (this.isActive !== hasActiveLinks) {
         (this as any).isActive = hasActiveLinks;
+        this.cdr.markForCheck();
         this.classes.forEach((c) => {
           if (hasActiveLinks) {
             this.renderer.addClass(this.element.nativeElement, c);

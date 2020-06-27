@@ -76,7 +76,11 @@ and how to [write your own](guide/structural-directives#unless) structural direc
 
 <div class="callout is-helpful">
 
-<header>Directive spelling</header>
+
+<header>
+  Directive spelling
+</header>
+
 
 <header>指令的拼写形式</header>
 
@@ -304,10 +308,10 @@ You enable these features in the string assigned to `ngFor`, which you write in 
 
 Everything _outside_ the `ngFor` string stays with the host element
 (the `<div>`) as it moves inside the `<ng-template>`.
-In this example, the `[ngClass]="odd"` stays on the `<div>`.
+In this example, the `[class.odd]="odd"` stays on the `<div>`.
 
 `ngFor` 字符串*之外*的每一样东西都会留在宿主元素（`<div>`）上，也就是说它移到了 `<ng-template>` 内部。
-在这个例子中，`[ngClass]="odd"` 留在了 `<div>` 上。
+在这个例子中，`[class.odd]="odd"` 留在了 `<div>` 上。
 
 </div>
 
@@ -1226,7 +1230,7 @@ Here is the source from the `src/app/` folder.
 
 </code-tabs>
 
-You learned
+You learned:
 
 你学到了
 

@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright Google Inc. All Rights Reserved.
+ * Copyright Google LLC All Rights Reserved.
  *
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
@@ -204,7 +204,7 @@ describe('ng-add schematic', () => {
     const {files} = host;
     expect(files).toContain('/src/index.html');
     const content = host.readContent('/src/index.html');
-    expect(content).not.toMatch('<script src="/zone.min.js"></script>');
+    expect(content).not.toMatch('<script src="/zone.umd.min.js"></script>');
     expect(content).not.toMatch('<script src="/bundle.min.js"></script>');
   });
 

@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright Google Inc. All Rights Reserved.
+ * Copyright Google LLC All Rights Reserved.
  *
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
@@ -81,12 +81,6 @@ describe('@angular/core ng_package', () => {
           expect(shx.cat('src/r3_symbols.d.ts')).toContain('export declare');
         });
       }
-    });
-
-    describe('closure', () => {
-      it('should contain externs', () => {
-        expect(shx.cat('src/testability/testability.externs.js')).toContain('/** @externs */');
-      });
     });
 
     obsoleteInIvy('metadata files are no longer needed or produced in Ivy')

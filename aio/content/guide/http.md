@@ -2,7 +2,7 @@
 
 # 使用 HTTP 与后端服务进行通信
 
-Most front-end applications need to communicate with a server over the HTTP protocol, in order to download or upload data and accesss other back-end services.
+Most front-end applications need to communicate with a server over the HTTP protocol, in order to download or upload data and access other back-end services.
 Angular provides a simplified client HTTP API for Angular applications, the `HttpClient` service class in `@angular/common/http`.
 
 大多数前端应用都要通过 HTTP 协议与服务器通讯，才能下载或上传数据并访问其它后端服务。Angular 给应用提供了一个简化的 HTTP 客户端 API，也就是 `@angular/common/http` 中的 `HttpClient` 服务类。
@@ -11,19 +11,19 @@ The HTTP client service offers the following major features.
 
 HTTP 客户端服务提供了以下主要功能。
 
-- The ability to request [typed response objects](#typed-response).
+* The ability to request [typed response objects](#typed-response).
 
   请求[类型化响应对象](#typed-response)的能力。
 
-- Streamlined [error handling](#error-handling).
+* Streamlined [error handling](#error-handling).
 
   简化的[错误处理](#error-handling)。
 
-- [Testability](#testing-requests) features.
+* [Testability](#testing-requests) features.
 
   各种特性的[可测试性](#testing-requests)。
 
-- Request and response [interception](#intercepting-requests-and-responses).
+* Request and response [interception](#intercepting-requests-and-responses).
 
   请求和响应的[拦截机制](#intercepting-requests-and-responses)。
 
@@ -35,19 +35,19 @@ Before working with the `HTTPClientModule`, you should have a basic understandin
 
 在使用 `HTTPClientModule` 之前，你应该对下列内容有基本的了解：
 
-- TypeScript programming
+* TypeScript programming
 
   TypeScript 编程
 
-- Usage of the HTTP protocol
+* Usage of the HTTP protocol
 
   HTTP 协议的用法
 
-- Angular app-design fundamentals, as described in [Angular Concepts](guide/architecture)
+* Angular app-design fundamentals, as described in [Angular Concepts](guide/architecture)
 
   Angular 的应用设计基础，就像[Angular 基本概念](guide/architecture)中描述的那样
 
-- Observable techniques and operators. See the [Observables](guide/observables) guide.
+* Observable techniques and operators. See the [Observables](guide/observables) guide.
 
   Observable 相关技术和操作符。参见[可观察对象](guide/observables)部分。
 
@@ -94,13 +94,13 @@ You can run the <live-example></live-example> that accompanies this guide.
 
 The sample app does not require a data server.
 It relies on the
-[Angular *in-memory-web-api*](https://github.com/angular/in-memory-web-api/blob/master/README.md),
-which replaces the *HttpClient* module's `HttpBackend`.
+[Angular _in-memory-web-api_](https://github.com/angular/in-memory-web-api/blob/master/README.md),
+which replaces the _HttpClient_ module's `HttpBackend`.
 The replacement service simulates the behavior of a REST-like backend.
 
 该示例应用不需要数据服务器。它依赖于[Angular *in-memory-web-api*](https://github.com/angular/in-memory-web-api/blob/master/README.md)，它替代了 *HttpClient* 模块中的 `HttpBackend`。这个替代服务会模拟 REST 式的后端的行为。
 
-Look at the `AppModule` *imports* to see how it is configured.
+Look at the `AppModule` _imports_ to see how it is configured.
 
 看一下 `AppModule` 的这些*导入*，看看它的配置方式。
 
@@ -111,7 +111,7 @@ Look at the `AppModule` *imports* to see how it is configured.
 ## 从服务器请求数据
 
 Use the [`HTTPClient.get()`](api/common/http/HttpClient#get) method to fetch data from a server.
-The aynchronous method sends an HTTP request, and returns an Observable that emits the requested data when the response is received.
+The asynchronous method sends an HTTP request, and returns an Observable that emits the requested data when the response is received.
 The return type varies based on the `observe` and `responseType` values that you pass to the call.
 
 使用 [`HTTPClient.get()`](api/common/http/HttpClient#get) 方法从服务器获取数据。该异步方法会发送一个 HTTP 请求，并返回一个 Observable，它会在收到响应时发出所请求到的数据。返回的类型取决于你调用时传入的 `observe` 和 `responseType` 参数。
@@ -135,11 +135,11 @@ Important options include the *observe* and *responseType* properties.
 
 这些重要的选项包括 *observe* 和 *responseType* 属性。
 
-- The *observe* option specifies how much of the response to return.
+* The *observe* option specifies how much of the response to return.
 
   *observe* 选项用于指定要返回的响应内容。
 
-- The *responseType* option specifies the format in which to return data.
+* The *responseType* option specifies the format in which to return data.
 
   *responseType* 选项指定返回数据的格式。
 
@@ -317,7 +317,7 @@ client.get('/foo', options)
 ```
 
 In the second case, TypeScript infers the type of `options` to be `{responseType: string}`.
-The type is too wide to pass to `HttpClient.get` which is expecting the type of `responseType` to be one of the *specific* strings.
+The type is too wide to pass to `HttpClient.get` which is expecting the type of `responseType` to be one of the _specific_ strings.
 `HttpClient` is typed explicitly this way so that the compiler can report the correct return type based on the options you provided.
 
 在第二种情况下，TypeScript 会把 `options` 的类型推断为 `{responseType: string}`。该类型的 `HttpClient.get` 太宽泛，无法传递给 `HttpClient.get`，它希望 `responseType` 的类型是*特定的*字符串之一。而 `HttpClient` 就是以这种方式显式输入的，因此编译器可以根据你提供的选项报告正确的返回类型。
@@ -479,11 +479,11 @@ Two types of errors can occur.
 
 可能会出现两种类型的错误。
 
-- The server backend might reject the request, returning an HTTP response with a status code such as 404 or 500. These are error *responses*.
+* The server backend might reject the request, returning an HTTP response with a status code such as 404 or 500. These are error *responses*.
 
   服务器端可能会拒绝该请求，并返回状态码为 404 或 500 的 HTTP *响应*。这些是错误*响应*。
 
-- Something could go wrong on the client-side such as a network error that prevents the request from completing successfully or an exception thrown in an RxJS operator. These errors produce JavaScript `ErrorEvent` objects.
+* Something could go wrong on the client-side such as a network error that prevents the request from completing successfully or an exception thrown in an RxJS operator. These errors produce JavaScript `ErrorEvent` objects.
 
   客户端也可能出现问题，例如网络错误会让请求无法成功完成，或者 RxJS 操作符也会抛出异常。这些错误会产生 JavaScript 的 `ErrorEvent` 对象。
 
@@ -575,11 +575,11 @@ The `HttpClient.post()` method is similar to `get()` in that it has a type param
 
 `HttpClient.post()` 方法像 `get()` 一样也有类型参数，可以用它来指出你期望服务器返回特定类型的数据。该方法需要一个资源 URL 和两个额外的参数：
 
-- *body* - The data to POST in the body of the request.
+* *body* - The data to POST in the body of the request.
 
   *body* - 要在请求体中 POST 过去的数据。
 
-- *options* - An object containing method options which, in this case, [specify required headers](#adding-headers).
+* *options* - An object containing method options which, in this case, [specify required headers](#adding-headers).
 
   *options* - 一个包含方法选项的对象，在这里，它用来[指定必要的请求头](#adding-headers)。
 
@@ -669,7 +669,7 @@ Execution of the HTTP request is _deferred_, allowing you to extend the
 observable with additional operations such as  `tap` and `catchError` before anything actually happens.
 
 `HttpClient` 的所有方法返回的可观察对象都设计为*冷的*。
-HTTP 请求的执行都是*延期执行的*，让你可以用 `tap` 和 `catchError` 这样的操作符来在实际执行HTTP请求之前，先对这个可观察对象进行扩展。
+HTTP 请求的执行都是*延期执行的*，让你可以用 `tap` 和 `catchError` 这样的操作符来在实际执行 HTTP 请求之前，先对这个可观察对象进行扩展。
 
 Calling `subscribe(...)` triggers execution of the observable and causes
 `HttpClient` to compose and send the HTTP request to the server.
@@ -1080,11 +1080,11 @@ If you must modify the request body, follow these steps.
 
    复制请求体并在副本中进行修改。
 
-1. Clone the request object, using its `clone()` method.
+2. Clone the request object, using its `clone()` method.
 
    使用 `clone()` 方法克隆这个请求对象。
 
-1. Replace the clone's body with the modified copy.
+3. Replace the clone's body with the modified copy.
 
    用修改过的副本替换被克隆的请求体。
 
@@ -1220,23 +1220,23 @@ The `CachingInterceptor` in the following example demonstrates this approach.
   header="app/http-interceptors/caching-interceptor.ts)">
 </code-example>
 
-* The `isCachable()` function determines if the request is cachable.
-  In this sample, only GET requests to the npm package search api are cachable.
+* The `isCacheable()` function determines if the request is cacheable.
+  In this sample, only GET requests to the npm package search api are cacheable.
 
-  `isCachable()` 函数用于决定该请求是否允许缓存。
+  `isCacheable()` 函数用于决定该请求是否允许缓存。
   在这个例子中，只有发到 npm 包搜索 API 的 GET 请求才是可以缓存的。
 
-* If the request is not cachable, the interceptor simply forwards the request
+* If the request is not cacheable, the interceptor simply forwards the request
   to the next handler in the chain.
 
   如果该请求是不可缓存的，该拦截器只会把该请求转发给链表中的下一个处理器。
 
-* If a cachable request is found in the cache, the interceptor returns an `of()` *observable* with
+* If a cacheable request is found in the cache, the interceptor returns an `of()` *observable* with
   the cached response, by-passing the `next` handler (and all other interceptors downstream).
 
   如果可缓存的请求在缓存中找到了，该拦截器就会通过 `of()` 函数返回一个已缓存的响应体的*可观察对象*，然后绕过 `next` 处理器（以及所有其它下游拦截器）。
 
-* If a cachable request is not in cache, the code calls `sendRequest()`.
+* If a cacheable request is not in cache, the code calls `sendRequest()`.
   This function creates a [request clone](#immutability) without headers, because the npm API forbids them.
   The function then forwards the clone of the request to `next.handle()` which ultimately calls the server and returns the server's response.
 

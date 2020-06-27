@@ -37,7 +37,7 @@ Use [attribute binding](guide/template-syntax#attribute-binding) template syntax
 建立无障碍的 Web 体验通常会涉及设置 [ARIA 属性（Attribute）](https://developers.google.com/web/fundamentals/accessibility/semantics-aria) 以提供可能会丢失的语义。使用 [Attribute 绑定](guide/template-syntax#attribute-binding)模板语法来控制与无障碍性相关的属性（Attribute）值。
 
 When binding to ARIA attributes in Angular, you must use the `attr.` prefix, as the ARIA
-specification depends specifically on HTML attributes rather than properties on DOM elements.
+specification depends specifically on HTML attributes rather than properties of DOM elements.
 
 在 Angular 中绑定 ARIA 属性（Attribute）时，必须使用 `attr.` 前缀，因为 ARIA 规范针对的是 HTML 属性（Attribute），而不是 DOM 元素的属性（Property）。
 
@@ -66,9 +66,9 @@ NOTE:
 
    按照约定，HTML 属性（Attribute）使用小写名称（ `tabindex` ），而 Property 使用 camelCase 名称（ `tabIndex` ）。
 
-   See the [Template Syntax](https://angular.io/guide/template-syntax#html-attribute-vs-dom-property) guide for more background on the difference between attributes and properties.
+   See the [Template Syntax](guide/template-syntax#html-attribute-vs-dom-property) guide for more background on the difference between attributes and properties.
 
-   有关 Attribute 和 Property 之间差异的更多背景信息，请参见[模板语法](https://angular.cn/guide/template-syntax#html-attribute-vs-dom-property)一章。
+   有关 Attribute 和 Property 之间差异的更多背景信息，请参见[模板语法](guide/template-syntax#html-attribute-vs-dom-property)一章。
 
 </div>
 

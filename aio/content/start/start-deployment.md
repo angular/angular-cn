@@ -180,9 +180,9 @@ Angular 还提供了更多功能，不过你现在已经有了基础，可以让
 
   [Angular Protractor](https://protractor.angular.io/ "Angular Protractor 网站") 为 Angular 应用提供了一个端到端的测试框架。
 
-* Angular also has an extensive [network of 3rd-party tools and libraries](https://angular.io/resources "Angular resources list"). 
+* Angular also has an extensive [network of 3rd-party tools and libraries](resources "Angular resources list"). 
 
-  Angular 还拥有广泛的[第三方工具和库](https://angular.cn/resources "Angular 资源列表")互助网。
+  Angular 还拥有广泛的[第三方工具和库](resources "Angular 资源列表")互助网。
 
 Keep current by following the [Angular blog](https://blog.angular.io/ "Angular blog").
 

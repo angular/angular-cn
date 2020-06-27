@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright Google Inc. All Rights Reserved.
+ * Copyright Google LLC All Rights Reserved.
  *
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
@@ -39,7 +39,7 @@ export class TemplateTypeChecker {
       private typeCheckingStrategy: TypeCheckingProgramStrategy,
       private typeCheckAdapter: ProgramTypeCheckAdapter, private config: TypeCheckingConfig,
       private refEmitter: ReferenceEmitter, private reflector: ReflectionHost,
-      private compilerHost: ts.CompilerHost,
+      private compilerHost: Pick<ts.CompilerHost, 'getCanonicalFileName'>,
       private priorBuild: IncrementalBuild<unknown, FileTypeCheckingData>) {}
 
   /**

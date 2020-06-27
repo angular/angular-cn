@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright Google Inc. All Rights Reserved.
+ * Copyright Google LLC All Rights Reserved.
  *
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
@@ -32,11 +32,6 @@ export class ViewRef<T> implements viewEngine_EmbeddedViewRef<T>, viewEngine_Int
                                    viewEngine_ChangeDetectorRef_interface {
   private _appRef: ApplicationRef|null = null;
   private _viewContainerRef: viewEngine_ViewContainerRef|null = null;
-
-  /**
-   * @internal
-   */
-  public _tViewNode: TViewNode|null = null;
 
   get rootNodes(): any[] {
     const lView = this._lView;

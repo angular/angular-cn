@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright Google Inc. All Rights Reserved.
+ * Copyright Google LLC All Rights Reserved.
  *
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
@@ -79,11 +79,7 @@ function _find(control: AbstractControl, path: Array<string|number>|string, deli
 
 function coerceToValidator(validatorOrOpts?: ValidatorFn|ValidatorFn[]|AbstractControlOptions|
                            null): ValidatorFn|null {
-  const validator =
-      (isOptionsObj(validatorOrOpts) ? (validatorOrOpts as AbstractControlOptions).validators :
-                                       validatorOrOpts) as ValidatorFn |
-      ValidatorFn[] | null;
-
+  const validator = isOptionsObj(validatorOrOpts) ? validatorOrOpts.validators : validatorOrOpts;
   return Array.isArray(validator) ? composeValidators(validator) : validator || null;
 }
 
@@ -92,10 +88,7 @@ function coerceToAsyncValidator(
     validatorOrOpts?: ValidatorFn|ValidatorFn[]|AbstractControlOptions|null): AsyncValidatorFn|
     null {
   const origAsyncValidator =
-      (isOptionsObj(validatorOrOpts) ? (validatorOrOpts as AbstractControlOptions).asyncValidators :
-                                       asyncValidator) as AsyncValidatorFn |
-      AsyncValidatorFn | null;
-
+      isOptionsObj(validatorOrOpts) ? validatorOrOpts.asyncValidators : asyncValidator;
   return Array.isArray(origAsyncValidator) ? composeAsyncValidators(origAsyncValidator) :
                                              origAsyncValidator || null;
 }
@@ -138,7 +131,7 @@ export interface AbstractControlOptions {
 
 
 function isOptionsObj(validatorOrOpts?: ValidatorFn|ValidatorFn[]|AbstractControlOptions|
-                      null): boolean {
+                      null): validatorOrOpts is AbstractControlOptions {
   return validatorOrOpts != null && !Array.isArray(validatorOrOpts) &&
       typeof validatorOrOpts === 'object';
 }
@@ -175,6 +168,13 @@ export abstract class AbstractControl {
   /** @internal */
   // TODO(issue/24571): remove '!'.
   _pendingDirty!: boolean;
+
+  /**
+   * Indicates that a control has its own pending asynchronous validation in progress.
+   *
+   * @internal
+   */
+  _hasOwnPendingAsyncValidator = false;
 
   /** @internal */
   // TODO(issue/24571): remove '!'.
@@ -906,15 +906,22 @@ export abstract class AbstractControl {
   private _runAsyncValidator(emitEvent?: boolean): void {
     if (this.asyncValidator) {
       (this as {status: string}).status = PENDING;
+      this._hasOwnPendingAsyncValidator = true;
       const obs = toObservable(this.asyncValidator(this));
-      this._asyncValidationSubscription =
-          obs.subscribe((errors: ValidationErrors|null) => this.setErrors(errors, {emitEvent}));
+      this._asyncValidationSubscription = obs.subscribe((errors: ValidationErrors|null) => {
+        this._hasOwnPendingAsyncValidator = false;
+        // This will trigger the recalculation of the validation status, which depends on
+        // the state of the asynchronous validation (whether it is in progress or not). So, it is
+        // necessary that we have updated the `_hasOwnPendingAsyncValidator` boolean flag first.
+        this.setErrors(errors, {emitEvent});
+      });
     }
   }
 
   private _cancelExistingSubscription(): void {
     if (this._asyncValidationSubscription) {
       this._asyncValidationSubscription.unsubscribe();
+      this._hasOwnPendingAsyncValidator = false;
     }
   }
 
@@ -1120,7 +1127,7 @@ export abstract class AbstractControl {
   private _calculateStatus(): string {
     if (this._allControlsDisabled()) return DISABLED;
     if (this.errors) return INVALID;
-    if (this._anyControlsHaveStatus(PENDING)) return PENDING;
+    if (this._hasOwnPendingAsyncValidator || this._anyControlsHaveStatus(PENDING)) return PENDING;
     if (this._anyControlsHaveStatus(INVALID)) return INVALID;
     return VALID;
   }
@@ -1189,8 +1196,8 @@ export abstract class AbstractControl {
 
   /** @internal */
   _setUpdateStrategy(opts?: ValidatorFn|ValidatorFn[]|AbstractControlOptions|null): void {
-    if (isOptionsObj(opts) && (opts as AbstractControlOptions).updateOn != null) {
-      this._updateOn = (opts as AbstractControlOptions).updateOn!;
+    if (isOptionsObj(opts) && opts.updateOn != null) {
+      this._updateOn = opts.updateOn!;
     }
   }
 
@@ -2110,11 +2117,13 @@ export class FormGroup extends AbstractControl {
 
   /** @internal */
   _anyControls(condition: Function): boolean {
-    let res = false;
-    this._forEachChild((control: AbstractControl, name: string) => {
-      res = res || (this.contains(name) && condition(control));
-    });
-    return res;
+    for (const controlName of Object.keys(this.controls)) {
+      const control = this.controls[controlName];
+      if (this.contains(controlName) && condition(control)) {
+        return true;
+      }
+    }
+    return false;
   }
 
   /** @internal */

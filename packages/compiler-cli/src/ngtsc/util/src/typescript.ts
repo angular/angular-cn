@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright Google Inc. All Rights Reserved.
+ * Copyright Google LLC All Rights Reserved.
  *
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
@@ -122,7 +122,7 @@ export function nodeDebugInfo(node: ts.Node): string {
  */
 export function resolveModuleName(
     moduleName: string, containingFile: string, compilerOptions: ts.CompilerOptions,
-    compilerHost: ts.CompilerHost,
+    compilerHost: ts.ModuleResolutionHost&Pick<ts.CompilerHost, 'resolveModuleNames'>,
     moduleResolutionCache: ts.ModuleResolutionCache|null): ts.ResolvedModule|undefined {
   if (compilerHost.resolveModuleNames) {
     // FIXME: Additional parameters are required in TS3.6, but ignored in 3.5.

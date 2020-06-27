@@ -1,4 +1,4 @@
-# Copyright Google Inc. All Rights Reserved.
+# Copyright Google LLC All Rights Reserved.
 #
 # Use of this source code is governed by an MIT-style license that can be
 # found in the LICENSE file at https://angular.io/license
@@ -12,6 +12,7 @@ load("//tools/npm_integration_test:npm_integration_test.bzl", "npm_integration_t
 NPM_PACKAGE_ARCHIVES = [
     "check-side-effects",
     "core-js",
+    "google-closure-compiler",
     "jasmine",
     "typescript",
     "rxjs",

@@ -1,20 +1,74 @@
 # Lazy-loading feature modules
 
-# 惰性加载的特性模块
-
-## High level view
-
-## 高层视角
+# 惰性加载特性模块
 
 By default, NgModules are eagerly loaded, which means that as soon as the app loads, so do all the NgModules, whether or not they are immediately necessary. For large apps with lots of routes, consider lazy loading&mdash;a design pattern that loads NgModules as needed. Lazy loading helps keep initial
 bundle sizes smaller, which in turn helps decrease load times.
 
 默认情况下，NgModule 都是急性加载的，也就是说它会在应用加载时尽快加载，所有模块都是如此，无论是否立即要用。对于带有很多路由的大型应用，考虑使用惰性加载 —— 一种按需加载 NgModule 的模式。惰性加载可以减小初始包的尺寸，从而减少加载时间。
 
+<div class="alert is-helpful">
+
 For the final sample app with two lazy-loaded modules that this page describes, see the
 <live-example></live-example>.
 
 如果需要本页描述的具有两个惰性加载模块的范例应用，参见<live-example></live-example>。
+
+</div>
+
+{@a lazy-loading}
+
+## Lazy loading basics
+
+## 惰性加载入门
+
+This section introduces the basic procedure for configuring a lazy-loaded route.
+For a step-by-step example, see the [step-by-step setup](#step-by-step) section on this page.
+
+本节会介绍配置惰性加载路由的基本过程。
+想要一个分步的范例，参见本页的[分步设置](#step-by-step)部分。
+
+To lazy load Angular modules, use `loadchildren` (instead of `component`) in your `AppRoutingModule` `routes` configuration as follows.
+
+要惰性加载 Angular 模块，请在 `AppRoutingModule` `routes` 中使用 `loadchildren` 代替 `component` 进行配置，代码如下。
+
+<code-example header="AppRoutingModule (excerpt)">
+
+const routes: Routes = [
+  {
+    path: 'items',
+    loadChildren: () => import('./items/items.module').then(m => m.ItemsModule)
+  }
+];
+
+</code-example>
+
+In the lazy-loaded module's routing module, add a route for the component.
+
+在惰性加载模块的路由模块中，添加一个指向该组件的路由。
+
+<code-example header="Routing module for lazy loaded module (excerpt)">
+
+const routes: Routes = [
+  {
+    path: '',
+    component: ItemsComponent
+  }
+];
+
+</code-example>
+
+Also be sure to remove the `ItemsModule` from the `AppModule`.
+For step-by-step instructions on lazy loading modules, continue with the following sections of this page.
+
+还要确保从 `AppModule` 中移除了 `ItemsModule`。
+想要一个关于惰性加载模块的分步操作指南，请继续查看本页的后续章节。
+
+{@a step-by-step}
+
+## Step-by-step setup
+
+## 分步设置
 
 There are two main steps to setting up a lazy-loaded feature module:
 
@@ -28,9 +82,9 @@ There are two main steps to setting up a lazy-loaded feature module:
 
    配置相关路由。
 
-## Set up an app
+### Set up an app
 
-## 建立应用
+### 建立应用
 
 If you don’t already have an app, you can follow the steps below to
 create one with the CLI. If you already have an app, skip to
@@ -63,9 +117,9 @@ See [Keeping Up to Date](guide/updating).
 
 </div>
 
-## Create a feature module with routing
+### Create a feature module with routing
 
-## 创建一个带路由的特性模块
+### 创建一个带路由的特性模块
 
 Next, you’ll need a feature module with a component to route to.
 To make one, enter the following command in the terminal, where `customers` is the name of the feature module. The path for loading the `customers` feature modules is also `customers` because it is specified with the `--route` option:
@@ -99,9 +153,9 @@ The import path is the relative path to the module.
 注意，惰性加载语法使用 `loadChildren`，其后是一个使用浏览器内置的 `import('...')` 语法进行动态导入的函数。
 其导入路径是到当前模块的相对路径。
 
-### Add another feature module
+#### Add another feature module
 
-### 添加另一个特性模块
+#### 添加另一个特性模块
 
 Use the same command to create a second lazy-loaded feature module with routing, along with its stub component.
 
@@ -123,9 +177,9 @@ The `orders` route, specified with the `--route` option, is added to the `routes
   region="routes-customers-orders">
 </code-example>
 
-## Set up the UI
+### Set up the UI
 
-## 建立 UI
+### 建立 UI
 
 Though you can type the URL into the address bar, a navigation UI is easier for the user and more common.
 Replace the default placeholder markup in `app.component.html` with a custom nav
@@ -134,9 +188,7 @@ so you can easily navigate to your modules in the browser:
 虽然你也可以在地址栏中输入 URL，不过导航 UI 会更好用，也更常见。
 把 `app.component.html` 中的占位脚本替换成一个自定义的导航，以便你在浏览器中能轻松地在模块之间导航。
 
-<code-example path="lazy-loading-ngmodules/src/app/app.component.html" header="app.component.html" region="app-component-template" header="src/app/app.component.html">
-
-</code-example>
+<code-example path="lazy-loading-ngmodules/src/app/app.component.html" header="app.component.html" region="app-component-template" header="src/app/app.component.html"></code-example>
 
 To see your app in the browser so far, enter the following command in the terminal window:
 
@@ -163,9 +215,9 @@ These buttons work, because the CLI automatically added the routes to the featur
 
 {@a config-routes}
 
-## Imports and route configuration
+### Imports and route configuration
 
-## 导入与路由配置
+### 导入与路由配置
 
 The CLI automatically added each feature module to the routes map at the application level.
 Finish this off by adding the default route. In the `app-routing.module.ts` file, update the `routes` array with the following:
@@ -216,9 +268,9 @@ The other feature module's routing module is configured similarly.
 
 <code-example path="lazy-loading-ngmodules/src/app/orders/orders-routing.module.ts" id="orders-routing.module.ts" region="orders-routing-module-detail" header="src/app/orders/orders-routing.module.ts (excerpt)"></code-example>
 
-## Confirm it’s working
+### Verify lazy loading
 
-## 确认它工作正常
+### 确认它工作正常
 
 You can check to see that a module is indeed being lazy loaded with the Chrome developer tools. In Chrome, open the dev tools by pressing `Cmd+Option+i` on a Mac or `Ctrl+Shift+j` on a PC and go to the Network Tab.
 
@@ -282,6 +334,134 @@ For more information, see the [`forRoot()` pattern](guide/singleton-services#for
 `forRoot()` 方法为路由器管理*全局性的*注入器配置。
 `forChild()` 方法中没有注入器配置，只有像 `RouterOutlet` 和 `RouterLink` 这样的指令。
 欲知详情，参见[单例服务](guide/singleton-services)章的 [`forRoot()` 模式](guide/singleton-services#forRoot)小节。
+
+{@a preloading}
+
+## Preloading
+
+## 预加载
+
+Preloading improves UX by loading parts of your app in the background.
+You can preload modules or component data.
+
+预加载通过在后台加载部分应用来改进用户体验。你可以预加载模块或组件数据。
+
+### Preloading modules
+
+### 预加载模块
+
+Preloading modules improves UX by loading parts of your app in the background so users don't have to wait for the elements to download when they activate a route.
+
+预加载模块通过在后台加载部分应用来改善用户体验，这样用户在激活路由时就无需等待下载这些元素。
+
+To enable preloading of all lazy loaded modules, import the `PreloadAllModules` token from the Angular `router`.
+
+要启用所有惰性加载模块的预加载， 请从 Angular 的 `router` 导入 `PreloadAllModules` 令牌。
+
+<code-example header="AppRoutingModule (excerpt)">
+
+import { PreloadAllModules } from '@angular/router';
+
+</code-example>
+
+Still in the `AppRoutingModule`, specify your preloading strategy in `forRoot()`.
+
+还是在 `AppRoutingModule` 中，通过 `forRoot()` 指定你的预加载策略。
+
+<code-example header="AppRoutingModule (excerpt)">
+
+RouterModule.forRoot(
+  appRoutes,
+  {
+    preloadingStrategy: PreloadAllModules
+  }
+)
+
+</code-example>
+
+### Preloading component data
+
+### 预加载组件数据
+
+To preload component data, you can use a `resolver`.
+Resolvers improve UX by blocking the page load until all necessary data is available to fully display the page.
+
+要预加载组件数据，你可以使用 `resolver` 守卫。解析器通过阻止页面加载来改进用户体验，直到显示页面时的全部必要数据都可用。
+
+#### Resolvers
+
+#### 解析器
+
+Create a resolver service.
+With the CLI, the command to generate a service is as follows:
+
+创建一个解析器服务。通过 CLI，生成服务的命令如下：
+
+
+<code-example language="none" class="code-shell">
+  ng generate service <service-name>
+</code-example>
+
+In your service, import the following router members, implement `Resolve`, and inject the `Router` service:
+
+在你的服务中，导入下列路由器成员，实现 `Resolve` 接口，并注入到 `Router` 服务中：
+
+
+<code-example header="Resolver service (excerpt)">
+
+import { Resolve } from '@angular/router';
+
+...
+
+export class CrisisDetailResolverService implements Resolve<> {
+  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<> {
+    // your logic goes here
+  }
+}
+
+</code-example>
+
+Import this resolver into your module's routing module.
+
+把这个解析器导入此模块的路由模块。
+
+<code-example header="Feature module's routing module (excerpt)">
+
+import { YourResolverService }    from './your-resolver.service';
+
+</code-example>
+
+Add a `resolve` object to the component's `route` configuration.
+
+在组件的 `route` 配置中添加一个 `resolve` 对象。
+
+<code-example header="Feature module's routing module (excerpt)">
+{
+  path: '/your-path',
+  component: YourComponent,
+  resolve: {
+    crisis: YourResolverService
+  }
+}
+</code-example>
+
+In the component, use an `Observable` to get the data from the `ActivatedRoute`.
+
+在此组件中，使用一个 `Observable` 来从 `ActivatedRoute` 获取数据。
+
+<code-example header="Component (excerpt)">
+ngOnInit() {
+  this.route.data
+    .subscribe((your-parameters) => {
+      // your data-specific code goes here
+    });
+}
+</code-example>
+
+For more information with a working example, see the [routing tutorial section on preloading](guide/router#preloading-background-loading-of-feature-areas).
+
+有关工作示例的更多信息，请参阅[路由教程的预加载部分](guide/router#preloading-background-loading-of-feature-areas) 。
+
 
 <hr>
 

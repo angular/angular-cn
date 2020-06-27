@@ -221,8 +221,8 @@
             },
             {
               "url": "guide/lifecycle-hooks",
-              "title": "生命周期钩子",
-              "tooltip": "Angular 调用指令和组件的生命周期钩子函数，包括它的创建、变更和销毁时。"
+              "title": "挂钩进组件的生命周期",
+              "tooltip": "Angular 会在创建、修改、删除指令和组件时，调用其生命周期钩子方法。"
             },
             {
               "url": "guide/component-interaction",
@@ -259,11 +259,6 @@
               "url": "guide/reactive-forms",
               "title": "响应式表单",
               "tooltip": "使用 FormBuilder、表单组和表单数组创建响应式表单。"
-            },
-            {
-              "url": "guide/forms",
-              "title": "模板驱动表单",
-              "tooltip": "使用指令和 Angular 模板语法创建模板驱动表单。"
             },
             {
               "url": "guide/form-validation",
@@ -563,6 +558,11 @@
               "url": "guide/creating-libraries",
               "title": "创建库",
               "tooltip": "通过创建、发布和使用你自己的库来扩展 Angular。"
+            },
+            {
+              "url": "guide/lightweight-injection-tokens",
+              "title": "供库使用的轻量级注入令牌",
+              "tooltip": "使用轻量级注入令牌来设计库中的服务，以优化客户端应用的大小。"
             }
           ]
         },
@@ -591,11 +591,6 @@
           "url": "guide/cli-builder",
           "title": "CLI 构建器",
           "tooltip": "使用构建器定制 Angular CLI。"
-        },
-        {
-          "url": "guide/web-worker",
-          "title": "Angular 中的 Web Worker",
-          "tooltip": "利用 Web Worker 实现后台处理。"
         }
       ]
     },
@@ -633,11 +628,6 @@
           "url": "guide/build",
           "title": "构建与运行",
           "tooltip": "构建应用及为应用启动开发服务器。"
-        },
-        {
-          "url": "guide/bazel",
-          "title": "使用 Bazel 进行构建",
-          "tooltip": "如何配置你的环境，以利用 Bazel 进行构建和测试。"
         },
         {
           "url": "guide/testing",
@@ -696,6 +686,11 @@
           "url": "guide/browser-support",
           "title": "浏览器支持",
           "tooltip": "浏览器支持与腻子脚本指南。"
+        },
+        {
+          "url": "guide/strict-mode",
+          "title": "Strict mode",
+          "tooltip": "Reference documentation for Angular's strict mode."
         }
       ]
     },
@@ -760,6 +755,11 @@
           "url": "guide/router-tutorial",
           "title": "在单页面应用中使用 Angular 路由",
           "tooltip": "一个与 Angular 路由有关的、涵盖很多模式的教程。"
+        },
+        {
+          "url": "guide/forms",
+          "title": "构建模板驱动表单",
+          "tooltip": "使用指令和 Angular 模板语法来创建模板驱动表单。"
         }
       ]
     },
@@ -778,13 +778,13 @@
           "tooltip": "Angular 的版本、发布、支持、弃用策略及实践。"
         },
         {
-          "title": "升级到 Angular 9",
-          "tooltip": "支持把你的应用从 8 升级到 9.",
+          "title": "升级到 Angular 10",
+          "tooltip": "支持把你的应用从 9 升级到 10。",
           "children": [
             {
-              "url": "guide/updating-to-version-9",
+              "url": "guide/updating-to-version-10",
               "title": "概览",
-              "tooltip": "当把应用从 8 升到 9 时你需要知道的一切。"
+              "tooltip": "当把应用从 9 升到 10 时你需要知道的一切。"
             },
             {
               "url": "guide/ivy-compatibility",
@@ -793,28 +793,8 @@
             },
             {
               "title": "可选的迁移工作",
-              "tooltip": "升级到 Angular 9 时一些可选的迁移工作。",
+              "tooltip": "升级到 Angular 10 时一些可选的迁移工作。",
               "children": [
-                {
-                  "url": "guide/migration-renderer",
-                  "title": "Renderer 迁移到 Renderer2",
-                  "tooltip": "把已弃用的 Renderer API 迁移到新的 Renderer2 API。"
-                },
-                {
-                  "url": "guide/migration-dynamic-flag",
-                  "title": "动态查询标志",
-                  "tooltip": "从 @ViewChild 和 @ContentChild 查询中移除不必要的 `static: false` 标志。"
-                },
-                {
-                  "url": "guide/migration-injectable",
-                  "title": "缺少 @Injectable() 装饰器",
-                  "tooltip": "添加缺失的 @Injectable() 装饰器和不完整的服务提供者定义。"
-                },
-                {
-                  "url": "guide/migration-localize",
-                  "title": "$localize 全局导入",
-                  "tooltip": "把针对 @angular/localize 的导入语句添加到 polyfills.ts 中"
-                },
                 {
                   "url": "guide/migration-module-with-providers",
                   "title": "缺少 ModuleWithProviders 泛型",
@@ -824,6 +804,26 @@
                   "url": "guide/migration-undecorated-classes",
                   "title": "缺少 @Directive() 装饰器",
                   "tooltip": "添加缺失的 @Directive()/@Component() 装饰器。"
+                },
+                {
+                  "url": "guide/migration-injectable",
+                  "title": "缺少 @Injectable() 装饰器",
+                  "tooltip": "添加缺失的 @Injectable() 装饰器，补齐不完整的服务提供者定义。"
+                },
+                {
+                  "url": "guide/migration-solution-style-tsconfig",
+                  "title": "解决方案型的 `tsconfig.json`",
+                  "tooltip": "创建解决方案型的 `tsconfig.json`."
+                },
+                {
+                  "url": "guide/migration-update-libraries-tslib",
+                  "title": "`tslib` 直接依赖",
+                  "tooltip": "直接依赖 `tslib` npm 包。"
+                },
+                {
+                  "url": "guide/migration-update-module-and-target-compiler-options",
+                  "title": "`module` 和 `target` 编译器选项",
+                  "tooltip": "修改 `module` 和 `target` 编译器选项。"
                 }
               ]
             }
@@ -1061,6 +1061,10 @@
     }
   ],
   "docVersions": [
+    {
+      "title": "v9",
+      "url": "https://v9.angular.io/"
+    },
     {
       "title": "v8",
       "url": "https://v8.angular.io/"

@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright Google Inc. All Rights Reserved.
+ * Copyright Google LLC All Rights Reserved.
  *
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
@@ -101,6 +101,7 @@ export class MockTypescriptHost implements ts.LanguageServiceHost {
   private readonly overrideDirectory = new Set<string>();
   private readonly existsCache = new Map<string, boolean>();
   private readonly fileCache = new Map<string, string|undefined>();
+  errors: string[] = [];
 
   constructor(
       private readonly scriptNames: string[],
@@ -397,6 +398,10 @@ export class MockTypescriptHost implements ts.LanguageServiceHost {
       };
     }
     throw new Error(`Failed to find marker '${selector}' in ${fileName}`);
+  }
+
+  error(msg: string) {
+    this.errors.push(msg);
   }
 }
 

@@ -231,11 +231,11 @@ Angular 的管道可以让你在模板中声明显示值的转换逻辑。
 
 Angular defines various pipes, such as the [date](https://angular.io/api/common/DatePipe) pipe and [currency](https://angular.io/api/common/CurrencyPipe) pipe; for a complete list, see the [Pipes API list](https://angular.io/api?type=pipe). You can also define new pipes.
 
-Angular 自带了很多管道，比如 [date](https://angular.cn/api/common/DatePipe) 管道和 [currency](https://angular.cn/api/common/CurrencyPipe) 管道，完整的列表参见 [Pipes API 列表](https://angular.cn/api?type=pipe)。你也可以自己定义一些新管道。
+Angular 自带了很多管道，比如 [date](api/common/DatePipe) 管道和 [currency](api/common/CurrencyPipe) 管道，完整的列表参见 [Pipes API 列表](api?type=pipe)。你也可以自己定义一些新管道。
 
 To specify a value transformation in an HTML template, use the [pipe operator (|)](https://angular.io/guide/template-syntax#pipe).
 
-要在 HTML 模板中指定值的转换方式，请使用 [管道操作符 (|)](https://angular.cn/guide/template-syntax#pipe)。
+要在 HTML 模板中指定值的转换方式，请使用 [管道操作符 (|)](guide/template-syntax#pipe)。
 
  `{{interpolated_value | pipe_name}}`
 

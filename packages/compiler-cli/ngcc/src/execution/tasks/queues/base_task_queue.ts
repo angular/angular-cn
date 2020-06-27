@@ -1,11 +1,11 @@
 /**
  * @license
- * Copyright Google Inc. All Rights Reserved.
+ * Copyright Google LLC All Rights Reserved.
  *
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import {Logger} from '../../../logging/logger';
+import {Logger} from '../../../../../src/ngtsc/logging';
 import {PartiallyOrderedTasks, Task, TaskDependencies, TaskQueue} from '../api';
 import {stringifyTask} from '../utils';
 

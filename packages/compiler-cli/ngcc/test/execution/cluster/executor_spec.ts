@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright Google Inc. All Rights Reserved.
+ * Copyright Google LLC All Rights Reserved.
  *
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
@@ -12,13 +12,13 @@ import {getFileSystem} from '@angular/compiler-cli/src/ngtsc/file_system';
 import * as cluster from 'cluster';
 
 import {MockFileSystemNative, runInEachFileSystem} from '../../../../src/ngtsc/file_system/testing';
+import {MockLogger} from '../../../../src/ngtsc/logging/testing';
 import {ClusterExecutor} from '../../../src/execution/cluster/executor';
 import {ClusterMaster} from '../../../src/execution/cluster/master';
 import {AsyncLocker} from '../../../src/locking/async_locker';
 import {FileWriter} from '../../../src/writing/file_writer';
 import {PackageJsonUpdater} from '../../../src/writing/package_json_updater';
 import {MockLockFile} from '../../helpers/mock_lock_file';
-import {MockLogger} from '../../helpers/mock_logger';
 import {mockProperty} from '../../helpers/spy_utils';
 
 runInEachFileSystem(() => {

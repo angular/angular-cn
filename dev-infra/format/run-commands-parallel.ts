@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright Google Inc. All Rights Reserved.
+ * Copyright Google LLC All Rights Reserved.
  *
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
@@ -10,6 +10,8 @@ import {Bar} from 'cli-progress';
 import * as multimatch from 'multimatch';
 import {cpus} from 'os';
 import {exec} from 'shelljs';
+
+import {info} from '../utils/console';
 
 import {Formatter, FormatterAction, getActiveFormatters} from './formatters';
 
@@ -47,10 +49,10 @@ export function runFormatterInParallel(allFiles: string[], action: FormatterActi
 
     switch (action) {
       case 'format':
-        console.info(`Formatting ${pendingCommands.length} file(s)`);
+        info(`Formatting ${pendingCommands.length} file(s)`);
         break;
       case 'check':
-        console.info(`Checking format of ${pendingCommands.length} file(s)`);
+        info(`Checking format of ${pendingCommands.length} file(s)`);
         break;
       default:
         throw Error(`Invalid format action "${action}": allowed actions are "format" and "check"`);

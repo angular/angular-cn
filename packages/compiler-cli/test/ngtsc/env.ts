@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright Google Inc. All Rights Reserved.
+ * Copyright Google LLC All Rights Reserved.
  *
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
@@ -126,6 +126,13 @@ export class NgtscTestEnvironment {
       throw new Error('No ts.Program has been created yet.');
     }
     return this.oldProgram.getTsProgram();
+  }
+
+  getReuseTsProgram(): ts.Program {
+    if (this.oldProgram === null) {
+      throw new Error('No ts.Program has been created yet.');
+    }
+    return (this.oldProgram as NgtscProgram).getReuseTsProgram();
   }
 
   /**

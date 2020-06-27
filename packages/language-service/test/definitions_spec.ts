@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright Google Inc. All Rights Reserved.
+ * Copyright Google LLC All Rights Reserved.
  *
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
@@ -71,7 +71,7 @@ describe('definitions', () => {
 
     const fileContent = mockHost.readFile(def.fileName);
     expect(fileContent!.substring(def.textSpan.start, def.textSpan.start + def.textSpan.length))
-        .toEqual(`title = 'Some title';`);
+        .toEqual(`title = 'Tour of Heroes';`);
   });
 
   it('should be able to find a method from a call', () => {

@@ -9,6 +9,14 @@ and place that component in the application shell.
 应用程序现在有了基本的标题。
 接下来你要创建一个新的组件来显示英雄信息并且把这个组件放到应用程序的外壳里去。
 
+<div class="alert is-helpful">
+
+  For the sample app that this page describes, see the <live-example></live-example>.
+
+  要查看本页所讲的范例程序，参见<live-example></live-example>。
+
+</div>
+
 ## Create the heroes component
 
 ## 创建英雄列表组件
@@ -344,11 +352,9 @@ Note that `AppModule`  declares both application components, `AppComponent` and 
 
 ## Final code review
 
-## 查看最终代码
-
 Your app should look like this <live-example></live-example>. Here are the code files discussed on this page.
 
-应用跑起来应该是这样的：<live-example></live-example>。本页中所提及的代码如下：
+应用跑起来应该是这样的：<live-example></live-example>。本页涉及的代码如下：
 
 <code-tabs>
 

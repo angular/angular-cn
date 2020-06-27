@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright Google Inc. All Rights Reserved.
+ * Copyright Google LLC All Rights Reserved.
  *
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
@@ -18,7 +18,7 @@ import {SimpleChanges} from './simple_change';
  *
  * @see `DoCheck`
  * @see `OnInit`
- * @see [Lifecycle Hooks](guide/lifecycle-hooks#onchanges) guide
+ * @see [Lifecycle hooks guide](guide/lifecycle-hooks)
  *
  * [生命周期钩子](guide/lifecycle-hooks#onchanges)
  *
@@ -58,7 +58,7 @@ export interface OnChanges {
  * 定义 `ngOnInit()` 方法可以处理所有附加的初始化任务。
  *
  * @see `AfterContentInit`
- * @see [Lifecycle Hooks](guide/lifecycle-hooks#onchanges) guide
+ * @see [Lifecycle hooks guide](guide/lifecycle-hooks)
  *
  * [生命周期钩子](guide/lifecycle-hooks#onchanges)
  *
@@ -108,7 +108,7 @@ export interface OnInit {
  * 一般来说，你不应该同时使用 `DoCheck` 和 `OnChanges` 这两个钩子来响应在同一个输入上发生的更改。
  *
  * @see `OnChanges`
- * @see [Lifecycle Hooks](guide/lifecycle-hooks#onchanges) guide
+ * @see [Lifecycle hooks guide](guide/lifecycle-hooks)
  *
  * [生命周期钩子](guide/lifecycle-hooks#onchanges)
  *
@@ -119,6 +119,9 @@ export interface OnInit {
  * 下列代码片段展示了组件如何实现该接口，以执行自定义的变更检测周期。
  *
  * {@example core/ts/metadata/lifecycle_hooks_spec.ts region='DoCheck'}
+ *
+ * For a more complete example and discussion, see
+ * [Defining custom change detection](guide/lifecycle-hooks#defining-custom-change-detection).
  *
  * @publicApi
  */
@@ -143,7 +146,7 @@ export interface DoCheck {
  * 一个生命周期钩子，它会在指令、管道或服务被销毁时调用。
  * 用于在实例被销毁时，执行一些自定义清理代码。
  *
- * @see [Lifecycle Hooks](guide/lifecycle-hooks#onchanges) guide
+ * @see [Lifecycle hooks guide](guide/lifecycle-hooks)
  *
  * [生命周期钩子](guide/lifecycle-hooks#onchanges)
  *
@@ -178,7 +181,7 @@ export interface OnDestroy {
  *
  * @see `OnInit`
  * @see `AfterViewInit`
- * @see [Lifecycle Hooks](guide/lifecycle-hooks#onchanges) guide
+ * @see [Lifecycle hooks guide](guide/lifecycle-hooks)
  *
  * [生命周期钩子](guide/lifecycle-hooks#onchanges)
  *
@@ -214,7 +217,7 @@ export interface AfterContentInit {
  * 一个生命周期钩子，它会在默认的变更检测器对指令的所有内容完成了变更检查之后调用。
  *
  * @see `AfterViewChecked`
- * @see [Lifecycle Hooks](guide/lifecycle-hooks#onchanges) guide
+ * @see [Lifecycle hooks guide](guide/lifecycle-hooks)
  *
  * [生命周期钩子](guide/lifecycle-hooks#onchanges)
  *
@@ -250,7 +253,7 @@ export interface AfterContentChecked {
  *
  * @see `OnInit`
  * @see `AfterContentInit`
- * @see [Lifecycle Hooks](guide/lifecycle-hooks#onchanges) guide
+ * @see [Lifecycle hooks guide](guide/lifecycle-hooks)
  *
  * [生命周期钩子](guide/lifecycle-hooks#onchanges)
  *
@@ -284,7 +287,7 @@ export interface AfterViewInit {
  * 一个生命周期钩子，它会在默认的变更检测器完成了对组件视图的变更检测之后调用。
  *
  * @see `AfterContentChecked`
- * @see [Lifecycle Hooks](guide/lifecycle-hooks#onchanges) guide
+ * @see [Lifecycle hooks guide](guide/lifecycle-hooks)
  *
  * [生命周期钩子](guide/lifecycle-hooks#onchanges)
  *

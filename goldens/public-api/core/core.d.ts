@@ -163,11 +163,11 @@ export declare interface ConstructorSansProvider {
 export declare type ContentChild = Query;
 
 export declare interface ContentChildDecorator {
-    (selector: Type<any> | Function | string, opts?: {
+    (selector: Type<any> | InjectionToken<unknown> | Function | string, opts?: {
         read?: any;
         static?: boolean;
     }): any;
-    new (selector: Type<any> | Function | string, opts?: {
+    new (selector: Type<any> | InjectionToken<unknown> | Function | string, opts?: {
         read?: any;
         static?: boolean;
     }): ContentChild;
@@ -176,11 +176,11 @@ export declare interface ContentChildDecorator {
 export declare type ContentChildren = Query;
 
 export declare interface ContentChildrenDecorator {
-    (selector: Type<any> | Function | string, opts?: {
+    (selector: Type<any> | InjectionToken<unknown> | Function | string, opts?: {
         descendants?: boolean;
         read?: any;
     }): any;
-    new (selector: Type<any> | Function | string, opts?: {
+    new (selector: Type<any> | InjectionToken<unknown> | Function | string, opts?: {
         descendants?: boolean;
         read?: any;
     }): Query;
@@ -297,7 +297,7 @@ export declare interface DoCheck {
     ngDoCheck(): void;
 }
 
-export declare class ElementRef<T extends any = any> {
+export declare class ElementRef<T = any> {
     nativeElement: T;
     constructor(nativeElement: T);
 }
@@ -313,11 +313,17 @@ export declare class ErrorHandler {
     handleError(error: any): void;
 }
 
-export declare class EventEmitter<T extends any> extends Subject<T> {
-    constructor(isAsync?: boolean);
+export declare interface EventEmitter<T> extends Subject<T> {
+    new (isAsync?: boolean): EventEmitter<T>;
     emit(value?: T): void;
     subscribe(generatorOrNext?: any, error?: any, complete?: any): Subscription;
 }
+
+export declare const EventEmitter: {
+    new (isAsync?: boolean): EventEmitter<any>;
+    new <T>(isAsync?: boolean): EventEmitter<T>;
+    readonly prototype: EventEmitter<any>;
+};
 
 export declare interface ExistingProvider extends ExistingSansProvider {
     multi?: boolean;
@@ -719,11 +725,9 @@ export declare type ɵɵComponentDefWithMeta<T, Selector extends String, ExportA
 
 export declare function ɵɵcomponentHostSyntheticListener(eventName: string, listenerFn: (e?: any) => any, useCapture?: boolean, eventTargetResolver?: GlobalTargetResolver): typeof ɵɵcomponentHostSyntheticListener;
 
-export declare function ɵɵcontentQuery<T>(directiveIndex: number, predicate: Type<any> | string[], descend: boolean, read?: any): void;
+export declare function ɵɵcontentQuery<T>(directiveIndex: number, predicate: Type<any> | InjectionToken<unknown> | string[], descend: boolean, read?: any): void;
 
 export declare function ɵɵCopyDefinitionFeature(definition: ɵDirectiveDef<any> | ɵComponentDef<any>): void;
-
-export declare const ɵɵdefaultStyleSanitizer: StyleSanitizeFn;
 
 export declare function ɵɵdefineComponent<T>(componentDefinition: {
     type: Type<T>;
@@ -976,7 +980,7 @@ export declare function ɵɵresolveWindow(element: RElement & {
     ownerDocument: Document;
 }): {
     name: string;
-    target: Window | null;
+    target: (Window & typeof globalThis) | null;
 };
 
 export declare function ɵɵrestoreView(viewToRestore: OpaqueViewState): void;
@@ -1004,9 +1008,9 @@ export declare function ɵɵsetNgModuleScope(type: any, scope: {
     exports?: Type<any>[] | (() => Type<any>[]);
 }): void;
 
-export declare function ɵɵstaticContentQuery<T>(directiveIndex: number, predicate: Type<any> | string[], descend: boolean, read?: any): void;
+export declare function ɵɵstaticContentQuery<T>(directiveIndex: number, predicate: Type<any> | InjectionToken<unknown> | string[], descend: boolean, read?: any): void;
 
-export declare function ɵɵstaticViewQuery<T>(predicate: Type<any> | string[], descend: boolean, read?: any): void;
+export declare function ɵɵstaticViewQuery<T>(predicate: Type<any> | InjectionToken<unknown> | string[], descend: boolean, read?: any): void;
 
 export declare function ɵɵstyleMap(styles: {
     [styleName: string]: any;
@@ -1050,8 +1054,6 @@ export declare function ɵɵstylePropInterpolate8(prop: string, prefix: string, 
 
 export declare function ɵɵstylePropInterpolateV(prop: string, values: any[], valueSuffix?: string | null): typeof ɵɵstylePropInterpolateV;
 
-export declare function ɵɵstyleSanitizer(sanitizer: StyleSanitizeFn | null): void;
-
 export declare function ɵɵtemplate(index: number, templateFn: ComponentTemplate<any> | null, decls: number, vars: number, tagName?: string | null, attrsIndex?: number | null, localRefsIndex?: number | null, localRefExtractor?: LocalRefExtractor): void;
 
 export declare function ɵɵtemplateRefExtractor(tNode: TNode, currentView: ɵangular_packages_core_core_bo): TemplateRef<unknown> | null;
@@ -1080,7 +1082,7 @@ export declare function ɵɵtextInterpolateV(values: any[]): typeof ɵɵtextInte
 
 export declare function ɵɵupdateSyntheticHostBinding<T>(propName: string, value: T | ɵNO_CHANGE, sanitizer?: SanitizerFn | null): typeof ɵɵupdateSyntheticHostBinding;
 
-export declare function ɵɵviewQuery<T>(predicate: Type<any> | string[], descend: boolean, read?: any): void;
+export declare function ɵɵviewQuery<T>(predicate: Type<any> | InjectionToken<unknown> | string[], descend: boolean, read?: any): void;
 
 export declare const PACKAGE_ROOT_URL: InjectionToken<string>;
 
@@ -1383,11 +1385,11 @@ export declare const VERSION: Version;
 export declare type ViewChild = Query;
 
 export declare interface ViewChildDecorator {
-    (selector: Type<any> | Function | string, opts?: {
+    (selector: Type<any> | InjectionToken<unknown> | Function | string, opts?: {
         read?: any;
         static?: boolean;
     }): any;
-    new (selector: Type<any> | Function | string, opts?: {
+    new (selector: Type<any> | InjectionToken<unknown> | Function | string, opts?: {
         read?: any;
         static?: boolean;
     }): ViewChild;
@@ -1396,10 +1398,10 @@ export declare interface ViewChildDecorator {
 export declare type ViewChildren = Query;
 
 export declare interface ViewChildrenDecorator {
-    (selector: Type<any> | Function | string, opts?: {
+    (selector: Type<any> | InjectionToken<unknown> | Function | string, opts?: {
         read?: any;
     }): any;
-    new (selector: Type<any> | Function | string, opts?: {
+    new (selector: Type<any> | InjectionToken<unknown> | Function | string, opts?: {
         read?: any;
     }): ViewChildren;
 }

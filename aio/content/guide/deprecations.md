@@ -48,6 +48,7 @@ v9 - v12
 | Area | API or Feature | May be removed in |
 | ---- | -------------- | ----------------- |
 | 区域 | API 或特性 | 可能会在什么时候移除 |
+| `@angular/bazel`              | [`Bazel builder and schematics`](#bazelbuilder)                               | v10 |
 | `@angular/common` | [`ReflectiveInjector`](#reflectiveinjector) | <!--v8--> v11 |
 | `@angular/common`             | [`CurrencyPipe` - `DEFAULT_CURRENCY_CODE`](api/common/CurrencyPipe#currency-code-deprecation) | <!--v9--> v11 |
 | `@angular/core` | [`CollectionChangeRecord`](#core) | <!--v7--> v11 |
@@ -80,8 +81,12 @@ v9 - v12
 | `@angular/router` | [`ActivatedRoute` 参数和 `queryParams` 属性](#activatedroute-props) | 未定 |
 | template syntax | [`/deep/`, `>>>`, and `::ng-deep`](#deep-component-style-selector) | <!--v7--> unspecified |
 | 模板语法 | [`/deep/`，`>>>` 和 `::ng-deep`](#deep-component-style-selector) | <!--v7-->未定 |
-| browser support               | [`IE 9 and 10`](#ie-9-10)                                                     | <!--v10--> v11 |
-| 浏览器支持               | [`IE 9 和 10`](#ie-9-10)                                                     | <!--v10--> v11 |
+| browser support               | [`IE 9 and 10, IE mobile`](#ie-9-10-and-mobile)                               | <!--v10--> v11 |
+| 浏览器支持               | [`IE 9、10 和 IE mobile`](#ie-9-10-and-mobile)                                                     | <!--v10--> v11 |
+
+For information about Angular CDK and Angular Material deprecations, see the [changelog](https://github.com/angular/components/blob/master/CHANGELOG.md).
+
+要了解 Angular CDK 和 Angular Material 的弃用情况，参见[变更记录](https://github.com/angular/components/blob/master/CHANGELOG.md)。
 
 ## Deprecated APIs
 
@@ -169,6 +174,15 @@ Tip: In the [API reference section](api) of this doc site, deprecated APIs are i
 | [All entry points](api/upgrade) | [`@angular/upgrade/static`](api/upgrade/static) | v5 | See [Upgrading from AngularJS](guide/upgrade). |
 | [所有入口点](api/upgrade) | [`@angular/upgrade/static`](api/upgrade/static) | v5 | 参见[从 AngularJS 升级](guide/upgrade)。|
 
+{@a platform-webworker-dynamic}
+### @angular/platform-webworker-dynamic
+
+| API | Replacement | Deprecation announced | Notes |
+| --- | ----------- | --------------------- | ----- |
+| API | 替代品 | 宣布弃用 | 备注 |
+| [All entry points](api/platform-webworker-dynamic) | none | v8 | See [platform-webworker](#webworker-apps). |
+| [所有入口点](api/platform-webworker-dynamic) | 无 | v8 | 参见 [platform-webworker](#webworker-apps). |
+
 {@a upgrade}
 ### @angular/upgrade
 
@@ -198,6 +212,17 @@ Tip: In the [API reference section](api) of this doc site, deprecated APIs are i
 This section lists all of the currently-deprecated features, which includes template syntax, configuration options, and any other deprecations not listed in the [Deprecated APIs](#deprecated-apis) section above. It also includes deprecated API usage scenarios or API combinations, to augment the information above.
 
 本节列出了所有当前已弃用的特性，包括模板语法、配置选项，以及前面[已弃用的 API ](#deprecated-apis)部分未列出的其它弃用。它还包括已弃用的 API 用例或 API 组合，以增强上述信息。
+
+{@a bazelbuilder}
+### Bazel builder and schematics
+
+### Bazel 构建器及其原理图
+
+Bazel builder and schematics were introduced in Angular Labs to let users try out Bazel without having to manage Bazel version and BUILD files.
+This feature has been deprecated. For more information, please refer to the [migration doc](https://github.com/angular/angular/blob/master/packages/bazel/src/schematics/README.md).
+
+Bazel 构建器及其原理图曾经被引入到 Angular Labs 中，以便让用户尝试 Bazel，而不用管理 Bazel 的版本和 BUILD 文件。
+该特性已经弃用了。欲知详情，参见[迁移文档](https://github.com/angular/angular/blob/master/packages/bazel/src/schematics/README.md)。
 
 {@a wtf}
 ### Web Tracing Framework integration
@@ -604,38 +629,35 @@ export class MyModule {
 }
 ```
 
-{@a ie-9-10}
-### IE 9 and 10 support
+{@a ie-9-10-and-mobile}
+### IE 9, 10, and IE mobile support
 
-### IE 9 和 10 支持
+### IE 9、10 和 IE 移动版支持
 
-Support for IE 9 and 10 has been deprecated and will be removed in a future version.
+Support for IE 9 and 10 has been deprecated, as well as support for IE Mobile. These will be dropped in a future version.
 Supporting outdated browsers like these increases bundle size, code complexity, and test load, and also requires time and effort that could be spent on improvements to the framework.
 For example, fixing issues can be more difficult, as a straightforward fix for modern browsers could break old ones that have quirks due to not receiving updates from vendors.
 
-对 IE 9 和 10 的支持已被弃用，并将在以后的版本中删除。支持像这样过时的浏览器会增加打包尺寸，增加代码的复杂性和测试的负担，还需要花费大量的时间和精力来改进框架。例如，修复问题可能会更加困难，因为对于现代浏览器那些直接的修复方式可能会破坏那些没有收到更新的怪异旧版本。
+对 IE 9、10 和 IE 移动版的支持已被弃用。它们都将在以后的版本中删除。支持像这样过时的浏览器会增加打包尺寸，增加代码的复杂性和测试的负担，还需要花费大量的时间和精力来改进框架。例如，修复问题可能会更加困难，因为对于现代浏览器那些直接的修复方式可能会破坏那些没有收到更新的怪异旧版本。
 
 The final decision was made on three key points:
 
 它的最终决定取决于三点：
 
-- **Vendor support**: Microsoft dropped support of IE 9 and 10 on 1/12/16, meaning they no longer provide security updates or technical support.
+* __Vendor support__: Microsoft dropped support of IE 9 and 10 on 1/12/16, meaning they no longer provide security updates or technical support. Additionally, Microsoft dropped support for Windows 10 Mobile in December 2019.
 
-  **供应商支持** ：微软于 2016 年 1 月 12 日放弃对 IE 9 和 10 的支持，这意味着他们不再提供安全更新或技术支持。
+  **供应商支持** ：微软于 2016 年 1 月 12 日放弃对 IE 9 和 10 的支持，这意味着他们不再提供安全更新或技术支持。另外，微软在 2019 年 12 月放弃了对 Windows 10 移动版的支持。
 
-- **Usage statistics**: We looked at usage trends for IE 9 and 10 from various sources and all indicated that usage percentages were extremely small (fractions of 1%).
+* __Usage statistics__: We looked at usage trends for IE 9 and 10 (as well as IE Mobile) from various sources and all indicated that usage percentages were extremely small (fractions of 1%).
 
-  **用法统计** ：我们从不同来源查看了 IE 9 和 10 的使用趋势，并且都表明其使用率非常小（不足 1％）。
+  **用法统计** ：我们从不同来源查看了 IE 9 和 10 （和 IE Mobile）的使用趋势，并且都表明其使用率非常小（不足 1％）。
 
-- **Feedback from partners**: We also reached out to some of our Angular customers and none expressed concern about dropping IE 9 and 10 support.
+* __Feedback from partners__: We also reached out to some of our Angular customers and none expressed concern about dropping IE 9 and 10, nor IE Mobile support.
 
-  **来自合作伙伴的反馈意见** ：我们还联系了一些 Angular 的客户，没有人担心放弃 IE 9 和 10 的支持。
+  **来自合作伙伴的反馈意见** ：我们还联系了一些 Angular 的客户，没有人担心放弃 IE 9、10 或 IE Mobile 的支持。
 
 {@a wrapped-value}
-
-### `WrappedValue`
-
-### `WrappedValue`
+###  `WrappedValue`
 
 The purpose of `WrappedValue` is to allow the same object instance to be treated as different for the purposes of change detection.
 It is commonly used with the `async` pipe in the case where the `Observable` produces the same instance of the value.
@@ -659,13 +681,96 @@ If you rely on the behavior that the same object instance should cause change de
 
   显式调用 [`ChangeDetectorRef.detectChanges()`](api/core/ChangeDetectorRef#detectchanges) 进行强制更新。
 
+{@a deprecated-cli-flags}
+## Deprecated CLI APIs and Options
+
+## 弃用的 CLI API 和选项
+
+This section contains a complete list all of the currently deprecated CLI flags.
+
+这部分包含一个当前弃用的 CLI 标志的完整列表。
+
+### @angular-devkit/build-angular
+
+| API/Option | May be removed in | Notes |
+| ---------- | ----------------- | ----- |
+| API/选项 | 可能删除于 | 备注 |
+| `i18nFile` | <!--v9--> v11 | Specified in the project locale configuration in version 9 and later. |
+| `i18nFile` | <!--v9--> v11 | 在版本 9 及更高版本的项目区域配置中指定。 |
+| `i18nFormat` | <!--v9--> v11 | Format is now automatically detected. |
+| `i18nFormat` | <!--v9--> v11 | 格式现在是自动检测的。 |
+| `i18nLocale` | <!--v9--> v11 | New [localization option](/guide/i18n#localize-config) in version 9 and later. |
+| `i18nLocale` | <!--v9--> v11 | 版本 9 和更高版本中新的[本地化选项](/guide/i18n#localize-config) 。 |
+| `lazyModules` | <!--v9--> v11 | Used with deprecated SystemJsNgModuleLoader. |
+| `lazyModules` | <!--v9--> v11 | 与已弃用的 SystemJsNgModuleLoader 配合使用。 |
+| `rebaseRootRelativeCssUrls` | <!--v8--> v11 | Intended only to assist with specific migration issues. |
+| `rebaseRootRelativeCssUrls` | <!--v8--> v11 | 仅用于帮助解决特定的迁移问题。 |
+| `scripts[].lazy` | <!--v8--> v11 | Renamed to `scripts[].inject`. |
+| `scripts[].lazy` | <!--v8--> v11 | 已改名为 `scripts[].inject`. |
+| `styles[].lazy` | <!--v8--> v11 | Renamed to `styles[].inject`. |
+| `styles[].lazy` | <!--v8--> v11 | 已改名为 `styles[].inject` 。 |
+| `i18nFormat` | <!--v9--> v11 | Renamed to `format` to simplify the user experience. |
+| `i18nFormat` | <!--v9--> v11 | 已改名为 `format`，以简化用户体验。 |
+| `i18nLocale` | <!--v9--> v11 | Redundant with project’s source locale. |
+| `i18nLocale` | <!--v9--> v11 | 是项目的源语言环境的冗余项。 |
+| `scripts[].lazy` | <!--v8--> v11 | Renamed to `scripts[].inject`. |
+| `scripts[].lazy` | <!--v8--> v11 | 已改名为 `scripts[].inject`. |
+| `styles[].lazy` | <!--v8--> v11 | Renamed to `styles[].inject`. |
+| `styles[].lazy` | <!--v8--> v11 | 已改名为 `styles[].inject` 。 |
+| `i18nFile` | <!--v9--> v11 | Specified in the project locale configuration in version 9 and later. |
+| `i18nFile` | <!--v9--> v11 | 在版本 9 及更高版本的项目区域设置配置中指定。 |
+| `i18nFormat` | <!--v9--> v11 | Format is now automatically detected. |
+| `i18nFormat` | <!--v9--> v11 | 格式现在是自动检测的。 |
+| `i18nLocale` | <!--v9--> v11 | New [localization option](/guide/i18n#localize-config) in version 9 and later. |
+| `i18nLocale` | <!--v9--> v11 | 版本 9 和更高版本中新的[本地化选项](/guide/i18n#localize-config) 。 |
+| `lazyModules` | <!--v9--> v11 | Used with deprecated SystemJsNgModuleLoader. |
+| `lazyModules` | <!--v9--> v11 | 与已弃用的 SystemJsNgModuleLoader 配合使用。 |
+
+### @angular-devkit/core
+
+| API/Option | May be removed in | Notes |
+| ---------- | ----------------- | ----- |
+| API/选项 | 可能删除于 | 备注 |
+| `ModuleNotFoundException` | <!--v8--> v10 | Not used within projects. Used with Tooling API only. Not Yarn PnP compatible and not used in the Angular CLI. Use Node.js [require.resolve](https://nodejs.org/api/modules.html#modules_require_resolve_request_options). |
+| `ModuleNotFoundException` | <!--v8--> v10 | 在项目中没用过。仅与 Tooling API 一起使用。 与 Yarn 的 PnP 不兼容，并且没有用在 Angular CLI 中。使用 Node.js 的[require.resolve](https://nodejs.org/api/modules.html#modules_require_resolve_request_options) 。 |
+| `resolve` | <!--v8--> v10 | Not used within projects. Used with Tooling API only. Not Yarn PnP compatible and not used in the Angular CLI. Use Node.js [require.resolve](https://nodejs.org/api/modules.html#modules_require_resolve_request_options). |
+| `resolve` | <!--v8--> v10 | 在项目中没用过。仅与 Tooling API 一起使用。与 Yarn 的 PnP 不兼容，并且没有用在 Angular CLI 中。使用 Node.js 的 [require.resolve](https://nodejs.org/api/modules.html#modules_require_resolve_request_options) 。 |
+| `setResolveHook` | <!--v8--> v10 | Not used within projects. Used with Tooling API only. Not Yarn PnP compatible and not used in the Angular CLI. Use Node.js [require.resolve](https://nodejs.org/api/modules.html#modules_require_resolve_request_options). |
+| `setResolveHook` | <!--v8-->v10 | 在项目中没用过。仅与 Tooling API 一起使用。与 Yarn 的 PnP 不兼容，并且没有用在 Angular CLI 中。使用 Node.js 的 [require.resolve](https://nodejs.org/api/modules.html#modules_require_resolve_request_options) 。 |
+| `ResolveOptions` | <!--v8--> v10 | Not used within projects. Used with Tooling API only. Not Yarn PnP compatible and not used in the Angular CLI. Use Node.js [require.resolve](https://nodejs.org/api/modules.html#modules_require_resolve_request_options). |
+| `ResolveOptions` | <!--v8-->v10 | 在项目中没用过。仅与 Tooling API 一起使用。与 Yarn 的 PnP 不兼容，并且没有用在 Angular CLI 中。使用 Node.js 的 [require.resolve](https://nodejs.org/api/modules.html#modules_require_resolve_request_options) 。 |
+| `terminal` | <!--v8--> v10 | Unused implementation of terminal codes (color). |
+| `terminal` | <!--v8-->v10 | 未用过的终端代码实现（颜色）。 |
+| `isObservable` | <!--v8--> v10 | Not used within projects. Used with Tooling API only. Use `isObservable` function from the `rxjs` package. |
+| `isObservable` | <!--v8-->v10 | 在项目中没用过。仅与 Tooling API 一起使用。在 `rxjs` 包中使用 `isObservable` 函数。 |
+
+### @ngtools/webpack
+
+| API/Option | May be removed in | Notes |
+| ---------- | ----------------- | ----- |
+| API/选项 | 可能删除于 | 备注 |
+| `discoverLazyRoutes` | <!--v9--> TBD | Used with deprecated SystemJsNgModuleLoader. |
+| `discoverLazyRoutes` | <!--v9--> TBD | 与已弃用的 SystemJsNgModuleLoader 配合使用。 |
+| `additionalLazyModules` | <!--v9--> TBD | Used with deprecated SystemJsNgModuleLoader. |
+| `additionalLazyModules` | <!--v9--> TBD | 与已弃用的 SystemJsNgModuleLoader 配合使用。 |
+| `additionalLazyModuleResources` | <!--v9--> TBD | Used with deprecated SystemJsNgModuleLoader. |
+| `additionalLazyModuleResources` | <!--v9--> TBD | 与已弃用的 SystemJsNgModuleLoader 配合使用。 |
+
+### @schematics/angular
+
+| API/Option | May be removed in | Notes |
+| ---------- | ----------------- | ----- |
+| API/选项 | 可能删除于 | 备注 |
+| `entryComponent` | <!--v9--> TBD | No longer needed with Ivy. |
+| `entryComponent` | <!--v9-->TBD | Ivy 中不再需要了。 |
+
 {@a removed}
 
 ## Removed APIs
 
 ## 删除的 API
 
-The following APIs have been removed starting with version 10.0.0\*:
+The following APIs have been removed starting with version 10.0.0*:
 
 从 10.0.0 版开始，已经删除了以下 API：
 
@@ -679,9 +784,9 @@ The following APIs have been removed starting with version 10.0.0\*:
 | `@angular/core` | Style Sanitization | no action needed | See [style sanitization API removal](#style-sanitization) for more info |
 | `@angular/core` | 样式的无害化处理 | 不需要任何动作 | 详情参阅[移除了 样式无害化 API](#style-sanitization) |
 
-\*To see APIs removed in version 9, check out this guide on the [version 9 docs site](https://v9.angular.io/guide/deprecations#removed).
+*To see APIs removed in version 9, check out this guide on the [version 9 docs site](https://v9.angular.io/guide/deprecations#removed).
 
-\*要查看版本 9 中移除的 API，请查看[版本 9 文档站](https://v9.angular.io/guide/deprecations#removed)上本指南。
+*要查看版本 9 中移除的 API，请查看[版本 9 文档站](https://v9.angular.io/guide/deprecations#removed)上本指南*。
 
 {@a esm5-fesm5}
 
@@ -751,39 +856,13 @@ In practical terms, the `package.json` of all `@angular` packages has changed in
 For more information about the npm package format, see the [Angular Package Format spec](https://goo.gl/jB3GVv).
 
 关于 npm 软件包格式的更多信息，请参见 [Angular 软件包格式规范](https://goo.gl/jB3GVv)。
-{@a ie-9-10}
-### IE 9 and 10 support
-
-### IE 9 和 10 支持
-
-Support for IE 9 and 10 has been deprecated and will be removed in a future version.
-Supporting outdated browsers like these increases bundle size, code complexity, and test load, and also requires time and effort that could be spent on improvements to the framework.
-For example, fixing issues can be more difficult, as a straightforward fix for modern browsers could break old ones that have quirks due to not receiving updates from vendors.
-
-对 IE 9 和 10 的支持已被弃用，并将在以后的版本中删除。支持像这样过时的浏览器会增加打包尺寸，增加代码的复杂性和测试的负担，还需要花费大量的时间和精力来改进框架。例如，修复问题可能会更加困难，因为对于现代浏览器那些直接的修复方式可能会破坏那些没有收到更新的怪异旧版本。
-
-The final decision was made on three key points:
-
-它的最终决定取决于三点：
-
-- **Vendor support**: Microsoft dropped support of IE 9 and 10 on 1/12/16, meaning they no longer provide security updates or technical support.
-
-  **供应商支持** ：微软于 2016 年 1 月 12 日放弃对 IE 9 和 10 的支持，这意味着他们不再提供安全更新或技术支持。
-
-- **Usage statistics**: We looked at usage trends for IE 9 and 10 from various sources and all indicated that usage percentages were extremely small (fractions of 1%).
-
-  **用法统计** ：我们从不同来源查看了 IE 9 和 10 的使用趋势，并且都表明其使用率非常小（不足 1％）。
-
-- **Feedback from partners**: We also reached out to some of our Angular customers and none expressed concern about dropping IE 9 and 10 support.
-
-  **来自合作伙伴的反馈意见** ：我们还联系了一些 Angular 的客户，没有人担心放弃 IE 9 和 10 的支持。
 
 {@a removed}
 ## Removed APIs
 
 ## 删除的 API
 
-The following APIs have been removed starting with version 10.0.0\*:
+The following APIs have been removed starting with version 10.0.0*:
 
 从 10.0.0 版开始，已经删除了以下 API：
 
@@ -797,86 +876,10 @@ The following APIs have been removed starting with version 10.0.0\*:
 | `@angular/core` | Style Sanitization | no action needed | See [style sanitization API removal](#style-sanitization) for more info |
 | `@angular/core` | 样式的无害化处理 | 不需要任何动作 | 详情参阅[移除了 样式无害化 API](#style-sanitization) |
 
-\*To see APIs removed in version 9, check out this guide on the [version 9 docs site](https://v9.angular.io/guide/deprecations#removed).
+*To see APIs removed in version 9, check out this guide on the [version 9 docs site](https://v9.angular.io/guide/deprecations#removed).
 
-\*要查看版本 9 中移除的 API，请查看[版本 9 文档站](https://v9.angular.io/guide/deprecations#removed)上本指南。
+*要查看版本 9 中移除的 API，请查看[版本 9 文档站](https://v9.angular.io/guide/deprecations#removed)上的这份指南。*
 
-<!-- The following anchor is used by redirects from the removed API pages. Do not change or remove. -->
-{@a http}
-### @angular/http
-
-<!--
-Deprecation announced in version 5
-https://blog.angular.io/version-5-0-0-of-angular-now-available-37e414935ced)
--->
-
-The entire [`@angular/http`](http://v7.angular.io/api/http) package has been removed. Use [`@angular/common/http`](api/common/http) instead.
-
-已删除了整个 [`@angular/http`](http://v7.angular.io/api/http) 包。请改用 [`@angular/common/http`](api/common/http)。
-
-The new API is a smaller, easier, and more powerful way to make HTTP requests in Angular.
-The new API simplifies the default ergonomics: There is no need to map by invoking the `.json()` method.
-It also supports typed return values and interceptors.
-
-新的 API 用一种更小、更简单、更强大的方式来在 Angular 中发起 HTTP 请求。新的 API 简化成了更人性化的默认设计：不用再通过调用 `.json()` 方法进行映射。它还支持带类型的返回值，以及拦截器。
-
-To update your apps:
-
-要更新你的应用：
-
-* Replace `HttpModule` with [`HttpClientModule`](api/common/http/HttpClientModule) (from [`@angular/common/http`](api/common/http)) in each of your modules.
-
-  在每个模块中用 [`HttpClientModule`](api/common/http/HttpClientModule) （来自 [`@angular/common/http`](api/common/http) ）代替 `HttpModule`。
-
-* Replace the `Http` service with the [`HttpClient`](api/common/http/HttpClient) service.
-
-  用 [`HttpClient`](api/common/http/HttpClient) 服务代替 `Http` 服务。
-
-* Remove any `map(res => res.json())` calls. They are no longer needed.
-
-  删除所有 `map(res => res.json())` 调用，它们没用了。
-
-For more information about using `@angular/common/http`, see the [HttpClient guide](guide/http "HTTP Client guide").
-
-有关使用 `@angular/common/http` 的更多信息，请参见 [HttpClient 指南](guide/http "HTTP Client 指南")。
-
-| `@angular/http` | Closest replacement in `@angular/common/http` |
-| --------------- | --------------------------------------------- |
-| `@angular/http` | `@angular/common/http` 中最接近的替代品 |
-| `BaseRequestOptions` | [`HttpRequest`](/api/common/http/HttpRequest) |
-| `BaseResponseOptions` | [`HttpResponse`](/api/common/http/HttpResponse) |
-| `BrowserXhr` |  |
-| `Connection` | [`HttpBackend`](/api/common/http/HttpBackend) |
-| `ConnectionBackend` | [`HttpBackend`](/api/common/http/HttpBackend) |
-| `CookieXSRFStrategy` | [`HttpClientXsrfModule`](/api/common/http/HttpClientXsrfModule) |
-| `Headers` | [`HttpHeaders`](/api/common/http/HttpHeaders) |
-| `Http` | [`HttpClient`](/api/common/http/HttpClient) |
-| `HttpModule` | [`HttpClientModule`](/api/common/http/HttpClientModule) |
-| `Jsonp` | [`HttpClient`](/api/common/http/HttpClient) |
-| `JSONPBackend` | [`JsonpClientBackend`](/api/common/http/JsonpClientBackend) |
-| `JSONPConnection` | [`JsonpClientBackend`](/api/common/http/JsonpClientBackend) |
-| `JsonpModule` | [`HttpClientJsonpModule`](/api/common/http/HttpClientJsonpModule) |
-| `QueryEncoder` | [`HttpUrlEncodingCodec`](/api/common/http/HttpUrlEncodingCodec) |
-| `ReadyState` | [`HttpBackend`](/api/common/http/HttpBackend) |
-| `Request` | [`HttpRequest`](/api/common/http/HttpRequest) |
-| `RequestMethod` | [`HttpClient`](/api/common/http/HttpClient) |
-| `RequestOptions` | [`HttpRequest`](/api/common/http/HttpRequest) |
-| `RequestOptionsArgs` | [`HttpRequest`](/api/common/http/HttpRequest) |
-| `Response` | [`HttpResponse`](/api/common/http/HttpResponse) |
-| `ResponseContentType` | [`HttpClient`](/api/common/http/HttpClient) |
-| `ResponseOptions` | [`HttpResponse`](/api/common/http/HttpResponse) |
-| `ResponseOptionsArgs` | [`HttpResponse`](/api/common/http/HttpResponse) |
-| `ResponseType` | [`HttpClient`](/api/common/http/HttpClient) |
-| `URLSearchParams` | [`HttpParams`](/api/common/http/HttpParams) |
-| `XHRBackend` | [`HttpXhrBackend`](/api/common/http/HttpXhrBackend) |
-| `XHRConnection` | [`HttpXhrBackend`](/api/common/http/HttpXhrBackend) |
-| `XSRFStrategy` | [`HttpClientXsrfModule`](/api/common/http/HttpClientXsrfModule) |
-
-| `@angular/http/testing` | Closest replacement in `@angular/common/http/testing` |
-| ----------------------- | ----------------------------------------------------- |
-| `@angular/http/testing` | `@angular/common/http/testing` 中最接近的替代品 |
-| `MockBackend` | [`HttpTestingController`](/api/common/http/testing/HttpTestingController) |
-| `MockConnection` | [`HttpTestingController`](/api/common/http/testing/HttpTestingController) |
 
 {@a style-sanitization}
 

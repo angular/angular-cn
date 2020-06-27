@@ -372,6 +372,37 @@ Angular Service Worker 可以使用两种缓存策略之一来获取数据资源
 
    `freshness` 为数据的即时性而优化，优先从网络获取请求的数据。只有当网络超时时，请求才会根据 `timeout` 的设置回退到缓存中。这对于那些频繁变化的资源很有用，例如账户余额。
 
+
+<div class="alert is-helpful">
+
+You can also emulate a third strategy, [staleWhileRevalidate](https://developers.google.com/web/fundamentals/instant-and-offline/offline-cookbook/#stale-while-revalidate), which returns cached data (if available), but also fetches fresh data from the network in the background for next time.
+To use this strategy set `strategy` to `freshness` and `timeout` to `0u` in `cacheConfig`.
+
+你还可以模拟第三种策略 [staleWhileRevalidate](https://developers.google.com/web/fundamentals/instant-and-offline/offline-cookbook/#stale-while-revalidate)，它会返回缓存的数据（如果可用），但是也会在后台从网络上获取新数据，以供下次使用。
+要使用本策略，请在 `cacheConfig` 中把 `strategy` 设置为 `freshness`，并且把 `timeout` 设置为 `0u`。
+
+This will essentially do the following:
+
+本质上说，它会做如下工作：
+
+1. Try to fetch from the network first.
+
+   首先尝试从网络上获取。
+
+2. If the network request does not complete after 0ms (i.e. immediately), fall back to the cache (ignoring cache age).
+
+   如果网络请求没有在 0ms 内（也就是立刻）完成，就用缓存做为后备（忽略缓存有效期）。
+
+3. Once the network request completes, update the cache for future requests.
+
+   一旦网络请求完成，就更新缓存，以供将来的请求使用。
+
+4. If the resource does not exist in the cache, wait for the network request anyway.
+
+   如果指定的资源在缓存中不存在，总是等待网络请求。
+
+</div>
+
 ### `cacheQueryOptions`
 
 See [assetGroups](#assetgroups) for details.

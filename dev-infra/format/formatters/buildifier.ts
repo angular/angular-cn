@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright Google Inc. All Rights Reserved.
+ * Copyright Google LLC All Rights Reserved.
  *
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
@@ -9,6 +9,7 @@
 import {join} from 'path';
 
 import {getRepoBaseDir} from '../../utils/config';
+import {error} from '../../utils/console';
 
 import {Formatter} from './base-formatter';
 
@@ -35,9 +36,9 @@ export class Buildifier extends Formatter {
       callback:
           (file: string, code: number, _: string, stderr: string) => {
             if (code !== 0) {
-              console.error(`Error running buildifier on: ${file}`);
-              console.error(stderr);
-              console.error();
+              error(`Error running buildifier on: ${file}`);
+              error(stderr);
+              error();
               return true;
             }
             return false;

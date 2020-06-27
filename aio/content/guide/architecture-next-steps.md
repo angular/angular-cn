@@ -102,7 +102,7 @@ Angular 为单页面应用提供了一个框架，其中的大多数逻辑和数
 
 ## 为开发周期提供支持
 
-The **Development Workflow** section describes the tools and processes you use to compile, test, and  and deploy Angular applications.
+The **Development Workflow** section describes the tools and processes you use to compile, test, and deploy Angular applications.
 
 **“开发工作流”**部分描述了用于编译、测试和部署 Angular 应用的工具和过程。
 

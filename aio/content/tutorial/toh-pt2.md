@@ -8,6 +8,15 @@ allow users to select a hero and display the hero's details.
 本页中，你将扩展《英雄指南》应用，让它显示一个英雄列表，
 并允许用户选择一个英雄，查看该英雄的详细信息。
 
+<div class="alert is-helpful">
+
+  For the sample app that this page describes, see the <live-example></live-example>.
+
+  要查看本页所讲的范例程序，参见<live-example></live-example>。
+
+</div>
+
+
 ## Create mock heroes
 
 ## 创建模拟（mock）的英雄数据
@@ -373,10 +382,6 @@ The finished `<li>` looks like this:
 ## Final code review
 
 ## 查看最终代码
-
-Your app should look like this <live-example></live-example>.
-
-你的应用现在变成了这样：<live-example></live-example>。
 
 Here are the code files discussed on this page, including the `HeroesComponent` styles.
 

@@ -190,7 +190,7 @@ AOT 编译中的错误通常是由于元数据不符合编译器的要求而发�
 
 ### 配置 AOT 编译
 
-You can provide options in the `tsconfig.json` [TypeScript configuration file](guide/typescript-configuration) that control the compilation process. See [Angular compiler options](guide/angular-compiler-options) for a complete list of available options.
+You can provide options in the [TypeScript configuration file](guide/typescript-configuration) that controls the compilation process. See [Angular compiler options](guide/angular-compiler-options) for a complete list of available options.
 
 你可以在 `tsconfig.json` [TypeScript 配置文件](guide/typescript-configuration)中提供控制编译过程的选项。有关可用选项的完整列表，请参见 [Angular 编译器](guide/angular-compiler-options)选项。
 
@@ -552,9 +552,9 @@ The compiler later reports the error if it needs that piece of metadata to gener
 
 <div class="alert is-helpful">
 
- If you want `ngc` to report syntax errors immediately rather than produce a `.metadata.json` file with errors, set the `strictMetadataEmit` option in the TypeScript configuration file, `tsconfig.json`.
+ If you want `ngc` to report syntax errors immediately rather than produce a `.metadata.json` file with errors, set the `strictMetadataEmit` option in the TypeScript configuration file.
 
- 如果你希望 `ngc` 立即汇报这些语法错误，而不要生成带有错误信息的 `.metadata.json` 文件，可以到 TypeScript 的配置文件 `tsconfig.json` 中设置 `strictMetadataEmit` 选项。
+ 如果你希望 `ngc` 立即汇报这些语法错误，而不要生成带有错误信息的 `.metadata.json` 文件，可以到 TypeScript 的配置文件中设置 `strictMetadataEmit` 选项。
 
 ```
 
@@ -1112,11 +1112,9 @@ If an expression is not foldable, the collector writes it to `.metadata.json` as
 ## 阶段 2：代码生成
 
 The collector makes no attempt to understand the metadata that it collects and outputs to `.metadata.json`. It represents the metadata as best it can and records errors when it detects a metadata syntax violation.
-
-收集器不会试图理解它收集并输出到 `.metadata.json` 中的元数据，它所能做的只是尽可能准确的表述这些元数据，并在检测到元数据中的语法违规时记录这些错误。
-
 It's the compiler's job to interpret the `.metadata.json` in the code generation phase.
 
+收集器不会试图理解它收集并输出到 `.metadata.json` 中的元数据，它所能做的只是尽可能准确的表述这些元数据，并在检测到元数据中的语法违规时记录这些错误。
 解释这些 `.metadata.json` 是编译器在代码生成阶段要承担的工作。
 
 The compiler understands all syntax forms that the collector supports, but it may reject _syntactically_ correct metadata if the _semantics_ violate compiler rules.
@@ -1325,10 +1323,10 @@ In the template type-checking phase, the Angular template compiler uses the Type
 
 Angular 编译器最有用的功能之一就是能够对模板中的表达式进行类型检查，在由于出错而导致运行时崩溃之前就捕获任何错误。在模板类型检查阶段，Angular 模板编译器会使用 TypeScript 编译器来验证模板中的绑定表达式。
 
-Enable this phase explicitly by adding the compiler option `"fullTemplateTypeCheck"` in the `"angularCompilerOptions"` of the project's `tsconfig.json`
+Enable this phase explicitly by adding the compiler option `"fullTemplateTypeCheck"` in the `"angularCompilerOptions"` of the project's TypeScript configuration file
 (see [Angular Compiler Options](guide/angular-compiler-options)).
 
-通过在该项目的 `tsconfig.json` 的 `"angularCompilerOptions"` 中添加编译器选项 `"fullTemplateTypeCheck"`，可以显式启用本阶段（见[ Angular 编译器选项](guide/angular-compiler-options) ）。
+通过在该项目的 TypeScript 配置文件中的 `"angularCompilerOptions"` 中添加编译器选项 `"fullTemplateTypeCheck"`，可以显式启用本阶段（见[ Angular 编译器选项](guide/angular-compiler-options) ）。
 
 <div class="alert is-helpful">
 
@@ -1395,14 +1393,18 @@ If a component uses `templateUrl` instead of `template`, the errors are reported
   如果组件使用 `templateUrl` 来代替 `template`，这些错误就会在 `templateUrl` 引用的 HTML 文件中汇报，而不是这个合成文件中。
 
 The error location is the beginning of the text node that contains the interpolation expression with
-  the error. If the error is in an attribute binding such as `[value]="person.address.street"`, the error
+  the error.
+If the error is in an attribute binding such as `[value]="person.address.street"`, the error
   location is the location of the attribute that contains the error.
 
 错误的位置是从包含出错的插值表达式的那个文本节点开始的。
   如果错误是一个属性绑定，比如 `[value]="person.address.street"`，错误的位置就是那个包含错误的属性的位置。
 
 The validation uses the TypeScript type checker and the options supplied to the TypeScript compiler to control
-  how detailed the type validation is. For example, if the `strictTypeChecks` is specified, the error  ```my.component.ts.MyComponent.html(1,1): : Object is possibly 'undefined'``` is reported as well as the above error message.
+  how detailed the type validation is.
+For example, if the `strictTypeChecks` is specified, the error
+```my.component.ts.MyComponent.html(1,1): : Object is possibly 'undefined'```
+is reported as well as the above error message.
 
 这个验证过程使用 TypeScript 的类型检查器，这些选项也会提供给 TypeScript 编译器以控制类型验证的详细程度。
   比如，如果指定了 `strictTypeChecks`，就会像上面的错误信息一样报告 ```my.component.ts.MyComponent.html(1,1): : Object is possibly 'undefined'``` 错误。
@@ -1412,9 +1414,8 @@ The validation uses the TypeScript type checker and the options supplied to the 
 ### 类型窄化
 
 The expression used in an `ngIf` directive is used to narrow type unions in the Angular
-template compiler, the same way the `if` expression does in TypeScript. For example, to avoid
-`Object is possibly 'undefined'` error in the template above, modify it to only emit the
-interpolation if the value of `person` is initialized as shown below:
+template compiler, the same way the `if` expression does in TypeScript.
+For example, to avoid `Object is possibly 'undefined'` error in the template above, modify it to only emit the interpolation if the value of `person` is initialized as shown below:
 
 在 `ngIf` 指令中使用的表达式用来在 Angular 模板编译器中窄化联合类型，就像 TypeScript 中的 `if` 表达式一样。
 比如，要在上述模板中消除 `Object is possibly 'undefined'` 错误，可以把它改成只在 `person` 的值初始化过的时候才生成这个插值。
@@ -1443,18 +1444,13 @@ For more information about input type narrowing, see [Input setter coercion](gui
 
 ### 非空类型断言操作符
 
-Use the [non-null type assertion operator](guide/template-syntax#non-null-assertion-operator)
-to suppress the `Object is possibly 'undefined'` error when it is inconvenient to use
-`*ngIf` or when some constraint in the component ensures that the expression is always
-non-null when the binding expression is interpolated.
+Use the [non-null type assertion operator](guide/template-syntax#non-null-assertion-operator) to suppress the `Object is possibly 'undefined'` error when it is inconvenient to use `*ngIf` or when some constraint in the component ensures that the expression is always non-null when the binding expression is interpolated.
 
 使用 [非空类型断言操作符](guide/template-syntax#non-null-assertion-operator)可以在不方便使用 `*ngIf` 或
   当组件中的某些约束可以确保这个绑定表达式在求值时永远不会为空时，防止出现 `Object is possibly 'undefined'` 错误。
 
-In the following example, the `person` and `address` properties are always set together,
-implying that `address` is always non-null if `person` is non-null. There is no convenient
-way to describe this constraint to TypeScript and the template compiler, but the error
-is suppressed in the example by using `address!.street`.
+In the following example, the `person` and `address` properties are always set together, implying that `address` is always non-null if `person` is non-null.
+There is no convenient way to describe this constraint to TypeScript and the template compiler, but the error is suppressed in the example by using `address!.street`.
 
 在下列例子中，`person` 和 `address` 属性总是一起出现的，如果 `person` 非空，则 `address` 也一定非空。没有一种简便的写法可以向 TypeScript 和模板编译器描述这种约束。但是这个例子中使用 `address!.street` 避免了报错。
 
@@ -1480,8 +1476,7 @@ The non-null assertion operator should be used sparingly as refactoring of the c
 
 应该保守点使用非空断言操作符，因为将来对组件的重构可能会破坏这个约束。
 
-In this example it is recommended to include the checking of `address`
-in the `*ngIf`as shown below:
+In this example it is recommended to include the checking of `address` in the `*ngIf` as shown below:
 
 这个例子中，更建议在 `*ngIf` 中包含对 `address` 的检查，代码如下：
 

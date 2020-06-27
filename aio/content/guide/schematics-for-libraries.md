@@ -3,7 +3,7 @@
 # 库的原理图
 
 When you create an Angular library, you can provide and package it with schematics that integrate it with the Angular CLI.
-With your schematics, your users can use  `ng add` to install an initial version of your library,
+With your schematics, your users can use `ng add` to install an initial version of your library,
 `ng generate` to create artifacts defined in your library, and `ng update` to adjust their project for a new version of your library that introduces breaking changes.
 
 当创建 Angular 库时，你可以为同时为它打包进一组原理图，并把它与 Angular CLI 集成在一起。借助原理图，用户可以用 `ng add` 来安装你这个库的初始版本，可以用 `ng generate` 来创建你在库中定义的一些工件，可以用 `ng update` 来调整他们的项目，以支持你在库的新版本中引入的重大变更。
@@ -205,19 +205,19 @@ When you add a schematic to the collection, you have to point to it in the colle
 <code-example header="projects/my-lib/schematics/my-service/schema.json (Schematic JSON Schema)" path="schematics-for-libraries/projects/my-lib/schematics/my-service/schema.json">
 </code-example>
 
-* *id* : A unique id for the schema in the collection.
+* *id*: A unique id for the schema in the collection.
 
   *id*：这个模式定义在集合中的唯一 id。
 
-* *title* : A human-readable description of the schema.
+* *title*: A human-readable description of the schema.
 
   *title*：一个人类可读的模式描述。
 
-* *type* : A descriptor for the type provided by the properties.
+* *type*: A descriptor for the type provided by the properties.
 
   *type*：由这些属性提供的类型描述符。
 
-* *properties* : An object that defines the available options for the schematic.
+* *properties*: An object that defines the available options for the schematic.
 
   *properties*：一个定义该原理图可用选项的对象。
 
@@ -237,15 +237,15 @@ See the workspace schema for additional customizations for schematic options.
 <code-example header="projects/my-lib/schematics/my-service/schema.ts (Schematic Interface)" path="schematics-for-libraries/projects/my-lib/schematics/my-service/schema.ts">
 </code-example>
 
-* *name* : The name you want to provide for the created service.
+* *name*: The name you want to provide for the created service.
 
   *name*：你要为创建的这个服务指定的名称。
 
-* *path* : Overrides the path provided to the schematic. The default path value is based on the current working directory.
+* *path*: Overrides the path provided to the schematic. The default path value is based on the current working directory.
 
   *path*：覆盖为原理图提供的路径。默认情况下，路径是基于当前工作目录的。
 
-* *project* : Provides a specific project to run the schematic on. In the schematic, you can provide a default if the option is not provided by the user.
+* *project*: Provides a specific project to run the schematic on. In the schematic, you can provide a default if the option is not provided by the user.
 
   *project*：提供一个具体项目来运行原理图。在原理图中，如果用户没有给出该选项，你可以提供一个默认值。
 
@@ -302,11 +302,11 @@ It fills these in using values passed into the `Rule`.
 
 Schematics 框架提供了一个文件模板系统，它支持路径和内容模板。系统会操作在这个输入文件树（`Tree`）中加载的文件内或路径中定义的占位符，用传给 `Rule` 的值来填充它们。
 
-For details of these data structure and syntax, see the [Schematics README](https://github.com/angular/angular-cli/blob/master/packages/angular_devkit/schematics/README.md).
+For details of these data structures and syntax, see the [Schematics README](https://github.com/angular/angular-cli/blob/master/packages/angular_devkit/schematics/README.md).
 
 有关这些数据结构和语法的详细信息，请参见 [Schematics 的 README](https://github.com/angular/angular-cli/blob/master/packages/angular_devkit/schematics/README.md)。
 
-1. Create the main file, `index.ts` and add the source code for your schematic factory function.
+1. Create the main file `index.ts` and add the source code for your schematic factory function.
 
    创建主文件 `index.ts` 并为你的原理图工厂函数添加源代码。
 

@@ -94,10 +94,9 @@ Angular 支持大多数常用浏览器，包括下列版本：
 
       11, 10*, 9* (不支持“兼容性视图”)
 
-      *deprecated in v10, see the <a href="/guide/deprecations#ie-9-10">deprecations guide</a>.
+      *deprecated in v10, see the {@link guide/deprecations#ie-9-10-and-mobile deprecations guide}.
 
       *在 v10 中弃用，参见<a href="/guide/deprecations#ie-9-10">弃用指南</a>。
-
     </td>
 
   </tr>
@@ -105,13 +104,16 @@ Angular 支持大多数常用浏览器，包括下列版本：
    <tr> 
     <td>
 
-      IE Mobile
-
+      IE Mobile*
     </td>
 
     <td>
 
       11
+
+      <div>*deprecated in v10, see the {@link guide/deprecations#ie-9-10-and-mobile deprecations guide}.</div>
+
+      <div>*已在 v10 中弃用，参见 {@link guide/deprecations#ie-9-10-and-mobile deprecations guide}.</div>
 
     </td>
 
@@ -322,7 +324,6 @@ These are the polyfills required to run an Angular application on each supported
   <tr style="vertical-align: top">
 
     <td>
-
       IE9
     </td>
 
@@ -409,11 +410,10 @@ Some features of Angular may require additional polyfills.
 
     <td>
 
-       [NgClass](api/common/NgClass) 
-
-       on SVG elements
+       [NgClass](api/common/NgClass) on SVG elements
 
        在 SVG 元素上应用时
+
     </td>
 
     <td>
@@ -423,7 +423,6 @@ Some features of Angular may require additional polyfills.
     </td>
 
     <td>
-
       IE10, IE11
     </td>
 
@@ -433,9 +432,7 @@ Some features of Angular may require additional polyfills.
 
     <td>
 
-      [Http](guide/http) 
-
-      when sending and receiving binary data
+      [Http](guide/http) when sending and receiving binary data
 
       用 [Http](guide/http) 发送和接收二进制数据时
     </td>
@@ -741,7 +738,7 @@ For example:
     // __Zone_enable_cross_context_check = true;
   &lt;/script>
   &lt;!-- zone.js required by Angular -->
-  &lt;script src="node_modules/zone.js/dist/zone.js">&lt;/script>
+  &lt;script src="node_modules/zone.js/bundles/zone.umd.js">&lt;/script>
 
   &lt;!-- application polyfills -->
 </code-example>

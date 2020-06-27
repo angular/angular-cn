@@ -15,7 +15,7 @@ It includes information about prerequisites, installing the CLI, creating an ini
 
 If you are new to Angular, you might want to start with [Try it now!](start), which introduces the essentials of Angular in the context of a ready-made basic online store app that you can examine and modify. This standalone tutorial takes advantage of the interactive [StackBlitz](https://stackblitz.com/) environment for online development. You don't need to set up your local environment until you're ready.
 
-如果你不熟悉Angular，可能要从[立即尝试！](start)开始，它可以在查看和修改一个现成的基础版在线商店的上下文中介绍 Angular 的要点。这个独立的教程利用交互式的 [StackBlitz](https://stackblitz.com/) 环境进行在线开发。在你准备好这些之前，无需设置本地环境。
+如果你不熟悉 Angular，可能要从[立即尝试！](start)开始，它可以在查看和修改一个现成的基础版在线商店的上下文中介绍 Angular 的要点。这个独立的教程利用交互式的 [StackBlitz](https://stackblitz.com/) 环境进行在线开发。在你准备好这些之前，无需设置本地环境。
 
 </div>
 
@@ -37,71 +37,68 @@ Knowledge of [TypeScript](https://www.typescriptlang.org/) is helpful, but not r
 
 关于 [TypeScript](https://www.typescriptlang.org/) 的知识会很有用，但不是必须的。
 
+To install Angular on your local system, you need the following:
+
+要想在你的本地系统中安装 Angular，需要如下步骤：
+
 {@a nodejs}
-### Node.js
 
-Make sure your development environment includes `Node.js®` and an npm package manager.
+* **Node.js**
+  
+  Angular requires a [current, active LTS, or maintenance LTS](https://nodejs.org/about/releases) version of Node.js.
 
-确保你的开发环境中包括 `Node.js®` 和一个包管理器。
+  Angular 需要 Node.js 的[当前版、活跃 LTS 版或维护期 LTS版](https://nodejs.org/about/releases)。
 
-Angular requires a [current, active LTS, or maintenance LTS](https://nodejs.org/about/releases/) version of `Node.js`. See the `engines` key for the specific version requirements in our [package.json](https://unpkg.com/@angular/cli/package.json).
+  <div class="alert is-helpful">
 
-Angular 需要 `Node.js` 版本 10.9.0 或更高版本。
+  For information about specific version requirements, see the `engines` key in the [package.json](https://unpkg.com/@angular/cli/package.json) file.
 
-* To check your version, run `node -v` in a terminal/console window.
+  关于具体版本需求，参见 [package.json](https://unpkg.com/@angular/cli/package.json) 文件中的 `engines`。
 
-  要检查你的版本，请在终端/控制台窗口中运行 `node -v`。
+  </div>
 
-* To get `Node.js`, go to [nodejs.org](https://nodejs.org "Nodejs.org").
+  For more information on installing Node.js, see [nodejs.org](http://nodejs.org "Nodejs.org").
+  If you are unsure what version of Node.js runs on your system, run `node -v` in a terminal window.
 
-  要获取 `Node.js`，请转到 [nodejs.org](https://nodejs.org "Nodejs.org")。
+  要了解如何安装 Node.js，参见 [nodejs.org](http://nodejs.org "Nodejs.org")。
+  如果你不确定系统中正在运行的 Node.js 版本是什么，请在终端窗口中运行 `node -v`。
 
 {@a npm}
-### npm package manager
 
-### npm 包管理器
+* **npm package manager**
 
-Angular, the Angular CLI, and Angular apps depend on features and functionality provided by libraries that are available as [npm packages](https://docs.npmjs.com/getting-started/what-is-npm). To download and install npm packages, you must have an npm package manager.
+  **npm 包管理器**
 
-Angular、Angular CLI 和 Angular 应用都依赖于 [npm 包](https://docs.npmjs.com/getting-started/what-is-npm)中提供的特性和功能。要想下载并安装 npm 包，你必须拥有一个 npm 包管理器。
+  Angular, the Angular CLI, and Angular applications depend on [npm packages](https://docs.npmjs.com/getting-started/what-is-npm) for many features and functions.
+  To download and install npm packages, you need an npm package manager.
+  This guide uses the [npm client](https://docs.npmjs.com/cli/install) command line interface, which is installed with `Node.js` by default.
+  To check that you have the npm client installed, run `npm -v` in a terminal window.
 
-This setup guide uses the [npm client](https://docs.npmjs.com/cli/install) command line interface, which is installed with `Node.js` by default.
-
-本搭建指南使用 [npm 客户端](https://docs.npmjs.com/cli/install)命令行界面，`Node.js` 已经默认安装了它。
-
-To check that you have the npm client installed, run `npm -v` in a terminal/console window.
-
-要检查你是否安装了 npm 客户端，请在终端/控制台窗口中运行 `npm -v`。
+Angular、Angular CLI 以及 Angular 应用都要依赖 [npm 包](https://docs.npmjs.com/getting-started/what-is-npm)来实现很多特性和功能。要下载并安装 npm 包，你需要一个 npm 包管理器。本指南使用 [npm 客户端](https://docs.npmjs.com/cli/install)命令行界面，该界面默认安装在 `Node.js`。要检查你是否安装了 npm 客户端，请在终端窗口中运行 `npm -v` 。
 
 {@a install-cli}
 
-## Step 1: Install the Angular CLI
+## Install the Angular CLI
 
-## 第 1 步：安装 Angular CLI
+## 安装 Angular CLI
 
-You use the Angular CLI
-to create projects, generate application and library code, and perform a variety of ongoing development tasks such as testing, bundling, and deployment.
+You use the Angular CLI to create projects, generate application and library code, and perform a variety of ongoing development tasks such as testing, bundling, and deployment.
 
-你可以使用 Angular CLI 来创建项目、生成应用和库代码，以及执行各种持续开发任务，比如测试、打包和部署。
+你可以使用 Angular CLI 来创建项目，生成应用和库代码，以及执行各种持续开发任务，比如测试、打包和部署。
 
-Install the Angular CLI globally.
-
-全局安装 Angular CLI。
-
-To install the CLI using `npm`, open a terminal/console window and enter the following command:
+To install the Angular CLI, open a terminal window and run the following command:
 
 要使用 `npm` 命令安装 CLI，请打开终端/控制台窗口，输入如下命令：
 
 <code-example language="sh" class="code-shell">
   npm install -g @angular/cli
-
 </code-example>
 
 {@a create-proj}
 
-## Step 2: Create a workspace and initial application
+## Create a workspace and initial application
 
-## 第 2 步：创建工作空间和初始应用
+## 创建工作空间和初始应用
 
 You develop apps in the context of an Angular [**workspace**](guide/glossary#workspace).
 
@@ -132,23 +129,33 @@ The CLI creates a new workspace and a simple Welcome app, ready to run.
 
 CLI 会创建一个新的工作区和一个简单的欢迎应用，随时可以运行它。
 
+<div class="alert is-helpful">
+
+You also have the option to use Angular's strict mode, which can help you write better, more maintainable code.
+For more information, see [Strict mode](/guide/strict-mode).
+
+你还可以使用 Angular 的严格模式，他可以帮助你编写更好、更容易维护的代码。
+欲知详情，参见[严格模式](/guide/strict-mode)。
+
+</div>
+
 {@a serve}
 
-## Step 3: Run the application
+## Run the application
 
-## 第 3 步：运行应用
+## 运行应用
 
-The Angular CLI includes a server, so that you can easily build and serve your app locally.
+The Angular CLI includes a server, so that you can build and serve your app locally.
 
 Angular CLI 中包含一个服务器，方便你在本地构建和提供应用。
 
-1. Go to the workspace folder (`my-app`).
+1. Navigate to the workspace folder, such as `my-app`.
 
-   转到 workspace 文件夹（`my-app`）。
+   导航到 workspace 文件夹，比如 `my-app`。
 
-1. Launch the server by using the CLI command `ng serve`, with the `--open` option.
+1. Run the following command:
 
-   使用 CLI 命令 `ng serve` 和 `--open` 选项来启动服务器。
+   运行下列命令：
 
 <code-example language="sh" class="code-shell">
   cd my-app
@@ -165,9 +172,9 @@ to `http://localhost:4200/`.
 
 `--open`（或者只用 `-o` 缩写）选项会自动打开你的浏览器，并访问 `http://localhost:4200/`。
 
-You will see:
+If your installation and setup was successful, you should see a page similar to the following.
 
-你会看到：
+如果你的安装和环境搭建成功了，就会看到如下页面：
 
 <div class="lightbox">
   <img src='generated/images/guide/setup-local/app-works.png' alt="Welcome to my-app!">

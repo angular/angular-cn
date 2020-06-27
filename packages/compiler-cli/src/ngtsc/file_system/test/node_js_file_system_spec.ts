@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright Google Inc. All Rights Reserved.
+ * Copyright Google LLC All Rights Reserved.
  *
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
@@ -41,6 +41,16 @@ describe('NodeJSFileSystem', () => {
       const result = fs.readFile(abcPath);
       expect(result).toBe('Some contents');
       expect(spy).toHaveBeenCalledWith(abcPath, 'utf8');
+    });
+  });
+
+  describe('readFileBuffer()', () => {
+    it('should delegate to fs.readFileSync()', () => {
+      const buffer = new Buffer('Some contents');
+      const spy = spyOn(realFs, 'readFileSync').and.returnValue(buffer);
+      const result = fs.readFileBuffer(abcPath);
+      expect(result).toBe(buffer);
+      expect(spy).toHaveBeenCalledWith(abcPath);
     });
   });
 

@@ -83,7 +83,7 @@ For example, your `myBuilder` folder could contain the following files.
 
 You can publish the builder to `npm` (see [Publishing your Library](https://angular.io/guide/creating-libraries#publishing-your-library)). If you publish it as `@example/my-builder`, you can install it using the following command.
 
-你可以把构建器发布到 `npm`（请参阅[发布你的库](https://angular.cn/guide/creating-libraries#publishing-your-library)）。如果把它发布成了 `@example/my-builder`，就可以使用下面的命令来安装它。
+你可以把构建器发布到 `npm`（请参阅[发布你的库](guide/creating-libraries#publishing-your-library)）。如果把它发布成了 `@example/my-builder`，就可以使用下面的命令来安装它。
 
 <code-example language="sh">
 
@@ -411,7 +411,7 @@ Let’s create a simple `angular.json` file that puts target configurations into
 
 We can publish the builder to npm (see [Publishing your Library](guide/creating-libraries#publishing-your-library)), and install it using the following command:
 
-我们可以把这个构建器发布到 npm（请参阅[发布你的库](https://angular.cn/guide/creating-libraries#publishing-your-library)），并使用如下命令来安装它：
+我们可以把这个构建器发布到 npm（请参阅[发布你的库](guide/creating-libraries#publishing-your-library)），并使用如下命令来安装它：
 
 <code-example language="sh">
 
@@ -479,7 +479,7 @@ We need to update the `angular.json` file to add a target for this builder to th
 
 * The target named "touch" uses our builder, which we published to `@example/command-runner`. (See [Publishing your Library](guide/creating-libraries#publishing-your-library))
 
-  名为 `touch` 的目标使用了我们的构建器，它发布到了 `@example/command-runner`。（参见[发布你的库](https://angular.cn/guide/creating-libraries#publishing-your-library) ）
+  名为 `touch` 的目标使用了我们的构建器，它发布到了 `@example/command-runner`。（参见[发布你的库](guide/creating-libraries#publishing-your-library) ）
 
 * The options object provides default values for the two inputs that we defined; `command`, which is the Unix command to execute, and `args`, an array that contains the file to operate on.
 

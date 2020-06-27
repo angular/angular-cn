@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright Google Inc. All Rights Reserved.
+ * Copyright Google LLC All Rights Reserved.
  *
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
@@ -33,7 +33,7 @@ function elementContainerStartFirstCreatePass(
   // While ng-container doesn't necessarily support styling, we use the style context to identify
   // and execute directives on the ng-container.
   if (attrs !== null) {
-    computeStaticStyling(tNode, attrs);
+    computeStaticStyling(tNode, attrs, true);
   }
 
   const localRefs = getConstant<string[]>(tViewConsts, localRefsIndex);

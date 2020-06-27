@@ -66,9 +66,13 @@ You can use these events to notify the user of a pending update or to refresh th
 
 ### 检查更新
 
-It's possible to ask the service worker to check if any updates have been deployed to the server. You might choose to do this if you have a site that changes frequently or want updates to happen on a schedule.
+It's possible to ask the service worker to check if any updates have been deployed to the server.
+The service worker checks for updates during initialization and on each navigation request&mdash;that is, when the user navigates from a different address to your app.
+However, you might choose to manually check for updates if you have a site that changes frequently or want updates to happen on a schedule.
 
-可以要求 Service Worker 检查是否有任何更新已经发布到了服务器上。如果你的站点更新非常频繁，或者希望它按照计划进行定时更新，你就可以用它来实现。
+可以要求 Service Worker 检查是否有任何更新已经发布到了服务器上。
+Service Worker 会在初始化和每次导航请求（也就是用户导航到应用中的另一个地址）时检查更新。
+不过，如果你的站点更新非常频繁，或者需要按计划进行更新，你可能会选择手动检查更新。
 
 Do this with the `checkForUpdate()` method:
 
@@ -83,22 +87,21 @@ This method returns a `Promise` which indicates that the update check has comple
 
 <div class="alert is-important">
 
-In order to avoid negatively affecting the initial rendering, `ServiceWorkerModule` will by default
-wait for the app to stabilize, before registering the ServiceWorker script. Constantly polling for
-updates, e.g. with `interval()`, will prevent the app from stabilizing and the ServiceWorker
-script will never be registered with the browser.
+In order to avoid negatively affecting the initial rendering of the page, `ServiceWorkerModule` waits for up to 30 seconds by default for the app to stabilize, before registering the ServiceWorker script.
+Constantly polling for updates, for example, with [setInterval()](https://developer.mozilla.org/en-US/docs/Web/API/WindowOrWorkerGlobalScope/setInterval) or RxJS' [interval()](https://rxjs.dev/api/index/function/interval), will prevent the app from stabilizing and the ServiceWorker script will not be registered with the browser until the 30 seconds upper limit is reached.
 
-为了避免影响页面的首次渲染，在注册 ServiceWorker 脚本之前，`ServiceWorkerModule` 默认会等待应用程序达到稳定态。如果不断轮询更新（比如调用 `interval()`）将阻止应用程序达到稳定态，也就永远不会往浏览器中注册 ServiceWorker 脚本。
-
-You can avoid that by waiting for the app to stabilize first, before starting to poll for updates
-(as shown in the example above).
-
-在开始轮询更新之前，你可以先等待应用程序达到稳定态，以避免这种情况（如上例所示）。
+为了避免影响页面的首次渲染，在注册 ServiceWorker 脚本之前，`ServiceWorkerModule` 默认会在应用程序达到稳定态之前等待最多 30 秒。如果不断轮询更新（比如调用 [setInterval()](https://developer.mozilla.org/en-US/docs/Web/API/WindowOrWorkerGlobalScope/setInterval) 或 RxJS 的 [interval()](https://rxjs.dev/api/index/function/interval)）就会阻止应用程序达到稳定态，则直到 30 秒结束之前都不会往浏览器中注册 ServiceWorker 脚本。
 
 Note that this is true for any kind of polling done by your application.
 Check the {@link ApplicationRef#isStable isStable} documentation for more information.
 
 请注意，应用中所执行的各种轮询都会阻止它达到稳定态。欲知详情，参见 {@link ApplicationRef#isStable isStable} 文档。
+
+You can avoid that delay by waiting for the app to stabilize first, before starting to poll for updates, as shown in the example above.
+Alternatively, you might want to define a different {@link SwRegistrationOptions#registrationStrategy registration strategy} for the ServiceWorker.
+
+你可以通过在开始轮询更新之前先等应用达到稳定态来消除这种延迟，如下面的例子所示。
+另外，你还可以为 ServiceWorker 定义不一样的 {@link SwRegistrationOptions#registrationStrategy 注册策略}。
 
 </div>
 
@@ -112,9 +115,15 @@ If the current tab needs to be updated to the latest app version immediately, it
 
 <code-example path="service-worker-getting-started/src/app/prompt-update.service.ts" header="prompt-update.service.ts" region="sw-activate"></code-example>
 
-Doing this could break lazy-loading in currently running apps, especially if the lazy-loaded chunks use filenames with hashes, which change every version.
+<div class="alert is-important">
 
-这可能会让惰性加载的模块进入当前正在运行的应用中，特别是如果惰性加载的模块文件名中使用了哈希时，这将会改变每一个版本。
+Calling `activateUpdate()` without reloading the page could break lazy-loading in a currently running app, especially if the lazy-loaded chunks use filenames with hashes, which change every version.
+Therefore, it is recommended to reload the page once the promise returned by `activateUpdate()` is resolved.
+
+如果调用 `activateUpdate()` 而不刷新页面，可能会破坏正在运行的应用中的惰性加载模块，特别是如果惰性加载的模块文件名中使用了哈希时，就会改变每一个版本。
+所以，建议每当 `activateUpdate()` 返回的 Promise 被解析时，都刷新一次页面。
+
+</div>
 
 ## More on Angular service workers
 

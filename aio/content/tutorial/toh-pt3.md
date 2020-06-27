@@ -22,6 +22,14 @@ The `HeroDetailComponent` will present details of a selected hero.
 `HeroesComponent` 将仅仅用来表示英雄列表。
 `HeroDetailComponent` 将用来表示所选英雄的详情。
 
+<div class="alert is-helpful">
+
+  For the sample app that this page describes, see the <live-example></live-example>.
+
+  要查看本页所讲的范例程序，参见<live-example></live-example>。
+
+</div>
+
 ## Make the `HeroDetailComponent`
 
 ## 制作 `HeroDetailComponent`
@@ -240,9 +248,9 @@ without touching the parent `HeroesComponent`.
 
 ## 查看最终代码
 
-Here are the code files discussed on this page and your app should look like this <live-example></live-example>.
+Here are the code files discussed on this page.
 
-你的应用应该变成了这样 <live-example></live-example>。本页所提及的代码文件如下：
+本页讨论的代码文件如下。
 
 <code-tabs>
 

@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright Google Inc. All Rights Reserved.
+ * Copyright Google LLC All Rights Reserved.
  *
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
@@ -10,15 +10,15 @@ import * as ts from 'typescript';
 
 import {absoluteFrom, getFileSystem, getSourceFileOrError} from '../../../src/ngtsc/file_system';
 import {runInEachFileSystem, TestFile} from '../../../src/ngtsc/file_system/testing';
+import {MockLogger} from '../../../src/ngtsc/logging/testing';
 import {ClassMemberKind, ConcreteDeclaration, CtorParameter, DownleveledEnum, Import, InlineDeclaration, isNamedClassDeclaration, isNamedFunctionDeclaration, isNamedVariableDeclaration, KnownDeclaration, TypeScriptReflectionHost} from '../../../src/ngtsc/reflection';
 import {getDeclaration} from '../../../src/ngtsc/testing';
 import {loadFakeCore, loadTestFiles} from '../../../test/helpers';
 import {DelegatingReflectionHost} from '../../src/host/delegating_host';
-import {getIifeBody} from '../../src/host/esm5_host';
+import {getIifeBody} from '../../src/host/esm2015_host';
 import {NgccReflectionHost} from '../../src/host/ngcc_host';
 import {parseStatementForUmdModule, UmdReflectionHost} from '../../src/host/umd_host';
 import {BundleProgram} from '../../src/packages/bundle_program';
-import {MockLogger} from '../helpers/mock_logger';
 import {getRootFiles, makeTestBundleProgram} from '../helpers/utils';
 
 import {expectTypeValueReferencesForParameters} from './util';
@@ -570,108 +570,110 @@ runInEachFileSystem(() => {
       EXPORTS_FILES = [
         {
           name: _('/index.js'),
-          contents: `
-          (function (global, factory) {
-            typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('./a_module'), require('./b_module'), require('./wildcard_reexports'), require('./wildcard_reexports_imported_helpers'), require('./wildcard_reexports_with_require')) :
-            typeof define === 'function' && define.amd ? define('index', ['exports', './a_module', './b_module', './wildcard_reexports', './wildcard_reexports_imported_helpers', './wildcard_reexports_with_require'], factory) :
-            (factory(global.index, global.a_module, global.b_module, global.wildcard_reexports, global.wildcard_reexports_imported_helpers, global.wildcard_reexports_with_require));
-          }(this, (function (exports, a_module, b_module, wildcard_reexports, wildcard_reexports_imported_helpers, wildcard_reexports_with_require) { 'use strict';
-          })));
-          `
+          contents: `(function (global, factory) {\n` +
+              `  typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('./a_module'), require('./b_module'), require('./wildcard_reexports'), require('./wildcard_reexports_imported_helpers'), require('./wildcard_reexports_with_require'), require('./define_property_reexports')) :\n` +
+              `  typeof define === 'function' && define.amd ? define('index', ['exports', './a_module', './b_module', './wildcard_reexports', './wildcard_reexports_imported_helpers', './wildcard_reexports_with_require', './define_property_reexports'], factory) :\n` +
+              `  (factory(global.index, global.a_module, global.b_module, global.wildcard_reexports, global.wildcard_reexports_imported_helpers, global.wildcard_reexports_with_require, global.define_property_reexports));\n` +
+              `}(this, (function (exports, a_module, b_module, wildcard_reexports, wildcard_reexports_imported_helpers, wildcard_reexports_with_require, define_property_reexports) { 'use strict';\n` +
+              `})));\n`
         },
         {
           name: _('/a_module.js'),
-          contents: `
-(function (global, factory) {
-  typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports) :
-  typeof define === 'function' && define.amd ? define('a_module', ['exports'], factory) :
-  (factory(global.a_module));
-}(this, (function (exports) { 'use strict';
-  var a = 'a';
-  exports.a = a;
-})));`,
+          contents: `(function (global, factory) {\n` +
+              `  typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports) :\n` +
+              `  typeof define === 'function' && define.amd ? define('a_module', ['exports'], factory) :\n` +
+              `  (factory(global.a_module));\n` +
+              `}(this, (function (exports) { 'use strict';\n` +
+              `  var a = 'a';\n` +
+              `  exports.a = a;\n` +
+              `})));\n`,
         },
         {
           name: _('/b_module.js'),
-          contents: `
-(function (global, factory) {
-  typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('/a_module')) :
-  typeof define === 'function' && define.amd ? define('b_module', ['exports', '@angular/core', 'a_module'], factory) :
-  (factory(global.b_module));
-}(this, (function (exports, core, a_module) { 'use strict';
-  var b = a_module.a;
-  var e = 'e';
-  var SomeClass = (function() {
-    function SomeClass() {}
-    return SomeClass;
-  }());
-
-  exports.Directive = core.Directive;
-  exports.a = a_module.a;
-  exports.b = b;
-  exports.c = a_module.a;
-  exports.d = b;
-  exports.e = e;
-  exports.DirectiveX = core.Directive;
-  exports.SomeClass = SomeClass;
-})));`,
+          contents: `(function (global, factory) {\n` +
+              `  typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('./a_module')) :\n` +
+              `  typeof define === 'function' && define.amd ? define('b_module', ['exports', '@angular/core', './a_module'], factory) :\n` +
+              `  (factory(global.b_module));\n` +
+              `}(this, (function (exports, core, a_module) { 'use strict';\n` +
+              `  var b = a_module.a;\n` +
+              `  var e = 'e';\n` +
+              `  var SomeClass = (function() {\n` +
+              `    function SomeClass() {}\n` +
+              `    return SomeClass;\n` +
+              `  }());\n` +
+              `\n` +
+              `  exports.Directive = core.Directive;\n` +
+              `  exports.a = a_module.a;\n` +
+              `  exports.b = b;\n` +
+              `  exports.c = a_module.a;\n` +
+              `  exports.d = b;\n` +
+              `  exports.e = e;\n` +
+              `  exports.DirectiveX = core.Directive;\n` +
+              `  exports.SomeClass = SomeClass;\n` +
+              `})));\n`,
         },
         {
           name: _('/xtra_module.js'),
-          contents: `
-(function (global, factory) {
-  typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports) :
-  typeof define === 'function' && define.amd ? define('xtra_module', ['exports'], factory) :
-  (factory(global.xtra_module));
-}(this, (function (exports) { 'use strict';
-  var xtra1 = 'xtra1';
-  var xtra2 = 'xtra2';
-  exports.xtra1 = xtra1;
-  exports.xtra2 = xtra2;
-})));`,
+          contents: `(function (global, factory) {\n` +
+              `  typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports) :\n` +
+              `  typeof define === 'function' && define.amd ? define('xtra_module', ['exports'], factory) :\n` +
+              `  (factory(global.xtra_module));\n` +
+              `}(this, (function (exports) { 'use strict';\n` +
+              `  var xtra1 = 'xtra1';\n` +
+              `  var xtra2 = 'xtra2';\n` +
+              `  exports.xtra1 = xtra1;\n` +
+              `  exports.xtra2 = xtra2;\n` +
+              `})));\n`,
         },
         {
           name: _('/wildcard_reexports.js'),
-          contents: `
-(function (global, factory) {
-  typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('./b_module'), require('./xtra_module')) :
-  typeof define === 'function' && define.amd ? define('wildcard_reexports', ['exports', './b_module', './xtra_module'], factory) :
-  (factory(global.wildcard_reexports, b_module, xtra_module));
-}(this, (function (exports, b_module, xtra_module) { 'use strict';
-  function __export(m) {
-    for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
-  }
-  __export(b_module);
-  __export(xtra_module);
-})));`,
+          contents: `(function (global, factory) {\n` +
+              `  typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('./b_module'), require('./xtra_module')) :\n` +
+              `  typeof define === 'function' && define.amd ? define('wildcard_reexports', ['exports', './b_module', './xtra_module'], factory) :\n` +
+              `  (factory(global.wildcard_reexports, b_module, xtra_module));\n` +
+              `}(this, (function (exports, b_module, xtra_module) { 'use strict';\n` +
+              `  function __export(m) {\n` +
+              `    for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];\n` +
+              `  }\n` +
+              `  __export(b_module);\n` +
+              `  __export(xtra_module);\n` +
+              `})));\n`,
         },
         {
           name: _('/wildcard_reexports_imported_helpers.js'),
-          contents: `
-(function (global, factory) {
-  typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('tslib'), require('./b_module'), require('./xtra_module')) :
-  typeof define === 'function' && define.amd ? define('wildcard_reexports', ['exports', 'tslib', './b_module', './xtra_module'], factory) :
-  (factory(global.wildcard_reexports_imported_helpers, tslib, b_module, xtra_module));
-}(this, (function (exports, tslib, b_module, xtra_module) { 'use strict';
-  tslib.__exportStar(b_module, exports);
-  tslib.__exportStar(xtra_module, exports);
-})));`,
+          contents: `(function (global, factory) {\n` +
+              `  typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('tslib'), require('./b_module'), require('./xtra_module')) :\n` +
+              `  typeof define === 'function' && define.amd ? define('wildcard_reexports', ['exports', 'tslib', './b_module', './xtra_module'], factory) :\n` +
+              `  (factory(global.wildcard_reexports_imported_helpers, tslib, b_module, xtra_module));\n` +
+              `}(this, (function (exports, tslib, b_module, xtra_module) { 'use strict';\n` +
+              `  tslib.__exportStar(b_module, exports);\n` +
+              `  tslib.__exportStar(xtra_module, exports);\n` +
+              `})));\n`,
         },
         {
           name: _('/wildcard_reexports_with_require.js'),
-          contents: `
-(function (global, factory) {
-  typeof exports === 'object' && typeof module !== 'undefined' ? factory(require, exports) :
-  typeof define === 'function' && define.amd ? define('wildcard_reexports_with_require', ['require', 'exports'], factory);
-}(this, (function (require, exports) { 'use strict';
-  function __export(m) {
-    for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
-  }
-  var b_module = require('./b_module');
-  __export(b_module);
-  __export(require('./xtra_module'));
-})));`,
-        }
+          contents: `(function (global, factory) {\n` +
+              `  typeof exports === 'object' && typeof module !== 'undefined' ? factory(require, exports) :\n` +
+              `  typeof define === 'function' && define.amd ? define('wildcard_reexports_with_require', ['require', 'exports'], factory);\n` +
+              `}(this, (function (require, exports) { 'use strict';\n` +
+              `  function __export(m) {\n` +
+              `    for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];\n` +
+              `  }\n` +
+              `  var b_module = require('./b_module');\n` +
+              `  __export(b_module);\n` +
+              `  __export(require('./xtra_module'));\n` +
+              `})));\n`,
+        },
+        {
+          name: _('/define_property_reexports.js'),
+          contents: `(function (global, factory) {\n` +
+              `  typeof exports === 'object' && typeof module !== 'undefined' ? factory(require, exports) :\n` +
+              `  typeof define === 'function' && define.amd ? define('define_property_reexports', ['require', 'exports'], factory);\n` +
+              `}(this, (function (require, exports) { 'use strict';\n` +
+              `var moduleA = require("./a_module");\n` +
+              `Object.defineProperty(exports, "newA", { enumerable: true, get: function () { return moduleA.a; } });\n` +
+              `})));`,
+        },
       ];
 
       FUNCTION_BODY_FILE = {
@@ -1939,9 +1941,10 @@ runInEachFileSystem(() => {
         const host = createHost(bundle, new UmdReflectionHost(new MockLogger(), false, bundle));
         const {factoryFn} = parseStatementForUmdModule(
             getSourceFileOrError(bundle.program, testFile.name).statements[0])!;
-        const tslibSourceFile = getSourceFileOrError(bundle.program, tslibFile.name);
-
-        const testForHelper = createTestForTsHelper(host, factoryFn, () => tslibSourceFile);
+        const testForHelper = createTestForTsHelper(
+            host, factoryFn,
+            (_fn, helperName) => getDeclaration(
+                bundle.program, tslibFile.name, helperName, ts.isFunctionDeclaration));
 
         testForHelper('a', '__assign', KnownDeclaration.TsHelperAssign, 'tslib');
         testForHelper('b', '__spread', KnownDeclaration.TsHelperSpread, 'tslib');
@@ -2181,9 +2184,9 @@ runInEachFileSystem(() => {
                    .map(entry => [entry[0], entry[1].node!.getText(), entry[1].viaModule]))
             .toEqual([
               ['Directive', `Directive: FnWithArg<(clazz: any) => any>`, '@angular/core'],
-              ['a', `a = 'a'`, '/a_module'],
+              ['a', `a = 'a'`, null],
               ['b', `b = a_module.a`, null],
-              ['c', `a = 'a'`, '/a_module'],
+              ['c', `a = 'a'`, null],
               ['d', `b = a_module.a`, null],
               ['e', `e = 'e'`, null],
               ['DirectiveX', `Directive: FnWithArg<(clazz: any) => any>`, '@angular/core'],
@@ -2290,6 +2293,21 @@ runInEachFileSystem(() => {
               ['__spread', KnownDeclaration.TsHelperSpread],
               ['__spreadArrays', KnownDeclaration.TsHelperSpreadArrays],
               ['__unknownHelper', null],
+            ]);
+      });
+
+      it('should define property exports from a module', () => {
+        loadFakeCore(getFileSystem());
+        loadTestFiles(EXPORTS_FILES);
+        const bundle = makeTestBundleProgram(_('/index.js'));
+        const host = createHost(bundle, new UmdReflectionHost(new MockLogger(), false, bundle));
+        const file = getSourceFileOrError(bundle.program, _('/define_property_reexports.js'));
+        const exportDeclarations = host.getExportsOfModule(file);
+        expect(exportDeclarations).not.toBe(null);
+        expect(Array.from(exportDeclarations!.entries())
+                   .map(entry => [entry[0], entry[1].node!.getText(), entry[1].viaModule]))
+            .toEqual([
+              ['newA', `a = 'a'`, null],
             ]);
       });
     });
@@ -2399,7 +2417,8 @@ runInEachFileSystem(() => {
         const host = createHost(bundle, new UmdReflectionHost(new MockLogger(), false, bundle));
         const outerNode = getDeclaration(
             bundle.program, SIMPLE_CLASS_FILE.name, 'EmptyClass', isNamedVariableDeclaration);
-        const innerNode = getIifeBody(outerNode)!.statements.find(isNamedFunctionDeclaration)!;
+        const innerNode = (getIifeBody(outerNode.initializer!) as ts.Block)
+                              .statements.find(isNamedFunctionDeclaration)!;
         const classSymbol = host.getClassSymbol(outerNode);
 
         expect(classSymbol).toBeDefined();
@@ -2413,7 +2432,8 @@ runInEachFileSystem(() => {
         const host = createHost(bundle, new UmdReflectionHost(new MockLogger(), false, bundle));
         const outerNode = getDeclaration(
             bundle.program, SIMPLE_CLASS_FILE.name, 'EmptyClass', isNamedVariableDeclaration);
-        const innerNode = getIifeBody(outerNode)!.statements.find(isNamedFunctionDeclaration)!;
+        const innerNode = (getIifeBody(outerNode.initializer!) as ts.Block)
+                              .statements.find(isNamedFunctionDeclaration)!;
         const classSymbol = host.getClassSymbol(innerNode);
 
         expect(classSymbol).toBeDefined();
@@ -2428,7 +2448,8 @@ runInEachFileSystem(() => {
            const host = createHost(bundle, new UmdReflectionHost(new MockLogger(), false, bundle));
            const outerNode = getDeclaration(
                bundle.program, SIMPLE_CLASS_FILE.name, 'EmptyClass', isNamedVariableDeclaration);
-           const innerNode = getIifeBody(outerNode)!.statements.find(isNamedFunctionDeclaration)!;
+           const innerNode = (getIifeBody(outerNode.initializer!) as ts.Block)
+                                 .statements.find(isNamedFunctionDeclaration)!;
 
            const innerSymbol = host.getClassSymbol(innerNode)!;
            const outerSymbol = host.getClassSymbol(outerNode)!;
@@ -2443,7 +2464,8 @@ runInEachFileSystem(() => {
            const host = createHost(bundle, new UmdReflectionHost(new MockLogger(), false, bundle));
            const outerNode = getDeclaration(
                bundle.program, SIMPLE_CLASS_FILE.name, 'NoParensClass', isNamedVariableDeclaration);
-           const innerNode = getIifeBody(outerNode)!.statements.find(isNamedFunctionDeclaration)!;
+           const innerNode = (getIifeBody(outerNode.initializer!) as ts.Block)
+                                 .statements.find(isNamedFunctionDeclaration)!;
            const classSymbol = host.getClassSymbol(outerNode);
 
            expect(classSymbol).toBeDefined();
@@ -2459,7 +2481,8 @@ runInEachFileSystem(() => {
            const outerNode = getDeclaration(
                bundle.program, SIMPLE_CLASS_FILE.name, 'InnerParensClass',
                isNamedVariableDeclaration);
-           const innerNode = getIifeBody(outerNode)!.statements.find(isNamedFunctionDeclaration)!;
+           const innerNode = (getIifeBody(outerNode.initializer!) as ts.Block)
+                                 .statements.find(isNamedFunctionDeclaration)!;
            const classSymbol = host.getClassSymbol(outerNode);
 
            expect(classSymbol).toBeDefined();
@@ -2519,7 +2542,8 @@ runInEachFileSystem(() => {
         const host = createHost(bundle, new UmdReflectionHost(new MockLogger(), false, bundle));
         const outerNode = getDeclaration(
             bundle.program, SIMPLE_CLASS_FILE.name, 'EmptyClass', ts.isVariableDeclaration);
-        const innerNode = getIifeBody(outerNode)!.statements.find(isNamedFunctionDeclaration)!;
+        const innerNode = (getIifeBody(outerNode.initializer!) as ts.Block)
+                              .statements.find(isNamedFunctionDeclaration)!;
         expect(host.isClass(innerNode)).toBe(true);
       });
 

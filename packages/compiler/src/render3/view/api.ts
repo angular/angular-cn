@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright Google Inc. All Rights Reserved.
+ * Copyright Google LLC All Rights Reserved.
  *
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
@@ -221,7 +221,8 @@ export interface R3QueryMetadata {
   first: boolean;
 
   /**
-   * Either an expression representing a type for the query predicate, or a set of string selectors.
+   * Either an expression representing a type or `InjectionToken` for the query
+   * predicate, or a set of string selectors.
    */
   predicate: o.Expression|string[];
 

@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright Google Inc. All Rights Reserved.
+ * Copyright Google LLC All Rights Reserved.
  *
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
@@ -146,6 +146,17 @@ const XSSI_PREFIX = ')]}\'\n';
         done();
       });
       factory.mock.mockErrorEvent(new Error('blah'));
+    });
+    it('avoids abort a request when fetch operation is completed', done => {
+      const abort = jasmine.createSpy('abort');
+
+      backend.handle(TEST_POST).toPromise().then(() => {
+        expect(abort).not.toHaveBeenCalled();
+        done();
+      });
+
+      factory.mock.abort = abort;
+      factory.mock.mockFlush(200, 'OK', 'Done');
     });
     describe('progress events', () => {
       it('are emitted for download progress', done => {

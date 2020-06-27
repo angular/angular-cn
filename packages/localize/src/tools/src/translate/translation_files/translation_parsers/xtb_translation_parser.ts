@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright Google Inc. All Rights Reserved.
+ * Copyright Google LLC All Rights Reserved.
  *
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
@@ -19,7 +19,11 @@ import {addParseDiagnostic, addParseError, canParseXml, getAttribute, parseInner
 
 
 /**
- * A translation parser that can load XB files.
+ * A translation parser that can load XTB files.
+ *
+ * http://cldr.unicode.org/development/development-process/design-proposals/xmb
+ *
+ * @see XmbTranslationSerializer
  */
 export class XtbTranslationParser implements TranslationParser<XmlTranslationParserHint> {
   canParse(filePath: string, contents: string): XmlTranslationParserHint|false {

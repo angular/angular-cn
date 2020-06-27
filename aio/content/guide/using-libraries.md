@@ -3,7 +3,7 @@
 # 使用已发布的库
 
 When building Angular applications you can take advantage of sophisticated first-party libraries, such as [Angular Material](https://material.angular.io/), as well as rich ecosystem of third-party libraries.
-See the [Angular Resources](https://angular.io/resources) page for links to the most popular ones.
+See the [Angular Resources](resources) page for links to the most popular ones.
 
 当构建 Angular 应用时，你可以从精致的第一方库，比如 [Angular Material](https://material.angular.cn/)，以及丰富的第三方库生态系统中获益。参见 [Angular 资源集](/resources)页面，了解最常用的库链接。
 

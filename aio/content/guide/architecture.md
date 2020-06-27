@@ -26,9 +26,10 @@ NgModule 会把相关的代码收集到一些功能集中。Angular 应用就是
    组件使用*服务*。服务会提供那些与视图不直接相关的功能。服务提供者可以作为*依赖*被*注入*到组件中，
   这能让你的代码更加模块化、更加可复用、更加高效。
 
-Both components and services are simply classes, with *decorators* that mark their type and provide metadata that tells Angular how to use them.
 
-组件和服务都是简单的类，这些类使用*装饰器*来标出它们的类型，并提供元数据以告知 Angular 该如何使用它们。
+Modules, components and services are classes that use *decorators*. These decorators mark their type and provide metadata that tells Angular how to use them.
+
+模块、组件和服务都是使用*装饰器*的类，这*装饰器*会标出它们的类型并提供元数据，以告知 Angular 该如何使用它们。
 
 * The metadata for a component class associates it with a *template* that defines a view. A template combines ordinary HTML with Angular *directives* and *binding markup* that allow Angular to modify the HTML before rendering it for display.
 

@@ -22,6 +22,14 @@ There are new requirements for the Tour of Heroes app:
 
    在邮件中点击一个*深链接*，会直接打开一个特定英雄的详情视图。
 
+<div class="alert is-helpful">
+
+  For the sample app that this page describes, see the <live-example></live-example>.
+
+  要查看本页所讲的范例程序，参见<live-example></live-example>。
+
+</div>
+
 When you’re done, users will be able to navigate the app like this:
 
 完成时，用户就能像这样在应用中导航：
@@ -774,9 +782,9 @@ from heroes list to the mini detail to the hero details and back to the heroes a
 
 ## 查看最终代码
 
-Here are the code files discussed on this page and your app should look like this <live-example></live-example>.
+Here are the code files discussed on this page.
 
-你的应用应该变成了这样 <live-example></live-example>。本页所提及的代码文件如下：
+本页讨论的代码文件如下。
 
 {@a approutingmodule}
 

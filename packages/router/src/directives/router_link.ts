@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright Google Inc. All Rights Reserved.
+ * Copyright Google LLC All Rights Reserved.
  *
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
@@ -80,7 +80,7 @@ import {UrlTree} from '../url_tree';
  *   link to user component
  * </a>
  * ```
- * RouterLink will use these to generate this link: `/user/bob#education?debug=true`.
+ * RouterLink will use these to generate this link: `/user/bob?debug=true#education`.
  *
  * RouterLink 将会使用它们生成如下链接：`/user/bob#education?debug=true`。
  *
@@ -167,21 +167,55 @@ import {UrlTree} from '../url_tree';
  */
 @Directive({selector: ':not(a):not(area)[routerLink]'})
 export class RouterLink {
+  /**
+   * Passed to {@link Router#createUrlTree Router#createUrlTree} as part of the `NavigationExtras`.
+   * @see {@link NavigationExtras#queryParams NavigationExtras#queryParams}
+   * @see {@link Router#createUrlTree Router#createUrlTree}
+   */
   // TODO(issue/24571): remove '!'.
   @Input() queryParams!: {[k: string]: any};
+  /**
+   * Passed to {@link Router#createUrlTree Router#createUrlTree} as part of the `NavigationExtras`.
+   * @see {@link NavigationExtras#fragment NavigationExtras#fragment}
+   * @see {@link Router#createUrlTree Router#createUrlTree}
+   */
   // TODO(issue/24571): remove '!'.
   @Input() fragment!: string;
+  /**
+   * Passed to {@link Router#createUrlTree Router#createUrlTree} as part of the `NavigationExtras`.
+   * @see {@link NavigationExtras#queryParamsHandling NavigationExtras#queryParamsHandling}
+   * @see {@link Router#createUrlTree Router#createUrlTree}
+   */
   // TODO(issue/24571): remove '!'.
   @Input() queryParamsHandling!: QueryParamsHandling;
+  /**
+   * Passed to {@link Router#createUrlTree Router#createUrlTree} as part of the `NavigationExtras`.
+   * @see {@link NavigationExtras#preserveFragment NavigationExtras#preserveFragment}
+   * @see {@link Router#createUrlTree Router#createUrlTree}
+   */
   // TODO(issue/24571): remove '!'.
   @Input() preserveFragment!: boolean;
+  /**
+   * Passed to {@link Router#createUrlTree Router#createUrlTree} as part of the `NavigationExtras`.
+   * @see {@link NavigationExtras#skipLocationChange NavigationExtras#skipLocationChange}
+   * @see {@link Router#createUrlTree Router#createUrlTree}
+   */
   // TODO(issue/24571): remove '!'.
   @Input() skipLocationChange!: boolean;
+  /**
+   * Passed to {@link Router#createUrlTree Router#createUrlTree} as part of the `NavigationExtras`.
+   * @see {@link NavigationExtras#replaceUrl NavigationExtras#replaceUrl}
+   * @see {@link Router#createUrlTree Router#createUrlTree}
+   */
   // TODO(issue/24571): remove '!'.
   @Input() replaceUrl!: boolean;
+  /**
+   * Passed to {@link Router#createUrlTree Router#createUrlTree} as part of the `NavigationExtras`.
+   * @see {@link NavigationExtras#state NavigationExtras#state}
+   * @see {@link Router#createUrlTree Router#createUrlTree}
+   */
   @Input() state?: {[k: string]: any};
   private commands: any[] = [];
-  // TODO(issue/24571): remove '!'.
   private preserve!: boolean;
 
   constructor(
@@ -192,8 +226,16 @@ export class RouterLink {
     }
   }
 
+  /**
+   * @param commands An array of commands to pass to {@link Router#createUrlTree
+   *     Router#createUrlTree}.
+   *   - **array**: commands to pass to {@link Router#createUrlTree Router#createUrlTree}.
+   *   - **string**: shorthand for array of commands with just the string, i.e. `['/route']`
+   *   - **null|undefined**: shorthand for an empty array of commands, i.e. `[]`
+   * @see {@link Router#createUrlTree Router#createUrlTree}
+   */
   @Input()
-  set routerLink(commands: any[]|string) {
+  set routerLink(commands: any[]|string|null|undefined) {
     if (commands != null) {
       this.commands = Array.isArray(commands) ? commands : [commands];
     } else {
@@ -202,7 +244,7 @@ export class RouterLink {
   }
 
   /**
-   * @deprecated 4.0.0 use `queryParamsHandling` instead.
+   * @deprecated As of Angular v4.0 use `queryParamsHandling` instead.
    */
   @Input()
   set preserveQueryParams(value: boolean) {
@@ -254,18 +296,53 @@ export class RouterLink {
 export class RouterLinkWithHref implements OnChanges, OnDestroy {
   // TODO(issue/24571): remove '!'.
   @HostBinding('attr.target') @Input() target!: string;
+  /**
+   * Passed to {@link Router#createUrlTree Router#createUrlTree} as part of the `NavigationExtras`.
+   * @see {@link NavigationExtras#queryParams NavigationExtras#queryParams}
+   * @see {@link Router#createUrlTree Router#createUrlTree}
+   */
   // TODO(issue/24571): remove '!'.
   @Input() queryParams!: {[k: string]: any};
+  /**
+   * Passed to {@link Router#createUrlTree Router#createUrlTree} as part of the `NavigationExtras`.
+   * @see {@link NavigationExtras#fragment NavigationExtras#fragment}
+   * @see {@link Router#createUrlTree Router#createUrlTree}
+   */
   // TODO(issue/24571): remove '!'.
   @Input() fragment!: string;
+  /**
+   * Passed to {@link Router#createUrlTree Router#createUrlTree} as part of the `NavigationExtras`.
+   * @see {@link NavigationExtras#queryParamsHandling NavigationExtras#queryParamsHandling}
+   * @see {@link Router#createUrlTree Router#createUrlTree}
+   */
   // TODO(issue/24571): remove '!'.
   @Input() queryParamsHandling!: QueryParamsHandling;
+  /**
+   * Passed to {@link Router#createUrlTree Router#createUrlTree} as part of the `NavigationExtras`.
+   * @see {@link NavigationExtras#preserveFragment NavigationExtras#preserveFragment}
+   * @see {@link Router#createUrlTree Router#createUrlTree}
+   */
   // TODO(issue/24571): remove '!'.
   @Input() preserveFragment!: boolean;
+  /**
+   * Passed to {@link Router#createUrlTree Router#createUrlTree} as part of the `NavigationExtras`.
+   * @see {@link NavigationExtras#skipLocationChange NavigationExtras#skipLocationChange}
+   * @see {@link Router#createUrlTree Router#createUrlTree}
+   */
   // TODO(issue/24571): remove '!'.
   @Input() skipLocationChange!: boolean;
+  /**
+   * Passed to {@link Router#createUrlTree Router#createUrlTree} as part of the `NavigationExtras`.
+   * @see {@link NavigationExtras#replaceUrl NavigationExtras#replaceUrl}
+   * @see {@link Router#createUrlTree Router#createUrlTree}
+   */
   // TODO(issue/24571): remove '!'.
   @Input() replaceUrl!: boolean;
+  /**
+   * Passed to {@link Router#createUrlTree Router#createUrlTree} as part of the `NavigationExtras`.
+   * @see {@link NavigationExtras#state NavigationExtras#state}
+   * @see {@link Router#createUrlTree Router#createUrlTree}
+   */
   @Input() state?: {[k: string]: any};
   private commands: any[] = [];
   private subscription: Subscription;
@@ -286,8 +363,16 @@ export class RouterLinkWithHref implements OnChanges, OnDestroy {
     });
   }
 
+  /**
+   * @param commands An array of commands to pass to {@link Router#createUrlTree
+   *     Router#createUrlTree}.
+   *   - **array**: commands to pass to {@link Router#createUrlTree Router#createUrlTree}.
+   *   - **string**: shorthand for array of commands with just the string, i.e. `['/route']`
+   *   - **null|undefined**: shorthand for an empty array of commands, i.e. `[]`
+   * @see {@link Router#createUrlTree Router#createUrlTree}
+   */
   @Input()
-  set routerLink(commands: any[]|string) {
+  set routerLink(commands: any[]|string|null|undefined) {
     if (commands != null) {
       this.commands = Array.isArray(commands) ? commands : [commands];
     } else {
@@ -295,6 +380,9 @@ export class RouterLinkWithHref implements OnChanges, OnDestroy {
     }
   }
 
+  /**
+   * @deprecated As of Angular v4.0 use `queryParamsHandling` instead.
+   */
   @Input()
   set preserveQueryParams(value: boolean) {
     if (isDevMode() && <any>console && <any>console.warn) {

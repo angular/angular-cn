@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright Google Inc. All Rights Reserved.
+ * Copyright Google LLC All Rights Reserved.
  *
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
@@ -8,7 +8,7 @@
 import {ChildProcess, fork} from 'child_process';
 
 import {AbsoluteFsPath, FileSystem} from '../../../../src/ngtsc/file_system';
-import {Logger, LogLevel} from '../../logging/logger';
+import {Logger, LogLevel} from '../../../../src/ngtsc/logging';
 import {getLockFilePath, LockFile} from '../lock_file';
 
 import {removeLockFile} from './util';
@@ -78,7 +78,7 @@ export class LockFileWithChildProcess implements LockFile {
         this.logger.level !== undefined ? this.logger.level.toString() : LogLevel.info.toString();
     const isWindows = process.platform === 'win32';
     const unlocker = fork(
-        this.fs.resolve(__dirname, './unlocker.js'), [path, logLevel],
+        __dirname + '/unlocker.js', [path, logLevel],
         {detached: true, stdio: isWindows ? 'pipe' : 'inherit'});
     if (isWindows) {
       unlocker.stdout?.on('data', process.stdout.write.bind(process.stdout));

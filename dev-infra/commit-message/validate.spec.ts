@@ -1,16 +1,14 @@
 /**
  * @license
- * Copyright Google Inc. All Rights Reserved.
+ * Copyright Google LLC All Rights Reserved.
  *
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
 
 // Imports
-import * as utilConfig from '../utils/config';
-
+import * as validateConfig from './config';
 import {validateCommitMessage} from './validate';
-
 
 // Constants
 const config = {
@@ -46,7 +44,7 @@ describe('validate-commit-message.js', () => {
     lastError = '';
 
     spyOn(console, 'error').and.callFake((msg: string) => lastError = msg);
-    spyOn(utilConfig, 'getAngularDevConfig').and.returnValue(config);
+    spyOn(validateConfig, 'getCommitMessageConfig').and.returnValue(config);
   });
 
   describe('validateMessage()', () => {

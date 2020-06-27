@@ -104,12 +104,12 @@ Though you can provide services by lazy loading modules, not all services can be
 Another way to limit provider scope is by adding the service you want to limit to the component’s
 `providers` array. Component providers and NgModule providers are independent of each other. This
 method is helpful when you want to eagerly load a module that needs a service all to itself.
-Providing a service in the component limits the service only to that component (other components in
-the same module can’t access it).
+Providing a service in the component limits the service only to that component and its descendants.
+Other components in the same module can’t access it.
 
 另一种限定提供者作用域的方式是把要限定的服务添加到组件的 `providers` 数组中。组件中的提供者和 NgModule 中的提供者是彼此独立的。
 当你要急性加载一个自带了全部所需服务的模块时，这种方式是有帮助的。
-在组件中提供服务，会限定该服务只能在该组件中有效（同一模块中的其它组件不能访问它）。
+在组件中提供服务，会限定该服务只能在该组件及其子组件中有效，而同一模块中的其它组件不能访问它。
 
 <code-example path="providers/src/app/app.component.ts" region="component-providers" header="src/app/app.component.ts"></code-example>
 

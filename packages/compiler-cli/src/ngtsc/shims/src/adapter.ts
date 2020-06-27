@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright Google Inc. All Rights Reserved.
+ * Copyright Google LLC All Rights Reserved.
  *
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
@@ -12,7 +12,7 @@ import {absoluteFrom, absoluteFromSourceFile, AbsoluteFsPath} from '../../file_s
 import {isDtsPath} from '../../util/src/typescript';
 import {PerFileShimGenerator, TopLevelShimGenerator} from '../api';
 
-import {isFileShimSourceFile, isShim, NgExtension, sfExtensionData} from './expando';
+import {isFileShimSourceFile, isShim, sfExtensionData} from './expando';
 import {makeShimFileName} from './util';
 
 interface ShimGeneratorData {

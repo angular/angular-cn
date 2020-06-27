@@ -902,7 +902,8 @@ JSON 文件中不支持代码片断标记，因为 JSON 文件中的注释是被
 
 </div>
 
-#### *#docregion*
+
+#### _#docregion_
 
 The _#docregion_ is the most important kind of code snippet markup.
 
@@ -929,7 +930,7 @@ The `src/main.ts` is a simple example of a file with a single _#docregion_ at th
 
 </div>
 
-#### Named *#docregions*
+#### Named _#docregions_
 
 #### 命名的 *#docregions*
 
@@ -1375,7 +1376,7 @@ If you do, be sure to set the `id` attribute - not the `name` attribute! The doc
 
 </div>
 
-## Alerts and Calllouts
+## Alerts and Callouts
 
 ## 警报和 Calllouts
 

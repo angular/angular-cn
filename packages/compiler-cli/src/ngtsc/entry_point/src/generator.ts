@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright Google Inc. All Rights Reserved.
+ * Copyright Google LLC All Rights Reserved.
  *
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
@@ -11,7 +11,7 @@
 import * as ts from 'typescript';
 
 import {AbsoluteFsPath, dirname, join} from '../../file_system';
-import {TopLevelShimGenerator} from '../../shims';
+import {TopLevelShimGenerator} from '../../shims/api';
 import {relativePathBetween} from '../../util/src/path';
 
 export class FlatIndexGenerator implements TopLevelShimGenerator {

@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright Google Inc. All Rights Reserved.
+ * Copyright Google LLC All Rights Reserved.
  *
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
@@ -1424,6 +1424,30 @@ describe('Driver', () => {
          scope.updateServerState(serverUpdate);
          await driver.checkForUpdate();
          expect(driver.state).toBe(DriverReadyState.NORMAL);
+       });
+
+    it('should not enter degraded mode if manifest for latest hash is missing upon initialization',
+       async () => {
+         // Initialize the SW.
+         scope.handleMessage({action: 'INITIALIZE'}, null);
+         await driver.initialized;
+         expect(driver.state).toBe(DriverReadyState.NORMAL);
+
+         // Ensure the data has been stored in the DB.
+         const db: MockCache = await scope.caches.open('ngsw:/:db:control') as any;
+         const getLatestHashFromDb = async () => (await (await db.match('/latest')).json()).latest;
+         expect(await getLatestHashFromDb()).toBe(manifestHash);
+
+         // Change the latest hash to not correspond to any manifest.
+         await db.put('/latest', new MockResponse('{"latest": "wrong-hash"}'));
+         expect(await getLatestHashFromDb()).toBe('wrong-hash');
+
+         // Re-initialize the SW and ensure it does not enter a degraded mode.
+         driver.initialized = null;
+         scope.handleMessage({action: 'INITIALIZE'}, null);
+         await driver.initialized;
+         expect(driver.state).toBe(DriverReadyState.NORMAL);
+         expect(await getLatestHashFromDb()).toBe(manifestHash);
        });
 
     it('ignores invalid `only-if-cached` requests ', async () => {

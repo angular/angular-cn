@@ -1,11 +1,12 @@
 /**
  * @license
- * Copyright Google Inc. All Rights Reserved.
+ * Copyright Google LLC All Rights Reserved.
  *
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
 
+import * as ngc from '@angular/compiler';
 import * as ts from 'typescript';
 
 import {TypeScriptServiceHost} from '../src/typescript_host';
@@ -170,9 +171,10 @@ describe('TypeScriptServiceHost', () => {
     tsLSHost.override('/app/test.ng', '<div></div>');
     const newModules = ngLSHost.getAnalyzedModules();
     const newProgram = ngLSHost.program;
-    // Assert that the program has changed because external template was updated
-    expect(newProgram).not.toBe(oldProgram);
-    // But, analyzed modules should remain the same because none of the source
+    // The program should not have changed since external templates are not part of
+    // the TS source files. This is an improvement in TS 3.9 over previous versions.
+    expect(newProgram).toBe(oldProgram);
+    // And also analyzed modules should remain the same because none of the source
     // files have changed.
     expect(newModules).toBe(oldModules);
   });
@@ -214,5 +216,45 @@ describe('TypeScriptServiceHost', () => {
     expect(newModules).not.toBe(oldModules);
     // But the content should be exactly the same
     expect(newModules).toEqual(oldModules);
+  });
+
+  it('should recover from error in analyzing ng modules', () => {
+    // First create a TypescriptHost with empty script names
+    const tsLSHost = new MockTypescriptHost([]);
+    const tsLS = ts.createLanguageService(tsLSHost);
+    const ngLSHost = new TypeScriptServiceHost(tsLSHost, tsLS);
+    const oldModules = ngLSHost.getAnalyzedModules();
+    expect(oldModules.ngModules).toEqual([]);
+    // Now add a script, this would change the program
+    let fileName = '/app/main.ts';
+    let content = `
+    import {CommonModule} from '@angular/common';
+    import {NgModule} from '@angular/core';
+    
+    @NgModule({
+      entryComponents: [CommonModule],
+    })
+    export class AppModule {}
+    `;
+    tsLSHost.addScript(fileName, content);
+
+    // If analyzing modules throws, the old modules should be returned.
+    let newModules = ngLSHost.getAnalyzedModules();
+    expect(newModules.ngModules).toEqual([]);
+    expect(tsLSHost.errors).toEqual([
+      'Analyzing NgModules failed. Error: CommonModule cannot be used as an entry component.'
+    ]);
+
+    content = `
+    import {CommonModule} from '@angular/common';
+    import {NgModule} from '@angular/core';
+    
+    @NgModule({})
+    export class AppModule {}
+    `;
+    tsLSHost.override(fileName, content);
+    // Check that analyzing modules successfully still works.
+    newModules = ngLSHost.getAnalyzedModules();
+    expect(newModules.ngModules.length).toBeGreaterThan(0);
   });
 });

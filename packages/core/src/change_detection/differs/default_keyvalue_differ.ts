@@ -1,12 +1,11 @@
 /**
  * @license
- * Copyright Google Inc. All Rights Reserved.
+ * Copyright Google LLC All Rights Reserved.
  *
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
 
-import {looseIdentical} from '../../util/comparison';
 import {stringify} from '../../util/stringify';
 import {isJsObject} from '../change_detection_util';
 import {KeyValueChangeRecord, KeyValueChanges, KeyValueDiffer, KeyValueDifferFactory} from './keyvalue_differs';
@@ -229,7 +228,7 @@ export class DefaultKeyValueDiffer<K, V> implements KeyValueDiffer<K, V>, KeyVal
 
   // Add the record or a given key to the list of changes only when the value has actually changed
   private _maybeAddToChanges(record: KeyValueChangeRecord_<K, V>, newValue: any): void {
-    if (!looseIdentical(newValue, record.currentValue)) {
+    if (!Object.is(newValue, record.currentValue)) {
       record.previousValue = record.currentValue;
       record.currentValue = newValue;
       this._addToChanges(record);

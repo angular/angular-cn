@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright Google Inc. All Rights Reserved.
+ * Copyright Google LLC All Rights Reserved.
  *
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
@@ -340,6 +340,11 @@ function serializeSegment(segment: UrlSegmentGroup, root: boolean): string {
 
       return [`${k}:${serializeSegment(v, false)}`];
     });
+
+    // use no parenthesis if the only child is a primary outlet route
+    if (Object.keys(segment.children).length === 1 && segment.children[PRIMARY_OUTLET] != null) {
+      return `${serializePaths(segment)}/${children[0]}`;
+    }
 
     return `${serializePaths(segment)}/(${children.join('//')})`;
   }

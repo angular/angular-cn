@@ -162,7 +162,7 @@ Adopt these two conventions in your own projects for _every kind_ of test file.
 
 ## 建立持续集成环境
 
-One of the best ways to keep your project bug free is through a test suite, but it's easy to forget to run tests all the time.
+One of the best ways to keep your project bug-free is through a test suite, but it's easy to forget to run tests all the time.
 Continuous integration (CI) servers let you set up your project repository so that your tests run on every commit and pull request.
 
 避免项目出 BUG 的最佳方式之一，就是使用测试套件。但是很容易忘了一直运行它。

@@ -79,17 +79,17 @@ The result will be updated for changes to your view, such as changes to `ngIf` a
 而使用动态查询（ `static: false` ）时，此查询会分别在 `ngAfterViewInit()` 或 `ngAfterContentInit()` 之后进行解析。此结果将随着对视图的更改而更新，例如对 `ngIf` 和 `ngFor` 块的更改。
 
 For more information, see the following entries in the
-[Static Query Migration Guide](https://angular.io/guide/static-query-migration):
+[Static Query Migration Guide](guide/static-query-migration):
 
-要了解更多信息，请参见[静态查询迁移指南](https://angular.cn/guide/static-query-migration)中的以下条目：
+要了解更多信息，请参见[静态查询迁移指南](guide/static-query-migration)中的以下条目：
 
-* [How do I choose which `static` flag value to use: `true` or `false`?](https://angular.io/guide/static-query-migration#how-do-i-choose-which-static-flag-value-to-use-true-or-false)
+* [How do I choose which `static` flag value to use: `true` or `false`?](guide/static-query-migration#how-do-i-choose-which-static-flag-value-to-use-true-or-false)
 
-  [如何选择使用哪个 `static` 标志值： `true` 还是 `false` ？](https://angular.cn/guide/static-query-migration#how-do-i-choose-which-static-flag-value-to-use-true-or-false)
+  [如何选择使用哪个 `static` 标志值： `true` 还是 `false` ？](guide/static-query-migration#how-do-i-choose-which-static-flag-value-to-use-true-or-false)
 
-* [Is there a case where I should use `{static: true}`?](https://angular.io/guide/static-query-migration#is-there-a-case-where-i-should-use-static-true)
+* [Is there a case where I should use `{static: true}`?](guide/static-query-migration#is-there-a-case-where-i-should-use-static-true)
 
-  [哪些情况下我应该使用 `{static: true}` ？](https://angular.cn/guide/static-query-migration#is-there-a-case-where-i-should-use-static-true)
+  [哪些情况下我应该使用 `{static: true}` ？](guide/static-query-migration#is-there-a-case-where-i-should-use-static-true)
 
 </div>
 

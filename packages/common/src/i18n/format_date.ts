@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright Google Inc. All Rights Reserved.
+ * Copyright Google LLC All Rights Reserved.
  *
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
@@ -412,8 +412,10 @@ function weekGetter(size: number, monthBased = false): DateFormatter {
       const today = date.getDate();
       result = 1 + Math.floor((today + nbDaysBefore1stDayOfMonth) / 7);
     } else {
-      const firstThurs = getFirstThursdayOfYear(date.getFullYear());
       const thisThurs = getThursdayThisWeek(date);
+      // Some days of a year are part of next year according to ISO 8601.
+      // Compute the firstThurs from the year of this week's Thursday
+      const firstThurs = getFirstThursdayOfYear(thisThurs.getFullYear());
       const diff = thisThurs.getTime() - firstThurs.getTime();
       result = 1 + Math.round(diff / 6.048e8);  // 6.048e8 ms per week
     }

@@ -7,10 +7,10 @@
 ## 模板类型检查概述
 
 Just as TypeScript catches type errors in your code, Angular checks the expressions and bindings within the templates of your application and can report any type errors it finds.
-Angular currently has three modes of doing this, depending on the value of the `fullTemplateTypeCheck` and `strictTemplates` flags in the [TypeScript configuration file](guide/typescript-configuration), `tsconfig.json`.
+Angular currently has three modes of doing this, depending on the value of the `fullTemplateTypeCheck` and `strictTemplates` flags in the [TypeScript configuration file](guide/typescript-configuration).
 
 正如 TypeScript 在代码中捕获类型错误一样，Angular 也会检查应用程序模板中的表达式和绑定，并可以报告所发现的任何类型错误。
-Angular 当前有三种执行此操作的模式，具体取决于 [TypeScript 配置文件](guide/typescript-configuration) `tsconfig.json` 中的 `fullTemplateTypeCheck` 和 `strictTemplates` 标志的值。
+Angular 当前有三种执行此操作的模式，具体取决于 [TypeScript 配置文件](guide/typescript-configuration) 中的 `fullTemplateTypeCheck` 和 `strictTemplates` 标志的值。
 
 ### Basic mode
 
@@ -209,10 +209,9 @@ In case of a false positive like these, there are a few options:
 
   在某些情况下，使用 [`$any()` 类型转换函数](guide/template-syntax#any-type-cast-function)可以选择不对部分表达式进行类型检查。
 
-* You can disable strict checks entirely by setting `strictTemplates: false` in the application's TypeScript configuration file, `tsconfig.json`.
+* You can disable strict checks entirely by setting `strictTemplates: false` in the application's TypeScript configuration file.
 
   你可以通过在应用程序的 TypeScript 配置文件 `tsconfig.json` 中设置 `strictTemplates: false` 来完全禁用严格检查。
-
 * You can disable certain type-checking operations individually, while maintaining strictness in other aspects, by setting a _strictness flag_ to `false`.
 
   通过将*严格性标志*设置为 `false`，可以在保持其它方面的严格性的同时，单独禁用某些特定的类型检查操作。

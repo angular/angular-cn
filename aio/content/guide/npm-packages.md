@@ -190,8 +190,6 @@ Package name                               | Description
 [**@angular/cli**](https://github.com/angular/angular-cli/) | Angular CLI 工具。
 **@angular/<br />compiler&#8209;cli** | The Angular compiler, which is invoked by the Angular CLI's `ng build` and `ng serve` commands.
 **@angular/<br />compiler&#8209;cli** | Angular 编译器，Angular CLI 的 `ng build` 和 `ng serve` 命令会调用它。
-**@angular/<br />language&#8209;service** | The [Angular language service](guide/language-service) analyzes component templates and provides type and error information that TypeScript-aware editors can use to improve the developer's experience. For example, see the [Angular language service extension for VS Code](https://marketplace.visualstudio.com/items?itemName=Angular.ng-template).
-**@angular/<br />language&#8209;service** | [Angular 语言服务](guide/language-service)会分析组件模板并给出类型信息和错误信息，支持 TypeScript 的编辑器可以使用它来提升开发体验。具体的例子可参见 [VS Code 的 Angular 语言服务扩展](https://marketplace.visualstudio.com/items?itemName=Angular.ng-template)。
 **@types/... ** | TypeScript definition files for 3rd party libraries such as Jasmine and Node.js.
 **@types/... ** | 第三方库（如 Jasmine、Node.js）的 TypeScript 类型定义文件。
 [**codelyzer**](https://www.npmjs.com/package/codelyzer) | A linter for Angular apps whose rules conform to the Angular [style guide](guide/styleguide).

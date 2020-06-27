@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright Google Inc. All Rights Reserved.
+ * Copyright Google LLC All Rights Reserved.
  *
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
@@ -256,6 +256,16 @@ runInEachFileSystem(() => {
                         'package-4/secondary-entry-point', _('/dist/package-4/index.js')))
                  .toEqual(new ResolvedExternalModule(_('/dist/package-4/secondary-entry-point')));
            });
+      });
+
+      describe('with mapped path relative paths', () => {
+        it('should resolve to a relative file if found via a paths mapping', () => {
+          const resolver = new ModuleResolver(
+              getFileSystem(), {baseUrl: '/', paths: {'mapped/*': ['libs/local-package/*']}});
+
+          expect(resolver.resolveModuleImport('mapped/x', _('/libs/local-package/index.js')))
+              .toEqual(new ResolvedRelativeModule(_('/libs/local-package/x.js')));
+        });
       });
     });
   });

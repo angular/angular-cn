@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright Google Inc. All Rights Reserved.
+ * Copyright Google LLC All Rights Reserved.
  *
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
@@ -10,6 +10,7 @@ import * as ts from 'typescript';
 
 import {ClassDeclaration, ClassMember, ClassMemberKind, CtorParameter, Declaration, Decorator, FunctionDefinition, Import, isDecoratorIdentifier, ReflectionHost} from './host';
 import {typeToValue} from './type_to_value';
+import {isNamedClassDeclaration} from './util';
 
 /**
  * reflector.ts implements static reflection of declarations using the TypeScript `ts.TypeChecker`.
@@ -121,15 +122,13 @@ export class TypeScriptReflectionHost implements ReflectionHost {
   }
 
   isClass(node: ts.Node): node is ClassDeclaration {
-    // In TypeScript code, classes are ts.ClassDeclarations.
-    // (`name` can be undefined in unnamed default exports: `default export class { ... }`)
-    return ts.isClassDeclaration(node) && (node.name !== undefined) && ts.isIdentifier(node.name);
+    // For our purposes, classes are "named" ts.ClassDeclarations;
+    // (`node.name` can be undefined in unnamed default exports: `default export class { ... }`).
+    return isNamedClassDeclaration(node);
   }
 
   hasBaseClass(clazz: ClassDeclaration): boolean {
-    return (ts.isClassDeclaration(clazz) || ts.isClassExpression(clazz)) &&
-        clazz.heritageClauses !== undefined &&
-        clazz.heritageClauses.some(clause => clause.token === ts.SyntaxKind.ExtendsKeyword);
+    return this.getBaseClassExpression(clazz) !== null;
   }
 
   getBaseClassExpression(clazz: ClassDeclaration): ts.Expression|null {

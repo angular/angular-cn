@@ -123,7 +123,7 @@ In a reactive form, the source of truth is the component class.
 Instead of adding validators through attributes in the template, you add validator functions directly to the form control model in the component class.
 Angular then calls these functions whenever the value of the control changes.
 
-在响应式表单中，权威数据源是其组件类。不应该通过模板上的属性来添加验证器，而应该在组件类中直接把验证器函数添加到表单控件模型上（`FormControl`）。然后，一旦控件发生了变化，Angular 就会调用这些函数。
+在响应式表单中，事实之源是其组件类。不应该通过模板上的属性来添加验证器，而应该在组件类中直接把验证器函数添加到表单控件模型上（`FormControl`）。然后，一旦控件发生了变化，Angular 就会调用这些函数。
 
 ### Validator functions
 

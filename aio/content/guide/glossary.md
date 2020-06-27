@@ -368,6 +368,20 @@ See  [workspace configuration](#cli-config)
 
 参见[工作空间配置](#cli-config)
 
+{@a content-projection}
+
+## content projection
+
+## 内容投影
+
+A way to insert DOM content from outside a component into the component's view in a designated spot.
+
+一种从组件外把 DOM 内容插入到当前组件视图的特定位置上的方式。
+
+For more information, see [Responding to changes in content](guide/lifecycle-hooks#content-projection).
+
+欲知详情，参见[内容变化的应对方式](guide/lifecycle-hooks#content-projection)。
+
 {@a custom-element}
 
 ## custom element
@@ -715,7 +729,7 @@ Read more forms in the [Introduction to forms in Angular](guide/forms-overview).
 
 The "source of truth" for the value and validation status of a form input element at a given point in time. When using [reactive forms](#reactive-forms), the form model is created explicitly in the component class. When using [template-driven forms](#template-driven-forms), the form model is implicitly created by directives.
 
-是指在指定的时间点，表单输入元素的值和验证状态的"权威数据源"。当使用[响应式表单](#reactive-forms)时，表单模型会在组件类中显式创建。当使用[模板驱动表单](#template-driven-forms)时，表单模型是由一些指令隐式创建的。
+是指在指定的时间点，表单输入元素的值和验证状态的"事实之源"。当使用[响应式表单](#reactive-forms)时，表单模型会在组件类中显式创建。当使用[模板驱动表单](#template-driven-forms)时，表单模型是由一些指令隐式创建的。
 
 Learn more about reactive and template-driven forms in the [Introduction to forms in Angular](guide/forms-overview).
 
@@ -1010,7 +1024,7 @@ Compare to [NgModule](#ngmodule).
 ## ngcc
 
 Angular compatibility compiler.
-If you build your app using [Ivy](#ivy), but it depends on libraries have not been compiled with Ivy, the CLI uses `ngcc` to automatically update the dependent libraries to use Ivy.
+If you build your app using [Ivy](#ivy), but it depends on libraries that have not been compiled with Ivy, the CLI uses `ngcc` to automatically update the dependent libraries to use Ivy.
 
 Angular 兼容性编译器。如果使用 [Ivy](#ivy) 构建应用程序，但依赖未用 Ivy 编译的库，则 CLI 将使用 `ngcc` 自动更新依赖库以使用 Ivy。
 
@@ -1140,11 +1154,11 @@ Support for the various Angular run-time platforms is provided by the `@angular/
 
 `@angular/platform-*` 软件包提供了对各种 Angular 运行时平台的支持。这些软件包通过提供用于收集用户输入和渲染指定平台 UI 的实现，以允许使用 `@angular/core` 和 `@angular/common` 的应用程序在不同的环境中执行。隔离平台相关的功能使开发人员可以独立于平台使用框架的其余部分。
 
-- When running in a web browser, [`BrowserModule`](api/platform-browser/BrowserModule) is imported from the `platform-browser` package, and supports services that simplify security and event processing, and allows applications to access browser-specific features, such as interpreting keyboard input and controlling the title of the document being displayed. All applications running in the browser use the same platform service.
+* When running in a web browser, [`BrowserModule`](api/platform-browser/BrowserModule) is imported from the `platform-browser` package, and supports services that simplify security and event processing, and allows applications to access browser-specific features, such as interpreting keyboard input and controlling the title of the document being displayed. All applications running in the browser use the same platform service.
 
   在 Web 浏览器中运行时，[`BrowserModule`](api/platform-browser/BrowserModule) 是从 `platform-browser` 软件包中导入的，并支持简化安全性和事件处理的服务，并允许应用程序访问浏览器专有的功能，例如解释键盘输入和控制文档要显示的标题。浏览器中运行的所有应用程序都使用同一个平台服务。
 
-- When [server-side rendering](#server-side-rendering) (SSR) is used, the [`platform-server`](api/platform-server) package provides web server implementations of the `DOM`, `XMLHttpRequest`, and other low-level features that don't rely on a browser.
+* When [server-side rendering](#server-side-rendering) (SSR) is used, the [`platform-server`](api/platform-server) package provides web server implementations of the `DOM`, `XMLHttpRequest`, and other low-level features that don't rely on a browser.
 
   使用[服务端渲染](#server-side-rendering)（SSR）时，[`platform-server`](api/platform-server) 包将提供 `DOM`、`XMLHttpRequest` 和其它不依赖浏览器的其它底层功能的 Web 服务器端实现。
 
@@ -1228,7 +1242,7 @@ When using reactive forms:
 
 * The "source of truth", the form model, is defined in the component class.
 
-  "权威数据源"（表单模型）定义在组件类中。
+  "事实之源"（表单模型）定义在组件类中。
 
 * Validation is set up through validation functions rather than valdation directives.
 
@@ -1534,7 +1548,7 @@ When using template-driven forms:
 
 * The "source of truth" is the template. The validation is defined using attributes on the individual input elements.
 
-   模板是“权威数据源”。使用属性 (attribute) 在单个输入元素上定义验证规则。
+   模板是“事实之源”。使用属性 (attribute) 在单个输入元素上定义验证规则。
 
 * [Two-way binding](#data-binding) with `ngModel` keeps the component model synchronized with the user's entry into the input elements.
 
@@ -1614,7 +1628,28 @@ Read more about TypeScript at [typescriptlang.org](http://www.typescriptlang.org
 
 TypeScript 是 Angular 的首选语言。要了解更多，参见 [typescriptlang.org](http://www.typescriptlang.org/)。
 
+## TypeScript configuration file
+
+## TypeScript 配置文件
+
+A file specifies the root files and the compiler options required to compile a TypeScript project. For more information, see [TypeScript configuration](/guide/typescript-configuration).
+
+一个文件，用来指定编译 TypeScript 项目时的根文件和编译器选项。欲知详情，参见 [TypeScript 配置](/guide/typescript-configuration)。
+
 {@a U}
+
+{@a unidirectional-data-flow}
+
+## unidirectional data flow
+
+A data flow model where the component tree is always checked for changes in one direction (parent to child), which prevents cycles in the change detection graph.
+
+In practice, this means that data in Angular flows downward during change detection.
+A parent component can easily change values in its child components because the parent is checked first.
+A failure could occur, however, if a child component tries to change a value in its parent during change detection (inverting the expected data flow), because the parent component has already been rendered.
+In development mode, Angular throws the `ExpressionChangedAfterItHasBeenCheckedError` error if your app attempts to do this, rather than silently failing to render the new value.
+
+To avoid this error, a [lifecycle hook](guide/lifecycle-hooks) method that seeks to make such a change should trigger a new change detection run. The new run follows the same direction as before, but succeeds in picking up the new value.
 
 {@a universal}
 
@@ -1649,7 +1684,7 @@ Angular 在一个或多个[指令 (directive)](#directive) 的控制下渲染视
 A [component](#component) class and its associated [template](#template) define a view.
 A view is specifically represented by a `ViewRef` instance associated with a component.
 A view that belongs immediately to a component is called a *host view*.
-Views are typically collected into [view hierarchies](#view-tree). 
+Views are typically collected into [view hierarchies](#view-tree).
 
 [组件 (component)](#component) 类及其关联的[模板 (template)](#template)定义了一个视图。
 具体实现上，视图由一个与该组件相关的 `ViewRef` 实例表示。

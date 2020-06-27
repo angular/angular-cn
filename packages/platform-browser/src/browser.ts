@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright Google Inc. All Rights Reserved.
+ * Copyright Google LLC All Rights Reserved.
  *
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
@@ -63,6 +63,9 @@ export const BROWSER_SANITIZATION_PROVIDERS__POST_R3__ = [];
 export const BROWSER_SANITIZATION_PROVIDERS = BROWSER_SANITIZATION_PROVIDERS__PRE_R3__;
 
 /**
+ * A factory function that returns a `PlatformRef` instance associated with browser service
+ * providers.
+ *
  * @publicApi
  */
 export const platformBrowser: (extraProviders?: StaticProvider[]) => PlatformRef =

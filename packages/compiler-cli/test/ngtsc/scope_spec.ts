@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright Google Inc. All Rights Reserved.
+ * Copyright Google LLC All Rights Reserved.
  *
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
@@ -205,8 +205,10 @@ runInEachFileSystem(() => {
         `);
           const [error] = env.driveDiagnostics();
           expect(error).not.toBeUndefined();
-          expect(error.messageText).toContain('IsAModule');
-          expect(error.messageText).toContain('NgModule.imports');
+          const messageText = ts.flattenDiagnosticMessageText(error.messageText, '\n');
+          expect(messageText)
+              .toContain('Value at position 0 in the NgModule.imports of IsAModule is not a class');
+          expect(messageText).toContain('Value is a reference to \'NotAClass\'.');
           expect(error.code).toEqual(ngErrorCode(ErrorCode.VALUE_HAS_WRONG_TYPE));
           expect(diagnosticToNode(error, ts.isIdentifier).text).toEqual('NotAClass');
         });

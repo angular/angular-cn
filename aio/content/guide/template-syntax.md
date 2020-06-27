@@ -749,7 +749,7 @@ Attributes can be changed by `setAttribute()`, which re-initializes correspondin
 </div>
 
 For more information, see the [MDN Interfaces documentation](https://developer.mozilla.org/en-US/docs/Web/API#Interfaces) which has API docs for all the standard DOM elements and their properties.
-Comparing the [`<td>` attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/td) attributes to the [`<td>` properties](https://developer.mozilla.org/en-US/docs/Web/API/HTMLTableCellElement) provides a helpful example for differentiation.
+Comparing the [`<td>` attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/td) to the [`<td>` properties](https://developer.mozilla.org/en-US/docs/Web/API/HTMLTableCellElement) provides a helpful example for differentiation.
 In particular, you can navigate from the attributes page to the properties via "DOM interface" link, and navigate the inheritance hierarchy up to `HTMLTableCellElement`.
 
 欲知详情，参见 [MDN 接口文档](https://developer.mozilla.org/en-US/docs/Web/API#Interfaces)，其中包含所有标准 DOM 元素及其 Property 的 API 文档。
@@ -819,7 +819,7 @@ To control the state of the button, set the `disabled` *property*,
 
 <div class="alert is-helpful">
 
-Though you could technically set the `[attr.disabled]` attribute binding, the values are different in that the property binding requires to a boolean value, while its corresponding attribute binding relies on whether the value is `null` or not. Consider the following:
+Though you could technically set the `[attr.disabled]` attribute binding, the values are different in that the property binding requires to be a boolean value, while its corresponding attribute binding relies on whether the value is `null` or not. Consider the following:
 
 虽然技术上说你可以设置 `[attr.disabled]` 属性绑定，但是它们的值是不同的，Property 绑定要求一个布尔值，而其相应的 Attribute 绑定则取决于该值是否为 `null`。例子如下：
 
@@ -1402,8 +1402,8 @@ of the `evilTitle` examples.
 插值处理 `<script>` 标记与属性绑定的方式不同，但是这两种方法都可以使内容无害。以下是 `evilTitle` 示例的浏览器输出。
 
 <code-example language="bash">
-"Template <script>alert('evil never sleeps');</script> Syntax" is the interpolated evil title.
-"Template alert("evil never sleeps")Syntax" is the property bound evil title.
+"Template &lt;script&gt;alert("evil never sleeps")&lt;/script&gt; Syntax" is the interpolated evil title.
+"Template Syntax" is the property bound evil title.
 </code-example>
 
 <hr/>
@@ -2118,7 +2118,9 @@ Angular 为此提供了一种特殊*的双向数据绑定*语法 `[()]`。`[()]`
 
 <div class="callout is-important">
 
-<header>[( )] = banana in a box</header>
+<header>
+  [( )] = banana in a box
+</header>
 
 <header>[( )] = 盒子里的香蕉</header>
 
@@ -2400,9 +2402,9 @@ Angular provides *value accessors* for all of the basic HTML form elements and t
 
 You can't apply `[(ngModel)]` to a non-form native element or a
 third-party custom component until you write a suitable value accessor. For more information, see
-the API documentation on [DefaultValueAccessor](https://angular.io/api/forms/DefaultValueAccessor).
+the API documentation on [DefaultValueAccessor](api/forms/DefaultValueAccessor).
 
-在编写适当的值访问器之前，不能将 `[(ngModel)]` 应用于非表单的原生元素或第三方自定义组件。欲知详情，参见[DefaultValueAccessor](https://angular.cn/api/forms/DefaultValueAccessor)上的 API 文档。
+在编写适当的值访问器之前，不能将 `[(ngModel)]` 应用于非表单的原生元素或第三方自定义组件。欲知详情，参见[DefaultValueAccessor](api/forms/DefaultValueAccessor)上的 API 文档。
 
 You don't need a value accessor for an Angular component that
 you write because you can name the value and event properties

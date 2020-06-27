@@ -2,26 +2,23 @@
 
 # 创建库
 
-You can create and publish new libraries to extend Angular functionality. If you find that you need to solve the same problem in more than one app (or want to share your solution with other developers), you have a candidate for a library.
+This page provides a conceptual overview of how you can create and publish new libraries to extend Angular functionality.
 
-你可以创建和发布新库来扩展 Angular 的功能。如果你发现需要在多个应用中解决同样的问题（或者想与其它开发者共享你的解决方案），你就有了一个潜在的库。
+对于如何创建和发布新库，以扩展 Angular 的功能，本页面提供了一个概念性的总览
 
+If you find that you need to solve the same problem in more than one app (or want to share your solution with other developers), you have a candidate for a library.
 A simple example might be a button that sends users to your company website, that would be included in all apps that your company builds.
 
+如果你发现自己要在多个应用中解决同样的问题（或者要把你的解决方案分享给其它开发者），你就有了一个潜在的库。
 简单的例子就是一个用来把用户带到你公司网站上的按钮，该按钮会包含在你公司构建的所有应用中。
-
-<div class="alert is-helpful">
-     <p>For more details on how a library project is structured you can refer the <a href="guide/file-structure#library-project-files">Library Project Files</a></p>
-     <p>要了解关于库项目结构的更多信息，参见<a href="guide/file-structure#library-project-files">库项目文件</a>。</p>
-</div>
 
 ## Getting started
 
 ## 快速上手
 
-Use the Angular CLI to generate a new library skeleton with the following command:
+Use the Angular CLI to generate a new library skeleton in a new workspace with the following commands.
 
-使用 Angular CLI，用以下命令生成一个新库的骨架：
+使用 Angular CLI，用以下命令在新的工作空间中生成一个新库的骨架：
 
 <code-example language="bash">
  ng new my-workspace --create-application=false
@@ -29,15 +26,24 @@ Use the Angular CLI to generate a new library skeleton with the following comman
  ng generate library my-lib
 </code-example>
 
+The `ng generate` command creates the `projects/my-lib` folder in your workspace, which contains a component and a service inside an NgModule.
+
 <div class="alert is-helpful">
-     <p>You can use the monorepo model to use the same workspace for multiple projects. See <a href="guide/file-structure#multiple-projects">Setting up for a multi-project workspace</a>.</p>
-     <p>你可以使用单一仓库（monorepo）模式将同一个工作空间用于多个项目。请参见<a href="guide/file-structure#multiple-projects">设置多项目工作区</a>。</p>
+
+     For more details on how a library project is structured, refer to the [Library project files](guide/file-structure#library-project-files) section of the [Project File Structure guide](guide/file-structure).
+     
+     要了解关于库项目的目录结构的详细信息，参见[项目文件结构](guide/file-structure)中的[库项目文件](guide/file-structure#library-project-files)部分。
+
+     You can use the monorepo model to use the same workspace for multiple projects.
+     See [Setting up for a multi-project workspace](guide/file-structure#multiple-projects).
+
+     你可以使用单一仓库（monorepo）模式将同一个工作空间用于多个项目。参见[建立多项目型工作区](guide/file-structure#multiple-projects)。
+
 </div>
 
-This creates the `projects/my-lib` folder in your workspace, which contains a component and a service inside an NgModule.
-The workspace configuration file, `angular.json`, is updated with a project of type 'library'.
+When you generate a new library, the workspace configuration file, `angular.json`, is updated with a project of type 'library'.
 
-这会在你的工作区中创建 `projects/my-lib` 文件夹，里面包含 NgModule 中的一个组件和一个服务。该工作区的配置文件 `angular.json` 中也添加了一个 'library' 类型的项目。
+当你生成一个新库时，该工作区的配置文件 `angular.json` 中也增加了一个 'library' 类型的项目。
 
 <code-example format="json">
 "projects": {
@@ -103,14 +109,6 @@ Here are some things to consider in migrating application functionality to a lib
 
     组件对外暴露交互方式时，应该通过输入参数来提供上下文，通过输出参数来将事件传给其它组件。
 
-* Services should declare their own providers (rather than declaring providers in the NgModule or a component), so that they are *tree-shakable*. This allows the compiler to leave the service out of the bundle if it never gets injected into the application that imports the library. For more about this, see [Tree-shakable providers](guide/dependency-injection-providers#tree-shakable-providers).
-
-    服务应该声明自己的提供者（而不是在 NgModule 或组件中声明提供者），这样它们才是*可摇树优化的*。这样，如果该服务从未被注入到导入该库的应用中，编译器就会把该服务从发布包中删除。欲知详情，请参阅[可摇树优化的提供者](guide/dependency-injection-providers#tree-shakable-providers)。
-
-* If you register global service providers or share providers across multiple NgModules, use the [`forRoot()` and `forChild()` patterns](guide/singleton-services) provided by the [RouterModule](api/router/RouterModule).
-
-    如果你在多个 NgModule 中注册全局服务提供者或共享提供者，请使用 [RouterModule](api/router/RouterModule) 提供的 [`forRoot()` 和 `forChild()` 模式](guide/singleton-services)。
-
 * Check all internal dependencies.
 
     检查所有内部依赖。
@@ -123,54 +121,75 @@ Here are some things to consider in migrating application functionality to a lib
 
         同样，如果你的库代码依赖于某个服务，则需要迁移该服务。
 
-   * If your library code or its templates depend on other libraries (such a Angular Material, for instance), you must configure your library with those dependencies.
+   * If your library code or its templates depend on other libraries (such as Angular Material, for instance), you must configure your library with those dependencies.
 
-        如果你的库代码或其模板依赖于其它库（比如 Angular Material ），你就必须把它们配置为该库的依赖。
+     如果你的库代码或其模板依赖于其它库（比如 Angular Material ），你就必须把它们配置为该库的依赖。
 
-## Reusable code and schematics
+* Consider how you provide services to client applications.
 
-## 可复用的代码和 schematics
+  考虑如何为客户端应用提供服务。
 
-A library typically includes *reusable code* that defines components, services, and other Angular artifacts (pipes, directives, and so on) that you simply import into a project.
-A library is packaged into an npm package for publishing and sharing, and this package can also include [schematics](guide/glossary#schematic) that provide instructions for generating or transforming code directly in your project, in the same way that the CLI creates a generic skeleton app with `ng generate component`.
-A schematic that is combined with a library can, for example, provide the Angular CLI with the information it needs to generate a particular component defined in that library.
+  * Services should declare their own providers (rather than declaring providers in the NgModule or a component), so that they are *tree-shakable*. This allows the compiler to leave the service out of the bundle if it never gets injected into the application that imports the library. For more about this, see [Tree-shakable providers](guide/dependency-injection-providers#tree-shakable-providers).
 
-库通常都包含*可复用的代码*，用于定义组件、服务，以及你刚才导入到项目中的其它 Angular 工件（管道，指令等）。库被打包在一个 npm 包中，用于发布和共享，这个包还可以包含一些 [schematics](guide/glossary#schematic)，用于提供直接在项目中生成或转换代码的指令，就像 CLI 用 `ng generate component` 创建一个通用的骨架应用一样。例如，与库配套的 schematics 可以为 Angular CLI 提供生成该库中定义的特定组件所需的信息。
+    服务应该自己声明提供者（而不是在 NgModule 或组件中声明提供者），以便它们是*可摇树优化的* 。这样，如果服务器从未被注入到导入该库的应用中，编译器就会把该服务从该 bundle 中删除。有关这方面的更多信息，请参阅[Tree-shakable 提供者](guide/dependency-injection-providers#tree-shakable-providers) 。
 
-What you include in your library is determined by the kind of task you are trying to accomplish.
-For example, if you want a dropdown with some canned data to show how to add it to your app, your library could define a schematic to create it.
-For a component like a dropdown that would contain different passed-in values each time, you could provide it as a component in a shared library.
+  * If you register global service providers or share providers across multiple NgModules, use the [`forRoot()` and `forChild()` design patterns](guide/singleton-services) provided by the [RouterModule](api/router/RouterModule).
 
-你在库中所包含的内容取决于你要完成的任务类型。例如，如果你想用一个带有预置数据的下拉列表来展示如何把它添加到应用中，你的库中就可以定义一个 schematic 来创建它。对于像下拉列表那样每次都要传入不同值的组件，你可以把它作为共享库中的组件提供出来。
+    如果您在多个 NgModules 注册全局服务供应商或供应商共享，使用[`forRoot()` 和 `forChild()` 设计模式](guide/singleton-services)由提供[RouterModule](api/router/RouterModule) 。
 
-Suppose you want to read a configuration file and then generate a form based on that configuration.
-If that form will need additional customization by the user, it might work best as a schematic.
-However, if the forms will always be the same and not need much customization by developers, then you could create a dynamic component that takes the configuration and generates the form.
-In general, the more complex the customization, the more useful the schematic approach.
+  * If your library provides optional services that might not be used by all client applications, support proper tree-shaking for that case by using the [lightweight token design pattern](guide/lightweight-injection-tokens).
 
-假设你要读取配置文件，然后根据该配置生成表单。如果该表单需要用户进行额外的自定义，它可能最适合用作 schematic。但是，如果这些表单总是一样的，开发人员不需要做太多自定义工作，那么你就可以创建一个动态的组件来获取配置并生成表单。通常，自定义越复杂，schematic 方式就越有用。
+    如果你的库中提供的可选服务可能并没有被所有的客户端应用所使用，那么就可以通过[轻量级令牌设计模式](guide/lightweight-injection-tokens)为这种情况支持正确的树状[结构了](guide/lightweight-injection-tokens) 。
+
 
 {@a integrating-with-the-cli}
 
-## Integrating with the CLI
+{@a integration with the the cli}
 
-## 与 CLI 集成
 
-A library can include [schematics](guide/glossary#schematic) that allow it to integrate with the Angular CLI.
+## Integrating with the CLI using code-generation schematics
 
-库中可以包含那些能与 Angular CLI 集成的 [schematics](guide/glossary#schematic)。
+## 使用代码生成原理图与 CLI 集成
+
+
+A library typically includes *reusable code* that defines components, services, and other Angular artifacts (pipes, directives, and so on) that you simply import into a project.
+A library is packaged into an npm package for publishing and sharing.
+This package can also include [schematics](guide/glossary#schematic) that provide instructions for generating or transforming code directly in your project, in the same way that the CLI creates a generic new component with `ng generate component`.
+A schematic that is packaged with a library can, for example, provide the Angular CLI with the information it needs to generate a component that configures and uses a particular feature, or set of features, defined in that library.
+One example of this is Angular Material's navigation schematic which configures the CDK's `BreakpointObserver` and uses it with Material's `MatSideNav` and `MatToolbar` components.
+
+库中的库通常都包含*可复用的代码* ，用于定义组件，服务，以及你刚才导入到项目中的其他 Angular 工件（管道，指令等等）。库被打包成一个 npm 包，用于发布和共享。这个包还可以包含一些[原理图](guide/glossary#schematic) ，它提供直接在项目中生成或转换代码的指令，就像 CLI 用 `ng generate component` 创建一个通用的新 `ng generate component` 。例如，用库打包的原理图可以为 Angular CLI 提供生成组件所需的信息，该组件用于配置和使用该库中定义的特定特性或一组特性。这方面的一个例子是 Angular Material 的导航原理图，它用来配置 CDK 的 `BreakpointObserver` 并把它与 Material 的 `MatSideNav` 和 `MatToolbar` 组件一起使用。
+
+
+You can create and include the following kinds of schematics.
+
+你可以创建并包含以下几种原理图。
+
 
 * Include an installation schematic so that `ng add` can add your library to a project.
 
-    包含一个安装型 schematic，以便 `ng add` 可以把你的库添加到项目中。
+  包含一个安装原理图，以便 `ng add` 可以把你的库添加到项目中。
 
 * Include generation schematics in your library so that `ng generate` can scaffold your defined artifacts (components, services, tests, and so on) in a project.
 
-    包含一些生成型 schematic，以便 `ng generate` 可以为项目中的已定义工件（组件，服务，测试等）生成脚手架。
+  在库中包含了生成原理图，以便 `ng generate` 可以为项目中的已定义工件（组件，服务，测试等）提供支持。
 
 * Include an update schematic so that `ng update` can update your library’s dependencies and provide migrations for breaking changes in new releases.
 
-    包含一个更新（update）原理图，以便 `ng update` 可以更新此库的依赖，并针对新版本中的重大变更提供辅助迁移。
+  包含一个更新的原理图，以便 `ng update` 可以更新你的库的依赖，并提供一些迁移来破坏新版本中的更改。
+
+What you include in your library depends on your task.
+For example, you could define a schematic to create a dropdown that is pre-populated with canned data to show how to add it to an app.
+If you want a dropdown that would contain different passed-in values each time, your library could define a schematic to create it with a given configuration. Developers could then use `ng generate` to configure an instance for their own app.
+
+你在图书馆中所包含的内容取决于你的任务。例如，你可以定义一个原理图来创建一个预先填充了固定数据的下拉列表，以展示如何把它添加到一个应用中。如果你想要一个每次包含不同传入值的下拉列表，那么你的库可以定义一个原理图来用指定的配置创建它。然后，开发人员可以使用 `ng generate` 为自己的应用配置一个实例。
+
+Suppose you want to read a configuration file and then generate a form based on that configuration.
+If that form will need additional customization by the developer who is using your library, it might work best as a schematic.
+However, if the forms will always be the same and not need much customization by developers, then you could create a dynamic component that takes the configuration and generates the form.
+In general, the more complex the customization, the more useful the schematic approach.
+
+假设你要读取配置文件，然后根据该配置生成表单。如果该表单需要库的用户进行额外的自定义，它可能最适合用作 schematic。但是，如果这些表单总是一样的，开发人员不需要做太多自定义工作，那么你就可以创建一个动态的组件来获取配置并生成表单。通常，自定义越复杂，schematic 方式就越有用。
 
 To learn more, see [Schematics Overview](guide/schematics) and [Schematics for Libraries](guide/schematics-for-libraries).
 
@@ -180,7 +199,9 @@ To learn more, see [Schematics Overview](guide/schematics) and [Schematics for
 
 ## 发布你的库
 
-Use the Angular CLI and the npm package manager to build and publish your library as an npm package. It is not recommended to publish Ivy libraries to NPM repositories. Before publishing a library to NPM, build it using the `--prod` flag which will use the older compiler and runtime known as View Engine instead of Ivy.
+Use the Angular CLI and the npm package manager to build and publish your library as an npm package.
+
+Before publishing a library to NPM, build it using the `--prod` flag which will use the older compiler and runtime known as View Engine instead of Ivy.
 
 使用 Angular CLI 和 npm 包管理器来把你的库构建并发布成 npm 包。不建议把 Ivy 格式的库发布到 NPM 仓库。在把某个库发布到 NPM 之前，使用 `--prod` 标志构建它，此标志会使用老的编译器和运行时，也就是视图引擎（View Engine），以代替 Ivy.
 
@@ -193,6 +214,14 @@ npm publish
 If you've never published a package in npm before, you must create a user account. Read more in [Publishing npm Packages](https://docs.npmjs.com/getting-started/publishing-npm-packages).
 
 如果你之前从未在 npm 中发布过包，就必须创建一个用户帐号。[点此阅读发布 npm 包](https://docs.npmjs.com/getting-started/publishing-npm-packages)的更多信息。
+
+<div class="alert is-important">
+
+For now, it is not recommended to publish Ivy libraries to NPM because Ivy generated code is not backward compatible with View Engine, so apps using View Engine will not be able to consume them. Furthermore, the internal Ivy instructions are not yet stable, which can potentially break consumers using a different Angular version from the one used to build the library.
+
+When a published library is used in an Ivy app, the Angular CLI will automatically convert it to Ivy using a tool known as the Angular compatibility compiler (`ngcc`). Thus, by publishing your libraries using the View Engine compiler ensures that they can be transparently consumed by both View Engine and Ivy apps.
+
+</div>
 
 {@a lib-assets}
 

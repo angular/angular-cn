@@ -20,17 +20,17 @@ A basic understanding of the following concepts:
 
 <hr>
 
-The [AnimationOptions](https://angular.io/api/animations/AnimationOptions) interface in Angular animations enables you to create animations that you can reuse across different components.
+The [AnimationOptions](api/animations/AnimationOptions) interface in Angular animations enables you to create animations that you can reuse across different components.
 
-Angular 动画库中的 [AnimationOptions](https://angular.cn/api/animations/AnimationOptions) 接口让你能创建可以在不同组件之间复用的动画。
+Angular 动画库中的 [AnimationOptions](api/animations/AnimationOptions) 接口让你能创建可以在不同组件之间复用的动画。
 
 ## Creating reusable animations
 
 ## 创建可复用动画
 
-To create a reusable animation, use the [`animation()`](https://angular.io/api/animations/animation) method to define an animation in a separate `.ts` file and declare this animation definition as a `const` export variable. You can then import and reuse this animation in any of your app components using the [`useAnimation()`](https://angular.io/api/animations/useAnimation) API.
+To create a reusable animation, use the [`animation()`](api/animations/animation) method to define an animation in a separate `.ts` file and declare this animation definition as a `const` export variable. You can then import and reuse this animation in any of your app components using the [`useAnimation()`](api/animations/useAnimation) API.
 
-要想创建可复用的动画，请使用 [`animation()`](https://angular.cn/api/animations/animation) 方法来在独立的 `.ts` 文件中定义动画，并把该动画的定义声明为一个导出的 `const` 变量。然后你就可以在应用的组件代码中通过 [`useAnimation()`](https://angular.cn/api/animations/useAnimation) 来导入并复用它了。
+要想创建可复用的动画，请使用 [`animation()`](api/animations/animation) 方法来在独立的 `.ts` 文件中定义动画，并把该动画的定义声明为一个导出的 `const` 变量。然后你就可以在应用的组件代码中通过 [`useAnimation()`](api/animations/useAnimation) 来导入并复用它了。
 
 <code-example path="animations/src/app/animations.ts" header="src/app/animations.ts" region="reusable" language="typescript"></code-example>
 

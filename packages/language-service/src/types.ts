@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright Google Inc. All Rights Reserved.
+ * Copyright Google LLC All Rights Reserved.
  *
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
@@ -254,7 +254,7 @@ export interface Diagnostic {
 export type LanguageService = Pick<
     ts.LanguageService,
     'getCompletionsAtPosition'|'getDefinitionAndBoundSpan'|'getQuickInfoAtPosition'|
-    'getSemanticDiagnostics'>;
+    'getSemanticDiagnostics'|'getReferencesAtPosition'>;
 
 /** Information about an Angular template AST. */
 export interface AstResult {

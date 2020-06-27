@@ -27,6 +27,14 @@ In this part of the tutorial, you'll do the following:
 
    修改此应用。
 
+<div class="alert is-helpful">
+
+  For the sample app that this page describes, see the <live-example></live-example>.
+
+  要查看本页所讲的范例程序，请参见<live-example></live-example>。
+
+</div>
+
 ## Set up your environment
 
 ## 搭建开发环境
@@ -217,11 +225,6 @@ Open `src/styles.css` and add the code below to the file.
 ## Final code review
 
 ## 查看最终代码
-
-The source code for this tutorial and the complete _Tour of Heroes_ global styles
-are available in the <live-example></live-example>.
-
-本教程的源文件以及*英雄指南*的完整全局样式可以在 <live-example></live-example> 中看到。
 
 Here are the code files discussed on this page.
 

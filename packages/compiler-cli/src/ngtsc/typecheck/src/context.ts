@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright Google Inc. All Rights Reserved.
+ * Copyright Google LLC All Rights Reserved.
  *
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
@@ -113,7 +113,8 @@ export class TypeCheckContext {
   private fileMap = new Map<AbsoluteFsPath, PendingFileTypeCheckingData>();
 
   constructor(
-      private config: TypeCheckingConfig, private compilerHost: ts.CompilerHost,
+      private config: TypeCheckingConfig,
+      private compilerHost: Pick<ts.CompilerHost, 'getCanonicalFileName'>,
       private refEmitter: ReferenceEmitter, private reflector: ReflectionHost) {}
 
   /**

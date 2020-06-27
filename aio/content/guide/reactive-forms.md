@@ -22,15 +22,15 @@ Before going further into reactive forms, you should have a basic understanding 
 
 在深入了解被动表单之前，你应该对这些内容有一个基本的了解：
 
-- TypeScript programming.
+* TypeScript programming.
 
   TypeScript 编程。
 
-- Angular app-design fundamentals, as described in [Angular Concepts](guide/architecture "Introduction to Angular concepts.").
+* Angular app-design fundamentals, as described in [Angular Concepts](guide/architecture "Introduction to Angular concepts.").
 
   Angular 的应用设计基础，就像[Angular Concepts 中](guide/architecture "Angular 概念简介。")描述的那样。
 
-- The form-design concepts that are presented in [Introduction to Forms](guide/forms-overview "Overview of Angular forms.").
+* The form-design concepts that are presented in [Introduction to Forms](guide/forms-overview "Overview of Angular forms.").
 
   [“表单简介”](guide/forms-overview "Angular 表单概述")中提供的表单设计概念。
 
@@ -68,11 +68,11 @@ There are three steps to using form controls.
 
    在你的应用中注册响应式表单模块。该模块声明了一些你要用在响应式表单中的指令。
 
-1. Generate a new `FormControl` instance and save it in the component.
+2. Generate a new `FormControl` instance and save it in the component.
 
    生成一个新的 `FormControl` 实例，并把它保存在组件中。
 
-1. Register the `FormControl` in the template.
+3. Register the `FormControl` in the template.
 
    在模板中注册这个 `FormControl`。
 
@@ -130,11 +130,11 @@ After you create the control in the component class, you must associate it with 
 
 <div class="alert is-helpful">
 
-- For a summary of the classes and directives provided by `ReactiveFormsModule`, see the [Reactive forms API](#reactive-forms-api "API summary.") section below.
+* For a summary of the classes and directives provided by `ReactiveFormsModule`, see the [Reactive forms API](#reactive-forms-api "API summary.") section below.
 
   有关 `ReactiveFormsModule` 提供的类和指令的汇总表，请参阅下面的[响应式表单 API](#reactive-forms-api "API 摘要")部分。
 
-- For complete syntax details of these classes and directives, see the API reference documentation for the [Forms package](api/forms "API reference.").
+* For complete syntax details of these classes and directives, see the API reference documentation for the [Forms package](api/forms "API reference.").
 
   有关这些类和指令的完整语法，请参阅 API 参考手册中的 [Forms 包](api/forms "API 参考。")部分。
 
@@ -220,7 +220,7 @@ Update the template with a button to simulate a name update. When you click the 
 
 The form model is the source of truth for the control, so when you click the button, the value of the input is changed within the component class, overriding its current value.
 
-由于表单模型是该控件的权威数据源，因此当你单击该按钮时，组件中该输入框的值也变化了，覆盖掉它的当前值。
+由于表单模型是该控件的事实之源，因此当你单击该按钮时，组件中该输入框的值也变化了，覆盖掉它的当前值。
 
 <div class="lightbox">
   <img src="generated/images/guide/reactive-forms/name-editor-2.png" alt="Name Editor Update">
@@ -242,11 +242,11 @@ Forms typically contain several related controls. Reactive forms provide two way
 
 表单中通常会包含几个相互关联的控件。响应式表单提供了两种把多个相关控件分组到同一个输入表单中的方法。
 
-- A form *group* defines a form with a fixed set of controls that you can manage together. Form group basics are discussed in this section. You can also [nest form groups](#nested-groups "See more about nesting groups.") to create more complex forms.
+* A form *group* defines a form with a fixed set of controls that you can manage together. Form group basics are discussed in this section. You can also [nest form groups](#nested-groups "See more about nesting groups.") to create more complex forms.
 
   表单*组*定义了一个带有一组控件的表单，你可以把它们放在一起管理。表单组的基础知识将在本节中讨论。你也可以通过[嵌套表单组](#nested-groups "详细了解嵌套组。")来创建更复杂的表单。
 
-- A form *array* defines a dynamic form, where you can add and remove controls at run time. You can also nest form arrays to create more complex forms. For more about this option, see [Creating dynamic forms](#dynamic-forms "See more about form arrays.") below.
+* A form *array* defines a dynamic form, where you can add and remove controls at run time. You can also nest form arrays to create more complex forms. For more about this option, see [Creating dynamic forms](#dynamic-forms "See more about form arrays.") below.
 
   表单*数组*定义了一个动态表单，你可以在运行时添加和删除控件。你也可以通过嵌套表单数组来创建更复杂的表单。欲知详情，参见下面的[创建动态表单](#dynamic-forms "详细了解表单数组。")。
 
@@ -276,11 +276,11 @@ To add a form group to this component, take the following steps.
 
    创建一个 `FormGroup` 实例。
 
-1. Associate the `FormGroup` model and view.
+2. Associate the `FormGroup` model and view.
 
    把这个 `FormGroup` 模型关联到视图。
 
-1. Save the form data.
+3. Save the form data.
 
    保存表单数据。
 
@@ -318,7 +318,7 @@ A form group tracks the status and changes for each of its controls, so if one o
 Note that just as a form group contains a group of controls, the *profile form* `FormGroup` is bound to the `form` element with the `FormGroup` directive, creating a communication layer between the model and the form containing the inputs. The `formControlName` input provided by the `FormControlName` directive binds each individual input to the form control defined in `FormGroup`. The form controls communicate with their respective elements. They also communicate changes to the form group instance, which provides the source of truth for the model value.
 
 注意，就像 `FormGroup` 所包含的那控件一样，*profileForm* 这个 `FormGroup` 也通过 `FormGroup` 指令绑定到了 `form` 元素，在该模型和表单中的输入框之间创建了一个通讯层。
-由 `FormControlName` 指令提供的 `formControlName` 属性把每个输入框和 `FormGroup` 中定义的表单控件绑定起来。这些表单控件会和相应的元素通讯，它们还把更改传给 `FormGroup`，这个 `FormGroup` 是模型值的权威数据源。
+由 `FormControlName` 指令提供的 `formControlName` 属性把每个输入框和 `FormGroup` 中定义的表单控件绑定起来。这些表单控件会和相应的元素通讯，它们还把更改传给 `FormGroup`，这个 `FormGroup` 是模型值的事实之源。
 
 **Save form data**
 
@@ -512,11 +512,11 @@ Use the following steps to take advantage of this service.
 
    导入 `FormBuilder` 类。
 
-1. Inject the `FormBuilder` service.
+2. Inject the `FormBuilder` service.
 
    注入这个 `FormBuilder` 服务。
 
-1. Generate the form contents.
+3. Generate the form contents.
 
    生成表单内容。
 
@@ -598,7 +598,7 @@ Compare using the form builder to creating the instances manually.
 
 ## 验证表单输入
 
-*Form validation* is used to ensure that user input is complete and correct. This section covers adding a single validator to a form control and displaying the overall form status. Form validation is covered more extensively in the [Form Validation](guide/form-validation "All about form validation.") guide.
+_Form validation_ is used to ensure that user input is complete and correct. This section covers adding a single validator to a form control and displaying the overall form status. Form validation is covered more extensively in the [Form Validation](guide/form-validation "All about form validation.") guide.
 
 *表单验证*用于确保用户的输入是完整和正确的。本节讲解了如何把单个验证器添加到表单控件中，以及如何显示表单的整体状态。表单验证的更多知识在[表单验证](guide/form-validation "关于表单验证")一章中有详细的讲解。
 
@@ -610,11 +610,11 @@ Use the following steps to add form validation.
 
    在表单组件中导入一个验证器函数。
 
-1. Add the validator to the field in the form.
+2. Add the validator to the field in the form.
 
    把这个验证器添加到表单中的相应字段。
 
-1. Add logic to handle the validation status.
+3. Add logic to handle the validation status.
 
    添加逻辑来处理验证状态。
 
@@ -709,15 +709,15 @@ To define a dynamic form, take the following steps.
 
    导入 `FormArray` 类。
 
-1. Define a `FormArray` control.
+2. Define a `FormArray` control.
 
    定义一个 `FormArray` 控件。
 
-1. Access the `FormArray` control with a getter method.
+3. Access the `FormArray` control with a getter method.
 
    使用 getter 方法访问 `FormArray` 控件。
 
-1. Display the form array in a template.
+4. Display the form array in a template.
 
    在模板中显示这个表单数组。
 

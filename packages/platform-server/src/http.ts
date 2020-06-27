@@ -1,19 +1,22 @@
 /**
  * @license
- * Copyright Google Inc. All Rights Reserved.
+ * Copyright Google LLC All Rights Reserved.
  *
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
+import {INITIAL_CONFIG, PlatformConfig} from './tokens';
 
 
 const xhr2: any = require('xhr2');
 
 import {Injectable, Injector, Provider} from '@angular/core';
-
+import {PlatformLocation} from '@angular/common';
 import {HttpEvent, HttpRequest, HttpHandler, HttpBackend, XhrFactory, ɵHttpInterceptingHandler as HttpInterceptingHandler} from '@angular/common/http';
-
 import {Observable, Observer, Subscription} from 'rxjs';
+
+// @see https://www.w3.org/Protocols/HTTP/1.1/draft-ietf-http-v11-spec-01#URI-syntax
+const isAbsoluteUrl = /^[a-zA-Z\-\+.]+:\/\//;
 
 @Injectable()
 export class ServerXhr implements XhrFactory {
@@ -102,11 +105,22 @@ export abstract class ZoneMacroTaskWrapper<S, R> {
 
 export class ZoneClientBackend extends
     ZoneMacroTaskWrapper<HttpRequest<any>, HttpEvent<any>> implements HttpBackend {
-  constructor(private backend: HttpBackend) {
+  constructor(
+      private backend: HttpBackend, private platformLocation: PlatformLocation,
+      private config: PlatformConfig) {
     super();
   }
 
   handle(request: HttpRequest<any>): Observable<HttpEvent<any>> {
+    const {href, protocol, hostname, port} = this.platformLocation;
+    if (this.config.useAbsoluteUrl && !isAbsoluteUrl.test(request.url) &&
+        isAbsoluteUrl.test(href)) {
+      const baseHref = this.platformLocation.getBaseHrefFromDOM() || href;
+      const urlPrefix = `${protocol}//${hostname}` + (port ? `:${port}` : '');
+      const baseUrl = new URL(baseHref, urlPrefix);
+      const url = new URL(request.url, baseUrl);
+      return this.wrap(request.clone({url: url.toString()}));
+    }
     return this.wrap(request);
   }
 
@@ -115,12 +129,17 @@ export class ZoneClientBackend extends
   }
 }
 
-export function zoneWrappedInterceptingHandler(backend: HttpBackend, injector: Injector) {
+export function zoneWrappedInterceptingHandler(
+    backend: HttpBackend, injector: Injector, platformLocation: PlatformLocation,
+    config: PlatformConfig) {
   const realBackend: HttpBackend = new HttpInterceptingHandler(backend, injector);
-  return new ZoneClientBackend(realBackend);
+  return new ZoneClientBackend(realBackend, platformLocation, config);
 }
 
 export const SERVER_HTTP_PROVIDERS: Provider[] = [
-  {provide: XhrFactory, useClass: ServerXhr},
-  {provide: HttpHandler, useFactory: zoneWrappedInterceptingHandler, deps: [HttpBackend, Injector]}
+  {provide: XhrFactory, useClass: ServerXhr}, {
+    provide: HttpHandler,
+    useFactory: zoneWrappedInterceptingHandler,
+    deps: [HttpBackend, Injector, PlatformLocation, INITIAL_CONFIG]
+  }
 ];

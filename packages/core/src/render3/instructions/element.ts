@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright Google Inc. All Rights Reserved.
+ * Copyright Google LLC All Rights Reserved.
  *
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
@@ -39,8 +39,12 @@ function elementStartFirstCreatePass(
       resolveDirectives(tView, lView, tNode, getConstant<string[]>(tViewConsts, localRefsIndex));
   ngDevMode && logUnknownElementError(tView, lView, native, tNode, hasDirectives);
 
+  if (tNode.attrs !== null) {
+    computeStaticStyling(tNode, tNode.attrs, false);
+  }
+
   if (tNode.mergedAttrs !== null) {
-    computeStaticStyling(tNode, tNode.mergedAttrs);
+    computeStaticStyling(tNode, tNode.mergedAttrs, true);
   }
 
   if (tView.queries !== null) {
@@ -148,12 +152,12 @@ export function ɵɵelementEnd(): void {
     }
   }
 
-  if (tNode.classes !== null && hasClassInput(tNode)) {
-    setDirectiveInputsWhichShadowsStyling(tView, tNode, getLView(), tNode.classes, true);
+  if (tNode.classesWithoutHost != null && hasClassInput(tNode)) {
+    setDirectiveInputsWhichShadowsStyling(tView, tNode, getLView(), tNode.classesWithoutHost, true);
   }
 
-  if (tNode.styles !== null && hasStyleInput(tNode)) {
-    setDirectiveInputsWhichShadowsStyling(tView, tNode, getLView(), tNode.styles, false);
+  if (tNode.stylesWithoutHost != null && hasStyleInput(tNode)) {
+    setDirectiveInputsWhichShadowsStyling(tView, tNode, getLView(), tNode.stylesWithoutHost, false);
   }
 }
 

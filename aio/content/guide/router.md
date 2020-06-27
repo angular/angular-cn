@@ -8,7 +8,7 @@ To implement this kind of navigation within the single page of your app, you use
 
 在单页面应用中，你可以通过显示或隐藏特定组件的显示部分来改变用户能看到的内容，而不用去服务器获取新页面。当用户执行应用任务时，他们要在你预定义的不同[视图](guide/glossary#view "视图的定义")之间移动。要想在应用的单个页面中实现这种导航，你可以使用 Angular 的**`Router`**（路由器）。
 
-To handle the navigation from one [view](guide/glossary#view) to the next, you use the Angular *router*.
+To handle the navigation from one [view](guide/glossary#view) to the next, you use the Angular _router_.
 The router enables navigation by interpreting a browser URL as an instruction to change the view.
 
 为了处理从一个[视图](guide/glossary#view)到下一个视图之间的导航，你可以使用 Angular 的*路由器*。路由器会把浏览器 URL 解释成改变视图的操作指南，以完成导航。
@@ -33,7 +33,7 @@ Before creating a route, you should be familiar with the following:
 
   [模板的基础知识](guide/glossary#template)
 
-* An Angular app—you can generate a basic Angular app using the [Angular CLI](cli).
+* An Angular app&mdash;you can generate a basic Angular app using the [Angular CLI](cli).
 
   一个 Angular 应用，你可以使用 [Angular CLI](cli) 生成一个基本的 Angular 应用。
 
@@ -231,9 +231,9 @@ To get information from a route:
 
    这些 `import` 语句添加了组件所需的几个重要元素。要详细了解每个 API，请参阅以下 API 页面：
 
-   - [`Router`](api/router)
-   - [`ActivatedRoute`](api/router/ActivatedRoute)
-   - [`ParamMap`](api/router/ParamMap)
+   * [`Router`](api/router)
+   * [`ActivatedRoute`](api/router/ActivatedRoute)
+   * [`ParamMap`](api/router/ParamMap)
 
 1. Inject an instance of `ActivatedRoute` by adding it to your application's constructor:
 
@@ -276,7 +276,7 @@ To set up a wildcard route, add the following code to your `routes` definition.
 
 <code-example header="AppRoutingModule (excerpt)">
 
-{ path: '\*\*', component: <component-name> }
+{ path: '**', component: <component-name> }
 
 </code-example>
 
@@ -495,165 +495,19 @@ Inject `ActivatedRoute` and `Router` in the constructor of the component class s
 
 {@a lazy-loading}
 
-## Lazy loading modules
+## Lazy loading
 
-## 惰性加载模块
+## 惰性加载
 
-To lazy load Angular modules, use `loadchildren` (instead of `component`) in your `AppRoutingModule` `routes` configuration as follows:
+You can configure your routes to lazy load modules, which means that Angular only loads modules as needed, rather than loading all modules when the app launches.
+Additionally, you can preload parts of your app in the background to improve the user experience.
 
-要惰性加载 Angular 模块，请在 `AppRoutingModule` 的 `routes` 配置中使用 `loadChildren` （而不是 `component` ），如下所示：
+你可以配置路由定义来实现惰性加载模块，这意味着 Angular 只会在需要时才加载这些模块，而不是在应用启动时就加载全部。
+另外，你可以在后台预加载一些应用部件来改善用户体验。
 
-<code-example header="AppRoutingModule (excerpt)">
+For more information on lazy loading and preloading see the dedicated guide [Lazy loading NgModules](guide/lazy-loading-ngmodules).
 
-const routes: Routes = [
-  {
-    path: 'items',
-    loadChildren: () => import('./items/items.module').then(m => m.ItemsModule)
-  }
-];
-
-</code-example>
-
-In the lazy loaded module's routing module, add a route for the component.
-
-在惰性加载模块的路由模块中，为组件添加路由。
-
-<code-example header="Routing module for lazy loaded module (excerpt)">
-
-const routes: Routes = [
-  {
-    path: '',
-    component: ItemsComponent
-  }
-];
-
-const routes：Routes = [{path：''，component：ItemsComponent}];
-
-</code-example>
-
-Also be sure to remove the `ItemsModule` from the `AppModule`. For more information on lazy loading modules see [Lazy-loading feature modules](guide/lazy-loading-ngmodules).
-
-另外一定要从 `AppModule` 中删除 `ItemsModule`。有关惰性加载模块的更多知识，请参阅[惰性加载特性模块](guide/lazy-loading-ngmodules)。
-
-{@a preloading}
-
-## Preloading
-
-## 预加载
-
-Preloading improves UX by loading parts of your app in the background. You can preload modules or component data.
-
-预加载通过在后台加载部分应用来改进用户体验。你可以预加载各种模块或组件数据。
-
-### Preloading modules
-
-### 预加载模块
-
-To enable preloading of all lazy loaded modules, import the `PreloadAllModules` token from the Angular `router`.
-
-要为所有惰性加载模块启用预加载，请从 Angular `router` 中导入 `PreloadAllModules` 令牌。
-
-<code-example header="AppRoutingModule (excerpt)">
-
-import { PreloadAllModules } from '@angular/router';
-
-</code-example>
-
-Still in the `AppRoutingModule`, specify your preloading strategy in `forRoot()`.
-
-仍然在 `AppRoutingModule` 中，通过 `forRoot()` 指定你的预加载策略。
-
-<code-example header="AppRoutingModule (excerpt)">
-
-RouterModule.forRoot(
-  appRoutes,
-  {
-    preloadingStrategy: PreloadAllModules
-  }
-)
-
-RouterModule.forRoot（appRoutes，{preloadingStrategy：PreloadAllModules}）
-
-</code-example>
-
-### Preloading component data
-
-### 预加载组件数据
-
-You can preload component data so that all elements and data on a page render at the same time when the user activates a route. To preload component data, you can use a `resolver`.
-
-你可以预加载组件数据，以便在用户激活一个路由的同时渲染出页面上的所有元素和数据。要预加载组件数据，可以使用 `resolver`。
-
-#### Resolvers
-
-#### 解析器（Resolver）
-
-Create a resolver service. With the CLI, the command to generate a service is as follows:
-
-创建一个解析器服务。借助 CLI 生成服务的命令如下：
-
-<code-example language="none" class="code-shell">
-  ng generate service <service-name>
-</code-example>
-
-In your service, import the following router members, implement `Resolve`, and inject the `Router` service:
-
-在你的服务中，导入下列路由器成员，实现 `Resolve`，并注入到 `Router` 服务中：
-
-<code-example header="Resolver service (excerpt)">
-
-import { Resolve } from '@angular/router';
-
-...
-
-export class CrisisDetailResolverService implements Resolve&lt;> {
-  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable&lt;> {
-    // your logic goes here
-  }
-}
-
-</code-example>
-
-Import this resolver into your module's routing module.
-
-把这个解析器导入你的路由模块。
-
-<code-example header="Feature module's routing module (excerpt)">
-
-import { YourResolverService }    from './your-resolver.service';
-
-</code-example>
-
-Add a `resolve` object to the component's `route` configuration.
-
-在组件的 `route` 配置中添加一个 `resolve` 对象。
-
-<code-example header="Feature module's routing module (excerpt)">
-{
-  path: '/your-path',
-  component: YourComponent,
-  resolve: {
-    crisis: YourResolverService
-  }
-}
-</code-example>
-
-In the component, use an observable to get the data from the `ActivatedRoute`.
-
-在组件中，使用一个可观察对象来从 `ActivatedRoute` 获取数据。
-
-<code-example header="Component (excerpt)">
-ngOnInit() {
-  this.route.data
-    .subscribe((your-parameters) => {
-      // your data-specific code goes here
-    });
-}
-</code-example>
-
-For more information with a working example, see the [routing tutorial section on preloading](guide/router#preloading-background-loading-of-feature-areas).
-
-关于这个示例的更多信息，请参阅[路由教程中关于预加载的部分](guide/router#preloading-background-loading-of-feature-areas)。
+关于惰性加载和预加载的详情，请参见专门的指南[惰性加载 NgModule](guide/lazy-loading-ngmodules)。
 
 ## Preventing unauthorized access
 
@@ -741,15 +595,15 @@ Along the way, it highlights key features of the router such as:
 
    把应用的各个特性组织成模块。
 
-* Navigating to a component (*Heroes* link to "Heroes List").
+* Navigating to a component (_Heroes_ link to "Heroes List").
 
-   导航到组件（*Heroes* 链接到“英雄列表”组件）。
+   导航到组件（_Heroes_ 链接到“英雄列表”组件）。
 
 * Including a route parameter (passing the Hero `id` while routing to the "Hero Detail").
 
    包含一个路由参数（当路由到“英雄详情”时，把该英雄的 `id` 传进去）。
 
-* Child routes (the *Crisis Center* has its own routes).
+* Child routes (the _Crisis Center_ has its own routes).
 
    子路由（*危机中心*特性有一组自己的路由）。
 
@@ -1065,7 +919,7 @@ A wildcard route can navigate to a custom "404 Not Found" component or [redirect
 
 <div class="alert is-helpful">
 
-The router selects the route with a [*first match wins*](#example-config) strategy.
+The router selects the route with a [_first match wins_](#example-config) strategy.
 Because a wildcard route is the least specific route, place it last in the route configuration.
 
 路由器会使用[先到先得](guide/router#example-config)的策略来选择路由。
@@ -1149,7 +1003,7 @@ A redirect route requires a `pathMatch` property to tell the router how to match
 In this app, the router should select the route to the `HeroListComponent` only when the *entire URL* matches `''`, so set the `pathMatch` value to `'full'`.
 
 重定向路由需要一个 `pathMatch` 属性，来告诉路由器如何用 URL 去匹配路由的路径。
-在本应用中，路由器应该只有在*完整的 URL*等于 `''` 时才选择 `HeroListComponent` 组件，因此要把 `pathMatch` 设置为 `'full'`。
+在本应用中，路由器应该只有在*完整的 URL_等于 `''` 时才选择 `HeroListComponent` 组件，因此要把 `pathMatch` 设置为 `'full'`。
 
 {@a pathmatch}
 
@@ -1162,12 +1016,12 @@ In this app, the router should select the route to the `HeroListComponent` only 
   Technically, `pathMatch = 'full'` results in a route hit when the *remaining*, unmatched  segments of the URL match `''`.
   In this example, the redirect is in a top level route so the *remaining* URL and the  *entire* URL are the same thing.
 
-  从技术角度看，`pathMatch = 'full'` 会导致 URL 中*剩下的*、未匹配的部分必须等于 `''`。  在这个例子中，跳转路由在一个顶层路由中，因此*剩下的*URL 和*完整的*URL 是一样的。
+  从技术角度看，`pathMatch = 'full'` 会导致 URL 中*剩下的*、未匹配的部分必须等于 `''`。  在这个例子中，跳转路由在一个顶层路由中，因此*剩下的_URL 和*完整的_URL 是一样的。
 
   The other possible `pathMatch` value is `'prefix'` which tells the router to match the  redirect route when the remaining URL begins with the redirect route's prefix  path.
   This doesn't apply to this sample app because if the `pathMatch` value were `'prefix'`,   every URL would match `''`.
 
-  `pathMatch` 的另一个可能的值是 `'prefix'`，它会告诉路由器：当*剩下的*URL 以这个跳转路由中的 `prefix` 值开头时，就会匹配上这个跳转路由。
+  `pathMatch` 的另一个可能的值是 `'prefix'`，它会告诉路由器：当*剩下的_URL 以这个跳转路由中的 `prefix` 值开头时，就会匹配上这个跳转路由。
   但这不适用于此示例应用，因为如果 `pathMatch` 值是 `'prefix'`，那么每个 URL 都会匹配 `''`。
 
 Try setting it to `'prefix'` and clicking the `Go to sidekicks` button.
@@ -1181,13 +1035,13 @@ Try setting it to `'prefix'` and clicking the `Go to sidekicks` button.
 但是，你仍然在“英雄列表”页中。在地址栏中输入一个无效的 URL，你又被路由到了 `/heroes`。
 *每一个* URL，无论有效与否，都会匹配上这个路由定义。
 
-  The default route should redirect to the `HeroListComponent` _only_ when the _entire_ url is  `''`.
+  The default route should redirect to the `HeroListComponent` only when the entire url is  `''`.
 Remember to restore the redirect to `pathMatch = 'full'`.
 
-  默认路由应该只有在*整个*URL 等于 `''` 时才重定向到 `HeroListComponent`，别忘了把重定向路由设置为 `pathMatch = 'full'`。
+  默认路由应该只有在整个URL 等于 `''` 时才重定向到 `HeroListComponent`，别忘了把重定向路由设置为 `pathMatch = 'full'`。
 
   Learn more in Victor Savkin's
-  [post on redirects](http://victorsavkin.com/post/146722301646/angular-router-empty-paths-componentless-routes).
+  [post on redirects](http://vsavkin.tumblr.com/post/146722301646/angular-router-empty-paths-componentless-routes).
 
   要了解更多，参见 Victor Savkin 的帖子[关于重定向](http://victorsavkin.com/post/146722301646/angular-router-empty-paths-componentless-routes)。
 
@@ -1246,23 +1100,18 @@ The starter app's structure looks like this:
   <div class='children'>
 
     <div class='file'>
-
       src
-
     </div>
 
     <div class='children'>
 
       <div class='file'>
-
         app
-
       </div>
 
       <div class='children'>
 
         <div class='file'>
-
           crisis-list
         </div>
 
@@ -1289,7 +1138,6 @@ The starter app's structure looks like this:
         </div>
 
         <div class='file'>
-
           hero-list
         </div>
 
@@ -1748,7 +1596,9 @@ The hero management file structure is as follows:
 
         <div class='file'>      
           hero-list.component.ts
-        </div></div>
+        </div>
+
+      </div>
 
     <div class='file'>
 
@@ -1885,7 +1735,7 @@ After these steps, the `AppModule` should look like this:
 
 ### 模块导入顺序
 
-Notice that in the module `imports` array, the `AppRoutingModule` is last and comes *after* the `HeroesModule`.
+Notice that in the module `imports` array, the `AppRoutingModule` is last and comes _after_ the `HeroesModule`.
 
 请注意该模块的 `imports` 数组，`AppRoutingModule` 是最后一个，并且位于 `HeroesModule` 之后。
 
@@ -1901,8 +1751,8 @@ When all routes were in one `AppRoutingModule`, you put the default and [wildcar
 这样路由器才有机会匹配到 `/heroes` 路由，否则它就会先遇到并匹配上该通配符路由，并导航到“页面未找到”路由。
 
 Each routing module augments the route configuration in the order of import.
-If you listed `AppRoutingModule` first, the wildcard route would be registered *before* the hero routes.
-The wildcard route—which matches *every* URL—would intercept the attempt to navigate to a hero route.
+If you listed `AppRoutingModule` first, the wildcard route would be registered _before_ the hero routes.
+The wildcard route&mdash;which matches _every_ URL&mdash;would intercept the attempt to navigate to a hero route.
 
 每个路由模块都会根据导入的顺序把自己的路由配置追加进去。
 如果你先列出了 `AppRoutingModule`，那么通配符路由就会被注册在“英雄管理”路由*之前*。
@@ -1978,7 +1828,7 @@ You need two pieces of information: the routing path to the component and the he
 
 然后导航到 `HeroDetailComponent` 组件。在那里，你期望看到所选英雄的详情，这需要两部分信息：导航目标和该英雄的 `id`。
 
-Accordingly, the *link parameters array* has two items: the routing *path* and a *route parameter* that specifies the
+Accordingly, the _link parameters array_ has two items: the routing _path_ and a _route parameter_ that specifies the
 `id` of the selected hero.
 
 因此，这个*链接参数数组*中有两个条目：路由的*路径*和一个用来指定所选英雄 `id` 的*路由参数*。
@@ -2044,7 +1894,7 @@ If the user re-navigates to this route with a new `id` while the `HeroService` i
 
 `AsyncPipe` 处理这个可观察的订阅，而且该组件的 `hero` 属性也会用检索到的英雄（重新）进行设置。
 
-#### *ParamMap* API
+#### _ParamMap_ API
 
 The `ParamMap` API is inspired by the [URLSearchParams interface](https://developer.mozilla.org/en-US/docs/Web/API/URLSearchParams).
 It provides methods to handle parameter access for both route parameters (`paramMap`) and query parameters (`queryParamMap`).
@@ -2174,7 +2024,7 @@ For better UX, the router re-uses the same component instance and updates the pa
 
 你肯定不希望路由器先从 DOM 中移除当前的 `HeroDetailComponent` 实例，只是为了用下一个 `id` 重新创建它，因为它将重新渲染视图。为了更好的用户体验，路由器会复用同一个组件实例，而只是更新参数。
 
-Since `ngOnInit()` is only called once per component instantiation, you can detect when the route parameters change from *within the same instance* using the observable `paramMap` property.
+Since `ngOnInit()` is only called once per component instantiation, you can detect when the route parameters change from _within the same instance_ using the observable `paramMap` property.
 
 由于 `ngOnInit()` 在每个组件实例化时只会被调用一次，所以你可以使用 `paramMap` 可观察对象来检测路由参数*在同一个实例中*何时发生了变化。
 
@@ -2240,7 +2090,7 @@ The `HeroDetailComponent` "Back" button uses the `gotoHeroes()` method that navi
 
 `HeroDetailComponent` 的 “Back” 按钮使用了 `gotoHeroes()` 方法，该方法会强制导航回 `HeroListComponent`。
 
-The router `navigate()` method takes the same one-item *link parameters array* that you can bind to a `[routerLink]` directive.
+The router `navigate()` method takes the same one-item _link parameters array_ that you can bind to a `[routerLink]` directive.
 It holds the path to the `HeroListComponent`:
 
 路由的 `navigate()` 方法同样接受一个单条目的*链接参数数组*，你也可以把它绑定到 `[routerLink]` 指令上。
@@ -2284,11 +2134,11 @@ Optional information can also include other forms such as:
 
 * Loosely structured search criteria; for example, `name='wind*'`.
 
-  结构松散的搜索条件。比如 `name='wind*'`。
+  结构松散的搜索条件。比如 `name='wind_'`。
 
-* Multiple values;  for example, `after='12/31/2015' & before='1/1/2017'`—in no
-  particular order—`before='1/1/2017' & after='12/31/2015'`— in a
-  variety of formats—`during='currentYear'`.
+* Multiple values;  for example, `after='12/31/2015' & before='1/1/2017'`&mdash;in no
+particular order&mdash;`before='1/1/2017' & after='12/31/2015'`&mdash; in a
+variety of formats&mdash;`during='currentYear'`.
 
   多个值。比如 `after='12/31/2015' & before='1/1/2017'` - 没有特定的顺序 - `before='1/1/2017' & after='12/31/2015'` - 具有各种格式 - `during='currentYear'`。
 
@@ -2298,7 +2148,7 @@ Optional parameters aren't involved in pattern matching and afford flexibility o
 由于这些参数不适合用作 URL 路径，因此可以使用可选参数在导航过程中传递任意复杂的信息。可选参数不参与模式匹配，因此在表达上提供了巨大的灵活性。
 
 The router supports navigation with optional parameters as well as required route parameters.
-Define optional parameters in a separate object *after* you define the required route parameters.
+Define optional parameters in a separate object _after_ you define the required route parameters.
 
 和必要参数一样，路由器也支持通过可选参数导航。
 在你定义完必要参数之后，再通过一个*独立的对象*来定义可选参数。
@@ -2316,7 +2166,7 @@ In general, use a required route parameter when the value is mandatory (for exam
 #### 英雄列表：选定一个英雄（也可不选）
 
 When navigating to the `HeroDetailComponent` you specified the required `id` of the hero-to-edit in the
-route parameter and made it the second item of the [*link parameters array*](#link-parameters-array).
+route parameter and made it the second item of the [_link parameters array_](#link-parameters-array).
 
 当导航到 `HeroDetailComponent` 时，你可以在*路由参数*中指定一个所要编辑的英雄 `id`，只要把它作为[链接参数数组](guide/router#link-parameters-array)中的第二个条目就可以了。
 
@@ -2328,7 +2178,7 @@ The router embedded the `id` value in the navigation URL because you had defined
 
 <code-example path="router/src/app/heroes/heroes-routing.module.1.ts" header="src/app/heroes/heroes-routing.module.ts (hero-detail-route)" region="hero-detail-route"></code-example>
 
-When the user clicks the back button, the `HeroDetailComponent` constructs another *link parameters array*
+When the user clicks the back button, the `HeroDetailComponent` constructs another _link parameters array_
 which it uses to navigate back to the `HeroListComponent`.
 
 当用户点击后退按钮时，`HeroDetailComponent` 构造了另一个*链接参数数组*，可以用它导航回 `HeroListComponent`。
@@ -2660,7 +2510,9 @@ hero-detail
                 hero-detail.component.html
               </div>
 
-              <div class='file'>            hero-detail.component.ts
+              <div class='file'>
+                hero-detail.component.ts
+              </div>
 
           </div>
 
@@ -2681,14 +2533,14 @@ hero-list
                 hero-list.component.html
               </div>
 
-              <div class='file'>            hero-list.component.ts
+              <div class='file'>
+                hero-list.component.ts
+              </div>
 
-          </div></div>
+            </div>
 
           <div class='file'>
-
             hero.service.ts
-
           </div>
 
           <div class='file'>
@@ -2918,7 +2770,7 @@ Use mock crises instead of mock heroes:
 
 <code-example path="router/src/app/crisis-center/mock-crises.ts" header="src/app/crisis-center/mock-crises.ts"></code-example>
 
-The resulting crisis center is a foundation for introducing a new concept—child routing.
+The resulting crisis center is a foundation for introducing a new concept&mdash;child routing.
 You can leave Heroes in its current state as a contrast with the Crisis Center.
 
 最终的危机中心可以作为引入子路由这个新概念的基础。
@@ -3110,7 +2962,7 @@ Here's the complete `crisis-center-routing.module.ts` file with its imports.
 ### 把危机中心模块导入到 `AppModule` 的路由中
 
 As with the `HeroesModule`, you must add the `CrisisCenterModule` to the `imports` array of the `AppModule`
-*before* the `AppRoutingModule`:
+_before_ the `AppRoutingModule`:
 
 就像 `HeroesModule` 模块中一样，你必须把 `CrisisCenterModule` 添加到 `AppModule` 的 `imports` 数组中，就在 `AppRoutingModule` *前面*：
 
@@ -3166,7 +3018,7 @@ Navigation within the feature area remains intact even if you change the parent 
 
 <div class="alert is-helpful">
 
-The router supports directory-like syntax in a *link parameters list* to help guide route name lookup:
+The router supports directory-like syntax in a _link parameters list_ to help guide route name lookup:
 
 路由器支持在*链接参数数组*中使用“目录式”语法来为查询路由名提供帮助：
 
@@ -3192,7 +3044,7 @@ to give the router knowledge of where you are in the current route tree.
 
 用 `Router.navigate` 方法导航到相对路径时，你必须提供当前的 `ActivatedRoute`，来让路由器知道你现在位于路由树中的什么位置。
 
-After the *link parameters array*, add an object with a `relativeTo` property set to the `ActivatedRoute`.
+After the _link parameters array_, add an object with a `relativeTo` property set to the `ActivatedRoute`.
 The router then calculates the target URL based on the active route's location.
 
 在*链接参数数组*后面，添加一个带有 `relativeTo` 属性的对象，并把它设置为当前的 `ActivatedRoute`。
@@ -3283,7 +3135,7 @@ That's where a popup will go, once you learn how to route a popup component to i
 
 #### 第二路由
 
-Named outlets are the targets of  *secondary routes*.
+Named outlets are the targets of  _secondary routes_.
 
 命名出口是*第二路由*的目标。
 
@@ -3378,13 +3230,13 @@ To give users a way to open the popup, add a "Contact" link to the `AppComponent
 <code-example path="router/src/app/app.component.4.html" header="src/app/app.component.html (contact-link)" region="contact-link"></code-example>
 
 Although the `compose` route is configured to the "popup" outlet, that's not sufficient for connecting the route to a `RouterLink` directive.
-You have to specify the named outlet in a *link parameters array* and bind it to the `RouterLink` with a property binding.
+You have to specify the named outlet in a _link parameters array_ and bind it to the `RouterLink` with a property binding.
 
 虽然 `compose` 路由被配置到了 `popup` 出口上，但这仍然不足以把该路由和 `RouterLink` 指令联系起来。
 你还要在*链接参数数组*中指定这个命名出口，并通过属性绑定的形式把它绑定到 `RouterLink` 上。
 
-The *link parameters array* contains an object with a single `outlets` property whose value is another object keyed by one (or more) outlet names.
-In this case there is only the "popup" outlet property and its value is another *link parameters array* that specifies the `compose` route.
+The _link parameters array_ contains an object with a single `outlets` property whose value is another object keyed by one (or more) outlet names.
+In this case there is only the "popup" outlet property and its value is another _link parameters array_ that specifies the `compose` route.
 
 *链接参数数组*包含一个只有一个 `outlets` 属性的对象，它的值是另一个对象，这个对象以一个或多个路由的出口名作为属性名。
 在这里，它只有一个出口名“popup”，它的值则是另一个*链接参数数组*，用于指定 `compose` 路由。
@@ -3417,7 +3269,7 @@ you can target multiple outlets with multiple routes in the same `RouterLink` di
 
 #### 第二路由导航：在导航期间合并路由
 
-Navigate to the *Crisis Center* and click "Contact".
+Navigate to the _Crisis Center_ and click "Contact".
 you should see something like the following URL in the browser address bar.
 
 导航到*危机中心*并点击“Contact”，你将会在浏览器的地址栏看到如下 URL：
@@ -3443,9 +3295,9 @@ The relevant part of the URL follows the `...`:
 
    第二路由包括一个出口名称（`popup`）、一个冒号分隔符和第二路由的路径（`compose`）。
 
-Click the *Heroes* link and look at the URL again.
+Click the _Heroes_ link and look at the URL again.
 
-点击 *Heroes* 链接，并再次查看 URL：
+点击 _Heroes_ 链接，并再次查看 URL：
 
 <code-example>
   http://.../heroes(popup:compose)
@@ -3464,7 +3316,7 @@ You can add many more outlets and routes, at the top level and in nested levels,
 你还可以添加更多出口和更多路由（无论是在顶层还是在嵌套的子层）来创建一个带有多个分支的导航树。
 路由器将会生成相应的 URL。
 
-You can tell the router to navigate an entire tree at once by filling out the `outlets` object and then pass that object inside a *link parameters array*  to the `router.navigate` method.
+You can tell the router to navigate an entire tree at once by filling out the `outlets` object and then pass that object inside a _link parameters array_  to the `router.navigate` method.
 
 通过像前面那样填充 `outlets` 对象，你可以告诉路由器立即导航到一棵完整的树。
 然后把这个对象通过一个*链接参数数组*传给 `router.navigate` 方法。
@@ -3498,11 +3350,11 @@ The `closePopup()` function navigates imperatively with the `Router.navigate()` 
 
 单击 “send” 或 “cancel” 按钮可以清除弹出视图。`closePopup()` 函数会使用 `Router.navigate()` 方法强制导航，并传入一个[链接参数数组](#link-parameters-array)。
 
-Like the array bound to the *Contact* `RouterLink` in the `AppComponent`, this one includes an object with an `outlets` property.
+Like the array bound to the _Contact_ `RouterLink` in the `AppComponent`, this one includes an object with an `outlets` property.
 The `outlets` property value is another object with outlet names for keys.
 The only named outlet is `'popup'`.
 
-就像在 `AppComponent` 中绑定到的 *Contact* `RouterLink` 一样，它也包含了一个带 `outlets` 属性的对象。
+就像在 `AppComponent` 中绑定到的 _Contact_ `RouterLink` 一样，它也包含了一个带 `outlets` 属性的对象。
 `outlets` 属性的值是另一个对象，该对象用一些出口名称作为属性名。
 唯一的命名出口是 `'popup'`。
 
@@ -3623,7 +3475,7 @@ You can have multiple guards at every level of a routing hierarchy.
 The router checks the `CanDeactivate` and `CanActivateChild` guards first, from the deepest child route to the top.
 Then it checks the `CanActivate` guards from the top down to the deepest child route.
 If the feature module is loaded asynchronously, the `CanLoad` guard is checked before the module is loaded.
-If *any* guard returns false, pending guards that have not completed will be canceled, and the entire navigation is canceled.
+If _any_ guard returns false, pending guards that have not completed will be canceled, and the entire navigation is canceled.
 
 在分层路由的每个级别上，你都可以设置多个守卫。
 路由器会先按照从最深的子路由由下往上检查的顺序来检查 `CanDeactivate()` 和 `CanActivateChild()` 守卫。
@@ -3850,12 +3702,12 @@ The initial admin routing configuration:
 <code-example path="router/src/app/admin/admin-routing.module.1.ts" header="src/app/admin/admin-routing.module.ts (admin routing)" region="admin-routes"></code-example>
 
 The child route under the `AdminComponent` has a `path` and a `children` property but it's not using a `component`.
-This defines a *component-less* route.
+This defines a _component-less_ route.
 
 `AdminComponent` 下的子路由有一个 `path` 和一个 `children` 属性，但是它没有使用 `component`。这就定义了一个无*组件*路由。
 
 To group the `Crisis Center` management routes under the `admin` path a component is unnecessary.
-Additionally, a *component-less* route makes it easier to [guard child routes](#can-activate-child-guard).
+Additionally, a _component-less_ route makes it easier to [guard child routes](#can-activate-child-guard).
 
 要把 `Crisis Center` 管理下的路由分组到 `admin` 路径下，组件是不必要的。此外，无*组件*路由可以更容易地[保护子路由](#can-activate-child-guard)。
 
@@ -3970,13 +3822,13 @@ If the user is logged in, it returns true and the navigation continues.
 
 该守卫返回一个同步的布尔值。如果用户已经登录，它就返回 `true`，导航会继续。
 
-The `ActivatedRouteSnapshot` contains the *future* route that will be activated and the `RouterStateSnapshot` contains the *future* `RouterState` of the application, should you pass through the guard check.
+The `ActivatedRouteSnapshot` contains the _future_ route that will be activated and the `RouterStateSnapshot` contains the _future_ `RouterState` of the application, should you pass through the guard check.
 
 这个 `ActivatedRouteSnapshot` 包含了*即将*被激活的路由，而 `RouterStateSnapshot` 包含了该应用*即将*到达的状态。
 你应该通过守卫进行检查。
 
-If the user is not logged in, you store the attempted URL the user came from using the `RouterStateSnapshot.url` and tell the router to redirect to a login page—a page you haven't created yet.
-This secondary navigation automatically cancels the current navigation; `checkLogin()` returns `false`.
+If the user is not logged in, you store the attempted URL the user came from using the `RouterStateSnapshot.url` and tell the router to redirect to a login page&mdash;a page you haven't created yet.
+Returning a `UrlTree` tells the `Router` to cancel the current navigation and schedule a new one to redirect the user.
 
 如果用户还没有登录，你就会用 `RouterStateSnapshot.url` 保存用户来自的 URL 并让路由器跳转到登录页（你尚未创建该页）。
 这间接导致路由器自动中止了这次导航，`checkLogin()` 返回 `false` 并不是必须的，但这样可以更清楚的表达意图。
@@ -4037,7 +3889,7 @@ The key difference is that it runs before any child route is activated.
 它们的区别在于，`CanActivateChild` 会在*任何子路由*被激活之前运行。
 
 You protected the admin feature module from unauthorized access.
-You should also protect child routes *within* the feature module.
+You should also protect child routes _within_ the feature module.
 
 你要保护管理特性模块，防止它被非授权访问，还要保护这个特性模块*内部*的那些子路由。
 
@@ -4048,12 +3900,12 @@ Open `auth.guard.ts` and add the `CanActivateChild` interface to the imported to
 打开 `auth.guard.ts` 并从路由库中导入 `CanActivateChild` 接口。
 
 Next, implement the `canActivateChild()` method which takes the same arguments as the `canActivate()` method: an `ActivatedRouteSnapshot` and `RouterStateSnapshot`.
-The `canActivateChild()` method can return an `Observable<boolean>` or `Promise<boolean>` for async checks and a `boolean` for sync checks.
-This one returns a `boolean`:
+The `canActivateChild()` method can return an `Observable<boolean|UrlTree>` or `Promise<boolean|UrlTree>` for async checks and a `boolean` or `UrlTree` for sync checks.
+This one returns either `true` to allow the user to access the admin feature module or `UrlTree` to redirect the user to the login page instead:
 
 接下来，实现 `CanActivateChild` 方法，它所接收的参数与 `CanActivate` 方法一样：一个 `ActivatedRouteSnapshot` 和一个 `RouterStateSnapshot`。
-`CanActivateChild` 方法可以返回 `Observable<boolean>` 或 `Promise<boolean>` 来支持异步检查，或 `boolean` 来支持同步检查。
-这里返回的是 `boolean`：
+`CanActivateChild` 方法可以返回 `Observable<boolean|UrlTree>` 或 `Promise<boolean|UrlTree>` 来支持异步检查，或 `boolean` 或 `UrlTree` 来支持同步检查。
+这里返回的或者是 `true` 以便允许用户访问管理特性模块，或者是 `UrlTree` 以便把用户重定向到登录页：
 
 <code-example path="router/src/app/auth/auth.guard.3.ts" header="src/app/auth/auth.guard.ts (excerpt)" region="can-activate-child"></code-example>
 
@@ -4129,7 +3981,7 @@ response.
 
 <div class="alert is-helpful">
 
-You could wait for the user's answer with synchronous, blocking code, however, the app is more responsive—and can do other work—by waiting for the user's answer asynchronously.
+You could wait for the user's answer with synchronous, blocking code, however, the app is more responsive&mdash;and can do other work&mdash;by waiting for the user's answer asynchronously.
 
 你也可以用同步的方式等用户的答复，阻塞代码。但如果能用异步的方式等待用户的答复，应用就会响应性更好，还能同时做别的事。
 
@@ -4156,7 +4008,7 @@ It returns an `Observable` that resolves when the user eventually decides what t
 
 {@a CanDeactivate}
 
-Generate a guard that checks for the presence of a `canDeactivate()` method in a component—any component.
+Generate a guard that checks for the presence of a `canDeactivate()` method in a component&mdash;any component.
 
 生成一个守卫（guard），以检查组件（任意组件均可）中是否存在 `canDeactivate()` 方法。
 
@@ -4252,7 +4104,7 @@ If the crisis is not found, the router navigates back to the crisis list view.
 如果该危机没有找到，路由器就会导航回危机列表视图。
 
 The experience might be better if all of this were handled first, before the route is activated.
-A `CrisisDetailResolver` service could retrieve a `Crisis` or navigate away, if the `Crisis` did not exist, *before* activating the route and creating the `CrisisDetailComponent`.
+A `CrisisDetailResolver` service could retrieve a `Crisis` or navigate away, if the `Crisis` did not exist, _before_ activating the route and creating the `CrisisDetailComponent`.
 
 如果能在该路由将要激活时提前处理了这个问题，那么用户体验会更好。
 `CrisisDetailResolver` 服务可以接收一个 `Crisis`，而如果这个 `Crisis` 不存在，就会在激活该路由并创建 `CrisisDetailComponent` 之前先行离开。
@@ -4614,7 +4466,7 @@ Ideally, you'd only load the `AdminModule` if the user is logged in.
 但是路由器仍然会加载 `AdminModule` —— 即使用户无法访问它的任何一个组件。
 理想的方式是，只有在用户已登录的情况下你才加载 `AdminModule`。
 
-Add a `CanLoad` guard that only loads the `AdminModule` once the user is logged in *and* attempts to access the admin feature area.
+Add a `CanLoad` guard that only loads the `AdminModule` once the user is logged in _and_ attempts to access the admin feature area.
 
 添加一个 `CanLoad` 守卫，它只在用户已登录*并且*尝试访问管理特性区的时候，才加载 `AdminModule` 一次。
 
@@ -5266,7 +5118,7 @@ In the [LocationStrategy and browser URL styles](#browser-url-styles) section, l
 
 </div>
 
-You must add a <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/base" title="base href">&lt;base href> element</a> to the app's `index.html` for `pushState` routing to work.
+You must add a <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/base" title="base href">&lt;base href&gt; element</a> to the app's `index.html` for `pushState` routing to work.
 The browser uses the `<base href>` value to prefix relative URLs when referencing CSS files, scripts, and images.
 
 你必须在应用的 `index.html` 中**添加一个 <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/base" title="base href">&lt;base href&gt; 元素</a>**才能让 `pushState` 路由正常工作。
@@ -5288,7 +5140,7 @@ While the router uses the <a href="https://developer.mozilla.org/en-US/docs/Web/
 
 由于路由器默认使用 “<a href="https://developer.mozilla.org/en-US/docs/Web/API/History_API#Adding_and_modifying_history_entries" target="_blank" title="Browser history push-state">HTML 5 pushState</a>” 风格，所以你*必须*用一个 `<base href>` 来配置该策略（Strategy）。
 
-The preferred way to configure the strategy is to add a <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/base" title="base href">&lt;base href> element</a> tag in the `<head>` of the `index.html`.
+The preferred way to configure the strategy is to add a <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/base" title="base href">&lt;base href&gt; element</a> tag in the `<head>` of the `index.html`.
 
 配置该策略的首选方式是往 `index.html` 的 `<head>` 中添加一个[&lt;base href> element](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/base)标签。
 
@@ -5311,9 +5163,9 @@ Those developers may still use HTML5 URLs by taking the following two steps:
 
    用适当的[APP_BASE_HREF][]值提供（provide）路由器。
 
-1. Use _root URLs_ for all web resources: CSS, images, scripts, and template HTML files.
+1. Use root URLs for all web resources: CSS, images, scripts, and template HTML files.
 
-   对所有 Web 资源使用**绝对地址**：CSS、图片、脚本、模板 HTML。
+   对所有 Web 资源使用绝对地址：CSS、图片、脚本、模板 HTML。
 
 {@a hashlocationstrategy}
 
@@ -5402,7 +5254,7 @@ You can use the [resolve guard](#resolve-guard) to retrieve dynamic data.
 
 第三个路由中的 `data` 属性是存放与该特定路由关联的任意数据的地方。每个激活的路由都可以访问 `data` 属性。可以用它来存储页面标题，面包屑文本和其它只读静态数据等项目。你可以尝试使用[解析器守卫](#resolve-guard)来检索动态数据。
 
-The empty path in the fourth route represents the default path for the application—the place to go when the path in the URL is empty, as it typically is at the start.
+The empty path in the fourth route represents the default path for the application&mdash;the place to go when the path in the URL is empty, as it typically is at the start.
 This default route redirects to the route for the `/heroes` URL and, therefore, displays the `HeroesListComponent`.
 
 第四个路由中的空路径表示该应用的默认路径 - 当 URL 中的路径为空时通常要去的地方，就像它在刚进来时一样。这个默认路由重定向到了 `/heroes` 这个 URL 的路由，因此会显示 `HeroesListComponent`。

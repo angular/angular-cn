@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright Google Inc. All Rights Reserved.
+ * Copyright Google LLC All Rights Reserved.
  *
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
@@ -199,6 +199,18 @@ class TestObj {
         expect(isDelegateCtor(ChildNoCtor.toString())).toBe(true);
         expect(isDelegateCtor(ChildNoCtorPrivateProps.toString())).toBe(true);
         expect(isDelegateCtor(ChildWithCtor.toString())).toBe(false);
+      });
+
+      it('should support ES2015 classes when minified', () => {
+        // These classes are ES2015 in minified form
+        const ChildNoCtorMinified = 'class ChildNoCtor extends Parent{}';
+        const ChildWithCtorMinified = 'class ChildWithCtor extends Parent{constructor(){super()}}';
+        const ChildNoCtorPrivatePropsMinified =
+            'class ChildNoCtorPrivateProps extends Parent{constructor(){super(...arguments);this.x=10}}';
+
+        expect(isDelegateCtor(ChildNoCtorMinified)).toBe(true);
+        expect(isDelegateCtor(ChildNoCtorPrivatePropsMinified)).toBe(true);
+        expect(isDelegateCtor(ChildWithCtorMinified)).toBe(false);
       });
 
       it('should not throw when no prototype on type', () => {

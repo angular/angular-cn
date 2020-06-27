@@ -1,12 +1,13 @@
 /**
  * @license
- * Copyright Google Inc. All Rights Reserved.
+ * Copyright Google LLC All Rights Reserved.
  *
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import {getAngularDevConfig} from '../utils/config';
-import {CommitMessageConfig} from './config';
+import {error} from '../utils/console';
+
+import {getCommitMessageConfig} from './config';
 
 /** Options for commit message validation. */
 export interface ValidateCommitMessageOptions {
@@ -63,8 +64,8 @@ export function parseCommitMessage(commitMsg: string) {
 /** Validate a commit message against using the local repo's config. */
 export function validateCommitMessage(
     commitMsg: string, options: ValidateCommitMessageOptions = {}) {
-  function error(errorMessage: string) {
-    console.error(
+  function printError(errorMessage: string) {
+    error(
         `INVALID COMMIT MSG: \n` +
         `${'─'.repeat(40)}\n` +
         `${commitMsg}\n` +
@@ -76,7 +77,7 @@ export function validateCommitMessage(
         `<type>(<scope>): <subject>\n\n<body>`);
   }
 
-  const config = getAngularDevConfig<'commitMessage', CommitMessageConfig>().commitMessage;
+  const config = getCommitMessageConfig().commitMessage;
   const commit = parseCommitMessage(commitMsg);
 
   ////////////////////////////////////
@@ -92,7 +93,7 @@ export function validateCommitMessage(
   // the git history anyway, unless the options provided to not allow squash commits.
   if (commit.isSquash) {
     if (options.disallowSquash) {
-      error('The commit must be manually squashed into the target commit');
+      printError('The commit must be manually squashed into the target commit');
       return false;
     }
     return true;
@@ -105,7 +106,7 @@ export function validateCommitMessage(
   // check.
   if (commit.isFixup) {
     if (options.nonFixupCommitHeaders && !options.nonFixupCommitHeaders.includes(commit.header)) {
-      error(
+      printError(
           'Unable to find match for fixup commit among prior commits: ' +
           (options.nonFixupCommitHeaders.map(x => `\n      ${x}`).join('') || '-'));
       return false;
@@ -118,23 +119,29 @@ export function validateCommitMessage(
   // Checking commit header //
   ////////////////////////////
   if (commit.header.length > config.maxLineLength) {
-    error(`The commit message header is longer than ${config.maxLineLength} characters`);
+    printError(`The commit message header is longer than ${config.maxLineLength} characters`);
     return false;
   }
 
   if (!commit.type) {
-    error(`The commit message header does not match the expected format.`);
+    printError(`The commit message header does not match the expected format.`);
     return false;
   }
 
   if (!config.types.includes(commit.type)) {
-    error(`'${commit.type}' is not an allowed type.\n => TYPES: ${config.types.join(', ')}`);
+    printError(`'${commit.type}' is not an allowed type.\n => TYPES: ${config.types.join(', ')}`);
     return false;
   }
 
   if (commit.scope && !config.scopes.includes(commit.scope)) {
-    error(`'${commit.scope}' is not an allowed scope.\n => SCOPES: ${config.scopes.join(', ')}`);
+    printError(
+        `'${commit.scope}' is not an allowed scope.\n => SCOPES: ${config.scopes.join(', ')}`);
     return false;
+  }
+
+  // Commits with the type of `release` do not require a commit body.
+  if (commit.type === 'release') {
+    return true;
   }
 
   //////////////////////////
@@ -142,14 +149,14 @@ export function validateCommitMessage(
   //////////////////////////
 
   if (commit.bodyWithoutLinking.trim().length < config.minBodyLength) {
-    error(`The commit message body does not meet the minimum length of ${
+    printError(`The commit message body does not meet the minimum length of ${
         config.minBodyLength} characters`);
     return false;
   }
 
   const bodyByLine = commit.body.split('\n');
   if (bodyByLine.some(line => line.length > config.maxLineLength)) {
-    error(
+    printError(
         `The commit messsage body contains lines greater than ${config.maxLineLength} characters`);
     return false;
   }

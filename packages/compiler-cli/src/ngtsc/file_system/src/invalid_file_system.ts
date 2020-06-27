@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright Google Inc. All Rights Reserved.
+ * Copyright Google LLC All Rights Reserved.
  *
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
@@ -22,7 +22,10 @@ export class InvalidFileSystem implements FileSystem {
   readFile(path: AbsoluteFsPath): string {
     throw makeError();
   }
-  writeFile(path: AbsoluteFsPath, data: string, exclusive?: boolean): void {
+  readFileBuffer(path: AbsoluteFsPath): Buffer {
+    throw makeError();
+  }
+  writeFile(path: AbsoluteFsPath, data: string|Buffer, exclusive?: boolean): void {
     throw makeError();
   }
   removeFile(path: AbsoluteFsPath): void {

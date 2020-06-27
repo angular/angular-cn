@@ -48,9 +48,9 @@ The above command completes the following actions:
 
    修改 `index.html` 文件：
 
-    * Includes a link to add the `manifest.json` file.
+    * Includes a link to add the `manifest.webmanifest` file.
 
-       包含要添加到 `manifest.json` 文件中的链接。
+       包含要添加到 `manifest.webmanifest` 文件中的链接。
 
     * Adds meta tags for `theme-color`.
 
@@ -207,7 +207,7 @@ Pay attention to two key points:
 
 注意如下两个关键点：
 
-1. The generated `ngsw-config.json` includes a limited list of cachable fonts and images extentions. In some cases, you might want to modify the glob pattern to suit your needs.
+1. The generated `ngsw-config.json` includes a limited list of cacheable fonts and images extentions. In some cases, you might want to modify the glob pattern to suit your needs.
 
    所生成的 `ngsw-config.json` 包括一个可缓存字体和图像的有限列表。在某些情况下，你可能要按需修改这些 glob 模式。
 

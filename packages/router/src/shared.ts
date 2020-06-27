@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright Google Inc. All Rights Reserved.
+ * Copyright Google LLC All Rights Reserved.
  *
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
@@ -79,7 +79,7 @@ class ParamsAsMap implements ParamMap {
   }
 
   has(name: string): boolean {
-    return this.params.hasOwnProperty(name);
+    return Object.prototype.hasOwnProperty.call(this.params, name);
   }
 
   get(name: string): string|null {

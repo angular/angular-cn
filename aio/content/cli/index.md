@@ -203,11 +203,3 @@ Schematic options are supplied to the command in the same format as immediate co
 [ng generate](cli/generate) 和 [ng add](cli/add) 命令会把要生成或要添加到当前项目中的工件或库作为参数。
 除了通用选项之外，每个工件或库还可以用*原理图*定义自己的选项。
 原理图的选项和内置命令的选项使用同样的格式。
-
-### Building with Bazel
-
-### 使用 Bazel 进行构建
-
-Optionally, you can configure the Angular CLI to use [Bazel](https://docs.bazel.build) as the build tool. For more information, see [Building with Bazel](guide/bazel).
-
-你还可以把 Angular CLI 配置为把 [Bazel](https://docs.bazel.build) 作为构建工具。欲知详情，参见[用 Bazel 进行构建](guide/bazel)。

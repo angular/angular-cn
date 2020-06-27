@@ -411,6 +411,43 @@ Each budget entry is a JSON object with the following properties:
 
  </table>
 
+{@a commonjs }
+## Configuring CommonJS dependencies
+
+## 配置 CommonJS 依赖项
+
+<div class="alert is-important">
+
+It is recommended that you avoid depending on CommonJS modules in your Angular applications.
+Depending on CommonJS modules can prevent bundlers and minifiers from optimizing your application, which results in larger bundle sizes.
+Instead, it is recommended that you use [ECMAScript modules](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import) in your entire application.
+For more information, see [How CommonJS is making your bundles larger](https://web.dev/commonjs-larger-bundles/).
+
+建议你在 Angular 应用中避免依赖 CommonJS 模块。对 CommonJS 模块的依赖会阻止打包器和压缩器优化你的应用，这会导致更大的打包尺寸。
+建议你在整个应用中都使用 [ECMAScript 模块](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import)。
+欲知详情，参见[为什么 CommonJS 会导致更大的打包尺寸](https://web.dev/commonjs-larger-bundles/)。
+
+</div>
+
+The Angular CLI outputs warnings if it detects that your browser application depends on CommonJS modules.
+To disable these warnings, you can add the CommonJS module name to `allowedCommonJsDependencies` option in the `build` options located in `angular.json` file.
+
+如果 Angular CLI 检测到你的浏览器端应用依赖了 CommonJS 模块，就会发出警告。
+要禁用这些警告，你可以把这些 CommonJS 模块的名字添加到 `angular.json` 文件的 `build` 区的 `allowedCommonJsDependencies` 选项中。
+
+<code-example lang="json">
+"build": {
+  "builder": "@angular-devkit/build-angular:browser",
+  "options": {
+     "allowedCommonJsDependencies": [
+        "lodash"
+     ]
+     ...
+   }
+   ...
+},
+</code-example>
+
 {@a browser-compat}
 
 ## Configuring browser compatibility

@@ -73,11 +73,11 @@ src/
   app/ ...                   <i>application code</i>
     app.server.module.ts     <i>* server-side application module</i>
 server.ts                    <i>* express web server</i>
-tsconfig.json                <i>TypeScript client configuration</i>
-tsconfig.app.json            <i>TypeScript client configuration</i>
-tsconfig.server.json         <i>* TypeScript server configuration</i>
-tsconfig.spec.json           <i>TypeScript spec configuration</i>
-package.json                 <i>npm configuration</i>
+tsconfig.json                <i>TypeScript solution style configuration</i>
+tsconfig.base.json           <i>TypeScript base configuration</i>
+tsconfig.app.json            <i>TypeScript browser application configuration</i>
+tsconfig.server.json         <i>TypeScript server application configuration</i>
+tsconfig.spec.json           <i>TypeScript tests configuration</i>
 </code-example>
 
 The files marked with `*` are new and not in the original tutorial sample.
@@ -406,7 +406,7 @@ as a navigation URL intended for the router.
 
 Fortunately, application routes have something in common: their URLs lack file extensions.
 (Data requests also lack extensions but they're easy to recognize because they always begin with `/api`.)
-All static asset requests have a file extension (such as `main.js` or `/node_modules/zone.js/dist/zone.js`).
+All static asset requests have a file extension (such as `main.js` or `/node_modules/zone.js/bundles/zone.umd.js`).
 
 幸运的是，应用的路由具有一些共同特征：它们的 URL 一般不带文件扩展名。
 （数据请求也可能缺少扩展名，但是它们很容易识别出来，因为它们总是以 `/api` 开头，所有的静态资源的请求都会带有一个扩展名，比如 `main.js` 或 `/node_modules/zone.js/dist/zone.js`）。
@@ -419,11 +419,11 @@ Because we use routing, we can easily recognize the three types of requests and 
 
    **数据请求**：请求的 URL 用 `/api` 开头
 
-2. **App navigation**: request URL with no file extension.
+1. **App navigation**: request URL with no file extension.
 
    **应用导航**：请求的 URL 不带扩展名
 
-3. **Static asset**: all other requests.
+1. **Static asset**: all other requests.
 
    **静态资源**：所有其它请求。
 

@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright Google Inc. All Rights Reserved.
+ * Copyright Google LLC All Rights Reserved.
  *
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
@@ -9,15 +9,15 @@ import * as ts from 'typescript';
 
 import {absoluteFrom, getFileSystem, getSourceFileOrError} from '../../../src/ngtsc/file_system';
 import {runInEachFileSystem, TestFile} from '../../../src/ngtsc/file_system/testing';
+import {MockLogger} from '../../../src/ngtsc/logging/testing';
 import {ClassMemberKind, ConcreteDeclaration, CtorParameter, DownleveledEnum, InlineDeclaration, isNamedClassDeclaration, isNamedFunctionDeclaration, isNamedVariableDeclaration, KnownDeclaration, TypeScriptReflectionHost} from '../../../src/ngtsc/reflection';
 import {getDeclaration} from '../../../src/ngtsc/testing';
 import {loadFakeCore, loadTestFiles} from '../../../test/helpers';
 import {CommonJsReflectionHost} from '../../src/host/commonjs_host';
 import {DelegatingReflectionHost} from '../../src/host/delegating_host';
-import {getIifeBody} from '../../src/host/esm5_host';
+import {getIifeBody} from '../../src/host/esm2015_host';
 import {NgccReflectionHost} from '../../src/host/ngcc_host';
 import {BundleProgram} from '../../src/packages/bundle_program';
-import {MockLogger} from '../helpers/mock_logger';
 import {getRootFiles, makeTestBundleProgram, makeTestDtsBundleProgram} from '../helpers/utils';
 
 import {expectTypeValueReferencesForParameters} from './util';
@@ -513,72 +513,68 @@ var c = file_a.a;
       EXPORTS_FILES = [
         {
           name: _('/index.js'),
-          contents: `
-          var a_module = require('./a_module');
-          var b_module = require('./b_module');
-          var xtra_module = require('./xtra_module');
-          var wildcard_reexports_emitted_helpers = require('./wildcard_reexports_emitted_helpers');
-          var wildcard_reexports_imported_helpers = require('./wildcard_reexports_imported_helpers');
-          `
+          contents: `var a_module = require('./a_module');\n` +
+              `var b_module = require('./b_module');\n` +
+              `var xtra_module = require('./xtra_module');\n` +
+              `var wildcard_reexports_emitted_helpers = require('./wildcard_reexports_emitted_helpers');\n` +
+              `var wildcard_reexports_imported_helpers = require('./wildcard_reexports_imported_helpers');\n` +
+              `var define_property_reexports = require('./define_property_reexports');\n`
         },
         {
           name: _('/a_module.js'),
-          contents: `
-var a = 'a';
-exports.a = a;
-`,
+          contents: `// In TS 3.9 exports are initialized to undefined at the top of the file\n` +
+              `exports.a = void 0;\n` +
+              `var a = 'a';\n` +
+              `exports.a = a;\n`,
         },
         {
           name: _('/b_module.js'),
-          contents: `
-var core = require('@angular/core');
-var a_module = require('./a_module');
-var b = a_module.a;
-var e = 'e';
-var SomeClass = (function() {
-  function SomeClass() {}
-  return SomeClass;
-}());
-
-exports.Directive = core.Directive;
-exports.a = a_module.a;
-exports.b = b;
-exports.c = a_module.a;
-exports.d = b;
-exports.e = e;
-exports.DirectiveX = core.Directive;
-exports.SomeClass = SomeClass;
-`,
+          contents: `var core = require('@angular/core');\n` +
+              `var a_module = require('./a_module');\n` +
+              `var b = a_module.a;\n` +
+              `var e = 'e';\n` +
+              `var SomeClass = (function() {\n` +
+              `  function SomeClass() {}\n` +
+              `  return SomeClass;\n` +
+              `}());\n` +
+              `\n` +
+              `exports.Directive = core.Directive;\n` +
+              `exports.a = a_module.a;\n` +
+              `exports.b = b;\n` +
+              `exports.c = a_module.a;\n` +
+              `exports.d = b;\n` +
+              `exports.e = e;\n` +
+              `exports.DirectiveX = core.Directive;\n` +
+              `exports.SomeClass = SomeClass;\n`,
         },
         {
           name: _('/xtra_module.js'),
-          contents: `
-var xtra1 = 'xtra1';
-var xtra2 = 'xtra2';
-exports.xtra1 = xtra1;
-exports.xtra2 = xtra2;
-`,
+          contents: `var xtra1 = 'xtra1';\n` +
+              `var xtra2 = 'xtra2';\n` +
+              `exports.xtra1 = xtra1;\n` +
+              `exports.xtra2 = xtra2;\n`,
         },
         {
           name: _('/wildcard_reexports_emitted_helpers.js'),
-          contents: `
-function __export(m) {
-  for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
-}
-var b_module = require("./b_module");
-__export(b_module);
-__export(require("./xtra_module"));
-`,
+          contents: `function __export(m) {\n` +
+              `  for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];\n` +
+              `}\n` +
+              `var b_module = require("./b_module");\n` +
+              `__export(b_module);\n` +
+              `__export(require("./xtra_module"));\n`,
         },
         {
           name: _('/wildcard_reexports_imported_helpers.js'),
-          contents: `
-var tslib_1 = require("tslib");
-var b_module = require("./b_module");
-tslib_1.__exportStar(b_module, exports);
-tslib_1.__exportStar(require("./xtra_module"), exports);
-`,
+          contents: `var tslib_1 = require("tslib");\n` +
+              `var b_module = require("./b_module");\n` +
+              `tslib_1.__exportStar(b_module, exports);\n` +
+              `tslib_1.__exportStar(require("./xtra_module"), exports);\n`,
         },
+        {
+          name: _('/define_property_reexports.js'),
+          contents: `var moduleA = require("./a_module");\n` +
+              `Object.defineProperty(exports, "newA", { enumerable: true, get: function () { return moduleA.a; } });`,
+        }
       ];
 
       FUNCTION_BODY_FILE = {
@@ -1658,7 +1654,7 @@ exports.MissingClass2 = MissingClass2;
               bundle.program, SOME_DIRECTIVE_FILE.name, 'SomeDirective',
               isNamedVariableDeclaration);
           const classDecorators = host.getDecoratorsOfDeclaration(classNode)!;
-          const identifierOfDirective =
+          const namespaceIdentifier =
               (((classDecorators[0].node as ts.ObjectLiteralExpression).properties[0] as
                 ts.PropertyAssignment)
                    .initializer as ts.PropertyAccessExpression)
@@ -1666,7 +1662,7 @@ exports.MissingClass2 = MissingClass2;
 
           const expectedDeclarationNode =
               getSourceFileOrError(bundle.program, _('/node_modules/@angular/core/index.d.ts'));
-          const actualDeclaration = host.getDeclarationOfIdentifier(identifierOfDirective);
+          const actualDeclaration = host.getDeclarationOfIdentifier(namespaceIdentifier);
           expect(actualDeclaration).not.toBe(null);
           expect(actualDeclaration!.node).toBe(expectedDeclarationNode);
           expect(actualDeclaration!.viaModule).toBe('@angular/core');
@@ -1867,10 +1863,11 @@ exports.MissingClass2 = MissingClass2;
           const bundle = makeTestBundleProgram(testFile.name);
           const host =
               createHost(bundle, new CommonJsReflectionHost(new MockLogger(), false, bundle));
-          const tslibSourceFile = getSourceFileOrError(bundle.program, tslibFile.name);
 
-          const testForHelper =
-              createTestForTsHelper(bundle.program, host, testFile, () => tslibSourceFile);
+          const testForHelper = createTestForTsHelper(
+              bundle.program, host, testFile,
+              helperName => getDeclaration(
+                  bundle.program, tslibFile.name, helperName, ts.isFunctionDeclaration));
 
           testForHelper('a', '__assign', KnownDeclaration.TsHelperAssign, 'tslib');
           testForHelper('b', '__spread', KnownDeclaration.TsHelperSpread, 'tslib');
@@ -1943,135 +1940,6 @@ exports.MissingClass2 = MissingClass2;
           testForHelper('a', '__assign$1', KnownDeclaration.TsHelperAssign);
           testForHelper('b', '__spread$2', KnownDeclaration.TsHelperSpread);
           testForHelper('c', '__spreadArrays$3', KnownDeclaration.TsHelperSpreadArrays);
-        });
-      });
-
-      describe('getExportsOfModule()', () => {
-        it('should return a map of all the exports from a given module', () => {
-          loadFakeCore(getFileSystem());
-          loadTestFiles(EXPORTS_FILES);
-          const bundle = makeTestBundleProgram(_('/index.js'));
-          const host =
-              createHost(bundle, new CommonJsReflectionHost(new MockLogger(), false, bundle));
-          const file = getSourceFileOrError(bundle.program, _('/b_module.js'));
-          const exportDeclarations = host.getExportsOfModule(file);
-          expect(exportDeclarations).not.toBe(null);
-          expect(Array.from(exportDeclarations!.entries())
-                     .map(entry => [entry[0], entry[1].node!.getText(), entry[1].viaModule]))
-              .toEqual([
-                ['Directive', `Directive: FnWithArg<(clazz: any) => any>`, '@angular/core'],
-                ['a', `a = 'a'`, null],
-                ['b', `b = a_module.a`, null],
-                ['c', `a = 'a'`, null],
-                ['d', `b = a_module.a`, null],
-                ['e', `e = 'e'`, null],
-                ['DirectiveX', `Directive: FnWithArg<(clazz: any) => any>`, '@angular/core'],
-                [
-                  'SomeClass',
-                  `SomeClass = (function() {\n  function SomeClass() {}\n  return SomeClass;\n}())`,
-                  null
-                ],
-              ]);
-        });
-
-        it('should handle wildcard re-exports of other modules (with emitted helpers)', () => {
-          loadFakeCore(getFileSystem());
-          loadTestFiles(EXPORTS_FILES);
-          const bundle = makeTestBundleProgram(_('/index.js'));
-          const host =
-              createHost(bundle, new CommonJsReflectionHost(new MockLogger(), false, bundle));
-          const file =
-              getSourceFileOrError(bundle.program, _('/wildcard_reexports_emitted_helpers.js'));
-          const exportDeclarations = host.getExportsOfModule(file);
-          expect(exportDeclarations).not.toBe(null);
-          expect(Array.from(exportDeclarations!.entries())
-                     .map(entry => [entry[0], entry[1].node!.getText(), entry[1].viaModule]))
-              .toEqual([
-                ['Directive', `Directive: FnWithArg<(clazz: any) => any>`, _('/b_module')],
-                ['a', `a = 'a'`, _('/b_module')],
-                ['b', `b = a_module.a`, _('/b_module')],
-                ['c', `a = 'a'`, _('/b_module')],
-                ['d', `b = a_module.a`, _('/b_module')],
-                ['e', `e = 'e'`, _('/b_module')],
-                ['DirectiveX', `Directive: FnWithArg<(clazz: any) => any>`, _('/b_module')],
-                [
-                  'SomeClass',
-                  `SomeClass = (function() {\n  function SomeClass() {}\n  return SomeClass;\n}())`,
-                  _('/b_module')
-                ],
-                ['xtra1', `xtra1 = 'xtra1'`, _('/xtra_module')],
-                ['xtra2', `xtra2 = 'xtra2'`, _('/xtra_module')],
-              ]);
-        });
-
-        it('should handle wildcard re-exports of other modules (with imported helpers)', () => {
-          loadFakeCore(getFileSystem());
-          loadTestFiles(EXPORTS_FILES);
-          const bundle = makeTestBundleProgram(_('/index.js'));
-          const host =
-              createHost(bundle, new CommonJsReflectionHost(new MockLogger(), false, bundle));
-          const file =
-              getSourceFileOrError(bundle.program, _('/wildcard_reexports_imported_helpers.js'));
-          const exportDeclarations = host.getExportsOfModule(file);
-          expect(exportDeclarations).not.toBe(null);
-          expect(Array.from(exportDeclarations!.entries())
-                     .map(entry => [entry[0], entry[1].node!.getText(), entry[1].viaModule]))
-              .toEqual([
-                ['Directive', `Directive: FnWithArg<(clazz: any) => any>`, _('/b_module')],
-                ['a', `a = 'a'`, _('/b_module')],
-                ['b', `b = a_module.a`, _('/b_module')],
-                ['c', `a = 'a'`, _('/b_module')],
-                ['d', `b = a_module.a`, _('/b_module')],
-                ['e', `e = 'e'`, _('/b_module')],
-                ['DirectiveX', `Directive: FnWithArg<(clazz: any) => any>`, _('/b_module')],
-                [
-                  'SomeClass',
-                  `SomeClass = (function() {\n  function SomeClass() {}\n  return SomeClass;\n}())`,
-                  _('/b_module')
-                ],
-                ['xtra1', `xtra1 = 'xtra1'`, _('/xtra_module')],
-                ['xtra2', `xtra2 = 'xtra2'`, _('/xtra_module')],
-              ]);
-        });
-
-        it('should handle inline exports', () => {
-          loadTestFiles([INLINE_EXPORT_FILE]);
-          const bundle = makeTestBundleProgram(_('/inline_export.js'));
-          const host =
-              createHost(bundle, new CommonJsReflectionHost(new MockLogger(), false, bundle));
-          const file = getSourceFileOrError(bundle.program, _('/inline_export.js'));
-          const exportDeclarations = host.getExportsOfModule(file);
-          expect(exportDeclarations).not.toBeNull();
-          const decl = exportDeclarations!.get('directives') as InlineDeclaration;
-          expect(decl).not.toBeUndefined();
-          expect(decl.node).toBeNull();
-          expect(decl.expression).toBeDefined();
-        });
-
-        it('should recognize declarations of known TypeScript helpers', () => {
-          const tslib = {
-            name: _('/tslib.d.ts'),
-            contents: `
-              export declare function __assign(t: any, ...sources: any[]): any;
-              export declare function __spread(...args: any[][]): any[];
-              export declare function __spreadArrays(...args: any[][]): any[];
-              export declare function __unknownHelper(...args: any[]): any;
-            `,
-          };
-          loadTestFiles([tslib]);
-          const bundle = makeTestBundleProgram(tslib.name);
-          const host =
-              createHost(bundle, new CommonJsReflectionHost(new MockLogger(), false, bundle));
-          const sf = getSourceFileOrError(bundle.program, tslib.name);
-          const exportDeclarations = host.getExportsOfModule(sf)!;
-
-          expect([...exportDeclarations].map(([exportName, {known}]) => [exportName, known]))
-              .toEqual([
-                ['__assign', KnownDeclaration.TsHelperAssign],
-                ['__spread', KnownDeclaration.TsHelperSpread],
-                ['__spreadArrays', KnownDeclaration.TsHelperSpreadArrays],
-                ['__unknownHelper', null],
-              ]);
         });
 
         it('should recognize enum declarations with string values', () => {
@@ -2190,6 +2058,151 @@ exports.MissingClass2 = MissingClass2;
         });
       });
 
+      describe('getExportsOfModule()', () => {
+        it('should return a map of all the exports from a given module', () => {
+          loadFakeCore(getFileSystem());
+          loadTestFiles(EXPORTS_FILES);
+          const bundle = makeTestBundleProgram(_('/index.js'));
+          const host =
+              createHost(bundle, new CommonJsReflectionHost(new MockLogger(), false, bundle));
+          const file = getSourceFileOrError(bundle.program, _('/b_module.js'));
+          const exportDeclarations = host.getExportsOfModule(file);
+          expect(exportDeclarations).not.toBe(null);
+          expect(Array.from(exportDeclarations!.entries())
+                     .map(entry => [entry[0], entry[1].node!.getText(), entry[1].viaModule]))
+              .toEqual([
+                ['Directive', `Directive: FnWithArg<(clazz: any) => any>`, '@angular/core'],
+                ['a', `a = 'a'`, null],
+                ['b', `b = a_module.a`, null],
+                ['c', `a = 'a'`, null],
+                ['d', `b = a_module.a`, null],
+                ['e', `e = 'e'`, null],
+                ['DirectiveX', `Directive: FnWithArg<(clazz: any) => any>`, '@angular/core'],
+                [
+                  'SomeClass',
+                  `SomeClass = (function() {\n  function SomeClass() {}\n  return SomeClass;\n}())`,
+                  null
+                ],
+              ]);
+        });
+
+        it('should handle wildcard re-exports of other modules (with emitted helpers)', () => {
+          loadFakeCore(getFileSystem());
+          loadTestFiles(EXPORTS_FILES);
+          const bundle = makeTestBundleProgram(_('/index.js'));
+          const host =
+              createHost(bundle, new CommonJsReflectionHost(new MockLogger(), false, bundle));
+          const file =
+              getSourceFileOrError(bundle.program, _('/wildcard_reexports_emitted_helpers.js'));
+          const exportDeclarations = host.getExportsOfModule(file);
+          expect(exportDeclarations).not.toBe(null);
+          expect(Array.from(exportDeclarations!.entries())
+                     .map(entry => [entry[0], entry[1].node!.getText(), entry[1].viaModule]))
+              .toEqual([
+                ['Directive', `Directive: FnWithArg<(clazz: any) => any>`, '@angular/core'],
+                ['a', `a = 'a'`, null],
+                ['b', `b = a_module.a`, null],
+                ['c', `a = 'a'`, null],
+                ['d', `b = a_module.a`, null],
+                ['e', `e = 'e'`, null],
+                ['DirectiveX', `Directive: FnWithArg<(clazz: any) => any>`, '@angular/core'],
+                [
+                  'SomeClass',
+                  `SomeClass = (function() {\n  function SomeClass() {}\n  return SomeClass;\n}())`,
+                  null
+                ],
+                ['xtra1', `xtra1 = 'xtra1'`, null],
+                ['xtra2', `xtra2 = 'xtra2'`, null],
+              ]);
+        });
+
+        it('should handle wildcard re-exports of other modules (with imported helpers)', () => {
+          loadFakeCore(getFileSystem());
+          loadTestFiles(EXPORTS_FILES);
+          const bundle = makeTestBundleProgram(_('/index.js'));
+          const host =
+              createHost(bundle, new CommonJsReflectionHost(new MockLogger(), false, bundle));
+          const file =
+              getSourceFileOrError(bundle.program, _('/wildcard_reexports_imported_helpers.js'));
+          const exportDeclarations = host.getExportsOfModule(file);
+          expect(exportDeclarations).not.toBe(null);
+          expect(Array.from(exportDeclarations!.entries())
+                     .map(entry => [entry[0], entry[1].node!.getText(), entry[1].viaModule]))
+              .toEqual([
+                ['Directive', `Directive: FnWithArg<(clazz: any) => any>`, '@angular/core'],
+                ['a', `a = 'a'`, null],
+                ['b', `b = a_module.a`, null],
+                ['c', `a = 'a'`, null],
+                ['d', `b = a_module.a`, null],
+                ['e', `e = 'e'`, null],
+                ['DirectiveX', `Directive: FnWithArg<(clazz: any) => any>`, '@angular/core'],
+                [
+                  'SomeClass',
+                  `SomeClass = (function() {\n  function SomeClass() {}\n  return SomeClass;\n}())`,
+                  null
+                ],
+                ['xtra1', `xtra1 = 'xtra1'`, null],
+                ['xtra2', `xtra2 = 'xtra2'`, null],
+              ]);
+        });
+
+        it('should handle inline exports', () => {
+          loadTestFiles([INLINE_EXPORT_FILE]);
+          const bundle = makeTestBundleProgram(_('/inline_export.js'));
+          const host =
+              createHost(bundle, new CommonJsReflectionHost(new MockLogger(), false, bundle));
+          const file = getSourceFileOrError(bundle.program, _('/inline_export.js'));
+          const exportDeclarations = host.getExportsOfModule(file);
+          expect(exportDeclarations).not.toBeNull();
+          const decl = exportDeclarations!.get('directives') as InlineDeclaration;
+          expect(decl).not.toBeUndefined();
+          expect(decl.node).toBeNull();
+          expect(decl.expression).toBeDefined();
+        });
+
+        it('should recognize declarations of known TypeScript helpers', () => {
+          const tslib = {
+            name: _('/tslib.d.ts'),
+            contents: `
+              export declare function __assign(t: any, ...sources: any[]): any;
+              export declare function __spread(...args: any[][]): any[];
+              export declare function __spreadArrays(...args: any[][]): any[];
+              export declare function __unknownHelper(...args: any[]): any;
+            `,
+          };
+          loadTestFiles([tslib]);
+          const bundle = makeTestBundleProgram(tslib.name);
+          const host =
+              createHost(bundle, new CommonJsReflectionHost(new MockLogger(), false, bundle));
+          const sf = getSourceFileOrError(bundle.program, tslib.name);
+          const exportDeclarations = host.getExportsOfModule(sf)!;
+
+          expect([...exportDeclarations].map(([exportName, {known}]) => [exportName, known]))
+              .toEqual([
+                ['__assign', KnownDeclaration.TsHelperAssign],
+                ['__spread', KnownDeclaration.TsHelperSpread],
+                ['__spreadArrays', KnownDeclaration.TsHelperSpreadArrays],
+                ['__unknownHelper', null],
+              ]);
+        });
+
+        it('should define property exports from a module', () => {
+          loadFakeCore(getFileSystem());
+          loadTestFiles(EXPORTS_FILES);
+          const bundle = makeTestBundleProgram(_('/index.js'));
+          const host =
+              createHost(bundle, new CommonJsReflectionHost(new MockLogger(), false, bundle));
+          const file = getSourceFileOrError(bundle.program, _('/define_property_reexports.js'));
+          const exportDeclarations = host.getExportsOfModule(file);
+          expect(exportDeclarations).not.toBe(null);
+          expect(Array.from(exportDeclarations!.entries())
+                     .map(entry => [entry[0], entry[1].node!.getText(), entry[1].viaModule]))
+              .toEqual([
+                ['newA', `a = 'a'`, null],
+              ]);
+        });
+      });
+
       describe('getClassSymbol()', () => {
         it('should return the class symbol for an ES2015 class', () => {
           loadTestFiles([SIMPLE_ES2015_CLASS_FILE]);
@@ -2212,7 +2225,8 @@ exports.MissingClass2 = MissingClass2;
               createHost(bundle, new CommonJsReflectionHost(new MockLogger(), false, bundle));
           const outerNode = getDeclaration(
               bundle.program, SIMPLE_CLASS_FILE.name, 'EmptyClass', isNamedVariableDeclaration);
-          const innerNode = getIifeBody(outerNode)!.statements.find(isNamedFunctionDeclaration)!;
+          const innerNode = (getIifeBody(outerNode.initializer!) as ts.Block)
+                                .statements.find(isNamedFunctionDeclaration)!;
           const classSymbol = host.getClassSymbol(outerNode);
 
           expect(classSymbol).toBeDefined();
@@ -2227,7 +2241,8 @@ exports.MissingClass2 = MissingClass2;
               createHost(bundle, new CommonJsReflectionHost(new MockLogger(), false, bundle));
           const outerNode = getDeclaration(
               bundle.program, SIMPLE_CLASS_FILE.name, 'EmptyClass', isNamedVariableDeclaration);
-          const innerNode = getIifeBody(outerNode)!.statements.find(isNamedFunctionDeclaration)!;
+          const innerNode = (getIifeBody(outerNode.initializer!) as ts.Block)
+                                .statements.find(isNamedFunctionDeclaration)!;
           const classSymbol = host.getClassSymbol(innerNode);
 
           expect(classSymbol).toBeDefined();
@@ -2243,7 +2258,8 @@ exports.MissingClass2 = MissingClass2;
                  createHost(bundle, new CommonJsReflectionHost(new MockLogger(), false, bundle));
              const outerNode = getDeclaration(
                  bundle.program, SIMPLE_CLASS_FILE.name, 'EmptyClass', isNamedVariableDeclaration);
-             const innerNode = getIifeBody(outerNode)!.statements.find(isNamedFunctionDeclaration)!;
+             const innerNode = (getIifeBody(outerNode.initializer!) as ts.Block)
+                                   .statements.find(isNamedFunctionDeclaration)!;
 
              const innerSymbol = host.getClassSymbol(innerNode)!;
              const outerSymbol = host.getClassSymbol(outerNode)!;
@@ -2260,7 +2276,8 @@ exports.MissingClass2 = MissingClass2;
              const outerNode = getDeclaration(
                  bundle.program, SIMPLE_CLASS_FILE.name, 'NoParensClass',
                  isNamedVariableDeclaration);
-             const innerNode = getIifeBody(outerNode)!.statements.find(isNamedFunctionDeclaration)!;
+             const innerNode = (getIifeBody(outerNode.initializer!) as ts.Block)
+                                   .statements.find(isNamedFunctionDeclaration)!;
              const classSymbol = host.getClassSymbol(outerNode);
 
              expect(classSymbol).toBeDefined();
@@ -2277,7 +2294,8 @@ exports.MissingClass2 = MissingClass2;
              const outerNode = getDeclaration(
                  bundle.program, SIMPLE_CLASS_FILE.name, 'InnerParensClass',
                  isNamedVariableDeclaration);
-             const innerNode = getIifeBody(outerNode)!.statements.find(isNamedFunctionDeclaration)!;
+             const innerNode = (getIifeBody(outerNode.initializer!) as ts.Block)
+                                   .statements.find(isNamedFunctionDeclaration)!;
              const classSymbol = host.getClassSymbol(outerNode);
 
              expect(classSymbol).toBeDefined();
@@ -2345,7 +2363,8 @@ exports.MissingClass2 = MissingClass2;
                  createHost(bundle, new CommonJsReflectionHost(new MockLogger(), false, bundle));
              const outerNode = getDeclaration(
                  bundle.program, SIMPLE_CLASS_FILE.name, 'EmptyClass', ts.isVariableDeclaration);
-             const innerNode = getIifeBody(outerNode)!.statements.find(isNamedFunctionDeclaration)!;
+             const innerNode = (getIifeBody(outerNode.initializer!) as ts.Block)
+                                   .statements.find(isNamedFunctionDeclaration)!;
              expect(host.isClass(innerNode)).toBe(true);
            });
 

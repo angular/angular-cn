@@ -1,14 +1,14 @@
 /**
  * @license
- * Copyright Google Inc. All Rights Reserved.
+ * Copyright Google LLC All Rights Reserved.
  *
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
 
+import {Logger} from '../../../src/ngtsc/logging';
 import {AsyncLocker} from '../locking/async_locker';
 import {SyncLocker} from '../locking/sync_locker';
-import {Logger} from '../logging/logger';
 
 import {AnalyzeEntryPointsFn, CreateCompileFn, Executor} from './api';
 import {CreateTaskCompletedCallback} from './tasks/api';

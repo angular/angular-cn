@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright Google Inc. All Rights Reserved.
+ * Copyright Google LLC All Rights Reserved.
  *
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
@@ -36,7 +36,7 @@ function asyncValidator(expected: string, timeouts = {}): AsyncValidatorFn {
 }
 
 function asyncValidatorReturningObservable(c: AbstractControl) {
-  const e = new EventEmitter();
+  const e = new EventEmitter<Record<string, boolean>>();
   Promise.resolve(null).then(() => {
     e.emit({'async': true});
   });

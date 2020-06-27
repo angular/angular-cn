@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright Google Inc. All Rights Reserved.
+ * Copyright Google LLC All Rights Reserved.
  *
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
@@ -21,7 +21,7 @@ import {getFactoryDef} from '../definition';
 import {diPublicInInjector, getNodeInjectable, getOrCreateNodeInjectorForNode} from '../di';
 import {throwMultipleComponentError} from '../errors';
 import {executeCheckHooks, executeInitAndCheckHooks, incrementInitPhaseFlags} from '../hooks';
-import {ACTIVE_INDEX, ActiveIndexFlag, CONTAINER_HEADER_OFFSET, LContainer, MOVED_VIEWS} from '../interfaces/container';
+import {CONTAINER_HEADER_OFFSET, HAS_TRANSPLANTED_VIEWS, LContainer, MOVED_VIEWS} from '../interfaces/container';
 import {ComponentDef, ComponentTemplate, DirectiveDef, DirectiveDefListOrFactory, PipeDefListOrFactory, RenderFlags, ViewQueriesFunction} from '../interfaces/definition';
 import {INJECTOR_BLOOM_PARENT_SIZE, NodeInjectorFactory} from '../interfaces/injector';
 import {AttributeMarker, InitialInputData, InitialInputs, LocalRefExtractor, PropertyAliases, PropertyAliasValue, TAttributes, TConstants, TContainerNode, TDirectiveHostNode, TElementContainerNode, TElementNode, TIcuContainerNode, TNode, TNodeFlags, TNodeProviderIndexes, TNodeType, TProjectionNode, TViewNode} from '../interfaces/node';
@@ -29,13 +29,13 @@ import {isProceduralRenderer, RComment, RElement, Renderer3, RendererFactory3, R
 import {SanitizerFn} from '../interfaces/sanitization';
 import {isComponentDef, isComponentHost, isContentQueryHost, isLContainer, isRootView} from '../interfaces/type_checks';
 import {CHILD_HEAD, CHILD_TAIL, CLEANUP, CONTEXT, DECLARATION_COMPONENT_VIEW, DECLARATION_VIEW, FLAGS, HEADER_OFFSET, HOST, InitPhaseState, INJECTOR, LView, LViewFlags, NEXT, PARENT, RENDERER, RENDERER_FACTORY, RootContext, RootContextFlags, SANITIZER, T_HOST, TData, TRANSPLANTED_VIEWS_TO_REFRESH, TVIEW, TView, TViewType} from '../interfaces/view';
-import {assertNodeOfPossibleTypes} from '../node_assert';
+import {assertNodeNotOfTypes, assertNodeOfPossibleTypes} from '../node_assert';
 import {isInlineTemplate, isNodeMatchingSelectorList} from '../node_selector_matcher';
 import {enterView, getBindingsEnabled, getCheckNoChangesMode, getCurrentDirectiveIndex, getIsParent, getPreviousOrParentTNode, getSelectedIndex, leaveView, setBindingIndex, setBindingRootForHostBindings, setCheckNoChangesMode, setCurrentDirectiveIndex, setCurrentQueryIndex, setPreviousOrParentTNode, setSelectedIndex} from '../state';
 import {NO_CHANGE} from '../tokens';
 import {isAnimationProp, mergeHostAttrs} from '../util/attrs_utils';
 import {INTERPOLATION_DELIMITER, renderStringify, stringifyForError} from '../util/misc_utils';
-import {getLViewParent} from '../util/view_traversal_utils';
+import {getFirstLContainer, getLViewParent, getNextLContainer} from '../util/view_traversal_utils';
 import {getComponentLViewByIndex, getNativeByIndex, getNativeByTNode, isCreationMode, readPatchedLView, resetPreOrderHookFlags, unwrapLView, updateTransplantedViewCount, viewAttachedToChangeDetector} from '../util/view_utils';
 
 import {selectIndexInternal} from './advance';
@@ -266,7 +266,7 @@ function createTNodeAtIndex(
 }
 
 export function assignTViewNodeToLView(
-    tView: TView, tParentNode: TNode|null, index: number, lView: LView): TViewNode {
+    tView: TView, tParentNode: TNode|null, index: number, lView: LView): void {
   // View nodes are not stored in data because they can be added / removed at runtime (which
   // would cause indices to change). Their TNodes are instead stored in tView.node.
   let tNode = tView.node;
@@ -279,7 +279,7 @@ export function assignTViewNodeToLView(
                              TNodeType.View, index, null, null) as TViewNode;
   }
 
-  return lView[T_HOST] = tNode as TViewNode;
+  lView[T_HOST] = tNode as TViewNode;
 }
 
 
@@ -435,7 +435,7 @@ export function refreshView<T>(
     // insertion points. This is needed to avoid the situation where the template is defined in this
     // `LView` but its declaration appears after the insertion component.
     markTransplantedViewsForRefresh(lView);
-    refreshDynamicEmbeddedViews(lView);
+    refreshEmbeddedViews(lView);
 
     // Content query results must be refreshed before content hooks are called.
     if (tView.contentQueries !== null) {
@@ -851,8 +851,10 @@ export function createTNode(
                          tParent,    // parent: TElementNode|TContainerNode|null
                          null,       // projection: number|(ITNode|RNode[])[]|null
                          null,       // styles: string|null
+                         null,       // stylesWithoutHost: string|null
                          undefined,  // residualStyles: string|null
                          null,       // classes: string|null
+                         null,       // classesWithoutHost: string|null
                          undefined,  // residualClasses: string|null
                          0 as any,   // classBindings: TStylingRange;
                          0 as any,   // styleBindings: TStylingRange;
@@ -881,8 +883,10 @@ export function createTNode(
                        parent: tParent,
                        projection: null,
                        styles: null,
+                       stylesWithoutHost: null,
                        residualStyles: undefined,
                        classes: null,
+                       classesWithoutHost: null,
                        residualClasses: undefined,
                        classBindings: 0 as any,
                        styleBindings: 0 as any,
@@ -1480,8 +1484,14 @@ function addComponentLogic<T>(lView: LView, hostTNode: TElementNode, def: Compon
 export function elementAttributeInternal(
     tNode: TNode, lView: LView, name: string, value: any, sanitizer: SanitizerFn|null|undefined,
     namespace: string|null|undefined) {
-  ngDevMode && assertNotSame(value, NO_CHANGE as any, 'Incoming value should never be NO_CHANGE.');
-  ngDevMode && validateAgainstEventAttributes(name);
+  if (ngDevMode) {
+    assertNotSame(value, NO_CHANGE as any, 'Incoming value should never be NO_CHANGE.');
+    validateAgainstEventAttributes(name);
+    assertNodeNotOfTypes(
+        tNode, [TNodeType.Container, TNodeType.ElementContainer],
+        `Attempted to set attribute \`${name}\` on a container node. ` +
+            `Host bindings are not valid on ng-container or ng-template.`);
+  }
   const element = getNativeByTNode(tNode, lView) as RElement;
   const renderer = lView[RENDERER];
   if (value == null) {
@@ -1603,16 +1613,16 @@ export function createLContainer(
   ngDevMode && !isProceduralRenderer(currentView[RENDERER]) && assertDomNode(native);
   // https://jsperf.com/array-literal-vs-new-array-really
   const lContainer: LContainer = new (ngDevMode ? LContainerArray : Array)(
-      hostNative,  // host native
-      true,        // Boolean `true` in this position signifies that this is an `LContainer`
-      ActiveIndexFlag.DYNAMIC_EMBEDDED_VIEWS_ONLY << ActiveIndexFlag.SHIFT,  // active index
-      currentView,                                                           // parent
-      null,                                                                  // next
-      0,       // transplanted views to refresh count
-      tNode,   // t_host
-      native,  // native,
-      null,    // view refs
-      null,    // moved views
+      hostNative,   // host native
+      true,         // Boolean `true` in this position signifies that this is an `LContainer`
+      false,        // has transplanted views
+      currentView,  // parent
+      null,         // next
+      0,            // transplanted views to refresh count
+      tNode,        // t_host
+      native,       // native,
+      null,         // view refs
+      null,         // moved views
   );
   ngDevMode &&
       assertEqual(
@@ -1623,10 +1633,10 @@ export function createLContainer(
 }
 
 /**
- * Goes over dynamic embedded views (ones created through ViewContainerRef APIs) and refreshes
+ * Goes over embedded views (ones created through ViewContainerRef APIs) and refreshes
  * them by executing an associated template function.
  */
-function refreshDynamicEmbeddedViews(lView: LView) {
+function refreshEmbeddedViews(lView: LView) {
   for (let lContainer = getFirstLContainer(lView); lContainer !== null;
        lContainer = getNextLContainer(lContainer)) {
     for (let i = CONTAINER_HEADER_OFFSET; i < lContainer.length; i++) {
@@ -1641,62 +1651,31 @@ function refreshDynamicEmbeddedViews(lView: LView) {
 }
 
 /**
- * Gets the first `LContainer` in the LView or `null` if none exists.
- */
-function getFirstLContainer(lView: LView): LContainer|null {
-  let viewOrContainer = lView[CHILD_HEAD];
-  while (viewOrContainer !== null &&
-         !(isLContainer(viewOrContainer) &&
-           viewOrContainer[ACTIVE_INDEX] >> ActiveIndexFlag.SHIFT ===
-               ActiveIndexFlag.DYNAMIC_EMBEDDED_VIEWS_ONLY)) {
-    viewOrContainer = viewOrContainer[NEXT];
-  }
-  return viewOrContainer;
-}
-
-/**
- * Gets the next `LContainer` that is a sibling of the given container.
- */
-function getNextLContainer(container: LContainer): LContainer|null {
-  let viewOrContainer = container[NEXT];
-  while (viewOrContainer !== null &&
-         !(isLContainer(viewOrContainer) &&
-           viewOrContainer[ACTIVE_INDEX] >> ActiveIndexFlag.SHIFT ===
-               ActiveIndexFlag.DYNAMIC_EMBEDDED_VIEWS_ONLY)) {
-    viewOrContainer = viewOrContainer[NEXT];
-  }
-  return viewOrContainer;
-}
-
-/**
  * Mark transplanted views as needing to be refreshed at their insertion points.
- *
- * See: `ActiveIndexFlag.HAS_TRANSPLANTED_VIEWS` and `LView[DECLARATION_COMPONENT_VIEW]` for
- * explanation of transplanted views.
  *
  * @param lView The `LView` that may have transplanted views.
  */
 function markTransplantedViewsForRefresh(lView: LView) {
   for (let lContainer = getFirstLContainer(lView); lContainer !== null;
        lContainer = getNextLContainer(lContainer)) {
-    if ((lContainer[ACTIVE_INDEX] & ActiveIndexFlag.HAS_TRANSPLANTED_VIEWS) !== 0) {
-      const movedViews = lContainer[MOVED_VIEWS]!;
-      ngDevMode && assertDefined(movedViews, 'Transplanted View flags set but missing MOVED_VIEWS');
-      for (let i = 0; i < movedViews.length; i++) {
-        const movedLView = movedViews[i]!;
-        const insertionLContainer = movedLView[PARENT] as LContainer;
-        ngDevMode && assertLContainer(insertionLContainer);
-        // We don't want to increment the counter if the moved LView was already marked for
-        // refresh.
-        if ((movedLView[FLAGS] & LViewFlags.RefreshTransplantedView) === 0) {
-          updateTransplantedViewCount(insertionLContainer, 1);
-        }
-        // Note, it is possible that the `movedViews` is tracking views that are transplanted *and*
-        // those that aren't (declaration component === insertion component). In the latter case,
-        // it's fine to add the flag, as we will clear it immediately in
-        // `refreshDynamicEmbeddedViews` for the view currently being refreshed.
-        movedLView[FLAGS] |= LViewFlags.RefreshTransplantedView;
+    if (!lContainer[HAS_TRANSPLANTED_VIEWS]) continue;
+
+    const movedViews = lContainer[MOVED_VIEWS]!;
+    ngDevMode && assertDefined(movedViews, 'Transplanted View flags set but missing MOVED_VIEWS');
+    for (let i = 0; i < movedViews.length; i++) {
+      const movedLView = movedViews[i]!;
+      const insertionLContainer = movedLView[PARENT] as LContainer;
+      ngDevMode && assertLContainer(insertionLContainer);
+      // We don't want to increment the counter if the moved LView was already marked for
+      // refresh.
+      if ((movedLView[FLAGS] & LViewFlags.RefreshTransplantedView) === 0) {
+        updateTransplantedViewCount(insertionLContainer, 1);
       }
+      // Note, it is possible that the `movedViews` is tracking views that are transplanted *and*
+      // those that aren't (declaration component === insertion component). In the latter case,
+      // it's fine to add the flag, as we will clear it immediately in
+      // `refreshEmbeddedViews` for the view currently being refreshed.
+      movedLView[FLAGS] |= LViewFlags.RefreshTransplantedView;
     }
   }
 }

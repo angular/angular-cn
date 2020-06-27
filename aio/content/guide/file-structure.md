@@ -69,9 +69,10 @@ The top level of the workspace contains workspace-wide configuration files, conf
 | `src/`                  | Source files for the root-level application project. |
 | `src/`                  | 根项目的源文件。|
 | `node_modules/`         | Provides [npm packages](guide/npm-packages) to the entire workspace. Workspace-wide `node_modules` dependencies are visible to all projects.                                                                                                                                                                                                                                                                                                                                    |
-| `README.md`            | 根应用的介绍性文档。                                                                                                                                                                                                                                                                                                                                                           |
-| `tsconfig.json`        | Default [TypeScript](https://www.typescriptlang.org/) configuration for projects in the workspace.                                                                                                                                                                                                                                                                              |
+| `tsconfig.json`        | The `tsconfig.json` file is a ["Solution Style"](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-3-9.html#support-for-solution-style-tsconfigjson-files) TypeScript configuration file. Code editors and TypeScript’s language server use this file to improve development experience. Compilers do not use this file. |
 | `tsconfig.json`        | 工作空间中各个项目的默认 [TypeScript](https://www.typescriptlang.org/) 配置。                                                                                                                                                                                                                                                                                                        |
+| `tsconfig.base.json`    | The base [TypeScript](https://www.typescriptlang.org/) configuration for projects in the workspace. All other configuration files inherit from this base file. For more information, see the [Configuration inheritance with extends](https://www.typescriptlang.org/docs/handbook/tsconfig-json.html#configuration-inheritance-with-extends) section of the TypeScript documentation.|
+| `tsconfig.base.json`    | 供工作空间中所有项目使用的基础 [TypeScript](https://www.typescriptlang.org/) 配置。所有其它配置文件都继承自这个基础文件。欲知详情，参见 TypeScript 文档中的[使用 extends 进行配置继承](https://www.typescriptlang.org/docs/handbook/tsconfig-json.html#configuration-inheritance-with-extends)部分|
 | `tslint.json`          | Default [TSLint](https://palantir.github.io/tslint/) configuration for projects in the workspace.                                                                                                                                                                                                                                                                               |
 | `tslint.json`          | 工作空间中各个项目的默认 [TSLint](https://palantir.github.io/tslint/) 配置。                                                                                                                                                                                                                                                                                                         |
 
@@ -123,14 +124,20 @@ Files at the top level of `src/` support testing and running your application. S
 | `favicon.ico`     | 用作该应用在标签栏中的图标。                                                                                                                                                                                                                                                                                                                                                                 |
 | `index.html`      | The main HTML page that is served when someone visits your site. The CLI automatically adds all JavaScript and CSS files when building your app, so you typically don't need to add any `<script>` or`<link>` tags here manually.                                                                                                                                                               |
 | `index.html`      | 当有人访问你的站点时，提供服务的主要 HTML 页面。CLI 会在构建你的应用时自动添加所有的 JavaScript 和 CSS 文件，所以你通常不用手动添加任何 `<script>` 或 `<link>` 标签。                                                                                                                                                                                                                                    |
-| `main.ts`         | The main entry point for your application. Compiles the application with the [JIT compiler](https://angular.io/guide/glossary#jit) and bootstraps the application's root module (AppModule) to run in the browser. You can also use the [AOT compiler](https://angular.io/guide/aot-compiler) without changing any code by appending the `--aot` flag to the CLI `build` and `serve` commands. |
-| `main.ts`         | 应用的主要切入点。用 [JIT 编译器](https://angular.cn/guide/glossary#jit)编译应用，然后引导应用的根模块（AppModule）在浏览器中运行。你也可以在不改变任何代码的情况下改用 [AOT 编译器](https://angular.io/guide/aot-compiler)，只要在 CLI 的 `build` 和 `serve` 命令中加上 `--aot` 标志就可以了。                                                                                                         |
+| `main.ts`         | The main entry point for your application. Compiles the application with the [JIT compiler](guide/glossary#jit) and bootstraps the application's root module (AppModule) to run in the browser. You can also use the [AOT compiler](guide/aot-compiler) without changing any code by appending the `--aot` flag to the CLI `build` and `serve` commands. |
+| `main.ts`         | 应用的主要切入点。用 [JIT 编译器](guide/glossary#jit)编译应用，然后引导应用的根模块（AppModule）在浏览器中运行。你也可以在不改变任何代码的情况下改用 [AOT 编译器](https://angular.io/guide/aot-compiler)，只要在 CLI 的 `build` 和 `serve` 命令中加上 `--aot` 标志就可以了。                                                                                                         |
 | `polyfills.ts`    | Provides polyfill scripts for browser support.                                                                                                                                                                                                                                                                                                                                                  |
 | `polyfills.ts`    | 为浏览器支持提供了腻子（polyfill）脚本。                                                                                                                                                                                                                                                                                                                                                               |
 | `styles.sass`     | Lists CSS files that supply styles for a project. The extension reflects the style preprocessor you have configured for the project.                                                                                                                                                                                                                                                            |
 | `styles.sass`     | 列出为项目提供样式的 CSS 文件。该扩展还反映了你为该项目配置的样式预处理器。                                                                                                                                                                                                                                                                                                                      |
 | `test.ts`         | The main entry point for your unit tests, with some Angular-specific configuration. You don't typically need to edit this file.                                                                                                                                                                                                                                                                 |
 | `test.ts`         | 单元测试的主入口点，带有一些 Angular 特有的配置。你通常不需要编辑这个文件。                                                                                                                                                                                                                                                                                                                      |
+
+<div class="alert is-helpful">
+
+If you create an application using Angular's strict mode, you will also have an additional `package.json` file in the `src/app` directory. For more information, see [Strict mode](/guide/strict-mode).
+
+</div>
 
 {@a app-src}
 
@@ -152,6 +159,8 @@ Angular components, templates, and styles go here.
 | `app/app.component.spec.ts` | 为根组件 `AppComponent` 定义了一个单元测试。                                                                                                                                                                                                               |
 | `app/app.module.ts`         | Defines the root module, named `AppModule`, that tells Angular how to assemble the application. Initially declares only the `AppComponent`. As you add more components to the app, they must be declared here.                                      |
 | `app/app.module.ts`         | 定义了名为 `AppModule` 的根模块，它会告诉 Angular 如何组装应用。这里最初只声明一个 `AppComponent`。当你向应用中添加更多组件时，它们也必须在这里声明。                                                                                                                |
+| `app/package.json`              | This file is generated only in applications created using `--strict` mode. This file is not used by package managers. It is used to tell the tools and bundlers whether the code under this directory is free of non-local [side-effects](guide/strict-mode#side-effect). |
+| `app/package.json`              | 此文件只会出现在使用 `--strict` 模式创建的应用中。此文件不是供包管理器使用的。它用来告诉各种工具和打包器，这个目录下的代码是否没有非局部化的[副作用](guide/strict-mode#side-effect)。 |
 
 ### Application configuration files
 
@@ -162,9 +171,9 @@ For a multi-project workspace, project-specific configuration files are in the p
 
 根应用的配置文件位于工作空间的根目录下。对于多项目工作空间，项目专属的配置文件位于项目根目录 `projects/project-name/`。
 
-Project-specific [TypeScript](https://www.typescriptlang.org/) configuration files inherit from the workspace-wide `tsconfig.json`, and project-specific [TSLint](https://palantir.github.io/tslint/) configuration files inherit from the workspace-wide `tslint.json`.
+Project-specific [TypeScript](https://www.typescriptlang.org/) configuration files inherit from the workspace-wide `tsconfig.base.json`, and project-specific [TSLint](https://palantir.github.io/tslint/) configuration files inherit from the workspace-wide `tslint.json`.
 
-项目专属的 [TypeScript](https://www.typescriptlang.org/) 配置文件继承自工作区范围内的 `tsconfig.json`，而项目专属的 [TSLint](https://palantir.github.io/tslint/) 配置文件则继承自全工作区级内的 `tslint.json`。
+项目专属的 [TypeScript](https://www.typescriptlang.org/) 配置文件继承自工作区范围内的 `tsconfig.base.json`，而项目专属的 [TSLint](https://palantir.github.io/tslint/) 配置文件则继承自全工作区级内的 `tslint.json`。
 
 | APPLICATION-SPECIFIC CONFIG FILES | PURPOSE                                                                                                                                                                                                       |
 | :-------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
@@ -262,9 +271,9 @@ my-workspace/
 
 ## 库项目文件
 
-When you generate a library using the CLI (with a command such as `ng generate library my-lib`), the generated files go into the projects/ folder of the workspace. For more information about creating your own libraries, see  [Creating Libraries](https://angular.io/guide/creating-libraries).
+When you generate a library using the CLI (with a command such as `ng generate library my-lib`), the generated files go into the projects/ folder of the workspace. For more information about creating your own libraries, see  [Creating Libraries](guide/creating-libraries).
 
-当你使用 CLI 命令（例如 `ng generate library my-lib`）生成一个库时，所生成的文件会放在工作区的 `projects/` 文件夹中。关于如何创建自己的库的更多信息，请参阅[创建库](https://angular.cn/guide/creating-libraries)一章。
+当你使用 CLI 命令（例如 `ng generate library my-lib`）生成一个库时，所生成的文件会放在工作区的 `projects/` 文件夹中。关于如何创建自己的库的更多信息，请参阅[创建库](guide/creating-libraries)一章。
 
 Libraries (unlike applications and their associated e2e projects) have their own `package.json` configuration files.
 

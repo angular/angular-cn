@@ -164,6 +164,8 @@ The following table provides the status for Angular versions under support.
 Version | Status | Released     | Active Ends  | LTS Ends
 ------- | ------ | ------------ | ------------ | ------------
 版本 | 状态 | 发布     | 停止活动  | LTS 结束
+^10.0.0 | Active | Jun 24, 2020 | Dec 24, 2020 | Dec 24, 2021
+^10.0.0 | 活跃 | 2020 年 6 月 24 日 | 2020 年 12 月 24 日 | Dec 24, 2021
 ^9.0.0  | Active | Feb 06, 2020 | Aug 06, 2020 | Aug 06, 2021
 ^9.0.0  | 活跃 | 2020 年 2 月 6 日 | 2020 年 8 月 6 日 | 2021 年 8 月 6 日
 ^8.0.0  | LTS    | May 28, 2019 | Nov 28, 2019 | Nov 28, 2020

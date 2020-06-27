@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright Google Inc. All Rights Reserved.
+ * Copyright Google LLC All Rights Reserved.
  *
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
@@ -30,6 +30,8 @@ export class SpyLocation implements Location {
   _platformLocation: PlatformLocation = null!;
   /** @internal */
   _urlChangeListeners: ((url: string, state: unknown) => void)[] = [];
+  /** @internal */
+  _urlChangeSubscription?: SubscriptionLike;
 
   setInitialPath(url: string) {
     this._history[this._historyIndex].path = url;
@@ -123,9 +125,12 @@ export class SpyLocation implements Location {
   }
   onUrlChange(fn: (url: string, state: unknown) => void) {
     this._urlChangeListeners.push(fn);
-    this.subscribe(v => {
-      this._notifyUrlChangeListeners(v.url, v.state);
-    });
+
+    if (!this._urlChangeSubscription) {
+      this._urlChangeSubscription = this.subscribe(v => {
+        this._notifyUrlChangeListeners(v.url, v.state);
+      });
+    }
   }
 
   /** @internal */

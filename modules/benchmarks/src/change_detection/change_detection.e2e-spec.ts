@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright Google Inc. All Rights Reserved.
+ * Copyright Google LLC All Rights Reserved.
  *
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
@@ -8,7 +8,7 @@
 
 import {$} from 'protractor';
 
-import {openBrowser, verifyNoBrowserErrors} from '../../../e2e_util/e2e_util';
+import {openBrowser, verifyNoBrowserErrors} from '../../../../dev-infra/benchmark/driver-utilities';
 
 describe('change detection benchmark', () => {
   afterEach(verifyNoBrowserErrors);

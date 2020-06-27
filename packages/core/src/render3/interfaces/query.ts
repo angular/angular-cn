@@ -1,11 +1,12 @@
 /**
  * @license
- * Copyright Google Inc. All Rights Reserved.
+ * Copyright Google LLC All Rights Reserved.
  *
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
 
+import {InjectionToken} from '../../di/injection_token';
 import {Type} from '../../interface/type';
 import {QueryList} from '../../linker/query_list';
 
@@ -16,7 +17,7 @@ import {TView} from './view';
  * An object representing query metadata extracted from query annotations.
  */
 export interface TQueryMetadata {
-  predicate: Type<any>|string[];
+  predicate: Type<any>|InjectionToken<unknown>|string[];
   descendants: boolean;
   read: any;
   isStatic: boolean;

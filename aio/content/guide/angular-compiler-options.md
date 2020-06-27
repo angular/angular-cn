@@ -2,9 +2,9 @@
 
 # Angular 编译器选项
 
-When you use [AOT compilation](guide/aot-compiler), you can control how your application is compiled by specifying *template* compiler options in the `tsconfig.json` [TypeScript configuration file](guide/typescript-configuration).
+When you use [AOT compilation](guide/aot-compiler), you can control how your application is compiled by specifying *template* compiler options in the [TypeScript configuration file](guide/typescript-configuration).
 
-使用 [AoT 编译](guide/aot-compiler) 时，可以通过在 `tsconfig.json` [TypeScript 配置文件中](guide/typescript-configuration)指定*模板*编译器选项来控制如何编译应用程序。
+使用 [AoT 编译](guide/aot-compiler) 时，可以通过在 [TypeScript 配置文件中](guide/typescript-configuration)指定*模板*编译器选项来控制如何编译应用程序。
 
 The template options object, `angularCompilerOptions`, is a sibling to the `compilerOptions` object that supplies standard options to the TypeScript compiler.
 
@@ -30,15 +30,15 @@ The template options object, `angularCompilerOptions`, is a sibling to the `comp
 
 ## 用 `extends` 语法配置继承方式
 
-Like the TypeScript compiler, The Angular AOT compiler also supports `extends` in the `angularCompilerOptions` section of the TypeScript configuration file, `tsconfig.json`.
+Like the TypeScript compiler, The Angular AOT compiler also supports `extends` in the `angularCompilerOptions` section of the TypeScript configuration file.
 The `extends` property is at the top level, parallel to `compilerOptions` and `angularCompilerOptions`.
 
-像 TypeScript 编译器一样，Angular 的 AOT 编译器也支持对 TypeScript 配置文件 `tsconfig.json` 的 `angularCompilerOptions` 进行 `extends`。`extends` 属性位于顶层，和 `compilerOptions` 和 `angularCompilerOptions` 平级。
+像 TypeScript 编译器一样，Angular 的 AOT 编译器也支持对 TypeScript 配置文件中的 `angularCompilerOptions` 进行 `extends`。`extends` 属性位于顶层，和 `compilerOptions` 和 `angularCompilerOptions` 平级。
 
 A TypeScript configuration can inherit settings from another file using the `extends` property.
-The configuration options from the base file are loaded first, then overridden by those in the inheriting `tsconfig` file.
+The configuration options from the base file are loaded first, then overridden by those in the inheriting configuration file.
 
-使用 `extends` 属性，TypeScript 配置可以从另一个文件中继承设置。首先从基础文件中加载配置项，然后被继承它的 `tsconfig` 文件中的配置项覆写。
+使用 `extends` 属性，TypeScript 配置可以从另一个文件中继承设置。首先从基础文件中加载配置项，然后被继承自它的配置文件中的配置项覆写。
 
 For example:
 

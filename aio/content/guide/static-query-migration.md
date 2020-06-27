@@ -71,10 +71,10 @@ For more information on how to choose, see the [next question](#how-do-i-choose)
 
 ### 如何选择 `static` 标志：`true` 还是 `false`？
 
-In the official API docs, we have always recommended retrieving query results in [`ngAfterViewInit` for view queries](https://angular.io/api/core/ViewChild#description) and [`ngAfterContentInit` for content queries](https://angular.io/api/core/ContentChild#description).
+In the official API docs, we have always recommended retrieving query results in [`ngAfterViewInit` for view queries](api/core/ViewChild#description) and [`ngAfterContentInit` for content queries](api/core/ContentChild#description).
 This is because by the time those lifecycle hooks run, change detection has completed for the relevant nodes and we can guarantee that we have collected all the possible query results.
 
-在官方 API 文档中，我们建议对于[视图查询](https://angular.cn/api/core/ViewChild#description) 总是在 `ngAfterViewInit` 中获取查询结果，对于[内容查询](https://angular.io/api/core/ContentChild#description) 总是在 `ngAfterContentInit` 中获取查询结果。
+在官方 API 文档中，我们建议对于[视图查询](api/core/ViewChild#description) 总是在 `ngAfterViewInit` 中获取查询结果，对于[内容查询](https://angular.io/api/core/ContentChild#description) 总是在 `ngAfterContentInit` 中获取查询结果。
 这是因为当这些生命周期钩子运行时，相关节点的变更检测已完成，我们可以确信收集到了所有可能的查询结果。
 
 Most applications will want to use `{static: false}` for the same reason. This setting will ensure query matches that are dependent on binding resolution (e.g. results inside `*ngIf`s or `*ngFor`s) will be found by the query.
@@ -258,8 +258,16 @@ This guarantees your app will work in version 8 even if libraries take longer to
 {@a update-library-to-use-static-flag}
 ###  Can I update my library to version 8 by adding the `static` flag to view queries, while still being compatible with Angular version 7 apps?
 
+### 我可以通过为视图查询添加 `static` 标志来把我的库更新到版本 8，那它还能同时和 Angular 7 应用兼容吗？
+
 Yes, the Angular team's recommendation for libraries is to update to version 8 and add the `static` flag. Angular version 7 apps will continue to work with libraries that have this flag.
+
+是的，Angular 团队对库的建议是更新到版本 8 并添加 `static` 标志。Angular 7 的应用可以继续使用那些带有此标志的库。
 
 However, if you update your library to Angular version 8 and want to take advantage of the new version 8 APIs, or you want more recent dependencies (such as Typescript or RxJS) your library will become incompatible with Angular version 7 apps. If your goal is to make your library compatible with Angular versions 7 and 8, you should not update your lib at all—except for `peerDependencies` in `package.json`.
 
+但是，如果你把你的库更新到 Angular 8，并希望利用新的第 8 版 API，或者你想要新版依赖项（例如 Typescript 或 RxJS），你的库就会变得与 Angular 7 的应用不兼容。如果你的目标是同时与 Angular 7 和 8 兼容，那你就不应该更新你的库，只有 `package.json` 中的 `peerDependencies` 除外。
+
 In general, the most efficient plan is for libraries to adopt a 6 month major version schedule and bump the major version after each Angular update. That way, libraries stay in the same release cadence as Angular.
+
+一般来说，最有效的计划是让库采用 6 个月的主版本计划，并在每次 Angular 升级之后适配主版本。这样，库就可以和 Angular 保持同样的发布节奏了。

@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright Google Inc. All Rights Reserved.
+ * Copyright Google LLC All Rights Reserved.
  *
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
@@ -41,7 +41,8 @@ export function bindAction(selector: string, callback: () => void) {
 
 export function profile(create: () => void, destroy: () => void, name: string) {
   return function() {
-    window.console.profile(name);
+    // 'console.profile' is experimental and was removed from DOM lib in TS 3.9
+    (window.console as any).profile(name);
     const noOfRuns = 150;
     let durations: number[] = [];
     let count = 0;
@@ -52,7 +53,8 @@ export function profile(create: () => void, destroy: () => void, name: string) {
       durations.push(end);
       destroy();
     }
-    window.console.profileEnd();
+    // 'console.profileEnd' is experimental and was removed from DOM lib in TS 3.9
+    (window.console as any).profileEnd();
     reportProfileResults(durations, noOfRuns);
   };
 }

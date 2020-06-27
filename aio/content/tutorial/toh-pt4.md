@@ -11,6 +11,15 @@ It will also be easier to unit-test with a mock service.
 
 本节课的重构完成之后，`HeroesComponent` 变得更精简，并且聚焦于为它的视图提供支持。这也让它更容易使用模拟服务进行单元测试。
 
+<div class="alert is-helpful">
+
+  For the sample app that this page describes, see the <live-example></live-example>.
+
+  要查看本页所讲的范例程序，参见<live-example></live-example>。
+
+</div>
+
+
 ## Why services
 
 ## 为什么需要服务
@@ -216,11 +225,11 @@ sets the `heroService` parameter to the singleton instance of `HeroService`.
 
 ### Add `getHeroes()`
 
-### 添加 _getHeroes()_
+### 添加 `getHeroes()`
 
-Create a function to retrieve the heroes from the service.
+Create a method to retrieve the heroes from the service.
 
-创建一个函数，以从服务中获取这些英雄数据。
+创建一个方法，以从服务中获取这些英雄数据。
 
 <code-example path="toh-pt4/src/app/heroes/heroes.component.1.ts" header="src/app/heroes/heroes.component.ts" region="getHeroes">
 </code-example>
@@ -627,9 +636,9 @@ the selection. Use the "clear" button to clear the message history.
 
 ## 查看最终代码
 
-Here are the code files discussed on this page and your app should look like this <live-example></live-example>.
+Here are the code files discussed on this page.
 
-你的应用应该变成了这样 <live-example></live-example>。本页所提及的代码文件如下：
+本页讨论的代码文件如下。
 
 <code-tabs>
 

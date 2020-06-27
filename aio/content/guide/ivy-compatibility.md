@@ -4,10 +4,10 @@
 
 The Angular team has worked hard to ensure Ivy is as backwards-compatible with the previous rendering engine ("View Engine") as possible.
 However, in rare cases, minor changes were necessary to ensure that the Angular's behavior was predictable and consistent, correcting issues in the View Engine implementation.
-In order to smooth the transition, we have provided [automated migrations](guide/updating-to-version-9#migrations) wherever possible so your application and library code is migrated automatically by the CLI.
+In order to smooth the transition, we have provided [automated migrations](guide/updating-to-version-10#migrations) wherever possible so your application and library code is migrated automatically by the CLI.
 That said, some applications will likely need to apply some manual updates.
 
-Angular 团队一直在努力确保 Ivy 与之前的渲染引擎（“View Engine”）尽可能向后兼容。但是，在极少数情况下，需要做一些小改动才能确保 Angular 的行为是可预测和一致的，以纠正 View Engine 实现中的问题。为了顺利过渡，我们尽可能提供了[自动迁移功能，](guide/updating-to-version-9#migrations)以便 CLI 可以[自动迁移](guide/updating-to-version-9#migrations)你的应用和库代码。也就是说，某些应用可能需要做一些手动更新。
+Angular 团队一直在努力确保 Ivy 与之前的渲染引擎（“View Engine”）尽可能向后兼容。但是，在极少数情况下，需要做一些小改动才能确保 Angular 的行为是可预测和一致的，以纠正 View Engine 实现中的问题。为了顺利过渡，我们尽可能提供了[自动迁移功能，](guide/updating-to-version-10#migrations)以便 CLI 可以自动迁移你的应用和库代码。也就是说，某些应用可能需要做一些手动更新。
 
 {@a debugging}
 
@@ -15,22 +15,22 @@ Angular 团队一直在努力确保 Ivy 与之前的渲染引擎（“View Engin
 
 ## 如何用 Ivy 调试错误
 
-In version 9, [a few deprecated APIs have been removed](guide/updating-to-version-9#removals) and there are a [few breaking changes](guide/updating-to-version-9#breaking-changes) unrelated to Ivy.
+In version 10, [a few deprecated APIs have been removed](guide/updating-to-version-10#removals) and there are a [few breaking changes](guide/updating-to-version-10#breaking-changes) unrelated to Ivy.
 If you're seeing errors after updating to version 9, you'll first want to rule those changes out.
 
-在版本 9 中，[已经删除了一些已弃用的 API，](guide/updating-to-version-9#removals)并且还有[一些](guide/updating-to-version-9#breaking-changes)与 Ivy 无关的[重大变更](guide/updating-to-version-9#breaking-changes)。如果你在升级到版本 9 后遇到错误，你首先要把这些变更排除在外。
+在版本 10 中，[已经删除了一些已弃用的 API，](guide/updating-to-version-10#removals)并且还有一些与 Ivy 无关的[重大变更](guide/updating-to-version-10#breaking-changes)。如果你在升级到版本 10 后遇到错误，你首先要把这些变更排除在外。
 
-To do so, temporarily [turn off Ivy](guide/ivy#opting-out-of-angular-ivy) in your `tsconfig.json` and re-start your app.
+To do so, temporarily [turn off Ivy](guide/ivy#opting-out-of-angular-ivy) in your `tsconfig.base.json` and re-start your app.
 
-为此，请暂时[关闭](guide/ivy#opting-out-of-angular-ivy) `tsconfig.json` [Ivy](guide/ivy#opting-out-of-angular-ivy)并重新启动应用。
+为此，请暂时[关闭](guide/ivy#opting-out-of-angular-ivy) `tsconfig.base.json` 中的 Ivy 并重新启动应用。
 
-If you're still seeing the errors, they are not specific to Ivy. In this case, you may want to consult the [general version 9 guide](guide/updating-to-version-9). If you've opted into any of the stricter type-checking settings that are new with v9, you may also want to check out the [template type-checking guide](guide/template-typecheck).
+If you're still seeing the errors, they are not specific to Ivy. In this case, you may want to consult the [general version 10 guide](guide/updating-to-version-10). If you've opted into any of the new, stricter type-checking settings, you may also want to check out the [template type-checking guide](guide/template-typecheck).
 
-如果你仍然看到这些错误，那么它们并不是 Ivy 特有的。在这种情况下，你可以查阅[常规的版本 9 指南](guide/updating-to-version-9)。如果你选择启用 v9 中任何新增的更严格的类型检查，你可能还需要查看[模板类型检查指南](guide/template-typecheck)。
+如果你仍然看到这些错误，那么它们并不是 Ivy 特有的。在这种情况下，你可以查阅[常规的版本 10 指南](guide/updating-to-version-10)。如果你选择启用任何新增的更严格的类型检查，你可能还需要查看[模板类型检查指南](guide/template-typecheck)。
 
-If the errors are gone, switch back to Ivy by removing the changes to the `tsconfig.json` and review the list of expected changes below.
+If the errors are gone, switch back to Ivy by removing the changes to the `tsconfig.base.json` and review the list of expected changes below.
 
-如果错误消失了，可以删除对 `tsconfig.json` 的更改，切换回 Ivy，并查看下面的预期更改列表。
+如果错误消失了，可以删除对 `tsconfig.base.json` 的更改，切换回 Ivy，并查看下面的预期更改列表。
 
 {@a payload-size-debugging}
 

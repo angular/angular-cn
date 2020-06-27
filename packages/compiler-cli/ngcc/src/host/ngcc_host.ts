@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright Google Inc. All Rights Reserved.
+ * Copyright Google LLC All Rights Reserved.
  *
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
@@ -48,6 +48,12 @@ export interface NgccClassSymbol {
    * declaration.
    */
   implementation: ts.Symbol;
+
+  /**
+   * Represents the symbol corresponding to a variable within a class IIFE that may be used to
+   * attach static properties or decorated.
+   */
+  adjacent?: ts.Symbol;
 }
 
 /**
@@ -100,8 +106,8 @@ export interface NgccReflectionHost extends ReflectionHost {
    * Check whether a `Declaration` corresponds with a known declaration and set its `known` property
    * to the appropriate `KnownDeclaration`.
    *
-   * @param decl The `Declaration` to check or `null` if there is no declaration.
+   * @param decl The `Declaration` to check.
    * @return The passed in `Declaration` (potentially enhanced with a `KnownDeclaration`).
    */
-  detectKnownDeclaration<T extends Declaration>(decl: T|null): T|null;
+  detectKnownDeclaration<T extends Declaration>(decl: T): T;
 }

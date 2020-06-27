@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright Google Inc. All Rights Reserved.
+ * Copyright Google LLC All Rights Reserved.
  *
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
@@ -16,7 +16,8 @@ import {ModuleResolver} from './module_resolver';
 export class DtsDependencyHost extends EsmDependencyHost {
   constructor(fs: FileSystem, pathMappings?: PathMappings) {
     super(
-        fs, new ModuleResolver(fs, pathMappings, ['', '.d.ts', '/index.d.ts', '.js', '/index.js']));
+        fs, new ModuleResolver(fs, pathMappings, ['', '.d.ts', '/index.d.ts', '.js', '/index.js']),
+        false);
   }
 
   /**
