@@ -54,7 +54,7 @@ Reactive forms and template-driven forms process and manage form data differentl
 
 ### Key differences
 
-## 关键差异
+### 关键差异
 
 The table below summarizes the key differences between reactive and template-driven forms.
 

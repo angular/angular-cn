@@ -1642,14 +1642,22 @@ A file specifies the root files and the compiler options required to compile a T
 
 ## unidirectional data flow
 
+## 单向数据流
+
 A data flow model where the component tree is always checked for changes in one direction (parent to child), which prevents cycles in the change detection graph.
+
+一种数据流模型，它总是在一个方向（从父到子）上检查组件树是否有变化，以防止在变更检测图中出现循环。
 
 In practice, this means that data in Angular flows downward during change detection.
 A parent component can easily change values in its child components because the parent is checked first.
 A failure could occur, however, if a child component tries to change a value in its parent during change detection (inverting the expected data flow), because the parent component has already been rendered.
 In development mode, Angular throws the `ExpressionChangedAfterItHasBeenCheckedError` error if your app attempts to do this, rather than silently failing to render the new value.
 
+在实践中，这意味着 Angular 中的数据会在变更检测过程中向下流动。父组件可以很容易地改变子组件中的值，因为父组件是先检查的。但是，如果子组件在更改检测期间（反转预期的数据流）尝试更改其父组件中的值，则可能会导致错误，因为父组件已经渲染过了。在开发模式下，如果你的应用尝试这样做，Angular 会抛出 `ExpressionChangedAfterItHasBeenCheckedError` 错误，而不是沉默地渲染新值。
+
 To avoid this error, a [lifecycle hook](guide/lifecycle-hooks) method that seeks to make such a change should trigger a new change detection run. The new run follows the same direction as before, but succeeds in picking up the new value.
+
+为了避免这个错误，进行此类更改的[生命周期钩子](guide/lifecycle-hooks)方法中就要触发一次新的变更检测。这次新的变更检测与之前那次的方向一样，但可以成功获得新值。
 
 {@a universal}
 

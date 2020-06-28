@@ -74,7 +74,7 @@ To install Angular on your local system, you need the following:
   This guide uses the [npm client](https://docs.npmjs.com/cli/install) command line interface, which is installed with `Node.js` by default.
   To check that you have the npm client installed, run `npm -v` in a terminal window.
 
-Angular、Angular CLI 以及 Angular 应用都要依赖 [npm 包](https://docs.npmjs.com/getting-started/what-is-npm)来实现很多特性和功能。要下载并安装 npm 包，你需要一个 npm 包管理器。本指南使用 [npm 客户端](https://docs.npmjs.com/cli/install)命令行界面，该界面默认安装在 `Node.js`。要检查你是否安装了 npm 客户端，请在终端窗口中运行 `npm -v` 。
+  Angular、Angular CLI 以及 Angular 应用都要依赖 [npm 包](https://docs.npmjs.com/getting-started/what-is-npm)来实现很多特性和功能。要下载并安装 npm 包，你需要一个 npm 包管理器。本指南使用 [npm 客户端](https://docs.npmjs.com/cli/install)命令行界面，该界面默认安装在 `Node.js`。要检查你是否安装了 npm 客户端，请在终端窗口中运行 `npm -v` 。
 
 {@a install-cli}
 

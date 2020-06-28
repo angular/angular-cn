@@ -96,7 +96,7 @@ Angular 支持大多数常用浏览器，包括下列版本：
 
       *deprecated in v10, see the {@link guide/deprecations#ie-9-10-and-mobile deprecations guide}.
 
-      *在 v10 中弃用，参见<a href="/guide/deprecations#ie-9-10">弃用指南</a>。
+      *在 v10 中弃用，参见<a href="/guide/deprecations#ie-9-10-and-mobile">弃用指南</a>。
     </td>
 
   </tr>

@@ -55,7 +55,7 @@ You don't have to implement all (or any) of the lifecycle hooks, just the ones y
 
 ### Lifecycle event sequence
 
-## 生命周期的顺序
+### 生命周期的顺序
 
 After your application instantiates a component or directive by calling its constructor, Angular calls the hook methods you have implemented at the appropriate point in the lifecycle of that instance.
 
@@ -310,7 +310,7 @@ Angular 会按以下顺序执行钩子方法。你可以用它来执行以下类
 
 ### Lifecycle example set
 
-## 生命周期范例
+### 生命周期范例
 
 The <live-example></live-example>
 demonstrates the use of lifecycle hooks through a series of exercises
@@ -933,7 +933,7 @@ which can only be reached by querying for them via the property decorated with
 
 {@a no-unidirectional-flow-worries}
 
-<div class="alert is-helpful>
+<div class="alert is-helpful">
 
 <header>No need to wait for content updates</header>
 
