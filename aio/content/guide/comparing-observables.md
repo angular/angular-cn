@@ -413,7 +413,7 @@ button.removeEventListener(‘click’, handler);
 An observable produces values over time. An array is created as a static set of values. In a sense, observables are asynchronous where arrays are synchronous. In the following examples, ➞ implies asynchronous value delivery.
 
 可观察对象会随时间生成值。数组是用一组静态的值创建的。某种意义上，可观察对象是异步的，而数组是同步的。
-在下列例子中，➞ 符号表示异步传递值。
+在下面的例子中，➞ 符号表示异步传递值。
 
 <table>
   <tr>

@@ -1452,7 +1452,7 @@ Use the [non-null type assertion operator](guide/template-syntax#non-null-assert
 In the following example, the `person` and `address` properties are always set together, implying that `address` is always non-null if `person` is non-null.
 There is no convenient way to describe this constraint to TypeScript and the template compiler, but the error is suppressed in the example by using `address!.street`.
 
-在下列例子中，`person` 和 `address` 属性总是一起出现的，如果 `person` 非空，则 `address` 也一定非空。没有一种简便的写法可以向 TypeScript 和模板编译器描述这种约束。但是这个例子中使用 `address!.street` 避免了报错。
+在下面的例子中，`person` 和 `address` 属性总是一起出现的，如果 `person` 非空，则 `address` 也一定非空。没有一种简便的写法可以向 TypeScript 和模板编译器描述这种约束。但是这个例子中使用 `address!.street` 避免了报错。
 
   ```typescript
 

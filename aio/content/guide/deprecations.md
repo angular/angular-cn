@@ -111,7 +111,7 @@ Tip: In the [API reference section](api) of this doc site, deprecated APIs are i
 | --------------------------------------------------------------------------------------------- | --------------------------------------------------- | --------------------- | ----- |
 | API | 替代品 | 宣布弃用 | 备注 |
 | [`CurrencyPipe` - `DEFAULT_CURRENCY_CODE`](api/common/CurrencyPipe#currency-code-deprecation) | `{provide: DEFAULT_CURRENCY_CODE, useValue: 'USD'}` | v9                    | From v11 the default code will be extracted from the locale data given by `LOCAL_ID`, rather than `USD`. |
-| [`CurrencyPipe` - `DEFAULT_CURRENCY_CODE`](api/common/CurrencyPipe#currency-code-deprecation) | `{provide: DEFAULT_CURRENCY_CODE, useValue: 'USD'}` | v9                    |  从 v11 开始，默认代码将从由 `LOCAL_ID` 提供的语言环境数据中提取，而不再是固定值 `USD`。|
+| [`CurrencyPipe` - `DEFAULT_CURRENCY_CODE`](api/common/CurrencyPipe#currency-code-deprecation) | `{provide: DEFAULT_CURRENCY_CODE, useValue: 'USD'}` | v9                    |  从 v11 开始，默认代码将从由 `LOCAL_ID` 提供的本地环境数据中提取，而不再是固定值 `USD`。|
 
 {@a core}
 ### @angular/core
@@ -712,13 +712,13 @@ This section contains a complete list all of the currently deprecated CLI flags.
 | `i18nFormat` | <!--v9--> v11 | Renamed to `format` to simplify the user experience. |
 | `i18nFormat` | <!--v9--> v11 | 已改名为 `format`，以简化用户体验。 |
 | `i18nLocale` | <!--v9--> v11 | Redundant with project’s source locale. |
-| `i18nLocale` | <!--v9--> v11 | 是项目的源语言环境的冗余项。 |
+| `i18nLocale` | <!--v9--> v11 | 是项目的源本地环境的冗余项。 |
 | `scripts[].lazy` | <!--v8--> v11 | Renamed to `scripts[].inject`. |
 | `scripts[].lazy` | <!--v8--> v11 | 已改名为 `scripts[].inject`. |
 | `styles[].lazy` | <!--v8--> v11 | Renamed to `styles[].inject`. |
 | `styles[].lazy` | <!--v8--> v11 | 已改名为 `styles[].inject` 。 |
 | `i18nFile` | <!--v9--> v11 | Specified in the project locale configuration in version 9 and later. |
-| `i18nFile` | <!--v9--> v11 | 在版本 9 及更高版本的项目区域设置配置中指定。 |
+| `i18nFile` | <!--v9--> v11 | 在版本 9 及更高版本的项目本地环境配置中指定。 |
 | `i18nFormat` | <!--v9--> v11 | Format is now automatically detected. |
 | `i18nFormat` | <!--v9--> v11 | 格式现在是自动检测的。 |
 | `i18nLocale` | <!--v9--> v11 | New [localization option](/guide/i18n#localize-config) in version 9 and later. |

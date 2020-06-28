@@ -837,7 +837,7 @@ A form of property [data binding](#data-binding) in which a [template expression
 That text can be concatenated with neighboring text before it is assigned to an element property
 or displayed between element tags, as in this example.
 
-[属性数据绑定 (property data binding)](#data-binding) 的一种形式，位于双大括号中的[模板表达式 (template expression)](#template-expression)会被渲染成文本。
+[属性数据绑定 (property data binding)](#data-binding) 的一种形式，位于双花括号中的[模板表达式 (template expression)](#template-expression)会被渲染成文本。
 在被赋值给元素属性或者显示在元素标签中之前，这些文本可能会先与周边的文本合并，参见下面的例子。
 
 ```html

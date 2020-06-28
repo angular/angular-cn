@@ -1223,7 +1223,7 @@ To link to a Stackblitz in a folder whose name is not the same as the current gu
 
 To link to a Stackblitz defined by a named `stackblitz.json` file, set the `stackblitz` attribute. The following example links to the Stackblitz defined by `second.stackblitz.json` in the current guide's directory.
 
-要链接到一个名叫 `stackblitz.json` 文件，请设置 `stackblitz` 属性。下列例子链接到当前指南目录下的 second.stackblitz.json 定义的 `second.stackblitz.json`。
+要链接到一个名叫 `stackblitz.json` 文件，请设置 `stackblitz` 属性。下面的例子链接到当前指南目录下的 second.stackblitz.json 定义的 `second.stackblitz.json`。
 
 <live-example stackblitz="second"></live-example>
 

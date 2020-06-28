@@ -44,13 +44,13 @@ The symbol is loaded by importing the `@angular/localize/init` module, which has
 Prior to Angular version 9, Angular's internationalization (i18n) system inlined translated messages into the compiled output as part of this template compilation.
 This approach required running the template compiler once per target locale, often leading to slow production build times.
 
-在 Angular 第 9 版之前，Angular 的国际化（i18n）系统会把已翻译的消息内联到编译输出中，作为模板编译的一部分。这种方法要求为每个目标语言环境运行一次模板编译器，这通常会导致生产构建时间变慢。
+在 Angular 第 9 版之前，Angular 的国际化（i18n）系统会把已翻译的消息内联到编译输出中，作为模板编译的一部分。这种方法要求为每个目标本地环境运行一次模板编译器，这通常会导致生产构建时间变慢。
 
 In the new i18n system, the Angular compiler tags i18n messages in the compiled code with a global `$localize` handler.
 The inlining of translations then occurs as a post-compilation step for each locale.
 Because the application does not need to be built again for each locale, this makes the process much faster.
 
-在新的 i18n 系统中，Angular 编译器使用全局 `$localize` 处理函数在已编译的代码中标记 i18n 消息。然后这些翻译的内联工作会作为每种语言环境的后编译步骤。由于不需要为每个语言环境重复构建应用，所以这会让这个过程更快。
+在新的 i18n 系统中，Angular 编译器使用全局 `$localize` 处理函数在已编译的代码中标记 i18n 消息。然后这些翻译的内联工作会作为每种本地环境的后编译步骤。由于不需要为每个本地环境重复构建应用，所以这会让这个过程更快。
 
 The post-compilation inlining step is optional&mdash;for example during development or if the translations will be inlined at runtime.
 Therefore this global `$localize` must be available on the global scope at runtime.

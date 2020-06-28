@@ -128,7 +128,7 @@ The **Development Workflow** section describes the tools and processes you use t
 
 * [Internationalization](guide/i18n): Make your app available in multiple languages with Angular's internationalization (i18n) tools.
 
-  [国际化](guide/i18n) ：借助 Angular 的国际化（i18n）工具，可以让你的应用支持多语言环境。
+  [国际化](guide/i18n) ：借助 Angular 的国际化（i18n）工具，可以让你的应用支持多本地环境。
 
 * [Accessibility](guide/accessibility): Make your app accessible to all users.
 

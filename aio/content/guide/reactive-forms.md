@@ -82,7 +82,7 @@ You can then display the form by adding the component to the template.
 
 The following examples show how to add a single form control. In the example, the user enters their name into an input field, captures that input value, and displays the current value of the form control element.
 
-下列例子展示了如何添加一个表单控件。在这个例子中，用户在输入字段中输入自己的名字，捕获其输入值，并显示表单控件的当前值。
+下面的例子展示了如何添加一个表单控件。在这个例子中，用户在输入字段中输入自己的名字，捕获其输入值，并显示表单控件的当前值。
 
 **Register the reactive forms module**
 
@@ -252,7 +252,7 @@ Forms typically contain several related controls. Reactive forms provide two way
 
 Just as a form control instance gives you control over a single input field, a form group instance tracks the form state of a group of form control instances (for example, a form). Each control in a form group instance is tracked by name when creating the form group. The following example shows how to manage multiple form control instances in a single group.
 
-就像 `FormControl` 的实例能让你控制单个输入框所对应的控件一样，`FormGroup` 的实例也能跟踪一组 `FormControl` 实例（比如一个表单）的表单状态。当创建 `FormGroup` 时，其中的每个控件都会根据其名字进行跟踪。下列例子展示了如何管理单个控件组中的多个 `FormControl` 实例。
+就像 `FormControl` 的实例能让你控制单个输入框所对应的控件一样，`FormGroup` 的实例也能跟踪一组 `FormControl` 实例（比如一个表单）的表单状态。当创建 `FormGroup` 时，其中的每个控件都会根据其名字进行跟踪。下面的例子展示了如何管理单个控件组中的多个 `FormControl` 实例。
 
 Generate a `ProfileEditor` component and import the `FormGroup` and `FormControl` classes from the `@angular/forms` package.
 

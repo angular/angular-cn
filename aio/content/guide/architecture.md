@@ -148,7 +148,7 @@ Your templates can use *pipes* to improve the user experience by transforming va
 For example, use pipes to display dates and currency values that are appropriate for a user's locale.
 Angular provides predefined pipes for common transformations, and you can also define your own pipes.
 
-你的模板也可以用*管道*转换要显示的值以增强用户体验。比如，可以使用管道来显示适合用户所在语言环境的日期和货币格式。
+你的模板也可以用*管道*转换要显示的值以增强用户体验。比如，可以使用管道来显示适合用户所在本地环境的日期和货币格式。
 Angular 为一些通用的转换提供了预定义管道，你还可以定义自己的管道。
 
 <div class="alert is-helpful">
