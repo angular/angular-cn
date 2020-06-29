@@ -413,7 +413,7 @@ So Angular uses a faster change-detection algorithm for executing a pipe, as des
 By default, pipes are defined as *pure* so that Angular executes the pipe only when it detects a *pure change* to the input value.
 A pure change is either a change to a primitive input value (such as `String`, `Number`, `Boolean`, or `Symbol`), or a changed object reference (such as `Date`, `Array`, `Function`, or `Object`).
 
-通过默认情况下，管道会定义成*纯的(pure)*，这样 Angular 只有在检测到输入值发生了*纯变更*时才会执行该管道。春变更是对原始输入值（比如 `String`、`Number`、`Boolean` 或 `Symbol` ）的变更，或是对对象引用的变更（比如 `Date`、`Array`、`Function`、`Object`）。
+通过默认情况下，管道会定义成*纯的(pure)*，这样 Angular 只有在检测到输入值发生了*纯变更*时才会执行该管道。纯变更是对原始输入值（比如 `String`、`Number`、`Boolean` 或 `Symbol` ）的变更，或是对对象引用的变更（比如 `Date`、`Array`、`Function`、`Object`）。
 
 {@a pure-pipe-pure-fn}
 
