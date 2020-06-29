@@ -408,7 +408,7 @@ So Angular uses a faster change-detection algorithm for executing a pipe, as des
 
 ### Detecting pure changes to primitives and object references
 
-### 检测原始类型和对象引用的春变更
+### 检测原始类型和对象引用的纯变更
 
 By default, pipes are defined as *pure* so that Angular executes the pipe only when it detects a *pure change* to the input value.
 A pure change is either a change to a primitive input value (such as `String`, `Number`, `Boolean`, or `Symbol`), or a changed object reference (such as `Date`, `Array`, `Function`, or `Object`).
