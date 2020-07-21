@@ -403,8 +403,6 @@ When the component's list of heroes has more than three items, Angular adds the 
 to the DOM and the message appears.
 If there are three or fewer items, Angular omits the paragraph, so no message appears.
 
-双引号内的模板表达式 `*ngIf="heroes.length > 3"` 的外观和行为与 TypeScript 非常相似。当组件的英雄列表包含三个以上的条目时，Angular 会将这段话添加到 DOM 中，这条消息就显示出来了。如果只有三个或更少的条目，Angular 就会省略该段落，也就不会显示任何消息。
-
 For more information, see [template expressions](guide/template-syntax#template-expressions).
 
 双引号中的模板表达式 `*ngIf="heros.length > 3"`，外观和行为很象 TypeScript。
