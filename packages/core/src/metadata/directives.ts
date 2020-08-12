@@ -682,7 +682,11 @@ export interface Component extends Directive {
    *
    * - `ViewEncapsulation.Native`: Deprecated. Use `ViewEncapsulation.ShadowDom` instead.
    *
-   *   `ViewEncapsulation.Native`：使用 Shadow DOM。它只在原生支持 Shadow DOM 的平台上才能工作。
+   *   `ViewEncapsulation.Native`：已弃用。请改用`Viewscapsulation.Shadowdom`。
+   *
+   * - `ViewEncapsulation.ShadowDom`: Use Shadow DOM v1 to encapsulate styles.
+   *
+   *   `ViewEncapsulation.ShadowDom`: 使用 Shadow DOM。它只在原生支持 Shadow DOM 的平台上才能工作。
    *
    * - `ViewEncapsulation.Emulated`: Use shimmed CSS that
    * emulates the native behavior.
@@ -691,7 +695,6 @@ export interface Component extends Directive {
    *
    * - `ViewEncapsulation.None`: Use global CSS without any
    * encapsulation.
-   * - `ViewEncapsulation.ShadowDom`: Use Shadow DOM v1 to encapsulate styles.
    *
    *   `ViewEncapsulation.None`：使用全局 CSS，不做任何封装。
    *
