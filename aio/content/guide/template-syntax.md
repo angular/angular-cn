@@ -3625,7 +3625,7 @@ Angular 的非空断言运算符 `!` 在 Angular 模板中具有相同的目的�
 When the Angular compiler turns your template into TypeScript code,
 it prevents TypeScript from reporting that `item.color` might be `null` or `undefined`.
 
-当 Angular 编译器把你的模板转换成 TypeScript 代码时，它会防止 TypeScript 不要报告此 `item.color` 可能为 `null` 或 `undefined` 的错误。
+当 Angular 编译器把你的模板转换成 TypeScript 代码时，它会防止 TypeScript 报告此 `item.color` 可能为 `null` 或 `undefined` 的错误。
 
 Unlike the [_safe navigation operator_](guide/template-syntax#safe-navigation-operator "Safe navigation operator (?)"),
 the non-null assertion operator does not guard against `null` or `undefined`.
