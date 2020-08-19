@@ -435,7 +435,7 @@ Abbreviations such as `.srv`, `.svc`, and `.serv` can be confusing.
 
 **Do** use upper camel case for class names.
 
-**坚持**使用大写驼峰命名法来命名类。符号名匹配它所在的文件名。
+**坚持**使用大写驼峰命名法来命名类。
 
 </div>
 
@@ -443,7 +443,7 @@ Abbreviations such as `.srv`, `.svc`, and `.serv` can be confusing.
 
 **Do** match the name of the symbol to the name of the file.
 
-**坚持**在符号名后面追加约定的类型后缀（例如 `Component`、`Directive`、`Module`、`Pipe`、`Service`）。
+**坚持**匹配符号名与它所在的文件名。
 
 </div>
 
@@ -452,7 +452,7 @@ Abbreviations such as `.srv`, `.svc`, and `.serv` can be confusing.
 **Do** append the symbol name with the conventional suffix (such as `Component`,
 `Directive`, `Module`, `Pipe`, or `Service`) for a thing of that type.
 
-**坚持**在符号名后面追加约定的类型后缀（例如 `.component.ts`、`.directive.ts`、`.module.ts`、`.pipe.ts`、`.service.ts`）。
+**坚持**在符号名后面追加约定的类型后缀（例如 `Component`、`Directive`、`Module`、`Pipe`、`Service`）。
 
 </div>
 
