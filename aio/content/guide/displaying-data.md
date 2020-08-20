@@ -402,7 +402,6 @@ The template expression inside the double quotes,
 When the component's list of heroes has more than three items, Angular adds the paragraph
 to the DOM and the message appears.
 If there are three or fewer items, Angular omits the paragraph, so no message appears.
-
 For more information, see [template expressions](guide/template-syntax#template-expressions).
 
 双引号中的模板表达式 `*ngIf="heros.length > 3"`，外观和行为很象 TypeScript。
