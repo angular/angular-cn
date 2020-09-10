@@ -29,7 +29,7 @@ NgModule 会把相关的代码收集到一些功能集中。Angular 应用就是
 
 Modules, components and services are classes that use *decorators*. These decorators mark their type and provide metadata that tells Angular how to use them.
 
-模块、组件和服务都是使用*装饰器*的类，这*装饰器*会标出它们的类型并提供元数据，以告知 Angular 该如何使用它们。
+模块、组件和服务都是使用*装饰器*的类，这些*装饰器*会标出它们的类型并提供元数据，以告知 Angular 该如何使用它们。
 
 * The metadata for a component class associates it with a *template* that defines a view. A template combines ordinary HTML with Angular *directives* and *binding markup* that allow Angular to modify the HTML before rendering it for display.
 
@@ -111,7 +111,7 @@ The `@Component()` decorator identifies the class immediately below it as a comp
 
    Decorators are functions that modify JavaScript classes. Angular defines a number of decorators that attach specific kinds of metadata to classes, so that the system knows what those classes mean and how they should work.
 
-   装饰器是一些用于修饰 JavaScript 类的函数。Angular 定义了许多装饰器，这些装饰器会把一些特定种类的元数据附加到类上，以便 Angular 了解这些这些类的含义以及该如何使用它们。
+   装饰器是一些用于修饰 JavaScript 类的函数。Angular 定义了许多装饰器，这些装饰器会把一些特定种类的元数据附加到类上，以便 Angular 了解这些类的含义以及该如何使用它们。
 
    <a href="https://medium.com/google-developers/exploring-es7-decorators-76ecb65fb841#.x5c2ndtx0">Learn more about decorators on the web.</a>
 
