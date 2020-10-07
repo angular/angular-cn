@@ -526,7 +526,7 @@ A microsyntax is translated to the normal binding syntax as follows:
     <td><code>[prefixKey] "表达式"
     (let-prefixKey="export")</code>
     <br />
-    注意 <code>prefix</code> 已经加成了 <code>key</code>
+    注意 <code>prefix</code> 已经加到了 <code>key</code> 的前面
     </td>
   </tr>
   <tr>
