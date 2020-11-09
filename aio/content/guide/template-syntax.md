@@ -1621,7 +1621,7 @@ If there are multiple bindings to the same class name, conflicts are resolved us
 The [NgClass](#ngclass) directive can be used as an alternative to direct `[class]` bindings. 
 However, using the above class binding syntax without `NgClass` is preferred because due to improvements in class binding in Angular, `NgClass` no longer provides significant value, and might eventually be removed in the future.
 
-尽管此技术适用于切换单个类名，但在需要同时管理多个类名时请考虑使用 [`NgClass`](guide/template-syntax#ngClass) 指令。
+[NgClass](#ngclass) 指令可以作为 `[class]` 绑定的替代指令。但是，应该把上面这种 `[class]` 样式绑定语法作为首选，因为随着 Angular 中类绑定的改进，`NgClass` 将不再提供重要的价值，并最终在未来的某个版本中删除。
 
 <hr/>
 
