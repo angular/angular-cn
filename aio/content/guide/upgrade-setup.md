@@ -16,7 +16,7 @@ Those Upgrade guides refer to this Setup guide for information about using the [
 
 **For all other scenarios,** see the current instructions in [Setting up the Local Environment and Workspace](guide/setup-local "Setting up for Local Development").
 
-**对于所有其它场景**，请参见[建立本地开发环境](guide/setup-local "Setting up for Local Development")中的步骤。
+**对于所有其它场景**，请参阅[建立本地开发环境](guide/setup-local "Setting up for Local Development")中的步骤。
 
 </div>
 
@@ -349,16 +349,16 @@ If you develop angular locally with `ng serve`, a `websocket` connection is set 
 In Windows, by default, one application can only have 6 websocket connections, <a href="https://msdn.microsoft.com/library/ee330736%28v=vs.85%29.aspx?f=255&MSPPError=-2147217396#websocket_maxconn" title="MSDN WebSocket settings">MSDN WebSocket Settings</a>.
 So when IE is refreshed (manually or automatically by `ng serve`), sometimes the websocket does not close properly. When websocket connections exceed the limitations, a `SecurityError` will be thrown. This error will not affect the angular application, you can just restart IE to clear this error, or modify the windows registry to update the limitations.
 
-在 Windows 上，默认情况下，每个应用最多只能有 6 个 websocket 连接，参见 <a href="https://msdn.microsoft.com/library/ee330736%28v=vs.85%29.aspx?f=255&MSPPError=-2147217396#websocket_maxconn" title="MSDN WebSocket settings">MSDN 上的 WebSocket 设置</a>。
+在 Windows 上，默认情况下，每个应用最多只能有 6 个 websocket 连接，参阅 <a href="https://msdn.microsoft.com/library/ee330736%28v=vs.85%29.aspx?f=255&MSPPError=-2147217396#websocket_maxconn" title="MSDN WebSocket settings">MSDN 上的 WebSocket 设置</a>。
 所以，当 IE 刷新时（手动刷新或由 `ng serve` 自动刷新），websocket 可能无法正常关闭。当 websocket 连接数超过上限时，就会抛出一个 `SecurityError` 异常。这种错误不会影响 Angular 应用，你可以重启 IE 来清除此异常或在 Windows 注册表中加大这个上限。
 
-## Appendix: Test using `fakeAsync()/async()`
+## Appendix: Test using `fakeAsync()/waitForAsync()`
 
 ## 附录：使用 `fakeAsync()/async()` 进行测试
 
-If you use the `fakeAsync()/async()` helper function to run unit tests (for details, read the [Testing guide](guide/testing#async-test-with-fakeasync)), you need to import `zone.js/dist/zone-testing` in your test setup file.
+If you use the `fakeAsync()/waitForAsync()` helper function to run unit tests (for details, read the [Testing guide](guide/testing-components-scenarios#fake-async)), you need to import `zone.js/dist/zone-testing` in your test setup file.
 
-如果你使用 `fakeAsync()/async()` 辅助函数来运行单元测试（详情参见[测试指南](guide/testing#async-test-with-fakeasync)），就要在测试的准备文件中导入 `zone.js/dist/zone-testing`。
+如果你使用 `fakeAsync()/async()` 辅助函数来运行单元测试（详情参阅[测试指南](guide/testing-components-scenarios#fake-async)），就要在测试的准备文件中导入 `zone.js/dist/zone-testing`。
 
 <div class="alert is-important">
 

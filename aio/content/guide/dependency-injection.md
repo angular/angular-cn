@@ -30,7 +30,7 @@ In Angular, the DI framework provides declared dependencies to a class when that
 Start by reviewing this simplified version of the _heroes_ feature
 from the [The Tour of Heroes](tutorial/). This simple version doesn't use DI; we'll walk through converting it to do so.
 
-我们先看一下[英雄指南](tutorial/)中*英雄管理*特性的简化版。这个简化版不使用 DI，我们将逐步把它转换成使用 DI 的。
+我们先看一下[英雄之旅](tutorial/)中*英雄管理*特性的简化版。这个简化版不使用 DI，我们将逐步把它转换成使用 DI 的。
 
 <code-tabs>
   <code-pane header="src/app/heroes/heroes.component.ts" path="dependency-injection/src/app/heroes/heroes.component.1.ts" region="v1">
@@ -88,14 +88,14 @@ it is important to define the service first, and then the component. If you defi
 
 如果你把组件和服务都放在同一个文件中，请务必先定义服务，然后再定义组件。如果在服务之前定义组件，则会在运行时收到一个空引用错误。
 
-It is possible to define the component first with the help of the `forwardRef()` method as explained in this [blog post](http://blog.thoughtram.io/angular/2015/09/03/forward-references-in-angular-2.html).
+It is possible to define the component first with the help of the `forwardRef()` method as explained in this [blog post](https://blog.thoughtram.io/angular/2015/09/03/forward-references-in-angular-2.html).
 
 也可以借助 `forwardRef()` 方法来先定义组件，就像[这个博客](http://blog.thoughtram.io/angular/2015/09/03/forward-references-in-angular-2.html)中解释的那样。
 
 You can also use forward references to break circular dependencies.
 See an example in the [DI Cookbook](guide/dependency-injection-in-action#forwardref).
 
-你还可以使用前向引用来打破循环依赖，参见 [DI 一章](guide/dependency-injection-in-action#forwardref)中的例子。
+你还可以使用前向引用来打破循环依赖，参阅 [DI 一章](guide/dependency-injection-in-action#forwardref)中的例子。
 
 </div>
 
@@ -170,11 +170,11 @@ from the injector of its parent NgModule, or from the `root` injector.
 
 * Learn more about the [different kinds of providers](guide/dependency-injection-providers).
 
-  更多知识，参见 [提供者的不同类型](guide/dependency-injection-providers)。
+  更多知识，参阅 [提供者的不同类型](guide/dependency-injection-providers)。
 
 * Learn more about how the [injector hierarchy](guide/hierarchical-dependency-injection) works.
 
-  更多知识，参见[层次化注入器](guide/hierarchical-dependency-injection)的工作原理。
+  更多知识，参阅[层次化注入器](guide/hierarchical-dependency-injection)的工作原理。
 
 </div>
 
@@ -211,7 +211,7 @@ Components are directives, and the `providers` option is inherited from `@Direct
 
 Learn more about [where to configure providers](guide/hierarchical-dependency-injection).
 
-欲知详情，参见[该在哪里配置提供者](guide/hierarchical-dependency-injection)。
+欲知详情，参阅[该在哪里配置提供者](guide/hierarchical-dependency-injection)。
 
 </div>
 
@@ -317,7 +317,7 @@ under test.
 
 Learn more in the [Testing](guide/testing) guide.
 
-欲知详情，参见[测试](guide/testing)一章。
+欲知详情，参阅[测试](guide/testing)一章。
 
 </div>
 
@@ -364,7 +364,7 @@ If Angular can't find that parameter information, it throws an error.
 Angular can only find the parameter information _if the class has a decorator of some kind_.
 The `@Injectable()` decorator is the standard decorator for service classes.
 
-当 Angular 创建一个构造函数中有参数的类时，它会查找有关这些参数的类型，和供注入使用的元数据，以便找到正确的服务。
+当 Angular 创建一个构造函数中有参数的类时，它会查找关于这些参数的类型，和供注入使用的元数据，以便找到正确的服务。
 如果 Angular 无法找到参数信息，它就会抛出一个错误。
 *只有当类具有某种装饰器时*，Angular 才能找到参数信息。
 `@Injectable()` 装饰器是所有服务类的标准装饰器。
@@ -421,7 +421,7 @@ Many dependency values are provided by classes, but not all. The expanded *provi
 
 * Learn more about [different kinds of providers](guide/dependency-injection-providers).
 
-  欲知详情，参见[不同种类的提供者](guide/dependency-injection-providers)。
+  欲知详情，参阅[不同种类的提供者](guide/dependency-injection-providers)。
 
 {@a optional}
 
@@ -460,7 +460,7 @@ value of `logger` to null.
 
 Learn more about parameter decorators in [Hierarchical Dependency Injectors](guide/hierarchical-dependency-injection).
 
-欲知详情，参见[多级注入器](guide/hierarchical-dependency-injection)。
+欲知详情，参阅[多级注入器](guide/hierarchical-dependency-injection)。
 
 </div>
 
@@ -483,7 +483,7 @@ Dive deeper into the capabilities and advanced feature of the Angular DI system 
 * Learn more about nested injectors in
 [Hierarchical Dependency Injection](guide/hierarchical-dependency-injection).
 
-  要深入了解嵌套注入器，参见[多级依赖注入](guide/hierarchical-dependency-injection)
+  要深入了解嵌套注入器，参阅[多级依赖注入](guide/hierarchical-dependency-injection)
 
 * Learn more about [DI tokens and providers](guide/dependency-injection-providers).
 

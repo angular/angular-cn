@@ -21,7 +21,7 @@ import {R3JitReflector} from './render3/r3_jit';
 import {compileInjector, compileNgModule, R3InjectorMetadata, R3NgModuleMetadata} from './render3/r3_module_compiler';
 import {compilePipeFromMetadata, R3PipeMetadata} from './render3/r3_pipe_compiler';
 import {R3Reference} from './render3/util';
-import {R3DirectiveMetadata, R3QueryMetadata} from './render3/view/api';
+import {R3ComponentMetadata, R3DirectiveMetadata, R3QueryMetadata} from './render3/view/api';
 import {compileComponentFromMetadata, compileDirectiveFromMetadata, ParsedHostBindings, parseHostBindings, verifyHostBindings} from './render3/view/compiler';
 import {makeBindingParser, parseTemplate} from './render3/view/template';
 import {ResourceLoader} from './resource_loader';
@@ -129,14 +129,14 @@ export class CompilerFacadeImpl implements CompilerFacade {
     const template = parseTemplate(
         facade.template, sourceMapUrl,
         {preserveWhitespaces: facade.preserveWhitespaces, interpolationConfig});
-    if (template.errors !== undefined) {
+    if (template.errors !== null) {
       const errors = template.errors.map(err => err.toString()).join(', ');
       throw new Error(`Errors during JIT compilation of template for ${facade.name}: ${errors}`);
     }
 
     // Compile the component metadata, including template, into an expression.
     // TODO(alxhub): implement inputs, outputs, queries, etc.
-    const metadata = {
+    const metadata: R3ComponentMetadata = {
       ...facade as R3ComponentMetadataFacadeNoPropAndWhitespace,
       ...convertDirectiveFacadeToMetadata(facade),
       selector: facade.selector || this.elementSchemaRegistry.getDefaultComponentElementName(),

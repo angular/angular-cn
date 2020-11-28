@@ -7,7 +7,8 @@
  */
 
 import {AfterContentInit, ChangeDetectorRef, ContentChildren, Directive, ElementRef, Input, OnChanges, OnDestroy, Optional, QueryList, Renderer2, SimpleChanges} from '@angular/core';
-import {Subscription} from 'rxjs';
+import {from, of, Subscription} from 'rxjs';
+import {mergeAll} from 'rxjs/operators';
 
 import {Event, NavigationEnd} from '../events';
 import {Router} from '../router';
@@ -19,30 +20,26 @@ import {RouterLink, RouterLinkWithHref} from './router_link';
  *
  * @description
  *
- * Lets you add a CSS class to an element when the link's route becomes active.
+ * Tracks whether the linked route of an element is currently active, and allows you
+ * to specify one or more CSS classes to add to the element when the linked route
+ * is active.
  *
- * 当此链接指向的路由激活时，往宿主元素上添加一个 CSS 类。
- *
- * This directive lets you add a CSS class to an element when the link's route
- * becomes active.
- *
- * 当此链接指向的路由激活时，该指令就会往宿主元素上添加一个 CSS 类。
- *
- * Consider the following example:
- *
- * 考虑下面的例子：
+ * Use this directive to create a visual distinction for elements associated with an active route.
+ * For example, the following code highlights the word "Bob" when the the router
+ * activates the associated route:
  *
  * ```
  * <a routerLink="/user/bob" routerLinkActive="active-link">Bob</a>
  * ```
  *
- * When the url is either '/user' or '/user/bob', the active-link class will
- * be added to the `a` tag. If the url changes, the class will be removed.
+ * Whenever the URL is either '/user' or '/user/bob', the "active-link" class is
+ * added to the anchor tag. If the URL changes, the class is removed.
  *
  * 当浏览器的当前 url 是 '/user' 或 '/user/bob' 时，就会往 `a` 标签上添加 `active-link` 类；
  * 如果 url 发生了变化，则移除它。
  *
- * You can set more than one class, as follows:
+ * You can set more than one class using a space-separated string or an array.
+ * For example:
  *
  * 你可以设置一个或多个类，例如：
  *
@@ -51,8 +48,7 @@ import {RouterLink, RouterLinkWithHref} from './router_link';
  * <a routerLink="/user/bob" [routerLinkActive]="['class1', 'class2']">Bob</a>
  * ```
  *
- * You can configure RouterLinkActive by passing `exact: true`. This will add the classes
- * only when the url matches the link exactly.
+ * To add the classes only when the URL matches the link exactly, add the option `exact: true`:
  *
  * 你可以通过传入 `exact: true` 来配置 RouterLinkActive。这样，只有当 url 和此链接精确匹配时才会添加这些类。
  *
@@ -61,10 +57,9 @@ import {RouterLink, RouterLinkWithHref} from './router_link';
  * true}">Bob</a>
  * ```
  *
- * You can assign the RouterLinkActive instance to a template variable and directly check
- * the `isActive` status.
- *
- * 你可以把 `RouterLinkActive` 的实例赋给一个模板变量，以直接检查 `isActive` 的状态。
+ * To directly check the `isActive` status of the link, assign the `RouterLinkActive`
+ * instance to a template variable.
+ * For example, the following checks the status without assigning any CSS classes:
  *
  * ```
  * <a routerLink="/user/bob" routerLinkActive #rla="routerLinkActive">
@@ -72,7 +67,9 @@ import {RouterLink, RouterLinkWithHref} from './router_link';
  * </a>
  * ```
  *
- * Finally, you can apply the RouterLinkActive directive to an ancestor of a RouterLink.
+ * You can apply the `RouterLinkActive` directive to an ancestor of linked elements.
+ * For example, the following sets the active-link class on the `<div>`  parent tag
+ * when the URL is either '/user/jim' or '/user/bob'.
  *
  * 最后，你还可以把 `RouterLinkActive` 指令用在 `RouterLink` 的各级祖先节点上。
  *
@@ -83,11 +80,6 @@ import {RouterLink, RouterLinkWithHref} from './router_link';
  * </div>
  * ```
  *
- * This will set the active-link class on the div tag if the url is either '/user/jim' or
- * '/user/bob'.
- *
- * 这样，无论当前 url 是 '/user/jim' 还是 '/user/bob'，都会往 `div` 标签上添加一个 `active-link` 类。
- *
  * @ngModule RouterModule
  *
  * @publicApi
@@ -97,14 +89,13 @@ import {RouterLink, RouterLinkWithHref} from './router_link';
   exportAs: 'routerLinkActive',
 })
 export class RouterLinkActive implements OnChanges, OnDestroy, AfterContentInit {
-  // TODO(issue/24571): remove '!'.
   @ContentChildren(RouterLink, {descendants: true}) links!: QueryList<RouterLink>;
-  // TODO(issue/24571): remove '!'.
   @ContentChildren(RouterLinkWithHref, {descendants: true})
   linksWithHrefs!: QueryList<RouterLinkWithHref>;
 
   private classes: string[] = [];
-  private subscription: Subscription;
+  private routerEventsSubscription: Subscription;
+  private linkInputChangesSubscription?: Subscription;
   public readonly isActive: boolean = false;
 
   @Input() routerLinkActiveOptions: {exact: boolean} = {exact: false};
@@ -113,18 +104,35 @@ export class RouterLinkActive implements OnChanges, OnDestroy, AfterContentInit 
       private router: Router, private element: ElementRef, private renderer: Renderer2,
       private readonly cdr: ChangeDetectorRef, @Optional() private link?: RouterLink,
       @Optional() private linkWithHref?: RouterLinkWithHref) {
-    this.subscription = router.events.subscribe((s: Event) => {
+    this.routerEventsSubscription = router.events.subscribe((s: Event) => {
       if (s instanceof NavigationEnd) {
         this.update();
       }
     });
   }
 
-
+  /** @nodoc */
   ngAfterContentInit(): void {
-    this.links.changes.subscribe(_ => this.update());
-    this.linksWithHrefs.changes.subscribe(_ => this.update());
-    this.update();
+    // `of(null)` is used to force subscribe body to execute once immediately (like `startWith`).
+    from([this.links.changes, this.linksWithHrefs.changes, of(null)])
+        .pipe(mergeAll())
+        .subscribe(_ => {
+          this.update();
+          this.subscribeToEachLinkOnChanges();
+        });
+  }
+
+  private subscribeToEachLinkOnChanges() {
+    this.linkInputChangesSubscription?.unsubscribe();
+    const allLinkChanges =
+        [...this.links.toArray(), ...this.linksWithHrefs.toArray(), this.link, this.linkWithHref]
+            .filter((link): link is RouterLink|RouterLinkWithHref => !!link)
+            .map(link => link.onChanges);
+    this.linkInputChangesSubscription = from(allLinkChanges).pipe(mergeAll()).subscribe(link => {
+      if (this.isActive !== this.isLinkActive(this.router)(link)) {
+        this.update();
+      }
+    });
   }
 
   @Input()
@@ -133,11 +141,14 @@ export class RouterLinkActive implements OnChanges, OnDestroy, AfterContentInit 
     this.classes = classes.filter(c => !!c);
   }
 
+  /** @nodoc */
   ngOnChanges(changes: SimpleChanges): void {
     this.update();
   }
+  /** @nodoc */
   ngOnDestroy(): void {
-    this.subscription.unsubscribe();
+    this.routerEventsSubscription.unsubscribe();
+    this.linkInputChangesSubscription?.unsubscribe();
   }
 
   private update(): void {

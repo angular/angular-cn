@@ -6,10 +6,9 @@ Angular makes use of observables as an interface to handle a variety of common a
 
 Angular 使用可观察对象作为处理各种常用异步操作的接口。比如：
 
-* You can define [custom events](guide/template-syntax#custom-events-with-eventemitter) that send observable output data from a child to a parent component.
+* You can define [custom events](guide/event-binding#custom-events-with-eventemitter) that send observable output data from a child to a parent component.
 
    `EventEmitter` 类派生自 `Observable`。
-
 * The HTTP module uses observables to handle AJAX requests and responses.
 
    HTTP 模块使用可观察对象来处理 AJAX 请求和响应。
@@ -22,17 +21,17 @@ Angular 使用可观察对象作为处理各种常用异步操作的接口。比
 
 ## 在组件之间传递数据
 
-Angular provides an `EventEmitter` class that is used when publishing values from a component through the [`@Output()` decorator](guide/template-syntax#how-to-use-output).
+Angular provides an `EventEmitter` class that is used when publishing values from a component through the [`@Output()` decorator](guide/inputs-outputs#output).
 `EventEmitter` extends [RxJS `Subject`](https://rxjs.dev/api/index/class/Subject), adding an `emit()` method so it can send arbitrary values.
 When you call `emit()`, it passes the emitted value to the `next()` method of any subscribed observer.
 
-Angular 提供了一个 `EventEmitter` 类，它用来通过组件的 [`@Output()` 装饰器](guide/template-syntax#how-to-use-output) 发送一些值。`EventEmitter` 扩展了 [RxJS `Subject`](https://rxjs.dev/api/index/class/Subject)，并添加了一个 `emit()` 方法，这样它就可以发送任意值了。当你调用 `emit()` 时，就会把所发送的值传给订阅上来的观察者的 `next()` 方法。
+Angular 提供了一个 `EventEmitter` 类，它用来通过组件的 [`@Output()` 装饰器](guide/inputs-outputs#output) 发送一些值。`EventEmitter` 扩展了 [RxJS `Subject`](https://rxjs.dev/api/index/class/Subject)，并添加了一个 `emit()` 方法，这样它就可以发送任意值了。当你调用 `emit()` 时，就会把所发送的值传给订阅上来的观察者的 `next()` 方法。
 
 A good example of usage can be found in the [EventEmitter](api/core/EventEmitter) documentation. Here is the example component that listens for open and close events:
 
-这种用法的例子参见 [EventEmitter](api/core/EventEmitter) 文档。下面这个范例组件监听了 `open` 和 `close` 事件：
+这种用法的例子参阅 [EventEmitter](api/core/EventEmitter) 文档。下面这个范例组件监听了 `open` 和 `close` 事件：
 
-`<zippy (open)="onOpen($event)" (close)="onClose($event)"></zippy>`
+`<app-zippy (open)="onOpen($event)" (close)="onClose($event)"></app-zippy>`
 
 Here is the component definition:
 

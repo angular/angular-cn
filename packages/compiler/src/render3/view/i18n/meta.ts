@@ -9,9 +9,12 @@
 import {computeDecimalDigest, computeDigest, decimalDigest} from '../../../i18n/digest';
 import * as i18n from '../../../i18n/i18n_ast';
 import {createI18nMessageFactory, VisitNodeFn} from '../../../i18n/i18n_parser';
+import {I18nError} from '../../../i18n/parse_util';
 import * as html from '../../../ml_parser/ast';
 import {DEFAULT_INTERPOLATION_CONFIG, InterpolationConfig} from '../../../ml_parser/interpolation_config';
+import {ParseTreeResult} from '../../../ml_parser/parser';
 import * as o from '../../../output/output_ast';
+import {isTrustedTypesSink} from '../../../schema/trusted_types_sinks';
 
 import {hasI18nAttrs, I18N_ATTR, I18N_ATTR_PREFIX, icuFromI18nMessage} from './util';
 
@@ -46,6 +49,7 @@ const setI18nRefs: VisitNodeFn = (htmlNode, i18nNode) => {
 export class I18nMetaVisitor implements html.Visitor {
   // whether visited nodes contain i18n information
   public hasI18nMeta: boolean = false;
+  private _errors: I18nError[] = [];
 
   // i18n message generation factory
   private _createI18nMessage = createI18nMessageFactory(this.interpolationConfig);
@@ -62,6 +66,11 @@ export class I18nMetaVisitor implements html.Visitor {
     this._setMessageId(message, meta);
     this._setLegacyIds(message, meta);
     return message;
+  }
+
+  visitAllWithErrors(nodes: html.Node[]): ParseTreeResult {
+    const result = nodes.map(node => node.visit(this, null));
+    return new ParseTreeResult(result, this._errors);
   }
 
   visitElement(element: html.Element): any {
@@ -82,9 +91,13 @@ export class I18nMetaVisitor implements html.Visitor {
 
         } else if (attr.name.startsWith(I18N_ATTR_PREFIX)) {
           // 'i18n-*' attributes
-          const key = attr.name.slice(I18N_ATTR_PREFIX.length);
-          attrsMeta[key] = attr.value;
-
+          const name = attr.name.slice(I18N_ATTR_PREFIX.length);
+          if (isTrustedTypesSink(element.name, name)) {
+            this._reportError(
+                attr, `Translating attribute '${name}' is disallowed for security reasons.`);
+          } else {
+            attrsMeta[name] = attr.value;
+          }
         } else {
           // non-i18n attributes
           attrs.push(attr);
@@ -193,6 +206,10 @@ export class I18nMetaVisitor implements html.Visitor {
       message.legacyIds = previousMessage ? previousMessage.legacyIds : [];
     }
   }
+
+  private _reportError(node: html.Node, msg: string): void {
+    this._errors.push(new I18nError(node.sourceSpan, msg));
+  }
 }
 
 /** I18n separators for metadata **/
@@ -231,7 +248,7 @@ export function parseI18nMeta(meta: string = ''): I18nMeta {
 
 // Converts i18n meta information for a message (id, description, meaning)
 // to a JsDoc statement formatted as expected by the Closure compiler.
-export function i18nMetaToDocStmt(meta: I18nMeta): o.JSDocCommentStmt|null {
+export function i18nMetaToJSDoc(meta: I18nMeta): o.JSDocComment|null {
   const tags: o.JSDocTag[] = [];
   if (meta.description) {
     tags.push({tagName: o.JSDocTagName.Desc, text: meta.description});
@@ -239,5 +256,5 @@ export function i18nMetaToDocStmt(meta: I18nMeta): o.JSDocCommentStmt|null {
   if (meta.meaning) {
     tags.push({tagName: o.JSDocTagName.Meaning, text: meta.meaning});
   }
-  return tags.length == 0 ? null : new o.JSDocCommentStmt(tags);
+  return tags.length == 0 ? null : o.jsDocComment(tags);
 }

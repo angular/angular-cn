@@ -19,8 +19,8 @@ For an example app showcasing all the techniques that NgModules related pages
 cover, see the <live-example></live-example>. For explanations on the individual techniques, visit the relevant NgModule pages under the NgModules
 section.
 
-要想找一个涉及本章所讲的全部技术的范例，参见 <live-example></live-example>。
-要想得到针对单项技术的一些讲解，参见本目录下的相关页面。
+要想找一个涉及本章所讲的全部技术的范例，参阅 <live-example></live-example>。
+要想得到针对单项技术的一些讲解，参阅本目录下的相关页面。
 
 ## Angular modularity
 
@@ -33,7 +33,7 @@ Modules are a great way to organize an application and extend it with capabiliti
 Angular libraries are NgModules, such as `FormsModule`, `HttpClientModule`, and `RouterModule`.
 Many third-party libraries are available as NgModules such as
 <a href="https://material.angular.io/">Material Design</a>,
-<a href="http://ionicframework.com/">Ionic</a>, and
+<a href="https://ionicframework.com/">Ionic</a>, and
 <a href="https://github.com/angular/angularfire2">AngularFire2</a>.
 
 Angular 自己的库都是 NgModule，比如 `FormsModule`、`HttpClientModule` 和 `RouterModule`。
@@ -73,7 +73,7 @@ NgModule 的元数据会做这些：
 
    导入其它带有组件、指令和管道的模块，这些模块中的元件都是本模块所需的。
 
-* Provides services that the other application components can use.
+* Provides services that other application components can use.
 
    提供一些供应用中的其它组件使用的服务。
 
@@ -107,7 +107,7 @@ The [Angular CLI](cli) generates the following basic `AppModule` when creating a
 At the top are the import statements. The next section is where you configure the `@NgModule` by stating what components and directives belong to it (`declarations`) as well as which other modules it uses (`imports`). For more information on the structure of an `@NgModule`, be sure to read [Bootstrapping](guide/bootstrapping).
 
 文件的顶部是一些导入语句。接下来是你配置 `NgModule` 的地方，用于规定哪些组件和指令属于它（`declarations`），以及它使用了哪些其它模块（`imports`）。
-如果要进一步了解 `@NgModule` 的结构，参见[引导](guide/bootstrapping)。
+如果要进一步了解 `@NgModule` 的结构，参阅[引导](guide/bootstrapping)。
 
 <hr />
 

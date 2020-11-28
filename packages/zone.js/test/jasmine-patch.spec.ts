@@ -65,7 +65,7 @@ ifEnvSupports(supportJasmineSpec, () => {
     });
 
     it('should wait for promise to resolve', () => {
-      return new Promise((res, _) => {
+      return new Promise<void>((res, _) => {
         setTimeout(() => {
           log.push('resolved');
           res();
@@ -75,6 +75,16 @@ ifEnvSupports(supportJasmineSpec, () => {
 
     afterEach(() => {
       expect(log).toEqual(['resolved']);
+    });
+  });
+
+  describe('jasmine.createSpyObj', () => {
+    it('createSpyObj with properties should be able to be retrieved from the spy', () => {
+      const spy = jasmine.createSpyObj('obj', ['someFunction'], {prop1: 'foo'});
+      expect(spy.prop1).toEqual('foo');
+      const desc: any = Object.getOwnPropertyDescriptor(spy, 'prop1');
+      expect(desc.enumerable).toBe(true);
+      expect(desc.configurable).toBe(true);
     });
   });
 })();

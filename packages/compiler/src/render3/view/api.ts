@@ -86,12 +86,14 @@ export interface R3DirectiveMetadata {
   };
 
   /**
-   * A mapping of input field names to the property names.
+   * A mapping of inputs from class property names to binding property names, or to a tuple of
+   * binding property name and class property name if the names are different.
    */
   inputs: {[field: string]: string|[string, string]};
 
   /**
-   * A mapping of output field names to the property names.
+   * A mapping of outputs from class property names to binding property names, or to a tuple of
+   * binding property name and class property name if the names are different.
    */
   outputs: {[field: string]: string};
 
@@ -147,7 +149,7 @@ export interface R3ComponentMetadata extends R3DirectiveMetadata {
    * A list of directive selectors and an expression referencing the directive type which are in the
    * scope of the compilation.
    */
-  directives: {selector: string, expression: o.Expression}[];
+  directives: R3UsedDirectiveMetadata[];
 
   /**
    * Whether to wrap the 'directives' and/or `pipes` array, if one is generated, in a closure.
@@ -163,8 +165,6 @@ export interface R3ComponentMetadata extends R3DirectiveMetadata {
 
   /**
    * An encapsulation policy for the template and CSS styles. One of:
-   * - `ViewEncapsulation.Native`: Use shadow roots. This works only if natively available on the
-   *   platform (note that this is marked the as the "deprecated shadow DOM" as of Angular v6.1.
    * - `ViewEncapsulation.Emulated`: Use shimmed CSS that emulates the native behavior.
    * - `ViewEncapsulation.None`: Use global CSS without any encapsulation.
    * - `ViewEncapsulation.ShadowDom`: Use the latest ShadowDOM API to natively encapsulate styles
@@ -204,6 +204,37 @@ export interface R3ComponentMetadata extends R3DirectiveMetadata {
    * Strategy used for detecting changes in the component.
    */
   changeDetection?: ChangeDetectionStrategy;
+}
+
+/**
+ * Information about a directive that is used in a component template. Only the stable, public
+ * facing information of the directive is stored here.
+ */
+export interface R3UsedDirectiveMetadata {
+  /**
+   * The type of the directive as an expression.
+   */
+  type: o.Expression;
+
+  /**
+   * The selector of the directive.
+   */
+  selector: string;
+
+  /**
+   * The binding property names of the inputs of the directive.
+   */
+  inputs: string[];
+
+  /**
+   * The binding property names of the outputs of the directive.
+   */
+  outputs: string[];
+
+  /**
+   * Name under which the directive is exported, if any (exportAs in Angular). Null otherwise.
+   */
+  exportAs: string[]|null;
 }
 
 /**

@@ -25,8 +25,8 @@ export class MockFileSystemWindows extends MockFileSystem {
     return this.normalize(p.win32.join(basePath, ...paths)) as T;
   }
 
-  relative<T extends PathString>(from: T, to: T): PathSegment {
-    return this.normalize(p.win32.relative(from, to)) as PathSegment;
+  relative<T extends PathString>(from: T, to: T): PathSegment|AbsoluteFsPath {
+    return this.normalize(p.win32.relative(from, to)) as PathSegment | AbsoluteFsPath;
   }
 
   basename(filePath: string, extension?: string): PathSegment {
@@ -42,6 +42,6 @@ export class MockFileSystemWindows extends MockFileSystem {
   }
 
   normalize<T extends PathString>(path: T): T {
-    return path.replace(/^[\/\\]/i, 'c:/').replace(/\\/g, '/') as T;
+    return path.replace(/^[\/\\]/i, 'C:/').replace(/\\/g, '/') as T;
   }
 }

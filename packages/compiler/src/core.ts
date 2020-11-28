@@ -22,10 +22,10 @@ export const createInjectionToken = makeMetadataFactory<object>(
     'InjectionToken', (desc: string) => ({_desc: desc, ɵprov: undefined}));
 
 export interface Attribute {
-  attributeName?: string;
+  attributeName: string;
 }
 export const createAttribute =
-    makeMetadataFactory<Attribute>('Attribute', (attributeName?: string) => ({attributeName}));
+    makeMetadataFactory<Attribute>('Attribute', (attributeName: string) => ({attributeName}));
 
 export interface Query {
   descendants: boolean;
@@ -82,7 +82,7 @@ export interface Component extends Directive {
 }
 export enum ViewEncapsulation {
   Emulated = 0,
-  Native = 1,
+  // Historically the 1 value was for `Native` encapsulation which has been removed as of v11.
   None = 2,
   ShadowDom = 3
 }

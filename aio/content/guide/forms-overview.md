@@ -22,7 +22,7 @@ This guide provides information to help you decide which type of form works best
 
 This guide assumes that you have a basic understanding of the following.
 
-本指南假设您对以下内容有基本的了解。
+本指南假设你对以下内容有基本的了解。
 
 * [TypeScript](https://www.typescriptlang.org/docs/home.html "The TypeScript language") and HTML5 programming.
 
@@ -209,7 +209,7 @@ Similarly, when the program logic changes values in the data model, those values
 当应用包含一个表单时，Angular 必须让该视图与组件模型保持同步，并让组件模型与视图保持同步。当用户通过视图更改值并进行选择时，新值必须反映在数据模型中。同样，当程序逻辑改变数据模型中的值时，这些值也必须反映到视图中。
 
 Reactive and template-driven forms differ in how they handle data flowing from the user or from programmatic changes.
-The following diagrams illustrate both kinds of data flow for each type of form, using the a favorite-color input field defined above.
+The following diagrams illustrate both kinds of data flow for each type of form, using the favorite-color input field defined above.
 
 响应式表单和模板驱动表单在处理来自用户或程序化变更时的数据处理方式上有所不同。下面的这些示意图会以上面定义的 `favorite-color` 输入字段为例，分别说明两种表单各自的数据流。
 
@@ -393,7 +393,7 @@ The difference is demonstrated in the previous examples that use the favorite-co
 
 * With template-driven forms, the **favorite color property** is always modified to its new value.
 
-  对于模板驱动的表单，**`favorite-color` 属性**总会被修改为新值。
+  对于模板驱动表单，**`favorite-color` 属性**总会被修改为新值。
 
 {@a validation}
 ## Form validation
@@ -414,7 +414,7 @@ Validation is an integral part of managing any set of forms. Whether you're chec
 
 For more information, see [Form Validation](guide/form-validation).
 
-要了解验证器的更多知识，参见[表单验证](guide/form-validation)。
+要了解验证器的更多知识，参阅[表单验证](guide/form-validation)。
 
 ## Testing
 
@@ -555,7 +555,7 @@ Here are the steps performed in the model to view test.
 
 To learn more about reactive forms, see the following guides:
 
-要进一步了解响应式表单，参见下列章节：
+要进一步了解响应式表单，参阅下列章节：
 
 * [Reactive forms](guide/reactive-forms)
 
@@ -571,7 +571,7 @@ To learn more about reactive forms, see the following guides:
 
 To learn more about template-driven forms, see the following guides:
 
-要进一步了解模板驱动表单，参见下列章节：
+要进一步了解模板驱动表单，参阅下列章节：
 
 * [Building a template-driven form](guide/forms) tutorial
 

@@ -35,8 +35,11 @@ export class LowerCasePipe implements PipeTransform {
    *
    * 要转换成小写形式的字符串。
    */
-  transform(value: string): string {
-    if (!value) return value;
+  transform(value: string): string;
+  transform(value: null|undefined): null;
+  transform(value: string|null|undefined): string|null;
+  transform(value: string|null|undefined): string|null {
+    if (value == null) return null;
     if (typeof value !== 'string') {
       throw invalidPipeArgumentError(LowerCasePipe, value);
     }
@@ -47,7 +50,7 @@ export class LowerCasePipe implements PipeTransform {
 //
 // Regex below matches any Unicode word and compatible with ES5. In ES2018 the same result
 // can be achieved by using /\p{L}\S*/gu and also known as Unicode Property Escapes
-// (http://2ality.com/2017/07/regexp-unicode-property-escapes.html). Since there is no
+// (https://2ality.com/2017/07/regexp-unicode-property-escapes.html). Since there is no
 // transpilation of this functionality down to ES5 without external tool, the only solution is
 // to use already transpiled form. Example can be found here -
 // https://mothereff.in/regexpu#input=var+regex+%3D+/%5Cp%7BL%7D/u%3B&unicodePropertyEscape=1
@@ -86,8 +89,11 @@ export class TitleCasePipe implements PipeTransform {
    *
    * 要转换成标题形式的字符串。
    */
-  transform(value: string): string {
-    if (!value) return value;
+  transform(value: string): string;
+  transform(value: null|undefined): null;
+  transform(value: string|null|undefined): string|null;
+  transform(value: string|null|undefined): string|null {
+    if (value == null) return null;
     if (typeof value !== 'string') {
       throw invalidPipeArgumentError(TitleCasePipe, value);
     }
@@ -115,8 +121,11 @@ export class UpperCasePipe implements PipeTransform {
    *
    * 要转换成大写的字符串。
    */
-  transform(value: string): string {
-    if (!value) return value;
+  transform(value: string): string;
+  transform(value: null|undefined): null;
+  transform(value: string|null|undefined): string|null;
+  transform(value: string|null|undefined): string|null {
+    if (value == null) return null;
     if (typeof value !== 'string') {
       throw invalidPipeArgumentError(UpperCasePipe, value);
     }

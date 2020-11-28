@@ -43,7 +43,7 @@ to provide the service in the application root.
 For more detailed information on services, see the [Services](tutorial/toh-pt4) chapter of the
 [Tour of Heroes tutorial](tutorial).
 
-要想深入了解关于服务的信息，参见[《英雄指南》教程](tutorial)中的[服务](tutorial/toh-pt4)一章。
+要想深入了解关于服务的信息，参阅[《英雄之旅》教程](tutorial)中的[服务](tutorial/toh-pt4)一章。
 
 ### NgModule `providers` array
 
@@ -103,7 +103,7 @@ There are multiple ways to prevent this:
 
 **Note:** There are two example apps where you can see this scenario; the more advanced <live-example noDownload name="ngmodules">NgModules live example</live-example>, which contains `forRoot()` and `forChild()` in the routing modules and the `GreetingModule`, and the simpler <live-example name="lazy-loading-ngmodules" noDownload>Lazy Loading live example</live-example>. For an introductory explanation see the [Lazy Loading Feature Modules](guide/lazy-loading-ngmodules) guide.
 
-**注意：**有两个范例应用可以让你查看这种情况，更高级的方式参见 <live-example noDownload name="ngmodules">NgModules 现场演练</live-example>，它在路由模块中包含 `forRoot()` 和 `forChild()`，而 `GreetingModule` 是一个比较简单的<live-example name="lazy-loading-ngmodules" noDownload>惰性加载范例</live-example>。在[惰性加载模块](guide/lazy-loading-ngmodules)中有简要的解释。
+**注意：**有两个范例应用可以让你查看这种情况，更高级的方式参阅 <live-example noDownload name="ngmodules">NgModules 现场演练</live-example>，它在路由模块中包含 `forRoot()` 和 `forChild()`，而 `GreetingModule` 是一个比较简单的<live-example name="lazy-loading-ngmodules" noDownload>惰性加载范例</live-example>。在[惰性加载模块](guide/lazy-loading-ngmodules)中有简要的解释。
 
 </div>
 
@@ -204,7 +204,7 @@ Here's `forRoot()` that takes a `UserServiceConfig` object:
 Lastly, call it within the `imports` list of the `AppModule`. In the following
 snippet, other parts of the file are left out. For the complete file, see the <live-example name="ngmodules"></live-example>, or continue to the next section of this document.
 
-最后，在 `AppModule` 的 `imports`*列表*中调用它。在下面的代码片段中，省略了文件的另一部分。要查看完整文件，参见 <live-example name="ngmodules"></live-example> 或继续阅读本文档的后续章节。
+最后，在 `AppModule` 的 `imports`*列表*中调用它。在下面的代码片段中，省略了文件的另一部分。要查看完整文件，参阅 <live-example name="ngmodules"></live-example> 或继续阅读本文档的后续章节。
 
 <code-example path="ngmodules/src/app/app.module.ts" region="import-for-root" header="src/app/app.module.ts (imports)"></code-example>
 

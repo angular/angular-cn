@@ -2,8 +2,8 @@
 
 # 用管道转换数据
 
-Use [pipes](guide/glossary#pipe "Definition of a pipe") to transform and format strings, currency amounts, dates, and other display data.
-Pipes are simple functions you can use in [template expressions](/guide/glossary#template-expression "Definition of template expression") to accept an input value and return a transformed value.
+Use [pipes](guide/glossary#pipe "Definition of a pipe") to transform strings, currency amounts, dates, and other data for display.
+Pipes are simple functions you can use in [template expressions](/guide/glossary#template-expression "Definition of template expression") to accept an input value and return a transformed value. Pipes are useful because you can use them throughout your application, while only declaring each pipe once.
 For example, you would use a pipe to show a date as **April 15, 1988** rather than the raw string format.
 
 [管道](guide/glossary#pipe "管道的定义")用来对字符串、货币金额、日期和其他显示数据进行转换和格式化。管道是一些简单的函数，可以在[模板表达式](/guide/glossary#template-expression "模板表达式的定义")中用来接受输入值并返回一个转换后的值。例如，你可以使用一个管道把日期显示为 **1988 年 4 月 15 日**，而不是其原始字符串格式。
@@ -12,7 +12,7 @@ For example, you would use a pipe to show a date as **April 15, 1988** rather th
 
   For the sample app used in this topic, see the <live-example></live-example>.
 
-  本主题中使用的范例应用，参见<live-example></live-example>。
+  本主题中使用的范例应用，参阅<live-example></live-example>。
 
 </div>
 
@@ -49,11 +49,11 @@ Angular 为典型的数据转换提供了内置的管道，包括国际化的转
 
 * For a complete list of built-in pipes, see the [pipes API documentation](/api/common#pipes "Pipes API reference summary").
 
-  有关内置管道的完整列表，请参阅[管道 API 文档](/api/common#pipes "管道 API 参考总结") 。
+  关于内置管道的完整列表，请参阅[管道 API 文档](/api/common#pipes "管道 API 参考总结") 。
 
 * To learn more about using pipes for internationalization (i18n) efforts, see [formatting data based on locale](/guide/i18n#i18n-pipes "Formatting data based on locale").
 
-  要了解有关使用管道进行国际化（i18n）工作的更多信息，请参阅[根据本地环境格式化数据](/guide/i18n#i18n-pipes "根据本地环境格式化数据") 。
+  要了解关于使用管道进行国际化（i18n）工作的更多信息，请参阅[根据本地环境格式化数据](/guide/i18n#i18n-pipes "根据本地环境格式化数据") 。
 
 </div>
 
@@ -110,15 +110,13 @@ The tabs in the example show the following:
   </code-pane>
 </code-tabs>
 
-The component's `birthday` value flows through the
-[pipe operator](guide/template-syntax#pipe) ( | ) to the [`date`](api/common/DatePipe)
-function.
+The component's `birthday` value flows through the pipe operator, `|` to the [`date`](api/common/DatePipe) function.
 
-该组件的 `birthday` 值通过[管道操作符](guide/template-syntax#pipe)（|）流向 [`date`](api/common/DatePipe) 函数。
+该组件的 `birthday` 值通过管道操作符（|）流向 [`date`](api/common/DatePipe) 函数。
 
 {@a parameterizing-a-pipe}
 
-## Formatting data with parameters and chained pipes
+## Transforming data with parameters and chained pipes
 
 ## 使用参数和管道链来格式化数据
 
@@ -140,7 +138,7 @@ Some pipes require at least one parameter and allow more optional parameters, su
 
 ### Example: Formatting a date
 
-### 示例：格式化日期
+### 范例：格式化日期
 
 The tabs in the following example demonstrates toggling between two different formats (`'shortDate'` and `'fullDate'`):
 
@@ -193,13 +191,13 @@ Clicking the **Toggle Format** button alternates the date format between **04/15
 
 For `date` pipe format options, see [DatePipe](api/common/DatePipe "DatePipe API Reference page").
 
-关于 `date` 管道的格式选项，参见 [DatePipe](api/common/DatePipe "DatePipe API 参考手册页面") 。
+关于 `date` 管道的格式选项，参阅 [DatePipe](api/common/DatePipe "DatePipe API 参考手册页面") 。
 
 </div>
 
 ### Example: Applying two formats by chaining pipes
 
-### 示例：通过串联管道应用两种格式
+### 范例：通过串联管道应用两种格式
 
 You can chain pipes so that the output of one pipe becomes the input to the next.
 
@@ -209,7 +207,7 @@ In the following example, chained pipes first apply a format to a date value, th
 The first tab for the `src/app/app.component.html` template chains `DatePipe` and `UpperCasePipe` to display the birthday as **APR 15, 1988**.
 The second tab for the `src/app/app.component.html` template passes the `fullDate` parameter to `date` before chaining to `uppercase`, which produces **FRIDAY, APRIL 15, 1988**.
 
-在下面的示例中，串联管道首先将格式应用于一个日期值，然后将格式化之后的日期转换为大写字符。 `src/app/app.component.html` 模板的第一个标签页把 `DatePipe` 和 `UpperCasePipe` 的串联起来，将其显示为 **APR 15, 1988**。`src/app/app.component.html` 模板的第二个标签页在串联 `uppercase` 之前，还把 `fullDate` 参数传递给了 `date`，将其显示为 **FRIDAY, APRIL 15, 1988**。
+在下面的范例中，串联管道首先将格式应用于一个日期值，然后将格式化之后的日期转换为大写字符。 `src/app/app.component.html` 模板的第一个标签页把 `DatePipe` 和 `UpperCasePipe` 的串联起来，将其显示为 **APR 15, 1988**。`src/app/app.component.html` 模板的第二个标签页在串联 `uppercase` 之前，还把 `fullDate` 参数传给了 `date`，将其显示为 **FRIDAY, APRIL 15, 1988**。
 
 <code-tabs>
   <code-pane
@@ -244,7 +242,7 @@ Use [UpperCamelCase](guide/glossary#case-types "Definition of case types") (the 
 Do not use hyphens in the `name`.
 For details and more examples, see [Pipe names](guide/styleguide#pipe-names "Pipe names in the Angular coding style guide").
 
-要把类标记为管道并提供配置元数据，请把 [`@Pipe`](/api/core/Pipe "Pipe 的 API 引用") [装饰器](/guide/glossary#decorator--decoration "装饰器的定义")应用到这个类上。管道类名是 [UpperCamelCase](guide/glossary#case-types "案例类型的定义")（类名的一般约定），相应的 `name` 字符串是 [camelCase](guide/glossary#case-types "案例类型的定义") 的。不要在 `name` 中使用连字符。详细信息和更多示例，请参阅[管道名称](guide/styleguide#pipe-names "Angular 编码风格指南中的管道名称") 。
+要把类标记为管道并提供配置元数据，请把 [`@Pipe`](/api/core/Pipe "Pipe 的 API 引用") [装饰器](/guide/glossary#decorator--decoration "装饰器的定义")应用到这个类上。管道类名是 [UpperCamelCase](guide/glossary#case-types "案例类型的定义")（类名的一般约定），相应的 `name` 字符串是 [camelCase](guide/glossary#case-types "案例类型的定义") 的。不要在 `name` 中使用连字符。详细信息和更多范例，请参阅[管道名称](guide/styleguide#pipe-names "Angular 编码风格指南中的管道名称") 。
 
 Use `name` in template expressions as you would for a built-in pipe.
 
@@ -254,7 +252,7 @@ Use `name` in template expressions as you would for a built-in pipe.
 
 * Include your pipe in the `declarations` field of the `NgModule` metadata in order for it to be available to a template. See the `app.module.ts` file in the example app (<live-example></live-example>). For details, see [NgModules](guide/ngmodules "NgModules introduction").
 
-  把你的管道包含在 `NgModule` 元数据的 `declarations` 字段中，以便它能用于模板。请查看示例应用中的 `app.module.ts` 文件（<live-example></live-example>）。有关详细信息，请参阅 [NgModules](guide/ngmodules "NgModules 简介") 。
+  把你的管道包含在 `NgModule` 元数据的 `declarations` 字段中，以便它能用于模板。请查看范例应用中的 `app.module.ts` 文件（<live-example></live-example>）。有关详细信息，请参阅 [NgModules](guide/ngmodules "NgModules 简介") 。
 
 * Register your custom pipes. The [Angular CLI](cli "CLI Overview and Command Reference") [`ng generate pipe`](cli/generate#pipe "ng generate pipe in the CLI Command Reference") command registers the pipe automatically.
 
@@ -276,7 +274,7 @@ Angular 调用 `transform` 方法，该方法使用绑定的值作为第一个�
 
 ### Example: Transforming a value exponentially
 
-### 示例：指数级转换
+### 范例：指数级转换
 
 In a game, you may want to implement a transformation that raises a value exponentially to increase a hero's power.
 For example, if the hero's score is 2, boosting the hero's power exponentially by 10 produces a score of 1024.
@@ -286,12 +284,12 @@ You can use a custom pipe for this transformation.
 
 The following code example shows two component definitions:
 
-下列代码示例显示了两个组件定义：
+下列代码范例显示了两个组件定义：
 
 * The `exponential-strength.pipe.ts` component defines a custom pipe named `exponentialStrength` with the `transform` method that performs the transformation.
 It defines an argument to the `transform` method (`exponent`) for a parameter passed to the pipe.
 
-  `exponential-strength.pipe.ts` 通过一个执行转换的 `transform` 方法定义了一个名为 `exponentialStrength` 的自定义管道。它为传递给管道的参数定义了 `transform` 方法的一个参数（`exponent`）。
+  `exponential-strength.pipe.ts` 通过一个执行转换的 `transform` 方法定义了一个名为 `exponentialStrength` 的自定义管道。它为传给管道的参数定义了 `transform` 方法的一个参数（`exponent`）。
 
 * The `power-booster.component.ts` component demonstrates how to use the pipe, specifying a value (`2`) and the exponent parameter (`10`).
 Figure 2 shows the output.
@@ -338,7 +336,7 @@ If the data is a primitive input value, such as `String` or `Number`, or an obje
 
 For example, you could change the previous custom pipe example to use two-way data binding with `ngModel` to input the amount and boost factor, as shown in the following code example.
 
-比如，你可以修改前面的自定义管道示例，通过 `ngModel` 的双向绑定来输入数量和提升因子，如下面的代码示例所示。
+比如，你可以修改前面的自定义管道范例，通过 `ngModel` 的双向绑定来输入数量和提升因子，如下面的代码范例所示。
 
 <code-example path="pipes/src/app/power-boost-calculator.component.ts" header="src/app/power-boost-calculator.component.ts">
 
@@ -370,7 +368,7 @@ Angular looks for changes to data-bound values in a [change detection](guide/glo
 The following example, which doesn't use a pipe, demonstrates how Angular uses its default change detection strategy to monitor and update its display of every hero in the `heroes` array.
 The example tabs show the following:
 
-Angular 会在每次 DOM 事件（每次按键、鼠标移动、计时器滴答和服务器响应）之后运行的[变更检测](guide/glossary#change-detection "变更检测的定义")过程中查找对数据绑定值的[更改](guide/glossary#change-detection "变更检测的定义")。下面这段不使用管道的例子演示了 Angular 如何利用默认的变更检测策略来监控和更新 `heroes` 数组中每个英雄的显示效果。示例显示如下：
+Angular 会在每次 DOM 事件（每次按键、鼠标移动、计时器滴答和服务器响应）之后运行的[变更检测](guide/glossary#change-detection "变更检测的定义")过程中查找对数据绑定值的[更改](guide/glossary#change-detection "变更检测的定义")。下面这段不使用管道的例子演示了 Angular 如何利用默认的变更检测策略来监控和更新 `heroes` 数组中每个英雄的显示效果。范例显示如下：
 
 * In the `flying-heroes.component.html (v1)` template, the `*ngFor` repeater displays the hero names.
 
@@ -570,7 +568,7 @@ As shown in the code below, only the pipe in the template changes.
 
 [Observables](/guide/glossary#observable "Definition of observable") let you pass messages between parts of your application.
 Observables are recommended for event handling, asynchronous programming, and handling multiple values.
-Observables can deliver single or multiple values of any type, either synchronously (as a function delivers a value to its caller) or asynchronously on a schedule. 
+Observables can deliver single or multiple values of any type, either synchronously (as a function delivers a value to its caller) or asynchronously on a schedule.
 
 [可观察对象](/guide/glossary#observable "可观察对象的定义")能让你在应用的各个部分之间传递消息。建议在事件处理、异步编程以及处理多个值时使用这些可观察对象。可观察对象可以提供任意类型的单个或多个值，可以是同步的（作为一个函数为它的调用者提供一个值），也可以是异步的。
 
@@ -578,7 +576,7 @@ Observables can deliver single or multiple values of any type, either synchronou
 
 For details and examples of observables, see the [Observables Overview](/guide/observables#using-observables-to-pass-values "Using observables to pass values"").
 
-有关可观察对象的详细信息和示例，请参阅[可观察对象概览](/guide/observables#using-observables-to-pass-values "使用可观察对象传递值“")。
+关于可观察对象的详细信息和范例，请参阅[可观察对象概览](/guide/observables#using-observables-to-pass-values "使用可观察对象传递值“")。
 
 </div>
 
@@ -590,7 +588,7 @@ Without this pipe, your component code would have to subscribe to the observable
 The following code example binds an observable of message strings
 (`message$`) to a view with the `async` pipe.
 
-下列代码示例使用 `async` 管道将带有消息字符串（ `message$` ）的可观察对象绑定到视图中。
+下列代码范例使用 `async` 管道将带有消息字符串（ `message$` ）的可观察对象绑定到视图中。
 
 <code-example path="pipes/src/app/hero-async-message.component.ts" header="src/app/hero-async-message.component.ts">
 
@@ -603,7 +601,7 @@ The following code example binds an observable of message strings
 ## 缓存 HTTP 请求
 
 To [communicate with backend services using HTTP](/guide/http "Communicating with backend services using HTTP"), the `HttpClient` service uses observables and offers the `HTTPClient.get()` method to fetch data from a server.
-The aynchronous method sends an HTTP request, and returns an observable that emits the requested data for the response.
+The asynchronous method sends an HTTP request, and returns an observable that emits the requested data for the response.
 
 为了[使用 HTTP 与后端服务进行通信](/guide/http "使用 HTTP 与后端服务进行通信")，`HttpClient` 服务使用了可观察对象，并提供了 `HTTPClient.get()` 方法来从服务器获取数据。这个异步方法会发送一个 HTTP 请求，并返回一个可观察对象，它会发出请求到的响应数据。
 
@@ -668,3 +666,19 @@ The built-in [JsonPipe](api/common/JsonPipe "API description for JsonPipe") prov
 内置的 [JsonPipe](api/common/JsonPipe "JsonPipe 的 API 描述") 提供了一种方法来诊断一个离奇失败的数据绑定，或用来检查一个对象是否能用于将来的绑定。
 
 </div>
+
+## Pipes and precedence
+
+## 管道的优先级
+
+The pipe operator has a higher precedence than the ternary operator (`?:`), which means `a ? b : c | x` is parsed as `a ? b : (c | x)`.
+The pipe operator cannot be used without parentheses in the first and second operands of `?:`.
+
+管道操作符要比三目运算符(`?:`)的优先级高，这意味着 `a ? b : c | x` 会被解析成 `a ? b : (c | x)`。
+
+Due to precedence, if you want a pipe to apply to the result of a ternary, wrap the entire expression in parentheses; for example, `(a ? b : c) | x`.
+
+由于这种优先级设定，如果你要用管道处理三目元算符的结果，就要把整个表达式包裹在括号中，比如 `(a ? b : c) | x`。
+
+<code-example path="pipes/src/app/precedence.component.html" region="precedence" header="src/app/precedence.component.html">
+</code-example>

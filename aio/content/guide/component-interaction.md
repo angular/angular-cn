@@ -41,7 +41,7 @@ in which two or more components share information.
 
 **See the <live-example name="component-interaction"></live-example>**.
 
-**参见<live-example name="component-interaction"></live-example>**。
+**参阅<live-example name="component-interaction"></live-example>**。
 
 {@a parent-to-child}
 
@@ -50,9 +50,9 @@ in which two or more components share information.
 ## 通过输入型绑定把数据从父组件传到子组件。
 
 `HeroChildComponent` has two ***input properties***,
-typically adorned with [@Input decorations](guide/template-syntax#inputs-outputs).
+typically adorned with [@Input() decorator](guide/inputs-outputs#input).
 
-`HeroChildComponent` 有两个***输入型属性***，它们通常带[@Input 装饰器](guide/template-syntax#inputs-outputs)。
+`HeroChildComponent` 有两个***输入型属性***，它们通常带[@Input 装饰器](guide/inputs-outputs#input)。
 
 <code-example path="component-interaction/src/app/hero-child.component.ts" header="component-interaction/src/app/hero-child.component.ts">
 
@@ -60,7 +60,7 @@ typically adorned with [@Input decorations](guide/template-syntax#inputs-outputs
 
 The second `@Input` aliases the child component property name `masterName` as `'master'`.
 
-第二个 `@Input` 为子组件的属性名 `masterName` 指定一个别名 `master`(译者注：不推荐为起别名，请参见风格指南).
+第二个 `@Input` 为子组件的属性名 `masterName` 指定一个别名 `master`(译者注：不推荐为起别名，请参阅风格指南).
 
 The `HeroParentComponent` nests the child `HeroChildComponent` inside an `*ngFor` repeater,
 binding its `master` string property to the child's `master` alias,
@@ -161,7 +161,7 @@ You may prefer this approach to the property setter when watching multiple, inte
 
 Learn about `ngOnChanges()` in the [Lifecycle Hooks](guide/lifecycle-hooks) chapter.
 
-学习关于 `ngOnChanges()` 的更多知识，参见[生命周期钩子](guide/lifecycle-hooks)一章。
+学习关于 `ngOnChanges()` 的更多知识，参阅[生命周期钩子](guide/lifecycle-hooks)一章。
 
 </div>
 
@@ -218,10 +218,10 @@ The parent binds to that event property and reacts to those events.
 子组件暴露一个 `EventEmitter` 属性，当事件发生时，子组件利用该属性 `emits`(向上弹射)事件。父组件绑定到这个事件属性，并在事件发生时作出回应。
 
 The child's `EventEmitter` property is an ***output property***,
-  typically adorned with an [@Output decoration](guide/template-syntax#inputs-outputs)
+  typically adorned with an [@Output() decorator](guide/inputs-outputs#output)
   as seen in this `VoterComponent`:
 
-子组件的 `EventEmitter` 属性是一个**输出属性**，通常带有[@Output 装饰器](guide/template-syntax#inputs-outputs)，就像在 `VoterComponent` 中看到的。
+子组件的 `EventEmitter` 属性是一个**输出属性**，通常带有[@Output 装饰器](guide/inputs-outputs#output)，就像在 `VoterComponent` 中看到的。
 
 <code-example path="component-interaction/src/app/voter.component.ts" header="component-interaction/src/app/voter.component.ts">
 

@@ -13,7 +13,7 @@ and place that component in the application shell.
 
   For the sample app that this page describes, see the <live-example></live-example>.
 
-  要查看本页所讲的范例程序，参见<live-example></live-example>。
+  要查看本页所讲的范例程序，参阅<live-example></live-example>。
 
 </div>
 
@@ -351,6 +351,8 @@ Note that `AppModule`  declares both application components, `AppComponent` and 
 注意 `AppModule` 声明了应用中的所有组件，`AppComponent` 和 `HeroesComponent`。
 
 ## Final code review
+
+## 查看最终代码
 
 Your app should look like this <live-example></live-example>. Here are the code files discussed on this page.
 

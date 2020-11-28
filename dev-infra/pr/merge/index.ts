@@ -7,16 +7,14 @@
  */
 
 
-import {getRepoBaseDir} from '../../utils/config';
+import {getConfig, getRepoBaseDir} from '../../utils/config';
 import {error, green, info, promptConfirm, red, yellow} from '../../utils/console';
-import {GithubApiRequestError} from '../../utils/git';
+import {GithubApiRequestError} from '../../utils/git/github';
+import {GITHUB_TOKEN_GENERATE_URL} from '../../utils/git/github-urls';
+import {GitClient} from '../../utils/git/index';
 
 import {loadAndValidateConfig, MergeConfigWithRemote} from './config';
 import {MergeResult, MergeStatus, PullRequestMergeTask} from './task';
-
-/** URL to the Github page where personal access tokens can be generated. */
-export const GITHUB_TOKEN_GENERATE_URL = `https://github.com/settings/tokens`;
-
 
 /**
  * Merges a given pull request based on labels configured in the given merge configuration.
@@ -34,19 +32,11 @@ export const GITHUB_TOKEN_GENERATE_URL = `https://github.com/settings/tokens`;
 export async function mergePullRequest(
     prNumber: number, githubToken: string, projectRoot: string = getRepoBaseDir(),
     config?: MergeConfigWithRemote) {
-  // If no explicit configuration has been specified, we load and validate
-  // the configuration from the shared dev-infra configuration.
-  if (config === undefined) {
-    const {config: _config, errors} = loadAndValidateConfig();
-    if (errors) {
-      error(red('Invalid configuration:'));
-      errors.forEach(desc => error(yellow(`  -  ${desc}`)));
-      process.exit(1);
-    }
-    config = _config!;
-  }
+  // Set the environment variable to skip all git commit hooks triggered by husky. We are unable to
+  // rely on `--no-verify` as some hooks still run, notably the `prepare-commit-msg` hook.
+  process.env['HUSKY_SKIP_HOOKS'] = '1';
 
-  const api = new PullRequestMergeTask(projectRoot, config, githubToken);
+  const api = await createPullRequestMergeTask(githubToken, projectRoot, config);
 
   // Perform the merge. Force mode can be activated through a command line flag.
   // Alternatively, if the merge fails with non-fatal failures, the script
@@ -131,4 +121,34 @@ export async function mergePullRequest(
         throw Error(`Unexpected merge result: ${status}`);
     }
   }
+}
+
+/**
+ * Creates the pull request merge task from the given Github token, project root
+ * and optional explicit configuration. An explicit configuration can be specified
+ * when the merge script is used outside of a `ng-dev` configured repository.
+ */
+async function createPullRequestMergeTask(
+    githubToken: string, projectRoot: string, explicitConfig?: MergeConfigWithRemote) {
+  if (explicitConfig !== undefined) {
+    const git = new GitClient(githubToken, {github: explicitConfig.remote}, projectRoot);
+    return new PullRequestMergeTask(explicitConfig, git);
+  }
+
+  const devInfraConfig = getConfig();
+  const git = new GitClient(githubToken, devInfraConfig, projectRoot);
+  const {config, errors} = await loadAndValidateConfig(devInfraConfig, git.github);
+
+  if (errors) {
+    error(red('Invalid merge configuration:'));
+    errors.forEach(desc => error(yellow(`  -  ${desc}`)));
+    process.exit(1);
+  }
+
+  // Set the remote so that the merge tool has access to information about
+  // the remote it intends to merge to.
+  config!.remote = devInfraConfig.github;
+  // We can cast this to a merge config with remote because we always set the
+  // remote above.
+  return new PullRequestMergeTask(config! as MergeConfigWithRemote, git);
 }

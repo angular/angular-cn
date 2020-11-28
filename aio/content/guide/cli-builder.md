@@ -74,14 +74,14 @@ For example, your `myBuilder` folder could contain the following files.
 | `src/my-builder.spec.ts` | 测试的源码。                                                                              |
 | `src/schema.json`        | Definition of builder input options.                                                         |
 | `src/schema.json`        | 构建器输入选项的定义。                                                                     |
-| `builders.json`          | Testing configuration.                                                                       |
+| `builders.json`          | Builders definition.                                                                       |
 | `builders.json`          | 测试配置。                                                                                  |
 | `package.json`           | Dependencies. See <https://docs.npmjs.com/files/package.json>.                               |
-| `package.json`           | 依赖包。参见<https://docs.npmjs.com/files/package.json>。                                  |
+| `package.json`           | 依赖包。参阅<https://docs.npmjs.com/files/package.json>。                                  |
 | `tsconfig.json`          | [TypeScript configuration](https://www.typescriptlang.org/docs/handbook/tsconfig-json.html). |
 | `tsconfig.json`          | [TypeScript 配置文件](https://www.typescriptlang.org/docs/handbook/tsconfig-json.html)        |
 
-You can publish the builder to `npm` (see [Publishing your Library](https://angular.io/guide/creating-libraries#publishing-your-library)). If you publish it as `@example/my-builder`, you can install it using the following command.
+You can publish the builder to `npm` (see [Publishing your Library](guide/creating-libraries#publishing-your-library)). If you publish it as `@example/my-builder`, you can install it using the following command.
 
 你可以把构建器发布到 `npm`（请参阅[发布你的库](guide/creating-libraries#publishing-your-library)）。如果把它发布成了 `@example/my-builder`，就可以使用下面的命令来安装它。
 
@@ -190,7 +190,7 @@ The Architect tool collects the resolved input values into an `options` object, 
 
 For our example builder, we expect the `options` value to be a `JsonObject` with two keys: a `command` that is a string, and an `args` array of string values.
 
-对于这个示例构建器，我们希望 `options` 值是带有两个键的 `JsonObject`：一个是字符串型的 `command`，一个是字符串数组型的 `args`。
+对于这个范例构建器，我们希望 `options` 值是带有两个键的 `JsonObject`：一个是字符串型的 `command`，一个是字符串数组型的 `args`。
 
 We can provide the following schema for type validation of these values.
 
@@ -479,7 +479,7 @@ We need to update the `angular.json` file to add a target for this builder to th
 
 * The target named "touch" uses our builder, which we published to `@example/command-runner`. (See [Publishing your Library](guide/creating-libraries#publishing-your-library))
 
-  名为 `touch` 的目标使用了我们的构建器，它发布到了 `@example/command-runner`。（参见[发布你的库](guide/creating-libraries#publishing-your-library) ）
+  名为 `touch` 的目标使用了我们的构建器，它发布到了 `@example/command-runner`。（参阅[发布你的库](guide/creating-libraries#publishing-your-library) ）
 
 * The options object provides default values for the two inputs that we defined; `command`, which is the Unix command to execute, and `args`, an array that contains the file to operate on.
 
@@ -614,7 +614,7 @@ Architect can support watch mode, but there are some things to look out for.
 
 * To be used with watch mode, a builder handler function should return an Observable. Architect subscribes to the Observable until it completes and might reuse it if the builder is scheduled again with the same arguments.
 
-  要在监视模式下使用，构建器处理函数应返回一个 Observable。建筑师会订阅这个 Observable，直到这个 Observable 完成（complete）为止。此外，如果使用相同的参数再次调度这个构建器，建筑师还能重用这个 Observable。
+  要在监视模式下使用，构建器处理函数应返回一个 Observable。建筑师会订阅这个 Observable，直到这个 Observable 完成（complete）为止。此外，如果使用相同的参数再次调度这个构建器，建筑师还能复用这个 Observable。
 
 * The builder should always emit a `BuilderOutput` object after each execution. Once it’s been executed, it can enter a watch mode, to be triggered by an external event. If an event triggers it to restart, the builder should execute the `BuilderContext.reportRunning()` function to tell Architect that it is running again. This prevents Architect from stopping the builder if another run is scheduled.
 

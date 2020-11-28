@@ -8,7 +8,7 @@
 
 import {ASTWithSource, BindingPipe, Interpolation, ParserError, TemplateBinding, VariableBinding} from '@angular/compiler/src/expression_parser/ast';
 import {Lexer} from '@angular/compiler/src/expression_parser/lexer';
-import {Parser, SplitInterpolation} from '@angular/compiler/src/expression_parser/parser';
+import {IvyParser, Parser, SplitInterpolation} from '@angular/compiler/src/expression_parser/parser';
 import {expect} from '@angular/platform-browser/testing/src/matchers';
 
 
@@ -34,11 +34,11 @@ describe('parser', () => {
       checkAction('undefined');
     });
 
-    it('should parse unary - expressions', () => {
-      checkAction('-1', '0 - 1');
-      checkAction('+1', '1 - 0');
-      checkAction(`-'1'`, `0 - "1"`);
-      checkAction(`+'1'`, `"1" - 0`);
+    it('should parse unary - and + expressions', () => {
+      checkAction('-1', '-1');
+      checkAction('+1', '+1');
+      checkAction(`-'1'`, `-"1"`);
+      checkAction(`+'1'`, `+"1"`);
     });
 
     it('should parse unary ! expressions', () => {
@@ -128,14 +128,53 @@ describe('parser', () => {
       });
 
       it('should only allow identifier or keyword as member names', () => {
-        expectActionError('x.(', 'identifier or keyword');
-        expectActionError('x. 1234', 'identifier or keyword');
-        expectActionError('x."foo"', 'identifier or keyword');
+        checkActionWithError('x.', 'x.', 'identifier or keyword');
+        checkActionWithError('x.(', 'x.', 'identifier or keyword');
+        checkActionWithError('x. 1234', 'x.', 'identifier or keyword');
+        checkActionWithError('x."foo"', 'x.', 'identifier or keyword');
       });
 
       it('should parse safe field access', () => {
         checkAction('a?.a');
         checkAction('a.a?.a');
+      });
+
+      it('should parse incomplete safe field accesses', () => {
+        checkActionWithError('a?.a.', 'a?.a.', 'identifier or keyword');
+        checkActionWithError('a.a?.a.', 'a.a?.a.', 'identifier or keyword');
+        checkActionWithError('a.a?.a?. 1234', 'a.a?.a?.', 'identifier or keyword');
+      });
+    });
+
+    describe('property write', () => {
+      it('should parse property writes', () => {
+        checkAction('a.a = 1 + 2');
+        checkAction('this.a.a = 1 + 2', 'a.a = 1 + 2');
+        checkAction('a.a.a = 1 + 2');
+      });
+
+      describe('malformed property writes', () => {
+        it('should recover on empty rvalues', () => {
+          checkActionWithError('a.a = ', 'a.a = ', 'Unexpected end of expression');
+        });
+
+        it('should recover on incomplete rvalues', () => {
+          checkActionWithError('a.a = 1 + ', 'a.a = 1 + ', 'Unexpected end of expression');
+        });
+
+        it('should recover on missing properties', () => {
+          checkActionWithError(
+              'a. = 1', 'a. = 1', 'Expected identifier for property access at column 2');
+        });
+
+        it('should error on writes after a property write', () => {
+          const ast = parseAction('a.a = 1 = 2');
+          expect(unparse(ast)).toEqual('a.a = 1');
+          validate(ast);
+
+          expect(ast.errors.length).toBe(1);
+          expect(ast.errors[0].message).toContain('Unexpected token \'=\'');
+        });
       });
     });
 
@@ -151,6 +190,84 @@ describe('parser', () => {
     describe('functional calls', () => {
       it('should parse function calls', () => {
         checkAction('fn()(1, 2)');
+      });
+    });
+
+    describe('keyed read', () => {
+      it('should parse keyed reads', () => {
+        checkAction('a["a"]');
+        checkAction('this.a["a"]', 'a["a"]');
+        checkAction('a.a["a"]');
+      });
+
+      describe('malformed keyed reads', () => {
+        it('should recover on missing keys', () => {
+          checkActionWithError('a[]', 'a[]', 'Key access cannot be empty');
+        });
+
+        it('should recover on incomplete expression keys', () => {
+          checkActionWithError('a[1 + ]', 'a[1 + ]', 'Unexpected token ]');
+        });
+
+        it('should recover on unterminated keys', () => {
+          checkActionWithError(
+              'a[1 + 2', 'a[1 + 2]', 'Missing expected ] at the end of the expression');
+        });
+
+        it('should recover on incomplete and unterminated keys', () => {
+          checkActionWithError(
+              'a[1 + ', 'a[1 + ]', 'Missing expected ] at the end of the expression');
+        });
+      });
+    });
+
+    describe('keyed write', () => {
+      it('should parse keyed writes', () => {
+        checkAction('a["a"] = 1 + 2');
+        checkAction('this.a["a"] = 1 + 2', 'a["a"] = 1 + 2');
+        checkAction('a.a["a"] = 1 + 2');
+      });
+
+      describe('malformed keyed writes', () => {
+        it('should recover on empty rvalues', () => {
+          checkActionWithError('a["a"] = ', 'a["a"] = ', 'Unexpected end of expression');
+        });
+
+        it('should recover on incomplete rvalues', () => {
+          checkActionWithError('a["a"] = 1 + ', 'a["a"] = 1 + ', 'Unexpected end of expression');
+        });
+
+        it('should recover on missing keys', () => {
+          checkActionWithError('a[] = 1', 'a[] = 1', 'Key access cannot be empty');
+        });
+
+        it('should recover on incomplete expression keys', () => {
+          checkActionWithError('a[1 + ] = 1', 'a[1 + ] = 1', 'Unexpected token ]');
+        });
+
+        it('should recover on unterminated keys', () => {
+          checkActionWithError('a[1 + 2 = 1', 'a[1 + 2] = 1', 'Missing expected ]');
+        });
+
+        it('should recover on incomplete and unterminated keys', () => {
+          const ast = parseAction('a[1 + = 1');
+          expect(unparse(ast)).toEqual('a[1 + ] = 1');
+          validate(ast);
+
+          const errors = ast.errors.map(e => e.message);
+          expect(errors.length).toBe(2);
+          expect(errors[0]).toContain('Unexpected token =');
+          expect(errors[1]).toContain('Missing expected ]');
+        });
+
+        it('should error on writes after a keyed write', () => {
+          const ast = parseAction('a[1] = 1 = 2');
+          expect(unparse(ast)).toEqual('a[1] = 1');
+          validate(ast);
+
+          expect(ast.errors.length).toBe(1);
+          expect(ast.errors[0].message).toContain('Unexpected token \'=\'');
+        });
       });
     });
 
@@ -274,6 +391,54 @@ describe('parser', () => {
         checkBinding('true | a', '(true | a)');
         checkBinding('a | b:c | d', '((a | b:c) | d)');
         checkBinding('a | b:(c | d)', '(a | b:(c | d))');
+      });
+
+      describe('should parse incomplete pipes', () => {
+        const cases: Array<[string, string, string, string]> = [
+          [
+            'should parse missing pipe names: end',
+            'a | b | ',
+            '((a | b) | )',
+            'Unexpected end of input, expected identifier or keyword',
+          ],
+          [
+            'should parse missing pipe names: middle',
+            'a | | b',
+            '((a | ) | b)',
+            'Unexpected token |, expected identifier or keyword',
+          ],
+          [
+            'should parse missing pipe names: start',
+            ' | a | b',
+            '(( | a) | b)',
+            'Unexpected token |',
+          ],
+          [
+            'should parse missing pipe args: end',
+            'a | b | c: ',
+            '((a | b) | c:)',
+            'Unexpected end of expression',
+          ],
+          [
+            'should parse missing pipe args: middle',
+            'a | b: | c',
+            '((a | b:) | c)',
+            'Unexpected token |',
+          ],
+          [
+            'should parse incomplete pipe args',
+            'a | b: (a | ) + | c',
+            '((a | b:(a | ) + ) | c)',
+            'Unexpected token |',
+          ],
+        ];
+
+        for (const [name, input, output, err] of cases) {
+          it(name, () => {
+            checkBinding(input, output);
+            expectBindingError(input, err);
+          });
+        }
       });
 
       it('should only allow identifier or keyword as formatter names', () => {
@@ -614,6 +779,14 @@ describe('parser', () => {
         ]);
       });
 
+      it('should report unexpected token when encountering interpolation', () => {
+        const attr = '*ngIf="name && {{name}}"';
+
+        expectParseTemplateBindingsError(
+            attr,
+            'Parser Error: Unexpected token {, expected identifier, keyword, or string at column 10 in [name && {{name}}] in foo.html');
+      });
+
       it('should map variable declaration via "as"', () => {
         const attr =
             '*ngFor="let item; of items | slice:0:1 as collection, trackBy: func; index as i"';
@@ -650,6 +823,13 @@ describe('parser', () => {
       expect(parseInterpolation('nothing')).toBe(null);
     });
 
+    it('should not parse malformed interpolations as strings', () => {
+      const ast = parseInterpolation('{{a}} {{example}<!--->}')!.ast as Interpolation;
+      expect(ast.strings).toEqual(['', ' {{example}<!--->}']);
+      expect(ast.expressions.length).toEqual(1);
+      expect(ast.expressions[0].name).toEqual('a');
+    });
+
     it('should parse no prefix/suffix interpolation', () => {
       const ast = parseInterpolation('{{a}}')!.ast as Interpolation;
       expect(ast.strings).toEqual(['', '']);
@@ -683,8 +863,7 @@ describe('parser', () => {
 
     it('should support custom interpolation', () => {
       const parser = new Parser(new Lexer());
-      const ast =
-          parser.parseInterpolation('{% a %}', null, 0, {start: '{%', end: '%}'})!.ast as any;
+      const ast = parser.parseInterpolation('{% a %}', '', 0, {start: '{%', end: '%}'})!.ast as any;
       expect(ast.strings).toEqual(['', '']);
       expect(ast.expressions.length).toEqual(1);
       expect(ast.expressions[0].name).toEqual('a');
@@ -740,12 +919,73 @@ describe('parser', () => {
     it('should report when encountering field write', () => {
       expectError(validate(parseSimpleBinding('a = b')), 'Bindings cannot contain assignments');
     });
+
+    describe('Ivy-only validations', () => {
+      it('should throw if a pipe is used inside a conditional', () => {
+        expectError(
+            validate(parseSimpleBindingIvy('(hasId | myPipe) ? "my-id" : ""')),
+            'Host binding expression cannot contain pipes');
+      });
+
+      it('should throw if a pipe is used inside a function call', () => {
+        expectError(
+            validate(parseSimpleBindingIvy('getId(true, id | myPipe)')),
+            'Host binding expression cannot contain pipes');
+      });
+
+      it('should throw if a pipe is used inside a method call', () => {
+        expectError(
+            validate(parseSimpleBindingIvy('idService.getId(true, id | myPipe)')),
+            'Host binding expression cannot contain pipes');
+      });
+
+      it('should throw if a pipe is used inside a safe method call', () => {
+        expectError(
+            validate(parseSimpleBindingIvy('idService?.getId(true, id | myPipe)')),
+            'Host binding expression cannot contain pipes');
+      });
+
+      it('should throw if a pipe is used inside a property access', () => {
+        expectError(
+            validate(parseSimpleBindingIvy('a[id | myPipe]')),
+            'Host binding expression cannot contain pipes');
+      });
+
+      it('should throw if a pipe is used inside a keyed read expression', () => {
+        expectError(
+            validate(parseSimpleBindingIvy('a[id | myPipe].b')),
+            'Host binding expression cannot contain pipes');
+      });
+
+      it('should throw if a pipe is used inside a safe property read', () => {
+        expectError(
+            validate(parseSimpleBindingIvy('(id | myPipe)?.id')),
+            'Host binding expression cannot contain pipes');
+      });
+
+      it('should throw if a pipe is used inside a non-null assertion', () => {
+        expectError(
+            validate(parseSimpleBindingIvy('[id | myPipe]!')),
+            'Host binding expression cannot contain pipes');
+      });
+
+      it('should throw if a pipe is used inside a prefix not expression', () => {
+        expectError(
+            validate(parseSimpleBindingIvy('!(id | myPipe)')),
+            'Host binding expression cannot contain pipes');
+      });
+
+      it('should throw if a pipe is used inside a binary expression', () => {
+        expectError(
+            validate(parseSimpleBindingIvy('(id | myPipe) === true')),
+            'Host binding expression cannot contain pipes');
+      });
+    });
   });
 
   describe('wrapLiteralPrimitive', () => {
     it('should wrap a literal primitive', () => {
-      expect(unparse(validate(createParser().wrapLiteralPrimitive('foo', null, 0))))
-          .toEqual('"foo"');
+      expect(unparse(validate(createParser().wrapLiteralPrimitive('foo', '', 0)))).toEqual('"foo"');
     });
   });
 
@@ -781,6 +1021,10 @@ function createParser() {
   return new Parser(new Lexer());
 }
 
+function createIvyParser() {
+  return new IvyParser(new Lexer());
+}
+
 function parseAction(text: string, location: any = null, offset: number = 0): ASTWithSource {
   return createParser().parseAction(text, location, offset);
 }
@@ -790,17 +1034,25 @@ function parseBinding(text: string, location: any = null, offset: number = 0): A
 }
 
 function parseTemplateBindings(attribute: string, templateUrl = 'foo.html'): TemplateBinding[] {
-  const match = attribute.match(/^\*(.+)="(.*)"$/);
-  expect(match).toBeTruthy(`failed to extract key and value from ${attribute}`);
-  const [_, key, value] = match;
-  const absKeyOffset = 1;  // skip the * prefix
-  const absValueOffset = attribute.indexOf('=') + '="'.length;
-  const parser = createParser();
-  const result =
-      parser.parseTemplateBindings(key, value, templateUrl, absKeyOffset, absValueOffset);
+  const result = _parseTemplateBindings(attribute, templateUrl);
   expect(result.errors).toEqual([]);
   expect(result.warnings).toEqual([]);
   return result.templateBindings;
+}
+
+function expectParseTemplateBindingsError(attribute: string, error: string) {
+  const result = _parseTemplateBindings(attribute, 'foo.html');
+  expect(result.errors[0].message).toEqual(error);
+}
+
+function _parseTemplateBindings(attribute: string, templateUrl: string) {
+  const match = attribute.match(/^\*(.+)="(.*)"$/);
+  expect(match).toBeTruthy(`failed to extract key and value from ${attribute}`);
+  const [_, key, value] = match!;
+  const absKeyOffset = 1;  // skip the * prefix
+  const absValueOffset = attribute.indexOf('=') + '="'.length;
+  const parser = createParser();
+  return parser.parseTemplateBindings(key, value, templateUrl, absKeyOffset, absValueOffset);
 }
 
 function parseInterpolation(text: string, location: any = null, offset: number = 0): ASTWithSource|
@@ -814,6 +1066,11 @@ function splitInterpolation(text: string, location: any = null): SplitInterpolat
 
 function parseSimpleBinding(text: string, location: any = null, offset: number = 0): ASTWithSource {
   return createParser().parseSimpleBinding(text, location, offset);
+}
+
+function parseSimpleBindingIvy(
+    text: string, location: any = null, offset: number = 0): ASTWithSource {
+  return createIvyParser().parseSimpleBinding(text, location, offset);
 }
 
 function checkInterpolation(exp: string, expected?: string) {
@@ -854,4 +1111,12 @@ function expectActionError(text: string, message: string) {
 
 function expectBindingError(text: string, message: string) {
   expectError(validate(parseBinding(text)), message);
+}
+
+/**
+ * Check that a malformed action parses to a recovered AST while emitting an error.
+ */
+function checkActionWithError(text: string, expected: string, error: string) {
+  checkAction(text, expected);
+  expectActionError(text, error);
 }

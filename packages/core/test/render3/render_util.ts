@@ -6,6 +6,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 
+import {RendererStyleFlags2, RendererType2} from '@angular/core';
 import {ChangeDetectorRef} from '@angular/core/src/change_detection/change_detector_ref';
 import {Provider} from '@angular/core/src/di/interface/provider';
 import {ElementRef} from '@angular/core/src/linker/element_ref';
@@ -14,7 +15,10 @@ import {ViewContainerRef} from '@angular/core/src/linker/view_container_ref';
 import {Renderer2} from '@angular/core/src/render/api';
 import {createLView, createTView, getOrCreateTComponentView, getOrCreateTNode, renderComponentOrTemplate} from '@angular/core/src/render3/instructions/shared';
 import {TConstants, TNodeType} from '@angular/core/src/render3/interfaces/node';
+import {RComment, RElement, RNode, RText} from '@angular/core/src/render3/interfaces/renderer_dom';
 import {enterView, getLView} from '@angular/core/src/render3/state';
+import {EMPTY_ARRAY} from '@angular/core/src/util/empty';
+import {noop} from '@angular/core/src/util/noop';
 import {stringifyElement} from '@angular/platform-browser/testing/src/browser_util';
 
 import {SWITCH_CHANGE_DETECTOR_REF_FACTORY__POST_R3__ as R3_CHANGE_DETECTOR_REF_FACTORY} from '../../src/change_detection/change_detector_ref';
@@ -23,7 +27,7 @@ import {Type} from '../../src/interface/type';
 import {SWITCH_ELEMENT_REF_FACTORY__POST_R3__ as R3_ELEMENT_REF_FACTORY} from '../../src/linker/element_ref';
 import {SWITCH_TEMPLATE_REF_FACTORY__POST_R3__ as R3_TEMPLATE_REF_FACTORY} from '../../src/linker/template_ref';
 import {SWITCH_VIEW_CONTAINER_REF_FACTORY__POST_R3__ as R3_VIEW_CONTAINER_REF_FACTORY} from '../../src/linker/view_container_ref';
-import {RendererStyleFlags2, RendererType2, SWITCH_RENDERER2_FACTORY__POST_R3__ as R3_RENDERER2_FACTORY} from '../../src/render/api';
+import {SWITCH_RENDERER2_FACTORY__POST_R3__ as R3_RENDERER2_FACTORY} from '../../src/render/api';
 import {CreateComponentOptions} from '../../src/render3/component';
 import {getDirectivesAtNodeIndex, getLContext, isComponentInstance} from '../../src/render3/context_discovery';
 import {extractDirectiveDef, extractPipeDef} from '../../src/render3/definition';
@@ -31,8 +35,8 @@ import {NG_ELEMENT_ID} from '../../src/render3/fields';
 import {ComponentDef, ComponentTemplate, ComponentType, DirectiveDef, DirectiveType, renderComponent as _renderComponent, RenderFlags, tick, ɵɵdefineComponent, ɵɵdefineDirective, ɵɵProvidersFeature} from '../../src/render3/index';
 import {DirectiveDefList, DirectiveDefListOrFactory, DirectiveTypesOrFactory, HostBindingsFunction, PipeDef, PipeDefList, PipeDefListOrFactory, PipeTypesOrFactory} from '../../src/render3/interfaces/definition';
 import {PlayerHandler} from '../../src/render3/interfaces/player';
-import {domRendererFactory3, ProceduralRenderer3, RComment, RElement, Renderer3, RendererFactory3, RendererStyleFlags3, RNode, RText} from '../../src/render3/interfaces/renderer';
-import {HEADER_OFFSET, LView, LViewFlags, T_HOST, TVIEW, TViewType} from '../../src/render3/interfaces/view';
+import {domRendererFactory3, ProceduralRenderer3, Renderer3, RendererFactory3, RendererStyleFlags3} from '../../src/render3/interfaces/renderer';
+import {LView, LViewFlags, TVIEW, TViewType} from '../../src/render3/interfaces/view';
 import {destroyLView} from '../../src/render3/node_manipulation';
 import {getRootView} from '../../src/render3/util/view_traversal_utils';
 import {Sanitizer} from '../../src/sanitization/sanitizer';
@@ -82,7 +86,6 @@ export abstract class BaseFixture {
   }
 }
 
-function noop() {}
 /**
  * Fixture for testing template functions in a convenient way.
  *
@@ -97,6 +100,10 @@ export class TemplateFixture extends BaseFixture {
   private _pipeDefs: PipeDefList|null;
   private _sanitizer: Sanitizer|null;
   private _rendererFactory: RendererFactory3;
+  private _consts: TConstants;
+  private _vars: number;
+  private createBlock: () => void;
+  private updateBlock: () => void;
 
   /**
    *
@@ -105,16 +112,36 @@ export class TemplateFixture extends BaseFixture {
    * @param updateBlock Optional instructions which go into the update block:
    *          `if (rf & RenderFlags.Update) { __here__ }`.
    */
-  constructor(
-      private createBlock: () => void, private updateBlock: () => void = noop, decls: number = 0,
-      private vars: number = 0, directives?: DirectiveTypesOrFactory|null,
-      pipes?: PipeTypesOrFactory|null, sanitizer?: Sanitizer|null,
-      rendererFactory?: RendererFactory3, private _consts?: TConstants) {
+  constructor({
+    create = noop,
+    update = noop,
+    decls = 0,
+    vars = 0,
+    directives,
+    pipes,
+    sanitizer = null,
+    rendererFactory = domRendererFactory3,
+    consts = EMPTY_ARRAY
+  }: {
+    create?: (() => void),
+    update?: (() => void),
+    decls?: number,
+    vars?: number,
+    directives?: DirectiveTypesOrFactory,
+    pipes?: PipeTypesOrFactory,
+    sanitizer?: Sanitizer|null,
+    rendererFactory?: RendererFactory3,
+    consts?: TConstants
+  }) {
     super();
+    this._consts = consts;
+    this._vars = vars;
+    this.createBlock = create;
+    this.updateBlock = update;
     this._directiveDefs = toDefs(directives, extractDirectiveDef);
     this._pipeDefs = toDefs(pipes, extractPipeDef);
-    this._sanitizer = sanitizer || null;
-    this._rendererFactory = rendererFactory || domRendererFactory3;
+    this._sanitizer = sanitizer;
+    this._rendererFactory = rendererFactory;
     this.hostView = renderTemplate(
         this.hostElement,
         (rf: RenderFlags, ctx: any) => {
@@ -136,7 +163,7 @@ export class TemplateFixture extends BaseFixture {
    */
   update(updateBlock?: () => void): void {
     renderTemplate(
-        this.hostElement, updateBlock || this.updateBlock, 0, this.vars, null!,
+        this.hostElement, updateBlock || this.updateBlock, 0, this._vars, null!,
         this._rendererFactory, this.hostView, this._directiveDefs, this._pipeDefs, this._sanitizer,
         this._consts);
   }
@@ -236,7 +263,7 @@ export function resetDOM() {
   containerEl.setAttribute('host', '');
   document.body.appendChild(containerEl);
   hostView = null;
-  // TODO: assert that the global state is clean (e.g. ngData, previousOrParentNode, etc)
+  // TODO: assert that the global state is clean (e.g. ngData, currentTNode, etc)
 }
 
 
@@ -261,11 +288,11 @@ export function renderTemplate<T>(
     const renderer = providedRendererFactory.createRenderer(null, null);
 
     // We need to create a root view so it's possible to look up the host element through its index
-    const tView = createTView(TViewType.Root, -1, null, 1, 0, null, null, null, null, null);
+    const tView = createTView(TViewType.Root, null, null, 1, 0, null, null, null, null, null);
     const hostLView = createLView(
         null, tView, {}, LViewFlags.CheckAlways | LViewFlags.IsRoot, null, null,
-        providedRendererFactory, renderer);
-    enterView(hostLView, null);
+        providedRendererFactory, renderer, null, null);
+    enterView(hostLView);
 
     const def: ComponentDef<any> = ɵɵdefineComponent({
       type: Object,
@@ -278,11 +305,11 @@ export function renderTemplate<T>(
     def.pipeDefs = pipes || null;
 
     const componentTView = getOrCreateTComponentView(def);
-    const hostTNode = getOrCreateTNode(tView, hostLView[T_HOST], 0, TNodeType.Element, null, null);
+    const hostTNode = getOrCreateTNode(tView, 0, TNodeType.Element, null, null);
     hostLView[hostTNode.index] = hostNode;
     componentView = createLView(
         hostLView, componentTView, context, LViewFlags.CheckAlways, hostNode, hostTNode,
-        providedRendererFactory, renderer, sanitizer);
+        providedRendererFactory, renderer, sanitizer || null, null);
   }
   renderComponentOrTemplate(componentView[TVIEW], componentView, templateFn, context);
   return componentView;
@@ -409,7 +436,7 @@ export function createDirective(
 
 /** Gets the directive on the given node at the given index */
 export function getDirectiveOnNode(nodeIndex: number, dirIndex: number = 0) {
-  const directives = getDirectivesAtNodeIndex(nodeIndex + HEADER_OFFSET, getLView(), true);
+  const directives = getDirectivesAtNodeIndex(nodeIndex, getLView(), true);
   if (directives == null) {
     throw new Error(`No directives exist on node in slot ${nodeIndex}`);
   }
@@ -429,10 +456,9 @@ export const text: RText = null as any as Text;
  *  like injectElementRef() prematurely.
  */
 export function enableIvyInjectableFactories() {
-  (ElementRef as any)[NG_ELEMENT_ID] = () => R3_ELEMENT_REF_FACTORY(ElementRef);
-  (TemplateRef as any)[NG_ELEMENT_ID] = () => R3_TEMPLATE_REF_FACTORY(TemplateRef, ElementRef);
-  (ViewContainerRef as any)[NG_ELEMENT_ID] = () =>
-      R3_VIEW_CONTAINER_REF_FACTORY(ViewContainerRef, ElementRef);
+  (ElementRef as any)[NG_ELEMENT_ID] = () => R3_ELEMENT_REF_FACTORY();
+  (TemplateRef as any)[NG_ELEMENT_ID] = () => R3_TEMPLATE_REF_FACTORY();
+  (ViewContainerRef as any)[NG_ELEMENT_ID] = () => R3_VIEW_CONTAINER_REF_FACTORY();
   (ChangeDetectorRef as any)[NG_ELEMENT_ID] = () => R3_CHANGE_DETECTOR_REF_FACTORY();
   (Renderer2 as any)[NG_ELEMENT_ID] = () => R3_RENDERER2_FACTORY();
 }

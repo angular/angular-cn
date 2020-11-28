@@ -5,7 +5,7 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import {AbsoluteFsPath, FileSystem, PathSegment} from '@angular/compiler-cli/src/ngtsc/file_system';
+import {AbsoluteFsPath, FileSystem} from '@angular/compiler-cli/src/ngtsc/file_system';
 import {Logger} from '@angular/compiler-cli/src/ngtsc/logging';
 import {SourceFile, SourceFileLoader} from '@angular/compiler-cli/src/ngtsc/sourcemaps';
 import {ɵParsedMessage, ɵSourceLocation} from '@angular/localize';
@@ -23,6 +23,8 @@ export interface ExtractionOptions {
 /**
  * Extracts parsed messages from file contents, by parsing the contents as JavaScript
  * and looking for occurrences of `$localize` in the source code.
+ *
+ * @publicApi used by CLI
  */
 export class MessageExtractor {
   private basePath: AbsoluteFsPath;
@@ -50,8 +52,8 @@ export class MessageExtractor {
         sourceRoot: this.basePath,
         filename,
         plugins: [
-          makeEs2015ExtractPlugin(messages, this.localizeName),
-          makeEs5ExtractPlugin(messages, this.localizeName),
+          makeEs2015ExtractPlugin(this.fs, messages, this.localizeName),
+          makeEs5ExtractPlugin(this.fs, messages, this.localizeName),
         ],
         code: false,
         ast: false
@@ -77,6 +79,20 @@ export class MessageExtractor {
     for (const message of messages) {
       if (message.location !== undefined) {
         message.location = this.getOriginalLocation(sourceFile, message.location);
+
+        if (message.messagePartLocations) {
+          message.messagePartLocations = message.messagePartLocations.map(
+              location => location && this.getOriginalLocation(sourceFile, location));
+        }
+
+        if (message.substitutionLocations) {
+          const placeholderNames = Object.keys(message.substitutionLocations);
+          for (const placeholderName of placeholderNames) {
+            const location = message.substitutionLocations[placeholderName];
+            message.substitutionLocations[placeholderName] =
+                location && this.getOriginalLocation(sourceFile, location);
+          }
+        }
       }
     }
   }
@@ -103,6 +119,11 @@ export class MessageExtractor {
     const end = (originalEnd !== null && originalEnd.file === originalStart.file) ?
         {line: originalEnd.line, column: originalEnd.column} :
         start;
-    return {file: originalStart.file, start, end};
+    const originalSourceFile =
+        sourceFile.sources.find(sf => sf?.sourcePath === originalStart.file)!;
+    const startPos = originalSourceFile.startOfLinePositions[start.line] + start.column;
+    const endPos = originalSourceFile.startOfLinePositions[end.line] + end.column;
+    const text = originalSourceFile.contents.substring(startPos, endPos);
+    return {file: originalStart.file, start, end, text};
   }
 }

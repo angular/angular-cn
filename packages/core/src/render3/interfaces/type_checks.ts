@@ -6,11 +6,10 @@
  * found in the LICENSE file at https://angular.io/license
  */
 
-import {ComponentDef, DirectiveDef} from '..';
-
 import {LContainer, TYPE} from './container';
+import {ComponentDef, DirectiveDef} from './definition';
 import {TNode, TNodeFlags} from './node';
-import {RNode} from './renderer';
+import {RNode} from './renderer_dom';
 import {FLAGS, LView, LViewFlags} from './view';
 
 

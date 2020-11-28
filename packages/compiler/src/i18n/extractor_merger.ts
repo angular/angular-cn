@@ -124,7 +124,7 @@ class _Visitor implements html.Visitor {
     this._translations = translations;
 
     // Construct a single fake root element
-    const wrapper = new html.Element('wrapper', [], nodes, undefined!, undefined, undefined);
+    const wrapper = new html.Element('wrapper', [], nodes, undefined!, undefined!, undefined);
 
     const translatedNode = wrapper.visit(this, null);
 
@@ -394,10 +394,14 @@ class _Visitor implements html.Visitor {
         const nodes = this._translations.get(message);
         if (nodes) {
           if (nodes.length == 0) {
-            translatedAttributes.push(new html.Attribute(attr.name, '', attr.sourceSpan));
+            translatedAttributes.push(new html.Attribute(
+                attr.name, '', attr.sourceSpan, undefined /* keySpan */, undefined /* valueSpan */,
+                undefined /* i18n */));
           } else if (nodes[0] instanceof html.Text) {
             const value = (nodes[0] as html.Text).value;
-            translatedAttributes.push(new html.Attribute(attr.name, value, attr.sourceSpan));
+            translatedAttributes.push(new html.Attribute(
+                attr.name, value, attr.sourceSpan, undefined /* keySpan */,
+                undefined /* valueSpan */, undefined /* i18n */));
           } else {
             this._reportError(
                 el,
@@ -492,7 +496,7 @@ class _Visitor implements html.Visitor {
   }
 
   private _reportError(node: html.Node, msg: string): void {
-    this._errors.push(new I18nError(node.sourceSpan!, msg));
+    this._errors.push(new I18nError(node.sourceSpan, msg));
   }
 }
 

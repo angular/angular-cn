@@ -147,7 +147,7 @@ For the simplest deployment, create a production build and copy the output direc
 
   </code-example>
 
-2. Copy _everything_ within the output folder (`dist/` by default) to a folder on the server.
+2. Copy _everything_ within the output folder (`dist/project-name/` by default) to a folder on the server.
 
    把输出目录（默认为 `dist/`）下的*每个文件*都复制到到服务器上的某个目录下。
 
@@ -155,7 +155,7 @@ For the simplest deployment, create a production build and copy the output direc
 Learn more about server-side redirects [below](#fallback).
 
    配置服务器，让缺失的文件都重定向到 `index.html` 上。
-   欲知详情，参见[稍后](#fallback)的服务端重定向部分。
+   欲知详情，参阅[稍后](#fallback)的服务端重定向部分。
 
 This is the simplest production-ready deployment of your application.
 
@@ -205,7 +205,7 @@ You can see your deployed page at `https://<user_name>.github.io/<project_name>/
 
 Check out [angular-cli-ghpages](https://github.com/angular-buch/angular-cli-ghpages), a full featured package that does all this for you and has extra functionality.
 
- 参见 [angular-cli-ghpages](https://github.com/angular-buch/angular-cli-ghpages)，这个包用到了全部这些特性，还提供了一些额外功能。
+ 参阅 [angular-cli-ghpages](https://github.com/angular-buch/angular-cli-ghpages)，这个包用到了全部这些特性，还提供了一些额外功能。
 
 </div>
 
@@ -284,7 +284,7 @@ The list is by no means exhaustive, but should provide you with a good starting 
 这个列表虽然不够详尽，但可以为你提供一个良好的起点。
 
 * [Apache](https://httpd.apache.org/): add a
-[rewrite rule](http://httpd.apache.org/docs/current/mod/mod_rewrite.html) to the `.htaccess` file as shown
+[rewrite rule](https://httpd.apache.org/docs/current/mod/mod_rewrite.html) to the `.htaccess` file as shown
   (https://ngmilk.rocks/2015/03/09/angularjs-html5-mode-or-pretty-urls-on-apache-using-htaccess/):
 
    [Apache](https://httpd.apache.org/)：在 `.htaccess` 文件中添加一个[重写规则](http://httpd.apache.org/docs/current/mod/mod_rewrite.html)，
@@ -300,7 +300,7 @@ The list is by no means exhaustive, but should provide you with a good starting 
     RewriteRule ^ /index.html
   </code-example>
 
-* [Nginx](http://nginx.org/): use `try_files`, as described in
+* [Nginx](https://nginx.org/): use `try_files`, as described in
 [Front Controller Pattern Web Apps](https://www.nginx.com/resources/wiki/start/topics/tutorials/config_pitfalls/#front-controller-pattern-web-apps),
 modified to serve `index.html`:
 
@@ -325,19 +325,18 @@ modified to serve `index.html`:
 
   # -- public
 
-  #    |-- dist
-
+  #    |-- project-name
   #        |-- index.html
 
   get '/' do
-      folderDir = settings.public_folder + '/dist'  # ng build output folder
+      folderDir = settings.public_folder + '/project-name'  # ng build output folder
       send_file File.join(folderDir, 'index.html')
   end
 
   ```
 
 * [IIS](https://www.iis.net/): add a rewrite rule to `web.config`, similar to the one shown
-[here](http://stackoverflow.com/a/26152011/2116927):
+[here](https://stackoverflow.com/a/26152011):
 
    [IIS](https://www.iis.net/)：往 `web.config` 中添加一条重写规则，类似于[这里](http://stackoverflow.com/a/26152011/2116927)：
 
@@ -403,11 +402,11 @@ Angular 开发者在向与该应用的宿主服务器不同域的服务器发起
 There isn't anything the client application can do about these errors.
 The server must be configured to accept the application's requests.
 Read about how to enable CORS for specific servers at
-<a href="http://enable-cors.org/server.html" title="Enabling CORS server">enable-cors.org</a>.
+<a href="https://enable-cors.org/server.html" title="Enabling CORS server">enable-cors.org</a>.
 
 客户端应用对这种错误无能为力。
 服务器必须配置成可以接受来自该应用的请求。
-要了解如何对特定的服务器开启 CORS，参见<a href="http://enable-cors.org/server.html" target="_blank" title="Enabling CORS server">enable-cors.org</a>。
+要了解如何对特定的服务器开启 CORS，参阅<a href="http://enable-cors.org/server.html" target="_blank" title="Enabling CORS server">enable-cors.org</a>。
 
 <hr>
 
@@ -447,7 +446,7 @@ The `--prod` _meta-flag_ engages the following build optimization features.
 
 See [`ng build`](cli/build) for more about CLI build options and what they do.
 
-要了解关于 CLI 构建选项及其作用的更多知识，参见 [`ng build`](cli/build)。
+要了解关于 CLI 构建选项及其作用的更多知识，参阅 [`ng build`](cli/build)。
 
 {@a enable-prod-mode}
 
@@ -485,11 +484,11 @@ absolutely must be present when the app starts.
 通过只加载应用启动时绝对必须的那些模块，你可以极大缩短应用启动的时间。
 
 Configure the Angular Router to defer loading of all other modules (and their associated code), either by
-[waiting until the app has launched](guide/router#preloading  "Preloading")
+[waiting until the app has launched](guide/router-tutorial-toh#preloading  "Preloading")
 or by [_lazy loading_](guide/router#lazy-loading "Lazy loading")
 them on demand.
 
-可以配置 Angular 的路由器，来推迟所有其它模块（及其相关代码）的加载时机，方法有[一直等到应用启动完毕](guide/router#preloading  "Preloading")，或者当用到时才按需[*惰性加载*](guide/router#asynchronous-routing "Lazy loading")。
+可以配置 Angular 的路由器，来推迟所有其它模块（及其相关代码）的加载时机，方法有[一直等到应用启动完毕](guide/router-tutorial-toh#preloading  "Preloading")，或者当用到时才按需[*惰性加载*](guide/router#lazy-loading "Lazy loading")。
 
 <div class="callout is-helpful">
 
@@ -497,7 +496,7 @@ them on demand.
 
 <header>不要急性（eagerly）导入来自惰性加载模块中的任何东西</header>
 
-If you mean to lazy-load a module, be careful not import it
+If you mean to lazy-load a module, be careful not to import it
 in a file that's eagerly loaded when the app starts (such as the root `AppModule`).
 If you do that, the module will be loaded immediately.
 
@@ -584,13 +583,13 @@ Build your app for production _including the source maps_
 
 </code-example>
 
-List the generated bundles in the `dist/` folder.
+List the generated bundles in the `dist/project-name/` folder.
 
 在 `dist/` 目录下列出生成的包。
 
 <code-example language="none" class="code-shell">
 
-  ls dist/*.bundle.js
+  ls dist/project-name/*.js
 
 </code-example>
 
@@ -602,7 +601,7 @@ The following example displays the graph for the _main_ bundle.
 
 <code-example language="none" class="code-shell">
 
-  node_modules/.bin/source-map-explorer dist/main.*.bundle.js
+  node_modules/.bin/source-map-explorer dist/project-name/main*
 
 </code-example>
 
@@ -641,7 +640,7 @@ HTML 的 [_&lt;base href="..."/&gt;_](/guide/router) 标签指定了用于解析
 
 See also the [*APP_BASE_HREF*](api/common/APP_BASE_HREF "API: APP_BASE_HREF") alternative.
 
-另一种方式参见 [*APP_BASE_HREF*](api/common/APP_BASE_HREF "API: APP_BASE_HREF")。
+另一种方式参阅 [*APP_BASE_HREF*](api/common/APP_BASE_HREF "API: APP_BASE_HREF")。
 
 </div>
 
@@ -721,7 +720,7 @@ The following configurations determine your requirements.
 
    The Browserslist configuration file is included in your application [project structure](guide/file-structure#application-configuration-files) and provides the minimum browsers your application supports. See the [Browserslist spec](https://github.com/browserslist/browserslist) for complete configuration options.
 
-   `browserslist` 配置文件包含在应用的[项目结构中](guide/file-structure#application-configuration-files)，它提供了本应用打算支持的最低浏览器版本。有关完整的配置选项，请参阅 [Browserslist 规范](https://github.com/browserslist/browserslist)。
+   `browserslist` 配置文件包含在应用的[项目结构中](guide/file-structure#application-configuration-files)，它提供了本应用打算支持的最低浏览器版本。关于完整的配置选项，请参阅 [Browserslist 规范](https://github.com/browserslist/browserslist)。
 
 * TypeScript configuration
 
@@ -747,7 +746,7 @@ For a development build, the output produced by `ng build` is simpler and easier
 For a production build, your configuration determines which bundles are created for deployment of your application.
 When needed, the `index.html` file is also modified during the build process to include script tags that enable differential loading, as shown in the following example.
 
-对于生产版本，你的配置将决定创建哪些捆绑软件来部署你的应用程序。必要时，还会在构建过程中修改 `index.html` 文件，以包括启用差异化加载的脚本标签，如以下示例所示。
+对于生产版本，你的配置将决定创建哪些捆绑软件来部署你的应用程序。必要时，还会在构建过程中修改 `index.html` 文件，以包括启用差异化加载的脚本标签，如以下范例所示。
 
 <code-example language="html" header="index.html">
 &lt;body>
@@ -773,7 +772,7 @@ Each script tag has a `type="module"` or `nomodule` attribute. Browsers with nat
 
    Some legacy browsers still download both bundles, but only execute the appropriate scripts based on the attributes mentioned above. You can read more on the issue [here](https://github.com/philipwalton/webpack-esnext-boilerplate/issues/1).
 
-  一些旧版浏览器仍会下载两个捆绑包，但只会根据上述属性执行适当的脚本。你可以在[此处](https://github.com/philipwalton/webpack-esnext-boilerplate/issues/1)阅读有关此问题的更多[信息](https://github.com/philipwalton/webpack-esnext-boilerplate/issues/1)。
+  一些旧版浏览器仍会下载两个捆绑包，但只会根据上述属性执行适当的脚本。你可以在[此处](https://github.com/philipwalton/webpack-esnext-boilerplate/issues/1)阅读关于此问题的更多[信息](https://github.com/philipwalton/webpack-esnext-boilerplate/issues/1)。
 
 </div>
 
@@ -785,12 +784,12 @@ To include differential loading in your application builds, you must configure t
 
 要想在构建应用时包含差异化加载特性，你必须修改项目中的 Browserslist 和 TypeScript 配置文件。
 
-The following examples show a `browserlistrc` and `tsconfig.json` file for a newly created Angular application. In this configuration, legacy browsers such as IE 9-11 are ignored, and the compilation target is ES2015.
+The following examples show a `.browserslistrc` and `tsconfig.json` file for a newly created Angular application. In this configuration, legacy browsers such as IE 9-11 are ignored, and the compilation target is ES2015.
 
 下面的例子展示了新创建的 Angular 应用的 `browserlistrc` 和 `tsconfig.json` 文件。
 在这份配置中，老式浏览器（比如 IE 9-11）都被忽略了，其编译目标是 ES2015。 
 
-<code-example language="none" header="browserslistrc">
+<code-example language="none" header=".browserslistrc">
 # This file is used by the build system to adjust CSS and JS output to support the specified browsers below.
 # For additional information regarding the format and rule options, please see:
 # https://github.com/browserslist/browserslist#queries
@@ -804,10 +803,10 @@ The following examples show a `browserlistrc` and `tsconfig.json` file for a new
 last 1 Chrome version
 last 1 Firefox version
 last 2 Edge major versions
-last 2 Safari major version
+last 2 Safari major versions
 last 2 iOS major versions
 Firefox ESR
-not IE 9-11 # For IE 9-11 support, remove 'not'.
+not IE 11 # Angular supports IE 11 only as an opt-in. To opt-in, remove the 'not' prefix on this line.
 </code-example>
 
 <code-example language="json" header="tsconfig.json">
@@ -863,6 +862,7 @@ If your Browserslist configuration includes support for any legacy browsers, the
 | ES5 support enabled  | es5     | Single build w/conditional polyfills for ES5 only |
 | 启用 ES5 支持  | es5     | 单一构建，按需附带只供 ES5 使用的腻子脚本  |
 | ES5 support enabled  | es2015  | Differential loading (two builds w/conditional polyfills) |
+| 弃用 ES5 支持  | es2015  | 差异化加载 (按需附带两种构建需要的腻子脚本) |
 
 {@a test-and-serve}
 

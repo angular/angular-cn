@@ -17,7 +17,7 @@ import {ControlValueAccessor, NG_VALUE_ACCESSOR} from './control_value_accessor'
 import {NgControl} from './ng_control';
 import {NgForm} from './ng_form';
 import {NgModelGroup} from './ng_model_group';
-import {composeAsyncValidators, composeValidators, controlPath, isPropertyUpdated, selectValueAccessor, setUpControl} from './shared';
+import {controlPath, isPropertyUpdated, selectValueAccessor, setUpControl} from './shared';
 import {TemplateDrivenErrors} from './template_driven_errors';
 import {AsyncValidator, AsyncValidatorFn, Validator, ValidatorFn} from './validators';
 
@@ -37,7 +37,7 @@ export const formControlBinding: any = {
  * ```
  * I.e. `ngModel` can export itself on the element and then be used in the template.
  * Normally, this would result in expressions before the `input` that use the exported directive
- * to have and old value as they have been
+ * to have an old value as they have been
  * dirty checked before. As this is a very common case for `ngModel`, we added this second change
  * detection run.
  *
@@ -49,7 +49,7 @@ export const formControlBinding: any = {
  *
  * 注意：
  *
- * - this is just one extra run no matter how many `ngModel` have been changed.
+ * - this is just one extra run no matter how many `ngModel`s have been changed.
  *
  *   不管有多少个 `ngModel` 发生了变化，都只会有一轮额外的变更检测。
  *
@@ -81,20 +81,19 @@ const resolvedPromise = (() => Promise.resolve(null))();
  * 这个指令可以单独使用，也可以用作一个大表单的一部分。你所要做的一切就是用 `ngModel` 选择器来激活它。
  *
  * It accepts a domain model as an optional `Input`. If you have a one-way binding
- * to `ngModel` with `[]` syntax, changing the value of the domain model in the component
+ * to `ngModel` with `[]` syntax, changing the domain model's value in the component
  * class sets the value in the view. If you have a two-way binding with `[()]` syntax
- * (also known as 'banana-box syntax'), the value in the UI always syncs back to
+ * (also known as 'banana-in-a-box syntax'), the value in the UI always syncs back to
  * the domain model in your class.
  *
  * 它可以接受一个领域模型作为可选的 `Input`。如果使用 `[]` 语法来单向绑定到 `ngModel`，那么在组件类中修改领域模型将会更新视图中的值。
  * 如果使用 `[()]` 语法来双向绑定到 `ngModel`，那么视图中值的变化会随时同步回组件类中的领域模型。
  *
- * To inspect the properties of the associated `FormControl` (like validity state),
- * export the directive into a local template variable using `ngModel` as the key (ex:* `#myVar="ngModel"`). You then access the control using the directive's `control` property,
-  but
- * most properties used (like `valid` and `dirty`) fall through to the control anyway for direct
- * access.
-  See a full list of properties directly available in `AbstractControlDirective`.
+ * To inspect the properties of the associated `FormControl` (like thevalidity state),
+ * export the directive into a local template variable using `ngModel` as the key (ex:* `#myVar="ngModel"`). You can then access the control using the directive's `control` property.
+ * However, the most commonly used properties (like `valid` and `dirty`) also exist on the control
+ * for direct access.
+  See a full list of properties directly available in* `AbstractControlDirective`.
  *
  * 如果你希望查看与 `FormControl` 相关的属性（比如校验状态），你也可以使用 `ngModel` 作为键，把该指令导出到一个局部模板变量中（如：`#myVar="ngModel"`）。
  * 你也可以使用该指令的 `control` 属性来访问此控件，实际上你要用到的大多数属性（如 `valid` 和 `dirty`）都会委托给该控件，这样你就可以直接访问这些属性了。
@@ -166,19 +165,20 @@ const resolvedPromise = (() => Promise.resolve(null))();
  * <!-- form value: {login: ''} -->
  * ```
  *
- * ### Setting the ngModel name attribute through options
+ * ### Setting the ngModel `name` attribute through options
  *
  * ### 通过选项设置 ngModel 的 name 属性
  *
- * The following example shows you an alternate way to set the name attribute. The name attribute is
- * used within a custom form component, and the name `@Input` property serves a different purpose.
+ * The following example shows you an alternate way to set the name attribute. Here,
+ * an attribute identified as name is used within a custom form control component. To still be able
+ * to specify the NgModel's name, you must specify it using the `ngModelOptions` input instead.
  *
  * 下面的例子展示了设置 name 属性的另一种方式。该 name 属性要和自定义表单组件一起使用，而该自定义组件的 `@Input` 属性 name 已用作其它用途。
  *
  * ```html
  * <form>
- *   <my-person-control name="Nancy" ngModel [ngModelOptions]="{name: 'user'}">
- *   </my-person-control>
+ *   <my-custom-form-control name="Nancy" ngModel [ngModelOptions]="{name: 'user'}">
+ *   </my-custom-form-control>
  * </form>
  * <!-- form value: {user: ''} -->
  * ```
@@ -207,14 +207,14 @@ export class NgModel extends NgControl implements OnChanges, OnDestroy {
   _registered = false;
 
   /**
-   * @description
    * Internal reference to the view model value.
+   * @nodoc
    */
   viewModel: any;
 
   /**
    * @description
-   * Tracks the name bound to the directive. The parent form
+   * Tracks the name bound to the directive. If a parent form exists, it
    * uses this name as a key to retrieve this control's value.
    */
   // TODO(issue/24571): remove '!'.
@@ -246,7 +246,8 @@ export class NgModel extends NgControl implements OnChanges, OnDestroy {
    * **name**：用来设置表单控件元素的 `name` 属性的另一种方式。参见把 `ngModel` 用作独立控件的那个[例子](api/forms/NgModel#using-ngmodel-on-a-standalone-control)。
    *
    * **standalone**: When set to true, the `ngModel` will not register itself with its parent form,
-   * and acts as if it's not in the form. Defaults to false.
+   * and acts as if it's not in the form. Defaults to false. If no parent form exists, this option
+   * has no effect.
    *
    * **standalone**：如果为 true，则此 `ngModel` 不会把自己注册进它的父表单中，其行为就像没在表单中一样。默认为 false。
    *
@@ -268,24 +269,18 @@ export class NgModel extends NgControl implements OnChanges, OnDestroy {
 
   constructor(
       @Optional() @Host() parent: ControlContainer,
-      @Optional() @Self() @Inject(NG_VALIDATORS) validators: Array<Validator|ValidatorFn>,
+      @Optional() @Self() @Inject(NG_VALIDATORS) validators: (Validator|ValidatorFn)[],
       @Optional() @Self() @Inject(NG_ASYNC_VALIDATORS) asyncValidators:
-          Array<AsyncValidator|AsyncValidatorFn>,
+          (AsyncValidator|AsyncValidatorFn)[],
       @Optional() @Self() @Inject(NG_VALUE_ACCESSOR) valueAccessors: ControlValueAccessor[]) {
     super();
     this._parent = parent;
-    this._rawValidators = validators || [];
-    this._rawAsyncValidators = asyncValidators || [];
+    this._setValidators(validators);
+    this._setAsyncValidators(asyncValidators);
     this.valueAccessor = selectValueAccessor(this, valueAccessors);
   }
 
-  /**
-   * @description
-   * A lifecycle method called when the directive's inputs change. For internal use
-   * only.
-   *
-   * @param changes A object of key/value pairs for the set of changed inputs.
-   */
+  /** @nodoc */
   ngOnChanges(changes: SimpleChanges) {
     this._checkForErrors();
     if (!this._registered) this._setUpControl();
@@ -299,11 +294,7 @@ export class NgModel extends NgControl implements OnChanges, OnDestroy {
     }
   }
 
-  /**
-   * @description
-   * Lifecycle method called before the directive's instance is destroyed. For internal
-   * use only.
-   */
+  /** @nodoc */
   ngOnDestroy(): void {
     this.formDirective && this.formDirective.removeControl(this);
   }
@@ -323,24 +314,6 @@ export class NgModel extends NgControl implements OnChanges, OnDestroy {
    */
   get formDirective(): any {
     return this._parent ? this._parent.formDirective : null;
-  }
-
-  /**
-   * @description
-   * Synchronous validator function composed of all the synchronous validators
-   * registered with this directive.
-   */
-  get validator(): ValidatorFn|null {
-    return composeValidators(this._rawValidators);
-  }
-
-  /**
-   * @description
-   * Async validator function composed of all the async validators registered with this
-   * directive.
-   */
-  get asyncValidator(): AsyncValidatorFn|null {
-    return composeAsyncValidators(this._rawAsyncValidators);
   }
 
   /**
@@ -383,18 +356,20 @@ export class NgModel extends NgControl implements OnChanges, OnDestroy {
   }
 
   private _checkParentType(): void {
-    if (!(this._parent instanceof NgModelGroup) &&
-        this._parent instanceof AbstractFormGroupDirective) {
-      TemplateDrivenErrors.formGroupNameException();
-    } else if (!(this._parent instanceof NgModelGroup) && !(this._parent instanceof NgForm)) {
-      TemplateDrivenErrors.modelParentException();
+    if (typeof ngDevMode === 'undefined' || ngDevMode) {
+      if (!(this._parent instanceof NgModelGroup) &&
+          this._parent instanceof AbstractFormGroupDirective) {
+        TemplateDrivenErrors.formGroupNameException();
+      } else if (!(this._parent instanceof NgModelGroup) && !(this._parent instanceof NgForm)) {
+        TemplateDrivenErrors.modelParentException();
+      }
     }
   }
 
   private _checkName(): void {
     if (this.options && this.options.name) this.name = this.options.name;
 
-    if (!this._isStandalone() && !this.name) {
+    if (!this._isStandalone() && !this.name && (typeof ngDevMode === 'undefined' || ngDevMode)) {
       TemplateDrivenErrors.missingNameException();
     }
   }

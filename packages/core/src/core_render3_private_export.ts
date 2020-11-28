@@ -29,6 +29,7 @@ export {
   NG_INJ_DEF as ɵNG_INJ_DEF,
   NG_PROV_DEF as ɵNG_PROV_DEF,
 } from './di/interface/defs';
+export {CREATE_ATTRIBUTE_DECORATOR__POST_R3__ as ɵCREATE_ATTRIBUTE_DECORATOR__POST_R3__} from './di/metadata_attr';
 export {createInjector as ɵcreateInjector} from './di/r3_injector';
 export {
   SWITCH_IVY_ENABLED__POST_R3__ as ɵSWITCH_IVY_ENABLED__POST_R3__,
@@ -56,13 +57,15 @@ export {
   SWITCH_COMPILE_PIPE__POST_R3__ as ɵSWITCH_COMPILE_PIPE__POST_R3__,
 } from './metadata/directives';
 export {
-  NgModuleDef as ɵNgModuleDef,
-  NgModuleTransitiveScopes as ɵNgModuleTransitiveScopes,
   ɵɵNgModuleDefWithMeta,
 } from './metadata/ng_module';
 export {
   SWITCH_COMPILE_NGMODULE__POST_R3__ as ɵSWITCH_COMPILE_NGMODULE__POST_R3__,
 } from './metadata/ng_module';
+export {
+  NgModuleDef as ɵNgModuleDef,
+  NgModuleTransitiveScopes as ɵNgModuleTransitiveScopes,
+} from './metadata/ng_module_def';
 export {
   SWITCH_RENDERER2_FACTORY__POST_R3__ as ɵSWITCH_RENDERER2_FACTORY__POST_R3__,
 } from './render/api';
@@ -124,7 +127,6 @@ export {
   ɵɵclassMapInterpolateV,
   ɵɵclassProp,
   ɵɵComponentDefWithMeta,
-  ɵɵcomponentHostSyntheticListener,
   ɵɵcontentQuery,
   ɵɵCopyDefinitionFeature,
   ɵɵdefineComponent,
@@ -163,6 +165,8 @@ export {
   ɵɵnamespaceMathML,
   ɵɵnamespaceSVG,
   ɵɵnextContext,
+  ɵɵngDeclareComponent,
+  ɵɵngDeclareDirective,
   ɵɵNgOnChangesFeature,
   ɵɵpipe,
   ɵɵpipeBind1,
@@ -202,7 +206,6 @@ export {
   ɵɵresolveWindow,
   ɵɵrestoreView,
 
-  ɵɵselect,
   ɵɵsetComponentScope,
   ɵɵsetNgModuleScope,
   ɵɵstaticContentQuery,
@@ -227,6 +230,8 @@ export {
   ɵɵstylePropInterpolate7,
   ɵɵstylePropInterpolate8,
   ɵɵstylePropInterpolateV,
+  ɵɵsyntheticHostListener,
+  ɵɵsyntheticHostProperty,
   ɵɵtemplate,
   ɵɵtemplateRefExtractor,
   ɵɵtext,
@@ -240,7 +245,6 @@ export {
   ɵɵtextInterpolate7,
   ɵɵtextInterpolate8,
   ɵɵtextInterpolateV,
-  ɵɵupdateSyntheticHostBinding,
   ɵɵviewQuery,
 } from './render3/index';
 export {
@@ -291,6 +295,11 @@ export {
   ɵɵsanitizeStyle,
   ɵɵsanitizeUrl,
   ɵɵsanitizeUrlOrResourceUrl,
+  ɵɵtrustConstantHtml,
+  ɵɵtrustConstantResourceUrl,
 } from './sanitization/sanitization';
+export {
+  noSideEffects as ɵnoSideEffects,
+} from './util/closure';
 
 // clang-format on

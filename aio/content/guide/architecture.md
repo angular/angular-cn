@@ -10,7 +10,7 @@ Angular 是一个用 HTML 和 TypeScript 构建客户端应用的平台与框架
 Angular 本身就是用 TypeScript 写成的。它将核心功能和可选功能作为一组 TypeScript 库进行实现，你可以把它们导入你的应用中。
 
 The architecture of an Angular application relies on certain fundamental concepts.
-The basic building blocks are *NgModules*, which provide a compilation context for *components*. NgModules collect related code into functional sets; an Angular app is defined by a set of NgModules. An app always has at least a *root module* that enables bootstrapping, and typically has many more *feature modules*.
+The basic building blocks of the Angular framework are Angular components that are organized into *NgModules*. NgModules collect related code into functional sets; an Angular app is defined by a set of NgModules. An app always has at least a *root module* that enables bootstrapping, and typically has many more *feature modules*.
 
 Angular 的基本构造块是 *NgModule*，它为*组件*提供了编译的上下文环境。
 NgModule 会把相关的代码收集到一些功能集中。Angular 应用就是由一组 NgModule 定义出的。
@@ -49,7 +49,7 @@ An app's components typically define many views, arranged hierarchically. Angula
 
   See the [Angular Glossary](guide/glossary) for basic definitions of important Angular terms and usage.
 
-  参见 [Angular 词汇表](guide/glossary) 以了解对 Angular 重要名词和用法的基本定义。
+  参阅 [Angular 词汇表](guide/glossary) 以了解对 Angular 重要名词和用法的基本定义。
 
 </div>
 
@@ -57,7 +57,7 @@ An app's components typically define many views, arranged hierarchically. Angula
 
   For the sample app that this page describes, see the <live-example></live-example>.
 
-  要想查看本页所讲的范例程序，参见<live-example></live-example>。
+  要想查看本页所讲的范例程序，参阅<live-example></live-example>。
 
 </div>
 
@@ -90,7 +90,7 @@ Organizing your code into distinct functional modules helps in managing developm
 
   For a more detailed discussion, see [Introduction to modules](guide/architecture-modules).
 
-  更深入的讨论，参见[模块简介](guide/architecture-modules)。
+  更深入的讨论，参阅[模块简介](guide/architecture-modules)。
 
 </div>
 
@@ -155,7 +155,7 @@ Angular 为一些通用的转换提供了预定义管道，你还可以定义自
 
   For a more detailed discussion of these concepts, see [Introduction to components](guide/architecture-components).
 
-  要了解对这些概念的深入讨论，参见[组件介绍](guide/architecture-components)。
+  要了解对这些概念的深入讨论，参阅[组件介绍](guide/architecture-components)。
 
 </div>
 
@@ -178,7 +178,7 @@ For data or logic that isn't associated with a specific view, and that you want 
 
   For a more detailed discussion, see [Introduction to services and DI](guide/architecture-services).
 
-  更深入的讨论，参见[服务和 DI 简介](guide/architecture-services)。
+  更深入的讨论，参阅[服务和 DI 简介](guide/architecture-services)。
 
 </div>
 
@@ -228,7 +228,7 @@ To define navigation rules, you associate *navigation paths* with your component
 
    For a more detailed discussion, see [Routing and navigation](guide/router).
 
-   更深入的讨论，参见[路由与导航](guide/router)。
+   更深入的讨论，参阅[路由与导航](guide/router)。
 
  </div>
 
@@ -302,5 +302,5 @@ Each of these subjects is introduced in more detail in the following pages.
 When you're familiar with these fundamental building blocks, you can explore them in more detail in the documentation. To learn about more tools and techniques that are available to help you build and deploy Angular applications, see [Next steps: tools and techniques](guide/architecture-next-steps).
 
 当你熟悉了这些基础构造块之后，就可以在本文档中进一步查看它们的详情了。
-要学习能帮你构建和发布 Angular 应用的更多工具和技巧，参见[后续步骤：工具与技巧](guide/architecture-next-steps)。
+要学习能帮你构建和发布 Angular 应用的更多工具和技巧，参阅[后续步骤：工具与技巧](guide/architecture-next-steps)。
 </div>

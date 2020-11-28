@@ -5,7 +5,7 @@
 When building Angular applications you can take advantage of sophisticated first-party libraries, such as [Angular Material](https://material.angular.io/), as well as rich ecosystem of third-party libraries.
 See the [Angular Resources](resources) page for links to the most popular ones.
 
-当构建 Angular 应用时，你可以从精致的第一方库，比如 [Angular Material](https://material.angular.cn/)，以及丰富的第三方库生态系统中获益。参见 [Angular 资源集](/resources)页面，了解最常用的库链接。
+当构建 Angular 应用时，你可以从精致的第一方库，比如 [Angular Material](https://material.angular.cn/)，以及丰富的第三方库生态系统中获益。参阅 [Angular 资源集](/resources)页面，了解最常用的库链接。
 
 ## Installing libraries
 
@@ -16,14 +16,14 @@ To integrate reusable library code into an application, you need to install the 
 
 这些库都是作为 [npm 包](guide/npm-packages)发布的，它们通常都带有一些与 Angular CLI 集成好的 schematic。要把可复用的库代码集成到应用中，你需要安装该软件包并在使用时导入它提供的功能。对于大多数已发布的 Angular 库，你可以使用 Angular CLI 的 `ng add <lib_name>` 命令。
 
-The `ng add` command uses the npm package manager or [yarn](https://yarnpkg.com/) to install the library package, and invokes schematics that are included in the package to other scaffolding within the project code, such as adding import statements, fonts, themes, and so on.
+The `ng add` command uses a package manager such as [npm](https://www.npmjs.com/) or [yarn](https://yarnpkg.com/) to install the library package, and invokes schematics that are included in the package to other scaffolding within the project code, such as adding import statements, fonts, themes, and so on.
 
 `ng add` 命令使用 npm 包管理器或 [yarn](https://yarnpkg.com/) 来安装库包，并调用该包中的 schematic 在项目代码中的添加脚手架，比如添加 import 语句、添加 fonts，添加 themes 等。
 
 A published library typically provides a README or other documentation on how to add that lib to your app.
 For an example, see [Angular Material](https://material.angular.io/) docs.
 
-已发布的库通常会提供 README 或者其它文档来介绍如何把该库添加到你的应用中。例子可参见 [Angular Material](https://material.angular.io/) 文档。
+已发布的库通常会提供 README 或者其它文档来介绍如何把该库添加到你的应用中。例子可参阅 [Angular Material](https://material.angular.io/) 文档。
 
 ### Library typings
 
@@ -31,7 +31,7 @@ For an example, see [Angular Material](https://material.angular.io/) docs.
 
 Library packages often include typings in `.d.ts` files; see examples in `node_modules/@angular/material`. If your library's package does not include typings and your IDE complains, you may need to install the library's associated `@types/<lib_name>` package.
 
-库包中通常会在 `.d.ts` 文件中包含类型信息。参见 `node_modules/@angular/material` 中的例子。如果你的库包中没有包含类型信息并且你的 IDE 报错，你可能需要安装与这个库关联的 `@types/<lib_name>` 包。
+库包中通常会在 `.d.ts` 文件中包含类型信息。参阅 `node_modules/@angular/material` 中的例子。如果你的库包中没有包含类型信息并且你的 IDE 报错，你可能需要安装与这个库关联的 `@types/<lib_name>` 包。
 
 For example, suppose you have a library named `d3`:
 
@@ -56,7 +56,7 @@ To do this:
 
     在 `src/` 文件夹中创建一个 `typings.d.ts` 文件。该文件会自动包含在全局类型定义中。
 
-2. Add the following code in `src/typings.d.ts`.
+2. Add the following code in `src/typings.d.ts`:
 
     在 `src/typings.d.ts` 中添加如下代码。
 
@@ -71,7 +71,7 @@ declare module 'host' {
 }
 ```
 
-3. In the component or file that uses the library, add the following code.
+3. In the component or file that uses the library, add the following code:
 
     在使用该库的组件或文件中，添加如下代码。
 
@@ -193,7 +193,7 @@ interface JQuery {
 }
 ```
 
-If don't add the interface for the script-defined extension, your IDE shows an error:
+If you don't add the interface for the script-defined extension, your IDE shows an error:
 
 如果不为这个由脚本定义的扩展添加接口，IDE 就会显示错误：
 

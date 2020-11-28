@@ -7,11 +7,12 @@
  */
 
 import {types as graphQLTypes} from 'typed-graphqlify';
-import {URL} from 'url';
+import {parseCommitMessagesForRange, ParsedCommitMessage} from '../../commit-message/parse';
 
 import {getConfig, NgDevConfig} from '../../utils/config';
 import {error, info, promptConfirm} from '../../utils/console';
-import {GitClient} from '../../utils/git';
+import {addTokenToGitHttpsUrl} from '../../utils/git/github-urls';
+import {GitClient} from '../../utils/git/index';
 import {getPr} from '../../utils/github';
 
 /* GraphQL schema for the response body for each pending PR. */
@@ -55,14 +56,14 @@ export async function rebasePr(
    */
   const previousBranchOrRevision = git.getCurrentBranchOrRevision();
   /* Get the PR information from Github. */
-  const pr = await getPr(PR_SCHEMA, prNumber, config.github);
+  const pr = await getPr(PR_SCHEMA, prNumber, git);
 
   const headRefName = pr.headRef.name;
   const baseRefName = pr.baseRef.name;
   const fullHeadRef = `${pr.headRef.repository.nameWithOwner}:${headRefName}`;
   const fullBaseRef = `${pr.baseRef.repository.nameWithOwner}:${baseRefName}`;
-  const headRefUrl = addAuthenticationToUrl(pr.headRef.repository.url, githubToken);
-  const baseRefUrl = addAuthenticationToUrl(pr.baseRef.repository.url, githubToken);
+  const headRefUrl = addTokenToGitHttpsUrl(pr.headRef.repository.url, githubToken);
+  const baseRefUrl = addTokenToGitHttpsUrl(pr.baseRef.repository.url, githubToken);
 
   // Note: Since we use a detached head for rebasing the PR and therefore do not have
   // remote-tracking branches configured, we need to set our expected ref and SHA. This
@@ -84,14 +85,35 @@ export async function rebasePr(
   try {
     // Fetch the branch at the commit of the PR, and check it out in a detached state.
     info(`Checking out PR #${prNumber} from ${fullHeadRef}`);
-    git.run(['fetch', headRefUrl, headRefName]);
-    git.run(['checkout', '--detach', 'FETCH_HEAD']);
-
+    git.run(['fetch', '-q', headRefUrl, headRefName]);
+    git.run(['checkout', '-q', '--detach', 'FETCH_HEAD']);
     // Fetch the PRs target branch and rebase onto it.
     info(`Fetching ${fullBaseRef} to rebase #${prNumber} on`);
-    git.run(['fetch', baseRefUrl, baseRefName]);
+    git.run(['fetch', '-q', baseRefUrl, baseRefName]);
+
+    const commonAncestorSha = git.run(['merge-base', 'HEAD', 'FETCH_HEAD']).stdout.trim();
+
+    const commits = parseCommitMessagesForRange(`${commonAncestorSha}..HEAD`);
+
+    let squashFixups =
+        commits.filter((commit: ParsedCommitMessage) => commit.isFixup).length === 0 ?
+        false :
+        await promptConfirm(
+            `PR #${prNumber} contains fixup commits, would you like to squash them during rebase?`,
+            true);
+
     info(`Attempting to rebase PR #${prNumber} on ${fullBaseRef}`);
-    const rebaseResult = git.runGraceful(['rebase', 'FETCH_HEAD']);
+
+    /**
+     * Tuple of flags to be added to the rebase command and env object to run the git command.
+     *
+     * Additional flags to perform the autosquashing are added when the user confirm squashing of
+     * fixup commits should occur.
+     */
+    const [flags, env] = squashFixups ?
+        [['--interactive', '--autosquash'], {...process.env, GIT_SEQUENCE_EDITOR: 'true'}] :
+        [[], undefined];
+    const rebaseResult = git.runGraceful(['rebase', ...flags, 'FETCH_HEAD'], {env: env});
 
     // If the rebase was clean, push the rebased PR up to the authors fork.
     if (rebaseResult.status === 0) {
@@ -99,12 +121,12 @@ export async function rebasePr(
       info(`Pushing rebased PR #${prNumber} to ${fullHeadRef}`);
       git.run(['push', headRefUrl, `HEAD:${headRefName}`, forceWithLeaseFlag]);
       info(`Rebased and updated PR #${prNumber}`);
-      cleanUpGitState();
+      git.checkout(previousBranchOrRevision, true);
       process.exit(0);
     }
   } catch (err) {
     error(err.message);
-    cleanUpGitState();
+    git.checkout(previousBranchOrRevision, true);
     process.exit(1);
   }
 
@@ -127,23 +149,6 @@ export async function rebasePr(
     info(`Cleaning up git state, and restoring previous state.`);
   }
 
-  cleanUpGitState();
+  git.checkout(previousBranchOrRevision, true);
   process.exit(1);
-
-  /** Reset git back to the original branch. */
-  function cleanUpGitState() {
-    // Ensure that any outstanding rebases are aborted.
-    git.runGraceful(['rebase', '--abort'], {stdio: 'ignore'});
-    // Ensure that any changes in the current repo state are cleared.
-    git.runGraceful(['reset', '--hard'], {stdio: 'ignore'});
-    // Checkout the original branch from before the run began.
-    git.runGraceful(['checkout', previousBranchOrRevision], {stdio: 'ignore'});
-  }
-}
-
-/** Adds the provided token as username to the provided url. */
-function addAuthenticationToUrl(urlString: string, token: string) {
-  const url = new URL(urlString);
-  url.username = token;
-  return url.toString();
 }

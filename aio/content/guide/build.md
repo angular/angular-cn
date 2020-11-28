@@ -425,7 +425,7 @@ For more information, see [How CommonJS is making your bundles larger](https://w
 
 建议你在 Angular 应用中避免依赖 CommonJS 模块。对 CommonJS 模块的依赖会阻止打包器和压缩器优化你的应用，这会导致更大的打包尺寸。
 建议你在整个应用中都使用 [ECMAScript 模块](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import)。
-欲知详情，参见[为什么 CommonJS 会导致更大的打包尺寸](https://web.dev/commonjs-larger-bundles/)。
+欲知详情，参阅[为什么 CommonJS 会导致更大的打包尺寸](https://web.dev/commonjs-larger-bundles/)。
 
 </div>
 
@@ -491,7 +491,7 @@ Browserlist 会在 `package.json` 的 `browserlist` 属性中或一个名叫 `.b
 
 See the [browserslist repo](https://github.com/browserslist/browserslist) for more examples of how to target specific browsers and versions.
 
-参见 [browserslist 的代码库](https://github.com/browserslist/browserslist)以得到如何指定浏览器及其版本的更多例子。
+参阅 [browserslist 的代码库](https://github.com/browserslist/browserslist)以得到如何指定浏览器及其版本的更多例子。
 
 ### Backward compatibility with Lighthouse
 
@@ -537,7 +537,7 @@ or
 
 For more information, see [Autoprefixer documentation](https://autoprefixer.github.io/).
 
-欲知详情，参见 [Autoprefixer 文档](https://autoprefixer.github.io/)。
+欲知详情，参阅 [Autoprefixer 文档](https://autoprefixer.github.io/)。
 
 {@a proxy}
 
@@ -592,7 +592,7 @@ You can edit the proxy configuration file to add configuration options; some exa
 For a description of all options, see [webpack DevServer documentation](https://webpack.js.org/configuration/dev-server/#devserverproxy).
 
 你可以编辑这个代理配置文件，以添加配置项，例子如下。
-要查看所有选项的详细说明，参见 [webpack DevServer 文档](https://webpack.js.org/configuration/dev-server/#devserver-proxy)。
+要查看所有选项的详细说明，参阅 [webpack DevServer 文档](https://webpack.js.org/configuration/dev-server/#devserver-proxy)。
 
 Note that if you edit the proxy configuration file, you must relaunch the `ng serve` process to make your changes effective.
 

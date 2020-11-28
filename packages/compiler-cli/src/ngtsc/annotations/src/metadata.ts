@@ -10,7 +10,7 @@ import {Expression, ExternalExpr, FunctionExpr, Identifiers, InvokeFunctionExpr,
 import * as ts from 'typescript';
 
 import {DefaultImportRecorder} from '../../imports';
-import {CtorParameter, Decorator, ReflectionHost} from '../../reflection';
+import {CtorParameter, DeclarationNode, Decorator, ReflectionHost, TypeValueReferenceKind} from '../../reflection';
 
 import {valueReferenceToExpression, wrapFunctionExpressionsInParens} from './util';
 
@@ -23,12 +23,13 @@ import {valueReferenceToExpression, wrapFunctionExpressionsInParens} from './uti
  * as a `Statement` for inclusion along with the class.
  */
 export function generateSetClassMetadataCall(
-    clazz: ts.Declaration, reflection: ReflectionHost, defaultImportRecorder: DefaultImportRecorder,
-    isCore: boolean, annotateForClosureCompiler?: boolean): Statement|null {
+    clazz: DeclarationNode, reflection: ReflectionHost,
+    defaultImportRecorder: DefaultImportRecorder, isCore: boolean,
+    annotateForClosureCompiler?: boolean): Statement|null {
   if (!reflection.isClass(clazz)) {
     return null;
   }
-  const id = ts.updateIdentifier(reflection.getAdjacentNameOfClass(clazz));
+  const id = reflection.getAdjacentNameOfClass(clazz);
 
   // Reflect over the class decorators. If none are present, or those that are aren't from
   // Angular, then return null. Otherwise, turn them into metadata.
@@ -38,8 +39,13 @@ export function generateSetClassMetadataCall(
   }
   const ngClassDecorators =
       classDecorators.filter(dec => isAngularDecorator(dec, isCore))
-          .map(
-              (decorator: Decorator) => decoratorToMetadata(decorator, annotateForClosureCompiler));
+          .map(decorator => decoratorToMetadata(decorator, annotateForClosureCompiler))
+          // Since the `setClassMetadata` call is intended to be emitted after the class
+          // declaration, we have to strip references to the existing identifiers or
+          // TypeScript might generate invalid code when it emits to JS. In particular
+          // this can break when emitting a class to ES5 which has a custom decorator
+          // and is referenced inside of its own metadata (see #39509 for more information).
+          .map(decorator => removeIdentifierReferences(decorator, id.text));
   if (ngClassDecorators.length === 0) {
     return null;
   }
@@ -70,8 +76,8 @@ export function generateSetClassMetadataCall(
         `Duplicate decorated properties found on class '${clazz.name.text}': ` +
         duplicateDecoratedMemberNames.join(', '));
   }
-  const decoratedMembers =
-      classMembers.map(member => classMemberToMetadata(member.name, member.decorators!, isCore));
+  const decoratedMembers = classMembers.map(
+      member => classMemberToMetadata(member.nameNode ?? member.name, member.decorators!, isCore));
   if (decoratedMembers.length > 0) {
     metaPropDecorators = ts.createObjectLiteral(decoratedMembers);
   }
@@ -105,7 +111,7 @@ function ctorParameterToMetadata(
     isCore: boolean): Expression {
   // Parameters sometimes have a type that can be referenced. If so, then use it, otherwise
   // its type is undefined.
-  const type = param.typeValueReference !== null ?
+  const type = param.typeValueReference.kind !== TypeValueReferenceKind.UNAVAILABLE ?
       valueReferenceToExpression(param.typeValueReference, defaultImportRecorder) :
       new LiteralExpr(undefined);
 
@@ -127,7 +133,7 @@ function ctorParameterToMetadata(
  * Convert a reflected class member to metadata.
  */
 function classMemberToMetadata(
-    name: string, decorators: Decorator[], isCore: boolean): ts.PropertyAssignment {
+    name: ts.PropertyName|string, decorators: Decorator[], isCore: boolean): ts.PropertyAssignment {
   const ngDecorators = decorators.filter(dec => isAngularDecorator(dec, isCore))
                            .map((decorator: Decorator) => decoratorToMetadata(decorator));
   const decoratorMeta = ts.createArrayLiteral(ngDecorators);
@@ -164,4 +170,20 @@ function decoratorToMetadata(
  */
 function isAngularDecorator(decorator: Decorator, isCore: boolean): boolean {
   return isCore || (decorator.import !== null && decorator.import.from === '@angular/core');
+}
+
+/**
+ * Recursively recreates all of the `Identifier` descendant nodes with a particular name inside
+ * of an AST node, thus removing any references to them. Useful if a particular node has to be t
+ * aken from one place any emitted to another one exactly as it has been written.
+ */
+function removeIdentifierReferences<T extends ts.Node>(node: T, name: string): T {
+  const result = ts.transform(
+      node, [context => root => ts.visitNode(root, function walk(current: ts.Node): ts.Node {
+        return ts.isIdentifier(current) && current.text === name ?
+            ts.createIdentifier(current.text) :
+            ts.visitEachChild(current, walk, context);
+      })]);
+
+  return result.transformed[0];
 }

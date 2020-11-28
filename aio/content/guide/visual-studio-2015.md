@@ -36,11 +36,11 @@ Visual Studio 2015, follow these steps:
 
 If you prefer a `File | New Project` experience and are using **ASP.NET Core**, 
 then consider the _experimental_
-<a href="http://blog.stevensanderson.com/2016/10/04/angular2-template-for-visual-studio/">ASP.NET Core + Angular template for Visual Studio 2015</a>.
+<a href="https://blog.stevensanderson.com/2016/10/04/angular2-template-for-visual-studio/">ASP.NET Core + Angular template for Visual Studio 2015</a>.
 Note that the resulting code does not map to the docs. Adjust accordingly.
 
 如果你希望使用**ASP.NET Core**并体验全新项目，
-    参见*预览版*<a href="http://blog.stevensanderson.com/2016/10/04/angular2-template-for-visual-studio/" target="_blank">ASP.NET Core + Angular 的 Visual Studio 2015 模板</a>。
+    参阅*预览版*<a href="http://blog.stevensanderson.com/2016/10/04/angular2-template-for-visual-studio/" target="_blank">ASP.NET Core + Angular 的 Visual Studio 2015 模板</a>。
     注意，最终代码与本文不对应，请适当调节。
 
 </div>
@@ -54,7 +54,7 @@ if they are not already on your machine.
 See [Local Environment Setup](guide/setup-local "Setting up for Local Development") for supported versions and instructions.
 
 如果你的电脑里没有 Node.js®和 npm，请安装**[它们](https://nodejs.org/en/download/)**。
-参见[搭建本地开发环境](guide/setup-local "Setting up for Local Development")以了解所支持的版本和安装步骤。
+参阅[搭建本地开发环境](guide/setup-local "Setting up for Local Development")以了解所支持的版本和安装步骤。
 
 <h2 id='prereq2'>Prerequisite: Visual Studio 2015 Update 3</h2>
 

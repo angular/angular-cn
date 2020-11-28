@@ -89,32 +89,7 @@ Angular 支持大多数常用浏览器，包括下列版本：
     </td>
 
     <td>
-
-      11, 10*, 9* ("compatibility view" mode not supported) 
-
-      11, 10*, 9* (不支持“兼容性视图”)
-
-      *deprecated in v10, see the {@link guide/deprecations#ie-9-10-and-mobile deprecations guide}.
-
-      *在 v10 中弃用，参见<a href="/guide/deprecations#ie-9-10-and-mobile">弃用指南</a>。
-    </td>
-
-  </tr>
- <tr>
-   <tr> 
-    <td>
-
-      IE Mobile*
-    </td>
-
-    <td>
-
-      11
-
-      <div>*deprecated in v10, see the {@link guide/deprecations#ie-9-10-and-mobile deprecations guide}.</div>
-
-      <div>*已在 v10 中弃用，参见 {@link guide/deprecations#ie-9-10-and-mobile deprecations guide}.</div>
-
+      <div>11</div>
     </td>
 
   </tr>
@@ -162,7 +137,7 @@ Angular 支持大多数常用浏览器，包括下列版本：
 
     <td>
 
-     X (10.0), Pie (9.0), Oreo (8.0), Nougat (7.0)
+     Q (10.0), Pie (9.0), Oreo (8.0), Nougat (7.0)
     </td>
 
   </tr>
@@ -172,8 +147,8 @@ Angular 支持大多数常用浏览器，包括下列版本：
 <div class="alert is-helpful">
 
 Angular's continuous integration process runs unit tests of the framework on all of these browsers for every pull request,
-using <a href="https://saucelabs.com/">SauceLabs</a> and
-<a href="https://www.browserstack.com">Browserstack</a>.
+using [Sauce Labs](https://saucelabs.com/) and
+[BrowserStack](https://www.browserstack.com/).
 
 Angular 在持续集成过程中，对每一个提交都会使用 <a href="https://saucelabs.com/" target="_blank">SauceLabs</a> 和
 <a href="https://www.browserstack.com" target="_blank">Browserstack</a> 在上述所有浏览器上执行单元测试。
@@ -221,7 +196,7 @@ In Angular CLI version 8 and higher, applications are built using *differential 
 This strategy allows you to continue to build your web application to support multiple browsers, but only load the necessary code that the browser needs.
 For more information about how this works, see [Differential Loading](guide/deployment#differential-loading) in the [Deployment guide](guide/deployment).
 
-通过此策略，你可以继续构建 Web 应用程序以支持多个浏览器，但仅加载当前浏览器所需的必要代码。有关此工作原理的更多信息，请参见《[部署指南》](guide/deployment)中的“[差异化加载](guide/deployment#differential-loading) ”。
+通过此策略，你可以继续构建 Web 应用程序以支持多个浏览器，但仅加载当前浏览器所需的必要代码。关于此工作原理的更多信息，请参阅《[部署指南》](guide/deployment)中的“[差异化加载](guide/deployment#differential-loading) ”。
 
 ## Enabling polyfills with CLI projects
 
@@ -245,7 +220,7 @@ This file incorporates the mandatory and many of the optional polyfills as JavaS
 
   如果需要*可选的*腻子脚本，则必须安装其 npm 捆绑包，然后取消注释或在 `src/polyfills.ts` 配置文件中创建相应的 import 语句。
 
-For example, if you need the optional [web animations polyfill](http://caniuse.com/#feat=web-animation), you could install it with `npm`, using the following command (or the `yarn` equivalent):
+For example, if you need the optional [web animations polyfill](https://caniuse.com/web-animation), you could install it with `npm`, using the following command (or the `yarn` equivalent):
 
 比如，如果需要可选的 [Web 动画腻子脚本](http://caniuse.com/#feat=web-animation)，则可以使用以下命令来通过 `npm`（或等效的 `yarn` ）安装它：
 
@@ -265,7 +240,7 @@ For many polyfills, you can simply un-comment the corresponding `import` stateme
 
   * Required to support Web Animations `@angular/platform-browser/animations`.
 
-  * Needed for: All but Chrome, Firefox and Opera. http://caniuse.com/#feat=web-animation
+  * Needed for: All but Chrome, Firefox and Opera. https://caniuse.com/web-animation
   **/
   import 'web-animations-js';  // Run `npm install --save web-animations-js`.
 </code-example>
@@ -310,26 +285,12 @@ These are the polyfills required to run an Angular application on each supported
 
     <td>
       Chrome, Firefox, Edge, <br>
-      Safari, Android, IE 10+
+      Safari, Android, IE 11
     </td>
 
     <td>
 
       [ES2015](guide/browser-support#core-es6)
-
-    </td>
-
-  </tr>
-
-  <tr style="vertical-align: top">
-
-    <td>
-      IE9
-    </td>
-
-    <td>
-
-      ES2015<br>[classList](guide/browser-support#classlist)
 
     </td>
 
@@ -423,34 +384,7 @@ Some features of Angular may require additional polyfills.
     </td>
 
     <td>
-      IE10, IE11
-    </td>
-
-  </tr>
-
-  <tr style="vertical-align: top">
-
-    <td>
-
-      [Http](guide/http) when sending and receiving binary data
-
-      用 [Http](guide/http) 发送和接收二进制数据时
-    </td>
-
-    <td>
-
-      [Typed&nbsp;Array](guide/browser-support#typedarray)<br>
-
-      [Blob](guide/browser-support#blob)<br>
-
-      [FormData](guide/browser-support#formdata)
-
-    </td>
-
-    <td>
-
-      IE 9
-
+      IE 11
     </td>
 
   </tr>
@@ -625,76 +559,10 @@ The following polyfills are used to test the framework itself. They are a good s
 
   </tr>
 
-  <tr>
-
-    <td>
-
-      <a id='typedarray' href="https://github.com/inexorabletash/polyfill/blob/master/typedarray.js">Typed Array</a>
-
-    </td>
-
-    <td>
-
-      MIT
-
-    </td>
-
-    <td>
-
-      4KB
-
-    </td>
-
-  </tr>
-
-  <tr>
-
-    <td>
-
-       <a id='blob' href="https://github.com/eligrey/Blob.js">Blob</a>
-
-    </td>
-
-    <td>
-
-      MIT
-
-    </td>
-
-    <td>
-
-      1.3KB
-
-    </td>
-
-  </tr>
-
-  <tr>
-
-    <td>
-
-       <a id='formdata' href="https://github.com/francois2metz/html5-formdata">FormData</a>
-
-    </td>
-
-    <td>
-
-      MIT
-
-    </td>
-
-    <td>
-
-      0.4KB
-
-    </td>
-
-  </tr>
-
 </table>
 
 \* Figures are for minified and gzipped code,
-computed with the <a href="http://closure-compiler.appspot.com/home">closure compiler</a>.
+computed with the [closure compiler](https://closure-compiler.appspot.com/home).
 
 \* 这里的数据都按最小化并且 gzip 压缩后的版本算，是由<a href="http://closure-compiler.appspot.com/home">closure compiler</a>计算出的。
 

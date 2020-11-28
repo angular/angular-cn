@@ -81,7 +81,7 @@ The result will be updated for changes to your view, such as changes to `ngIf` a
 For more information, see the following entries in the
 [Static Query Migration Guide](guide/static-query-migration):
 
-要了解更多信息，请参见[静态查询迁移指南](guide/static-query-migration)中的以下条目：
+要了解更多信息，请参阅[静态查询迁移指南](guide/static-query-migration)中的以下条目：
 
 * [How do I choose which `static` flag value to use: `true` or `false`?](guide/static-query-migration#how-do-i-choose-which-static-flag-value-to-use-true-or-false)
 

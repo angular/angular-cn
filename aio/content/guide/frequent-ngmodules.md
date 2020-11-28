@@ -209,7 +209,7 @@ while the `imports` array within `@NgModule` is Angular specific.
 For more information on the difference, see [JavaScript Modules vs. NgModules](guide/ngmodule-vs-jsmodule).
 
 文件顶部的这些导入是 JavaScript 的导入语句，而 `@NgModule` 中的 `imports` 数组则是 Angular 特有的。
-要了解更多的不同点，参见 [JavaScript 模块 vs. NgModule](guide/ngmodule-vs-jsmodule)。
+要了解更多的不同点，参阅 [JavaScript 模块 vs. NgModule](guide/ngmodule-vs-jsmodule)。
 
 ## `BrowserModule` and `CommonModule`
 

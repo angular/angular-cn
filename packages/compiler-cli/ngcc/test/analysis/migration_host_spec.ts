@@ -13,9 +13,8 @@ import {absoluteFrom} from '../../../src/ngtsc/file_system';
 import {runInEachFileSystem} from '../../../src/ngtsc/file_system/testing';
 import {MockLogger} from '../../../src/ngtsc/logging/testing';
 import {ClassDeclaration, Decorator, isNamedClassDeclaration} from '../../../src/ngtsc/reflection';
-import {getDeclaration} from '../../../src/ngtsc/testing';
+import {getDeclaration, loadTestFiles} from '../../../src/ngtsc/testing';
 import {AnalysisOutput, CompileResult, DecoratorHandler, DetectResult, HandlerPrecedence, TraitState} from '../../../src/ngtsc/transform';
-import {loadTestFiles} from '../../../test/helpers';
 import {DefaultMigrationHost} from '../../src/analysis/migration_host';
 import {NgccTraitCompiler} from '../../src/analysis/ngcc_trait_compiler';
 import {Esm2015ReflectionHost} from '../../src/host/esm2015_host';
@@ -209,7 +208,7 @@ class DetectDecoratorHandler implements DecoratorHandler<unknown, unknown, unkno
     return {};
   }
 
-  compile(node: ClassDeclaration): CompileResult|CompileResult[] {
+  compileFull(node: ClassDeclaration): CompileResult|CompileResult[] {
     return [];
   }
 }
@@ -227,7 +226,7 @@ class DiagnosticProducingHandler implements DecoratorHandler<unknown, unknown, u
     return {diagnostics: [makeDiagnostic(9999, node, 'test diagnostic')]};
   }
 
-  compile(node: ClassDeclaration): CompileResult|CompileResult[] {
+  compileFull(node: ClassDeclaration): CompileResult|CompileResult[] {
     return [];
   }
 }

@@ -200,10 +200,9 @@ The animation code does the following after styling the views:
 
 在设置了视图的样式之后，动画代码会执行如下操作：
 
-* `query(':enter style({ left: '-100%'})` matches the view that is added and hides the newly added view by positioning it to the far left.
+* `query(':enter', style({ left: '-100%' }))` matches the view that is added and hides the newly added view by positioning it to the far left.
 
   `query(':enter style({ left: '-100%'})` 会匹配添加的视图，并通过将其定位在最左侧来隐藏这个新视图。
-
 * Calls `animateChild()` on the view that is leaving, to run its child animations.
 
   在正在离开的视图上调用 `animateChild()`，来运行其子动画。

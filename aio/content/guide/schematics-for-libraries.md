@@ -103,6 +103,37 @@ If you need to, you can do additional setup when your package is installed, such
 
 在这个例子中，该函数会接收当前的 `Tree` 并返回它而不作任何修改。如果需要，你也可以在安装软件包时进行额外的设置，例如生成文件、更新配置、或者库所需的任何其它初始设置。
 
+### Define dependency type
+
+### 定义依赖类型
+
+Use the `save` option of `ng-add` to configure if the library should be added to the `dependencies`, the `devDepedencies`, or not saved at all in the project's `package.json` configuration file.
+
+如果该库应该添加到 `dependencies` 中、`devDepedencies` 中，或者不用保存到项目的 `package.json` 配置文件中，请使用 `ng-add` 的 `save` 选项进行配置
+
+<code-example header="projects/my-lib/package.json (ng-add Reference)" path="schematics-for-libraries/projects/my-lib/package.json" region="ng-add">
+</code-example>
+
+Possible values are:
+
+可能的值有：
+
+  * `false` - Don't add the package to package.json
+
+     `false` - 不把此包添加到 package.json
+
+  * `true` - Add the package to the dependencies
+
+     `true` - 把此包添加到 dependencies
+
+  * `"dependencies"` - Add the package to the dependencies
+
+     `"dependencies"` - 把此包添加到 dependencies
+
+  * `"devDependencies"` - Add the package to the devDependencies
+
+     `"devDependencies"` - 把此包添加到 devDependencies
+
 ## Building your schematics
 
 ## 构建你的原理图
@@ -304,7 +335,7 @@ Schematics 框架提供了一个文件模板系统，它支持路径和内容模
 
 For details of these data structures and syntax, see the [Schematics README](https://github.com/angular/angular-cli/blob/master/packages/angular_devkit/schematics/README.md).
 
-有关这些数据结构和语法的详细信息，请参见 [Schematics 的 README](https://github.com/angular/angular-cli/blob/master/packages/angular_devkit/schematics/README.md)。
+关于这些数据结构和语法的详细信息，请参阅 [Schematics 的 README](https://github.com/angular/angular-cli/blob/master/packages/angular_devkit/schematics/README.md)。
 
 1. Create the main file `index.ts` and add the source code for your schematic factory function.
 
@@ -466,7 +497,7 @@ See a complete exampled of the schematic rule function.
 
 For more information about rules and utility methods, see [Provided Rules](https://github.com/angular/angular-cli/tree/master/packages/angular_devkit/schematics#provided-rules).
 
-有关规则和实用工具方法的详细信息，请参阅[预定义规则](https://github.com/angular/angular-cli/tree/master/packages/angular_devkit/schematics#provided-rules)。
+关于规则和实用工具方法的详细信息，请参阅[预定义规则](https://github.com/angular/angular-cli/tree/master/packages/angular_devkit/schematics#provided-rules)。
 
 ## Running your library schematic
 

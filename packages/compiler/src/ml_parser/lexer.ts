@@ -17,6 +17,7 @@ export enum TokenType {
   TAG_OPEN_END,
   TAG_OPEN_END_VOID,
   TAG_CLOSE,
+  INCOMPLETE_TAG_OPEN,
   TEXT,
   ESCAPABLE_RAW_TEXT,
   RAW_TEXT,
@@ -138,11 +139,21 @@ function _unknownEntityErrorMsg(entitySrc: string): string {
   return `Unknown entity "${entitySrc}" - use the "&#<decimal>;" or  "&#x<hex>;" syntax`;
 }
 
+function _unparsableEntityErrorMsg(type: CharacterReferenceType, entityStr: string): string {
+  return `Unable to parse entity "${entityStr}" - ${
+      type} character reference entities must end with ";"`;
+}
+
+enum CharacterReferenceType {
+  HEX = 'hexadecimal',
+  DEC = 'decimal',
+}
+
 class _ControlFlowError {
   constructor(public error: TokenError) {}
 }
 
-// See http://www.w3.org/TR/html51/syntax.html#writing
+// See https://www.w3.org/TR/html51/syntax.html#writing-html-documents
 class _Tokenizer {
   private _cursor: CharacterCursor;
   private _tokenizeIcu: boolean;
@@ -189,7 +200,7 @@ class _Tokenizer {
     if (this._preserveLineEndings) {
       return content;
     }
-    // http://www.w3.org/TR/html5/syntax.html#preprocessing-the-input-stream
+    // https://www.w3.org/TR/html51/syntax.html#preprocessing-the-input-stream
     // In order to keep the original position in the source, we can not
     // pre-process it.
     // Instead CRs are processed right before instantiating the tokens.
@@ -400,8 +411,13 @@ class _Tokenizer {
       const codeStart = this._cursor.clone();
       this._attemptCharCodeUntilFn(isDigitEntityEnd);
       if (this._cursor.peek() != chars.$SEMICOLON) {
+        // Advance cursor to include the peeked character in the string provided to the error
+        // message.
+        this._cursor.advance();
+        const entityType = isHex ? CharacterReferenceType.HEX : CharacterReferenceType.DEC;
         throw this._createError(
-            _unexpectedCharacterErrorMsg(this._cursor.peek()), this._cursor.getSpan());
+            _unparsableEntityErrorMsg(entityType, this._cursor.getChars(start)),
+            this._cursor.getSpan());
       }
       const strNum = this._cursor.getChars(codeStart);
       this._cursor.advance();
@@ -496,8 +512,6 @@ class _Tokenizer {
     let tagName: string;
     let prefix: string;
     let openTagToken: Token|undefined;
-    let tokensBeforeTagOpen = this.tokens.length;
-    const innerStart = this._cursor.clone();
     try {
       if (!chars.isAsciiLetter(this._cursor.peek())) {
         throw this._createError(
@@ -508,7 +522,8 @@ class _Tokenizer {
       prefix = openTagToken.parts[0];
       tagName = openTagToken.parts[1];
       this._attemptCharCodeUntilFn(isNotWhitespace);
-      while (this._cursor.peek() !== chars.$SLASH && this._cursor.peek() !== chars.$GT) {
+      while (this._cursor.peek() !== chars.$SLASH && this._cursor.peek() !== chars.$GT &&
+             this._cursor.peek() !== chars.$LT) {
         this._consumeAttributeName();
         this._attemptCharCodeUntilFn(isNotWhitespace);
         if (this._attemptCharCode(chars.$EQ)) {
@@ -520,14 +535,15 @@ class _Tokenizer {
       this._consumeTagOpenEnd();
     } catch (e) {
       if (e instanceof _ControlFlowError) {
-        // When the start tag is invalid (including invalid "attributes"), assume we want a "<"
-        this._cursor = innerStart;
         if (openTagToken) {
-          this.tokens.length = tokensBeforeTagOpen;
+          // We errored before we could close the opening tag, so it is incomplete.
+          openTagToken.type = TokenType.INCOMPLETE_TAG_OPEN;
+        } else {
+          // When the start tag is invalid, assume we want a "<" as text.
+          // Back to back text tokens are merged at the end.
+          this._beginToken(TokenType.TEXT, start);
+          this._endToken(['<']);
         }
-        // Back to back text tokens are merged at the end
-        this._beginToken(TokenType.TEXT, start);
-        this._endToken(['<']);
         return;
       }
 
@@ -627,13 +643,11 @@ class _Tokenizer {
     this._beginToken(TokenType.RAW_TEXT);
     const condition = this._readUntil(chars.$COMMA);
     const normalizedCondition = this._processCarriageReturns(condition);
-    if (this._escapedString || this._i18nNormalizeLineEndingsInICUs) {
-      // Either the template is inline or,
-      // we explicitly want to normalize line endings for this text.
+    if (this._i18nNormalizeLineEndingsInICUs) {
+      // We explicitly want to normalize line endings for this text.
       this._endToken([normalizedCondition]);
     } else {
-      // The expression is in an external template and, for backward compatibility,
-      // we are not normalizing line endings.
+      // We are not normalizing line endings.
       const conditionToken = this._endToken([condition]);
       if (normalizedCondition !== condition) {
         this.nonNormalizedIcuExpressions.push(conditionToken);
@@ -759,8 +773,8 @@ function isNotWhitespace(code: number): boolean {
 }
 
 function isNameEnd(code: number): boolean {
-  return chars.isWhitespace(code) || code === chars.$GT || code === chars.$SLASH ||
-      code === chars.$SQ || code === chars.$DQ || code === chars.$EQ;
+  return chars.isWhitespace(code) || code === chars.$GT || code === chars.$LT ||
+      code === chars.$SLASH || code === chars.$SQ || code === chars.$DQ || code === chars.$EQ;
 }
 
 function isPrefixEnd(code: number): boolean {
@@ -903,19 +917,20 @@ class PlainCharacterCursor implements CharacterCursor {
 
   getSpan(start?: this, leadingTriviaCodePoints?: number[]): ParseSourceSpan {
     start = start || this;
-    let cloned = false;
+    let fullStart = start;
     if (leadingTriviaCodePoints) {
       while (this.diff(start) > 0 && leadingTriviaCodePoints.indexOf(start.peek()) !== -1) {
-        if (!cloned) {
+        if (fullStart === start) {
           start = start.clone() as this;
-          cloned = true;
         }
         start.advance();
       }
     }
-    return new ParseSourceSpan(
-        new ParseLocation(start.file, start.state.offset, start.state.line, start.state.column),
-        new ParseLocation(this.file, this.state.offset, this.state.line, this.state.column));
+    const startLocation = this.locationFromCursor(start);
+    const endLocation = this.locationFromCursor(this);
+    const fullStartLocation =
+        fullStart !== start ? this.locationFromCursor(fullStart) : startLocation;
+    return new ParseSourceSpan(startLocation, endLocation, fullStartLocation);
   }
 
   getChars(start: this): string {
@@ -944,6 +959,11 @@ class PlainCharacterCursor implements CharacterCursor {
 
   protected updatePeek(state: CursorState): void {
     state.peek = state.offset >= this.end ? chars.$EOF : this.charAt(state.offset);
+  }
+
+  private locationFromCursor(cursor: this): ParseLocation {
+    return new ParseLocation(
+        cursor.file, cursor.state.offset, cursor.state.line, cursor.state.column);
   }
 }
 

@@ -15,7 +15,10 @@ import {ApplicationInitStatus} from './application_init';
 import {APP_BOOTSTRAP_LISTENER, PLATFORM_INITIALIZER} from './application_tokens';
 import {getCompilerFacade} from './compiler/compiler_facade';
 import {Console} from './console';
-import {Injectable, InjectionToken, Injector, StaticProvider} from './di';
+import {Injectable} from './di/injectable';
+import {InjectionToken} from './di/injection_token';
+import {Injector} from './di/injector';
+import {StaticProvider} from './di/interface/provider';
 import {INJECTOR_SCOPE} from './di/scope';
 import {ErrorHandler} from './error_handler';
 import {DEFAULT_LOCALE_ID} from './i18n/localization';
@@ -30,7 +33,7 @@ import {InternalViewRef, ViewRef} from './linker/view_ref';
 import {isComponentResourceResolutionQueueEmpty, resolveComponentResources} from './metadata/resource_loading';
 import {assertNgModuleType} from './render3/assert';
 import {ComponentFactory as R3ComponentFactory} from './render3/component_ref';
-import {setLocaleId} from './render3/i18n';
+import {setLocaleId} from './render3/i18n/i18n_locale_id';
 import {setJitOptions} from './render3/jit/jit_options';
 import {NgModuleFactory as R3NgModuleFactory} from './render3/ng_module_ref';
 import {publishDefaultGlobalUtils as _publishDefaultGlobalUtils} from './render3/util/global_utils';
@@ -260,9 +263,28 @@ export interface BootstrapOptions {
    * coalesced and the change detection will be triggered multiple times.
    * And if this option be set to true, the change detection will be
    * triggered async by scheduling a animation frame. So in the case above,
-   * the change detection will only be trigged once.
+   * the change detection will only be triggered once.
    */
   ngZoneEventCoalescing?: boolean;
+
+  /**
+   * Optionally specify if `NgZone#run()` method invocations should be coalesced
+   * into a single change detection.
+   *
+   * Consider the following case.
+   *
+   * for (let i = 0; i < 10; i ++) {
+   *   ngZone.run(() => {
+   *     // do something
+   *   });
+   * }
+   *
+   * This case triggers the change detection multiple times.
+   * With ngZoneRunCoalescing options, all change detections in an event loop trigger only once.
+   * In addition, the change detection executes in requestAnimation.
+   *
+   */
+  ngZoneRunCoalescing?: boolean;
 }
 
 /**
@@ -313,10 +335,13 @@ export class PlatformRef {
     // pass that as parent to the NgModuleFactory.
     const ngZoneOption = options ? options.ngZone : undefined;
     const ngZoneEventCoalescing = (options && options.ngZoneEventCoalescing) || false;
-    const ngZone = getNgZone(ngZoneOption, ngZoneEventCoalescing);
+    const ngZoneRunCoalescing = (options && options.ngZoneRunCoalescing) || false;
+    const ngZone = getNgZone(ngZoneOption, {ngZoneEventCoalescing, ngZoneRunCoalescing});
     const providers: StaticProvider[] = [{provide: NgZone, useValue: ngZone}];
-    // Attention: Don't use ApplicationRef.run here,
-    // as we want to be sure that all possible constructor calls are inside `ngZone.run`!
+    // Note: Create ngZoneInjector within ngZone.run so that all of the instantiated services are
+    // created within the Angular zone
+    // Do not try to replace ngZone.run with ApplicationRef#run because ApplicationRef would then be
+    // created outside of the Angular zone.
     return ngZone.run(() => {
       const ngZoneInjector = Injector.create(
           {providers: providers, parent: this.injector, name: moduleFactory.moduleType.name});
@@ -423,7 +448,8 @@ export class PlatformRef {
 }
 
 function getNgZone(
-    ngZoneOption: NgZone|'zone.js'|'noop'|undefined, ngZoneEventCoalescing: boolean): NgZone {
+    ngZoneOption: NgZone|'zone.js'|'noop'|undefined,
+    extra?: {ngZoneEventCoalescing: boolean, ngZoneRunCoalescing: boolean}): NgZone {
   let ngZone: NgZone;
 
   if (ngZoneOption === 'noop') {
@@ -431,7 +457,8 @@ function getNgZone(
   } else {
     ngZone = (ngZoneOption === 'zone.js' ? undefined : ngZoneOption) || new NgZone({
                enableLongStackTrace: isDevMode(),
-               shouldCoalesceEventChangeDetection: ngZoneEventCoalescing
+               shouldCoalesceEventChangeDetection: !!extra?.ngZoneEventCoalescing,
+               shouldCoalesceRunChangeDetection: !!extra?.ngZoneRunCoalescing
              });
   }
   return ngZone;

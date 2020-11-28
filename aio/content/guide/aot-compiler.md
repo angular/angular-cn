@@ -89,7 +89,7 @@ When you run the [`ng build`](cli/build) (build only) or [`ng serve`](cli/serve)
 
 See the [CLI command reference](cli) and [Building and serving Angular apps](guide/build) for more information.
 
-要了解更多，请参见[CLI 文档](cli)，和 [构建与运行 Angular 应用](guide/build)。
+要了解更多，请参阅[CLI 文档](cli)，和 [构建与运行 Angular 应用](guide/build)。
 
 ## How AOT works
 
@@ -110,7 +110,7 @@ In the following example, the `@Component()` metadata object and the class const
 @Component({
   selector: 'app-typical',
   template: '<div>A typical component for {{data.name}}</div>'
-)}
+})
 export class TypicalComponent {
   @Input() data: TypicalData;
   constructor(private someService: SomeService) { ... }
@@ -175,7 +175,7 @@ You write metadata in a _subset_ of TypeScript that must conform to the followin
 
 For additional guidelines and instructions on preparing an application for AOT compilation, see [Angular: Writing AOT-friendly applications](https://medium.com/sparkles-blog/angular-writing-aot-friendly-applications-7b64c8afbe3f).
 
-有关准备 AOT 编译应用程序的其它准则和说明，请参阅 [Angular：编写 AOT 友好的应用程序](https://medium.com/sparkles-blog/angular-writing-aot-friendly-applications-7b64c8afbe3f)。
+关于准备 AOT 编译应用程序的其它准则和说明，请参阅 [Angular：编写 AOT 友好的应用程序](https://medium.com/sparkles-blog/angular-writing-aot-friendly-applications-7b64c8afbe3f)。
 
 <div class="alert is-helpful">
 
@@ -192,7 +192,7 @@ AOT 编译中的错误通常是由于元数据不符合编译器的要求而发�
 
 You can provide options in the [TypeScript configuration file](guide/typescript-configuration) that controls the compilation process. See [Angular compiler options](guide/angular-compiler-options) for a complete list of available options.
 
-你可以在 `tsconfig.json` [TypeScript 配置文件](guide/typescript-configuration)中提供控制编译过程的选项。有关可用选项的完整列表，请参见 [Angular 编译器](guide/angular-compiler-options)选项。
+你可以在 `tsconfig.json` [TypeScript 配置文件](guide/typescript-configuration)中提供控制编译过程的选项。关于可用选项的完整列表，请参阅 [Angular 编译器](guide/angular-compiler-options)选项。
 
 ## Phase 1: Code analysis
 
@@ -1345,7 +1345,7 @@ We do expect to make strict type checking the default in the future.
 
 For more information about type-checking options, and about improvements to template type checking in version 9 and above, see [Template type checking](guide/template-typecheck).
 
-关于这些类型检查选项的更多信息以及 Angular 9 及后续版本对模板类型检查做出的改进，请参见 [模板类型检查](guide/template-typecheck)。
+关于这些类型检查选项的更多信息以及 Angular 9 及后续版本对模板类型检查做出的改进，请参阅 [模板类型检查](guide/template-typecheck)。
 
 </div>
 
@@ -1438,15 +1438,15 @@ Using `*ngIf` allows the TypeScript compiler to infer that the `person` used in 
 
 For more information about input type narrowing, see [Input setter coercion](guide/template-typecheck#input-setter-coercion) and [Improving template type checking for custom directives](guide/structural-directives#directive-type-checks).
 
-关于输入类型窄化的更多信息，请参见 [Input setter 的强制类型转换](guide/template-typecheck#input-setter-coercion)和[为自定义指令强化模板类型检查](guide/structural-directives#directive-type-checks)
+关于输入类型窄化的更多信息，请参阅 [Input setter 的强制类型转换](guide/template-typecheck#input-setter-coercion)和[为自定义指令强化模板类型检查](guide/structural-directives#directive-type-checks)
 
 ### Non-null type assertion operator
 
 ### 非空类型断言操作符
 
-Use the [non-null type assertion operator](guide/template-syntax#non-null-assertion-operator) to suppress the `Object is possibly 'undefined'` error when it is inconvenient to use `*ngIf` or when some constraint in the component ensures that the expression is always non-null when the binding expression is interpolated.
+Use the [non-null type assertion operator](guide/template-expression-operators#non-null-assertion-operator) to suppress the `Object is possibly 'undefined'` error when it is inconvenient to use `*ngIf` or when some constraint in the component ensures that the expression is always non-null when the binding expression is interpolated.
 
-使用 [非空类型断言操作符](guide/template-syntax#non-null-assertion-operator)可以在不方便使用 `*ngIf` 或
+使用 [非空类型断言操作符](guide/template-expression-operators#non-null-assertion-operator)可以在不方便使用 `*ngIf` 或
   当组件中的某些约束可以确保这个绑定表达式在求值时永远不会为空时，防止出现 `Object is possibly 'undefined'` 错误。
 
 In the following example, the `person` and `address` properties are always set together, implying that `address` is always non-null if `person` is non-null.

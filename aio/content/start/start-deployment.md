@@ -1,4 +1,4 @@
-# Try it: Deployment
+# Deploying an application
 
 # 部署
 
@@ -46,7 +46,7 @@ To build your application locally or for production, download the source code fr
 
 要在本地构建应用或未生产环境构建应用，就要从 StackBlitz 项目中下载源代码。单击左侧菜单中的 `Download Project` 图标以下载文件。
 
-Once you have the source code downloaded and unzipped, use the [Angular Console](https://angularconsole.com "Angular Console web site") to serve the application, or install `Node.js` and serve your app with the Angular CLI.
+Once you have the source code downloaded and unzipped, install `Node.js` and serve your app with the Angular CLI.
 
 下载并解压源代码后，就可以使用 [Angular Console](https://angularconsole.com "Angular Console 的网站") 来启动开发服务器了，也可以先安装 `Node.js` 再使用 Angular CLI 来启动开发服务器。
 
@@ -117,6 +117,10 @@ One of the easiest ways to get your site live is to host it using Firebase.
 1. Add the `@angular/fire` schematics that will handle your deployment using `ng add @angular/fire`.
 
    添加 `@angular/fire` 原理图，它将使用 `ng add @angular/fire` 来处理你的发布。
+
+1. Install [Firebase CLI](https://firebase.google.com/docs/cli) globally using `npm install -g firebase-tools`.
+
+   使用 `npm install -g firebase-tools` 来全局安装 [Firebase CLI](https://firebase.google.com/docs/cli)。
 
 1. Connect your CLI to your Firebase account and initialize the connection to your project using `firebase login` and `firebase init`.
 

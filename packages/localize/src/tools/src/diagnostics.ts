@@ -14,6 +14,8 @@ export type DiagnosticHandlingStrategy = 'error'|'warning'|'ignore';
 /**
  * This class is used to collect and then report warnings and errors that occur during the execution
  * of the tools.
+ *
+ * @publicApi used by CLI
  */
 export class Diagnostics {
   readonly messages: {type: 'warning'|'error', message: string}[] = [];
@@ -35,8 +37,8 @@ export class Diagnostics {
     this.messages.push(...other.messages);
   }
   formatDiagnostics(message: string): string {
-    const errors = this.messages!.filter(d => d.type === 'error').map(d => ' - ' + d.message);
-    const warnings = this.messages!.filter(d => d.type === 'warning').map(d => ' - ' + d.message);
+    const errors = this.messages.filter(d => d.type === 'error').map(d => ' - ' + d.message);
+    const warnings = this.messages.filter(d => d.type === 'warning').map(d => ' - ' + d.message);
     if (errors.length) {
       message += '\nERRORS:\n' + errors.join('\n');
     }

@@ -18,7 +18,7 @@ layout before it becomes fully interactive.
 For a more detailed look at different techniques and concepts surrounding SSR, please check out this
 [article](https://developers.google.com/web/updates/2019/02/rendering-on-the-web).
 
-要了解 SSR 的其它技术和概念的详细信息，请参见[这篇文章](https://developers.google.com/web/updates/2019/02/rendering-on-the-web)。
+要了解 SSR 的其它技术和概念的详细信息，请参阅[这篇文章](https://developers.google.com/web/updates/2019/02/rendering-on-the-web)。
 
 You can easily prepare an app for server-side rendering using the [Angular CLI](guide/glossary#cli).
 The CLI schematic `@nguniversal/express-engine` performs the required steps, as described below.
@@ -42,7 +42,7 @@ The CLI schematic `@nguniversal/express-engine` performs the required steps, as 
 
 The [Tour of Heroes tutorial](tutorial) is the foundation for this walkthrough.
 
-这次演练的基础是[“英雄指南”教程](tutorial)。
+这次演练的基础是[“英雄之旅”教程](tutorial)。
 
 In this example, the Angular CLI compiles and bundles the Universal version of the app with the
 [Ahead-of-Time (AOT) compiler](guide/aot-compiler).
@@ -73,8 +73,7 @@ src/
   app/ ...                   <i>application code</i>
     app.server.module.ts     <i>* server-side application module</i>
 server.ts                    <i>* express web server</i>
-tsconfig.json                <i>TypeScript solution style configuration</i>
-tsconfig.base.json           <i>TypeScript base configuration</i>
+tsconfig.json                <i>TypeScript base configuration</i>
 tsconfig.app.json            <i>TypeScript browser application configuration</i>
 tsconfig.server.json         <i>TypeScript server application configuration</i>
 tsconfig.spec.json           <i>TypeScript tests configuration</i>
@@ -82,7 +81,7 @@ tsconfig.spec.json           <i>TypeScript tests configuration</i>
 
 The files marked with `*` are new and not in the original tutorial sample.
 
-标有 `*` 的文件都是新增的，不在原始的教程示例中。
+标有 `*` 的文件都是新增的，不在原始的教程范例中。
 
 ### Universal in action
 
@@ -99,7 +98,7 @@ npm run dev:ssr
 Open a browser and navigate to http://localhost:4200/.
 You should see the familiar Tour of Heroes dashboard page.
 
-打开浏览器，导航到 http://localhost:4200/。你会看到熟悉的“英雄指南”仪表盘页面。
+打开浏览器，导航到 http://localhost:4200/。你会看到熟悉的“英雄之旅”仪表盘页面。
 
 Navigation via `routerLinks` works correctly because they use the native anchor (`<a>`) tags.
 You can go from the Dashboard to the Heroes page and back.
@@ -357,7 +356,7 @@ requests into server-rendered HTML pages. It accepts an object with the followin
 
 * `bootstrap`: The root `NgModule` or `NgModule` factory to use for bootstraping the app when rendering on the server. For the example app, it is `AppServerModule`. It's the bridge between the Universal server-side renderer and the Angular application.
 
-   `bootstrap`：在服务器上渲染时用于引导应用程序的根 `NgModule` 或 `NgModule` 工厂。对于这个示例应用，它是 `AppServerModule`。它是 Universal 服务端渲染器和 Angular 应用之间的桥梁。
+   `bootstrap`：在服务器上渲染时用于引导应用程序的根 `NgModule` 或 `NgModule` 工厂。对于这个范例应用，它是 `AppServerModule`。它是 Universal 服务端渲染器和 Angular 应用之间的桥梁。
 
 * `extraProviders`: This is optional and lets you specify dependency providers that apply only when rendering the app on the server. You can do this when your app needs information that can only be determined by the currently running server instance.
 
@@ -502,7 +501,7 @@ This option is the least intrusive as it does not require any changes to the app
 Here, "request URL" refers to the URL of the request as a response to which the app is being rendered on the server.
 For example, if the client requested `https://my-server.com/dashboard` and you are rendering the app on the server to respond to that request, `options.url` should be set to `https://my-server.com/dashboard`.
 
-建议的解决方案是将完整的请求 URL 传递给 [renderModule（）](api/platform-server/renderModule) 或 [renderModuleFactory（）](api/platform-server/renderModuleFactory) 的 `options` 参数（具体取决于你在服务器上渲染 `AppServerModule` 的目的）。此选项的侵入性最小，因为它不需要对应用进行任何更改。这里的“请求 URL” 是指当应用在服务器上渲染时的地址。例如，如果客户端请求了 `https://my-server.com/dashboard` 并且要在服务器上渲染该应用以响应该请求，那么 `options.url` 应设置为 `https://my-server.com/dashboard`。
+建议的解决方案是将完整的请求 URL 传给 [renderModule（）](api/platform-server/renderModule) 或 [renderModuleFactory（）](api/platform-server/renderModuleFactory) 的 `options` 参数（具体取决于你在服务器上渲染 `AppServerModule` 的目的）。此选项的侵入性最小，因为它不需要对应用进行任何更改。这里的“请求 URL” 是指当应用在服务器上渲染时的地址。例如，如果客户端请求了 `https://my-server.com/dashboard` 并且要在服务器上渲染该应用以响应该请求，那么 `options.url` 应设置为 `https://my-server.com/dashboard`。
 
 Now, on every HTTP request made as part of rendering the app on the server, Angular can correctly resolve the request URL to an absolute URL, using the provided `options.url`.
 

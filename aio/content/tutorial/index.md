@@ -1,6 +1,6 @@
 <h1 class="no-toc">Tour of Heroes app and tutorial</h1>
 
-<h1 class="no-toc">教程：英雄指南</h1>
+<h1 class="no-toc">教程：英雄之旅</h1>
 
 <div class="callout is-helpful">
 
@@ -13,7 +13,7 @@ In this tutorial, you build your own app from the ground up, providing experienc
 在本教程中，你将从头开始构建自己的应用，体验典型的开发过程。这里还有一些对基本的应用设计概念、工具和术语的介绍。
 
 If you're completely new to Angular, you might want to try the [**Try it now**](start) quick-start app first.
-It is based on a ready-made  partially-completed project, which you can examine and modify in the StacBlitz interactive development environment, where you can see the results in real time.
+It is based on a ready-made  partially-completed project, which you can examine and modify in the StackBlitz interactive development environment, where you can see the results in real time.
 
 如果你对 Angular 还不熟悉，你可能要先[**试一试**](start) 快速上手应用。它基于一个现成的、已部分完成的项目，你可以在 StacBlitz 的交互式开发环境中检查和修改，你还可以在那里实时查看结果。
 
@@ -25,13 +25,13 @@ The "Try it" tutorial covers the same major topics&mdash;components, template sy
 
 This _Tour of Heroes_ tutorial shows you how to set up your local development environment and develop an app using the [Angular CLI tool](cli "CLI command reference"), and provides an introduction to the fundamentals of Angular.
 
-这个*“英雄指南”*教程向你展示了如何使用 [Angular CLI 工具](cli "CLI 命令参考：")搭建本地开发环境并开发应用，还对 [Angular CLI 工具](cli "CLI 命令参考：") 的基础知识进行了介绍。
+这个*“英雄之旅”*教程向你展示了如何使用 [Angular CLI 工具](cli "CLI 命令参考：")搭建本地开发环境并开发应用，还对 [Angular CLI 工具](cli "CLI 命令参考：") 的基础知识进行了介绍。
 
 The _Tour of Heroes_ app that you build helps a staffing agency manage its stable of heroes.
 The app has many of the features you'd expect to find in any data-driven application.
 The finished app acquires and displays a list of heroes, edits a selected hero's detail, and navigates among different views of heroic data.
 
-你建立的*英雄指南*应用可以帮助人力资源管理局管理好自己的英雄。该应用具有许多在任何数据驱动的应用中都可能出现的功能。完成后的应用会获取并显示一些英雄列表、编辑所选英雄的详细信息，并在不同的英雄数据视图之间导航。
+你建立的*英雄之旅*应用可以帮助人力资源管理局管理好自己的英雄。该应用具有许多在任何数据驱动的应用中都可能出现的功能。完成后的应用会获取并显示一些英雄列表、编辑所选英雄的详细信息，并在不同的英雄数据视图之间导航。
 
 You will find references to and expansions of this app domain in many of the examples used throughout the Angular documentation, but you don't necessarily need to work through this tutorial to understand those examples.
 

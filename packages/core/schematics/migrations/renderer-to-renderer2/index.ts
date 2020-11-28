@@ -11,11 +11,13 @@ import {relative} from 'path';
 import * as ts from 'typescript';
 
 import {getProjectTsConfigPaths} from '../../utils/project_tsconfig_paths';
-import {createMigrationProgram} from '../../utils/typescript/compiler_host';
+import {canMigrateFile, createMigrationProgram} from '../../utils/typescript/compiler_host';
+import {getImportSpecifier, replaceImport} from '../../utils/typescript/imports';
+import {closestNode} from '../../utils/typescript/nodes';
 
 import {getHelper, HelperFunction} from './helpers';
-import {migrateExpression, replaceImport} from './migration';
-import {findCoreImport, findRendererReferences} from './util';
+import {migrateExpression} from './migration';
+import {findRendererReferences} from './util';
 
 const MODULE_AUGMENTATION_FILENAME = 'ɵɵRENDERER_MIGRATION_CORE_AUGMENTATION.d.ts';
 
@@ -57,19 +59,22 @@ function runRendererToRenderer2Migration(tree: Tree, tsconfigPath: string, baseP
   }, [MODULE_AUGMENTATION_FILENAME]);
   const typeChecker = program.getTypeChecker();
   const printer = ts.createPrinter();
-  const sourceFiles = program.getSourceFiles().filter(
-      f => !f.isDeclarationFile && !program.isSourceFileFromExternalLibrary(f));
+  const sourceFiles =
+      program.getSourceFiles().filter(sourceFile => canMigrateFile(basePath, sourceFile, program));
 
   sourceFiles.forEach(sourceFile => {
-    const rendererImport = findCoreImport(sourceFile, 'Renderer');
+    const rendererImportSpecifier = getImportSpecifier(sourceFile, '@angular/core', 'Renderer');
+    const rendererImport = rendererImportSpecifier ?
+        closestNode<ts.NamedImports>(rendererImportSpecifier, ts.SyntaxKind.NamedImports) :
+        null;
 
     // If there are no imports for the `Renderer`, we can exit early.
-    if (!rendererImport) {
+    if (!rendererImportSpecifier || !rendererImport) {
       return;
     }
 
     const {typedNodes, methodCalls, forwardRefs} =
-        findRendererReferences(sourceFile, typeChecker, rendererImport);
+        findRendererReferences(sourceFile, typeChecker, rendererImportSpecifier);
     const update = tree.beginUpdate(relative(basePath, sourceFile.fileName));
     const helpersToAdd = new Set<HelperFunction>();
 

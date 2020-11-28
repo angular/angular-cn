@@ -49,7 +49,7 @@ Before working with the `HTTPClientModule`, you should have a basic understandin
 
 * Observable techniques and operators. See the [Observables](guide/observables) guide.
 
-  Observable 相关技术和操作符。参见[可观察对象](guide/observables)部分。
+  Observable 相关技术和操作符。参阅[可观察对象](guide/observables)部分。
 
 ## Setup for server communication
 
@@ -78,7 +78,7 @@ You can then inject the `HttpClient` service as a dependency of an application c
 
 The `HttpClient` service makes use of [observables](guide/glossary#observable "Observable definition") for all transactions. You must import the RxJS observable and operator symbols that appear in the example snippets. These `ConfigService` imports are typical.
 
-`HttpClient` 服务为所有工作都使用了[可观察对象](guide/glossary#observable "可观察的定义")。你必须导入示例代码片段中出现的 RxJS 可观察对象和操作符。比如 `ConfigService` 中的这些导入就很典型。
+`HttpClient` 服务为所有工作都使用了[可观察对象](guide/glossary#observable "可观察的定义")。你必须导入范例代码片段中出现的 RxJS 可观察对象和操作符。比如 `ConfigService` 中的这些导入就很典型。
 
 <code-example
   path="http/src/app/config/config.service.ts"
@@ -98,7 +98,7 @@ It relies on the
 which replaces the _HttpClient_ module's `HttpBackend`.
 The replacement service simulates the behavior of a REST-like backend.
 
-该示例应用不需要数据服务器。它依赖于[Angular *in-memory-web-api*](https://github.com/angular/in-memory-web-api/blob/master/README.md)，它替代了 *HttpClient* 模块中的 `HttpBackend`。这个替代服务会模拟 REST 式的后端的行为。
+该范例应用不需要数据服务器。它依赖于[Angular *in-memory-web-api*](https://github.com/angular/in-memory-web-api/blob/master/README.md)，它替代了 *HttpClient* 模块中的 `HttpBackend`。这个替代服务会模拟 REST 式的后端的行为。
 
 Look at the `AppModule` _imports_ to see how it is configured.
 
@@ -178,7 +178,7 @@ Later sections show some of the additional option possibilities.
 The example conforms to the best practices for creating scalable solutions by defining a re-usable [injectable service](guide/glossary#service "service definition") to perform the data-handling functionality.
 In addition to fetching data, the service can post-process the data, add error handling, and add retry logic.
 
-这个例子符合通过定义一个可重用的可[注入服务](guide/glossary#service "服务定义")来执行数据处理功能来创建可伸缩解决方案的最佳实践。除了提取数据外，该服务还可以对数据进行后处理，添加错误处理，并添加重试逻辑。
+这个例子符合通过定义一个可复用的可[注入服务](guide/glossary#service "服务定义")来执行数据处理功能来创建可伸缩解决方案的最佳实践。除了提取数据外，该服务还可以对数据进行后处理，添加错误处理，并添加重试逻辑。
 
 The `ConfigService` fetches this file using the `HttpClient.get()` method.
 
@@ -320,7 +320,7 @@ In the second case, TypeScript infers the type of `options` to be `{responseType
 The type is too wide to pass to `HttpClient.get` which is expecting the type of `responseType` to be one of the _specific_ strings.
 `HttpClient` is typed explicitly this way so that the compiler can report the correct return type based on the options you provided.
 
-在第二种情况下，TypeScript 会把 `options` 的类型推断为 `{responseType: string}`。该类型的 `HttpClient.get` 太宽泛，无法传递给 `HttpClient.get`，它希望 `responseType` 的类型是*特定的*字符串之一。而 `HttpClient` 就是以这种方式显式输入的，因此编译器可以根据你提供的选项报告正确的返回类型。
+在第二种情况下，TypeScript 会把 `options` 的类型推断为 `{responseType: string}`。该类型的 `HttpClient.get` 太宽泛，无法传给 `HttpClient.get`，它希望 `responseType` 的类型是*特定的*字符串之一。而 `HttpClient` 就是以这种方式显式输入的，因此编译器可以根据你提供的选项报告正确的返回类型。
 
 Use `as const` to let TypeScript know that you really do mean to use a constant string type:
 
@@ -392,18 +392,18 @@ Angular 的 JSONP 请求会返回一个 `Observable`。
 In Angular, use JSONP by including `HttpClientJsonpModule` in the `NgModule` imports.
 In the following example, the `searchHeroes()` method uses a JSONP request to query for heroes whose names contain the search term.
 
-在 Angular 中，通过在 `NgModule` 的 `imports` 中包含 `HttpClientJsonpModule` 来使用 JSONP。在以下示例中，`searchHeroes()` 方法使用 JSONP 请求来查询名称包含搜索词的英雄。
+在 Angular 中，通过在 `NgModule` 的 `imports` 中包含 `HttpClientJsonpModule` 来使用 JSONP。在以下范例中，`searchHeroes()` 方法使用 JSONP 请求来查询名称包含搜索词的英雄。
 
 ```ts
 /* GET heroes whose name contains search term */
 searchHeroes(term: string): Observable {
   term = term.trim();
 
-  let heroesURL = `${this.heroesURL}?${term}`;
+  const heroesURL = `${this.heroesURL}?${term}`;
   return this.http.jsonp(heroesUrl, 'callback').pipe(
       catchError(this.handleError('searchHeroes', [])) // then handle the error
     );
-};
+}
 ```
 
 This request passes the `heroesURL` as the first parameter and the callback function name as the second parameter.
@@ -552,7 +552,7 @@ The sample app for this guide includes a simplified version of the "Tour of Hero
 that fetches heroes and enables users to add, delete, and update them.
 The following sections show examples of the data-update methods from the sample's `HeroesService`.
 
-本指南中的这个范例应用包括一个简化版本的《英雄指南》，它会获取英雄数据，并允许用户添加、删除和修改它们。
+本指南中的这个范例应用包括一个简化版本的《英雄之旅》，它会获取英雄数据，并允许用户添加、删除和修改它们。
 下面几节在 `HeroesService` 范例中展示了数据更新方法的一些例子。
 
 ### Making a POST request
@@ -706,7 +706,7 @@ req.subscribe();
 An app can send PUT requests using the HTTP client service.
 The following `HeroesService` example, like the POST example, replaces a resource with updated data.
 
-应用可以使用 HttpClient 服务发送 PUT 请求。下面的 `HeroesService` 示例（就像 POST 示例一样）用一个修改过的数据替换了该资源。
+应用可以使用 HttpClient 服务发送 PUT 请求。下面的 `HeroesService` 范例（就像 POST 范例一样）用一个修改过的数据替换了该资源。
 
 <code-example
   path="http/src/app/heroes/heroes.service.ts"
@@ -735,7 +735,7 @@ For example, a server might require an authorization token, or "Content-Type" he
 The `HeroesService` defines such headers in an `httpOptions` object that are passed
 to every `HttpClient` save method.
 
-`HeroesService` 在一个 `httpOptions` 对象中定义了这样的头，它们被传递给每个 `HttpClient` 的保存型方法。
+`HeroesService` 在一个 `httpOptions` 对象中定义了这样的头，它们被传给每个 `HttpClient` 的保存型方法。
 
 <code-example
   path="http/src/app/heroes/heroes.service.ts"
@@ -1337,7 +1337,7 @@ Sometimes applications transfer large amounts of data and those transfers can ta
 File uploads are a typical example.
 You can give the users a better experience by providing feedback on the progress of such transfers.
 
-应用程序有时会传输大量数据，而这些传输可能要花很长时间。文件上传就是典型的例子。你可以通过提供有关此类传输的进度反馈，为用户提供更好的体验。
+应用程序有时会传输大量数据，而这些传输可能要花很长时间。文件上传就是典型的例子。你可以通过提供关于此类传输的进度反馈，为用户提供更好的体验。
 
 To make a request with progress events enabled, you can create an instance of `HttpRequest`
 with the `reportProgress` option set true to enable tracking of progress events.
@@ -1366,7 +1366,7 @@ When using [`HttpClient.request()`](api/common/http/HttpClient#request) with an 
 Next, pass this request object to the `HttpClient.request()` method, which
 returns an `Observable` of `HttpEvents` (the same events processed by [interceptors](#interceptor-events)).
 
-接下来，把这个请求对象传递给 `HttpClient.request()` 方法，该方法返回一个 `HttpEvents` 的 `Observable`（与 [拦截器](#interceptor-events) 部分处理过的事件相同）。
+接下来，把这个请求对象传给 `HttpClient.request()` 方法，该方法返回一个 `HttpEvents` 的 `Observable`（与 [拦截器](#interceptor-events) 部分处理过的事件相同）。
 
 <code-example
   path="http/src/app/uploader/uploader.service.ts"
@@ -1391,7 +1391,7 @@ The `UploadInterceptor` in `app/http-interceptors/upload-interceptor.ts`
 intercepts and short-circuits upload requests
 by returning an observable of simulated events.
 
-本指南中的示例应用中没有用来接受上传文件的服务器。`app/http-interceptors/upload-interceptor.ts` 的 `UploadInterceptor` 通过返回一个模拟这些事件的可观察对象来拦截和短路上传请求。
+本指南中的范例应用中没有用来接受上传文件的服务器。`app/http-interceptors/upload-interceptor.ts` 的 `UploadInterceptor` 通过返回一个模拟这些事件的可观察对象来拦截和短路上传请求。
 
 </div>
 
@@ -1441,17 +1441,17 @@ the code in `ngOnInit()` pipes search values through three operators, so that a 
 
 除了把每个 `searchText` 的值都直接转发给 `PackageSearchService` 之外，`ngOnInit()` 中的代码还通过下列三个操作符对这些搜索值进行*管道*处理，以便只有当它是一个新值并且用户已经停止输入时，要搜索的值才会抵达该服务。
 
-* `debounceTime(500)` - Wait for the user to stop typing (1/2 second in this case).
+* `debounceTime(500)`⁠—Wait for the user to stop typing (1/2 second in this case).
 
-  `debounceTime(500)` - 等待用户停止输入（本例中为 1/2 秒）。
+  `debounceTime(500)`⁠—等待用户停止输入（本例中为 1/2 秒）。
 
-* `distinctUntilChanged()` - Wait until the search text changes.
+* `distinctUntilChanged()`⁠—Wait until the search text changes.
 
-  `distinctUntilChanged()` - 等待搜索文本发生变化。
+  `distinctUntilChanged()`⁠—等待搜索文本发生变化。
 
-* `switchMap()` - Send the search request to the service.
+* `switchMap()`⁠—Send the search request to the service.
 
-  `switchMap()` - 将搜索请求发送到服务。
+  `switchMap()`⁠—将搜索请求发送到服务。
 
 The code sets `packages$` to this re-composed `Observable` of search results.
 The template subscribes to `packages$` with the [AsyncPipe](api/common/AsyncPipe)
@@ -1464,7 +1464,7 @@ and displays search results as they arrive.
 
 See [Using interceptors to request multiple values](#cache-refresh) for more about the `withRefresh` option.
 
-有关 `withRefresh` 选项的更多信息，请参阅[使用拦截器来请求多个值](#cache-refresh)。
+关于 `withRefresh` 选项的更多信息，请参阅[使用拦截器来请求多个值](#cache-refresh)。
 
 </div>
 

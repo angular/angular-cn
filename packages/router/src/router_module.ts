@@ -72,74 +72,23 @@ export function routerNgProbeToken() {
 }
 
 /**
- * @usageNotes
- *
- * RouterModule can be imported multiple times: once per lazily-loaded bundle.
- * Since the router deals with a global shared resource--location, we cannot have
- * more than one router service active.
- *
- * RouterModule 可能会被多次导入：每个惰性加载的发布包都会导入一次。
- * 但由于路由器要和全局共享的资源 - location 打交道，所以不能同时激活一个以上的 `Router` 服务。
- *
- * That is why there are two ways to create the module: `RouterModule.forRoot` and
- * `RouterModule.forChild`.
- *
- * 这就是需要两种方式来创建本模块的原因：`RouterModule.forRoot` 和 `RouterModule.forChild`。
- *
- * * `forRoot` creates a module that contains all the directives, the given routes, and the router
- *   service itself.
- *
- *   `forRoot` 创建一个包含所有指令、指定的路由和 `Router` 服务本身的模块。
- *
- * * `forChild` creates a module that contains all the directives and the given routes, but does not
- *   include the router service.
- *
- *   `forChild` 会创建一个包含所有指令、指定的路由，但不含 `Router` 服务的模块。
- *
- * When registered at the root, the module should be used as follows
- *
- * 当注册在根模块时，该模块应该这样用：
- *
- * ```
- * @NgModule({
- *   imports: [RouterModule.forRoot(ROUTES)]
- * })
- * class MyNgModule {}
- * ```
- *
- * For submodules and lazy loaded submodules the module should be used as follows:
- *
- * 对于子模块和惰性加载的子模块，该模块应该这样用：
- *
- * ```
- * @NgModule({
- *   imports: [RouterModule.forChild(ROUTES)]
- * })
- * class MyNgModule {}
- * ```
- *
  * @description
  *
- * Adds router directives and providers.
+ * Adds directives and providers for in-app navigation among views defined in an application.
+ * Use the Angular `Router` service to declaratively specify application states and manage state
+ * transitions.
  *
- * 添加路由器指令和服务提供商。
+ * You can import this NgModule multiple times, once for each lazy-loaded bundle.
+ * However, only one `Router` service can be active.
+ * To ensure this, there are two ways to register routes when importing this module:
  *
- * Managing state transitions is one of the hardest parts of building applications. This is
- * especially true on the web, where you also need to ensure that the state is reflected in the URL.
- * In addition, we often want to split applications into multiple bundles and load them on demand.
- * Doing this transparently is not trivial.
+ * * The `forRoot()` method creates an `NgModule` that contains all the directives, the given
+ * routes, and the `Router` service itself.
+ * * The `forChild()` method creates an `NgModule` that contains all the directives and the given
+ * routes, but does not include the `Router` service.
  *
- * 在构建应用时，管理状态的转换是最难的任务之一。对 Web 来说尤其如此，你还要确保这个状态同时在 URL 中反映出来。
- * 另外，我们通常会希望把应用拆分成多个发布包，并按需加载。要让这些工作透明化，可没那么简单。
- *
- * The Angular router service solves these problems. Using the router, you can declaratively specify
- * application states, manage state transitions while taking care of the URL, and load bundles on
- * demand.
- *
- * Angular 的路由器解决了这些问题。使用路由器，你可以声明式的指定应用的状态、管理状态的转换，还可以处理好 URL，还可以按需加载发布包。
- *
- * @see [Routing and Navigation](guide/router.html) for an
- * overview of how the router service should be used.
+ * @see [Routing and Navigation guide](guide/router) for an
+ * overview of how the `Router` service should be used.
  *
  * @see [路由与导航](guide/router.html) 以获得如何使用路由器服务的概览。
  *
@@ -158,9 +107,19 @@ export class RouterModule {
    * Creates and configures a module with all the router providers and directives.
    * Optionally sets up an application listener to perform an initial navigation.
    *
+   * When registering the NgModule at the root, import as follows:
+   *
+   * ```
+   * @NgModule({
+   *   imports: [RouterModule.forRoot(ROUTES)]
+   * })
+   * class MyNgModule {}
+   * ```
+   *
    * @param routes An array of `Route` objects that define the navigation paths for the application.
    * @param config An `ExtraOptions` configuration object that controls how navigation is performed.
-   * @return The new router module.
+   * @return The new `NgModule`.
+   *
    */
   static forRoot(routes: Routes, config?: ExtraOptions): ModuleWithProviders<RouterModule> {
     return {
@@ -197,9 +156,20 @@ export class RouterModule {
   }
 
   /**
-   * Creates a module with all the router directives and a provider registering routes.
+   * Creates a module with all the router directives and a provider registering routes,
+   * without creating a new Router service.
+   * When registering for submodules and lazy-loaded submodules, create the NgModule as follows:
    *
-   * 创建一个具有所有路由器指令和一个用于注册路由的提供商。
+   * ```
+   * @NgModule({
+   *   imports: [RouterModule.forChild(ROUTES)]
+   * })
+   * class MyNgModule {}
+   * ```
+   *
+   * @param routes An array of `Route` objects that define the navigation paths for the submodule.
+   * @return The new NgModule.
+   *
    */
   static forChild(routes: Routes): ModuleWithProviders<RouterModule> {
     return {ngModule: RouterModule, providers: [provideRoutes(routes)]};
@@ -221,7 +191,7 @@ export function provideLocationStrategy(
 }
 
 export function provideForRootGuard(router: Router): any {
-  if (router) {
+  if ((typeof ngDevMode === 'undefined' || ngDevMode) && router) {
     throw new Error(
         `RouterModule.forRoot() called twice. Lazy loaded modules should use RouterModule.forChild() instead.`);
   }
@@ -257,39 +227,36 @@ export function provideRoutes(routes: Routes): any {
  * Allowed values in an `ExtraOptions` object that configure
  * when the router performs the initial navigation operation.
  *
- * * 'enabled' - The initial navigation starts before the root component is created.
+ * * 'enabledNonBlocking' - (default) The initial navigation starts after the
+ * root component has been created. The bootstrap is not blocked on the completion of the initial
+ * navigation.
+ * * 'enabledBlocking' - The initial navigation starts before the root component is created.
  * The bootstrap is blocked until the initial navigation is complete. This value is required
  * for [server-side rendering](guide/universal) to work.
  * * 'disabled' - The initial navigation is not performed. The location listener is set up before
  * the root component gets created. Use if there is a reason to have
  * more control over when the router starts its initial navigation due to some complex
  * initialization logic.
- * * 'legacy_enabled'- (Default, for compatibility.) The initial navigation starts after the root
- * component has been created. The bootstrap is not blocked until the initial navigation is
- * complete. @deprecated
- * * 'legacy_disabled'- The initial navigation is not performed. The location listener is set up
- * after the root component gets created. @deprecated since v4
- * * `true` - same as 'legacy_enabled'. @deprecated since v4
- *
- *   `true` - 同 'legacy_enabled'. @deprecated since v4
- *
- * * `false` - same as 'legacy_disabled'. @deprecated since v4
  *
  *   `false` - 同 'legacy_disabled'. @deprecated since v4
  *
- * The 'legacy_enabled' and 'legacy_disabled' should not be used for new applications.
+ * The following values have been [deprecated](guide/releases#deprecation-practices) since v11,
+ * and should not be used for new applications.
+ *
+ * * 'enabled' - This option is 1:1 replaceable with `enabledNonBlocking`.
  *
  * @see `forRoot()`
  *
  * @publicApi
  */
-export type InitialNavigation = true|false|'enabled'|'disabled'|'legacy_enabled'|'legacy_disabled';
+export type InitialNavigation = 'disabled'|'enabled'|'enabledBlocking'|'enabledNonBlocking';
 
 /**
  * A set of configuration options for a router module, provided in the
  * `forRoot()` method.
  *
- * 表示路由器的配置项。
+ * @see `forRoot()`
+ *
  *
  * @publicApi
  */
@@ -309,33 +276,23 @@ export interface ExtraOptions {
   useHash?: boolean;
 
   /**
-   * One of `enabled` or `disabled`.
-   * When set to `enabled`, the initial navigation starts before the root component is created.
-   * The bootstrap is blocked until the initial navigation is complete. This value is required for
-   * [server-side rendering](guide/universal) to work.
-   * When set to `disabled`, the initial navigation is not performed.
-   * The location listener is set up before the root component gets created.
-   * Use if there is a reason to have more control over when the router
+   * One of `enabled`, `enabledBlocking`, `enabledNonBlocking` or `disabled`.
+   * When set to `enabled` or `enabledBlocking`, the initial navigation starts before the root
+   * component is created. The bootstrap is blocked until the initial navigation is complete. This
+   * value is required for [server-side rendering](guide/universal) to work. When set to
+   * `enabledNonBlocking`, the initial navigation starts after the root component has been created.
+   * The bootstrap is not blocked on the completion of the initial navigation. When set to
+   * `disabled`, the initial navigation is not performed. The location listener is set up before the
+   * root component gets created. Use if there is a reason to have more control over when the router
    * starts its initial navigation due to some complex initialization logic.
-   *
-   * Legacy values are deprecated since v4 and should not be used for new applications:
-   *
-   * * `legacy_enabled` - Default for compatibility.
-   * The initial navigation starts after the root component has been created,
-   * but the bootstrap is not blocked until the initial navigation is complete.
-   * * `legacy_disabled` - The initial navigation is not performed.
-   * The location listener is set up after the root component gets created.
-   * * `true` - same as `legacy_enabled`.
-   * * `false` - same as `legacy_disabled`.
-   *
-   * 禁用首次导航
    */
   initialNavigation?: InitialNavigation;
 
   /**
    * A custom error handler for failed navigations.
+   * If the handler returns a value, the navigation Promise is resolved with this value.
+   * If the handler throws an exception, the navigation Promise is rejected with the exception.
    *
-   * 自定义的错误处理器。
    */
   errorHandler?: ErrorHandler;
 
@@ -503,8 +460,9 @@ export interface ExtraOptions {
    *
    * `<a [routerLink]="['../a']">Link to A</a>`
    *
-   * In other words, you're required to use `../` rather than `./`. This is currently the default
-   * behavior. Setting this option to `corrected` enables the fix.
+   * In other words, you're required to use `../` rather than `./`.
+   *
+   * The default in v11 is `corrected`.
    *
    * 换句话说，要使用 `../` 而不是 `./`。它是当前版本的默认行为。把该选项设置为 `corrected` 可以启用这项修正。
    */
@@ -527,13 +485,7 @@ export function setupRouter(
     router.routeReuseStrategy = routeReuseStrategy;
   }
 
-  if (opts.errorHandler) {
-    router.errorHandler = opts.errorHandler;
-  }
-
-  if (opts.malformedUriErrorHandler) {
-    router.malformedUriErrorHandler = opts.malformedUriErrorHandler;
-  }
+  assignExtraOptionsToRouter(opts, router);
 
   if (opts.enableTracing) {
     const dom = getDOM();
@@ -545,6 +497,18 @@ export function setupRouter(
     });
   }
 
+  return router;
+}
+
+export function assignExtraOptionsToRouter(opts: ExtraOptions, router: Router): void {
+  if (opts.errorHandler) {
+    router.errorHandler = opts.errorHandler;
+  }
+
+  if (opts.malformedUriErrorHandler) {
+    router.malformedUriErrorHandler = opts.malformedUriErrorHandler;
+  }
+
   if (opts.onSameUrlNavigation) {
     router.onSameUrlNavigation = opts.onSameUrlNavigation;
   }
@@ -553,15 +517,13 @@ export function setupRouter(
     router.paramsInheritanceStrategy = opts.paramsInheritanceStrategy;
   }
 
-  if (opts.urlUpdateStrategy) {
-    router.urlUpdateStrategy = opts.urlUpdateStrategy;
-  }
-
   if (opts.relativeLinkResolution) {
     router.relativeLinkResolution = opts.relativeLinkResolution;
   }
 
-  return router;
+  if (opts.urlUpdateStrategy) {
+    router.urlUpdateStrategy = opts.urlUpdateStrategy;
+  }
 }
 
 export function rootRoute(router: Router): ActivatedRoute {
@@ -594,14 +556,12 @@ export class RouterInitializer {
       const router = this.injector.get(Router);
       const opts = this.injector.get(ROUTER_CONFIGURATION);
 
-      if (this.isLegacyDisabled(opts) || this.isLegacyEnabled(opts)) {
-        resolve(true);
-
-      } else if (opts.initialNavigation === 'disabled') {
+      if (opts.initialNavigation === 'disabled') {
         router.setUpLocationChangeListener();
         resolve(true);
-
-      } else if (opts.initialNavigation === 'enabled') {
+      } else if (
+          // TODO: enabled is deprecated as of v11, can be removed in v13
+          opts.initialNavigation === 'enabled' || opts.initialNavigation === 'enabledBlocking') {
         router.hooks.afterPreactivation = () => {
           // only the initial navigation should be delayed
           if (!this.initNavigation) {
@@ -615,9 +575,8 @@ export class RouterInitializer {
           }
         };
         router.initialNavigation();
-
       } else {
-        throw new Error(`Invalid initialNavigation options: '${opts.initialNavigation}'`);
+        resolve(true);
       }
 
       return res;
@@ -635,10 +594,9 @@ export class RouterInitializer {
       return;
     }
 
-    if (this.isLegacyEnabled(opts)) {
+    // Default case
+    if (opts.initialNavigation === 'enabledNonBlocking' || opts.initialNavigation === undefined) {
       router.initialNavigation();
-    } else if (this.isLegacyDisabled(opts)) {
-      router.setUpLocationChangeListener();
     }
 
     preloader.setUpPreloading();
@@ -646,15 +604,6 @@ export class RouterInitializer {
     router.resetRootComponentType(ref.componentTypes[0]);
     this.resultOfPreactivationDone.next(null!);
     this.resultOfPreactivationDone.complete();
-  }
-
-  private isLegacyEnabled(opts: ExtraOptions): boolean {
-    return opts.initialNavigation === 'legacy_enabled' || opts.initialNavigation === true ||
-        opts.initialNavigation === undefined;
-  }
-
-  private isLegacyDisabled(opts: ExtraOptions): boolean {
-    return opts.initialNavigation === 'legacy_disabled' || opts.initialNavigation === false;
   }
 }
 

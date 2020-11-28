@@ -168,10 +168,8 @@ export const CHECKBOX_REQUIRED_VALIDATOR: StaticProvider = {
   host: {'[attr.required]': 'required ? "" : null'}
 })
 export class RequiredValidator implements Validator {
-  // TODO(issue/24571): remove '!'.
-  private _required!: boolean;
-  // TODO(issue/24571): remove '!'.
-  private _onChange!: () => void;
+  private _required = false;
+  private _onChange?: () => void;
 
   /**
    * @description
@@ -188,19 +186,17 @@ export class RequiredValidator implements Validator {
   }
 
   /**
-   * @description
    * Method that validates whether the control is empty.
    * Returns the validation result if enabled, otherwise null.
+   * @nodoc
    */
   validate(control: AbstractControl): ValidationErrors|null {
     return this.required ? Validators.required(control) : null;
   }
 
   /**
-   * @description
    * Registers a callback function to call when the validator inputs change.
-   *
-   * @param fn The callback function
+   * @nodoc
    */
   registerOnValidatorChange(fn: () => void): void {
     this._onChange = fn;
@@ -242,9 +238,9 @@ export class RequiredValidator implements Validator {
 })
 export class CheckboxRequiredValidator extends RequiredValidator {
   /**
-   * @description
    * Method that validates whether or not the checkbox has been checked.
    * Returns the validation result if enabled, otherwise null.
+   * @nodoc
    */
   validate(control: AbstractControl): ValidationErrors|null {
     return this.required ? Validators.requiredTrue(control) : null;
@@ -296,10 +292,8 @@ export const EMAIL_VALIDATOR: any = {
   providers: [EMAIL_VALIDATOR]
 })
 export class EmailValidator implements Validator {
-  // TODO(issue/24571): remove '!'.
-  private _enabled!: boolean;
-  // TODO(issue/24571): remove '!'.
-  private _onChange!: () => void;
+  private _enabled = false;
+  private _onChange?: () => void;
 
   /**
    * @description
@@ -312,19 +306,17 @@ export class EmailValidator implements Validator {
   }
 
   /**
-   * @description
    * Method that validates whether an email address is valid.
    * Returns the validation result if enabled, otherwise null.
+   * @nodoc
    */
   validate(control: AbstractControl): ValidationErrors|null {
     return this._enabled ? Validators.email(control) : null;
   }
 
   /**
-   * @description
    * Registers a callback function to call when the validator inputs change.
-   *
-   * @param fn The callback function
+   * @nodoc
    */
   registerOnValidatorChange(fn: () => void): void {
     this._onChange = fn;
@@ -398,25 +390,17 @@ export const MIN_LENGTH_VALIDATOR: any = {
   host: {'[attr.minlength]': 'minlength ? minlength : null'}
 })
 export class MinLengthValidator implements Validator, OnChanges {
-  // TODO(issue/24571): remove '!'.
-  private _validator!: ValidatorFn;
-  // TODO(issue/24571): remove '!'.
-  private _onChange!: () => void;
+  private _validator: ValidatorFn = Validators.nullValidator;
+  private _onChange?: () => void;
 
   /**
    * @description
    * Tracks changes to the the minimum length bound to this directive.
    */
-  // TODO(issue/24571): remove '!'.
-  @Input() minlength!: string|number;
+  @Input()
+  minlength!: string|number;  // This input is always defined, since the name matches selector.
 
-  /**
-   * @description
-   * A lifecycle method called when the directive's inputs change. For internal use
-   * only.
-   *
-   * @param changes A object of key/value pairs for the set of changed inputs.
-   */
+  /** @nodoc */
   ngOnChanges(changes: SimpleChanges): void {
     if ('minlength' in changes) {
       this._createValidator();
@@ -425,19 +409,17 @@ export class MinLengthValidator implements Validator, OnChanges {
   }
 
   /**
-   * @description
-   * Method that validates whether the value meets a minimum length
-   * requirement. Returns the validation result if enabled, otherwise null.
+   * Method that validates whether the value meets a minimum length requirement.
+   * Returns the validation result if enabled, otherwise null.
+   * @nodoc
    */
   validate(control: AbstractControl): ValidationErrors|null {
     return this.minlength == null ? null : this._validator(control);
   }
 
   /**
-   * @description
    * Registers a callback function to call when the validator inputs change.
-   *
-   * @param fn The callback function
+   * @nodoc
    */
   registerOnValidatorChange(fn: () => void): void {
     this._onChange = fn;
@@ -495,25 +477,17 @@ export const MAX_LENGTH_VALIDATOR: any = {
   host: {'[attr.maxlength]': 'maxlength ? maxlength : null'}
 })
 export class MaxLengthValidator implements Validator, OnChanges {
-  // TODO(issue/24571): remove '!'.
-  private _validator!: ValidatorFn;
-  // TODO(issue/24571): remove '!'.
-  private _onChange!: () => void;
+  private _validator: ValidatorFn = Validators.nullValidator;
+  private _onChange?: () => void;
 
   /**
    * @description
    * Tracks changes to the the maximum length bound to this directive.
    */
-  // TODO(issue/24571): remove '!'.
-  @Input() maxlength!: string|number;
+  @Input()
+  maxlength!: string|number;  // This input is always defined, since the name matches selector.
 
-  /**
-   * @description
-   * A lifecycle method called when the directive's inputs change. For internal use
-   * only.
-   *
-   * @param changes A object of key/value pairs for the set of changed inputs.
-   */
+  /** @nodoc */
   ngOnChanges(changes: SimpleChanges): void {
     if ('maxlength' in changes) {
       this._createValidator();
@@ -522,19 +496,16 @@ export class MaxLengthValidator implements Validator, OnChanges {
   }
 
   /**
-   * @description
-   * Method that validates whether the value exceeds
-   * the maximum length requirement.
+   * Method that validates whether the value exceeds the maximum length requirement.
+   * @nodoc
    */
   validate(control: AbstractControl): ValidationErrors|null {
     return this.maxlength != null ? this._validator(control) : null;
   }
 
   /**
-   * @description
    * Registers a callback function to call when the validator inputs change.
-   *
-   * @param fn The callback function
+   * @nodoc
    */
   registerOnValidatorChange(fn: () => void): void {
     this._onChange = fn;
@@ -594,25 +565,17 @@ export const PATTERN_VALIDATOR: any = {
   host: {'[attr.pattern]': 'pattern ? pattern : null'}
 })
 export class PatternValidator implements Validator, OnChanges {
-  // TODO(issue/24571): remove '!'.
-  private _validator!: ValidatorFn;
-  // TODO(issue/24571): remove '!'.
-  private _onChange!: () => void;
+  private _validator: ValidatorFn = Validators.nullValidator;
+  private _onChange?: () => void;
 
   /**
    * @description
    * Tracks changes to the pattern bound to this directive.
    */
-  // TODO(issue/24571): remove '!'.
-  @Input() pattern!: string|RegExp;
+  @Input()
+  pattern!: string|RegExp;  // This input is always defined, since the name matches selector.
 
-  /**
-   * @description
-   * A lifecycle method called when the directive's inputs change. For internal use
-   * only.
-   *
-   * @param changes A object of key/value pairs for the set of changed inputs.
-   */
+  /** @nodoc */
   ngOnChanges(changes: SimpleChanges): void {
     if ('pattern' in changes) {
       this._createValidator();
@@ -621,19 +584,16 @@ export class PatternValidator implements Validator, OnChanges {
   }
 
   /**
-   * @description
-   * Method that validates whether the value matches the
-   * the pattern requirement.
+   * Method that validates whether the value matches the the pattern requirement.
+   * @nodoc
    */
   validate(control: AbstractControl): ValidationErrors|null {
     return this._validator(control);
   }
 
   /**
-   * @description
    * Registers a callback function to call when the validator inputs change.
-   *
-   * @param fn The callback function
+   * @nodoc
    */
   registerOnValidatorChange(fn: () => void): void {
     this._onChange = fn;

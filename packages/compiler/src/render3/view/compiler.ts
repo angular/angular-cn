@@ -22,7 +22,7 @@ import {CONTENT_ATTR, HOST_ATTR} from '../../style_compiler';
 import {BindingParser} from '../../template_parser/binding_parser';
 import {error, OutputContext} from '../../util';
 import {BoundEvent} from '../r3_ast';
-import {compileFactoryFunction, R3DependencyMetadata, R3FactoryTarget, R3ResolvedDependencyType} from '../r3_factory';
+import {compileFactoryFunction, R3FactoryTarget} from '../r3_factory';
 import {Identifiers as R3} from '../r3_identifiers';
 import {Render3ParseResult} from '../r3_template_transform';
 import {prepareSyntheticListenerFunctionName, prepareSyntheticPropertyName, typeWithParameters} from '../util';
@@ -123,9 +123,7 @@ export function compileDirectiveFromMetadata(
   const definitionMap = baseDirectiveFields(meta, constantPool, bindingParser);
   addFeatures(definitionMap, meta);
   const expression = o.importExpr(R3.defineDirective).callFn([definitionMap.toLiteralMap()]);
-
-  const typeParams = createDirectiveTypeParams(meta);
-  const type = o.expressionType(o.importExpr(R3.DirectiveDefWithMeta, typeParams));
+  const type = createDirectiveType(meta);
 
   return {expression, type};
 }
@@ -161,8 +159,8 @@ export function compileComponentFromMetadata(
 
   if (meta.directives.length > 0) {
     const matcher = new SelectorMatcher();
-    for (const {selector, expression} of meta.directives) {
-      matcher.addSelectables(CssSelector.parse(selector), expression);
+    for (const {selector, type} of meta.directives) {
+      matcher.addSelectables(CssSelector.parse(selector), type);
     }
     directiveMatcher = matcher;
   }
@@ -196,10 +194,19 @@ export function compileComponentFromMetadata(
   // e.g. `vars: 2`
   definitionMap.set('vars', o.literal(templateBuilder.getVarCount()));
 
-  // e.g. `consts: [['one', 'two'], ['three', 'four']]
-  const consts = templateBuilder.getConsts();
-  if (consts.length > 0) {
-    definitionMap.set('consts', o.literalArr(consts));
+  // Generate `consts` section of ComponentDef:
+  // - either as an array:
+  //   `consts: [['one', 'two'], ['three', 'four']]`
+  // - or as a factory function in case additional statements are present (to support i18n):
+  //   `consts: function() { var i18n_0; if (ngI18nClosureMode) {...} else {...} return [i18n_0]; }`
+  const {constExpressions, prepareStatements} = templateBuilder.getConsts();
+  if (constExpressions.length > 0) {
+    let constsExpr: o.LiteralArrayExpr|o.FunctionExpr = o.literalArr(constExpressions);
+    // Prepare statements are present - turn `consts` into a function.
+    if (prepareStatements.length > 0) {
+      constsExpr = o.fn([], [...prepareStatements, new o.ReturnStatement(constsExpr)]);
+    }
+    definitionMap.set('consts', constsExpr);
   }
 
   definitionMap.set('template', templateFunctionExpression);
@@ -231,7 +238,7 @@ export function compileComponentFromMetadata(
     const styleValues = meta.encapsulation == core.ViewEncapsulation.Emulated ?
         compileStyles(meta.styles, CONTENT_ATTR, HOST_ATTR) :
         meta.styles;
-    const strings = styleValues.map(str => o.literal(str));
+    const strings = styleValues.map(str => constantPool.getConstLiteral(o.literal(str)));
     definitionMap.set('styles', o.literalArr(strings));
   } else if (meta.encapsulation === core.ViewEncapsulation.Emulated) {
     // If there is no style, don't generate css selectors on elements
@@ -255,13 +262,19 @@ export function compileComponentFromMetadata(
   }
 
   const expression = o.importExpr(R3.defineComponent).callFn([definitionMap.toLiteralMap()]);
-
-
-  const typeParams = createDirectiveTypeParams(meta);
-  typeParams.push(stringArrayAsType(meta.template.ngContentSelectors));
-  const type = o.expressionType(o.importExpr(R3.ComponentDefWithMeta, typeParams));
+  const type = createComponentType(meta);
 
   return {expression, type};
+}
+
+/**
+ * Creates the type specification from the component meta. This type is inserted into .d.ts files
+ * to be consumed by upstream compilations.
+ */
+export function createComponentType(meta: R3ComponentMetadata): o.Type {
+  const typeParams = createDirectiveTypeParams(meta);
+  typeParams.push(stringArrayAsType(meta.template.ngContentSelectors));
+  return o.expressionType(o.importExpr(R3.ComponentDefWithMeta, typeParams));
 }
 
 /**
@@ -483,7 +496,7 @@ function stringArrayAsType(arr: ReadonlyArray<string|null>): o.Type {
                           o.NONE_TYPE;
 }
 
-function createDirectiveTypeParams(meta: R3DirectiveMetadata): o.Type[] {
+export function createDirectiveTypeParams(meta: R3DirectiveMetadata): o.Type[] {
   // On the type side, remove newlines from the selector as it will need to fit into a TypeScript
   // string literal, which must be on one line.
   const selectorForType = meta.selector !== null ? meta.selector.replace(/\n/g, '') : null;
@@ -496,6 +509,15 @@ function createDirectiveTypeParams(meta: R3DirectiveMetadata): o.Type[] {
     stringMapAsType(meta.outputs),
     stringArrayAsType(meta.queries.map(q => q.propertyName)),
   ];
+}
+
+/**
+ * Creates the type specification from the directive meta. This type is inserted into .d.ts files
+ * to be consumed by upstream compilations.
+ */
+export function createDirectiveType(meta: R3DirectiveMetadata): o.Type {
+  const typeParams = createDirectiveTypeParams(meta);
+  return o.expressionType(o.importExpr(R3.DirectiveDefWithMeta, typeParams));
 }
 
 // Define and update any view queries
@@ -573,9 +595,8 @@ function createHostBindingsFunction(
   // bindings with pipes. These calculates happen after this block.
   let totalHostVarsCount = 0;
   bindings && bindings.forEach((binding: ParsedProperty) => {
-    const name = binding.name;
-    const stylingInputWasSet =
-        styleBuilder.registerInputBasedOnName(name, binding.expression, binding.sourceSpan);
+    const stylingInputWasSet = styleBuilder.registerInputBasedOnName(
+        binding.name, binding.expression, hostBindingSourceSpan);
     if (stylingInputWasSet) {
       totalHostVarsCount += MIN_STYLING_BINDING_SLOTS_REQUIRED;
     } else {
@@ -640,7 +661,7 @@ function createHostBindingsFunction(
       propertyBindings.push(instructionParams);
     } else if (instruction === R3.attribute) {
       attributeBindings.push(instructionParams);
-    } else if (instruction === R3.updateSyntheticHostBinding) {
+    } else if (instruction === R3.syntheticHostProperty) {
       syntheticHostBindings.push(instructionParams);
     } else {
       updateStatements.push(o.importExpr(instruction).callFn(instructionParams).toStmt());
@@ -657,7 +678,7 @@ function createHostBindingsFunction(
 
   if (syntheticHostBindings.length > 0) {
     updateStatements.push(
-        chainedInstruction(R3.updateSyntheticHostBinding, syntheticHostBindings).toStmt());
+        chainedInstruction(R3.syntheticHostProperty, syntheticHostBindings).toStmt());
   }
 
   // since we're dealing with directives/components and both have hostBinding
@@ -714,7 +735,7 @@ function createHostBindingsFunction(
 
 function bindingFn(implicit: any, value: AST) {
   return convertPropertyBinding(
-      null, implicit, value, 'b', BindingForm.TrySimple, () => error('Unexpected interpolation'));
+      null, implicit, value, 'b', BindingForm.Expression, () => error('Unexpected interpolation'));
 }
 
 function convertStylingCall(
@@ -738,7 +759,7 @@ function getBindingNameAndInstruction(binding: ParsedProperty):
       // host bindings that have a synthetic property (e.g. @foo) should always be rendered
       // in the context of the component and not the parent. Therefore there is a special
       // compatibility instruction available for this purpose.
-      instruction = R3.updateSyntheticHostBinding;
+      instruction = R3.syntheticHostProperty;
     } else {
       instruction = R3.hostProperty;
     }
@@ -768,8 +789,7 @@ function createHostListeners(eventBindings: ParsedEvent[], name?: string): o.Sta
   });
 
   if (syntheticListeners.length > 0) {
-    instructions.push(
-        chainedInstruction(R3.componentHostSyntheticListener, syntheticListeners).toStmt());
+    instructions.push(chainedInstruction(R3.syntheticHostListener, syntheticListeners).toStmt());
   }
 
   if (listeners.length > 0) {

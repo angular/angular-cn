@@ -6,7 +6,6 @@
  * found in the LICENSE file at https://angular.io/license
  */
 
-import {ApplicationRef} from '../application_ref';
 import {InjectorType, ɵɵdefineInjector} from '../di/interface/defs';
 import {Provider} from '../di/interface/provider';
 import {convertInjectableProviderToFactory} from '../di/util';
@@ -14,112 +13,23 @@ import {Type} from '../interface/type';
 import {SchemaMetadata} from '../metadata/schema';
 import {compileNgModule as render3CompileNgModule} from '../render3/jit/module';
 import {makeDecorator, TypeDecorator} from '../util/decorators';
+import {NgModuleDef} from './ng_module_def';
 
-
-/**
- * Represents the expansion of an `NgModule` into its scopes.
- *
- * 表示要将 `NgModule` 扩展到其范围中。
- *
- * A scope is a set of directives and pipes that are visible in a particular context. Each
- * `NgModule` has two scopes. The `compilation` scope is the set of directives and pipes that will
- * be recognized in the templates of components declared by the module. The `exported` scope is the
- * set of directives and pipes exported by a module (that is, module B's exported scope gets added
- * to module A's compilation scope when module A imports B).
- *
- * 范围是指一组在特定上下文中可见的指令和管道。每个 `NgModule` 具有两种范围。
- * `compilation` 范围是指能在当前模块的组件模板中识别的指令和管道。
- * `exported` 范围是指当前模块中导出的指令和管道（也就是说，如果模块 A 引入了模块 B，那么模块 B 的范围就会合并到模块 A 的编译范围中）。
- */
-export interface NgModuleTransitiveScopes {
-  compilation: {directives: Set<any>; pipes: Set<any>;};
-  exported: {directives: Set<any>; pipes: Set<any>;};
-  schemas: SchemaMetadata[]|null;
-}
 
 /**
  * @publicApi
  */
 export type ɵɵNgModuleDefWithMeta<T, Declarations, Imports, Exports> = NgModuleDef<T>;
 
-/**
- * Runtime link information for NgModules.
- *
- * NgModule 的运行时链接信息。
- *
- * This is the internal data structure used by the runtime to assemble components, directives,
- * pipes, and injectors.
- *
- * 这是在运行期间装配组件、指令、管道和注入器时所需的内部数据结构。
- *
- * NOTE: Always use `ɵɵdefineNgModule` function to create this object,
- * never create the object directly since the shape of this object
- * can change between versions.
- *
- * 注意：总是使用 `ɵɵdefineNgModule` 函数来创建该对象，永远不要直接创建它，因为该对象的结构在不同版本间可能会不一样。
- */
-export interface NgModuleDef<T> {
-  /** Token representing the module. Used by DI.
-   *
-   * 用于表示该模块的一个令牌。供 DI 系统使用。
-   */
-  type: T;
-
-  /** List of components to bootstrap.
-   *
-   * 列出用于引导的组件。
-   */
-  bootstrap: Type<any>[]|(() => Type<any>[]);
-
-  /** List of components, directives, and pipes declared by this module.
-   *
-   * 列出本模块中声明的组件、指令和管道。
-   */
-  declarations: Type<any>[]|(() => Type<any>[]);
-
-  /** List of modules or `ModuleWithProviders` imported by this module.
-   *
-   * 列出被本模块导入的模块或 `ModuleWithProviders`。
-   */
-  imports: Type<any>[]|(() => Type<any>[]);
-
-  /**
-   * List of modules, `ModuleWithProviders`, components, directives, or pipes exported by this
-   * module.
-   *
-   * 列出本模块导出的模块、`ModuleWithProviders`、组件、指令或管道。
-   */
-  exports: Type<any>[]|(() => Type<any>[]);
-
-  /**
-   * Cached value of computed `transitiveCompileScopes` for this module.
-   *
-   * 本模块的 `transitiveCompileScopes` 计算结果的缓存值。
-   *
-   * This should never be read directly, but accessed via `transitiveScopesFor`.
-   *
-   * 永远不要直接使用它，而是通过 `transitiveScopesFor` 来访问。
-   */
-  transitiveCompileScopes: NgModuleTransitiveScopes|null;
-
-  /** The set of schemas that declare elements to be allowed in the NgModule. */
-  schemas: SchemaMetadata[]|null;
-
-  /** Unique ID for the module with which it should be registered.  */
-  id: string|null;
-}
 
 /**
- * A wrapper around an NgModule that associates it with the providers.
+ * A wrapper around an NgModule that associates it with [providers](guide/glossary#provider
+ * "Definition"). Usage without a generic type is deprecated.
  *
- * 对 NgModule 及其相关 providers 的包装。
+ * 对 NgModule 及其相关 [providers](guide/glossary#provider
+ * "Definition") 的包装。不带泛型的用法已弃用。
  *
- * @param T the module type.
- *
- * 模块类型。在 Ivy 应用中，它必须显式提供。
- *
- * Note that using ModuleWithProviders without a generic type is deprecated.
- * The generic will become required in a future version of Angular.
+ * @see [Deprecations](guide/deprecations#modulewithproviders-type-without-a-generic)
  *
  * @publicApi
  */
@@ -407,14 +317,10 @@ export interface NgModule {
   id?: string;
 
   /**
-   * If true, this module will be skipped by the AOT compiler and so will always be compiled
-   * using JIT.
-   *
-   * 如果为 `true`，则该模块将会被 AOT 编译器忽略，因此始终会使用 JIT 编译。
-   *
-   * This exists to support future Ivy work and has no effect currently.
-   *
-   * 这是为了支持未来的 Ivy 渲染器，目前没什么用。
+   * When present, this module is ignored by the AOT compiler.
+   * It remains in distributed code, and the JIT compiler attempts to compile it
+   * at run time, in the browser.
+   * To ensure the correct behavior, the app must import `@angular/compiler`.
    */
   jit?: true;
 }
@@ -449,29 +355,6 @@ export const NgModule: NgModuleDecorator = makeDecorator(
    */
   (type: Type<any>, meta: NgModule) => SWITCH_COMPILE_NGMODULE(type, meta));
 
-/**
- * @description
- * Hook for manual bootstrapping of the application instead of using bootstrap array in @NgModule
- * annotation.
- *
- * Reference to the current application is provided as a parameter.
- *
- * See ["Bootstrapping"](guide/bootstrapping) and ["Entry components"](guide/entry-components).
- *
- * @usageNotes
- * ```typescript
- * class AppModule implements DoBootstrap {
- *   ngDoBootstrap(appRef: ApplicationRef) {
- *     appRef.bootstrap(AppComponent); // Or some other component
- *   }
- * }
- * ```
- *
- * @publicApi
- */
-export interface DoBootstrap {
-  ngDoBootstrap(appRef: ApplicationRef): void;
-}
 
 function preR3NgModuleCompile(moduleType: Type<any>, metadata?: NgModule): void {
   let imports = (metadata && metadata.imports) || [];

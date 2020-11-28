@@ -22,7 +22,7 @@ The guidelines described here serve two purposes:
 This guide helps you make decisions about tone, voice, and style.
 It also helps you find the right markup quickly.
 
-  简化贡献作者的写作过程。本指南可帮助你做出有关语调、声音和风格的决定。它还可以帮助你快速找到正确的标记（markup）。
+  简化贡献作者的写作过程。本指南可帮助你做出关于语调、声音和风格的决定。它还可以帮助你快速找到正确的标记（markup）。
 
 <div class="alert is-helpful">
 
@@ -57,7 +57,7 @@ Code examples are encouraged for demonstrating how to apply the concepts and fea
 Angular has a custom framework that enables authors to include code snippets directly from example apps that are automatically tested as part of doc builds.
 To contribute example code, you must understand Angular itself and the custom framework for Angular doc examples.
 
-  **Angular 的编码风格：**代码应用和代码片段的编码风格。我们鼓励使用代码示例演示如何应用所讨论的概念和特性。Angular 有一个自定义框架，可让作者直接从示例应用中包含代码片段，这些代码片段会作为 doc builds 的一部分进行自动测试。要提供代码示例代码，你必须要了解 Angular 本身以及 Angular doc examples 的自定义框架。
+  **Angular 的编码风格：**代码应用和代码片段的编码风格。我们鼓励使用代码范例演示如何应用所讨论的概念和特性。Angular 有一个自定义框架，可让作者直接从范例应用中包含代码片段，这些代码片段会作为 doc builds 的一部分进行自动测试。要提供代码范例代码，你必须要了解 Angular 本身以及 Angular doc examples 的自定义框架。
 
 For each aspect of style, the following table explains where to find the primary guidelines and what this Angular Documentation Style Guide offers.
 
@@ -74,13 +74,13 @@ For each aspect of style, the following table explains where to find the primary
 本指南：指定指南和教程的标记指南，它们主要用 Markdown 编写。|
 | **Angular coding style** | Primary: [Angular Style Guide](guide/styleguide "Angular Application Code Style Guide").<br />This guide: How to create, store, and include code examples in guides and tutorials. |
 | **Angular 的编码风格** | 主要： [Angular 风格指南](guide/styleguide "Angular 应用代码风格指南")。 
-本指南：如何在指南和教程中创建，存储和包含代码示例。|
+本指南：如何在指南和教程中创建，存储和包含代码范例。|
 
 <div class="alert is-helpful">
 
 Note: Angular API and CLI reference docs are generated from source code and/or related source files, which may have other markup styles and other ways of including code examples.
 
-注意：Angular API 和 CLI 参考文档都是从源代码和/或相关的源文件中生成的，这些文件可能有其它的标记风格，还包括代码示例等。
+注意：Angular API 和 CLI 参考文档都是从源代码和/或相关的源文件中生成的，这些文件可能有其它的标记风格，还包括代码范例等。
 
 </div>
 
@@ -90,7 +90,7 @@ Note: Angular API and CLI reference docs are generated from source code and/or r
 
 To make changes to the documentation pages and sample code, clone the [Angular github repository](https://github.com/angular/angular "Angular repo") and go to the `aio/` folder.
 
-要修改文档页面和示例代码，克隆[Angular 的 github 存储库](https://github.com/angular/angular "Angular repo")，进入 `aio/` 文件夹。
+要修改文档页面和范例代码，克隆[Angular 的 github 存储库](https://github.com/angular/angular "Angular repo")，进入 `aio/` 文件夹。
 
 The [aio/README.md](https://github.com/angular/angular/blob/master/aio/README.md "AIO ReadMe") explains how to install and use the tools to edit and test your changes.
 
@@ -446,17 +446,17 @@ The current guidelines allow for a three-level navigation structure with two hea
 
 Guides are rich in examples of working Angular code. Example code can be commands entered in a terminal window, a fragment of TypeScript or HTML, or an entire code file.
 
-本指南中包含很多 Angular 代码的工作示例。示例代码可以是终端窗口中输入的命令，TypeScript 或 HTML 的片段，也可以是整个代码文件。
+本指南中包含很多 Angular 代码的工作范例。范例代码可以是终端窗口中输入的命令，TypeScript 或 HTML 的片段，也可以是整个代码文件。
 
 Whatever the source, the doc viewer renders them as "code snippets", either individually with the [_code-example_](#code-example "code-example") component or as a tabbed collection with the [_code-tabs_](#code-tabs "code-tabs") component.
 
-无论是什么源代码，doc Viewer 都会把它们渲染为“代码片段”，既可以单独使用[*代码示例*](#code-example "代码示例")组件，也可以作为带选项[*卡*](#code-tabs "代码标签")组件的标签式集合。
+无论是什么源代码，doc Viewer 都会把它们渲染为“代码片段”，既可以单独使用[*代码范例*](#code-example "代码范例")组件，也可以作为带选项[*卡*](#code-tabs "代码标签")组件的标签式集合。
 
 {@a code-example}
 
 ### Code example
 
-### 代码示例
+### 代码范例
 
 You can display a simple, inline code snippet with the markdown backtick syntax.
 Use a single backtick on either side of a term when referring to code or the
@@ -502,7 +502,7 @@ the Angular documentation _code-example_ component represented by the `<code-exa
 The `<code-example>` tag has a `header` attribute that you use to identify the file that the example comes from. The header should be used whenever possible to establish the context of the example.
 See [Code snippets and code examples](guide/docs-style-guide#code-snippets-and-code-samples) for more details.
 
-对于块代码片段，我们通常更喜欢使用 Angular 文档中的*代码示例*组件（ `<code-example>` 标签）来表示代码。`<code-example>` 标签有一个 `header` 属性，用于标识该例子所来自的文件。应该尽可能使用头来建立这个例子的上下文。有关更多详细信息，请参阅[代码段和代码示例](guide/docs-style-guide#code-snippets-and-code-samples)。
+对于块代码片段，我们通常更喜欢使用 Angular 文档中的*代码范例*组件（ `<code-example>` 标签）来表示代码。`<code-example>` 标签有一个 `header` 属性，用于标识该例子所来自的文件。应该尽可能使用头来建立这个例子的上下文。欲知详情，请参阅[代码段和代码范例](guide/docs-style-guide#code-snippets-and-code-samples)。
 
 <h3 class="no-toc">Inline code-snippets</h3>
 
@@ -534,7 +534,7 @@ user input in a command shell or the _output_ of some process.
 **Do not write inline code snippets** unless you have a good reason and the editor's permission to do so.
 In all other cases, code snippets should be generated automatically from tested code samples.
 
-**不要写内联代码片段，**除非你有充分的理由和编辑的许可。在所有其它情况下，应该从经过测试的代码示例中自动生成代码片段。
+**不要写内联代码片段，**除非你有充分的理由和编辑的许可。在所有其它情况下，应该从经过测试的代码范例中自动生成代码片段。
 
 For hypothetical examples such as illustrations of configuration options in a JSON file, you should still use The `<code-example>` tag with the `header` attribute to identify the context.
 
@@ -550,22 +550,22 @@ One of the documentation design goals is that guide page code snippets should be
 
 We meet this goal by displaying code snippets that are derived directly from standalone code samples, written specifically for these guide pages.
 
-我们通过直接从独立代码示例派生的代码片段（专为这些指南页面编写）来实现这一目标。
+我们通过直接从独立代码范例派生的代码片段（专为这些指南页面编写）来实现这一目标。
 
 The author of a guide page is responsible for the code sample that supports that page.
 The author must also write end-to-end tests for the sample.
 
-指南页面的作者负责支持该页面的代码示例。作者还必须为该样本编写端到端的测试。
+指南页面的作者负责支持该页面的代码范例。作者还必须为该样本编写端到端的测试。
 
 Code samples are located in sub-folders of the `content/examples` directory of the `angular/angular` repository. An example folder name should be the same as the guide page it supports.
 
-代码示例位于 `angular/angular` 存储库的 `angular/angular` `content/examples` 目录的子文件夹中。示例文件夹名称应该与它支持的指南页面相同。
+代码范例位于 `angular/angular` 存储库的 `angular/angular` `content/examples` 目录的子文件夹中。范例文件夹名称应该与它支持的指南页面相同。
 
 <div class="alert is-helpful">
 
 A guide page might not have its own sample code. It might refer instead to a sample belonging to another page.
 
-指南页面可能没有自己的示例代码。它可能代之以属于另一个页面的样本。
+指南页面可能没有自己的范例代码。它可能代之以属于另一个页面的样本。
 
 </div>
 
@@ -575,7 +575,7 @@ Angular CI 流程会为每个 Angular PR 运行所有的端到端测试。Angula
 
 When possible, every snippet of code on a guide page should be derived from a code sample file. You tell the Angular documentation engine which code file - or fragment of a code file - to display by configuring `<code-example>` attributes.
 
-如果可能，指南页上的每一段代码都应该从代码示例文件中派生出来。你可以通过配置 `<code-example>` 属性来告诉 Angular 文档引擎哪些代码文件（或代码文件的片段）。
+如果可能，指南页上的每一段代码都应该从代码范例文件中派生出来。你可以通过配置 `<code-example>` 属性来告诉 Angular 文档引擎哪些代码文件（或代码文件的片段）。
 
 #### Code snippet from a file
 
@@ -583,11 +583,11 @@ When possible, every snippet of code on a guide page should be derived from a co
 
 _This_ "Authors Doc Style Guide" has its own sample application, located in the `content/examples/docs-style-guide` folder.
 
-*这个* “Authors Doc Style Guide”有自己的示例应用，它位于 `content/examples/docs-style-guide` 文件夹中。
+*这个* “Authors Doc Style Guide”有自己的范例应用，它位于 `content/examples/docs-style-guide` 文件夹中。
 
 The following _code-example_ displays the sample's `app.module.ts`.
 
-下列*代码示例*展示了该示例的 `app.module.ts`。
+下列*代码范例*展示了该范例的 `app.module.ts`。
 
 <code-example path="docs-style-guide/src/app/app.module.ts" header="src/app/app.module.ts"></code-example>
 
@@ -617,7 +617,7 @@ Following convention, you set the `header` attribute to the file's location with
 Unless otherwise noted, all code snippets in this page are derived from sample source code
 located in the `content/examples/docs-style-guide` directory.
 
-除非另有说明，否则本页面中的所有代码片段均来自位于的 `content/examples/docs-style-guide` 目录下的示例源代码。
+除非另有说明，否则本页面中的所有代码片段均来自位于的 `content/examples/docs-style-guide` 目录下的范例源代码。
 
 </div>
 
@@ -646,11 +646,11 @@ The preferred way to un-ignore a file is to update the `content/examples/.gitign
 
 #### Code-example attributes
 
-#### 代码示例属性
+#### 代码范例属性
 
 You control the _code-example_ output by setting one or more of its attributes:
 
-你通过设置一个或多个属性来控制*代码示例*输出：
+你通过设置一个或多个属性来控制*代码范例*输出：
 
 * `path`- the path to the file in the `content/examples` folder.
 
@@ -678,7 +678,7 @@ You control the _code-example_ output by setting one or more of its attributes:
 
 * `language`- the source code language such as `javascript`, `html`, `css`, `typescript`, `json`, or `sh`. This attribute only works for inline examples.
 
-  `language` - 源代码语言，比如 `javascript`，`html`，`css`，`typescript`，`json` 或 `sh`。该属性仅适用于内联示例。
+  `language` - 源代码语言，比如 `javascript`，`html`，`css`，`typescript`，`json` 或 `sh`。该属性仅适用于内联范例。
 
 {@a region}
 
@@ -688,7 +688,7 @@ You control the _code-example_ output by setting one or more of its attributes:
 
 Often you want to focus on a fragment of code within a sample code file. In this example, you focus on the `AppModule` class and its `NgModule` metadata.
 
-你可能希望专注于示例代码文件中的代码片段。在这个例子中，你将专注于 `AppModule` 类及其 `NgModule` 元数据。
+你可能希望专注于范例代码文件中的代码片段。在这个例子中，你将专注于 `AppModule` 类及其 `NgModule` 元数据。
 
 <code-example
   path="docs-style-guide/src/app/app.module.ts"
@@ -739,7 +739,7 @@ When you do, set the `class` to `avoid`. The code snippet will be framed in brig
 Here's the markup for an "avoid" example in the
 [_Angular Style Guide_](guide/styleguide#style-05-03 "Style 05-03: components as elements").
 
-这里是[*Angular Style 指南中*](guide/styleguide#style-05-03 "风格 05-03：components as elements elements") “avoid”示例的标记。
+这里是[*Angular Style 指南中*](guide/styleguide#style-05-03 "风格 05-03：components as elements elements") “avoid”范例的标记。
 
 ```html
 <code-example
@@ -760,7 +760,7 @@ Here's the markup for an "avoid" example in the
 
 Code tabs display code much like _code examples_ do.  The added advantage is that they can display multiple code samples within a tabbed interface.  Each tab is displayed using _code pane_.
 
-代码选项卡会像*代码示例*那样显示代码。额外的好处是，它们可以在选项卡式界面中显示多个代码示例。使用*代码窗格*显示每个标签页。
+代码选项卡会像*代码范例*那样显示代码。额外的好处是，它们可以在选项卡式界面中显示多个代码范例。使用*代码窗格*显示每个标签页。
 
 #### Code-tabs attributes
 
@@ -852,13 +852,13 @@ The `linenums` attribute in the second pane disables line numbering for _itself 
 
 You must add special code snippet markup to sample source code files before they can be displayed by `<code-example>` and `<code-tabs>` components.
 
-在 `<code-example>` 和 `<code-tabs>` 组件显示之前，你必须先为源代码文件示例添加特殊的代码片段标记。
+在 `<code-example>` 和 `<code-tabs>` 组件显示之前，你必须先为源代码文件范例添加特殊的代码片段标记。
 
 <div class="alert is-helpful">
 
 The sample source code for this page, located in `context/examples/docs-style-guide`, contains examples of every code snippet markup described in this section.
 
-该页面的示例源代码位于 `context/examples/docs-style-guide`，其中包含本节中描述的每个代码片段标记的示例。
+该页面的范例源代码位于 `context/examples/docs-style-guide`，其中包含本节中描述的每个代码片段标记的范例。
 
 </div>
 
@@ -891,14 +891,14 @@ Different file types have different comment syntax so adjust accordingly.
 The doc generation process erases these comments before displaying them in the doc viewer.
 It also strips them from stackblitz and sample code downloads.
 
-文档生成过程会先删除这些注释，然后才能在 doc 查看器中显示它们。它还会从 stackblitz 和示例代码下载中删除它们。
+文档生成过程会先删除这些注释，然后才能在 doc 查看器中显示它们。它还会从 stackblitz 和范例代码下载中删除它们。
 
 <div class="alert is-important">
 
 Code snippet markup is not supported in JSON files because comments are forbidden in JSON files.
 See [below](#json-files) for details and workarounds.
 
-JSON 文件中不支持代码片断标记，因为 JSON 文件中的注释是被禁止的。有关详情和解决方法，请参阅[下文](#json-files)。
+JSON 文件中不支持代码片断标记，因为 JSON 文件中的注释是被禁止的。关于详情和解决方法，请参阅[下文](#json-files)。
 
 </div>
 
@@ -1113,7 +1113,7 @@ To tell that story in code, you'll often need to create partial files or interme
 Such partial and intermediate files need their own names.
 Follow the doc sample naming convention. Add a number before the file extension as illustrated here:
 
-这些局部文件和中间文件都需要自己的名字。按照 doc 示例命名约定进行操作。在文件扩展名前加一个数字，如下图所示：
+这些局部文件和中间文件都需要自己的名字。按照 doc 范例命名约定进行操作。在文件扩展名前加一个数字，如下图所示：
 
 ```html
 package.1.json
@@ -1141,21 +1141,21 @@ Remember to exclude these files from stackblitz by listing them in the `stackbli
 
 By adding `<live-example>` to the page you generate links that run sample code in the Stackblitz live coding environment and download that code to the reader's file system.
 
-通过在页面中添加 `<live-example>`，你可以生成在 Stackblitz 实时编码环境中运行示例代码的链接，并把它下载到读者的文件系统中。
+通过在页面中添加 `<live-example>`，你可以生成在 Stackblitz 实时编码环境中运行范例代码的链接，并把它下载到读者的文件系统中。
 
 Live examples (AKA "stackblitz") are defined by one or more `stackblitz.json` files in the root of a code sample folder. Each sample folder usually has a single unnamed definition file, the default `stackblitz.json`.
 
-实例（AKA“stackblitz”）由代码示例文件夹根目录下的一个或多个 `stackblitz.json` 文件定义。每个示例文件夹通常都有一个无名的定义文件，默认是 `stackblitz.json`。
+实例（AKA“stackblitz”）由代码范例文件夹根目录下的一个或多个 `stackblitz.json` 文件定义。每个范例文件夹通常都有一个无名的定义文件，默认是 `stackblitz.json`。
 
 <div class="alert is-helpful">
 
 You can create additional, named definition files in the form `name.stackblitz.json`. See `content/examples/testing` for examples.
 
-你可以通过 `name.stackblitz.json` 格式创建其它的命名定义文件。参见 `content/examples/testing` 中的例子。
+你可以通过 `name.stackblitz.json` 格式创建其它的命名定义文件。参阅 `content/examples/testing` 中的例子。
 
 The schema for a `stackblitz.json` hasn't been documented yet but looking at the `stackblitz.json` files in the example folders should tell you most of what you need to know.
 
-`stackblitz.json` 的架构还没有被记录下来，但查看示例文件夹中的 `stackblitz.json` 文件可以告诉你大部分需要知道的事情。
+`stackblitz.json` 的架构还没有被记录下来，但查看范例文件夹中的 `stackblitz.json` 文件可以告诉你大部分需要知道的事情。
 
 </div>
 
@@ -1167,15 +1167,15 @@ Adding `<live-example></live-example>` to the page generates the two default lin
 
 1. a link to the Stackblitz defined by the default `stackblitz.json` file located in the code sample folder with the same name as the guide page.
 
-   指向 stackblitz 的链接，该堆栈是由默认的 `stackblitz.json` 文件定义的，该文件位于代码示例文件夹目录下，其名称与该引导页面同名。
+   指向 stackblitz 的链接，该堆栈是由默认的 `stackblitz.json` 文件定义的，该文件位于代码范例文件夹目录下，其名称与该引导页面同名。
 
 2. a link that downloads that sample.
 
-   下载该示例的链接
+   下载该范例的链接
 
 Clicking the first link opens the code sample on StackBlitz in a new browser tab.
 
-单击第一个链接可以在新的浏览器选项卡中打开 StackBlitz 上的代码示例。
+单击第一个链接可以在新的浏览器选项卡中打开 StackBlitz 上的代码范例。
 
 You can change the appearance and behavior of the live example with attributes and classes.
 
@@ -1294,7 +1294,7 @@ Every section header tag is also an anchor point. Another guide page could add a
 
 See the ["Anchors"](guide/docs-style-guide#anchors "Style Guide - Anchors") section for details.
 
-有关详细信息，请参阅[“锚点”](guide/docs-style-guide#anchors "时尚指南 - 船锚")部分。
+欲知详情，请参阅[“锚点”](guide/docs-style-guide#anchors "时尚指南 - 船锚")部分。
 
 </div>
 
@@ -1858,7 +1858,7 @@ This text wraps around to the right of the floating "flying hero" image.
 
 Headings and code-examples automatically clear a floating image. If you need to force a piece of text to clear a floating image, add `<br class="clear">` where the text should break.
 
-标题和代码示例会自动清除浮动图像。如果你需要强制一段文字来清除漂浮的图片，你可以添加 `<br class="clear">` 文本中断的地方。
+标题和代码范例会自动清除浮动图像。如果你需要强制一段文字来清除漂浮的图片，你可以添加 `<br class="clear">` 文本中断的地方。
 
 <br class="clear">
 

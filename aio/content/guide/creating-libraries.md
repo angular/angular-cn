@@ -28,20 +28,22 @@ Use the Angular CLI to generate a new library skeleton in a new workspace with t
 
 The `ng generate` command creates the `projects/my-lib` folder in your workspace, which contains a component and a service inside an NgModule.
 
+`ng generate` 命令会在你的工作空间中创建 `projects/my-lib` 文件夹，其中包含带有一个组件和一个服务的 NgModule。
+
 <div class="alert is-helpful">
 
      For more details on how a library project is structured, refer to the [Library project files](guide/file-structure#library-project-files) section of the [Project File Structure guide](guide/file-structure).
      
-     要了解关于库项目的目录结构的详细信息，参见[项目文件结构](guide/file-structure)中的[库项目文件](guide/file-structure#library-project-files)部分。
+     要了解关于库项目的目录结构的详细信息，参阅[项目文件结构](guide/file-structure)中的[库项目文件](guide/file-structure#library-project-files)部分。
 
      You can use the monorepo model to use the same workspace for multiple projects.
      See [Setting up for a multi-project workspace](guide/file-structure#multiple-projects).
 
-     你可以使用单一仓库（monorepo）模式将同一个工作空间用于多个项目。参见[建立多项目型工作区](guide/file-structure#multiple-projects)。
+     你可以使用单一仓库（monorepo）模式将同一个工作空间用于多个项目。参阅[建立多项目型工作区](guide/file-structure#multiple-projects)。
 
 </div>
 
-When you generate a new library, the workspace configuration file, `angular.json`, is updated with a project of type 'library'.
+When you generate a new library, the workspace configuration file, `angular.json`, is updated with a project of type `library`.
 
 当你生成一个新库时，该工作区的配置文件 `angular.json` 中也增加了一个 'library' 类型的项目。
 
@@ -129,13 +131,13 @@ Here are some things to consider in migrating application functionality to a lib
 
   考虑如何为客户端应用提供服务。
 
-  * Services should declare their own providers (rather than declaring providers in the NgModule or a component), so that they are *tree-shakable*. This allows the compiler to leave the service out of the bundle if it never gets injected into the application that imports the library. For more about this, see [Tree-shakable providers](guide/dependency-injection-providers#tree-shakable-providers).
+  * Services should declare their own providers, rather than declaring providers in the NgModule or a component. Declaring a provider makes that service *tree-shakable*. This practice allows the compiler to leave the service out of the bundle if it never gets injected into the application that imports the library. For more about this, see [Tree-shakable providers](guide/architecture-services#providing-services).
 
-    服务应该自己声明提供者（而不是在 NgModule 或组件中声明提供者），以便它们是*可摇树优化的* 。这样，如果服务器从未被注入到导入该库的应用中，编译器就会把该服务从该 bundle 中删除。有关这方面的更多信息，请参阅[Tree-shakable 提供者](guide/dependency-injection-providers#tree-shakable-providers) 。
+    服务应该自己声明提供者（而不是在 NgModule 或组件中声明提供者），以便它们是*可摇树优化的* 。这样，如果服务器从未被注入到导入该库的应用中，编译器就会把该服务从该 bundle 中删除。关于这方面的更多信息，请参阅[Tree-shakable 提供者](guide/architecture-services#providing-services) 。
 
   * If you register global service providers or share providers across multiple NgModules, use the [`forRoot()` and `forChild()` design patterns](guide/singleton-services) provided by the [RouterModule](api/router/RouterModule).
 
-    如果您在多个 NgModules 注册全局服务供应商或供应商共享，使用[`forRoot()` 和 `forChild()` 设计模式](guide/singleton-services)由提供[RouterModule](api/router/RouterModule) 。
+    如果你在多个 NgModules 注册全局服务提供者或提供者共享，使用[`forRoot()` 和 `forChild()` 设计模式](guide/singleton-services)由提供[RouterModule](api/router/RouterModule) 。
 
   * If your library provides optional services that might not be used by all client applications, support proper tree-shaking for that case by using the [lightweight token design pattern](guide/lightweight-injection-tokens).
 
@@ -186,20 +188,22 @@ If you want a dropdown that would contain different passed-in values each time, 
 
 Suppose you want to read a configuration file and then generate a form based on that configuration.
 If that form will need additional customization by the developer who is using your library, it might work best as a schematic.
-However, if the forms will always be the same and not need much customization by developers, then you could create a dynamic component that takes the configuration and generates the form.
+However, if the form will always be the same and not need much customization by developers, then you could create a dynamic component that takes the configuration and generates the form.
 In general, the more complex the customization, the more useful the schematic approach.
 
 假设你要读取配置文件，然后根据该配置生成表单。如果该表单需要库的用户进行额外的自定义，它可能最适合用作 schematic。但是，如果这些表单总是一样的，开发人员不需要做太多自定义工作，那么你就可以创建一个动态的组件来获取配置并生成表单。通常，自定义越复杂，schematic 方式就越有用。
 
 To learn more, see [Schematics Overview](guide/schematics) and [Schematics for Libraries](guide/schematics-for-libraries).
 
-要了解更多信息，参见 [原理图概览](guide/schematics) 和 [供库使用的原理图](guide/schematics-for-libraries)。
+要了解更多信息，参阅 [原理图概览](guide/schematics) 和 [供库使用的原理图](guide/schematics-for-libraries)。
 
 ## Publishing your library
 
 ## 发布你的库
 
 Use the Angular CLI and the npm package manager to build and publish your library as an npm package.
+
+使用 Angular CLI 和 npm 包管理器来构建你的库并发布为 npm 包。
 
 Before publishing a library to NPM, build it using the `--prod` flag which will use the older compiler and runtime known as View Engine instead of Ivy.
 
@@ -219,7 +223,11 @@ If you've never published a package in npm before, you must create a user accoun
 
 For now, it is not recommended to publish Ivy libraries to NPM because Ivy generated code is not backward compatible with View Engine, so apps using View Engine will not be able to consume them. Furthermore, the internal Ivy instructions are not yet stable, which can potentially break consumers using a different Angular version from the one used to build the library.
 
-When a published library is used in an Ivy app, the Angular CLI will automatically convert it to Ivy using a tool known as the Angular compatibility compiler (`ngcc`). Thus, by publishing your libraries using the View Engine compiler ensures that they can be transparently consumed by both View Engine and Ivy apps.
+目前，不建议把 Ivy 库发布到 NPM 上，因为 Ivy 生成的代码不会向后兼容 View Engine 的应用，所以，使用 View Engine 的应用将不能消费它们。此外，Ivy 的内部用法尚未完全稳定，这有潜在的可能会导致使用其它 Angular 版本的消费代码被此库的构建者破坏。
+
+When a published library is used in an Ivy app, the Angular CLI will automatically convert it to Ivy using a tool known as the Angular compatibility compiler (`ngcc`). Thus, publishing your libraries using the View Engine compiler ensures that they can be transparently consumed by both View Engine and Ivy apps.
+
+当已发布的库在 Ivy 应用中使用时，Angular CLI 会自动把它用一个叫作 Angular 兼容性编译器（`ngcc`）的工具转换成 Ivy 版本的。这样一来，把你的库用 View Engine 编译器发布，就可以确保它们能同时被 View Engine 和 Ivy 的应用透明的消费。
 
 </div>
 
@@ -257,9 +265,9 @@ For example, `main` should point at a JavaScript file, not a TypeScript file.
 
 必须在每次修改时都重新构建这个库。在链接库时，确保构建步骤在监视模式下运行，并且该库的 `package.json` 配置指向了正确的入口点。例如，`main` 应该指向一个 JavaScript 文件，而不是一个 TypeScript 文件。
 
-## Use TypeScript path mapping for peer dependencies
+### Use TypeScript path mapping for peer dependencies
 
-## 对同级依赖使用 TypeScript 路径映射
+### 对同级依赖使用 TypeScript 路径映射
 
 Angular libraries should list all `@angular/*` dependencies as peer dependencies.
 This ensures that when modules ask for Angular, they all get the exact same module.

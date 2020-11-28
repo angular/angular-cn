@@ -43,7 +43,7 @@ In the context of an Angular service worker, a "version" is a collection of reso
 当应用的一个新的构建发布时，Service Worker 就把它看做此应用的一个新版本。
 就算只修改了一个文件，也同样如此。
 在任何一个给定的时间，Service Worker 可能会在它的缓存中拥有此应用的多个版本，这几个版本也都能用于提供服务。
-要了解更多，参见稍后的 [App 选项卡](guide/service-worker-devops#tabs)。
+要了解更多，参阅稍后的 [App 选项卡](guide/service-worker-devops#tabs)。
 
 To preserve app integrity, the Angular service worker groups all files into a version together. The files grouped into a version usually include HTML, JS, and CSS files. Grouping of these files is essential for integrity because HTML, JS, and CSS files frequently refer to each other and depend on specific content. For example, an `index.html` file might have a `<script>` tag that references `bundle.js` and it might attempt to call a function `startApp()` from within that script. Any time this version of `index.html` is served, the corresponding `bundle.js` must be served with it. For example, assume that the `startApp()` function is renamed to `runApp()` in both files. In this scenario, it is not valid to serve the old `index.html`, which calls `startApp()`, along with the new bundle, which defines `runApp()`.
 
@@ -185,7 +185,7 @@ it's receiving changes suddenly or without warning. See the
 [Versions](guide/service-worker-devops#versions) section above
 for a description of such issues.
 
-如果应用程序的资源版本突然发生了变化或没有给出警告，就可能会有问题。有关这些问题的描述，请参阅前面的 [版本](guide/service-worker-devops#versions) 部分。
+如果应用程序的资源版本突然发生了变化或没有给出警告，就可能会有问题。关于这些问题的描述，请参阅前面的 [版本](guide/service-worker-devops#versions) 部分。
 
 The Angular service worker provides a guarantee: a running app
 will continue to run the same version of the app. If another

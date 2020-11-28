@@ -50,7 +50,7 @@ A JSON schema associated with a schematic tells the Angular CLI what options are
 These defaults can be overridden by providing a different value for an option on the command line.
 See [Workspace Configuration](guide/workspace-config) for information about how you can change the generation option defaults for your workspace.
 
-与原理图相关联的 JSON 模式会告诉 Angular CLI 命令和子命令都有哪些选项以及默认值。这些默认值可以通过在命令行中为该选项提供不同的值来进行覆盖。要了解如何更改代码生成选项的默认值，请参见“ [工作区配置](guide/workspace-config) ”。
+与原理图相关联的 JSON 模式会告诉 Angular CLI 命令和子命令都有哪些选项以及默认值。这些默认值可以通过在命令行中为该选项提供不同的值来进行覆盖。要了解如何更改代码生成选项的默认值，请参阅“ [工作区配置](guide/workspace-config) ”。
 
 The JSON schemas for the default schematics used by the CLI to generate projects and parts of projects are collected in the package [`@schematics/angular`](https://raw.githubusercontent.com/angular/angular-cli/v7.0.0/packages/schematics/angular/application/schema.json).
 The schema describes the options available to the CLI for each of the `ng generate` sub-commands, as shown in the `--help` output.
@@ -173,7 +173,7 @@ We recommend that you do not force an update of all dependencies by default. Try
 
 For more about how the `ng update` command works, see [Update Command](https://github.com/angular/angular-cli/blob/master/docs/specifications/update.md).
 
-有关 `ng update` 命令工作原理的更多信息，请参见“[更新命令”](https://github.com/angular/angular-cli/blob/master/docs/specifications/update.md)。
+关于 `ng update` 命令工作原理的更多信息，请参阅“[更新命令”](https://github.com/angular/angular-cli/blob/master/docs/specifications/update.md)。
 
 </div>
 

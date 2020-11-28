@@ -99,7 +99,7 @@ Angular 会按以下顺序执行钩子方法。你可以用它来执行以下类
       See details in [Using change detection hooks](#onchanges) in this document.
 
       注意，这发生的非常频繁，所以你在这里执行的任何操作都会显著影响性能。
-      欲知详情，参见本文档的[使用变更检测钩子](#onchanges)。
+      欲知详情，参阅本文档的[使用变更检测钩子](#onchanges)。
 
     </td>
     <td>
@@ -107,6 +107,10 @@ Angular 会按以下顺序执行钩子方法。你可以用它来执行以下类
       Called before `ngOnInit()` and whenever one or more data-bound input properties change.
 
       在 `ngOnInit()` 之前以及所绑定的一个或多个输入属性的值发生变化时都会调用。
+
+      Note that if your component has no inputs or you use it without providing any inputs, the framework will not call `ngOnChanges()`.
+
+      注意，如果你的组件没有输入，或者你使用它时没有提供任何输入，那么框架就不会调用 `ngOnChanges()`。
 
     </td>
 
@@ -126,7 +130,7 @@ Angular 会按以下顺序执行钩子方法。你可以用它来执行以下类
       See details in [Initializing a component or directive](#oninit) in this document.
 
       在 Angular 第一次显示数据绑定和设置指令/组件的输入属性之后，初始化指令/组件。
-      欲知详情，参见本文档中的[初始化组件或指令](#oninit)。
+      欲知详情，参阅本文档中的[初始化组件或指令](#oninit)。
 
     </td>
     <td>
@@ -152,7 +156,7 @@ Angular 会按以下顺序执行钩子方法。你可以用它来执行以下类
       See details and example in [Defining custom change detection](#docheck) in this document.
 
       检测，并在发生 Angular 无法或不愿意自己检测的变化时作出反应。
-      欲知详情和范例，参见本文档中的[自定义变更检测](#docheck)。
+      欲知详情和范例，参阅本文档中的[自定义变更检测](#docheck)。
 
     </td>
     <td>
@@ -180,7 +184,7 @@ Angular 会按以下顺序执行钩子方法。你可以用它来执行以下类
 
       See details and example in [Responding to changes in content](#aftercontent) in this document.
 
-      欲知详情和范例，参见本文档中的[响应内容中的变更](#aftercontent)。
+      欲知详情和范例，参阅本文档中的[响应内容中的变更](#aftercontent)。
 
     </td>
     <td>
@@ -208,7 +212,7 @@ Angular 会按以下顺序执行钩子方法。你可以用它来执行以下类
 
       See details and example in [Responding to projected content changes](#aftercontent) in this document.
 
-      欲知详情和范例，参见本文档中的[响应被投影内容的变更](#aftercontent)。
+      欲知详情和范例，参阅本文档中的[响应被投影内容的变更](#aftercontent)。
 
     </td>
 
@@ -237,7 +241,7 @@ Angular 会按以下顺序执行钩子方法。你可以用它来执行以下类
 
       See details and example in [Responding to view changes](#afterview) in this document.
 
-      欲知详情和范例，参见本文档中的[响应视图变更](#afterview)。
+      欲知详情和范例，参阅本文档中的[响应视图变更](#afterview)。
 
     </td>
 
@@ -291,7 +295,7 @@ Angular 会按以下顺序执行钩子方法。你可以用它来执行以下类
 
       每当 Angular 每次销毁指令/组件之前调用并清扫。
       在这儿反订阅可观察对象和分离事件处理器，以防内存泄漏。
-      欲知详情，参见本文档中的[在实例销毁时进行清理](#ondestroy)。
+      欲知详情，参阅本文档中的[在实例销毁时进行清理](#ondestroy)。
 
     </td>
 
@@ -508,15 +512,7 @@ Use the `ngOnInit()` method to perform the following initialization tasks.
   An `ngOnInit()` is a good place for a component to fetch its initial data.
   For an example, see the [Tour of Heroes tutorial](tutorial/toh-pt4#oninit).
 
-  `ngOnInit()` 是组件获取初始数据的好地方。比如，[英雄指南教程](tutorial/toh-pt4#oninit) 。
-
-  <div class="alert is-helpful">
-
-  In [Flaw: Constructor does Real Work](http://misko.hevery.com/code-reviewers-guide/flaw-constructor-does-real-work/), Misko Hevery, Angular team lead, explains why you should avoid complex constructor logic.
-
-  在[缺陷：在构造函数中做实际工作](http://misko.hevery.com/code-reviewers-guide/flaw-constructor-does-real-work/)中，Misko Hevery（Angular 的团队负责人），解释了为什么要避免使用复杂的构造函数逻辑。
-
-  </div>
+  `ngOnInit()` 是组件获取初始数据的好地方。比如，[英雄之旅教程](tutorial/toh-pt4#oninit) 。
 
 * Set up the component after Angular sets the input properties.
   Constructors should do no more than set the initial local variables to simple values.
@@ -823,7 +819,7 @@ for one turn of the browser's JavaScript cycle, which triggers a new change-dete
 When you run the *AfterView* sample, notice how frequently Angular calls `AfterViewChecked()`-often when there are no changes of interest.
 Be very careful about how much logic or computation you put into one of these methods.
 
-当你运行 *AfterView* 示例时，请注意当没有发生任何需要注意的变化时，Angular 仍然会频繁的调用 `AfterViewChecked()`。
+当你运行 *AfterView* 范例时，请注意当没有发生任何需要注意的变化时，Angular 仍然会频繁的调用 `AfterViewChecked()`。
 要非常小心你放到这些方法中的逻辑或计算量。
 
 <div class="lightbox">
@@ -967,7 +963,7 @@ This example shows how you can use the `ngDoCheck()` hook to detect and act upon
 
 The *DoCheck* sample extends the *OnChanges* sample with the following `ngDoCheck()` hook:
 
-*DoCheck* 示例使用下面的 `ngDoCheck()` 钩子扩展了 *OnChanges* 示例：
+*DoCheck* 范例使用下面的 `ngDoCheck()` 钩子扩展了 *OnChanges* 范例：
 
 
 <code-example path="lifecycle-hooks/src/app/do-check.component.ts" region="ng-do-check" header="DoCheckComponent (ngDoCheck)"></code-example>

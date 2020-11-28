@@ -18,6 +18,9 @@
     "name": "InjectFlags"
   },
   {
+    "name": "InjectionToken"
+  },
+  {
     "name": "NEW_LINE"
   },
   {
@@ -36,16 +39,19 @@
     "name": "NG_PROV_DEF"
   },
   {
-    "name": "NG_PROV_DEF_FALLBACK"
-  },
-  {
     "name": "NOT_YET"
   },
   {
     "name": "NULL_INJECTOR"
   },
   {
+    "name": "NullInjector"
+  },
+  {
     "name": "Optional"
+  },
+  {
+    "name": "R3Injector"
   },
   {
     "name": "ScopedService"
@@ -118,9 +124,6 @@
   },
   {
     "name": "stringify"
-  },
-  {
-    "name": "throwMixedMultiProviderError"
   },
   {
     "name": "ɵɵdefineInjectable"

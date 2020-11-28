@@ -1,4 +1,4 @@
-# Part 1: Getting started with a basic Angular app
+# Getting started with a basic Angular app
 
 # Angular 入门：你的第一个应用
 
@@ -18,7 +18,7 @@ To help you get started right away, this guide uses a simple ready-made applicat
 
 <header>你是 Web 开发的新手吗？</header>
 
- There are many resources to complement the Angular docs. Mozilla's MDN docs include both [HTML](https://developer.mozilla.org/en-US/docs/Learn/HTML "Learning HTML: Guides and tutorials") and [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript "JavaScript") introductions. [TypeScript's docs](https://www.typescriptlang.org/docs/home.html "TypeScript documentation") include a 5-minute tutorial. Various online course platforms, such as [Udemy](http://www.udemy.com "Udemy online courses") and [Codecademy](https://www.codecademy.com/ "Codecademy online courses"), also cover web development basics.
+ There are many resources to complement the Angular docs. Mozilla's MDN docs include both [HTML](https://developer.mozilla.org/en-US/docs/Learn/HTML "Learning HTML: Guides and tutorials") and [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript "JavaScript") introductions. [TypeScript's docs](https://www.typescriptlang.org/docs/home.html "TypeScript documentation") include a 5-minute tutorial. Various online course platforms, such as [Udemy](https://www.udemy.com/ "Udemy online courses") and [Codecademy](https://www.codecademy.com/ "Codecademy online courses"), also cover web development basics.
 
 你可以找到很多资源作为 Angular 文档的补充。Mozilla 的 MDN 文档同时包含了 [HTML](https://developer.mozilla.org/en-US/docs/Learn/HTML "学习 HTML：指南和教程") 和 [JavaScript 的](https://developer.mozilla.org/en-US/docs/Web/JavaScript "JavaScript") 介绍。[TypeScript 的文档](https://www.typescriptlang.org/docs/home.html "TypeScript 文档")中包含一个 5 分钟教程。各种在线课程平台，比如 [Udemy](http://www.udemy.com "Udemy 在线课程") 和 [Codecademy](https://www.codecademy.com/ "Codeacademy 在线课程")，也涵盖了 Web 开发的一些基础知识。
 
@@ -43,7 +43,7 @@ To help you get started right away, this guide uses a simple ready-made applicat
 * The preview pane on the right shows the starting state of the sample Angular app.
 It defines a frame with a top bar (containing the store name and checkout icon) and the title for a product list (which will be populated and dynamically updated with data from the application).
 
-  右侧的预览窗格显示了示例 Angular 应用程序的初始状态。它定义了一个带有顶栏的框架（包含商店名称和结账图标）以及一个产品列表的标题（它将用来自应用中的数据填充并动态更新产品列表）
+  右侧的预览窗格显示了范例 Angular 应用程序的初始状态。它定义了一个带有顶栏的框架（包含商店名称和结账图标）以及一个产品列表的标题（它将用来自应用中的数据填充并动态更新产品列表）
 
 * The project pane on the left shows the source files that make up the application, including all of the infrastructure and configuration files. The currently selected file shows up in the editor pane in the middle.
 
@@ -52,7 +52,7 @@ It defines a frame with a top bar (containing the store name and checkout icon) 
 Before going into the source structure, the next section shows how to fill out the HTML *template* for the product list, using the provided sample data.
 This should give you an idea how easy it is to modify and update the page dynamically.
 
-在深入源码结构之前，下一节将介绍如何使用提供的示例数据为产品列表编写 HTML *模板*。
+在深入源码结构之前，下一节将介绍如何使用提供的范例数据为产品列表编写 HTML *模板*。
 这将让你知道动态修改和更新页面有多容易。
 
 <div class="callout is-helpful">
@@ -71,7 +71,7 @@ account by clicking the Save button.
 at the top right of the code example box, and then paste the
 code snippet from the clipboard into StackBlitz.
 
-   要复制本教程中的代码示例，请单击代码示例框右上角的图标，然后将剪贴板中的代码片段粘贴到 StackBlitz 中。
+   要复制本教程中的代码范例，请单击代码范例框右上角的图标，然后将剪贴板中的代码片段粘贴到 StackBlitz 中。
 
 * If the StackBlitz preview pane isn't showing what you
 expect, save and then click the refresh button.
@@ -90,7 +90,7 @@ files and mock data for you. The files you'll use throughout
 the tutorials are in the `src` folder of the StackBlitz
 example apps.
 
-  当生成本教程附带的 StackBlitz 示例应用时，StackBlitz 会为你创建启动程序文件和模拟数据。整个教程中你要用到的文件位于 StackBlitz 示例应用的 `src` 文件夹中。
+  当生成本教程附带的 StackBlitz 范例应用时，StackBlitz 会为你创建启动程序文件和模拟数据。整个教程中你要用到的文件位于 StackBlitz 范例应用的 `src` 文件夹中。
 
 </div>
 
@@ -102,7 +102,7 @@ If you go directly to the [StackBlitz online development environment](https://st
 
 In actual development you will typically use the [Angular CLI](guide/glossary#command-line-interface-cli "Definition of CLI"), a powerful command-line tool that lets you generate and modify applications. For a full step-by-step guide that shows how to use the CLI to create a new project and all of its parts, see [Tutorial: Tour of Heroes](tutorial).
 
-在实际开发中，通常会使用 [Angular CLI](guide/glossary#command-line-interface-cli)，这是一个功能强大的命令行工具，可以让你生成和修改应用程序。如果需要一个完整的分步指南，来学习如何使用 CLI 创建新项目及其各种部件，请参见[英雄指南教程](tutorial)。
+在实际开发中，通常会使用 [Angular CLI](guide/glossary#command-line-interface-cli)，这是一个功能强大的命令行工具，可以让你生成和修改应用程序。如果需要一个完整的分步指南，来学习如何使用 CLI 创建新项目及其各种部件，请参阅[英雄之旅教程](tutorial)。
 
 </div>
 
@@ -273,7 +273,7 @@ For a fuller introduction to Angular's template syntax, see [Introduction to com
 that let you reuse sets of UI functionality.
 You've already built one with the product list component.
 
-*组件*在用户界面（也就是 UI）中定义了一些责任区，让你能重用这些 UI 功能集。你已经通过商品列表组件构建了一个。
+*组件*在用户界面（也就是 UI）中定义了一些责任区，让你能复用这些 UI 功能集。你已经通过商品列表组件构建了一个。
 
 A component consists of three things:
 
@@ -513,7 +513,7 @@ To make the "Notify Me" button work, you need to configure two things:
   Since the following example isn't using them, they are omitted here for brevity.
 
   当 Angular CLI 生成一个新组件时，它包含一个空的构造函数，`OnInit` 接口和 `ngOnInit()` 方法。
-  以下示例未使用它们，为了简洁起见，此处将其省略。
+  以下范例未使用它们，为了简洁起见，此处将其省略。
   
 </div>
 

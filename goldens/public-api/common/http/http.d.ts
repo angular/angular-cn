@@ -1177,6 +1177,10 @@ export declare class HttpClient {
             [header: string]: string | string[];
         };
         observe: 'events';
+        params?: HttpParams | {
+            [param: string]: string | string[];
+        };
+        reportProgress?: boolean;
         responseType?: 'json';
         withCredentials?: boolean;
     }): Observable<HttpEvent<T>>;
@@ -1573,6 +1577,14 @@ export declare class HttpParams {
     keys(): string[];
     set(param: string, value: string): HttpParams;
     toString(): string;
+}
+
+export declare interface HttpParamsOptions {
+    encoder?: HttpParameterCodec;
+    fromObject?: {
+        [param: string]: string | ReadonlyArray<string>;
+    };
+    fromString?: string;
 }
 
 export declare interface HttpProgressEvent {

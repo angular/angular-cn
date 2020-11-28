@@ -122,9 +122,9 @@ For example, the hypothetical "Hello World" schematic might have the following s
 }
 </code-example>
 
-You can see examples of schema files for the Angular CLI command schematics in [`@schematics/angular`](https://github.com/angular/angular-cli/blob/7.0.x/packages/schematics/angular/application/schema.json).
+You can see examples of schema files for the Angular CLI command schematics in [`@schematics/angular`](https://github.com/angular/angular-cli/blob/master/packages/schematics/angular/application/schema.json).
 
-你可以在 [`@schematics/angular`](https://github.com/angular/angular-cli/blob/7.0.x/packages/schematics/angular/application/schema.json) 中看到 Angular CLI 命令原理图的模式文件示例。
+你可以在 [`@schematics/angular`](https://github.com/angular/angular-cli/blob/7.0.x/packages/schematics/angular/application/schema.json) 中看到 Angular CLI 命令原理图的模式文件范例。
 
 ### Schematic prompts
 
@@ -176,7 +176,7 @@ In the example, the `name` prompt uses the `input` type because it it is a strin
 The `useColor` prompt uses a `confirmation` type because it is a Boolean property.
 In this case, "yes" corresponds to `true` and "no" corresponds to `false`.
 
-这些示例使用提示语法的简写形式，仅提供问题的文本。在大多数情况下，这就是所需要的。但是请注意，这两个提示要求使用不同类型的输入。使用简写形式时，将根据属性的模式自动选择最合适的类型。在该示例中，`name` 提示使用 `input` 类型，因为它是一个字符串属性。`useColor` 提示使用 `confirmation` 类型，因为它是布尔属性。在这种情况下，“是” 对应于 `true` 而 “否” 对应于 `false`。
+这些范例使用提示语法的简写形式，仅提供问题的文本。在大多数情况下，这就是所需要的。但是请注意，这两个提示要求使用不同类型的输入。使用简写形式时，将根据属性的模式自动选择最合适的类型。在该范例中，`name` 提示使用 `input` 类型，因为它是一个字符串属性。`useColor` 提示使用 `confirmation` 类型，因为它是布尔属性。在这种情况下，“是” 对应于 `true` 而 “否” 对应于 `false`。
 
 There are three supported input types.
 
@@ -212,7 +212,7 @@ In the short form, the type is inferred from the property's type and constraints
 
 In the following example, the property takes an enumerated value, so the schematic automatically chooses the list type, and creates a menu from the possible values.
 
-在以下示例中，该属性采用枚举值，因此原理图将自动选择列表类型，并根据可能的值创建菜单。
+在以下范例中，该属性采用枚举值，因此原理图将自动选择列表类型，并根据可能的值创建菜单。
 
 <code-example language="json" header="schema.json">
 
@@ -261,7 +261,7 @@ The following example of the long form is from the JSON schema for the schematic
 It defines the prompt that allows users to choose which style preprocessor they want to use for the application being created.
 By using the long form, the schematic can provide more explicit formatting of the menu choices.
 
-下面的长格式示例来自 CLI 用来[生成应用程序](https://github.com/angular/angular-cli/blob/ba8a6ea59983bb52a6f1e66d105c5a77517f062e/packages/schematics/angular/application/schema.json#L56)的原理图的 JSON 模式。它定义提示，允许用户选择要用于正在创建的应用程序的样式预处理器。通过使用长格式，原理图可以为菜单选项提供更明确的格式。
+下面的长格式范例来自 CLI 用来[生成应用程序](https://github.com/angular/angular-cli/blob/ba8a6ea59983bb52a6f1e66d105c5a77517f062e/packages/schematics/angular/application/schema.json#L56)的原理图的 JSON 模式。它定义提示，允许用户选择要用于正在创建的应用程序的样式预处理器。通过使用长格式，原理图可以为菜单选项提供更明确的格式。
 
 <code-example language="json" header="package/schematics/angular/application/schema.json">
 
@@ -283,8 +283,8 @@ By using the long form, the schematic can provide more explicit formatting of th
           { "value": "css",  "label": "CSS" },
           { "value": "scss", "label": "SCSS   [ https://sass-lang.com/documentation/syntax#scss                ]" },
           { "value": "sass", "label": "Sass   [ https://sass-lang.com/documentation/syntax#the-indented-syntax ]" },
-          { "value": "less", "label": "Less   [ http://lesscss.org                                             ]" },
-          { "value": "styl", "label": "Stylus [ http://stylus-lang.com                                         ]" }
+          { "value": "less", "label": "Less   [ http://lesscss.org/                                            ]" },
+          { "value": "styl", "label": "Stylus [ https://stylus-lang.com/                                       ]" }
         ]
       },
     },
@@ -361,7 +361,7 @@ The most common use of schematics, however, is to integrate an Angular library w
 You can do this by creating the schematic files directly within the library project in an Angular workspace, without using the Schematics CLI.
 See [Schematics for Libraries](guide/schematics-for-libraries).
 
-但是，原理图的最常见用途是将 Angular 库与 Angular CLI 集成在一起。你可以直接在 Angular 工作空间的库项目中创建原理图文件，而无需使用 Schematics CLI。参见[库的原理图](guide/schematics-for-libraries)。
+但是，原理图的最常见用途是将 Angular 库与 Angular CLI 集成在一起。你可以直接在 Angular 工作空间的库项目中创建原理图文件，而无需使用 Schematics CLI。参阅[库的原理图](guide/schematics-for-libraries)。
 
 ### Creating a schematics collection
 

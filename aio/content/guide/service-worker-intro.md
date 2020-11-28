@@ -133,7 +133,7 @@ To avoid such an error, you can check whether the Angular service worker is enab
 
 To learn more about other browsers that are service worker ready, see the [Can I Use](https://caniuse.com/#feat=serviceworkers) page and [MDN docs](https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API).
 
-要了解有关其它支持 Service Worker 的浏览器的更多信息，请参阅 [Can I Use](https://caniuse.com/#feat=serviceworkers) 页面和 [MDN 文档](https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API)。
+要了解关于其它支持 Service Worker 的浏览器的更多信息，请参阅 [Can I Use](https://caniuse.com/#feat=serviceworkers) 页面和 [MDN 文档](https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API)。
 
 ## Related resources
 
@@ -161,16 +161,16 @@ The rest of the articles in this section specifically address the Angular implem
 
 For more information about service workers in general, see [Service Workers: an Introduction](https://developers.google.com/web/fundamentals/primers/service-workers/).
 
-要了解更多关于 Service Worker 的普遍性信息，参见 [Service Worker 简介](https://developers.google.com/web/fundamentals/primers/service-workers/)。
+要了解更多关于 Service Worker 的普遍性信息，参阅 [Service Worker 简介](https://developers.google.com/web/fundamentals/primers/service-workers/)。
 
 For more information about browser support, see the [browser support](https://developers.google.com/web/fundamentals/primers/service-workers/#browser_support) section of [Service Workers: an Introduction](https://developers.google.com/web/fundamentals/primers/service-workers/), Jake Archibald's [Is Serviceworker ready?](https://jakearchibald.github.io/isserviceworkerready/), and
-[Can I Use](http://caniuse.com/#feat=serviceworkers).
+[Can I Use](https://caniuse.com/serviceworkers).
 
-要了解关于浏览器支持度的更多信息，参见 [Service Worker 简介](https://developers.google.com/web/fundamentals/primers/service-workers/) 中的[浏览器支持](https://developers.google.com/web/fundamentals/primers/service-workers/#browser_support)部分、Jake Archibald 写的[Serviceworker 好了吗？](https://jakearchibald.github.io/isserviceworkerready/)和 [Can I Use](http://caniuse.com/#feat=serviceworkers)。
+要了解关于浏览器支持度的更多信息，参阅 [Service Worker 简介](https://developers.google.com/web/fundamentals/primers/service-workers/) 中的[浏览器支持](https://developers.google.com/web/fundamentals/primers/service-workers/#browser_support)部分、Jake Archibald 写的[Serviceworker 好了吗？](https://jakearchibald.github.io/isserviceworkerready/)和 [Can I Use](http://caniuse.com/#feat=serviceworkers)。
 
 For additional recommendations and examples, see:
 
-有关其它建议和示例，请参见：
+关于其它建议和范例，请参阅：
 
 * [Precaching with Angular Service Worker](https://web.dev/precaching-with-the-angular-service-worker/)
 
@@ -186,4 +186,4 @@ For additional recommendations and examples, see:
 
 To begin using Angular service workers, see [Getting Started with service workers](guide/service-worker-getting-started).
 
-要开始使用 Angular Serivce Worker，参见 [Service Worker 快速上手](guide/service-worker-getting-started)。
+要开始使用 Angular Serivce Worker，参阅 [Service Worker 快速上手](guide/service-worker-getting-started)。

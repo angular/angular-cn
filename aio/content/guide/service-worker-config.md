@@ -109,14 +109,31 @@ This field contains an array of asset groups, each of which defines a set of ass
 ```json
 
 {
-  "assetGroups": [{
-    ...
-  }, {
-    ...
-  }]
+  "assetGroups": [
+    {
+      ...
+    },
+    {
+      ...
+    }
+  ]
 }
 
 ```
+
+<div class="alert is-helpful">
+
+When the ServiceWorker handles a request, it checks asset groups in the order in which they appear in `ngsw-config.json`.
+The first asset group that matches the requested resource handles the request.
+
+当 ServiceWorker 处理请求时，它将按照资源组在 `ngsw-config.json` 中出现的顺序对其进行检查。与所请求的资源匹配的第一个资源组将处理该请求。
+
+It is recommended that you put the more specific asset groups higher in the list.
+For example, an asset group that matches `/foo.js` should appear before one that matches `*.js`.
+
+建议将更具体的资源组放在列表中较高的位置。比如，与 `/foo.js` 匹配的资源组应出现在与 `*.js` 匹配的资源组之前。
+
+</div>
 
 Each asset group specifies both a group of resources and a policy that governs them. This policy determines when the resources are fetched and what happens when changes are detected.
 
@@ -213,7 +230,7 @@ This section describes the resources to cache, broken up into the following grou
 
 These options are used to modify the matching behavior of requests. They are passed to the browsers `Cache#match` function. See [MDN](https://developer.mozilla.org/en-US/docs/Web/API/Cache/match) for details. Currently, only the following options are supported:
 
-这些选项用来修改对请求进行匹配的行为。它们会传给浏览器的 `Cache#match` 函数。详情参见 [MDN](https://developer.mozilla.org/en-US/docs/Web/API/Cache/match)。目前，只支持下列选项：
+这些选项用来修改对请求进行匹配的行为。它们会传给浏览器的 `Cache#match` 函数。详情参阅 [MDN](https://developer.mozilla.org/en-US/docs/Web/API/Cache/match)。目前，只支持下列选项：
 
 * `ignoreSearch`: Ignore query parameters. Defaults to `false`.
 
@@ -225,6 +242,37 @@ Unlike asset resources, data requests are not versioned along with the app. They
 
 与这些资产性（asset）资源不同，数据请求不会随应用一起版本化。
 它们会根据手动配置的策略进行缓存，这些策略对 API 请求和所依赖的其它数据等情况会更有用。
+
+This field contains an array of data groups, each of which defines a set of data resources and the policy by which they are cached.
+
+本字段包含一个数据组的数组，其中的每一个条目都定义了一组数据资源以及对它们的缓存策略。
+
+```json
+{
+  "dataGroups": [
+    {
+      ...
+    },
+    {
+      ...
+    }
+  ]
+}
+```
+
+<div class="alert is-helpful">
+
+When the ServiceWorker handles a request, it checks data groups in the order in which they appear in `ngsw-config.json`.
+The first data group that matches the requested resource handles the request.
+
+当 ServiceWorker 处理请求时，它将按照数据组在 `ngsw-config.json` 中出现的顺序对其进行检查。与所请求的资源匹配的第一个数据组将处理该请求。
+
+It is recommended that you put the more specific data groups higher in the list.
+For example, a data group that matches `/api/foo.json` should appear before one that matches `/api/*.json`.
+
+建议将更具体的数据组放在列表中较高的位置。比如，与 `/api/foo.json` 匹配的数据组应出现在与 `/api/*.json` 匹配的数据组之前。
+
+</div>
 
 Data groups follow this Typescript interface:
 
@@ -407,7 +455,7 @@ This will essentially do the following:
 
 See [assetGroups](#assetgroups) for details.
 
-详情参见 [assetGroups](#assetgroups)。
+详情参阅 [assetGroups](#assetgroups)。
 
 ## `navigationUrls`
 
@@ -447,6 +495,14 @@ By default, these criteria are:
 
    URL 中不能包含 `__`。
 
+<div class="alert is-helpful">
+
+To configure whether navigation requests are sent through to the network or not, see the [navigationRequestStrategy](#navigation-request-strategy) section.
+
+要配置浏览请求是否发送到网络，请参阅 [navigationRequestStrategy](#navigation-request-strategy) 部分。
+
+</div>
+
 ### Matching navigation request URLs
 
 ### 匹配导航请求的 URL
@@ -478,3 +534,52 @@ If the field is omitted, it defaults to:
 ]
 
 ```
+
+{@a navigation-request-strategy}
+
+## `navigationRequestStrategy`
+
+This optional property enables you to configure how the service worker handles navigation requests:
+
+通过此可选属性，你可以配置服务工作者如何处理导航请求：
+
+```json
+{
+  "navigationRequestStrategy": "freshness"
+}
+```
+
+Possible values:
+
+可能的值：
+
+- `'performance'`: The default setting. Serves the specified [index file](#index-file), which is typically cached.
+
+  `'performance'`：默认设置。提供指定的[索引文件](#index-file)，它通常会被缓存。
+
+- `'freshness'`: Passes the requests through to the network and falls back to the `performance` behavior when offline.
+  This value is useful when the server redirects the navigation requests elsewhere using an HTTP redirect (3xx status code).
+  Reasons for using this value include:
+
+  `'freshness'`：将请求透传到网络，并在脱机时回退到 `performance` 模式。当服务器在用 HTTP 重定向（3xx 状态代码）将导航请求重定向到其他位置时，此值很有用。使用此值的原因包括：
+
+    - Redirecting to an authentication website when authentication is not handled by the application.
+
+       当应用尚未处理身份验证时，重定向到身份验证网站。
+
+    - Redirecting specific URLs to avoid breaking existing links/bookmarks after a website redesign.
+
+       重定向特定的 URL，以免在网站重新设计后破坏现有的链接/书签。
+
+    - Redirecting to a different website, such as a server-status page, while a page is temporarily down.
+
+       当页面暂时关闭时，重定向到其他网站，例如服务器状态页。
+
+<div class="alert is-important">
+
+The `freshness` strategy usually results in more requests sent to the server, which can increase response latency.
+It is recommended that you use the default performance strategy whenever possible.
+
+`freshness` 策略通常会导致向服务器发送更多请求，这可能会增加响应延迟。建议你尽可能使用默认的性能策略。
+
+</div>

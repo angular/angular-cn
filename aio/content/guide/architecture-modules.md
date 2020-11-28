@@ -38,7 +38,7 @@ NgModule 是一个带有 `@NgModule()` 装饰器的类。`@NgModule()` 装饰器
 
    `imports`（导入表） —— 那些导出了*本*模块中的组件模板所需的类的其它模块。
 
-* `providers`: Creators of [services](guide/architecture-services) that this NgModule contributes to the global collection of services; they become accessible in all parts of the app. (You can also specify providers at the component level, which is often preferred.)
+* `providers`: Creators of [services](guide/architecture-services) that this NgModule contributes to the global collection of services; they become accessible in all parts of the app. (You can also specify providers at the component level.)
 
    `providers` —— 本模块向全局服务中贡献的那些[服务](guide/architecture-services)的创建器。
   这些服务能被本应用中的任何部分使用。（你也可以在组件级别指定服务提供者，这通常是首选方式。）
@@ -127,10 +127,9 @@ JavaScript 中，每个*文件*是一个模块，文件中定义的所有对象�
 
 <div class="alert is-helpful">
 
-  <a href="http://exploringjs.com/es6/ch_modules.html">Learn more about the JavaScript module system on the web.</a>
+  <a href="https://exploringjs.com/es6/ch_modules.html">Learn more about the JavaScript module system on the web.</a>
 
   <a href="http://exploringjs.com/es6/ch_modules.html">学习更多关于 JavaScript 模块的知识。</a>
-
 </div>
 
 ## Angular libraries
@@ -176,6 +175,6 @@ In this way you're using the Angular and JavaScript module systems *together*. A
 
   Learn more from the [NgModules](guide/ngmodules) guide.
 
-  更多信息，参见 [NgModules](guide/ngmodules)。
+  更多信息，参阅 [NgModules](guide/ngmodules)。
 
 </div>

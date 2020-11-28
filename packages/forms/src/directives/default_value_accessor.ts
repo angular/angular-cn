@@ -36,6 +36,9 @@ export const COMPOSITION_BUFFER_MODE = new InjectionToken<boolean>('CompositionE
 
 /**
  * @description
+ *
+ * {@searchKeywords ngDefaultControl}
+ *
  * The default `ControlValueAccessor` for writing a value and listening to changes on input
  * elements. The accessor is used by the `FormControlDirective`, `FormControlName`, and
  * `NgModel` directives.
@@ -53,6 +56,15 @@ export const COMPOSITION_BUFFER_MODE = new InjectionToken<boolean>('CompositionE
  *
  * ```
  * <input type="text" [formControl]="firstNameControl">
+ * ```
+ *
+ * This value accessor is used by default for `<input type="text">` and `<textarea>` elements, but
+ * you could also use it for custom components that have similar behavior and do not require special
+ * processing. In order to attach the default value accessor to a custom element, add the
+ * `ngDefaultControl` attribute as shown below.
+ *
+ * ```
+ * <custom-input-component ngDefaultControl [(ngModel)]="value"></custom-input-component>
  * ```
  *
  * @ngModule ReactiveFormsModule
@@ -75,14 +87,14 @@ export const COMPOSITION_BUFFER_MODE = new InjectionToken<boolean>('CompositionE
 })
 export class DefaultValueAccessor implements ControlValueAccessor {
   /**
-   * @description
    * The registered callback function called when an input event occurs on the input element.
+   * @nodoc
    */
   onChange = (_: any) => {};
 
   /**
-   * @description
    * The registered callback function called when a blur event occurs on the input element.
+   * @nodoc
    */
   onTouched = () => {};
 
@@ -99,8 +111,7 @@ export class DefaultValueAccessor implements ControlValueAccessor {
 
   /**
    * Sets the "value" property on the input element.
-   *
-   * @param value The checked value
+   * @nodoc
    */
   writeValue(value: any): void {
     const normalizedValue = value == null ? '' : value;
@@ -108,20 +119,16 @@ export class DefaultValueAccessor implements ControlValueAccessor {
   }
 
   /**
-   * @description
    * Registers a function called when the control value changes.
-   *
-   * @param fn The callback function
+   * @nodoc
    */
   registerOnChange(fn: (_: any) => void): void {
     this.onChange = fn;
   }
 
   /**
-   * @description
    * Registers a function called when the control is touched.
-   *
-   * @param fn The callback function
+   * @nodoc
    */
   registerOnTouched(fn: () => void): void {
     this.onTouched = fn;
@@ -129,8 +136,7 @@ export class DefaultValueAccessor implements ControlValueAccessor {
 
   /**
    * Sets the "disabled" property on the input element.
-   *
-   * @param isDisabled The disabled value
+   * @nodoc
    */
   setDisabledState(isDisabled: boolean): void {
     this._renderer.setProperty(this._elementRef.nativeElement, 'disabled', isDisabled);

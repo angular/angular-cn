@@ -13,7 +13,7 @@ import * as os from 'os';
 import {absoluteFrom, AbsoluteFsPath, FileSystem, getFileSystem, join} from '../../../src/ngtsc/file_system';
 import {Folder, MockFileSystem, runInEachFileSystem, TestFile} from '../../../src/ngtsc/file_system/testing';
 import {MockLogger} from '../../../src/ngtsc/logging/testing';
-import {loadStandardTestFiles, loadTestFiles} from '../../../test/helpers';
+import {loadStandardTestFiles, loadTestFiles} from '../../../src/ngtsc/testing';
 import {getLockFilePath} from '../../src/locking/lock_file';
 import {mainNgcc} from '../../src/main';
 import {clearTsConfigCache} from '../../src/ngcc_options';
@@ -401,6 +401,182 @@ runInEachFileSystem(() => {
       expect(es5Contents).toContain('ɵngcc0.ɵɵtext(0, "a - b - 3 - 4")');
     });
 
+    it('should not crash when scanning for ModuleWithProviders needs to evaluate code from an external package',
+       () => {
+         // Regression test for https://github.com/angular/angular/issues/37508
+         // During `ModuleWithProviders` analysis, return statements in methods are evaluated using
+         // the partial evaluator to identify whether they correspond with a `ModuleWithProviders`
+         // function. If an arbitrary method has a return statement that calls into an external
+         // module which doesn't have declaration files, ngcc would attempt to reflect on said
+         // module using the reflection host of the entry-point. This would crash in the case where
+         // e.g. the entry-point is UMD and the external module would be CommonJS, as the UMD
+         // reflection host would throw because it is unable to deal with CommonJS.
+
+         // Setup a non-TS package with CommonJS module format
+         loadTestFiles([
+           {
+             name: _(`/node_modules/identity/package.json`),
+             contents: `{"name": "identity", "main": "./index.js"}`,
+           },
+           {
+             name: _(`/node_modules/identity/index.js`),
+             contents: `
+            function identity(x) { return x; };
+            exports.identity = identity;
+            module.exports = identity;
+          `,
+           },
+         ]);
+
+         // Setup an Angular entry-point with UMD module format that references an export of the
+         // CommonJS package.
+         loadTestFiles([
+           {
+             name: _('/node_modules/test-package/package.json'),
+             contents: '{"name": "test-package", "main": "./index.js", "typings": "./index.d.ts"}'
+           },
+           {
+             name: _('/node_modules/test-package/index.js'),
+             contents: `
+            (function (global, factory) {
+              typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('identity')) :
+              typeof define === 'function' && define.amd ? define('test', ['exports', 'identity'], factory) :
+              (factory(global.test, global.identity));
+            }(this, (function (exports, identity) { 'use strict';
+              function Foo(x) {
+                // The below statement is analyzed for 'ModuleWithProviders', so is evaluated
+                // by ngcc. The reference into the non-TS CommonJS package used to crash ngcc.
+                return identity.identity(x);
+              }
+              exports.Foo = Foo;
+            })));
+          `
+           },
+           {
+             name: _('/node_modules/test-package/index.d.ts'),
+             contents: 'export declare class Foo { static doSomething(x: any): any; }'
+           },
+           {name: _('/node_modules/test-package/index.metadata.json'), contents: 'DUMMY DATA'},
+         ]);
+
+         expect(() => mainNgcc({
+                  basePath: '/node_modules',
+                  targetEntryPointPath: 'test-package',
+                  propertiesToConsider: ['main'],
+                }))
+             .not.toThrow();
+       });
+
+    it('should support inline UMD/CommonJS exports declarations', () => {
+      // Setup an Angular entry-point in UMD module format that has an inline exports declaration
+      // referenced by an NgModule.
+      loadTestFiles([
+        {
+          name: _('/node_modules/test-package/package.json'),
+          contents: '{"name": "test-package", "main": "./index.js", "typings": "./index.d.ts"}'
+        },
+        {
+          name: _('/node_modules/test-package/index.js'),
+          contents: `
+          (function (global, factory) {
+            typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core')) :
+            typeof define === 'function' && define.amd ? define('test', ['exports', 'core'], factory) :
+            (factory(global.test, global.core));
+          }(this, (function (exports, core) { 'use strict';
+            exports.FooModule = /** @class */ (function () {
+              function FooModule() {}
+              FooModule = __decorate([
+                  core.NgModule({declarations: exports.declarations})
+              ], FooModule);
+              return FooModule;
+            }());
+
+            exports.declarations = [exports.FooDirective];
+
+            exports.FooDirective = /** @class */ (function () {
+              function FooDirective() {}
+              FooDirective = __decorate([
+                core.Directive({selector: '[foo]'})
+              ], FooDirective);
+              return FooDirective;
+            }());
+          })));
+          `
+        },
+        {
+          name: _('/node_modules/test-package/index.d.ts'),
+          contents: `
+          export declare class FooModule { }
+          export declare class FooDirective { }
+          `
+        },
+        {name: _('/node_modules/test-package/index.metadata.json'), contents: 'DUMMY DATA'},
+      ]);
+
+      expect(() => mainNgcc({
+               basePath: '/node_modules',
+               targetEntryPointPath: 'test-package',
+               propertiesToConsider: ['main'],
+             }))
+          .not.toThrow();
+
+      const processedFile = fs.readFile(_('/node_modules/test-package/index.js'));
+      expect(processedFile)
+          .toContain('FooModule.ɵmod = ɵngcc0.ɵɵdefineNgModule({ type: FooModule });');
+      expect(processedFile)
+          .toContain(
+              'ɵngcc0.ɵɵsetNgModuleScope(FooModule, { declarations: function () { return [exports.FooDirective]; } });');
+    });
+
+    it('should not be able to evaluate code in external packages when no .d.ts files are present',
+       () => {
+         loadTestFiles([
+           {
+             name: _(`/node_modules/external/package.json`),
+             contents: `{"name": "external", "main": "./index.js"}`,
+           },
+           {
+             name: _(`/node_modules/external/index.js`),
+             contents: `
+            export const selector = 'my-selector';
+          `,
+           },
+         ]);
+
+         compileIntoApf('test-package', {
+           '/index.ts': `
+          import {NgModule, Component} from '@angular/core';
+          import {selector} from 'external';
+
+          @Component({
+            selector,
+            template: ''
+          })
+          export class FooComponent {
+          }
+
+          @NgModule({
+            declarations: [FooComponent],
+          })
+          export class FooModule {}
+        `,
+         });
+
+         try {
+           mainNgcc({
+             basePath: '/node_modules',
+             targetEntryPointPath: 'test-package',
+             propertiesToConsider: ['esm2015', 'esm5'],
+           });
+           fail('should have thrown');
+         } catch (e) {
+           expect(e.message).toContain(
+               'Failed to compile entry-point test-package (esm2015 as esm2015) due to compilation errors:');
+           expect(e.message).toContain('NG1010');
+           expect(e.message).toContain('selector must be a string');
+         }
+       });
+
     it('should add ɵfac but not duplicate ɵprov properties on injectables', () => {
       compileIntoFlatEs2015Package('test-package', {
         '/index.ts': `
@@ -459,6 +635,35 @@ runInEachFileSystem(() => {
               `TestClass.ɵfac = function TestClass_Factory(t) { return new (t || TestClass)(); };\n` +
               `TestClass.ɵpipe = ɵngcc0.ɵɵdefinePipe({ name: "myTestPipe", type: TestClass, pure: true });\n` +
               `TestClass.ɵprov = ɵngcc0.ɵɵdefineInjectable({`);
+    });
+
+    // https://github.com/angular/angular/issues/38883
+    it('should recognize ChangeDetectorRef as special symbol for pipes', () => {
+      compileIntoFlatEs2015Package('test-package', {
+        '/index.ts': `
+        import {ChangeDetectorRef, Pipe, PipeTransform} from '@angular/core';
+
+        @Pipe({
+          name: 'myTestPipe'
+        })
+        export class TestClass implements PipeTransform {
+          constructor(cdr: ChangeDetectorRef) {}
+          transform(value: any) { return value; }
+        }
+        `,
+      });
+
+      mainNgcc({
+        basePath: '/node_modules',
+        targetEntryPointPath: 'test-package',
+        propertiesToConsider: ['esm2015'],
+      });
+
+      const jsContents = fs.readFile(_(`/node_modules/test-package/index.js`));
+      expect(jsContents)
+          .toContain(
+              `TestClass.ɵfac = function TestClass_Factory(t) { ` +
+              `return new (t || TestClass)(ɵngcc0.ɵɵinjectPipeChangeDetectorRef()); };`);
     });
 
     it('should use the correct type name in typings files when an export has a different name in source files',
@@ -1548,12 +1753,12 @@ runInEachFileSystem(() => {
             JSON.stringify({angularCompilerOptions: {annotateForClosureCompiler: true}}));
         mainNgcc({basePath: '/dist', propertiesToConsider: ['es2015']});
         const jsContents = fs.readFile(_(`/dist/local-package/index.js`));
-        expect(jsContents).toContain('/** @nocollapse */ \nAppComponent.ɵcmp =');
+        expect(jsContents).toContain('/** @nocollapse */\nAppComponent.ɵcmp =');
       });
       it('should default to not give closure annotated output', () => {
         mainNgcc({basePath: '/dist', propertiesToConsider: ['es2015']});
         const jsContents = fs.readFile(_(`/dist/local-package/index.js`));
-        expect(jsContents).not.toContain('/** @nocollapse */');
+        expect(jsContents).not.toContain('@nocollapse');
       });
     });
 

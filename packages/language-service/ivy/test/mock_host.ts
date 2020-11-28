@@ -6,170 +6,116 @@
  * found in the LICENSE file at https://angular.io/license
  */
 
-import {join} from 'path';
+import {absoluteFrom} from '@angular/compiler-cli/src/ngtsc/file_system';
+import {MockFileSystem} from '@angular/compiler-cli/src/ngtsc/file_system/testing';
+
 import * as ts from 'typescript/lib/tsserverlibrary';
-
-const logger: ts.server.Logger = {
-  close(): void{},
-  hasLevel(level: ts.server.LogLevel): boolean {
-    return false;
-  },
-  loggingEnabled(): boolean {
-    return false;
-  },
-  perftrc(s: string): void{},
-  info(s: string): void{},
-  startGroup(): void{},
-  endGroup(): void{},
-  msg(s: string, type?: ts.server.Msg): void{},
-  getLogFileName(): string |
-      undefined {
-        return;
-      },
-};
-
-export const TEST_SRCDIR = process.env.TEST_SRCDIR!;
-export const PROJECT_DIR =
-    join(TEST_SRCDIR, 'angular', 'packages', 'language-service', 'test', 'project');
-export const TSCONFIG = join(PROJECT_DIR, 'tsconfig.json');
-export const APP_COMPONENT = join(PROJECT_DIR, 'app', 'app.component.ts');
-export const APP_MAIN = join(PROJECT_DIR, 'app', 'main.ts');
-export const PARSING_CASES = join(PROJECT_DIR, 'app', 'parsing-cases.ts');
-export const TEST_TEMPLATE = join(PROJECT_DIR, 'app', 'test.ng');
 
 const NOOP_FILE_WATCHER: ts.FileWatcher = {
   close() {}
 };
 
-export const host: ts.server.ServerHost = {
-  ...ts.sys,
-  readFile(absPath: string, encoding?: string): string |
-      undefined {
-        const content = ts.sys.readFile(absPath, encoding);
-        if (content === undefined) {
-          return undefined;
-        }
-        if (absPath === APP_COMPONENT || absPath === PARSING_CASES || absPath === TEST_TEMPLATE) {
-          return removeReferenceMarkers(removeLocationMarkers(content));
-        }
-        return content;
-      },
-  watchFile(path: string, callback: ts.FileWatcherCallback): ts.FileWatcher {
-    return NOOP_FILE_WATCHER;
-  },
-  watchDirectory(path: string, callback: ts.DirectoryWatcherCallback): ts.FileWatcher {
-    return NOOP_FILE_WATCHER;
-  },
-  setTimeout() {
-    throw new Error('setTimeout is not implemented');
-  },
-  clearTimeout() {
-    throw new Error('clearTimeout is not implemented');
-  },
-  setImmediate() {
-    throw new Error('setImmediate is not implemented');
-  },
-  clearImmediate() {
-    throw new Error('clearImmediate is not implemented');
-  },
-};
-
 /**
- * Create a ConfiguredProject and an actual program for the test project located
- * in packages/language-service/test/project. Project creation exercises the
- * actual code path, but a mock host is used for the filesystem to intercept
- * and modify test files.
+ * Adapts from the `ts.server.ServerHost` API to an in-memory filesystem.
  */
-export function setup() {
-  const projectService = new ts.server.ProjectService({
-    host,
-    logger,
-    cancellationToken: ts.server.nullCancellationToken,
-    useSingleInferredProject: true,
-    useInferredProjectPerProjectRoot: true,
-    typingsInstaller: ts.server.nullTypingsInstaller,
-  });
-  // Opening APP_COMPONENT forces a new ConfiguredProject to be created based
-  // on the tsconfig.json in the test project.
-  projectService.openClientFile(APP_COMPONENT);
-  const project = projectService.findProject(TSCONFIG);
-  if (!project) {
-    throw new Error(`Failed to create project for ${TSCONFIG}`);
-  }
-  // The following operation forces a ts.Program to be created.
-  const tsLS = project.getLanguageService();
-  return {
-    service: new MockService(project, projectService),
-    project,
-    tsLS,
-  };
-}
+export class MockServerHost implements ts.server.ServerHost {
+  constructor(private fs: MockFileSystem) {}
 
-class MockService {
-  private readonly overwritten = new Set<ts.server.NormalizedPath>();
-
-  constructor(
-      private readonly project: ts.server.Project,
-      private readonly ps: ts.server.ProjectService,
-  ) {}
-
-  overwrite(fileName: string, newText: string): string {
-    const scriptInfo = this.getScriptInfo(fileName);
-    this.overwriteScriptInfo(scriptInfo, preprocess(newText));
-    return newText;
+  get newLine(): string {
+    return '\n';
   }
 
-  overwriteInlineTemplate(fileName: string, newTemplate: string): string {
-    const scriptInfo = this.getScriptInfo(fileName);
-    const snapshot = scriptInfo.getSnapshot();
-    const originalContent = snapshot.getText(0, snapshot.getLength());
-    const newContent =
-        originalContent.replace(/template: `([\s\S]+)`/, `template: \`${newTemplate}\``);
-    this.overwriteScriptInfo(scriptInfo, preprocess(newContent));
-    return newContent;
+  get useCaseSensitiveFileNames(): boolean {
+    return this.fs.isCaseSensitive();
   }
 
-  reset() {
-    if (this.overwritten.size === 0) {
-      return;
-    }
-    for (const fileName of this.overwritten) {
-      const scriptInfo = this.getScriptInfo(fileName);
-      const reloaded = scriptInfo.reloadFromFile();
-      if (!reloaded) {
-        throw new Error(`Failed to reload ${scriptInfo.fileName}`);
-      }
-    }
-    this.overwritten.clear();
+  readFile(path: string, encoding?: string): string|undefined {
+    return this.fs.readFile(absoluteFrom(path));
   }
 
-  getScriptInfo(fileName: string): ts.server.ScriptInfo {
-    const scriptInfo = this.ps.getScriptInfo(fileName);
-    if (!scriptInfo) {
-      throw new Error(`No existing script info for ${fileName}`);
-    }
-    return scriptInfo;
+  resolvePath(path: string): string {
+    return this.fs.resolve(path);
   }
 
-  private overwriteScriptInfo(scriptInfo: ts.server.ScriptInfo, newText: string) {
-    const snapshot = scriptInfo.getSnapshot();
-    scriptInfo.editContent(0, snapshot.getLength(), newText);
-    this.overwritten.add(scriptInfo.fileName);
+  fileExists(path: string): boolean {
+    const absPath = absoluteFrom(path);
+    return this.fs.exists(absPath) && this.fs.lstat(absPath).isFile();
   }
-}
 
-const REGEX_CURSOR = /¦/g;
-function preprocess(text: string): string {
-  return text.replace(REGEX_CURSOR, '');
-}
+  directoryExists(path: string): boolean {
+    const absPath = absoluteFrom(path);
+    return this.fs.exists(absPath) && this.fs.lstat(absPath).isDirectory();
+  }
 
-const REF_MARKER = /«(((\w|\-)+)|([^ᐱ]*ᐱ(\w+)ᐱ.[^»]*))»/g;
-const LOC_MARKER = /\~\{(\w+(-\w+)*)\}/g;
+  createDirectory(path: string): void {
+    this.fs.ensureDir(absoluteFrom(path));
+  }
 
-function removeReferenceMarkers(value: string): string {
-  return value.replace(REF_MARKER, '');
-}
+  getExecutingFilePath(): string {
+    // This is load-bearing, as TypeScript uses the result of this call to locate the directory in
+    // which it expects to find .d.ts files for the "standard libraries" - DOM, ES2015, etc.
+    return '/node_modules/typescript/lib/tsserver.js';
+  }
 
-function removeLocationMarkers(value: string): string {
-  return value.replace(LOC_MARKER, '');
+  getCurrentDirectory(): string {
+    return '/';
+  }
+
+  createHash(data: string): string {
+    return ts.sys.createHash!(data);
+  }
+
+  get args(): string[] {
+    throw new Error('Property not implemented.');
+  }
+
+  watchFile(
+      path: string, callback: ts.FileWatcherCallback, pollingInterval?: number,
+      options?: ts.WatchOptions): ts.FileWatcher {
+    return NOOP_FILE_WATCHER;
+  }
+
+  watchDirectory(
+      path: string, callback: ts.DirectoryWatcherCallback, recursive?: boolean,
+      options?: ts.WatchOptions): ts.FileWatcher {
+    return NOOP_FILE_WATCHER;
+  }
+
+  setTimeout(callback: (...args: any[]) => void, ms: number, ...args: any[]) {
+    throw new Error('Method not implemented.');
+  }
+
+  clearTimeout(timeoutId: any): void {
+    throw new Error('Method not implemented.');
+  }
+
+  setImmediate(callback: (...args: any[]) => void, ...args: any[]) {
+    throw new Error('Method not implemented.');
+  }
+
+  clearImmediate(timeoutId: any): void {
+    throw new Error('Method not implemented.');
+  }
+
+  write(s: string): void {
+    throw new Error('Method not implemented.');
+  }
+
+  writeFile(path: string, data: string, writeByteOrderMark?: boolean): void {
+    throw new Error('Method not implemented.');
+  }
+
+  getDirectories(path: string): string[] {
+    throw new Error('Method not implemented.');
+  }
+
+  readDirectory(
+      path: string, extensions?: readonly string[], exclude?: readonly string[],
+      include?: readonly string[], depth?: number): string[] {
+    throw new Error('Method not implemented.');
+  }
+
+  exit(exitCode?: number): void {
+    throw new Error('Method not implemented.');
+  }
 }

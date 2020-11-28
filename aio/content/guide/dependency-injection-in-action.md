@@ -2,128 +2,15 @@
 
 # 依赖注入实战
 
-This section explores many of the features of dependency injection (DI) in Angular.
+This guide explores many of the features of dependency injection (DI) in Angular.
 
-本节将会涉及 Angular 依赖注入（DI）的很多特性。
-
-{@a toc}
-
-See the <live-example name="dependency-injection-in-action"></live-example>
-of the code in this cookbook.
-
-要获取本文的代码，**参见<live-example name="dependency-injection-in-action"></live-example>**。
-
-{@a nested-dependencies}
-
-## Nested service dependencies
-
-## 嵌套的服务依赖
-
-The _consumer_ of an injected service doesn't need to know how to create that service.
-It's the job of the DI framework to create and cache dependencies. The consumer just
-needs to let the DI framework know which dependencies it needs.
-
-这些被注入服务的消费者不需要知道如何创建这个服务。新建和缓存这个服务是依赖注入器的工作。消费者只要让依赖注入框架知道它需要哪些依赖项就可以了。
-
-Sometimes a service depends on other services, which may depend on yet other services.
-The dependency injection framework resolves these nested dependencies in the correct order.
-At each step, the consumer of dependencies declares what it requires in its
-constructor, and lets the framework provide them.
-
-有时候一个服务依赖其它服务...而其它服务可能依赖另外的更多服务。
-依赖注入框架会负责正确的顺序解析这些嵌套的依赖项。
-在每一步，依赖的使用者只要在它的构造函数里简单声明它需要什么，框架就会完成所有剩下的事情。
-
-The following example shows that `AppComponent` declares its dependence on `LoggerService` and `UserContext`.
-
-下面的例子往 `AppComponent` 里声明它依赖 `LoggerService` 和 `UserContext`。
-
-<code-example path="dependency-injection-in-action/src/app/app.component.ts" region="ctor" header="src/app/app.component.ts"></code-example>
-
-`UserContext` in turn depends on both `LoggerService` and
-`UserService`, another service that gathers information about a particular user.
-
-`UserContext` 转而依赖 `LoggerService` 和 `UserService`（这个服务用来收集特定用户信息）。
-
-<code-example path="dependency-injection-in-action/src/app/user-context.service.ts" region="injectables" header="user-context.service.ts (injection)"></code-example>
-
-When Angular creates `AppComponent`, the DI framework creates an instance of `LoggerService` and starts to create `UserContextService`.
-`UserContextService` also needs `LoggerService`, which the framework already has, so the framework can provide the same instance. `UserContextService` also needs `UserService`, which the framework has yet to create. `UserService` has no further dependencies, so the framework can simply use `new` to instantiate the class and provide the instance to the `UserContextService` constructor.
-
-当 Angular 新建 `AppComponent` 时，依赖注入框架会先创建一个 `LoggerService` 的实例，然后创建 `UserContextService` 实例。
-`UserContextService` 也需要框架刚刚创建的这个 `LoggerService` 实例，这样框架才能为它提供同一个实例。`UserContextService` 还需要框架创建过的 `UserService`。
-`UserService` 没有其它依赖，所以依赖注入框架可以直接 `new` 出该类的一个实例，并把它提供给 `UserContextService` 的构造函数。
-
-The parent `AppComponent` doesn't need to know about the dependencies of dependencies.
-Declare what's needed in the constructor (in this case `LoggerService` and `UserContextService`)
-and the framework resolves the nested dependencies.
-
-父组件 `AppComponent` 不需要了解这些依赖的依赖。
-只要在构造函数中声明自己需要的依赖即可（这里是 `LoggerService` 和 `UserContextService`），框架会帮你解析这些嵌套的依赖。
-
-When all dependencies are in place, `AppComponent` displays the user information.
-
-当所有的依赖都就位之后，`AppComponent` 就会显示该用户的信息。
-
-<div class="lightbox">
-  <img src="generated/images/guide/dependency-injection-in-action/logged-in-user.png" alt="Logged In User">
-</div>
-
-{@a service-scope}
-
-## Limit service scope to a component subtree
-
-## 把服务的范围限制到某个组件的子树下
-
-An Angular application has multiple injectors, arranged in a tree hierarchy that parallels the component tree.
-Each injector creates a singleton instance of a dependency.
-That same instance is injected wherever that injector provides that service.
-A particular service can be provided and created at any level of the injector hierarchy,
-which means that there can be multiple instances of a service if it is provided by multiple injectors.
-
-Angular 应用程序有多个依赖注入器，组织成一个与组件树平行的树状结构。
-每个注入器都会创建依赖的一个单例。在所有该注入器负责提供服务的地方，所提供的都是同一个实例。
-可以在注入器树的任何层级提供和建立特定的服务。这意味着，如果在多个注入器中提供该服务，那么该服务也就会有多个实例。
-
-Dependencies provided by the root injector can be injected into *any* component *anywhere* in the application.
-In some cases, you might want to restrict service availability to a particular region of the application.
-For instance, you might want to let users explicitly opt in to use a service,
-rather than letting the root injector provide it automatically.
-
-由根注入器提供的依赖可以注入到应用中任何地方的任何组件中。
-但有时候你可能希望把服务的有效性限制到应用程序的一个特定区域。
-比如，你可能希望用户明确选择一个服务，而不是让根注入器自动提供它。
-
-You can limit the scope of an injected service to a *branch* of the application hierarchy
-by providing that service *at the sub-root component for that branch*.
-This example shows how to make a different instance of `HeroService` available to `HeroesBaseComponent`
-by adding it to the `providers` array of the `@Component()` decorator of the sub-component.
-
-通过*在组件树的子级根组件*中提供服务，可以把一个被注入服务的作用域局限在应用程序结构中的某个*分支*中。
-这个例子中展示了如何通过把服务添加到子组件 `@Component()` 装饰器的 `providers` 数组中，来为 `HeroesBaseComponent` 提供另一个 `HeroService` 实例：
-
-<code-example path="dependency-injection-in-action/src/app/sorted-heroes.component.ts" region="injection" header="src/app/sorted-heroes.component.ts (HeroesBaseComponent excerpt)">
-
-</code-example>
-
-When Angular creates `HeroesBaseComponent`, it also creates a new instance of `HeroService`
-that is visible only to that component and its children, if any.
-
-当 Angular 新建 `HeroBaseComponent` 的时候，它会同时新建一个 `HeroService` 实例，该实例只在该组件及其子组件(如果有)中可见。
-
-You could also provide `HeroService` to a different component elsewhere in the application.
-That would result in a different instance of the service, living in a different injector.
-
-也可以在应用程序别处的另一个组件里提供 `HeroService`。这样就会导致在另一个注入器中存在该服务的另一个实例。
+本章涉及到 Angular 依赖注入（DI）的很多特性。
 
 <div class="alert is-helpful">
 
-Examples of such scoped `HeroService` singletons appear throughout the accompanying sample code,
-including `HeroBiosComponent`, `HeroOfTheMonthComponent`, and `HeroesBaseComponent`.
-Each of these components has its own `HeroService` instance managing its own independent collection of heroes.
+See the <live-example></live-example> for a working example containing the code snippets in this guide.
 
-这个例子中，局部化的 `HeroService` 单例，遍布整份范例代码，包括 `HeroBiosComponent`、`HeroOfTheMonthComponent` 和 `HeroBaseComponent`。
-这些组件每个都有自己的 `HeroService` 实例，用来管理独立的英雄库。
+要查看包含本章代码片段的可工作范例，参阅<live-example></live-example>。
 
 </div>
 
@@ -395,7 +282,7 @@ As a result, you might need to access a component's DOM element.
 
 即便开发者极力避免，仍然会有很多视觉效果和第三方工具 (比如 jQuery) 需要访问 DOM。这会让你不得不访问组件所在的 DOM 元素。
 
-To illustrate, here's a simplified version of `HighlightDirective` from
+To illustrate, here's a minimal version of `HighlightDirective` from
 the [Attribute Directives](guide/attribute-directives) page.
 
 为了说明这一点，请看[属性型指令](guide/attribute-directives)中那个 `HighlightDirective` 的简化版。
@@ -429,64 +316,6 @@ The following image shows the effect of mousing over the `<hero-bios-and-contact
 <div class="lightbox">
   <img src="generated/images/guide/dependency-injection-in-action/highlight.png" alt="Highlighted bios">
 </div>
-
-{@a providers}
-
-## Define dependencies with providers
-
-## 使用提供者来定义依赖
-
-This section demonstrates how to write providers that deliver dependent services.
-
-本节会示范如何编写提供者来交付被依赖的服务。
-
-In order to get a service from a dependency injector, you have to give it a [token](guide/glossary#token).
-Angular usually handles this transaction by specifying a constructor parameter and its type.
-The parameter type serves as the injector lookup token.
-Angular passes this token to the injector and assigns the result to the parameter.
-
-为了从依赖注入器中获取服务，你必须传给它一个[令牌](guide/glossary#token)。
-Angular 通常会通过指定构造函数参数以及参数的类型来处理它。
-参数的类型可以用作注入器的查阅令牌。
-Angular 会把该令牌传给注入器，并把它的结果赋给相应的参数。
-
-The following is a typical example.
-
-下面是一个典型的例子。
-
-<code-example path="dependency-injection-in-action/src/app/hero-bios.component.ts" region="ctor" header="src/app/hero-bios.component.ts (component constructor injection)"></code-example>
-
-Angular asks the injector for the service associated with `LoggerService`
-and assigns the returned value to the `logger` parameter.
-
-Angular 会要求注入器提供与 `LoggerService` 相关的服务，并把返回的值赋给 `logger` 参数。
-
-If the injector has already cached an instance of the service associated with the token,
-it provides that instance.
-If it doesn't, it needs to make one using the provider associated with the token.
-
-如果注入器已经缓存了与该令牌相关的服务实例，那么它就会直接提供此实例。
-如果它没有，它就要使用与该令牌相关的提供者来创建一个。
-
-<div class="alert is-helpful">
-
-If the injector doesn't have a provider for a requested token, it delegates the request
-to its parent injector, where the process repeats until there are no more injectors.
-If the search fails, the injector throws an error&mdash;unless the request was [optional](guide/dependency-injection-in-action#optional).
-
-如果注入器无法根据令牌在自己内部找到对应的提供者，它便将请求移交给它的父级注入器，这个过程不断重复，直到没有更多注入器为止。
-如果没找到，注入器就抛出一个错误...除非这个请求是[可选的](guide/dependency-injection-in-action#optional)。
-
-</div>
-
-A new injector has no providers.
-Angular initializes the injectors it creates with a set of preferred providers.
-You have to configure providers for your own app-specific dependencies.
-
-新的注入器没有提供者。
-Angular 会使用一组首选提供者来初始化它本身的注入器。
-你必须为自己应用程序特有的依赖项来配置提供者。
-
 {@a defining-providers}
 
 ### Defining providers
@@ -762,7 +591,7 @@ Look at the <live-example name="dependency-injection-in-action"></live-example>
 for the full source code.
 
 该函数从 `HeroService` 中接受候选的英雄，从中取 `2` 个参加竞赛，并把他们的名字串接起来返回。
-参见 <live-example name="dependency-injection-in-action"></live-example> 查看完整源码。
+参阅 <live-example name="dependency-injection-in-action"></live-example> 查看完整源码。
 
 </div>
 
@@ -823,9 +652,9 @@ When you use a class this way, it's called a *class interface*.
 
 当你通过这种方式使用类时，它称作*类接口*。
 
-As mentioned in [DI Providers](guide/dependency-injection-providers#interface-not-valid-token), an interface is not a valid DI token because it is a TypeScript artifact that doesn't exist at run time. Use this abstract class interface to get the strong typing of an interface, and also use it as a provider token in the way you would a normal class.
+As mentioned in [DI Providers](guide/dependency-injection-providers#di-and-interfaces), an interface is not a valid DI token because it is a TypeScript artifact that doesn't exist at run time. Use this abstract class interface to get the strong typing of an interface, and also use it as a provider token in the way you would a normal class.
 
-就像 [DI 提供者](guide/dependency-injection-providers#interface-not-valid-token)中提到的那样，接口不是有效的 DI 令牌，因为它是 TypeScript 自己用的，在运行期间不存在。使用这种抽象类接口不但可以获得像接口一样的强类型，而且可以像普通类一样把它用作提供者令牌。
+就像 [DI 提供者](guide/dependency-injection-providers#di-and-interfaces)中提到的那样，接口不是有效的 DI 令牌，因为它是 TypeScript 自己用的，在运行期间不存在。使用这种抽象类接口不但可以获得像接口一样的强类型，而且可以像普通类一样把它用作提供者令牌。
 
 A class interface should define *only* the members that its consumers are allowed to call.
 Such a narrowing interface helps decouple the concrete class from its consumers.
@@ -1016,52 +845,3 @@ Break the circularity with `forwardRef`.
 使用 `forwardRef` 来打破这种循环：
 
 <code-example path="dependency-injection-in-action/src/app/parent-finder.component.ts" region="alex-providers" header="parent-finder.component.ts (AlexComponent providers)"></code-example>
-
-<!--- Waiting for good examples
-
-{@a directive-level-providers}
-
-{@a element-level-providers}
-
-## Element-level providers
-
-A component is a specialization of directive, and the `@Component()` decorator inherits the `providers` property from `@Directive`. The injector is at the element level, so a provider configured with any element-level injector is available to any component, directive, or pipe attached to the same element.
-
-Here's a live example that implements a custom form control, taking advantage of an injector that is shared by a component and a directive on the same element.
-
-https://stackblitz.com/edit/basic-form-control
-
-The component, `custom-control`, configures a provider for the DI token `NG_VALUE_ACCESSOR`.
-In the template, the `FormControlName` directive is instantiated along with the custom component.
-It can inject the `NG_VALUE_ACCESSOR` dependency because they share the same injector.
-(Notice that this example also makes use of `forwardRef()` to resolve a circularity in the definitions.)
-
-### Sharing a service among components
-
-__NEED TO TURN THIS INTO FULL EXTERNAL EXAMPLE__
-
-Suppose you want to share the same `HeroCacheService` among multiple components. One way to do this is to create a directive.
-
-```
-<ng-container heroCache>
-  <hero-overview></hero-overview>
-  <hero-details></hero-details>
-</ng-container>
-```
-
-Use the `@Directive()` decorator to configure the provider for the service:
-
-```
-@Directive(providers:[HeroCacheService])
-
-class heroCache{...}
-```
-
-Because the injectors for both the overview and details components are children of the injector created from the `heroCache` directive, they can inject things it provides.
-If the `heroCache` directive provides the `HeroCacheService`, the two components end up sharing them.
-
-If you want to show only one of them, use the directive to make sure __??of what??__.
-
-`<hero-overview heroCache></hero-overview>`
-
- --->

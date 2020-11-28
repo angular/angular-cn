@@ -16,6 +16,8 @@ export class Identifiers {
   static TRANSFORM_METHOD = 'transform';
   static PATCH_DEPS = 'patchedDeps';
 
+  static core: o.ExternalReference = {name: null, moduleName: CORE};
+
   /* Instructions */
   static namespaceHTML: o.ExternalReference = {name: 'ɵɵnamespaceHTML', moduleName: CORE};
 
@@ -29,14 +31,13 @@ export class Identifiers {
 
   static elementEnd: o.ExternalReference = {name: 'ɵɵelementEnd', moduleName: CORE};
 
-  static select: o.ExternalReference = {name: 'ɵɵselect', moduleName: CORE};
   static advance: o.ExternalReference = {name: 'ɵɵadvance', moduleName: CORE};
 
-  static updateSyntheticHostBinding:
-      o.ExternalReference = {name: 'ɵɵupdateSyntheticHostBinding', moduleName: CORE};
+  static syntheticHostProperty:
+      o.ExternalReference = {name: 'ɵɵsyntheticHostProperty', moduleName: CORE};
 
-  static componentHostSyntheticListener:
-      o.ExternalReference = {name: 'ɵɵcomponentHostSyntheticListener', moduleName: CORE};
+  static syntheticHostListener:
+      o.ExternalReference = {name: 'ɵɵsyntheticHostListener', moduleName: CORE};
 
   static attribute: o.ExternalReference = {name: 'ɵɵattribute', moduleName: CORE};
 
@@ -233,8 +234,18 @@ export class Identifiers {
   static resolveBody: o.ExternalReference = {name: 'ɵɵresolveBody', moduleName: CORE};
 
   static defineComponent: o.ExternalReference = {name: 'ɵɵdefineComponent', moduleName: CORE};
+  static declareComponent: o.ExternalReference = {name: 'ɵɵngDeclareComponent', moduleName: CORE};
 
   static setComponentScope: o.ExternalReference = {name: 'ɵɵsetComponentScope', moduleName: CORE};
+
+  static ChangeDetectionStrategy: o.ExternalReference = {
+    name: 'ChangeDetectionStrategy',
+    moduleName: CORE,
+  };
+  static ViewEncapsulation: o.ExternalReference = {
+    name: 'ViewEncapsulation',
+    moduleName: CORE,
+  };
 
   static ComponentDefWithMeta: o.ExternalReference = {
     name: 'ɵɵComponentDefWithMeta',
@@ -246,10 +257,8 @@ export class Identifiers {
     moduleName: CORE,
   };
 
-  static defineDirective: o.ExternalReference = {
-    name: 'ɵɵdefineDirective',
-    moduleName: CORE,
-  };
+  static defineDirective: o.ExternalReference = {name: 'ɵɵdefineDirective', moduleName: CORE};
+  static declareDirective: o.ExternalReference = {name: 'ɵɵngDeclareDirective', moduleName: CORE};
 
   static DirectiveDefWithMeta: o.ExternalReference = {
     name: 'ɵɵDirectiveDefWithMeta',
@@ -321,4 +330,7 @@ export class Identifiers {
   static sanitizeUrl: o.ExternalReference = {name: 'ɵɵsanitizeUrl', moduleName: CORE};
   static sanitizeUrlOrResourceUrl:
       o.ExternalReference = {name: 'ɵɵsanitizeUrlOrResourceUrl', moduleName: CORE};
+  static trustConstantHtml: o.ExternalReference = {name: 'ɵɵtrustConstantHtml', moduleName: CORE};
+  static trustConstantResourceUrl:
+      o.ExternalReference = {name: 'ɵɵtrustConstantResourceUrl', moduleName: CORE};
 }

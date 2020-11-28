@@ -12,6 +12,9 @@
     "name": "EMPTY_OBJ"
   },
   {
+    "name": "InjectFlags"
+  },
+  {
     "name": "NG_COMP_DEF"
   },
   {
@@ -28,6 +31,15 @@
   },
   {
     "name": "NO_CHANGE"
+  },
+  {
+    "name": "NodeInjectorFactory"
+  },
+  {
+    "name": "RuntimeError"
+  },
+  {
+    "name": "SimpleChange"
   },
   {
     "name": "ViewEncapsulation"
@@ -51,10 +63,10 @@
     "name": "_renderCompCount"
   },
   {
-    "name": "allocLFrame"
+    "name": "allocExpando"
   },
   {
-    "name": "appendChild"
+    "name": "allocLFrame"
   },
   {
     "name": "attachPatchData"
@@ -105,9 +117,6 @@
     "name": "extractPipeDef"
   },
   {
-    "name": "getCheckNoChangesMode"
-  },
-  {
     "name": "getClosureSafeProperty"
   },
   {
@@ -117,10 +126,16 @@
     "name": "getComponentLViewByIndex"
   },
   {
-    "name": "getFirstLContainer"
+    "name": "getCurrentTNode"
   },
   {
-    "name": "getLContainer"
+    "name": "getCurrentTNodePlaceholderOk"
+  },
+  {
+    "name": "getDeclarationTNode"
+  },
+  {
+    "name": "getFirstLContainer"
   },
   {
     "name": "getNativeByTNode"
@@ -135,7 +150,7 @@
     "name": "getOrCreateTNode"
   },
   {
-    "name": "getPreviousOrParentTNode"
+    "name": "getSimpleChangesStore"
   },
   {
     "name": "includeViewProviders"
@@ -156,7 +171,7 @@
     "name": "invertObject"
   },
   {
-    "name": "isLContainer"
+    "name": "isInCheckNoChangesMode"
   },
   {
     "name": "isProceduralRenderer"
@@ -177,6 +192,9 @@
     "name": "nextNgElementId"
   },
   {
+    "name": "ngOnChangesSetInput"
+  },
+  {
     "name": "refreshComponent"
   },
   {
@@ -184,6 +202,12 @@
   },
   {
     "name": "refreshView"
+  },
+  {
+    "name": "registerHostBindingOpCodes"
+  },
+  {
+    "name": "rememberChangeHistoryAndInvokeOnChangesHook"
   },
   {
     "name": "renderComponent"
@@ -201,24 +225,24 @@
     "name": "setCurrentQueryIndex"
   },
   {
+    "name": "setCurrentTNode"
+  },
+  {
     "name": "setIncludeViewProviders"
   },
   {
     "name": "setInjectImplementation"
   },
   {
-    "name": "setPreviousOrParentTNode"
-  },
-  {
     "name": "setSelectedIndex"
-  },
-  {
-    "name": "unwrapRNode"
   },
   {
     "name": "updateTransplantedViewCount"
   },
   {
     "name": "viewAttachedToChangeDetector"
+  },
+  {
+    "name": "ɵɵtext"
   }
 ]

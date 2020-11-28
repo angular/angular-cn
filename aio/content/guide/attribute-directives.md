@@ -39,18 +39,18 @@ You saw a component for the first time in the [Getting Started](start "Getting S
 你在[快速上手](start "Getting Started with Angular")例子中第一次见到组件。
 
 *Structural Directives* change the structure of the view.
-Two examples are [NgFor](guide/template-syntax#ngFor) and [NgIf](guide/template-syntax#ngIf).
+Two examples are [NgFor](guide/built-in-directives#ngFor) and [NgIf](guide/built-in-directives#ngIf).
 Learn about them in the [Structural Directives](guide/structural-directives) guide.
 
-*结构型*指令修改视图的结构。例如，[NgFor](guide/template-syntax#ngFor) 和 [NgIf](guide/template-syntax#ngIf)。
-要了解更多，参见[结构型指令](guide/structural-directives) 指南。
+*结构型*指令修改视图的结构。例如，[NgFor](guide/built-in-directives#ngFor) 和 [NgIf](guide/built-in-directives#ngIf)。
+要了解更多，参阅[结构型指令](guide/structural-directives) 指南。
 
 *Attribute directives* are used as attributes of elements.
-The built-in [NgStyle](guide/template-syntax#ngStyle) directive in the
-[Template Syntax](guide/template-syntax) guide, for example,
+The built-in [NgStyle](guide/built-in-directives#ngStyle) directive in the
+[Built-in directives](guide/built-in-directives) guide, for example,
 can change several element styles at the same time.
 
-*属性型*指令改变一个元素的外观或行为。例如，内置的 [NgStyle](guide/template-syntax#ngStyle) 指令可以同时修改元素的多个样式。
+*属性型*指令改变一个元素的外观或行为。例如，内置的 [NgStyle](guide/built-in-directives#ngStyle) 指令可以同时修改元素的多个样式。
 
 ## Build a simple attribute directive
 
@@ -115,7 +115,7 @@ The imported `Directive` symbol provides Angular the `@Directive` decorator.
 这里导入的 `Directive` 符号提供了 Angular 的 `@Directive` 装饰器。
 
 The `@Directive` decorator's lone configuration property specifies the directive's
-[CSS attribute selector](https://developer.mozilla.org/en-US/docs/Web/CSS/Attribute_selectors), `[appHighlight]`.
+[CSS attribute selector](https://developer.mozilla.org/docs/Web/CSS/Attribute_selectors), `[appHighlight]`.
 
 `@Directive` 装饰器的配置属性中指定了该指令的 [CSS 属性型选择器](https://developer.mozilla.org/en-US/docs/Web/CSS/Attribute_selectors) `[appHighlight]`
 
@@ -320,19 +320,19 @@ Add a `highlightColor` property to the directive class like this:
 
 {@a input}
 
-### Binding to an _@Input_ property
+### Binding to an `@Input()` property
 
 ### 绑定到 *@Input* 属性
 
-Notice the `@Input` decorator. It adds metadata to the class that makes the directive's `highlightColor` property available for binding.
+Notice the `@Input()` decorator. It adds metadata to the class that makes the directive's `highlightColor` property available for binding.
 
 注意看 `@Input` 装饰器。它往类上添加了一些元数据，从而让该指令的 `highlightColor` 能用于绑定。
 
 It's called an *input* property because data flows from the binding expression _into_ the directive.
-Without that input metadata, Angular rejects the binding; see [below](guide/attribute-directives#why-input "Why add @Input?") for more about that.
+Without that `@Input()` metadata, Angular rejects the binding; see [below](guide/attribute-directives#why-input "Why add @Input?") for more information.
 
 它之所以称为*输入*属性，是因为数据流是从绑定表达式流向指令内部的。
-如果没有这个元数据，Angular 就会拒绝绑定，参见[稍后](guide/attribute-directives#why-input "为什么要添加@Input?")了解更多。
+如果没有这个元数据，Angular 就会拒绝绑定，参阅[稍后](guide/attribute-directives#why-input "为什么要添加@Input?")了解更多。
 
 Try it by adding the following directive binding variations to the `AppComponent` template:
 
@@ -387,7 +387,7 @@ Fortunately you can name the directive property whatever you want _and_ **_alias
 
 幸运的是，你可以随意命名该指令的属性，并且**给它指定一个用于绑定的别名**。
 
-Restore the original property name and specify the selector as the alias in the argument to `@Input`.
+Restore the original property name and specify the selector as the alias in the argument to `@Input()`.
 
 恢复原始属性名，并在 `@Input` 的参数中把该选择器指定为别名。
 
@@ -492,7 +492,7 @@ and fall back to "violet" as the default color.
 <code-example path="attribute-directives/src/app/app.component.html" header="src/app/app.component.html (defaultColor)" region="defaultColor"></code-example>
 
 Angular knows that the `defaultColor` binding belongs to the `HighlightDirective`
-because you made it _public_ with the `@Input` decorator.
+because you made it _public_ with the `@Input()` decorator.
 
 Angular 之所以知道 `defaultColor` 绑定属于 `HighlightDirective`，是因为你已经通过 `@Input` 装饰器把它设置成了*公共*属性。
 
@@ -503,6 +503,35 @@ Here's how the harness should work when you're done coding.
 <div class="lightbox">
   <img src="generated/images/guide/attribute-directives/highlight-directive-final-anim.gif" alt="Final Highlight">
 </div>
+
+<hr />
+
+{@a ngNonBindable}
+
+## `ngNonBindable`
+
+With the built-in template primitive `ngNonBindable`, Angular won't
+evaluate expressions in elements. For example:
+
+使用由模板引擎原生支持的 `ngNonBindable` 伪指令，可以让 Angular 不对模板中的表达式进行求值。例如：
+
+<code-example path="attribute-directives/src/app/app.component.html" linenums="false" header="src/app/app.component.html" region="ngNonBindable"></code-example>
+
+The expression `{{ 1 + 1 }}` will render just as it does in your code editor,
+and will not display `2`. This is helpful when you want to render code in the browser.
+
+表达式 `{{ 1 + 1 }}` 将会原样渲染，就像你的代码编辑器中一样，而不会显示为 `2`。当你要在浏览器中渲染代码时，这很有用。
+
+When you apply `ngNonBindable` to an element, it stops any binding starting at that element, including child elements. However, `ngNonBindable` still allows
+directives to work to the element where you apply `ngNonBindable`. In the following example, the `appHighlight` directive will still be active but Angular will not evaluate the expression `{{ 1 + 1 }}`.
+
+当你把 `ngNonBindable` 应用在元素上时，它会阻止元素及其所有子元素的绑定。不过，`ngNonBindable` 仍然允许指令作用于受 `ngNonBindable` 影响的元素上。下面的例子中，`appHighlight` 指令仍然会生效，但是 Angular 不会对表达式 `{{ 1 + 1 }}` 进行求值。
+
+<code-example path="attribute-directives/src/app/app.component.html" linenums="false" header="src/app/app.component.html" region="ngNonBindable-with-directive"></code-example>
+
+Additionally, if you apply `ngNonBindable` to a parent element, interpolation and binding of any sort, such as property binding, or event binding, is disabled for its children.
+
+另外，如果你把 `ngNonBindable` 应用于某个父元素，就会在它的所有子元素上禁用插值和任何类型的绑定比如属性绑定或事件绑定。
 
 ## Summary
 
@@ -528,6 +557,10 @@ This page covered how to:
 
    [把值**绑定**到指令中](guide/attribute-directives#bindings)。
 
+* [Prevent expression evaluation](guide/attribute-directives#ngNonBindable).
+
+  [防止对表达式求值](guide/attribute-directives#ngNonBindable).
+
 The final source code follows:
 
 最终的源码如下：
@@ -547,11 +580,11 @@ You can also experience and download the <live-example title="Attribute Directiv
 
 {@a why-input}
 
-### Appendix: Why add _@Input_?
+### Appendix: Why add `@Input()`?
 
 ### 附录：为什么要加*@Input*？
 
-In this demo, the `highlightColor` property is an ***input*** property of
+In this demo, the `highlightColor` property is an `@Input()` property of
 the `HighlightDirective`. You've seen it applied without an alias:
 
 在这个例子中 `hightlightColor` 是 `HighlightDirective` 的一个***输入型***属性。你见过它没有用别名时的代码：
@@ -564,14 +597,14 @@ You've seen it with an alias:
 
 <code-example path="attribute-directives/src/app/highlight.directive.ts" header="src/app/highlight.directive.ts (color)" region="color"></code-example>
 
-Either way, the `@Input` decorator tells Angular that this property is
+Either way, the `@Input()` decorator tells Angular that this property is
 _public_ and available for binding by a parent component.
-Without  `@Input`, Angular refuses to bind to the property.
+Without `@Input()`, Angular refuses to bind to the property.
 
 无论哪种方式，`@Input` 装饰器都告诉 Angular，该属性是*公共的*，并且能被父组件绑定。
 如果没有 `@Input`，Angular 就会拒绝绑定到该属性。
 
-You've bound template HTML to component properties before and never used `@Input`.
+You've bound template HTML to component properties before and never used `@Input()`.
 What's different?
 
 但你以前也曾经把模板 HTML 绑定到组件的属性，而且从来没有用过 `@Input`。
@@ -581,7 +614,7 @@ The difference is a matter of trust.
 Angular treats a component's template as _belonging_ to the component.
 The component and its template trust each other implicitly.
 Therefore, the component's own template may bind to _any_ property of that component,
-with or without the `@Input` decorator.
+with or without the `@Input()` decorator.
 
 差异在于信任度不同。
 Angular 把组件的模板看做*从属于*该组件的。
@@ -591,7 +624,7 @@ Angular 把组件的模板看做*从属于*该组件的。
 But a component or directive shouldn't blindly trust _other_ components and directives.
 The properties of a component or directive are hidden from binding by default.
 They are _private_ from an Angular binding perspective.
-When adorned with the `@Input` decorator, the property becomes _public_ from an Angular binding perspective.
+When adorned with the `@Input()` decorator, the property becomes _public_ from an Angular binding perspective.
 Only then can it be bound by some other component or directive.
 
 但组件或指令不应该盲目的信任其它组件或指令。
@@ -599,18 +632,18 @@ Only then can it be bound by some other component or directive.
 从 Angular 绑定机制的角度来看，它们是*私有*的，而当添加了 `@Input` 时，Angular 绑定机制才会把它们当成*公共*的。
 只有这样，它们才能被其它组件或属性绑定。
 
-You can tell if `@Input` is needed by the position of the property name in a binding.
+You can tell if `@Input()` is needed by the position of the property name in a binding.
 
 你可以根据属性名在绑定中出现的位置来判定是否要加 `@Input`。
 
 * When it appears in the template expression to the ***right*** of the equals (=),
-  it belongs to the template's component and does not require the `@Input` decorator.
+  it belongs to the template's component and does not require the `@Input()` decorator.
 
    当它出现在等号***右侧***的模板表达式中时，它属于模板所在的组件，不需要 `@Input` 装饰器。
 
 * When it appears in **square brackets** ([ ]) to the **left** of the equals (=),
   the property belongs to some _other_ component or directive;
-  that property must be adorned with the `@Input` decorator.
+  that property must be adorned with the `@Input()` decorator.
 
    当它出现在等号**左边**的**方括号（[ ]）**中时，该属性属于*其它*组件或指令，它必须带有 `@Input` 装饰器。
 
@@ -622,14 +655,14 @@ Now apply that reasoning to the following example:
 
 * The `color` property in the expression on the right belongs to the template's component.
   The template and its component trust each other.
-  The `color` property doesn't require the `@Input` decorator.
+  The `color` property doesn't require the `@Input()` decorator.
 
    `color` 属性位于右侧的绑定表达式中，它属于模板所在的组件。
     该模板和组件相互信任。因此 `color` 不需要 `@Input` 装饰器。
 
 * The `appHighlight` property on the left refers to an _aliased_ property of the `HighlightDirective`,
-  not a property of the template's component. There are trust issues.
-  Therefore, the directive property must carry the `@Input` decorator.
+  not a property of the template's component.
+  For security, the directive property must carry the `@Input()` decorator.
 
    `appHighlight` 属性位于左侧，它引用了 `HighlightDirective` 中一个*带别名的*属性，它不是模板所属组件的一部分，因此存在信任问题。
 所以，该属性必须带 `@Input` 装饰器。

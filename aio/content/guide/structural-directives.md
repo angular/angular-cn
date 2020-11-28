@@ -50,21 +50,21 @@ No brackets. No parentheses. Just `*ngIf` set to a string.
 
 You'll learn in this guide that the [asterisk (*) is a convenience notation](guide/structural-directives#asterisk)
 and the string is a [_microsyntax_](guide/structural-directives#microsyntax) rather than the usual
-[template expression](guide/template-syntax#template-expressions).
+[template expression](guide/interpolation#template-expressions).
 Angular desugars this notation into a marked-up `<ng-template>` that surrounds the
-host element and its descendents.
+host element and its descendants.
 Each structural directive does something different with that template.
 
-在这个例子中，你将学到[星号(*)这个简写方法](guide/structural-directives#asterisk)，而这个字符串是一个[*微语法*](guide/structural-directives#microsyntax)，而不是通常的[模板表达式](guide/template-syntax#template-expressions)。
+在这个例子中，你将学到[星号(*)这个简写方法](guide/structural-directives#asterisk)，而这个字符串是一个[*微语法*](guide/structural-directives#microsyntax)，而不是通常的[模板表达式](guide/template-reference-variables)。
 Angular 会解开这个语法糖，变成一个 `<ng-template>` 标记，包裹着宿主元素及其子元素。
 每个结构型指令都可以用这个模板做点不同的事情。
 
-Three of the common, built-in structural directives&mdash;[NgIf](guide/template-syntax#ngIf),
-[NgFor](guide/template-syntax#ngFor), and [NgSwitch...](guide/template-syntax#ngSwitch)&mdash;are
-described in the [_Template Syntax_](guide/template-syntax) guide and seen in samples throughout the Angular documentation.
+Three of the common, built-in structural directives&mdash;[NgIf](guide/built-in-directives#ngIf),
+[NgFor](guide/built-in-directives#ngFor), and [NgSwitch...](guide/built-in-directives#ngSwitch)&mdash;are
+described in the [Built-in directives](guide/built-in-directives) guide and seen in samples throughout the Angular documentation.
 Here's an example of them in a template:
 
-三个常用的内置结构型指令 —— [NgIf](guide/template-syntax#ngIf)、[NgFor](guide/template-syntax#ngFor)和[NgSwitch...](guide/template-syntax#ngSwitch)。
+三个常用的内置结构型指令 —— [NgIf](guide/built-in-directives#ngIf)、[NgFor](guide/built-in-directives#ngFor)和[NgSwitch...](guide/built-in-directives#ngSwitch)。
 你在[*模板语法*](guide/template-syntax)一章中学过它，并且在 Angular 文档的例子中到处都在用它。下面是模板中的例子：
 
 <code-example path="structural-directives/src/app/app.component.html" header="src/app/app.component.html (built-in)" region="built-in"></code-example>
@@ -117,11 +117,11 @@ Technically it's a directive with a template.
 
 An [*attribute* directive](guide/attribute-directives) changes the appearance or behavior
 of an element, component, or another directive.
-For example, the built-in [`NgStyle`](guide/template-syntax#ngStyle) directive
+For example, the built-in [`NgStyle`](guide/built-in-directives#ngStyle) directive
 changes several element styles at the same time.
 
 [*属性型*指令](guide/attribute-directives)会改变某个元素、组件或其它指令的外观或行为。
-比如，内置的[`NgStyle`](guide/template-syntax#ngStyle)指令可以同时修改元素的多个样式。
+比如，内置的[`NgStyle`](guide/built-in-directives#ngStyle)指令可以同时修改元素的多个样式。
 
 You can apply many _attribute_ directives to one host element.
 You can [only apply one](guide/structural-directives#one-per-element) _structural_ directive to a host element.
@@ -595,10 +595,10 @@ All are preceded by the keyword `let`.
 它们都是用 `let` 作为前导关键字。
 
 A _template input variable_ is **_not_** the same as a
-[template _reference_ variable](guide/template-syntax#ref-vars),
+[template _reference_ variable](guide/template-reference-variables),
 neither _semantically_ nor _syntactically_.
 
-*模板输入变量*和[模板引用变量](guide/template-syntax#ref-vars)是**不同的**，无论是在*语义*上还是*语法*上。
+*模板输入变量*和[模板引用变量](guide/template-reference-variables)是**不同的**，无论是在*语义*上还是*语法*上。
 
 You declare a template _input_ variable using the `let` keyword (`let hero`).
 The variable's scope is limited to a _single instance_ of the repeated template.
@@ -973,7 +973,7 @@ In this example, the prefix is `app`.
 The directive _class_ name ends in `Directive` per the [style guide](guide/styleguide#02-03 "Angular Style Guide").
 Angular's own directives do not.
 
-指令的*类名*用 `Directive` 结尾，参见[风格指南](guide/styleguide#02-03 "Angular 风格指南")。
+指令的*类名*用 `Directive` 结尾，参阅[风格指南](guide/styleguide#02-03 "Angular 风格指南")。
 但 Angular 自己的指令例外。
 
 ### _TemplateRef_ and _ViewContainerRef_
@@ -1013,9 +1013,9 @@ That means the directive needs an `appUnless` property, decorated with `@Input`
 
 <div class="alert is-helpful">
 
-Read about `@Input` in the [_Template Syntax_](guide/template-syntax#inputs-outputs) guide.
+Read about `@Input` in the [`@Input()` and `@Output()` properties](guide/inputs-outputs) guide.
 
-要了解关于 `@Input` 的更多知识，参见[*模板语法*](guide/template-syntax#inputs-outputs)一章。
+要了解关于 `@Input` 的更多知识，参阅[*模板语法*](guide/inputs-outputs)一章。
 
 </div>
 
@@ -1097,7 +1097,7 @@ This section provides example of both kinds of type-guard property.
 
    For more information, see [Template type checking guide](guide/template-typecheck "Template type-checking guide").
 
-   有关更多信息，请参阅[模板类型检查指南](guide/template-typecheck "模板类型检查指南")。
+   欲知详情，请参阅[模板类型检查指南](guide/template-typecheck "模板类型检查指南")。
 
 </div>
 
@@ -1140,12 +1140,14 @@ export type LoadingState<T> = Loaded<T> | Loading;
 export class IfLoadedDirective<T> {
     @Input('ifLoaded') set state(state: LoadingState<T>) {}
     static ngTemplateGuard_state<T>(dir: IfLoadedDirective<T>, expr: LoadingState<T>): expr is Loaded<T> { return true; };
+}
+
 export interface Person {
   name: string;
 }
 
 @Component({
-  template: `<div *ifLoaded="state">{{ state.data }}</div>`,
+  template: `&lt;div *ifLoaded="state">{{ state.data }}&lt;/div>`,
 })
 export class AppComponent {
   state: LoadingState<Person>;

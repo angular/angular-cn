@@ -148,11 +148,11 @@ or in the `@NgModule()` or `@Component()` metadata
   When you provide the service at the root level, Angular creates a single, shared instance of `HeroService`
    and injects it into any class that asks for it.
    Registering the provider in the `@Injectable()` metadata also allows Angular to optimize an app
-   by removing the service from the compiled app if it isn't used.
+   by removing the service from the compiled app if it isn't used, a process known as *tree-shaking*.
 
   当你在根一级提供服务时，Angular 会为 HeroService 创建一个单一的共享实例，并且把它注入到任何想要它的类中。这种在 `@Injectable` 元数据中注册提供者的方式还让 Angular 能够通过移除那些从未被用过的服务来优化大小。
 
-* When you register a provider with a [specific NgModule](guide/architecture-modules), the same instance of a service is available to all components in that NgModule. To register at this level, use the `providers` property of the `@NgModule()` decorator,
+* When you register a provider with a [specific NgModule](guide/architecture-modules), the same instance of a service is available to all components in that NgModule. To register at this level, use the `providers` property of the `@NgModule()` decorator.
 
    当你使用[特定的 NgModule](guide/architecture-modules) 注册提供者时，该服务的同一个实例将会对该 NgModule 中的所有组件可用。要想在这一层注册，请用 `@NgModule()` 装饰器中的 `providers` 属性：
 
@@ -177,4 +177,4 @@ At the component level, register a service provider in the `providers` property 
 
 For more detailed information, see the [Dependency Injection](guide/dependency-injection) section.
 
-要了解更多细节，请参见[依赖注入](guide/dependency-injection)一节。
+要了解更多细节，请参阅[依赖注入](guide/dependency-injection)一节。

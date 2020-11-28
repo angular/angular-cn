@@ -48,16 +48,13 @@ export class FormBuilder {
    * @param controlsConfig A collection of child controls. The key for each child is the name
    * under which it is registered.
    *
+   *
    * 一组子控件。每个 key 就是注册进来的控件的名字。
    *
-   * @param options Configuration options object for the `FormGroup`. The object can
-   * have two shapes:
+   * @param options Configuration options object for the `FormGroup`. The object should have the
+   * the `AbstractControlOptions` type and might contain the following fields:
    *
-   * `FormGroup` 的配置项对象。该对象可以有两种形态：
-   *
-   * 1) `AbstractControlOptions` object (preferred), which consists of:
-   *
-   * 1) `AbstractControlOptions` 对象（首选），它包括如下属性：
+   * `FormGroup` 的配置项对象。该对象为 `AbstractControlOptions` 类型，并可能包含下列字段：
    *
    * * `validators`: A synchronous validator function, or an array of validator functions
    *
@@ -69,22 +66,35 @@ export class FormBuilder {
    *
    * * `updateOn`: The event upon which the control should be updated (options: 'change' | 'blur' |
    * submit')
+   */
+  group(
+      controlsConfig: {[key: string]: any},
+      options?: AbstractControlOptions|null,
+      ): FormGroup;
+  /**
+   * @description
+   * Construct a new `FormGroup` instance.
    *
-   *   `updateOn`：当发生哪个事件时该控件要被更新（选项）'change' | 'blur' | submit'
+   * @deprecated This api is not typesafe and can result in issues with Closure Compiler renaming.
+   *  Use the `FormBuilder#group` overload with `AbstractControlOptions` instead.
    *
-   * 2) Legacy configuration object, which consists of:
+   * @param controlsConfig A collection of child controls. The key for each child is the name
+   * under which it is registered.
    *
-   * 2) 传统的配置对象，它包括如下属性：
-   *
+   * @param options Configuration options object for the `FormGroup`. The legacy configuration
+   * object consists of:
    * * `validator`: A synchronous validator function, or an array of validator functions
    *
    *   `validator`：一个同步验证器函数或其数组
    *
    * * `asyncValidator`: A single async validator or array of async validator functions
-   *
-   *   `asyncValidator`：一个异步验证器函数或其数组
-   *
+   * Note: the legacy format is deprecated and might be removed in one of the next major versions
+   * of Angular.
    */
+  group(
+      controlsConfig: {[key: string]: any},
+      options: {[key: string]: any},
+      ): FormGroup;
   group(
       controlsConfig: {[key: string]: any},
       options: AbstractControlOptions|{[key: string]: any}|null = null): FormGroup {

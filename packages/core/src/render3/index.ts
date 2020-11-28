@@ -14,9 +14,10 @@ import {ɵɵProvidersFeature} from './features/providers_feature';
 import {ComponentDef, ComponentTemplate, ComponentType, DirectiveDef, DirectiveType, PipeDef, ɵɵComponentDefWithMeta, ɵɵDirectiveDefWithMeta, ɵɵFactoryDef, ɵɵPipeDefWithMeta} from './interfaces/definition';
 import {getComponent, getDirectives, getHostElement, getRenderedText} from './util/discovery_utils';
 
+export {NgModuleType} from '../metadata/ng_module_def';
 export {ComponentFactory, ComponentFactoryResolver, ComponentRef, injectComponentFactoryResolver} from './component_ref';
 export {ɵɵgetFactoryOf, ɵɵgetInheritedFactory} from './di';
-export {getLocaleId, setLocaleId, ɵɵi18n, ɵɵi18nApply, ɵɵi18nAttributes, ɵɵi18nEnd, ɵɵi18nExp, ɵɵi18nPostprocess, ɵɵi18nStart,} from './i18n';
+export {getLocaleId, setLocaleId} from './i18n/i18n_locale_id';
 // clang-format off
 export {
   detectChanges,
@@ -48,7 +49,6 @@ export {
   ɵɵclassMapInterpolateV,
 
   ɵɵclassProp,
-  ɵɵcomponentHostSyntheticListener,
 
   ɵɵdirectiveInject,
 
@@ -89,8 +89,6 @@ export {
 
   ɵɵreference,
 
-  // TODO: remove `select` once we've refactored all of the tests not to use it.
-  ɵɵselect,
   ɵɵstyleMap,
   ɵɵstyleMapInterpolate1,
   ɵɵstyleMapInterpolate2,
@@ -113,6 +111,9 @@ export {
   ɵɵstylePropInterpolate8,
   ɵɵstylePropInterpolateV,
 
+  ɵɵsyntheticHostListener,
+  ɵɵsyntheticHostProperty,
+
   ɵɵtemplate,
 
   ɵɵtext,
@@ -126,18 +127,21 @@ export {
   ɵɵtextInterpolate7,
   ɵɵtextInterpolate8,
   ɵɵtextInterpolateV,
-
-  ɵɵupdateSyntheticHostBinding,
 } from './instructions/all';
+export {ɵɵi18n, ɵɵi18nApply, ɵɵi18nAttributes, ɵɵi18nEnd, ɵɵi18nExp,ɵɵi18nPostprocess, ɵɵi18nStart} from './instructions/i18n';
 export {RenderFlags} from './interfaces/definition';
 export {
   AttributeMarker
 } from './interfaces/node';
 export {CssSelectorList, ProjectionSlots} from './interfaces/projection';
 export {
+  ɵɵngDeclareComponent,
+  ɵɵngDeclareDirective,
+} from './jit/partial';
+export {
   setClassMetadata,
 } from './metadata';
-export {NgModuleFactory, NgModuleRef, NgModuleType} from './ng_module_ref';
+export {NgModuleFactory, NgModuleRef} from './ng_module_ref';
 export {
   ɵɵpipe,
   ɵɵpipeBind1,

@@ -35,8 +35,8 @@ export type NavigationTrigger = 'imperative'|'popstate'|'hashchange';
  * route. Fired one time for any given navigation.
  *
  * 路由器相关事件的（而不是关于特定路由的）基类。对于任何指定的导航，`RouterEvent` 只会触发一次。
- * 
- * @usageNotes
+ *
+ * The following code shows how a class subscribes to router events.
  *
  * ```ts
  * class MyService {
@@ -51,6 +51,7 @@ export type NavigationTrigger = 'imperative'|'popstate'|'hashchange';
  * ```
  *
  * @see `Event`
+ * @see [Router events summary](guide/router#router-events)
  * @publicApi
  */
 export class RouterEvent {
@@ -73,6 +74,9 @@ export class NavigationStart extends RouterEvent {
    * Identifies the call or event that triggered the navigation.
    * An `imperative` trigger is a call to `router.navigateByUrl()` or `router.navigate()`.
    *
+   * @see `NavigationEnd`
+   * @see `NavigationCancel`
+   * @see `NavigationError`
    */
   navigationTrigger?: 'imperative'|'popstate'|'hashchange';
 
@@ -120,6 +124,10 @@ export class NavigationStart extends RouterEvent {
  *
  * 表示当导航成功结束时触发的事件。
  *
+ * @see `NavigationStart`
+ * @see `NavigationCancel`
+ * @see `NavigationError`
+ *
  * @publicApi
  */
 export class NavigationEnd extends RouterEvent {
@@ -142,11 +150,12 @@ export class NavigationEnd extends RouterEvent {
 
 /**
  * An event triggered when a navigation is canceled, directly or indirectly.
- *
- * This can happen when a [route guard](guide/router#milestone-5-route-guards)
+ * This can happen when a route guard
  * returns `false` or initiates a redirect by returning a `UrlTree`.
  *
- * 表示当导航被取消时触发的事件。
+ * @see `NavigationStart`
+ * @see `NavigationEnd`
+ * @see `NavigationError`
  *
  * @publicApi
  */
@@ -172,6 +181,10 @@ export class NavigationCancel extends RouterEvent {
  *
  * 表示当导航出错时触发的事件。
  *
+ * @see `NavigationStart`
+ * @see `NavigationEnd`
+ * @see `NavigationCancel`
+ *
  * @publicApi
  */
 export class NavigationError extends RouterEvent {
@@ -192,7 +205,7 @@ export class NavigationError extends RouterEvent {
 }
 
 /**
- *An event triggered when routes are recognized.
+ * An event triggered when routes are recognized.
  *
  * 表示当路由被识别出来时触发的事件。
  *
@@ -223,6 +236,8 @@ export class RoutesRecognized extends RouterEvent {
  *
  * 表示路由的守卫（`Guard`）阶段的开始。
  *
+ * @see `GuardsCheckEnd`
+ *
  * @publicApi
  */
 export class GuardsCheckStart extends RouterEvent {
@@ -248,6 +263,8 @@ export class GuardsCheckStart extends RouterEvent {
  * An event triggered at the end of the Guard phase of routing.
  *
  * 表示路由的守卫（`Guard`）阶段的结束。
+ *
+ * @see `GuardsCheckStart`
  *
  * @publicApi
  */
@@ -281,6 +298,8 @@ export class GuardsCheckEnd extends RouterEvent {
  * 表示路由解析（`Resolve`）阶段的开始。该事件的触发时机将来可能会改变，因为它是试验性的。
  * 在当前的迭代中，它将会在 `resolve` 阶段执行，而不管有没有东西要 `resolve`。
  * 将来，这种行为可能会修改成只有当有东西要 `resolve` 时才执行。
+ *
+ * @see `ResolveEnd`
  *
  * @publicApi
  */
@@ -335,6 +354,8 @@ export class ResolveEnd extends RouterEvent {
  *
  * 表示在惰性加载某个路由配置前触发的事件。
  *
+ * @see `RouteConfigLoadEnd`
+ *
  * @publicApi
  */
 export class RouteConfigLoadStart {
@@ -350,6 +371,8 @@ export class RouteConfigLoadStart {
  * An event triggered when a route has been lazy loaded.
  *
  * 表示当某个路由被惰性加载时触发的事件。
+ *
+ * @see `RouteConfigLoadStart`
  *
  * @publicApi
  */
@@ -384,7 +407,7 @@ export class ChildActivationStart {
  * An event triggered at the end of the child-activation part
  * of the Resolve phase of routing.
  * @see `ChildActivationStart`
- * @see `ResolveStart` *
+ * @see `ResolveStart`
  * @publicApi
  */
 export class ChildActivationEnd {
@@ -400,7 +423,7 @@ export class ChildActivationEnd {
 /**
  * An event triggered at the start of the activation part
  * of the Resolve phase of routing.
- * @see ActivationEnd`
+ * @see `ActivationEnd`
  * @see `ResolveStart`
  *
  * @publicApi
@@ -461,27 +484,34 @@ export class Scroll {
  * Router events that allow you to track the lifecycle of the router.
  *
  * 路由器事件能让你跟踪路由器的生命周期。
- * 
- * The sequence of router events is as follows:
  *
- * 路由器事件的顺序如下：
+ * The events occur in the following sequence:
  *
- * - `NavigationStart`,
- * - `RouteConfigLoadStart`,
- * - `RouteConfigLoadEnd`,
- * - `RoutesRecognized`,
- * - `GuardsCheckStart`,
- * - `ChildActivationStart`,
- * - `ActivationStart`,
- * - `GuardsCheckEnd`,
- * - `ResolveStart`,
- * - `ResolveEnd`,
- * - `ActivationEnd`
- * - `ChildActivationEnd`
- * - `NavigationEnd`,
- * - `NavigationCancel`,
- * - `NavigationError`
- * - `Scroll`
+ * * [NavigationStart](api/router/NavigationStart): Navigation starts.
+ * * [RouteConfigLoadStart](api/router/RouteConfigLoadStart): Before
+ * the router [lazy loads](/guide/router#lazy-loading) a route configuration.
+ * * [RouteConfigLoadEnd](api/router/RouteConfigLoadEnd): After a route has been lazy loaded.
+ * * [RoutesRecognized](api/router/RoutesRecognized): When the router parses the URL
+ * and the routes are recognized.
+ * * [GuardsCheckStart](api/router/GuardsCheckStart): When the router begins the *guards*
+ * phase of routing.
+ * * [ChildActivationStart](api/router/ChildActivationStart): When the router
+ * begins activating a route's children.
+ * * [ActivationStart](api/router/ActivationStart): When the router begins activating a route.
+ * * [GuardsCheckEnd](api/router/GuardsCheckEnd): When the router finishes the *guards*
+ * phase of routing successfully.
+ * * [ResolveStart](api/router/ResolveStart): When the router begins the *resolve*
+ * phase of routing.
+ * * [ResolveEnd](api/router/ResolveEnd): When the router finishes the *resolve*
+ * phase of routing successfuly.
+ * * [ChildActivationEnd](api/router/ChildActivationEnd): When the router finishes
+ * activating a route's children.
+ * * [ActivationEnd](api/router/ActivationEnd): When the router finishes activating a route.
+ * * [NavigationEnd](api/router/NavigationEnd): When navigation ends successfully.
+ * * [NavigationCancel](api/router/NavigationCancel): When navigation is canceled.
+ * * [NavigationError](api/router/NavigationError): When navigation fails
+ * due to an unexpected error.
+ * * [Scroll](api/router/Scroll): When the user scrolls.
  *
  * @publicApi
  */

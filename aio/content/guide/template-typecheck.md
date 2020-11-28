@@ -140,7 +140,7 @@ In addition to the full mode behavior, Angular version 9:
 
 The three modes of type-checking treat embedded views differently. Consider the following example.
 
-类型检查的三种模式对嵌入式视图的处理方式不同。考虑以下示例。
+类型检查的三种模式对嵌入式视图的处理方式不同。考虑以下范例。
 
 <code-example language="ts" header="User interface">
 
@@ -205,11 +205,11 @@ In case of a false positive like these, there are a few options:
 
 如果发生此类误报，则有以下几种选择：
 
-* Use the [`$any()` type-cast function](guide/template-syntax#any-type-cast-function) in certain contexts to opt out of type-checking for a part of the expression.
+* Use the [`$any()` type-cast function](guide/template-expression-operators#any-type-cast-function) in certain contexts to opt out of type-checking for a part of the expression.
 
-  在某些情况下，使用 [`$any()` 类型转换函数](guide/template-syntax#any-type-cast-function)可以选择不对部分表达式进行类型检查。
+  在某些情况下，使用 [`$any()` 类型转换函数](guide/template-expression-operators#any-type-cast-function)可以选择不对部分表达式进行类型检查。
 
-* You can disable strict checks entirely by setting `strictTemplates: false` in the application's TypeScript configuration file.
+* You can disable strict checks entirely by setting `strictTemplates: false` in the application's TypeScript configuration file, `tsconfig.json`.
 
   你可以通过在应用程序的 TypeScript 配置文件 `tsconfig.json` 中设置 `strictTemplates: false` 来完全禁用严格检查。
 * You can disable certain type-checking operations individually, while maintaining strictness in other aspects, by setting a _strictness flag_ to `false`.
@@ -225,6 +225,8 @@ In case of a false positive like these, there are a few options:
 | 严格标志 | 影响 |
 | `strictInputTypes` | Whether the assignability of a binding expression to the `@Input()` field is checked. Also affects the inference of directive generic types. |
 | `strictInputTypes` | 是否检查绑定表达式对 `@Input()` 字段的可赋值性。也会影响指令泛型类型的推断。|
+|`strictInputAccessModifiers`|Whether access modifiers such as `private`/`protected`/`readonly` are honored when assigning a binding expression to an `@Input()`. If disabled, the access modifiers of the `@Input` are ignored; only the type is checked.|
+|`strictInputAccessModifiers`|在把绑定表达式赋值给 `@Input()` 时，是否检查像 `private`/`protected`/`readonly` 这样的访问修饰符。如果禁用，则 `@Input` 上的访问修饰符会被忽略，只进行类型检查。|
 | `strictNullInputTypes` | Whether `strictNullChecks` is honored when checking `@Input()` bindings (per `strictInputTypes`). Turning this off can be useful when using a library that was not built with `strictNullChecks` in mind. |
 | `strictNullInputTypes` | 检查 `@Input()` 绑定时是否要 `strictNullChecks`（对于每个 `strictInputTypes`）。当使用的库不是基于 `strictNullChecks` 构建的时，将其关闭会很有帮助。|
 | `strictAttributeTypes` | Whether to check `@Input()` bindings that are made using text attributes (for example, `<mat-tab label="Step 1">` vs `<mat-tab [label]="'Step 1'">`). |
@@ -346,7 +348,7 @@ There are two potential workarounds to the above issues:
      In this example, the compiler disregards type incompatibilities in nullability, just as in TypeScript code.
      In the case of the `async` pipe, note that the expression needs to be wrapped in parentheses, as in `<user-detail [user]="(user$ | async)!" />`.
 
-     在此示例中，编译器在可空性方面会忽略类型不兼容，就像在 TypeScript 代码中一样。对于 `async` 管道，请注意，表达式需要用括号括起来，如 `<user-detail [user]="(user$ | async)!" />`。
+     在此范例中，编译器在可空性方面会忽略类型不兼容，就像在 TypeScript 代码中一样。对于 `async` 管道，请注意，表达式需要用括号括起来，如 `<user-detail [user]="(user$ | async)!" />`。
 
 1. Disable strict null checks in Angular templates completely.
 
@@ -488,7 +490,7 @@ Care should be taken that if an `ngAcceptInputType_` override is present for a g
 
 ## 使用 `$any()` 禁用类型检查
 
-Disable checking of a binding expression by surrounding the expression in a call to the [`$any()` cast pseudo-function](guide/template-syntax).
+Disable checking of a binding expression by surrounding the expression in a call to the [`$any()` cast pseudo-function](guide/template-expression-operators).
 The compiler treats it as a cast to the `any` type just like in TypeScript when a `<any>` or `as any` cast is used.
 
 可以通过把绑定表达式包含在[类型转换伪函数 `$any()` ](guide/template-syntax) 中来禁用类型检查。
@@ -496,7 +498,7 @@ The compiler treats it as a cast to the `any` type just like in TypeScript when 
 
 In the following example, casting `person` to the `any` type suppresses the error `Property address does not exist`.
 
-在以下示例中，将 `person` 强制转换为 `any` 类型可以压制错误 `Property address does not exist`。
+在以下范例中，将 `person` 强制转换为 `any` 类型可以压制错误 `Property address does not exist`。
 
 ```typescript
 

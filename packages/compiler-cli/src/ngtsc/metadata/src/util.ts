@@ -12,7 +12,8 @@ import {Reference} from '../../imports';
 import {ClassDeclaration, ClassMember, ClassMemberKind, isNamedClassDeclaration, ReflectionHost, reflectTypeEntityToDeclaration} from '../../reflection';
 import {nodeDebugInfo} from '../../util/src/typescript';
 
-import {DirectiveMeta, MetadataReader, NgModuleMeta, PipeMeta, TemplateGuardMeta} from './api';
+import {DirectiveMeta, DirectiveTypeCheckMeta, MetadataReader, NgModuleMeta, PipeMeta, TemplateGuardMeta} from './api';
+import {ClassPropertyMapping, ClassPropertyName} from './property_mapping';
 
 export function extractReferencesFromType(
     checker: ts.TypeChecker, def: ts.TypeNode, ngModuleImportedFrom: string|null,
@@ -20,7 +21,8 @@ export function extractReferencesFromType(
   if (!ts.isTupleTypeNode(def)) {
     return [];
   }
-  return def.elementTypes.map(element => {
+
+  return def.elements.map(element => {
     if (!ts.isTypeQueryNode(element)) {
       throw new Error(`Expected TypeQueryNode: ${nodeDebugInfo(element)}`);
     }
@@ -69,7 +71,7 @@ export function readStringArrayType(type: ts.TypeNode): string[] {
     return [];
   }
   const res: string[] = [];
-  type.elementTypes.forEach(el => {
+  type.elements.forEach(el => {
     if (!ts.isLiteralTypeNode(el) || !ts.isStringLiteral(el.literal)) {
       return;
     }
@@ -78,13 +80,16 @@ export function readStringArrayType(type: ts.TypeNode): string[] {
   return res;
 }
 
-
-export function extractDirectiveGuards(node: ClassDeclaration, reflector: ReflectionHost): {
-  ngTemplateGuards: TemplateGuardMeta[],
-  hasNgTemplateContextGuard: boolean,
-  coercedInputFields: Set<string>,
-} {
-  const staticMembers = reflector.getMembersOfClass(node).filter(member => member.isStatic);
+/**
+ * Inspects the class' members and extracts the metadata that is used when type-checking templates
+ * that use the directive. This metadata does not contain information from a base class, if any,
+ * making this metadata invariant to changes of inherited classes.
+ */
+export function extractDirectiveTypeCheckMeta(
+    node: ClassDeclaration, inputs: ClassPropertyMapping,
+    reflector: ReflectionHost): DirectiveTypeCheckMeta {
+  const members = reflector.getMembersOfClass(node);
+  const staticMembers = members.filter(member => member.isStatic);
   const ngTemplateGuards = staticMembers.map(extractTemplateGuard)
                                .filter((guard): guard is TemplateGuardMeta => guard !== null);
   const hasNgTemplateContextGuard = staticMembers.some(
@@ -92,8 +97,48 @@ export function extractDirectiveGuards(node: ClassDeclaration, reflector: Reflec
 
   const coercedInputFields =
       new Set(staticMembers.map(extractCoercedInput)
-                  .filter((inputName): inputName is string => inputName !== null));
-  return {hasNgTemplateContextGuard, ngTemplateGuards, coercedInputFields};
+                  .filter((inputName): inputName is ClassPropertyName => inputName !== null));
+
+  const restrictedInputFields = new Set<ClassPropertyName>();
+  const stringLiteralInputFields = new Set<ClassPropertyName>();
+  const undeclaredInputFields = new Set<ClassPropertyName>();
+
+  for (const classPropertyName of inputs.classPropertyNames) {
+    const field = members.find(member => member.name === classPropertyName);
+    if (field === undefined || field.node === null) {
+      undeclaredInputFields.add(classPropertyName);
+      continue;
+    }
+    if (isRestricted(field.node)) {
+      restrictedInputFields.add(classPropertyName);
+    }
+    if (field.nameNode !== null && ts.isStringLiteral(field.nameNode)) {
+      stringLiteralInputFields.add(classPropertyName);
+    }
+  }
+
+  const arity = reflector.getGenericArityOfClass(node);
+
+  return {
+    hasNgTemplateContextGuard,
+    ngTemplateGuards,
+    coercedInputFields,
+    restrictedInputFields,
+    stringLiteralInputFields,
+    undeclaredInputFields,
+    isGeneric: arity !== null && arity > 0,
+  };
+}
+
+function isRestricted(node: ts.Node): boolean {
+  if (node.modifiers === undefined) {
+    return false;
+  }
+
+  return node.modifiers.some(
+      modifier => modifier.kind === ts.SyntaxKind.PrivateKeyword ||
+          modifier.kind === ts.SyntaxKind.ProtectedKeyword ||
+          modifier.kind === ts.SyntaxKind.ReadonlyKeyword);
 }
 
 function extractTemplateGuard(member: ClassMember): TemplateGuardMeta|null {

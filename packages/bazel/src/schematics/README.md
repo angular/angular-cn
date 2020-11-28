@@ -45,10 +45,15 @@ This new rule leverages ngtsc plugin supported by `ts_library`, and it is much f
 
 For the latest recommendations, please refer to the canonical Angular Bazel [repo](https://github.com/bazelbuild/rules_nodejs/tree/master/examples/angular).
 
-For questions, please ask in the `#angular` channel in http://slack.bazel.build/.
+For questions, please ask in the `#angular` channel in https://slack.bazel.build/.
 
 ## Angular CLI
 
 If you'd like to revert to the default Angular CLI builder, you could restore
 the original Angular config from backup by replacing `angular.json` with
 `angular.json.bak`.
+
+## External Resources
+
+1. Angular ❤️ Bazel leaving Angular Labs  
+   https://dev.to/bazel/angular-bazel-leaving-angular-labs-51ja

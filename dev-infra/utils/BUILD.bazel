@@ -1,4 +1,4 @@
-load("@npm_bazel_typescript//:index.bzl", "ts_library")
+load("@npm//@bazel/typescript:index.bzl", "ts_library")
 
 ts_library(
     name = "utils",
@@ -7,6 +7,9 @@ ts_library(
         "git/*.ts",
     ]),
     module_name = "@angular/dev-infra-private/utils",
+    # prodmode target must be set to es5 as the Octokit class, which is extended is not a proper
+    # prototyped object.
+    prodmode_target = "es5",
     visibility = ["//dev-infra:__subpackages__"],
     deps = [
         "@npm//@octokit/graphql",
@@ -15,9 +18,13 @@ ts_library(
         "@npm//@types/inquirer",
         "@npm//@types/node",
         "@npm//@types/shelljs",
+        "@npm//@types/yargs",
         "@npm//chalk",
+        "@npm//inquirer",
+        "@npm//inquirer-autocomplete-prompt",
         "@npm//shelljs",
         "@npm//tslib",
         "@npm//typed-graphqlify",
+        "@npm//yargs",
     ],
 )

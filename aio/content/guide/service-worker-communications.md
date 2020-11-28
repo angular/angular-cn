@@ -95,7 +95,7 @@ Constantly polling for updates, for example, with [setInterval()](https://develo
 Note that this is true for any kind of polling done by your application.
 Check the {@link ApplicationRef#isStable isStable} documentation for more information.
 
-请注意，应用中所执行的各种轮询都会阻止它达到稳定态。欲知详情，参见 {@link ApplicationRef#isStable isStable} 文档。
+请注意，应用中所执行的各种轮询都会阻止它达到稳定态。欲知详情，参阅 {@link ApplicationRef#isStable isStable} 文档。
 
 You can avoid that delay by waiting for the app to stabilize first, before starting to poll for updates, as shown in the example above.
 Alternatively, you might want to define a different {@link SwRegistrationOptions#registrationStrategy registration strategy} for the ServiceWorker.
@@ -124,6 +124,62 @@ Therefore, it is recommended to reload the page once the promise returned by `ac
 所以，建议每当 `activateUpdate()` 返回的 Promise 被解析时，都刷新一次页面。
 
 </div>
+
+### Handling an unrecoverable state
+
+### 处理不可恢复的状态
+
+In some cases, the version of the app used by the service worker to serve a client might be in a broken state that cannot be recovered from without a full page reload.
+
+在某些情况下，Service Worker 用来为客户端提供服务的应用版本可能处于损坏状态，如果不重新加载整个页面，则无法恢复该状态。
+
+For example, imagine the following scenario:
+
+例如，设想以下情形：
+
+- A user opens the app for the first time and the service worker caches the latest version of the app.
+  Let's assume the app's cached assets include `index.html`, `main.<main-hash-1>.js` and `lazy-chunk.<lazy-hash-1>.js`.
+
+  用户首次打开该应用，Service Worker 会缓存该应用的最新版本。假设应用要缓存的资源包括 `index.html`、`main.<main-hash-1>.js` 和 `lazy-chunk.<lazy-hash-1>.js` 。
+
+- The user closes the app and does not open it for a while.
+
+  用户关闭该应用程序，并且有一段时间没有打开它。
+
+- After some time, a new version of the app is deployed to the server.
+  This newer version includes the files `index.html`, `main.<main-hash-2>.js` and `lazy-chunk.<lazy-hash-2>.js` (note that the hashes are different now, because the content of the files has changed).
+  The old version is no longer available on the server.
+
+  一段时间后，会将新版本的应用程序部署到服务器。新版本中包含文件 `index.html`、`main.<main-hash-2>.js` 和 `lazy-chunk.<lazy-hash-2>.js` （请注意，哈希值现在已经不同了，因为文件的内容已经改变）。服务器上不再提供旧版本。
+
+- In the meantime, the user's browser decides to evict `lazy-chunk.<lazy-hash-1>.js` from its cache.
+  Browsers may decide to evict specific (or all) resources from a cache in order to reclaim disk space.
+
+  同时，用户的浏览器决定从其缓存中清退 `lazy-chunk.<lazy-hash-1>.js` 浏览器可能决定从缓存中清退特定（或所有）资源，以便回收磁盘空间。
+
+- The user opens the app again.
+  The service worker serves the latest version known to it at this point, namely the old version (`index.html` and `main.<main-hash-1>.js`).
+
+  用户再次打开本应用。此时，Service Worker 将提供它所知的最新版本，当然，实际上对我们是旧版本（ `index.html` 和 `main.<main-hash-1>.js` ）。
+
+- At some later point, the app requests the lazy bundle, `lazy-chunk.<lazy-hash-1>.js`.
+
+  在稍后的某个时刻，该应用程序请求惰性捆绑包 `lazy-chunk.<lazy-hash-1>.js` 。
+
+- The service worker is unable to find the asset in the cache (remember that the browser evicted it).
+  Nor is it able to retrieve it from the server (since the server now only has `lazy-chunk.<lazy-hash-2>.js` from the newer version).
+
+  Service Worker 无法在缓存中找到该资产（请记住浏览器已经将其清退了）。它也无法从服务器上获取它（因为服务器现在只有较新版本的 `lazy-chunk.<lazy-hash-2>.js`）
+
+In the above scenario, the service worker is not able to serve an asset that would normally be cached.
+That particular app version is broken and there is no way to fix the state of the client without reloading the page.
+In such cases, the service worker notifies the client by sending an `UnrecoverableStateEvent` event.
+You can subscribe to `SwUpdate#unrecoverable` to be notified and handle these errors.
+
+在上述情况下，Service Worker 将无法提供通常会被缓存的资产。该特定的应用程序版本已损坏，并且无法在不重新加载页面的情况下修复客户端的状态。在这种情况下，Service Worker 会通过发送 `UnrecoverableStateEvent` 事件来通知客户端。你可以订阅 `SwUpdate#unrecoverable` 以得到通知并处理这些错误。
+
+<code-example path="service-worker-getting-started/src/app/handle-unrecoverable-state.service.ts" header="handle-unrecoverable-state.service.ts" region="sw-unrecoverable-state"></code-example>
+
 
 ## More on Angular service workers
 

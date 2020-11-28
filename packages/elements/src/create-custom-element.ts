@@ -18,6 +18,8 @@ import {createCustomEvent, getComponentInputs, getDefaultAttributeToPropertyInpu
  * that can be used for custom element registration. Implemented and returned
  * by the {@link createCustomElement createCustomElement() function}.
  *
+ * @see [Angular Elements Overview](guide/elements "Turning Angular components into custom elements")
+ *
  * @publicApi
  */
 export interface NgElementConstructor<P> {
@@ -43,8 +45,7 @@ export abstract class NgElement extends HTMLElement {
   /**
    * The strategy that controls how a component is transformed in a custom element.
    */
-  // TODO(issue/24571): remove '!'.
-  protected ngElementStrategy!: NgElementStrategy;
+  protected abstract ngElementStrategy: NgElementStrategy;
   /**
    * A subscription to change, connect, and disconnect events in the custom element.
    */
@@ -115,6 +116,8 @@ export interface NgElementConfig {
  * static property to affect all newly created instances, or as a constructor argument for
  * one-off creations.
  *
+ * @see [Angular Elements Overview](guide/elements "Turning Angular components into custom elements")
+ *
  * @param component The component to transform.
  * @param config A configuration that provides initialization information to the created class.
  * @returns The custom-element construction class, which can be registered with
@@ -148,27 +151,19 @@ export function createCustomElement<P>(
         const strategy = this._ngElementStrategy =
             strategyFactory.create(this.injector || config.injector);
 
-        // Collect pre-existing values on the element to re-apply through the strategy.
-        const preExistingValues =
-            inputs.filter(({propName}) => this.hasOwnProperty(propName)).map(({propName}): [
-              string, any
-            ] => [propName, (this as any)[propName]]);
+        // Re-apply pre-existing input values (set as properties on the element) through the
+        // strategy.
+        inputs.forEach(({propName}) => {
+          if (!this.hasOwnProperty(propName)) {
+            // No pre-existing value for `propName`.
+            return;
+          }
 
-        // In some browsers (e.g. IE10), `Object.setPrototypeOf()` (which is required by some Custom
-        // Elements polyfills) is not defined and is thus polyfilled in a way that does not preserve
-        // the prototype chain. In such cases, `this` will not be an instance of `NgElementImpl` and
-        // thus not have the component input getters/setters defined on `NgElementImpl.prototype`.
-        if (!(this instanceof NgElementImpl)) {
-          // Add getters and setters to the instance itself for each property input.
-          defineInputGettersSetters(inputs, this);
-        } else {
-          // Delete the property from the instance, so that it can go through the getters/setters
-          // set on `NgElementImpl.prototype`.
-          preExistingValues.forEach(([propName]) => delete (this as any)[propName]);
-        }
-
-        // Re-apply pre-existing values through the strategy.
-        preExistingValues.forEach(([propName, value]) => strategy.setInputValue(propName, value));
+          // Delete the property from the instance and re-apply it through the strategy.
+          const value = (this as any)[propName];
+          delete (this as any)[propName];
+          strategy.setInputValue(propName, value);
+        });
       }
 
       return this._ngElementStrategy!;
@@ -187,13 +182,30 @@ export function createCustomElement<P>(
     }
 
     connectedCallback(): void {
+      // For historical reasons, some strategies may not have initialized the `events` property
+      // until after `connect()` is run. Subscribe to `events` if it is available before running
+      // `connect()` (in order to capture events emitted suring inittialization), otherwise
+      // subscribe afterwards.
+      //
+      // TODO: Consider deprecating/removing the post-connect subscription in a future major version
+      //       (e.g. v11).
+
+      let subscribedToEvents = false;
+
+      if (this.ngElementStrategy.events) {
+        // `events` are already available: Subscribe to it asap.
+        this.subscribeToEvents();
+        subscribedToEvents = true;
+      }
+
       this.ngElementStrategy.connect(this);
 
-      // Listen for events from the strategy and dispatch them as custom events
-      this.ngElementEventsSubscription = this.ngElementStrategy.events.subscribe(e => {
-        const customEvent = createCustomEvent(this.ownerDocument!, e.name, e.value);
-        this.dispatchEvent(customEvent);
-      });
+      if (!subscribedToEvents) {
+        // `events` were not initialized before running `connect()`: Subscribe to them now.
+        // The events emitted during the component initialization have been missed, but at least
+        // future events will be captured.
+        this.subscribeToEvents();
+      }
     }
 
     disconnectedCallback(): void {
@@ -207,30 +219,19 @@ export function createCustomElement<P>(
         this.ngElementEventsSubscription = null;
       }
     }
+
+    private subscribeToEvents(): void {
+      // Listen for events from the strategy and dispatch them as custom events.
+      this.ngElementEventsSubscription = this.ngElementStrategy.events.subscribe(e => {
+        const customEvent = createCustomEvent(this.ownerDocument!, e.name, e.value);
+        this.dispatchEvent(customEvent);
+      });
+    }
   }
 
-  // TypeScript 3.9+ defines getters/setters as configurable but non-enumerable properties (in
-  // compliance with the spec). This breaks emulated inheritance in ES5 on environments that do not
-  // natively support `Object.setPrototypeOf()` (such as IE 9-10).
-  // Update the property descriptor of `NgElementImpl#ngElementStrategy` to make it enumerable.
-  // The below 'const', shouldn't be needed but currently this breaks build-optimizer
-  // Build-optimizer currently uses TypeScript 3.6 which is unable to resolve an 'accessor'
-  // in 'getTypeOfVariableOrParameterOrPropertyWorker'.
-  const getterName = 'ngElementStrategy';
-  Object.defineProperty(NgElementImpl.prototype, getterName, {enumerable: true});
-
   // Add getters and setters to the prototype for each property input.
-  defineInputGettersSetters(inputs, NgElementImpl.prototype);
-
-  return (NgElementImpl as any) as NgElementConstructor<P>;
-}
-
-// Helpers
-function defineInputGettersSetters(
-    inputs: {propName: string, templateName: string}[], target: object): void {
-  // Add getters and setters for each property input.
   inputs.forEach(({propName}) => {
-    Object.defineProperty(target, propName, {
+    Object.defineProperty(NgElementImpl.prototype, propName, {
       get(): any {
         return this.ngElementStrategy.getInputValue(propName);
       },
@@ -241,4 +242,6 @@ function defineInputGettersSetters(
       enumerable: true,
     });
   });
+
+  return (NgElementImpl as any) as NgElementConstructor<P>;
 }

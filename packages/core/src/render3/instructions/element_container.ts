@@ -5,16 +5,16 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import {assertDataInRange, assertEqual} from '../../util/assert';
+import {assertEqual, assertIndexInRange} from '../../util/assert';
 import {assertHasParent} from '../assert';
 import {attachPatchData} from '../context_discovery';
 import {registerPostOrderHooks} from '../hooks';
 import {TAttributes, TElementContainerNode, TNodeType} from '../interfaces/node';
 import {isContentQueryHost, isDirectiveHost} from '../interfaces/type_checks';
 import {HEADER_OFFSET, LView, RENDERER, T_HOST, TView} from '../interfaces/view';
-import {assertNodeType} from '../node_assert';
+import {assertTNodeType} from '../node_assert';
 import {appendChild} from '../node_manipulation';
-import {getBindingIndex, getIsParent, getLView, getPreviousOrParentTNode, getTView, setIsNotParent, setPreviousOrParentTNode} from '../state';
+import {getBindingIndex, getCurrentTNode, getLView, getTView, isCurrentTNodeParent, setCurrentTNode, setCurrentTNodeAsNotParent} from '../state';
 import {computeStaticStyling} from '../styling/static_styling';
 import {getConstant} from '../util/view_utils';
 
@@ -27,8 +27,7 @@ function elementContainerStartFirstCreatePass(
 
   const tViewConsts = tView.consts;
   const attrs = getConstant<TAttributes>(tViewConsts, attrsIndex);
-  const tNode = getOrCreateTNode(
-      tView, lView[T_HOST], index, TNodeType.ElementContainer, 'ng-container', attrs);
+  const tNode = getOrCreateTNode(tView, index, TNodeType.ElementContainer, 'ng-container', attrs);
 
   // While ng-container doesn't necessarily support styling, we use the style context to identify
   // and execute directives on the ng-container.
@@ -66,16 +65,17 @@ export function ɵɵelementContainerStart(
   const tView = getTView();
   const adjustedIndex = index + HEADER_OFFSET;
 
-  ngDevMode && assertDataInRange(lView, adjustedIndex);
+  ngDevMode && assertIndexInRange(lView, adjustedIndex);
   ngDevMode &&
       assertEqual(
           getBindingIndex(), tView.bindingStartIndex,
           'element containers should be created before any bindings');
 
   const tNode = tView.firstCreatePass ?
-      elementContainerStartFirstCreatePass(index, tView, lView, attrsIndex, localRefsIndex) :
+      elementContainerStartFirstCreatePass(
+          adjustedIndex, tView, lView, attrsIndex, localRefsIndex) :
       tView.data[adjustedIndex] as TElementContainerNode;
-  setPreviousOrParentTNode(tNode, true);
+  setCurrentTNode(tNode, true);
 
   ngDevMode && ngDevMode.rendererCreateComment++;
   const native = lView[adjustedIndex] =
@@ -99,22 +99,22 @@ export function ɵɵelementContainerStart(
  * @codeGenApi
  */
 export function ɵɵelementContainerEnd(): void {
-  let previousOrParentTNode = getPreviousOrParentTNode();
+  let currentTNode = getCurrentTNode()!;
   const tView = getTView();
-  if (getIsParent()) {
-    setIsNotParent();
+  if (isCurrentTNodeParent()) {
+    setCurrentTNodeAsNotParent();
   } else {
-    ngDevMode && assertHasParent(previousOrParentTNode);
-    previousOrParentTNode = previousOrParentTNode.parent!;
-    setPreviousOrParentTNode(previousOrParentTNode, false);
+    ngDevMode && assertHasParent(currentTNode);
+    currentTNode = currentTNode.parent!;
+    setCurrentTNode(currentTNode, false);
   }
 
-  ngDevMode && assertNodeType(previousOrParentTNode, TNodeType.ElementContainer);
+  ngDevMode && assertTNodeType(currentTNode, TNodeType.ElementContainer);
 
   if (tView.firstCreatePass) {
-    registerPostOrderHooks(tView, previousOrParentTNode);
-    if (isContentQueryHost(previousOrParentTNode)) {
-      tView.queries!.elementEnd(previousOrParentTNode);
+    registerPostOrderHooks(tView, currentTNode);
+    if (isContentQueryHost(currentTNode)) {
+      tView.queries!.elementEnd(currentTNode);
     }
   }
 }

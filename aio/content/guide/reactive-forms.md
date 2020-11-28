@@ -54,7 +54,7 @@ Reactive forms differ from [template-driven forms](guide/forms "Template-driven 
 
 Template-driven forms allow direct access to modify data in your template, but are less explicit than reactive forms because they rely on directives embedded in the template, along with mutable data to track changes asynchronously. See the [Forms Overview](guide/forms-overview "Overview of Angular forms.") for detailed comparisons between the two paradigms.
 
-模板驱动的表单允许你直接在模板中修改数据，但不像响应式表单那么明确，因为它们依赖嵌入到模板中的指令，并借助可变数据来异步跟踪变化。参见[表单概览](guide/forms-overview "Angular 表单概览")以了解这两种范式之间的详细比较。
+模板驱动表单允许你直接在模板中修改数据，但不像响应式表单那么明确，因为它们依赖嵌入到模板中的指令，并借助可变数据来异步跟踪变化。参阅[表单概览](guide/forms-overview "Angular 表单概览")以了解这两种范式之间的详细比较。
 
 ## Adding a basic form control
 
@@ -132,11 +132,11 @@ After you create the control in the component class, you must associate it with 
 
 * For a summary of the classes and directives provided by `ReactiveFormsModule`, see the [Reactive forms API](#reactive-forms-api "API summary.") section below.
 
-  有关 `ReactiveFormsModule` 提供的类和指令的汇总表，请参阅下面的[响应式表单 API](#reactive-forms-api "API 摘要")部分。
+  关于 `ReactiveFormsModule` 提供的类和指令的汇总表，请参阅下面的[响应式表单 API](#reactive-forms-api "API 摘要")部分。
 
 * For complete syntax details of these classes and directives, see the API reference documentation for the [Forms package](api/forms "API reference.").
 
-  有关这些类和指令的完整语法，请参阅 API 参考手册中的 [Forms 包](api/forms "API 参考。")部分。
+  关于这些类和指令的完整语法，请参阅 API 参考手册中的 [Forms 包](api/forms "API 参考。")部分。
 
 </div>
 
@@ -190,11 +190,11 @@ Reactive forms provide access to information about a given control through prope
 These properties and methods of the underlying [AbstractControl](api/forms/AbstractControl "API reference.") class are used to control form state and determine when to display messages when handling [input validation](#basic-form-validation "Learn more about validating form input.").
 
 响应式表单还能通过每个实例的属性和方法提供关于特定控件的更多信息。[AbstractControl](api/forms/AbstractControl) 的这些属性和方法用于控制表单状态，并在处理表单校验时决定何时显示信息。
-欲知详情，参见稍后的[输入验证](#basic-form-validation)一节。
+欲知详情，参阅稍后的[输入验证](#basic-form-validation)一节。
 
 Read about other `FormControl` properties and methods in the [API Reference](api/forms/FormControl "Detailed syntax reference.").
 
-要了解 `FormControl` 的其它属性和方法，参见 [API 参考手册](api/forms/FormControl)。
+要了解 `FormControl` 的其它属性和方法，参阅 [API 参考手册](api/forms/FormControl)。
 
 ### Replacing a form control value
 
@@ -248,7 +248,7 @@ Forms typically contain several related controls. Reactive forms provide two way
 
 * A form *array* defines a dynamic form, where you can add and remove controls at run time. You can also nest form arrays to create more complex forms. For more about this option, see [Creating dynamic forms](#dynamic-forms "See more about form arrays.") below.
 
-  表单*数组*定义了一个动态表单，你可以在运行时添加和删除控件。你也可以通过嵌套表单数组来创建更复杂的表单。欲知详情，参见下面的[创建动态表单](#dynamic-forms "详细了解表单数组。")。
+  表单*数组*定义了一个动态表单，你可以在运行时添加和删除控件。你也可以通过嵌套表单数组来创建更复杂的表单。欲知详情，参阅下面的[创建动态表单](#dynamic-forms "详细了解表单数组。")。
 
 Just as a form control instance gives you control over a single input field, a form group instance tracks the form state of a group of form control instances (for example, a form). Each control in a form group instance is tracked by name when creating the form group. The following example shows how to manage multiple form control instances in a single group.
 
@@ -315,7 +315,7 @@ A form group tracks the status and changes for each of its controls, so if one o
 
 <code-example path="reactive-forms/src/app/profile-editor/profile-editor.component.1.html" region="formgroup" header="src/app/profile-editor/profile-editor.component.html (template form group)"></code-example>
 
-Note that just as a form group contains a group of controls, the *profile form* `FormGroup` is bound to the `form` element with the `FormGroup` directive, creating a communication layer between the model and the form containing the inputs. The `formControlName` input provided by the `FormControlName` directive binds each individual input to the form control defined in `FormGroup`. The form controls communicate with their respective elements. They also communicate changes to the form group instance, which provides the source of truth for the model value.
+Note that just as a form group contains a group of controls, the *profileForm* `FormGroup` is bound to the `form` element with the `FormGroup` directive, creating a communication layer between the model and the form containing the inputs. The `formControlName` input provided by the `FormControlName` directive binds each individual input to the form control defined in `FormGroup`. The form controls communicate with their respective elements. They also communicate changes to the form group instance, which provides the source of truth for the model value.
 
 注意，就像 `FormGroup` 所包含的那控件一样，*profileForm* 这个 `FormGroup` 也通过 `FormGroup` 指令绑定到了 `form` 元素，在该模型和表单中的输入框之间创建了一个通讯层。
 由 `FormControlName` 指令提供的 `formControlName` 属性把每个输入框和 `FormGroup` 中定义的表单控件绑定起来。这些表单控件会和相应的元素通讯，它们还把更改传给 `FormGroup`，这个 `FormGroup` 是模型值的事实之源。
@@ -688,7 +688,7 @@ The **Submit** button is disabled because `profileForm` is invalid due to the re
 
 For more on form validation, visit the [Form Validation](guide/form-validation "All about form validation.") guide.
 
-要了解表单验证的更多知识，参见[表单验证](guide/form-validation "关于表单验证。")指南。
+要了解表单验证的更多知识，参阅[表单验证](guide/form-validation "关于表单验证。")指南。
 
 {@a dynamic-forms}
 

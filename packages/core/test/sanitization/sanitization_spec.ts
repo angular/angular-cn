@@ -20,7 +20,7 @@ function fakeLView(): LView {
 }
 
 describe('sanitization', () => {
-  beforeEach(() => enterView(fakeLView(), null));
+  beforeEach(() => enterView(fakeLView()));
   afterEach(() => leaveView());
   class Wrap {
     constructor(private value: string) {}
@@ -29,15 +29,15 @@ describe('sanitization', () => {
     }
   }
   it('should sanitize html', () => {
-    expect(ɵɵsanitizeHtml('<div></div>')).toEqual('<div></div>');
-    expect(ɵɵsanitizeHtml(new Wrap('<div></div>'))).toEqual('<div></div>');
-    expect(ɵɵsanitizeHtml('<img src="javascript:true">'))
+    expect(ɵɵsanitizeHtml('<div></div>').toString()).toEqual('<div></div>');
+    expect(ɵɵsanitizeHtml(new Wrap('<div></div>')).toString()).toEqual('<div></div>');
+    expect(ɵɵsanitizeHtml('<img src="javascript:true">').toString())
         .toEqual('<img src="unsafe:javascript:true">');
-    expect(ɵɵsanitizeHtml(new Wrap('<img src="javascript:true">')))
+    expect(ɵɵsanitizeHtml(new Wrap('<img src="javascript:true">')).toString())
         .toEqual('<img src="unsafe:javascript:true">');
     expect(() => ɵɵsanitizeHtml(bypassSanitizationTrustUrl('<img src="javascript:true">')))
         .toThrowError(/Required a safe HTML, got a URL/);
-    expect(ɵɵsanitizeHtml(bypassSanitizationTrustHtml('<img src="javascript:true">')))
+    expect(ɵɵsanitizeHtml(bypassSanitizationTrustHtml('<img src="javascript:true">')).toString())
         .toEqual('<img src="javascript:true">');
   });
 
@@ -52,12 +52,12 @@ describe('sanitization', () => {
   });
 
   it('should sanitize resourceUrl', () => {
-    const ERROR = 'unsafe value used in a resource URL context (see http://g.co/ng/security#xss)';
+    const ERROR = 'unsafe value used in a resource URL context (see https://g.co/ng/security#xss)';
     expect(() => ɵɵsanitizeResourceUrl('http://server')).toThrowError(ERROR);
     expect(() => ɵɵsanitizeResourceUrl('javascript:true')).toThrowError(ERROR);
     expect(() => ɵɵsanitizeResourceUrl(bypassSanitizationTrustHtml('javascript:true')))
         .toThrowError(/Required a safe ResourceURL, got a HTML/);
-    expect(ɵɵsanitizeResourceUrl(bypassSanitizationTrustResourceUrl('javascript:true')))
+    expect(ɵɵsanitizeResourceUrl(bypassSanitizationTrustResourceUrl('javascript:true')).toString())
         .toEqual('javascript:true');
   });
 
@@ -78,7 +78,7 @@ describe('sanitization', () => {
     expect(() => ɵɵsanitizeScript('true')).toThrowError(ERROR);
     expect(() => ɵɵsanitizeScript(bypassSanitizationTrustHtml('true')))
         .toThrowError(/Required a safe Script, got a HTML/);
-    expect(ɵɵsanitizeScript(bypassSanitizationTrustScript('true'))).toEqual('true');
+    expect(ɵɵsanitizeScript(bypassSanitizationTrustScript('true')).toString()).toEqual('true');
   });
 
   it('should select correct sanitizer for URL props', () => {
@@ -105,7 +105,7 @@ describe('sanitization', () => {
   });
 
   it('should sanitize resourceUrls via sanitizeUrlOrResourceUrl', () => {
-    const ERROR = 'unsafe value used in a resource URL context (see http://g.co/ng/security#xss)';
+    const ERROR = 'unsafe value used in a resource URL context (see https://g.co/ng/security#xss)';
     expect(() => ɵɵsanitizeUrlOrResourceUrl('http://server', 'iframe', 'src')).toThrowError(ERROR);
     expect(() => ɵɵsanitizeUrlOrResourceUrl('javascript:true', 'iframe', 'src'))
         .toThrowError(ERROR);
@@ -114,7 +114,8 @@ describe('sanitization', () => {
             bypassSanitizationTrustHtml('javascript:true'), 'iframe', 'src'))
         .toThrowError(/Required a safe ResourceURL, got a HTML/);
     expect(ɵɵsanitizeUrlOrResourceUrl(
-               bypassSanitizationTrustResourceUrl('javascript:true'), 'iframe', 'src'))
+               bypassSanitizationTrustResourceUrl('javascript:true'), 'iframe', 'src')
+               .toString())
         .toEqual('javascript:true');
   });
 

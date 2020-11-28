@@ -30,10 +30,17 @@ export class BoundText implements Node {
   }
 }
 
+/**
+ * Represents a text attribute in the template.
+ *
+ * `valueSpan` may not be present in cases where there is no value `<div a></div>`.
+ * `keySpan` may also not be present for synthetic attributes from ICU expansions.
+ */
 export class TextAttribute implements Node {
   constructor(
       public name: string, public value: string, public sourceSpan: ParseSourceSpan,
-      public valueSpan?: ParseSourceSpan, public i18n?: I18nMeta) {}
+      readonly keySpan: ParseSourceSpan|undefined, public valueSpan?: ParseSourceSpan,
+      public i18n?: I18nMeta) {}
   visit<Result>(visitor: Visitor<Result>): Result {
     return visitor.visitTextAttribute(this);
   }
@@ -43,12 +50,18 @@ export class BoundAttribute implements Node {
   constructor(
       public name: string, public type: BindingType, public securityContext: SecurityContext,
       public value: AST, public unit: string|null, public sourceSpan: ParseSourceSpan,
-      public valueSpan?: ParseSourceSpan, public i18n?: I18nMeta) {}
+      readonly keySpan: ParseSourceSpan, public valueSpan: ParseSourceSpan|undefined,
+      public i18n: I18nMeta|undefined) {}
 
-  static fromBoundElementProperty(prop: BoundElementProperty, i18n?: I18nMeta) {
+  static fromBoundElementProperty(prop: BoundElementProperty, i18n?: I18nMeta): BoundAttribute {
+    if (prop.keySpan === undefined) {
+      throw new Error(
+          `Unexpected state: keySpan must be defined for bound attributes but was not for ${
+              prop.name}: ${prop.sourceSpan}`);
+    }
     return new BoundAttribute(
         prop.name, prop.type, prop.securityContext, prop.value, prop.unit, prop.sourceSpan,
-        prop.valueSpan, i18n);
+        prop.keySpan, prop.valueSpan, i18n);
   }
 
   visit<Result>(visitor: Visitor<Result>): Result {
@@ -60,14 +73,19 @@ export class BoundEvent implements Node {
   constructor(
       public name: string, public type: ParsedEventType, public handler: AST,
       public target: string|null, public phase: string|null, public sourceSpan: ParseSourceSpan,
-      public handlerSpan: ParseSourceSpan) {}
+      public handlerSpan: ParseSourceSpan, readonly keySpan: ParseSourceSpan) {}
 
   static fromParsedEvent(event: ParsedEvent) {
     const target: string|null = event.type === ParsedEventType.Regular ? event.targetOrPhase : null;
     const phase: string|null =
         event.type === ParsedEventType.Animation ? event.targetOrPhase : null;
+    if (event.keySpan === undefined) {
+      throw new Error(`Unexpected state: keySpan must be defined for bound event but was not for ${
+          event.name}: ${event.sourceSpan}`);
+    }
     return new BoundEvent(
-        event.name, event.type, event.handler, target, phase, event.sourceSpan, event.handlerSpan);
+        event.name, event.type, event.handler, target, phase, event.sourceSpan, event.handlerSpan,
+        event.keySpan);
   }
 
   visit<Result>(visitor: Visitor<Result>): Result {
@@ -79,13 +97,8 @@ export class Element implements Node {
   constructor(
       public name: string, public attributes: TextAttribute[], public inputs: BoundAttribute[],
       public outputs: BoundEvent[], public children: Node[], public references: Reference[],
-      public sourceSpan: ParseSourceSpan, public startSourceSpan: ParseSourceSpan|null,
-      public endSourceSpan: ParseSourceSpan|null, public i18n?: I18nMeta) {
-    // If the element is empty then the source span should include any closing tag
-    if (children.length === 0 && startSourceSpan && endSourceSpan) {
-      this.sourceSpan = new ParseSourceSpan(sourceSpan.start, endSourceSpan.end);
-    }
-  }
+      public sourceSpan: ParseSourceSpan, public startSourceSpan: ParseSourceSpan,
+      public endSourceSpan: ParseSourceSpan|null, public i18n?: I18nMeta) {}
   visit<Result>(visitor: Visitor<Result>): Result {
     return visitor.visitElement(this);
   }
@@ -96,7 +109,7 @@ export class Template implements Node {
       public tagName: string, public attributes: TextAttribute[], public inputs: BoundAttribute[],
       public outputs: BoundEvent[], public templateAttrs: (BoundAttribute|TextAttribute)[],
       public children: Node[], public references: Reference[], public variables: Variable[],
-      public sourceSpan: ParseSourceSpan, public startSourceSpan: ParseSourceSpan|null,
+      public sourceSpan: ParseSourceSpan, public startSourceSpan: ParseSourceSpan,
       public endSourceSpan: ParseSourceSpan|null, public i18n?: I18nMeta) {}
   visit<Result>(visitor: Visitor<Result>): Result {
     return visitor.visitTemplate(this);
@@ -104,6 +117,8 @@ export class Template implements Node {
 }
 
 export class Content implements Node {
+  readonly name = 'ng-content';
+
   constructor(
       public selector: string, public attributes: TextAttribute[],
       public sourceSpan: ParseSourceSpan, public i18n?: I18nMeta) {}
@@ -115,7 +130,7 @@ export class Content implements Node {
 export class Variable implements Node {
   constructor(
       public name: string, public value: string, public sourceSpan: ParseSourceSpan,
-      public valueSpan?: ParseSourceSpan) {}
+      readonly keySpan: ParseSourceSpan, public valueSpan?: ParseSourceSpan) {}
   visit<Result>(visitor: Visitor<Result>): Result {
     return visitor.visitVariable(this);
   }
@@ -124,7 +139,7 @@ export class Variable implements Node {
 export class Reference implements Node {
   constructor(
       public name: string, public value: string, public sourceSpan: ParseSourceSpan,
-      public valueSpan?: ParseSourceSpan) {}
+      readonly keySpan: ParseSourceSpan, public valueSpan?: ParseSourceSpan) {}
   visit<Result>(visitor: Visitor<Result>): Result {
     return visitor.visitReference(this);
   }

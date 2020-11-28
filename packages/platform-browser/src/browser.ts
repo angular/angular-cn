@@ -52,7 +52,7 @@ export const BROWSER_SANITIZATION_PROVIDERS__POST_R3__ = [];
 /**
  * @security Replacing built-in sanitization providers exposes the application to XSS risks.
  * Attacker-controlled data introduced by an unsanitized provider could expose your
- * application to XSS risks. For more detail, see the [Security Guide](http://g.co/ng/security).
+ * application to XSS risks. For more detail, see the [Security Guide](https://g.co/ng/security).
  *
  * 替换内置的净化（sanitization）提供商以消除应用的 XSS 风险。
  * 攻击者所控制的数据如果没经过净化就直接引入，则会让你的应用暴露于 XSS 风险之下。

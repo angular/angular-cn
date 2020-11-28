@@ -8,14 +8,16 @@
 
 import {Injector, NgModuleRef} from '@angular/core';
 import {EmptyError, from, Observable, Observer, of} from 'rxjs';
-import {catchError, concatAll, every, first, map, mergeMap, tap} from 'rxjs/operators';
+import {catchError, combineAll, concatMap, first, map, mergeMap, tap} from 'rxjs/operators';
 
 import {LoadedRouterConfig, Route, Routes} from './config';
 import {CanLoadFn} from './interfaces';
+import {prioritizedGuardValue} from './operators/prioritized_guard_value';
 import {RouterConfigLoader} from './router_config_loader';
 import {defaultUrlMatcher, navigationCancelingError, Params, PRIMARY_OUTLET} from './shared';
 import {UrlSegment, UrlSegmentGroup, UrlSerializer, UrlTree} from './url_tree';
 import {forEach, waitForMap, wrapIntoObservable} from './utils/collection';
+import {getOutlet, groupRoutesByOutlet} from './utils/config';
 import {isCanLoad, isFunction, isUrlTree} from './utils/type_guards';
 
 class NoMatch {
@@ -147,28 +149,52 @@ class ApplyRedirects {
       ngModule: NgModuleRef<any>, segmentGroup: UrlSegmentGroup, routes: Route[],
       segments: UrlSegment[], outlet: string,
       allowRedirects: boolean): Observable<UrlSegmentGroup> {
-    return of(...routes).pipe(
-        map((r: any) => {
-          const expanded$ = this.expandSegmentAgainstRoute(
-              ngModule, segmentGroup, routes, r, segments, outlet, allowRedirects);
-          return expanded$.pipe(catchError((e: any) => {
-            if (e instanceof NoMatch) {
-              // TODO(i): this return type doesn't match the declared Observable<UrlSegmentGroup> -
-              // talk to Jason
-              return of(null) as any;
+    // We need to expand each outlet group independently to ensure that we not only load modules
+    // for routes matching the given `outlet`, but also those which will be activated because
+    // their path is empty string. This can result in multiple outlets being activated at once.
+    const routesByOutlet: Map<string, Route[]> = groupRoutesByOutlet(routes);
+    if (!routesByOutlet.has(outlet)) {
+      routesByOutlet.set(outlet, []);
+    }
+
+    const expandRoutes = (routes: Route[]) => {
+      return from(routes).pipe(
+          concatMap((r: Route) => {
+            const expanded$ = this.expandSegmentAgainstRoute(
+                ngModule, segmentGroup, routes, r, segments, outlet, allowRedirects);
+            return expanded$.pipe(catchError(e => {
+              if (e instanceof NoMatch) {
+                return of(null);
+              }
+              throw e;
+            }));
+          }),
+          first((s: UrlSegmentGroup|null): s is UrlSegmentGroup => s !== null),
+          catchError(e => {
+            if (e instanceof EmptyError || e.name === 'EmptyError') {
+              if (this.noLeftoversInUrl(segmentGroup, segments, outlet)) {
+                return of(new UrlSegmentGroup([], {}));
+              }
+              throw new NoMatch(segmentGroup);
             }
             throw e;
-          }));
-        }),
-        concatAll(), first((s: any) => !!s), catchError((e: any, _: any) => {
-          if (e instanceof EmptyError || e.name === 'EmptyError') {
-            if (this.noLeftoversInUrl(segmentGroup, segments, outlet)) {
-              return of(new UrlSegmentGroup([], {}));
-            }
-            throw new NoMatch(segmentGroup);
-          }
-          throw e;
-        }));
+          }),
+      );
+    };
+
+    const expansions = Array.from(routesByOutlet.entries()).map(([routeOutlet, routes]) => {
+      const expanded = expandRoutes(routes);
+      // Map all results from outlets we aren't activating to `null` so they can be ignored later
+      return routeOutlet === outlet ? expanded :
+                                      expanded.pipe(map(() => null), catchError(() => of(null)));
+    });
+    return from(expansions)
+        .pipe(
+            combineAll(),
+            first(),
+            // Return only the expansion for the route outlet we are trying to activate.
+            map(results => results.find(result => result !== null)!),
+        );
   }
 
   private noLeftoversInUrl(segmentGroup: UrlSegmentGroup, segments: UrlSegment[], outlet: string):
@@ -179,7 +205,9 @@ class ApplyRedirects {
   private expandSegmentAgainstRoute(
       ngModule: NgModuleRef<any>, segmentGroup: UrlSegmentGroup, routes: Route[], route: Route,
       paths: UrlSegment[], outlet: string, allowRedirects: boolean): Observable<UrlSegmentGroup> {
-    if (getOutlet(route) !== outlet) {
+    // Empty string segments are special because multiple outlets can match a single path, i.e.
+    // `[{path: '', component: B}, {path: '', loadChildren: () => {}, outlet: "about"}]`
+    if (getOutlet(route) !== outlet && route.path !== '') {
       return noMatch(segmentGroup);
     }
 
@@ -321,7 +349,7 @@ class ApplyRedirects {
     const canLoad = route.canLoad;
     if (!canLoad || canLoad.length === 0) return of(true);
 
-    const obs = from(canLoad).pipe(map((injectionToken: any) => {
+    const canLoadObservables = canLoad.map((injectionToken: any) => {
       const guard = moduleInjector.get(injectionToken);
       let guardVal;
       if (isCanLoad(guard)) {
@@ -332,20 +360,21 @@ class ApplyRedirects {
         throw new Error('Invalid CanLoad guard');
       }
       return wrapIntoObservable(guardVal);
-    }));
+    });
 
-    return obs.pipe(
-        concatAll(),
-        tap((result: UrlTree|boolean) => {
-          if (!isUrlTree(result)) return;
+    return of(canLoadObservables)
+        .pipe(
+            prioritizedGuardValue(),
+            tap((result: UrlTree|boolean) => {
+              if (!isUrlTree(result)) return;
 
-          const error: Error&{url?: UrlTree} =
-              navigationCancelingError(`Redirecting to "${this.urlSerializer.serialize(result)}"`);
-          error.url = result;
-          throw error;
-        }),
-        every(result => result === true),
-    );
+              const error: Error&{url?: UrlTree} = navigationCancelingError(
+                  `Redirecting to "${this.urlSerializer.serialize(result)}"`);
+              error.url = result;
+              throw error;
+            }),
+            map(result => result === true),
+        );
   }
 
   private lineralizeSegments(route: Route, urlTree: UrlTree): Observable<UrlSegment[]> {
@@ -547,8 +576,4 @@ function isEmptyPathRedirect(
   }
 
   return r.path === '' && r.redirectTo !== undefined;
-}
-
-function getOutlet(route: Route): string {
-  return route.outlet || PRIMARY_OUTLET;
 }

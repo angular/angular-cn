@@ -22,7 +22,7 @@ work well for all users, including those who rely on assistive technologies.
 
   For the sample app that this page describes, see the <live-example></live-example>.
 
-  本页所描述的范例程序，参见<live-example></live-example>。
+  本页所描述的范例程序，参阅<live-example></live-example>。
 
 </div>
 
@@ -32,9 +32,9 @@ work well for all users, including those who rely on assistive technologies.
 
 Building accessible web experience often involves setting [ARIA attributes](https://developers.google.com/web/fundamentals/accessibility/semantics-aria)
 to provide semantic meaning where it might otherwise be missing.
-Use [attribute binding](guide/template-syntax#attribute-binding) template syntax to control the values of accessibility-related attributes.
+Use [attribute binding](guide/attribute-binding) template syntax to control the values of accessibility-related attributes.
 
-建立无障碍的 Web 体验通常会涉及设置 [ARIA 属性（Attribute）](https://developers.google.com/web/fundamentals/accessibility/semantics-aria) 以提供可能会丢失的语义。使用 [Attribute 绑定](guide/template-syntax#attribute-binding)模板语法来控制与无障碍性相关的属性（Attribute）值。
+建立无障碍的 Web 体验通常会涉及设置 [ARIA 属性（Attribute）](https://developers.google.com/web/fundamentals/accessibility/semantics-aria) 以提供可能会丢失的语义。使用 [Attribute 绑定](guide/attribute-binding模板语法来控制与无障碍性相关的属性（Attribute）值。
 
 When binding to ARIA attributes in Angular, you must use the `attr.` prefix, as the ARIA
 specification depends specifically on HTML attributes rather than properties of DOM elements.
@@ -66,9 +66,9 @@ NOTE:
 
    按照约定，HTML 属性（Attribute）使用小写名称（ `tabindex` ），而 Property 使用 camelCase 名称（ `tabIndex` ）。
 
-   See the [Template Syntax](guide/template-syntax#html-attribute-vs-dom-property) guide for more background on the difference between attributes and properties.
+   See the [Binding syntax](guide/binding-syntax#html-attribute-vs-dom-property) guide for more background on the difference between attributes and properties.
 
-   有关 Attribute 和 Property 之间差异的更多背景信息，请参见[模板语法](guide/template-syntax#html-attribute-vs-dom-property)一章。
+   关于 Attribute 和 Property 之间差异的更多背景信息，请参阅[模板语法](guide/html-attribute-vs-dom-property一章。
 
 </div>
 
@@ -84,7 +84,7 @@ For example:
 
 * `LiveAnnouncer` is used to announce messages for screen-reader users using an `aria-live` region. See the W3C documentation for more information on [aria-live regions](https://www.w3.org/WAI/PF/aria-1.1/states_and_properties#aria-live).
 
-  `LiveAnnouncer` 用于使用 `aria-live` 区域向屏幕阅读器用户朗读消息。有关 [aria-live 领域的](https://www.w3.org/WAI/PF/aria-1.1/states_and_properties#aria-live)更多信息，请参见 W3C 文档。
+  `LiveAnnouncer` 用于使用 `aria-live` 区域向屏幕阅读器用户朗读消息。关于 [aria-live 领域的](https://www.w3.org/WAI/PF/aria-1.1/states_and_properties#aria-live)更多信息，请参阅 W3C 文档。
 
 * The `cdkTrapFocus` directive traps Tab-key focus within an element. Use it to create accessible experience for components like modal dialogs, where focus must be constrained.
 
@@ -92,7 +92,7 @@ For example:
 
 For full details of these and other tools, see the [Angular CDK accessibility overview](https://material.angular.io/cdk/a11y/overview).
 
-有关这些工具和其它工具的完整详细信息，请参阅 [Angular CDK 无障碍功能概述](https://material.angular.io/cdk/a11y/overview)。
+关于这些工具和其它工具的完整详细信息，请参阅 [Angular CDK 无障碍功能概述](https://material.angular.io/cdk/a11y/overview)。
 
 ### Augmenting native elements
 
@@ -101,16 +101,16 @@ For full details of these and other tools, see the [Angular CDK accessibility ov
 Native HTML elements capture a number of standard interaction patterns that are important to accessibility.
 When authoring Angular components, you should re-use these native elements directly when possible, rather than re-implementing well-supported behaviors.
 
-原生 HTML 元素捕获了许多对无障碍性很重要的标准交互模式。在制作 Angular 组件时，应尽可能直接重用这些原生元素，而不是重新实现已获良好支持的行为。
+原生 HTML 元素捕获了许多对无障碍性很重要的标准交互模式。在制作 Angular 组件时，应尽可能直接复用这些原生元素，而不是重新实现已获良好支持的行为。
 
 For example, instead of creating a custom element for a new variety of button, you can create a component that uses an attribute selector with a native `<button>` element.
 This most commonly applies to `<button>` and `<a>`, but can be used with many other types of element.
 
 例如，你可以创建一个组件，它使用属性（Attribute）选择器指向原生 `<button>` 元素，而不是为各种新按钮创建自定义元素。通常这适用于 `<button>` 和 `<a>`，但也可以用于许多其它类型的元素。
 
-You can see examples of this pattern in Angular Material: [`MatButton`](https://github.com/angular/components/blob/master/src/material/button/button.ts#L66-L68), [`MatTabNav`](https://github.com/angular/components/blob/master/src/material/tabs/tab-nav-bar/tab-nav-bar.ts#L67), [`MatTable`](https://github.com/angular/components/blob/master/src/material/table/table.ts#L17).
+You can see examples of this pattern in Angular Material: [`MatButton`](https://github.com/angular/components/blob/50d3f29b6dc717b512dbd0234ce76f4ab7e9762a/src/material/button/button.ts#L67-L69), [`MatTabNav`](https://github.com/angular/components/blob/50d3f29b6dc717b512dbd0234ce76f4ab7e9762a/src/material/tabs/tab-nav-bar/tab-nav-bar.ts#L139), [`MatTable`](https://github.com/angular/components/blob/50d3f29b6dc717b512dbd0234ce76f4ab7e9762a/src/material/table/table.ts#L22).
 
-你可以在 Angular Material 中看到此模式的示例：[`MatButton`](https://github.com/angular/components/blob/master/src/material/button/button.ts#L66-L68)，[`MatTabNav`](https://github.com/angular/components/blob/master/src/material/tabs/tab-nav-bar/tab-nav-bar.ts#L67)，[`MatTable`](https://github.com/angular/components/blob/master/src/material/table/table.ts#L17)。
+你可以在 Angular Material 中看到此模式的范例：[`MatButton`](https://github.com/angular/components/blob/master/src/material/button/button.ts#L66-L68)，[`MatTabNav`](https://github.com/angular/components/blob/master/src/material/tabs/tab-nav-bar/tab-nav-bar.ts#L67)，[`MatTable`](https://github.com/angular/components/blob/master/src/material/table/table.ts#L17)。
 
 ### Using containers for native elements
 
@@ -136,7 +136,7 @@ You can see [`MatFormField`](https://material.angular.io/components/form-field/o
 
 The following example shows how to make a simple progress bar accessible by using host binding to control accessibility-related attributes.
 
-以下示例显示如何通过使用宿主（host）绑定来控制与无障碍性相关的属性（Attribute），来把简单的进度条无障碍化。
+以下范例显示如何通过使用宿主（host）绑定来控制与无障碍性相关的属性（Attribute），来把简单的进度条无障碍化。
 
 * The component defines an accessibility-enabled element with both the standard HTML attribute `role`, and ARIA attributes. The ARIA attribute `aria-valuenow` is bound to the user's input.
 
@@ -167,7 +167,7 @@ focus.
 
 The following example shows how to find and focus the main content header in the DOM after navigation.
 
-以下示例显示了导航后如何在 DOM 中查找并把焦点移动到主体内容的头部。
+以下范例显示了导航后如何在 DOM 中查找并把焦点移动到主体内容的头部。
 
 ```ts
 router.events.pipe(filter(e => e instanceof NavigationEnd)).subscribe(() => {
@@ -211,7 +211,7 @@ You should avoid situations where focus returns to the `body` element after a ro
 
 * [Accessibility Resources and Code Examples](https://dequeuniversity.com/resources/)
 
-  [无障碍功能的资源和代码示例](https://dequeuniversity.com/resources/)
+  [无障碍功能的资源和代码范例](https://dequeuniversity.com/resources/)
 
 * [W3C - Web Accessibility Initiative](https://www.w3.org/WAI/people-use-web/)
 
@@ -233,7 +233,7 @@ Books
 
 ## More on accessibility
 
-## 有关无障碍性的更多信息
+## 关于无障碍性的更多信息
 
 You may also be interested in the following:
 

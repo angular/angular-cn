@@ -61,7 +61,7 @@ upgrade/static} utilities remain the same. For more information, see the
 [Upgrading from AngularJS](guide/upgrade).
 
 无论选择 `downgradeModule()` 还是 `UpgradeModule`，升级的基本原则都是一样的：无论是混合式应用背后的心智模型，还是 {@link upgrade/static upgrade/static} 的用法。
-要了解更多，参见[从 AngularJS 升级](guide/upgrade)的 [`ngUpgrade` 工作原理](guide/upgrade#how-ngupgrade-works)部分。
+要了解更多，参阅[从 AngularJS 升级](guide/upgrade)的 [`ngUpgrade` 工作原理](guide/upgrade#how-ngupgrade-works)部分。
 
 <div class="alert is-helpful">
 
@@ -236,7 +236,7 @@ helps make your apps load faster. For more about AOT and how to create an `NgMod
 [Ahead-of-Time Compilation](guide/aot-compiler) guide.
 
 当传入 `NgModuleFactory` 时，`downgradeModule()` 会把它传给 {@link platformBrowser platformBrowser} 的 {@link PlatformRef#bootstrapModuleFactory bootstrapModuleFactory()} 来实例化模块。它与预先（AOT）编译模式兼容。
-预先编译能让你的应用加载更快。要了解预先编译的更多知识，以及如何创建 `NgModuleFactory`，参见 [预先编译](guide/aot-compiler) 章。
+预先编译能让你的应用加载更快。要了解预先编译的更多知识，以及如何创建 `NgModuleFactory`，参阅 [预先编译](guide/aot-compiler) 章。
 
 Alternatively, you can pass a plain function, which is expected to return a promise resolving to an
 {@link NgModuleRef NgModuleRef} (i.e. an instance of your Angular module). The function is called
@@ -405,7 +405,7 @@ See [Upgrading from AngularJS](guide/upgrade) to learn about:
 
 `downgradeModule()` 和 `UpgradeModule` 之间的区别就是这些。
 其余的 `upgrade/static` API 和概念的工作方式在不同的混合式应用中都完全一样了。
-欲知详情，参见[从 AngularJS 升级](guide/upgrade)。
+欲知详情，参阅[从 AngularJS 升级](guide/upgrade)。
 
 - [Using Angular Components from AngularJS Code](guide/upgrade#using-angular-components-from-angularjs-code).<br />
   _NOTE: If you are downgrading multiple modules, you need to specify the name of the downgraded

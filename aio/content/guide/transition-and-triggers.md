@@ -96,7 +96,7 @@ Use the wildcard `*` with a style to tell the animation to use whatever the curr
 
 You can use the `void` state to configure transitions for an element that is entering or leaving a page. See [Animating entering and leaving a view](#enter-leave-view).
 
-你可以使用 `void` 状态来为进入或离开页面的元素配置转场。参见[进入和离开视图的动画](#enter-leave-view)。
+你可以使用 `void` 状态来为进入或离开页面的元素配置转场。参阅[进入和离开视图的动画](#enter-leave-view)。
 
 ### Combining wildcard and void states
 

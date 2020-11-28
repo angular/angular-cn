@@ -11,7 +11,7 @@ import {types as graphQLTypes} from 'typed-graphqlify';
 
 import {getConfig, NgDevConfig} from '../../utils/config';
 import {error, info} from '../../utils/console';
-import {GitClient} from '../../utils/git';
+import {GitClient} from '../../utils/git/index';
 import {getPendingPrs} from '../../utils/github';
 import {exec} from '../../utils/shelljs';
 
@@ -72,7 +72,7 @@ export async function discoverNewConflictsForPr(
 
   info(`Requesting pending PRs from Github`);
   /** List of PRs from github currently known as mergable. */
-  const allPendingPRs = (await getPendingPrs(PR_SCHEMA, config.github)).map(processPr);
+  const allPendingPRs = (await getPendingPrs(PR_SCHEMA, git)).map(processPr);
   /** The PR which is being checked against. */
   const requestedPr = allPendingPRs.find(pr => pr.number === newPrNumber);
   if (requestedPr === undefined) {

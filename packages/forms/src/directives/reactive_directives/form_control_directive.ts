@@ -13,7 +13,7 @@ import {NG_ASYNC_VALIDATORS, NG_VALIDATORS} from '../../validators';
 import {ControlValueAccessor, NG_VALUE_ACCESSOR} from '../control_value_accessor';
 import {NgControl} from '../ng_control';
 import {ReactiveErrors} from '../reactive_errors';
-import {_ngModelWarning, composeAsyncValidators, composeValidators, isPropertyUpdated, selectValueAccessor, setUpControl} from '../shared';
+import {_ngModelWarning, isPropertyUpdated, selectValueAccessor, setUpControl} from '../shared';
 import {AsyncValidator, AsyncValidatorFn, Validator, ValidatorFn} from '../validators';
 
 
@@ -51,11 +51,10 @@ export const formControlBinding: any = {
  * @publicApi
  */
 @Directive({selector: '[formControl]', providers: [formControlBinding], exportAs: 'ngForm'})
-
 export class FormControlDirective extends NgControl implements OnChanges {
   /**
-   * @description
    * Internal reference to the view model value.
+   * @nodoc
    */
   viewModel: any;
 
@@ -68,11 +67,13 @@ export class FormControlDirective extends NgControl implements OnChanges {
 
   /**
    * @description
-   * Triggers a warning that this input should not be used with reactive forms.
+   * Triggers a warning in dev mode that this input should not be used with reactive forms.
    */
   @Input('disabled')
   set isDisabled(isDisabled: boolean) {
-    ReactiveErrors.disabledAttrWarning();
+    if (typeof ngDevMode === 'undefined' || ngDevMode) {
+      ReactiveErrors.disabledAttrWarning();
+    }
   }
 
   // TODO(kara): remove next 4 properties once deprecation period is over
@@ -102,25 +103,19 @@ export class FormControlDirective extends NgControl implements OnChanges {
   _ngModelWarningSent = false;
 
   constructor(
-      @Optional() @Self() @Inject(NG_VALIDATORS) validators: Array<Validator|ValidatorFn>,
+      @Optional() @Self() @Inject(NG_VALIDATORS) validators: (Validator|ValidatorFn)[],
       @Optional() @Self() @Inject(NG_ASYNC_VALIDATORS) asyncValidators:
-          Array<AsyncValidator|AsyncValidatorFn>,
+          (AsyncValidator|AsyncValidatorFn)[],
       @Optional() @Self() @Inject(NG_VALUE_ACCESSOR) valueAccessors: ControlValueAccessor[],
       @Optional() @Inject(NG_MODEL_WITH_FORM_CONTROL_WARNING) private _ngModelWarningConfig: string|
       null) {
     super();
-    this._rawValidators = validators || [];
-    this._rawAsyncValidators = asyncValidators || [];
+    this._setValidators(validators);
+    this._setAsyncValidators(asyncValidators);
     this.valueAccessor = selectValueAccessor(this, valueAccessors);
   }
 
-  /**
-   * @description
-   * A lifecycle method called when the directive's inputs change. For internal use
-   * only.
-   *
-   * @param changes A object of key/value pairs for the set of changed inputs.
-   */
+  /** @nodoc */
   ngOnChanges(changes: SimpleChanges): void {
     if (this._isControlChanged(changes)) {
       setUpControl(this.form, this);
@@ -143,24 +138,6 @@ export class FormControlDirective extends NgControl implements OnChanges {
    */
   get path(): string[] {
     return [];
-  }
-
-  /**
-   * @description
-   * Synchronous validator function composed of all the synchronous validators
-   * registered with this directive.
-   */
-  get validator(): ValidatorFn|null {
-    return composeValidators(this._rawValidators);
-  }
-
-  /**
-   * @description
-   * Async validator function composed of all the async validators registered with this
-   * directive.
-   */
-  get asyncValidator(): AsyncValidatorFn|null {
-    return composeAsyncValidators(this._rawAsyncValidators);
   }
 
   /**

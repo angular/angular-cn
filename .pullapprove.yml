@@ -67,6 +67,25 @@ version: 3
 # Meta field that goes unused by PullApprove to allow for defining aliases to be
 # used throughout the config.
 meta:
+  # The following groups have no file based conditions and will be initially `active` on all PRs
+  # - `global-approvers`
+  # - `global-docs-approvers`
+  # - `required-minimum-review`
+  #
+  # By checking the number of active/pending/rejected groups when these are excluded, we can determine
+  # if any other groups are matched.
+  #
+  # Note: Because all inactive groups start as pending, we are only checking pending and rejected active groups.
+  #
+  # Also note that the ordering of groups matters in this file. The only groups visible to the current
+  # one are those that appear above it.
+  no-groups-above-this-pending: &no-groups-above-this-pending
+    len(groups.active.pending.exclude("required-minimum-review").exclude("global-approvers").exclude("global-docs-approvers")) == 0
+  no-groups-above-this-rejected: &no-groups-above-this-rejected
+    len(groups.active.rejected.exclude("required-minimum-review").exclude("global-approvers").exclude("global-docs-approvers")) == 0
+  no-groups-above-this-active: &no-groups-above-this-active
+    len(groups.active.exclude("required-minimum-review").exclude("global-approvers").exclude("global-docs-approvers")) == 0
+
   can-be-global-approved: &can-be-global-approved "\"global-approvers\" not in groups.approved"
   can-be-global-docs-approved: &can-be-global-docs-approved "\"global-docs-approvers\" not in groups.approved"
   defaults: &defaults
@@ -84,6 +103,8 @@ meta:
 github_api_version: "shadow-cat-preview"
 
 pullapprove_conditions:
+  # For PRs which are still being worked on, either still in draft mode or indicated through WIP in
+  # title or label, PullApprove stays in a pending state until its ready for review.
   - condition: "'WIP' not in title"
     unmet_status: pending
     explanation: "Waiting to send reviews as PR is WIP"
@@ -93,6 +114,10 @@ pullapprove_conditions:
   - condition: "not draft"
     unmet_status: pending
     explanation: "Waiting to send reviews as PR is in draft"
+  # Disable PullApprove on specific PRs by adding the `PullApprove: disable` label
+  - condition: "'PullApprove: disable' not in labels"
+    unmet_status: success
+    explanation: "PullApprove skipped because of 'PullApprove: disable' label"
 
 
 groups:
@@ -167,6 +192,7 @@ groups:
          - IgorMinar               # Igor Minar
          - jbogarthyde             # Judy Bogart
          - jelbourn                # Jeremy Elbourn
+         - jessicajaniuk           # Jessica Janiuk
          - JiaLiPassion            # Jia Li
          - JoostK                  # Joost Koehoorn
          - josephperrott           # Joey Perrott
@@ -175,7 +201,6 @@ groups:
          - kara                    # Kara Erickson
          - kyliau                  # Keen Yee Liau
          - manughub                # Manu Murthy
-         - matsko                  # Matias Niemela
          - mgechev                 # Minko Gechev
          - mhevery                 # Miško Hevery
          - mmalerba                # Miles Malerba
@@ -206,7 +231,9 @@ groups:
           ])
     reviewers:
       users:
-        - matsko
+        - crisbeto
+        - IgorMinar
+        - jelbourn
 
 
   # =========================================================
@@ -264,7 +291,7 @@ groups:
       users:
         - alxhub
         - crisbeto
-        - devversion
+        # OOO as of 2020-09-28 - devversion
 
 
   # =========================================================
@@ -283,8 +310,6 @@ groups:
           'packages/platform-browser/**',
           'packages/examples/platform-browser/**',
           'packages/platform-browser-dynamic/**',
-          'packages/platform-webworker/**',
-          'packages/platform-webworker-dynamic/**',
           'packages/examples/common/**',
           'packages/docs/**',
           'aio/content/guide/accessibility.md',
@@ -305,7 +330,10 @@ groups:
           'aio/content/guide/component-interaction.md',
           'aio/content/examples/component-interaction/**',
           'aio/content/images/guide/component-interaction/**',
+          'aio/content/guide/component-overview.md',
+          'aio/content/examples/component-overview/**',
           'aio/content/guide/component-styles.md',
+          'aio/content/guide/view-encapsulation.md',
           'aio/content/examples/component-styles/**',
           'aio/content/guide/dependency-injection.md',
           'aio/content/examples/dependency-injection/**',
@@ -322,6 +350,7 @@ groups:
           'aio/content/guide/dynamic-component-loader.md',
           'aio/content/examples/dynamic-component-loader/**',
           'aio/content/images/guide/dynamic-component-loader/**',
+          'aio/content/guide/example-apps-list.md',
           'aio/content/guide/entry-components.md',
           'aio/content/guide/feature-modules.md',
           'aio/content/examples/feature-modules/**',
@@ -346,26 +375,40 @@ groups:
           'aio/content/guide/ngmodule-vs-jsmodule.md',
           'aio/content/guide/module-types.md',
           'aio/content/guide/template-syntax.md',
+          'aio/content/guide/built-in-template-functions.md',
           'aio/content/examples/built-in-template-functions/**',
+          'aio/content/guide/event-binding.md',
+          'aio/content/guide/event-binding-concepts.md',
           'aio/content/examples/event-binding/**',
+          'aio/content/guide/interpolation.md',
           'aio/content/examples/interpolation/**',
           'aio/content/examples/template-syntax/**',
           'aio/content/images/guide/template-syntax/**',
+          'aio/content/guide/binding-syntax.md',
           'aio/content/examples/binding-syntax/**',
+          'aio/content/guide/property-binding.md',
           'aio/content/examples/property-binding/**',
+          'aio/content/guide/property-binding-best-practices.md',
+          'aio/content/guide/attribute-binding.md',
           'aio/content/examples/attribute-binding/**',
+          'aio/content/guide/two-way-binding.md',
           'aio/content/examples/two-way-binding/**',
+          'aio/content/guide/built-in-directives.md',
           'aio/content/examples/built-in-directives/**',
           'aio/content/images/guide/built-in-directives/**',
+          'aio/content/guide/template-reference-variables.md',
           'aio/content/examples/template-reference-variables/**',
+          'aio/content/guide/inputs-outputs.md',
           'aio/content/examples/inputs-outputs/**',
           'aio/content/images/guide/inputs-outputs/**',
+          'aio/content/guide/template-expression-operators.md',
           'aio/content/examples/template-expression-operators/**',
           'aio/content/guide/pipes.md',
           'aio/content/examples/pipes/**',
           'aio/content/images/guide/pipes/**',
           'aio/content/guide/providers.md',
           'aio/content/examples/providers/**',
+          'aio/content/images/guide/providers/**',
           'aio/content/guide/singleton-services.md',
           'aio/content/guide/set-document-title.md',
           'aio/content/examples/set-document-title/**',
@@ -373,7 +416,10 @@ groups:
           'aio/content/guide/sharing-ngmodules.md',
           'aio/content/guide/structural-directives.md',
           'aio/content/examples/structural-directives/**',
+          'aio/content/guide/svg-in-templates.md',
+          'aio/content/guide/style-precedence.md',
           'aio/content/images/guide/structural-directives/**',
+          'aio/content/guide/template-statements.md',
           'aio/content/guide/user-input.md',
           'aio/content/examples/user-input/**',
           'aio/content/images/guide/user-input/**'
@@ -385,7 +431,8 @@ groups:
         - atscott
         - ~kara  # do not request reviews from Kara, but allow her to approve PRs
         - mhevery
-        - pkozlowski-opensource
+        - jessicajaniuk
+        # OOO as of 2020-09-28 - pkozlowski-opensource
 
 
   # =========================================================
@@ -475,8 +522,8 @@ groups:
       - >
         contains_any_globs(files, [
           'packages/core/src/i18n/**',
-          'packages/core/src/render3/i18n.ts',
-          'packages/core/src/render3/i18n.md',
+          'packages/core/src/render3/i18n/**',
+          'packages/core/src/render3/instructions/i18n.ts',
           'packages/core/src/render3/interfaces/i18n.ts',
           'packages/common/locales/**',
           'packages/common/src/i18n/**',
@@ -532,6 +579,7 @@ groups:
           'packages/examples/router/**',
           'aio/content/guide/router.md',
           'aio/content/guide/router-tutorial.md',
+          'aio/content/guide/router-tutorial-toh.md',
           'aio/content/examples/router-tutorial/**',
           'aio/content/examples/router/**',
           'aio/content/images/guide/router/**'
@@ -610,8 +658,16 @@ groups:
       - *can-be-global-docs-approved
       - >
         contains_any_globs(files.exclude('packages/compiler-cli/**'), [
-          '**/testing/**',
+          'packages/**/testing/**',
           'aio/content/guide/testing.md',
+          'aio/content/guide/test-debugging.md',
+          'aio/content/guide/testing-attribute-directives.md',
+          'aio/content/guide/testing-code-coverage.md',
+          'aio/content/guide/testing-components-basics.md',
+          'aio/content/guide/testing-components-scenarios.md',
+          'aio/content/guide/testing-pipes.md',
+          'aio/content/guide/testing-services.md',
+          'aio/content/guide/testing-utility-apis.md',
           'aio/content/examples/testing/**',
           'aio/content/images/guide/testing/**'
           ])
@@ -619,7 +675,7 @@ groups:
       users:
         - AndrewKushnir
         - IgorMinar
-        - pkozlowski-opensource
+        # OOO as of 2020-09-28 - pkozlowski-opensource
 
 
   # =========================================================
@@ -636,7 +692,7 @@ groups:
     reviewers:
       users:
         - IgorMinar
-        - pkozlowski-opensource
+        # OOO as of 2020-09-28 - pkozlowski-opensource
 
 
   # =========================================================
@@ -654,7 +710,7 @@ groups:
       users:
         - IgorMinar
         - jelbourn
-        - pkozlowski-opensource
+        # OOO as of 2020-09-28 - pkozlowski-opensource
 
 
   # =========================================================
@@ -680,7 +736,7 @@ groups:
         - IgorMinar
         - mhevery
         - jelbourn
-        - pkozlowski-opensource
+        # OOO as of 2020-09-28 - pkozlowski-opensource
     reviews:
       request: -1   # request reviews from everyone
       required: 2   # require at least 2 approvals
@@ -839,6 +895,7 @@ groups:
       - *can-be-global-docs-approved
       - >
         contains_any_globs(files, [
+          'aio/content/guide/roadmap.md',
           'aio/content/marketing/**',
           'aio/content/images/bios/**',
           'aio/content/images/marketing/**',
@@ -902,7 +959,7 @@ groups:
           'aio/content/guide/migration-localize.md',
           'aio/content/guide/migration-module-with-providers.md',
           'aio/content/guide/static-query-migration.md',
-          'aio/content/guide/updating-to-version-10.md',
+          'aio/content/guide/updating-to-version-11.md',
           'aio/content/guide/ivy-compatibility.md',
           'aio/content/guide/ivy-compatibility-examples.md'
           ])
@@ -968,6 +1025,7 @@ groups:
           ])
     reviewers:
       users:
+        - alan-agius4
         - clydin
         - IgorMinar
         - mgechev
@@ -1060,21 +1118,25 @@ groups:
           '.circleci/**',
           '.devcontainer/**',
           '.github/**',
+          '.husky/**',
           '.ng-dev/**',
           '.vscode/**',
           '.yarn/**',
           'dev-infra/**',
           'docs/BAZEL.md',
           'docs/CARETAKER.md',
+          'docs/CODING_STANDARDS.md',
           'docs/COMMITTER.md',
           'docs/DEBUG.md',
           'docs/DEBUG_COMPONENTS_REPO_IVY.md',
           'docs/DEVELOPER.md',
+          'docs/FIXUP_COMMITS.md',
           'docs/GITHUB_PROCESS.md',
           'docs/PR_REVIEW.md',
           'docs/SAVED_REPLIES.md',
           'docs/TOOLS.md',
           'docs/TRIAGE_AND_LABELS.md',
+          'docs/images/**',
           'goldens/*',
           'modules/*',
           'packages/*',
@@ -1105,7 +1167,7 @@ groups:
           ])
     reviewers:
       users:
-        - devversion
+        # OOO as of 2020-09-28 - devversion
         - filipesilva
         - gkalpak
         - IgorMinar
@@ -1118,6 +1180,8 @@ groups:
   public-api:
     <<: *defaults
     conditions:
+      - *no-groups-above-this-pending
+      - *no-groups-above-this-rejected
       - *can-be-global-approved
       - >
         contains_any_globs(files, [
@@ -1131,13 +1195,16 @@ groups:
           ])
     reviewers:
       users:
-        - alxhub
+        - AndrewKushnir
         - IgorMinar
+        - alxhub
+        - atscott
         - jelbourn
-        - pkozlowski-opensource
+        - petebacondarwin
+        # OOO as of 2020-09-28 - pkozlowski-opensource
     reviews:
-      request: -1   # request reviews from everyone
-      required: 3   # require at least 3 approvals
+      request: 4 # Request reviews from four people
+      required: 3 # Require that three people approve
       reviewed_for: required
 
 
@@ -1147,6 +1214,8 @@ groups:
   size-tracking:
     <<: *defaults
     conditions:
+      - *no-groups-above-this-pending
+      - *no-groups-above-this-rejected
       - *can-be-global-approved
       - >
         contains_any_globs(files, [
@@ -1154,13 +1223,16 @@ groups:
           ])
     reviewers:
       users:
-        - alxhub
+        - AndrewKushnir
         - IgorMinar
+        - alxhub
+        - atscott
         - jelbourn
-        - pkozlowski-opensource
+        - petebacondarwin
+        # OOO as of 2020-09-28 - pkozlowski-opensource
     reviews:
-      request: -1   # request reviews from everyone
-      required: 2   # require at least 2 approvals
+      request: 4 # Request reviews from four people
+      required: 2 # Require that two people approve
       reviewed_for: required
 
 
@@ -1170,6 +1242,8 @@ groups:
   circular-dependencies:
     <<: *defaults
     conditions:
+      - *no-groups-above-this-pending
+      - *no-groups-above-this-rejected
       - *can-be-global-approved
       - >
         contains_any_globs(files, [
@@ -1177,10 +1251,13 @@ groups:
         ])
     reviewers:
       users:
+        - AndrewKushnir
         - IgorMinar
+        - alxhub
+        - atscott
         - jelbourn
-        - josephperrott
-        - pkozlowski-opensource
+        - petebacondarwin
+        # OOO as of 2020-09-28 - pkozlowski-opensource
 
 
 ####################################################################################
@@ -1200,7 +1277,13 @@ groups:
           ])
     reviewers:
       users:
+        - AndrewKushnir
         - IgorMinar
+        - alxhub
+        - atscott
+        - jelbourn
+        - josephperrott
+        - mhevery
 
 
   # ====================================================
@@ -1227,14 +1310,7 @@ groups:
     # `global-approvers` can still approve PRs that match this `fallback` rule,
     # but that should be an exception and not an expectation.
     conditions:
-      # The following groups have no file based conditions and will be initially `active` on all PRs
-      # - `global-approvers`
-      # - `global-docs-approvers`
-      # - `required-minimum-review`
-      #
-      # By checking the number of active groups when these are excluded, we can determine
-      # if any other groups are matched.
-      - len(groups.active.exclude("required-minimum-review").exclude("global-approvers").exclude("global-docs-approvers")) == 0
+      - *no-groups-above-this-active
       # When any of the `global-*` groups is approved, they cause other groups to deactivate.
       # In those cases, the condition above would evaluate to `true` while in reality, only a global
       # approval has been provided. To ensure we don't activate the fallback group in such cases,

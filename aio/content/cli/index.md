@@ -2,7 +2,7 @@
 
 # CLI 概览与命令参考手册
 
-The Angular CLI is a command-line interface tool that you use to initialize, develop, scaffold, and maintain Angular applications. You can use the tool directly in a command shell, or indirectly through an interactive UI such as [Angular Console](https://angularconsole.com).
+The Angular CLI is a command-line interface tool that you use to initialize, develop, scaffold, and maintain Angular applications directly from a command shell.
 
 Angular CLI 是一个命令行界面工具，可用于初始化、开发、构建和维护 Angular 应用。
 你可以在命令行窗口中直接使用此工具，也可以通过 [Angular Console](https://angularconsole.com) 这样的交互式界面来间接使用。
@@ -26,7 +26,7 @@ npm install -g @angular/cli
 For details about changes between versions, and information about updating from previous releases,
 see the Releases tab on GitHub: https://github.com/angular/angular-cli/releases
 
-有关版本变更的详情，以及如何从以前版本升级的信息，参见 GitHub 上的 Releases 页：<https://github.com/angular/angular-cli/releases>
+关于版本变更的详情，以及如何从以前版本升级的信息，参阅 GitHub 上的 Releases 页：<https://github.com/angular/angular-cli/releases>
 
 ## Basic workflow
 
@@ -103,7 +103,7 @@ Commands such as [add](cli/add) and [generate](cli/generate), which create or op
 
 * See more about the [Workspace file structure](guide/file-structure).
 
-  欲知详情，参见[工作区的文件结构](guide/file-structure)。
+  欲知详情，参阅[工作区的文件结构](guide/file-structure)。
 
 ### Workspace and project configuration
 
@@ -123,11 +123,11 @@ Note that option names in the configuration file must use [camelCase](guide/glos
 
 * See more about [Workspace Configuration](guide/workspace-config).
 
-  参见 [工作区配置](guide/workspace-config)。
+  参阅 [工作区配置](guide/workspace-config)。
 
 * See the [complete schema](https://github.com/angular/angular-cli/wiki/angular-workspace) for `angular.json`.
 
-  参见 `angular.json` 的[完整 schema](https://github.com/angular/angular-cli/wiki/angular-workspace)。
+  参阅 `angular.json` 的[完整 schema](https://github.com/angular/angular-cli/wiki/angular-workspace)。
 
 ## CLI command-language syntax
 

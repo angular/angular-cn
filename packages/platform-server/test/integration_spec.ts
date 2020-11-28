@@ -11,7 +11,7 @@ import {DOCUMENT, isPlatformServer, PlatformLocation, ɵgetDOM as getDOM} from '
 import {HTTP_INTERCEPTORS, HttpClient, HttpClientModule, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest} from '@angular/common/http';
 import {HttpClientTestingModule, HttpTestingController} from '@angular/common/http/testing';
 import {ApplicationRef, CompilerFactory, Component, destroyPlatform, getPlatform, HostListener, Inject, Injectable, Input, NgModule, NgZone, PLATFORM_ID, PlatformRef, ViewEncapsulation} from '@angular/core';
-import {async, inject} from '@angular/core/testing';
+import {inject, waitForAsync} from '@angular/core/testing';
 import {BrowserModule, makeStateKey, Title, TransferState} from '@angular/platform-browser';
 import {BEFORE_APP_SERIALIZED, INITIAL_CONFIG, platformDynamicServer, PlatformState, renderModule, renderModuleFactory, ServerModule, ServerTransferStateModule} from '@angular/platform-server';
 import {ivyEnabled, modifiedInIvy} from '@angular/private/testing';
@@ -53,7 +53,7 @@ function getMetaRenderHook(doc: any) {
 function getAsyncTitleRenderHook(doc: any) {
   return () => {
     // Async set the title as part of the render hook.
-    return new Promise(resolve => {
+    return new Promise<void>(resolve => {
       setTimeout(() => {
         doc.title = 'AsyncRenderHook';
         resolve();
@@ -64,7 +64,7 @@ function getAsyncTitleRenderHook(doc: any) {
 
 function asyncRejectRenderHook() {
   return () => {
-    return new Promise((_resolve, reject) => {
+    return new Promise<void>((_resolve, reject) => {
       setTimeout(() => {
         reject('reject');
       });
@@ -272,19 +272,19 @@ class ImageExampleModule {
 
 @Component({
   selector: 'app',
-  template: 'Native works',
-  encapsulation: ViewEncapsulation.Native,
+  template: 'Shadow DOM works',
+  encapsulation: ViewEncapsulation.ShadowDom,
   styles: [':host { color: red; }']
 })
-class NativeEncapsulationApp {
+class ShadowDomEncapsulationApp {
 }
 
 @NgModule({
-  declarations: [NativeEncapsulationApp],
+  declarations: [ShadowDomEncapsulationApp],
   imports: [BrowserModule.withServerTransition({appId: 'test'}), ServerModule],
-  bootstrap: [NativeEncapsulationApp]
+  bootstrap: [ShadowDomEncapsulationApp]
 })
-class NativeExampleModule {
+class ShadowDomExampleModule {
 }
 
 @Component({selector: 'my-child', template: 'Works!'})
@@ -409,7 +409,7 @@ describe('platform-server integration', () => {
     if (getPlatform()) destroyPlatform();
   });
 
-  it('should bootstrap', async(() => {
+  it('should bootstrap', waitForAsync(() => {
        const platform =
            platformDynamicServer([{provide: INITIAL_CONFIG, useValue: {document: '<app></app>'}}]);
 
@@ -426,7 +426,7 @@ describe('platform-server integration', () => {
        });
      }));
 
-  it('should allow multiple platform instances', async(() => {
+  it('should allow multiple platform instances', waitForAsync(() => {
        const platform =
            platformDynamicServer([{provide: INITIAL_CONFIG, useValue: {document: '<app></app>'}}]);
 
@@ -447,7 +447,7 @@ describe('platform-server integration', () => {
        });
      }));
 
-  it('adds title to the document using Title service', async(() => {
+  it('adds title to the document using Title service', waitForAsync(() => {
        const platform = platformDynamicServer([{
          provide: INITIAL_CONFIG,
          useValue: {document: '<html><head><title></title></head><body><app></app></body></html>'}
@@ -461,7 +461,7 @@ describe('platform-server integration', () => {
        });
      }));
 
-  it('should get base href from document', async(() => {
+  it('should get base href from document', waitForAsync(() => {
        const platform = platformDynamicServer([{
          provide: INITIAL_CONFIG,
          useValue: {document: '<html><head><base href="/"></head><body><app></app></body></html>'}
@@ -473,7 +473,7 @@ describe('platform-server integration', () => {
        });
      }));
 
-  it('adds styles with ng-transition attribute', async(() => {
+  it('adds styles with ng-transition attribute', waitForAsync(() => {
        const platform = platformDynamicServer([{
          provide: INITIAL_CONFIG,
          useValue: {document: '<html><head></head><body><app></app></body></html>'}
@@ -488,7 +488,7 @@ describe('platform-server integration', () => {
        });
      }));
 
-  it('copies known properties to attributes', async(() => {
+  it('copies known properties to attributes', waitForAsync(() => {
        const platform =
            platformDynamicServer([{provide: INITIAL_CONFIG, useValue: {document: '<app></app>'}}]);
        platform.bootstrapModule(ImageExampleModule).then(ref => {
@@ -500,7 +500,7 @@ describe('platform-server integration', () => {
      }));
 
   describe('PlatformLocation', () => {
-    it('is injectable', async(() => {
+    it('is injectable', waitForAsync(() => {
          const platform = platformDynamicServer(
              [{provide: INITIAL_CONFIG, useValue: {document: '<app></app>'}}]);
          platform.bootstrapModule(ExampleModule).then(appRef => {
@@ -551,7 +551,7 @@ describe('platform-server integration', () => {
             expect(location.hash).toBe('');
           });
     });
-    it('pushState causes the URL to update', async(() => {
+    it('pushState causes the URL to update', waitForAsync(() => {
          const platform = platformDynamicServer(
              [{provide: INITIAL_CONFIG, useValue: {document: '<app></app>'}}]);
          platform.bootstrapModule(ExampleModule).then(appRef => {
@@ -601,7 +601,7 @@ describe('platform-server integration', () => {
       expect(called).toBe(true);
     });
 
-    it('using long form should work', async(() => {
+    it('using long form should work', waitForAsync(() => {
          const platform =
              platformDynamicServer([{provide: INITIAL_CONFIG, useValue: {document: doc}}]);
 
@@ -618,7 +618,7 @@ describe('platform-server integration', () => {
              });
        }));
 
-    it('using renderModule should work', async(() => {
+    it('using renderModule should work', waitForAsync(() => {
          renderModule(AsyncServerModule, {document: doc}).then(output => {
            expect(output).toBe(expectedOutput);
            called = true;
@@ -626,7 +626,7 @@ describe('platform-server integration', () => {
        }));
 
     modifiedInIvy('Will not support binding to innerText in Ivy since domino does not')
-        .it('should support binding to innerText', async(() => {
+        .it('should support binding to innerText', waitForAsync(() => {
               renderModule(InnerTextModule, {document: doc}).then(output => {
                 expect(output).toBe(
                     '<html><head></head><body><app ng-version="0.0.0-PLACEHOLDER"><div innertext="Some text">Some text</div></app></body></html>');
@@ -635,7 +635,7 @@ describe('platform-server integration', () => {
             }));
 
     it('using renderModuleFactory should work',
-       async(inject([PlatformRef], (defaultPlatform: PlatformRef) => {
+       waitForAsync(inject([PlatformRef], (defaultPlatform: PlatformRef) => {
          const compilerFactory: CompilerFactory =
              defaultPlatform.injector.get(CompilerFactory, null)!;
          const moduleFactory =
@@ -646,7 +646,7 @@ describe('platform-server integration', () => {
          });
        })));
 
-    it('works with SVG elements', async(() => {
+    it('works with SVG elements', waitForAsync(() => {
          renderModule(SVGServerModule, {document: doc}).then(output => {
            expect(output).toBe(
                '<html><head></head><body><app ng-version="0.0.0-PLACEHOLDER">' +
@@ -655,7 +655,7 @@ describe('platform-server integration', () => {
          });
        }));
 
-    it('works with animation', async(() => {
+    it('works with animation', waitForAsync(() => {
          renderModule(AnimationServerModule, {document: doc}).then(output => {
            expect(output).toContain('Works!');
            expect(output).toContain('ng-trigger-myAnimation');
@@ -666,8 +666,8 @@ describe('platform-server integration', () => {
          });
        }));
 
-    it('should handle ViewEncapsulation.Native', async(() => {
-         renderModule(NativeExampleModule, {document: doc}).then(output => {
+    it('should handle ViewEncapsulation.ShadowDom', waitForAsync(() => {
+         renderModule(ShadowDomExampleModule, {document: doc}).then(output => {
            expect(output).not.toBe('');
            expect(output).toContain('color: red');
            called = true;
@@ -675,7 +675,7 @@ describe('platform-server integration', () => {
        }));
 
 
-    it('sets a prefix for the _nghost and _ngcontent attributes', async(() => {
+    it('sets a prefix for the _nghost and _ngcontent attributes', waitForAsync(() => {
          renderModule(ExampleStylesModule, {document: doc}).then(output => {
            expect(output).toMatch(
                /<html><head><style ng-transition="example-styles">div\[_ngcontent-sc\d+\] {color: blue; } \[_nghost-sc\d+\] { color: red; }<\/style><\/head><body><app _nghost-sc\d+="" ng-version="0.0.0-PLACEHOLDER"><div _ngcontent-sc\d+="">Works!<\/div><\/app><\/body><\/html>/);
@@ -683,7 +683,7 @@ describe('platform-server integration', () => {
          });
        }));
 
-    it('should handle false values on attributes', async(() => {
+    it('should handle false values on attributes', waitForAsync(() => {
          renderModule(FalseAttributesModule, {document: doc}).then(output => {
            expect(output).toBe(
                '<html><head></head><body><app ng-version="0.0.0-PLACEHOLDER">' +
@@ -692,7 +692,7 @@ describe('platform-server integration', () => {
          });
        }));
 
-    it('should handle element property "name"', async(() => {
+    it('should handle element property "name"', waitForAsync(() => {
          renderModule(NameModule, {document: doc}).then(output => {
            expect(output).toBe(
                '<html><head></head><body><app ng-version="0.0.0-PLACEHOLDER">' +
@@ -701,7 +701,7 @@ describe('platform-server integration', () => {
          });
        }));
 
-    it('should work with sanitizer to handle "innerHTML"', async(() => {
+    it('should work with sanitizer to handle "innerHTML"', waitForAsync(() => {
          // Clear out any global states. These should be set when platform-server
          // is initialized.
          (global as any).Node = undefined;
@@ -714,7 +714,7 @@ describe('platform-server integration', () => {
          });
        }));
 
-    it('should handle element property "hidden"', async(() => {
+    it('should handle element property "hidden"', waitForAsync(() => {
          renderModule(HiddenModule, {document: doc}).then(output => {
            expect(output).toBe(
                '<html><head></head><body><app ng-version="0.0.0-PLACEHOLDER">' +
@@ -723,7 +723,7 @@ describe('platform-server integration', () => {
          });
        }));
 
-    it('should call render hook', async(() => {
+    it('should call render hook', waitForAsync(() => {
          renderModule(RenderHookModule, {document: doc}).then(output => {
            // title should be added by the render hook.
            expect(output).toBe(
@@ -733,7 +733,7 @@ describe('platform-server integration', () => {
          });
        }));
 
-    it('should call multiple render hooks', async(() => {
+    it('should call multiple render hooks', waitForAsync(() => {
          const consoleSpy = spyOn(console, 'warn');
          renderModule(MultiRenderHookModule, {document: doc}).then(output => {
            // title should be added by the render hook.
@@ -745,7 +745,7 @@ describe('platform-server integration', () => {
          });
        }));
 
-    it('should call async render hooks', async(() => {
+    it('should call async render hooks', waitForAsync(() => {
          renderModule(AsyncRenderHookModule, {document: doc}).then(output => {
            // title should be added by the render hook.
            expect(output).toBe(
@@ -755,7 +755,7 @@ describe('platform-server integration', () => {
          });
        }));
 
-    it('should call multiple async and sync render hooks', async(() => {
+    it('should call multiple async and sync render hooks', waitForAsync(() => {
          const consoleSpy = spyOn(console, 'warn');
          renderModule(AsyncMultiRenderHookModule, {document: doc}).then(output => {
            // title should be added by the render hook.
@@ -769,7 +769,7 @@ describe('platform-server integration', () => {
   });
 
   describe('HttpClient', () => {
-    it('can inject HttpClient', async(() => {
+    it('can inject HttpClient', waitForAsync(() => {
          const platform = platformDynamicServer(
              [{provide: INITIAL_CONFIG, useValue: {document: '<app></app>'}}]);
          platform.bootstrapModule(HttpClientExampleModule).then(ref => {
@@ -777,7 +777,7 @@ describe('platform-server integration', () => {
          });
        }));
 
-    it('can make HttpClient requests', async(() => {
+    it('can make HttpClient requests', waitForAsync(() => {
          const platform = platformDynamicServer(
              [{provide: INITIAL_CONFIG, useValue: {document: '<app></app>'}}]);
          platform.bootstrapModule(HttpClientExampleModule).then(ref => {
@@ -794,10 +794,62 @@ describe('platform-server integration', () => {
        }));
 
     describe('relative requests', () => {
+      it('will throw if "useAbsoluteUrl" is true but "baseUrl" is not provided', async () => {
+        const platform = platformDynamicServer([{
+          provide: INITIAL_CONFIG,
+          useValue: {
+            document: '<app></app>',
+            url: 'http://localhost',
+            useAbsoluteUrl: true,
+          },
+        }]);
+        const appRef = await platform.bootstrapModule(HttpClientExampleModule);
+        expect(() => appRef.injector.get(PlatformLocation))
+            .toThrowError(/"PlatformConfig\.baseUrl" must be set if "useAbsoluteUrl" is true/);
+      });
+
+      it('will resolve absolute url using "baseUrl"', async () => {
+        const platform = platformDynamicServer([{
+          provide: INITIAL_CONFIG,
+          useValue: {
+            document: '<app></app>',
+            url: 'http://localhost',
+            useAbsoluteUrl: true,
+            baseUrl: 'https://angular.io:8080',
+          },
+        }]);
+        const appRef = await platform.bootstrapModule(HttpClientExampleModule);
+        const location = appRef.injector.get(PlatformLocation);
+        expect(location.protocol).toBe('https:');
+        expect(location.hostname).toBe('angular.io');
+        expect(location.port).toBe('8080');
+      });
+
+      it('"baseUrl" has no effect if "useAbsoluteUrl" is not enabled', async () => {
+        const platform = platformDynamicServer([{
+          provide: INITIAL_CONFIG,
+          useValue: {
+            document: '<app></app>',
+            url: 'http://localhost',
+            baseUrl: 'https://angular.io:8080',
+          },
+        }]);
+        const appRef = await platform.bootstrapModule(HttpClientExampleModule);
+        const location = appRef.injector.get(PlatformLocation);
+        expect(location.protocol).toBe('http:');
+        expect(location.hostname).toBe('localhost');
+        expect(location.port).toBe('');
+      });
+
       it('correctly maps to absolute URL request with base config', async () => {
         const platform = platformDynamicServer([{
           provide: INITIAL_CONFIG,
-          useValue: {document: '<app></app>', url: 'http://localhost', useAbsoluteUrl: true}
+          useValue: {
+            document: '<app></app>',
+            url: 'http://localhost',
+            baseUrl: 'http://localhost',
+            useAbsoluteUrl: true,
+          }
         }]);
         const ref = await platform.bootstrapModule(HttpClientExampleModule);
         const mock = ref.injector.get(HttpTestingController) as HttpTestingController;
@@ -831,7 +883,12 @@ describe('platform-server integration', () => {
       it('correctly maps to absolute URL request with port', async () => {
         const platform = platformDynamicServer([{
           provide: INITIAL_CONFIG,
-          useValue: {document: '<app></app>', url: 'http://localhost:5000', useAbsoluteUrl: true}
+          useValue: {
+            document: '<app></app>',
+            url: 'http://localhost:5000',
+            baseUrl: 'http://localhost',
+            useAbsoluteUrl: true,
+          }
         }]);
         const ref = await platform.bootstrapModule(HttpClientExampleModule);
         const mock = ref.injector.get(HttpTestingController) as HttpTestingController;
@@ -848,7 +905,12 @@ describe('platform-server integration', () => {
       it('correctly maps to absolute URL request with two slashes', async () => {
         const platform = platformDynamicServer([{
           provide: INITIAL_CONFIG,
-          useValue: {document: '<app></app>', url: 'http://localhost/', useAbsoluteUrl: true}
+          useValue: {
+            document: '<app></app>',
+            url: 'http://localhost/',
+            baseUrl: 'http://localhost',
+            useAbsoluteUrl: true,
+          }
         }]);
         const ref = await platform.bootstrapModule(HttpClientExampleModule);
         const mock = ref.injector.get(HttpTestingController) as HttpTestingController;
@@ -865,7 +927,12 @@ describe('platform-server integration', () => {
       it('correctly maps to absolute URL request with no slashes', async () => {
         const platform = platformDynamicServer([{
           provide: INITIAL_CONFIG,
-          useValue: {document: '<app></app>', url: 'http://localhost', useAbsoluteUrl: true}
+          useValue: {
+            document: '<app></app>',
+            url: 'http://localhost',
+            baseUrl: 'http://localhost',
+            useAbsoluteUrl: true,
+          }
         }]);
         const ref = await platform.bootstrapModule(HttpClientExampleModule);
         const mock = ref.injector.get(HttpTestingController) as HttpTestingController;
@@ -882,8 +949,12 @@ describe('platform-server integration', () => {
       it('correctly maps to absolute URL request with longer url and no slashes', async () => {
         const platform = platformDynamicServer([{
           provide: INITIAL_CONFIG,
-          useValue:
-              {document: '<app></app>', url: 'http://localhost/path/page', useAbsoluteUrl: true}
+          useValue: {
+            document: '<app></app>',
+            url: 'http://localhost/path/page',
+            baseUrl: 'http://localhost',
+            useAbsoluteUrl: true,
+          }
         }]);
         const ref = await platform.bootstrapModule(HttpClientExampleModule);
         const mock = ref.injector.get(HttpTestingController) as HttpTestingController;
@@ -900,8 +971,12 @@ describe('platform-server integration', () => {
       it('correctly maps to absolute URL request with longer url and slashes', async () => {
         const platform = platformDynamicServer([{
           provide: INITIAL_CONFIG,
-          useValue:
-              {document: '<app></app>', url: 'http://localhost/path/page', useAbsoluteUrl: true}
+          useValue: {
+            document: '<app></app>',
+            url: 'http://localhost/path/page',
+            baseUrl: 'http://localhost',
+            useAbsoluteUrl: true,
+          }
         }]);
         const ref = await platform.bootstrapModule(HttpClientExampleModule);
         const mock = ref.injector.get(HttpTestingController) as HttpTestingController;
@@ -922,7 +997,8 @@ describe('platform-server integration', () => {
              useValue: {
                document: '<base href="http://other"><app></app>',
                url: 'http://localhost/path/page',
-               useAbsoluteUrl: true
+               baseUrl: 'http://localhost',
+               useAbsoluteUrl: true,
              }
            }]);
            const ref = await platform.bootstrapModule(HttpClientExampleModule);
@@ -938,7 +1014,7 @@ describe('platform-server integration', () => {
          });
     });
 
-    it('requests are macrotasks', async(() => {
+    it('requests are macrotasks', waitForAsync(() => {
          const platform = platformDynamicServer(
              [{provide: INITIAL_CONFIG, useValue: {document: '<app></app>'}}]);
          platform.bootstrapModule(HttpClientExampleModule).then(ref => {
@@ -984,7 +1060,7 @@ describe('platform-server integration', () => {
       expect(called).toBe(true);
     });
 
-    it('adds transfer script tag when using renderModule', async(() => {
+    it('adds transfer script tag when using renderModule', waitForAsync(() => {
          renderModule(TransferStoreModule, {document: '<app></app>'}).then(output => {
            expect(output).toBe(defaultExpectedOutput);
            called = true;
@@ -992,7 +1068,7 @@ describe('platform-server integration', () => {
        }));
 
     it('adds transfer script tag when using renderModuleFactory',
-       async(inject([PlatformRef], (defaultPlatform: PlatformRef) => {
+       waitForAsync(inject([PlatformRef], (defaultPlatform: PlatformRef) => {
          const compilerFactory: CompilerFactory =
              defaultPlatform.injector.get(CompilerFactory, null)!;
          const moduleFactory =
@@ -1003,7 +1079,7 @@ describe('platform-server integration', () => {
          });
        })));
 
-    it('cannot break out of <script> tag in serialized output', async(() => {
+    it('cannot break out of <script> tag in serialized output', waitForAsync(() => {
          renderModule(EscapedTransferStoreModule, {
            document: '<esc-app></esc-app>'
          }).then(output => {

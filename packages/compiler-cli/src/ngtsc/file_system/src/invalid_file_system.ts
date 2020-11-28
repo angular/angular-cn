@@ -22,10 +22,10 @@ export class InvalidFileSystem implements FileSystem {
   readFile(path: AbsoluteFsPath): string {
     throw makeError();
   }
-  readFileBuffer(path: AbsoluteFsPath): Buffer {
+  readFileBuffer(path: AbsoluteFsPath): Uint8Array {
     throw makeError();
   }
-  writeFile(path: AbsoluteFsPath, data: string|Buffer, exclusive?: boolean): void {
+  writeFile(path: AbsoluteFsPath, data: string|Uint8Array, exclusive?: boolean): void {
     throw makeError();
   }
   removeFile(path: AbsoluteFsPath): void {
@@ -82,7 +82,7 @@ export class InvalidFileSystem implements FileSystem {
   isRooted(path: string): boolean {
     throw makeError();
   }
-  relative<T extends PathString>(from: T, to: T): PathSegment {
+  relative<T extends PathString>(from: T, to: T): PathSegment|AbsoluteFsPath {
     throw makeError();
   }
   basename(filePath: string, extension?: string): PathSegment {

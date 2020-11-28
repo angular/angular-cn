@@ -46,7 +46,7 @@ For example:
 
 ```json
 {
-  "extends": "../tsconfig.base.json",
+  "extends": "../tsconfig.json",
   "compilerOptions": {
     "experimentalDecorators": true,
     ...
@@ -61,7 +61,7 @@ For example:
 
 For more information, see the [TypeScript Handbook](https://www.typescriptlang.org/docs/handbook/tsconfig-json.html).
 
-欲知详情，请参见 [TypeScript 手册](https://www.typescriptlang.org/docs/handbook/tsconfig-json.html)。
+欲知详情，请参阅 [TypeScript 手册](https://www.typescriptlang.org/docs/handbook/tsconfig-json.html)。
 
 ## Template options
 
@@ -93,7 +93,7 @@ Modifies how Angular-specific annotations are emitted to improve tree-shaking. N
 
 ### `annotateForClosureCompiler`
 
-When `true`, use [Tsickle](https://github.com/angular/tsickle) to annotate the emitted JavaScript with [JSDoc](http://usejsdoc.org/) comments needed by the
+When `true`, use [Tsickle](https://github.com/angular/tsickle) to annotate the emitted JavaScript with [JSDoc](https://jsdoc.app/) comments needed by the
 [Closure Compiler](https://github.com/google/closure-compiler). Default is `false`.
 
 如果为 `true`，则使用 [Tsickle](https://github.com/angular/tsickle) 来用 [JSDoc](http://usejsdoc.org/) 对生成的 JavaScript 代码进行注解，这些注释是供 [Closure 编译器](https://github.com/google/closure-compiler) 使用的。默认值为 `false`。
@@ -102,7 +102,7 @@ When `true`, use [Tsickle](https://github.com/angular/tsickle) to annotate the e
 
 When `true` (the default), transforms code that is or could be used in an annotation, to allow it to be imported from template factory modules. See [metadata rewriting](guide/aot-compiler#metadata-rewriting) for more information.
 
-如果为 `true`（默认值），则转换在注解中使用或允许使用的代码，以允许从模板的工厂模块导入代码。欲知详情，请参见[元数据重写](guide/aot-compiler#metadata-rewriting)。
+如果为 `true`（默认值），则转换在注解中使用或允许使用的代码，以允许从模板的工厂模块导入代码。欲知详情，请参阅[元数据重写](guide/aot-compiler#metadata-rewriting)。
 
 When `false`, disables this rewriting, requiring the rewriting to be done manually.
 
@@ -113,6 +113,27 @@ When `false`, disables this rewriting, requiring the rewriting to be done manual
 When `true`, the compiler does not check the TypeScript version and does not report an error when an unsupported version of TypeScript is used. Not recommended, as unsupported versions of TypeScript might have undefined behavior. Default is `false`.
 
 如果为 `true`，则在使用不受支持的 TypeScript 版本时，编译器不会检查 TypeScript 版本，并且不会报错。不建议使用，因为不受支持的 TypeScript 版本可能具有未定义的行为。默认值为 `false`。
+
+### `enableI18nLegacyMessageIdFormat`
+
+Instructs the Angular template compiler to generate legacy ids for messages that are tagged in templates by the `i18n` attribute.
+See [Localizing your app](guide/i18n#mark-text-for-translations) for more information about marking messages for localization.
+
+指示 Angular 模板编译器为模板中用 `i18n` 属性标出的消息生成旧版 ID。关于为本地化而对消息进行标记的更多信息，请参阅[本地化你的应用程序。](guide/i18n#mark-text-for-translations)
+
+Set this option to `false` unless your project relies upon translations that were previously generated using legacy ids. Default is `true`.
+
+除非你的项目依赖先前已用旧版 ID 生成的翻译，否则请将此选项设置为 `false`。默认值为 `true` 。
+
+The pre-Ivy message extraction tooling generated a variety of legacy formats for extracted message ids.
+These message formats have a number of issues, such as whitespace handling and reliance upon information inside the original HTML of a template.
+
+Ivy 之前版本的消息提取工具为所提取的消息 id 生成了多种旧格式。这些消息格式存在许多问题，例如对空白字符的处理和对模板原始 HTML 内部信息的依赖。
+
+The new message format is more resilient to whitespace changes, is the same across all translation file formats, and can be generated directly from calls to `$localize`.
+This allows `$localize` messages in application code to use the same id as identical `i18n` messages in component templates.
+
+新的消息格式对空白字符的改动更宽容，在所有翻译文件格式中都相同，并且可以直接通过调用 `$localize` 生成。这允许应用程序代码中的 `$localize` 消息使用与组件模板中 `i18n` 消息完全相同的 id。
 
 ### `enableIvy`
 
@@ -132,7 +153,7 @@ When `true`, replaces the `templateUrl` and `styleUrls` property in all `@Compon
 
 When enabled, the `.js` output of `ngc` does not include any lazy-loaded template or style URLs.
 
-启用后，`ngc` 的 `.js` 输出不会包含任何延迟加载的模板或样式 URL。
+启用后，`ngc` 的 `.js` 输出不会包含任何惰性加载的模板或样式 URL。
 
 For library projects generated with the CLI, the dev configuration default is `true`.
 
@@ -188,7 +209,7 @@ would be `"index.d.ts"`.
 
 When `true` (recommended), enables the [binding expression validation](guide/aot-compiler#binding-expression-validation) phase of the template compiler, which uses TypeScript to validate binding expressions. For more information, see [Template type checking](guide/template-typecheck).
 
-为 `true`（推荐）时，会启用模板编译器的[绑定表达式验证](guide/aot-compiler#binding-expression-validation)阶段，该阶段使用 TypeScript 来验证绑定表达式。欲知详情，请参见[模板类型检查](guide/template-typecheck)。
+为 `true`（推荐）时，会启用模板编译器的[绑定表达式验证](guide/aot-compiler#binding-expression-validation)阶段，该阶段使用 TypeScript 来验证绑定表达式。欲知详情，请参阅[模板类型检查](guide/template-typecheck)。
 
 Default is `false`, but when you use the CLI command `ng new`, it is set to `true` by default in the generated project's configuration.
 
@@ -256,7 +277,7 @@ Default is `false`. Use only when `"skipMetadataEmit"` is `false` and `"skipTemp
 
 This option is intended to validate the `.metadata.json` files emitted for bundling with an `npm` package. The validation is strict and can emit errors for metadata that would never produce an error when used by the template compiler. You can choose to suppress the error emitted by this option for an exported symbol by including `@dynamic` in the comment documenting the symbol.
 
-该选项是为了验证为生成 `npm` 包而产生的 `.metadata.json` 文件。这种验证是严格的，并且会报告元数据中的错误，以免当模板编译器使用它时再出错。你可以通过在某个导出符号的注释文档中使用 `@dynamic` 注释来暂时防止（suppress）该选项报告错误。
+该选项是为了验证为生成 `npm` 包而产生的 `.metadata.json` 文件。这种验证是严格的，并且会报告元数据中的错误，以免当模板编译器使用它时再出错。你可以通过在某个导出符号的注释文档中使用 `@dynamic` 注解来暂时防止（suppress）该选项报告错误。
 
 It is valid for `.metadata.json` files to contain errors.
 The template compiler reports these errors if the metadata is used to determine the contents of an annotation.
@@ -281,19 +302,23 @@ When `true` (recommended), reports an error for a supplied parameter whose injec
 
 如果为 `true`（推荐），则报告所提供的参数的错误，无法确定该参数的注入类型。如果为 `false`（当前为默认值），则标记为 `@Injectable` 但其类型无法解析的类的构造函数参数会产生警告。
 
-When you use the CLI command `ng new`, it is set to `true` by default in the generated project's configuration.
+When you use the CLI command `ng new --strict`, it is set to `true` in the generated project's configuration.
 
 当你使用 CLI 命令 `ng new` 时，默认生成的项目配置中将其设置为 `true`。
 
 ### `strictTemplates`
 
-When `true`, enables [strict template type checking](guide/template-typecheck#strict-mode) in Angular version 9. Strict mode is only available when using [Ivy](guide/ivy).
+When `true`, enables [strict template type checking](guide/template-typecheck#strict-mode). Strict mode is only available when using [Ivy](guide/ivy) (Angular version 9 and later).
 
 如果为 `true`，则在 Angular 9 中启用[严格的模板类型检查](guide/template-typecheck#strict-mode)。仅当使用 [Ivy](guide/ivy) 时，才能使用严格模式。
 
 Additional strictness flags allow you to enable and disable specific types of strict template type checking. See [troubleshooting template errors](guide/template-typecheck#troubleshooting-template-errors).
 
 其它严格性标志允许你启用和禁用特定类型的严格模板类型检查。请参阅[排除模板错误](guide/template-typecheck#troubleshooting-template-errors)。
+
+When you use the CLI command `ng new --strict`, it is set to `true` in the generated project's configuration.
+
+当你使用 CLI 命令 `ng new --strict` 时，默认生成的项目配置中将其设置为 `true`。
 
 ### `trace`
 

@@ -4,7 +4,7 @@
 
 The Tour of Heroes `HeroesComponent` is currently getting and displaying fake data.
 
-英雄指南的 `HeroesComponent` 目前获取和显示的都是模拟数据。
+英雄之旅的 `HeroesComponent` 目前获取和显示的都是模拟数据。
 
 After the refactoring in this tutorial, `HeroesComponent` will be lean and focused on supporting the view.
 It will also be easier to unit-test with a mock service.
@@ -15,7 +15,7 @@ It will also be easier to unit-test with a mock service.
 
   For the sample app that this page describes, see the <live-example></live-example>.
 
-  要查看本页所讲的范例程序，参见<live-example></live-example>。
+  要查看本页所讲的范例程序，参阅<live-example></live-example>。
 
 </div>
 
@@ -160,8 +160,8 @@ Registering the provider in the `@Injectable` metadata also allows Angular to op
 To learn more about providers, see the [Providers section](guide/providers).
 To learn more about injectors, see the [Dependency Injection guide](guide/dependency-injection).
 
-要了解关于提供者的更多知识，参见[提供者部分](guide/providers)。
-要了解关于注入器的更多知识，参见[依赖注入指南](guide/dependency-injection)。
+要了解关于提供者的更多知识，参阅[提供者部分](guide/providers)。
+要了解关于注入器的更多知识，参阅[依赖注入指南](guide/dependency-injection)。
 
 </div>
 
@@ -316,7 +316,7 @@ and [`HttpClient.get()` returns an `Observable`](guide/http).
 
 ### 可观察对象版本的 `HeroService`
 
-`Observable` is one of the key classes in the [RxJS library](http://reactivex.io/rxjs/).
+`Observable` is one of the key classes in the [RxJS library](https://rxjs.dev/).
 
 `Observable` 是 [RxJS 库](http://reactivex.io/rxjs/)中的一个关键类。
 
@@ -597,10 +597,10 @@ This template binds directly to the component's `messageService`.
 
    `*ngFor` 用来在一系列 `<div>` 元素中展示消息列表。
 
-* An Angular [event binding](guide/template-syntax#event-binding) binds the button's click event
+* An Angular [event binding](guide/event-binding) binds the button's click event
 to `MessageService.clear()`.
 
-   Angular 的[事件绑定](guide/template-syntax#event-binding)把按钮的 `click` 事件绑定到了 `MessageService.clear()`。
+   Angular 的[事件绑定](guide/event-binding)把按钮的 `click` 事件绑定到了 `MessageService.clear()`。
 
 The messages will look better when you add the private CSS styles to `messages.component.css`
 as listed in one of the ["final code review"](#final-code-review) tabs below.
@@ -621,7 +621,6 @@ next section on [Routing](tutorial/toh-pt5).
 path="toh-pt4/src/app/heroes/heroes.component.ts">
 </code-example>
 
-The browser refreshes and the page displays the list of heroes.
 Refresh the browser to see the list of heroes, and scroll to the bottom to see the
 messages from the HeroService. Each time you click a hero, a new message appears to record
 the selection. Use the "clear" button to clear the message history.

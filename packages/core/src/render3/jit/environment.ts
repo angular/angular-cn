@@ -12,7 +12,6 @@ import * as sanitization from '../../sanitization/sanitization';
 import * as r3 from '../index';
 
 
-
 /**
  * A mapping of the @angular/core API surface used in generated expressions to the actual symbols.
  *
@@ -75,8 +74,8 @@ export const angularCoreEnv: {[name: string]: Function} =
        'ɵɵrestoreView': r3.ɵɵrestoreView,
        'ɵɵlistener': r3.ɵɵlistener,
        'ɵɵprojection': r3.ɵɵprojection,
-       'ɵɵupdateSyntheticHostBinding': r3.ɵɵupdateSyntheticHostBinding,
-       'ɵɵcomponentHostSyntheticListener': r3.ɵɵcomponentHostSyntheticListener,
+       'ɵɵsyntheticHostProperty': r3.ɵɵsyntheticHostProperty,
+       'ɵɵsyntheticHostListener': r3.ɵɵsyntheticHostListener,
        'ɵɵpipeBind1': r3.ɵɵpipeBind1,
        'ɵɵpipeBind2': r3.ɵɵpipeBind2,
        'ɵɵpipeBind3': r3.ɵɵpipeBind3,
@@ -134,7 +133,6 @@ export const angularCoreEnv: {[name: string]: Function} =
        'ɵɵstylePropInterpolate8': r3.ɵɵstylePropInterpolate8,
        'ɵɵstylePropInterpolateV': r3.ɵɵstylePropInterpolateV,
        'ɵɵclassProp': r3.ɵɵclassProp,
-       'ɵɵselect': r3.ɵɵselect,
        'ɵɵadvance': r3.ɵɵadvance,
        'ɵɵtemplate': r3.ɵɵtemplate,
        'ɵɵtext': r3.ɵɵtext,
@@ -167,4 +165,6 @@ export const angularCoreEnv: {[name: string]: Function} =
        'ɵɵsanitizeScript': sanitization.ɵɵsanitizeScript,
        'ɵɵsanitizeUrl': sanitization.ɵɵsanitizeUrl,
        'ɵɵsanitizeUrlOrResourceUrl': sanitization.ɵɵsanitizeUrlOrResourceUrl,
+       'ɵɵtrustConstantHtml': sanitization.ɵɵtrustConstantHtml,
+       'ɵɵtrustConstantResourceUrl': sanitization.ɵɵtrustConstantResourceUrl,
      }))();

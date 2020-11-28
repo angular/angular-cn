@@ -176,7 +176,7 @@ should import `BrowserModule` from `@angular/platform-browser`.
 `BrowserModule` 提供了启动和运行浏览器应用的那些基本的服务提供者。
 
 `BrowserModule` also re-exports `CommonModule` from `@angular/common`,
-which means that components in the `AppModule` module also have access to
+which means that components in the `AppModule` also have access to
 the Angular directives every app needs, such as `NgIf` and `NgFor`.
 
 `BrowserModule` 还从 `@angular/common` 中重新导出了 `CommonModule`，这意味着 `AppModule` 中的组件也同样可以访问那些每个应用都需要的 Angular 指令，如 `NgIf` 和 `NgFor`。
@@ -240,7 +240,7 @@ it's declared in this NgModule or in an imported NgModule.
 
 你*可以*导出任何可声明类（组件、指令和管道），而不用管它是声明在当前模块中还是某个导入的模块中。
 
-You _can_ re-export entire imported NgModules, which effectively re-exports all of their exported classes.
+You _can_ re-export entire imported NgModules, which effectively re-export all of their exported classes.
 An NgModule can even export a module that it doesn't import.
 
 你*可以*重新导出整个导入过的模块，这将导致重新导出它们导出的所有类。重新导出的模块甚至不用先导入。
@@ -331,7 +331,7 @@ The `forRoot()` static method is a convention that makes it easy for developers 
 
 静态方法 `forRoot()` 是一个约定，它可以让开发人员更轻松的配置模块的想要单例使用的服务及其提供者。`RouterModule.forRoot()` 就是一个很好的例子。
 
-Apps pass a `Routes` object to `RouterModule.forRoot()` in order to configure the app-wide `Router` service with routes.
+Apps pass a `Routes` array to `RouterModule.forRoot()` in order to configure the app-wide `Router` service with routes.
 `RouterModule.forRoot()` returns a [ModuleWithProviders](api/core/ModuleWithProviders).
 You add that result to the `imports` list of the root `AppModule`.
 
@@ -345,7 +345,7 @@ information on `forRoot()` see [the `forRoot()` pattern](guide/singleton-service
 
 只能在应用的根模块 `AppModule` 中调用并导入 `forRoot()` 的结果。
 在其它模块，特别是惰性加载模块中，不要导入它。
-要了解关于 `forRoot()` 的更多信息，参见[单例服务](guide/singleton-services)一章的 [the `forRoot()` 模式](guide/singleton-services#the-forroot-pattern)部分。
+要了解关于 `forRoot()` 的更多信息，参阅[单例服务](guide/singleton-services)一章的 [the `forRoot()` 模式](guide/singleton-services#the-forroot-pattern)部分。
 
 For a service, instead of using `forRoot()`,  specify `providedIn: 'root'` on the service's `@Injectable()` decorator, which
 makes the service automatically available to the whole application and thus singleton by default.
@@ -407,7 +407,7 @@ not just the classes declared in the `HeroModule`.
 
 To limit access to a service, consider lazy loading the NgModule that provides that service. See [How do I restrict service scope to a module?](guide/ngmodule-faq#service-scope) for more information.
 
-要限制对某个服务的访问，可以考虑惰性加载提供该服务的 NgModule。参见[我要如何把服务的范围限定为某个模块？](guide/ngmodule-faq#service-scope)。
+要限制对某个服务的访问，可以考虑惰性加载提供该服务的 NgModule。参阅[我要如何把服务的范围限定为某个模块？](guide/ngmodule-faq#service-scope)。
 
 <hr/>
 
@@ -686,7 +686,7 @@ When an eagerly loaded module provides a service, for example a `UserService`, t
 imports another module that provides the same `UserService`, Angular registers one of
 them in the root app injector (see [What if I import the same module twice?](guide/ngmodule-faq#q-reimport)).
 
-当急性加载的模块提供了服务时，比如 `UserService`，该服务是在全应用级可用的。如果根模块提供了 `UserService`，并导入了另一个也提供了同一个 `UserService` 的模块，Angular 就会把它们中的一个注册进应用的根注入器中（参见[如果两次导入了同一个模块会怎样？](guide/ngmodule-faq#q-reimport)）。
+当急性加载的模块提供了服务时，比如 `UserService`，该服务是在全应用级可用的。如果根模块提供了 `UserService`，并导入了另一个也提供了同一个 `UserService` 的模块，Angular 就会把它们中的一个注册进应用的根注入器中（参阅[如果两次导入了同一个模块会怎样？](guide/ngmodule-faq#q-reimport)）。
 
 Then, when some component injects `UserService`, Angular finds it in the app root injector,
 and delivers the app-wide singleton service. No problem.
@@ -847,7 +847,7 @@ loads the component dynamically into a `RouterOutlet`.
 
 For more information, see [Entry Components](guide/entry-components).
 
-要了解更多，参见[入口组件](guide/entry-components)一章。
+要了解更多，参阅[入口组件](guide/entry-components)一章。
 
 <hr/>
 
@@ -875,7 +875,7 @@ although doing so is harmless.
 
 For more information, see [Entry Components](guide/entry-components).
 
-要了解更多，参见[入口组件](guide/entry-components)一章。
+要了解更多，参阅[入口组件](guide/entry-components)一章。
 
 <hr/>
 
@@ -912,7 +912,7 @@ in the templates of other components.
 
 For more information, see [Entry Components](guide/entry-components).
 
-要了解更多，参见[入口组件](guide/entry-components)一章。
+要了解更多，参阅[入口组件](guide/entry-components)一章。
 
 <hr/>
 
@@ -1010,7 +1010,7 @@ would make up the search functionality.
 For more information, see [Feature Modules](guide/feature-modules) and
 [Module Types](guide/module-types)
 
-要了解更多，参见[特性模块](guide/feature-modules)和[模块的分类](guide/module-types)。
+要了解更多，参阅[特性模块](guide/feature-modules)和[模块的分类](guide/module-types)。
 
 ## What's the difference between NgModules and JavaScript Modules?
 
@@ -1021,10 +1021,10 @@ In an Angular app, NgModules and JavaScript modules work together.
 在 Angular 应用中，NgModule 会和 JavaScript 的模块一起工作。
 
 In modern JavaScript, every file is a module
-(see the [Modules](http://exploringjs.com/es6/ch_modules.html) page of the Exploring ES6 website).
+(see the [Modules](https://exploringjs.com/es6/ch_modules.html) page of the Exploring ES6 website).
 Within each file you write an `export` statement to make parts of the module public.
 
-在现代 JavaScript 中，每个文件都是模块（参见[模块](http://exploringjs.com/es6/ch_modules.html)）。
+在现代 JavaScript 中，每个文件都是模块（参阅[模块](http://exploringjs.com/es6/ch_modules.html)）。
 在每个文件中，你要写一个 `export` 语句将模块的一部分公开。
 
 An Angular NgModule is a class with the `@NgModule` decorator&mdash;JavaScript modules
@@ -1041,7 +1041,7 @@ You _export_ this NgModule's classes so they can be imported and used by compone
 
 For more information, see [JavaScript Modules vs. NgModules](guide/ngmodule-vs-jsmodule).
 
-要了解更多，参见 [JavaScript 模块 vs. NgModules](guide/ngmodule-vs-jsmodule) 一章
+要了解更多，参阅 [JavaScript 模块 vs. NgModules](guide/ngmodule-vs-jsmodule) 一章
 
 <hr/>
 

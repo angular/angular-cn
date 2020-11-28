@@ -25,7 +25,7 @@ By convention and by default, this NgModule is named `AppModule`.
 每个应用有至少一个 Angular 模块，*根*模块就是你用来启动此应用的模块。
 按照惯例，它通常命名为 `AppModule`。
 
-When you use the [Angular CLI](cli) command `ng new` to generate an app, the default `AppModule` is as follows.
+When you use the [Angular CLI](cli) command `ng new` to generate an app, the default `AppModule` looks like the following:
 
 当你使用 [Angular CLI](cli) 命令 `ng new` 生成一个应用时，其默认的 `AppModule` 是这样的：
 
@@ -34,8 +34,6 @@ When you use the [Angular CLI](cli) command `ng new` to generate an app, the def
 /* JavaScript imports */
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 
@@ -45,9 +43,7 @@ import { AppComponent } from './app.component';
     AppComponent
   ],
   imports: [
-    BrowserModule,
-    FormsModule,
-    HttpClientModule
+    BrowserModule
   ],
   providers: [],
   bootstrap: [AppComponent]
@@ -144,10 +140,6 @@ import the module that has the declarable you need in it.
 
 每个可声明对象都只能属于一个模块，所以只能把它声明在一个 `@NgModule` 中。当你需要在其它模块中使用它时，就要在那里导入包含这个可声明对象的模块。
 
-**Only `@NgModule` references** go in the `imports` array.
-
-**只有 `@NgModule`** 可以出现在 `imports` 数组中。
-
 ### Using directives with `@NgModule`
 
 ### 通过 `@NgModule` 使用指令
@@ -193,7 +185,7 @@ And in the same file, add it to the `@NgModule` `declarations` array:
 Now you could use your `ItemDirective` in a component. This example uses `AppModule`, but you'd do it the same way for a feature module. For more about directives, see [Attribute Directives](guide/attribute-directives) and [Structural Directives](guide/structural-directives). You'd also use the same technique for [pipes](guide/pipes) and components.
 
 现在，你就可以在组件中使用 `ItemDirective` 了。这个例子中使用的是 `AppModule`，但是在特性模块中你也可以这么做。
-要进一步了解指令，参见[属性型指令](guide/attribute-directives)和[结构型指令](guide/structural-directives)。
+要进一步了解指令，参阅[属性型指令](guide/attribute-directives)和[结构型指令](guide/structural-directives)。
 这些也同样适用于[管道](guide/pipes)和组件。
 
 Remember, components, directives, and pipes belong to one module only. You only need to declare them once in your app because you share them by importing the necessary modules. This saves you time and helps keep your app lean.
@@ -212,8 +204,14 @@ It tells Angular about other NgModules that this particular module needs to func
 模块的 `imports` 数组只会出现在 `@NgModule` 元数据对象中。
 它告诉 Angular 该模块想要正常工作，还需要哪些模块。
 
+<code-example
+    path="bootstrapping/src/app/app.module.ts"
+    region="imports"
+    header="src/app/app.module.ts (excerpt)">
+</code-example>
+
 This list of modules are those that export components, directives, or pipes
-that the component templates in this module reference. In this case, the component is
+that component templates in this module reference. In this case, the component is
 `AppComponent`, which references components, directives, or pipes in `BrowserModule`,
 `FormsModule`, or  `HttpClientModule`.
 A component template can reference another component, directive,
@@ -235,7 +233,7 @@ them when using feature modules and lazy loading. For more information, see
 [Providers](guide/providers).
 
 `providers` 数组中列出了该应用所需的服务。当直接把服务列在这里时，它们是全应用范围的。
-当你使用特性模块和惰性加载时，它们是范围化的。要了解更多，参见[服务提供者](guide/providers)。
+当你使用特性模块和惰性加载时，它们是范围化的。要了解更多，参阅[服务提供者](guide/providers)。
 
 ## The `bootstrap` array
 
@@ -273,4 +271,4 @@ root module's `bootstrap` array.
 For more on NgModules you're likely to see frequently in apps,
 see [Frequently Used Modules](guide/frequent-ngmodules).
 
-要进一步了解常见的 NgModules 知识，参见 [关于模块的常见问题](guide/frequent-ngmodules)。
+要进一步了解常见的 NgModules 知识，参阅 [关于模块的常见问题](guide/frequent-ngmodules)。

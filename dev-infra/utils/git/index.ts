@@ -10,11 +10,9 @@ import * as Octokit from '@octokit/rest';
 import {spawnSync, SpawnSyncOptions, SpawnSyncReturns} from 'child_process';
 
 import {getConfig, getRepoBaseDir, NgDevConfig} from '../config';
-import {info, yellow} from '../console';
-import {_GithubClient} from './_github';
-
-// Re-export GithubApiRequestError
-export {GithubApiRequestError} from './_github';
+import {debug, info, yellow} from '../console';
+import {GithubClient} from './github';
+import {getRepositoryGitUrl, GITHUB_TOKEN_GENERATE_URL, GITHUB_TOKEN_SETTINGS_URL} from './github-urls';
 
 /** Github response type extended to include the `x-oauth-scopes` headers presence. */
 type RateLimitResponseWithOAuthScopeHeader = Octokit.Response<Octokit.RateLimitGetResponse>&{
@@ -35,31 +33,28 @@ export class GitCommandError extends Error {
 }
 
 /**
- * Common client for performing Git interactions.
+ * Common client for performing Git interactions with a given remote.
  *
- * Takes in two optional arguements:
- *   _githubToken: the token used for authentifation in github interactions, by default empty
+ * Takes in two optional arguments:
+ *   `githubToken`: the token used for authentication in Github interactions, by default empty
  *     allowing readonly actions.
- *   _config: The dev-infra configuration containing GitClientConfig information, by default
- *     loads the config from the default location.
+ *   `config`: The dev-infra configuration containing information about the remote. By default
+ *     the dev-infra configuration is loaded with its Github configuration.
  **/
 export class GitClient {
-  /** Short-hand for accessing the remote configuration. */
+  /** Whether verbose logging of Git actions should be used. */
+  static LOG_COMMANDS = true;
+  /** Short-hand for accessing the default remote configuration. */
   remoteConfig = this._config.github;
   /** Octokit request parameters object for targeting the configured remote. */
   remoteParams = {owner: this.remoteConfig.owner, repo: this.remoteConfig.name};
-  /** URL that resolves to the configured repository. */
-  repoGitUrl = this.remoteConfig.useSsh ?
-      `git@github.com:${this.remoteConfig.owner}/${this.remoteConfig.name}.git` :
-      `https://${this._githubToken}@github.com/${this.remoteConfig.owner}/${
-          this.remoteConfig.name}.git`;
+  /** Git URL that resolves to the configured repository. */
+  repoGitUrl = getRepositoryGitUrl(this.remoteConfig, this.githubToken);
   /** Instance of the authenticated Github octokit API. */
-  github = new _GithubClient(this._githubToken);
+  github = new GithubClient(this.githubToken);
 
-  /** The file path of project's root directory. */
-  private _projectRoot = getRepoBaseDir();
   /** The OAuth scopes available for the provided Github token. */
-  private _oauthScopes: Promise<string[]>|null = null;
+  private _cachedOauthScopes: Promise<string[]>|null = null;
   /**
    * Regular expression that matches the provided Github token. Used for
    * sanitizing the token from Git child process output.
@@ -67,12 +62,13 @@ export class GitClient {
   private _githubTokenRegex: RegExp|null = null;
 
   constructor(
-      private _githubToken?: string, private _config: Pick<NgDevConfig, 'github'> = getConfig()) {
+      public githubToken?: string, private _config: Pick<NgDevConfig, 'github'> = getConfig(),
+      private _projectRoot = getRepoBaseDir()) {
     // If a token has been specified (and is not empty), pass it to the Octokit API and
     // also create a regular expression that can be used for sanitizing Git command output
     // so that it does not print the token accidentally.
-    if (_githubToken != null) {
-      this._githubTokenRegex = new RegExp(_githubToken, 'g');
+    if (githubToken != null) {
+      this._githubTokenRegex = new RegExp(githubToken, 'g');
     }
   }
 
@@ -90,13 +86,16 @@ export class GitClient {
   /**
    * Spawns a given Git command process. Does not throw if the command fails. Additionally,
    * if there is any stderr output, the output will be printed. This makes it easier to
-   * debug failed commands.
+   * info failed commands.
    */
   runGraceful(args: string[], options: SpawnSyncOptions = {}): SpawnSyncReturns<string> {
-    // To improve the debugging experience in case something fails, we print all executed
-    // Git commands. Note that we do not want to print the token if is contained in the
-    // command. It's common to share errors with others if the tool failed.
-    info('Executing: git', this.omitGithubTokenFromMessage(args.join(' ')));
+    // To improve the debugging experience in case something fails, we print all executed Git
+    // commands to better understand the git actions occuring. Depending on the command being
+    // executed, this debugging information should be logged at different logging levels.
+    const printFn = (!GitClient.LOG_COMMANDS || options.stdio === 'ignore') ? debug : info;
+    // Note that we do not want to print the token if it is contained in the command. It's common
+    // to share errors with others if the tool failed, and we do not want to leak tokens.
+    printFn('Executing: git', this.omitGithubTokenFromMessage(args.join(' ')));
 
     const result = spawnSync('git', args, {
       cwd: this._projectRoot,
@@ -155,6 +154,25 @@ export class GitClient {
   }
 
   /**
+   * Checks out a requested branch or revision, optionally cleaning the state of the repository
+   * before attempting the checking. Returns a boolean indicating whether the branch or revision
+   * was cleanly checked out.
+   */
+  checkout(branchOrRevision: string, cleanState: boolean): boolean {
+    if (cleanState) {
+      // Abort any outstanding ams.
+      this.runGraceful(['am', '--abort'], {stdio: 'ignore'});
+      // Abort any outstanding cherry-picks.
+      this.runGraceful(['cherry-pick', '--abort'], {stdio: 'ignore'});
+      // Abort any outstanding rebases.
+      this.runGraceful(['rebase', '--abort'], {stdio: 'ignore'});
+      // Clear any changes in the current repo.
+      this.runGraceful(['reset', '--hard'], {stdio: 'ignore'});
+    }
+    return this.runGraceful(['checkout', branchOrRevision], {stdio: 'ignore'}).status === 0;
+  }
+
+  /**
    * Assert the GitClient instance is using a token with permissions for the all of the
    * provided OAuth scopes.
    */
@@ -176,8 +194,8 @@ export class GitClient {
         `The provided <TOKEN> does not have required permissions due to missing scope(s): ` +
         `${yellow(missingScopes.join(', '))}\n\n` +
         `Update the token in use at:\n` +
-        `  https://github.com/settings/tokens\n\n` +
-        `Alternatively, a new token can be created at: https://github.com/settings/tokens/new\n`;
+        `  ${GITHUB_TOKEN_SETTINGS_URL}\n\n` +
+        `Alternatively, a new token can be created at: ${GITHUB_TOKEN_GENERATE_URL}\n`;
 
     return {error};
   }
@@ -185,14 +203,14 @@ export class GitClient {
   /**
    * Retrieve the OAuth scopes for the loaded Github token.
    **/
-  private async getAuthScopesForToken() {
+  private getAuthScopesForToken() {
     // If the OAuth scopes have already been loaded, return the Promise containing them.
-    if (this._oauthScopes !== null) {
-      return this._oauthScopes;
+    if (this._cachedOauthScopes !== null) {
+      return this._cachedOauthScopes;
     }
     // OAuth scopes are loaded via the /rate_limit endpoint to prevent
     // usage of a request against that rate_limit for this lookup.
-    return this._oauthScopes = this.github.rateLimit.get().then(_response => {
+    return this._cachedOauthScopes = this.github.rateLimit.get().then(_response => {
       const response = _response as RateLimitResponseWithOAuthScopeHeader;
       const scopes: string = response.headers['x-oauth-scopes'] || '';
       return scopes.split(',').map(scope => scope.trim());

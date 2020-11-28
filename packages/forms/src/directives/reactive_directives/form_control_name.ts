@@ -15,7 +15,7 @@ import {ControlContainer} from '../control_container';
 import {ControlValueAccessor, NG_VALUE_ACCESSOR} from '../control_value_accessor';
 import {NgControl} from '../ng_control';
 import {ReactiveErrors} from '../reactive_errors';
-import {_ngModelWarning, composeAsyncValidators, composeValidators, controlPath, isPropertyUpdated, selectValueAccessor} from '../shared';
+import {_ngModelWarning, controlPath, isPropertyUpdated, selectValueAccessor} from '../shared';
 import {AsyncValidator, AsyncValidatorFn, Validator, ValidatorFn} from '../validators';
 
 import {NG_MODEL_WITH_FORM_CONTROL_WARNING} from './form_control_directive';
@@ -80,7 +80,6 @@ export const controlNameBinding: any = {
 export class FormControlName extends NgControl implements OnChanges, OnDestroy {
   private _added = false;
   /**
-   * @description
    * Internal reference to the view model value.
    * @internal
    */
@@ -107,11 +106,13 @@ export class FormControlName extends NgControl implements OnChanges, OnDestroy {
 
   /**
    * @description
-   * Triggers a warning that this input should not be used with reactive forms.
+   * Triggers a warning in dev mode that this input should not be used with reactive forms.
    */
   @Input('disabled')
   set isDisabled(isDisabled: boolean) {
-    ReactiveErrors.disabledAttrWarning();
+    if (typeof ngDevMode === 'undefined' || ngDevMode) {
+      ReactiveErrors.disabledAttrWarning();
+    }
   }
 
   // TODO(kara): remove next 4 properties once deprecation period is over
@@ -145,25 +146,20 @@ export class FormControlName extends NgControl implements OnChanges, OnDestroy {
 
   constructor(
       @Optional() @Host() @SkipSelf() parent: ControlContainer,
-      @Optional() @Self() @Inject(NG_VALIDATORS) validators: Array<Validator|ValidatorFn>,
+      @Optional() @Self() @Inject(NG_VALIDATORS) validators: (Validator|ValidatorFn)[],
       @Optional() @Self() @Inject(NG_ASYNC_VALIDATORS) asyncValidators:
-          Array<AsyncValidator|AsyncValidatorFn>,
+          (AsyncValidator|AsyncValidatorFn)[],
       @Optional() @Self() @Inject(NG_VALUE_ACCESSOR) valueAccessors: ControlValueAccessor[],
       @Optional() @Inject(NG_MODEL_WITH_FORM_CONTROL_WARNING) private _ngModelWarningConfig: string|
       null) {
     super();
     this._parent = parent;
-    this._rawValidators = validators || [];
-    this._rawAsyncValidators = asyncValidators || [];
+    this._setValidators(validators);
+    this._setAsyncValidators(asyncValidators);
     this.valueAccessor = selectValueAccessor(this, valueAccessors);
   }
 
-  /**
-   * @description
-   * A lifecycle method called when the directive's inputs change. For internal use only.
-   *
-   * @param changes A object of key/value pairs for the set of changed inputs.
-   */
+  /** @nodoc */
   ngOnChanges(changes: SimpleChanges) {
     if (!this._added) this._setUpControl();
     if (isPropertyUpdated(changes, this.viewModel)) {
@@ -173,10 +169,7 @@ export class FormControlName extends NgControl implements OnChanges, OnDestroy {
     }
   }
 
-  /**
-   * @description
-   * Lifecycle method called before the directive's instance is destroyed. For internal use only.
-   */
+  /** @nodoc */
   ngOnDestroy(): void {
     if (this.formDirective) {
       this.formDirective.removeControl(this);
@@ -211,32 +204,17 @@ export class FormControlName extends NgControl implements OnChanges, OnDestroy {
     return this._parent ? this._parent.formDirective : null;
   }
 
-  /**
-   * @description
-   * Synchronous validator function composed of all the synchronous validators
-   * registered with this directive.
-   */
-  get validator(): ValidatorFn|null {
-    return composeValidators(this._rawValidators);
-  }
-
-  /**
-   * @description
-   * Async validator function composed of all the async validators registered with this
-   * directive.
-   */
-  get asyncValidator(): AsyncValidatorFn {
-    return composeAsyncValidators(this._rawAsyncValidators)!;
-  }
-
   private _checkParentType(): void {
-    if (!(this._parent instanceof FormGroupName) &&
-        this._parent instanceof AbstractFormGroupDirective) {
-      ReactiveErrors.ngModelGroupException();
-    } else if (
-        !(this._parent instanceof FormGroupName) && !(this._parent instanceof FormGroupDirective) &&
-        !(this._parent instanceof FormArrayName)) {
-      ReactiveErrors.controlParentException();
+    if (typeof ngDevMode === 'undefined' || ngDevMode) {
+      if (!(this._parent instanceof FormGroupName) &&
+          this._parent instanceof AbstractFormGroupDirective) {
+        ReactiveErrors.ngModelGroupException();
+      } else if (
+          !(this._parent instanceof FormGroupName) &&
+          !(this._parent instanceof FormGroupDirective) &&
+          !(this._parent instanceof FormArrayName)) {
+        ReactiveErrors.controlParentException();
+      }
     }
   }
 

@@ -206,7 +206,7 @@ export abstract class HttpResponseBase {
   readonly status: number;
 
   /**
-   * Textual description of response status code.
+   * Textual description of response status code, defaults to OK.
    *
    * 响应状态码的文本描述。
    *

@@ -5,14 +5,14 @@
 In this page, you'll expand the Tour of Heroes app to display a list of heroes, and
 allow users to select a hero and display the hero's details.
 
-本页中，你将扩展《英雄指南》应用，让它显示一个英雄列表，
+本页中，你将扩展《英雄之旅》应用，让它显示一个英雄列表，
 并允许用户选择一个英雄，查看该英雄的详细信息。
 
 <div class="alert is-helpful">
 
   For the sample app that this page describes, see the <live-example></live-example>.
 
-  要查看本页所讲的范例程序，参见<live-example></live-example>。
+  要查看本页所讲的范例程序，参阅<live-example></live-example>。
 
 </div>
 
@@ -96,10 +96,10 @@ That shows one hero. To list them all, add an `*ngFor` to the `<li>` to iterate 
 <code-example path="toh-pt2/src/app/heroes/heroes.component.1.html" region="li">
 </code-example>
 
-The [`*ngFor`](guide/template-syntax#ngFor) is Angular's _repeater_ directive.
+The [`*ngFor`](guide/built-in-directives#ngFor) is Angular's _repeater_ directive.
 It repeats the host element for each element in a list.
 
-[`*ngFor`](guide/template-syntax#ngFor) 是一个 Angular 的复写器（repeater）指令。
+[`*ngFor`](guide/built-in-directives#ngFor) 是一个 Angular 的复写器（repeater）指令。
 它会为列表中的每项数据复写它的宿主元素。
 
 The syntax in this example is as follows:
@@ -215,9 +215,9 @@ Add a click event binding to the `<li>` like this:
 
 <code-example path="toh-pt2/src/app/heroes/heroes.component.1.html" region="selectedHero-click" header="heroes.component.html (template excerpt)"></code-example>
 
-This is an example of Angular's [event binding](guide/template-syntax#event-binding) syntax.
+This is an example of Angular's [event binding](guide/event-binding) syntax.
 
-这是 Angular [事件绑定](guide/template-syntax#event-binding) 语法的例子。
+这是 Angular [事件绑定](guide/event-binding) 语法的例子。
 
 The parentheses around `click` tell Angular to listen for the `<li>` element's  `click` event.
 When the user clicks in the `<li>`, Angular executes the `onSelect(hero)` expression.
@@ -355,10 +355,10 @@ You just have to apply the `.selected` class to the `<li>` when the user clicks 
 *所选英雄*的颜色来自于[你前面添加的样式](#styles)中的 CSS 类 `.selected`。
 所以你只要在用户点击一个 `<li>` 时把 `.selected` 类应用到该元素上就可以了。
 
-The Angular [class binding](guide/template-syntax#class-binding) makes it easy to add and remove a CSS class conditionally.
+The Angular [class binding](guide/attribute-binding#class-binding) makes it easy to add and remove a CSS class conditionally.
 Just add `[class.some-css-class]="some-condition"` to the element you want to style.
 
-Angular 的 [CSS 类绑定](guide/template-syntax#class-binding)机制让根据条件添加或移除一个 CSS 类变得很容易。
+Angular 的 [CSS 类绑定](guide/attribute-binding#class-binding)机制让根据条件添加或移除一个 CSS 类变得很容易。
 只要把 `[class.some-css-class]="some-condition"` 添加到你要施加样式的元素上就可以了。
 
 Add the following `[class.selected]` binding to the `<li>` in the `HeroesComponent` template:
@@ -409,7 +409,7 @@ Here are the code files discussed on this page, including the `HeroesComponent` 
 
 * The Tour of Heroes app displays a list of heroes in a Master/Detail view.
 
-   英雄指南应用在一个主从视图中显示了英雄列表。
+   英雄之旅应用在一个主从视图中显示了英雄列表。
 
 * The user can select a hero and see that hero's details.
 

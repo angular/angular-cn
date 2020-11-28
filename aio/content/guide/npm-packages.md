@@ -18,7 +18,7 @@ Alternatively, you can use the [yarn client](https://yarnpkg.com/) for downloadi
 
 See [Local Environment Setup](guide/setup-local "Setting up for Local Development") for information about the required versions and installation of `Node.js` and `npm`.
 
-参见[建立本地开发环境](guide/setup-local "Setting up for Local Development")，以了解所需的 `Node.js` 和 `npm` 版本。
+参阅[建立本地开发环境](guide/setup-local "Setting up for Local Development")，以了解所需的 `Node.js` 和 `npm` 版本。
 
 If you already have projects running on your machine that use other versions of Node.js and npm, consider using [nvm](https://github.com/creationix/nvm) to manage the multiple versions of Node.js and npm.
 
@@ -63,7 +63,7 @@ The `package.json` is organized into two groups of packages:
 For more information, see the CLI wiki page [Library Support](https://github.com/angular/angular-cli/wiki/stories-create-library). 
 
 **代码库开发者：**默认情况下，CLI 命令 [`ng generate library`](cli/generate) 会为新的代码库项目创建一个 `package.json`。这个 `package.json` 会在把该代码库发布到 npm 时用到。
-要了解更多信息，参见 CLI 的 wiki 页面[代码库支持](https://github.com/angular/angular-cli/wiki/stories-create-library)。
+要了解更多信息，参阅 CLI 的 wiki 页面[代码库支持](https://github.com/angular/angular-cli/wiki/stories-create-library)。
 </div>
 
 {@a dependencies}
@@ -99,30 +99,30 @@ To add a new dependency, use the [`ng add`](cli/add) command.
 ### Angular 包
 
 The following Angular packages are included as dependencies in the default `package.json` file for a new Angular workspace.
-For a complete list of Angular packages, see the [API reference](http://angular.io/api?type=package).
+For a complete list of Angular packages, see the [API reference](https://angular.io/api?type=package).
 
 新 Angular 工作区的 `package.json` 文件中默认包含下列 Angular 包。
-要了解 Angular 包的完整列表，参见 [API 参考手册](http://angular.cn/api?type=package)。
+要了解 Angular 包的完整列表，参阅 [API 参考手册](http://angular.cn/api?type=package)。
 
 Package name                               | Description
 ----------------------------------------   | --------------------------------------------------
 包名                               | 说明
 [**@angular/animations**](api/animations) | Angular's animations library makes it easy to define and apply animation effects such as page and list transitions. For more information, see the [Animations guide](guide/animations).
-[**@angular/animations**](api/animations) | Angular 的动画库能让你更容易地定义和应用页面和列表的动画效果。欲知详情，参见[动画](guide/animations)。
+[**@angular/animations**](api/animations) | Angular 的动画库能让你更容易地定义和应用页面和列表的动画效果。欲知详情，参阅[动画](guide/animations)。
 [**@angular/common**](api/common) | The commonly-needed services, pipes, and directives provided by the Angular team. The [`HttpClientModule`](api/common/http/HttpClientModule) is also here, in the [`@angular/common/http`](api/common/http) subfolder. For more information, see the [HttpClient guide](guide/http).
-[**@angular/common**](api/common) | Angular 开发组提供的常用服务、管道和指令。[`HttpClientModule`](api/common/http/HttpClientModule) 也位于这里的 [`@angular/common/http`](api/common/http) 子目录下。欲知详情，参见 [HttpClient](guide/http)。
+[**@angular/common**](api/common) | Angular 开发组提供的常用服务、管道和指令。[`HttpClientModule`](api/common/http/HttpClientModule) 也位于这里的 [`@angular/common/http`](api/common/http) 子目录下。欲知详情，参阅 [HttpClient](guide/http)。
 **@angular/compiler** | Angular's template compiler. It understands templates and can convert them to code that makes the application run and render. Typically you don’t interact with the compiler directly; rather, you use it indirectly via `platform-browser-dynamic` when JIT compiling in the browser. For more information, see the [Ahead-of-time Compilation guide](guide/aot-compiler).
-**@angular/compiler** | Angular 的模板编译器。它能理解模板并把模板转换成代码，这些代码可以运行并渲染应用程序。通常，你不必直接与这个编译器打交道，而是当浏览器进行 JIT 编译时，通过 `platform-browser-dynamic` 间接使用它。欲知详情，参见 [AOT （预先）编译](guide/aot-compiler)。
+**@angular/compiler** | Angular 的模板编译器。它能理解模板并把模板转换成代码，这些代码可以运行并渲染应用程序。通常，你不必直接与这个编译器打交道，而是当浏览器进行 JIT 编译时，通过 `platform-browser-dynamic` 间接使用它。欲知详情，参阅 [AOT （预先）编译](guide/aot-compiler)。
 [**@angular/core**](api/core) | Critical runtime parts of the framework that are needed by every application. Includes all metadata decorators, `Component`, `Directive`,  dependency injection, and the component lifecycle hooks.
 [**@angular/core**](api/core) | 本框架最关键的运行时部件，每个应用都需要它们。包括全部元数据装饰器（比如 `Component`, `Directive`）、依赖注入和组件生命周期等。
 [**@angular/forms**](api/forms) | Support for both [template-driven](guide/forms) and [reactive forms](guide/reactive-forms). For information about choosing the best forms approach for your app, see [Introduction to forms](guide/forms-overview).
-[**@angular/forms**](api/forms) | 用于支持[模板驱动表单](guide/forms)和[响应式表单](guide/reactive-forms)。要想了解你的应用最好选择哪种方式，请参见[表单简介](guide/forms-overview)。
+[**@angular/forms**](api/forms) | 用于支持[模板驱动表单](guide/forms)和[响应式表单](guide/reactive-forms)。要想了解你的应用最好选择哪种方式，请参阅[表单简介](guide/forms-overview)。
 [**@angular/<br />platform&#8209;browser**](api/platform-browser) | Everything DOM and browser related, especially the pieces that help render into the DOM. This package also includes the `bootstrapModuleFactory()` method for bootstrapping applications for production builds that pre-compile with [AOT](guide/aot-compiler).
 [**@angular/<br />platform&#8209;browser**](api/platform-browser) | 与 DOM 和浏览器有关的一切，特别是那些帮助往 DOM 中渲染的部分。这个包中还包括 `bootstrapModuleFactory()` 方法，该方法可以使用 [AOT](guide/aot-compiler) 编译器构建的生产环境发布包来引导应用。
 [**@angular/<br />platform&#8209;browser&#8209;dynamic**](api/platform-browser-dynamic) | Includes [providers](api/core/Provider) and methods to compile and run the app on the client using the [JIT compiler](guide/aot-compiler).
 [**@angular/<br />platform&#8209;browser&#8209;dynamic**](api/platform-browser-dynamic) | 包含那些用来在 [JIT 编译器](guide/aot-compiler)的客户端上编译并运行应用的[提供者](api/core/Provider)和方法。
 [**@angular/router**](api/router) | The router module navigates among your app pages when the browser URL changes. For more information, see [Routing and Navigation](guide/router).
-[**@angular/router**](api/router) | 当浏览器的 URL 变化时，路由器模块可以在应用的页面之间进行导航。欲知详情，参见[路由与导航](guide/router)。
+[**@angular/router**](api/router) | 当浏览器的 URL 变化时，路由器模块可以在应用的页面之间进行导航。欲知详情，参阅[路由与导航](guide/router)。
 
 {@a support-packages}
 ### Support packages
@@ -213,7 +213,7 @@ Package name                               | Description
 
  For information about how the Angular CLI handles packages see the following guides: 
 
- 要了解 Angular CLI 如何处理包的更多信息，请参见下列章节：
+ 要了解 Angular CLI 如何处理包的更多信息，请参阅下列章节：
  * [Building and serving](guide/build) describes how packages come together to create a development build.
 
    [Building and serving](guide/build) 描述了这些包如何协作，以进行开发期构建。

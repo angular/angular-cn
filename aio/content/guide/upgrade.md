@@ -130,7 +130,7 @@ order. That's why it's a good idea to start using a *module loader*.
 尤其是当你不得不自己按正确的顺序维护这些标签时更是如此，就要开始使用*模块加载器*了。
 
 Using a module loader such as [SystemJS](https://github.com/systemjs/systemjs),
-[Webpack](http://webpack.github.io/), or [Browserify](http://browserify.org/)
+[Webpack](https://webpack.github.io/), or [Browserify](http://browserify.org/)
 allows us to use the built-in module systems of TypeScript or ES2015.
 You can use the `import` and `export` features that explicitly specify what code can
 and will be shared between different parts of the application. For ES5 applications
@@ -423,7 +423,7 @@ frameworks in how it actually works.
       There is a [tree hierarchy of injectors](guide/hierarchical-dependency-injection),
       with a root injector and an additional injector for each component.
 
-      这是一个[树状多层注入器](guide/hierarchical-dependency-injection)：有一个根注入器，而且每个组件也有一个自己的注入器。
+      这是一个[树状分层注入器](guide/hierarchical-dependency-injection)：有一个根注入器，而且每个组件也有一个自己的注入器。
 
     </td>
 
@@ -776,6 +776,17 @@ using the `downgradeComponent()` method. The result is an AngularJS
 
 <code-example path="upgrade-module/src/app/downgrade-static/app.module.ts" region="downgradecomponent" header="app.module.ts">
 </code-example>
+
+<div class="alert is-helpful">
+
+By default, Angular change detection will also run on the component for every
+AngularJS `$digest` cycle. If you wish to only have change detection run when
+the inputs change, you can set `propagateDigest` to `false` when calling
+`downgradeComponent()`.
+
+默认情况下，Angular 变更检测也会在 AngularJS 的每个 `$digest` 周期中运行。如果你希望只在输入属性发生变化时才运行变更检测，可以在调用 `downgradeComponent()` 时把 `propagateDigest` 设置为 `false`。
+
+</div>
 
 Because `HeroDetailComponent` is an Angular component, you must also add it to the
 `declarations` in the `AppModule`.
@@ -1474,7 +1485,7 @@ LocationUpgradeModule.config({
 
 **Note:** See the `LocationUpgradeConfig` for more configuration options available to the `LocationUpgradeModule.config()` method.
 
-**注意：**有关 `LocationUpgradeModule.config()` 方法的更多可用配置项，请参阅 `LocationUpgradeConfig`。
+**注意：**关于 `LocationUpgradeModule.config()` 方法的更多可用配置项，请参阅 `LocationUpgradeConfig`。
 
 </div>
 
@@ -2490,11 +2501,11 @@ with Angular's two-way `[(ngModel)]` binding syntax:
 <code-example path="upgrade-phonecat-2-hybrid/app/phone-list/phone-list.template.html" region="controls" header="app/phone-list/phone-list.template.html (search controls)"></code-example>
 
 Replace the list's `ng-repeat` with an `*ngFor` as
-[described in the Template Syntax page](guide/template-syntax#directives).
+[described in the Template Syntax page](guide/built-in-directives).
 Replace the image tag's `ng-src` with a binding to the native `src` property.
 
 把列表中的 `ng-repeat` 替换为 `*ngFor` 以及它的 `let var of iterable` 语法，
-该语法在[模板语法指南中讲过](guide/template-syntax#directives)。
+该语法在[模板语法指南中讲过](guide/built-in-directives)。
 再把 `img` 标签的 `ng-src` 替换为一个标准的 `src` 属性(property)绑定。
 
 <code-example path="upgrade-phonecat-2-hybrid/app/phone-list/phone-list.template.html" region="list" header="app/phone-list/phone-list.template.html (phones)"></code-example>
@@ -2605,13 +2616,13 @@ There are several notable changes here:
    正如你在电话列表中做过的那样，你把 `ng-src` 替换成了标准的 `src` 属性绑定。
 
 * You're using the property binding syntax around `ng-class`. Though Angular
-  does have [a very similar `ngClass`](guide/template-syntax#directives)
+  does have [a very similar `ngClass`](guide/built-in-directives)
   as AngularJS does, its value is not magically evaluated as an expression.
   In Angular, you always specify in the template when an attribute's value is
   a property expression, as opposed to a literal string.
 
    你在 `ng-class` 周围使用了属性绑定语法。虽然 Angular 中有一个
-  和 AngularJS 中[非常相似的 `ngClass`](guide/template-syntax#directives)指令，
+  和 AngularJS 中[非常相似的 `ngClass`](guide/built-in-directives)指令，
   但是它的值不会神奇的作为表达式进行计算。在 Angular 中，模板中的属性(Attribute)值总是被作为
   属性(Property)表达式计算，而不是作为字符串字面量。
 
@@ -2891,7 +2902,7 @@ as well as any [factory provider](guide/upgrade#making-angularjs-dependencies-in
 for AngularJS services, and the `app/ajs-upgraded-providers.ts` file.
 
 如果你还没有这么做，请从 `app.module.ts 删除所有 `UpgradeModule 的引用，
-  以及所有用于 AngularJS 服务的[工厂供应商（factory provider）](guide/upgrade#making-angularjs-dependencies-injectable-to-angular)和 `app/ajs-upgraded-providers.ts` 文件。
+  以及所有用于 AngularJS 服务的[工厂提供者（factory provider）](guide/upgrade#making-angularjs-dependencies-injectable-to-angular)和 `app/ajs-upgraded-providers.ts` 文件。
 
 Also remove any `downgradeInjectable()` or `downgradeComponent()` you find,
 together with the associated AngularJS factory or directive declarations.

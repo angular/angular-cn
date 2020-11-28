@@ -12,7 +12,7 @@
 
 import {findEventTasks} from '../common/events';
 import {patchTimer} from '../common/timers';
-import {patchClass, patchMethod, patchPrototype, scheduleMacroTaskWithCurrentZone, ZONE_SYMBOL_ADD_EVENT_LISTENER, ZONE_SYMBOL_REMOVE_EVENT_LISTENER, zoneSymbol} from '../common/utils';
+import {patchClass, patchMethod, patchPrototype, scheduleMacroTaskWithCurrentZone, ZONE_SYMBOL_ADD_EVENT_LISTENER, ZONE_SYMBOL_REMOVE_EVENT_LISTENER, zoneSymbol,} from '../common/utils';
 
 import {patchCustomElements} from './custom-elements';
 import {eventTargetPatch, patchEvent} from './event-target';
@@ -24,6 +24,15 @@ Zone.__load_patch('legacy', (global: any) => {
     legacyPatch();
   }
 });
+
+Zone.__load_patch('queueMicrotask', (global: any, Zone: ZoneType, api: _ZonePrivate) => {
+  api.patchMethod(global, 'queueMicrotask', delegate => {
+    return function(self: any, args: any[]) {
+      Zone.current.scheduleMicroTask('queueMicrotask', args[0]);
+    }
+  });
+});
+
 
 Zone.__load_patch('timers', (global: any) => {
   const set = 'set';
@@ -59,9 +68,18 @@ Zone.__load_patch('EventTarget', (global: any, Zone: ZoneType, api: _ZonePrivate
   if (XMLHttpRequestEventTarget && XMLHttpRequestEventTarget.prototype) {
     api.patchEventTarget(global, [XMLHttpRequestEventTarget.prototype]);
   }
+});
+
+Zone.__load_patch('MutationObserver', (global: any, Zone: ZoneType, api: _ZonePrivate) => {
   patchClass('MutationObserver');
   patchClass('WebKitMutationObserver');
+});
+
+Zone.__load_patch('IntersectionObserver', (global: any, Zone: ZoneType, api: _ZonePrivate) => {
   patchClass('IntersectionObserver');
+});
+
+Zone.__load_patch('FileReader', (global: any, Zone: ZoneType, api: _ZonePrivate) => {
   patchClass('FileReader');
 });
 
@@ -140,8 +158,12 @@ Zone.__load_patch('XHR', (global: any, Zone: ZoneType) => {
             // check whether the xhr has registered onload listener
             // if that is the case, the task should invoke after all
             // onload listeners finish.
+            // Also if the request failed without response (status = 0), the load event handler
+            // will not be triggered, in that case, we should also invoke the placeholder callback
+            // to close the XMLHttpRequest::send macroTask.
+            // https://github.com/angular/angular/issues/38795
             const loadTasks = target[Zone.__symbol__('loadfalse')];
-            if (loadTasks && loadTasks.length > 0) {
+            if (target.status !== 0 && loadTasks && loadTasks.length > 0) {
               const oriInvoke = task.invoke;
               task.invoke = function() {
                 // need to load the tasks again, because in other

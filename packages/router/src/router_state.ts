@@ -28,7 +28,8 @@ import {Tree, TreeNode} from './utils/tree';
  * and the resolved data.
  * Use the `ActivatedRoute` properties to traverse the tree from any node.
  *
- * ### Example
+ * The following fragment shows how a component gets the root node
+ * of the current state to establish its own route tree:
  *
  * ```
  * @Component({templateUrl:'template.html'})
@@ -44,6 +45,7 @@ import {Tree, TreeNode} from './utils/tree';
  * ```
  *
  * @see `ActivatedRoute`
+ * @see [Getting route information](guide/router#getting-route-information)
  *
  * @publicApi
  */
@@ -93,10 +95,13 @@ export function createEmptyStateSnapshot(
  * that is loaded in an outlet.
  * Use to traverse the `RouterState` tree and extract information from nodes.
  *
- * 包含与当前组件相关的路由信息。`ActivatedRoute` 也可用于遍历路由器的状态树。
+ * The following example shows how to construct a component using information from a
+ * currently activated route.
  *
  * {@example router/activated-route/module.ts region="activated-route"
  *     header="activated-route.component.ts"}
+ *
+ * @see [Getting route information](guide/router#getting-route-information)
  *
  * @publicApi
  */
@@ -296,6 +301,9 @@ function flattenInherited(pathFromRoot: ActivatedRouteSnapshot[]): Inherited {
  * 包含与当前组件相关的路由的当前瞬间信息。`ActivatedRoute` 也可用于遍历路由器的状态树。
  * `ActivatedRouteSnapshot` 也能用于遍历路由器状态树。
  *
+ * The following example initializes a component with route information extracted
+ * from the snapshot of the root node at the time of creation.
+ *
  * ```
  * @Component({templateUrl:'./my-component.html'})
  * class MyComponent {
@@ -451,11 +459,8 @@ export class ActivatedRouteSnapshot {
  *
  * 这是一个由活动路由的快照组成的树。本树中的每个节点都会知道 "已消费的" URL 片段、已提取出的参数和已解析出的数据。
  *
- * @usageNotes
- *
- * ### Example
- *
- * ### 范例
+ * The following example shows how a component is initialized with information
+ * from the snapshot of the root node's state at the time of creation.
  *
  * ```
  * @Component({templateUrl:'template.html'})

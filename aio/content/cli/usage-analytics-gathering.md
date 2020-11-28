@@ -32,7 +32,7 @@ This ID is a string that looks like `UA-123456-12`.
 You can choose to use a descriptive string as the key value, or be assigned a random key when you run the CLI command.
 For example, the following command adds a configuration key named "tracking".
 
-你也可以选择使用描述性字符串作为键，或者在运行 CLI 命令时给它分配一个随机的键。例如，下面的命令会添加一个名为 “tracking” 的配置键。
+你也可以选择使用描述性字符串作为键，或者在运行 CLI 命令时给它赋值一个随机的键。例如，下面的命令会添加一个名为 “tracking” 的配置键。
 
 <code-example language="sh" class="code-shell">
 ng config --global cli.analyticsSharing.tracking UA-123456-12

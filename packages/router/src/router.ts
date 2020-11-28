@@ -6,12 +6,12 @@
  * found in the LICENSE file at https://angular.io/license
  */
 
-import {Location} from '@angular/common';
-import {Compiler, Injectable, Injector, isDevMode, NgModuleFactoryLoader, NgModuleRef, NgZone, Type, ɵConsole as Console} from '@angular/core';
-import {BehaviorSubject, EMPTY, Observable, of, Subject, Subscription} from 'rxjs';
+import {Location, PopStateEvent} from '@angular/common';
+import {Compiler, Injectable, Injector, NgModuleFactoryLoader, NgModuleRef, NgZone, Type, ɵConsole as Console} from '@angular/core';
+import {BehaviorSubject, EMPTY, Observable, of, Subject, SubscriptionLike} from 'rxjs';
 import {catchError, filter, finalize, map, switchMap, tap} from 'rxjs/operators';
 
-import {QueryParamsHandling, Route, Routes, standardizeConfig, validateConfig} from './config';
+import {QueryParamsHandling, Route, Routes} from './config';
 import {createRouterState} from './create_router_state';
 import {createUrlTree} from './create_url_tree';
 import {Event, GuardsCheckEnd, GuardsCheckStart, NavigationCancel, NavigationEnd, NavigationError, NavigationStart, NavigationTrigger, ResolveEnd, ResolveStart, RouteConfigLoadEnd, RouteConfigLoadStart, RoutesRecognized} from './events';
@@ -28,6 +28,7 @@ import {ActivatedRoute, createEmptyState, RouterState, RouterStateSnapshot} from
 import {isNavigationCancelingError, navigationCancelingError, Params} from './shared';
 import {DefaultUrlHandlingStrategy, UrlHandlingStrategy} from './url_handling_strategy';
 import {containsTree, createEmptyUrlTree, UrlSerializer, UrlTree} from './url_tree';
+import {standardizeConfig, validateConfig} from './utils/config';
 import {Checks, getAllRouteGuards} from './utils/preactivation';
 import {isUrlTree} from './utils/type_guards';
 
@@ -36,12 +37,18 @@ import {isUrlTree} from './utils/type_guards';
 /**
  * @description
  *
- * Options that modify the navigation strategy.
+ * Options that modify the `Router` URL.
+ * Supply an object containing any of these properties to a `Router` navigation function to
+ * control how the target URL should be constructed.
+ *
+ * @see [Router.navigate() method](api/router/Router#navigate)
+ * @see [Router.createUrlTree() method](api/router/Router#createurltree)
+ * @see [Routing and Navigation guide](guide/router)
  *
  * 用于修订导航策略的额外选项。
  * @publicApi
  */
-export interface NavigationExtras {
+export interface UrlCreationOptions {
   /**
    * Specifies a root URI to use for relative navigation.
    *
@@ -107,29 +114,29 @@ export interface NavigationExtras {
   fragment?: string;
 
   /**
-   * **DEPRECATED**: Use `queryParamsHandling: "preserve"` instead to preserve
-   * query parameters for the next navigation.
-   *
-   * 已废弃，请改用 `queryParamsHandling` 来为后续导航保留查询参数。
-   *
-   * @deprecated since v4
-   */
-  preserveQueryParams?: boolean;
-
-  /**
    * How to handle query parameters in the router link for the next navigation.
    * One of:
-   * * `merge` : Merge new with current parameters.
    * * `preserve` : Preserve current parameters.
+   * * `merge` : Merge new with current parameters.
    *
-   *  配置后续导航时对查询（`?`）参数的处理策略。
+   * The "preserve" option discards any new query params:
+   * ```
+   * // from /view1?page=1 to/view2?page=1
+   * this.router.navigate(['/view2'], { queryParams: { page: 2 },  queryParamsHandling: "preserve"
+   * });
+   * ```
+   * The "merge" option appends new query params to the params from the current URL:
+   * ```
+   * // from /view1?page=1 to/view2?page=1&otherKey=2
+   * this.router.navigate(['/view2'], { queryParams: { otherKey: 2 },  queryParamsHandling: "merge"
+   * });
+   * ```
+   * In case of a key collision between current parameters and those in the `queryParams` object,
+   * the new value is used.
    *
-   * ```
-   * // from /results?page=1 to /view?page=1&page=2
-   * this.router.navigate(['/view'], { queryParams: { page: 2 },  queryParamsHandling: "merge" });
-   * ```
    */
   queryParamsHandling?: QueryParamsHandling|null;
+
   /**
    * When true, preserves the URL fragment for the next navigation
    *
@@ -141,6 +148,22 @@ export interface NavigationExtras {
    * ```
    */
   preserveFragment?: boolean;
+}
+
+/**
+ * @description
+ *
+ * Options that modify the `Router` navigation strategy.
+ * Supply an object containing any of these properties to a `Router` navigation function to
+ * control how the navigation should be handled.
+ *
+ * @see [Router.navigate() method](api/router/Router#navigate)
+ * @see [Router.navigateByUrl() method](api/router/Router#navigatebyurl)
+ * @see [Routing and Navigation guide](guide/router)
+ *
+ * @publicApi
+ */
+export interface NavigationBehaviorOptions {
   /**
    * When true, navigates without pushing a new state into history.
    *
@@ -152,6 +175,7 @@ export interface NavigationExtras {
    * ```
    */
   skipLocationChange?: boolean;
+
   /**
    * When true, navigates while replacing the current state in history.
    *
@@ -163,10 +187,12 @@ export interface NavigationExtras {
    * ```
    */
   replaceUrl?: boolean;
+
   /**
    * Developer-defined state that can be passed to any navigation.
    * Access this value through the `Navigation.extras` object
-   * returned from `router.getCurrentNavigation()` while a navigation is executing.
+   * returned from the [Router.getCurrentNavigation()
+   * method](api/router/Router#getcurrentnavigation) while a navigation is executing.
    *
    * After a navigation completes, the router writes an object containing this
    * value together with a `navigationId` to `history.state`.
@@ -175,17 +201,36 @@ export interface NavigationExtras {
    *
    * Note that `history.state` does not pass an object equality test because
    * the router adds the `navigationId` on each navigation.
+   *
    */
   state?: {[k: string]: any};
 }
+
+/**
+ * @description
+ *
+ * Options that modify the `Router` navigation strategy.
+ * Supply an object containing any of these properties to a `Router` navigation function to
+ * control how the target URL should be constructed or interpreted.
+ *
+ * @see [Router.navigate() method](api/router/Router#navigate)
+ * @see [Router.navigateByUrl() method](api/router/Router#navigatebyurl)
+ * @see [Router.createUrlTree() method](api/router/Router#createurltree)
+ * @see [Routing and Navigation guide](guide/router)
+ * @see UrlCreationOptions
+ * @see NavigationBehaviorOptions
+ *
+ * @publicApi
+ */
+export interface NavigationExtras extends UrlCreationOptions, NavigationBehaviorOptions {}
 
 /**
  * Error handler that is invoked when a navigation error occurs.
  *
  * 错误处理器会在导航出错时调用。
  *
- * If the handler returns a value, the navigation promise is resolved with this value.
- * If the handler throws an exception, the navigation promise is rejected with
+ * If the handler returns a value, the navigation Promise is resolved with this value.
+ * If the handler throws an exception, the navigation Promise is rejected with
  * the exception.
  *
  * 如果该处理器返回一个值，那么本次导航返回的 Promise 就会使用这个值进行解析（resolve）。
@@ -209,14 +254,32 @@ export type RestoredState = {
 };
 
 /**
- * Information about a navigation operation. Retrieve the most recent
- * navigation object with the `router.getCurrentNavigation()` method.
+ * Information about a navigation operation.
+ * Retrieve the most recent navigation object with the
+ * [Router.getCurrentNavigation() method](api/router/Router#getcurrentnavigation) .
+ *
+ * * *id* : The unique identifier of the current navigation.
+ * * *initialUrl* : The target URL passed into the `Router#navigateByUrl()` call before navigation.
+ * This is the value before the router has parsed or applied redirects to it.
+ * * *extractedUrl* : The initial target URL after being parsed with `UrlSerializer.extract()`.
+ * * *finalUrl* : The extracted URL after redirects have been applied.
+ * This URL may not be available immediately, therefore this property can be `undefined`.
+ * It is guaranteed to be set after the `RoutesRecognized` event fires.
+ * * *trigger* : Identifies how this navigation was triggered.
+ * -- 'imperative'--Triggered by `router.navigateByUrl` or `router.navigate`.
+ * -- 'popstate'--Triggered by a popstate event.
+ * -- 'hashchange'--Triggered by a hashchange event.
+ * * *extras* : A `NavigationExtras` options object that controlled the strategy used for this
+ * navigation.
+ * * *previousNavigation* : The previously successful `Navigation` object. Only one previous
+ * navigation is available, therefore this previous `Navigation` object has a `null` value for its
+ * own `previousNavigation`.
  *
  * @publicApi
  */
 export type Navigation = {
   /**
-   * The ID of the current navigation.
+   * The unique identifier of the current navigation.
    */
   id: number;
   /**
@@ -301,9 +364,19 @@ function defaultRouterHook(snapshot: RouterStateSnapshot, runExtras: {
 }
 
 /**
+ * Information related to a location change, necessary for scheduling follow-up Router navigations.
+ */
+type LocationChangeInfo = {
+  source: 'popstate'|'hashchange',
+  urlTree: UrlTree,
+  state: RestoredState|null,
+  transitionId: number
+};
+
+/**
  * @description
  *
- * A service that provides navigation and URL manipulation capabilities.
+ * A service that provides navigation among views and URL manipulation capabilities.
  *
  * 一个提供导航和操纵 URL 能力的 NgModule。
  *
@@ -326,8 +399,12 @@ export class Router {
   private lastSuccessfulNavigation: Navigation|null = null;
   private currentNavigation: Navigation|null = null;
 
-  // TODO(issue/24571): remove '!'.
-  private locationSubscription!: Subscription;
+  private locationSubscription?: SubscriptionLike;
+  /**
+   * Tracks the previously seen location change from the location subscription so we can compare
+   * the two latest to see if they are duplicates. See setUpLocationChangeListener.
+   */
+  private lastLocationChangeInfo: LocationChangeInfo|null = null;
   private navigationId: number = 0;
   private configLoader: RouterConfigLoader;
   private ngModule: NgModuleRef<any>;
@@ -446,7 +523,7 @@ export class Router {
    * Enables a bug fix that corrects relative link resolution in components with empty paths.
    * @see `RouterModule`
    */
-  relativeLinkResolution: 'legacy'|'corrected' = 'legacy';
+  relativeLinkResolution: 'legacy'|'corrected' = 'corrected';
 
   /**
    * Creates the router service.
@@ -910,26 +987,72 @@ export class Router {
   }
 
   /**
-   * Sets up the location change listener.
-   *
-   * 设置位置变化监听器。
+   * Sets up the location change listener. This listener detects navigations triggered from outside
+   * the Router (the browser back/forward buttons, for example) and schedules a corresponding Router
+   * navigation so that the correct events, guards, etc. are triggered.
    */
   setUpLocationChangeListener(): void {
     // Don't need to use Zone.wrap any more, because zone.js
     // already patch onPopState, so location change callback will
     // run into ngZone
     if (!this.locationSubscription) {
-      this.locationSubscription = <any>this.location.subscribe((change: any) => {
-        let rawUrlTree = this.parseUrl(change['url']);
-        const source: NavigationTrigger = change['type'] === 'popstate' ? 'popstate' : 'hashchange';
-        // Navigations coming from Angular router have a navigationId state property. When this
-        // exists, restore the state.
-        const state = change.state && change.state.navigationId ? change.state : null;
-        setTimeout(() => {
-          this.scheduleNavigation(rawUrlTree, source, state, {replaceUrl: true});
-        }, 0);
+      this.locationSubscription = this.location.subscribe(event => {
+        const currentChange = this.extractLocationChangeInfoFromEvent(event);
+        if (this.shouldScheduleNavigation(this.lastLocationChangeInfo, currentChange)) {
+          // The `setTimeout` was added in #12160 and is likely to support Angular/AngularJS
+          // hybrid apps.
+          setTimeout(() => {
+            const {source, state, urlTree} = currentChange;
+            const extras: NavigationExtras = {replaceUrl: true};
+            if (state) {
+              const stateCopy = {...state} as Partial<RestoredState>;
+              delete stateCopy.navigationId;
+              if (Object.keys(stateCopy).length !== 0) {
+                extras.state = stateCopy;
+              }
+            }
+            this.scheduleNavigation(urlTree, source, state, extras);
+          }, 0);
+        }
+        this.lastLocationChangeInfo = currentChange;
       });
     }
+  }
+
+  /** Extracts router-related information from a `PopStateEvent`. */
+  private extractLocationChangeInfoFromEvent(change: PopStateEvent): LocationChangeInfo {
+    return {
+      source: change['type'] === 'popstate' ? 'popstate' : 'hashchange',
+      urlTree: this.parseUrl(change['url']!),
+      // Navigations coming from Angular router have a navigationId state
+      // property. When this exists, restore the state.
+      state: change.state?.navigationId ? change.state : null,
+      transitionId: this.getTransition().id
+    } as const;
+  }
+
+  /**
+   * Determines whether two events triggered by the Location subscription are due to the same
+   * navigation. The location subscription can fire two events (popstate and hashchange) for a
+   * single navigation. The second one should be ignored, that is, we should not schedule another
+   * navigation in the Router.
+   */
+  private shouldScheduleNavigation(previous: LocationChangeInfo|null, current: LocationChangeInfo):
+      boolean {
+    if (!previous) return true;
+
+    const sameDestination = current.urlTree.toString() === previous.urlTree.toString();
+    const eventsOccurredAtSameTime = current.transitionId === previous.transitionId;
+    if (!eventsOccurredAtSameTime || !sameDestination) {
+      return true;
+    }
+
+    if ((current.source === 'hashchange' && previous.source === 'popstate') ||
+        (current.source === 'popstate' && previous.source === 'hashchange')) {
+      return false;
+    }
+
+    return true;
   }
 
   /** The current URL.
@@ -951,7 +1074,7 @@ export class Router {
   }
 
   /**
-   * Resets the configuration used for navigation and generating links.
+   * Resets the route configuration used for navigation and generating links.
    *
    * 重置供导航和生成链接使用的配置项。
    *
@@ -977,7 +1100,7 @@ export class Router {
     this.lastSuccessfulId = -1;
   }
 
-  /** @docsNotRequired */
+  /** @nodoc */
   ngOnDestroy(): void {
     this.dispose();
   }
@@ -990,27 +1113,19 @@ export class Router {
   dispose(): void {
     if (this.locationSubscription) {
       this.locationSubscription.unsubscribe();
-      this.locationSubscription = null!;
+      this.locationSubscription = undefined;
     }
   }
 
   /**
-   * Applies an array of commands to the current URL tree and creates a new URL tree.
+   * Appends URL segments to the current URL tree to create a new URL tree.
    *
-   * 把一个命令数组应用于当前的 URL 树，并创建一个新的 URL 树。
-   *
-   * When given an activated route, applies the given commands starting from the route.
-   * Otherwise, applies the given command starting from the root.
-   *
-   * 如果指定了激活路由，就以该路由为起点应用这些命令。
-   * 如果没有指定激活路由，就以根路由为起点应用这些命令。
-   *
-   * @param commands An array of commands to apply.
-   *
-   * 要应用的命令数组。
-   *
-   * @param navigationExtras Options that control the navigation strategy. This function
-   * only utilizes properties in `NavigationExtras` that would change the provided URL.
+   * @param commands An array of URL fragments with which to construct the new URL tree.
+   * If the path is static, can be the literal URL string. For a dynamic path, pass an array of path
+   * segments, followed by the parameters for each segment.
+   * The fragments are applied to the current URL tree or the one provided  in the `relativeTo`
+   * property of the options object, if supplied.
+   * @param navigationExtras Options that control the navigation strategy.
    * @returns The new URL tree.
    *
    * 新的 URL Tree。
@@ -1049,34 +1164,21 @@ export class Router {
    * router.createUrlTree(['../../team/44/user/22'], {relativeTo: route});
    * ```
    */
-  createUrlTree(commands: any[], navigationExtras: NavigationExtras = {}): UrlTree {
-    const {
-      relativeTo,
-      queryParams,
-      fragment,
-      preserveQueryParams,
-      queryParamsHandling,
-      preserveFragment
-    } = navigationExtras;
-    if (isDevMode() && preserveQueryParams && <any>console && <any>console.warn) {
-      console.warn('preserveQueryParams is deprecated, use queryParamsHandling instead.');
-    }
+  createUrlTree(commands: any[], navigationExtras: UrlCreationOptions = {}): UrlTree {
+    const {relativeTo, queryParams, fragment, queryParamsHandling, preserveFragment} =
+        navigationExtras;
     const a = relativeTo || this.routerState.root;
     const f = preserveFragment ? this.currentUrlTree.fragment : fragment;
     let q: Params|null = null;
-    if (queryParamsHandling) {
-      switch (queryParamsHandling) {
-        case 'merge':
-          q = {...this.currentUrlTree.queryParams, ...queryParams};
-          break;
-        case 'preserve':
-          q = this.currentUrlTree.queryParams;
-          break;
-        default:
-          q = queryParams || null;
-      }
-    } else {
-      q = preserveQueryParams ? this.currentUrlTree.queryParams : queryParams || null;
+    switch (queryParamsHandling) {
+      case 'merge':
+        q = {...this.currentUrlTree.queryParams, ...queryParams};
+        break;
+      case 'preserve':
+        q = this.currentUrlTree.queryParams;
+        break;
+      default:
+        q = queryParams || null;
     }
     if (q !== null) {
       q = this.removeEmptyProps(q);
@@ -1085,17 +1187,16 @@ export class Router {
   }
 
   /**
-   * Navigate based on the provided URL, which must be absolute.
+   * Navigates to a view using an absolute route path.
    *
    * 基于所提供的 URL 进行导航，必须使用绝对路径。
    *
-   * @param url An absolute URL. The function does not apply any delta to the current URL.
+   * @param url An absolute path for a defined route. The function does not apply any delta to the
+   *     current URL.
    *
    * 一个绝对 URL。该函数不会对当前 URL 做任何修改。
    *
    * @param extras An object containing properties that modify the navigation strategy.
-   * The function ignores any properties in the `NavigationExtras` that would change the
-   * provided URL.
    *
    * 一个包含一组属性的对象，它会修改导航策略。
    * 该函数会忽略 `NavigationExtras` 中任何可能会改变所提供的 URL 的属性
@@ -1107,6 +1208,8 @@ export class Router {
    *
    * @usageNotes
    *
+   * The following calls request navigation to an absolute path.
+   *
    * ```
    * router.navigateByUrl("/team/33/user/11");
    *
@@ -1114,10 +1217,14 @@ export class Router {
    * router.navigateByUrl("/team/33/user/11", { skipLocationChange: true });
    * ```
    *
+   * @see [Routing and Navigation guide](guide/router)
+   *
    */
-  navigateByUrl(url: string|UrlTree, extras: NavigationExtras = {skipLocationChange: false}):
-      Promise<boolean> {
-    if (isDevMode() && this.isNgZoneEnabled && !NgZone.isInAngularZone()) {
+  navigateByUrl(url: string|UrlTree, extras: NavigationBehaviorOptions = {
+    skipLocationChange: false
+  }): Promise<boolean> {
+    if (typeof ngDevMode === 'undefined' ||
+        ngDevMode && this.isNgZoneEnabled && !NgZone.isInAngularZone()) {
       this.console.warn(
           `Navigation triggered outside Angular zone, did you forget to call 'ngZone.run()'?`);
     }
@@ -1135,43 +1242,30 @@ export class Router {
    * 基于所提供的命令数组和起点路由进行导航。
    * 如果没有指定起点路由，则从根路由开始进行绝对导航。
    *
-   * Returns a promise that:
+   * @param commands An array of URL fragments with which to construct the target URL.
+   * If the path is static, can be the literal URL string. For a dynamic path, pass an array of path
+   * segments, followed by the parameters for each segment.
+   * The fragments are applied to the current URL or the one provided  in the `relativeTo` property
+   * of the options object, if supplied.
+   * @param extras An options object that determines how the URL should be constructed or
+   *     interpreted.
    *
-   * 返回一个 Promise：
-   *
-   * - resolves to 'true' when navigation succeeds,
-   *
-   *   当导航成功时解析为 `'true'`，
-   *
-   * - resolves to 'false' when navigation fails,
-   *
-   *   当导航失败时解析为 `'false'`，
-   *
-   * - is rejected when an error happens.
-   *
-   *   当出错时拒绝（reject）。
+   * @returns A Promise that resolves to `true` when navigation succeeds, to `false` when navigation
+   *     fails,
+   * or is rejected on error.
    *
    * @usageNotes
+   *
+   * The following calls request navigation to a dynamic route path relative to the current URL.
    *
    * ```
    * router.navigate(['team', 33, 'user', 11], {relativeTo: route});
    *
-   * // Navigate without updating the URL
+   * // Navigate without updating the URL, overriding the default behavior
    * router.navigate(['team', 33, 'user', 11], {relativeTo: route, skipLocationChange: true});
    * ```
    *
-   * The first parameter of `navigate()` is a delta to be applied to the current URL
-   * or the one provided in the `relativeTo` property of the second parameter (the
-   * `NavigationExtras`).
-   *
-   * `navigate()` 的第一个参数是相对于当前 URL 或第二参数 `NavigationExtras` 中 `relativeTo` 属性所指定的 URL 的增量修改。
-   *
-   * In order to affect this browser's `history.state` entry, the `state`
-   * parameter can be passed. This must be an object because the router
-   * will add the `navigationId` property to this object before creating
-   * the new history item.
-   *
-   * 要想影响到浏览器的 `history.state` 结构，还可以传入一个 `state` 参数。它必须是一个对象，因为路由器会在创建新的历史记录之前为该对象添加 `navigationId` 属性。
+   * @see [Routing and Navigation guide](guide/router)
    *
    */
   navigate(commands: any[], extras: NavigationExtras = {skipLocationChange: false}):
@@ -1246,27 +1340,28 @@ export class Router {
       rawUrl: UrlTree, source: NavigationTrigger, restoredState: RestoredState|null,
       extras: NavigationExtras,
       priorPromise?: {resolve: any, reject: any, promise: Promise<boolean>}): Promise<boolean> {
+    // * Imperative navigations (router.navigate) might trigger additional navigations to the same
+    //   URL via a popstate event and the locationChangeListener. We should skip these duplicate
+    //   navs. Duplicates may also be triggered by attempts to sync AngularJS and Angular router
+    //   states.
+    // * Imperative navigations can be cancelled by router guards, meaning the URL won't change. If
+    //   the user follows that with a navigation using the back/forward button or manual URL change,
+    //   the destination may be the same as the previous imperative attempt. We should not skip
+    //   these navigations because it's a separate case from the one above -- it's not a duplicate
+    //   navigation.
     const lastNavigation = this.getTransition();
-    // If the user triggers a navigation imperatively (e.g., by using navigateByUrl),
-    // and that navigation results in 'replaceState' that leads to the same URL,
-    // we should skip those.
-    if (lastNavigation && source !== 'imperative' && lastNavigation.source === 'imperative' &&
-        lastNavigation.rawUrl.toString() === rawUrl.toString()) {
-      return Promise.resolve(true);  // return value is not used
-    }
-
-    // Because of a bug in IE and Edge, the location class fires two events (popstate and
-    // hashchange) every single time. The second one should be ignored. Otherwise, the URL will
-    // flicker. Handles the case when a popstate was emitted first.
-    if (lastNavigation && source == 'hashchange' && lastNavigation.source === 'popstate' &&
-        lastNavigation.rawUrl.toString() === rawUrl.toString()) {
-      return Promise.resolve(true);  // return value is not used
-    }
-    // Because of a bug in IE and Edge, the location class fires two events (popstate and
-    // hashchange) every single time. The second one should be ignored. Otherwise, the URL will
-    // flicker. Handles the case when a hashchange was emitted first.
-    if (lastNavigation && source == 'popstate' && lastNavigation.source === 'hashchange' &&
-        lastNavigation.rawUrl.toString() === rawUrl.toString()) {
+    // We don't want to skip duplicate successful navs if they're imperative because
+    // onSameUrlNavigation could be 'reload' (so the duplicate is intended).
+    const browserNavPrecededByRouterNav =
+        source !== 'imperative' && lastNavigation?.source === 'imperative';
+    const lastNavigationSucceeded = this.lastSuccessfulId === lastNavigation.id;
+    // If the last navigation succeeded or is in flight, we can use the rawUrl as the comparison.
+    // However, if it failed, we should compare to the final result (urlAfterRedirects).
+    const lastNavigationUrl = (lastNavigationSucceeded || this.currentNavigation) ?
+        lastNavigation.rawUrl :
+        lastNavigation.urlAfterRedirects;
+    const duplicateNav = lastNavigationUrl.toString() === rawUrl.toString();
+    if (browserNavPrecededByRouterNav && duplicateNav) {
       return Promise.resolve(true);  // return value is not used
     }
 

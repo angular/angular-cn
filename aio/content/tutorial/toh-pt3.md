@@ -26,7 +26,7 @@ The `HeroDetailComponent` will present details of a selected hero.
 
   For the sample app that this page describes, see the <live-example></live-example>.
 
-  要查看本页所讲的范例程序，参见<live-example></live-example>。
+  要查看本页所讲的范例程序，参阅<live-example></live-example>。
 
 </div>
 
@@ -113,11 +113,11 @@ region="import-hero" header="src/app/hero-detail/hero-detail.component.ts (impor
 </code-example>
 
 The `hero` property
-[must be an _Input_ property](guide/template-syntax#inputs-outputs "Input and Output properties"),
+[must be an _Input_ property](guide/inputs-outputs "Input and Output properties"),
 annotated with the `@Input()` decorator,
 because the _external_ `HeroesComponent` [will bind to it](#heroes-component-template) like this.
 
-`hero` 属性[必须是一个带有 `@Input()` 装饰器的输入属性](guide/template-syntax#inputs-outputs "Input and Output properties")，因为*外部的* `HeroesComponent` 组件[将会绑定到它](#heroes-component-template)。就像这样：
+`hero` 属性[必须是一个带有 `@Input()` 装饰器的输入属性](guide/inputs-outputs "Input and Output properties")，因为*外部的* `HeroesComponent` 组件[将会绑定到它](#heroes-component-template)。就像这样：
 
 <code-example path="toh-pt3/src/app/heroes/heroes.component.html" region="hero-detail-binding">
 </code-example>
@@ -185,9 +185,9 @@ Bind the `HeroesComponent.selectedHero` to the element's `hero` property like th
 
 </code-example>
 
-`[hero]="selectedHero"` is an Angular [property binding](guide/template-syntax#property-binding).
+`[hero]="selectedHero"` is an Angular [property binding](guide/property-binding).
 
-`[hero]="selectedHero"` 是 Angular 的[属性绑定](guide/template-syntax#property-binding)语法。
+`[hero]="selectedHero"` 是 Angular 的[属性绑定](guide/property-binding)语法。
 
 It's a _one way_ data binding from
 the `selectedHero` property of the `HeroesComponent` to the `hero` property of the target element, which maps to the `hero` property of the `HeroDetailComponent`.
@@ -276,12 +276,12 @@ Here are the code files discussed on this page.
 
    你创建了一个独立的、可复用的 `HeroDetailComponent` 组件。
 
-* You used a [property binding](guide/template-syntax#property-binding) to give the parent `HeroesComponent` control over the child `HeroDetailComponent`.
+* You used a [property binding](guide/property-binding) to give the parent `HeroesComponent` control over the child `HeroDetailComponent`.
 
-   你用[属性绑定](guide/template-syntax#property-binding)语法来让父组件 `HeroesComponent` 可以控制子组件 `HeroDetailComponent`。
+   你用[属性绑定](guide/property-binding)语法来让父组件 `HeroesComponent` 可以控制子组件 `HeroDetailComponent`。
 
-* You used the [`@Input` decorator](guide/template-syntax#inputs-outputs)
+* You used the [`@Input` decorator](guide/inputs-outputs)
 to make the `hero` property available for binding
 by the external `HeroesComponent`.
 
-   你用 [`@Input` 装饰器](guide/template-syntax#inputs-outputs)来让 `hero` 属性可以在外部的 `HeroesComponent` 中绑定。
+   你用 [`@Input` 装饰器](guide/inputs-outputs)来让 `hero` 属性可以在外部的 `HeroesComponent` 中绑定。

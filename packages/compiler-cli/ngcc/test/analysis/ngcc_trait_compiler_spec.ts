@@ -11,9 +11,8 @@ import {absoluteFrom} from '../../../src/ngtsc/file_system';
 import {runInEachFileSystem} from '../../../src/ngtsc/file_system/testing';
 import {MockLogger} from '../../../src/ngtsc/logging/testing';
 import {ClassDeclaration, Decorator, isNamedClassDeclaration} from '../../../src/ngtsc/reflection';
-import {getDeclaration} from '../../../src/ngtsc/testing';
+import {getDeclaration, loadTestFiles} from '../../../src/ngtsc/testing';
 import {AnalysisOutput, CompileResult, DecoratorHandler, DetectResult, HandlerPrecedence, TraitState} from '../../../src/ngtsc/transform';
-import {loadTestFiles} from '../../../test/helpers';
 import {NgccTraitCompiler} from '../../src/analysis/ngcc_trait_compiler';
 import {Esm2015ReflectionHost} from '../../src/host/esm2015_host';
 import {createComponentDecorator} from '../../src/migrations/utils';
@@ -309,7 +308,7 @@ class TestHandler implements DecoratorHandler<unknown, unknown, unknown> {
     return {};
   }
 
-  compile(node: ClassDeclaration): CompileResult|CompileResult[] {
+  compileFull(node: ClassDeclaration): CompileResult|CompileResult[] {
     this.log.push(this.name + ':compile:' + node.name.text);
     return [];
   }

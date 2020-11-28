@@ -53,14 +53,14 @@ To install Angular on your local system, you need the following:
 
   For information about specific version requirements, see the `engines` key in the [package.json](https://unpkg.com/@angular/cli/package.json) file.
 
-  关于具体版本需求，参见 [package.json](https://unpkg.com/@angular/cli/package.json) 文件中的 `engines`。
+  关于具体版本需求，参阅 [package.json](https://unpkg.com/@angular/cli/package.json) 文件中的 `engines`。
 
   </div>
 
-  For more information on installing Node.js, see [nodejs.org](http://nodejs.org "Nodejs.org").
+  For more information on installing Node.js, see [nodejs.org](https://nodejs.org "Nodejs.org").
   If you are unsure what version of Node.js runs on your system, run `node -v` in a terminal window.
 
-  要了解如何安装 Node.js，参见 [nodejs.org](http://nodejs.org "Nodejs.org")。
+  要了解如何安装 Node.js，参阅 [nodejs.org](http://nodejs.org "Nodejs.org")。
   如果你不确定系统中正在运行的 Node.js 版本是什么，请在终端窗口中运行 `node -v`。
 
 {@a npm}
@@ -135,7 +135,7 @@ You also have the option to use Angular's strict mode, which can help you write 
 For more information, see [Strict mode](/guide/strict-mode).
 
 你还可以使用 Angular 的严格模式，他可以帮助你编写更好、更容易维护的代码。
-欲知详情，参见[严格模式](/guide/strict-mode)。
+欲知详情，参阅[严格模式](/guide/strict-mode)。
 
 </div>
 
@@ -186,11 +186,11 @@ If your installation and setup was successful, you should see a page similar to 
 
 * For a more thorough introduction to the fundamental concepts and terminology of Angular single-page app architecture and design principles, read the [Angular Concepts](guide/architecture) section.
 
-  关于 Angular 单页应用程序架构和设计原理的基本概念和术语的详尽介绍，参见 [Angular 的基本概念](guide/architecture)部分。
+  关于 Angular 单页应用程序架构和设计原理的基本概念和术语的详尽介绍，参阅 [Angular 的基本概念](guide/architecture)部分。
 
 * Work through the [Tour of Heroes Tutorial](tutorial), a complete hands-on exercise that introduces you to the app development process using the Angular CLI and walks through important subsystems.
 
-  过一遍[英雄指南教程](tutorial)，这是一个完整的动手练习题，它将教你使用 Angular CLI 进行应用开发的过程，并逐步介绍重要的子系统。
+  过一遍[英雄之旅教程](tutorial)，这是一个完整的动手练习题，它将教你使用 Angular CLI 进行应用开发的过程，并逐步介绍重要的子系统。
 
 * To learn more about using the Angular CLI, see the [CLI Overview](cli "CLI Overview"). In addition to creating the initial workspace and app scaffolding, you can use the CLI to generate Angular code such as components and services. The CLI supports the full development cycle, including building, testing, bundling, and deployment.
 

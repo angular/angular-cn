@@ -13,13 +13,13 @@ This document contains information and resources to help you keep your Angular a
 For information about our versioning policy and practices&mdash;including
 support and deprecation practices, as well as the release schedule&mdash;see [Angular versioning and releases](guide/releases "Angular versioning and releases").
 
-要了解我们的版本策略和实践（包括支持或废弃某些特性时的做法，以及发布计划），请参见 [Angular 的版本与发布](guide/releases "Angular versioning and releases")。
+要了解我们的版本策略和实践（包括支持或废弃某些特性时的做法，以及发布计划），请参阅 [Angular 的版本与发布](guide/releases "Angular versioning and releases")。
 
 <div class="alert is-helpful">
 
 If you are currently using AngularJS, see [Upgrading from AngularJS](guide/upgrade "Upgrading from Angular JS"). _AngularJS_ is the name for all v1.x versions of Angular.
 
-如果你正在使用 AngularJS，参见[从 AngularJS 升级](guide/upgrade "Upgrading from Angular JS")。*AngularJS* 是专用于 Angular v1.x 的名字。
+如果你正在使用 AngularJS，参阅[从 AngularJS 升级](guide/upgrade "Upgrading from Angular JS")。*AngularJS* 是专用于 Angular v1.x 的名字。
 
 </div>
 
@@ -45,7 +45,7 @@ What's new? What's changed? We share the most important things you need to know 
 
 To review a complete list of changes, organized by version, see the [Angular change log](https://github.com/angular/angular/blob/master/CHANGELOG.md "Angular change log").
 
-要查看完整的按版本组织的变更列表，参见 [Angular 更改记录](https://github.com/angular/angular/blob/master/CHANGELOG.md "Angular change log")。
+要查看完整的按版本组织的变更列表，参阅 [Angular 更改记录](https://github.com/angular/angular/blob/master/CHANGELOG.md "Angular change log")。
 
 {@a checking-version-app}
 

@@ -10,7 +10,7 @@ import {ParseError, ParseSourceSpan} from '../parse_util';
 
 import * as html from './ast';
 import * as lex from './lexer';
-import {getNsPrefix, isNgContainer, mergeNsAndName, TagDefinition} from './tags';
+import {getNsPrefix, mergeNsAndName, splitNsName, TagDefinition} from './tags';
 
 export class TreeError extends ParseError {
   static create(elementName: string|null, span: ParseSourceSpan, msg: string): TreeError {
@@ -56,7 +56,8 @@ class _TreeBuilder {
 
   build(): void {
     while (this._peek.type !== lex.TokenType.EOF) {
-      if (this._peek.type === lex.TokenType.TAG_OPEN_START) {
+      if (this._peek.type === lex.TokenType.TAG_OPEN_START ||
+          this._peek.type === lex.TokenType.INCOMPLETE_TAG_OPEN) {
         this._consumeStartTag(this._advance());
       } else if (this._peek.type === lex.TokenType.TAG_CLOSE) {
         this._consumeEndTag(this._advance());
@@ -128,7 +129,8 @@ class _TreeBuilder {
           TreeError.create(null, this._peek.sourceSpan, `Invalid ICU message. Missing '}'.`));
       return;
     }
-    const sourceSpan = new ParseSourceSpan(token.sourceSpan.start, this._peek.sourceSpan.end);
+    const sourceSpan = new ParseSourceSpan(
+        token.sourceSpan.start, this._peek.sourceSpan.end, token.sourceSpan.fullStart);
     this._addToParent(new html.Expansion(
         switchValue.parts[0], type.parts[0], cases, sourceSpan, switchValue.sourceSpan));
 
@@ -162,8 +164,10 @@ class _TreeBuilder {
       return null;
     }
 
-    const sourceSpan = new ParseSourceSpan(value.sourceSpan.start, end.sourceSpan.end);
-    const expSourceSpan = new ParseSourceSpan(start.sourceSpan.start, end.sourceSpan.end);
+    const sourceSpan =
+        new ParseSourceSpan(value.sourceSpan.start, end.sourceSpan.end, value.sourceSpan.fullStart);
+    const expSourceSpan =
+        new ParseSourceSpan(start.sourceSpan.start, end.sourceSpan.end, start.sourceSpan.fullStart);
     return new html.ExpansionCase(
         value.parts[0], expansionCaseParser.rootNodes, sourceSpan, value.sourceSpan, expSourceSpan);
   }
@@ -233,8 +237,7 @@ class _TreeBuilder {
   }
 
   private _consumeStartTag(startTagToken: lex.Token) {
-    const prefix = startTagToken.parts[0];
-    const name = startTagToken.parts[1];
+    const [prefix, name] = startTagToken.parts;
     const attrs: html.Attribute[] = [];
     while (this._peek.type === lex.TokenType.ATTR_NAME) {
       attrs.push(this._consumeAttr(this._advance()));
@@ -257,12 +260,23 @@ class _TreeBuilder {
       selfClosing = false;
     }
     const end = this._peek.sourceSpan.start;
-    const span = new ParseSourceSpan(startTagToken.sourceSpan.start, end);
-    const el = new html.Element(fullName, attrs, [], span, span, undefined);
+    const span = new ParseSourceSpan(
+        startTagToken.sourceSpan.start, end, startTagToken.sourceSpan.fullStart);
+    // Create a separate `startSpan` because `span` will be modified when there is an `end` span.
+    const startSpan = new ParseSourceSpan(
+        startTagToken.sourceSpan.start, end, startTagToken.sourceSpan.fullStart);
+    const el = new html.Element(fullName, attrs, [], span, startSpan, undefined);
     this._pushElement(el);
     if (selfClosing) {
-      this._popElement(fullName);
-      el.endSourceSpan = span;
+      // Elements that are self-closed have their `endSourceSpan` set to the full span, as the
+      // element start tag also represents the end tag.
+      this._popElement(fullName, span);
+    } else if (startTagToken.type === lex.TokenType.INCOMPLETE_TAG_OPEN) {
+      // We already know the opening tag is not complete, so it is unlikely it has a corresponding
+      // close tag. Let's optimistically parse it as a full element and emit an error.
+      this._popElement(fullName, null);
+      this.errors.push(
+          TreeError.create(fullName, span, `Opening tag "${fullName}" not terminated.`));
     }
   }
 
@@ -281,25 +295,33 @@ class _TreeBuilder {
     const fullName = this._getElementFullName(
         endTagToken.parts[0], endTagToken.parts[1], this._getParentElement());
 
-    if (this._getParentElement()) {
-      this._getParentElement()!.endSourceSpan = endTagToken.sourceSpan;
-    }
-
     if (this.getTagDefinition(fullName).isVoid) {
       this.errors.push(TreeError.create(
           fullName, endTagToken.sourceSpan,
           `Void elements do not have end tags "${endTagToken.parts[1]}"`));
-    } else if (!this._popElement(fullName)) {
+    } else if (!this._popElement(fullName, endTagToken.sourceSpan)) {
       const errMsg = `Unexpected closing tag "${
           fullName}". It may happen when the tag has already been closed by another tag. For more info see https://www.w3.org/TR/html5/syntax.html#closing-elements-that-have-implied-end-tags`;
       this.errors.push(TreeError.create(fullName, endTagToken.sourceSpan, errMsg));
     }
   }
 
-  private _popElement(fullName: string): boolean {
+  /**
+   * Closes the nearest element with the tag name `fullName` in the parse tree.
+   * `endSourceSpan` is the span of the closing tag, or null if the element does
+   * not have a closing tag (for example, this happens when an incomplete
+   * opening tag is recovered).
+   */
+  private _popElement(fullName: string, endSourceSpan: ParseSourceSpan|null): boolean {
     for (let stackIndex = this._elementStack.length - 1; stackIndex >= 0; stackIndex--) {
       const el = this._elementStack[stackIndex];
       if (el.name == fullName) {
+        // Record the parse span with the element that is being closed. Any elements that are
+        // removed from the element stack at this point are closed implicitly, so they won't get
+        // an end source span (as there is no explicit closing element).
+        el.endSourceSpan = endSourceSpan;
+        el.sourceSpan.end = endSourceSpan !== null ? endSourceSpan.end : el.sourceSpan.end;
+
         this._elementStack.splice(stackIndex, this._elementStack.length - stackIndex);
         return true;
       }
@@ -329,31 +351,15 @@ class _TreeBuilder {
       const quoteToken = this._advance();
       end = quoteToken.sourceSpan.end;
     }
+    const keySpan = new ParseSourceSpan(attrName.sourceSpan.start, attrName.sourceSpan.end);
     return new html.Attribute(
-        fullName, value, new ParseSourceSpan(attrName.sourceSpan.start, end), valueSpan);
+        fullName, value,
+        new ParseSourceSpan(attrName.sourceSpan.start, end, attrName.sourceSpan.fullStart), keySpan,
+        valueSpan);
   }
 
   private _getParentElement(): html.Element|null {
     return this._elementStack.length > 0 ? this._elementStack[this._elementStack.length - 1] : null;
-  }
-
-  /**
-   * Returns the parent in the DOM and the container.
-   *
-   * `<ng-container>` elements are skipped as they are not rendered as DOM element.
-   */
-  private _getParentElementSkippingContainers():
-      {parent: html.Element|null, container: html.Element|null} {
-    let container: html.Element|null = null;
-
-    for (let i = this._elementStack.length - 1; i >= 0; i--) {
-      if (!isNgContainer(this._elementStack[i].name)) {
-        return {parent: this._elementStack[i], container};
-      }
-      container = this._elementStack[i];
-    }
-
-    return {parent: null, container};
   }
 
   private _addToParent(node: html.Node) {
@@ -365,37 +371,16 @@ class _TreeBuilder {
     }
   }
 
-  /**
-   * Insert a node between the parent and the container.
-   * When no container is given, the node is appended as a child of the parent.
-   * Also updates the element stack accordingly.
-   *
-   * @internal
-   */
-  private _insertBeforeContainer(
-      parent: html.Element, container: html.Element|null, node: html.Element) {
-    if (!container) {
-      this._addToParent(node);
-      this._elementStack.push(node);
-    } else {
-      if (parent) {
-        // replace the container with the new node in the children
-        const index = parent.children.indexOf(container);
-        parent.children[index] = node;
-      } else {
-        this.rootNodes.push(node);
-      }
-      node.children.push(container);
-      this._elementStack.splice(this._elementStack.indexOf(container), 0, node);
-    }
-  }
-
   private _getElementFullName(prefix: string, localName: string, parentElement: html.Element|null):
       string {
     if (prefix === '') {
       prefix = this.getTagDefinition(localName).implicitNamespacePrefix || '';
       if (prefix === '' && parentElement != null) {
-        prefix = getNsPrefix(parentElement.name);
+        const parentTagName = splitNsName(parentElement.name)[1];
+        const parentTagDefinition = this.getTagDefinition(parentTagName);
+        if (!parentTagDefinition.preventNamespaceInheritance) {
+          prefix = getNsPrefix(parentElement.name);
+        }
       }
     }
 

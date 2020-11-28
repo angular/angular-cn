@@ -119,6 +119,14 @@ import {invalidPipeArgumentError} from './invalid_pipe_argument_error';
  *  |                    | yy          | <t>Numeric</t><t>数字</t>: 2 <t>digits + zero padded</t><t>数字 + 0 补位</t>                               | 02, 20, 01, 17, 73                                         |
  *  |                    | yyy         | <t>Numeric</t><t>数字</t>: 3 <t>digits + zero padded</t><t>数字 + 0 补位</t>                               | 002, 020, 201, 2017, 20173                                 |
  *  |                    | yyyy        | <t>Numeric</t><t>数字</t>: 4 <t>digits or more + zero padded</t><t>或更多数字 + 0 补位</t> | 0002, 0020, 0201, 2017, 20173                              |
+ *  | Week-numbering year| Y           | Numeric: minimum digits                                       | 2, 20, 201, 2017, 20173                                    |
+ *  | 周日历年| Y           | 数字: 最少化数字                                       | 2, 20, 201, 2017, 20173                                    |
+ *  |                    | YY          | Numeric: 2 digits + zero padded                               | 02, 20, 01, 17, 73                                         |
+ *  |                    | YY          | 数字：2字符+补零                               | 02, 20, 01, 17, 73                                         |
+ *  |                    | YYY         | Numeric: 3 digits + zero padded                               | 002, 020, 201, 2017, 20173                                 |
+ *  |                    | YYY         | 数字：3字符+补零                               | 002, 020, 201, 2017, 20173                                 |
+ *  |                    | YYYY        | Numeric: 4 digits or more + zero padded                       | 0002, 0020, 0201, 2017, 20173                              |
+ *  |                    | YYYY        | 数字：4字符+补零                       | 0002, 0020, 0201, 2017, 20173                              |
  *  | <t>Month</t><t>月</t>              | M           | <t>Numeric</t><t>数字</t>: <t>1 digit</t><t>1 数字</t>                                              | 9, 12                                                      |
  *  |                    | MM          | <t>Numeric</t><t>数字</t>: 2 <t>digits + zero padded</t><t>数字 + 0 补位</t>                               | 09, 12                                                     |
  *  |                    | MMM         | <t>Abbreviated</t><t>缩略</t>| Sep                                                        |
@@ -249,7 +257,15 @@ export class DatePipe implements PipeTransform {
    *
    * 指定格式的日期字符串。
    */
-  transform(value: any, format = 'mediumDate', timezone?: string, locale?: string): string|null {
+  transform(value: Date|string|number, format?: string, timezone?: string, locale?: string): string
+      |null;
+  transform(value: null|undefined, format?: string, timezone?: string, locale?: string): null;
+  transform(
+      value: Date|string|number|null|undefined, format?: string, timezone?: string,
+      locale?: string): string|null;
+  transform(
+      value: Date|string|number|null|undefined, format = 'mediumDate', timezone?: string,
+      locale?: string): string|null {
     if (value == null || value === '' || value !== value) return null;
 
     try {

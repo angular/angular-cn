@@ -19,11 +19,11 @@ This guide contains a summary of all Angular APIs and features that are currentl
 
 Features and APIs that were deprecated in v6 or earlier are candidates for removal in version 9 or any later major version. For information about Angular's deprecation and removal practices, see [Angular Release Practices](guide/releases#deprecation-practices "Angular Release Practices: Deprecation practices").
 
-v6 或更早版本中已弃用的特性和 API 将会在版本 9 或更高级版本中删除。要了解 Angular 中关于弃用和删除的实践，参见[Angular 发布实践](guide/releases#deprecation-practices "Angular 发布实践：弃用实践")。
+v6 或更早版本中已弃用的特性和 API 将会在版本 9 或更高级版本中删除。要了解 Angular 中关于弃用和删除的实践，参阅[Angular 发布实践](guide/releases#deprecation-practices "Angular 发布实践：弃用实践")。
 
 For step-by-step instructions on how to update to the latest Angular release, use the interactive update guide at [update.angular.io](https://update.angular.io).
 
-有关如何更新到最新 Angular 版本的分步说明，参见 [update.angular.io](https://update.angular.io) 上的交互式更新指南。
+关于如何更新到最新 Angular 版本的分步说明，参阅 [update.angular.io](https://update.angular.io) 上的交互式更新指南。
 
 </div>
 
@@ -43,28 +43,25 @@ v6 - v9
 v7 - v10
 v8 - v11
 v9 - v12
+v10 - v13
+v11 - v14
+v12 - v15
 -->
 
 | Area | API or Feature | May be removed in |
 | ---- | -------------- | ----------------- |
 | 区域 | API 或特性 | 可能会在什么时候移除 |
-| `@angular/bazel`              | [`Bazel builder and schematics`](#bazelbuilder)                               | v10 |
 | `@angular/common` | [`ReflectiveInjector`](#reflectiveinjector) | <!--v8--> v11 |
 | `@angular/common`             | [`CurrencyPipe` - `DEFAULT_CURRENCY_CODE`](api/common/CurrencyPipe#currency-code-deprecation) | <!--v9--> v11 |
-| `@angular/core` | [`CollectionChangeRecord`](#core) | <!--v7--> v11 |
 | `@angular/core` | [`DefaultIterableDiffer`](#core) | <!--v7--> v11 |
 | `@angular/core` | [`ReflectiveKey`](#core) | <!--v8--> v11 |
 | `@angular/core` | [`RenderComponentType`](#core) | <!--v7--> v11 |
-| `@angular/core` | [`ViewEncapsulation.Native`](#core) | <!--v6--> v11 |
 | `@angular/core`               | [`WrappedValue`](#core)                                                       | <!--v10--> v12 |
 | `@angular/forms` | [`ngModel` with reactive forms](#ngmodel-reactive) | <!--v6--> v11 |
 | `@angular/forms` | [响应式表单中的 `ngModel`](#ngmodel-reactive) | <!--v6-->v11 |
-| `@angular/router` | [`preserveQueryParams`](#router) | <!--v7--> v11 |
 | `@angular/upgrade` | [`@angular/upgrade`](#upgrade) | <!--v8--> v11 |
 | `@angular/upgrade` | [`getAngularLib`](#upgrade-static) | <!--v8--> v11 |
 | `@angular/upgrade` | [`setAngularLib`](#upgrade-static) | <!--v8--> v11 |
-| `@angular/platform-webworker` | [All entry points](api/platform-webworker) | <!--v8--> v11  |
-| `@angular/platform-webworker` | [所有入口点](api/platform-webworker) | <!--v8-->v11 |
 | template syntax | [`<template`>](#template-tag) | <!--v7--> v11 |
 | 模板语法 | [`<template` >](#template-tag) | <!--v7-->v11 |
 | polyfills | [reflect-metadata](#reflect-metadata) | <!--v8--> v11 |
@@ -76,17 +73,18 @@ v9 - v12
 | `@angular/core` | [`ANALYZE_FOR_ENTRY_COMPONENTS`](api/core/ANALYZE_FOR_ENTRY_COMPONENTS) | <!--v9--> v11 |
 | `@angular/router` | [`loadChildren` string syntax](#loadChildren) | <!--v9--> v11 |
 | `@angular/router` | [`loadChildren` 字符串语法](#loadChildren) | <!--v9--> v11 |
-| `@angular/core/testing` | [`TestBed.get`](#testing) | <!--v9--> v12 |
-| `@angular/router` | [`ActivatedRoute` params and `queryParams` properties](#activatedroute-props) | unspecified |
-| `@angular/router` | [`ActivatedRoute` 参数和 `queryParams` 属性](#activatedroute-props) | 未定 |
-| template syntax | [`/deep/`, `>>>`, and `::ng-deep`](#deep-component-style-selector) | <!--v7--> unspecified |
-| 模板语法 | [`/deep/`，`>>>` 和 `::ng-deep`](#deep-component-style-selector) | <!--v7-->未定 |
-| browser support               | [`IE 9 and 10, IE mobile`](#ie-9-10-and-mobile)                               | <!--v10--> v11 |
-| 浏览器支持               | [`IE 9、10 和 IE mobile`](#ie-9-10-and-mobile)                                                     | <!--v10--> v11 |
+| `@angular/core/testing`       | [`TestBed.get`](#testing)                                                     | <!--v9--> v12 |
+| `@angular/core/testing`       | [`async`](#testing)                                                           | <!--v9--> v12 |
+| `@angular/forms`              | [`FormBuilder.group` legacy options parameter](api/forms/FormBuilder#group)   | <!--v11--> v14 |
+| `@angular/forms`              | [`FormBuilder.group` 老式选项参数](api/forms/FormBuilder#group)   | <!--v11--> v14 |
+| `@angular/router`             | [`ActivatedRoute` params and `queryParams` properties](#activatedroute-props) | unspecified |
+| `@angular/router`             | [`ActivatedRoute` 参数和 `queryParams` 属性](#activatedroute-props) | 未定 |
+| template syntax               | [`/deep/`, `>>>`, and `::ng-deep`](#deep-component-style-selector)            | <!--v7--> unspecified |
+| 模板语法               | [`/deep/`, `>>>`, 和 `::ng-deep`](#deep-component-style-selector)            | <!--v7--> 未定 |
 
 For information about Angular CDK and Angular Material deprecations, see the [changelog](https://github.com/angular/components/blob/master/CHANGELOG.md).
 
-要了解 Angular CDK 和 Angular Material 的弃用情况，参见[变更记录](https://github.com/angular/components/blob/master/CHANGELOG.md)。
+要了解 Angular CDK 和 Angular Material 的弃用情况，参阅[变更记录](https://github.com/angular/components/blob/master/CHANGELOG.md)。
 
 ## Deprecated APIs
 
@@ -119,24 +117,22 @@ Tip: In the [API reference section](api) of this doc site, deprecated APIs are i
 | API | Replacement | Deprecation announced | Notes |
 | --- | ----------- | --------------------- | ----- |
 | API | 替代品 | 宣布弃用 | 备注 |
-| [`CollectionChangeRecord`](api/core/CollectionChangeRecord) | [`IterableChangeRecord`](api/core/IterableChangeRecord) | v4 | none |
-| [`CollectionChangeRecord`](api/core/CollectionChangeRecord) | [`IterableChangeRecord`](api/core/IterableChangeRecord) | v4 | 无 |
 | [`DefaultIterableDiffer`](api/core/DefaultIterableDiffer) | n/a | v4 | Not part of public API. |
 | [`DefaultIterableDiffer`](api/core/DefaultIterableDiffer) | 不适用 | v4 | 不属于公共 API。|
 | [`ReflectiveInjector`](api/core/ReflectiveInjector) | [`Injector.create`](api/core/Injector#create) | v5 | See [`ReflectiveInjector`](#reflectiveinjector) |
-| [`ReflectiveInjector`](api/core/ReflectiveInjector) | [`Injector.create`](api/core/Injector#create) | v5 | 参见 [`ReflectiveInjector`](#reflectiveinjector) |
+| [`ReflectiveInjector`](api/core/ReflectiveInjector) | [`Injector.create`](api/core/Injector#create) | v5 | 参阅 [`ReflectiveInjector`](#reflectiveinjector) |
 | [`ReflectiveKey`](api/core/ReflectiveKey) | none | v5 | none |
 | [`ReflectiveKey`](api/core/ReflectiveKey) | 无 | v5 | 无 |
-| [`ViewEncapsulation.Native`](api/core/ViewEncapsulation#Native) | [`ViewEncapsulation.ShadowDom`](api/core/ViewEncapsulation#ShadowDom) | v6 | Use the native encapsulation mechanism of the renderer. See [view.ts](https://github.com/angular/angular/blob/3e992e18ebf51d6036818f26c3d77b52d3ec48eb/packages/core/src/metadata/view.ts#L32). |
-| [`ViewEncapsulation.Native`](api/core/ViewEncapsulation#Native) | [`ViewEncapsulation.ShadowDom`](api/core/ViewEncapsulation#ShadowDom) | v6 | 使用渲染器的原生封装机制。参见 [view.ts。](https://github.com/angular/angular/blob/3e992e18ebf51d6036818f26c3d77b52d3ec48eb/packages/core/src/metadata/view.ts#L32) |
 | [`defineInjectable`](api/core/defineInjectable) | `ɵɵdefineInjectable` | v8 | Used only in generated code. No source code should depend on this API. |
 | [`defineInjectable`](api/core/defineInjectable) | `ɵɵdefineInjectable` | v8 | 仅在生成的代码中使用。任何源代码都不应依赖此 API。|
 | [`entryComponents`](api/core/NgModule#entryComponents) | none | v9 | See [`entryComponents`](#entryComponents) |
-| [`entryComponents`](api/core/NgModule#entryComponents) | 无 | v9 | 参见 [`entryComponents`](#entryComponents) |
+| [`entryComponents`](api/core/NgModule#entryComponents) | 无 | v9 | 参阅 [`entryComponents`](#entryComponents) |
 | [`ANALYZE_FOR_ENTRY_COMPONENTS`](api/core/ANALYZE_FOR_ENTRY_COMPONENTS) | none | v9 | See [`ANALYZE_FOR_ENTRY_COMPONENTS`](#entryComponents) |
-| [`ANALYZE_FOR_ENTRY_COMPONENTS`](api/core/ANALYZE_FOR_ENTRY_COMPONENTS) | 无 | v9 | 参见 [`ANALYZE_FOR_ENTRY_COMPONENTS`](#entryComponents) |
+| [`ANALYZE_FOR_ENTRY_COMPONENTS`](api/core/ANALYZE_FOR_ENTRY_COMPONENTS) | 无 | v9 | 参阅 [`ANALYZE_FOR_ENTRY_COMPONENTS`](#entryComponents) |
 | [`WrappedValue`](api/core/WrappedValue) | none | v10 | See [removing `WrappedValue`](#wrapped-value) |
-| [`WrappedValue`](api/core/WrappedValue) | 无 | v10 | 参见[移除 `WrappedValue`](#wrapped-value) |
+| [`WrappedValue`](api/core/WrappedValue) | 无 | v10 | 参阅[移除 `WrappedValue`](#wrapped-value) |
+| [`async`](api/core/testing/async) | [`waitForAsync`](api/core/testing/waitForAsync) | v11 | The `async` function from `@angular/core/testing` has been renamed to `waitForAsync` in order to avoid confusion with the native JavaScript `async` syntax. The existing function is deprecated and will be removed in a future version. |
+| [`async`](api/core/testing/async) | [`waitForAsync`](api/core/testing/waitForAsync) | v11 | `@angular/core/testing` 中的 `async` 函数已经改名为 `waitForAsync` 以免与 JavaScript 原生 `async` 语法混淆。现有函数已经标记为弃用，并将在未来版本中移除。|
 
 {@a testing}
 ### @angular/core/testing
@@ -146,6 +142,9 @@ Tip: In the [API reference section](api) of this doc site, deprecated APIs are i
 | API | 替代品 | 宣布弃用 | 备注 |
 | [`TestBed.get`](api/core/testing/TestBed#get) | [`TestBed.inject`](api/core/testing/TestBed#inject) | v9 | Same behavior, but type safe. |
 | [`TestBed.get`](api/core/testing/TestBed#get) | [`TestBed.inject`](api/core/testing/TestBed#inject) | v9 | 行为相同，但类型安全。|
+| [`async`](api/core/testing/async) | [`waitForAsync`](api/core/testing/waitForAsync) | v10 | Same behavior, but rename to avoid confusion. |
+| [`async`](api/core/testing/async) | [`waitForAsync`](api/core/testing/waitForAsync) | v10 | 行为相同，只是改名以免混淆。 |
+
 
 {@a forms}
 ### @angular/forms
@@ -154,34 +153,10 @@ Tip: In the [API reference section](api) of this doc site, deprecated APIs are i
 | --- | ----------- | --------------------- | ----- |
 | API | 替代品 | 宣布弃用 | 备注 |
 | [`ngModel` with reactive forms](#ngmodel-reactive) | [`FormControlDirective`](api/forms/FormControlDirective) | v6 | none |
-| [响应式表单中的 `ngModel`](#ngmodel-reactive) | 参见 [FormControlDirective 使用说明](api/forms/FormControlDirective) | v6 | 无 |
+| [响应式表单中的 `ngModel`](#ngmodel-reactive) | 参阅 [FormControlDirective 使用说明](api/forms/FormControlDirective) | v6 | 无 |
+| [`FormBuilder.group` legacy options parameter](api/forms/FormBuilder#group) | [`AbstractControlOptions` parameter value](api/forms/AbstractControlOptions) | v11 | none |
+| [`FormBuilder.group` 老式选项参数](api/forms/FormBuilder#group) | [`AbstractControlOptions` 参数值](api/forms/AbstractControlOptions) | v11 | 无 |
 
-{@a router}
-### @angular/router
-
-| API | Replacement | Deprecation announced | Notes |
-| --- | ----------- | --------------------- | ----- |
-| API | 替代品 | 宣布弃用 | 备注 |
-| [`preserveQueryParams`](api/router/NavigationExtras#preserveQueryParams) | [`queryParamsHandling`](api/router/NavigationExtras#queryParamsHandling) | v4 | none |
-| [`preserveQueryParams`](api/router/NavigationExtras#preserveQueryParams) | [`queryParamsHandling`](api/router/NavigationExtras#queryParamsHandling) | v4 | 无 |
-
-{@a platform-webworker}
-### @angular/platform-webworker
-
-| API | Replacement | Deprecation announced | Notes |
-| --- | ----------- | --------------------- | ----- |
-| API | 替代品 | 宣布弃用 | 备注 |
-| [All entry points](api/upgrade) | [`@angular/upgrade/static`](api/upgrade/static) | v5 | See [Upgrading from AngularJS](guide/upgrade). |
-| [所有入口点](api/upgrade) | [`@angular/upgrade/static`](api/upgrade/static) | v5 | 参见[从 AngularJS 升级](guide/upgrade)。|
-
-{@a platform-webworker-dynamic}
-### @angular/platform-webworker-dynamic
-
-| API | Replacement | Deprecation announced | Notes |
-| --- | ----------- | --------------------- | ----- |
-| API | 替代品 | 宣布弃用 | 备注 |
-| [All entry points](api/platform-webworker-dynamic) | none | v8 | See [platform-webworker](#webworker-apps). |
-| [所有入口点](api/platform-webworker-dynamic) | 无 | v8 | 参见 [platform-webworker](#webworker-apps). |
 
 {@a upgrade}
 ### @angular/upgrade
@@ -190,7 +165,7 @@ Tip: In the [API reference section](api) of this doc site, deprecated APIs are i
 | --- | ----------- | --------------------- | ----- |
 | API | 替代品 | 宣布弃用 | 备注 |
 | [All entry points](api/upgrade) | [`@angular/upgrade/static`](api/upgrade/static) | v5 | See [Upgrading from AngularJS](guide/upgrade). |
-| [所有入口点](api/upgrade) | [`@angular/upgrade/static`](api/upgrade/static) | v5 | 参见 [从 AngularJS 升级](guide/upgrade)。|
+| [所有入口点](api/upgrade) | [`@angular/upgrade/static`](api/upgrade/static) | v5 | 参阅 [从 AngularJS 升级](guide/upgrade)。|
 
 {@a upgrade-static}
 ### @angular/upgrade/static
@@ -199,9 +174,9 @@ Tip: In the [API reference section](api) of this doc site, deprecated APIs are i
 | --- | ----------- | --------------------- | ----- |
 | API | 替代品 | 宣布弃用 | 备注 |
 | [`getAngularLib`](api/upgrade/static/getAngularLib) | [`getAngularJSGlobal`](api/upgrade/static/getAngularJSGlobal) | v5 | See [Upgrading from AngularJS](guide/upgrade). |
-| [`getAngularLib`](api/upgrade/static/getAngularLib) | [`getAngularJSGlobal`](api/upgrade/static/getAngularJSGlobal) | v5 | 参见[从 AngularJS 升级](guide/upgrade)。|
+| [`getAngularLib`](api/upgrade/static/getAngularLib) | [`getAngularJSGlobal`](api/upgrade/static/getAngularJSGlobal) | v5 | 参阅[从 AngularJS 升级](guide/upgrade)。|
 | [`setAngularLib`](api/upgrade/static/setAngularLib) | [`setAngularJSGlobal`](api/upgrade/static/setAngularJSGlobal) | v5 | See [Upgrading from AngularJS](guide/upgrade). |
-| [`setAngularLib`](api/upgrade/static/setAngularLib) | [`setAngularJSGlobal`](api/upgrade/static/setAngularJSGlobal) | v5 | 参见[从 AngularJS 升级](guide/upgrade)。|
+| [`setAngularLib`](api/upgrade/static/setAngularLib) | [`setAngularJSGlobal`](api/upgrade/static/setAngularJSGlobal) | v5 | 参阅[从 AngularJS 升级](guide/upgrade)。|
 
 {@a deprecated-features}
 
@@ -222,7 +197,7 @@ Bazel builder and schematics were introduced in Angular Labs to let users try ou
 This feature has been deprecated. For more information, please refer to the [migration doc](https://github.com/angular/angular/blob/master/packages/bazel/src/schematics/README.md).
 
 Bazel 构建器及其原理图曾经被引入到 Angular Labs 中，以便让用户尝试 Bazel，而不用管理 Bazel 的版本和 BUILD 文件。
-该特性已经弃用了。欲知详情，参见[迁移文档](https://github.com/angular/angular/blob/master/packages/bazel/src/schematics/README.md)。
+该特性已经弃用了。欲知详情，参阅[迁移文档](https://github.com/angular/angular/blob/master/packages/bazel/src/schematics/README.md)。
 
 {@a wtf}
 ### Web Tracing Framework integration
@@ -250,9 +225,11 @@ For more information, see [/deep/, >>>, and ::ng-deep](guide/component-styles#de
 {@a template-tag}
 ### &lt;template&gt; tag
 
+### &lt;template&gt; 标签
+
 The `<template>` tag was deprecated in v4 to avoid colliding with the DOM's element of the same name (such as when using web components). Use `<ng-template>` instead. For more information, see the [Ahead-of-Time Compilation](guide/angular-compiler-options#enablelegacytemplate) guide.
 
-`<template>` 标签在 v4 中已经弃用，以消除和 DOM 中同名元素的冲突（比如在使用 Web Components 时）。请用 `<ng-template>` 代替。欲知详情，参见[预先编译](guide/angular-compiler-options#enablelegacytemplate)一章。
+`<template>` 标签在 v4 中已经弃用，以消除和 DOM 中同名元素的冲突（比如在使用 Web Components 时）。请用 `<ng-template>` 代替。欲知详情，参阅[预先编译](guide/angular-compiler-options#enablelegacytemplate)一章。
 
 {@a ngmodel-reactive}
 ### ngModel with reactive forms
@@ -440,7 +417,7 @@ const routes: Routes = [{
 
 For more information see the [Getting route information](guide/router#activated-route) section of the [Router guide](guide/router).
 
-欲知详情，参见[路由器指南](guide/router#activated-route)。
+欲知详情，参阅[路由器指南](guide/router#activated-route)。
 
 {@a reflect-metadata}
 ### Dependency on a reflect-metadata polyfill in JIT mode
@@ -453,7 +430,7 @@ Angular 应用程序，特别是依赖于 JIT 编译器的应用程序，过去�
 
 The need for this polyfill was removed in Angular version 8.0 ([see #14473](https://github.com/angular/angular-cli/pull/14473)), rendering the presence of the poylfill in most Angular applications unnecessary. Because the polyfill can be depended on by 3rd-party libraries, instead of removing it from all Angular projects, we are deprecating the requirement for this polyfill as of version 8.0. This should give library authors and application developers sufficient time to evaluate if they need the polyfill, and perform any refactoring necessary to remove the dependency on it.
 
-在 Angular 8.0 版中不再需要这种 polyfill（[参见#14473](https://github.com/angular/angular-cli/pull/14473) ），从而使大多数 Angular 应用程序中都不需要使用这个腻子脚本。因为这个腻子脚本可能由第三方库依赖，所以没有从所有 Angular 项目中删除它，所以我们不建议从 8.0 版本开始再使用这个腻子脚本。这应该能给库作者和应用程序开发人员足够的时间来评估他们是否需要这个腻子脚本，并执行必要的重构以消除对它的依赖。
+在 Angular 8.0 版中不再需要这种 polyfill（[参阅#14473](https://github.com/angular/angular-cli/pull/14473) ），从而使大多数 Angular 应用程序中都不需要使用这个腻子脚本。因为这个腻子脚本可能由第三方库依赖，所以没有从所有 Angular 项目中删除它，所以我们不建议从 8.0 版本开始再使用这个腻子脚本。这应该能给库作者和应用程序开发人员足够的时间来评估他们是否需要这个腻子脚本，并执行必要的重构以消除对它的依赖。
 
 In a typical Angular project, the polyfill is not used in production builds, so removing it should not impact production applications. The goal behind this removal is overall simplification of the build setup and decrease in the number of external dependencies.
 
@@ -466,7 +443,7 @@ In a typical Angular project, the polyfill is not used in production builds, so 
 
 See the [dedicated migration guide for static queries](guide/static-query-migration).
 
-参见[[静态查询的专用迁移指南](guide/static-query-migration)。
+参阅[[静态查询的专用迁移指南](guide/static-query-migration)。
 
 {@a contentchild-input-together}
 ### `@ContentChild()` / `@Input()` used together
@@ -484,7 +461,7 @@ The following pattern is deprecated:
 Rather than using this pattern, separate the two decorators into their own
 properties and add fallback logic as in the following example:
 
-与其使用这种模式，还不如将两个装饰器添加到各自的属性上并添加回退逻辑，如以下示例所示：
+与其使用这种模式，还不如将两个装饰器添加到各自的属性上并添加回退逻辑，如以下范例所示：
 
 ```ts
 @Input() tpl !: TemplateRef<any>;
@@ -498,7 +475,7 @@ properties and add fallback logic as in the following example:
 In the following example, the two-way binding means that `optionName`
 should be written when the `valueChange` event fires.
 
-在下面的示例中，双向绑定意味着在 `valueChange` 事件触发时应该写入 `optionName`。
+在下面的范例中，双向绑定意味着在 `valueChange` 事件触发时应该写入 `optionName`。
 
 ```html
 <option *ngFor="let optionName of options" [(value)]="optionName"></option>
@@ -533,38 +510,6 @@ These two properties have subtle differences, so switching to `textContent` unde
 All of the `wtf*` APIs are deprecated and will be removed in a future version.
 
 所有 `wtf*` API 均已弃用，并将在以后的版本中删除。
-
-{@a webworker-apps}
-### Running Angular applications in platform-webworker
-
-### 在 Platform-Webworker 中运行 Angular 应用程序
-
-The `@angular/platform-*` packages enable Angular to be run in different contexts. For examples,
-`@angular/platform-server` enables Angular to be run on the server, and `@angular/platform-browser`
-enables Angular to be run in a web browser.
-
-`@angular/platform-*` 软件包使 Angular 可以在不同的上下文中运行。例如，`@angular/platform-server` 使 Angular 可以在服务器上运行，而 `@angular/platform-browser` 使 Angular 可以在 Web 浏览器中运行。
-
-`@angular/platform-webworker` was introduced in Angular version 2 as an experiment in leveraging
-Angular's rendering architecture to run an entire web application in a
-[web worker](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API). We've learned a lot
-from this experiment and have come to the conclusion that running the entire application in a web
-worker is not the best strategy for most applications.
-
-`@angular/platform-webworker` 是在 Angular 版本 2 中引入的，`@angular/platform-webworker` 是利用 Angular 的渲染体系结构在 [Web Worker 中](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API)运行整个 Web 应用程序的实验。我们从这个实验中学到了很多，得出的结论是，对于大多数应用程序来说，在 Web Worker 中运行整个应用程序不是最佳策略。
-
-Going forward, we will focus our efforts related to web workers around their primary use case of
-offloading CPU-intensive, non-critical work needed for initial rendering (such as in-memory search
-and image processing). Learn more in the
-[guide to Using Web Workers with the Angular CLI](guide/web-worker).
-
-展望未来，我们将专注于与 Web Worker 相关的工作，围绕它们的主要用例来分担初始渲染所需的 CPU 密集型非关键工作（例如内存中搜索和图像处理）。[在 Angular CLI 中使用 Web Worker 指南中](guide/web-worker)了解更多信息。
-
-As of Angular version 8, all  `platform-webworker` APIs are deprecated.
-This includes both packages: `@angular/platform-webworker` and
-`@angular/platform-webworker-dynamic`.
-
-从 Angular 8 版开始，所有 `platform-webworker` API 均已弃用。这包括两个软件包：`@angular/platform-webworker` 和 `@angular/platform-webworker-dynamic`。
 
 {@a entryComponents}
 ### `entryComponents` and `ANALYZE_FOR_ENTRY_COMPONENTS` no longer required
@@ -629,33 +574,6 @@ export class MyModule {
 }
 ```
 
-{@a ie-9-10-and-mobile}
-### IE 9, 10, and IE mobile support
-
-### IE 9、10 和 IE 移动版支持
-
-Support for IE 9 and 10 has been deprecated, as well as support for IE Mobile. These will be dropped in a future version.
-Supporting outdated browsers like these increases bundle size, code complexity, and test load, and also requires time and effort that could be spent on improvements to the framework.
-For example, fixing issues can be more difficult, as a straightforward fix for modern browsers could break old ones that have quirks due to not receiving updates from vendors.
-
-对 IE 9、10 和 IE 移动版的支持已被弃用。它们都将在以后的版本中删除。支持像这样过时的浏览器会增加打包尺寸，增加代码的复杂性和测试的负担，还需要花费大量的时间和精力来改进框架。例如，修复问题可能会更加困难，因为对于现代浏览器那些直接的修复方式可能会破坏那些没有收到更新的怪异旧版本。
-
-The final decision was made on three key points:
-
-它的最终决定取决于三点：
-
-* __Vendor support__: Microsoft dropped support of IE 9 and 10 on 1/12/16, meaning they no longer provide security updates or technical support. Additionally, Microsoft dropped support for Windows 10 Mobile in December 2019.
-
-  **供应商支持** ：微软于 2016 年 1 月 12 日放弃对 IE 9 和 10 的支持，这意味着他们不再提供安全更新或技术支持。另外，微软在 2019 年 12 月放弃了对 Windows 10 移动版的支持。
-
-* __Usage statistics__: We looked at usage trends for IE 9 and 10 (as well as IE Mobile) from various sources and all indicated that usage percentages were extremely small (fractions of 1%).
-
-  **用法统计** ：我们从不同来源查看了 IE 9 和 10 （和 IE Mobile）的使用趋势，并且都表明其使用率非常小（不足 1％）。
-
-* __Feedback from partners__: We also reached out to some of our Angular customers and none expressed concern about dropping IE 9 and 10, nor IE Mobile support.
-
-  **来自合作伙伴的反馈意见** ：我们还联系了一些 Angular 的客户，没有人担心放弃 IE 9、10 或 IE Mobile 的支持。
-
 {@a wrapped-value}
 ###  `WrappedValue`
 
@@ -677,7 +595,7 @@ If you rely on the behavior that the same object instance should cause change de
 
   克隆结果值，使其具有新的标识。
 
-- Explicitly call [`ChangeDetectorRef.detectChanges()`](api/core/ChangeDetectorRef#detectchanges) to force the update. 
+- Explicitly call [`ChangeDetectorRef.detectChanges()`](api/core/ChangeDetectorRef#detectchanges) to force the update.
 
   显式调用 [`ChangeDetectorRef.detectChanges()`](api/core/ChangeDetectorRef#detectchanges) 进行强制更新。
 
@@ -692,77 +610,44 @@ This section contains a complete list all of the currently deprecated CLI flags.
 
 ### @angular-devkit/build-angular
 
-| API/Option | May be removed in | Notes |
-| ---------- | ----------------- | ----- |
+| API/Option                      | May be removed in | Notes                                                                           |
+| ------------------------------- | ----------------- |-------------------------------------------------------------------------------- |
 | API/选项 | 可能删除于 | 备注 |
-| `i18nFile` | <!--v9--> v11 | Specified in the project locale configuration in version 9 and later. |
-| `i18nFile` | <!--v9--> v11 | 在版本 9 及更高版本的项目区域配置中指定。 |
-| `i18nFormat` | <!--v9--> v11 | Format is now automatically detected. |
-| `i18nFormat` | <!--v9--> v11 | 格式现在是自动检测的。 |
-| `i18nLocale` | <!--v9--> v11 | New [localization option](/guide/i18n#localize-config) in version 9 and later. |
-| `i18nLocale` | <!--v9--> v11 | 版本 9 和更高版本中新的[本地化选项](/guide/i18n#localize-config) 。 |
-| `lazyModules` | <!--v9--> v11 | Used with deprecated SystemJsNgModuleLoader. |
-| `lazyModules` | <!--v9--> v11 | 与已弃用的 SystemJsNgModuleLoader 配合使用。 |
-| `rebaseRootRelativeCssUrls` | <!--v8--> v11 | Intended only to assist with specific migration issues. |
-| `rebaseRootRelativeCssUrls` | <!--v8--> v11 | 仅用于帮助解决特定的迁移问题。 |
-| `scripts[].lazy` | <!--v8--> v11 | Renamed to `scripts[].inject`. |
-| `scripts[].lazy` | <!--v8--> v11 | 已改名为 `scripts[].inject`. |
-| `styles[].lazy` | <!--v8--> v11 | Renamed to `styles[].inject`. |
-| `styles[].lazy` | <!--v8--> v11 | 已改名为 `styles[].inject` 。 |
-| `i18nFormat` | <!--v9--> v11 | Renamed to `format` to simplify the user experience. |
-| `i18nFormat` | <!--v9--> v11 | 已改名为 `format`，以简化用户体验。 |
-| `i18nLocale` | <!--v9--> v11 | Redundant with project’s source locale. |
-| `i18nLocale` | <!--v9--> v11 | 是项目的源本地环境的冗余项。 |
-| `scripts[].lazy` | <!--v8--> v11 | Renamed to `scripts[].inject`. |
-| `scripts[].lazy` | <!--v8--> v11 | 已改名为 `scripts[].inject`. |
-| `styles[].lazy` | <!--v8--> v11 | Renamed to `styles[].inject`. |
-| `styles[].lazy` | <!--v8--> v11 | 已改名为 `styles[].inject` 。 |
-| `i18nFile` | <!--v9--> v11 | Specified in the project locale configuration in version 9 and later. |
-| `i18nFile` | <!--v9--> v11 | 在版本 9 及更高版本的项目本地环境配置中指定。 |
-| `i18nFormat` | <!--v9--> v11 | Format is now automatically detected. |
-| `i18nFormat` | <!--v9--> v11 | 格式现在是自动检测的。 |
-| `i18nLocale` | <!--v9--> v11 | New [localization option](/guide/i18n#localize-config) in version 9 and later. |
-| `i18nLocale` | <!--v9--> v11 | 版本 9 和更高版本中新的[本地化选项](/guide/i18n#localize-config) 。 |
-| `lazyModules` | <!--v9--> v11 | Used with deprecated SystemJsNgModuleLoader. |
-| `lazyModules` | <!--v9--> v11 | 与已弃用的 SystemJsNgModuleLoader 配合使用。 |
-
-### @angular-devkit/core
-
-| API/Option | May be removed in | Notes |
-| ---------- | ----------------- | ----- |
-| API/选项 | 可能删除于 | 备注 |
-| `ModuleNotFoundException` | <!--v8--> v10 | Not used within projects. Used with Tooling API only. Not Yarn PnP compatible and not used in the Angular CLI. Use Node.js [require.resolve](https://nodejs.org/api/modules.html#modules_require_resolve_request_options). |
-| `ModuleNotFoundException` | <!--v8--> v10 | 在项目中没用过。仅与 Tooling API 一起使用。 与 Yarn 的 PnP 不兼容，并且没有用在 Angular CLI 中。使用 Node.js 的[require.resolve](https://nodejs.org/api/modules.html#modules_require_resolve_request_options) 。 |
-| `resolve` | <!--v8--> v10 | Not used within projects. Used with Tooling API only. Not Yarn PnP compatible and not used in the Angular CLI. Use Node.js [require.resolve](https://nodejs.org/api/modules.html#modules_require_resolve_request_options). |
-| `resolve` | <!--v8--> v10 | 在项目中没用过。仅与 Tooling API 一起使用。与 Yarn 的 PnP 不兼容，并且没有用在 Angular CLI 中。使用 Node.js 的 [require.resolve](https://nodejs.org/api/modules.html#modules_require_resolve_request_options) 。 |
-| `setResolveHook` | <!--v8--> v10 | Not used within projects. Used with Tooling API only. Not Yarn PnP compatible and not used in the Angular CLI. Use Node.js [require.resolve](https://nodejs.org/api/modules.html#modules_require_resolve_request_options). |
-| `setResolveHook` | <!--v8-->v10 | 在项目中没用过。仅与 Tooling API 一起使用。与 Yarn 的 PnP 不兼容，并且没有用在 Angular CLI 中。使用 Node.js 的 [require.resolve](https://nodejs.org/api/modules.html#modules_require_resolve_request_options) 。 |
-| `ResolveOptions` | <!--v8--> v10 | Not used within projects. Used with Tooling API only. Not Yarn PnP compatible and not used in the Angular CLI. Use Node.js [require.resolve](https://nodejs.org/api/modules.html#modules_require_resolve_request_options). |
-| `ResolveOptions` | <!--v8-->v10 | 在项目中没用过。仅与 Tooling API 一起使用。与 Yarn 的 PnP 不兼容，并且没有用在 Angular CLI 中。使用 Node.js 的 [require.resolve](https://nodejs.org/api/modules.html#modules_require_resolve_request_options) 。 |
-| `terminal` | <!--v8--> v10 | Unused implementation of terminal codes (color). |
-| `terminal` | <!--v8-->v10 | 未用过的终端代码实现（颜色）。 |
-| `isObservable` | <!--v8--> v10 | Not used within projects. Used with Tooling API only. Use `isObservable` function from the `rxjs` package. |
-| `isObservable` | <!--v8-->v10 | 在项目中没用过。仅与 Tooling API 一起使用。在 `rxjs` 包中使用 `isObservable` 函数。 |
+| `i18nFile` | <!--v9--> v11 |
+| `extractCss`                    | <!--v11--> v13     | No longer required to disable CSS extraction during development.               |
+| `extractCss`                    | <!--v11--> v13     | 不需要在开发期间禁用 CSS 抽取。               |
+| `i18nFormat`                    | <!--v9--> v12      | Format is now automatically detected.                                           |
+| `i18nFormat`                    | <!--v9--> v12      | 格式现在是自动检测的。                                           |
+| `i18nLocale`                    | <!--v9--> v12      | New [localization option](/guide/i18n#localize-config) in version 9 and later.  |
+| `i18nLocale`                    | <!--v9--> v12      | 版本 9 和更高版本中新的[本地化选项](/guide/i18n#localize-config) 。 |
+| `lazyModules`                   | <!--v9--> v12      | Used with deprecated SystemJsNgModuleLoader.                                    |
+| `lazyModules`                   | <!--v9--> v12      | 与已弃用的 SystemJsNgModuleLoader 配合使用。 |
+| `hmrWarning`                    | <!--v11--> v13     | No longer has an effect.                                                       |
+| `hmrWarning`                    | <!--v11--> v13     | 已无效果 |
+| `servePathDefaultWarning`       | <!--v11--> v13     | No longer has an effect.                                                       |
+| `servePathDefaultWarning`       | <!--v11--> v13     | 已无效果。                                                       |
 
 ### @ngtools/webpack
 
 | API/Option | May be removed in | Notes |
 | ---------- | ----------------- | ----- |
 | API/选项 | 可能删除于 | 备注 |
-| `discoverLazyRoutes` | <!--v9--> TBD | Used with deprecated SystemJsNgModuleLoader. |
+| `discoverLazyRoutes` | <!--v9--> v12 | Used with deprecated SystemJsNgModuleLoader. |
 | `discoverLazyRoutes` | <!--v9--> TBD | 与已弃用的 SystemJsNgModuleLoader 配合使用。 |
-| `additionalLazyModules` | <!--v9--> TBD | Used with deprecated SystemJsNgModuleLoader. |
+| `additionalLazyModules` | <!--v9--> v12 | Used with deprecated SystemJsNgModuleLoader. |
 | `additionalLazyModules` | <!--v9--> TBD | 与已弃用的 SystemJsNgModuleLoader 配合使用。 |
-| `additionalLazyModuleResources` | <!--v9--> TBD | Used with deprecated SystemJsNgModuleLoader. |
+| `additionalLazyModuleResources` | <!--v9--> v12 | Used with deprecated SystemJsNgModuleLoader. |
 | `additionalLazyModuleResources` | <!--v9--> TBD | 与已弃用的 SystemJsNgModuleLoader 配合使用。 |
 
 ### @schematics/angular
 
-| API/Option | May be removed in | Notes |
-| ---------- | ----------------- | ----- |
+| API/Option                      | May be removed in | Notes                                                                           |
+| ------------------------------- | ----------------- |-------------------------------------------------------------------------------- |
 | API/选项 | 可能删除于 | 备注 |
-| `entryComponent` | <!--v9--> TBD | No longer needed with Ivy. |
-| `entryComponent` | <!--v9-->TBD | Ivy 中不再需要了。 |
+| `entryComponent`                | <!--v9--> v12     | No longer needed with Ivy.                                                      |
+| `entryComponent`                | <!--v9--> v12     | Ivy 中不再需要了。                                                     |
+| `lintFix`                       | <!--v11--> v12    | Deprecated as part of TSLint deprecation.                                      |
+| `lintFix`                       | <!--v11--> v12    | 作为 TSLint 的一部分而被弃用。                                      |
 
 {@a removed}
 
@@ -770,21 +655,16 @@ This section contains a complete list all of the currently deprecated CLI flags.
 
 ## 删除的 API
 
-The following APIs have been removed starting with version 10.0.0*:
+The following APIs have been removed starting with version 11.0.0*:
 
-从 10.0.0 版开始，已经删除了以下 API：
+下列 API 已从 11.0.0* 版本开始移除：
 
-| Package | API | Replacement | Notes |
-| ------- | --- | ----------- | ----- |
+| Package          | API            | Replacement | Notes |
+| ---------------- | -------------- | ----------- | ----- |
 | 包 | API | 替代品 | 备注 |
-| `@angular/core` | Undecorated base classes that use Angular features | Add Angular decorator | See [migration guide](guide/migration-undecorated-classes) for more info |
-| `@angular/core` | 使用 Angular 特性的不带装饰器的基类 | 添加 Angular 装饰器 | 详情参阅[迁移指南](guide/migration-undecorated-classes) |
-| `@angular/core` | `ModuleWithProviders` without a generic | `ModuleWithProviders` with a generic | See [migration guide](guide/migration-module-with-providers) for more info |
-| `@angular/core` | 不带泛型的 `ModuleWithProviders` | 带泛型的 `ModuleWithProviders`  | 详情参阅[迁移指南](guide/migration-module-with-providers) |
-| `@angular/core` | Style Sanitization | no action needed | See [style sanitization API removal](#style-sanitization) for more info |
-| `@angular/core` | 样式的无害化处理 | 不需要任何动作 | 详情参阅[移除了 样式无害化 API](#style-sanitization) |
+| `@angular/router` | `preserveQueryParams` | [`queryParamsHandling`](api/router/UrlCreationOptions#queryParamsHandling) | |
 
-*To see APIs removed in version 9, check out this guide on the [version 9 docs site](https://v9.angular.io/guide/deprecations#removed).
+*To see APIs removed in version 10, check out this guide on the [version 10 docs site](https://v10.angular.io/guide/deprecations#removed).
 
 *要查看版本 9 中移除的 API，请查看[版本 9 文档站](https://v9.angular.io/guide/deprecations#removed)上本指南*。
 
@@ -855,31 +735,7 @@ In practical terms, the `package.json` of all `@angular` packages has changed in
 
 For more information about the npm package format, see the [Angular Package Format spec](https://goo.gl/jB3GVv).
 
-关于 npm 软件包格式的更多信息，请参见 [Angular 软件包格式规范](https://goo.gl/jB3GVv)。
-
-{@a removed}
-## Removed APIs
-
-## 删除的 API
-
-The following APIs have been removed starting with version 10.0.0*:
-
-从 10.0.0 版开始，已经删除了以下 API：
-
-| Package | API | Replacement | Notes |
-| ------- | --- | ----------- | ----- |
-| 包 | API | 替代品 | 备注 |
-| `@angular/core` | Undecorated base classes that use Angular features | Add Angular decorator | See [migration guide](guide/migration-undecorated-classes) for more info |
-| `@angular/core` | 使用 Angular 特性的不带装饰器的基类 | 添加 Angular 装饰器 | 详情参阅[迁移指南](guide/migration-undecorated-classes) |
-| `@angular/core` | `ModuleWithProviders` without a generic | `ModuleWithProviders` with a generic | See [migration guide](guide/migration-module-with-providers) for more info |
-| `@angular/core` | 不带泛型的 `ModuleWithProviders` | 带泛型的 `ModuleWithProviders`  | 详情参阅[迁移指南](guide/migration-module-with-providers) |
-| `@angular/core` | Style Sanitization | no action needed | See [style sanitization API removal](#style-sanitization) for more info |
-| `@angular/core` | 样式的无害化处理 | 不需要任何动作 | 详情参阅[移除了 样式无害化 API](#style-sanitization) |
-
-*To see APIs removed in version 9, check out this guide on the [version 9 docs site](https://v9.angular.io/guide/deprecations#removed).
-
-*要查看版本 9 中移除的 API，请查看[版本 9 文档站](https://v9.angular.io/guide/deprecations#removed)上的这份指南。*
-
+关于 npm 软件包格式的更多信息，请参阅 [Angular 软件包格式规范](https://goo.gl/jB3GVv)。
 
 {@a style-sanitization}
 

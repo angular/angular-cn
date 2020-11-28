@@ -33,40 +33,17 @@ that are important to Angular developers, including details about the following 
 ## 配置文件
 
 A given Angular workspace contains several TypeScript configuration files.
-At the root level, there are two main TypeScript configuration files: a `tsconfig.json` file and a `tsconfig.base.json` file.
+At the root `tsconfig.json` file specifies the base TypeScript and Angular compiler options that all projects in the workspace inherit.
 
 一个 Angular 工作空间中包含多个 TypeScript 配置文件。在根一级，有两个主要的 TypeScript 配置文件：`tsconfig.json` 文件和 `tsconfig.base.json` 文件。
 
-The `tsconfig.json` file is a ["Solution Style"](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-3-9.html#support-for-solution-style-tsconfigjson-files) TypeScript configuration file.
-Code editors and TypeScript’s language server use this file to improve development experience.
-Compilers do not use this file.
+<div class="alert is-helpful">
 
-`tsconfig.json` 文件是一个[“解决方案型”](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-3-9.html#support-for-solution-style-tsconfigjson-files)的 TypeScript 配置文件。代码编辑器和 TypeScript 的语言服务都会使用这个文件来改善开发体验。而编译器不会使用这个文件。
+See the [Angular compiler options](guide/angular-compiler-options) guide for information about what Angular specific options are available.
 
-The `tsconfig.json` file contains a list of paths to the other TypeScript configuration files used in the workspace.
+请参阅 [Angular 编译器选项](guide/angular-compiler-options)一章，以了解可以使用哪些 Angular 特有的选项。
 
-`tsconfig.json` 文件中包含指向工作空间中其它 TypeScript 配置文件的路径列表。
-
-<code-example lang="json" header="tsconfig.json" linenums="false">
-{
- "files": [],
- "references": [
-   {
-     "path": "./tsconfig.app.json"
-   },
-   {
-     "path": "./tsconfig.spec.json"
-   },
-   {
-     "path": "./projects/my-lib/tsconfig.lib.json"
-   }
- ]
-}
-</code-example>
-
-The `tsconfig.base.json` file specifies the base TypeScript and Angular compiler options that all projects in the workspace inherit.
-
-`tsconfig.base.json` 文件指定了工作空间中所有项目都要继承的基础 TypeScript 编译选项和 Angular 编译选项。
+</div>
 
 The TypeScript and Angular have a wide range of options which can be used to configure type-checking features and generated output.
 For more information, see the [Configuration inheritance with extends](https://www.typescriptlang.org/docs/handbook/tsconfig-json.html#configuration-inheritance-with-extends) section of the TypeScript documentation.
@@ -75,19 +52,19 @@ TypeScript 和 Angular 提供了很多选项，可以用来配置类型检查功
 
 <div class="alert is-helpful">
 
-For more information TypeScript configuration files, see the official [TypeScript wiki](http://www.typescriptlang.org/docs/handbook/tsconfig-json.html)
+For more information TypeScript configuration files, see the official [TypeScript wiki](https://www.typescriptlang.org/docs/handbook/tsconfig-json.html)
 For details about configuration inheritance, see the [Configuration inheritance with extends](https://www.typescriptlang.org/docs/handbook/tsconfig-json.html#configuration-inheritance-with-extends) section.
 
 要了解 TypeScript 配置文件的详情，请参阅官方提供的
-[TypeScript wiki](http://www.typescriptlang.org/docs/handbook/tsconfig-json.html)。要了解配置继承的详情，参见[使用 extends 进行配置继承](https://www.typescriptlang.org/docs/handbook/tsconfig-json.html#configuration-inheritance-with-extends)部分。
+[TypeScript wiki](http://www.typescriptlang.org/docs/handbook/tsconfig-json.html)。要了解配置继承的详情，参阅[使用 extends 进行配置继承](https://www.typescriptlang.org/docs/handbook/tsconfig-json.html#configuration-inheritance-with-extends)部分。
 
 </div>
 
-The initial `tsconfig.base.json` for an Angular workspace typically looks like the following example.
+The initial `tsconfig.json` for an Angular workspace typically looks like the following example.
 
 Angular 工作空间的初始 `tsconfig.base.json` 通常是这样的。
 
-<code-example lang="json" header="tsconfig.base.json" linenums="false">
+<code-example lang="json" header="tsconfig.json" linenums="false">
 {
   "compileOnSave": false,
   "compilerOptions": {
@@ -117,7 +94,7 @@ When you create new workspaces and projects, you have the option to use Angular'
 For more information, see [Strict mode](/guide/strict-mode).
 
 当你创建新的工作空间和项目时，你可以选择使用 Angular 的严格模式，它会帮助你写出更好、更容易维护的代码。
-欲知详情，参见[严格模式](/guide/strict-mode)。
+欲知详情，参阅[严格模式](/guide/strict-mode)。
 
 {@a noImplicitAny}
 
@@ -171,7 +148,7 @@ You can suppress them with the following additional flag:
 
 For more information about how the TypeScript configuration affects compilation, see [Angular Compiler Options](guide/angular-compiler-options) and [Template Type Checking](guide/template-typecheck).
 
-要了解 TypeScript 配置如何影响编译的更多信息，请参见 [Angular 编译器选项](guide/angular-compiler-options)和[模板类型检查](guide/template-typecheck) 两章。
+要了解 TypeScript 配置如何影响编译的更多信息，请参阅 [Angular 编译器选项](guide/angular-compiler-options)和[模板类型检查](guide/template-typecheck) 两章。
 
 </div>
 
@@ -246,7 +223,7 @@ published them in well-known locations.
   幸运的是，它们的作者或社区中的贡献者已经为这些库创建了独立的 `d.ts` 文件，并且把它们发布到了一个众所周知的位置。
 
 You can install these typings via `npm` using the
-[`@types/*` scoped package](http://www.typescriptlang.org/docs/handbook/declaration-files/consumption.html)
+[`@types/*` scoped package](https://www.typescriptlang.org/docs/handbook/declaration-files/consumption.html)
 and Typescript, starting at 2.0, automatically recognizes them.
 
 你还可以通过 `npm` 来使用[`@types/*` 范围化包](http://www.typescriptlang.org/docs/handbook/declaration-files/consumption.html)来安装这些类型信息，

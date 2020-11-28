@@ -24,16 +24,18 @@ To add a web worker to an existing project, use the Angular CLI `ng generate` co
 
 要把 Web Worker 添加到现有项目中，请使用 Angular CLI `ng generate` 命令。
 
-`ng generate web-worker` *location*
-
-`ng generate web-worker` *生成到的位置*
+```bash
+ng generate web-worker <location>
+```
 
 You can add a web worker anywhere in your application.
 For example, to add a web worker to the root component, `src/app/app.component.ts`, run the following command.
 
 你可以在应用的任何位置添加 Web Worker。例如，要把一个 Web Worker 添加到根组件 `src/app/app.component.ts`，请运行如下命令。
 
-`ng generate web-worker app`
+```bash
+ng generate web-worker app
+```
 
 The command performs the following actions.
 

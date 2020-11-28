@@ -4,10 +4,10 @@
 
 The Angular team has worked hard to ensure Ivy is as backwards-compatible with the previous rendering engine ("View Engine") as possible.
 However, in rare cases, minor changes were necessary to ensure that the Angular's behavior was predictable and consistent, correcting issues in the View Engine implementation.
-In order to smooth the transition, we have provided [automated migrations](guide/updating-to-version-10#migrations) wherever possible so your application and library code is migrated automatically by the CLI.
+In order to smooth the transition, we have provided automated migrations wherever possible so your application and library code is migrated automatically by the CLI.
 That said, some applications will likely need to apply some manual updates.
 
-Angular 团队一直在努力确保 Ivy 与之前的渲染引擎（“View Engine”）尽可能向后兼容。但是，在极少数情况下，需要做一些小改动才能确保 Angular 的行为是可预测和一致的，以纠正 View Engine 实现中的问题。为了顺利过渡，我们尽可能提供了[自动迁移功能，](guide/updating-to-version-10#migrations)以便 CLI 可以自动迁移你的应用和库代码。也就是说，某些应用可能需要做一些手动更新。
+Angular 团队一直在努力确保 Ivy 与之前的渲染引擎（“View Engine”）尽可能向后兼容。但是，在极少数情况下，需要做一些小改动才能确保 Angular 的行为是可预测和一致的，以纠正 View Engine 实现中的问题。为了顺利过渡，我们尽可能提供了自动迁移功能，以便 CLI 可以自动迁移你的应用和库代码。也就是说，某些应用可能需要做一些手动更新。
 
 {@a debugging}
 
@@ -15,20 +15,15 @@ Angular 团队一直在努力确保 Ivy 与之前的渲染引擎（“View Engin
 
 ## 如何用 Ivy 调试错误
 
-In version 10, [a few deprecated APIs have been removed](guide/updating-to-version-10#removals) and there are a [few breaking changes](guide/updating-to-version-10#breaking-changes) unrelated to Ivy.
-If you're seeing errors after updating to version 9, you'll first want to rule those changes out.
+If you're seeing errors, first temporarily [turn off Ivy](guide/ivy#opting-out-of-angular-ivy) in your `tsconfig.json` and re-start your app.
 
-在版本 10 中，[已经删除了一些已弃用的 API，](guide/updating-to-version-10#removals)并且还有一些与 Ivy 无关的[重大变更](guide/updating-to-version-10#breaking-changes)。如果你在升级到版本 10 后遇到错误，你首先要把这些变更排除在外。
+如果发现了错误，请先在 `tsconfig.json` 中[暂时关闭 Ivy](guide/ivy#opting-out-of-angular-ivy) ，然后重新启动你的应用程序。
 
-To do so, temporarily [turn off Ivy](guide/ivy#opting-out-of-angular-ivy) in your `tsconfig.base.json` and re-start your app.
+If you're still seeing the errors, they are not specific to Ivy. In this case, you may want to consult the [general update guide](guide/updating-to-version-11). If you've opted into any of the new, stricter type-checking settings, you may also want to check out the [template type-checking guide](guide/template-typecheck).
 
-为此，请暂时[关闭](guide/ivy#opting-out-of-angular-ivy) `tsconfig.base.json` 中的 Ivy 并重新启动应用。
+如果仍然有错，说要这些错误不是 Ivy 特有的。在这种情况下，你可能需要查阅[常规更新指南](guide/updating-to-version-11)。如果你选择了任何新的、更严格的类型检查设置，则可能还需要查看[模板类型检查指南](guide/template-typecheck)。
 
-If you're still seeing the errors, they are not specific to Ivy. In this case, you may want to consult the [general version 10 guide](guide/updating-to-version-10). If you've opted into any of the new, stricter type-checking settings, you may also want to check out the [template type-checking guide](guide/template-typecheck).
-
-如果你仍然看到这些错误，那么它们并不是 Ivy 特有的。在这种情况下，你可以查阅[常规的版本 10 指南](guide/updating-to-version-10)。如果你选择启用任何新增的更严格的类型检查，你可能还需要查看[模板类型检查指南](guide/template-typecheck)。
-
-If the errors are gone, switch back to Ivy by removing the changes to the `tsconfig.base.json` and review the list of expected changes below.
+If the errors are gone, switch back to Ivy by removing the changes to the `tsconfig.json` and review the list of expected changes below.
 
 如果错误消失了，可以删除对 `tsconfig.base.json` 的更改，切换回 Ivy，并查看下面的预期更改列表。
 
@@ -46,7 +41,7 @@ If you notice that the size of your application's main bundle has increased with
 Anything that you import outside lazy modules can end up in the main bundle.
 See more details in the original issue [here](https://github.com/angular/angular-cli/issues/16146#issuecomment-557559287).
 
-   验证你想要延迟加载的组件和 `NgModules` 是否只在惰性模块中才导入过。你在惰性模块之外导入的东西最终都会出现在主发布包中。原始问题请[点击此处](https://github.com/angular/angular-cli/issues/16146#issuecomment-557559287)查看详情。
+   验证你想要惰性加载的组件和 `NgModules` 是否只在惰性模块中才导入过。你在惰性模块之外导入的东西最终都会出现在主发布包中。原始问题请[点击此处](https://github.com/angular/angular-cli/issues/16146#issuecomment-557559287)查看详情。
 
 1. Check that imported libraries have been marked side-effect-free.
 If your app imports from shared libraries that are meant to be free from side effects, add "sideEffects": false to their `package.json`.
@@ -68,11 +63,11 @@ Please note that these constants are not meant to be used by 3rd party library o
 
 * By default, `@ContentChildren` queries will only search direct child nodes in the DOM hierarchy (previously, they would search any nesting level in the DOM as long as another directive wasn't matched above it). See further [details](guide/ivy-compatibility-examples#content-children-descendants).
 
-  默认情况下，`@ContentChildren` 查询只搜索 DOM 层次结构中的直接子节点（以前，只要它没有匹配到另一个指令，它们就会搜索 DOM 中的任何嵌套级别）。详情[参见这里](guide/ivy-compatibility-examples#content-children-descendants)。
+  默认情况下，`@ContentChildren` 查询只搜索 DOM 层次结构中的直接子节点（以前，只要它没有匹配到另一个指令，它们就会搜索 DOM 中的任何嵌套级别）。详情[参阅这里](guide/ivy-compatibility-examples#content-children-descendants)。
 
 * All classes that use Angular DI must have an Angular decorator like `@Directive()` or `@Injectable` (previously, undecorated classes were allowed in AOT mode only or if injection flags were used). See further [details](guide/ivy-compatibility-examples#undecorated-classes).
 
-  所有使用 Angular DI 的类都必须有一个 Angular 装饰器，比如 `@Directive()` 或者 `@Injectable`（以前，只有在 AOT 模式下或者带有注入标志时才能使用未修饰的类）。详情[参见这里](guide/ivy-compatibility-examples#undecorated-classes)。
+  所有使用 Angular DI 的类都必须有一个 Angular 装饰器，比如 `@Directive()` 或者 `@Injectable`（以前，只有在 AOT 模式下或者带有注入标志时才能使用未修饰的类）。详情[参阅这里](guide/ivy-compatibility-examples#undecorated-classes)。
 
 * Unbound inputs for directives (e.g. name in `<my-comp name="">`) are now set upon creation of the view, before change detection runs (previously, all inputs were set during change detection).
 

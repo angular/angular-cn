@@ -12,11 +12,13 @@ import * as ts from 'typescript';
 
 import {createCompilerHost, createProgram} from '../../index';
 import {main, mainDiagnosticsForTest, readNgcCommandLineAndConfiguration} from '../../src/main';
-import {absoluteFrom, AbsoluteFsPath, FileSystem, getFileSystem, NgtscCompilerHost} from '../../src/ngtsc/file_system';
+import {absoluteFrom, AbsoluteFsPath, FileSystem, getFileSystem, NgtscCompilerHost, relativeFrom} from '../../src/ngtsc/file_system';
 import {Folder, MockFileSystem} from '../../src/ngtsc/file_system/testing';
 import {IndexedComponent} from '../../src/ngtsc/indexer';
 import {NgtscProgram} from '../../src/ngtsc/program';
+import {DeclarationNode} from '../../src/ngtsc/reflection';
 import {LazyRoute} from '../../src/ngtsc/routing';
+import {getCachedSourceFile} from '../../src/ngtsc/testing';
 import {setWrapHostForTest} from '../../src/transformers/compiler_host';
 
 
@@ -258,7 +260,7 @@ export class NgtscTestEnvironment {
     return program.listLazyRoutes(entryPoint);
   }
 
-  driveIndexer(): Map<ts.Declaration, IndexedComponent> {
+  driveIndexer(): Map<DeclarationNode, IndexedComponent> {
     const {rootNames, options} = readNgcCommandLineAndConfiguration(['-p', this.basePath]);
     const host = createCompilerHost({options});
     const program = createProgram({rootNames, host, options});
@@ -266,7 +268,17 @@ export class NgtscTestEnvironment {
   }
 }
 
-class AugmentedCompilerHost extends NgtscCompilerHost {
+class NgtscTestCompilerHost extends NgtscCompilerHost {
+  getSourceFile(fileName: string, languageVersion: ts.ScriptTarget): ts.SourceFile|undefined {
+    const cachedSf = getCachedSourceFile(fileName, () => this.readFile(fileName));
+    if (cachedSf !== null) {
+      return cachedSf;
+    }
+    return super.getSourceFile(fileName, languageVersion);
+  }
+}
+
+class AugmentedCompilerHost extends NgtscTestCompilerHost {
   delegate!: ts.CompilerHost;
 }
 
@@ -274,7 +286,8 @@ const ROOT_PREFIX = 'root/';
 
 class FileNameToModuleNameHost extends AugmentedCompilerHost {
   fileNameToModuleName(importedFilePath: string): string {
-    const relativeFilePath = this.fs.relative(this.fs.pwd(), this.fs.resolve(importedFilePath));
+    const relativeFilePath =
+        relativeFrom(this.fs.relative(this.fs.pwd(), this.fs.resolve(importedFilePath)));
     const rootedPath = this.fs.join('root', relativeFilePath);
     return rootedPath.replace(/(\.d)?.ts$/, '');
   }

@@ -10,7 +10,7 @@ import {InjectionToken, ɵisObservable as isObservable, ɵisPromise as isPromise
 import {forkJoin, from, Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
 
-import {AsyncValidatorFn, ValidationErrors, Validator, ValidatorFn} from './directives/validators';
+import {AsyncValidator, AsyncValidatorFn, ValidationErrors, Validator, ValidatorFn} from './directives/validators';
 import {AbstractControl} from './model';
 
 function isEmptyInputValue(value: any): boolean {
@@ -427,6 +427,25 @@ export class Validators {
    * <input pattern="[a-zA-Z ]*">
    * ```
    *
+   * ### Pattern matching with the global or sticky flag
+   *
+   * `RegExp` objects created with the `g` or `y` flags that are passed into `Validators.pattern`
+   * can produce different results on the same input when validations are run consecutively. This is
+   * due to how the behavior of `RegExp.prototype.test` is
+   * specified in [ECMA-262](https://tc39.es/ecma262/#sec-regexpbuiltinexec)
+   * (`RegExp` preserves the index of the last match when the global or sticky flag is used).
+   * Due to this behavior, it is recommended that when using
+   * `Validators.pattern` you **do not** pass in a `RegExp` object with either the global or sticky
+   * flag enabled.
+   *
+   * ```typescript
+   * // Not recommended (since the `g` flag is used)
+   * const controlOne = new FormControl('1', Validators.pattern(/foo/g));
+   *
+   * // Good
+   * const controlTwo = new FormControl('1', Validators.pattern(/foo/));
+   * ```
+   *
    * @param pattern A regular expression to be used as is to test the values, or a string.
    * If a string is passed, the `^` character is prepended and the `$` character is
    * appended to the provided string (if not already present), and the resulting regular
@@ -506,7 +525,7 @@ export class Validators {
     if (presentValidators.length == 0) return null;
 
     return function(control: AbstractControl) {
-      return _mergeErrors(_executeValidators(control, presentValidators));
+      return mergeErrors(executeValidators<ValidatorFn>(control, presentValidators));
     };
   }
 
@@ -531,8 +550,9 @@ export class Validators {
     if (presentValidators.length == 0) return null;
 
     return function(control: AbstractControl) {
-      const observables = _executeAsyncValidators(control, presentValidators).map(toObservable);
-      return forkJoin(observables).pipe(map(_mergeErrors));
+      const observables =
+          executeValidators<AsyncValidatorFn>(control, presentValidators).map(toObservable);
+      return forkJoin(observables).pipe(map(mergeErrors));
     };
   }
 }
@@ -543,21 +563,13 @@ function isPresent(o: any): boolean {
 
 export function toObservable(r: any): Observable<any> {
   const obs = isPromise(r) ? from(r) : r;
-  if (!(isObservable(obs))) {
+  if (!(isObservable(obs)) && (typeof ngDevMode === 'undefined' || ngDevMode)) {
     throw new Error(`Expected validator to return Promise or Observable.`);
   }
   return obs;
 }
 
-function _executeValidators(control: AbstractControl, validators: ValidatorFn[]): any[] {
-  return validators.map(v => v(control));
-}
-
-function _executeAsyncValidators(control: AbstractControl, validators: AsyncValidatorFn[]): any[] {
-  return validators.map(v => v(control));
-}
-
-function _mergeErrors(arrayOfErrors: ValidationErrors[]): ValidationErrors|null {
+function mergeErrors(arrayOfErrors: (ValidationErrors|null)[]): ValidationErrors|null {
   let res: {[key: string]: any} = {};
 
   // Not using Array.reduce here due to a Chrome 80 bug
@@ -567,4 +579,76 @@ function _mergeErrors(arrayOfErrors: ValidationErrors[]): ValidationErrors|null 
   });
 
   return Object.keys(res).length === 0 ? null : res;
+}
+
+type GenericValidatorFn = (control: AbstractControl) => any;
+
+function executeValidators<V extends GenericValidatorFn>(
+    control: AbstractControl, validators: V[]): ReturnType<V>[] {
+  return validators.map(validator => validator(control));
+}
+
+function isValidatorFn<V>(validator: V|Validator|AsyncValidator): validator is V {
+  return !(validator as Validator).validate;
+}
+
+/**
+ * Given the list of validators that may contain both functions as well as classes, return the list
+ * of validator functions (convert validator classes into validator functions). This is needed to
+ * have consistent structure in validators list before composing them.
+ *
+ * @param validators The set of validators that may contain validators both in plain function form
+ *     as well as represented as a validator class.
+ */
+export function normalizeValidators<V>(validators: (V|Validator|AsyncValidator)[]): V[] {
+  return validators.map(validator => {
+    return isValidatorFn<V>(validator) ?
+        validator :
+        ((c: AbstractControl) => validator.validate(c)) as unknown as V;
+  });
+}
+
+/**
+ * Merges synchronous validators into a single validator function (combined using
+ * `Validators.compose`).
+ */
+export function composeValidators(validators: Array<Validator|ValidatorFn>): ValidatorFn|null {
+  return validators != null ? Validators.compose(normalizeValidators<ValidatorFn>(validators)) :
+                              null;
+}
+
+/**
+ * Merges asynchronous validators into a single validator function (combined using
+ * `Validators.composeAsync`).
+ */
+export function composeAsyncValidators(validators: Array<AsyncValidator|AsyncValidatorFn>):
+    AsyncValidatorFn|null {
+  return validators != null ?
+      Validators.composeAsync(normalizeValidators<AsyncValidatorFn>(validators)) :
+      null;
+}
+
+/**
+ * Merges raw control validators with a given directive validator and returns the combined list of
+ * validators as an array.
+ */
+export function mergeValidators<V>(controlValidators: V|V[]|null, dirValidator: V): V[] {
+  if (controlValidators === null) return [dirValidator];
+  return Array.isArray(controlValidators) ? [...controlValidators, dirValidator] :
+                                            [controlValidators, dirValidator];
+}
+
+/**
+ * Retrieves the list of raw synchronous validators attached to a given control.
+ */
+export function getControlValidators(control: AbstractControl): ValidatorFn|ValidatorFn[]|null {
+  return (control as any)._rawValidators as ValidatorFn | ValidatorFn[] | null;
+}
+
+/**
+ * Retrieves the list of raw asynchronous validators attached to a given control.
+ */
+export function getControlAsyncValidators(control: AbstractControl): AsyncValidatorFn|
+    AsyncValidatorFn[]|null {
+  return (control as any)._rawAsyncValidators as AsyncValidatorFn | AsyncValidatorFn[] | null;
 }

@@ -199,7 +199,7 @@ Notice that all of the files the browser needs to render this application are ca
 * Images and fonts directly under the configured `outputPath` (by default `./dist/<project-name>/`) or `resourcesOutputPath`. See [`ng build`](cli/build) for more information about these options.
 
   图片和字体直接位于所配置的 `outputPath` (默认为 `./dist/<project-name>/`) 或 `resourcesOutputPath` 下。
-  关于这些配置的更多信息，请参见 [`ng build`](cli/build)。
+  关于这些配置的更多信息，请参阅 [`ng build`](cli/build)。
 
 <div class="alert is-helpful">
 
@@ -207,7 +207,7 @@ Pay attention to two key points:
 
 注意如下两个关键点：
 
-1. The generated `ngsw-config.json` includes a limited list of cacheable fonts and images extentions. In some cases, you might want to modify the glob pattern to suit your needs.
+1. The generated `ngsw-config.json` includes a limited list of cacheable fonts and images extensions. In some cases, you might want to modify the glob pattern to suit your needs.
 
    所生成的 `ngsw-config.json` 包括一个可缓存字体和图像的有限列表。在某些情况下，你可能要按需修改这些 glob 模式。
 

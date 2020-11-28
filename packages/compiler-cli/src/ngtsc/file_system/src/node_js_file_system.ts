@@ -9,7 +9,7 @@
 import * as fs from 'fs';
 import * as fsExtra from 'fs-extra';
 import * as p from 'path';
-import {absoluteFrom, relativeFrom} from './helpers';
+import {absoluteFrom} from './helpers';
 import {AbsoluteFsPath, FileStats, FileSystem, PathSegment, PathString} from './types';
 
 /**
@@ -23,10 +23,10 @@ export class NodeJSFileSystem implements FileSystem {
   readFile(path: AbsoluteFsPath): string {
     return fs.readFileSync(path, 'utf8');
   }
-  readFileBuffer(path: AbsoluteFsPath): Buffer {
+  readFileBuffer(path: AbsoluteFsPath): Uint8Array {
     return fs.readFileSync(path);
   }
-  writeFile(path: AbsoluteFsPath, data: string|Buffer, exclusive: boolean = false): void {
+  writeFile(path: AbsoluteFsPath, data: string|Uint8Array, exclusive: boolean = false): void {
     fs.writeFileSync(path, data, exclusive ? {flag: 'wx'} : undefined);
   }
   removeFile(path: AbsoluteFsPath): void {
@@ -93,8 +93,8 @@ export class NodeJSFileSystem implements FileSystem {
   isRooted(path: string): boolean {
     return p.isAbsolute(path);
   }
-  relative<T extends PathString>(from: T, to: T): PathSegment {
-    return relativeFrom(this.normalize(p.relative(from, to)));
+  relative<T extends PathString>(from: T, to: T): PathSegment|AbsoluteFsPath {
+    return this.normalize(p.relative(from, to)) as PathSegment | AbsoluteFsPath;
   }
   basename(filePath: string, extension?: string): PathSegment {
     return p.basename(filePath, extension) as PathSegment;

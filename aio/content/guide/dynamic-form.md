@@ -37,7 +37,7 @@ The tutorial walks you through the following steps.
 
 3. Populate the model with sample data.
 
-   使用示例数据填充模型。
+   使用范例数据填充模型。
 
 4. Develop a component to create form controls dynamically.
 
@@ -56,7 +56,7 @@ The basic version can evolve to support a richer variety of questions, more grac
 
 See the <live-example name="dynamic-form"></live-example>.
 
-参见 <live-example name="dynamic-form"></live-example>。
+参阅 <live-example name="dynamic-form"></live-example>。
 
 </div>
 
@@ -258,7 +258,7 @@ The `DynamicFormComponent` component presents a list of questions by binding eac
 
 To display an instance of the dynamic form, the `AppComponent` shell template passes the `questions` array returned by the `QuestionService` to the form container component, `<app-dynamic-form>`.
 
-要显示动态表单的一个实例，`AppComponent` 外壳模板会把一个 `QuestionService` 返回的 `questions` 数组传递给表单容器组件 `<app-dynamic-form>`。
+要显示动态表单的一个实例，`AppComponent` 外壳模板会把一个 `QuestionService` 返回的 `questions` 数组传给表单容器组件 `<app-dynamic-form>`。
 
 <code-example path="dynamic-form/src/app/app.component.ts" header="app.component.ts">
 
@@ -307,7 +307,7 @@ The following figure shows the final form.
    For an example of a different type of dynamic form, see the section [Creating dynamic forms](guide/reactive-forms#creating-dynamic-forms "Create dynamic forms with arrays") in the Reactive Forms guide.
    That example also shows how to use `FormArray` instead of `FormGroup` to collect a set of controls.
 
-  本教程展示了如何构建一个问卷，它只是一种动态表单。这个例子使用 `FormGroup` 来收集一组控件。有关不同类型动态表单的示例，请参阅在响应式表单中的[创建动态表单](guide/reactive-forms#creating-dynamic-forms "用数组创建动态表单")一节。那个例子还展示了如何使用 `FormArray` 而不是 `FormGroup` 来收集一组控件。
+  本教程展示了如何构建一个问卷，它只是一种动态表单。这个例子使用 `FormGroup` 来收集一组控件。关于不同类型动态表单的范例，请参阅在响应式表单中的[创建动态表单](guide/reactive-forms#creating-dynamic-forms "用数组创建动态表单")一节。那个例子还展示了如何使用 `FormArray` 而不是 `FormGroup` 来收集一组控件。
 
 * **Validating user input**
 

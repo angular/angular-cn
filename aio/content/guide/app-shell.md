@@ -13,7 +13,7 @@ This gives users a meaningful first paint of your application that appears quick
 
 Learn more in [The App Shell Model](https://developers.google.com/web/fundamentals/architecture/app-shell).
 
-欲知详情，参见[应用外壳模型](https://developers.google.com/web/fundamentals/architecture/app-shell)。
+欲知详情，参阅[应用外壳模型](https://developers.google.com/web/fundamentals/architecture/app-shell)。
 
 ## Step 1: Prepare the application
 

@@ -112,56 +112,13 @@ In the marketplace, search for Angular Language Service extension, and click the
 
 ### WebStorm
 
-In [WebStorm](https://www.jetbrains.com/webstorm/), you must install the language service package as a project dependency.
+In [WebStorm](https://www.jetbrains.com/webstorm/), enable the plugin [Angular and AngularJS](https://plugins.jetbrains.com/plugin/6971-angular-and-angularjs).
 
-在 [WebStorm 中](https://www.jetbrains.com/webstorm/)，必须将语言服务包安装为项目依赖项。
+在 [WebStorm](https://www.jetbrains.com/webstorm/) 中，启用 [Angular 与 AngularJS](https://plugins.jetbrains.com/plugin/6971-angular-and-angularjs) 插件。
 
-1. Add the following to your `devDependencies` in your project's `package.json`
+Since WebStorm 2019.1, the `@angular/language-service` is not required anymore and should be removed from your `package.json`.
 
-   将以下内容添加到项目的 `package.json` `devDependencies` 中
-
-<code-example language="json" header="package.json">
-devDependencies {
-  "@angular/language-service": "^6.0.0"
-}
-
-</code-example>
-
-2. In the terminal window at the root of your project, install the `devDependencies` with `npm` or `yarn`:
-
-   打开终端窗口，在项目根目录下使用 `npm` 或 `yarn` 来安装这些 `devDependencies`：
-
-```sh
-
-npm install 
-
-```
-
-*OR*
-
-*或*
-
-```sh
-
-yarn
-
-```
-
-*OR*
-
-*或*
-
-```sh
-
-yarn install
-
-```
-
-When Angular sees this dev dependency, it provides the language service in the WebStorm environment.
-WebStorm then gives you colorization inside the template and autocomplete in addition to the Angular Language Service.
-
-当 Angular 插件发现这个开发依赖时，就会在 WebStorm 环境中提供语言服务。
-除了 Angular 语言服务提供的这些功能之外，WebStorm 还会提供自动补齐和模板代码着色功能。
+从 WebStorm 2019.1 开始，`@angular/language-service` 已经不再需要了，应该从你的 `package.json` 中移除。
 
 ### Sublime Text
 
@@ -253,11 +210,11 @@ The Angular Language Services then looks at `data.---` within its context, asks 
 * For more in-depth information on the implementation, see the
 [Angular Language Service API](https://github.com/angular/angular/blob/master/packages/language-service/src/types.ts).
 
-  有关该实现的更多详细信息，请参阅 [Angular 语言服务 API](https://github.com/angular/angular/blob/master/packages/language-service/src/types.ts)。
+  关于该实现的更多详细信息，请参阅 [Angular 语言服务 API](https://github.com/angular/angular/blob/master/packages/language-service/src/types.ts)。
 
 * For more on the design considerations and intentions, see [design documentation here](https://github.com/angular/vscode-ng-language-service/wiki/Design).
 
-  有关此设计注意事项和意图的更多信息，请参见[此处的设计文档](https://github.com/angular/vscode-ng-language-service/wiki/Design)。
+  关于此设计注意事项和意图的更多信息，请参阅[此处的设计文档](https://github.com/angular/vscode-ng-language-service/wiki/Design)。
 
 * See also [Chuck Jazdzewski's presentation](https://www.youtube.com/watch?v=ez3R0Gi4z5A&t=368s) on the Angular Language Service from [ng-conf](https://www.ng-conf.org/) 2017.
 

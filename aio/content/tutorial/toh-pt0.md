@@ -5,7 +5,7 @@
 You begin by creating an initial application using the Angular CLI. Throughout this tutorial, you’ll modify and extend that starter application to create the Tour of Heroes app.
 
 首先，使用 Angular CLI 来创建最初的应用程序。
-在本教程中，你将修改并扩展这个入门级的应用程序，以创建出《英雄指南》应用。
+在本教程中，你将修改并扩展这个入门级的应用程序，以创建出《英雄之旅》应用。
 
 In this part of the tutorial, you'll do the following:
 
@@ -31,7 +31,7 @@ In this part of the tutorial, you'll do the following:
 
   For the sample app that this page describes, see the <live-example></live-example>.
 
-  要查看本页所讲的范例程序，请参见<live-example></live-example>。
+  要查看本页所讲的范例程序，请参阅<live-example></live-example>。
 
 </div>
 
@@ -177,7 +177,7 @@ You'll find the implementation of the shell `AppComponent` distributed over thre
 
 Open the component class file (`app.component.ts`) and change the value of the `title` property to 'Tour of Heroes'.
 
-打开组件的类文件 (`app.component.ts`)，并把 `title` 属性的值修改为 'Tour of Heroes' （英雄指南）。
+打开组件的类文件 (`app.component.ts`)，并把 `title` 属性的值修改为 'Tour of Heroes' （英雄之旅）。
 
 <code-example path="toh-pt0/src/app/app.component.ts" region="set-title" header="app.component.ts (class title property)"></code-example>
 

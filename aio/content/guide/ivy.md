@@ -12,7 +12,7 @@ Ivy 是 Angular [下一代编译和渲染管道](https://blog.angular.io/a-plan-
 
 Learn more about the [Compiler](https://www.youtube.com/watch?v=anphffaCZrQ) and [Runtime](https://www.youtube.com/watch?v=S0o-4yc2n-8) in these videos from our team.
 
-要想了解此[编译器](https://www.youtube.com/watch?v=anphffaCZrQ)和[运行时](https://www.youtube.com/watch?v=S0o-4yc2n-8)的更多信息，请参见我们团队的视频。
+要想了解此[编译器](https://www.youtube.com/watch?v=anphffaCZrQ)和[运行时](https://www.youtube.com/watch?v=S0o-4yc2n-8)的更多信息，请参阅我们团队的视频。
 
 </div>
 
@@ -57,7 +57,7 @@ CLI commands run `ngcc` as needed when performing an Angular build.
 
 For more information on how to publish libraries see [Publishing your Library](guide/creating-libraries#publishing-your-library).
 
-要了解关于如何发布库的知识，参见[发布库](guide/creating-libraries#publishing-your-library)部分。
+要了解关于如何发布库的知识，参阅[发布库](guide/creating-libraries#publishing-your-library)部分。
 
 {@a maintaining-library-compatibility}
 ### Maintaining library compatibility
@@ -72,7 +72,7 @@ By having all libraries continue to use View Engine, you will maintain compatibi
 See the [Creating Libraries](guide/creating-libraries) guide for more on how to compile or bundle your Angular library.
 When you use the tools integrated into the Angular CLI or `ng-packagr`, your library will always be built the right way automatically.
 
-有关如何编译或打包 Angular 库的更多信息，请参见[创建库](guide/creating-libraries)指南。当你使用 Angular CLI 或 `ng-packagr` 集成的工具时，将始终以正确的方式自动构建你的库。
+关于如何编译或打包 Angular 库的更多信息，请参阅[创建库](guide/creating-libraries)指南。当你使用 Angular CLI 或 `ng-packagr` 集成的工具时，将始终以正确的方式自动构建你的库。
 
 {@a ivy-and-universal-app-shell}
 ## Ivy and Universal/App shell
@@ -133,7 +133,7 @@ The value of the `enableIvy` flag is set to `true` by default, as of version 9.
 
 The following example shows how to set the `enableIvy` option to `false` in order to opt out of Ivy.
 
-以下示例显示了如何将 `enableIvy` 选项设置为 `false` 以便选择性的禁用 Ivy。
+以下范例显示了如何将 `enableIvy` 选项设置为 `false` 以便选择性的禁用 Ivy。
 
 <code-example language="json" header="tsconfig.app.json">
 {
@@ -193,7 +193,7 @@ If you opt out of Ivy and your application uses  [Angular Universal](guide/unive
 
 The following example shows how you modify the `server.ts` file to provide the `AppServerModuleNgFactory` as the bootstrap module.
 
-下面的示例展示了如何修改 `server.ts` 文件以将 `AppServerModuleNgFactory` 提供为引导模块。
+下面的范例展示了如何修改 `server.ts` 文件以将 `AppServerModuleNgFactory` 提供为引导模块。
 
 * Import `AppServerModuleNgFactory` from the `app.server.module.ngfactory` virtual file.
 

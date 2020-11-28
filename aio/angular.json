@@ -37,7 +37,6 @@
             "outputHashing": "all",
             "sourceMap": true,
             "statsJson": true,
-            "extractCss": true,
             "extractLicenses": true,
             "namedChunks": true,
             "vendorChunk": false,
@@ -59,7 +58,7 @@
               }
             ],
             "styles": [
-              "src/styles.scss"
+              "src/styles/main.scss"
             ],
             "scripts": [],
             "budgets": [
@@ -78,6 +77,15 @@
                 {
                   "replace": "src/environments/environment.ts",
                   "with": "src/environments/environment.next.ts"
+                }
+              ],
+              "serviceWorker": true
+            },
+            "rc": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.rc.ts"
                 }
               ],
               "serviceWorker": true
@@ -116,6 +124,9 @@
             },
             "next": {
               "browserTarget": "site:build:next"
+            },
+            "rc": {
+              "browserTarget": "site:build:rc"
             },
             "stable": {
               "browserTarget": "site:build:stable"
@@ -160,7 +171,7 @@
               }
             ],
             "styles": [
-              "src/styles.scss"
+              "src/styles/main.scss"
             ],
             "scripts": []
           }

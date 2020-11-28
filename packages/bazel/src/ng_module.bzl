@@ -19,6 +19,7 @@ load(
     "TsConfigInfo",
     "compile_ts",
     "js_ecma_script_module_info",
+    "js_module_info",
     "js_named_module_info",
     "node_modules_aspect",
     "ts_providers_dict_to_struct",
@@ -46,14 +47,6 @@ def is_ivy_enabled(ctx):
     if ((hasattr(ctx.attr, "_renderer") and
          ctx.attr._renderer[BuildSettingInfo].value == "ivy")):
         return True
-
-    # TODO(josephperott): Remove after ~Feb 2020, to allow local script migrations
-    if "compile" in ctx.var and ctx.workspace_name == "angular":
-        fail(
-            msg = "Setting ViewEngine/Ivy using --define=compile is deprecated, please use " +
-                  "--config=ivy or --config=view-engine instead.",
-            attr = "ng_module",
-        )
 
     # This attribute is only defined in google's private ng_module rule and not
     # available externally. For external users, this is effectively a no-op.
@@ -354,8 +347,11 @@ def _ngc_tsconfig(ctx, files, srcs, **kwargs):
         "angularCompilerOptions": angular_compiler_options,
     })
 
+def _has_target_angular_summaries(target):
+    return hasattr(target, "angular") and hasattr(target.angular, "summaries")
+
 def _collect_summaries_aspect_impl(target, ctx):
-    results = depset(target.angular.summaries if hasattr(target, "angular") else [])
+    results = depset(target.angular.summaries if _has_target_angular_summaries(target) else [])
 
     # If we are visiting empty-srcs ts_library, this is a re-export
     srcs = ctx.rule.attr.srcs if hasattr(ctx.rule.attr, "srcs") else []
@@ -363,7 +359,7 @@ def _collect_summaries_aspect_impl(target, ctx):
     # "re-export" rules should expose all the files of their deps
     if not srcs and hasattr(ctx.rule.attr, "deps"):
         for dep in ctx.rule.attr.deps:
-            if (hasattr(dep, "angular")):
+            if (_has_target_angular_summaries(dep)):
                 results = depset(dep.angular.summaries, transitive = [results])
 
     return struct(collect_summaries_aspect_result = results)
@@ -608,20 +604,23 @@ def ng_module_impl(ctx, ts_compile_actions):
 
     outs = _expected_outs(ctx)
 
+    providers["angular"] = {}
+
     if is_legacy_ngc:
-        providers["angular"] = {
-            "summaries": outs.summaries,
-            "metadata": outs.metadata,
-        }
+        providers["angular"]["summaries"] = outs.summaries
+        providers["angular"]["metadata"] = outs.metadata
         providers["ngc_messages"] = outs.i18n_messages
 
-    if is_legacy_ngc and _should_produce_flat_module_outs(ctx):
-        if len(outs.metadata) > 1:
+    if _should_produce_flat_module_outs(ctx):
+        # Sanity error if more than one metadata file has been created in the
+        # legacy ngc compiler while a flat module should be produced.
+        if is_legacy_ngc and len(outs.metadata) > 1:
             fail("expecting exactly one metadata output for " + str(ctx.label))
 
         providers["angular"]["flat_module_metadata"] = struct(
             module_name = ctx.attr.module_name,
-            metadata_file = outs.metadata[0],
+            # Metadata files are only generated in the legacy ngc compiler.
+            metadata_file = outs.metadata[0] if is_legacy_ngc else None,
             typings_file = outs.bundle_index_typings,
             flat_module_out_file = _flat_module_out_file(ctx),
         )
@@ -638,6 +637,10 @@ def _ng_module_impl(ctx):
     # See design doc https://docs.google.com/document/d/1ggkY5RqUkVL4aQLYm7esRW978LgX3GUCnQirrk5E1C0/edit#
     # and issue https://github.com/bazelbuild/rules_nodejs/issues/57 for more details.
     ts_providers["providers"].extend([
+        js_module_info(
+            sources = ts_providers["typescript"]["es5_sources"],
+            deps = ctx.attr.deps,
+        ),
         js_named_module_info(
             sources = ts_providers["typescript"]["es5_sources"],
             deps = ctx.attr.deps,
@@ -695,12 +698,9 @@ NG_MODULE_ATTRIBUTES = {
     "compiler": attr.label(
         doc = """Sets a different ngc compiler binary to use for this library.
 
-        The default ngc compiler depends on the `@npm//@angular/bazel`
+        The default ngc compiler depends on the `//@angular/bazel`
         target which is setup for projects that use bazel managed npm deps that
-        fetch the @angular/bazel npm package. It is recommended that you use
-        the workspace name `@npm` for bazel managed deps so the default
-        compiler works out of the box. Otherwise, you'll have to override
-        the compiler attribute manually.
+        fetch the @angular/bazel npm package.
         """,
         default = Label(DEFAULT_NG_COMPILER),
         executable = True,
@@ -719,14 +719,11 @@ NG_MODULE_RULE_ATTRS = dict(dict(COMMON_ATTRIBUTES, **NG_MODULE_ATTRIBUTES), **{
     "node_modules": attr.label(
         doc = """The npm packages which should be available during the compile.
 
-        The default value of `@npm//typescript:typescript__typings` is
-        for projects that use bazel managed npm deps. It is recommended
-        that you use the workspace name `@npm` for bazel managed deps so the
-        default value works out of the box. Otherwise, you'll have to
-        override the node_modules attribute manually. This default is in place
+        The default value of `//typescript:typescript__typings` is
+        for projects that use bazel managed npm deps. This default is in place
         since code compiled by ng_module will always depend on at least the
         typescript default libs which are provided by
-        `@npm//typescript:typescript__typings`.
+        `//typescript:typescript__typings`.
 
         This attribute is DEPRECATED. As of version 0.18.0 the recommended
         approach to npm dependencies is to use fine grained npm dependencies
@@ -778,7 +775,12 @@ NG_MODULE_RULE_ATTRS = dict(dict(COMMON_ATTRIBUTES, **NG_MODULE_ATTRIBUTES), **{
           yarn_lock = "//:yarn.lock",
         )
         """,
-        default = Label("@npm//typescript:typescript__typings"),
+        default = Label(
+            # BEGIN-DEV-ONLY
+            "@npm" +
+            # END-DEV-ONLY
+            "//typescript:typescript__typings",
+        ),
     ),
     "entry_point": attr.label(allow_single_file = True),
 
@@ -810,7 +812,7 @@ Run the Angular AOT template compiler.
 
 This rule extends the [ts_library] rule.
 
-[ts_library]: http://tsetse.info/api/build_defs.html#ts_library
+[ts_library]: https://bazelbuild.github.io/rules_nodejs/TypeScript.html#ts_library
 """
 
 def ng_module_macro(tsconfig = None, **kwargs):

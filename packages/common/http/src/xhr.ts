@@ -79,9 +79,10 @@ export class HttpXhrBackend implements HttpBackend {
    */
   handle(req: HttpRequest<any>): Observable<HttpEvent<any>> {
     // Quick check to give a better error message when a user attempts to use
-    // HttpClient.jsonp() without installing the JsonpClientModule
+    // HttpClient.jsonp() without installing the HttpClientJsonpModule
     if (req.method === 'JSONP') {
-      throw new Error(`Attempted to construct Jsonp request without JsonpClientModule installed.`);
+      throw new Error(
+          `Attempted to construct Jsonp request without HttpClientJsonpModule installed.`);
     }
 
     // Everything happens on Observable subscription.
@@ -140,7 +141,7 @@ export class HttpXhrBackend implements HttpBackend {
           return headerResponse;
         }
 
-        // Read status and normalize an IE9 bug (http://bugs.jquery.com/ticket/1450).
+        // Read status and normalize an IE9 bug (https://bugs.jquery.com/ticket/1450).
         const status: number = xhr.status === 1223 ? 204 : xhr.status;
         const statusText = xhr.statusText || 'OK';
 

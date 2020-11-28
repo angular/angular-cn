@@ -43,7 +43,7 @@ Tutorials and guides include downloadable examples to accelerate your projects.
       <p>Work through a full tutorial to create your first app.</p>
       <p>一个完整教程，带你从头到尾创建首个应用</p>
       <p class="card-footer">Tour of Heroes tutorial</p>
-      <p class="card-footer">英雄指南教程</p>
+      <p class="card-footer">英雄之旅教程</p>
   </a>
 
 </div>
@@ -84,11 +84,11 @@ server {
 
 ## 反馈
 
-<h4>You can sit with us!</h4>
+<h3>You can sit with us!</h3>
 
-<h4>你也可以和我们一起做贡献！</h4>
+<h3>你也可以和我们一起做贡献！</h4>
 
-We want to hear from you. [Report problems or submit suggestions for future docs.](https://github.com/angular/angular/issues/new/choose "Angular GitHub repository new issue form")
+We want to hear from you. [Report problems or submit suggestions for future docs](https://github.com/angular/angular/issues/new/choose "Angular GitHub repository new issue form").
 
 我们希望听到你的声音！[欢迎报告问题或为文档的未来提交建议](https://github.com/angular/angular/issues/new/choose "Angular GitHub repository new issue form")。
 
@@ -105,4 +105,4 @@ Our community values respectful, supportive communication.
 Please consult and adhere to the [Code of Conduct](https://github.com/angular/code-of-conduct/blob/master/CODE_OF_CONDUCT.md "Contributor code of conduct").
 
 我们的社区提倡相互尊重、相互支持。
-参见[社区行为规范](https://github.com/angular/code-of-conduct/blob/master/CODE_OF_CONDUCT.md "contributor code of conduct")。
+参阅[社区行为规范](https://github.com/angular/code-of-conduct/blob/master/CODE_OF_CONDUCT.md "contributor code of conduct")。

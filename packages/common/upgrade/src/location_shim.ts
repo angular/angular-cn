@@ -444,7 +444,7 @@ export class $locationShim {
   /**
    * Retrieves the full URL representation with all segments encoded according to
    * rules specified in
-   * [RFC 3986](http://www.ietf.org/rfc/rfc3986.txt).
+   * [RFC 3986](https://tools.ietf.org/html/rfc3986).
    *
    *
    * ```js
@@ -689,7 +689,7 @@ export class $locationShim {
    *
    * This method is supported only in HTML5 mode and only in browsers supporting
    * the HTML5 History API methods such as `pushState` and `replaceState`. If you need to support
-   * older browsers (like IE9 or Android < 4.0), don't use this method.
+   * older browsers (like Android < 4.0), don't use this method.
    *
    */
   state(): unknown;

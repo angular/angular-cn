@@ -37,7 +37,7 @@ Before reading about form validation, you should have a basic understanding of t
 Get the complete example code for the reactive and template-driven forms used here to illustrate form validation.
 Run the <live-example></live-example>.
 
-要获取这里用讲解表单验证的响应式表单和模板驱动表单的完整示例代码。请运行<live-example></live-example>。
+要获取这里用讲解表单验证的响应式表单和模板驱动表单的完整范例代码。请运行<live-example></live-example>。
 
 </div>
 
@@ -75,13 +75,13 @@ Notice the following features illustrated by the example.
   also carries a custom validator directive, `forbiddenName`. For more
   information, see the [Custom validators](#custom-validators) section.
 
-   `<input>` 元素带有一些 HTML 验证属性：`required` 和 `minlength`。它还带有一个自定义的验证器指令 `forbiddenName`。要了解更多信息，参见[自定义验证器](guide/form-validation#custom-validators)一节。
+   `<input>` 元素带有一些 HTML 验证属性：`required` 和 `minlength`。它还带有一个自定义的验证器指令 `forbiddenName`。要了解更多信息，参阅[自定义验证器](guide/form-validation#custom-validators)一节。
 
 * `#name="ngModel"` exports `NgModel` into a local variable called `name`. `NgModel` mirrors many of the properties of its underlying
   `FormControl` instance, so you can use this in the template to check for control states such as `valid` and `dirty`. For a full list of control properties, see the [AbstractControl](api/forms/AbstractControl)
   API reference.
 
-   `#name="ngModel"` 把 `NgModel` 导出成了一个名叫 `name` 的局部变量。`NgModel` 把自己控制的 `FormControl` 实例的属性映射出去，让你能在模板中检查控件的状态，比如 `valid` 和 `dirty`。要了解完整的控件属性，参见 API 参考手册中的[AbstractControl](api/forms/AbstractControl)。
+   `#name="ngModel"` 把 `NgModel` 导出成了一个名叫 `name` 的局部变量。`NgModel` 把自己控制的 `FormControl` 实例的属性映射出去，让你能在模板中检查控件的状态，比如 `valid` 和 `dirty`。要了解完整的控件属性，参阅 API 参考手册中的[AbstractControl](api/forms/AbstractControl)。
 
   * The `*ngIf` on the `<div>` element reveals a set of nested message `divs`
     but only if the `name` is invalid and the control is either `dirty` or `touched`.
@@ -158,12 +158,12 @@ You can choose to [write your own validator functions](#custom-validators), or y
 The same built-in validators that are available as attributes in template-driven forms, such as `required` and `minlength`, are all available to use as functions from the `Validators` class.
 For a full list of built-in validators, see the [Validators](api/forms/Validators) API reference.
 
-在模板驱动表单中用作属性的那些内置验证器，比如 `required` 和 `minlength`，也都可以作为 `Validators` 类中的函数使用。有关内置验证器的完整列表，参见 API 参考手册中的[验证器](api/forms/Validators)部分。
+在模板驱动表单中用作属性的那些内置验证器，比如 `required` 和 `minlength`，也都可以作为 `Validators` 类中的函数使用。关于内置验证器的完整列表，参阅 API 参考手册中的[验证器](api/forms/Validators)部分。
 
 To update the hero form to be a reactive form, you can use some of the same
 built-in validators—this time, in function form, as in the following example.
 
-要想把这个英雄表单改造成一个响应式表单，你还是要用那些内置验证器，但这次改为用它们的函数形态。参见下面的例子。
+要想把这个英雄表单改造成一个响应式表单，你还是要用那些内置验证器，但这次改为用它们的函数形态。参阅下面的例子。
 
 {@a reactive-component-class}
 

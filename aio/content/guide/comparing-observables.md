@@ -43,9 +43,9 @@ Observables are often compared to promises. Here are some key differences:
 
    在有消费者订阅之前，可观察对象不会执行。`subscribe()` 会执行一次定义好的行为，并且可以再次调用它。每次订阅都是单独计算的。重新订阅会导致重新计算这些值。
 
-<code-example 
-    path="comparing-observables/src/observables.ts" 
-    header="src/observables.ts (observable)" 
+<code-example
+    path="comparing-observables/src/observables.ts"
+    header="src/observables.ts (observable)"
     region="observable">
   </code-example>
 
@@ -53,8 +53,8 @@ Observables are often compared to promises. Here are some key differences:
 
    承诺会立即执行，并且只执行一次。当承诺创建时，会立即计算出结果。没有办法重新做一次。所有的 `then` 语句（订阅）都会共享同一次计算。
 
-<code-example 
-    path="comparing-observables/src/promises.ts" 
+<code-example
+    path="comparing-observables/src/promises.ts"
     header="src/promises.ts (promise)"
     region="promise">
   </code-example>
@@ -85,9 +85,9 @@ Observables are often compared to promises. Here are some key differences:
 
    可观察对象的订阅是可取消的。取消订阅会移除监听器，使其不再接受将来的值，并通知订阅者函数取消正在进行的工作。
 
-<code-example 
-    path="comparing-observables/src/observables.ts" 
-    header="src/observables.ts (unsubcribe)" 
+<code-example
+    path="comparing-observables/src/observables.ts"
+    header="src/observables.ts (unsubcribe)"
     region="unsubscribe">
   </code-example>
 
@@ -103,8 +103,8 @@ Observables are often compared to promises. Here are some key differences:
 
    可观察对象的错误处理工作交给了订阅者的错误处理器，并且该订阅者会自动取消对这个可观察对象的订阅。
 
-<code-example 
-    path="comparing-observables/src/observables.ts" 
+<code-example
+    path="comparing-observables/src/observables.ts"
     header="src/observables.ts (error)"
     region="error">
   </code-example>
@@ -113,8 +113,8 @@ Observables are often compared to promises. Here are some key differences:
 
    承诺会把错误推给其子承诺。
 
-<code-example 
-    path="comparing-observables/src/promises.ts" 
+<code-example
+    path="comparing-observables/src/promises.ts"
     header="src/promises.ts (error)"
     region="error">
   </code-example>
@@ -318,9 +318,9 @@ Here are some code samples that illustrate how the same kind of operation is def
     <td>
 
 <pre>// Setup
-let clicks$ = fromEvent(buttonEl, ‘click’);
+const clicks$ = fromEvent(buttonEl, ‘click’);
 // Begin listening
-let subscription = clicks$
+const subscription = clicks$
   .subscribe(e => console.log(‘Clicked’, e))
 // Stop listening
 subscription.unsubscribe();</pre>

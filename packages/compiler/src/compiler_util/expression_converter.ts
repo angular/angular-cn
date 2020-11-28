@@ -18,6 +18,7 @@ export class EventHandlerVars {
 export interface LocalResolver {
   getLocal(name: string): o.Expression|null;
   notifyImplicitReceiverUse(): void;
+  globals?: Set<string>;
 }
 
 export class ConvertActionBindingResult {
@@ -72,10 +73,10 @@ export type InterpolationFunction = (args: o.Expression[]) => o.Expression;
 export function convertActionBinding(
     localResolver: LocalResolver|null, implicitReceiver: o.Expression, action: cdAst.AST,
     bindingId: string, interpolationFunction?: InterpolationFunction,
-    baseSourceSpan?: ParseSourceSpan,
-    implicitReceiverAccesses?: Set<string>): ConvertActionBindingResult {
+    baseSourceSpan?: ParseSourceSpan, implicitReceiverAccesses?: Set<string>,
+    globals?: Set<string>): ConvertActionBindingResult {
   if (!localResolver) {
-    localResolver = new DefaultLocalResolver();
+    localResolver = new DefaultLocalResolver(globals);
   }
   const actionWithoutBuiltins = convertPropertyBindingBuiltins(
       {
@@ -154,6 +155,11 @@ export enum BindingForm {
   // Try to generate a simple binding (no temporaries or statements)
   // otherwise generate a general binding
   TrySimple,
+
+  // Inlines assignment of temporaries into the generated expression. The result may still
+  // have statements attached for declarations of temporary variables.
+  // This is the only relevant form for Ivy, the other forms are only used in ViewEngine.
+  Expression,
 }
 
 /**
@@ -168,7 +174,6 @@ export function convertPropertyBinding(
   if (!localResolver) {
     localResolver = new DefaultLocalResolver();
   }
-  const currValExpr = createCurrValueExpr(bindingId);
   const visitor =
       new _AstToIrVisitor(localResolver, implicitReceiver, bindingId, interpolationFunction);
   const outputExpr: o.Expression = expressionWithoutBuiltins.visit(visitor, _Mode.Expression);
@@ -180,8 +185,11 @@ export function convertPropertyBinding(
 
   if (visitor.temporaryCount === 0 && form == BindingForm.TrySimple) {
     return new ConvertPropertyBindingResult([], outputExpr);
+  } else if (form === BindingForm.Expression) {
+    return new ConvertPropertyBindingResult(stmts, outputExpr);
   }
 
+  const currValExpr = createCurrValueExpr(bindingId);
   stmts.push(currValExpr.set(outputExpr).toDeclStmt(o.DYNAMIC_TYPE, [o.StmtModifier.Final]));
   return new ConvertPropertyBindingResult(stmts, currValExpr);
 }
@@ -323,6 +331,26 @@ class _AstToIrVisitor implements cdAst.AstVisitor {
       private bindingId: string, private interpolationFunction: InterpolationFunction|undefined,
       private baseSourceSpan?: ParseSourceSpan, private implicitReceiverAccesses?: Set<string>) {}
 
+  visitUnary(ast: cdAst.Unary, mode: _Mode): any {
+    let op: o.UnaryOperator;
+    switch (ast.operator) {
+      case '+':
+        op = o.UnaryOperator.Plus;
+        break;
+      case '-':
+        op = o.UnaryOperator.Minus;
+        break;
+      default:
+        throw new Error(`Unsupported operator ${ast.operator}`);
+    }
+
+    return convertToStatementIfNeeded(
+        mode,
+        new o.UnaryOperatorExpr(
+            op, this._visit(ast.expr, _Mode.Expression), undefined,
+            this.convertSourceSpan(ast.span)));
+  }
+
   visitBinary(ast: cdAst.Binary, mode: _Mode): any {
     let op: o.BinaryOperator;
     switch (ast.operation) {
@@ -419,6 +447,10 @@ class _AstToIrVisitor implements cdAst.AstVisitor {
     return this._implicitReceiver;
   }
 
+  visitThisReceiver(ast: cdAst.ThisReceiver, mode: _Mode): any {
+    return this.visitImplicitReceiver(ast, mode);
+  }
+
   visitInterpolation(ast: cdAst.Interpolation, mode: _Mode): any {
     ensureExpressionMode(mode, ast);
     const args = [o.literal(ast.expressions.length)];
@@ -474,12 +506,17 @@ class _AstToIrVisitor implements cdAst.AstVisitor {
         mode, o.literal(ast.value, type, this.convertSourceSpan(ast.span)));
   }
 
-  private _getLocal(name: string): o.Expression|null {
+  private _getLocal(name: string, receiver: cdAst.AST): o.Expression|null {
+    if (this._localResolver.globals?.has(name) && receiver instanceof cdAst.ThisReceiver) {
+      return null;
+    }
+
     return this._localResolver.getLocal(name);
   }
 
   visitMethodCall(ast: cdAst.MethodCall, mode: _Mode): any {
-    if (ast.receiver instanceof cdAst.ImplicitReceiver && ast.name == '$any') {
+    if (ast.receiver instanceof cdAst.ImplicitReceiver &&
+        !(ast.receiver instanceof cdAst.ThisReceiver) && ast.name === '$any') {
       const args = this.visitAll(ast.args, _Mode.Expression) as any[];
       if (args.length != 1) {
         throw new Error(
@@ -497,14 +534,14 @@ class _AstToIrVisitor implements cdAst.AstVisitor {
       let result: any = null;
       const receiver = this._visit(ast.receiver, _Mode.Expression);
       if (receiver === this._implicitReceiver) {
-        const varExpr = this._getLocal(ast.name);
+        const varExpr = this._getLocal(ast.name, ast.receiver);
         if (varExpr) {
           // Restore the previous "usesImplicitReceiver" state since the implicit
           // receiver has been replaced with a resolved local expression.
           this.usesImplicitReceiver = prevUsesImplicitReceiver;
           result = varExpr.callFn(args);
+          this.addImplicitReceiverAccess(ast.name);
         }
-        this.addImplicitReceiverAccess(ast.name);
       }
       if (result == null) {
         result = receiver.callMethod(ast.name, args, this.convertSourceSpan(ast.span));
@@ -531,13 +568,13 @@ class _AstToIrVisitor implements cdAst.AstVisitor {
       const prevUsesImplicitReceiver = this.usesImplicitReceiver;
       const receiver = this._visit(ast.receiver, _Mode.Expression);
       if (receiver === this._implicitReceiver) {
-        result = this._getLocal(ast.name);
+        result = this._getLocal(ast.name, ast.receiver);
         if (result) {
           // Restore the previous "usesImplicitReceiver" state since the implicit
           // receiver has been replaced with a resolved local expression.
           this.usesImplicitReceiver = prevUsesImplicitReceiver;
+          this.addImplicitReceiverAccess(ast.name);
         }
-        this.addImplicitReceiverAccess(ast.name);
       }
       if (result == null) {
         result = receiver.prop(ast.name);
@@ -552,7 +589,7 @@ class _AstToIrVisitor implements cdAst.AstVisitor {
 
     let varExpr: o.ReadPropExpr|null = null;
     if (receiver === this._implicitReceiver) {
-      const localExpr = this._getLocal(ast.name);
+      const localExpr = this._getLocal(ast.name, ast.receiver);
       if (localExpr) {
         if (localExpr instanceof o.ReadPropExpr) {
           // If the local variable is a property read expression, it's a reference
@@ -703,6 +740,9 @@ class _AstToIrVisitor implements cdAst.AstVisitor {
       return (this._nodeMap.get(ast) || ast).visit(visitor);
     };
     return ast.visit({
+      visitUnary(ast: cdAst.Unary) {
+        return null;
+      },
       visitBinary(ast: cdAst.Binary) {
         return null;
       },
@@ -716,6 +756,9 @@ class _AstToIrVisitor implements cdAst.AstVisitor {
         return null;
       },
       visitImplicitReceiver(ast: cdAst.ImplicitReceiver) {
+        return null;
+      },
+      visitThisReceiver(ast: cdAst.ThisReceiver) {
         return null;
       },
       visitInterpolation(ast: cdAst.Interpolation) {
@@ -777,6 +820,9 @@ class _AstToIrVisitor implements cdAst.AstVisitor {
       return ast.some(ast => visit(visitor, ast));
     };
     return ast.visit({
+      visitUnary(ast: cdAst.Unary): boolean {
+        return visit(this, ast.expr);
+      },
       visitBinary(ast: cdAst.Binary): boolean {
         return visit(this, ast.left) || visit(this, ast.right);
       },
@@ -790,6 +836,9 @@ class _AstToIrVisitor implements cdAst.AstVisitor {
         return true;
       },
       visitImplicitReceiver(ast: cdAst.ImplicitReceiver) {
+        return false;
+      },
+      visitThisReceiver(ast: cdAst.ThisReceiver) {
         return false;
       },
       visitInterpolation(ast: cdAst.Interpolation) {
@@ -868,7 +917,8 @@ class _AstToIrVisitor implements cdAst.AstVisitor {
     if (this.baseSourceSpan) {
       const start = this.baseSourceSpan.start.moveBy(span.start);
       const end = this.baseSourceSpan.start.moveBy(span.end);
-      return new ParseSourceSpan(start, end);
+      const fullStart = this.baseSourceSpan.fullStart.moveBy(span.start);
+      return new ParseSourceSpan(start, end, fullStart);
     } else {
       return null;
     }
@@ -891,6 +941,7 @@ function flattenStatements(arg: any, output: o.Statement[]) {
 }
 
 class DefaultLocalResolver implements LocalResolver {
+  constructor(public globals?: Set<string>) {}
   notifyImplicitReceiverUse(): void {}
   getLocal(name: string): o.Expression|null {
     if (name === EventHandlerVars.event.name) {

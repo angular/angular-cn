@@ -16,7 +16,7 @@ by mapping AngularJS syntax to the equivalent Angular syntax.
 
 **See the Angular syntax in this <live-example name="ajs-quick-reference"></live-example>**.
 
-**参见 <live-example name="ajs-quick-reference"></live-example> 以学习 Angular 语法**
+**参阅 <live-example name="ajs-quick-reference"></live-example> 以学习 Angular 语法**
 
 ## Template basics
 
@@ -98,11 +98,9 @@ The following table lists some of the key AngularJS template features with their
       它绑定的上下文变量是隐式的，并且总是关联到组件。
       所以，它不需要一个引用变量。
 
-      For more information, see the [Interpolation](guide/template-syntax#interpolation)
-      section of the [Template Syntax](guide/template-syntax) page.
+      For more information, see the [Interpolation](guide/interpolation) guide.
 
-      要了解更多，请参见[模板语法](guide/template-syntax)中的[插值](guide/template-syntax#interpolation)部分。
-
+      要了解更多，请参阅[插值](guide/interpolation)部分。
     </td>
 
   </tr>
@@ -146,7 +144,7 @@ The following table lists some of the key AngularJS template features with their
 
       For more information, see [Filters/pipes](guide/ajs-quick-reference#filters-pipes) below.
 
-      请参见下面[过滤器/管道](guide/ajs-quick-reference#filters-pipes)了解更多信息。
+      请参阅下面[过滤器/管道](guide/ajs-quick-reference#filters-pipes)了解更多信息。
 
     </td>
 
@@ -184,11 +182,10 @@ The following table lists some of the key AngularJS template features with their
 
       Angular 有了真正的模板输入变量，它需要使用 `let` 关键字进行明确定义。
 
-      For more information, see the [ngFor micro-syntax](guide/template-syntax#microsyntax)
-      section of the [Template Syntax](guide/template-syntax) page.
+      For more information, see the [ngFor micro-syntax](guide/built-in-directives#microsyntax)
+      section of the [Built-in Directives](guide/built-in-directives) page.
 
-      要了解更多信息，请参见[模板语法](guide/template-syntax)中的[ngFor 微语法](guide/template-syntax#microsyntax)部分。
-
+      要了解更多信息，请参阅[内置指令](guide/built-in-directives)中的[ngFor 微语法](guide/built-in-directives#microsyntax)部分。
     </td>
 
   </tr>
@@ -334,10 +331,9 @@ AngularJS 为模板提供了七十多个内置指令。
 
       Angular 还有**类绑定**，它是单独添加或移除一个类的好办法 —— 就像第三个例子中展示的。
 
-      For more information see the [Attribute, class, and style bindings](guide/template-syntax#other-bindings)
-      section of the [Template Syntax](guide/template-syntax) page.
+      For more information see [Attribute, class, and style bindings](guide/attribute-binding) page.
 
-      要了解更多信息，参见[模板语法](guide/template-syntax)中的[属性、CSS 类和样式绑定](guide/template-syntax#other-bindings)部分。
+      要了解更多信息，参阅[属性（Attribute）绑定、类绑定和样式绑定](guide/attribute-binding)部分。
 
     </td>
 
@@ -402,12 +398,11 @@ AngularJS 为模板提供了七十多个内置指令。
 
       For a list of DOM events, see: https://developer.mozilla.org/en-US/docs/Web/Events.
 
-      要查看 DOM 事件的列表，请参见[网络事件](https://developer.mozilla.org/en-US/docs/Web/Events)。
+      要查看 DOM 事件的列表，请参阅[网络事件](https://developer.mozilla.org/en-US/docs/Web/Events)。
 
-      For more information, see the [Event binding](guide/template-syntax#event-binding)
-      section of the [Template Syntax](guide/template-syntax) page.
+      For more information, see the [Event binding](guide/event-binding) page.
 
-      要了解更多，请参见[模板语法](guide/template-syntax)中的[事件绑定](guide/template-syntax#event-binding)部分。
+      要了解更多，请参阅[事件绑定](guide/event-binding)页。
 
     </td>
 
@@ -448,7 +443,7 @@ AngularJS 为模板提供了七十多个内置指令。
 
       For more information, see [Architecture Overview](guide/architecture#components).
 
-      要了解更多，请参见[架构概览](guide/architecture#components)。
+      要了解更多，请参阅[架构概览](guide/architecture#components)。
 
     </td>
 
@@ -464,7 +459,7 @@ AngularJS 为模板提供了七十多个内置指令。
       an expression. For more information, see [ng-show](guide/ajs-quick-reference#ng-show).
 
       在 AngularJS 中，`ng-hide` 指令会基于一个表达式显示或隐藏相关的 HTML 元素。
-      参见[ng-show](guide/ajs-quick-reference#ng-show)了解更多。
+      参阅[ng-show](guide/ajs-quick-reference#ng-show)了解更多。
 
     </td>
 
@@ -478,7 +473,7 @@ AngularJS 为模板提供了七十多个内置指令。
       For more information, see [ng-show](guide/ajs-quick-reference#ng-show).
 
       在 Angular 中，并没有一个内置的 *hide* 指令，可以改用属性绑定。
-      参见[ng-show](guide/ajs-quick-reference#ng-show)了解更多。
+      参阅[ng-show](guide/ajs-quick-reference#ng-show)了解更多。
 
     </td>
 
@@ -528,10 +523,9 @@ AngularJS 为模板提供了七十多个内置指令。
       在 Angular 中，并没有内置的 *href* 指令，改用属性绑定。
       把元素的 `href` 属性放在方括号中，并把它设成一个引号中的模板表达式。
 
-      For more information see the [Property binding](guide/template-syntax#property-binding)
-      section of the [Template Syntax](guide/template-syntax) page.
+      For more information see the [Property binding](guide/property-binding) page.
 
-      要了解[属性绑定](guide/template-syntax#property-binding)的更多知识，参见[模板语法](guide/template-syntax)。
+      欲知详情，参阅[属性绑定](guide/property-binding)页。
 
       In Angular, `href` is no longer used for routing. Routing uses `routerLink`, as shown in the following example.
 
@@ -542,7 +536,7 @@ AngularJS 为模板提供了七十多个内置指令。
       For more information on routing, see [Defining a basic route](guide/router#basic-route)
       in the [Routing & Navigation](guide/router) page.
 
-      要了解关于路由的更多信息，请参见[路由与导航](guide/router)的[定义基础路由](guide/router#basic-route)部分。
+      要了解关于路由的更多信息，请参阅[路由与导航](guide/router)的[定义基础路由](guide/router#basic-route)部分。
 
     </td>
 
@@ -589,7 +583,7 @@ AngularJS 为模板提供了七十多个内置指令。
       For more information, see [Structural Directives](guide/structural-directives).
 
       在这个例子中 `ngIf` 前的星号(*)是必须的。
-      要了解更多信息，参见[结构型指令](guide/structural-directives)。
+      要了解更多信息，参阅[结构型指令](guide/structural-directives)。
 
     </td>
 
@@ -626,11 +620,10 @@ AngularJS 为模板提供了七十多个内置指令。
       这种语法是一个简写形式，用来同时定义一个属性绑定(从组件到视图)和一个事件绑定(从视图到组件)，就成了双向绑定。
 
       For more information on two-way binding with `ngModel`, see the [NgModel&mdash;Two-way binding to
-      form elements with `[(ngModel)]`](../guide/template-syntax.html#ngModel)
-      section of the [Template Syntax](guide/template-syntax) page.
+      form elements with `[(ngModel)]`](../guide/built-in-directives#ngModel)
+      section of the [Built-in directives](guide/built-in-directives) page.
 
-      要了解使用 ngModel 进行双向绑定的更多知识，参见[模板语法](guide/template-syntax)中的[NgModel&mdash;使用 `[(ngModel)]` 进行双向绑定](../guide/template-syntax.html#ngModel)部分。
-
+      要了解使用 ngModel 进行双向绑定的更多知识，参阅[内置指令](guide/built-in-directives)中的`[(ngModel)]`](../guide/built-in-directives#ngModel)部分。
     </td>
 
   </tr>
@@ -681,7 +674,7 @@ AngularJS 为模板提供了七十多个内置指令。
 
       For more information, see [Structural Directives](guide/structural-directives).
 
-      要了解更多信息，参见[结构性指令](guide/structural-directives)。
+      要了解更多信息，参阅[结构性指令](guide/structural-directives)。
 
     </td>
 
@@ -733,10 +726,9 @@ AngularJS 为模板提供了七十多个内置指令。
 
       在这个例子中，如果 `favoriteHero` 变量不是真值，`<div>` 元素就会被隐藏。
 
-      For more information on property binding, see the [Property binding](guide/template-syntax#property-binding)
-      section of the [Template Syntax](guide/template-syntax) page.
+      For more information on property binding, see the [Property binding](guide/property-binding) page.
 
-      要了解属性绑定的更多知识，参见[模板语法](guide/template-syntax)中的[属性绑定](guide/template-syntax#property-binding)部分。
+      要了解属性绑定的更多知识，参阅[属性绑定](guide/property-binding)页。
 
     </td>
 
@@ -774,11 +766,9 @@ AngularJS 为模板提供了七十多个内置指令。
       在 Angular 中，并没有一个内置的 *src* 指令，可以使用属性绑定。
       把 `src` 属性放到方括号中，并且把它设为一个引号中的绑定表达式。
 
-      For more information on property binding, see the [Property binding](guide/template-syntax#property-binding)
-      section of the [Template Syntax](guide/template-syntax) page.
+      For more information on property binding, see the [Property binding](guide/property-binding) page.
 
-      要了解关于属性绑定的更多知识，参见[模板语法](guide/template-syntax)中的[属性绑定](guide/template-syntax#property-binding)部分。
-
+      要了解关于属性绑定的更多知识，参阅[属性绑定](guide/property-binding)页。
     </td>
 
   </tr>
@@ -825,16 +815,15 @@ AngularJS 为模板提供了七十多个内置指令。
 
       Angular 还有**样式绑定**语法，它是单独设置一个样式的好方法。它展示在第二个例子中。
 
-      For more information on style binding, see the [Style binding](guide/template-syntax#style-binding) section of the
-      [Template Syntax](guide/template-syntax) page.
+      For more information on style binding, see the [Style binding](guide/attribute-binding#style-binding) section of the
+      [Attribute binding](guide/attribute-binding) page.
 
-      要了解关于样式绑定的更多知识，参见[模板语法](guide/template-syntax)中的[样式绑定](guide/template-syntax#style-binding)部分。
+      要了解关于样式绑定的更多知识，参阅[属性绑定](guide/attribute-binding)中的[样式绑定](guide/attribute-binding#style-binding)部分。
 
-      For more information on the `ngStyle` directive, see [NgStyle](guide/template-syntax#ngStyle)
-      section of the [Template Syntax](guide/template-syntax) page.
+      For more information on the `ngStyle` directive, see the [NgStyle](guide/built-in-directives#ngStyle)
+      section of the [Built-in directives](guide/built-in-directives) page.
 
-      要了解关于 `ngStyle` 指令的更多知识，参见[模板语法](guide/template-syntax)中的[NgStyle](guide/template-syntax#ngStyle)部分。
-
+      要了解关于 `ngStyle` 指令的更多知识，参阅[内置指令](guide/built-in-directives)中的[NgStyle](guide/built-in-directives#ngStyle)部分。
     </td>
 
   </tr>
@@ -905,11 +894,10 @@ AngularJS 为模板提供了七十多个内置指令。
 
       在这个例子中，`ngSwitchCase` 和 `ngSwitchDefault` 前面的星号(*)是必须的。
 
-      For more information, see [The NgSwitch directives](guide/template-syntax#ngSwitch)
-      section of the [Template Syntax](guide/template-syntax) page.
+      For more information, see [The NgSwitch directives](guide/built-in-directives#ngSwitch)
+      section of the [Built-in directives](guide/built-in-directives) page.
 
-      要了解更多信息，参见[模板语法](guide/template-syntax)中的[NgSwitch 指令](guide/template-syntax#ngSwitch)部分。
-
+      要了解更多信息，参阅[内置指令](guide/built-in-directives)中的[NgSwitch 指令](guide/built-in-directives#ngSwitch)部分。
     </td>
 
   </tr>
@@ -928,7 +916,7 @@ For more information on pipes, see [Pipes](guide/pipes).
 
 Angular 中的**管道**为模板提供了格式化和数据转换功能，类似于 AngularJS 中的**过滤器**。
 AngularJS 中的很多内置过滤器在 Angular 中都有对应的管道。
-要了解管道的更多信息，参见[Pipes](guide/pipes)。
+要了解管道的更多信息，参阅[Pipes](guide/pipes)。
 
 <table width="100%">
 
@@ -1299,7 +1287,7 @@ The Angular code is shown using TypeScript.
       For more information on modules, see the [Modules](guide/architecture#modules) section of the
       [Architecture Overview](guide/architecture).
 
-      要了解关于模块的更多信息，参见[架构概览](guide/architecture)中的[模块](guide/architecture#modules)部分。
+      要了解关于模块的更多信息，参阅[架构概览](guide/architecture)中的[模块](guide/architecture#modules)部分。
 
     </td>
 
@@ -1344,7 +1332,7 @@ The Angular code is shown using TypeScript.
 
       For more information on modules, see [NgModules](guide/ngmodules).
 
-      要了解关于模块的更多知识，参见[NgModules](guide/ngmodules)。
+      要了解关于模块的更多知识，参阅[NgModules](guide/ngmodules)。
 
     </td>
 
@@ -1400,7 +1388,7 @@ The Angular code is shown using TypeScript.
       For more information, see the [Components](guide/architecture#components)
       section of the [Architecture Overview](guide/architecture) page.
 
-      要了解关于组件的更多信息，参见[架构概览](guide/architecture)中的[组件](guide/architecture#components)部分。
+      要了解关于组件的更多信息，参阅[架构概览](guide/architecture)中的[组件](guide/architecture#components)部分。
 
     </td>
 
@@ -1440,7 +1428,7 @@ The Angular code is shown using TypeScript.
       For more information, see the [Components](guide/architecture#components)
       section of the [Architecture Overview](guide/architecture) page.
 
-      要了解关于组件的更多信息，参见[架构概览](guide/architecture)中的[组件](guide/architecture#components)部分。
+      要了解关于组件的更多信息，参阅[架构概览](guide/architecture)中的[组件](guide/architecture#components)部分。
 
     </td>
 
@@ -1492,7 +1480,7 @@ The Angular code is shown using TypeScript.
       For more information, see the [Dependency injection](guide/architecture#dependency-injection)
       section of the [Architecture Overview](guide/architecture).
 
-      要了解关于依赖注入的更多信息，参见[架构概览](guide/architecture)中的[依赖注入](guide/architecture#dependency-injection)部分。
+      要了解关于依赖注入的更多信息，参阅[架构概览](guide/architecture)中的[依赖注入](guide/architecture#dependency-injection)部分。
 
     </td>
 

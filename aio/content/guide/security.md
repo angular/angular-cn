@@ -11,7 +11,7 @@ Web 应用程序的安全涉及到很多方面。针对常见的漏洞和攻击�
 
 For more information about the attacks and mitigations described below, see [OWASP Guide Project](https://www.owasp.org/index.php/Category:OWASP_Guide_Project).
 
-要了解更多攻防信息，参见[开放式 Web 应用程序安全项目(OWASP)](https://www.owasp.org/index.php/Category:OWASP_Guide_Project)。
+要了解更多攻防信息，参阅[开放式 Web 应用程序安全项目(OWASP)](https://www.owasp.org/index.php/Category:OWASP_Guide_Project)。
 
 You can run the <live-example></live-example> in Stackblitz and download the code from there.
 
@@ -28,7 +28,7 @@ To report vulnerabilities in Angular itself, email us at [security@angular.io](m
 For more information about how Google handles security issues, see [Google's security
 philosophy](https://www.google.com/about/appsecurity/).
 
-要了解关于“谷歌如何处理安全问题”的更多信息，参见[谷歌的安全哲学](https://www.google.com/about/appsecurity/)。
+要了解关于“谷歌如何处理安全问题”的更多信息，参阅[谷歌的安全哲学](https://www.google.com/about/appsecurity/)。
 
 <h2 id='best-practices'>Best practices</h2>
 
@@ -141,7 +141,7 @@ Angular 会对前三项中种不可信的值进行无害化处理，但不能对
 
 ### Sanitization example
 
-### 无害化示例
+### 无害化范例
 
 The following template binds the value of `htmlSnippet`, once by interpolating it into an element's
 content, and once by binding it to the `innerHTML` property of an element:
@@ -201,9 +201,9 @@ as [described below](#bypass-security-apis).
 
 Content Security Policy (CSP) is a defense-in-depth
 technique to prevent XSS. To enable CSP, configure your web server to return an appropriate
-`Content-Security-Policy` HTTP header. Read more about content security policy at
-[An Introduction to Content Security Policy](http://www.html5rocks.com/en/tutorials/security/content-security-policy/)
-on the HTML5Rocks website.
+`Content-Security-Policy` HTTP header. Read more about content security policy at the 
+[Web Fundamentals guide](https://developers.google.com/web/fundamentals/security/csp) on the
+Google Developers website.
 
 [内容安全策略(CSP)](https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP)是用来防范 XSS 的纵深防御技术。
 要打开 CSP，请配置你的 Web 服务器，让它返回合适的 HTTP 头 `Content_Security_Policy`。
@@ -224,7 +224,7 @@ For information about dynamically constructing forms in a safe way, see the
 
 离线模板编译器阻止了一整套被称为“模板注入”的漏洞，并能显著增强应用程序的性能。尽量在产品发布时使用离线模板编译器，
 而不要动态生成模板（比如在代码中拼接字符串生成模板）。由于 Angular 会信任模板本身的代码，所以，动态生成的模板 —— 特别是包含用户数据的模板 —— 会绕过 Angular 自带的保护机制。
-要了解如何用安全的方式动态创建表单，请参见[动态表单](guide/dynamic-form)一章。
+要了解如何用安全的方式动态创建表单，请参阅[动态表单](guide/dynamic-form)一章。
 
 ### Server-side XSS protection
 
@@ -370,22 +370,22 @@ That means only your application can read this cookie token and set the custom h
 
 Angular's `HttpClient` has built-in support for the client-side half of this technique. Read about it more in the [HttpClient guide](/guide/http#security-xsrf-protection).
 
-Angular 的 `HttpClient` 对这项技术的客户端部分提供了内置的支持要了解更多信息，参见 [HttpClient 部分](/guide/http#security-xsrf-protection)。
+Angular 的 `HttpClient` 对这项技术的客户端部分提供了内置的支持要了解更多信息，参阅 [HttpClient 部分](/guide/http#security-xsrf-protection)。
 
 For information about CSRF at the Open Web Application Security Project (OWASP), see
-<a href="https://www.owasp.org/index.php/Cross-Site_Request_Forgery_%28CSRF%29">Cross-Site Request Forgery (CSRF)</a> and
-<a href="https://www.owasp.org/index.php/CSRF_Prevention_Cheat_Sheet">Cross-Site Request Forgery (CSRF) Prevention Cheat Sheet</a>.
+[Cross-Site Request Forgery (CSRF)](https://owasp.org/www-community/attacks/csrf) and
+[Cross-Site Request Forgery (CSRF) Prevention Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Cross-Site_Request_Forgery_Prevention_Cheat_Sheet.html).
 The Stanford University paper
-<a href="https://seclab.stanford.edu/websec/csrf/csrf.pdf">Robust Defenses for Cross-Site Request Forgery</a> is a rich source of detail.
+[Robust Defenses for Cross-Site Request Forgery](https://seclab.stanford.edu/websec/csrf/csrf.pdf) is a rich source of detail.
 
-可到 "开放式 Web 应用程序安全项目 (OWASP) " 深入了解 CSRF，参见[Cross-Site Request Forgery (CSRF)](https://www.owasp.org/index.php/Cross-Site_Request_Forgery_%28CSRF%29)
+可到 "开放式 Web 应用程序安全项目 (OWASP) " 深入了解 CSRF，参阅[Cross-Site Request Forgery (CSRF)](https://www.owasp.org/index.php/Cross-Site_Request_Forgery_%28CSRF%29)
 和[Cross-Site Request Forgery (CSRF) Prevention Cheat Sheet](https://www.owasp.org/index.php/CSRF_Prevention_Cheat_Sheet)。
 这个斯坦福大学论文 [Robust Defenses for Cross-Site Request Forgery](https://seclab.stanford.edu/websec/csrf/csrf.pdf) 有详尽的细节。
 
 See also Dave Smith's easy-to-understand
-<a href="https://www.youtube.com/watch?v=9inczw6qtpY" title="Cross Site Request Funkery Securing Your Angular Apps From Evil Doers">talk on XSRF at AngularConnect 2016</a>.
+[talk on XSRF at AngularConnect 2016](https://www.youtube.com/watch?v=9inczw6qtpY "Cross Site Request Funkery Securing Your Angular Apps From Evil Doers").
 
-参见 Dave Smith 在<a href="https://www.youtube.com/watch?v=9inczw6qtpY" target="_blank" title="Cross Site Request Funkery Securing Your Angular Apps From Evil Doers">AngularConnect 2016 关于 XSRF 的演讲</a>。
+参阅 Dave Smith 在<a href="https://www.youtube.com/watch?v=9inczw6qtpY" target="_blank" title="Cross Site Request Funkery Securing Your Angular Apps From Evil Doers">AngularConnect 2016 关于 XSRF 的演讲</a>。
 
 <h3 id='xssi'>Cross-site script inclusion (XSSI)</h3>
 
@@ -413,7 +413,7 @@ Angular 的 `HttpClient` 库会识别这种约定，并在进一步解析之前�
 For more information, see the XSSI section of this [Google web security blog
 post](https://security.googleblog.com/2011/05/website-security-for-webmasters.html).
 
-要学习更多这方面的知识，请参见[谷歌 Web 安全博客文章](https://security.googleblog.com/2011/05/website-security-for-webmasters.html)的 XSSI 小节。
+要学习更多这方面的知识，请参阅[谷歌 Web 安全博客文章](https://security.googleblog.com/2011/05/website-security-for-webmasters.html)的 XSSI 小节。
 
 <h2 id='code-review'>Auditing Angular applications</h2>
 

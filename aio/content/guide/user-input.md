@@ -2,6 +2,18 @@
 
 # 用户输入
 
+<div class="callout is-critical">
+<header>Marked for archiving</header>
+
+To ensure that you have the best experience possible, this topic is marked for archiving until we determine
+that it clearly conveys the most accurate information possible.
+
+In the meantime, this topic might be helpful: [Event binding](guide/event-binding).
+
+If you think this content should not be archived, please file a [GitHub issue](https://github.com/angular/angular/issues/new?template=3-docs-bug.md).
+
+</div>
+
 User actions such as clicking a link, pushing a button, and entering
 text raise DOM events.
 This page explains how to bind those events to component event handlers using the Angular
@@ -18,18 +30,18 @@ Run the <live-example></live-example>.
 
 ## 绑定到用户输入事件
 
-You can use [Angular event bindings](guide/template-syntax#event-binding)
+You can use [Angular event bindings](guide/event-binding)
 to respond to any [DOM event](https://developer.mozilla.org/en-US/docs/Web/Events).
 Many DOM events are triggered by user input. Binding to these events provides a way to
 get input from the user.
 
-你可以使用 [Angular 事件绑定](guide/template-syntax#event-binding)机制来响应任何 [DOM 事件](https://developer.mozilla.org/en-US/docs/Web/Events)。
+你可以使用 [Angular 事件绑定](guide/event-binding)机制来响应任何 [DOM 事件](https://developer.mozilla.org/en-US/docs/Web/Events)。
 许多 DOM 事件是由用户输入触发的。绑定这些事件可以获取用户输入。
 
 To bind to a DOM event, surround the DOM event name in parentheses and assign a quoted
-[template statement](guide/template-syntax#template-statements) to it.
+[template statement](guide/template-statements) to it.
 
-要绑定 DOM 事件，只要把 DOM 事件的名字包裹在圆括号中，然后用放在引号中的[模板语句](guide/template-syntax#template-statements)对它赋值就可以了。
+要绑定 DOM 事件，只要把 DOM 事件的名字包裹在圆括号中，然后用放在引号中的[模板语句](guide/template-statements)对它赋值就可以了。
 
 The following example shows an event binding that implements a click handler:
 
@@ -104,11 +116,11 @@ In this case, `target` refers to the [`<input>` element](https://developer.mozil
 
 After each call, the `onKey()` method appends the contents of the input box value to the list
 in the component's `values` property, followed by a separator character (|).
-The [interpolation](guide/template-syntax#interpolation)
+The [interpolation](guide/interpolation)
 displays the accumulating input box changes from the `values` property.
 
 在组件的 `onKey()` 方法中，把输入框的值和分隔符 (|) 追加组件的 `values` 属性。
-使用[插值](guide/template-syntax#interpolation)来把存放累加结果的 `values` 属性回显到屏幕上。
+使用[插值](guide/interpolation)来把存放累加结果的 `values` 属性回显到屏幕上。
 
 Suppose the user enters the letters "abc", and then backspaces to remove them one by one.
 Here's what the UI displays:
@@ -190,11 +202,11 @@ The next section shows how to use template reference variables to address this p
 ## 从一个模板引用变量中获得用户输入
 
 There's another way to get the user data: use Angular
-[**template reference variables**](guide/template-syntax#ref-vars).
+[**template reference variables**](guide/template-reference-variables).
 These variables provide direct access to an element from within the template.
 To declare a template reference variable, precede an identifier with a hash (or pound) character (#).
 
-还有另一种获取用户数据的方式：使用 Angular 的[**模板引用变量**](guide/template-syntax#ref-vars)。
+还有另一种获取用户数据的方式：使用 Angular 的[**模板引用变量**](guide/template-reference-variables)。
 这些变量提供了从模块中直接访问元素的能力。
 在标识符前加上井号 (#) 就能声明一个模板引用变量。
 
@@ -250,7 +262,7 @@ variable than to go through the `$event` object. Here's a rewrite of the previou
 `keyup` example that uses a template reference variable to get the user's input.
 
 从模板变量获得输入框比通过 `$event` 对象更加简单。
-下面的代码重写了之前 `keyup` 示例，它使用变量来获得用户输入。
+下面的代码重写了之前 `keyup` 范例，它使用变量来获得用户输入。
 
 <code-example path="user-input/src/app/keyup.components.ts" region="key-up-component-2" header="src/app/keyup.components.ts (v2)"></code-example>
 
@@ -311,11 +323,9 @@ To fix this issue, listen to both the _Enter_ key and the _blur_ event.
 
 ## 把它们放在一起
 
-The previous page showed how to [display data](guide/displaying-data).
-This page demonstrated event binding techniques.
+This page demonstrated several event binding techniques.
 
-上一章介绍了如何[显示数据](guide/displaying-data)。
-本章展示了事件绑定技术。
+本章展示了一些事件绑定技术。
 
 Now, put it all together in a micro-app
 that can display a list of heroes and add new heroes to the list.
@@ -331,7 +341,7 @@ clicking **Add**.
 
 Below is the "Little Tour of Heroes"  component.
 
-下面就是“简版英雄指南”组件。
+下面就是“简版英雄之旅”组件。
 
 <code-example path="user-input/src/app/little-tour.component.ts" region="little-tour" header="src/app/little-tour.component.ts"></code-example>
 
@@ -392,7 +402,7 @@ Following is all the code discussed in this page.
 
 Angular also supports passive event listeners. For example, you can use the following steps to make the scroll event passive.
 
-Angular 还支持被动事件侦听器。例如，你可以使用以下步骤使滚动事件变为被动监听。
+Angular 还支持被动事件监听器。例如，你可以使用以下步骤使滚动事件变为被动监听。
 
 1. Create a file `zone-flags.ts` under `src` directory.
 
@@ -431,7 +441,7 @@ These techniques are useful for small-scale demonstrations, but they
 quickly become verbose and clumsy when handling large amounts of user input.
 Two-way data binding is a more elegant and compact way to move
 values between data entry fields and model properties.
-The next page, `Forms`, explains how to write
+The [`Forms`](guide/forms-overview) page explains how to write
 two-way bindings with `NgModel`.
 
 这些技术对小规模演示很实用，但是在处理大量用户输入时，很容易变得累赘和笨拙。

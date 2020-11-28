@@ -64,10 +64,10 @@ using and results in smaller bundle sizes.
 Tree-shaking is especially useful for a library
 because the application which uses the library may not have
 a need to inject it. Read more
-about [tree-shakable providers](guide/dependency-injection-providers#tree-shakable-providers)
-in [DI Providers](guide/dependency-injection-providers).
+about [tree-shakable providers](guide/architecture-services#providing-services)
+in [Introduction to services and dependency injection](guide/architecture-services).
 
-摇树优化对于库特别有用，因为使用该库的应用程序不需要注入它。在 [DI 提供者中](guide/dependency-injection-providers)了解有关[可摇树优化的提供者](guide/dependency-injection-providers#tree-shakable-providers)的更多信息。
+摇树优化对于库特别有用，因为使用该库的应用程序不需要注入它。在 [服务与依赖注入简介](guide/architecture-services)了解关于[可摇树优化的提供者](guide/architecture-services#providing-services)的更多信息。
 
 </div>
 
@@ -80,7 +80,7 @@ all of the providers arrays which can be reached by following the
 
 Child `ModuleInjector`s are created when lazy loading other `@NgModules`.
 
-子 `ModuleInjector` 是在延迟加载其它 `@NgModules` 时创建的。
+子 `ModuleInjector` 是在惰性加载其它 `@NgModules` 时创建的。
 
 Provide services with the `providedIn` property of `@Injectable()` as follows:
 
@@ -148,7 +148,7 @@ everything ends at the `NullInjector()` and it returns an error or,
 in the case of `@Optional()`, `null`. For more information on
 `@Optional()`, see the [`@Optional()` section](guide/hierarchical-dependency-injection#optional) of this guide.
 
-层次结构中的下一个父注入器是 `NullInjector()`，它是树的顶部。如果你在树中向上走了很远，以至于要在 `NullInjector()` 中寻找服务，那么除非使用 `@Optional()`，否则将收到错误消息，因为最终所有东西都将以 `NullInjector()` 结束并返回错误，或者对于 `@Optional()`，返回 `null`。有关 `@Optional()` 的更多信息，请参见本指南的 [`@Optional()` 部分](guide/hierarchical-dependency-injection#optional)。
+层次结构中的下一个父注入器是 `NullInjector()`，它是树的顶部。如果你在树中向上走了很远，以至于要在 `NullInjector()` 中寻找服务，那么除非使用 `@Optional()`，否则将收到错误消息，因为最终所有东西都将以 `NullInjector()` 结束并返回错误，或者对于 `@Optional()`，返回 `null`。关于 `@Optional()` 的更多信息，请参阅本指南的 [`@Optional()` 部分](guide/hierarchical-dependency-injection#optional)。
 
 The following diagram represents the relationship between the
 `root` `ModuleInjector` and its parent injectors as the
@@ -323,7 +323,7 @@ and use each in the component class constructor when you inject your service.
 For a working app showcasing the resolution modifiers that
 this section covers, see the <live-example name="resolution-modifiers">resolution modifiers example</live-example>.
 
-有关展示本节介绍的解析修饰符的可运行应用，请参阅<live-example name="resolution-modifiers">解析修饰符范例</live-example>。
+关于展示本节介绍的解析修饰符的可运行应用，请参阅<live-example name="resolution-modifiers">解析修饰符范例</live-example>。
 
 ### Types of modifiers
 
@@ -367,7 +367,7 @@ the following example, the service, `OptionalService`, isn't provided in
 the service, `@NgModule()`, or component class, so it isn't available
 anywhere in the app.
 
-`@Optional()` 允许 Angular 将你注入的服务视为可选服务。这样，如果无法在运行时解析它，Angular 只会将服务解析为 `null`，而不会抛出错误。在下面的示例中，服务 `OptionalService` 没有在 `@NgModule()` 或组件类中提供，所以它没有在应用中的任何地方。
+`@Optional()` 允许 Angular 将你注入的服务视为可选服务。这样，如果无法在运行时解析它，Angular 只会将服务解析为 `null`，而不会抛出错误。在下面的范例中，服务 `OptionalService` 没有在 `@NgModule()` 或组件类中提供，所以它没有在应用中的任何地方。
 
 <code-example path="resolution-modifiers/src/app/optional/optional.component.ts" header="resolution-modifiers/src/app/optional/optional.component.ts" region="optional-component">
 
@@ -407,7 +407,7 @@ Another example shows the component class with a provider
 for `FlowerService`. In this case, the injector looks no further
 than the current `ElementInjector` because it finds the `FlowerService` and returns the yellow flower 🌼.
 
-另一个示例显示了具有 `FlowerService` 提供者的组件类。在这个例子中，注入器没有超出当前 `ElementInjector` 就停止了，因为它已经找到了 `FlowerService` 并返回了黄色花朵🌼。
+另一个范例显示了具有 `FlowerService` 提供者的组件类。在这个例子中，注入器没有超出当前 `ElementInjector` 就停止了，因为它已经找到了 `FlowerService` 并返回了黄色花朵🌼。
 
 <code-example path="resolution-modifiers/src/app/self/self.component.ts" header="resolution-modifiers/src/app/self/self.component.ts" region="self-component">
 
@@ -445,9 +445,11 @@ In this case, the value you'd get for `emoji` would be `🌿` (fern), not `🍁`
 
 #### `@SkipSelf()` with `@Optional()`
 
+#### 合用 `@SkipSelf()` 和 `@Optional()`
+
 Use `@SkipSelf()` with `@Optional()` to prevent an error if the value is `null`. In the following example, the `Person` service is injected in the constructor. `@SkipSelf()` tells Angular to skip the current injector and `@Optional()` will prevent an error should the `Person` service be `null`.
 
-如果值为 `null` 请同时使用 `@SkipSelf()` 和 `@Optional()` 来防止错误。在下面的示例中，将 `Person` 服务注入到构造函数中。`@SkipSelf()` 告诉 Angular 跳过当前的注入器，如果 `Person` 服务为 `null`，则 `@Optional()` 将防止报错。
+如果值为 `null` 请同时使用 `@SkipSelf()` 和 `@Optional()` 来防止错误。在下面的范例中，将 `Person` 服务注入到构造函数中。`@SkipSelf()` 告诉 Angular 跳过当前的注入器，如果 `Person` 服务为 `null`，则 `@Optional()` 将防止报错。
 
 ``` ts
 class Person {
@@ -491,7 +493,7 @@ and in turn control their visibility.
 
 Components are used in your templates, as in the following example:
 
-组件在模板中使用，如以下示例所示：
+组件在模板中使用，如以下范例所示：
 
 ```
 
@@ -519,7 +521,7 @@ and is present for mental model purposes only.
 
 The following is an example of how the `<app-root>` and `<app-child>` view trees are combined into a single logical tree:
 
-下面是如何将 `<app-root>` 和 `<app-child>` 视图树组合为单个逻辑树的示例：
+下面是如何将 `<app-root>` 和 `<app-child>` 视图树组合为单个逻辑树的范例：
 
 ```
 <app-root>
@@ -614,12 +616,12 @@ should be used at this location.
 
 ### Example app structure
 
-### 应用程序结构示例
+### 应用程序结构范例
 
 The example app has a `FlowerService` provided in `root` with an `emoji`
 value of `🌺` (red hibiscus).
 
-示例应用程序的 `root` 提供了 `FlowerService`，其 `emoji` 值为 `🌺`（红色芙蓉）。
+范例应用程序的 `root` 提供了 `FlowerService`，其 `emoji` 值为 `🌺`（红色芙蓉）。
 
 <code-example path="providers-viewproviders/src/app/flower.service.ts" header="providers-viewproviders/src/app/flower.service.ts" region="flowerservice">
 
@@ -857,14 +859,14 @@ with the exception of using the `viewProviders` array instead.
 For step-by-step instructions, continue with this section. If you can
 set it up on your own, skip ahead to [Modifying service availability](guide/hierarchical-dependency-injection#modify-visibility).
 
-有关这些步骤的说明，请继续本节。如果你可以自行设置，请跳至[修改服务可用性](guide/hierarchical-dependency-injection#modify-visibility) 一节。
+关于这些步骤的说明，请继续本节。如果你可以自行设置，请跳至[修改服务可用性](guide/hierarchical-dependency-injection#modify-visibility) 一节。
 
 </div>
 
 The example app features a second service, the `AnimalService` to
 demonstrate `viewProviders`.
 
-该示例应用程序具有第二个服务 `AnimalService` 来演示 `viewProviders`。
+该范例应用程序具有第二个服务 `AnimalService` 来演示 `viewProviders`。
 
 First, create an `AnimalService` with an `emoji` property of 🐳 (whale):
 
@@ -935,7 +937,7 @@ Emoji from AnimalService: 🐶
 
 The logic tree for this example of `viewProviders` is as follows:
 
-此 `viewProviders` 示例的逻辑树如下：
+此 `viewProviders` 范例的逻辑树如下：
 
 ```
 
@@ -964,7 +966,7 @@ injector first looks in the `ElementInjector` of the component, it finds the
 `AnimalService` value of 🐶 (puppy). It doesn't need to continue searching the
 `ElementInjector` tree, nor does it need to search the `ModuleInjector`.
 
-与 `FlowerService` 示例一样，`<app-child>` `@Component()` 装饰器中提供了 `AnimalService`。这意味着，由于注入器首先在组件的 `ElementInjector` 中查找，因此它将找到 `AnimalService` 的值 🐶（小狗）。它不需要继续搜索 `ElementInjector` 树，也不需要搜索 `ModuleInjector`。
+与 `FlowerService` 范例一样，`<app-child>` `@Component()` 装饰器中提供了 `AnimalService`。这意味着，由于注入器首先在组件的 `ElementInjector` 中查找，因此它将找到 `AnimalService` 的值 🐶（小狗）。它不需要继续搜索 `ElementInjector` 树，也不需要搜索 `ModuleInjector`。
 
 ### `providers` vs. `viewProviders`
 
@@ -976,7 +978,7 @@ another component to the example and call it `InspectorComponent`.
 `inspector.component.ts`, inject the `FlowerService` and `AnimalService` in
 the constructor:
 
-为了看清 `providers` 和 `viewProviders` 的差异，请在示例中添加另一个组件，并将其命名为 `InspectorComponent`。`InspectorComponent` 将是 `ChildComponent` 的子 `ChildComponent`。在 `inspector.component.ts` 中，将 `FlowerService` 和 `AnimalService` 注入构造函数中：
+为了看清 `providers` 和 `viewProviders` 的差异，请在范例中添加另一个组件，并将其命名为 `InspectorComponent`。`InspectorComponent` 将是 `ChildComponent` 的子 `ChildComponent`。在 `inspector.component.ts` 中，将 `FlowerService` 和 `AnimalService` 注入构造函数中：
 
 <code-example path="providers-viewproviders/src/app/inspector/inspector.component.ts" header="providers-viewproviders/src/app/inspector/inspector.component.ts" region="injection">
 
@@ -1026,7 +1028,7 @@ Next, add the following to `app.component.html` to take advantage of content pro
 The browser now renders the following, omitting the previous examples
 for brevity:
 
-现在，浏览器将渲染以下内容，为简洁起见，省略了前面的示例：
+现在，浏览器将渲染以下内容，为简洁起见，省略了前面的范例：
 
 ```
 
@@ -1213,7 +1215,7 @@ for `FlowerService`, so it doesn't find it and returns `null`.
 **Note:** The example app uses `@Optional()` so the app does
 not throw an error, but the principles are the same.
 
-**注意：**示例应用程序使用 `@Optional()` 因此该应用程序不会引发错误，但是其原理是一样的。
+**注意：**范例应用程序使用 `@Optional()` 因此该应用程序不会引发错误，但是其原理是一样的。
 
 </div>
 
@@ -1233,7 +1235,7 @@ to the constructor for the `AnimalService`, the injector won't
 look in the current `<app-child>`'s `ElementInjector` for the
 `AnimalService`.
 
-就像在 `FlowerService` 示例中一样，如果将 `@SkipSelf()` 添加到 `AnimalService` 的构造函数中，则注入器将不在 `AnimalService` 的当前 `<app-child>` 的 `ElementInjector` 中查找 `AnimalService`。
+就像在 `FlowerService` 范例中一样，如果将 `@SkipSelf()` 添加到 `AnimalService` 的构造函数中，则注入器将不在 `AnimalService` 的当前 `<app-child>` 的 `ElementInjector` 中查找 `AnimalService`。
 
 ```typescript=
 export class ChildComponent {
@@ -1425,13 +1427,13 @@ provided via the `viewProviders` array, the injector finds 🦔
 
 ## `ElementInjector` use case examples
 
-## `ElementInjector` 用例示例
+## `ElementInjector` 用例范例
 
 The ability to configure one or more providers at different levels
 opens up useful possibilities.
 For a look at the following scenarios in a working app, see the <live-example>heroes use case examples</live-example>.
 
-在不同级别配置一个或多个提供者的能力开辟了很有用的可能性。要查看正在运行的应用中的以下情况，请参阅<live-example>英雄示例</live-example>。
+在不同级别配置一个或多个提供者的能力开辟了很有用的可能性。要查看正在运行的应用中的以下情况，请参阅<live-example>英雄范例</live-example>。
 
 ### Scenario: service isolation
 
@@ -1488,7 +1490,7 @@ switching from one to the other throughout the day.
 This guide demonstrates that scenario with an example in the Tour of Heroes theme.
 Imagine an outer `HeroListComponent` that displays a list of super heroes.
 
-本章要示范的场景仍然是基于《英雄指南》的。
+本章要示范的场景仍然是基于《英雄之旅》的。
 想象一个外层的 `HeroListComponent`，它显示一个超级英雄的列表。
 
 To open a hero's tax return, the preparer clicks on a hero name, which opens a component for editing that return.
@@ -1647,4 +1649,4 @@ its injector produces an instance of `Car` resolved by injector (C) with an `Eng
 
 For more information on Angular dependency injection, see the [DI Providers](guide/dependency-injection-providers) and [DI in Action](guide/dependency-injection-in-action) guides.
 
-要了解关于 Angular 依赖注入的更多信息，参见 [DI 提供者](guide/dependency-injection-providers)和 [DI 实战](guide/dependency-injection-in-action) 两章。
+要了解关于 Angular 依赖注入的更多信息，参阅 [DI 提供者](guide/dependency-injection-providers)和 [DI 实战](guide/dependency-injection-in-action) 两章。

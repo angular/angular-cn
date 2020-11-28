@@ -71,7 +71,7 @@ container of the element that will host the dynamically added component.
 
 `AdDirective` 注入了 `ViewContainerRef` 来获取对容器视图的访问权，这个容器就是那些动态加入的组件的宿主。
 
-In the `@Directive` decorator, notice the selector name, `ad-host`;
+In the `@Directive` decorator, notice the selector name, `adHost`;
 that's what you use to apply the directive to the element.
 The next section shows you how.
 
@@ -92,7 +92,7 @@ decorator's `template` property as a template string.
 
 The `<ng-template>` element is where you apply the directive you just made.
 To apply the `AdDirective`, recall the selector from `ad.directive.ts`,
-`ad-host`. Apply that to `<ng-template>` without the square brackets. Now Angular knows
+`[adHost]`. Apply that to `<ng-template>` without the square brackets. Now Angular knows
 where to dynamically load components.
 
 `<ng-template>` 元素就是刚才制作的指令将应用到的地方。
@@ -194,26 +194,6 @@ Use that reference to interact with the component by assigning to its properties
 `createComponent()` 方法返回一个引用，指向这个刚刚加载的组件。
 使用这个引用就可以与该组件进行交互，比如设置它的属性或调用它的方法。
 
-{@a selector-references}
-
-#### Selector references
-
-#### 对选择器的引用
-
-Generally, the Angular compiler generates a `ComponentFactory`
-for any component referenced in a template. However, there are
-no selector references in the templates for
-dynamically loaded components since they load at runtime.
-
-通常，Angular 编译器会为模板中所引用的每个组件都生成一个 `ComponentFactory` 类。
-但是，对于动态加载的组件，模板中不会出现对它们的选择器的引用。
-
-To ensure that the compiler still generates a factory,
-add dynamically loaded components to the `NgModule`'s `entryComponents` array:
-
-要想确保编译器照常生成工厂类，就要把这些动态加载的组件添加到 `NgModule` 的 `entryComponents` 数组中：
-
-<code-example path="dynamic-component-loader/src/app/app.module.ts" region="entry-components" header="src/app/app.module.ts (entry components)"></code-example>
 
 {@a common-interface}
 
@@ -262,4 +242,4 @@ Here are two sample components and the `AdComponent` interface for reference:
 
 See the <live-example name="dynamic-component-loader"></live-example>.
 
-参见<live-example name="dynamic-component-loader"></live-example>。
+参阅<live-example name="dynamic-component-loader"></live-example>。

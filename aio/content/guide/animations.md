@@ -100,7 +100,7 @@ If you plan to use specific animation functions in component files, import those
 
 **Note:** See a [summary of available animation functions](guide/animations#animation-api-summary) at the end of this guide.
 
-**注意：**参见本章末尾的[可用动画函数汇总表](guide/animations#animation-api-summary)。
+**注意：**参阅本章末尾的[可用动画函数汇总表](guide/animations#animation-api-summary)。
 
 </div>
 
@@ -216,7 +216,7 @@ The second argument, `delay`, has the same syntax as `duration`. For example:
 
   等待 100 毫秒，然后运行 200 毫秒表示为：`'0.2s 100ms'`
 
-The third argument, `easing`, controls how the animation [accelerates and decelerates](http://easings.net/) during its runtime. For example, `ease-in` causes the animation to begin slowly, and to pick up speed as it progresses.
+The third argument, `easing`, controls how the animation [accelerates and decelerates](https://easings.net/) during its runtime. For example, `ease-in` causes the animation to begin slowly, and to pick up speed as it progresses.
 
 第三个参数 `easing` 控制动画在运行期间如何进行[加速和减速](http://easings.net/)。比如 `ease-in` 表示动画开始时很慢，然后逐渐加速。
 
@@ -542,7 +542,7 @@ Staggers the starting time for animations for multiple elements.
 
 Produces a reusable animation that can be invoked from elsewhere. Used together with <code>useAnimation()</code>.
 
-生成可在其它地方调用的可重用动画。与 <code>useAnimation()</code> 一起使用。
+生成可在其它地方调用的可复用动画。与 <code>useAnimation()</code> 一起使用。
 
 </td>
 </tr>
@@ -597,8 +597,7 @@ You may also be interested in the following:
 
 <div class="alert is-helpful">
 
-Check out this full animation [demo](http://animationsftw.in/#/) with accompanying [presentation](https://www.youtube.com/watch?v=JhNo3Wvj6UQ&feature=youtu.be&t=2h47m53s), shown at the AngularConnect conference in November 2017.
+Check out this [presentation](https://www.youtube.com/watch?v=rnTK9meY5us), shown at the AngularConnect conference in November 2017, and the accompanying [source code](https://github.com/matsko/animationsftw.in).
 
 到这个 [Demo](http://animationsftw.in/#/) 中查看 2017 年 11 月的 AngularConnect 大会上完整的动画及其[演示](https://www.youtube.com/watch?v=JhNo3Wvj6UQ&feature=youtu.be&t=2h47m53s)。
-
 </div>

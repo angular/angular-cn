@@ -9,7 +9,7 @@ Feature modules are NgModules for the purpose of organizing code.
 For the final sample app with a feature module that this page describes,
 see the <live-example></live-example>.
 
-要想查看本页提到的这个带有特性模块的范例应用，参见 <live-example></live-example>。
+要想查看本页提到的这个带有特性模块的范例应用，参阅 <live-example></live-example>。
 
 <hr>
 
@@ -113,7 +113,7 @@ To incorporate the feature module into your app, you have to let the root module
 
 <code-example path="feature-modules/src/app/app.module.ts" region="app-module" header="src/app/app.module.ts"></code-example>
 
-Now the `AppModule` knows about the feature module. If you were to add any service providers to the feature module, `AppModule` would know about those too, as would any other feature modules. However, NgModules don’t expose their components.
+Now the `AppModule` knows about the feature module. If you were to add any service providers to the feature module, `AppModule` would know about those too, as would any other feature modules. However, NgModules don’t expose their components by default.
 
 现在 `AppModule` 知道这个特性模块了。如果你往该特性模块中加入过任何服务提供者，`AppModule` 也同样会知道它，其它模块中也一样。不过，NgModule 并不会暴露出它们的组件。
 

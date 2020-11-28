@@ -223,9 +223,9 @@ interface Zone {
    * @param task to run
    * @param applyThis
    * @param applyArgs
-   * @returns {*}
+   * @returns {any} Value from the `task.callback` function.
    */
-  runTask(task: Task, applyThis?: any, applyArgs?: any): any;
+  runTask<T>(task: Task, applyThis?: any, applyArgs?: any): T;
 
   /**
    * Schedule a MicroTask.
@@ -313,7 +313,7 @@ interface ZoneType {
    * load patch for specified native module, allow user to
    * define their own patch, user can use this API after loading zone.js
    */
-  __load_patch(name: string, fn: _PatchFn): void;
+  __load_patch(name: string, fn: _PatchFn, ignoreDuplicate?: boolean): void;
 
   /**
    * Zone symbol API to generate a string with __zone_symbol__ prefix
@@ -383,6 +383,7 @@ interface UncaughtPromiseError extends Error {
   task: Task;
   promise: Promise<any>;
   rejection: any;
+  throwOriginal?: boolean;
 }
 
 /**
@@ -674,12 +675,6 @@ type AmbientZone = Zone;
 /** @internal */
 type AmbientZoneDelegate = ZoneDelegate;
 
-// CommonJS / Node have global context exposed as "global" variable.
-// This code should run in a Browser, so we don't want to include the whole node.d.ts
-// typings for this compilation unit.
-// We'll just fake the global "global" var for now.
-declare var global: NodeJS.Global;
-
 const Zone: ZoneType = (function(global: any) {
   const performance: {mark(name: string): void; measure(name: string, label: string): void;} =
       global['performance'];
@@ -750,9 +745,12 @@ const Zone: ZoneType = (function(global: any) {
     }
 
     // tslint:disable-next-line:require-internal-with-underscore
-    static __load_patch(name: string, fn: _PatchFn): void {
+    static __load_patch(name: string, fn: _PatchFn, ignoreDuplicate = false): void {
       if (patches.hasOwnProperty(name)) {
-        if (checkDuplicate) {
+        // `checkDuplicate` option is defined from global variable
+        // so it works for all modules.
+        // `ignoreDuplicate` can work for the specified module
+        if (!ignoreDuplicate && checkDuplicate) {
           throw Error('Already loaded patch: ' + name);
         }
       } else if (!global['__Zone_disable_' + name]) {

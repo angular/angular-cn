@@ -13,7 +13,8 @@ import {ErrorHandler} from '../error_handler';
 import {Type} from '../interface/type';
 import {ComponentFactory} from '../linker/component_factory';
 import {NgModuleRef} from '../linker/ng_module_factory';
-import {Renderer2, RendererFactory2, RendererStyleFlags2, RendererType2} from '../render/api';
+import {Renderer2, RendererFactory2} from '../render/api';
+import {RendererStyleFlags2, RendererType2} from '../render/api_flags';
 import {Sanitizer} from '../sanitization/sanitizer';
 import {isDevMode} from '../util/is_dev_mode';
 import {normalizeDebugBindingName, normalizeDebugBindingValue} from '../util/ng_reflect';
@@ -752,7 +753,7 @@ export class DebugRenderer2 implements Renderer2 {
     this.delegate.appendChild(parent, newChild);
   }
 
-  insertBefore(parent: any, newChild: any, refChild: any): void {
+  insertBefore(parent: any, newChild: any, refChild: any, isMove?: boolean): void {
     const debugEl = getDebugNode(parent);
     const debugChildEl = getDebugNode(newChild);
     const debugRefEl = getDebugNode(refChild)!;
@@ -760,7 +761,7 @@ export class DebugRenderer2 implements Renderer2 {
       debugEl.insertBefore(debugRefEl, debugChildEl);
     }
 
-    this.delegate.insertBefore(parent, newChild, refChild);
+    this.delegate.insertBefore(parent, newChild, refChild, isMove);
   }
 
   removeChild(parent: any, oldChild: any): void {

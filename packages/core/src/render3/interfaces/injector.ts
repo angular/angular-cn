@@ -8,14 +8,56 @@
 
 import {InjectionToken} from '../../di/injection_token';
 import {InjectFlags} from '../../di/interface/injector';
-import {Type} from '../../interface/type';
+import {AbstractType, Type} from '../../interface/type';
+import {assertDefined, assertEqual} from '../../util/assert';
 
 import {TDirectiveHostNode} from './node';
 import {LView, TData} from './view';
 
-export const TNODE = 8;
-export const PARENT_INJECTOR = 8;
-export const INJECTOR_BLOOM_PARENT_SIZE = 9;
+/**
+ * Offsets of the `NodeInjector` data structure in the expando.
+ *
+ * `NodeInjector` is stored in both `LView` as well as `TView.data`. All storage requires 9 words.
+ * First 8 are reserved for bloom filter and the 9th is reserved for the associated `TNode` as well
+ * as parent `NodeInjector` pointer. All indexes are starting with `index` and have an offset as
+ * shown.
+ *
+ * `LView` layout:
+ * ```
+ * index + 0: cumulative bloom filter
+ * index + 1: cumulative bloom filter
+ * index + 2: cumulative bloom filter
+ * index + 3: cumulative bloom filter
+ * index + 4: cumulative bloom filter
+ * index + 5: cumulative bloom filter
+ * index + 6: cumulative bloom filter
+ * index + 7: cumulative bloom filter
+ * index + 8: cumulative bloom filter
+ * index + PARENT: Index to the parent injector. See `RelativeInjectorLocation`
+ *                 `const parent = lView[index + NodeInjectorOffset.PARENT]`
+ * ```
+ *
+ * `TViewData` layout:
+ * ```
+ * index + 0: cumulative bloom filter
+ * index + 1: cumulative bloom filter
+ * index + 2: cumulative bloom filter
+ * index + 3: cumulative bloom filter
+ * index + 4: cumulative bloom filter
+ * index + 5: cumulative bloom filter
+ * index + 6: cumulative bloom filter
+ * index + 7: cumulative bloom filter
+ * index + 8: cumulative bloom filter
+ * index + TNODE: TNode associated with this `NodeInjector`
+ *                `canst tNode = tView.data[index + NodeInjectorOffset.TNODE]`
+ * ```
+ */
+export const enum NodeInjectorOffset {
+  TNODE = 8,
+  PARENT = 8,
+  BLOOM_SIZE = 8,
+  SIZE = 9,
+}
 
 /**
  * Represents a relative location of parent injector.
@@ -134,7 +176,8 @@ export class NodeInjectorFactory {
   /**
    * The inject implementation to be activated when using the factory.
    */
-  injectImpl: null|(<T>(token: Type<T>|InjectionToken<T>, flags?: InjectFlags) => T);
+  injectImpl: null|
+      (<T>(token: Type<T>|AbstractType<T>|InjectionToken<T>, flags?: InjectFlags) => T);
 
   /**
    * Marker set to true during factory invocation to see if we get into recursive loop.
@@ -238,7 +281,9 @@ export class NodeInjectorFactory {
        */
       isViewProvider: boolean,
       injectImplementation: null|
-      (<T>(token: Type<T>|InjectionToken<T>, flags?: InjectFlags) => T)) {
+      (<T>(token: Type<T>|AbstractType<T>|InjectionToken<T>, flags?: InjectFlags) => T)) {
+    ngDevMode && assertDefined(factory, 'Factory not specified');
+    ngDevMode && assertEqual(typeof factory, 'function', 'Expected factory function.');
     this.canSeeViewProviders = isViewProvider;
     this.injectImpl = injectImplementation;
   }

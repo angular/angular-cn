@@ -10,7 +10,7 @@ A provider is an instruction to the [Dependency Injection](/guide/dependency-inj
 For the final sample app using the provider that this page describes,
 see the <live-example></live-example>.
 
-要想查看本页提到的这个带有特性模块的范例应用，参见 <live-example></live-example>。
+要想查看本页提到的这个带有特性模块的范例应用，参阅 <live-example></live-example>。
 
 ## Providing a service
 
@@ -97,6 +97,19 @@ Though you can provide services by lazy loading modules, not all services can be
 
 虽然你可以使用惰性加载模块来提供实例，但不是所有的服务都能惰性加载。比如，像路由之类的模块只能在根模块中使用。路由器需要使用浏览器中的全局对象 `location` 进行工作。
 
+As of Angular version 9, you can provide a new instance of a service with each lazy loaded module. The following code adds this functionality to `UserService`.
+
+从 Angular 9 开始，你可以在每个惰性加载模块中提供服务的新实例。下列代码把此功能添加到 `UserService` 中。
+
+<code-example path="providers/src/app/user.service.2.ts"  header="src/app/user.service.ts"></code-example>
+
+With `providedIn: 'any'`, all eagerly loaded modules share a singleton instance; however, lazy loaded modules each get their own unique instance, as shown in the following diagram.
+
+通过使用 `providedIn: 'any'`，所有急性加载的模块都会共享同一个服务单例，不过，惰性加载模块各自有它们自己独有的单例。如下所示：
+
+<img src="generated/images/guide/providers/any-provider.svg" alt="any-provider-scope" class="left">
+
+
 ## Limiting provider scope with components
 
 ## 使用组件限定服务提供者的作用域
@@ -151,9 +164,9 @@ You may also be interested in:
 
    [惰性加载模块](guide/lazy-loading-ngmodules)。
 
-* [Tree-shakable Providers](guide/dependency-injection-providers#tree-shakable-providers).
+* [Dependency providers](guide/dependency-injection-providers).
 
-   [可摇树优化的服务提供者](guide/dependency-injection-providers#tree-shakable-providers)。
+   [可摇树优化的服务提供者](guide/architecture-services#providing-services)。
 
 * [NgModule FAQ](guide/ngmodule-faq).
 

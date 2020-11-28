@@ -177,7 +177,7 @@ The following table summarizes the `@NgModule` metadata properties.
 
       For more information on injector hierarchy and scoping, see [Providers](guide/providers) and the [DI Guide](guide/dependency-injection).
 
-      要深入了解关于多级注入器及其作用域，参见[服务提供者](guide/providers)。
+      要深入了解关于多级注入器及其作用域，参阅[服务提供者](guide/providers)。
 
     </td>
 
@@ -352,7 +352,7 @@ The following table summarizes the `@NgModule` metadata properties.
 
       For more information, see [Entry Components](guide/entry-components).
 
-      要了解更多，参见[入口组件](guide/entry-components)一章。
+      要了解更多，参阅[入口组件](guide/entry-components)一章。
 
     </td>
 

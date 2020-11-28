@@ -4,7 +4,7 @@
 
 There are new requirements for the Tour of Heroes app:
 
-有一些《英雄指南》的新需求：
+有一些《英雄之旅》的新需求：
 
 * Add a *Dashboard* view.
 
@@ -26,7 +26,7 @@ There are new requirements for the Tour of Heroes app:
 
   For the sample app that this page describes, see the <live-example></live-example>.
 
-  要查看本页所讲的范例程序，参见<live-example></live-example>。
+  要查看本页所讲的范例程序，参阅<live-example></live-example>。
 
 </div>
 
@@ -528,11 +528,11 @@ fix the dashboard hero links to navigate via the _parameterized_ dashboard route
   header="src/app/dashboard/dashboard.component.html (hero links)">
 </code-example>
 
-You're using Angular [interpolation binding](guide/template-syntax#interpolation) within the `*ngFor` repeater
+You're using Angular [interpolation binding](guide/interpolation) within the `*ngFor` repeater
 to insert the current iteration's `hero.id` into each
 [`routerLink`](#routerlink).
 
-你正在 `*ngFor` 复写器中使用 Angular 的[插值绑定](guide/template-syntax#interpolation)来把当前迭代的 `hero.id` 插入到每个 [`routerLink`](#routerlink) 中。
+你正在 `*ngFor` 复写器中使用 Angular 的[插值绑定](guide/interpolation)来把当前迭代的 `hero.id` 插入到每个 [`routerLink`](#routerlink) 中。
 
 {@a heroes-component-links}
 
@@ -564,7 +564,7 @@ the list look as it did before.
 Revised styles are in the [final code review](#heroescomponent) at the bottom of this guide.
 
 你还要修改私有样式表（`heroes.component.css`），让列表恢复到以前的外观。
-修改后的样式表参见本指南底部的[最终代码](#heroescomponent)。
+修改后的样式表参阅本指南底部的[最终代码](#heroescomponent)。
 
 #### Remove dead code (optional)
 

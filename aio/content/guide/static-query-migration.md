@@ -83,7 +83,7 @@ Most applications will want to use `{static: false}` for the same reason. This s
 
 There are rarer cases where `{static: true}` flag might be necessary (see [answer here](#should-i-use-static-true)).
 
-在某些很少见的情况下，必须使用 `{static: true}` 标志（参见[这里的回答](#should-i-use-static-true)）。
+在某些很少见的情况下，必须使用 `{static: true}` 标志（参阅[这里的回答](#should-i-use-static-true)）。
 
 {@a should-i-use-static-true}
 ### Is there a case where I should use `{static: true}`?
@@ -189,7 +189,7 @@ This strategy of resolving queries at different times based on the location of p
 
 * Sometimes query results are available in `ngOnInit`, but sometimes they aren't and it's not clear why (see [21800](https://github.com/angular/angular/issues/21800) or [19872](https://github.com/angular/angular/issues/19872)).
 
-  其查询结果在 `ngOnInit` 中有时可用有时不可用，而且还不清楚为什么（参见 [21800](https://github.com/angular/angular/issues/21800) 或 [19872](https://github.com/angular/angular/issues/19872)）。
+  其查询结果在 `ngOnInit` 中有时可用有时不可用，而且还不清楚为什么（参阅 [21800](https://github.com/angular/angular/issues/21800) 或 [19872](https://github.com/angular/angular/issues/19872)）。
 
 * `@ViewChild` queries are resolved at a different time from `@ViewChildren` queries, and `@ContentChild` queries are resolved at a different time from `@ContentChildren` queries.
 If a user turns a `@ViewChild` query into a `@ViewChildren` query, their code can break suddenly because the timing has shifted.

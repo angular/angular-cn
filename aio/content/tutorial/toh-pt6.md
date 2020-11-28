@@ -23,7 +23,7 @@ Angular's `HttpClient`.
 
   For the sample app that this page describes, see the <live-example></live-example>.
 
-  要查看本页所讲的范例程序，参见<live-example></live-example>。
+  要查看本页所讲的范例程序，参阅<live-example></live-example>。
 
 </div>
 
@@ -238,7 +238,7 @@ The server's data API determines the shape of the JSON data.
 The _Tour of Heroes_ data API returns the hero data as an array.
 
 服务器的数据 API 决定了 JSON 数据的具体形态。
-*英雄指南*的数据 API 会把英雄数据作为一个数组进行返回。
+*英雄之旅*的数据 API 会把英雄数据作为一个数组进行返回。
 
 <div class="alert is-helpful">
 
@@ -286,7 +286,7 @@ give it a `catchError()` operator.
 </code-example>
 
 The `catchError()` operator intercepts an **`Observable` that failed**.
-It passes the error an error handler that can do what it wants with the error.
+The operator then passes the error to the error handling function.
 
 `catchError()` 操作符会拦截**失败的 `Observable`**。
 它把错误对象传给*错误处理器*，*错误处理器*会处理这个错误。
@@ -814,7 +814,7 @@ It cancels and discards previous search observables, returning only the latest s
 
 <div class="alert is-helpful">
 
-  With the [switchMap operator](http://www.learnrxjs.io/operators/transformation/switchmap.html),
+  With the [switchMap operator](https://www.learnrxjs.io/learn-rxjs/operators/transformation/switchmap),
   every qualifying key event can trigger an `HttpClient.get()` method call.
   Even with a 300ms pause between requests, you could have multiple HTTP requests in flight
   and they may not return in the order sent.
@@ -986,5 +986,5 @@ This concludes the "Tour of Heroes" tutorial.
 You're ready to learn more about Angular development in the fundamentals section,
 starting with the [Architecture](guide/architecture "Architecture") guide.
 
-《英雄指南》教程结束了。
+《英雄之旅》教程结束了。
 如果你准备开始学习 Angular 开发的原理，请开始 [架构](guide/architecture "Architecture") 一章。

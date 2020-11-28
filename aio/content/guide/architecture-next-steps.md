@@ -9,7 +9,7 @@ about the features and tools that can help you develop and deliver Angular appli
 
 * Work through the [Tour of Heroes](tutorial) tutorial to get a feel for how to fit the basic building blocks together to create a well-designed application.
 
-  参考“[英雄指南”](tutorial/index)教程，了解如何将这些基本构建块放在一起，来创建设计精良的应用。
+  参考“[英雄之旅”](tutorial/index)教程，了解如何将这些基本构建块放在一起，来创建设计精良的应用。
 
 * Check out the [Glossary](guide/glossary) to understand Angular-specific terms and usage.
 
@@ -23,9 +23,9 @@ about the features and tools that can help you develop and deliver Angular appli
 
 ## 应用架构
 
-* The [Components and templates](guide/displaying-data) guide explains how to connect the application data in your [components](guide/glossary#component) to your page-display [templates](guide/glossary#template), to create a complete interactive application.
+* The **Main Concepts** section located in the table of contents contains several topics that explain how to connect the application data in your [components](guide/glossary#component) to your page-display [templates](guide/glossary#template), to create a complete interactive application.
 
-  [组件与模板](guide/displaying-data)一章中介绍了如何把组件中的应用数据与页面显示[模板](guide/glossary#template)联系起来，以创建一个完整的交互式应用。
+  目录中的**主要概念**部分包含一系列主题，用于解释如何把[组件](guide/glossary#component)中的应用数据与页面显示[模板](guide/glossary#template)联系起来，以创建一个完整的交互式应用。
 
 * The [NgModules](guide/ngmodules) guide provides in-depth information on the modular structure of an Angular application.
 
@@ -43,7 +43,7 @@ about the features and tools that can help you develop and deliver Angular appli
 
 ## 响应式编程
 
-The **Components and Templates** guide provides guidance and details of the [template syntax](guide/template-syntax) that you use to display your component data when and where you want it within a view, and to collect input from users that you can respond to.
+The [template syntax](guide/template-syntax) and related topics contain details about how to display your component data when and where you want it within a view, and how to collect input from users that you can respond to.
 
 **“组件和模板”**一章提供了[模板语法](guide/template-syntax)的指南和详细信息，用于在视图中随时随地显示组件数据，并从用户那里收集输入，以便做出响应。
 
@@ -101,10 +101,6 @@ Angular 为单页面应用提供了一个框架，其中的大多数逻辑和数
 ## Support for the development cycle
 
 ## 为开发周期提供支持
-
-The **Development Workflow** section describes the tools and processes you use to compile, test, and deploy Angular applications.
-
-**“开发工作流”**部分描述了用于编译、测试和部署 Angular 应用的工具和过程。
 
 * [CLI Command Reference](cli): The Angular CLI is a command-line tool that you use to create projects, generate application and library code, and perform a variety of ongoing development tasks such as testing, bundling, and deployment.
 

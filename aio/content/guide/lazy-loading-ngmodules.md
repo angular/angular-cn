@@ -12,7 +12,7 @@ bundle sizes smaller, which in turn helps decrease load times.
 For the final sample app with two lazy-loaded modules that this page describes, see the
 <live-example></live-example>.
 
-如果需要本页描述的具有两个惰性加载模块的范例应用，参见<live-example></live-example>。
+如果需要本页描述的具有两个惰性加载模块的范例应用，参阅<live-example></live-example>。
 
 </div>
 
@@ -26,7 +26,7 @@ This section introduces the basic procedure for configuring a lazy-loaded route.
 For a step-by-step example, see the [step-by-step setup](#step-by-step) section on this page.
 
 本节会介绍配置惰性加载路由的基本过程。
-想要一个分步的范例，参见本页的[分步设置](#step-by-step)部分。
+想要一个分步的范例，参阅本页的[分步设置](#step-by-step)部分。
 
 To lazy load Angular modules, use `loadchildren` (instead of `component`) in your `AppRoutingModule` `routes` configuration as follows.
 
@@ -131,7 +131,7 @@ To make one, enter the following command in the terminal, where `customers` is t
 ng generate module customers --route customers --module app.module
 </code-example>
 
-This creates a `customers` folder with the new lazy-loadable module `CustomersModule` defined in the `customers.module.ts` file. The command automatically declares the `CustomersComponent` inside the new feature module.
+This creates a `customers` folder having the new lazy-loadable feature module `CustomersModule` defined in the `customers.module.ts` file and the routing module `CustomersRoutingModule` defined in the `customers-routing.module.ts` file. The command automatically declares the `CustomersComponent` and imports `CustomersRoutingModule` inside the new feature module.
 
 这将创建一个 `customers` 文件夹，在其 `customers.module.ts` 文件中定义了新的可惰性加载模块 `CustomersModule`。该命令会自动在新特性模块中声明 `CustomersComponent`。
 
@@ -333,7 +333,7 @@ For more information, see the [`forRoot()` pattern](guide/singleton-services#for
 
 `forRoot()` 方法为路由器管理*全局性的*注入器配置。
 `forChild()` 方法中没有注入器配置，只有像 `RouterOutlet` 和 `RouterLink` 这样的指令。
-欲知详情，参见[单例服务](guide/singleton-services)章的 [`forRoot()` 模式](guide/singleton-services#forRoot)小节。
+欲知详情，参阅[单例服务](guide/singleton-services)章的 [`forRoot()` 模式](guide/singleton-services#forRoot)小节。
 
 {@a preloading}
 
@@ -458,9 +458,9 @@ ngOnInit() {
 }
 </code-example>
 
-For more information with a working example, see the [routing tutorial section on preloading](guide/router#preloading-background-loading-of-feature-areas).
+For more information with a working example, see the [routing tutorial section on preloading](guide/router-tutorial-toh#preloading-background-loading-of-feature-areas).
 
-有关工作示例的更多信息，请参阅[路由教程的预加载部分](guide/router#preloading-background-loading-of-feature-areas) 。
+关于工作范例的更多信息，请参阅[路由教程的预加载部分](guide/router-tutorial-toh#preloading-background-loading-of-feature-areas) 。
 
 
 <hr>

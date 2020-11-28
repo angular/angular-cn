@@ -8,7 +8,7 @@
 
 import {CommonModule, SlicePipe} from '@angular/common';
 import {Component} from '@angular/core';
-import {async, TestBed} from '@angular/core/testing';
+import {TestBed, waitForAsync} from '@angular/core/testing';
 import {expect} from '@angular/platform-browser/testing/src/matchers';
 
 {
@@ -47,8 +47,8 @@ import {expect} from '@angular/platform-browser/testing/src/matchers';
         expect(pipe.transform(null, 1)).toBe(null);
       });
 
-      it('should return undefined if the value is undefined', () => {
-        expect(pipe.transform(undefined, 1)).toBe(undefined);
+      it('should return null if the value is undefined', () => {
+        expect(pipe.transform(undefined, 1)).toBe(null);
       });
 
       it('should return all items after START index when START is positive and END is omitted',
@@ -105,7 +105,7 @@ import {expect} from '@angular/platform-browser/testing/src/matchers';
         TestBed.configureTestingModule({declarations: [TestComp], imports: [CommonModule]});
       });
 
-      it('should work with mutable arrays', async(() => {
+      it('should work with mutable arrays', waitForAsync(() => {
            const fixture = TestBed.createComponent(TestComp);
            const mutable: number[] = [1, 2];
            fixture.componentInstance.data = mutable;

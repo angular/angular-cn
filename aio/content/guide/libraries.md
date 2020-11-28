@@ -17,11 +17,11 @@ Libraries extend Angular's base functionality. For example, to add [reactive for
 Similarly, adding the [service worker](guide/service-worker-intro) library to an Angular application is one of the steps for turning an application into a [Progressive Web App](https://developers.google.com/web/progressive-web-apps/) (PWA).
 [Angular Material](https://material.angular.io/) is an example of a large, general-purpose library that provides sophisticated, reusable, and adaptable UI components.
 
-这些库扩展了 Angular 的基本功能。例如，要向应用添加[响应式表单](guide/reactive-forms)，请使用 `ng add @angular/forms` 添加该库的 npm 包，再从应用代码中，从 `@angular/forms` 库中导入 `ReactiveFormsModule`。同样，把 [Service Worker](guide/service-worker-intro) 库添加到 Angular 应用中是将应用转换为[渐进式 Web 应用程序](https://developers.google.com/web/progressive-web-apps/)（PWA）的步骤之一。[Angular Material](https://material.angular.io/) 是一个大型通用库的典范，它提供了一些复杂、可重用，兼具高度适应性的 UI 组件。
+这些库扩展了 Angular 的基本功能。例如，要向应用添加[响应式表单](guide/reactive-forms)，请使用 `ng add @angular/forms` 添加该库的 npm 包，再从应用代码中，从 `@angular/forms` 库中导入 `ReactiveFormsModule`。同样，把 [Service Worker](guide/service-worker-intro) 库添加到 Angular 应用中是将应用转换为[渐进式 Web 应用程序](https://developers.google.com/web/progressive-web-apps/)（PWA）的步骤之一。[Angular Material](https://material.angular.io/) 是一个大型通用库的典范，它提供了一些复杂、可复用，兼具高度适应性的 UI 组件。
 
 Any app developer can use these and other libraries that have been published as npm packages by the Angular team or by third parties. See [Using Published Libraries](guide/using-libraries).
 
-任何一位应用开发者都可以使用这样或那样的库，它们都已经由 Angular 团队或第三方发布为 npm 包。参见[使用已发布的库](guide/using-libraries)。
+任何一位应用开发者都可以使用这样或那样的库，它们都已经由 Angular 团队或第三方发布为 npm 包。参阅[使用已发布的库](guide/using-libraries)。
 
 ## Creating libraries
 
@@ -32,7 +32,7 @@ These libraries can be used locally in your workspace, or you can publish them a
 These packages can be published to the npm registry, a private npm Enterprise registry, or a private package management system that supports npm packages.
 See [Creating Libraries](guide/creating-libraries).
 
-如果已经开发出了适合重用的功能，你就可以创建自己的库。这些库可以在你的工作区中本地使用，也可以把它们发布成 [npm 包](guide/npm-packages)，共享给其它项目或其它 Angular 开发者。这些包可以发布到 npm 服务器、一个私有的 npm 企业版服务器，或一个支持 npm 包的私有包管理系统。参见[创建库](guide/creating-libraries)。
+如果已经开发出了适合复用的功能，你就可以创建自己的库。这些库可以在你的工作区中本地使用，也可以把它们发布成 [npm 包](guide/npm-packages)，共享给其它项目或其它 Angular 开发者。这些包可以发布到 npm 服务器、一个私有的 npm 企业版服务器，或一个支持 npm 包的私有包管理系统。参阅[创建库](guide/creating-libraries)。
 
 Whether you decide to package functionality as a library is an architectural decision, similar to deciding whether a piece of functionality is a component or a service, or deciding on the scope of a component.
 
@@ -41,7 +41,7 @@ Whether you decide to package functionality as a library is an architectural dec
 Packaging functionality as a library forces the artifacts in the library to be decoupled from the application's business logic.
 This can help to avoid various bad practices or architecture mistakes that can make it difficult to decouple and reuse code in the future.
 
-把功能打包成库会强迫库中的工件与应用的业务逻辑分离。这有助于避免各种不良实践或架构失误，这些失误会导致将来很难解耦和重用代码。
+把功能打包成库会强迫库中的工件与应用的业务逻辑分离。这有助于避免各种不良实践或架构失误，这些失误会导致将来很难解耦和复用代码。
 
 Putting code into a separate library is more complex than simply putting everything in one app.
 It requires more of an investment in time and thought for managing, maintaining, and updating the library.

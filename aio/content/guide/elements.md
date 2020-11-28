@@ -10,7 +10,7 @@ _Angular elements_ are Angular components packaged as _custom elements_ (also ca
 
   For the sample app that this page describes, see the <live-example></live-example>.
 
-  这里所说的范例应用，请参见<live-example></live-example>。
+  这里所说的范例应用，请参阅<live-example></live-example>。
 
 </div>
 
@@ -18,7 +18,7 @@ _Angular elements_ are Angular components packaged as _custom elements_ (also ca
 A custom element extends HTML by allowing you to define a tag whose content is created and controlled by JavaScript code.
 The browser maintains a `CustomElementRegistry` of defined custom elements, which maps an instantiable JavaScript class to an HTML tag.
 
-[自定义元素](https://developer.mozilla.org/en-US/docs/Web/Web_Components/Using_custom_elements)这项特性目前受到了 Chrome、Edge（基于 Chromium 的版本）、Opera 和 Safari 的支持，在其它浏览器中也能通过腻子脚本（参见[浏览器支持](#browser-support)）加以支持。
+[自定义元素](https://developer.mozilla.org/en-US/docs/Web/Web_Components/Using_custom_elements)这项特性目前受到了 Chrome、Edge（基于 Chromium 的版本）、Opera 和 Safari 的支持，在其它浏览器中也能通过腻子脚本（参阅[浏览器支持](#browser-support)）加以支持。
 自定义元素扩展了 HTML，它允许你定义一个由 JavaScript 代码创建和控制的标签。
 浏览器会维护一个自定义元素的注册表 `CustomElementRegistry`，它把一个可实例化的 JavaScript 类映射到 HTML 标签上。
 
@@ -40,7 +40,7 @@ Creating a custom element is simple and straightforward, and automatically conne
 
     我们正在持续开发自定义元素功能，让它们可以用在由其它框架所构建的 Web 应用中。
     Angular 框架的一个小型的、自包含的版本将会作为服务注入进去，以提供组件的变更检测和数据绑定功能。
-    要了解这个开发方向的更多内容，参见[这个视频演讲](https://www.youtube.com/watch?v=Z1gLFPLVJjY&t=4s)。
+    要了解这个开发方向的更多内容，参阅[这个视频演讲](https://www.youtube.com/watch?v=Z1gLFPLVJjY&t=4s)。
 
 </div>
 
@@ -145,7 +145,7 @@ A custom element _hosts_ an Angular component, providing a bridge between the da
 
 For more information, see Web Component documentation for [Creating custom events](https://developer.mozilla.org/en-US/docs/Web/Guide/Events/Creating_and_triggering_events#Creating_custom_events).
 
-要了解更多，请参见 Web Components 的文档：[Creating custom events](https://developer.mozilla.org/en-US/docs/Web/Guide/Events/Creating_and_triggering_events#Creating_custom_events)。
+要了解更多，请参阅 Web Components 的文档：[Creating custom events](https://developer.mozilla.org/en-US/docs/Web/Guide/Events/Creating_and_triggering_events#Creating_custom_events)。
 
 {@a browser-support}
 
@@ -254,16 +254,23 @@ In browsers that support Custom Elements natively, the specification requires de
 
 对于原生支持了自定义元素的浏览器，该规范要求开发人员使用 ES2016 的类来定义自定义元素 —— 开发人员可以在项目的 [TypeScript 配置文件](/guide/typescript-configuration)中设置 `target: "es2015"` 属性来满足这一要求。并不是所有浏览器都支持自定义元素和 ES2015，开发人员也可以选择使用腻子脚本来让它支持老式浏览器和 ES5 的代码。
 
-Use the [Angular CLI](cli) to automatically set up your project with the correct polyfill: `ng add @angular/elements --project=*your_project_name*`.
+Use the [Angular CLI](cli) to automatically set up your project with the correct polyfill: 
 
-使用 [Angular CLI](https://cli.angular.io/) 可以自动为你的项目添加正确的腻子脚本：`ng add @angular/elements --project=*your_project_name*`。
+使用 [Angular CLI](https://cli.angular.io/) 可以自动为你的项目添加正确的腻子脚本：
+
+<code-example language="sh">
+
+ng add @angular/elements --project=*your_project_name*
+
+</code-example>
+
 - For more information about polyfills, see [polyfill documentation](https://www.webcomponents.org/polyfills).
 
-   要了解关于腻子脚本的更多信息，参见[腻子脚本的相关文档](https://www.webcomponents.org/polyfills)。
+   要了解关于腻子脚本的更多信息，参阅[腻子脚本的相关文档](https://www.webcomponents.org/polyfills)。
 
 - For more information about Angular browser support, see [Browser Support](guide/browser-support).
 
-   要了解 Angular 浏览器支持的更多信息，参见[浏览器支持](guide/browser-support)。
+   要了解 Angular 浏览器支持的更多信息，参阅[浏览器支持](guide/browser-support)。
 
 ## Example: A Popup Service
 
@@ -357,7 +364,7 @@ aDialog.content = 123;  // <-- ERROR: TypeScript knows this should be a string.
 aDialog.body = 'News';  // <-- ERROR: TypeScript knows there is no `body` property on `aDialog`.
 ```
 
-This is a good way to quickly get TypeScript features, such as type checking and autocomplete support, for you custom element. But it can get cumbersome if you need it in several places, because you have to cast the return type on every occurrence.
+This is a good way to quickly get TypeScript features, such as type checking and autocomplete support, for your custom element. But it can get cumbersome if you need it in several places, because you have to cast the return type on every occurrence.
 
 这是一种让你的自定义元素快速获得 TypeScript 特性（比如类型检查和自动完成支持）的好办法，不过如果你要在多个地方使用它，可能会有点啰嗦，因为不得不在每个地方对返回类型做转换。
 

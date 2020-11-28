@@ -7,7 +7,7 @@
  */
 
 import {ChangeDetectionStrategy} from '../change_detection/constants';
-import {Provider} from '../di';
+import {Provider} from '../di/interface/provider';
 import {Type} from '../interface/type';
 import {compileComponent as render3CompileComponent, compileDirective as render3CompileDirective} from '../render3/jit/directive';
 import {compilePipe as render3CompilePipe} from '../render3/jit/pipe';
@@ -383,14 +383,10 @@ export interface Directive {
   host?: {[key: string]: string};
 
   /**
-   * If true, this directive/component will be skipped by the AOT compiler and so will always be
-   * compiled using JIT.
-   *
-   * 如果为 true，则该指令/组件将会被 AOT 编译器忽略，始终使用 JIT 编译。
-   *
-   * This exists to support future Ivy work and has no effect currently.
-   *
-   * 该属性用来支持未来的 Ivy 工作。
+   * When present, this directive/component is ignored by the AOT compiler.
+   * It remains in distributed code, and the JIT compiler attempts to compile it
+   * at run time, in the browser.
+   * To ensure the correct behavior, the app must import `@angular/compiler`.
    */
   jit?: true;
 }
@@ -426,7 +422,8 @@ export interface ComponentDecorator {
    * 组件是 Angular 应用中最基本的 UI 构造块。Angular 应用中包含一棵组件树。
    *
    * Angular components are a subset of directives, always associated with a template.
-   * Unlike other directives, only one component can be instantiated per an element in a template.
+   * Unlike other directives, only one component can be instantiated for a given element in a
+   * template.
    *
    * Angular 的组件是指令的一个子集，它总是有一个与之关联的模板。
    * 和其它指令不同，模板中的每个元素只能具有一个组件实例。
@@ -556,8 +553,8 @@ export interface ComponentDecorator {
    *
    * ```html
    * <a>Spaces</a>&ngsp;<a>between</a>&ngsp;<a>links.</a>
-   * <!-->compiled to be equivalent to:</>
-   *  <a>Spaces</a> <a>between</a> <a>links.</a>
+   * <!-- compiled to be equivalent to:
+   *  <a>Spaces</a> <a>between</a> <a>links.</a>  -->
    * ```
    *
    * Note that sequences of `&ngsp;` are still collapsed to just one space character when
@@ -565,8 +562,8 @@ export interface ComponentDecorator {
    *
    * ```html
    * <a>before</a>&ngsp;&ngsp;&ngsp;<a>after</a>
-   * <!-->compiled to be equivalent to:</>
-   *  <a>Spaces</a> <a>between</a> <a>links.</a>
+   * <!-- compiled to be equivalent to:
+   *  <a>before</a> <a>after</a> -->
    * ```
    *
    * To preserve sequences of whitespace characters, use the
@@ -679,10 +676,6 @@ export interface Component extends Directive {
    * An encapsulation policy for the template and CSS styles. One of:
    *
    * 供模板和 CSS 样式使用的样式封装策略。取值为：
-   *
-   * - `ViewEncapsulation.Native`: Deprecated. Use `ViewEncapsulation.ShadowDom` instead.
-   *
-   *   `ViewEncapsulation.Native`：使用 Shadow DOM。它只在原生支持 Shadow DOM 的平台上才能工作。
    *
    * - `ViewEncapsulation.Emulated`: Use shimmed CSS that
    * emulates the native behavior.
@@ -890,7 +883,7 @@ export interface InputDecorator {
    * class App {}
    * ```
    *
-   * @see [Input and Output properties](guide/template-syntax#input-and-output-properties)
+   * @see [Input and Output properties](guide/inputs-outputs)
    */
   (bindingPropertyName?: string): any;
   new(bindingPropertyName?: string): any;
@@ -949,7 +942,7 @@ export interface OutputDecorator {
   *
   * 参见 `@Input` 的例子了解如何指定一个绑定名。
    *
-   * @see [Input and Output properties](guide/template-syntax#input-and-output-properties)
+   * @see [Input and Output properties](guide/inputs-outputs)
    *
    */
   (bindingPropertyName?: string): any;

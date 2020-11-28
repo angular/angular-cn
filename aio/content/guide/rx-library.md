@@ -4,7 +4,7 @@
 
 Reactive programming is an asynchronous programming paradigm concerned with data streams and the propagation of change ([Wikipedia](https://en.wikipedia.org/wiki/Reactive_programming)). RxJS (Reactive Extensions for JavaScript) is a library for reactive programming using observables that makes it easier to compose asynchronous or callback-based code. See ([RxJS Docs](https://rxjs.dev/guide/overview)).
 
-响应式编程是一种面向数据流和变更传播的异步编程范式（[Wikipedia](https://zh.wikipedia.org/wiki/%E5%93%8D%E5%BA%94%E5%BC%8F%E7%BC%96%E7%A8%8B)）。RxJS（响应式扩展的 JavaScript 版）是一个使用可观察对象进行响应式编程的库，它让组合异步代码和基于回调的代码变得更简单。参见 [RxJS 官方文档](https://rxjs.dev/guide/overview)。
+响应式编程是一种面向数据流和变更传播的异步编程范式（[Wikipedia](https://zh.wikipedia.org/wiki/%E5%93%8D%E5%BA%94%E5%BC%8F%E7%BC%96%E7%A8%8B)）。RxJS（响应式扩展的 JavaScript 版）是一个使用可观察对象进行响应式编程的库，它让组合异步代码和基于回调的代码变得更简单。参阅 [RxJS 官方文档](https://rxjs.dev/guide/overview)。
 
 RxJS provides an implementation of the `Observable` type, which is needed until the type becomes part of the language and until browsers support it. The library also provides utility functions for creating and working with observables. These utility functions can be used for:
 
@@ -38,11 +38,11 @@ RxJS offers a number of functions that can be used to create new observables. Th
 
 RxJS 提供了一些用来创建可观察对象的函数。这些函数可以简化根据某些东西创建可观察对象的过程，比如事件、定时器、承诺等等。比如：
 
-<code-example path="rx-library/src/simple-creation.ts" region="promise" header="Create an observable from a promise"></code-example>
+<code-example path="rx-library/src/simple-creation.1.ts" region="promise" header="Create an observable from a promise"></code-example>
 
-<code-example path="rx-library/src/simple-creation.ts" region="interval" header="Create an observable from a counter"></code-example>
+<code-example path="rx-library/src/simple-creation.2.ts" region="interval" header="Create an observable from a counter"></code-example>
 
-<code-example path="rx-library/src/simple-creation.ts" region="event" header="Create an observable from an event"></code-example>
+<code-example path="rx-library/src/simple-creation.3.ts" region="event" header="Create an observable from an event"></code-example>
 
 <code-example path="rx-library/src/simple-creation.ts" region="ajax" header="Create an observable that creates an AJAX request"></code-example>
 
@@ -87,7 +87,7 @@ The `pipe()` function is also a method on the RxJS `Observable`, so you use this
 RxJS provides many operators, but only a handful are used frequently. For a list of operators and usage samples, visit the [RxJS API Documentation](https://rxjs.dev/api).
 
 RxJS 提供了很多操作符，不过只有少数是常用的。
-下面是一个常用操作符的列表和用法范例，参见 [RxJS API 文档](https://rxjs.dev/api)。
+下面是一个常用操作符的列表和用法范例，参阅 [RxJS API 文档](https://rxjs.dev/api)。
 
 <div class="alert is-helpful">
 
@@ -100,7 +100,7 @@ RxJS 提供了很多操作符，不过只有少数是常用的。
 | Area | Operators |
 | :------------ | :---------- |
 | 类别 | 操作 |
-| Creation | `from`,`fromEvent`, `of`  |
+| Creation | `from`, `fromEvent`, `of`  |
 | 创建 | `from`, `fromPromise`,`fromEvent`, `of`  |
 | Combination | `combineLatest`, `concat`, `merge`, `startWith` , `withLatestFrom`, `zip`  |
 | 组合 | `combineLatest`, `concat`, `merge`, `startWith` , `withLatestFrom`, `zip`  |

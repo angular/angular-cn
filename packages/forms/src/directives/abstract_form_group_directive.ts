@@ -12,8 +12,7 @@ import {FormGroup} from '../model';
 
 import {ControlContainer} from './control_container';
 import {Form} from './form_interface';
-import {composeAsyncValidators, composeValidators, controlPath} from './shared';
-import {AsyncValidatorFn, ValidatorFn} from './validators';
+import {controlPath} from './shared';
 
 
 
@@ -34,41 +33,17 @@ export class AbstractFormGroupDirective extends ControlContainer implements OnIn
   // TODO(issue/24571): remove '!'.
   _parent!: ControlContainer;
 
-  /**
-   * @description
-   * An array of synchronous validators for the group
-   *
-   * @internal
-   */
-  // TODO(issue/24571): remove '!'.
-  _validators!: any[];
-
-  /**
-   * @description
-   * An array of async validators for the group
-   *
-   * @internal
-   */
-  // TODO(issue/24571): remove '!'.
-  _asyncValidators!: any[];
-
-  /**
-   * @description
-   * An internal callback method triggered on the instance after the inputs are set.
-   * Registers the group with its parent group.
-   */
+  /** @nodoc */
   ngOnInit(): void {
     this._checkParentType();
+    // Register the group with its parent group.
     this.formDirective!.addFormGroup(this);
   }
 
-  /**
-   * @description
-   * An internal callback method triggered before the instance is destroyed.
-   * Removes the group from its parent group.
-   */
+  /** @nodoc */
   ngOnDestroy(): void {
     if (this.formDirective) {
+      // Remove the group from its parent group.
       this.formDirective.removeFormGroup(this);
     }
   }
@@ -95,22 +70,6 @@ export class AbstractFormGroupDirective extends ControlContainer implements OnIn
    */
   get formDirective(): Form|null {
     return this._parent ? this._parent.formDirective : null;
-  }
-
-  /**
-   * @description
-   * The synchronous validators registered with this group.
-   */
-  get validator(): ValidatorFn|null {
-    return composeValidators(this._validators);
-  }
-
-  /**
-   * @description
-   * The async validators registered with this group.
-   */
-  get asyncValidator(): AsyncValidatorFn|null {
-    return composeAsyncValidators(this._asyncValidators);
   }
 
   /** @internal */

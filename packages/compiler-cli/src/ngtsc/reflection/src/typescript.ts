@@ -8,7 +8,7 @@
 
 import * as ts from 'typescript';
 
-import {ClassDeclaration, ClassMember, ClassMemberKind, CtorParameter, Declaration, Decorator, FunctionDefinition, Import, isDecoratorIdentifier, ReflectionHost} from './host';
+import {ClassDeclaration, ClassMember, ClassMemberKind, CtorParameter, Declaration, DeclarationKind, DeclarationNode, Decorator, FunctionDefinition, Import, isDecoratorIdentifier, ReflectionHost} from './host';
 import {typeToValue} from './type_to_value';
 import {isNamedClassDeclaration} from './util';
 
@@ -19,7 +19,7 @@ import {isNamedClassDeclaration} from './util';
 export class TypeScriptReflectionHost implements ReflectionHost {
   constructor(protected checker: ts.TypeChecker) {}
 
-  getDecoratorsOfDeclaration(declaration: ts.Declaration): Decorator[]|null {
+  getDecoratorsOfDeclaration(declaration: DeclarationNode): Decorator[]|null {
     if (declaration.decorators === undefined || declaration.decorators.length === 0) {
       return null;
     }
@@ -64,12 +64,12 @@ export class TypeScriptReflectionHost implements ReflectionHost {
       // optional tokes that don't have providers.
       if (typeNode && ts.isUnionTypeNode(typeNode)) {
         let childTypeNodes = typeNode.types.filter(
-            childTypeNode => childTypeNode.kind !== ts.SyntaxKind.NullKeyword);
+            childTypeNode =>
+                !(ts.isLiteralTypeNode(childTypeNode) &&
+                  childTypeNode.literal.kind === ts.SyntaxKind.NullKeyword));
 
         if (childTypeNodes.length === 1) {
           typeNode = childTypeNodes[0];
-        } else {
-          typeNode = null;
         }
       }
 
@@ -103,7 +103,6 @@ export class TypeScriptReflectionHost implements ReflectionHost {
     if (!ts.isSourceFile(node)) {
       throw new Error(`getExportsOfModule() called on non-SourceFile in TS code`);
     }
-    const map = new Map<string, Declaration>();
 
     // Reflect the module to a Symbol, and use getExportsOfModule() to get a list of exported
     // Symbols.
@@ -111,6 +110,8 @@ export class TypeScriptReflectionHost implements ReflectionHost {
     if (symbol === undefined) {
       return null;
     }
+
+    const map = new Map<string, Declaration>();
     this.checker.getExportsOfModule(symbol).forEach(exportSymbol => {
       // Map each exported Symbol to a Declaration and add it to the map.
       const decl = this.getDeclarationOfSymbol(exportSymbol, null);
@@ -184,7 +185,7 @@ export class TypeScriptReflectionHost implements ReflectionHost {
     return declaration.initializer || null;
   }
 
-  getDtsDeclaration(_: ts.Declaration): ts.Declaration|null {
+  getDtsDeclaration(_: ClassDeclaration): ts.Declaration|null {
     return null;
   }
 
@@ -204,7 +205,7 @@ export class TypeScriptReflectionHost implements ReflectionHost {
       return null;
     }
 
-    const decl: ts.Declaration = symbol.declarations[0];
+    const decl = symbol.declarations[0];
     const importDecl = getContainingImportDeclaration(decl);
 
     // Ignore declarations that are defined locally (not imported).
@@ -315,6 +316,7 @@ export class TypeScriptReflectionHost implements ReflectionHost {
         known: null,
         viaModule,
         identity: null,
+        kind: DeclarationKind.Concrete,
       };
     } else if (symbol.declarations !== undefined && symbol.declarations.length > 0) {
       return {
@@ -322,6 +324,7 @@ export class TypeScriptReflectionHost implements ReflectionHost {
         known: null,
         viaModule,
         identity: null,
+        kind: DeclarationKind.Concrete,
       };
     } else {
       return null;
@@ -363,7 +366,7 @@ export class TypeScriptReflectionHost implements ReflectionHost {
     let kind: ClassMemberKind|null = null;
     let value: ts.Expression|null = null;
     let name: string|null = null;
-    let nameNode: ts.Identifier|null = null;
+    let nameNode: ts.Identifier|ts.StringLiteral|null = null;
 
     if (ts.isPropertyDeclaration(node)) {
       kind = ClassMemberKind.Property;
@@ -383,6 +386,9 @@ export class TypeScriptReflectionHost implements ReflectionHost {
     if (ts.isConstructorDeclaration(node)) {
       name = 'constructor';
     } else if (ts.isIdentifier(node.name)) {
+      name = node.name.text;
+      nameNode = node.name;
+    } else if (ts.isStringLiteral(node.name)) {
       name = node.name.text;
       nameNode = node.name;
     } else {

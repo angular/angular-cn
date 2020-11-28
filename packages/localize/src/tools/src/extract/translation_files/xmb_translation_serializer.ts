@@ -5,9 +5,10 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import {AbsoluteFsPath, relative} from '@angular/compiler-cli/src/ngtsc/file_system';
+import {AbsoluteFsPath, FileSystem, getFileSystem} from '@angular/compiler-cli/src/ngtsc/file_system';
 import {ɵParsedMessage, ɵSourceLocation} from '@angular/localize';
 
+import {extractIcuPlaceholders} from './icu_parsing';
 import {TranslationSerializer} from './translation_serializer';
 import {XmlFile} from './xml_file';
 
@@ -17,9 +18,12 @@ import {XmlFile} from './xml_file';
  * http://cldr.unicode.org/development/development-process/design-proposals/xmb
  *
  * @see XmbTranslationParser
+ * @publicApi used by CLI
  */
 export class XmbTranslationSerializer implements TranslationSerializer {
-  constructor(private basePath: AbsoluteFsPath, private useLegacyIds: boolean) {}
+  constructor(
+      private basePath: AbsoluteFsPath, private useLegacyIds: boolean,
+      private fs: FileSystem = getFileSystem()) {}
 
   serialize(messages: ɵParsedMessage[]): string {
     const ids = new Set<string>();
@@ -72,20 +76,34 @@ export class XmbTranslationSerializer implements TranslationSerializer {
     const endLineString = location.end !== undefined && location.end.line !== location.start.line ?
         `,${location.end.line + 1}` :
         '';
-    xml.text(`${relative(this.basePath, location.file)}:${location.start.line}${endLineString}`);
+    xml.text(
+        `${this.fs.relative(this.basePath, location.file)}:${location.start.line}${endLineString}`);
     xml.endTag('source');
   }
 
   private serializeMessage(xml: XmlFile, message: ɵParsedMessage): void {
-    xml.text(message.messageParts[0]);
-    for (let i = 1; i < message.messageParts.length; i++) {
-      xml.startTag('ph', {name: message.placeholderNames[i - 1]}, {selfClosing: true});
-      xml.text(message.messageParts[i]);
+    const length = message.messageParts.length - 1;
+    for (let i = 0; i < length; i++) {
+      this.serializeTextPart(xml, message.messageParts[i]);
+      xml.startTag('ph', {name: message.placeholderNames[i]}, {selfClosing: true});
     }
+    this.serializeTextPart(xml, message.messageParts[length]);
+  }
+
+  private serializeTextPart(xml: XmlFile, text: string): void {
+    const pieces = extractIcuPlaceholders(text);
+    const length = pieces.length - 1;
+    for (let i = 0; i < length; i += 2) {
+      xml.text(pieces[i]);
+      xml.startTag('ph', {name: pieces[i + 1]}, {selfClosing: true});
+    }
+    xml.text(pieces[length]);
   }
 
   /**
    * Get the id for the given `message`.
+   *
+   * If there was a custom id provided, use that.
    *
    * If we have requested legacy message ids, then try to return the appropriate id
    * from the list of legacy ids that were extracted.
@@ -97,7 +115,8 @@ export class XmbTranslationSerializer implements TranslationSerializer {
    * https://github.com/google/closure-compiler/blob/master/src/com/google/javascript/jscomp/GoogleJsMessageIdGenerator.java
    */
   private getMessageId(message: ɵParsedMessage): string {
-    return this.useLegacyIds && message.legacyIds !== undefined &&
+    return message.customId ||
+        this.useLegacyIds && message.legacyIds !== undefined &&
         message.legacyIds.find(id => id.length <= 20 && !/[^0-9]/.test(id)) ||
         message.id;
   }

@@ -38,7 +38,7 @@ The following are metadata errors you may encounter, with explanations and sugge
 Language features outside of the compiler's [restricted expression syntax](guide/aot-compiler#expression-syntax)
 can produce this error, as seen in the following example:
 
-如以下示例所示，使用了编译器的[受限表达式语法](guide/aot-compiler#expression-syntax)之外的语言特性可能会产生此错误：
+如以下范例所示，使用了编译器的[受限表达式语法](guide/aot-compiler#expression-syntax)之外的语言特性可能会产生此错误：
 
 ```ts
 
@@ -610,7 +610,7 @@ Angular 也用 `DOCUMENT` 令牌做了类似的事情，所以你也可以注入
 ```ts
 
 import { Inject }   from '@angular/core';
-import { DOCUMENT } from '@angular/platform-browser';
+import { DOCUMENT } from '@angular/common';
 
 @Component({ ... })
 export class MyComponent {
@@ -637,7 +637,7 @@ export class MyComponent {
 
 This can happen if you use a number as a property name as in the following example.
 
-如果将数字用作属性名称，则可能发生这种情况，如以下示例所示。
+如果将数字用作属性名称，则可能发生这种情况，如以下范例所示。
 
 ```ts
 

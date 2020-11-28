@@ -7,7 +7,7 @@ This tutorial describes how you can build a single-page application, SPA that us
 本教程将介绍如何构建一个使用多个 Angular 路由的单页面应用 SPA。
 
 In an SPA, all of your application's functions exist in a single HTML page.
-As users access your application's features, the browser needs to render only the parts that matter to the user, instead of loading a new page. This pattern can significantly improve your application's user exprience.
+As users access your application's features, the browser needs to render only the parts that matter to the user, instead of loading a new page. This pattern can significantly improve your application's user experience.
 
 在 SPA 中，所有应用的所有功能都存在于同一个 HTML 页面中。当用户访问应用的各种特性时，浏览器只需渲染那些用户需要关心的部分，而不用重新加载页面。这种模式可以显著改善应用的用户体验。
 
@@ -18,7 +18,7 @@ You can also configure routes to guard against unexpected or unauthorized behavi
 
 To explore a sample app featuring the contents of this tutorial, see the <live-example></live-example>.
 
-要探索本教程的示例应用，请参阅<live-example></live-example>。
+要探索本教程的范例应用，请参阅<live-example></live-example>。
 
 ## Objectives
 
@@ -26,7 +26,7 @@ To explore a sample app featuring the contents of this tutorial, see the <live-e
 
 * Organize a sample application's features into modules.
 
-  将示例应用的各个特性组织到一些模块中。
+  将范例应用的各个特性组织到一些模块中。
 
 * Define how to navigate to a component.
 
@@ -71,11 +71,11 @@ To complete this tutorial, you should have a basic understanding of the followin
 
 You might find the [Tour of Heroes tutorial](/tutorial) helpful, but it is not required.
 
-你可能会发现[英雄指南教程](/tutorial)很有帮助，但它并不是必须的。
+你可能会发现[英雄之旅教程](/tutorial)很有帮助，但它并不是必须的。
 
 ## Create a sample application
 
-## 创建一个示例应用
+## 创建一个范例应用
 
 Using the Angular CLI, create a new application, _angular-router-sample_. This application will have two components: _crisis-list_ and _heroes-list_.
 
@@ -164,7 +164,7 @@ Routing allows you to display specific views of your application depending on th
 To add this functionality to your sample application, you need to update the `app.module.ts` file to use the module, `RouterModule`.
 You import this module from `@angular/router`.
 
-路由允许你根据 URL 路径显示应用的特定视图。要把这个功能添加到你的示例应用中，你需要更新 `app.module.ts` 文件以使用模块 `RouterModule`。你可以从 `@angular/router` 导入该模块。
+路由允许你根据 URL 路径显示应用的特定视图。要把这个功能添加到你的范例应用中，你需要更新 `app.module.ts` 文件以使用模块 `RouterModule`。你可以从 `@angular/router` 导入该模块。
 
 1. From your code editor, open the `app.module.ts` file.
 
@@ -192,7 +192,7 @@ In this section, you'll define two routes:
 
   路由 `/heroes-list` 用来打开 `heroes-list` 组件。
 
-A route definition is a JavaScript object. Each route typically has two propteries. The first property, `path`, is a string
+A route definition is a JavaScript object. Each route typically has two properties. The first property, `path`, is a string
 that specifies the URL path for the route. The second property, `component`, is a string that specifies
 what component your application should display for that path.
 
@@ -217,7 +217,7 @@ define your two routes. This method takes an array of JavaScript objects, with e
 The `forRoot()` method ensures that your application only instantiates one `RouterModule`. For more information, see
 [Singleton Services](/guide/singleton-services#forroot-and-the-router).
 
-这段代码把 `RouterModule` 添加到了 `imports` 数组中。接下来，该代码使用 `RouterModule` 的 `forRoot()` 方法来定义你的两个路由。该方法接受一个 JavaScript 对象数组，每个对象定义一个路由的属性。`forRoot()` 方法确保你的应用只会实例化一个 `RouterModule`。有关更多信息，请参阅[单例服务](/guide/singleton-services#forroot-and-the-router)。
+这段代码把 `RouterModule` 添加到了 `imports` 数组中。接下来，该代码使用 `RouterModule` 的 `forRoot()` 方法来定义你的两个路由。该方法接受一个 JavaScript 对象数组，每个对象定义一个路由的属性。`forRoot()` 方法确保你的应用只会实例化一个 `RouterModule`。欲知详情，请参阅[单例服务](/guide/singleton-services#forroot-and-the-router)。
 
 ## Update your component with `router-outlet`
 
@@ -362,7 +362,7 @@ In this step of the tutorial, you add a route that redirects the user to display
       you have an empty string for a path. For more information about this property,
       see the [Route API documentation](/api/router/Route).
 
-     `pathMatch`。这个属性指示 Angular 要如何匹配 URL。对于本教程，你应该把这个属性设置为 `full`。当路径为空字符串时，建议使用此策略。有关此属性的更多信息，请参阅 [Route API 文档](/api/router/Route)。
+     `pathMatch`。这个属性指示 Angular 要如何匹配 URL。对于本教程，你应该把这个属性设置为 `full`。当路径为空字符串时，建议使用此策略。关于此属性的更多信息，请参阅 [Route API 文档](/api/router/Route)。
 
 Now when you open your application, it displays the `heroes-list` component by default.
 
@@ -373,7 +373,7 @@ Now when you open your application, it displays the `heroes-list` component by d
 ## 添加 404 页面
 
 It is possible for a user to try to access a route that you have not defined. To account for
-this behavior, a best practice is to display a 404 page. In this section, you'll create a 404 page and
+this behavior, the best practice is to display a 404 page. In this section, you'll create a 404 page and
 update your route configuration to show that page for any unspecified routes.
 
 用户可以尝试访问你尚未定义的路由。为了解决这个问题，最佳做法是显示一个 404 页面。在本节中，你将创建一个 404 页面，并更新路由配置，以便为任何未指定的路由显示该页面。
@@ -431,7 +431,7 @@ to include a redirect, as well as a wildcard route to display a custom 404 page.
 
 For more information about routing, see the following topics:
 
-有关路由的更多信息，请参阅以下主题：
+关于路由的更多信息，请参阅以下主题：
 
 * [In-app Routing and Navigation](/guide/router)
 

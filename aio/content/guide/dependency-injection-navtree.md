@@ -2,6 +2,18 @@
 
 # 使用 DI 浏览组件树
 
+<div class="callout is-critical">
+<header>Marked for archiving</header>
+
+To ensure that you have the best experience possible, this topic is marked for archiving until we determine
+that it clearly conveys the most accurate information possible.
+
+In the meantime, this topic might be helpful: [Hierarchical injectors](guide/hierarchical-dependency-injection).
+
+If you think this content should not be archived, please file a [GitHub issue](https://github.com/angular/angular/issues/new?template=3-docs-bug.md).
+
+</div>
+
 Application components often need to share information.
 You can often use loosely coupled techniques for sharing information,
 such as data binding and service sharing,
@@ -222,10 +234,10 @@ Here's *Barry*.
 <code-example path="dependency-injection-in-action/src/app/parent-finder.component.ts" region="barry" header="parent-finder.component.ts (BarryComponent)"></code-example>
 
 *Barry*'s `providers` array looks just like [*Alex*'s](#alex-providers).
-If you're going to keep writing [*alias providers*](guide/dependency-injection-in-action#useexisting) like this you should create a [helper function](#provideparent).
+If you're going to keep writing [*alias providers*](guide/dependency-injection-in-action#useexisting) like this you should create a helper function.
 
 *Barry* 的 `providers` 数组看起来和 [*Alex*](#alex-providers) 的一样。
-如果你准备继续像这样编写[*别名提供者*](guide/dependency-injection-in-action#useexisting)，就应该创建一个[辅助函数](#provideparent)。
+如果你准备继续像这样编写[*别名提供者*](guide/dependency-injection-in-action#useexisting)，就应该创建一个辅助函数。
 
 For now, focus on *Barry*'s constructor.
 
@@ -260,7 +272,7 @@ which *is* what parent means.
 
    如果你省略了 `@SkipSelf` 装饰器，Angular 就会抛出循环依赖错误。
 
-  `Cannot instantiate cyclic dependency! (BethComponent -> Parent -> BethComponent)`
+  `NG0200: Circular dependency in DI detected for BethComponent. Dependency path: BethComponent -> Parent -> BethComponent`
 
 Here's *Alice*, *Barry*, and family in action.
 
@@ -318,46 +330,3 @@ It doesn't in this example *only* to demonstrate that the code will compile and 
 这个例子中之所以没这样做，*只是*为了证明即使没有声明接口，代码也可以编译和运行。
 
 </div>
-
-{@a provideparent}
-
-### `provideParent()` helper function
-
-### `provideParent()` 辅助函数
-
-Writing variations of the same parent *alias provider* gets old quickly,
-especially this awful mouthful with a [*forwardRef*](guide/dependency-injection-in-action#forwardref).
-
-你很快就会厌倦为同一个父组件编写*别名提供者*的变体形式，特别是带有 [*forwardRef*](guide/dependency-injection-in-action#forwardref) 的那种。
-
-<code-example path="dependency-injection-in-action/src/app/parent-finder.component.ts" region="alex-providers" header="dependency-injection-in-action/src/app/parent-finder.component.ts"></code-example>
-
-You can extract that logic into a helper function like the following.
-
-你可以像把这些逻辑抽取到辅助函数中，就像这样。
-
-<code-example path="dependency-injection-in-action/src/app/parent-finder.component.ts" region="provide-the-parent" header="dependency-injection-in-action/src/app/parent-finder.component.ts"></code-example>
-
-Now you can add a simpler, more meaningful parent provider to your components.
-
-现在，你可以为组件添加一个更简单、更有意义的父组件提供者。
-
-<code-example path="dependency-injection-in-action/src/app/parent-finder.component.ts" region="alice-providers" header="dependency-injection-in-action/src/app/parent-finder.component.ts"></code-example>
-
-You can do better. The current version of the helper function can only alias the `Parent` class interface.
-The application might have a variety of parent types, each with its own class interface token.
-
-你还可以做得更好。当前版本的辅助函数只能为类接口 `Parent` 定义别名。
-应用可能具有多种父组件类型，每个父组件都有自己的类接口令牌。
-
-Here's a revised version that defaults to `parent` but also accepts an optional second parameter for a different parent class interface.
-
-这是一个修订后的版本，它默认为 `parent`，但是也能接受另一个父类接口作为可选的第二参数。
-
-<code-example path="dependency-injection-in-action/src/app/parent-finder.component.ts" region="provide-parent" header="dependency-injection-in-action/src/app/parent-finder.component.ts"></code-example>
-
-And here's how you could use it with a different parent type.
-
-下面是针对不同父组件类型的用法。
-
-<code-example path="dependency-injection-in-action/src/app/parent-finder.component.ts" region="beth-providers" header="dependency-injection-in-action/src/app/parent-finder.component.ts"></code-example>

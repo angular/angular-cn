@@ -18,7 +18,7 @@ This document contains the practices that we follow to provide you with a leadin
 
 The practices described in this document apply to Angular 2.0 and later. If you are currently using AngularJS, see [Upgrading from AngularJS](guide/upgrade "Upgrading from Angular JS"). _AngularJS_ is the name for all v1.x versions of Angular.
 
-本文档中提及的这些实践适用于 Angular 2.0 及以后的版本。如果你正在使用 AngularJS，请参见[从 AngularJS 升级](guide/upgrade "Upgrading from Angular JS")。*AngularJS*专指 Angular 所有的 v1.x 版本。
+本文档中提及的这些实践适用于 Angular 2.0 及以后的版本。如果你正在使用 AngularJS，请参阅[从 AngularJS 升级](guide/upgrade "Upgrading from Angular JS")。*AngularJS*专指 Angular 所有的 v1.x 版本。
 
 </div>
 
@@ -78,7 +78,7 @@ In alignment with the versioning scheme described above, we commit to support th
 
 See [Keeping Up-to-Date](guide/updating "Updating your projects") for more information about updating your Angular projects to the most recent version.
 
-参见[保持更新](guide/updating "Updating your projects")以了解把 Angular 项目升级到最新版本的更多信息。
+参阅[保持更新](guide/updating "Updating your projects")以了解把 Angular 项目升级到最新版本的更多信息。
 
 {@a previews}
 ### Preview releases
@@ -153,7 +153,7 @@ All of our major releases are supported for 18 months.
 
    6 个月的*活跃支持*，在此期间我们会定期发布更新和补丁
 
-* 12 months of *long-term support (LTS)*, during which only critical fixes and security patches are released.
+* 12 months of *long-term support (LTS)*, during which only [critical fixes and security patches](#lts-fixes) are released.
 
    12 个月的*长期支持（LTS）*，在 LTS 期间，只会发布关键性修复和安全补丁。
 
@@ -164,9 +164,11 @@ The following table provides the status for Angular versions under support.
 Version | Status | Released     | Active Ends  | LTS Ends
 ------- | ------ | ------------ | ------------ | ------------
 版本 | 状态 | 发布     | 停止活动  | LTS 结束
-^10.0.0 | Active | Jun 24, 2020 | Dec 24, 2020 | Dec 24, 2021
-^10.0.0 | 活跃 | 2020 年 6 月 24 日 | 2020 年 12 月 24 日 | Dec 24, 2021
-^9.0.0  | Active | Feb 06, 2020 | Aug 06, 2020 | Aug 06, 2021
+^11.0.0 | Active | Nov 11, 2020 | May 11, 2021 | May 11, 2022
+^11.0.0 | 活跃 | 2020 年 11 月 11 日 | 2021 年 5 月 11 日 | 2022 年 5 月 11 日
+^10.0.0 | LTS    | Jun 24, 2020 | Dec 24, 2020 | Dec 24, 2021
+^10.0.0 | 活跃 | 2020 年 6 月 24 日 | 2020 年 12 月 24 日 | 2021 年 12 月 24 日
+^9.0.0  | LTS    | Feb 06, 2020 | Aug 06, 2020 | Aug 06, 2021
 ^9.0.0  | 活跃 | 2020 年 2 月 6 日 | 2020 年 8 月 6 日 | 2021 年 8 月 6 日
 ^8.0.0  | LTS    | May 28, 2019 | Nov 28, 2019 | Nov 28, 2020
 ^8.0.0  | LTS    | 2019 年 5 月 28 日 | 2019 年 11 月 28 日 | 2020 年 11 月 28 日
@@ -174,6 +176,22 @@ Version | Status | Released     | Active Ends  | LTS Ends
 Angular versions ^4.0.0, ^5.0.0, ^6.0.0 and ^7.0.0 are no longer under support.
 
 不再为 ^4.0.0、^5.0.0、^6.0.0 和 ^7.0.0 版提供支持。
+
+### LTS fixes
+
+### LTS 修复
+
+As a general rule, a fix is considered for an LTS version if it resolves one of:
+
+作为一个通用的规则，如果解决了下列问题之一，就会考虑对 LTS 版本进行修复：
+
+* a newly identified security vulnerability,
+
+  一个新发现的安全漏洞。
+
+* a regression, since the start of LTS, caused by a 3rd party change, such as a new browser version.
+
+  LTS 发布以后，由于第三方更改引起的回归性问题，比如浏览器的新版本。
 
 {@a deprecation}
 
@@ -222,7 +240,7 @@ In minor releases, we update peer dependencies by expanding the supported versio
 
 Angular is a collection of many packages, sub-projects, and tools. To prevent accidental use of private APIs&mdash;and so that you can clearly understand what is covered by the practices described here&mdash;we document what is and is not considered our public API surface. For details, see [Supported Public API Surface of Angular](https://github.com/angular/angular/blob/master/docs/PUBLIC_API.md "Supported Public API Surface of Angular").
 
-Angular 是很多包、子项目和工具的集合。为了防止你意外使用私有 API（这样你才能更清楚的理解哪些 API 会被这里所说的实践所覆盖），我们对公开 API 包含以及不包含哪些 API 进行了文档化。要了解详情，参见 [Angular 的公共 API](https://github.com/angular/angular/blob/master/docs/PUBLIC_API.md "Supported Public API Surface of Angular")。
+Angular 是很多包、子项目和工具的集合。为了防止你意外使用私有 API（这样你才能更清楚的理解哪些 API 会被这里所说的实践所覆盖），我们对公开 API 包含以及不包含哪些 API 进行了文档化。要了解详情，参阅 [Angular 的公共 API](https://github.com/angular/angular/blob/master/docs/PUBLIC_API.md "Supported Public API Surface of Angular")。
 
 Any changes to the public API surface will be done using the versioning, support, and depreciation policies describe above.
 

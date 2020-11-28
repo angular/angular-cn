@@ -27,7 +27,7 @@ The class interacts with the view through an API of properties and methods.
 
 For example, `HeroListComponent` has a `heroes` property that holds an array of heroes.
 Its `selectHero()` method sets a `selectedHero` property when the user clicks to choose a hero from that list.
-The component acquires the heroes from a service, which is a TypeScript [parameter property](http://www.typescriptlang.org/docs/handbook/classes.html#parameter-properties) on the constructor.
+The component acquires the heroes from a service, which is a TypeScript [parameter property](https://www.typescriptlang.org/docs/handbook/classes.html#parameter-properties) on the constructor.
 The service is provided to the component through the dependency injection system.
 
 比如，`HeroListComponent` 中有一个 名为 `heroes` 的属性，它储存着一个数组的英雄数据。
@@ -137,7 +137,7 @@ This template uses typical HTML elements like `<h2>` and  `<p>`, and also includ
 
 * `{{hero.name}}`, `(click)`, and `[hero]` bind program data to and from the DOM, responding to user input. See more about [data binding](#data-binding) below.
 
-   `{{hero.name}}`、`(click)` 和 `[hero]` 把程序数据绑定到及绑定回 DOM，以响应用户的输入。更多内容参见稍后的[数据绑定](#data-binding)部分。
+   `{{hero.name}}`、`(click)` 和 `[hero]` 把程序数据绑定到及绑定回 DOM，以响应用户的输入。更多内容参阅稍后的[数据绑定](#data-binding)部分。
 
 * The `<app-hero-detail>` tag in the example is an element that represents a new component, `HeroDetailComponent`.
 `HeroDetailComponent` (code not shown) defines the hero-detail child view of `HeroListComponent`.
@@ -175,15 +175,15 @@ This example from the `HeroListComponent` template uses three of these forms.
 
 <code-example path="architecture/src/app/hero-list.component.1.html" header="src/app/hero-list.component.html (binding)" region="binding"></code-example>
 
-* The `{{hero.name}}` [*interpolation*](guide/displaying-data#interpolation)
+* The `{{hero.name}}` [*interpolation*](guide/interpolation)
 displays the component's `hero.name` property value within the `<li>` element.
 
-   `{{hero.name}}` 这个[*插值*](guide/displaying-data#interpolation)在 `<li>` 标签中显示组件的 `hero.name` 属性的值。
+   `{{hero.name}}` 这个[*插值*](guide/interpolation)在 `<li>` 标签中显示组件的 `hero.name` 属性的值。
 
-* The `[hero]` [*property binding*](guide/template-syntax#property-binding) passes the value of
+* The `[hero]` [*property binding*](guide/property-binding) passes the value of
 `selectedHero` from the parent `HeroListComponent` to the `hero` property of the child `HeroDetailComponent`.
 
-   `[hero]`[*属性绑定*](guide/template-syntax#property-binding)把父组件 `HeroListComponent` 的 `selectedHero` 的值传到子组件 `HeroDetailComponent` 的 `hero` 属性中。
+   `[hero]`[*属性绑定*](guide/property-binding)把父组件 `HeroListComponent` 的 `selectedHero` 的值传到子组件 `HeroDetailComponent` 的 `hero` 属性中。
 
 * The `(click)` [*event binding*](guide/user-input#binding-to-user-input-events) calls the component's `selectHero` method when the user clicks a hero's name.
 
@@ -229,13 +229,13 @@ Angular pipes let you declare display-value transformations in your template HTM
 Angular 的管道可以让你在模板中声明显示值的转换逻辑。
  带有 `@Pipe` 装饰器的类中会定义一个转换函数，用来把输入值转换成供视图显示用的输出值。
 
-Angular defines various pipes, such as the [date](https://angular.io/api/common/DatePipe) pipe and [currency](https://angular.io/api/common/CurrencyPipe) pipe; for a complete list, see the [Pipes API list](https://angular.io/api?type=pipe). You can also define new pipes.
+Angular defines various pipes, such as the [date](api/common/DatePipe) pipe and [currency](api/common/CurrencyPipe) pipe; for a complete list, see the [Pipes API list](api?type=pipe). You can also define new pipes.
 
-Angular 自带了很多管道，比如 [date](api/common/DatePipe) 管道和 [currency](api/common/CurrencyPipe) 管道，完整的列表参见 [Pipes API 列表](api?type=pipe)。你也可以自己定义一些新管道。
+Angular 自带了很多管道，比如 [date](api/common/DatePipe) 管道和 [currency](api/common/CurrencyPipe) 管道，完整的列表参阅 [Pipes API 列表](api?type=pipe)。你也可以自己定义一些新管道。
 
-To specify a value transformation in an HTML template, use the [pipe operator (|)](https://angular.io/guide/template-syntax#pipe).
+To specify a value transformation in an HTML template, use the [pipe operator (|)](guide/pipes).
 
-要在 HTML 模板中指定值的转换方式，请使用 [管道操作符 (|)](guide/template-syntax#pipe)。
+要在 HTML 模板中指定值的转换方式，请使用 [管道操作符 (|)](guide/pipes)。
 
  `{{interpolated_value | pipe_name}}`
 
@@ -300,13 +300,13 @@ The example template uses two built-in structural directives to add application 
 
 <code-example path="architecture/src/app/hero-list.component.1.html" header="src/app/hero-list.component.html (structural)" region="structural"></code-example>
 
-  * [`*ngFor`](guide/displaying-data#ngFor) is an iterative; it tells Angular to stamp out one `<li>` per hero in the `heroes` list.
+  * [`*ngFor`](guide/structural-directives#inside-ngfor) is an iterative; it tells Angular to stamp out one `<li>` per hero in the `heroes` list.
 
-     [`*ngFor`](guide/displaying-data#ngFor) 是一个迭代器，它要求 Angular 为 `heroes` 列表中的每个英雄渲染出一个 `<li>`。
+     [`*ngFor`](guide/structural-directives#inside-ngfor) 是一个迭代器，它要求 Angular 为 `heroes` 列表中的每个英雄渲染出一个 `<li>`。
 
-  * [`*ngIf`](guide/displaying-data#ngIf) is a conditional; it includes the `HeroDetail` component only if a selected hero exists.
+  * [`*ngIf`](guide/structural-directives#ngif-case-study) is a conditional; it includes the `HeroDetail` component only if a selected hero exists.
 
-     [`*ngIf`](guide/displaying-data#ngIf) 是个条件语句，只有当选中的英雄存在时，它才会包含 `HeroDetail` 组件。
+     [`*ngIf`](guide/structural-directives#ngif-case-study) 是个条件语句，只有当选中的英雄存在时，它才会包含 `HeroDetail` 组件。
 
 #### Attribute directives
 
@@ -326,16 +326,16 @@ The `ngModel` directive, which implements two-way data binding, is an example of
 <code-example path="architecture/src/app/hero-detail.component.html" header="src/app/hero-detail.component.html (ngModel)" region="ngModel"></code-example>
 
 Angular has more pre-defined directives that either alter the layout structure
-(for example, [ngSwitch](guide/template-syntax#ngSwitch))
+(for example, [ngSwitch](guide/built-in-directives#ngSwitch))
 or modify aspects of DOM elements and components
-(for example, [ngStyle](guide/template-syntax#ngStyle) and [ngClass](guide/template-syntax#ngClass)).
+(for example, [ngStyle](guide/built-in-directives#ngStyle) and [ngClass](guide/built-in-directives#ngClass)).
 
-Angular 还有很多预定义指令，有些修改布局结构（比如 [ngSwitch](guide/template-syntax#ngSwitch)），有些修改 DOM 元素和组件的样子（比如 [ngStyle](guide/template-syntax#ngStyle) 和 [ngClass](guide/template-syntax#ngClass)）。
+Angular 还有很多预定义指令，有些修改布局结构（比如 [ngSwitch](guide/built-in-directives#ngSwitch)），有些修改 DOM 元素和组件的样子（比如 [ngStyle](guide/built-in-directives#ngStyle) 和 [ngClass](guide/built-in-directives#ngClass)）。
 
 <div class="alert is-helpful">
 
 Learn more in the [Attribute Directives](guide/attribute-directives) and [Structural Directives](guide/structural-directives) guides.
 
-欲知详情，参见[属性型指令](guide/attribute-directives)和[结构型指令](guide/structural-directives)这两章。
+欲知详情，参阅[属性型指令](guide/attribute-directives)和[结构型指令](guide/structural-directives)这两章。
 
 </div>

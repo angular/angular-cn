@@ -11,7 +11,7 @@ This cookbook explains how to do it.
 
 See the <live-example name="set-document-title"></live-example>.
 
-参见<live-example name="set-document-title"></live-example>
+参阅<live-example name="set-document-title"></live-example>
 
 ## The problem with *&lt;title&gt;*
 

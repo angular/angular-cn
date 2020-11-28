@@ -235,7 +235,7 @@ As the app grows, this rule becomes even more important.
 
 **Why?** Small functions promote reuse.
 
-**为何？**简单函数促进代码重用。
+**为何？**简单函数促进代码复用。
 
 </div>
 
@@ -945,7 +945,7 @@ As always, strive for consistency.
 For example, the prefix `toh` represents **T**our **o**f **H**eroes and the prefix `admin` represents an admin feature area.
 
 **坚持**为组件选择器添加自定义前缀。
-例如，`toh` 前缀表示 **T**our **o**f **H**eroes（英雄指南），而前缀 `admin 表示管理特性区。
+例如，`toh` 前缀表示 **T**our **o**f **H**eroes（英雄之旅），而前缀 `admin 表示管理特性区。
 
 </div>
 
@@ -1235,7 +1235,7 @@ The `name` string cannot use hyphens ("dash-case" or "kebab-case").
 
 <div class="s-why-last">
 
-**Why?** Provides pattern matching for [karma](http://karma-runner.github.io/) or other test runners.
+**Why?** Provides pattern matching for [karma](https://karma-runner.github.io/) or other test runners.
 
 **为何？**提供一个与 [karma](http://karma-runner.github.io/) 或者其它测试运行器相配的命名模式。
 
@@ -2380,7 +2380,7 @@ and more difficult in a flat structure.
 
   For more information, refer to <a href="#file-tree">this folder and file structure example.</a>
 
-  欲知详情，参见<a href="#file-tree">目录和文件结构的范例</a>
+  欲知详情，参阅<a href="#file-tree">目录和文件结构的范例</a>
   
 </div>
 
@@ -3224,7 +3224,7 @@ helps instantly identify which members of the component serve which purpose.
 
 **Do** move reusable logic to services and keep components simple and focused on their intended purpose.
 
-**坚持**把可重用的逻辑放到服务中，保持组件简单，聚焦于它们预期目的。
+**坚持**把可复用的逻辑放到服务中，保持组件简单，聚焦于它们预期目的。
 
 </div>
 
@@ -3308,9 +3308,9 @@ helps instantly identify which members of the component serve which purpose.
 
 <div class="s-why-last">
 
-**Why?** Angular allows for an [alternative syntax](guide/template-syntax#binding-syntax) `on-*`. If the event itself was prefixed with `on` this would result in an `on-onEvent` binding expression.
+**Why?** Angular allows for an [alternative syntax](guide/binding-syntax) `on-*`. If the event itself was prefixed with `on` this would result in an `on-onEvent` binding expression.
 
-**为何？**Angular 允许[另一种备选语法](guide/template-syntax#binding-syntax) `on-*`。如果事件的名字本身带有前缀 `on`，那么绑定的表达式可能是 `on-onEvent`。
+**为何？**Angular 允许[另一种备选语法](guide/binding-syntax) `on-*`。如果事件的名字本身带有前缀 `on`，那么绑定的表达式可能是 `on-onEvent`。
 
 </div>
 
@@ -3881,11 +3881,11 @@ Useful tools and tips for Angular.
 
 **考虑**使用 [Atom](https://atom.io/) 的[代码片断](https://atom.io/packages/angular-2-typescript-snippets)来实施本风格指南。
 
-**Consider** using [snippets](https://github.com/orizens/sublime-angular2-snippets) for [Sublime Text](http://www.sublimetext.com/) that follow these styles and guidelines.
+**Consider** using [snippets](https://github.com/orizens/sublime-angular2-snippets) for [Sublime Text](https://www.sublimetext.com/) that follow these styles and guidelines.
 
 **考虑**使用 [Sublime Text](http://www.sublimetext.com/)的[代码片断](https://github.com/orizens/sublime-angular2-snippets) 来实施本风格指南。
 
-**Consider** using [snippets](https://github.com/mhartington/vim-angular2-snippets) for [Vim](http://www.vim.org/) that follow these styles and guidelines.
+**Consider** using [snippets](https://github.com/mhartington/vim-angular2-snippets) for [Vim](https://www.vim.org/) that follow these styles and guidelines.
 
 **考虑**使用 [Vim](http://www.vim.org/) 的[代码片断](https://github.com/mhartington/vim-angular2-snippets)来实施本风格指南。
 

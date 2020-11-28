@@ -28,7 +28,7 @@ const _SOURCE_TAG = 'source';
 const _TARGET_TAG = 'target';
 const _UNIT_TAG = 'unit';
 
-// http://docs.oasis-open.org/xliff/xliff-core/v2.0/os/xliff-core-v2.0-os.html
+// https://docs.oasis-open.org/xliff/xliff-core/v2.0/os/xliff-core-v2.0-os.html
 export class Xliff2 extends Serializer {
   write(messages: i18n.Message[], locale: string|null): string {
     const visitor = new _WriteVisitor();
@@ -246,9 +246,9 @@ class Xliff2Parser implements ml.Visitor {
         break;
 
       case _TARGET_TAG:
-        const innerTextStart = element.startSourceSpan!.end.offset;
+        const innerTextStart = element.startSourceSpan.end.offset;
         const innerTextEnd = element.endSourceSpan!.start.offset;
-        const content = element.startSourceSpan!.start.file.content;
+        const content = element.startSourceSpan.start.file.content;
         const innerText = content.slice(innerTextStart, innerTextEnd);
         this._unitMlString = innerText;
         break;

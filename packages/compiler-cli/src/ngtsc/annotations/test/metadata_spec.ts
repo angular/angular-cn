@@ -90,6 +90,19 @@ runInEachFileSystem(() => {
     `);
       expect(res).toBe('');
     });
+
+    it('should preserve quotes around class member names', () => {
+      const res = compileAndPrint(`
+        import {Component, Input} from '@angular/core';
+
+        @Component('metadata') class Target {
+          @Input() 'has-dashes-in-name' = 123;
+          @Input() noDashesInName = 456;
+        }
+      `);
+      expect(res).toContain(
+          `{ 'has-dashes-in-name': [{ type: Input }], noDashesInName: [{ type: Input }] })`);
+    });
   });
 
   function compileAndPrint(contents: string): string {
@@ -120,8 +133,7 @@ runInEachFileSystem(() => {
     }
     const sf = getSourceFileOrError(program, _('/index.ts'));
     const im = new ImportManager(new NoopImportRewriter(), 'i');
-    const tsStatement =
-        translateStatement(call, im, NOOP_DEFAULT_IMPORT_RECORDER, ts.ScriptTarget.ES2015);
+    const tsStatement = translateStatement(call, im);
     const res = ts.createPrinter().printNode(ts.EmitHint.Unspecified, tsStatement, sf);
     return res.replace(/\s+/g, ' ');
   }
