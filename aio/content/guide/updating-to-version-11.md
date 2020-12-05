@@ -138,7 +138,7 @@ The following APIs have been removed starting with version 11.0.0*:
 | `@angular/router` | `NavigationExtras#preserveQueryParams` | no action needed | NavigationExtras#preserveQueryParams has been removed from `@angular/router`. |
 | `@angular/router` | `NavigationExtras#preserveQueryParams` | 什么也不用做 | NavigationExtras#preserveQueryParams 已从 `@angular/router` 移除。 |
 | `@angular/core` | `CollectionChangeRecord` | no action needed | CollectionChangeRecord has been removed from `@angular/core`. |
-| `@angular/core` | `CollectionChangeRecord` | 什么也不用做 | CollectionChangeRecord 已经从 `@angular/core` 移除了。 |
+| `@angular/core` | `CollectionChangeRecord` | 什么也不用做 | CollectionChangeRecord 已从 `@angular/core` 移除。 |
 | `@angular/core` | `ViewEncapsulation.Native` | no action needed | Angular previously supported a view encapsulation mode `ViewEncapsulaion.Native` that was based on the v0 Shadow DOM Draft APIs. These APIs have been superceeded by the final Shadow DOM APIs, which are enabled via `ViewEncapsulation.ShadowDom`. For background information about this change, see [Web Components update: more time to upgrade to v1 APIs](https://developers.google.com/web/updates/2019/07/web-components-time-to-upgrade). |
 | `@angular/core` | `ViewEncapsulation.Native` | 什么也不用做 | Angular 以前支持基于 v0 Shadow DOM Draft API 的视图封装模式 `ViewEncapsulaion.Native`。这些 API 已被最终的 Shadow DOM API 所取代，它通过 `ViewEncapsulation.ShadowDom` 进行启用。关于此更改的背景信息，请参阅 [Web 组件更新：有更多时间升级到 v1 API了](https://developers.google.com/web/updates/2019/07/web-components-time-to-upgrade) 。 |
 
