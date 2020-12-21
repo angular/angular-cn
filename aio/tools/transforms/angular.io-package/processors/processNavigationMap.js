@@ -23,8 +23,16 @@ module.exports = function processNavigationMap(versionInfo, getPreviousMajorVers
         throw new Error('processNavigationMap failed');
       }
 
+      function getArchiveUrl(v) {
+        if ([4, 5].indexOf(v) !== -1) {
+          return `https://v${v}.angular.io/`;
+        } else {
+          return `https://v${v}.angular.cn/`;
+        }
+      }
+
       navigationDoc.data['docVersions'] = getPreviousMajorVersions().map(
-          v => ({title: `v${v.major}`, url: `https://v${v.major}.angular.io/`}));
+          v => ({title: `v${v.major}`, url: getArchiveUrl(v.major)}));
 
       // Add in the version data in a "secret" field to be extracted in the docs app
       navigationDoc.data['__versionInfo'] = versionInfo.currentVersion;
