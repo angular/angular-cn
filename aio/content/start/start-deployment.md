@@ -44,7 +44,7 @@ StackBlitz 项目默认是公开的，你可以通过项目的 URL 来共享你�
 
 To build your application locally or for production, download the source code from your StackBlitz project by clicking the `Download Project` icon in the left menu across from `Project` to download your files.
 
-要在本地构建应用或未生产环境构建应用，就要从 StackBlitz 项目中下载源代码。单击左侧菜单中的 `Download Project` 图标以下载文件。
+要在本地构建应用或为生产环境构建应用，就要从 StackBlitz 项目中下载源代码。单击左侧菜单中的 `Download Project` 图标以下载文件。
 
 Once you have the source code downloaded and unzipped, install `Node.js` and serve your app with the Angular CLI.
 
