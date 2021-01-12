@@ -32,12 +32,17 @@ This step of the tutorial guides you through creating a shopping cart in the fol
 
 In Angular, a service is an instance of a class that you can make available to any part of your application using Angular's [dependency injection system](guide/glossary#dependency-injection-di "Dependency injection definition").
 
-
+在Angular中, 服务是一个类的实例, 通过Angular的[依赖注入系统](guide/glossary#dependency-injection-di "Dependency injection definition")能在你的应用中的任意部分使用。
 
 Currently, users can view product information, and the application can simulate sharing and  notifications about product changes.
 
+ 到目前为止, 用户可以浏览产品信息, 并且应用可以模拟分享产品和通知产品改变。
+
 The next step is to build a way for users to add products to a cart.
 This section walks you through adding a **Buy** button and setting up a cart service to store information about products in the cart.
+
+下一步是为用户提供一种添加产品到购物车到方法。
+这个章节将带领你添加一个 **购买** 按钮并且建立起一个购物车服务以储存购物车中的产品信息。
 
 {@a generate-cart-service}
 
@@ -107,9 +112,20 @@ This section walks you through using the `CartService` to add a product to the c
     <code-example path="getting-started/src/app/product-details/product-details.component.ts" header="src/app/product-details/product-details.component.ts" region="add-to-cart"></code-example>
 
     The `addToCart()` method does the following:
+    
+    `addToCart()` 方法做了如下事情:
+    
     * Takes the current `product` as an argument.
+    
+      以当前'product'作为参数。
+    
     * Uses the `CartService` `addToCart()` method to add the product the cart.
+    
+      使用 `CartService` `addToCart()` 方法去添加产品到购物车中。
+    
     * Displays a message that you've added a product to the cart.
+    
+      显示一条你已经添加了一个产品到购物车到消息。
 
 1. In `product-details.component.html`, add a button with the label **Buy**, and bind the `click()` event to the `addToCart()` method.
     This code updates the product details template with a **Buy** button that adds the current product to the cart.
@@ -297,6 +313,8 @@ Use this data to add shipping prices for items in the cart.
 
 ### Configure `AppModule` to use `HttpClient`
 
+### 配置 `AppModule` 以使用 `HttpClient`
+
 To use Angular's `HttpClient`, you must configure your application to use `HttpClientModule`.
 
 要使用 Angular 的 HTTP 客户端之前，你必须先配置你的应用来使用 `HttpClientModule`。
@@ -324,7 +342,11 @@ Angular 的 `HttpClientModule` 中注册了在整个应用中使用 `HttpClient`
 
 ### Configure `CartService` to use `HttpClient`
 
+### 配置 `CartService` 以使用 `HttpClient`
+
 The next step is to inject the `HttpClient` service into your service so your application can fetch data and interact with external APIs and resources.
+
+下一步是注入 `HttpClient` 服务到你的服务中, 这样你的应用可以获取数据并且与外部API和资源互动。
 
 1. In `cart.service.ts`, import `HttpClient` from the `@angular/common/http` package.
 
@@ -342,7 +364,11 @@ The next step is to inject the `HttpClient` service into your service so your ap
 
 ### Configure `CartService` to get shipping prices
 
+### 配置 `CartService` 以得到商品价格
+
 To get shipping data, from `shipping.json`, You can use the `HttpClient` `get()` method.
+
+要从 `shapping.json` 中得到商品数据, 你可以使用 `HttpClient` `get()` 方法。
 
 1. In `cart.service.ts`, below the `clearCart()` method, define a new `getShippingPrices()` method that uses the `HttpClient` `get()` method.
 
@@ -382,7 +408,11 @@ Now that you've configured your application to retrieve shipping data, you can c
 
 ### Configuring the `ShippingComponent` to use `CartService`
 
+### 配置 `ShippingComponent` 以使用 `CartService`
+
 This section guides you through modifying the `ShippingComponent` to retrieve shipping data via HTTP from the `shipping.json` file.
+
+这个章节将指导你修改 `ShappingComponent` 以通过HTTP从 `shipping.json` 文件中提取商品数据。
 
 1. In `shipping.component.ts`, import `CartService`.
 
@@ -445,6 +475,8 @@ This section guides you through modifying the `ShippingComponent` to retrieve sh
 <hr />
 
 ## What's next
+
+### 下一步
 
 You now have a store application with a product catalog, a shopping cart, and you can  look up shipping prices.
 
