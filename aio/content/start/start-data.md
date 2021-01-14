@@ -32,12 +32,16 @@ This step of the tutorial guides you through creating a shopping cart in the fol
 
 In Angular, a service is an instance of a class that you can make available to any part of your application using Angular's [dependency injection system](guide/glossary#dependency-injection-di "Dependency injection definition").
 
-
+在Angular中，服务是指某个类的实例，您可以通过使用Angular的[依赖注入系统](guide/glossary#dependency-injection-di "Dependency injection definition")来使用这个实例。
 
 Currently, users can view product information, and the application can simulate sharing and  notifications about product changes.
 
+我们的教程进行到现在，用户可以查看商品信息，而且应用可以模拟分享及价格变更通知功能。
+
 The next step is to build a way for users to add products to a cart.
 This section walks you through adding a **Buy** button and setting up a cart service to store information about products in the cart.
+
+下一步是添加功能：用户将商品加入购物车。这个章节将会带您学习添加**购买**按钮，以及设置购物车服务来保存购物车中的商品信息。
 
 {@a generate-cart-service}
 
