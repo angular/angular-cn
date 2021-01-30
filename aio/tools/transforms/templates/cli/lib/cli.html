@@ -64,8 +64,8 @@
           {% endif %}
         {% endif %}
         {$ option.description | marked $}
-        {% if option.default !== undefined %}<p><span class="cli-default">默认值：</span> <code class="no-auto-link">{$ option.default $}</code></p>{% endif %}
-        {% if option.aliases.length %}<p><span class="cli-aliases">别名：</span> {% for alias in option.aliases %}{$ renderOptionName(alias) $}{% if not loop.last %}, {% endif %}{% endfor %}</p>{% endif %}
+        {% if option.default !== undefined %}<p no-translate><span class="cli-default">默认值：</span> <code class="no-auto-link">{$ option.default $}</code></p>{% endif %}
+        {% if option.aliases.length %}<p no-translate><span class="cli-aliases">别名：</span> {% for alias in option.aliases %}{$ renderOptionName(alias) $}{% if not loop.last %}, {% endif %}{% endfor %}</p>{% endif %}
       </td>
     </tr>
   {% endfor %}

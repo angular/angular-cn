@@ -3,7 +3,7 @@
 {% block body %}
   <section class="short-description">
     {$ doc.shortDescription | marked $}
-    {% if doc.description %}<p><a href="#description">查看"说明"...</a></p>{% endif %}
+    {% if doc.description %}<p no-translate><a href="#description">查看"说明"...</a></p>{% endif %}
   </section>
   {% include "includes/security-notes.html" %}
   {% include "includes/deprecation.html" %}
