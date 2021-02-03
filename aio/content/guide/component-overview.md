@@ -267,7 +267,7 @@ You can declare component styles uses for its template in one of two ways: by re
 
 你有以下两种方式来为组件的模板声明样式：引用一个外部文件，或直接写在组件内部。
 
-To declare the styles for a component in a separate file, add a `stylesUrls` property to the `@Component` decorator.
+To declare the styles for a component in a separate file, add a `styleUrls` property to the `@Component` decorator.
 
 要在单独的文件中声明组件的样式，就要把 `styleUrls` 属性添加到 `@Component` 装饰器中。
 
