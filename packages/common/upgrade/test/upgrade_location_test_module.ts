@@ -28,6 +28,8 @@ export interface LocationUpgradeTestingConfig {
  *
  * Is used in DI to configure the router.
  *
+ * 用于在 DI 中配置路由器。
+ *
  * @publicApi
  */
 export const LOC_UPGRADE_TEST_CONFIG =

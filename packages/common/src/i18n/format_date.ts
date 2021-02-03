@@ -47,36 +47,29 @@ enum TranslationType {
  * Formats a date according to locale rules.
  *
  * 基于区域规则格式化日期。
- *
  * @param value The date to format, as a Date, or a number (milliseconds since UTC epoch)
  * or an [ISO date-time string](https://www.w3.org/TR/NOTE-datetime).
  *
- * 要格式化的日期，是一个日期、数字（从 UTC 时代以来的毫秒数）或 ISO 字符串 (https://www.w3.org/TR/NOTE-datetime)。
- *
+ * 要格式化的日期，是一个日期、数字（从 UTC 时代以来的毫秒数）或 ISO 字符串 (<https://www.w3.org/TR/NOTE-datetime>)。
  * @param format The date-time components to include. See `DatePipe` for details.
  *
  * 表示要包含的日期/时间部件。欲知详情，参见 `DatePipe`。
- *
  * @param locale A locale code for the locale format rules to use.
  *
  * 一个区域代码，用来表示要使用的区域格式规则。
- *
  * @param timezone The time zone. A time zone offset from GMT (such as `'+0430'`),
  * or a standard UTC/GMT or continental US time zone abbreviation.
  * If not specified, uses host system settings.
  *
  * 时区。可以是 GMT 中的时区偏移（如 `'+0430'`），或一个标准的 UTC/GMT 或美国大陆时区的缩写。
  * 如果没有指定，就会使用宿主系统中的设定。
- *
  * @returns The formatted date string.
  *
  * 格式化之后的日期字符串。
- *
  * @see `DatePipe`
  * @see [Internationalization (i18n) Guide](https://angular.io/guide/i18n)
  *
  * [国际化 (i18n) 指南](https://angular.cn/guide/i18n)
- *
  * @publicApi
  */
 export function formatDate(

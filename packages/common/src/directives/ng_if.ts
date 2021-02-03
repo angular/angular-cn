@@ -23,13 +23,19 @@ import {Directive, EmbeddedViewRef, Input, TemplateRef, ViewContainerRef, ɵstri
  * Angular expands this into a more explicit version, in which the anchor element
  * is contained in an `<ng-template>` element.
  *
+ * 通常使用指令的[简写形式](guide/structural-directives#the-asterisk--prefix) `*ngIf="condition"`，作为插入模板的锚点元素的属性提供。Angular 将其扩展为更明确的版本，其中锚点元素包含在 `<ng-template>` 元素中。
+ *
  * Simple form with shorthand syntax:
+ *
+ * 具有简写语法的简单形式：
  *
  * ```
  * <div *ngIf="condition">Content to render when condition is true.</div>
  * ```
  *
  * Simple form with expanded syntax:
+ *
+ * 具有扩展语法的简单形式：
  *
  * ```
  * <ng-template [ngIf]="condition"><div>Content to render when condition is
@@ -38,12 +44,16 @@ import {Directive, EmbeddedViewRef, Input, TemplateRef, ViewContainerRef, ɵstri
  *
  * Form with an "else" block:
  *
+ * 带有 “else” 块的格式：
+ *
  * ```
  * <div *ngIf="condition; else elseBlock">Content to render when condition is true.</div>
  * <ng-template #elseBlock>Content to render when condition is false.</ng-template>
  * ```
  *
  * Shorthand form with "then" and "else" blocks:
+ *
+ * 带 “then” 和 “else” 块的简写形式：
  *
  * ```
  * <div *ngIf="condition; then thenBlock else elseBlock"></div>
@@ -52,6 +62,8 @@ import {Directive, EmbeddedViewRef, Input, TemplateRef, ViewContainerRef, ɵstri
  * ```
  *
  * Form with storing the value locally:
+ *
+ * 本地存储值的形式：
  *
  * ```
  * <div *ngIf="condition as value; else elseBlock">{{value}}</div>
@@ -162,6 +174,9 @@ export class NgIf<T = unknown> {
 
   /**
    * The Boolean expression to evaluate as the condition for showing a template.
+   *
+   * 布尔表达式，将其作为显示模板的条件进行计算。
+   *
    */
   @Input()
   set ngIf(condition: T) {
@@ -171,6 +186,9 @@ export class NgIf<T = unknown> {
 
   /**
    * A template to show if the condition expression evaluates to true.
+   *
+   * 当此条件表达式计算为 true 时要显示的模板。
+   *
    */
   @Input()
   set ngIfThen(templateRef: TemplateRef<NgIfContext<T>>|null) {
@@ -182,6 +200,9 @@ export class NgIf<T = unknown> {
 
   /**
    * A template to show if the condition expression evaluates to false.
+   *
+   * 当此条件表达式计算为 false 时要显示的模板。
+   *
    */
   @Input()
   set ngIfElse(templateRef: TemplateRef<NgIfContext<T>>|null) {
@@ -219,18 +240,28 @@ export class NgIf<T = unknown> {
   /**
    * Assert the correct type of the expression bound to the `ngIf` input within the template.
    *
+   * 为绑定到 `ngIf` 输入属性上的模板确保正确的类型。
+   *
    * The presence of this static field is a signal to the Ivy template type check compiler that
    * when the `NgIf` structural directive renders its template, the type of the expression bound
    * to `ngIf` should be narrowed in some way. For `NgIf`, the binding expression itself is used to
    * narrow its type, which allows the strictNullChecks feature of TypeScript to work with `NgIf`.
+   *
+   * 该静态字段的存在向 Ivy 模板类型检查编译器发出信号，即当 `NgIf` 结构化指令渲染其模板时，应以某种方式窄化 `ngIf`。对于 `NgIf`，绑定表达式本身用于窄化其类型，这允许 TypeScript 的 strictNullChecks 功能与 `NgIf` 一起使用。
+   *
    */
   static ngTemplateGuard_ngIf: 'binding';
 
   /**
    * Asserts the correct type of the context for the template that `NgIf` will render.
    *
+   * 为 `NgIf` 将要渲染的模板确保正确的上下文类型。
+   *
    * The presence of this method is a signal to the Ivy template type-check compiler that the
    * `NgIf` structural directive renders its template with a specific context type.
+   *
+   * 该方法用于向 Ivy 模板类型检查编译器发出信号，即 `NgIf` 结构化指令会使用特定的上下文类型渲染其模板。
+   *
    */
   static ngTemplateContextGuard<T>(dir: NgIf<T>, ctx: any):
       ctx is NgIfContext<Exclude<T, false|0|''|null|undefined>> {

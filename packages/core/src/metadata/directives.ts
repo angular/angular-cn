@@ -30,6 +30,8 @@ export interface DirectiveDecorator {
    * Decorator that marks a class as an Angular directive.
    * You can define your own directives to attach custom behavior to elements in the DOM.
    *
+   * 将类标记为 Angular 指令的装饰器。你可以定义自己的指令，以将自定义行为附加到 DOM 中的元素。
+   *
    * The options provide configuration metadata that determines
    * how the directive should be processed, instantiated and used at
    * runtime.
@@ -43,15 +45,15 @@ export interface DirectiveDecorator {
    * 像组件类一样，指令类也可以实现[生命周期钩子](guide/lifecycle-hooks)，以影响它们的配置和行为。
    *
    *
-   * @usageNotes
-   * To define a directive, mark the class with the decorator and provide metadata.
+   * @usageNotes To define a directive, mark the class with the decorator and provide metadata.
    *
    * 要想定义一个指令，请为该类加上此装饰器，并提供元数据。
    *
    * ```ts
-   * import {Directive} from '@angular/core';
-   *
-   * @Directive({
+   * import {Directive} from '
+   * ```
+   * @angular /core';
+   * @Directive ({
    *   selector: 'my-directive',
    * })
    * export class MyDirective {
@@ -83,7 +85,6 @@ export interface DirectiveDecorator {
    *  MyDirective
    * ],
    * ```
-   *
    * @Annotation
    */
   (obj?: Directive): TypeDecorator;
@@ -98,6 +99,8 @@ export interface DirectiveDecorator {
 
 /**
  * Directive decorator and metadata.
+ *
+ * 指令装饰器和元数据。
  *
  * @Annotation
  * @publicApi
@@ -181,14 +184,14 @@ export interface Directive {
    *
    * 当没有提供 `bindingProperty` 时，就假设它和 `directiveProperty` 一样。
    *
-   * @usageNotes
-   *
-   * The following example creates a component with two data-bound properties.
+   * @usageNotes The following example creates a component with two data-bound properties.
    *
    * 下面的例子创建了一个带有两个可绑定属性的组件。
    *
    * ```typescript
-   * @Component({
+   *
+   * ```
+   * @Component ({
    *   selector: 'bank-account',
    *   inputs: ['bankName', 'id: account-id'],
    *   template: `
@@ -201,7 +204,6 @@ export interface Directive {
    *   id: string;
    * }
    * ```
-   *
    */
   inputs?: string[];
 
@@ -228,10 +230,10 @@ export interface Directive {
    *
    *   `bindingProperty` 用于指定要附加事件处理器的 DOM 属性。
    *
-   * @usageNotes
+   * @usageNotes ```typescript
    *
-   * ```typescript
-   * @Component({
+   * ```
+   * @Component ({
    *   selector: 'child-dir',
    *   outputs: [ 'bankNameChange' ]
    *   template: `<input (input)="bankNameChange.emit($event.target.value)" />`
@@ -239,8 +241,7 @@ export interface Directive {
    * class ChildDir {
    *  bankNameChange: EventEmitter<string> = new EventEmitter<string>();
    * }
-   *
-   * @Component({
+   * @Component ({
    *   selector: 'main',
    *   template: `
    *     {{ bankName }} <child-dir (bankNameChange)="onBankNameChange($event)"></child-dir>
@@ -254,7 +255,6 @@ export interface Directive {
    *   }
    * }
    * ```
-   *
    */
   outputs?: string[];
 
@@ -272,24 +272,22 @@ export interface Directive {
    *
    * 定义一个名字，用于在模板中把该指令赋值给一个变量。
    *
-   * @usageNotes
+   * @usageNotes ```ts
    *
-   * ```ts
-   * @Directive({
+   * ```
+   * @Directive ({
    *   selector: 'child-dir',
    *   exportAs: 'child'
    * })
    * class ChildDir {
    * }
-   *
-   * @Component({
+   * @Component ({
    *   selector: 'main',
    *   template: `<child-dir #c="child"></child-dir>`
    * })
    * class MainComponent {
    * }
    * ```
-   *
    */
   exportAs?: string;
 
@@ -304,15 +302,15 @@ export interface Directive {
    * 内容查询会在调用 `ngAfterContentInit` 回调之前设置好。
    * 试图查询会在调用 `ngAfterViewInit` 回调之前设置好。
    *
-   * @usageNotes
-   *
-   * The following example shows how queries are defined
+   * @usageNotes The following example shows how queries are defined
    * and when their results are available in lifecycle hooks:
    *
    * 下面的范例展示了如何定义这些查询以及到生命周期钩子中的哪个步骤才会有结果：
    *
    * ```ts
-   * @Component({
+   *
+   * ```
+   * @Component ({
    *   selector: 'someDir',
    *   queries: {
    *     contentChildren: new ContentChildren(ChildDirective),
@@ -333,7 +331,6 @@ export interface Directive {
    *   }
    * }
    * ```
-   *
    * @Annotation
    */
   queries?: {[key: string]: any};
@@ -365,20 +362,19 @@ export interface Directive {
    * 对于事件处理：
    *
    * - The key is the DOM event that the directive listens to.
-   * To listen to global events, add the target to the event name.
-   * The target can be `window`, `document` or `body`.
+   *   To listen to global events, add the target to the event name.
+   *   The target can be `window`, `document` or `body`.
    *
-   *   它的 key 就是该指令想要监听的 DOM 事件。
-   *   要想监听全局事件，请把要监听的目标添加到事件名的前面。
-   *   这个目标可以是 `window`、`document` 或 `body`。
+   *     它的 key 就是该指令想要监听的 DOM 事件。
+   *     要想监听全局事件，请把要监听的目标添加到事件名的前面。
+   *     这个目标可以是 `window`、`document` 或 `body`。
    *
    * - The value is the statement to execute when the event occurs. If the
-   * statement evaluates to `false`, then `preventDefault` is applied on the DOM
-   * event. A handler method can refer to the `$event` local variable.
+   *   statement evaluates to `false`, then `preventDefault` is applied on the DOM
+   *   event. A handler method can refer to the `$event` local variable.
    *
-   *   它的 value 就是当该事件发生时要执行的语句。如果该语句返回 `false`，那么就会调用这个 DOM 事件的 `preventDefault` 函数。
-   *   这个语句中可以引用局部变量 `$event` 来获取事件数据。
-   *
+   *     它的 value 就是当该事件发生时要执行的语句。如果该语句返回 `false`，那么就会调用这个 DOM 事件的 `preventDefault` 函数。
+   *     这个语句中可以引用局部变量 `$event` 来获取事件数据。
    */
   host?: {[key: string]: string};
 
@@ -387,6 +383,9 @@ export interface Directive {
    * It remains in distributed code, and the JIT compiler attempts to compile it
    * at run time, in the browser.
    * To ensure the correct behavior, the app must import `@angular/compiler`.
+   *
+   * 如果存在，则该指令/组件将被 AOT 编译器忽略。它会保留在发布代码中，并且 JIT 编译器会尝试在运行时在浏览器中对其进行编译。为了确保其行为正确，该应用程序必须导入 `@angular/compiler` 。
+   *
    */
   jit?: true;
 }
@@ -443,9 +442,7 @@ export interface ComponentDecorator {
    * 注意，除了这些用来对指令进行配置的选项之外，你还可以通过实现生命周期钩子来控制组件的运行期行为。
    * 要了解更多，参见 [生命周期钩子](guide/lifecycle-hooks) 章。
    *
-   * @usageNotes
-   *
-   * ### Setting component inputs
+   * @usageNotes ### Setting component inputs
    *
    * ### 设置组件的输入属性
    *
@@ -455,7 +452,6 @@ export interface ComponentDecorator {
    * 下免得例子创建了一个带有两个数据绑定属性的组件，它是通过 `inputs` 值来指定的。
    *
    * <code-example path="core/ts/metadata/directives.ts" region="component-input"></code-example>
-   *
    *
    * ### Setting component outputs
    *
@@ -470,12 +466,12 @@ export interface ComponentDecorator {
    *
    * ### Injecting a class with a view provider
    *
-   * ### 使用视图提供商注入一个类
+   * ### 使用视图提供者注入一个类
    *
    * The following simple example injects a class into a component
    * using the view provider specified in component metadata:
    *
-   * 下面的例子示范了如何在组件元数据中使用视图提供商来把一个类注入到组件中：
+   * 下面的例子示范了如何在组件元数据中使用视图提供者来把一个类注入到组件中：
    *
    * ```ts
    * class Greeter {
@@ -483,8 +479,7 @@ export interface ComponentDecorator {
    *      return 'Hello ' + name + '!';
    *    }
    * }
-   *
-   * @Directive({
+   * @Directive ({
    *   selector: 'needs-greeter'
    * })
    * class NeedsGreeter {
@@ -494,8 +489,7 @@ export interface ComponentDecorator {
    *     this.greeter = greeter;
    *   }
    * }
-   *
-   * @Component({
+   * @Component ({
    *   selector: 'greet',
    *   viewProviders: [
    *     Greeter
@@ -568,7 +562,6 @@ export interface ComponentDecorator {
    *
    * To preserve sequences of whitespace characters, use the
    * `ngPreserveWhitespaces` attribute.
-   *
    * @Annotation
    */
   (obj: Component): TypeDecorator;
@@ -678,12 +671,15 @@ export interface Component extends Directive {
    * 供模板和 CSS 样式使用的样式封装策略。取值为：
    *
    * - `ViewEncapsulation.Emulated`: Use shimmed CSS that
-   * emulates the native behavior.
+   *   emulates the native behavior.
    *
-   *   `ViewEncapsulation.Emulated`：使用垫片（shimmed) CSS 来模拟原生行为。
+   *     `ViewEncapsulation.Emulated`：使用垫片（shimmed) CSS 来模拟原生行为。
    *
    * - `ViewEncapsulation.None`: Use global CSS without any
-   * encapsulation.
+   *   encapsulation.
+   *
+   *     `ViewEncapsulation.None` ：使用不带任何封装的全局 CSS。
+   *
    * - `ViewEncapsulation.ShadowDom`: Use Shadow DOM v1 to encapsulate styles.
    *
    *   `ViewEncapsulation.None`：使用全局 CSS，不做任何封装。
@@ -716,6 +712,9 @@ export interface Component extends Directive {
    * 一个组件的集合，它应该和当前组件一起编译。对于这里列出的每个组件，Angular 都会创建一个 {@link ComponentFactory} 并保存进 {@link ComponentFactoryResolver} 中。
    *
    * @deprecated Since 9.0.0. With Ivy, this property is no longer necessary.
+   *
+   * 从 9.0.0 开始。使用 Ivy，不再需要此属性。
+   *
    */
   entryComponents?: Array<Type<any>|any[]>;
 
@@ -756,9 +755,13 @@ export interface PipeDecorator {
    *
    * Decorator that marks a class as pipe and supplies configuration metadata.
    *
+   * 本装饰器用于将类标记为管道并提供配置元数据。
+   *
    * A pipe class must implement the `PipeTransform` interface.
    * For example, if the name is "myPipe", use a template binding expression
    * such as the following:
+   *
+   * 管道类必须实现 `PipeTransform` 接口。例如，如果其名称为 “myPipe”，则使用模板绑定表达式，例如：
    *
    * ```
    * {{ exp | myPipe }}
@@ -766,11 +769,17 @@ export interface PipeDecorator {
    *
    * The result of the expression is passed to the pipe's `transform()` method.
    *
+   * 此表达式的结果会传给管道的 `transform()` 方法。
+   *
    * A pipe must belong to an NgModule in order for it to be available
    * to a template. To make it a member of an NgModule,
    * list it in the `declarations` field of the `NgModule` metadata.
    *
+   * 管道必须属于某个 NgModule，才能用于模板。要使其成为 NgModule 的成员，请把它加入 `NgModule` 元数据的 `declarations` 中。
+   *
    * @see [Style Guide: Pipe Names](guide/styleguide#02-09)
+   *
+   * [样式指南：管道名称](guide/styleguide#02-09)
    *
    */
   (obj: Pipe): TypeDecorator;
@@ -840,23 +849,23 @@ export interface InputDecorator {
    * 一个装饰器，用来把某个类字段标记为输入属性，并提供配置元数据。
    * 该输入属性会绑定到模板中的某个 DOM 属性。当变更检测时，Angular 会自动使用这个 DOM 属性的值来更新此数据属性。
    *
-  * @usageNotes
-   *
-   * You can supply an optional name to use in templates when the
+   * @usageNotes You can supply an optional name to use in templates when the
    * component is instantiated, that maps to the
    * name of the bound property. By default, the original
    * name of the bound property is used for input binding.
-  *
-  * 你可以提供一个可选的仅供模板中使用的名字，在组件实例化时，会把这个名字映射到可绑定属性上。
-  * 默认情况下，输入绑定的名字就是这个可绑定属性的原始名称。
+   *
+   * 你可以提供一个可选的仅供模板中使用的名字，在组件实例化时，会把这个名字映射到可绑定属性上。
+   * 默认情况下，输入绑定的名字就是这个可绑定属性的原始名称。
    *
    * The following example creates a component with two input properties,
    * one of which is given a special binding name.
-  *
-  * 下面的例子创建了一个带有两个输入属性的组件，其中一个还指定了绑定名。
+   *
+   * 下面的例子创建了一个带有两个输入属性的组件，其中一个还指定了绑定名。
    *
    * ```typescript
-   * @Component({
+   *
+   * ```
+   * @Component ({
    *   selector: 'bank-account',
    *   template: `
    *     Bank Name: {{bankName}}
@@ -865,16 +874,15 @@ export interface InputDecorator {
    * })
    * class BankAccount {
    *   // This property is bound using its original name.
-   *   @Input() bankName: string;
+   * @Input () bankName: string;
    *   // this property value is bound to a different property name
    *   // when this component is instantiated in a template.
-   *   @Input('account-id') id: string;
+   * @Input ('account-id') id: string;
    *
    *   // this property is not bound, and is not automatically updated by Angular
    *   normalizedBankName: string;
    * }
-   *
-   * @Component({
+   * @Component ({
    *   selector: 'app',
    *   template: `
    *     <bank-account bankName="RBC" account-id="4747"></bank-account>
@@ -882,8 +890,9 @@ export interface InputDecorator {
    * })
    * class App {}
    * ```
-   *
    * @see [Input and Output properties](guide/inputs-outputs)
+   *
+   * [输入和输出属性](guide/inputs-outputs)
    */
   (bindingPropertyName?: string): any;
   new(bindingPropertyName?: string): any;
@@ -944,6 +953,8 @@ export interface OutputDecorator {
    *
    * @see [Input and Output properties](guide/inputs-outputs)
    *
+   * [输入和输出属性](guide/inputs-outputs)
+   *
    */
   (bindingPropertyName?: string): any;
   new(bindingPropertyName?: string): any;
@@ -959,6 +970,9 @@ export interface OutputDecorator {
 export interface Output {
   /**
    * The name of the DOM property to which the output property is bound.
+   *
+   * 输出属性绑定到的 DOM 属性的名称。
+   *
    */
   bindingPropertyName?: string;
 }
@@ -990,22 +1004,21 @@ export interface HostBindingDecorator {
    * 一个装饰器，用于把一个 DOM 属性标记为绑定到宿主的属性，并提供配置元数据。
    * Angular 在变更检测期间会自动检查宿主属性绑定，如果这个绑定变化了，它就会更新该指令所在的宿主元素。
    *
-   * @usageNotes
-   *
-   * The following example creates a directive that sets the `valid` and `invalid`
+   * @usageNotes The following example creates a directive that sets the `valid` and `invalid`
    * properties on the DOM element that has an `ngModel` directive on it.
    *
    * 下面的例子创建了一个指令，它会对具有 `ngModel` 指令的 DOM 元素设置 `valid` 和 `invalid` 属性。
    *
    * ```typescript
-   * @Directive({selector: '[ngModel]'})
+   *
+   * ```
+   * @Directive ({selector: '[ngModel]'})
    * class NgModelStatus {
    *   constructor(public control: NgModel) {}
-   *   @HostBinding('class.valid') get valid() { return this.control.valid; }
-   *   @HostBinding('class.invalid') get invalid() { return this.control.invalid; }
+   * @HostBinding ('class.valid') get valid() { return this.control.valid; }
+   * @HostBinding ('class.invalid') get invalid() { return this.control.invalid; }
    * }
-   *
-   * @Component({
+   * @Component ({
    *   selector: 'app',
    *   template: `<input [(ngModel)]="prop">`,
    * })
@@ -1013,7 +1026,6 @@ export interface HostBindingDecorator {
    *   prop;
    * }
    * ```
-   *
    */
   (hostPropertyName?: string): any;
   new(hostPropertyName?: string): any;
@@ -1029,6 +1041,9 @@ export interface HostBindingDecorator {
 export interface HostBinding {
   /**
    * The DOM property that is bound to a data property.
+   *
+   * 要绑定到数据属性的 DOM 属性。
+   *
    */
   hostPropertyName?: string;
 }
@@ -1052,6 +1067,9 @@ export interface HostListenerDecorator {
   /**
    * Decorator that declares a DOM event to listen for,
    * and provides a handler method to run when that event occurs.
+   *
+   * 一个装饰器，用于声明要监听的 DOM 事件，并提供在该事件发生时要运行的处理器方法。
+   *
    */
   (eventName: string, args?: string[]): any;
   new(eventName: string, args?: string[]): any;
@@ -1084,31 +1102,31 @@ export interface HostListener {
  * Angular invokes the supplied handler method when the host element emits the specified event,
  * and updates the bound element with the result.
  *
+ * 将 DOM 事件绑定到宿主监听器并提供配置元数据的装饰器。当宿主元素发出指定事件时，Angular 就会调用所提供的处理器方法，并使用其结果更新绑定的元素。
+ *
  * If the handler method returns false, applies `preventDefault` on the bound element.
  *
  * 把一个事件绑定到一个宿主监听器，并提供配置元数据。
  * 当宿主元素发出特定的事件时，Angular 就会执行所提供的处理器方法，并使用其结果更新所绑定到的元素。
  * 如果该事件处理器返回 `false`，则在所绑定的元素上执行 `preventDefault`。
  *
- * @usageNotes
- *
- * The following example declares a directive
+ * @usageNotes The following example declares a directive
  * that attaches a click listener to a button and counts clicks.
  *
  * 下面的例子声明了一个指令，它会为按钮附加一个 `click` 监听器，并统计点击次数。
  *
  * ```ts
- * @Directive({selector: 'button[counting]'})
+ *
+ * ```
+ * @Directive ({selector: 'button[counting]'})
  * class CountClicks {
  *   numberOfClicks = 0;
- *
- *   @HostListener('click', ['$event.target'])
+ * @HostListener ('click', ['$event.target'])
  *   onClick(btn) {
  *     console.log('button', btn, 'number of clicks:', this.numberOfClicks++);
  *  }
  * }
- *
- * @Component({
+ * @Component ({
  *   selector: 'app',
  *   template: '<button counting>Increment</button>',
  * })
@@ -1118,9 +1136,9 @@ export interface HostListener {
  *
  * The following example registers another DOM event handler that listens for key-press events.
  * ``` ts
- * import { HostListener, Component } from "@angular/core";
- *
- * @Component({
+ * import { HostListener, Component } from "
+ * @angular /core";
+ * @Component ({
  *   selector: 'app',
  *   template: `<h1>Hello, you have pressed keys {{counter}} number of times!</h1> Press any key to
  * increment the counter.
@@ -1128,7 +1146,7 @@ export interface HostListener {
  * })
  * class AppComponent {
  *   counter = 0;
- *   @HostListener('window:keydown', ['$event'])
+ * @HostListener ('window:keydown', ['$event'])
  *   handleKeyDown(event: KeyboardEvent) {
  *     this.counter++;
  *   }
@@ -1137,7 +1155,6 @@ export interface HostListener {
  *   }
  * }
  * ```
- *
  * @Annotation
  * @publicApi
  */

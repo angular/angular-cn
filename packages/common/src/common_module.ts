@@ -23,16 +23,15 @@ import {COMMON_PIPES} from './pipes/index';
  * 导出所有基本的 Angular 指令和管道，例如 `NgIf`、`NgForOf`、`DecimalPipe` 等。
  * 它会由 `BrowserModule` 进行二次导出，当你使用 CLI 的 `new` 命令创建新应用时，`BrowserModule` 会自动包含在根模块 `AppModule` 中。
  *
- * * The `providers` options configure the NgModule's injector to provide
- * localization dependencies to members.
+ * - The `providers` options configure the NgModule's injector to provide
+ *   localization dependencies to members.
  *
- *   `providers` 选项配置了 NgModule 的注入器，来为其成员提供本地化依赖。
+ *     `providers` 选项配置了 NgModule 的注入器，来为其成员提供本地化依赖。
  *
- * * The `exports` options make the declared directives and pipes available for import
- * by other NgModules.
+ * - The `exports` options make the declared directives and pipes available for import
+ *   by other NgModules.
  *
- *   `exports` 选项让这里声明的指令和管道可以被导入到其它 NgModule 中。
- *
+ *     `exports` 选项让这里声明的指令和管道可以被导入到其它 NgModule 中。
  * @publicApi
  */
 @NgModule({

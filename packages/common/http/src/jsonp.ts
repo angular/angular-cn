@@ -43,6 +43,9 @@ export abstract class JsonpCallbackContext {
 /**
  * Processes an `HttpRequest` with the JSONP method,
  * by performing JSONP style requests.
+ *
+ * 通过执行 JSONP 风格的请求，使用 JSONP 方法处理 `HttpRequest`
+ *
  * @see `HttpHandler`
  * @see `HttpXhrBackend`
  *
@@ -52,6 +55,9 @@ export abstract class JsonpCallbackContext {
 export class JsonpClientBackend implements HttpBackend {
   /**
    * A resolved promise that can be used to schedule microtasks in the event handlers.
+   *
+   * 已解决的 Promise 可用于安排事件处理器中的微任务。
+   *
    */
   private readonly resolvedPromise = Promise.resolve();
 
@@ -59,6 +65,9 @@ export class JsonpClientBackend implements HttpBackend {
 
   /**
    * Get the name of the next callback method, by incrementing the global `nextRequestId`.
+   *
+   * 通过递增 `nextRequestId`，来获取下一个回调方法的名称。
+   *
    */
   private nextCallback(): string {
     return `ng_jsonp_callback_${nextRequestId++}`;
@@ -66,8 +75,16 @@ export class JsonpClientBackend implements HttpBackend {
 
   /**
    * Processes a JSONP request and returns an event stream of the results.
+   *
+   * 处理 JSONP 请求并返回结果的事件流。
+   *
    * @param req The request object.
+   *
+   * 请求对象。
+   *
    * @returns An observable of the response events.
+   *
+   * 响应事件的可观察对象。
    *
    */
   handle(req: HttpRequest<never>): Observable<HttpEvent<any>> {
@@ -227,6 +244,8 @@ export class JsonpClientBackend implements HttpBackend {
  * Identifies requests with the method JSONP and
  * shifts them to the `JsonpClientBackend`.
  *
+ * 使用 JSONP 方法标识这些请求，并将其转移到 `JsonpClientBackend` 。
+ *
  * @see `HttpInterceptor`
  *
  * @publicApi
@@ -237,10 +256,21 @@ export class JsonpInterceptor {
 
   /**
    * Identifies and handles a given JSONP request.
+   *
+   * 识别并处理给定的 JSONP 请求。
+   *
    * @param req The outgoing request object to handle.
+   *
+   * 要处理的传出请求对象。
+   *
    * @param next The next interceptor in the chain, or the backend
    * if no interceptors remain in the chain.
+   *
+   * 链中的下一个拦截器，如果链中没有拦截器，则为其后端接口。
+   *
    * @returns An observable of the event stream.
+   *
+   * 事件流的可观察对象。
    */
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     if (req.method === 'JSONP') {

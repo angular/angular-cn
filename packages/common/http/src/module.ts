@@ -171,9 +171,7 @@ export class HttpClientXsrfModule {
  * You can add interceptors to the chain behind `HttpClient` by binding them to the
  * multiprovider for built-in [DI token](guide/glossary#di-token) `HTTP_INTERCEPTORS`.
  *
- *
  * 通过把拦截器提供为内置的 [DI 令牌](guide/glossary#di-token) `HTTP_INTERCEPTORS`（允许有多个），你可以把它们添加到 `HttpClient` 调用链的后面。
- *
  * @publicApi
  */
 @NgModule({

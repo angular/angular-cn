@@ -63,13 +63,22 @@ export function injectInjectorOnly<T>(
 /**
  * Generated instruction: Injects a token from the currently active injector.
  *
+ * 生成的方式：从当前活动的注入器注入令牌。
+ *
  * Must be used in the context of a factory function such as one defined for an
  * `InjectionToken`. Throws an error if not called from such a context.
+ *
+ * 必须在工厂函数的上下文中使用，比如为 `InjectionToken` 定义的函数。如果未从这样的上下文中调用，则会引发错误。
  *
  * (Additional documentation moved to `inject`, as it is the public API, and an alias for this
  * instruction)
  *
+ * （其他文档移到了 `inject` ，因为它是公共 API，并且是此指令的别名）
+ *
  * @see inject
+ *
+ * 注入
+ *
  * @codeGenApi
  * @publicApi This instruction has been emitted by ViewEngine for some time and is deployed to npm.
  */
@@ -108,22 +117,38 @@ Please check that 1) the type for the parameter at index ${
 /**
  * Injects a token from the currently active injector.
  *
+ * 从当前活动的注入器中注入令牌。
+ *
  * Must be used in the context of a factory function such as one defined for an
  * `InjectionToken`. Throws an error if not called from such a context.
+ *
+ * 必须在工厂函数的上下文中使用，比如为 `InjectionToken` 定义的函数。如果未从这样的上下文中调用，则会引发错误。
  *
  * Within such a factory function, using this function to request injection of a dependency
  * is faster and more type-safe than providing an additional array of dependencies
  * (as has been common with `useFactory` providers).
  *
+ * 在这样的工厂函数中，使用此函数来请求注入依赖项比提供额外的依赖项数组（在 `useFactory` 提供者中这很常见）要更快且类型安全性更高。
+ *
  * @param token The injection token for the dependency to be injected.
+ *
+ * 用于注入依赖项的注入令牌。
+ *
  * @param flags Optional flags that control how injection is executed.
  * The flags correspond to injection strategies that can be specified with
  * parameter decorators `@Host`, `@Self`, `@SkipSef`, and `@Optional`.
+ *
+ * 控制执行注入方式的可选标志。这些标志对应于可以使用参数装饰器 `@Host`、`@Self`、`@SkipSef` 和 `@Optional` 指定的注入策略。
+ *
  * @returns True if injection is successful, null otherwise.
+ *
+ * 如果注入成功，则为 true，否则为 null。
  *
  * @usageNotes
  *
  * ### Example
+ *
+ * ### 例子
  *
  * {@example core/di/ts/injector_spec.ts region='ShakableInjectionToken'}
  *

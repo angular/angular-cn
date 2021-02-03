@@ -46,13 +46,19 @@ abstract class HTMLCollection {
  * control changes. The value accessor is used by the `FormControlDirective`, `FormControlName`, and
  * `NgModel` directives.
  *
+ * 本 `ControlValueAccessor` 用于写入多选控件值和监听多选控件更改。这个值访问器由 `FormControlDirective`、`FormControlName` 和 `NgModel` 指令使用。
+ *
  * @see `SelectControlValueAccessor`
  *
  * @usageNotes
  *
  * ### Using a multi-select control
  *
+ * ### 使用多选控件
+ *
  * The follow example shows you how to use a multi-select control with a reactive form.
+ *
+ * 下面的示例向你演示了如何将多选控件与响应式表单一起使用。
  *
  * ```ts
  * const countryControl = new FormControl();
@@ -68,8 +74,12 @@ abstract class HTMLCollection {
  *
  * ### Customizing option selection
  *
+ * ### 自定义选项选取方式
+ *
  * To customize the default option comparison algorithm, `<select>` supports `compareWith` input.
  * See the `SelectControlValueAccessor` for usage.
+ *
+ * 要自定义默认的选项比较算法，可以用 `<select>` 支持的输入属性 `compareWith`。有关用法，请参见 `SelectControlValueAccessor`
  *
  * @ngModule ReactiveFormsModule
  * @ngModule FormsModule
@@ -84,6 +94,9 @@ abstract class HTMLCollection {
 export class SelectMultipleControlValueAccessor implements ControlValueAccessor {
   /**
    * The current value.
+   *
+   * 当前值。
+   *
    * @nodoc
    */
   value: any;
@@ -96,12 +109,18 @@ export class SelectMultipleControlValueAccessor implements ControlValueAccessor 
 
   /**
    * The registered callback function called when a change event occurs on the input element.
+   *
+   * 在输入元素上发生 change 事件时调用的已注册回调函数。
+   *
    * @nodoc
    */
   onChange = (_: any) => {};
 
   /**
    * The registered callback function called when a blur event occurs on the input element.
+   *
+   * 当输入元素上发生 blur 事件时，调用的已注册回调函数。
+   *
    * @nodoc
    */
   onTouched = () => {};
@@ -110,6 +129,9 @@ export class SelectMultipleControlValueAccessor implements ControlValueAccessor 
    * @description
    * Tracks the option comparison algorithm for tracking identities when
    * checking for changes.
+   *
+   * 跟踪选项的比较算法，以在检查更改时跟踪其标识。
+   *
    */
   @Input()
   set compareWith(fn: (o1: any, o2: any) => boolean) {
@@ -125,6 +147,9 @@ export class SelectMultipleControlValueAccessor implements ControlValueAccessor 
 
   /**
    * Sets the "value" property on one or of more of the select's options.
+   *
+   * 在此 select 的一个或多个选项上设置 “value” 属性。
+   *
    * @nodoc
    */
   writeValue(value: any): void {
@@ -147,6 +172,9 @@ export class SelectMultipleControlValueAccessor implements ControlValueAccessor 
   /**
    * Registers a function called when the control value changes
    * and writes an array of the selected options.
+   *
+   * 注册一个当控件的值更改并写入所选选项的数组时要调用的函数。
+   *
    * @nodoc
    */
   registerOnChange(fn: (value: any) => any): void {
@@ -178,6 +206,9 @@ export class SelectMultipleControlValueAccessor implements ControlValueAccessor 
 
   /**
    * Registers a function called when the control is touched.
+   *
+   * 注册控件被接触过时要调用的函数。
+   *
    * @nodoc
    */
   registerOnTouched(fn: () => any): void {
@@ -186,6 +217,9 @@ export class SelectMultipleControlValueAccessor implements ControlValueAccessor 
 
   /**
    * Sets the "disabled" property on the select input element.
+   *
+   * 在 select 输入元素上设置 “disabled” 属性。
+   *
    * @nodoc
    */
   setDisabledState(isDisabled: boolean): void {
@@ -218,6 +252,8 @@ export class SelectMultipleControlValueAccessor implements ControlValueAccessor 
  * @description
  * Marks `<option>` as dynamic, so Angular can be notified when options change.
  *
+ * 将 `<option>` 标记为动态，以便在选项更改时通知 Angular。
+ *
  * @see `SelectMultipleControlValueAccessor`
  *
  * @ngModule ReactiveFormsModule
@@ -243,6 +279,9 @@ export class ɵNgSelectMultipleOption implements OnDestroy {
    * @description
    * Tracks the value bound to the option element. Unlike the value binding,
    * ngValue supports binding to objects.
+   *
+   * 跟踪绑定到选项元素的值。与值绑定不同，ngValue 支持绑定到对象。
+   *
    */
   @Input('ngValue')
   set ngValue(value: any) {
@@ -256,6 +295,9 @@ export class ɵNgSelectMultipleOption implements OnDestroy {
    * @description
    * Tracks simple string values bound to the option element.
    * For objects, use the `ngValue` input binding.
+   *
+   * 跟踪绑定到 option 元素的简单字符串值。对于对象，请使用 `ngValue` 输入绑定。
+   *
    */
   @Input('value')
   set value(value: any) {

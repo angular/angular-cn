@@ -22,23 +22,33 @@ const UNDEFINED = {};
  * A ReflectiveDependency injection container used for instantiating objects and resolving
  * dependencies.
  *
+ * 一个 ReflectiveDependency 注入容器，用于实例化对象和解析依赖关系。
+ *
  * An `Injector` is a replacement for a `new` operator, which can automatically resolve the
  * constructor dependencies.
+ *
+ * `Injector` 替代了 `new` 操作符，该操作符可以自动解析构造函数的依赖关系。
  *
  * In typical use, application code asks for the dependencies in the constructor and they are
  * resolved by the `Injector`.
  *
- * @usageNotes
- * ### Example
+ * 在典型的用法中，应用程序代码会在构造函数中要求依赖项，并由 `Injector` 进行解析。
+ *
+ * @usageNotes ### Example
+ *
+ * ### 例子
  *
  * The following example creates an `Injector` configured to create `Engine` and `Car`.
  *
+ * 以下示例创建一个配置为创建 `Engine` 和 `Car` 的 `Injector`。
+ *
  * ```typescript
- * @Injectable()
+ *
+ * ```
+ * @Injectable ()
  * class Engine {
  * }
- *
- * @Injectable()
+ * @Injectable ()
  * class Car {
  *   constructor(public engine:Engine) {}
  * }
@@ -51,26 +61,33 @@ const UNDEFINED = {};
  *
  * Notice, we don't use the `new` operator because we explicitly want to have the `Injector`
  * resolve all of the object's dependencies automatically.
- *
  * @deprecated from v5 - slow and brings in a lot of code, Use `Injector.create` instead.
+ *
+ * 从 v5 开始 - 速度慢，并且引入了大量代码，请改用 `Injector.create` 。
  * @publicApi
  */
 export abstract class ReflectiveInjector implements Injector {
   /**
    * Turns an array of provider definitions into an array of resolved providers.
    *
+   * 将一组提供者定义转换为一组已解析的提供者。
+   *
    * A resolution is a process of flattening multiple nested arrays and converting individual
    * providers into an array of `ResolvedReflectiveProvider`s.
    *
-   * @usageNotes
-   * ### Example
+   * 解析是展平多个嵌套数组并将其各个提供者转换为 `ResolvedReflectiveProvider` 数组的过程。
+   *
+   * @usageNotes ### Example
+   *
+   * ### 例子
    *
    * ```typescript
-   * @Injectable()
+   *
+   * ```
+   * @Injectable ()
    * class Engine {
    * }
-   *
-   * @Injectable()
+   * @Injectable ()
    * class Car {
    *   constructor(public engine:Engine) {}
    * }
@@ -87,7 +104,6 @@ export abstract class ReflectiveInjector implements Injector {
    * expect(providers[1].key.displayName).toBe("Engine");
    * });
    * ```
-   *
    */
   static resolve(providers: Provider[]): ResolvedReflectiveProvider[] {
     return resolveReflectiveProviders(providers);
@@ -96,18 +112,24 @@ export abstract class ReflectiveInjector implements Injector {
   /**
    * Resolves an array of providers and creates an injector from those providers.
    *
+   * 解析供应商数组，并从这些供应商创建注入器。
+   *
    * The passed-in providers can be an array of `Type`, `Provider`,
    * or a recursive array of more providers.
    *
-   * @usageNotes
-   * ### Example
+   * 传入的提供者可以是 `Type`、`Provider` 或更多提供者的递归数组。
+   *
+   * @usageNotes ### Example
+   *
+   * ### 例子
    *
    * ```typescript
-   * @Injectable()
+   *
+   * ```
+   * @Injectable ()
    * class Engine {
    * }
-   *
-   * @Injectable()
+   * @Injectable ()
    * class Car {
    *   constructor(public engine:Engine) {}
    * }
@@ -124,17 +146,23 @@ export abstract class ReflectiveInjector implements Injector {
   /**
    * Creates an injector from previously resolved providers.
    *
+   * 从先前解析的提供者创建注入器。
+   *
    * This API is the recommended way to construct injectors in performance-sensitive parts.
    *
-   * @usageNotes
-   * ### Example
+   * 建议使用此 API 在对性能敏感的部分构建注入器。
+   *
+   * @usageNotes ### Example
+   *
+   * ### 例子
    *
    * ```typescript
-   * @Injectable()
+   *
+   * ```
+   * @Injectable ()
    * class Engine {
    * }
-   *
-   * @Injectable()
+   * @Injectable ()
    * class Car {
    *   constructor(public engine:Engine) {}
    * }
@@ -153,6 +181,8 @@ export abstract class ReflectiveInjector implements Injector {
   /**
    * Parent of this injector.
    *
+   * 此注入器的父代。
+   *
    * <!-- TODO: Add a link to the section of the user guide talking about hierarchical injection.
    * -->
    */
@@ -161,14 +191,20 @@ export abstract class ReflectiveInjector implements Injector {
   /**
    * Resolves an array of providers and creates a child injector from those providers.
    *
+   * 解析一组提供者，并从这些提供者创建子注入器。
+   *
    * <!-- TODO: Add a link to the section of the user guide talking about hierarchical injection.
    * -->
    *
    * The passed-in providers can be an array of `Type`, `Provider`,
    * or a recursive array of more providers.
    *
+   * 传入的提供者可以是 `Type`、`Provider` 或更多提供者的递归数组。
+   *
    * @usageNotes
    * ### Example
+   *
+   * ### 例子
    *
    * ```typescript
    * class ParentProvider {}
@@ -187,13 +223,19 @@ export abstract class ReflectiveInjector implements Injector {
   /**
    * Creates a child injector from previously resolved providers.
    *
+   * 从先前解析的提供者中创建子注入器。
+   *
    * <!-- TODO: Add a link to the section of the user guide talking about hierarchical injection.
    * -->
    *
    * This API is the recommended way to construct injectors in performance-sensitive parts.
    *
+   * 建议使用此 API 在对性能敏感的部分构造注入器。
+   *
    * @usageNotes
    * ### Example
+   *
+   * ### 例子
    *
    * ```typescript
    * class ParentProvider {}
@@ -215,17 +257,23 @@ export abstract class ReflectiveInjector implements Injector {
   /**
    * Resolves a provider and instantiates an object in the context of the injector.
    *
+   * 解析提供者并在注入器的上下文中实例化对象。
+   *
    * The created object does not get cached by the injector.
    *
-   * @usageNotes
-   * ### Example
+   * 注入器不会缓存创建的对象。
+   *
+   * @usageNotes ### Example
+   *
+   * ### 例子
    *
    * ```typescript
-   * @Injectable()
+   *
+   * ```
+   * @Injectable ()
    * class Engine {
    * }
-   *
-   * @Injectable()
+   * @Injectable ()
    * class Car {
    *   constructor(public engine:Engine) {}
    * }
@@ -242,17 +290,23 @@ export abstract class ReflectiveInjector implements Injector {
   /**
    * Instantiates an object using a resolved provider in the context of the injector.
    *
+   * 在注入器的上下文中使用解析的提供者实例化对象。
+   *
    * The created object does not get cached by the injector.
    *
-   * @usageNotes
-   * ### Example
+   * 注入器不会缓存创建的对象。
+   *
+   * @usageNotes ### Example
+   *
+   * ### 例子
    *
    * ```typescript
-   * @Injectable()
+   *
+   * ```
+   * @Injectable ()
    * class Engine {
    * }
-   *
-   * @Injectable()
+   * @Injectable ()
    * class Car {
    *   constructor(public engine:Engine) {}
    * }

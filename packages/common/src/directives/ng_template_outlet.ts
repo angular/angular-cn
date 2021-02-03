@@ -51,11 +51,17 @@ export class NgTemplateOutlet implements OnChanges {
    * object, the object's keys will be available for binding by the local template `let`
    * declarations.
    * Using the key `$implicit` in the context object will set its value as default.
+   *
+   * 附加到 {@link EmbeddedViewRef} 的上下文对象。这应该是一个对象，该对象的键名将可以在局部模板中使用 `let` 声明中进行绑定。在上下文对象中使用 `$implicit` 为键名时，将把它作为默认值。
+   *
    */
   @Input() public ngTemplateOutletContext: Object|null = null;
 
   /**
    * A string defining the template reference and optionally the context object for the template.
+   *
+   * 一个字符串，用于定义模板引用以及模板的上下文对象。
+   *
    */
   @Input() public ngTemplateOutlet: TemplateRef<any>|null = null;
 
@@ -95,7 +101,7 @@ export class NgTemplateOutlet implements OnChanges {
    * We mark context object as changed when the corresponding object
    * shape changes (new properties are added or existing properties are removed).
    * In other words we consider context with the same properties as "the same" even
-   * if object reference changes (see https://github.com/angular/angular/issues/13407).
+   * if object reference changes (see <https://github.com/angular/angular/issues/13407>).
    *
    * 当相应的对象的形态（而不是值）发生变化时，我们就会把上下文对象标记为已更改（添加了新的属性或移除了现有属性）。
    * 换句话说，即使对象的引用发生了变化，我们也会把具有相同属性的上下文对象视作 "相同的"（参见 <https://github.com/angular/angular/issues/13407>）。

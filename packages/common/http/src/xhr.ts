@@ -33,6 +33,8 @@ function getResponseUrl(xhr: any): string|null {
 /**
  * A wrapper around the `XMLHttpRequest` constructor.
  *
+ * `XMLHttpRequest` 构造函数的包装器。
+ *
  * @publicApi
  */
 export abstract class XhrFactory {
@@ -63,6 +65,9 @@ interface PartialResponse {
 
 /**
  * Uses `XMLHttpRequest` to send requests to a backend server.
+ *
+ * 使用 `XMLHttpRequest` 将请求发送到后端服务器。
+ *
  * @see `HttpHandler`
  * @see `JsonpClientBackend`
  *
@@ -74,8 +79,17 @@ export class HttpXhrBackend implements HttpBackend {
 
   /**
    * Processes a request and returns a stream of response events.
+   *
+   * 处理请求并返回响应事件流。
+   *
    * @param req The request object.
+   *
+   * 请求对象。
+   *
    * @returns An observable of the response events.
+   *
+   * 响应事件的可观察对象。
+   *
    */
   handle(req: HttpRequest<any>): Observable<HttpEvent<any>> {
     // Quick check to give a better error message when a user attempts to use

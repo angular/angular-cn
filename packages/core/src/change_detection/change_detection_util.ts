@@ -50,6 +50,9 @@ export function devModeEqual(a: any, b: any): boolean {
  *
  * @publicApi
  * @deprecated from v10 stop using. (No replacement, deemed unnecessary.)
+ *
+ * 从 v10 开始停止使用。 （无替代品，没必要。）
+ *
  */
 export class WrappedValue {
   /** @deprecated from 5.3, use `unwrap()` instead - will switch to protected

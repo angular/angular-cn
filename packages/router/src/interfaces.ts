@@ -14,12 +14,12 @@ import {UrlSegment, UrlTree} from './url_tree';
 
 
 /**
- * @description
- *
- * Interface that a class can implement to be a guard deciding if a route can be activated.
+ * @description Interface that a class can implement to be a guard deciding if a route can be activated.
  * If all guards return `true`, navigation continues. If any guard returns `false`,
  * navigation is cancelled. If any guard returns a `UrlTree`, the current navigation
  * is cancelled and a new navigation begins to the `UrlTree` returned from the guard.
+ *
+ * 类可以实现的接口，用于确定是否可以激活路由。如果所有守卫都返回了 `true`，那么导航将继续。如果任何守卫返回 `false`，则导航将被取消。如果任何守卫返回 `UrlTree` ，当前导航被取消，新的导航开始到守卫所返回的 `UrlTree`。
  *
  * The following example implements a `CanActivate` function that checks whether the
  * current user has permission to activate the requested route.
@@ -35,8 +35,8 @@ import {UrlSegment, UrlTree} from './url_tree';
  *     return true;
  *   }
  * }
- *
- * @Injectable()
+ * ```
+ * @Injectable ()
  * class CanActivateTeam implements CanActivate {
  *   constructor(private permissions: Permissions, private currentUser: UserToken) {}
  *
@@ -53,7 +53,7 @@ import {UrlSegment, UrlTree} from './url_tree';
  * in the router configuration:
  *
  * ```
- * @NgModule({
+ * @NgModule ({
  *   imports: [
  *     RouterModule.forRoot([
  *       {
@@ -73,7 +73,7 @@ import {UrlSegment, UrlTree} from './url_tree';
  * 你还可以转而实现一个带有 `canActivate` 签名的函数：
  *
  * ```
- * @NgModule({
+ * @NgModule ({
  *   imports: [
  *     RouterModule.forRoot([
  *       {
@@ -92,7 +92,6 @@ import {UrlSegment, UrlTree} from './url_tree';
  * })
  * class AppModule {}
  * ```
- *
  * @publicApi
  */
 export interface CanActivate {
@@ -104,12 +103,12 @@ export type CanActivateFn = (route: ActivatedRouteSnapshot, state: RouterStateSn
     Observable<boolean|UrlTree>|Promise<boolean|UrlTree>|boolean|UrlTree;
 
 /**
- * @description
- *
- * Interface that a class can implement to be a guard deciding if a child route can be activated.
+ * @description Interface that a class can implement to be a guard deciding if a child route can be activated.
  * If all guards return `true`, navigation continues. If any guard returns `false`,
  * navigation is cancelled. If any guard returns a `UrlTree`, current navigation
  * is cancelled and a new navigation begins to the `UrlTree` returned from the guard.
+ *
+ * 类可以实现的接口，用于确定是否可以激活子路由。如果所有守卫都返回了 `true`，那么导航将继续。如果任何守卫返回 `false`，则导航将被取消。如果任何守卫返回 `UrlTree` ，当前导航被取消，新的导航开始到守卫所返回的 `UrlTree`。
  *
  * The following example implements a `CanActivateChild` function that checks whether the
  * current user has permission to activate the requested child route.
@@ -125,8 +124,8 @@ export type CanActivateFn = (route: ActivatedRouteSnapshot, state: RouterStateSn
  *     return true;
  *   }
  * }
- *
- * @Injectable()
+ * ```
+ * @Injectable ()
  * class CanActivateTeam implements CanActivateChild {
  *   constructor(private permissions: Permissions, private currentUser: UserToken) {}
  *
@@ -143,7 +142,7 @@ export type CanActivateFn = (route: ActivatedRouteSnapshot, state: RouterStateSn
  * in the router configuration:
  *
  * ```
- * @NgModule({
+ * @NgModule ({
  *   imports: [
  *     RouterModule.forRoot([
  *       {
@@ -168,7 +167,7 @@ export type CanActivateFn = (route: ActivatedRouteSnapshot, state: RouterStateSn
  * 你还可以转而提供一个具有 `canActivateChild` 签名的函数：
  *
  * ```
- * @NgModule({
+ * @NgModule ({
  *   imports: [
  *     RouterModule.forRoot([
  *       {
@@ -192,7 +191,6 @@ export type CanActivateFn = (route: ActivatedRouteSnapshot, state: RouterStateSn
  * })
  * class AppModule {}
  * ```
- *
  * @publicApi
  */
 export interface CanActivateChild {
@@ -204,12 +202,12 @@ export type CanActivateChildFn = (childRoute: ActivatedRouteSnapshot, state: Rou
     Observable<boolean|UrlTree>|Promise<boolean|UrlTree>|boolean|UrlTree;
 
 /**
- * @description
- *
- * Interface that a class can implement to be a guard deciding if a route can be deactivated.
+ * @description Interface that a class can implement to be a guard deciding if a route can be deactivated.
  * If all guards return `true`, navigation continues. If any guard returns `false`,
  * navigation is cancelled. If any guard returns a `UrlTree`, current navigation
  * is cancelled and a new navigation begins to the `UrlTree` returned from the guard.
+ *
+ * 类可以实现的接口，用于确定是否可以离开某个路由。如果所有守卫都返回了 `true`，那么导航将继续。如果任何守卫返回 `false`，则导航将被取消。如果任何守卫返回 `UrlTree` ，当前导航被取消，新的导航开始到守卫所返回的 `UrlTree`。
  *
  * The following example implements a `CanDeactivate` function that checks whether the
  * current user has permission to deactivate the requested route.
@@ -230,9 +228,12 @@ export type CanActivateChildFn = (childRoute: ActivatedRouteSnapshot, state: Rou
  * Here, the defined guard function is provided as part of the `Route` object
  * in the router configuration:
  *
+ * 在此，定义的守卫函数作为路由器配置中的 `Route` 对象：
+ *
  * ```
  *
- * @Injectable()
+ * ```
+ * @Injectable ()
  * class CanDeactivateTeam implements CanDeactivate<TeamComponent> {
  *   constructor(private permissions: Permissions, private currentUser: UserToken) {}
  *
@@ -245,8 +246,7 @@ export type CanActivateChildFn = (childRoute: ActivatedRouteSnapshot, state: Rou
  *     return this.permissions.canDeactivate(this.currentUser, route.params.id);
  *   }
  * }
- *
- * @NgModule({
+ * @NgModule ({
  *   imports: [
  *     RouterModule.forRoot([
  *       {
@@ -266,7 +266,7 @@ export type CanActivateChildFn = (childRoute: ActivatedRouteSnapshot, state: Rou
  * 你还可以转而提供具有 `canDeactivate` 签名的函数：
  *
  * ```
- * @NgModule({
+ * @NgModule ({
  *   imports: [
  *     RouterModule.forRoot([
  *       {
@@ -286,7 +286,6 @@ export type CanActivateChildFn = (childRoute: ActivatedRouteSnapshot, state: Rou
  * })
  * class AppModule {}
  * ```
- *
  * @publicApi
  */
 export interface CanDeactivate<T> {
@@ -302,12 +301,12 @@ export type CanDeactivateFn<T> =
         Observable<boolean|UrlTree>|Promise<boolean|UrlTree>|boolean|UrlTree;
 
 /**
- * @description
- *
- * Interface that classes can implement to be a data provider.
+ * @description Interface that classes can implement to be a data provider.
  * A data provider class can be used with the router to resolve data during navigation.
  * The interface defines a `resolve()` method that is invoked when the navigation starts.
  * The router waits for the data to be resolved before the route is finally activated.
+ *
+ * 可以实现为数据提供者的类的接口。数据提供者类可与路由器一起使用，以在导航期间解析数据。接口定义了开始导航时调用 `resolve()` 路由器在最终激活路由之前等待数据解析。
  *
  * The following example implements a `resolve()` method that retrieves the data
  * needed to activate the requested route.
@@ -315,7 +314,9 @@ export type CanDeactivateFn<T> =
  * 一个接口，某些类可以实现它以扮演一个数据提供者。
  *
  * ```
- * @Injectable({ providedIn: 'root' })
+ *
+ * ```
+ * @Injectable ({ providedIn: 'root' })
  * export class HeroResolver implements Resolve<Hero> {
  *   constructor(private service: HeroService) {}
  *
@@ -332,8 +333,7 @@ export type CanDeactivateFn<T> =
  * in the router configuration:
  *
  * ```
-
- * @NgModule({
+ * @NgModule ({
  *   imports: [
  *     RouterModule.forRoot([
  *       {
@@ -358,8 +358,7 @@ export type CanDeactivateFn<T> =
  * export const myHero: Hero = {
  *   // ...
  * }
- *
- * @NgModule({
+ * @NgModule ({
  *   imports: [
  *     RouterModule.forRoot([
  *       {
@@ -380,12 +379,11 @@ export type CanDeactivateFn<T> =
  * })
  * export class AppModule {}
  * ```
- *
- * @usageNotes
- *
- * When both guard and resolvers are specified, the resolvers are not executed until
+ * @usageNotes When both guard and resolvers are specified, the resolvers are not executed until
  * all guards have run and succeeded.
  * For example, consider the following route configuration:
+ *
+ * 如果同时指定了守卫和解析器，则直到所有守卫都运行并成功后，解析器才会执行。例如，考虑以下路由配置：
  *
  * ```
  * {
@@ -402,8 +400,10 @@ export type CanDeactivateFn<T> =
  *  ]
  * }
  * ```
+ *
  * The order of execution is: BaseGuard, ChildGuard, BaseDataResolver, ChildDataResolver.
  *
+ * 执行顺序为：BaseGuard、ChildGuard、BaseDataResolver、ChildDataResolver。
  * @publicApi
  */
 export interface Resolve<T> {
@@ -412,16 +412,15 @@ export interface Resolve<T> {
 
 
 /**
- * @description
- *
- * Interface that a class can implement to be a guard deciding if children can be loaded.
+ * @description Interface that a class can implement to be a guard deciding if children can be loaded.
  * If all guards return `true`, navigation continues. If any guard returns `false`,
  * navigation is cancelled. If any guard returns a `UrlTree`, current navigation
  * is cancelled and a new navigation starts to the `UrlTree` returned from the guard.
  *
+ * 类可以实现的接口，用于确定是否可以加载子路由。如果所有守卫都返回了 `true`，那么导航将继续。如果任何守卫返回 `false`，则导航将被取消。如果任何守卫返回 `UrlTree` ，当前导航被取消，新的导航开始到守卫所返回的 `UrlTree`。
+ *
  * The following example implements a `CanLoad` function that decides whether the
  * current user has permission to load requested child routes.
- *
  *
  * 一个接口，某些类可以实现它以扮演一个守卫，来决定该路由的子路由能否加载。
  *
@@ -432,8 +431,8 @@ export interface Resolve<T> {
  *     return true;
  *   }
  * }
- *
- * @Injectable()
+ * ```
+ * @Injectable ()
  * class CanLoadTeamSection implements CanLoad {
  *   constructor(private permissions: Permissions, private currentUser: UserToken) {}
  *
@@ -447,8 +446,7 @@ export interface Resolve<T> {
  * in the router configuration:
  *
  * ```
- *
- * @NgModule({
+ * @NgModule ({
  *   imports: [
  *     RouterModule.forRoot([
  *       {
@@ -469,7 +467,7 @@ export interface Resolve<T> {
  * 你还可以转而提供一个具有 `canLoad` 签名的函数：
  *
  * ```
- * @NgModule({
+ * @NgModule ({
  *   imports: [
  *     RouterModule.forRoot([
  *       {
@@ -489,7 +487,6 @@ export interface Resolve<T> {
  * })
  * class AppModule {}
  * ```
- *
  * @publicApi
  */
 export interface CanLoad {

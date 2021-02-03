@@ -19,7 +19,7 @@ export enum HttpEventType {
   /**
    * The request was sent out over the wire.
    *
-   * 该请求已经在线路上发出了。
+   * 该请求已经在路由上发出了。
    */
   Sent,
 
@@ -62,8 +62,8 @@ export enum HttpEventType {
 /**
  * Base interface for progress events.
  *
- *
  * 进度事件的基础接口。
+ *
  * @publicApi
  */
 export interface HttpProgressEvent {
@@ -326,7 +326,6 @@ export class HttpHeaderResponse extends HttpResponseBase {
  * `HttpResponse` is a `HttpEvent` available on the response event
  * stream.
  *
- *
  * `HttpResponse` 是一个用于事件响应流的 `HttpEvent`。
  * @publicApi
  */
@@ -395,7 +394,6 @@ export class HttpResponse<T> extends HttpResponseBase {
  * the state of the HTTP layer when the error occurred. The error property
  * will contain either a wrapped Error object or the error response returned
  * from the server.
- *
  *
  * 任何从 `Observable` 响应流中返回的错误都会被包装成 `HttpErrorResponse` 对象，以便在发生错误时，提供关于 HTTP 层状态的额外上下文信息。
  * 该错误或者包含一个包装好的错误对象，或者包含一个从服务端返回的错误响应体。

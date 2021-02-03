@@ -7,7 +7,10 @@
  */
 
 /**
- * @description Represents the version of Angular
+ * @description
+ * Represents the version of Angular
+ *
+ * 表示 Angular 的版本
  *
  * @publicApi
  */

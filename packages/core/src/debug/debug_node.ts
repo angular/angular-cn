@@ -776,6 +776,8 @@ export function removeDebugNodeFromIndex(node: DebugNode) {
  * A boolean-valued function over a value, possibly including context information
  * regarding that value's position in an array.
  *
+ * 根据参数值返回布尔值的函数，可能包括该值在数组中位置的上下文信息。
+ *
  * @publicApi
  */
 export interface Predicate<T> {

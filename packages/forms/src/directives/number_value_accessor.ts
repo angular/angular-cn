@@ -22,11 +22,17 @@ export const NUMBER_VALUE_ACCESSOR: any = {
  * The value accessor is used by the `FormControlDirective`, `FormControlName`, and `NgModel`
  * directives.
  *
+ * 用于写入数字值和监听数字输入框更改的 `ControlValueAccessor`。这个值访问器由 `FormControlDirective`、`FormControlName` 和 `NgModel` 指令使用。
+ *
  * @usageNotes
  *
  * ### Using a number input with a reactive form.
  *
+ * ### 将数字输入框与响应式表单一起使用。
+ *
  * The following example shows how to use a number input with a reactive form.
+ *
+ * 下面的示例演示了如何将数字输入框与响应式表单一起使用。
  *
  * ```ts
  * const totalCountControl = new FormControl();
@@ -50,12 +56,18 @@ export class NumberValueAccessor implements ControlValueAccessor {
   /**
    * The registered callback function called when a change or input event occurs on the input
    * element.
+   *
+   * 在此 input 元素上发生 change 或 input 事件时要调用的已注册回调函数。
+   *
    * @nodoc
    */
   onChange = (_: any) => {};
 
   /**
    * The registered callback function called when a blur event occurs on the input element.
+   *
+   * 当此 input 元素上发生 blur 事件时，调用已注册的回调函数。
+   *
    * @nodoc
    */
   onTouched = () => {};
@@ -64,6 +76,9 @@ export class NumberValueAccessor implements ControlValueAccessor {
 
   /**
    * Sets the "value" property on the input element.
+   *
+   * 在此 input 元素上设置 “value” 属性。
+   *
    * @nodoc
    */
   writeValue(value: number): void {
@@ -74,6 +89,9 @@ export class NumberValueAccessor implements ControlValueAccessor {
 
   /**
    * Registers a function called when the control value changes.
+   *
+   * 注册控件值更改时要调用的函数。
+   *
    * @nodoc
    */
   registerOnChange(fn: (_: number|null) => void): void {
@@ -84,6 +102,9 @@ export class NumberValueAccessor implements ControlValueAccessor {
 
   /**
    * Registers a function called when the control is touched.
+   *
+   * 注册控件被接触过时要调用的函数。
+   *
    * @nodoc
    */
   registerOnTouched(fn: () => void): void {
@@ -92,6 +113,9 @@ export class NumberValueAccessor implements ControlValueAccessor {
 
   /**
    * Sets the "disabled" property on the input element.
+   *
+   * 在此 input 元素上设置 “disabled” 属性。
+   *
    * @nodoc
    */
   setDisabledState(isDisabled: boolean): void {

@@ -15,9 +15,7 @@ import {invalidPipeArgumentError} from './invalid_pipe_argument_error';
 
 /**
  * @ngModule CommonModule
- * @description
- *
- * Transforms a number into a string,
+ * @description Transforms a number into a string,
  * formatted according to locale rules that determine group sizing and
  * separator, decimal-point character, and other locale-specific
  * configurations.
@@ -27,13 +25,13 @@ import {invalidPipeArgumentError} from './invalid_pipe_argument_error';
  *
  * If no parameters are specified, the function rounds off to the nearest value using this
  * [rounding method](https://en.wikibooks.org/wiki/Arithmetic/Rounding).
- * The behavior differs from that of the JavaScript ```Math.round()``` function.
+ * The behavior differs from that of the JavaScript `Math.round()` function.
  * In the following case for example, the pipe rounds down where
- * ```Math.round()``` rounds up:
+ * `Math.round()` rounds up:
  *
  * 如果没有指定参数，则该函数会使用这个[舍入方法](https://en.wikibooks.org/wiki/Arithmetic/Rounding)。
- * 但其行为与 JavaScript 的 ```Math.round()``` 函数不同。
- * 下面的例子展示了管道与 ```Math.round()``` 的对比：
+ * 但其行为与 JavaScript 的 `Math.round()` 函数不同。
+ * 下面的例子展示了管道与 `Math.round()` 的对比：
  *
  * ```html
  * -2.5 | number:'1.0-0'
@@ -41,9 +39,7 @@ import {invalidPipeArgumentError} from './invalid_pipe_argument_error';
  * Math.round(-2.5)
  * > -2
  * ```
- *
  * @see `formatNumber()`
- *
  * @usageNotes
  * The following code shows how the pipe transforms numbers
  * into text strings, according to various format specifications,
@@ -56,7 +52,6 @@ import {invalidPipeArgumentError} from './invalid_pipe_argument_error';
  * ### 例子
  *
  * <code-example path="common/pipes/ts/number_pipe.ts" region='NumberPipe'></code-example>
- *
  * @publicApi
  */
 @Pipe({name: 'number'})
@@ -67,7 +62,6 @@ export class DecimalPipe implements PipeTransform {
    * @param value The number to be formatted.
    *
    * 要格式化的数字。
-   *
    * @param digitsInfo Decimal representation options, specified by a string
    * in the following format:<br>
    * <code>{minIntegerDigits}.{minFractionDigits}-{maxFractionDigits}</code>.
@@ -75,21 +69,26 @@ export class DecimalPipe implements PipeTransform {
    * 数字展现的选项，通过如下格式的字符串指定：<br>
    * <code>{minIntegerDigits}.{minFractionDigits}-{maxFractionDigits}</code>。
    *
-   *   - `minIntegerDigits`: The minimum number of integer digits before the decimal point.
-   * Default is `1`.
+   * - `minIntegerDigits`: The minimum number of integer digits before the decimal point.
+   *   Default is `1`.
    *
-   *     `minIntegerDigits`：在小数点前的最小位数。默认为 `1`。
+   *   ```
+   *   `minIntegerDigits`：在小数点前的最小位数。默认为 `1`。
+   *   ```
    *
-   *   - `minFractionDigits`: The minimum number of digits after the decimal point.
-   * Default is `0`.
+   * - `minFractionDigits`: The minimum number of digits after the decimal point.
+   *   Default is `0`.
    *
-   *     `minFractionDigits`：小数点后的最小位数。默认为 `0`。
+   *   ```
+   *   `minFractionDigits`：小数点后的最小位数。默认为 `0`。
+   *   ```
    *
-   *   - `maxFractionDigits`: The maximum number of digits after the decimal point.
-   * Default is `3`.
+   * - `maxFractionDigits`: The maximum number of digits after the decimal point.
+   *   Default is `3`.
    *
-   *     `maxFractionDigits`：小数点后的最大为数，默认为 `3`。
-   *
+   *   ```
+   *   `maxFractionDigits`：小数点后的最大为数，默认为 `3`。
+   *   ```
    * @param locale A locale code for the locale format rules to use.
    * When not supplied, uses the value of `LOCALE_ID`, which is `en-US` by default.
    * See [Setting your app locale](guide/i18n#setting-up-the-locale-of-your-app).
@@ -151,7 +150,6 @@ export class PercentPipe implements PipeTransform {
    * @param value The number to be formatted as a percentage.
    *
    * 要格式化为百分比的数字。
-   *
    * @param digitsInfo Decimal representation options, specified by a string
    * in the following format:<br>
    * <code>{minIntegerDigits}.{minFractionDigits}-{maxFractionDigits}</code>.
@@ -159,22 +157,26 @@ export class PercentPipe implements PipeTransform {
    * 数字展现的选项，通过如下格式的字符串指定：<br>
    * <code>{minIntegerDigits}.{minFractionDigits}-{maxFractionDigits}</code>。
    *
+   * - `minIntegerDigits`: The minimum number of integer digits before the decimal point.
+   *   Default is `1`.
    *
-   *   - `minIntegerDigits`: The minimum number of integer digits before the decimal point.
-   * Default is `1`.
+   *   ```
+   *   `minIntegerDigits`：在小数点前的最小位数。默认为 `1`。
+   *   ```
    *
-   *     `minIntegerDigits`：在小数点前的最小位数。默认为 `1`。
+   * - `minFractionDigits`: The minimum number of digits after the decimal point.
+   *   Default is `0`.
    *
-   *   - `minFractionDigits`: The minimum number of digits after the decimal point.
-   * Default is `0`.
+   *   ```
+   *   `minFractionDigits`：小数点后的最小位数。默认为 `0`。
+   *   ```
    *
-   *     `minFractionDigits`：小数点后的最小位数。默认为 `0`。
+   * - `maxFractionDigits`: The maximum number of digits after the decimal point.
+   *   Default is `0`.
    *
-   *   - `maxFractionDigits`: The maximum number of digits after the decimal point.
-   * Default is `0`.
-   *
-   *     `maxFractionDigits`：小数点后的最大为数，默认为 `3`。
-   *
+   *   ```
+   *   `maxFractionDigits`：小数点后的最大为数，默认为 `3`。
+   *   ```
    * @param locale A locale code for the locale format rules to use.
    * When not supplied, uses the value of `LOCALE_ID`, which is `en-US` by default.
    * See [Setting your app locale](guide/i18n#setting-up-the-locale-of-your-app).
@@ -256,43 +258,40 @@ export class CurrencyPipe implements PipeTransform {
    * @param value The number to be formatted as currency.
    *
    * 要格式化为货币的数字。
-   *
    * @param currencyCode The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) currency code,
    * such as `USD` for the US dollar and `EUR` for the euro. The default currency code can be
    * configured using the `DEFAULT_CURRENCY_CODE` injection token.
    *
    * [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) 中的货币代码，比如 `USD` 表示美元，`EUR` 表示欧元。可以用 `DEFAULT_CURRENCY_CODE` 这个注入令牌来配置默认货币代码。
-   *
    * @param display The format for the currency indicator. One of the following:
    *
    * 货币指示器的格式，有效值包括：
    *
-   *   - `code`: Show the code (such as `USD`).
+   * - `code`: Show the code (such as `USD`).
    *
-   *     `code`: 展示货币代码（如 `USD`）。
+   *   `code`: 展示货币代码（如 `USD`）。
    *
-   *   - `symbol`(default): Show the symbol (such as `$`).
+   * - `symbol`(default): Show the symbol (such as `$`).
    *
-   *     `symbol`(default): 展示货币符号（如 `$`）
+   *   `symbol`(default): 展示货币符号（如 `$`）
    *
-   *   - `symbol-narrow`: Use the narrow symbol for locales that have two symbols for their
-   * currency.
-   * For example, the Canadian dollar CAD has the symbol `CA$` and the symbol-narrow `$`. If the
-   * locale has no narrow symbol, uses the standard symbol for the locale.
+   * - `symbol-narrow`: Use the narrow symbol for locales that have two symbols for their
+   *   currency.
+   *   For example, the Canadian dollar CAD has the symbol `CA$` and the symbol-narrow `$`. If the
+   *   locale has no narrow symbol, uses the standard symbol for the locale.
    *
-   *     `symbol-narrow`: 使用区域的窄化符号，它包括两个符号。
-   *     比如，加拿大元的符号是 `CA$`，而其窄化符号是 `$`。如果该区域没有窄化符号，则使用它的标准符号。
+   *   `symbol-narrow`: 使用区域的窄化符号，它包括两个符号。
+   *   比如，加拿大元的符号是 `CA$`，而其窄化符号是 `$`。如果该区域没有窄化符号，则使用它的标准符号。
    *
-   *   - String: Use the given string value instead of a code or a symbol.
-   * For example, an empty string will suppress the currency & symbol.
+   * - String: Use the given string value instead of a code or a symbol.
+   *   For example, an empty string will suppress the currency & symbol.
    *
-   *     String: 使用指定的字符串值代替货币代码或符号。
-   *     比如，空字符串将会去掉货币代码或符号。
+   *   String: 使用指定的字符串值代替货币代码或符号。
+   *   比如，空字符串将会去掉货币代码或符号。
    *
-   *   - Boolean (marked deprecated in v5): `true` for symbol and false for `code`.
+   * - Boolean (marked deprecated in v5): `true` for symbol and false for `code`.
    *
-   *     Boolean（从 v5 开始已弃用）：`true` 表示货币符号，`false` 表示货币代码。
-   *
+   *   Boolean（从 v5 开始已弃用）：`true` 表示货币符号，`false` 表示货币代码。
    * @param digitsInfo Decimal representation options, specified by a string
    * in the following format:<br>
    * <code>{minIntegerDigits}.{minFractionDigits}-{maxFractionDigits}</code>.
@@ -300,26 +299,29 @@ export class CurrencyPipe implements PipeTransform {
    * 数字展现的选项，通过如下格式的字符串指定：<br>
    * <code>{minIntegerDigits}.{minFractionDigits}-{maxFractionDigits}</code>。
    *
+   * - `minIntegerDigits`: The minimum number of integer digits before the decimal point.
+   *   Default is `1`.
    *
-   *   - `minIntegerDigits`: The minimum number of integer digits before the decimal point.
-   * Default is `1`.
+   *   ```
+   *   `minIntegerDigits`：在小数点前的最小位数。默认为 `1`。
+   *   ```
    *
-   *     `minIntegerDigits`：在小数点前的最小位数。默认为 `1`。
+   * - `minFractionDigits`: The minimum number of digits after the decimal point.
+   *   Default is `2`.
    *
-   *   - `minFractionDigits`: The minimum number of digits after the decimal point.
-   * Default is `2`.
+   *   ```
+   *   `minFractionDigits`：小数点后的最小位数。默认为 `0`。
+   *   ```
    *
-   *     `minFractionDigits`：小数点后的最小位数。默认为 `0`。
+   * - `maxFractionDigits`: The maximum number of digits after the decimal point.
+   *   Default is `2`.
+   *   If not provided, the number will be formatted with the proper amount of digits,
+   *   depending on what the [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) specifies.
+   *   For example, the Canadian dollar has 2 digits, whereas the Chilean peso has none.
    *
-   *   - `maxFractionDigits`: The maximum number of digits after the decimal point.
-   * Default is `2`.
-   * If not provided, the number will be formatted with the proper amount of digits,
-   * depending on what the [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) specifies.
-   * For example, the Canadian dollar has 2 digits, whereas the Chilean peso has none.
-   *
-   *     `maxFractionDigits`：小数点后的最大为数，默认为 `3`。
-   *     如果没有提供，该数字就会根据 [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) 规范进行适当的格式化。
-   *     比如，加拿大元具有 2 位数字，而智利比索则没有。
+   *   `maxFractionDigits`：小数点后的最大为数，默认为 `3`。
+   *   如果没有提供，该数字就会根据 [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) 规范进行适当的格式化。
+   *   比如，加拿大元具有 2 位数字，而智利比索则没有。
    *
    * @param locale A locale code for the locale format rules to use.
    * When not supplied, uses the value of `LOCALE_ID`, which is `en-US` by default.

@@ -57,20 +57,22 @@ export const ngControlStatusHost = {
  * Directive automatically applied to Angular form controls that sets CSS classes
  * based on control status.
  *
- * @usageNotes
+ * 指令自动应用于 Angular 表单控件，该控件会根据控件状态设置 CSS 类。
+ * @usageNotes ### CSS classes applied
  *
- * ### CSS classes applied
+ * ### 应用的 CSS 类
  *
  * The following classes are applied as the properties become true:
  *
- * * ng-valid
- * * ng-invalid
- * * ng-pending
- * * ng-pristine
- * * ng-dirty
- * * ng-untouched
- * * ng-touched
+ * 当这些属性变为 true 时，将应用以下类：
  *
+ * - ng-valid
+ * - ng-invalid
+ * - ng-pending
+ * - ng-pristine
+ * - ng-dirty
+ * - ng-untouched
+ * - ng-touched
  * @ngModule ReactiveFormsModule
  * @ngModule FormsModule
  * @publicApi
@@ -86,6 +88,8 @@ export class NgControlStatus extends AbstractControlStatus {
  * @description
  * Directive automatically applied to Angular form groups that sets CSS classes
  * based on control status (valid/invalid/dirty/etc).
+ *
+ * 该指令自动应用于 Angular 表单组，基于控件的状态（有效、无效、脏等）设置 CSS 类。
  *
  * @see `NgControlStatus`
  *

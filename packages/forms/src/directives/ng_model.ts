@@ -208,6 +208,9 @@ export class NgModel extends NgControl implements OnChanges, OnDestroy {
 
   /**
    * Internal reference to the view model value.
+   *
+   * 对视图模型值的内部引用。
+   *
    * @nodoc
    */
   viewModel: any;
@@ -216,6 +219,9 @@ export class NgModel extends NgControl implements OnChanges, OnDestroy {
    * @description
    * Tracks the name bound to the directive. If a parent form exists, it
    * uses this name as a key to retrieve this control's value.
+   *
+   * 跟踪绑定到指令的名称。如果存在父表单，它将使用此名称作为键名来检索此控件的值。
+   *
    */
   // TODO(issue/24571): remove '!'.
   @Input() name!: string;
@@ -223,6 +229,9 @@ export class NgModel extends NgControl implements OnChanges, OnDestroy {
   /**
    * @description
    * Tracks whether the control is disabled.
+   *
+   * 跟踪控件是否被禁用。
+   *
    */
   // TODO(issue/24571): remove '!'.
   @Input('disabled') isDisabled!: boolean;
@@ -230,12 +239,14 @@ export class NgModel extends NgControl implements OnChanges, OnDestroy {
   /**
    * @description
    * Tracks the value bound to this directive.
+   *
+   * 跟踪与此指令绑定的值。
+   *
    */
   @Input('ngModel') model: any;
 
   /**
-   * @description
-   * Tracks the configuration options for this `ngModel` instance.
+   * @description Tracks the configuration options for this `ngModel` instance.
    *
    * 跟踪该 `ngModel` 实例的配置项。
    *
@@ -252,10 +263,9 @@ export class NgModel extends NgControl implements OnChanges, OnDestroy {
    * **standalone**：如果为 true，则此 `ngModel` 不会把自己注册进它的父表单中，其行为就像没在表单中一样。默认为 false。
    *
    * **updateOn**: Defines the event upon which the form control value and validity update.
-   * Defaults to 'change'. Possible values: `'change'` | `'blur'` | `'submit'`.
+   * Defaults to 'change'. Possible values: `'change'` \| `'blur'` \| `'submit'`.
    *
-   * **updateOn**: 用来定义该何时更新表单控件的值和有效性。默认为 `'change'`。可能的取值为：`'change'` | `'blur'` | `'submit'`。
-   *
+   * **updateOn**: 用来定义该何时更新表单控件的值和有效性。默认为 `'change'`。可能的取值为：`'change'` \| `'blur'` \| `'submit'`。
    */
   // TODO(issue/24571): remove '!'.
   @Input('ngModelOptions') options!: {name?: string, standalone?: boolean, updateOn?: FormHooks};
@@ -264,6 +274,9 @@ export class NgModel extends NgControl implements OnChanges, OnDestroy {
    * @description
    * Event emitter for producing the `ngModelChange` event after
    * the view model updates.
+   *
+   * 更新视图模型后，`ngModelChange` 的事件发射器。
+   *
    */
   @Output('ngModelChange') update = new EventEmitter();
 
@@ -303,6 +316,9 @@ export class NgModel extends NgControl implements OnChanges, OnDestroy {
    * @description
    * Returns an array that represents the path from the top-level form to this control.
    * Each index is the string name of the control on that level.
+   *
+   * 返回一个数组，该数组表示从顶级表单到此控件的路径。每个索引是该级别上控件的字符串名称。
+   *
    */
   get path(): string[] {
     return this._parent ? controlPath(this.name, this._parent) : [this.name];
@@ -311,6 +327,9 @@ export class NgModel extends NgControl implements OnChanges, OnDestroy {
   /**
    * @description
    * The top-level directive for this control if present, otherwise null.
+   *
+   * 此控件的顶级指令（如果存在），否则为 null。
+   *
    */
   get formDirective(): any {
     return this._parent ? this._parent.formDirective : null;
@@ -320,7 +339,12 @@ export class NgModel extends NgControl implements OnChanges, OnDestroy {
    * @description
    * Sets the new value for the view model and emits an `ngModelChange` event.
    *
+   * 设置视图模型的新值并发出 `ngModelChange` 事件。
+   *
    * @param newValue The new value emitted by `ngModelChange`.
+   *
+   * `ngModelChange` 发出的新值。
+   *
    */
   viewToModelUpdate(newValue: any): void {
     this.viewModel = newValue;

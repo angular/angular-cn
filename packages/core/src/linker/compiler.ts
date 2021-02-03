@@ -25,6 +25,8 @@ import {NgModuleFactory} from './ng_module_factory';
 /**
  * Combination of NgModuleFactory and ComponentFactorys.
  *
+ * NgModuleFactory 和一些 ComponentFactory 的组合。
+ *
  * @publicApi
  */
 export class ModuleWithComponentFactories<T> {
@@ -88,9 +90,13 @@ const Compiler_compileModuleAndAllComponentsAsync =
  * to create {@link ComponentFactory}s, which
  * can later be used to create and render a Component instance.
  *
+ * 本底层服务用于供 Angular 编译器在运行期间创建 {@link ComponentFactory}，该工厂以后可用于创建和渲染组件实例。
+ *
  * Each `@NgModule` provides an own `Compiler` to its injector,
  * that will use the directives/pipes of the ng module for compilation
  * of components.
+ *
+ * 每个 `@NgModule` 为其注入器提供一个自己的编译器，它将使用此 NgModule 的指令/管道来编译组件。
  *
  * @publicApi
  */
@@ -99,39 +105,60 @@ export class Compiler {
   /**
    * Compiles the given NgModule and all of its components. All templates of the components listed
    * in `entryComponents` have to be inlined.
+   *
+   * 编译给定的 NgModule 及其所有组件。必须内联 `entryComponents` 列出的组件的所有模板。
+   *
    */
   compileModuleSync: <T>(moduleType: Type<T>) => NgModuleFactory<T> = Compiler_compileModuleSync;
 
   /**
    * Compiles the given NgModule and all of its components
+   *
+   * 编译给定的 NgModule 及其所有组件
+   *
    */
   compileModuleAsync:
       <T>(moduleType: Type<T>) => Promise<NgModuleFactory<T>> = Compiler_compileModuleAsync;
 
   /**
    * Same as {@link #compileModuleSync} but also creates ComponentFactories for all components.
+   *
+   * 与 {@link #compileModuleSync} 相同，但还会为所有组件创建 ComponentFactory。
+   *
    */
   compileModuleAndAllComponentsSync: <T>(moduleType: Type<T>) => ModuleWithComponentFactories<T> =
       Compiler_compileModuleAndAllComponentsSync;
 
   /**
    * Same as {@link #compileModuleAsync} but also creates ComponentFactories for all components.
+   *
+   * 与 {@link #compileModuleAsync} 相同，但还会为所有组件创建 ComponentFactory。
+   *
    */
   compileModuleAndAllComponentsAsync: <T>(moduleType: Type<T>) =>
       Promise<ModuleWithComponentFactories<T>> = Compiler_compileModuleAndAllComponentsAsync;
 
   /**
    * Clears all caches.
+   *
+   * 清除所有缓存。
+   *
    */
   clearCache(): void {}
 
   /**
    * Clears the cache for the given component/ngModule.
+   *
+   * 清除给定组件/ngModule 的缓存。
+   *
    */
   clearCacheFor(type: Type<any>) {}
 
   /**
    * Returns the id for a given NgModule, if one is defined and known to the compiler.
+   *
+   * 返回给定 NgModule 的 ID（如果已定义且对编译器已知）。
+   *
    */
   getModuleId(moduleType: Type<any>): string|undefined {
     return undefined;
@@ -140,6 +167,8 @@ export class Compiler {
 
 /**
  * Options for creating a compiler
+ *
+ * 用于创建编译器的选项
  *
  * @publicApi
  */
@@ -154,12 +183,16 @@ export type CompilerOptions = {
 /**
  * Token to provide CompilerOptions in the platform injector.
  *
+ * 在平台注入器中提供 CompilerOptions 的令牌。
+ *
  * @publicApi
  */
 export const COMPILER_OPTIONS = new InjectionToken<CompilerOptions[]>('compilerOptions');
 
 /**
  * A factory for creating a Compiler
+ *
+ * 用于创建编译器的工厂
  *
  * @publicApi
  */

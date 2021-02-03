@@ -23,18 +23,18 @@ const SWITCH_CHANGE_DETECTOR_REF_FACTORY: typeof injectChangeDetectorRef =
  * Base class that provides change detection functionality.
  * A change-detection tree collects all views that are to be checked for changes.
  * Use the methods to add and remove views from the tree, initiate change-detection,
- * and explicitly mark views as _dirty_, meaning that they have changed and need to be re-rendered.
- *
- * @see [Using change detection hooks](guide/lifecycle-hooks#using-change-detection-hooks)
- * @see [Defining custom change detection](guide/lifecycle-hooks#defining-custom-change-detection)
+ * and explicitly mark views as *dirty*, meaning that they have changed and need to be re-rendered.
  *
  * Angular 各种视图的基础类，提供变更检测功能。
  * 变更检测树会收集要检查的所有视图。
  * 使用这些方法从树中添加或移除视图、初始化变更检测并显式地把这些视图标记为*脏的*，意思是它们变了、需要重新渲染。
+ * @see [Using change detection hooks](guide/lifecycle-hooks#using-change-detection-hooks)
  *
- * @usageNotes
+ * [使用变更检测钩子](guide/lifecycle-hooks#using-change-detection-hooks)
+ * @see [Defining custom change detection](guide/lifecycle-hooks#defining-custom-change-detection)
  *
- * The following examples demonstrate how to modify default change-detection behavior
+ * [定义自定义变更检测](guide/lifecycle-hooks#defining-custom-change-detection)
+ * @usageNotes The following examples demonstrate how to modify default change-detection behavior
  * to perform explicit detection when needed.
  *
  * 下面的例子演示了如何修改默认的变更检测行为，以便在需要时执行显式变更检测。
@@ -69,7 +69,6 @@ const SWITCH_CHANGE_DETECTOR_REF_FACTORY: typeof injectChangeDetectorRef =
  *
  * <code-example path="core/ts/change_detect/change-detection.ts" region="detach"></code-example>
  *
- *
  * ### Reattaching a detached component
  *
  * ### 重新附加一个已分离的组件
@@ -83,7 +82,6 @@ const SWITCH_CHANGE_DETECTOR_REF_FACTORY: typeof injectChangeDetectorRef =
  * 当 `live` 属性为 `false` 时，该组件就把它的变更检测器从主变更检测器树中分离出来，当该属性变为 `true` 时，则重新附加上它。
  *
  * <code-example path="core/ts/change_detect/change-detection.ts" region="reattach"></code-example>
- *
  * @publicApi
  */
 export abstract class ChangeDetectorRef {
@@ -120,8 +118,8 @@ export abstract class ChangeDetectorRef {
    * 即使已分离的视图已标记为脏的，它们在重新附加上去之前也不会被检查。
    *
    * <!-- TODO: Add a link to a chapter on detach/reattach/local digest -->
-   * <!-- TODO: Add a live demo once ref.detectChanges is merged into master -->
    *
+   * <!-- TODO: Add a live demo once ref.detectChanges is merged into master -->
    */
   abstract detach(): void;
 
@@ -133,8 +131,8 @@ export abstract class ChangeDetectorRef {
    * 检查该视图及其子视图。与 {@link ChangeDetectorRef#detach detach} 结合使用可以实现局部变更检测。
    *
    * <!-- TODO: Add a link to a chapter on detach/reattach/local digest -->
-   * <!-- TODO: Add a live demo once ref.detectChanges is merged into master -->
    *
+   * <!-- TODO: Add a live demo once ref.detectChanges is merged into master -->
    */
   abstract detectChanges(): void;
 
@@ -170,6 +168,8 @@ export abstract class ChangeDetectorRef {
 
   /**
    * This marker is need so that the JIT compiler can correctly identify this class as special.
+   *
+   * 使用此标记，以便 JIT 编译器可以正确地将此类标识为特殊类。
    *
    * @internal
    * @nocollapse

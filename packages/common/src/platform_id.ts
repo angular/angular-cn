@@ -13,6 +13,9 @@ export const PLATFORM_WORKER_UI_ID = 'browserWorkerUi';
 
 /**
  * Returns whether a platform id represents a browser platform.
+ *
+ * 返回平台 ID 是否代表浏览器平台。
+ *
  * @publicApi
  */
 export function isPlatformBrowser(platformId: Object): boolean {
@@ -21,6 +24,9 @@ export function isPlatformBrowser(platformId: Object): boolean {
 
 /**
  * Returns whether a platform id represents a server platform.
+ *
+ * 返回平台 ID 是否代表服务器平台。
+ *
  * @publicApi
  */
 export function isPlatformServer(platformId: Object): boolean {
@@ -29,6 +35,9 @@ export function isPlatformServer(platformId: Object): boolean {
 
 /**
  * Returns whether a platform id represents a web worker app platform.
+ *
+ * 返回平台 ID 是否代表 Web Worker 应用平台。
+ *
  * @publicApi
  */
 export function isPlatformWorkerApp(platformId: Object): boolean {
@@ -37,6 +46,9 @@ export function isPlatformWorkerApp(platformId: Object): boolean {
 
 /**
  * Returns whether a platform id represents a web worker UI platform.
+ *
+ * 返回平台 ID 是否代表 Web Worker UI 平台。
+ *
  * @publicApi
  */
 export function isPlatformWorkerUi(platformId: Object): boolean {

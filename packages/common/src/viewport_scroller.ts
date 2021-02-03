@@ -15,6 +15,8 @@ import {DOCUMENT} from './dom_tokens';
 /**
  * Defines a scroll position manager. Implemented by `BrowserViewportScroller`.
  *
+ * 定义滚动位置管理器。由 `BrowserViewportScroller` 实现。
+ *
  * @publicApi
  */
 export abstract class ViewportScroller {
@@ -29,27 +31,50 @@ export abstract class ViewportScroller {
 
   /**
    * Configures the top offset used when scrolling to an anchor.
+   *
+   * 配置滚动到锚点时使用的顶部偏移量。
+   *
    * @param offset A position in screen coordinates (a tuple with x and y values)
    * or a function that returns the top offset position.
+   *
+   * 屏幕坐标中的位置（具有 x 和 y 值的元组）或返回顶部偏移位置的函数。
    *
    */
   abstract setOffset(offset: [number, number]|(() => [number, number])): void;
 
   /**
    * Retrieves the current scroll position.
+   *
+   * 检索当前滚动位置。
+   *
    * @returns A position in screen coordinates (a tuple with x and y values).
+   *
+   * 屏幕坐标中的位置（具有 x 和 y 值的元组）。
+   *
    */
   abstract getScrollPosition(): [number, number];
 
   /**
    * Scrolls to a specified position.
+   *
+   * 滚动到指定位置。
+   *
    * @param position A position in screen coordinates (a tuple with x and y values).
+   *
+   * 屏幕坐标中的位置（具有 x 和 y 值的元组）。
+   *
    */
   abstract scrollToPosition(position: [number, number]): void;
 
   /**
    * Scrolls to an anchor element.
+   *
+   * 滚动到锚点元素。
+   *
    * @param anchor The ID of the anchor element.
+   *
+   * 锚点元素的 ID。
+   *
    */
   abstract scrollToAnchor(anchor: string): void;
 
@@ -57,6 +82,9 @@ export abstract class ViewportScroller {
    * Disables automatic scroll restoration provided by the browser.
    * See also [window.history.scrollRestoration
    * info](https://developers.google.com/web/updates/2015/09/history-api-scroll-restoration).
+   *
+   * 禁用浏览器提供的自动滚动恢复功能。另请参见 [window.history.scrollRestoration 信息](https://developers.google.com/web/updates/2015/09/history-api-scroll-restoration)。
+   *
    */
   abstract setHistoryScrollRestoration(scrollRestoration: 'auto'|'manual'): void;
 }

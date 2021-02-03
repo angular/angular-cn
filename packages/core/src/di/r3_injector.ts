@@ -75,6 +75,8 @@ interface Record<T> {
 /**
  * Create a new `Injector` which is configured using a `defType` of `InjectorType<any>`s.
  *
+ * 创建一个新的 `Injector`， 它是使用 `InjectorType<any>` 的 `defType` 配置的。
+ *
  * @publicApi
  */
 export function createInjector(

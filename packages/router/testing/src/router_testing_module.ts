@@ -14,16 +14,16 @@ import {ChildrenOutletContexts, ExtraOptions, NoPreloading, PreloadingStrategy, 
 
 
 /**
- * @description
+ * @description Allows to simulate the loading of ng modules in tests.
  *
- * Allows to simulate the loading of ng modules in tests.
+ * 允许模拟测试中 ng 模块的加载。
  *
  * ```
  * const loader = TestBed.inject(NgModuleFactoryLoader);
- *
- * @Component({template: 'lazy-loaded'})
+ * ```
+ * @Component ({template: 'lazy-loaded'})
  * class LazyLoadedComponent {}
- * @NgModule({
+ * @NgModule ({
  *   declarations: [LazyLoadedComponent],
  *   imports: [RouterModule.forChild([{path: 'loaded', component: LazyLoadedComponent}])]
  * })
@@ -39,7 +39,6 @@ import {ChildrenOutletContexts, ExtraOptions, NoPreloading, PreloadingStrategy, 
  *
  * router.navigateByUrl('/lazy/loaded');
  * ```
- *
  * @publicApi
  */
 @Injectable()
@@ -88,6 +87,8 @@ function isUrlHandlingStrategy(opts: ExtraOptions|
 /**
  * Router setup factory function used for testing.
  *
+ * 用于测试的路由器设置工厂函数。
+ *
  * @publicApi
  */
 export function setupTestingRouter(
@@ -98,8 +99,13 @@ export function setupTestingRouter(
 /**
  * Router setup factory function used for testing.
  *
+ * 用于测试的路由器设置工厂函数。
+ *
  * @deprecated As of v5.2. The 2nd-to-last argument should be `ExtraOptions`, not
  * `UrlHandlingStrategy`
+ *
+ * 从 v5.2 开始。倒数第二个参数应该是 `ExtraOptions` ，而不是 `UrlHandlingStrategy`
+ *
  * @publicApi
  */
 export function setupTestingRouter(
@@ -109,6 +115,8 @@ export function setupTestingRouter(
 
 /**
  * Router setup factory function used for testing.
+ *
+ * 用于测试的路由器设置工厂函数。
  *
  * @publicApi
  */
@@ -139,12 +147,18 @@ export function setupTestingRouter(
  *
  * Sets up the router to be used for testing.
  *
+ * 设置要用于测试的路由器。
+ *
  * The modules sets up the router to be used for testing.
  * It provides spy implementations of `Location`, `LocationStrategy`, and {@link
  * NgModuleFactoryLoader}.
  *
+ * 这些模块会设置用于测试的路由器。它提供 `Location`、`LocationStrategy` 和 {@link NgModuleFactoryLoader} 的间谍实现。
+ *
  * @usageNotes
  * ### Example
+ *
+ * ### 例子
  *
  * ```
  * beforeEach(() => {

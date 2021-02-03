@@ -14,6 +14,8 @@ import {ApplicationRef} from '../application_ref';
  * Hook for manual bootstrapping of the application instead of using bootstrap array in @NgModule
  * annotation.
  *
+ * 挂钩以手动引导应用程序，而不是在 @NgModule 标记中的 bootstrap 数组。
+ *
  * Reference to the current application is provided as a parameter.
  *
  * See ["Bootstrapping"](guide/bootstrapping) and ["Entry components"](guide/entry-components).

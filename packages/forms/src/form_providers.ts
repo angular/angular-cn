@@ -16,10 +16,15 @@ import {FormBuilder} from './form_builder';
  * Exports the required providers and directives for template-driven forms,
  * making them available for import by NgModules that import this module.
  *
- * 导出模板驱动表单所需的提供商和指令，使其可用于导入了该模块的 NgModule 中。
+ * 导出模板驱动表单所需的提供者和指令，使其可用于导入了该模块的 NgModule 中。
  *
  * @see [Forms Overview](/guide/forms-overview)
+ *
+ * [表单总览](/guide/forms-overview)
+ *
  * @see [Template-driven Forms Guide](/guide/forms)
+ *
+ * [模板驱动表单指南](/guide/forms)
  *
  * @publicApi
  */
@@ -58,19 +63,22 @@ export class ReactiveFormsModule {
    * Provides options for configuring the reactive forms module.
    *
    * 提供了一些选项，供配置响应式表单模块。
-   *
    * @param opts An object of configuration options
    *
    * 一个配置选项对象
    *
-   * * `warnOnNgModelWithFormControl` Configures when to emit a warning when an `ngModel`
-   * binding is used with reactive form directives.
+   * - `warnOnNgModelWithFormControl` Configures when to emit a warning when an `ngModel`
+   *   binding is used with reactive form directives.
    *
-   *   `warnOnNgModelWithFormControl` 配置了当 `ngModel` 绑定与响应式表单指令一起使用时，发出警告的时机。
-   *
+   *     `warnOnNgModelWithFormControl` 配置了当 `ngModel` 绑定与响应式表单指令一起使用时，发出警告的时机。
    */
   static withConfig(opts: {
-    /** @deprecated as of v6 */ warnOnNgModelWithFormControl: 'never'|'once'|'always'
+    /**
+     * @deprecated as of v6
+     *
+     * 从 v6 开始
+     *
+     */ warnOnNgModelWithFormControl: 'never'|'once'|'always'
   }): ModuleWithProviders<ReactiveFormsModule> {
     return {
       ngModule: ReactiveFormsModule,
