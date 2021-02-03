@@ -269,7 +269,7 @@ You can declare component styles uses for its template in one of two ways: by re
 
 To declare the styles for a component in a separate file, add a `stylesUrls` property to the `@Component` decorator.
 
-要在单独的文件中声明组件的样式，就要把 `stylesUrls` 属性添加到 `@Component` 装饰器中。
+要在单独的文件中声明组件的样式，就要把 `styleUrls` 属性添加到 `@Component` 装饰器中。
 
 <code-example
     path="component-overview/src/app/component-overview/component-overview.component.ts"
