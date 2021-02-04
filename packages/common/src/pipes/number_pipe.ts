@@ -72,23 +72,18 @@ export class DecimalPipe implements PipeTransform {
    * - `minIntegerDigits`: The minimum number of integer digits before the decimal point.
    *   Default is `1`.
    *
-   *   ```
    *   `minIntegerDigits`：在小数点前的最小位数。默认为 `1`。
-   *   ```
    *
    * - `minFractionDigits`: The minimum number of digits after the decimal point.
    *   Default is `0`.
    *
-   *   ```
    *   `minFractionDigits`：小数点后的最小位数。默认为 `0`。
-   *   ```
    *
    * - `maxFractionDigits`: The maximum number of digits after the decimal point.
    *   Default is `3`.
    *
-   *   ```
    *   `maxFractionDigits`：小数点后的最大为数，默认为 `3`。
-   *   ```
+   *
    * @param locale A locale code for the locale format rules to use.
    * When not supplied, uses the value of `LOCALE_ID`, which is `en-US` by default.
    * See [Setting your app locale](guide/i18n#setting-up-the-locale-of-your-app).
@@ -160,23 +155,18 @@ export class PercentPipe implements PipeTransform {
    * - `minIntegerDigits`: The minimum number of integer digits before the decimal point.
    *   Default is `1`.
    *
-   *   ```
    *   `minIntegerDigits`：在小数点前的最小位数。默认为 `1`。
-   *   ```
    *
    * - `minFractionDigits`: The minimum number of digits after the decimal point.
    *   Default is `0`.
    *
-   *   ```
    *   `minFractionDigits`：小数点后的最小位数。默认为 `0`。
-   *   ```
    *
    * - `maxFractionDigits`: The maximum number of digits after the decimal point.
    *   Default is `0`.
    *
-   *   ```
    *   `maxFractionDigits`：小数点后的最大为数，默认为 `3`。
-   *   ```
+   *
    * @param locale A locale code for the locale format rules to use.
    * When not supplied, uses the value of `LOCALE_ID`, which is `en-US` by default.
    * See [Setting your app locale](guide/i18n#setting-up-the-locale-of-your-app).
@@ -302,16 +292,12 @@ export class CurrencyPipe implements PipeTransform {
    * - `minIntegerDigits`: The minimum number of integer digits before the decimal point.
    *   Default is `1`.
    *
-   *   ```
    *   `minIntegerDigits`：在小数点前的最小位数。默认为 `1`。
-   *   ```
    *
    * - `minFractionDigits`: The minimum number of digits after the decimal point.
    *   Default is `2`.
    *
-   *   ```
    *   `minFractionDigits`：小数点后的最小位数。默认为 `0`。
-   *   ```
    *
    * - `maxFractionDigits`: The maximum number of digits after the decimal point.
    *   Default is `2`.

@@ -255,6 +255,9 @@ export class HttpParams {
 
   /**
    * Retrieves all values for a  parameter.
+   *
+   * 检索某个参数的所有值。
+   *
    * @param param The parameter name.
    *
    * 参数名称。

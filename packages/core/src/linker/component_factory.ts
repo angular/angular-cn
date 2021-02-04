@@ -126,6 +126,9 @@ export abstract class ComponentFactory<C> {
   abstract get componentType(): Type<any>;
   /**
    * Selector for all <ng-content> elements in the component.
+   *
+   * 组件中所有 <ng-content> 元素的选择器。
+   *
    */
   abstract get ngContentSelectors(): string[];
   /**

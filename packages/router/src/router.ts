@@ -84,6 +84,8 @@ export interface UrlCreationOptions {
    * The following `go()` function navigates to the `list` route by
    * interpreting the destination URI as relative to the activated `child`  route
    *
+   * 下面的 `go()` 函数会把目标 URI 解释为相对于已激活路由 `child` 的，从而导航到 `list` 路由。
+   *
    * ```
    *
    * ```
@@ -340,6 +342,11 @@ export type RestoredState = {
  *   \-- 'imperative'--Triggered by `router.navigateByUrl` or `router.navigate`.
  *   \-- 'popstate'--Triggered by a popstate event.
  *   \-- 'hashchange'--Triggered by a hashchange event.
+ *
+ *   *trigger*：表明这次导航是如何触发的。
+ *   \-- 'imperative'-- 由 `router.navigateByUrl` 或 `router.navigate` 触发。
+ *   \-- 'popstate'-- 由 popstate 事件触发。
+ *   \-- 'hashchange'-- 由 hashchange 事件触发。
  *
  * - *extras* : A `NavigationExtras` options object that controlled the strategy used for this
  *   navigation.
@@ -1266,6 +1273,9 @@ export class Router {
    * segments, followed by the parameters for each segment.
    * The fragments are applied to the current URL tree or the one provided  in the `relativeTo`
    * property of the options object, if supplied.
+   *
+   * 一个 URL 段的数组，用于构造新的 URL 树。如果此路径是静态的，则可能是 URL 字符串字面量。对于动态路径，可以传入一个路径段的数组，后跟每个段的参数。这些段会应用到当前 URL 树上，或者在选项对象中的 `relativeTo` 属性上（如果有）。
+   *
    * @param navigationExtras Options that control the navigation strategy.
    *
    * 控制导航策略的选项。
@@ -1395,6 +1405,9 @@ export class Router {
    * segments, followed by the parameters for each segment.
    * The fragments are applied to the current URL or the one provided  in the `relativeTo` property
    * of the options object, if supplied.
+   *
+   * 一个 URL 段的数组，用于构造目标 URL 树。如果此路径是静态的，则可能是 URL 字符串字面量。对于动态路径，可以传入一个路径段的数组，后跟每个段的参数。这些段会应用到当前 URL，或者在选项对象中的 `relativeTo` 属性上（如果有）。
+   *
    * @param extras An options object that determines how the URL should be constructed or
    *     interpreted.
    *

@@ -22,6 +22,8 @@ export const RANGE_VALUE_ACCESSOR: StaticProvider = {
  * The value accessor is used by the `FormControlDirective`, `FormControlName`, and  `NgModel`
  * directives.
  *
+ * 此 `ControlValueAccessor` 用于写入范围输入器的值，并监听范围输入器的变化。它被 `FormControlDirective`、`FormControlName` 和 `NgModel` 使用。
+ *
  * @usageNotes
  *
  * ### Using a range input with a reactive form

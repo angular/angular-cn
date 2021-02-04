@@ -432,11 +432,7 @@ export interface ViewChildDecorator {
    * - A template reference variable as a string (e.g. query `<my-component #cmp></my-component>`
    *   with `@ViewChild('cmp')`)
    *
-   *   模板引用变量为字符串（例如，使用 `@ViewChild('cmp')` 来查询 `<my-component #cmp></my-component>`）
-   *
-   *   ```
    *   字符串形式的模板引用变量（比如可以使用 `@ViewChild('cmp')` 来查询 `<my-component #cmp></my-component>`
-   *   ```
    *
    * - Any provider defined in the child component tree of the current component (e.g.
    *   `@ViewChild(SomeService) someService: SomeService`)
@@ -446,7 +442,7 @@ export interface ViewChildDecorator {
    * - Any provider defined through a string token (e.g. `@ViewChild('someToken') someTokenVal:
    *   any`)
    *
-   *   任何通过字符串令牌定义的提供者（比如 `@ViewChild('someToken') someTokenVal:
+   *   任何通过字符串令牌定义的提供者（比如 \`@ViewChild('someToken') someTokenVal:
    *
    *   any\` ）
    *
@@ -454,16 +450,17 @@ export interface ViewChildDecorator {
    *   template;`)
    *
    *   `TemplateRef`（比如可以用 `@ViewChild(TemplateRef) template;` 来查询 `<ng-template></ng-template>`）
-   *
    * @usageNotes
    *
-   * {@example core/di/ts/viewChild/view_child_example.ts region='Component'}
+   * {
+   * @example core/di/ts/viewChild/view_child_example.ts region='Component'}
    *
    * ### Example 2
    *
    * ### 例子
    *
-   * {@example core/di/ts/viewChild/view_child_howto.ts region='HowTo'}
+   * {
+   * @example core/di/ts/viewChild/view_child_howto.ts region='HowTo'}
    * @Annotation
    */
   (selector: Type<any>|InjectionToken<unknown>|Function|string,

@@ -515,6 +515,8 @@ export interface Route {
    * matches a given  path, and stops when there is a match. For example,
    * '/team/11/user' matches 'team/:id'.
    *
+   * 默认情况下，路由器会从左边开始检查 URL 中的各个元素，以查看此 URL 是否匹配给定的路径，遇到任何一个匹配的，就停止。比如，'/team/11/user' 能匹配 'team/:id'。
+   *
    * The path-match strategy 'full' matches against the entire URL.
    * It is important to do this when redirecting empty-path routes.
    * Otherwise, because an empty path is a prefix of any URL,

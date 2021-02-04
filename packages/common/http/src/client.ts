@@ -1752,6 +1752,8 @@ export class HttpClient {
    * Constructs a `HEAD` request that interprets the body as an  `ArrayBuffer`
    *  and returns the full event stream.
    *
+   * 构造一个 `HEAD` 请求，它把请求体解释为 `ArrayBuffer`，并返回完整事件的流。
+   *
    * @param url     The endpoint URL.
    *
    * 端点 URL。

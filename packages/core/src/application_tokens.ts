@@ -21,6 +21,8 @@ import {ComponentRef} from './linker/component_factory';
  * To provide a custom ID value, use a DI provider <!-- TODO: provider --> to configure
  * the root {@link Injector} that uses this token.
  *
+ * 默认情况下，该值是随机生成的，并且由 Angular 赋值给此应用。要提供一个自定义的 ID 值，可以使用一个 DI 提供者，根 {@link Injector} 会使用此令牌。
+ *
  * @publicApi
  */
 export const APP_ID = new InjectionToken<string>('AppId');

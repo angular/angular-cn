@@ -88,6 +88,9 @@ export abstract class Injector {
       token: Type<T>|AbstractType<T>|InjectionToken<T>, notFoundValue?: T, flags?: InjectFlags): T;
   /**
    * @deprecated from v4.0.0 use Type<T>, AbstractType<T> or InjectionToken<T>
+   *
+   *   从 v4.0.0 开始，改用 Type<T>、AbstractType<T> 或 InjectionToken<T>
+   *
    * @suppress {duplicate}
    */
   abstract get(token: any, notFoundValue?: any): any;
