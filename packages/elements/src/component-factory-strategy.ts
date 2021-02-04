@@ -137,7 +137,7 @@ export class ComponentNgElementStrategy implements NgElementStrategy {
   /**
    * Service for setting zone context.
    *
-   * 用于设置 zone 上下文的服务。
+   * 用于设置 Zone 上下文的服务。
    *
    */
   private readonly ngZone = this.injector.get<NgZone>(NgZone);

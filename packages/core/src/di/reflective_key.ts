@@ -37,7 +37,7 @@ import {resolveForwardRef} from './forward_ref';
  * resolving
  * providers.
  *
- * `Key` 不应直接创建。{@link ReflectiveInjector} 在解析提供者时会自动创建密钥。
+ * `Key` 不应直接创建。{@link ReflectiveInjector} 在解析提供者时会自动创建键名。
  *
  * @deprecated No replacement
  *

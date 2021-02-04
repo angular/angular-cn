@@ -16,7 +16,7 @@ const fakeAsyncTestModuleNotLoadedErrorMessage =
  * Clears out the shared fake async zone for a test.
  * To be called in a global `beforeEach`.
  *
- * 清除共享的伪异步 zone 以进行测试。在全局 `beforeEach` 中调用。
+ * 清除共享的伪异步 Zone 以进行测试。在全局 `beforeEach` 中调用。
  *
  * @publicApi
  */
@@ -30,7 +30,7 @@ export function resetFakeAsyncZone(): void {
 /**
  * Wraps a function to be executed in the fakeAsync zone:
  *
- * 包装一个函数，以便在 fakeAsync zone 中执行：
+ * 包装一个函数，以便在 fakeAsync Zone 中执行：
  *
  * - microtasks are manually executed by calling `flushMicrotasks()`,
  *
@@ -56,7 +56,7 @@ export function resetFakeAsyncZone(): void {
  * @param fn
  * @returns The function wrapped to be executed in the fakeAsync zone
  *
- * 要包装为在 fakeAsync zone 中执行的函数
+ * 要包装为在 fakeAsync Zone 中执行的函数
  *
  * @publicApi
  */
@@ -138,7 +138,7 @@ export function tick(
  * draining the macrotask queue until it is empty. The returned value is the milliseconds
  * of time that would have been elapsed.
  *
- * 通过清空宏任务队列直到其为空，来为 fakeAsync zone 中的计时器模拟异步时间流逝。返回的值是本应经过的毫秒数。
+ * 通过清空宏任务队列直到其为空，来为 fakeAsync Zone 中的计时器模拟异步时间流逝。返回的值是本应经过的毫秒数。
  *
  * @param maxTurns
  * @returns The simulated time elapsed, in millis.

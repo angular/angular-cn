@@ -66,6 +66,8 @@ export const BROWSER_SANITIZATION_PROVIDERS = BROWSER_SANITIZATION_PROVIDERS__PR
  * A factory function that returns a `PlatformRef` instance associated with browser service
  * providers.
  *
+ * 一个工厂函数，它返回与浏览器服务提供者关联的 `PlatformRef`实例
+ *
  * @publicApi
  */
 export const platformBrowser: (extraProviders?: StaticProvider[]) => PlatformRef =

@@ -27,6 +27,8 @@ export function serializeTransferStateFactory(
  * NgModule to install on the server side while using the `TransferState` to transfer state from
  * server to client.
  *
+ * 要安装在服务端的 NgModule，它同时会使用 `TransferState` 将状态从服务器传输到客户端。
+ *
  * @publicApi
  */
 @NgModule({
