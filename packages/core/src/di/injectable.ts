@@ -49,6 +49,7 @@ export interface InjectableDecorator {
    * [依赖注入指南](guide/dependency-injection)
    *
    * @usageNotes
+   *
    * Marking a class with `@Injectable` ensures that the compiler
    * will generate the necessary metadata to create the class's
    * dependencies when the class is injected.

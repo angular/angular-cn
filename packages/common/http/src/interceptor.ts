@@ -66,6 +66,7 @@ export interface HttpInterceptor {
    * @param req The outgoing request object to handle.
    *
    * 要处理的传出请求对象。
+   *
    * @param next The next interceptor in the chain, or the backend
    * if no interceptors remain in the chain.
    *
@@ -96,6 +97,7 @@ export class HttpInterceptorHandler implements HttpHandler {
  * `HttpInterceptor` objects.
  *
  * 一个多重提供者（multi-provider）令牌，它代表所有已注册的 `HttpInterceptor` 构成的数组。
+ *
  * @publicApi
  */
 export const HTTP_INTERCEPTORS = new InjectionToken<HttpInterceptor[]>('HTTP_INTERCEPTORS');

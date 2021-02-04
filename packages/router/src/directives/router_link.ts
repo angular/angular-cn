@@ -53,6 +53,7 @@ import {UrlTree} from '../url_tree';
  * See {@link Router#createUrlTree createUrlTree} for more information.
  *
  * 你提供给链接的输入将被视为当前 URL 的增量。例如，假设当前 URL 是 `/user/(box//aux:team)`。则链接 `<a [routerLink]="['/user/jim']">Jim</a>` 会创建 URL `/user/(jim//aux:team)` 。欲知详情，请参见 {@link Router#createUrlTree createUrlTree}。
+ *
  * @usageNotes You can use absolute or relative paths in a link, set query parameters,
  * control how parameters are handled, and keep a history of navigation states.
  *

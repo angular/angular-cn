@@ -648,6 +648,7 @@ export abstract class AbstractControl {
    * @see `markAsPristine()`
    *
    * 把该控件标记为 `touched`。控件获得焦点并失去焦点不会修改这个值。与 `markAsDirty` 相对。
+   *
    * @param opts Configuration options that determine how the control propagates changes
    * and emits events after marking is applied.
    *
@@ -1087,7 +1088,10 @@ export abstract class AbstractControl {
    * control.
    *
    * 一个由点号（`.`）分隔的字符串或 "字符串/数字" 数组定义的控件路径。
-   * @usageNotes ### Retrieve a nested control
+   *
+   * @usageNotes
+   *
+   * ### Retrieve a nested control
    *
    * ### 获取嵌套的控件
    *
@@ -1123,6 +1127,7 @@ export abstract class AbstractControl {
    * 一个控件名列表，用于指定要如何从当前控件移动到要查询错误的那个控件。
    *
    * @usageNotes
+   *
    * For example, for the following `FormGroup`:
    *
    * 比如，对于下列 `FormGroup`：
@@ -1165,15 +1170,18 @@ export abstract class AbstractControl {
    * Reports whether the control with the given path has the error specified.
    *
    * 报告指定路径下的控件上是否有指定的错误。
+   *
    * @param errorCode The code of the error to check
    *
    * 要获取的数据的错误码
+   *
    * @param path A list of control names that designates how to move from the current control
    * to the control that should be queried for errors.
    *
    * 控件名称列表，用于指定如何从当前控件移至应查询错误的控件。
    *
    * @usageNotes
+   *
    * For example, for the following `FormGroup`:
    *
    * 例如，对于以下 `FormGroup` ：
@@ -1363,7 +1371,9 @@ export abstract class AbstractControl {
  * @see [Usage Notes](#usage-notes)
  *
  * [注意事项](#usage-notes)
- * @usageNotes ### Initializing Form Controls
+ * @usageNotes
+ *
+ * ### Initializing Form Controls
  *
  * ### 初始化表单控件
  *
@@ -1526,6 +1536,7 @@ export class FormControl extends AbstractControl {
    * @param value The new value for the control.
    *
    * 控件的新值。
+   *
    * @param options Configuration options that determine how the control propagates changes
    * and emits events when the value changes.
    * The configuration options are passed to the {@link AbstractControl#updateValueAndValidity
@@ -1610,6 +1621,7 @@ export class FormControl extends AbstractControl {
    * or an object that defines the initial value and disabled state.
    *
    * 使用初始值或一个包含初始值和禁用状态的对象来重置该控件。
+   *
    * @param options Configuration options that determine how the control propagates changes
    * and emits events after the value changes.
    *
@@ -1757,7 +1769,9 @@ export class FormControl extends AbstractControl {
  *
  * 当实例化 `FormGroup` 时，在第一个参数中传入一组子控件。每个子控件会用控件名把自己注册进去。
  *
- * @usageNotes ### Create a form group with 2 controls
+ * @usageNotes
+ *
+ * ### Create a form group with 2 controls
  *
  * ### 创建一个带有两个控件的表单组
  *
@@ -2004,9 +2018,11 @@ export class FormGroup extends AbstractControl {
    * that doesn't exist or if you exclude a value of a control that does exist.
    *
    * 当严格的检查失败时，比如设置了不存在的或被排除出去的控件的值。
+   *
    * @param value The new value for the control that matches the structure of the group.
    *
    * 控件的新值，其结构必须和该组的结构相匹配。
+   *
    * @param options Configuration options that determine how the control propagates changes
    * and emits events after the value changes.
    * The configuration options are passed to the {@link AbstractControl#updateValueAndValidity
@@ -2049,7 +2065,9 @@ export class FormGroup extends AbstractControl {
    *
    * 它能接受组的超集和子集，而不会抛出错误。
    *
-   * @usageNotes ### Patch the value for a form group
+   * @usageNotes
+   *
+   * ### Patch the value for a form group
    *
    * ### 修补表单组的值
    *
@@ -2066,6 +2084,7 @@ export class FormGroup extends AbstractControl {
    * @param value The object that matches the structure of the group.
    *
    * 与该组的结构匹配的对象。
+   *
    * @param options Configuration options that determine how the control propagates changes and
    * emits events after the value is patched.
    *
@@ -2116,6 +2135,7 @@ export class FormGroup extends AbstractControl {
    * or an object that defines the initial value and disabled state.
    *
    * 使用一个初始值或包含初始值与禁用状态的对象重置该控件。
+   *
    * @param options Configuration options that determine how the control propagates changes
    * and emits events when the group is reset.
    *
@@ -2313,7 +2333,9 @@ export class FormGroup extends AbstractControl {
  *
  * `FormArray` 是 Angular 表单中定义的三个基本构造块之一，就像 `FormControl` 和 `FormGroup` 一样。
  *
- * @usageNotes ### Create an array of form controls
+ * @usageNotes
+ *
+ * ### Create an array of form controls
  *
  * ### 创建表单控件的数组
  *
@@ -2379,6 +2401,7 @@ export class FormGroup extends AbstractControl {
  *
  * 要改变数组中的控件列表，可以使用 `FormArray` 本身的 `push`、`insert`、`removeAt` 或 `clear` 方法。这些方法能确保表单数组正确的跟踪这些子控件。
  * 不要直接修改实例化 `FormArray` 时传入的那个 `AbstractControl` 数组，否则会导致奇怪的、非预期的行为，比如破坏变更检测机制。
+ *
  * @publicApi
  */
 export class FormArray extends AbstractControl {
@@ -2554,6 +2577,7 @@ export class FormArray extends AbstractControl {
    * @param value Array of values for the controls
    *
    * 要传给这些控件的值的数组
+   *
    * @param options Configure options that determine how the control propagates changes and
    * emits events after the value changes
    *
@@ -2615,6 +2639,7 @@ export class FormArray extends AbstractControl {
    * @param value Array of latest values for the controls
    *
    * 由各个控件最近的值组成的数组
+   *
    * @param options Configure options that determine how the control propagates changes and
    * emits events after the value changes
    *
@@ -2691,6 +2716,7 @@ export class FormArray extends AbstractControl {
    * @param value Array of values for the controls
    *
    * 各个控件值的数组
+   *
    * @param options Configure options that determine how the control propagates changes and
    * emits events after the value changes
    *
@@ -2745,6 +2771,7 @@ export class FormArray extends AbstractControl {
    * 移除 `FormArray` 的所有控件。
    *
    * @usageNotes
+   *
    * ### Remove all elements from a FormArray
    *
    * ### 从 FormArray 删除所有元素

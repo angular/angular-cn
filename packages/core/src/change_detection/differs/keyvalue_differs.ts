@@ -207,7 +207,9 @@ export class KeyValueDiffers {
    *
    * 接受 {@link KeyValueDifferFactory} 的数组，并返回一个提供者，用于使用提供的工厂扩展所继承的 {@link KeyValueDiffers} 实例，并返回一个新的 {@link KeyValueDiffers} 实例。
    *
-   * @usageNotes ### Example
+   * @usageNotes
+   *
+   * ### Example
    *
    * ### 例子
    *

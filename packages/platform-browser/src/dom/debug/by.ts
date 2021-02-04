@@ -23,6 +23,7 @@ export class By {
    * Match all nodes.
    *
    * @usageNotes
+   *
    * ### Example
    *
    * {@example platform-browser/dom/debug/ts/by/by.ts region='by_all'}
@@ -37,6 +38,7 @@ export class By {
    * 通过给定的 CSS 选择器匹配元素。
    *
    * @usageNotes
+   *
    * ### Example
    *
    * {@example platform-browser/dom/debug/ts/by/by.ts region='by_css'}
@@ -55,6 +57,7 @@ export class By {
    * 匹配存在给定指令的节点。
    *
    * @usageNotes
+   *
    * ### Example
    *
    * {@example platform-browser/dom/debug/ts/by/by.ts region='by_directive'}

@@ -18,6 +18,7 @@ import {stringify} from '../util/stringify';
  * 要传给 {@link forwardRef} 的函数时必须实现的接口。
  *
  * @usageNotes
+ *
  * ### Example
  *
  * ### 例子
@@ -43,6 +44,7 @@ const __forward_ref__ = getClosureSafeProperty({__forward_ref__: getClosureSafeP
  * 例如，当我们需要为所声明的 DI 而引用此 `token`，但尚未定义该令牌时，将使用 `forwardRef`。当我们创建尚未定义的查询的 `token` 时，也会使用它。
  *
  * @usageNotes
+ *
  * ### Example
  *
  * ### 例子
@@ -68,6 +70,7 @@ export function forwardRef(forwardRefFn: ForwardRefFn): Type<any> {
  * 给定非前向引用值时，充当标识函数。
  *
  * @usageNotes
+ *
  * ### Example
  *
  * ### 例子

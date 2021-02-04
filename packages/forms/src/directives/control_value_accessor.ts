@@ -35,7 +35,9 @@ export interface ControlValueAccessor {
    * changes from model to view are requested.
    *
    * 当请求从模型到视图的编程更改时，表单 API 会调用此方法以写入视图。
+   *
    * @usageNotes
+   *
    * ### Write a value to the element
    *
    * ### 向元素写入值
@@ -73,7 +75,9 @@ export interface ControlValueAccessor {
    * save the given function so your class calls it at the appropriate time.
    *
    * 在你自己的值访问器中实现 `registerOnChange` 方法时，请保存给定的函数，以便你的类在适当的时机调用它。
+   *
    * @usageNotes
+   *
    * ### Store the change function
    *
    * ### 存储变更函数
@@ -118,7 +122,9 @@ export interface ControlValueAccessor {
    * blurred or "touched".
    *
    * 在你自己的值访问器中实现 `registerOnTouched` ，请保存给定函数，以便你的类在应将控件视为失焦或“已接触过”时调用它。
+   *
    * @usageNotes
+   *
    * ### Store the callback function
    *
    * ### 存储回调函数
@@ -158,7 +164,9 @@ export interface ControlValueAccessor {
    * appropriate DOM element.
    *
    * 当控件状态更改为 “DISABLED” 或从 “DISABLED” 更改时，表单 API 要调用的函数。根据其状态，它会启用或禁用适当的 DOM 元素。
+   *
    * @usageNotes
+   *
    * The following is an example of writing the disabled property to a native DOM element:
    *
    * 以下是将 disabled 属性写入原生 DOM 元素的示例：

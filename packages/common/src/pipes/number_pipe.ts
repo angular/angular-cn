@@ -41,6 +41,7 @@ import {invalidPipeArgumentError} from './invalid_pipe_argument_error';
  * ```
  * @see `formatNumber()`
  * @usageNotes
+ *
  * The following code shows how the pipe transforms numbers
  * into text strings, according to various format specifications,
  * where the caller's default locale is `en-US`.
@@ -62,6 +63,7 @@ export class DecimalPipe implements PipeTransform {
    * @param value The number to be formatted.
    *
    * 要格式化的数字。
+   *
    * @param digitsInfo Decimal representation options, specified by a string
    * in the following format:<br>
    * <code>{minIntegerDigits}.{minFractionDigits}-{maxFractionDigits}</code>.
@@ -125,6 +127,7 @@ export class DecimalPipe implements PipeTransform {
  * @see `formatPercent()`
  *
  * @usageNotes
+ *
  * The following code shows how the pipe transforms numbers
  * into text strings, according to various format specifications,
  * where the caller's default locale is `en-US`.
@@ -145,6 +148,7 @@ export class PercentPipe implements PipeTransform {
    * @param value The number to be formatted as a percentage.
    *
    * 要格式化为百分比的数字。
+   *
    * @param digitsInfo Decimal representation options, specified by a string
    * in the following format:<br>
    * <code>{minIntegerDigits}.{minFractionDigits}-{maxFractionDigits}</code>.
@@ -226,6 +230,7 @@ export class PercentPipe implements PipeTransform {
  * @see `formatCurrency()`
  *
  * @usageNotes
+ *
  * The following code shows how the pipe transforms numbers
  * into text strings, according to various format specifications,
  * where the caller's default locale is `en-US`.
@@ -248,6 +253,7 @@ export class CurrencyPipe implements PipeTransform {
    * @param value The number to be formatted as currency.
    *
    * 要格式化为货币的数字。
+   *
    * @param currencyCode The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) currency code,
    * such as `USD` for the US dollar and `EUR` for the euro. The default currency code can be
    * configured using the `DEFAULT_CURRENCY_CODE` injection token.

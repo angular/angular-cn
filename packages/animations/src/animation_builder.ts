@@ -15,7 +15,9 @@ import {AnimationPlayer} from './players/animation_player';
  *
  * 一种可注入服务，可在 Angular 组件或指令中以编程的方式生成动画序列。由 `BrowserAnimationsModule` 或 `NoopAnimationsModule` 提供。
  *
- * @usageNotes To use this service, add it to your component or directive as a dependency.
+ * @usageNotes
+ *
+ * To use this service, add it to your component or directive as a dependency.
  * The service is instantiated along with your component.
  *
  * 要使用此服务，请将其作为依赖项添加到你的组件或指令中。该服务与你的组件一起实例化。
@@ -30,11 +32,11 @@ import {AnimationPlayer} from './players/animation_player';
  *
  *       使用 `build()` 方法创建一个用 `animate()` 函数创建的程序性动画。该方法返回一个 `AnimationFactory` 实例。
  *
- * 1. Use the factory object to create an `AnimationPlayer` and attach it to a DOM element.
+ * 2. Use the factory object to create an `AnimationPlayer` and attach it to a DOM element.
  *
  *    使用工厂对象创建 `AnimationPlayer` 并将其附加到 DOM 元素。
  *
- * 1. Use the player object to control the animation programmatically.
+ * 3. Use the player object to control the animation programmatically.
  *
  *    使用播放器对象以编程方式控制动画。
  *
@@ -44,9 +46,7 @@ import {AnimationPlayer} from './players/animation_player';
  *
  * ```ts
  * // import the service from BrowserAnimationsModule
- * import {AnimationBuilder} from '
- * ```
- * @angular /animations';
+ * import {AnimationBuilder} from '@angular/animations';
  * // require the service as a dependency
  * class MyCmp {
  *   constructor(private _builder: AnimationBuilder) {}
@@ -65,6 +65,7 @@ import {AnimationPlayer} from './players/animation_player';
  *   }
  * }
  * ```
+ *
  * @publicApi
  */
 export abstract class AnimationBuilder {

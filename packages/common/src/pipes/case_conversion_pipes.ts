@@ -73,6 +73,7 @@ const unicodeWordMatch =
  * @see `UpperCasePipe`
  *
  * @usageNotes
+ *
  * The following example shows the result of transforming various strings into title case.
  *
  * 下面的例子示范了如何把多种字符串转成标题形式。

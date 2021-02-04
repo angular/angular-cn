@@ -41,18 +41,19 @@ function symbolIterator<T>(this: QueryList<T>): Iterator<T> {
  *
  * 注意：将来此类将会实现 `Observable` 接口。
  *
- * @usageNotes ### Example
+ * @usageNotes
+ *
+ * ### Example
  *
  * ### 例子
  *
  * ```typescript
- *
- * ```
- * @Component ({...})
+ * @Component({...})
  * class Container {
- * @ViewChildren (Item) items:QueryList<Item>;
+ *   @ViewChildren(Item) items:QueryList<Item>;
  * }
  * ```
+ *
  * @publicApi
  */
 export class QueryList<T> implements Iterable<T> {
@@ -189,22 +190,12 @@ export class QueryList<T> implements Iterable<T> {
     (this.changes as EventEmitter<any>).emit(this);
   }
 
-  /**
-   * internal
-   *
-   * 内部
-   *
-   */
+  /** internal */
   setDirty() {
     (this as {dirty: boolean}).dirty = true;
   }
 
-  /**
-   * internal
-   *
-   * 内部
-   *
-   */
+  /** internal */
   destroy(): void {
     (this.changes as EventEmitter<any>).complete();
     (this.changes as EventEmitter<any>).unsubscribe();

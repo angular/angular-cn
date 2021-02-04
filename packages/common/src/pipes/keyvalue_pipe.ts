@@ -40,6 +40,7 @@ export interface KeyValue<K, V> {
  * 输出数组将通过键名排序。默认情况下，比较器将使用 Unicode 点位值。如果你的键名是复杂类型，则可以选择传入一个 compareFn。
  *
  * @usageNotes
+ *
  * ### Examples
  *
  * ### 例子

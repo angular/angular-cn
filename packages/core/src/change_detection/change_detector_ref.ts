@@ -28,6 +28,7 @@ const SWITCH_CHANGE_DETECTOR_REF_FACTORY: typeof injectChangeDetectorRef =
  * Angular 各种视图的基础类，提供变更检测功能。
  * 变更检测树会收集要检查的所有视图。
  * 使用这些方法从树中添加或移除视图、初始化变更检测并显式地把这些视图标记为*脏的*，意思是它们变了、需要重新渲染。
+ *
  * @see [Using change detection hooks](guide/lifecycle-hooks#using-change-detection-hooks)
  *
  * [使用变更检测钩子](guide/lifecycle-hooks#using-change-detection-hooks)

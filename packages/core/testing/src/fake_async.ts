@@ -49,6 +49,7 @@ export function resetFakeAsyncZone(): void {
  * 可用于包装 inject() 调用。
  *
  * @usageNotes
+ *
  * ### Example
  *
  * ### 例子
@@ -78,6 +79,7 @@ export function fakeAsync(fn: Function): (...args: any[]) => any {
  * 在此函数开始时以及执行任何计时器回调之后，微任务队列就会耗尽。
  *
  * @usageNotes
+ *
  * ### Example
  *
  * ### 例子

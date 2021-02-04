@@ -19,11 +19,10 @@ import {noSideEffects} from './closure';
  * 由所有 Angular 类型装饰器实现的接口，该接口允许将它们用作装饰器以及 Angular 语法。
  *
  * ```
- *
- * ```
- * @ng .Component({...})
+ * @ng.Component({...})
  * class MyClass {...}
  * ```
+ *
  * @publicApi
  */
 export interface TypeDecorator {

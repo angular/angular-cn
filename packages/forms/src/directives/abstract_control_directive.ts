@@ -365,6 +365,7 @@ export abstract class AbstractControlDirective {
    * 控件名称列表，用于指定如何从当前控件移至要查询错误的控件。
    *
    * @usageNotes
+   *
    * For example, for the following `FormGroup`:
    *
    * 例如，对于以下 `FormGroup`：
@@ -424,6 +425,7 @@ export abstract class AbstractControlDirective {
    * 控件名称列表，用于指定如何从当前控件移至要查询错误的控件。
    *
    * @usageNotes
+   *
    * For example, for the following `FormGroup`:
    *
    * 比如下面的 `FormGroup`：

@@ -87,7 +87,9 @@ export class NgForOfContext<T, U extends NgIterable<T> = NgIterable<T>> {
  *
  * 使用简写语法时，Angular 在[一个元素上只允许有一个结构型指令](guide/structural-directives#one-structural-directive-per-host-element)。例如，如果要根据条件进行迭代，请将 `*ngIf` 放在 `*ngFor` 元素的容器元素上。欲知详情，请参见[《结构型指令》](guide/structural-directives#one-per-element) 。
  *
- * @usageNotes ### Local variables
+ * @usageNotes
+ *
+ * ### Local variables
  *
  * ### 局部变量
  *
@@ -190,6 +192,7 @@ export class NgForOfContext<T, U extends NgIterable<T> = NgIterable<T>> {
  * 要想自定义默认的跟踪算法，`NgForOf` 支持 `trackBy` 选项。
  * `trackBy` 接受一个带两个参数（`index` 和 `item`）的函数。
  * 如果给出了 `trackBy`，Angular 就会使用该函数的返回值来跟踪变化。
+ *
  * @see [Structural Directives](guide/structural-directives)
  *
  * [结构型指令](guide/structural-directives)

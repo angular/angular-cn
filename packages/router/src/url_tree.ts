@@ -84,7 +84,10 @@ function containsSegmentGroupHelper(
  * UrlTree is a data structure that provides a lot of affordances in dealing with URLs
  *
  * 由于路由器状态是一棵树，而 URL 只是序列化的状态，所以 URL 就是序列化的树。 UrlTree 是一种数据结构，在处理 URL 时提供了很多便利
- * @usageNotes ### Example
+ *
+ * @usageNotes
+ *
+ * ### Example
  *
  * ### 例子
  *
@@ -208,7 +211,9 @@ export class UrlSegmentGroup {
  * parameters associated with the segment.
  *
  * UrlSegment 是两个斜杠之间的 URL 的一部分。它包含路径和与该段关联的矩阵参数。
- * @usageNotes ### Example
+ * @usageNotes
+ *
+ * ### Example
  *
  * ### 例子
  *
@@ -294,6 +299,7 @@ export function mapChildrenIntoArray<T>(
  * See `DefaultUrlSerializer` for an example of a URL serializer.
  *
  * 有关 URL 序列化程序的示例，请参见 `DefaultUrlSerializer`
+ *
  * @publicApi
  */
 export abstract class UrlSerializer {

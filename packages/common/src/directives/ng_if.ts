@@ -71,6 +71,7 @@ import {Directive, EmbeddedViewRef, Input, TemplateRef, ViewContainerRef, ɵstri
  * <div *ngIf="condition as value; else elseBlock">{{value}}</div>
  * <ng-template #elseBlock>Content to render when value is null.</ng-template>
  * ```
+ *
  * @usageNotes
  *
  * The `*ngIf` directive is most commonly used to conditionally show an inline template,
@@ -79,8 +80,7 @@ import {Directive, EmbeddedViewRef, Input, TemplateRef, ViewContainerRef, ɵstri
  *
  * `*ngIf` 指令通常用于根据条件显示内联模板，就像下面的例子展示的一样。默认的 `else` 模板是空白的。
  *
- * {
- * @example common/ngIf/ts/module.ts region='NgIfSimple'}
+ * {@example common/ngIf/ts/module.ts region='NgIfSimple'}
  *
  * ### Showing an alternative template using `else`
  *
@@ -94,8 +94,7 @@ import {Directive, EmbeddedViewRef, Input, TemplateRef, ViewContainerRef, ɵstri
  *
  * 要在 `expression` 计算为 false 时显示一个模板，请使用如下所示的 `else` 模板绑定。`else` 绑定指向一个带有 `#elseBlock` 标签的 `<ng-template>`。该模板可以定义在组件视图中的任何地方，但通常放在 `ngIf` 的紧后方，以提高可读性。
  *
- * {
- * @example common/ngIf/ts/module.ts region='NgIfElse'}
+ * {@example common/ngIf/ts/module.ts region='NgIfElse'}
  *
  * ### Using an external `then` template
  *
@@ -108,8 +107,7 @@ import {Directive, EmbeddedViewRef, Input, TemplateRef, ViewContainerRef, ɵstri
  *
  * 在前面的例子中，then 子句的模板是内联的，也就是作为 `ngIf` 指令所在标签的内容。你还可以通过引用一个带标签的 `<ng-template>` 元素来指定一个在外部定义的模板。这样就可以让你在运行时更改模板，就像下面的例子所演示的。
  *
- * {
- * @example common/ngIf/ts/module.ts region='NgIfThenElse'}
+ * {@example common/ngIf/ts/module.ts region='NgIfThenElse'}
  *
  * ### Storing a conditional result in a variable
  *
@@ -122,8 +120,7 @@ import {Directive, EmbeddedViewRef, Input, TemplateRef, ViewContainerRef, ɵstri
  *
  * 比如你想显示同一个对象中的一组属性。如果你在等待异步数据，此对象可能是未定义的。这时候，你可以使用 `ngIf`，并且把此条件结果保存在一个局部变量中，如下例所示。
  *
- * {
- * @example common/ngIf/ts/module.ts region='NgIfAs'}
+ * {@example common/ngIf/ts/module.ts region='NgIfAs'}
  *
  * This code uses only one `AsyncPipe`, so only one subscription is created.
  * The conditional statement stores the result of `userStream|async` in the local variable `user`.

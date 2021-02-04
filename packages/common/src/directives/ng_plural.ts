@@ -16,6 +16,7 @@ import {SwitchView} from './ng_switch';
 /**
  * @ngModule CommonModule
  * @usageNotes
+ *
  * ```
  * <some-element [ngPlural]="value">
  *   <ng-template ngPluralCase="=0">there is nothing</ng-template>
@@ -51,6 +52,7 @@ import {SwitchView} from './ng_switch';
  * See <http://cldr.unicode.org/index/cldr-spec/plural-rules>
  *
  * 参见 <http://cldr.unicode.org/index/cldr-spec/plural-rules>
+ *
  * @publicApi
  */
 @Directive({selector: '[ngPlural]'})
@@ -104,6 +106,7 @@ export class NgPlural {
  * 创建一个视图，当给定表达式根据 CLDR 规则与复数表达式匹配时，将在父视图 {@link NgPlural} 中添加/删除该视图。
  *
  * @usageNotes
+ *
  * ```
  * <some-element [ngPlural]="value">
  *   <ng-template ngPluralCase="=0">...</ng-template>

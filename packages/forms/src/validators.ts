@@ -29,8 +29,11 @@ function hasValidLength(value: any): boolean {
  * `AbstractControl`s.
  *
  * 一个 `InjectionToken`，用于注册额外的同步验证器，供 `AbstractControl` 使用。
+ *
  * @see `NG_ASYNC_VALIDATORS`
- * @usageNotes ### Providing a custom validator
+ * @usageNotes
+ *
+ * ### Providing a custom validator
  *
  * ### 提供自定义验证器
  *
@@ -144,6 +147,7 @@ export class Validators {
    * `min` property if the validation check fails, otherwise `null`.
    *
    * 如果验证失败，则此验证器函数返回一个带有 `min` 属性的映射表（map），否则为 `null`。
+   *
    * @see `updateValueAndValidity()`
    *
    */
@@ -296,7 +300,10 @@ export class Validators {
    * validate the value against a different pattern.
    *
    * 如果此模式不能满足你的业务需求，则可以使用 `Validators.pattern()` 来针对其他模式验证值。
-   * @usageNotes ### Validate that the field matches a valid email pattern
+   *
+   * @usageNotes
+   *
+   * ### Validate that the field matches a valid email pattern
    *
    * ### 验证该字段匹配有效的 email 格式。
    *
@@ -311,6 +318,7 @@ export class Validators {
    * if the validation check fails, otherwise `null`.
    *
    * 如果验证失败，则此验证器函数返回一个带有 `email` 属性的映射表（map），否则为 `null`。
+   *
    * @see `updateValueAndValidity()`
    */
   static email(control: AbstractControl): ValidationErrors|null {

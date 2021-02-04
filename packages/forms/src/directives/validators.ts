@@ -30,7 +30,10 @@ export type ValidationErrors = {
  * An interface implemented by classes that perform synchronous validation.
  *
  * 一个接口，实现了它的类可以扮演验证器的角色。
- * @usageNotes ### Provide a custom validator
+ *
+ * @usageNotes
+ *
+ * ### Provide a custom validator
  *
  * ### 提供一个自定义的验证器
  *
@@ -92,7 +95,10 @@ export interface Validator {
  * An interface implemented by classes that perform asynchronous validation.
  *
  * 由执行异步验证的类实现的接口。
- * @usageNotes ### Provide a custom async validator directive
+ *
+ * @usageNotes
+ *
+ * ### Provide a custom async validator directive
  *
  * ### 提供自定义异步验证程序指令
  *
@@ -245,7 +251,9 @@ export class RequiredValidator implements Validator {
  * @see [Form Validation](guide/form-validation)
  *
  * [表单验证](guide/form-validation)
- * @usageNotes ### Adding a required checkbox validator using template-driven forms
+ * @usageNotes
+ *
+ * ### Adding a required checkbox validator using template-driven forms
  *
  * ### 使用模板驱动表单为复选框添加必填项验证器
  *
@@ -301,7 +309,9 @@ export const EMAIL_VALIDATOR: any = {
  * @see [Form Validation](guide/form-validation)
  *
  * [表单验证](guide/form-validation)
- * @usageNotes ### Adding an email validator
+ * @usageNotes
+ *
+ * ### Adding an email validator
  *
  * ### 添加 email 验证器
  *

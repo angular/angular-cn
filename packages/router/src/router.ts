@@ -54,6 +54,7 @@ import {isUrlTree} from './utils/type_guards';
  * @see [Routing and Navigation guide](guide/router)
  *
  * 用于修订导航策略的额外选项。
+ *
  * @publicApi
  */
 export interface UrlCreationOptions {

@@ -23,9 +23,11 @@ export type ɵɵNgModuleDefWithMeta<T, Declarations, Imports, Exports> = NgModul
 
 
 /**
- * A wrapper around an NgModule that associates it with [providers](guide/glossary#provider "Definition"). Usage without a generic type is deprecated.
+ * A wrapper around an NgModule that associates it with [providers](guide/glossary#provider
+ * "Definition"). Usage without a generic type is deprecated.
  *
  * 对 NgModule 及其相关 [providers](guide/glossary#provider "Definition") 的包装。不带泛型的用法已弃用。
+ *
  * @see [Deprecations](guide/deprecations#modulewithproviders-type-without-a-generic)
  *
  * [弃用](guide/deprecations#modulewithproviders-type-without-a-generic)
@@ -73,7 +75,10 @@ export interface NgModule {
    * @see [NgModule guide](guide/providers)
    *
    * [NgModule 指南](guide/providers)
-   * @usageNotes Dependencies whose providers are listed here become available for injection
+   *
+   * @usageNotes
+   *
+   * Dependencies whose providers are listed here become available for injection
    * into any component, directive, pipe or service that is a child of this injector.
    * The NgModule used for bootstrapping uses the root injector, and can provide dependencies
    * to any part of the app.
@@ -109,8 +114,8 @@ export interface NgModule {
    *      return 'Hello ' + name + '!';
    *    }
    * }
-   * ```
-   * @NgModule ({
+   *
+   * @NgModule({
    *   providers: [
    *     Greeter
    *   ]
@@ -132,7 +137,9 @@ export interface NgModule {
    *
    * 属于该模块的一组组件、指令和管道（统称[可声明对象](guide/glossary#declarable)）。
    *
-   * @usageNotes The set of selectors that are available to a template include those declared here, and
+   * @usageNotes
+   *
+   * The set of selectors that are available to a template include those declared here, and
    * those that are exported from imported NgModules.
    *
    * 在模板中可用的选择器（selector）包括那些直接声明在这里的可声明对象和导入的那些 NgModule 中所导出的可声明对象。
@@ -155,9 +162,7 @@ export interface NgModule {
    * 下面的例子允许 CommonModule 使用 `NgFor` 指令。
    *
    * ```javascript
-   *
-   * ```
-   * @NgModule ({
+   * @NgModule({
    *   declarations: [NgFor]
    * })
    * class CommonModule {
@@ -172,7 +177,9 @@ export interface NgModule {
    *
    * 这里列出的 NgModule 所导出的[可声明对象](guide/glossary#declarable)可用在当前模块内的模板中。
    *
-   * @usageNotes A template can use exported declarables from any
+   * @usageNotes
+   *
+   * A template can use exported declarables from any
    * imported module, including those from modules that are imported indirectly
    * and re-exported.
    * For example, `ModuleA` imports `ModuleB`, and also exports
@@ -192,14 +199,13 @@ export interface NgModule {
    * 下列例子允许 `MainModule` 使用 `CommonModule` 中导入的任意可声明对象：
    *
    * ```javascript
-   *
-   * ```
-   * @NgModule ({
+   * @NgModule({
    *   imports: [CommonModule]
    * })
    * class MainModule {
    * }
    * ```
+   *
    */
   imports?: Array<Type<any>|ModuleWithProviders<{}>|any[]>;
 
@@ -218,7 +224,9 @@ export interface NgModule {
    * 可声明对象应该且只能属于一个 NgModule。
    * 一个模块可以列出在它的 `exports` 中列出一些其它模块，这些模块中所有公开的可声明对象也同样会导出。
    *
-   * @usageNotes Declarations are private by default.
+   * @usageNotes
+   *
+   * Declarations are private by default.
    * If this ModuleA does not export UserComponent, then only the components within this
    * ModuleA can use UserComponent.
    *
@@ -239,9 +247,7 @@ export interface NgModule {
    * 下面的例子导出了来自 `CommonModule` 的 `NgFor` 指令。
    *
    * ```javascript
-   *
-   * ```
-   * @NgModule ({
+   * @NgModule({
    *   exports: [NgFor]
    * })
    * class CommonModule {
@@ -335,29 +341,29 @@ export interface NgModule {
  * @publicApi
  */
 export const NgModule: NgModuleDecorator = makeDecorator(
-  'NgModule', (ngModule: NgModule) => ngModule, undefined, undefined,
-  /**
-   * Decorator that marks the following class as an NgModule, and supplies
-   * configuration metadata for it.
-   *
-   * 一个装饰器，用于把当前类标记为一个 NgModule，并为之提供配置元数据。
-   *
-   * - The `declarations` and `entryComponents` options configure the compiler
-   *   with information about what belongs to the NgModule.
-   *
-   *     `declarations` 和 `entryComponents` 选项告诉编译器，哪些东西是属于本 NgModule 的。
-   *
-   * - The `providers` options configures the NgModule's injector to provide
-   *   dependencies the NgModule members.
-   *
-   *     `providers` 选项会配置该 NgModule 的注入器，以便为该 NgModule 的所有成员提供依赖项。
-   *
-   * - The `imports` and `exports` options bring in members from other modules, and make
-   *   this module's members available to others.
-   *
-   *     `imports` 选项用于从其它模块中带入成员，`exports` 选项用于把本模块的成员带给其它模块。
-   */
-  (type: Type<any>, meta: NgModule) => SWITCH_COMPILE_NGMODULE(type, meta));
+    'NgModule', (ngModule: NgModule) => ngModule, undefined, undefined,
+    /**
+     * Decorator that marks the following class as an NgModule, and supplies
+     * configuration metadata for it.
+     *
+     * 一个装饰器，用于把当前类标记为一个 NgModule，并为之提供配置元数据。
+     *
+     * * The `declarations` and `entryComponents` options configure the compiler
+     * with information about what belongs to the NgModule.
+     *
+     *     `declarations` 和 `entryComponents` 选项告诉编译器，哪些东西是属于本 NgModule 的。
+     *
+     * * The `providers` options configures the NgModule's injector to provide
+     * dependencies the NgModule members.
+     *
+     *     `providers` 选项会配置该 NgModule 的注入器，以便为该 NgModule 的所有成员提供依赖项。
+     *
+     * * The `imports` and `exports` options bring in members from other modules, and make
+     * this module's members available to others.
+     *
+     *     `imports` 选项用于从其它模块中带入成员，`exports` 选项用于把本模块的成员带给其它模块。
+     */
+    (type: Type<any>, meta: NgModule) => SWITCH_COMPILE_NGMODULE(type, meta));
 
 
 function preR3NgModuleCompile(moduleType: Type<any>, metadata?: NgModule): void {

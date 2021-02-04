@@ -51,6 +51,7 @@ export const formGroupNameProvider: any = {
  * [响应式表单指南](guide/reactive-forms)
  *
  * @usageNotes
+ *
  * ### Access the group by name
  *
  * ### 按名称访问组
@@ -155,6 +156,7 @@ export const formArrayNameProvider: any = {
  *
  * @see `AbstractControl`
  * @usageNotes
+ *
  * ### Example
  *
  * ### 例子

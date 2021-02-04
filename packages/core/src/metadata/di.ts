@@ -18,7 +18,10 @@ import {makePropDecorator} from '../util/decorators';
  * or in a nested array or map) are added to the `entryComponents` property.
  *
  * 可用于创建虚拟[提供者](guide/glossary#provider)的 DI 令牌，该虚拟提供者将基于其 `useValue` 属性值填充组件和 NgModule 的 `entryComponents` 字段。`useValue` 值中引用的所有组件（无论是直接还是在嵌套数组还是在映射表中）都将添加到 `entryComponents` 属性。
- * @usageNotes The following example shows how the router can populate the `entryComponents`
+ *
+ * @usageNotes
+ *
+ * The following example shows how the router can populate the `entryComponents`
  * field of an NgModule based on a router configuration that refers
  * to components.
  *
@@ -38,12 +41,13 @@ import {makePropDecorator} from '../util/decorators';
  *   {path: '/root', component: RootComp},
  *   {path: '/teams', component: TeamsComp}
  * ];
- * ```
- * @NgModule ({
+ *
+ * @NgModule({
  *   providers: [provideRoutes(routes)]
  * })
  * class ModuleWithRoutes {}
  * ```
+ *
  * @publicApi
  * @deprecated Since 9.0.0. With Ivy, this property is no longer necessary.
  *
@@ -69,6 +73,7 @@ export interface AttributeDecorator {
    * 该指令可以注入宿主元素属性的字符串字面常量。
    *
    * @usageNotes
+   *
    * Suppose we have an `<input>` element and want to know its `type`.
    *
    * 假设我们有一个 `<input>` 元素，并且想知道它的 `type` 。
@@ -82,6 +87,7 @@ export interface AttributeDecorator {
    * 装饰器可以注入字符串字面量 `text` ，如下面的例子。
    *
    * {@example core/ts/metadata/metadata.ts region='attributeMetadata'}
+   *
    * @publicApi
    */
   (name: string): any;
@@ -169,18 +175,20 @@ export interface ContentChildrenDecorator {
    *
    * **元数据属性**：
    *
-   * - **selector** - The directive type or the name used for querying.
+   * * **selector** - The directive type or the name used for querying.
    *
    *   **selector** - 要查询的指令类型或名称。
    *
-   * - **descendants** - True to include all descendants, otherwise include only direct children.
+   * * **descendants** - True to include all descendants, otherwise include only direct children.
    *
    *   **后代** - 包含所有后代时为 true，否则仅包括直接子代。
    *
-   * - **read** - Used to read a different token from the queried elements.
+   * * **read** - Used to read a different token from the queried elements.
    *
    *   **read** - 用于从查询到的元素中读取不同的令牌。
+   *
    * @usageNotes
+   *
    * Here is a simple demonstration of how the `ContentChildren` decorator can be used.
    *
    * 这里是如何使用 `ContentChildren` 装饰器的简单演示。
@@ -193,6 +201,7 @@ export interface ContentChildrenDecorator {
    * can be used to implement a tab pane component.
    *
    * {@example core/di/ts/contentChildren/content_children_example.ts region='Component'}
+   *
    * @Annotation
    */
   (selector: Type<any>|InjectionToken<unknown>|Function|string,
@@ -257,16 +266,16 @@ export interface ContentChildDecorator {
    *
    * **元数据属性**：
    *
-   * - **selector** - The directive type or the name used for querying.
+   * * **selector** - The directive type or the name used for querying.
    *
    *   **selector** - 要查询的指令类型或名称。
    *
-   * - **read** - Used to read a different token from the queried element.
+   * * **read** - Used to read a different token from the queried element.
    *
    *   **read** - 用于从查询到的元素读取不同的令牌。
    *
-   * - **static** - True to resolve query results before change detection runs,
-   *   false to resolve after change detection. Defaults to false.
+   * * **static** - True to resolve query results before change detection runs,
+   * false to resolve after change detection. Defaults to false.
    *
    *     **static** - 如果为 true，则在变更检测运行之前解析查询结果，如果为 false，则在变更检测之后解析。默认为 false。
    * @usageNotes
@@ -276,6 +285,7 @@ export interface ContentChildDecorator {
    * ### Example
    *
    * {@example core/di/ts/contentChild/content_child_example.ts region='Component'}
+   *
    * @Annotation
    */
   (selector: Type<any>|InjectionToken<unknown>|Function|string,
@@ -337,11 +347,11 @@ export interface ViewChildrenDecorator {
    *
    * **元数据属性**：
    *
-   * - **selector** - The directive type or the name used for querying.
+   * * **selector** - The directive type or the name used for querying.
    *
    *   **selector** - 要查询的指令类型或名称。
    *
-   * - **read** - Used to read a different token from the queried elements.
+   * * **read** - Used to read a different token from the queried elements.
    *
    *   **read** - 用于从查询的元素中读取不同的令牌。
    * @usageNotes
@@ -351,6 +361,7 @@ export interface ViewChildrenDecorator {
    * ### Another example
    *
    * {@example core/di/ts/viewChildren/view_children_example.ts region='Component'}
+   *
    * @Annotation
    */
   (selector: Type<any>|InjectionToken<unknown>|Function|string, opts?: {read?: any}): any;
@@ -391,7 +402,8 @@ export const ViewChildren: ViewChildrenDecorator = makePropDecorator(
  */
 export interface ViewChildDecorator {
   /**
-   * @description Property decorator that configures a view query.
+   * @description
+   * Property decorator that configures a view query.
    * The change detector looks for the first element or the directive matching the selector
    * in the view DOM. If the view DOM changes, and a new child matches the selector,
    * the property is updated.
@@ -408,16 +420,16 @@ export interface ViewChildDecorator {
    *
    * **元数据属性**：
    *
-   * - **selector** - The directive type or the name used for querying.
+   * * **selector** - The directive type or the name used for querying.
    *
    *   **selector** - 用于查询的指令类型或名字。
    *
-   * - **read** - Used to read a different token from the queried elements.
+   * * **read** - Used to read a different token from the queried elements.
    *
    *   **read** - 从查询到的元素中读取另一个令牌。
    *
-   * - **static** - True to resolve query results before change detection runs,
-   *   false to resolve after change detection. Defaults to false.
+   * * **static** - True to resolve query results before change detection runs,
+   * false to resolve after change detection. Defaults to false.
    *
    *     **static** - 如果为 true，则在变更检测运行之前解析查询结果，如果为 false，则在变更检测之后解析。默认为 false。
    *
@@ -425,42 +437,41 @@ export interface ViewChildDecorator {
    *
    * 支持下列选择器：
    *
-   * - Any class with the `@Component` or `@Directive` decorator
+   *   * Any class with the `@Component` or `@Directive` decorator
    *
-   *   任何带有 `@Component` 或 `@Directive` 装饰器的类
+   *     任何带有 `@Component` 或 `@Directive` 装饰器的类
    *
-   * - A template reference variable as a string (e.g. query `<my-component #cmp></my-component>`
-   *   with `@ViewChild('cmp')`)
+   *   * A template reference variable as a string (e.g. query `<my-component #cmp></my-component>`
+   * with `@ViewChild('cmp')`)
    *
-   *   字符串形式的模板引用变量（比如可以使用 `@ViewChild('cmp')` 来查询 `<my-component #cmp></my-component>`
+   *     字符串形式的模板引用变量（比如可以使用 `@ViewChild('cmp')` 来查询 `<my-component #cmp></my-component>`
    *
-   * - Any provider defined in the child component tree of the current component (e.g.
-   *   `@ViewChild(SomeService) someService: SomeService`)
+   *   * Any provider defined in the child component tree of the current component (e.g.
+   * `@ViewChild(SomeService) someService: SomeService`)
    *
-   *   组件树中任何当前组件的子组件所定义的提供者（比如 `@ViewChild(SomeService) someService: SomeService` ）
+   *     组件树中任何当前组件的子组件所定义的提供者（比如 `@ViewChild(SomeService) someService: SomeService` ）
    *
-   * - Any provider defined through a string token (e.g. `@ViewChild('someToken') someTokenVal:
-   *   any`)
+   *   * Any provider defined through a string token (e.g. `@ViewChild('someToken') someTokenVal:
+   * any`)
    *
-   *   任何通过字符串令牌定义的提供者（比如 \`@ViewChild('someToken') someTokenVal:
+   *     任何通过字符串令牌定义的提供者（比如 `@ViewChild('someToken') someTokenVal:
+   * any`）
    *
-   *   any\` ）
+   *   * A `TemplateRef` (e.g. query `<ng-template></ng-template>` with `@ViewChild(TemplateRef)
+   * template;`)
    *
-   * - A `TemplateRef` (e.g. query `<ng-template></ng-template>` with `@ViewChild(TemplateRef)
-   *   template;`)
+   *     `TemplateRef`（比如可以用 `@ViewChild(TemplateRef) template;` 来查询 `<ng-template></ng-template>`）
    *
-   *   `TemplateRef`（比如可以用 `@ViewChild(TemplateRef) template;` 来查询 `<ng-template></ng-template>`）
    * @usageNotes
    *
-   * {
-   * @example core/di/ts/viewChild/view_child_example.ts region='Component'}
+   * {@example core/di/ts/viewChild/view_child_example.ts region='Component'}
    *
    * ### Example 2
    *
    * ### 例子
    *
-   * {
-   * @example core/di/ts/viewChild/view_child_howto.ts region='HowTo'}
+   * {@example core/di/ts/viewChild/view_child_howto.ts region='HowTo'}
+   *
    * @Annotation
    */
   (selector: Type<any>|InjectionToken<unknown>|Function|string,

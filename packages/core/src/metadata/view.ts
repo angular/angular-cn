@@ -16,6 +16,7 @@
  * 请参阅 {@link Component#encapsulation encapsulation}。
  *
  * @usageNotes
+ *
  * ### Example
  *
  * ### 例子

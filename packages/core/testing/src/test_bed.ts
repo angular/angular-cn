@@ -42,6 +42,7 @@ export interface TestBed {
    * '@angular/&lt;platform_name>/testing'.
    *
    * 可从 '@angular/&lt;platform_name>/testing' 获得适用于各个平台的测试模块和平台。
+   *
    * @publicApi
    */
   initTestEnvironment(

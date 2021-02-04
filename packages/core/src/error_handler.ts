@@ -21,7 +21,9 @@ import {getDebugContext, getErrorLogger, getOriginalError} from './errors';
  *
  * `ErrorHandler` 的默认实现将错误消息打印到 `console`。要拦截错误处理，请编写一个自定义的异常处理器，该异常处理器将把此默认行为改成你应用所需的。
  *
- * @usageNotes ### Example
+ * @usageNotes
+ *
+ * ### Example
  *
  * ### 例子
  *

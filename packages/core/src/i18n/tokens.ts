@@ -19,22 +19,22 @@ import {InjectionToken} from '../di/injection_token';
  *
  * 有关更多信息，请参见《 [i18n 指南》。](guide/i18n#setting-up-locale)
  *
- * @usageNotes ### Example
+ * @usageNotes
+ *
+ * ### Example
  *
  * ### 例子
  *
  * ```typescript
- * import { LOCALE_ID } from '
- * ```
- * @angular /core';
- * import { platformBrowserDynamic } from '
- * @angular /platform-browser-dynamic';
+ * import { LOCALE_ID } from '@angular/core';
+ * import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
  * import { AppModule } from './app/app.module';
  *
  * platformBrowserDynamic().bootstrapModule(AppModule, {
  *   providers: [{provide: LOCALE_ID, useValue: 'en-US' }]
  * });
  * ```
+ *
  * @publicApi
  */
 export const LOCALE_ID = new InjectionToken<string>('LocaleId');
@@ -75,20 +75,21 @@ export const LOCALE_ID = new InjectionToken<string>('LocaleId');
  *
  * </div>
  *
- * @usageNotes ### Example
+ * @usageNotes
+ *
+ * ### Example
  *
  * ### 例子
  *
  * ```typescript
- * import { platformBrowserDynamic } from '
- * ```
- * @angular /platform-browser-dynamic';
+ * import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
  * import { AppModule } from './app/app.module';
  *
  * platformBrowserDynamic().bootstrapModule(AppModule, {
  *   providers: [{provide: DEFAULT_CURRENCY_CODE, useValue: 'EUR' }]
  * });
  * ```
+ *
  * @publicApi
  */
 export const DEFAULT_CURRENCY_CODE = new InjectionToken<string>('DefaultCurrencyCode');
@@ -103,16 +104,15 @@ export const DEFAULT_CURRENCY_CODE = new InjectionToken<string>('DefaultCurrency
  *
  * 有关更多信息，请参见[《i18n 指南》](guide/i18n#setting-up-locale)。
  *
- * @usageNotes ### Example
+ * @usageNotes
+ *
+ * ### Example
  *
  * ### 例子
  *
  * ```typescript
- * import { TRANSLATIONS } from '
- * ```
- * @angular /core';
- * import { platformBrowserDynamic } from '
- * @angular /platform-browser-dynamic';
+ * import { TRANSLATIONS } from '@angular/core';
+ * import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
  * import { AppModule } from './app/app.module';
  *
  * // content of your translation file
@@ -122,6 +122,7 @@ export const DEFAULT_CURRENCY_CODE = new InjectionToken<string>('DefaultCurrency
  *   providers: [{provide: TRANSLATIONS, useValue: translations }]
  * });
  * ```
+ *
  * @publicApi
  */
 export const TRANSLATIONS = new InjectionToken<string>('Translations');
@@ -136,22 +137,22 @@ export const TRANSLATIONS = new InjectionToken<string>('Translations');
  *
  * 有关更多信息，请参见[《i18n 指南》](guide/i18n#setting-up-locale)。
  *
- * @usageNotes ### Example
+ * @usageNotes
+ *
+ * ### Example
  *
  * ### 例子
  *
  * ```typescript
- * import { TRANSLATIONS_FORMAT } from '
- * ```
- * @angular /core';
- * import { platformBrowserDynamic } from '
- * @angular /platform-browser-dynamic';
+ * import { TRANSLATIONS_FORMAT } from '@angular/core';
+ * import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
  * import { AppModule } from './app/app.module';
  *
  * platformBrowserDynamic().bootstrapModule(AppModule, {
  *   providers: [{provide: TRANSLATIONS_FORMAT, useValue: 'xlf' }]
  * });
  * ```
+ *
  * @publicApi
  */
 export const TRANSLATIONS_FORMAT = new InjectionToken<string>('TranslationsFormat');
@@ -178,22 +179,22 @@ export const TRANSLATIONS_FORMAT = new InjectionToken<string>('TranslationsForma
  *
  * 有关更多信息，请参见[《i18n 指南》](guide/i18n#setting-up-locale)。
  *
- * @usageNotes ### Example
+ * @usageNotes
+ *
+ * ### Example
  *
  * ### 例子
  *
  * ```typescript
- * import { MissingTranslationStrategy } from '
- * ```
- * @angular /core';
- * import { platformBrowserDynamic } from '
- * @angular /platform-browser-dynamic';
+ * import { MissingTranslationStrategy } from '@angular/core';
+ * import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
  * import { AppModule } from './app/app.module';
  *
  * platformBrowserDynamic().bootstrapModule(AppModule, {
  *   missingTranslation: MissingTranslationStrategy.Error
  * });
  * ```
+ *
  * @publicApi
  */
 export enum MissingTranslationStrategy {

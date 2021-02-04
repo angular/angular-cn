@@ -379,6 +379,7 @@ export class TestabilityRegistry {
    * @param elem node
    *
    * 节点
+   *
    * @param findInAncestors whether finding testability in ancestors if testability was not found in
    * current node
    *

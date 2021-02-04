@@ -66,6 +66,7 @@ export class SlicePipe implements PipeTransform {
    * @param value a list or a string to be sliced.
    *
    * 要截取的列表或字符串。
+   *
    * @param start the starting index of the subset to return:
    *
    * 要返回的子集的初始索引：

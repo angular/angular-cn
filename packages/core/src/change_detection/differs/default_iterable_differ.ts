@@ -379,6 +379,7 @@ export class DefaultIterableDiffer<V> implements IterableDiffer<V>, IterableChan
    * at the end.
    *
    * 再次确认我们没有移出重复的条目。我们需要检查此条目类型是否已被删除：插入 b 将移出第一个 “a”。如果我们现在不重新插入，它将重新在最后插入。这将表现为两个 “a” 调换了位置。这是不正确的，因为更好的方法是插入 “b”，而不是将 “a” 和 “b” 互换，然后在末尾添加 “a”。
+   *
    * @internal
    */
   _verifyReinsertion(record: IterableChangeRecord_<V>, item: V, itemTrackBy: any, index: number):

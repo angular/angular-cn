@@ -25,8 +25,13 @@ import {invalidPipeArgumentError} from './invalid_pipe_argument_error';
  *
  * Angular 只自带了 `en-US` 区域的数据。要想在其它语言中对日期进行本地化，你必须导入相应的区域数据。
  * 欲知详情，参见 [I18n guide](guide/i18n#i18n-pipes)。
+ *
  * @see `formatDate()`
- * @usageNotes The result of this pipe is not reevaluated when the input is mutated. To avoid the need to
+ *
+ *
+ * @usageNotes
+ *
+ * The result of this pipe is not reevaluated when the input is mutated. To avoid the need to
  * reformat the date on every change-detection cycle, treat the date as an immutable object
  * and change the reference when the pipe needs to run again.
  *
@@ -49,14 +54,14 @@ import {invalidPipeArgumentError} from './invalid_pipe_argument_error';
  *
  *   `'medium'`: 等价于 `'MMM d, y, h:mm:ss a'` (`Jun 15, 2015, 9:03:01 AM`).
  *
- * - `'long'`: equivalent to `'MMMM d, y, h:mm:ss a z'` (\`June 15, 2015 at 9:03:01 AM
- *   GMT+1\`).
+ * - `'long'`: equivalent to `'MMMM d, y, h:mm:ss a z'` (`June 15, 2015 at 9:03:01 AM
+ *   GMT+1`).
  *
  *     `'long'`: 等价于 `'MMMM d, y, h:mm:ss a z'` (\`June 15, 2015 at 9:03:01 AM
  *   GMT + 1\`）。
  *
- * - `'full'`: equivalent to `'EEEE, MMMM d, y, h:mm:ss a zzzz'` (\`Monday, June 15, 2015 at
- *   9:03:01 AM GMT+01:00\`).
+ * - `'full'`: equivalent to `'EEEE, MMMM d, y, h:mm:ss a zzzz'` (`Monday, June 15, 2015 at
+ *   9:03:01 AM GMT+01:00`).
  *
  *     `'full'`: 等价于 `'EEEE, MMMM d, y, h:mm:ss a zzzz'` (\`Monday, June 15, 2015 at
  *   9:03:01 AM GMT+01:00\`)。
@@ -100,7 +105,7 @@ import {invalidPipeArgumentError} from './invalid_pipe_argument_error';
  * You can construct a format string using symbols to specify the components
  * of a date-time value, as described in the following table.
  * Format details depend on the locale.
- * Fields marked with (\*) are only available in the extra data set for the given locale.
+ * Fields marked with (*) are only available in the extra data set for the given locale.
  *
  * 你可以使用符号来构造出格式字符串，以指定日期-时间值的各个部分，如下表所示。
  * 具体格式取决于区域设置。
@@ -218,6 +223,7 @@ import {invalidPipeArgumentError} from './invalid_pipe_argument_error';
  *   today: number = Date.now();
  * }
  * ```
+ *
  * @publicApi
  */
 // clang-format on
@@ -227,18 +233,21 @@ export class DatePipe implements PipeTransform {
 
   /**
    * @param value The date expression: a `Date` object,  a number
-   * (milliseconds since UTC epoch), or an ISO string (<https://www.w3.org/TR/NOTE-datetime>).
+   * (milliseconds since UTC epoch), or an ISO string (https://www.w3.org/TR/NOTE-datetime).
    *
    * 日期表达式：`Date` 对象、数字（从 UTC 时代以来的毫秒数）或一个 ISO 字符串 (<https://www.w3.org/TR/NOTE-datetime>)。
+   *
    * @param format The date/time components to include, using predefined options or a
    * custom format string.
    *
    * 要包含的日期、时间部分的格式，使用预定义选项或自定义格式字符串。
+   *
    * @param timezone A timezone offset (such as `'+0430'`), or a standard
    * UTC/GMT or continental US timezone abbreviation.
    * When not supplied, uses the end-user's local system timezone.
    *
    * 一个时区偏移（比如 `'+0430'`）或标准的 UTC/GMT 或美国大陆时区的缩写。默认为最终用户机器上的本地系统时区。
+   *
    * @param locale A locale code for the locale format rules to use.
    * When not supplied, uses the value of `LOCALE_ID`, which is `en-US` by default.
    * See [Setting your app locale](guide/i18n#setting-up-the-locale-of-your-app).
@@ -246,6 +255,7 @@ export class DatePipe implements PipeTransform {
    * 要使用的区域格式规则的区域代码。
    * 如果不提供，就使用 `LOCALE_ID` 的值，默认为 `en-US`。
    * 参见[设置应用的区域](guide/i18n#setting-up-the-locale-of-your-app)。
+   *
    * @returns A date string in the desired format.
    *
    * 指定格式的日期字符串。

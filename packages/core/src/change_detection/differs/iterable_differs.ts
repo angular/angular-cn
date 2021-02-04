@@ -253,7 +253,9 @@ export class IterableDiffers {
    *
    * 接受一个 {@link IterableDifferFactory} 数组，并返回一个提供者，用于扩展继承的带有提供者工厂的 {@link IterableDiffers} 实例，并返回一个新的 {@link IterableDiffers} 实例。
    *
-   * @usageNotes ### Example
+   * @usageNotes
+   *
+   * ### Example
    *
    * ### 例子
    *

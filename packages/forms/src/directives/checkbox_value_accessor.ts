@@ -22,7 +22,9 @@ export const CHECKBOX_VALUE_ACCESSOR: any = {
  * element.
  *
  * 一个 `ControlValueAccessor`，用于写入值并监听复选框输入元素上的更改。
+ *
  * @usageNotes
+ *
  * ### Using a checkbox with a reactive form.
  *
  * ### 使用带有响应式表单的复选框。

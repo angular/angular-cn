@@ -34,7 +34,9 @@ const UNDEFINED = {};
  *
  * 在典型的用法中，应用程序代码会在构造函数中要求依赖项，并由 `Injector` 进行解析。
  *
- * @usageNotes ### Example
+ * @usageNotes
+ *
+ * ### Example
  *
  * ### 例子
  *
@@ -43,12 +45,11 @@ const UNDEFINED = {};
  * 以下示例创建一个配置为创建 `Engine` 和 `Car` 的 `Injector`。
  *
  * ```typescript
- *
- * ```
- * @Injectable ()
+ * @Injectable()
  * class Engine {
  * }
- * @Injectable ()
+ *
+ * @Injectable()
  * class Car {
  *   constructor(public engine:Engine) {}
  * }
@@ -61,9 +62,11 @@ const UNDEFINED = {};
  *
  * Notice, we don't use the `new` operator because we explicitly want to have the `Injector`
  * resolve all of the object's dependencies automatically.
+ *
  * @deprecated from v5 - slow and brings in a lot of code, Use `Injector.create` instead.
  *
  * 从 v5 开始 - 速度慢，并且引入了大量代码，请改用 `Injector.create` 。
+ *
  * @publicApi
  */
 export abstract class ReflectiveInjector implements Injector {
@@ -77,17 +80,18 @@ export abstract class ReflectiveInjector implements Injector {
    *
    * 解析是展平多个嵌套数组并将其各个提供者转换为 `ResolvedReflectiveProvider` 数组的过程。
    *
-   * @usageNotes ### Example
+   * @usageNotes
+   *
+   * ### Example
    *
    * ### 例子
    *
    * ```typescript
-   *
-   * ```
-   * @Injectable ()
+   * @Injectable()
    * class Engine {
    * }
-   * @Injectable ()
+   *
+   * @Injectable()
    * class Car {
    *   constructor(public engine:Engine) {}
    * }
@@ -104,6 +108,7 @@ export abstract class ReflectiveInjector implements Injector {
    * expect(providers[1].key.displayName).toBe("Engine");
    * });
    * ```
+   *
    */
   static resolve(providers: Provider[]): ResolvedReflectiveProvider[] {
     return resolveReflectiveProviders(providers);
@@ -119,17 +124,18 @@ export abstract class ReflectiveInjector implements Injector {
    *
    * 传入的提供者可以是 `Type`、`Provider` 或更多提供者的递归数组。
    *
-   * @usageNotes ### Example
+   * @usageNotes
+   *
+   * ### Example
    *
    * ### 例子
    *
    * ```typescript
-   *
-   * ```
-   * @Injectable ()
+   * @Injectable()
    * class Engine {
    * }
-   * @Injectable ()
+   *
+   * @Injectable()
    * class Car {
    *   constructor(public engine:Engine) {}
    * }
@@ -152,17 +158,18 @@ export abstract class ReflectiveInjector implements Injector {
    *
    * 建议使用此 API 在对性能敏感的部分构建注入器。
    *
-   * @usageNotes ### Example
+   * @usageNotes
+   *
+   * ### Example
    *
    * ### 例子
    *
    * ```typescript
-   *
-   * ```
-   * @Injectable ()
+   * @Injectable()
    * class Engine {
    * }
-   * @Injectable ()
+   *
+   * @Injectable()
    * class Car {
    *   constructor(public engine:Engine) {}
    * }
@@ -202,6 +209,7 @@ export abstract class ReflectiveInjector implements Injector {
    * 传入的提供者可以是 `Type`、`Provider` 或更多提供者的递归数组。
    *
    * @usageNotes
+   *
    * ### Example
    *
    * ### 例子
@@ -233,6 +241,7 @@ export abstract class ReflectiveInjector implements Injector {
    * 建议使用此 API 在对性能敏感的部分构造注入器。
    *
    * @usageNotes
+   *
    * ### Example
    *
    * ### 例子
@@ -263,17 +272,18 @@ export abstract class ReflectiveInjector implements Injector {
    *
    * 注入器不会缓存创建的对象。
    *
-   * @usageNotes ### Example
+   * @usageNotes
+   *
+   * ### Example
    *
    * ### 例子
    *
    * ```typescript
-   *
-   * ```
-   * @Injectable ()
+   * @Injectable()
    * class Engine {
    * }
-   * @Injectable ()
+   *
+   * @Injectable()
    * class Car {
    *   constructor(public engine:Engine) {}
    * }
@@ -296,17 +306,18 @@ export abstract class ReflectiveInjector implements Injector {
    *
    * 注入器不会缓存创建的对象。
    *
-   * @usageNotes ### Example
+   * @usageNotes
+   *
+   * ### Example
    *
    * ### 例子
    *
    * ```typescript
-   *
-   * ```
-   * @Injectable ()
+   * @Injectable()
    * class Engine {
    * }
-   * @Injectable ()
+   *
+   * @Injectable()
    * class Car {
    *   constructor(public engine:Engine) {}
    * }

@@ -48,13 +48,16 @@ import {getTNode, unwrapRNode} from './view_utils';
  * Calling the function on `<my-app>` will return the `MyApp` instance.
  *
  * 在 `<my-app>` 上调用该函数将返回 `MyApp` 实例。
+ *
  * @param element DOM element from which the component should be retrieved.
  *
  * 要从中检索组件的 DOM 元素。
+ *
  * @returns Component instance associated with the element or `null` if there
  *    is no component associated with it.
  *
  * 与元素关联的组件实例；如果没有与之关联的组件，则为 `null`
+ *
  * @publicApi
  * @globalApi ng
  */
@@ -233,12 +236,15 @@ export function getInjectionTokens(element: Element): any[] {
  * Calling `getDirectives` on `<my-comp>` will return an empty array.
  *
  * 在 `<my-comp>` 上调用 `getDirectives` 将返回一个空数组。
+ *
  * @param element DOM element for which to get the directives.
  *
  * 要为其获取指令的 DOM 元素。
+ *
  * @returns Array of directives associated with the element.
  *
  * 与元素关联的指令数组。
+ *
  * @publicApi
  * @globalApi ng
  */
@@ -409,6 +415,7 @@ export interface Listener {
  * @param element Element for which the DOM listeners should be retrieved.
  *
  * 要为其检索 DOM 监听器的元素。
+ *
  * @returns Array of event listeners on the DOM element.
  *
  * DOM 元素上的事件监听器数组。

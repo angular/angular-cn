@@ -58,7 +58,10 @@ export const ngControlStatusHost = {
  * based on control status.
  *
  * 指令自动应用于 Angular 表单控件，该控件会根据控件状态设置 CSS 类。
- * @usageNotes ### CSS classes applied
+ *
+ * @usageNotes
+ *
+ * ### CSS classes applied
  *
  * ### 应用的 CSS 类
  *

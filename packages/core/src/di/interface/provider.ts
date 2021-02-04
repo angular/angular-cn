@@ -146,12 +146,13 @@ export interface StaticClassProvider extends StaticClassSansProvider {
  * @see ["Dependency Injection Guide"](guide/dependency-injection).
  *
  * [“依赖注入指南”](guide/dependency-injection) 。
- * @usageNotes ```ts
+ * @usageNotes
  *
- * ```
- * @Injectable (SomeModule, {deps: []})
+ * ```ts
+ * @Injectable(SomeModule, {deps: []})
  * class MyService {}
  * ```
+ *
  * @publicApi
  */
 export interface ConstructorSansProvider {
@@ -354,7 +355,7 @@ export type StaticProvider =
 
 
 /**
- * Configures the `Injector` to return an instance of `Type` when \`Type' is used as the token.
+ * Configures the `Injector` to return an instance of `Type` when `Type' is used as the token.
  *
  * 配置此 `Injector`，以将“类型”用作令牌时返回 `Type` 的实例。
  *
@@ -366,10 +367,11 @@ export type StaticProvider =
  * For more details, see the ["Dependency Injection Guide"](guide/dependency-injection).
  *
  * 欲知详情，请参见[“依赖项注入指南”](guide/dependency-injection) 。
+ *
  * @usageNotes
  *
- * {
- * @example core/di/ts/provider_spec.ts region='TypeProvider'}
+ * {@example core/di/ts/provider_spec.ts region='TypeProvider'}
+ *
  * @publicApi
  */
 export interface TypeProvider extends Type<any> {}

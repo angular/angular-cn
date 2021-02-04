@@ -333,22 +333,23 @@ export class PlatformRef {
    *
    * 为给定的平台创建 `@NgModule` 的实例，以进行离线编译。
    *
-   * @usageNotes The following example creates the NgModule for a browser platform.
+   * @usageNotes
+   *
+   * The following example creates the NgModule for a browser platform.
    *
    * 以下示例为浏览器平台创建 NgModule。
    *
    * ```typescript
    * my_module.ts:
-   * ```
-   * @NgModule ({
+   *
+   * @NgModule({
    *   imports: [BrowserModule]
    * })
    * class MyModule {}
    *
    * main.ts:
    * import {MyModuleNgFactory} from './my_module.ngfactory';
-   * import {platformBrowser} from '
-   * @angular /platform-browser';
+   * import {platformBrowser} from '@angular/platform-browser';
    *
    * let moduleRef = platformBrowser().bootstrapModuleFactory(MyModuleNgFactory);
    * ```
@@ -403,14 +404,14 @@ export class PlatformRef {
    *
    * 使用给定的运行时编译器为给定的平台创建 `@NgModule` 的实例。
    *
-   * @usageNotes ### Simple Example
+   * @usageNotes
+   *
+   * ### Simple Example
    *
    * ### 简单的例子
    *
    * ```typescript
-   *
-   * ```
-   * @NgModule ({
+   * @NgModule({
    *   imports: [BrowserModule]
    * })
    * class MyModule {}
@@ -737,6 +738,7 @@ export class ApplicationRef {
    * 在应用程序的根级引导新组件。
    *
    * @usageNotes
+   *
    * ### Bootstrap process
    *
    * ### 引导过程

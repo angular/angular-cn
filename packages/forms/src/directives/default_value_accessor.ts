@@ -46,6 +46,7 @@ export const COMPOSITION_BUFFER_MODE = new InjectionToken<boolean>('CompositionE
  * elements. The accessor is used by the `FormControlDirective`, `FormControlName`, and
  * `NgModel` directives.
  * @usageNotes
+ *
  * ### Using the default value accessor
  *
  * ### 使用默认值访问器

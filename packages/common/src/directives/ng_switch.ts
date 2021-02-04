@@ -53,6 +53,7 @@ export class SwitchView {
  *
  *     `[NgSwitch]` 语句内任何除 `NgSwitchCase` 或 `ngSwitchDefault` 指令之外的元素都保留在原位。
  * @usageNotes
+ *
  * Define a container element for the directive, and specify the switch expression
  * to match against as an attribute:
  *

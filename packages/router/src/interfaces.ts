@@ -404,6 +404,7 @@ export type CanDeactivateFn<T> =
  * The order of execution is: BaseGuard, ChildGuard, BaseDataResolver, ChildDataResolver.
  *
  * 执行顺序为：BaseGuard、ChildGuard、BaseDataResolver、ChildDataResolver。
+ *
  * @publicApi
  */
 export interface Resolve<T> {

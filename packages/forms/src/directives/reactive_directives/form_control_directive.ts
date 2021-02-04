@@ -48,6 +48,7 @@ export const formControlBinding: any = {
  * @see `FormControl`
  * @see `AbstractControl`
  * @usageNotes
+ *
  * The following example shows how to register a standalone control and set its value.
  *
  * 下面的示例演示如何注册独立控件并设置其值。

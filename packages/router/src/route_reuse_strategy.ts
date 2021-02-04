@@ -110,6 +110,7 @@ export abstract class RouteReuseStrategy {
  * class that extends the `BaseRouteReuseStrategy` one.
  *
  * 它可以用作自定义路由复用策略的基类，即，你可以创建自己的类来扩展 `BaseRouteReuseStrategy` 。
+ *
  * @publicApi
  */
 export abstract class BaseRouteReuseStrategy implements RouteReuseStrategy {

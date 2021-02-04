@@ -133,6 +133,7 @@ export class RouterModule {
    * @param config An `ExtraOptions` configuration object that controls how navigation is performed.
    *
    * 一个 `ExtraOptions` 配置对象，该对象会控制如何执行导航。
+   *
    * @return The new `NgModule`.
    *
    * 新的 `NgModule` 。
@@ -228,7 +229,8 @@ export function provideForRootGuard(router: Router): any {
  * @param routes The route configuration to provide.
  *
  * 注册路由。
- * @usageNotes ```
+ *
+ * @usageNotes
  *
  * ```
  * @NgModule ({

@@ -29,17 +29,17 @@ import {getNativeRequestAnimationFrame} from '../util/raf';
  *   - link to runOutsideAngular/run (throughout this file!)
  *   -->
  *
- * @usageNotes ### Example
+ * @usageNotes
+ *
+ * ### Example
  *
  * ### 例子
  *
  * ```
- * import {Component, NgZone} from '
- * ```
- * @angular /core';
- * import {NgIf} from '
- * @angular /common';
- * @Component ({
+ * import {Component, NgZone} from '@angular/core';
+ * import {NgIf} from '@angular/common';
+ *
+ * @Component({
  *   selector: 'ng-zone-demo',
  *   template: `
  *     <h2>Demo: NgZone</h2>
@@ -90,6 +90,7 @@ import {getNativeRequestAnimationFrame} from '../util/raf';
  *   }
  * }
  * ```
+ *
  * @publicApi
  */
 export class NgZone {

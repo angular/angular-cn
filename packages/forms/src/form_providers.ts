@@ -63,6 +63,7 @@ export class ReactiveFormsModule {
    * Provides options for configuring the reactive forms module.
    *
    * 提供了一些选项，供配置响应式表单模块。
+   *
    * @param opts An object of configuration options
    *
    * 一个配置选项对象

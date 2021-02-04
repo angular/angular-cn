@@ -24,6 +24,7 @@ export interface InjectDecorator {
    * 类构造函数中依赖项参数上的参数装饰器，用于指定依赖项的自定义提供者。
    *
    * @usageNotes
+   *
    * The following example shows a class constructor that specifies a
    * custom provider of a dependency using the parameter decorator.
    *

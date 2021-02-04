@@ -17,12 +17,9 @@
  * ```
  * @Component ({
  *   host: {
- *     '[
- * @myAnimationTrigger ]': 'someExpression',
- *     '(
- * @myAnimationTrigger .start)': 'captureStartEvent($event)',
- *     '(
- * @myAnimationTrigger .done)': 'captureDoneEvent($event)',
+ *     '[@myAnimationTrigger]': 'someExpression',
+ *     '(@myAnimationTrigger.start)': 'captureStartEvent($event)',
+ *     '(@myAnimationTrigger.done)': 'captureDoneEvent($event)',
  *   },
  *   animations: [
  *     trigger("myAnimationTrigger", [
@@ -41,6 +38,7 @@
  *   }
  * }
  * ```
+ *
  * @publicApi
  */
 export interface AnimationEvent {

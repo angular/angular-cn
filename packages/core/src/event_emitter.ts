@@ -17,7 +17,9 @@ import {Subject, Subscription} from 'rxjs';
  *
  * 用在带有 `@Output` 指令的组件中，以同步或异步方式发出自定义事件，并通过订阅实例来为这些事件注册处理器。
  *
- * @usageNotes Extends
+ * @usageNotes
+ *
+ * Extends
  * [RxJS `Subject`](https://rxjs.dev/api/index/class/Subject)
  * for Angular by adding the `emit()` method.
  *
@@ -30,9 +32,7 @@ import {Subject, Subscription} from 'rxjs';
  * 在以下示例中，组件定义了两个创建事件发射器的输出属性。单击标题后，发射器将发出打开或关闭事件以切换当前可见性状态。
  *
  * ```html
- *
- * ```
- * @Component ({
+ * @Component({
  *   selector: 'zippy',
  *   template: `
  *   <div class="zippy">
@@ -43,8 +43,8 @@ import {Subject, Subscription} from 'rxjs';
  *  </div>`})
  * export class Zippy {
  *   visible: boolean = true;
- * @Output () open: EventEmitter<any> = new EventEmitter();
- * @Output () close: EventEmitter<any> = new EventEmitter();
+ *   @Output() open: EventEmitter<any> = new EventEmitter();
+ *   @Output() close: EventEmitter<any> = new EventEmitter();
  *
  *   toggle() {
  *     this.visible = !this.visible;
@@ -63,9 +63,11 @@ import {Subject, Subscription} from 'rxjs';
  * ```html
  * <zippy (open)="onOpen($event)" (close)="onClose($event)"></zippy>
  * ```
+ *
  * @see [Observables in Angular](guide/observables-in-angular)
  *
  * [Angular 中的可观察对象](guide/observables-in-angular)
+ *
  * @publicApi
  */
 export interface EventEmitter<T> extends Subject<T> {

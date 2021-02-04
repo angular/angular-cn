@@ -44,10 +44,12 @@ export class FormBuilder {
    * Construct a new `FormGroup` instance.
    *
    * 构建一个新的 `FormGroup` 实例。
+   *
    * @param controlsConfig A collection of child controls. The key for each child is the name
    * under which it is registered.
    *
    * 一组子控件。每个 key 就是注册进来的控件的名字。
+   *
    * @param options Configuration options object for the `FormGroup`. The object should have the
    * the `AbstractControlOptions` type and might contain the following fields:
    *
@@ -75,14 +77,17 @@ export class FormBuilder {
    * Construct a new `FormGroup` instance.
    *
    * 构造一个新的 `FormGroup` 实例。
+   *
    * @deprecated This api is not typesafe and can result in issues with Closure Compiler renaming.
    *  Use the `FormBuilder#group` overload with `AbstractControlOptions` instead.
    *
    * 此 api 不是类型安全的，可能会导致 Closure Compiler 重命名时出现问题。应该改用 `FormBuilder#group` 的接受 `AbstractControlOptions` 的重载形式。
+   *
    * @param controlsConfig A collection of child controls. The key for each child is the name
    * under which it is registered.
    *
    * 子控件的集合。每个子控件的键就是其注册名称。
+   *
    * @param options Configuration options object for the `FormGroup`. The legacy configuration
    * object consists of:
    *

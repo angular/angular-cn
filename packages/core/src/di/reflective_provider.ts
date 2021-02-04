@@ -41,6 +41,7 @@ const _EMPTY_LIST: any[] = [];
  * 供 `Injector` 使用的 `Provider` 的内部解析表示形式。
  *
  * @usageNotes
+ *
  * This is usually created automatically by `Injector.resolveAndCreate`.
  *
  * 这通常是由 `Injector.resolveAndCreate` 自动创建的。

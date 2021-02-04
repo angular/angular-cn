@@ -13,6 +13,7 @@ type NgClassSupportedTypes = string[]|Set<string>|{[klass: string]: any}|null|un
  * @ngModule CommonModule
  *
  * @usageNotes
+ *
  * ```
  *     <some-element [ngClass]="'first second'">...</some-element>
  *

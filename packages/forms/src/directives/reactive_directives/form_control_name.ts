@@ -165,6 +165,7 @@ export class FormControlName extends NgControl implements OnChanges, OnDestroy {
    * particular FormControlName instance. Used to support warning config of "always".
    *
    * 实例属性，用于跟踪是否曾在特定的 `FormControlName` 实例中发出过这种 ngModel 警告。用于支持警告选项 `"always"`
+   *
    * @internal
    */
   _ngModelWarningSent = false;

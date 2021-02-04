@@ -33,6 +33,7 @@
  * Invoking `{{ 'ok' | repeat:3 }}` in a template produces `okokok`.
  *
  * 在模板中调用 `{{ 'ok' | repeat:3 }}` 的结果是 `okokok`。
+ *
  * @publicApi
  */
 export interface PipeTransform {

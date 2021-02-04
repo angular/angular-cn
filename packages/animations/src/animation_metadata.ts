@@ -644,14 +644,19 @@ export interface AnimationStaggerMetadata extends AnimationMetadata {
  * @param name An identifying string.
  *
  * 一个标识字符串。
+ *
  * @param definitions  An animation definition object, containing an array of `state()`
  * and `transition()` declarations.
  *
  * 一个动画定义对象，包含由 `state()` 和 `transition()` 声明构成的数组。
+ *
  * @return An object that encapsulates the trigger data.
  *
  * 用于包装该触发器数据的对象。
- * @usageNotes Define an animation trigger in the `animations` section of `@Component` metadata.
+ *
+ * @usageNotes
+ *
+ * Define an animation trigger in the `animations` section of `@Component` metadata.
  * In the template, reference the trigger by name and bind it to a trigger expression that
  * evaluates to a defined animation state, using the following format:
  *
@@ -681,7 +686,6 @@ export interface AnimationStaggerMetadata extends AnimationMetadata {
  *
  * ```typescript
  *
- * ```
  * @Component ({
  *   selector: "my-component",
  *   templateUrl: "my-component-tpl.html",
@@ -706,8 +710,7 @@ export interface AnimationStaggerMetadata extends AnimationMetadata {
  *
  * ```html
  * <!-- somewhere inside of my-component-tpl.html -->
- * <div [
- * @myAnimationTrigger ]="myStatusExp">...</div>
+ * <div [@myAnimationTrigger]="myStatusExp">...</div>
  * ```
  *
  * ### Using an inline function
@@ -722,10 +725,11 @@ export interface AnimationStaggerMetadata extends AnimationMetadata {
  * ```typescript
  * // this method is run each time the `myAnimationTrigger` trigger value changes.
  * function myInlineMatcherFn(fromState: string, toState: string, element: any, params: {[key:
- *  string]: any}): boolean {
+ string]: any}): boolean {
  *   // notice that `element` and `params` are also available here
  *   return toState == 'yes-please-animate';
  * }
+ *
  * @Component ({
  *   selector: 'my-component',
  *   templateUrl: 'my-component-tpl.html',
@@ -763,10 +767,8 @@ export interface AnimationStaggerMetadata extends AnimationMetadata {
  * @Component ({
  *   selector: 'my-component',
  *   template: `
- *     <div [
- * @ .disabled]="isDisabled">
- *       <div [
- * @childAnimation ]="exp"></div>
+ *     <div [@.disabled]="isDisabled">
+ *       <div [@childAnimation]="exp"></div>
  *     </div>
  *   `,
  *   animations: [
@@ -799,15 +801,14 @@ export interface AnimationStaggerMetadata extends AnimationMetadata {
  * 也就是说，只要你把 Angular 根组件上放一个 `@.disabled` 的宿主绑定即可。
  *
  * ```typescript
- * import {Component, HostBinding} from '
- * @angular /core';
+ * import {Component, HostBinding} from '@angular/core';
+ *
  * @Component ({
  *   selector: 'app-component',
  *   templateUrl: 'app.component.html',
  * })
  * class AppComponent {
- * @HostBinding ('
- * @ .disabled')
+ *   @HostBinding('@.disabled')
  *   public animationsDisabled = true;
  * }
  * ```
@@ -835,6 +836,7 @@ export interface AnimationStaggerMetadata extends AnimationMetadata {
  *
  * 如果 DOM 中的某个区域（或整个应用程序）的动画被禁用时，动画触发器的回调仍然会触发，但持续 0 秒。
  * 当回调被触发时，它会提供一个 `AnimationEvent` 的例子。如果动画被禁用了，则该事件上的 `.disabled` 标志为 `true`。
+ *
  * @publicApi
  */
 export function trigger(name: string, definitions: AnimationMetadata[]): AnimationTriggerMetadata {
@@ -872,6 +874,7 @@ export function trigger(name: string, definitions: AnimationMetadata[]): Animati
  * which decelerates near the end of the duration.
  *
  * 比如，字符串 "1s 100ms ease-out" 指定了一个 1000 毫秒的持续时间，一个 100 毫秒的延迟和一个 "ease-out" 缓动效果，它会快结束时减速。
+ *
  * @param styles Sets AnimationStyles for the parent animation.
  * A function call to either `style()` or `keyframes()`
  * that returns a collection of CSS style entries to be applied to the parent animation.
@@ -883,10 +886,14 @@ export function trigger(name: string, definitions: AnimationMetadata[]): Animati
  * 调用 `style()` 或 `keyframes()` 函数会返回要应用于父动画中的一组 CSS 样式，
  * 如果为 `null`，则使用目标状态中的样式，当描述一个某个动画的最后一步时，这很有用。
  * 参见 `transitions()` 中对"播放到最终状态"的说明。
+ *
  * @returns An object that encapsulates the animation step.
  *
  * 一个用于封装动画步骤的对象。
- * @usageNotes Call within an animation `sequence()`, `{@link animations/group group()}`, or
+ *
+ * @usageNotes
+ *
+ * Call within an animation `sequence()`, `{@link animations/group group()}`, or
  * `transition()` call to specify an animation step
  * that applies given style data to the parent animation for a given amount of time.
  *
@@ -950,6 +957,7 @@ export function trigger(name: string, definitions: AnimationMetadata[]): Animati
  *   style({ background: "red" }))
  *  ])
  * ```
+ *
  * @publicApi
  */
 export function animate(
@@ -960,8 +968,7 @@ export function animate(
 }
 
 /**
- * @description
- * Defines a list of animation steps to be run in parallel.
+ * @description Defines a list of animation steps to be run in parallel.
  *
  * 定义一个可以并行运行的动画步骤列表。
  *
@@ -1001,6 +1008,7 @@ export function animate(
  * 一个封装了该组数据的对象。
  *
  * @usageNotes
+ *
  * Grouped animations are useful when a series of styles must be
  * animated at different starting times and closed off at different ending times.
  *
@@ -1055,6 +1063,7 @@ export function group(
  * 一个封装了该动画序列数据的对象。
  *
  * @usageNotes
+ *
  * When you pass an array of steps to a
  * `transition()` call, the steps run sequentially by default.
  * Compare this to the `{@link animations/group group()}` call, which runs animation steps in
@@ -1069,6 +1078,7 @@ export function group(
  *
  * 当在 `{@link animations/group group()}` 或 `transition()` 调用中应用动画序列时，
  * 只有当每个内部动画步骤都完成之后，才会继续执行下一个指令。
+ *
  * @publicApi
  **/
 export function sequence(
@@ -1097,7 +1107,7 @@ export function sequence(
  *
  *   一组表示样式的键值对。
  *
- * - An asterisk (\*), to use auto-styling, where styles are derived from the element
+ * - An asterisk (*), to use auto-styling, where styles are derived from the element
  *   being animated and applied to the animation when it starts.
  *
  *     一个星号（`*`），表示自动样式，其样式值会在应用此样式的时刻从目标元素中取得，并用作动画参数。
@@ -1106,10 +1116,13 @@ export function sequence(
  * environmental factors.
  *
  * 自动样式可用于定义一个需要依赖布局或其它环境因素的状态。
+ *
  * @return An object that encapsulates the style data.
  *
  * 一个封装了样式数据的对象。
+ *
  * @usageNotes
+ *
  * The following examples create animation styles that collect a set of
  * CSS property values:
  *
@@ -1132,8 +1145,9 @@ export function sequence(
  * style({ height: 0 }),
  * animate("1s", style({ height: "*" }))
  * ```
+ *
  * @publicApi
- */
+ **/
 export function style(tokens: '*'|{[key: string]: string | number}|
                       Array<'*'|{[key: string]: string | number}>): AnimationStyleMetadata {
   return {type: AnimationMetadataType.Style, styles: tokens, offset: null};
@@ -1181,6 +1195,7 @@ export function style(tokens: '*'|{[key: string]: string | number}|
  * 一个封装了新状态数据的对象。
  *
  * @usageNotes
+ *
  * Use the `trigger()` function to register states to an animation trigger.
  * Use the `transition()` function to animate between states.
  * When a state is active within a component, its associated styles persist on the element,
@@ -1216,6 +1231,7 @@ export function state(
  * 一个封装关键帧数据的对象。
  *
  * @usageNotes
+ *
  * Use with the `animate()` call. Instead of applying animations
  * from the current state
  * to the destination state, keyframes describe how each style entry is applied and at what point
@@ -1287,7 +1303,7 @@ export function keyframes(steps: AnimationStyleMetadata[]): AnimationKeyframesSe
  * 当该表达式求值为真时，则执行这些动画步骤。
  *
  * - A state-change string takes the form "state1 => state2", where each side is a defined animation
- *   state, or an asterix (\*) to refer to a dynamic start or end state.
+ *   state, or an asterix (*) to refer to a dynamic start or end state.
  *
  *   一个 "state1 => state2" 格式的状态变更字符串，每一侧都是一个事先定义好的动画状态，或者用星号（`*`）来动态获取起始或结束状态。
  *
@@ -1311,30 +1327,34 @@ export function keyframes(steps: AnimationStyleMetadata[]): AnimationKeyframesSe
  *
  *     一个函数，每当动画触发器所在的元素发生了状态变化时就会执行。
  *     当该函数返回 `true` 时，就会执行这些动画步骤。
+ *
  * @param steps One or more animation objects, as returned by the `animate()` or
  * `sequence()` function, that form a transformation from one state to another.
  * A sequence is used by default when you pass an array.
  *
  * 一个或多个由 `animate()` 或 `sequence()` 函数返回的动画对象，用于描述从一个状态到另一个状态的转变过程。
  * 当传入一个数组时，默认当做一个动画序列使用。
+ *
  * @param options An options object that can contain a delay value for the start of the animation,
  * and additional developer-defined parameters. Provided values for additional parameters are used
  * as defaults, and override values can be passed to the caller on invocation.
  *
  * 一个配置对象，可以包含一个开始动画之前的延迟值，和一些由开发人员定义的参数。在这些参数中提供的值会被用作样式的默认值，
  * 在调用时调用者可以重写这些值。
+ *
  * @returns An object that encapsulates the transition data.
  *
  * 一个封装了转场数据的对象。
- * @usageNotes The template associated with a component binds an animation trigger to an element.
+ *
+ * @usageNotes
+ *
+ * The template associated with a component binds an animation trigger to an element.
  *
  * 与组件关联的模板会把动画触发器绑定到某个元素上。
  *
  * ```HTML
  * <!-- somewhere inside of my-component-tpl.html -->
- * <div [
- * ```
- * @myAnimationTrigger ]="myStatusExp">...</div>
+ * <div [@myAnimationTrigger]="myStatusExp">...</div>
  * ```
  *
  * All transitions are defined within an animation trigger,
@@ -1490,8 +1510,7 @@ export function keyframes(steps: AnimationStyleMetadata[]): AnimationKeyframesSe
  *
  * ```
  * // in the template
- * <div [
- * @openClose ]="open ? true : false">...</div>
+ * <div [@openClose]="open ? true : false">...</div>
  * // in the component metadata
  * trigger('openClose', [
  *   state('true', style({ height: '*' })),
@@ -1499,8 +1518,9 @@ export function keyframes(steps: AnimationStyleMetadata[]): AnimationKeyframesSe
  *   transition('false <=> true', animate(500))
  * ])
  * ```
+ *
  * @publicApi
- */
+ **/
 export function transition(
     stateChangeExpr: string|
     ((fromState: string, toState: string, element?: any, params?: {[key: string]: any}) => boolean),
@@ -1535,6 +1555,7 @@ export function transition(
  * 一个封装了动画数据的对象。
  *
  * @usageNotes
+ *
  * The following example defines a reusable animation, providing some default parameter
  * values.
  *
@@ -1595,6 +1616,7 @@ export function animation(
  * 一个对象，封装了子动画数据。
  *
  * @usageNotes
+ *
  * Each time an animation is triggered in Angular, the parent animation
  * has priority and any child animations are blocked. In order
  * for a child animation to run, the parent animation must query each of the elements
@@ -1679,21 +1701,24 @@ export function useAnimation(
  *
  * 要应用到所查询到的单个或一组元素上的一个或多个动画步骤。
  * 该数组会被视为一个动画序列。
+ *
  * @param options An options object. Use the 'limit' field to limit the total number of
  * items to collect.
  *
  * 一个配置对象。使用 `limit` 字段来限制要收集的条目的数量上限。
+ *
  * @return An object that encapsulates the query data.
  *
  * 一个封装了查询数据的对象。
- * @usageNotes Tokens can be merged into a combined query selector string. For example:
+ *
+ * @usageNotes
+ *
+ * Tokens can be merged into a combined query selector string. For example:
  *
  * 多个令牌可以合并成复合查询选择器。比如：
  *
  * ```typescript
- *  query(':self, .record:enter, .record:leave,
- * ```
- * @subTrigger ', [...])
+ *  query(':self, .record:enter, .record:leave, @subTrigger ', [...])
  * ```
  *
  * The `query()` function collects multiple elements and works internally by using
@@ -1735,8 +1760,7 @@ export function useAnimation(
  * @Component ({
  *   selector: 'inner',
  *   template: `
- *     <div [
- * @queryAnimation ]="exp">
+ *     <div [@queryAnimation]="exp">
  *       <h1>Title</h1>
  *       <div class="content">
  *         Blah blah blah
@@ -1782,13 +1806,18 @@ export function query(
  * @param timings A delay value.
  *
  * 延迟值。
+ *
  * @param animation One ore more animation steps.
  *
  * 一个或多个动画步骤。
+ *
  * @returns An object that encapsulates the stagger data.
  *
  * 一个封装了交错数据的对象。
- * @usageNotes In the following example, a container element wraps a list of items stamped out
+ *
+ * @usageNotes
+ *
+ * In the following example, a container element wraps a list of items stamped out
  * by an `ngFor`. The container element contains an animation trigger that will later be set
  * to query for each of the inner items.
  *
@@ -1807,9 +1836,7 @@ export function query(
  * <!-- list.component.html -->
  * <button (click)="toggle()">Show / Hide Items</button>
  * <hr />
- * <div [
- * ```
- * @listAnimation ]="items.length">
+ * <div [@listAnimation]="items.length">
  *   <div *ngFor="let item of items">
  *     {{ item }}
  *   </div>
@@ -1821,8 +1848,7 @@ export function query(
  * 下面是组件代码：
  *
  * ```typescript
- * import {trigger, transition, style, animate, query, stagger} from '
- * @angular /animations';
+ * import {trigger, transition, style, animate, query, stagger} from '@angular/animations';
  * @Component ({
  *   templateUrl: 'list.component.html',
  *   animations: [
@@ -1869,6 +1895,7 @@ export function query(
  *   ])
  * ])
  * ```
+ *
  * @publicApi
  */
 export function stagger(timings: string|number, animation: AnimationMetadata|AnimationMetadata[]):

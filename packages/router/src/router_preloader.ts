@@ -82,6 +82,7 @@ export class NoPreloading implements PreloadingStrategy {
  * If a route is protected by `canLoad` guards, the preloaded will not load it.
  *
  * 如果路由受 `canLoad` 保护器保护，则预加载的路由不会加载该路由。
+ *
  * @publicApi
  */
 @Injectable()

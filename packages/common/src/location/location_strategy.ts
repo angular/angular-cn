@@ -24,15 +24,16 @@ import {joinWithSlash, normalizeQueryParams} from './util';
  * 应用程序应使用 `Router` 或 `Location` 服务与应用程序的路由状态进行交互。
  *
  * For instance, `HashLocationStrategy` produces URLs like
- * <code class="no-auto-link"><http://example.com#/foo></code>,
+ * <code class="no-auto-link">http://example.com#/foo</code>,
  * and `PathLocationStrategy` produces
- * <code class="no-auto-link"><http://example.com/foo></code> as an equivalent URL.
+ * <code class="no-auto-link">http://example.com/foo</code> as an equivalent URL.
  *
- * 例如，`HashLocationStrategy` 会处理像 <code class="no-auto-link"><http://example.com#/foo></code> 这样的 URL，而 `PathLocationStrategy` 会处理像 <code class="no-auto-link"><http://example.com/foo></code> 这样的等价 URL。
+ * 例如，`HashLocationStrategy` 会处理像 <code class="no-auto-link">http://example.com#/foo</code> 这样的 URL，而 `PathLocationStrategy` 会处理像 <code class="no-auto-link">http://example.com/foo</code> 这样的等价 URL。
  *
  * See these two classes for more.
  *
  * 有关更多信息，请参见这两个类。
+ *
  * @publicApi
  */
 @Injectable({providedIn: 'root', useFactory: provideLocationStrategy})
@@ -63,22 +64,23 @@ export function provideLocationStrategy(platformLocation: PlatformLocation) {
  *
  * 预定义的 [DI 令牌](guide/glossary#di-token)，用于和 `PathLocationStrategy` 一起使用的 base href。base href 是在生成和识别 URL 时应保留的 URL 前缀。
  *
- * @usageNotes The following example shows how to use this token to configure the root app injector
+ * @usageNotes
+ *
+ * The following example shows how to use this token to configure the root app injector
  * with a base href value, so that the DI framework can supply the dependency anywhere in the app.
  *
  * 以下示例演示了如何使用此令牌为基本应用注入器配置 base href 值，以便 DI 框架可以在应用中的任何位置提供依赖项。
  *
  * ```typescript
- * import {Component, NgModule} from '
- * ```
- * @angular /core';
- * import {APP_BASE_HREF} from '
- * @angular /common';
+ * import {Component, NgModule} from '@angular/core';
+ * import {APP_BASE_HREF} from '@angular/common';
+ *
  * @NgModule ({
  *   providers: [{provide: APP_BASE_HREF, useValue: '/my/app'}]
  * })
  * class AppModule {}
  * ```
+ *
  * @publicApi
  */
 export const APP_BASE_HREF = new InjectionToken<string>('appBaseHref');

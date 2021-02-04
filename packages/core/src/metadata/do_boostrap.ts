@@ -21,6 +21,7 @@ import {ApplicationRef} from '../application_ref';
  * See ["Bootstrapping"](guide/bootstrapping) and ["Entry components"](guide/entry-components).
  *
  * @usageNotes
+ *
  * ```typescript
  * class AppModule implements DoBootstrap {
  *   ngDoBootstrap(appRef: ApplicationRef) {
