@@ -24,9 +24,13 @@ import {RouterLink, RouterLinkWithHref} from './router_link';
  * to specify one or more CSS classes to add to the element when the linked route
  * is active.
  *
+ * 跟踪元素上的链接路由当前是否处于活动状态，并允许你指定一个或多个 CSS 类，以便在链接路由处于活动状态时添加到该元素。
+ *
  * Use this directive to create a visual distinction for elements associated with an active route.
  * For example, the following code highlights the word "Bob" when the the router
  * activates the associated route:
+ *
+ * 使用此指令为与活动路径关联的元素创建视觉差异。例如，以下代码会在路由器激活关联的路由时突出显示单词 “Bob”：
  *
  * ```
  * <a routerLink="/user/bob" routerLinkActive="active-link">Bob</a>
@@ -60,6 +64,8 @@ import {RouterLink, RouterLinkWithHref} from './router_link';
  * To directly check the `isActive` status of the link, assign the `RouterLinkActive`
  * instance to a template variable.
  * For example, the following checks the status without assigning any CSS classes:
+ *
+ * 要直接检查 `isActive` 状态，请将 `RouterLinkActive` 实例分配给模板变量。例如，以下代码会在不分配任何 CSS 类的情况下检查状态：
  *
  * ```
  * <a routerLink="/user/bob" routerLinkActive #rla="routerLinkActive">

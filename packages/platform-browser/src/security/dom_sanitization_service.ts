@@ -16,48 +16,54 @@ export {SecurityContext};
 /**
  * Marker interface for a value that's safe to use in a particular context.
  *
- * @publicApi
  * 一个标记性接口，用于表示一个值可以安全的用在特定的上下文中。
+ *
+ * @publicApi
  */
 export interface SafeValue {}
 
 /**
  * Marker interface for a value that's safe to use as HTML.
  *
- * @publicApi
  * 一个标记性接口，用于表示一个值可以安全地用在 HTML 上下文中。
+ *
+ * @publicApi
  */
 export interface SafeHtml extends SafeValue {}
 
 /**
  * Marker interface for a value that's safe to use as style (CSS).
  *
- * @publicApi
  * 一个标记性接口，用于表示一个值可以安全地用在样式（CSS）上下文中。
+ *
+ * @publicApi
  */
 export interface SafeStyle extends SafeValue {}
 
 /**
  * Marker interface for a value that's safe to use as JavaScript.
  *
- * @publicApi
  * 一个标记性接口，用于表示一个值可以安全地用在 JavaScript 上下文中。
+ *
+ * @publicApi
  */
 export interface SafeScript extends SafeValue {}
 
 /**
  * Marker interface for a value that's safe to use as a URL linking to a document.
  *
- * @publicApi
  * 一个标记性接口，用于表示一个值可以安全地用作 URL 链接到一个文档。
+ *
+ * @publicApi
  */
 export interface SafeUrl extends SafeValue {}
 
 /**
  * Marker interface for a value that's safe to use as a URL to load executable code from.
  *
- * @publicApi
  * 一个标记性接口，用于表示一个值可以安全地用作 URL 以加载可执行代码。
+ *
+ * @publicApi
  */
 export interface SafeResourceUrl extends SafeValue {}
 
@@ -159,7 +165,7 @@ export abstract class DomSanitizer implements Sanitizer {
   /**
    * Bypass security and trust the given value to be safe JavaScript.
    *
-   * 绕过安全检查，并信任给定的值是一个安全的JavaScript。
+   * 绕过安全检查，并信任给定的值是一个安全的 JavaScript。
    *
    * **WARNING:** calling this method with untrusted user data exposes your application to XSS
    * security risks!

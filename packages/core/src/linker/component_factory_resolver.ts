@@ -39,14 +39,25 @@ class _NullComponentFactoryResolver implements ComponentFactoryResolver {
  * Use to obtain the factory for a given component type,
  * then use the factory's `create()` method to create a component of that type.
  *
+ * 一个简单的注册表，它将 `Components` 映射到生成的 `ComponentFactory` 类，该类可用于创建组件的实例。用于获取给定组件类型的工厂，然后使用工厂的 `create()` 方法创建该类型的组件。
+ *
  * @see [Dynamic Components](guide/dynamic-component-loader)
+ *
+ * [动态组件](guide/dynamic-component-loader)
+ *
  * @publicApi
  */
 export abstract class ComponentFactoryResolver {
   static NULL: ComponentFactoryResolver = new _NullComponentFactoryResolver();
   /**
    * Retrieves the factory object that creates a component of the given type.
+   *
+   * 检索能创建给定类型的组件的工厂对象。
+   *
    * @param component The component type.
+   *
+   * 组件类型。
+   *
    */
   abstract resolveComponentFactory<T>(component: Type<T>): ComponentFactory<T>;
 }

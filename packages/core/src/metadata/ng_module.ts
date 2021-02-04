@@ -31,6 +31,8 @@ export type ɵɵNgModuleDefWithMeta<T, Declarations, Imports, Exports> = NgModul
  *
  * @see [Deprecations](guide/deprecations#modulewithproviders-type-without-a-generic)
  *
+ * [弃用](guide/deprecations#modulewithproviders-type-without-a-generic)
+ *
  * @publicApi
  */
 export interface ModuleWithProviders<T> {
@@ -72,7 +74,12 @@ export interface NgModule {
    * 在当前模块的注入器中可用的一组可注入对象。
    *
    * @see [Dependency Injection guide](guide/dependency-injection)
+   *
+   * [依赖注入指南](guide/dependency-injection)
+   *
    * @see [NgModule guide](guide/providers)
+   *
+   * [NgModule 指南](guide/providers)
    *
    * @usageNotes
    *
@@ -81,7 +88,7 @@ export interface NgModule {
    * The NgModule used for bootstrapping uses the root injector, and can provide dependencies
    * to any part of the app.
    *
-   * 在这里列出了提供商的依赖项可用于注入到任何组件、指令、管道或该注入器下的服务。
+   * 在这里列出了提供者的依赖项可用于注入到任何组件、指令、管道或该注入器下的服务。
    * 引导用的 NgModule 使用的是根注入器，可以为应用中的任何部件提供依赖。
    *
    * A lazy-loaded module has its own injector, typically a child of the app root injector.
@@ -274,7 +281,13 @@ export interface NgModule {
    * 该选项用于添加那些需要写代码来创建的组件，比如 `ViewContainerRef.createComponent()`。
    *
    * @see [Entry Components](guide/entry-components)
+   *
+   * [入口组件](guide/entry-components)
+   *
    * @deprecated Since 9.0.0. With Ivy, this property is no longer necessary.
+   *
+   * 从 9.0.0 开始。使用 Ivy，不再需要此属性。
+   *
    */
   entryComponents?: Array<Type<any>|any[]>;
 
@@ -321,6 +334,9 @@ export interface NgModule {
    * It remains in distributed code, and the JIT compiler attempts to compile it
    * at run time, in the browser.
    * To ensure the correct behavior, the app must import `@angular/compiler`.
+   *
+   * 如果存在，则该指令/组件将被 AOT 编译器忽略。它会保留在发布代码中，并且 JIT 编译器会尝试在运行时在浏览器中对其进行编译。为了确保其行为正确，该应用程序必须导入 `@angular/compiler` 。
+   *
    */
   jit?: true;
 }

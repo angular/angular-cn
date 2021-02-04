@@ -23,19 +23,30 @@ declare var System: any;
  * Configuration for SystemJsNgModuleLoader.
  * token.
  *
+ * SystemJsNgModuleLoader 的配置。令牌。
+ *
  * @publicApi
  * @deprecated the `string` form of `loadChildren` is deprecated, and `SystemJsNgModuleLoaderConfig`
  * is part of its implementation. See `LoadChildren` for more details.
+ *
+ * 不推荐使用 `loadChildren` 的 `string` 形式 `SystemJsNgModuleLoaderConfig` 是其实现的一部分。有关更多详细信息，请参见 `LoadChildren`
+ *
  */
 export abstract class SystemJsNgModuleLoaderConfig {
   /**
    * Prefix to add when computing the name of the factory module for a given module name.
+   *
+   * 计算给定模块名称的工厂模块名称时添加的前缀。
+   *
    */
   // TODO(issue/24571): remove '!'.
   factoryPathPrefix!: string;
 
   /**
    * Suffix to add when computing the name of the factory module for a given module name.
+   *
+   * 计算给定模块名称的工厂模块名称时添加的后缀。
+   *
    */
   // TODO(issue/24571): remove '!'.
   factoryPathSuffix!: string;
@@ -48,9 +59,15 @@ const DEFAULT_CONFIG: SystemJsNgModuleLoaderConfig = {
 
 /**
  * NgModuleFactoryLoader that uses SystemJS to load NgModuleFactory
+ *
+ * 使用 SystemJS 加载 NgModuleFactory 的 NgModuleFactoryLoader
+ *
  * @publicApi
  * @deprecated the `string` form of `loadChildren` is deprecated, and `SystemJsNgModuleLoader` is
  * part of its implementation. See `LoadChildren` for more details.
+ *
+ * 该 `string` 的形式 `loadChildren` 已被弃用， `SystemJsNgModuleLoader` 是其实现的一部分。有关更多详细信息，请参见 `LoadChildren`
+ *
  */
 @Injectable()
 export class SystemJsNgModuleLoader implements NgModuleFactoryLoader {

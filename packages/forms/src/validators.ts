@@ -147,6 +147,7 @@ export class Validators {
    * `min` property if the validation check fails, otherwise `null`.
    *
    * 如果验证失败，则此验证器函数返回一个带有 `min` 属性的映射表（map），否则为 `null`。
+   *
    * @see `updateValueAndValidity()`
    *
    */
@@ -277,13 +278,28 @@ export class Validators {
    * some enhancements to incorporate more RFC rules (such as rules related to domain names and the
    * lengths of different parts of the address).
    *
+   * 使用适合普通用例的[正则表达式模式测试值](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions)。该模式基于 [WHATWG HTML 规范](https://html.spec.whatwg.org/multipage/input.html#valid-e-mail-address)中有效电子邮件地址的定义，并进行了一些增强以支持更多的 RFC 规则（例如与域名相关的规则以及地址不同部分的长度）。
+   *
    * The differences from the WHATWG version include:
+   *
+   * 与 WHATWG 版本的区别包括：
+   *
    * - Disallow `local-part` (the part before the `@` symbol) to begin or end with a period (`.`).
+   *
+   *   禁止 `local-part`（`@` 符号前面的部分）以句点（ `.` ）开头或结尾。
+   *
    * - Disallow `local-part` to be longer than 64 characters.
+   *
+   *   不允许 `local-part` 超过 64 个字符。
+   *
    * - Disallow the whole address to be longer than 254 characters.
+   *
+   *   不允许整个地址超过 254 个字符。
    *
    * If this pattern does not satisfy your business needs, you can use `Validators.pattern()` to
    * validate the value against a different pattern.
+   *
+   * 如果此模式不能满足你的业务需求，则可以使用 `Validators.pattern()` 来针对其他模式验证值。
    *
    * @usageNotes
    *
@@ -429,6 +445,8 @@ export class Validators {
    *
    * ### Pattern matching with the global or sticky flag
    *
+   * ### 带有全局或粘性（sticky）标志的匹配模式
+   *
    * `RegExp` objects created with the `g` or `y` flags that are passed into `Validators.pattern`
    * can produce different results on the same input when validations are run consecutively. This is
    * due to how the behavior of `RegExp.prototype.test` is
@@ -437,6 +455,8 @@ export class Validators {
    * Due to this behavior, it is recommended that when using
    * `Validators.pattern` you **do not** pass in a `RegExp` object with either the global or sticky
    * flag enabled.
+   *
+   * 当要连续运行验证时，使用传递给 `Validators.pattern` 的 `g` 或 `y` 标志创建的 `RegExp` 对象可以在同一输入上产生不同的结果。这是由于在 [ECMA-262 中](https://tc39.es/ecma262/#sec-regexpbuiltinexec)为 `RegExp.prototype.test` 定义的行为（`RegExp` 保留了最后一个匹配项的索引）。由于这种现象，建议你使用 `Validators.pattern` 时**不要**传入启用了全局或粘性标志的 `RegExp`。
    *
    * ```typescript
    * // Not recommended (since the `g` flag is used)
@@ -450,6 +470,8 @@ export class Validators {
    * If a string is passed, the `^` character is prepended and the `$` character is
    * appended to the provided string (if not already present), and the resulting regular
    * expression is used to test the values.
+   *
+   * 用于测试值的正则表达式或字符串。如果传递了字符串，会在它前面追加 `^` 字符，并在后面追加 `$` 字符（如果尚不存在），然后使用所得的正则表达式测试这些值。
    *
    * @returns A validator function that returns an error map with the
    * `pattern` property if the validation check fails, otherwise `null`.

@@ -15,17 +15,23 @@ import {Directive, DoCheck, ElementRef, Input, KeyValueChanges, KeyValueDiffer, 
  *
  * Set the font of the containing element to the result of an expression.
  *
+ * 将容器元素的字体设置为表达式的结果。
+ *
  * ```
  * <some-element [ngStyle]="{'font-style': styleExp}">...</some-element>
  * ```
  *
  * Set the width of the containing element to a pixel value returned by an expression.
  *
+ * 将容器元素的宽度设置为表达式返回的像素值。
+ *
  * ```
  * <some-element [ngStyle]="{'max-width.px': widthExp}">...</some-element>
  * ```
  *
  * Set a collection of style values using an expression that returns key-value pairs.
+ *
+ * 使用返回键值对的表达式来设置样式值的集合。
  *
  * ```
  * <some-element [ngStyle]="objExp">...</some-element>

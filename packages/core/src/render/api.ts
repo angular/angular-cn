@@ -22,27 +22,53 @@ export const Renderer2Interceptor = new InjectionToken<Renderer2[]>('Renderer2In
 /**
  * Creates and initializes a custom renderer that implements the `Renderer2` base class.
  *
+ * 创建并初始化实现 `Renderer2` 基类的自定义渲染器。
+ *
  * @publicApi
  */
 export abstract class RendererFactory2 {
   /**
    * Creates and initializes a custom renderer for a host DOM element.
+   *
+   * 为宿主 DOM 元素创建并初始化自定义渲染器。
+   *
    * @param hostElement The element to render.
+   *
+   * 要渲染的元素。
+   *
    * @param type The base class to implement.
+   *
+   * 要实现的基类。
+   *
    * @returns The new custom renderer instance.
+   *
+   * 新的自定义渲染器实例。
+   *
    */
   abstract createRenderer(hostElement: any, type: RendererType2|null): Renderer2;
   /**
    * A callback invoked when rendering has begun.
+   *
+   * 渲染开始时调用的回调。
+   *
    */
   abstract begin?(): void;
   /**
    * A callback invoked when rendering has completed.
+   *
+   * 渲染完成时调用的回调。
+   *
    */
   abstract end?(): void;
   /**
    * Use with animations test-only mode. Notifies the test when rendering has completed.
+   *
+   * 与动画的“仅测试”模式一起使用。渲染完成后通知该测试。
+   *
    * @returns The asynchronous result of the developer-defined function.
+   *
+   * 由开发人员定义函数的异步结果。
+   *
    */
   abstract whenRenderingDone?(): Promise<any>;
 }
@@ -182,6 +208,9 @@ export abstract class Renderer2 {
    *     would always assume that any `insertBefore` is a move. This is not strictly true because
    *     with runtime i18n it is possible to invoke `insertBefore` as a result of i18n and it should
    *     not trigger an animation move.
+   *
+   * 可选参数，指示当前的 `insertBefore` 是否是移动的结果。动画使用此信息来触发移动动画。过去，Animation 始终假定任何 `insertBefore` 都是一次移动。但严格来说这是不正确的，因为在支持 i18n 的运行环境中，可以调用 `insertBefore`，而不应触发移动动画。
+   *
    */
   abstract insertBefore(parent: any, newChild: any, refChild: any, isMove?: boolean): void;
   /**

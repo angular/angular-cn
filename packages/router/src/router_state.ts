@@ -21,6 +21,8 @@ import {Tree, TreeNode} from './utils/tree';
 /**
  * Represents the state of the router as a tree of activated routes.
  *
+ * 将路由器的状态表示为已激活路由的树。
+ *
  * @usageNotes
  *
  * Every node in the route tree is an `ActivatedRoute` instance
@@ -28,8 +30,12 @@ import {Tree, TreeNode} from './utils/tree';
  * and the resolved data.
  * Use the `ActivatedRoute` properties to traverse the tree from any node.
  *
+ * 路由树中的每个节点都是 `ActivatedRoute` 的实例，该实例了解“已消耗的” URL 段，已提取的参数和已解析的数据。使用 `ActivatedRoute` 属性可以从任何节点遍历树。
+ *
  * The following fragment shows how a component gets the root node
  * of the current state to establish its own route tree:
+ *
+ * 以下片段显示了组件如何获取当前状态的根节点以建立其自己的路由树：
  *
  * ```
  * @Component({templateUrl:'template.html'})
@@ -46,6 +52,8 @@ import {Tree, TreeNode} from './utils/tree';
  *
  * @see `ActivatedRoute`
  * @see [Getting route information](guide/router#getting-route-information)
+ *
+ * [获取路由信息](guide/router#getting-route-information)
  *
  * @publicApi
  */
@@ -95,13 +103,19 @@ export function createEmptyStateSnapshot(
  * that is loaded in an outlet.
  * Use to traverse the `RouterState` tree and extract information from nodes.
  *
+ * 允许访问与某出口中加载的组件关联路由信息。用于遍历 `RouterState` 树并从节点提取信息。
+ *
  * The following example shows how to construct a component using information from a
  * currently activated route.
+ *
+ * 以下示例演示如何使用当前激活的路由中的信息来构造组件。
  *
  * {@example router/activated-route/module.ts region="activated-route"
  *     header="activated-route.component.ts"}
  *
  * @see [Getting route information](guide/router#getting-route-information)
+ *
+ * [获取路由信息](guide/router#getting-route-information)
  *
  * @publicApi
  */
@@ -213,6 +227,9 @@ export class ActivatedRoute {
    * An Observable that contains a map of the required and optional parameters
    * specific to the route.
    * The map supports retrieving single and multiple values from the same parameter.
+   *
+   * 一个 Observable，其中包含特定于路由的必要和可选参数的映射。该映射支持从同一参数中检索单个和多个值。
+   *
    */
   get paramMap(): Observable<ParamMap> {
     if (!this._paramMap) {
@@ -224,6 +241,9 @@ export class ActivatedRoute {
   /**
    * An Observable that contains a map of the query parameters available to all routes.
    * The map supports retrieving single and multiple values from the query parameter.
+   *
+   * 一个 Observable，其中包含可用于所有路由的查询参数的映射。该映射支持从查询参数中检索单个和多个值。
+   *
    */
   get queryParamMap(): Observable<ParamMap> {
     if (!this._queryParamMap) {
@@ -303,6 +323,8 @@ function flattenInherited(pathFromRoot: ActivatedRouteSnapshot[]): Inherited {
  *
  * The following example initializes a component with route information extracted
  * from the snapshot of the root node at the time of creation.
+ *
+ * 以下示例使用在创建时从根节点的快照中提取的路由信息来初始化组件。
  *
  * ```
  * @Component({templateUrl:'./my-component.html'})
@@ -461,6 +483,8 @@ export class ActivatedRouteSnapshot {
  *
  * The following example shows how a component is initialized with information
  * from the snapshot of the root node's state at the time of creation.
+ *
+ * 以下示例演示了如何使用创建时根节点状态快照中的信息初始化组件。
  *
  * ```
  * @Component({templateUrl:'template.html'})

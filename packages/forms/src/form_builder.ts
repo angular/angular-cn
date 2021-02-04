@@ -66,6 +66,8 @@ export class FormBuilder {
    *
    * * `updateOn`: The event upon which the control should be updated (options: 'change' | 'blur' |
    * submit')
+   *
+   *     `updateOn` ：控件应更新的事件（选项： 'change' | 'blur' | submit'）
    */
   group(
       controlsConfig: {[key: string]: any},
@@ -75,14 +77,23 @@ export class FormBuilder {
    * @description
    * Construct a new `FormGroup` instance.
    *
+   * 构造一个新的 `FormGroup` 实例。
+   *
    * @deprecated This api is not typesafe and can result in issues with Closure Compiler renaming.
    *  Use the `FormBuilder#group` overload with `AbstractControlOptions` instead.
+   *
+   * 此 api 不是类型安全的，可能会导致 Closure Compiler 重命名时出现问题。应该改用 `FormBuilder#group` 的接受 `AbstractControlOptions` 的重载形式。
    *
    * @param controlsConfig A collection of child controls. The key for each child is the name
    * under which it is registered.
    *
+   * 子控件的集合。每个子控件的键就是其注册名称。
+   *
    * @param options Configuration options object for the `FormGroup`. The legacy configuration
    * object consists of:
+   *
+   * `FormGroup` 配置选项对象。旧的配置对象包括：
+   *
    * * `validator`: A synchronous validator function, or an array of validator functions
    *
    *   `validator`：一个同步验证器函数或其数组
@@ -90,6 +101,8 @@ export class FormBuilder {
    * * `asyncValidator`: A single async validator or array of async validator functions
    * Note: the legacy format is deprecated and might be removed in one of the next major versions
    * of Angular.
+   *
+   *   `asyncValidator` ：单个异步验证器或异步验证器函数数组。注意：不推荐使用旧格式，并且会在 Angular 的后面的某个主要版本中将其删除。
    */
   group(
       controlsConfig: {[key: string]: any},

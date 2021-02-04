@@ -20,12 +20,18 @@ import {joinWithSlash, normalizeQueryParams} from './util';
  * [hash fragment](https://en.wikipedia.org/wiki/Uniform_Resource_Locator#Syntax)
  * of the browser's URL.
  *
+ * 此 {@link LocationStrategy} 用来配置 {@link Location} 服务，以便在浏览器 URL 的 [hash 片段](https://en.wikipedia.org/wiki/Uniform_Resource_Locator#Syntax)中表示其状态。
+ *
  * For instance, if you call `location.go('/foo')`, the browser's URL will become
  * `example.com#/foo`.
+ *
+ * 例如，如果你调用 `location.go('/foo')` ，则浏览器的 URL 将变为 `example.com#/foo` 。
  *
  * @usageNotes
  *
  * ### Example
+ *
+ * ### 例子
  *
  * {@example common/location/ts/hash_location_component.ts region='LocationComponent'}
  *

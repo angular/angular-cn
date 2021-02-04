@@ -124,8 +124,12 @@ export function zoneSchedulerFactory(ngZone: NgZone): (fn: () => void) => void {
  * providers of `@angular/core` dependencies that `ApplicationRef` needs
  * to bootstrap components.
  *
+ * 为应用配置根注入器，它带有 `ApplicationRef` 在引导组件时所需的来自 `@angular/core` 的提供者。
+ *
  * Re-exported by `BrowserModule`, which is included automatically in the root
  * `AppModule` when you create a new app with the CLI `new` command.
+ *
+ * 由 `BrowserModule` 重新导出，当你使用 CLI `new` 命令创建新应用时，它会自动包含在根 `AppModule` 中。
  *
  * @publicApi
  */

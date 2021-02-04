@@ -9,55 +9,92 @@
 /**
  * A codec for encoding and decoding URL parts.
  *
+ * 用于编码和解码 URL 部分的编解码器。
+ *
  * @publicApi
  **/
 export abstract class UrlCodec {
   /**
    * Encodes the path from the provided string
    *
+   * 解码所提供的字符串的路径
+   *
    * @param path The path string
+   *
+   * 路径字符串
+   *
    */
   abstract encodePath(path: string): string;
 
   /**
    * Decodes the path from the provided string
    *
+   * 解码所提供的字符串的路径
+   *
    * @param path The path string
+   *
+   * 路径字符串
+   *
    */
   abstract decodePath(path: string): string;
 
   /**
    * Encodes the search string from the provided string or object
    *
+   * 从所提供的字符串或对象中编码搜索字符串
+   *
    * @param path The path string or object
+   *
+   * 路径字符串或对象
+   *
    */
   abstract encodeSearch(search: string|{[k: string]: unknown}): string;
 
   /**
    * Decodes the search objects from the provided string
    *
+   * 从所提供的字符串中解码搜索对象
+   *
    * @param path The path string
+   *
+   * 路径字符串
+   *
    */
   abstract decodeSearch(search: string): {[k: string]: unknown};
 
   /**
    * Encodes the hash from the provided string
    *
+   * 对所提供的字符串中的哈希进行编码
+   *
    * @param path The hash string
+   *
+   * 哈希字符串
+   *
    */
   abstract encodeHash(hash: string): string;
 
   /**
    * Decodes the hash from the provided string
    *
+   * 从所提供的字符串中解码哈希
+   *
    * @param path The hash string
+   *
+   * 哈希字符串
+   *
    */
   abstract decodeHash(hash: string): string;
 
   /**
    * Normalizes the URL from the provided string
    *
+   * 从所提供的字符串中标准化 URL
+   *
    * @param path The URL string
+   *
+   * URL 字符串
+   *
    */
   abstract normalize(href: string): string;
 
@@ -65,26 +102,57 @@ export abstract class UrlCodec {
   /**
    * Normalizes the URL from the provided string, search, hash, and base URL parameters
    *
+   * 根据所提供的字符串、搜索、哈希和基本 URL 参数标准化 URL
+   *
    * @param path The URL path
+   *
+   * 网址路径
+   *
    * @param search The search object
+   *
+   * 搜索对象
+   *
    * @param hash The has string
+   *
+   * 哈希字符串
+   *
    * @param baseUrl The base URL for the URL
+   *
+   * 此 URL 的基本 URL
+   *
    */
   abstract normalize(path: string, search: {[k: string]: unknown}, hash: string, baseUrl?: string):
       string;
 
   /**
    * Checks whether the two strings are equal
+   *
+   * 检查两个字符串是否相等
+   *
    * @param valA First string for comparison
+   *
+   * 要比较的第一个字符串
+   *
    * @param valB Second string for comparison
+   *
+   * 要比较的第二个字符串
+   *
    */
   abstract areEqual(valA: string, valB: string): boolean;
 
   /**
    * Parses the URL string based on the base URL
    *
+   * 根据基本 URL 解析 URL 字符串
+   *
    * @param url The full URL string
+   *
+   * 完整的 URL 字符串
+   *
    * @param base The base for the URL
+   *
+   * URL 的 base 部分
+   *
    */
   abstract parse(url: string, base?: string): {
     href: string,
@@ -101,6 +169,8 @@ export abstract class UrlCodec {
 /**
  * A `UrlCodec` that uses logic from AngularJS to serialize and parse URLs
  * and URL parameters.
+ *
+ * 一个 `UrlCodec`，它使用 AngularJS 中的逻辑来序列化和解析 URL 和 URL 参数。
  *
  * @publicApi
  */

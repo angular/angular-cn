@@ -88,7 +88,12 @@ export abstract class ViewContainerRef {
    */
   abstract get injector(): Injector;
 
-  /** @deprecated No replacement */
+  /**
+   * @deprecated No replacement
+   *
+   * 无替代品
+   *
+   */
   abstract get parentInjector(): Injector;
 
   /**

@@ -16,6 +16,9 @@ import {standardizeConfig} from './utils/config';
 
 /**
  * The [DI token](guide/glossary/#di-token) for a router configuration.
+ *
+ * 路由器配置的 [DI 令牌。](guide/glossary/#di-token)
+ *
  * @see `ROUTES`
  * @publicApi
  */

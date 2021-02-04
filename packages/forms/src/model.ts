@@ -191,6 +191,8 @@ export abstract class AbstractControl {
   /**
    * Indicates that a control has its own pending asynchronous validation in progress.
    *
+   * 指示控件正在进行其自己的挂起的异步验证。
+   *
    * @internal
    */
   _hasOwnPendingAsyncValidator = false;
@@ -213,6 +215,8 @@ export abstract class AbstractControl {
    * Contains the result of merging synchronous validators into a single validator function
    * (combined using `Validators.compose`).
    *
+   * 包含将同步验证器合并到单个验证器函数中的结果（使用 `Validators.compose` 组合）。
+   *
    * @internal
    */
   private _composedValidatorFn: ValidatorFn|null;
@@ -221,15 +225,28 @@ export abstract class AbstractControl {
    * Contains the result of merging asynchronous validators into a single validator function
    * (combined using `Validators.composeAsync`).
    *
+   * 包含将异步验证器合并为单个验证器函数（使用 `Validators.composeAsync` 组合）的结果。
+   *
    * @internal
    */
   private _composedAsyncValidatorFn: AsyncValidatorFn|null;
 
   /**
    * Synchronous validators as they were provided:
+   *
+   * 提供的同步验证器：
+   *
    *  - in `AbstractControl` constructor
+   *
+   *    在 `AbstractControl` 构造函数中
+   *
    *  - as an argument while calling `setValidators` function
+   *
+   *    在调用 `setValidators` 函数时作为参数
+   *
    *  - while calling the setter on the `validator` field (e.g. `control.validator = validatorFn`)
+   *
+   *    在调用 `validator` 字段的设置器时（例如，`control.validator = validatorFn`）
    *
    * @internal
    */
@@ -237,10 +254,21 @@ export abstract class AbstractControl {
 
   /**
    * Asynchronous validators as they were provided:
+   *
+   * 提供的异步验证器：
+   *
    *  - in `AbstractControl` constructor
+   *
+   *    在 `AbstractControl` 构造函数中
+   *
    *  - as an argument while calling `setAsyncValidators` function
+   *
+   *    `setAsyncValidators` 函数时作为参数
+   *
    *  - while calling the setter on the `asyncValidator` field (e.g. `control.asyncValidator =
    * asyncValidatorFn`)
+   *
+   *      `asyncValidator` 字段上调用 setter 时（例如， `control.asyncValidator = asyncValidatorFn` ）
    *
    * @internal
    */
@@ -284,6 +312,9 @@ export abstract class AbstractControl {
    *
    * @param asyncValidators The function or array of functions that is used to determine validity of
    *     this control asynchronously.
+   *
+   * 用于异步确定此控件有效性的函数或函数数组。
+   *
    */
   constructor(
       validators: ValidatorFn|ValidatorFn[]|null,
@@ -309,6 +340,9 @@ export abstract class AbstractControl {
 
   /**
    * The function that is used to determine the validity of this control asynchronously.
+   *
+   * 用于异步确定此控件的有效性的函数。
+   *
    */
   get asyncValidator(): AsyncValidatorFn|null {
     return this._composedAsyncValidatorFn;
@@ -551,6 +585,8 @@ export abstract class AbstractControl {
    * When you add or remove a validator at run time, you must call
    * `updateValueAndValidity()` for the new validation to take effect.
    *
+   * 在运行时添加或删除验证器时，必须调用 `updateValueAndValidity()` 才能使新验证生效。
+   *
    */
   setValidators(newValidator: ValidatorFn|ValidatorFn[]|null): void {
     this._rawValidators = newValidator;
@@ -566,6 +602,8 @@ export abstract class AbstractControl {
    * When you add or remove a validator at run time, you must call
    * `updateValueAndValidity()` for the new validation to take effect.
    *
+   * 在运行时添加或删除验证器时，必须调用 `updateValueAndValidity()` 才能使新验证生效。
+   *
    */
   setAsyncValidators(newValidator: AsyncValidatorFn|AsyncValidatorFn[]|null): void {
     this._rawAsyncValidators = newValidator;
@@ -580,6 +618,8 @@ export abstract class AbstractControl {
    * When you add or remove a validator at run time, you must call
    * `updateValueAndValidity()` for the new validation to take effect.
    *
+   * 在运行时添加或删除验证器时，必须调用 `updateValueAndValidity()` 才能使新验证生效。
+   *
    */
   clearValidators(): void {
     this.validator = null;
@@ -593,6 +633,8 @@ export abstract class AbstractControl {
    * When you add or remove a validator at run time, you must call
    * `updateValueAndValidity()` for the new validation to take effect.
    *
+   * 在运行时添加或删除验证器时，必须调用 `updateValueAndValidity()` 才能使新验证生效。
+   *
    */
   clearAsyncValidators(): void {
     this.asyncValidator = null;
@@ -601,6 +643,8 @@ export abstract class AbstractControl {
   /**
    * Marks the control as `touched`. A control is touched by focus and
    * blur events that do not change the value.
+   *
+   * 将控件标记为已 `touched`。focus 和 blur 事件不会改变该值，从而让控件变为已触摸状态。
    *
    * @see `markAsUntouched()`
    * @see `markAsDirty()`
@@ -611,7 +655,7 @@ export abstract class AbstractControl {
    *  @param opts Configuration options that determine how the control propagates changes
    * and emits events after marking is applied.
    *
-   * 在应用完此标记后，该配置项会决定控件如何传播变更及发出事件。
+   *  在应用完此标记后，该配置项会决定控件如何传播变更及发出事件。
    *
    * * `onlySelf`: When true, mark only this control. When false or not supplied,
    * marks all direct ancestors. Default is false.
@@ -628,6 +672,9 @@ export abstract class AbstractControl {
 
   /**
    * Marks the control and all its descendant controls as `touched`.
+   *
+   * 将控件及其所有后代控件标记为已 `touched` 。
+   *
    * @see `markAsTouched()`
    */
   markAllAsTouched(): void {
@@ -863,8 +910,8 @@ export abstract class AbstractControl {
    * observables emit events with the latest status and value when the control is enabled.
    * When false, no events are emitted.
    *
-   *   `emitEvent`：如果为 `true` 或没有提供（默认），则当控件被启用时，`statusChanges` 和 `valueChanges` 这两个 Observable 都会发出最近的状态和值。
-   *   如果为 `false`，则不会发出事件。
+   *     `emitEvent`：如果为 `true` 或没有提供（默认），则当控件被启用时，`statusChanges` 和 `valueChanges` 这两个 Observable 都会发出最近的状态和值。
+   *     如果为 `false`，则不会发出事件。
    */
   enable(opts: {onlySelf?: boolean, emitEvent?: boolean} = {}): void {
     // If parent has been marked artificially dirty we don't want to re-calculate the
@@ -1092,6 +1139,7 @@ export abstract class AbstractControl {
    * 一个控件名列表，用于指定要如何从当前控件移动到要查询错误的那个控件。
    *
    * @usageNotes
+   *
    * For example, for the following `FormGroup`:
    *
    * 比如，对于下列 `FormGroup`：
@@ -1104,19 +1152,19 @@ export abstract class AbstractControl {
    *
    * The path to the 'street' control from the root form would be 'address' -> 'street'.
    *
-   * 从根表单移动到这个 'street' 控件的路径应该是 'address' -> 'street'。
+   * 此 'street' 控件的从根表单开始的路径应该是 'address' -> 'street'。
    *
    * It can be provided to this method in one of two formats:
    *
-   * 可以用两种格式把它提供给此方法：
+   * 调用此方法有两种形式：
    *
    * 1. An array of string control names, e.g. `['address', 'street']`
    *
-   *    一个表示控件名的字符串数组，比如 `['address', 'street']`
+   *    控件名称的字符串数组，如 `['address', 'street']`
    *
    * 1. A period-delimited list of control names in one string, e.g. `'address.street'`
    *
-   *    一个点号分隔的控件名列表构成的单一字符串，比如 `'address.street'`
+   *    以一个字符串表示的句号分隔的控件名称列表，如 `'address.street'`
    *
    * @returns error data for that particular error. If the control or error is not present,
    * null is returned.
@@ -1142,8 +1190,13 @@ export abstract class AbstractControl {
    * @param path A list of control names that designates how to move from the current control
    * to the control that should be queried for errors.
    *
+   * 控件名称列表，用于指定如何从当前控件移至应查询错误的控件。
+   *
    * @usageNotes
+   *
    * For example, for the following `FormGroup`:
+   *
+   * 例如，对于以下 `FormGroup` ：
    *
    * ```
    * form = new FormGroup({
@@ -1153,21 +1206,32 @@ export abstract class AbstractControl {
    *
    * The path to the 'street' control from the root form would be 'address' -> 'street'.
    *
+   * 此 'street' 控件的从根表单开始的路径应该是 'address' -> 'street'。
+   *
    * It can be provided to this method in one of two formats:
    *
+   * 调用此方法有两种形式：
+   *
    * 1. An array of string control names, e.g. `['address', 'street']`
+   *
+   *    控件名称的字符串数组，如 `['address', 'street']`
+   *
    * 1. A period-delimited list of control names in one string, e.g. `'address.street'`
+   *
+   *    以一个字符串表示的句号分隔的控件名称列表，如 `'address.street'`
    *
    * If no path is given, this method checks for the error on the current control.
    *
-   *
-   * 要检查的控件的路径。如果没有提供该参数，则检查该控件中的错误。
+   * 如果没有提供路径，则检查当前控件中的错误。
    *
    * @returns whether the given error is present in the control at the given path.
+   *
+   * 给定路径中的控件中是否存在给定的错误。
    *
    * If the control is not present, false is returned.
    *
    * 如果指定路径下的控件有这个错误则返回 `true`，否则返回 `false`。
+   *
    */
   hasError(errorCode: string, path?: Array<string|number>|string): boolean {
     return !!this.getError(errorCode, path);
@@ -1288,6 +1352,8 @@ export abstract class AbstractControl {
 
   /**
    * Check to see if parent has been marked artificially dirty.
+   *
+   * 检查是否已将父级标记为已被人为弄脏。
    *
    * @internal
    */
@@ -1634,6 +1700,9 @@ export class FormControl extends AbstractControl {
 
   /**
    * Internal function to unregister a change events listener.
+   *
+   * 内部函数，用于注销变更事件监听器。
+   *
    * @internal
    */
   _unregisterOnChange(fn: Function): void {
@@ -1655,6 +1724,9 @@ export class FormControl extends AbstractControl {
 
   /**
    * Internal function to unregister a disabled event listener.
+   *
+   * 内部函数，用于注销已禁用的事件监听器。
+   *
    * @internal
    */
   _unregisterOnDisabledChange(fn: (isDisabled: boolean) => void): void {
@@ -2726,8 +2798,13 @@ export class FormArray extends AbstractControl {
   /**
    * Remove all controls in the `FormArray`.
    *
+   * 移除 `FormArray` 的所有控件。
+   *
    * @usageNotes
+   *
    * ### Remove all elements from a FormArray
+   *
+   * ### 从 FormArray 删除所有元素
    *
    * ```ts
    * const arr = new FormArray([
@@ -2741,6 +2818,8 @@ export class FormArray extends AbstractControl {
    * ```
    *
    * It's a simpler and more efficient alternative to removing all elements one by one:
+   *
+   * 这是一种更简便、更高效的替代方法，可以一次删除所有元素：
    *
    * ```ts
    * const arr = new FormArray([

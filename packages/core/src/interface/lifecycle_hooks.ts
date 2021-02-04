@@ -23,6 +23,7 @@ import {SimpleChanges} from './simple_change';
  * [生命周期钩子](guide/lifecycle-hooks#onchanges)
  *
  * @usageNotes
+ *
  * The following snippet shows how a component can implement this interface to
  * define an on-changes handler for an input property.
  *
@@ -63,6 +64,7 @@ export interface OnChanges {
  * [生命周期钩子](guide/lifecycle-hooks#onchanges)
  *
  * @usageNotes
+ *
  * The following snippet shows how a component can implement this interface to
  * define its own initialization method.
  *
@@ -113,6 +115,7 @@ export interface OnInit {
  * [生命周期钩子](guide/lifecycle-hooks#onchanges)
  *
  * @usageNotes
+ *
  * The following snippet shows how a component can implement this interface
  * to invoke it own change-detection cycle.
  *
@@ -151,6 +154,7 @@ export interface DoCheck {
  * [生命周期钩子](guide/lifecycle-hooks#onchanges)
  *
  * @usageNotes
+ *
  * The following snippet shows how a component can implement this interface
  * to define its own custom clean-up method.
  *
@@ -186,6 +190,7 @@ export interface OnDestroy {
  * [生命周期钩子](guide/lifecycle-hooks#onchanges)
  *
  * @usageNotes
+ *
  * The following snippet shows how a component can implement this interface to
  * define its own content initialization method.
  *
@@ -222,6 +227,7 @@ export interface AfterContentInit {
  * [生命周期钩子](guide/lifecycle-hooks#onchanges)
  *
  * @usageNotes
+ *
  * The following snippet shows how a component can implement this interface to
  * define its own after-check functionality.
  *
@@ -258,6 +264,7 @@ export interface AfterContentChecked {
  * [生命周期钩子](guide/lifecycle-hooks#onchanges)
  *
  * @usageNotes
+ *
  * The following snippet shows how a component can implement this interface to
  * define its own view initialization method.
  *
@@ -292,6 +299,7 @@ export interface AfterViewInit {
  * [生命周期钩子](guide/lifecycle-hooks#onchanges)
  *
  * @usageNotes
+ *
  * The following snippet shows how a component can implement this interface to
  * define its own after-check functionality.
  *

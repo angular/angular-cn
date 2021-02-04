@@ -15,6 +15,8 @@ import {COMPILER_PROVIDERS, TestingCompilerFactoryImpl} from './compiler_factory
 /**
  * Platform for dynamic tests
  *
+ * 动态测试平台
+ *
  * @publicApi
  */
 export const platformCoreDynamicTesting: (extraProviders?: any[]) => PlatformRef =

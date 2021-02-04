@@ -23,6 +23,8 @@ import {PRIMARY_OUTLET} from '../shared';
  * Each outlet can have a unique name, determined by the optional `name` attribute.
  * The name cannot be set or changed dynamically. If not set, default value is "primary".
  *
+ * 每个出口可以具有唯一的名称，该 `name` 由可选的 name 属性确定。该名称不能动态设置或更改。如果未设置，则默认值为 “primary”。
+ *
  * ```
  * <router-outlet></router-outlet>
  * <router-outlet name='left'></router-outlet>
@@ -32,15 +34,21 @@ import {PRIMARY_OUTLET} from '../shared';
  * Named outlets can be the targets of secondary routes.
  * The `Route` object for a secondary route has an `outlet` property to identify the target outlet:
  *
+ * 命名出口可以是辅助路由的目标。辅助路由的 `Route` 对象具有一个 `outlet` 属性，用于标识目标出口：
+ *
  * `{path: <base-path>, component: <component>, outlet: <target_outlet_name>}`
  *
  * Using named outlets and secondary routes, you can target multiple outlets in
  * the same `RouterLink` directive.
  *
+ * 使用命名的出口和辅助路由，你可以在同一 `RouterLink` 指令中定位多个出口。
+ *
  * The router keeps track of separate branches in a navigation tree for each named outlet and
  * generates a representation of that tree in the URL.
  * The URL for a secondary route uses the following syntax to specify both the primary and secondary
  * routes at the same time:
+ *
+ * 路由器在导航树中跟踪每个命名出口的单独分支，并在 URL 中生成该树的表示形式。辅助路由的 URL 使用以下语法同时指定主要路由和辅助路由：
  *
  * `http://base-path/primary-route-path(outlet-name:route-path)`
  *
@@ -57,6 +65,9 @@ import {PRIMARY_OUTLET} from '../shared';
  *
  * @see [Routing tutorial](guide/router-tutorial-toh#named-outlets "Example of a named
  * outlet and secondary route configuration").
+ *
+ * [路由导航](guide/router-tutorial-toh#named-outlets "命名出口与第二路由的配置范例")
+ *
  * @see `RouterLink`
  * @see `Route`
  * @ngModule RouterModule

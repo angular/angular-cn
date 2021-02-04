@@ -15,6 +15,8 @@ import {ɵINTERNAL_SERVER_PLATFORM_PROVIDERS as INTERNAL_SERVER_PLATFORM_PROVIDE
 /**
  * Platform for testing
  *
+ * 测试平台
+ *
  * @publicApi
  */
 export const platformServerTesting = createPlatformFactory(
@@ -22,6 +24,8 @@ export const platformServerTesting = createPlatformFactory(
 
 /**
  * NgModule for testing.
+ *
+ * 用于测试的 NgModule。
  *
  * @publicApi
  */

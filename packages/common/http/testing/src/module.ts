@@ -16,7 +16,11 @@ import {HttpClientTestingBackend} from './backend';
 /**
  * Configures `HttpClientTestingBackend` as the `HttpBackend` used by `HttpClient`.
  *
+ * 提供配置 `HttpClientTestingBackend` 作为 `HttpBackend` 所使用 `HttpClient` 。
+ *
  * Inject `HttpTestingController` to expect and flush requests in your tests.
+ *
+ * 注入 `HttpTestingController` 以期望并刷新测试中的请求。
  *
  * @publicApi
  */

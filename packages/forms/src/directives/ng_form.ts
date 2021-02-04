@@ -51,6 +51,8 @@ const resolvedPromise = (() => Promise.resolve(null))();
  * To register child controls with the form, use `NgModel` with a `name`
  * attribute. You may use `NgModelGroup` to create sub-groups within the form.
  *
+ * 要使用该表单注册的子控件，请使用带有 `name` 属性的 `NgModel`。你可以使用 `NgModelGroup` 在表单中创建子组。
+ *
  * If necessary, listen to the directive's `ngSubmit` event to be notified when the user has
  * triggered a form submission. The `ngSubmit` event emits the original form
  * submission event.
@@ -73,7 +75,11 @@ const resolvedPromise = (() => Promise.resolve(null))();
  *
  * ### Listening for form submission
  *
+ * ### 监听表单提交
+ *
  * The following example shows how to capture the form values from the "ngSubmit" event.
+ *
+ * 下面的示例显示如何从 “ngSubmit” 事件中捕获表单值。
  *
  * {@example forms/ts/simpleForm/simple_form_example.ts region='Component'}
  *
@@ -116,6 +122,9 @@ export class NgForm extends ControlContainer implements Form, AfterViewInit {
   /**
    * @description
    * Returns whether the form submission has been triggered.
+   *
+   * 返回是否已触发表单提交。
+   *
    */
   public readonly submitted: boolean = false;
 
@@ -124,12 +133,18 @@ export class NgForm extends ControlContainer implements Form, AfterViewInit {
   /**
    * @description
    * The `FormGroup` instance created for this form.
+   *
+   * 为此表单创建的 `FormGroup`
+   *
    */
   form: FormGroup;
 
   /**
    * @description
    * Event emitter for the "ngSubmit" event
+   *
+   * “ngSubmit” 的事件发射器
+   *
    */
   ngSubmit = new EventEmitter();
 
@@ -167,6 +182,9 @@ export class NgForm extends ControlContainer implements Form, AfterViewInit {
   /**
    * @description
    * The directive instance.
+   *
+   * 指令实例。
+   *
    */
   get formDirective(): Form {
     return this;
@@ -175,6 +193,9 @@ export class NgForm extends ControlContainer implements Form, AfterViewInit {
   /**
    * @description
    * The internal `FormGroup` instance.
+   *
+   * 内部 `FormGroup` 实例。
+   *
    */
   get control(): FormGroup {
     return this.form;
@@ -184,6 +205,9 @@ export class NgForm extends ControlContainer implements Form, AfterViewInit {
    * @description
    * Returns an array representing the path to this group. Because this directive
    * always lives at the top level of a form, it is always an empty array.
+   *
+   * 返回表示该组路径的数组。由于此指令始终位于调用表单的顶层，因此它始终是一个空数组。
+   *
    */
   get path(): string[] {
     return [];
@@ -192,6 +216,9 @@ export class NgForm extends ControlContainer implements Form, AfterViewInit {
   /**
    * @description
    * Returns a map of the controls in this group.
+   *
+   * 返回此组中控件的映射表。
+   *
    */
   get controls(): {[key: string]: AbstractControl} {
     return this.form.controls;
@@ -202,7 +229,11 @@ export class NgForm extends ControlContainer implements Form, AfterViewInit {
    * Method that sets up the control directive in this group, re-calculates its value
    * and validity, and adds the instance to the internal list of directives.
    *
+   * 在该组中设置控件指令，重新计算其值和有效性并将该实例添加到内部指令列表的方法。
+   *
    * @param dir The `NgModel` directive instance.
+   *
+   * `NgModel` 指令实例。
    */
   addControl(dir: NgModel): void {
     resolvedPromise.then(() => {
@@ -219,7 +250,12 @@ export class NgForm extends ControlContainer implements Form, AfterViewInit {
    * @description
    * Retrieves the `FormControl` instance from the provided `NgModel` directive.
    *
+   * 从提供的 `NgModel` 指令中检索 `FormControl`
+   *
    * @param dir The `NgModel` directive instance.
+   *
+   * `NgModel` 指令实例。
+   *
    */
   getControl(dir: NgModel): FormControl {
     return <FormControl>this.form.get(dir.path);
@@ -229,7 +265,12 @@ export class NgForm extends ControlContainer implements Form, AfterViewInit {
    * @description
    * Removes the `NgModel` instance from the internal list of directives
    *
+   * 从指令的内部列表中删除 `NgModel`
+   *
    * @param dir The `NgModel` directive instance.
+   *
+   * `NgModel` 指令实例。
+   *
    */
   removeControl(dir: NgModel): void {
     resolvedPromise.then(() => {
@@ -245,7 +286,12 @@ export class NgForm extends ControlContainer implements Form, AfterViewInit {
    * @description
    * Adds a new `NgModelGroup` directive instance to the form.
    *
+   * 向表单添加一个新的 `NgModelGroup` 指令实例。
+   *
    * @param dir The `NgModelGroup` directive instance.
+   *
+   * `NgModelGroup` 指令实例。
+   *
    */
   addFormGroup(dir: NgModelGroup): void {
     resolvedPromise.then(() => {
@@ -261,7 +307,12 @@ export class NgForm extends ControlContainer implements Form, AfterViewInit {
    * @description
    * Removes the `NgModelGroup` directive instance from the form.
    *
+   * 从表单中删除 `NgModelGroup`
+   *
    * @param dir The `NgModelGroup` directive instance.
+   *
+   * `NgModelGroup` 指令实例。
+   *
    */
   removeFormGroup(dir: NgModelGroup): void {
     resolvedPromise.then(() => {
@@ -276,7 +327,12 @@ export class NgForm extends ControlContainer implements Form, AfterViewInit {
    * @description
    * Retrieves the `FormGroup` for a provided `NgModelGroup` directive instance
    *
+   * 为所提供的 `NgModelGroup` 指令实例检索其 `FormGroup`
+   *
    * @param dir The `NgModelGroup` directive instance.
+   *
+   * `NgModelGroup` 指令实例。
+   *
    */
   getFormGroup(dir: NgModelGroup): FormGroup {
     return <FormGroup>this.form.get(dir.path);
@@ -285,8 +341,16 @@ export class NgForm extends ControlContainer implements Form, AfterViewInit {
   /**
    * Sets the new value for the provided `NgControl` directive.
    *
+   * 为所提供的 `NgControl` 指令设置新值。
+   *
    * @param dir The `NgControl` directive instance.
+   *
+   * `NgControl` 指令实例。
+   *
    * @param value The new value for the directive's control.
+   *
+   * 指令控件的新值。
+   *
    */
   updateModel(dir: NgControl, value: any): void {
     resolvedPromise.then(() => {
@@ -299,7 +363,12 @@ export class NgForm extends ControlContainer implements Form, AfterViewInit {
    * @description
    * Sets the value for this `FormGroup`.
    *
+   * 设置此 `FormGroup` 的值。
+   *
    * @param value The new value
+   *
+   * 新值
+   *
    */
   setValue(value: {[key: string]: any}): void {
     this.control.setValue(value);
@@ -310,7 +379,12 @@ export class NgForm extends ControlContainer implements Form, AfterViewInit {
    * Method called when the "submit" event is triggered on the form.
    * Triggers the `ngSubmit` emitter to emit the "submit" event as its payload.
    *
+   * 在表单上触发 “submit” 事件时调用的方法。触发 `ngSubmit` 发出 “submit” 事件。
+   *
    * @param $event The "submit" event object
+   *
+   * "submit" 事件对象
+   *
    */
   onSubmit($event: Event): boolean {
     (this as {submitted: boolean}).submitted = true;
@@ -322,6 +396,9 @@ export class NgForm extends ControlContainer implements Form, AfterViewInit {
   /**
    * @description
    * Method called when the "reset" event is triggered on the form.
+   *
+   * 在表单上触发 “reset” 事件时要调用的方法。
+   *
    */
   onReset(): void {
     this.resetForm();
@@ -331,7 +408,12 @@ export class NgForm extends ControlContainer implements Form, AfterViewInit {
    * @description
    * Resets the form to an initial value and resets its submitted status.
    *
+   * 将表单重置为初始值并重置其提交状态。
+   *
    * @param value The new value for the form.
+   *
+   * 表单的新值。
+   *
    */
   resetForm(value: any = undefined): void {
     this.form.reset(value);

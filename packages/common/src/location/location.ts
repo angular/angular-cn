@@ -61,6 +61,8 @@ export interface PopStateEvent {
  *
  * ### Example
  *
+ * ### 例子
+ *
  * <code-example path='common/location/ts/path_location_component.ts'
  * region='LocationComponent'></code-example>
  *
@@ -122,7 +124,13 @@ export class Location {
 
   /**
    * Reports the current state of the location history.
+   *
+   * 报告位置历史记录的当前状态。
+   *
    * @returns The current value of the `history.state` object.
+   *
+   * `history.state` 对象的当前值。
+   *
    */
   getState(): unknown {
     return this._platformLocation.getState();
@@ -174,6 +182,8 @@ export class Location {
    * If the given URL doesn't begin with a leading slash (`'/'`), adds one
    * before normalizing. Adds a hash if `HashLocationStrategy` is
    * in use, or the `APP_BASE_HREF` if the `PathLocationStrategy` is in use.
+   *
+   * 标准化外部 URL 路径。如果给定的 URL 并非以斜杠（ `'/'` ）开头，就会在规范化之前添加一个。如果使用 `HashLocationStrategy` 则添加哈希；如果使用 `PathLocationStrategy` 则添加 `APP_BASE_HREF`。
    *
    * @param url String representing a URL.
    *
@@ -264,7 +274,12 @@ export class Location {
    * Registers a URL change listener. Use to catch updates performed by the Angular
    * framework that are not detectible through "popstate" or "hashchange" events.
    *
+   * 注册 URL 更改监听器。被 Angular 框架用于捕获那些无法通过 “popstate” 或 “hashchange” 事件检测到的更新。
+   *
    * @param fn The change handler function, which take a URL and a location history state.
+   *
+   * 更改处理器函数，接受 URL 和位置历史记录的状态。
+   *
    */
   onUrlChange(fn: (url: string, state: unknown) => void) {
     this._urlChangeListeners.push(fn);
@@ -327,8 +342,12 @@ export class Location {
    * 给定 url 的两个部分，把它们连接（join）在一起，如有必要则添加一个斜杠。
    *
    * @param start  URL string
+   *
+   * URL 字符串
+   *
    * @param end    URL string
    *
+   * URL 字符串
    *
    * @returns The joined URL string.
    *
@@ -346,6 +365,8 @@ export class Location {
    * 该方法会查找第一个 `#`、`?` 之前的结尾 `/` 字符，之后的则不管。如果 url 中没有 `#`、`?`，则替换行尾的。
    *
    * @param url URL string.
+   *
+   * URL 字符串。
    *
    * @returns The URL string, modified if needed.
    *

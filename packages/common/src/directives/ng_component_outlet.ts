@@ -13,32 +13,54 @@ import {ComponentFactoryResolver, ComponentRef, Directive, Injector, Input, NgMo
  * Instantiates a single {@link Component} type and inserts its Host View into current View.
  * `NgComponentOutlet` provides a declarative approach for dynamic component creation.
  *
+ * 实例化单个 {@link Component} 类型，并将其宿主视图插入当前视图。`NgComponentOutlet` 为动态组件创建提供了一种声明式方法。
+ *
  * `NgComponentOutlet` requires a component type, if a falsy value is set the view will clear and
  * any existing component will get destroyed.
+ *
+ * `NgComponentOutlet` 所需的组件类型，如果设置为假值，则视图将被清除并且任何现有组件将被销毁。
  *
  * @usageNotes
  *
  * ### Fine tune control
  *
+ * ### 微调控制
+ *
  * You can control the component creation process by using the following optional attributes:
+ *
+ * 你可以使用以下可选属性来控制组件的创建过程：
  *
  * * `ngComponentOutletInjector`: Optional custom {@link Injector} that will be used as parent for
  * the Component. Defaults to the injector of the current view container.
  *
+ *     `ngComponentOutletInjector`：可选的自定义 {@link Injector}，将用作此组件的父级。默认为当前视图容器的注入器。
+ *
  * * `ngComponentOutletContent`: Optional list of projectable nodes to insert into the content
  * section of the component, if exists.
+ *
+ *     `ngComponentOutletContent`：要插入到组件内容部分的可投影节点的可选列表（如果存在）。
  *
  * * `ngComponentOutletNgModuleFactory`: Optional module factory to allow dynamically loading other
  * module, then load a component from that module.
  *
+ *     `ngComponentOutletNgModuleFactory`：可选模块工厂，允许动态加载其他模块，然后从该模块加载组件。
+ *
  * ### Syntax
  *
+ * ### 语法
+ *
  * Simple
+ *
+ * 简单
+ *
  * ```
  * <ng-container *ngComponentOutlet="componentTypeExpression"></ng-container>
  * ```
  *
  * Customized injector/content
+ *
+ * 定制的注入器/内容
+ *
  * ```
  * <ng-container *ngComponentOutlet="componentTypeExpression;
  *                                   injector: injectorExpression;
@@ -47,6 +69,9 @@ import {ComponentFactoryResolver, ComponentRef, Directive, Injector, Input, NgMo
  * ```
  *
  * Customized ngModuleFactory
+ *
+ * 定制的 ngModuleFactory
+ *
  * ```
  * <ng-container *ngComponentOutlet="componentTypeExpression;
  *                                   ngModuleFactory: moduleFactory;">
@@ -54,6 +79,8 @@ import {ComponentFactoryResolver, ComponentRef, Directive, Injector, Input, NgMo
  * ```
  *
  * ### A simple example
+ *
+ * ### 一个简单的例子
  *
  * {@example common/ngComponentOutlet/ts/module.ts region='SimpleExample'}
  *

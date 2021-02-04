@@ -30,18 +30,28 @@ export interface TestBed {
    * Initialize the environment for testing with a compiler factory, a PlatformRef, and an
    * angular module. These are common to every test in the suite.
    *
+   * 使用编译器工厂、PlatformRef 和 angular 模块来初始化测试环境。这些对于套件中的每个测试都是公共的。
+   *
    * This may only be called once, to set up the common providers for the current test
    * suite on the current platform. If you absolutely need to change the providers,
    * first use `resetTestEnvironment`.
    *
+   * 这只能调用一次，以在当前平台上为当前测试套件设置公用提供者。如果你必须要更改提供者，请首先使用 `resetTestEnvironment` 。
+   *
    * Test modules and platforms for individual platforms are available from
    * '@angular/<platform_name>/testing'.
+   *
+   * 可从 '@angular/&lt;platform_name>/testing' 获得适用于各个平台的测试模块和平台。
+   *
    */
   initTestEnvironment(
       ngModule: Type<any>|Type<any>[], platform: PlatformRef, aotSummaries?: () => any[]): void;
 
   /**
    * Reset the providers for the test injector.
+   *
+   * 重置测试注入器的提供者。
+   *
    */
   resetTestEnvironment(): void;
 
@@ -59,9 +69,19 @@ export interface TestBed {
       token: Type<T>|InjectionToken<T>|AbstractType<T>, notFoundValue: null, flags?: InjectFlags): T
       |null;
 
-  /** @deprecated from v9.0.0 use TestBed.inject */
+  /**
+   * @deprecated from v9.0.0 use TestBed.inject
+   *
+   * 从 v9.0.0 开始使用 TestBed.inject
+   *
+   */
   get<T>(token: Type<T>|InjectionToken<T>, notFoundValue?: T, flags?: InjectFlags): any;
-  /** @deprecated from v9.0.0 use TestBed.inject */
+  /**
+   * @deprecated from v9.0.0 use TestBed.inject
+   *
+   * 从 v9.0.0 开始使用 TestBed.inject
+   *
+   */
   get(token: any, notFoundValue?: any): any;
 
   execute(tokens: any[], fn: Function, context?: any): any;
@@ -76,6 +96,9 @@ export interface TestBed {
 
   /**
    * Overwrites all providers for the given token with the given provider definition.
+   *
+   * 使用给定的提供者定义覆盖给定令牌的所有提供者。
+   *
    */
   overrideProvider(token: any, provider: {
     useFactory: Function,
@@ -631,10 +654,16 @@ export class TestBedViewEngine implements TestBed {
  * Configures and initializes environment for unit testing and provides methods for
  * creating components and services in unit tests.
  *
+ * 配置和初始化用于单元测试的环境，并提供用于在单元测试中创建组件和服务的方法。
+ *
  * `TestBed` is the primary api for writing unit tests for Angular applications and libraries.
+ *
+ * `TestBed` 是用于为 Angular 应用程序和库编写单元测试的主要 API。
  *
  * Note: Use `TestBed` in tests. It will be set to either `TestBedViewEngine` or `TestBedRender3`
  * according to the compiler used.
+ *
+ * 注意：在测试中使用 `TestBed`。根据使用的编译器不同，它将被设置为 `TestBedViewEngine` 或 `TestBedRender3`。
  *
  * @publicApi
  */
@@ -644,7 +673,11 @@ export const TestBed: TestBedStatic =
 /**
  * Returns a singleton of the applicable `TestBed`.
  *
+ * 返回适用的 `TestBed` 单例。
+ *
  * It will be either an instance of `TestBedViewEngine` or `TestBedRender3`.
+ *
+ * 这将是 `TestBedViewEngine` 或 `TestBedRender3` 的实例。
  *
  * @publicApi
  */
@@ -659,7 +692,11 @@ function _getTestBedViewEngine(): TestBedViewEngine {
 /**
  * Allows injecting dependencies in `beforeEach()` and `it()`.
  *
+ * 允许在 `beforeEach()` 和 `it()` 中注入依赖项。
+ *
  * Example:
+ *
+ * 例如：
  *
  * ```
  * beforeEach(inject([Dependency, AClass], (dep, object) => {
@@ -674,10 +711,14 @@ function _getTestBedViewEngine(): TestBedViewEngine {
  * ```
  *
  * Notes:
+ *
+ * 注意：
+ *
  * - inject is currently a function because of some Traceur limitation the syntax should
  * eventually
  *   becomes `it('...', @Inject (object: AClass, async: AsyncTestCompleter) => { ... });`
  *
+ *     由于某些 Traceur 的限制，inject 当前是一个函数，此语法最终会变为 `it('...', @Inject (object: AClass, async: AsyncTestCompleter) => { ... });`
  * @publicApi
  */
 export function inject(tokens: any[], fn: Function): () => any {

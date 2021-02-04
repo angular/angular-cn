@@ -89,14 +89,20 @@ the server-rendered app can be properly bootstrapped into a client app.`);
 /**
  * Renders a Module to string.
  *
+ * 将模块渲染为字符串。
+ *
  * `document` is the full document HTML of the page to render, as a string.
  * `url` is the URL for the current render request.
  * `extraProviders` are the platform level providers for the current render request.
+ *
+ * `document` 是要渲染的页面的完整文档 HTML，为字符串形式。`url` 是当前渲染请求的 URL。`extraProviders` 是当前渲染请求的平台级提供者。
  *
  * If compiling with the ViewEngine renderer, do not use this in a production server environment.
  * Use pre-compiled {@link NgModuleFactory} with {@link renderModuleFactory} instead. If
  * compiling with the Ivy renderer, this method is the recommended rendering method for
  * platform-server.
+ *
+ * 如果使用 ViewEngine 渲染器进行编译，请不要在生产服务器环境中使用它。而是将预编译的 {@link NgModuleFactory} 与 {@link renderModuleFactory} 一起使用。如果使用 Ivy 渲染器进行编译，则这是服务端平台的首选渲染方式。
  *
  * @publicApi
  */
@@ -110,9 +116,13 @@ export function renderModule<T>(
 /**
  * Renders a {@link NgModuleFactory} to string.
  *
+ * 将 {@link NgModuleFactory} 渲染为字符串。
+ *
  * `document` is the full document HTML of the page to render, as a string.
  * `url` is the URL for the current render request.
  * `extraProviders` are the platform level providers for the current render request.
+ *
+ * `document` 是要渲染的页面的完整文档 HTML，为字符串形式。`url` 是当前渲染请求的 URL。`extraProviders` 是当前渲染请求的平台级提供者。
  *
  * @publicApi
  */

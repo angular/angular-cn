@@ -30,6 +30,8 @@ export interface DirectiveDecorator {
    * Decorator that marks a class as an Angular directive.
    * You can define your own directives to attach custom behavior to elements in the DOM.
    *
+   * 将类标记为 Angular 指令的装饰器。你可以定义自己的指令，以将自定义行为附加到 DOM 中的元素。
+   *
    * The options provide configuration metadata that determines
    * how the directive should be processed, instantiated and used at
    * runtime.
@@ -44,6 +46,7 @@ export interface DirectiveDecorator {
    *
    *
    * @usageNotes
+   *
    * To define a directive, mark the class with the decorator and provide metadata.
    *
    * 要想定义一个指令，请为该类加上此装饰器，并提供元数据。
@@ -98,6 +101,8 @@ export interface DirectiveDecorator {
 
 /**
  * Directive decorator and metadata.
+ *
+ * 指令装饰器和元数据。
  *
  * @Annotation
  * @publicApi
@@ -302,7 +307,6 @@ export interface Directive {
    * View queries are set before the `ngAfterViewInit` callback is called.
    *
    * 内容查询会在调用 `ngAfterContentInit` 回调之前设置好。
-   * 试图查询会在调用 `ngAfterViewInit` 回调之前设置好。
    *
    * @usageNotes
    *
@@ -387,6 +391,9 @@ export interface Directive {
    * It remains in distributed code, and the JIT compiler attempts to compile it
    * at run time, in the browser.
    * To ensure the correct behavior, the app must import `@angular/compiler`.
+   *
+   * 如果存在，则该指令/组件将被 AOT 编译器忽略。它会保留在发布代码中，并且 JIT 编译器会尝试在运行时在浏览器中对其进行编译。为了确保其行为正确，该应用程序必须导入 `@angular/compiler` 。
+   *
    */
   jit?: true;
 }
@@ -470,12 +477,12 @@ export interface ComponentDecorator {
    *
    * ### Injecting a class with a view provider
    *
-   * ### 使用视图提供商注入一个类
+   * ### 使用视图提供者注入一个类
    *
    * The following simple example injects a class into a component
    * using the view provider specified in component metadata:
    *
-   * 下面的例子示范了如何在组件元数据中使用视图提供商来把一个类注入到组件中：
+   * 下面的例子示范了如何在组件元数据中使用视图提供者来把一个类注入到组件中：
    *
    * ```ts
    * class Greeter {
@@ -684,6 +691,9 @@ export interface Component extends Directive {
    *
    * - `ViewEncapsulation.None`: Use global CSS without any
    * encapsulation.
+   *
+   *     `ViewEncapsulation.None` ：使用不带任何封装的全局 CSS。
+   *
    * - `ViewEncapsulation.ShadowDom`: Use Shadow DOM v1 to encapsulate styles.
    *
    *   `ViewEncapsulation.None`：使用全局 CSS，不做任何封装。
@@ -716,6 +726,9 @@ export interface Component extends Directive {
    * 一个组件的集合，它应该和当前组件一起编译。对于这里列出的每个组件，Angular 都会创建一个 {@link ComponentFactory} 并保存进 {@link ComponentFactoryResolver} 中。
    *
    * @deprecated Since 9.0.0. With Ivy, this property is no longer necessary.
+   *
+   * 从 9.0.0 开始。使用 Ivy，不再需要此属性。
+   *
    */
   entryComponents?: Array<Type<any>|any[]>;
 
@@ -756,9 +769,13 @@ export interface PipeDecorator {
    *
    * Decorator that marks a class as pipe and supplies configuration metadata.
    *
+   * 本装饰器用于将类标记为管道并提供配置元数据。
+   *
    * A pipe class must implement the `PipeTransform` interface.
    * For example, if the name is "myPipe", use a template binding expression
    * such as the following:
+   *
+   * 管道类必须实现 `PipeTransform` 接口。例如，如果其名称为 “myPipe”，则使用模板绑定表达式，例如：
    *
    * ```
    * {{ exp | myPipe }}
@@ -766,11 +783,17 @@ export interface PipeDecorator {
    *
    * The result of the expression is passed to the pipe's `transform()` method.
    *
+   * 此表达式的结果会传给管道的 `transform()` 方法。
+   *
    * A pipe must belong to an NgModule in order for it to be available
    * to a template. To make it a member of an NgModule,
    * list it in the `declarations` field of the `NgModule` metadata.
    *
+   * 管道必须属于某个 NgModule，才能用于模板。要使其成为 NgModule 的成员，请把它加入 `NgModule` 元数据的 `declarations` 中。
+   *
    * @see [Style Guide: Pipe Names](guide/styleguide#02-09)
+   *
+   * [样式指南：管道名称](guide/styleguide#02-09)
    *
    */
   (obj: Pipe): TypeDecorator;
@@ -884,6 +907,8 @@ export interface InputDecorator {
    * ```
    *
    * @see [Input and Output properties](guide/inputs-outputs)
+   *
+   * [输入和输出属性](guide/inputs-outputs)
    */
   (bindingPropertyName?: string): any;
   new(bindingPropertyName?: string): any;
@@ -944,6 +969,8 @@ export interface OutputDecorator {
    *
    * @see [Input and Output properties](guide/inputs-outputs)
    *
+   * [输入和输出属性](guide/inputs-outputs)
+   *
    */
   (bindingPropertyName?: string): any;
   new(bindingPropertyName?: string): any;
@@ -959,6 +986,9 @@ export interface OutputDecorator {
 export interface Output {
   /**
    * The name of the DOM property to which the output property is bound.
+   *
+   * 输出属性绑定到的 DOM 属性的名称。
+   *
    */
   bindingPropertyName?: string;
 }
@@ -1029,6 +1059,9 @@ export interface HostBindingDecorator {
 export interface HostBinding {
   /**
    * The DOM property that is bound to a data property.
+   *
+   * 要绑定到数据属性的 DOM 属性。
+   *
    */
   hostPropertyName?: string;
 }
@@ -1052,6 +1085,9 @@ export interface HostListenerDecorator {
   /**
    * Decorator that declares a DOM event to listen for,
    * and provides a handler method to run when that event occurs.
+   *
+   * 一个装饰器，用于声明要监听的 DOM 事件，并提供在该事件发生时要运行的处理器方法。
+   *
    */
   (eventName: string, args?: string[]): any;
   new(eventName: string, args?: string[]): any;
@@ -1083,6 +1119,8 @@ export interface HostListener {
  * Decorator that binds a DOM event to a host listener and supplies configuration metadata.
  * Angular invokes the supplied handler method when the host element emits the specified event,
  * and updates the bound element with the result.
+ *
+ * 将 DOM 事件绑定到宿主监听器并提供配置元数据的装饰器。当宿主元素发出指定事件时，Angular 就会调用所提供的处理器方法，并使用其结果更新绑定的元素。
  *
  * If the handler method returns false, applies `preventDefault` on the bound element.
  *

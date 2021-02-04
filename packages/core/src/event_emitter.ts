@@ -15,15 +15,21 @@ import {Subject, Subscription} from 'rxjs';
  * synchronously or asynchronously, and register handlers for those events
  * by subscribing to an instance.
  *
+ * 用在带有 `@Output` 指令的组件中，以同步或异步方式发出自定义事件，并通过订阅实例来为这些事件注册处理器。
+ *
  * @usageNotes
  *
  * Extends
  * [RxJS `Subject`](https://rxjs.dev/api/index/class/Subject)
  * for Angular by adding the `emit()` method.
  *
+ * 通过添加 `emit()` 方法来扩展 [Angular 的 RxJS `Subject`](https://rxjs.dev/api/index/class/Subject)。
+ *
  * In the following example, a component defines two output properties
  * that create event emitters. When the title is clicked, the emitter
  * emits an open or close event to toggle the current visibility state.
+ *
+ * 在以下示例中，组件定义了两个创建事件发射器的输出属性。单击标题后，发射器将发出打开或关闭事件以切换当前可见性状态。
  *
  * ```html
  * @Component({
@@ -59,6 +65,9 @@ import {Subject, Subscription} from 'rxjs';
  * ```
  *
  * @see [Observables in Angular](guide/observables-in-angular)
+ *
+ * [Angular 中的可观察对象](guide/observables-in-angular)
+ *
  * @publicApi
  */
 export interface EventEmitter<T> extends Subject<T> {
@@ -71,6 +80,8 @@ export interface EventEmitter<T> extends Subject<T> {
    * Creates an instance of this class that can
    * deliver events synchronously or asynchronously.
    *
+   * 创建此类的实例，该实例可以同步或异步发送事件。
+   *
    * @param [isAsync=false] When true, deliver events asynchronously.
    *
    */
@@ -78,16 +89,34 @@ export interface EventEmitter<T> extends Subject<T> {
 
   /**
    * Emits an event containing a given value.
+   *
+   * 发出包含给定值的事件。
+   *
    * @param value The value to emit.
+   *
+   * 要发出的值。
+   *
    */
   emit(value?: T): void;
   /**
    * Registers handlers for events emitted by this instance.
+   *
+   * 注册此实例发出的事件的处理器。
+   *
    * @param generatorOrNext When supplied, a custom handler for emitted events.
+   *
+   * 如果提供，则为所发出事件的自定义处理器。
+   *
    * @param error When supplied, a custom handler for an error notification
    * from this emitter.
+   *
+   * 如果提供，则为这里发出的错误通知的自定义处理器。
+   *
    * @param complete When supplied, a custom handler for a completion
    * notification from this emitter.
+   *
+   * 如果提供，则为这里发出的完成通知的自定义处理器。
+   *
    */
   subscribe(generatorOrNext?: any, error?: any, complete?: any): Subscription;
 }

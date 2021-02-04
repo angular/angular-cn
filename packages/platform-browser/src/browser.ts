@@ -54,7 +54,7 @@ export const BROWSER_SANITIZATION_PROVIDERS__POST_R3__ = [];
  * Attacker-controlled data introduced by an unsanitized provider could expose your
  * application to XSS risks. For more detail, see the [Security Guide](https://g.co/ng/security).
  *
- * 替换内置的净化（sanitization）提供商以消除应用的 XSS 风险。
+ * 替换内置的净化（sanitization）提供者以消除应用的 XSS 风险。
  * 攻击者所控制的数据如果没经过净化就直接引入，则会让你的应用暴露于 XSS 风险之下。
  * 欲知详情，参见[安全](http://g.co/ng/security)。
  *
@@ -65,6 +65,8 @@ export const BROWSER_SANITIZATION_PROVIDERS = BROWSER_SANITIZATION_PROVIDERS__PR
 /**
  * A factory function that returns a `PlatformRef` instance associated with browser service
  * providers.
+ *
+ * 一个工厂函数，它返回与浏览器服务提供者关联的 `PlatformRef`实例
  *
  * @publicApi
  */
@@ -104,7 +106,7 @@ export const BROWSER_MODULE_PROVIDERS: StaticProvider[] = [
  * exports and providers available to all apps.
  *
  * 导出所有 Angular 应用都需要的基础设施。默认包含在用 CLI 的 `new` 命令创建的所有 Angular 应用中。
- * 它二次导出了 `CommonModule` 和 `ApplicationModule`，以便它们的导出物和提供商能用于所有应用中。
+ * 它二次导出了 `CommonModule` 和 `ApplicationModule`，以便它们的导出物和提供者能用于所有应用中。
  *
  * @publicApi
  */

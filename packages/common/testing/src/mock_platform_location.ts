@@ -81,6 +81,8 @@ function parseUrl(urlStr: string, baseHref: string) {
 /**
  * Mock platform location config
  *
+ * 模拟平台的 location 配置
+ *
  * @publicApi
  */
 export interface MockPlatformLocationConfig {
@@ -91,6 +93,8 @@ export interface MockPlatformLocationConfig {
 /**
  * Provider for mock platform location config
  *
+ * 模拟平台 location 配置的提供者
+ *
  * @publicApi
  */
 export const MOCK_PLATFORM_LOCATION_CONFIG =
@@ -98,6 +102,8 @@ export const MOCK_PLATFORM_LOCATION_CONFIG =
 
 /**
  * Mock implementation of URL state.
+ *
+ * URL 状态的模拟实现。
  *
  * @publicApi
  */

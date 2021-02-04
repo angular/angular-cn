@@ -274,13 +274,23 @@ export function diPublicInInjector(
 /**
  * Inject static attribute value into directive constructor.
  *
+ * 将静态属性值注入到指令构造函数中。
+ *
  * This method is used with `factory` functions which are generated as part of
  * `defineDirective` or `defineComponent`. The method retrieves the static value
  * of an attribute. (Dynamic attributes are not supported since they are not resolved
  *  at the time of injection and can change over time.)
  *
+ * 本方法与 `factory` 函数一起使用，这些工厂函数是 `defineDirective` 或 `defineComponent` 生成物的一部分。该方法会检索属性的静态值。（不支持动态属性，因为它们在注入时尚无法解析，并且会随着时间变化。）
+ *
  * # Example
+ *
+ * # 例
+ *
  * Given:
+ *
+ * 给定：
+ *
  * ```
  * @Component(...)
  * class MyComponent {
@@ -288,11 +298,17 @@ export function diPublicInInjector(
  * }
  * ```
  * When instantiated with
+ *
+ * 当使用下列方式实例化时
+ *
  * ```
  * <my-component title="Hello"></my-component>
  * ```
  *
  * Then factory method generated is:
+ *
+ * 所生成的工厂方法是：
+ *
  * ```
  * MyComponent.ɵcmp = defineComponent({
  *   factory: () => new MyComponent(injectAttribute('title'))

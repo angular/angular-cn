@@ -25,14 +25,20 @@ const SWITCH_CHANGE_DETECTOR_REF_FACTORY: typeof injectChangeDetectorRef =
  * Use the methods to add and remove views from the tree, initiate change-detection,
  * and explicitly mark views as _dirty_, meaning that they have changed and need to be re-rendered.
  *
- * @see [Using change detection hooks](guide/lifecycle-hooks#using-change-detection-hooks)
- * @see [Defining custom change detection](guide/lifecycle-hooks#defining-custom-change-detection)
- *
  * Angular 各种视图的基础类，提供变更检测功能。
  * 变更检测树会收集要检查的所有视图。
  * 使用这些方法从树中添加或移除视图、初始化变更检测并显式地把这些视图标记为*脏的*，意思是它们变了、需要重新渲染。
  *
- * @usageNotes
+ * @see [Using change detection hooks](guide/lifecycle-hooks#using-change-detection-hooks)
+ *
+ * [使用变更检测钩子](guide/lifecycle-hooks#using-change-detection-hooks)
+ *
+ * @see [Defining custom change detection](guide/lifecycle-hooks#defining-custom-change-detection)
+ *
+ * [定义自定义变更检测](guide/lifecycle-hooks#defining-custom-change-detection)
+ *
+ *
+ *@usageNotes
  *
  * The following examples demonstrate how to modify default change-detection behavior
  * to perform explicit detection when needed.
@@ -170,6 +176,8 @@ export abstract class ChangeDetectorRef {
 
   /**
    * This marker is need so that the JIT compiler can correctly identify this class as special.
+   *
+   * 使用此标记，以便 JIT 编译器可以正确地将此类标识为特殊类。
    *
    * @internal
    * @nocollapse

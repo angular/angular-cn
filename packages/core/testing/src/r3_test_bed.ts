@@ -56,12 +56,18 @@ export class TestBedRender3 implements TestBed {
    * Initialize the environment for testing with a compiler factory, a PlatformRef, and an
    * angular module. These are common to every test in the suite.
    *
+   * 使用编译器工厂、PlatformRef 和 angular 模块来初始化测试环境。这些对于套件中的每个测试都是公共的。
+   *
    * This may only be called once, to set up the common providers for the current test
    * suite on the current platform. If you absolutely need to change the providers,
    * first use `resetTestEnvironment`.
    *
+   * 这只能调用一次，以在当前平台上为当前测试套件设置公用提供者。如果你必须要更改提供者，请首先使用 `resetTestEnvironment` 。
+   *
    * Test modules and platforms for individual platforms are available from
    * '@angular/<platform_name>/testing'.
+   *
+   * 可从 '@angular/&lt;platform_name>/testing' 获得适用于各个平台的测试模块和平台。
    *
    * @publicApi
    */
@@ -74,6 +80,8 @@ export class TestBedRender3 implements TestBed {
 
   /**
    * Reset the providers for the test injector.
+   *
+   * 重置测试注入器的提供者。
    *
    * @publicApi
    */
@@ -202,12 +210,18 @@ export class TestBedRender3 implements TestBed {
    * Initialize the environment for testing with a compiler factory, a PlatformRef, and an
    * angular module. These are common to every test in the suite.
    *
+   * 使用编译器工厂、PlatformRef 和 angular 模块来初始化测试环境。这些对于套件中的每个测试都是公共的。
+   *
    * This may only be called once, to set up the common providers for the current test
    * suite on the current platform. If you absolutely need to change the providers,
    * first use `resetTestEnvironment`.
    *
+   * 这只能调用一次，以在当前平台上为当前测试套件设置公用提供者。如果你必须要更改提供者，请首先使用 `resetTestEnvironment` 。
+   *
    * Test modules and platforms for individual platforms are available from
    * '@angular/<platform_name>/testing'.
+   *
+   * 可从 '@angular/&lt;platform_name>/testing' 获得适用于各个平台的测试模块和平台。
    *
    * @publicApi
    */
@@ -223,6 +237,8 @@ export class TestBedRender3 implements TestBed {
 
   /**
    * Reset the providers for the test injector.
+   *
+   * 重置测试注入器的提供者。
    *
    * @publicApi
    */

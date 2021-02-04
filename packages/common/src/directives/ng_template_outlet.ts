@@ -51,11 +51,17 @@ export class NgTemplateOutlet implements OnChanges {
    * object, the object's keys will be available for binding by the local template `let`
    * declarations.
    * Using the key `$implicit` in the context object will set its value as default.
+   *
+   * 附加到 {@link EmbeddedViewRef} 的上下文对象。这应该是一个对象，该对象的键名将可以在局部模板中使用 `let` 声明中进行绑定。在上下文对象中使用 `$implicit` 为键名时，将把它作为默认值。
+   *
    */
   @Input() public ngTemplateOutletContext: Object|null = null;
 
   /**
    * A string defining the template reference and optionally the context object for the template.
+   *
+   * 一个字符串，用于定义模板引用以及模板的上下文对象。
+   *
    */
   @Input() public ngTemplateOutlet: TemplateRef<any>|null = null;
 

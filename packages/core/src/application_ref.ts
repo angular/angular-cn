@@ -130,6 +130,8 @@ export const ALLOW_MULTIPLE_PLATFORMS = new InjectionToken<boolean>('AllowMultip
 /**
  * A token for third-party components that can register themselves with NgProbe.
  *
+ * 本令牌可以在 NgProbe 中注册自己的第三方组件。
+ *
  * @publicApi
  */
 export class NgProbeToken {
@@ -139,6 +141,8 @@ export class NgProbeToken {
 /**
  * Creates a platform.
  * Platforms must be created on launch using this function.
+ *
+ * 创建一个平台。必须使用此函数在启动时创建平台。
  *
  * @publicApi
  */
@@ -158,11 +162,22 @@ export function createPlatform(injector: Injector): PlatformRef {
 /**
  * Creates a factory for a platform. Can be used to provide or override `Providers` specific to
  * your applciation's runtime needs, such as `PLATFORM_INITIALIZER` and `PLATFORM_ID`.
+ *
+ * 为平台创建工厂。可用于提供或覆盖针对你的应用程序的运行时需求的 `Providers`，比如 `PLATFORM_INITIALIZER` 和 `PLATFORM_ID` 。
+ *
  * @param parentPlatformFactory Another platform factory to modify. Allows you to compose factories
  * to build up configurations that might be required by different libraries or parts of the
  * application.
+ *
+ * 要修改的另一个平台工厂。允许你组合多个工厂来构建一些配置，其它库或应用程序的其它部分可能需要的它们。
+ *
  * @param name Identifies the new platform factory.
+ *
+ * 标识新的平台工厂。
+ *
  * @param providers A set of dependency providers for platforms created with the new factory.
+ *
+ * 使用新工厂创建的平台的一组依赖项提供者。
  *
  * @publicApi
  */
@@ -193,6 +208,8 @@ export function createPlatformFactory(
 /**
  * Checks that there is currently a platform that contains the given token as a provider.
  *
+ * 检查当前是否存在以给定令牌为提供者的平台。
+ *
  * @publicApi
  */
 export function assertPlatform(requiredToken: any): PlatformRef {
@@ -214,6 +231,8 @@ export function assertPlatform(requiredToken: any): PlatformRef {
  * Destroys the current Angular platform and all Angular applications on the page.
  * Destroys all modules and listeners registered with the platform.
  *
+ * 销毁页面上的当前 Angular 平台和所有 Angular 应用程序。销毁在平台上注册的所有模块和监听器。
+ *
  * @publicApi
  */
 export function destroyPlatform(): void {
@@ -224,6 +243,8 @@ export function destroyPlatform(): void {
 
 /**
  * Returns the current platform.
+ *
+ * 返回当前平台。
  *
  * @publicApi
  */
@@ -294,6 +315,8 @@ export interface BootstrapOptions {
  * A page's platform is initialized implicitly when a platform is created using a platform
  * factory such as `PlatformBrowser`, or explicitly by calling the `createPlatform()` function.
  *
+ * Angular 平台是 Angular 在网页上的入口点。每个页面只有一个平台。页面上运行的每个 Angular 应用程序所共有的服务（例如反射）都在其范围内绑定。当使用 `PlatformBrowser` 这样的平台工厂创建平台时，将隐式初始化此页面的平台；也可以通过调用 `createPlatform()` 函数来显式初始化此页面的平台。
+ *
  * @publicApi
  */
 @Injectable()
@@ -308,9 +331,13 @@ export class PlatformRef {
   /**
    * Creates an instance of an `@NgModule` for the given platform for offline compilation.
    *
+   * 为给定的平台创建 `@NgModule` 的实例，以进行离线编译。
+   *
    * @usageNotes
    *
    * The following example creates the NgModule for a browser platform.
+   *
+   * 以下示例为浏览器平台创建 NgModule。
    *
    * ```typescript
    * my_module.ts:
@@ -375,8 +402,13 @@ export class PlatformRef {
   /**
    * Creates an instance of an `@NgModule` for a given platform using the given runtime compiler.
    *
+   * 使用给定的运行时编译器为给定的平台创建 `@NgModule` 的实例。
+   *
    * @usageNotes
+   *
    * ### Simple Example
+   *
+   * ### 简单的例子
    *
    * ```typescript
    * @NgModule({
@@ -416,6 +448,9 @@ export class PlatformRef {
 
   /**
    * Registers a listener to be called when the platform is destroyed.
+   *
+   * 注册销毁平台时要调用的监听器。
+   *
    */
   onDestroy(callback: () => void): void {
     this._destroyListeners.push(callback);
@@ -424,6 +459,9 @@ export class PlatformRef {
   /**
    * Retrieves the platform {@link Injector}, which is the parent injector for
    * every Angular application on the page and provides singleton providers.
+   *
+   * 检索平台 {@link Injector}，该平台是页面上每个 Angular 应用程序的父注入器，并提供单例提供者。
+   *
    */
   get injector(): Injector {
     return this._injector;
@@ -432,6 +470,9 @@ export class PlatformRef {
   /**
    * Destroys the current Angular platform and all Angular applications on the page.
    * Destroys all modules and listeners registered with the platform.
+   *
+   * 销毁页面上的当前 Angular 平台和所有 Angular 应用程序。销毁在平台上注册的所有模块和监听器。
+   *
    */
   destroy() {
     if (this._destroyed) {
@@ -495,6 +536,8 @@ function optionsReducer<T extends Object>(dst: any, objs: T|T[]): T {
 
 /**
  * A reference to an Angular application running on a page.
+ *
+ * 对页面上运行的 Angular 应用程序的引用。
  *
  * @usageNotes
  *
@@ -598,18 +641,29 @@ export class ApplicationRef {
   /**
    * Get a list of component types registered to this application.
    * This list is populated even before the component is created.
+   *
+   * 获取注册到该应用程序的组件类型的列表。在创建组件之前，会填充此列表。
+   *
    */
   public readonly componentTypes: Type<any>[] = [];
 
   /**
    * Get a list of components registered to this application.
+   *
+   * 获取已注册到该应用中的组件的列表。
+   *
    */
   public readonly components: ComponentRef<any>[] = [];
 
   /**
    * Returns an Observable that indicates when the application is stable or unstable.
    *
+   * 返回一个 Observable，指示应用程序何时变得稳定或不稳定。
+   *
    * @see  [Usage notes](#is-stable-examples) for examples and caveats when using this API.
+   *
+   * [用法说明](#is-stable-examples)的例子和使用此 API 时的注意事项。
+   *
    */
   // TODO(issue/24571): remove '!'.
   public readonly isStable!: Observable<boolean>;
@@ -682,17 +736,29 @@ export class ApplicationRef {
   /**
    * Bootstrap a new component at the root level of the application.
    *
+   * 在应用程序的根级引导新组件。
+   *
    * @usageNotes
+   *
    * ### Bootstrap process
+   *
+   * ### 引导过程
    *
    * When bootstrapping a new root component into an application, Angular mounts the
    * specified application component onto DOM elements identified by the componentType's
    * selector and kicks off automatic change detection to finish initializing the component.
    *
+   * 将新的根组件引导到应用程序时，Angular 将指定的应用程序组件安装到由 componentType 的选择器标识的 DOM 元素上，并启动自动变更检测以完成组件的初始化。
+   *
    * Optionally, a component can be mounted onto a DOM element that does not match the
    * componentType's selector.
    *
+   * （可选）可以将组件安装到与 componentType 的选择器不匹配的 DOM 元素上。
+   *
    * ### Example
+   *
+   * ### 例子
+   *
    * {@example core/ts/platform/platform.ts region='longform'}
    */
   bootstrap<C>(componentOrFactory: ComponentFactory<C>|Type<C>, rootSelectorOrNode?: string|any):
@@ -736,12 +802,17 @@ export class ApplicationRef {
   /**
    * Invoke this method to explicitly process change detection and its side-effects.
    *
+   * 调用此方法可以显式处理变更检测及其副作用。
+   *
    * In development mode, `tick()` also performs a second change detection cycle to ensure that no
    * further changes are detected. If additional changes are picked up during this second cycle,
    * bindings in the app have side-effects that cannot be resolved in a single change detection
    * pass.
    * In this case, Angular throws an error, since an Angular application can only have one change
    * detection pass during which all change detection must complete.
+   *
+   * 在开发模式下，`tick()` 还会执行第二个变更检测周期，以确保没有检测到其他更改。如果在第二个周期内获取了其他更改，则应用程序中的绑定就会产生副作用，这些副作用无法通过一次变更检测过程解决。在这种情况下，Angular 就会引发错误，因为 Angular 应用程序只能进行一次变更检测遍历，在此过程中必须完成所有变更检测。
+   *
    */
   tick(): void {
     if (this._runningTick) {
@@ -770,6 +841,9 @@ export class ApplicationRef {
    * Attaches a view so that it will be dirty checked.
    * The view will be automatically detached when it is destroyed.
    * This will throw if the view is already attached to a ViewContainer.
+   *
+   * 附加视图，以便对其进行脏检查。视图销毁后将自动分离。如果视图已附加到 ViewContainer，则会抛出此错误。
+   *
    */
   attachView(viewRef: ViewRef): void {
     const view = (viewRef as InternalViewRef);
@@ -779,6 +853,9 @@ export class ApplicationRef {
 
   /**
    * Detaches a view from dirty checking again.
+   *
+   * 再次从脏检查中分离视图。
+   *
    */
   detachView(viewRef: ViewRef): void {
     const view = (viewRef as InternalViewRef);
@@ -809,6 +886,9 @@ export class ApplicationRef {
 
   /**
    * Returns the number of attached views.
+   *
+   * 返回已附加视图的数量。
+   *
    */
   get viewCount() {
     return this._views.length;

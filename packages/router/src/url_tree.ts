@@ -77,12 +77,19 @@ function containsSegmentGroupHelper(
  *
  * Represents the parsed URL.
  *
+ * 代表已解析的 URL。
+ *
  * Since a router state is a tree, and the URL is nothing but a serialized state, the URL is a
  * serialized tree.
  * UrlTree is a data structure that provides a lot of affordances in dealing with URLs
  *
+ * 由于路由器状态是一棵树，而 URL 只是序列化的状态，所以 URL 就是序列化的树。 UrlTree 是一种数据结构，在处理 URL 时提供了很多便利
+ *
  * @usageNotes
+ *
  * ### Example
+ *
+ * ### 例子
  *
  * ```
  * @Component({templateUrl:'template.html'})
@@ -134,7 +141,11 @@ export class UrlTree {
  *
  * Represents the parsed URL segment group.
  *
+ * 表示已解析的 URL 段组。
+ *
  * See `UrlTree` for more information.
+ *
+ * 有关更多信息，请参见 `UrlTree`
  *
  * @publicApi
  */
@@ -145,7 +156,12 @@ export class UrlSegmentGroup {
   /** @internal */
   // TODO(issue/24571): remove '!'.
   _segmentIndexShift!: number;
-  /** The parent node in the url tree */
+  /**
+   * The parent node in the url tree
+   *
+   * 网址树中的父节点
+   *
+   */
   parent: UrlSegmentGroup|null = null;
 
   constructor(
@@ -156,12 +172,22 @@ export class UrlSegmentGroup {
     forEach(children, (v: any, k: any) => v.parent = this);
   }
 
-  /** Whether the segment has child segments */
+  /**
+   * Whether the segment has child segments
+   *
+   * 该网址段是否有子段
+   *
+   */
   hasChildren(): boolean {
     return this.numberOfChildren > 0;
   }
 
-  /** Number of child segments */
+  /**
+   * Number of child segments
+   *
+   * 子段数
+   *
+   */
   get numberOfChildren(): number {
     return Object.keys(this.children).length;
   }
@@ -178,11 +204,18 @@ export class UrlSegmentGroup {
  *
  * Represents a single URL segment.
  *
+ * 表示一个 URL 段。
+ *
  * A UrlSegment is a part of a URL between the two slashes. It contains a path and the matrix
  * parameters associated with the segment.
  *
+ * UrlSegment 是两个斜杠之间的 URL 的一部分。它包含路径和与该段关联的矩阵参数。
+ *
  * @usageNotes
- * ### Example
+ *
+ * ### Example
+ *
+ * ### 例子
  *
  * ```
  * @Component({templateUrl:'template.html'})
@@ -255,18 +288,34 @@ export function mapChildrenIntoArray<T>(
  *
  * Serializes and deserializes a URL string into a URL tree.
  *
+ * 将 URL 字符串序列化和反序列化为 URL 树。
+ *
  * The url serialization strategy is customizable. You can
  * make all URLs case insensitive by providing a custom UrlSerializer.
  *
+ * url 序列化策略是可定制的。通过提供自定义 UrlSerializer，可以使所有 URL 都不区分大小写。
+ *
  * See `DefaultUrlSerializer` for an example of a URL serializer.
+ *
+ * 有关 URL 序列化程序的示例，请参见 `DefaultUrlSerializer`
  *
  * @publicApi
  */
 export abstract class UrlSerializer {
-  /** Parse a url into a `UrlTree` */
+  /**
+   * Parse a url into a `UrlTree`
+   *
+   * 将网址解析为 `UrlTree`
+   *
+   */
   abstract parse(url: string): UrlTree;
 
-  /** Converts a `UrlTree` into a url */
+  /**
+   * Converts a `UrlTree` into a url
+   *
+   * 将 `UrlTree` 转换为 url
+   *
+   */
   abstract serialize(tree: UrlTree): string;
 }
 
@@ -275,7 +324,11 @@ export abstract class UrlSerializer {
  *
  * A default implementation of the `UrlSerializer`.
  *
+ * `UrlSerializer` 的默认实现。
+ *
  * Example URLs:
+ *
+ * 范例网址：
  *
  * ```
  * /inbox/33(popup:compose)
@@ -286,16 +339,28 @@ export abstract class UrlSerializer {
  * colon syntax to specify the outlet, and the ';parameter=value' syntax (e.g., open=true) to
  * specify route specific parameters.
  *
+ * DefaultUrlSerializer 使用圆括号序列化辅助段（例如，popup:compose），使用冒号语法指定出口，并使用';parameter=value' 语法（例如 open=true）来指定路由的特有参数。
+ *
  * @publicApi
  */
 export class DefaultUrlSerializer implements UrlSerializer {
-  /** Parses a url into a `UrlTree` */
+  /**
+   * Parses a url into a `UrlTree`
+   *
+   * 将网址解析为 `UrlTree`
+   *
+   */
   parse(url: string): UrlTree {
     const p = new UrlParser(url);
     return new UrlTree(p.parseRootSegment(), p.parseQueryParams(), p.parseFragment());
   }
 
-  /** Converts a `UrlTree` into a url */
+  /**
+   * Converts a `UrlTree` into a url
+   *
+   * 将 `UrlTree` 转换为 url
+   *
+   */
   serialize(tree: UrlTree): string {
     const segment = `/${serializeSegment(tree.root, true)}`;
     const query = serializeQueryParams(tree.queryParams);

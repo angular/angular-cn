@@ -70,6 +70,7 @@ function addKey(this: InjectionError, injector: ReflectiveInjector, key: Reflect
  * {@link Injector} does not have a {@link Provider} for the given key.
  *
  * @usageNotes
+ *
  * ### Example
  *
  * ```typescript
@@ -91,6 +92,7 @@ export function noProviderError(injector: ReflectiveInjector, key: ReflectiveKey
  * Thrown when dependencies form a cycle.
  *
  * @usageNotes
+ *
  * ### Example
  *
  * ```typescript
@@ -118,6 +120,7 @@ export function cyclicDependencyError(
  * this object to be instantiated.
  *
  * @usageNotes
+ *
  * ### Example
  *
  * ```typescript
@@ -153,6 +156,7 @@ export function instantiationError(
  * creation.
  *
  * @usageNotes
+ *
  * ### Example
  *
  * ```typescript
@@ -171,6 +175,7 @@ export function invalidProviderError(provider: any) {
  * need to be injected into the constructor.
  *
  * @usageNotes
+ *
  * ### Example
  *
  * ```typescript
@@ -215,6 +220,7 @@ export function noAnnotationError(typeOrFunc: Type<any>|Function, params: any[][
  * Thrown when getting an object by index.
  *
  * @usageNotes
+ *
  * ### Example
  *
  * ```typescript
@@ -235,6 +241,7 @@ export function outOfBoundsError(index: number) {
  * Thrown when a multi provider and a regular provider are bound to the same token.
  *
  * @usageNotes
+ *
  * ### Example
  *
  * ```typescript
