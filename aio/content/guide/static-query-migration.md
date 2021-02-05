@@ -1,7 +1,7 @@
 # Static query migration guide
-​
+
 # 静态查询（Static Query）迁移指南
-​
+
 **Important note for library authors: This migration is especially crucial for library authors to facilitate their users upgrading to version 9 when it becomes available.**
 
 **给库作者的重要提示：这份迁移指南对于库作者非常重要，可以方便他们的用户升级到（Angular 的）版本 9（大约在 2019 年 10 月发布）。**
