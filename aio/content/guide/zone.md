@@ -129,7 +129,7 @@ To understand how change detection works, first consider when the application ne
 
 1. Component initialization. For example, when bootstrapping an Angular application, Angular loads the bootstrap component and triggers the [ApplicationRef.tick()](api/core/ApplicationRef#tick) to call change detection and View Rendering.
 
-   组件初始化。例如，当引导 Angular 应用程序时，Angular 会加载引导组件并触发 [ApplicationRef.tick（）](api/core/ApplicationRef#tick) 来调用变更检测和视图渲染。
+   组件初始化。例如，当引导 Angular 应用程序时，Angular 会加载引导组件并触发 [ApplicationRef.tick()](api/core/ApplicationRef#tick) 来调用变更检测和视图渲染。
 
 1. Event listener. The DOM event listener can update the data in an Angular component and also trigger change detection, as in the following example.
 
