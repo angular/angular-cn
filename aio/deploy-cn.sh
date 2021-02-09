@@ -16,7 +16,7 @@ pid=$!
 
 sleep 3;
 
-node ./tools/translator/bin/prerender.js
+npx ts-node --project=./tools/translator/tsconfig.json ./tools/translator/bin/prerender.ts
 
 kill -9 ${pid}
 
