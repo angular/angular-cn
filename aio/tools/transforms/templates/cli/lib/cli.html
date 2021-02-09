@@ -60,7 +60,8 @@
           {% if option.deprecated === true %}
             <p><strong>Deprecated</strong></p>
           {% else %}
-            {$ ('**Deprecated:** ' + option.deprecated) | marked $}
+            <p><strong>已弃用：</strong></p>
+            {$ option.deprecated | marked $}
           {% endif %}
         {% endif %}
         {$ option.description | marked $}
