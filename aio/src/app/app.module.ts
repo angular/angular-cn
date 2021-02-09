@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { ErrorHandler, NgModule } from '@angular/core';
+import { APP_ID, ErrorHandler, NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ServiceWorkerModule } from '@angular/service-worker';
@@ -175,6 +175,7 @@ export const svgIconProviders = [
     TocService,
     { provide: CurrentDateToken, useFactory: currentDateProvider },
     { provide: WindowToken, useFactory: windowProvider },
+    { provide: APP_ID, useFactory: () => "ng-docs" },
   ],
   bootstrap: [ AppComponent ]
 })
