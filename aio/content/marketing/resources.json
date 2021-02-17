@@ -6,8 +6,8 @@
         "order": 1,
         "resources": {
           "awesome-angular-components": {
-            "desc": "在 Github 上维护的一份组件与库的社区索引。",
-            "title": "Angular 组件与库的名录",
+            "desc": "A community index of components and libraries maintained on GitHub",
+            "title": "Catalog of Angular Components & Libraries",
             "url": "https://github.com/brillout/awesome-angular-components"
           },
           "angular-ru": {
@@ -187,7 +187,7 @@
           }
         }
       },
-      "工具": {
+      "Tooling": {
         "order": 2,
         "resources": {
           "a1": {
@@ -394,12 +394,6 @@
             "logo": "https://blox.src.zone/assets/bloxmaterial.03ecfe4fa0147a781487749dc1cc4580.svg",
             "title": "Blox Material",
             "url": "https://github.com/src-zone/material"
-          },
-          "element": {
-            "desc": "Angular UI libraries derived from Element UI.",
-            "rev": true,
-            "title": "Element Angular",
-            "url": "https://github.com/ElemeFE/element-angular"
           },
           "essentialjs2": {
             "desc": "Essential JS 2 for Angular is a collection modern TypeScript based true Angular Components. It has support for Ahead Of Time (AOT) compilation and Tree-Shaking. All the components are developed from the ground up to be lightweight, responsive, modular and touch friendly.",
