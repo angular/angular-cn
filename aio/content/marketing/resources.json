@@ -152,7 +152,6 @@
             "desc": "Akita is a state management pattern, built on top of RxJS, which takes the idea of multiple data stores from Flux and the immutable updates from Redux, along with the concept of streaming data, to create the Observable Data Store model.",
             "descCn": "秋田（Akita）是一种状态管理模式，建立在 RxJS 之上，它采用 Flux 的多数据存储和 Redux 的不可变更新以及流数据的概念来创建 Observable Data Store 模型。",
             "title": "Akita",
-            "titleCn": "秋田",
             "url": "https://datorama.github.io/akita/docs/angular/architecture"
           },
           "ab": {
@@ -513,7 +512,6 @@
             "desc": "Theme System, UI Components, Auth and Security for your next Angular application.",
             "descCn": "为你的下一个 Angular 应用程序准备的主题体系、UI 组件、身份验证和安全性。",
             "title": "Nebular",
-            "titleCn": "星状",
             "url": "https://akveo.github.io/nebular/"
           },
           "carbondesignsystem": {
