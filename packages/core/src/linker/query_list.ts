@@ -42,6 +42,7 @@ function symbolIterator<T>(this: QueryList<T>): Iterator<T> {
  * 注意：将来此类将会实现 `Observable` 接口。
  *
  * @usageNotes
+ *
  * ### Example
  *
  * ### 例子
@@ -78,6 +79,9 @@ export class QueryList<T> implements Iterable<T> {
 
   /**
    * Returns the QueryList entry at `index`.
+   *
+   * 返回位于 `index` 处的 QueryList 条目。
+   *
    */
   get(index: number): T|undefined {
     return this._results[index];
@@ -145,6 +149,9 @@ export class QueryList<T> implements Iterable<T> {
 
   /**
    * Returns a copy of the internal results list as an Array.
+   *
+   * 以数组形式返回内部结果列表的副本。
+   *
    */
   toArray(): T[] {
     return this._results.slice();
@@ -159,7 +166,11 @@ export class QueryList<T> implements Iterable<T> {
    * on change detection, it will not notify of changes to the queries, unless a new change
    * occurs.
    *
+   * 更新查询列表中存储的数据，并将 `dirty` 标志重置为 `false`，以便当检测到变更时，除非发生新变更，否则不会通知这些查询的变更。
+   *
    * @param resultsTree The query results to store
+   *
+   * 要存储的查询结果
    */
   reset(resultsTree: Array<T|any[]>): void {
     this._results = flatten(resultsTree);
@@ -171,6 +182,9 @@ export class QueryList<T> implements Iterable<T> {
 
   /**
    * Triggers a change event by emitting on the `changes` {@link EventEmitter}.
+   *
+   * 通过发出 `changes` {@link EventEmitter} 来触发变更事件。
+   *
    */
   notifyOnChanges(): void {
     (this.changes as EventEmitter<any>).emit(this);

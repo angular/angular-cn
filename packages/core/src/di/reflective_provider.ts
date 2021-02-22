@@ -38,12 +38,21 @@ const _EMPTY_LIST: any[] = [];
 /**
  * An internal resolved representation of a `Provider` used by the `Injector`.
  *
+ * 供 `Injector` 使用的 `Provider` 的内部解析表示形式。
+ *
  * @usageNotes
+ *
  * This is usually created automatically by `Injector.resolveAndCreate`.
+ *
+ * 这通常是由 `Injector.resolveAndCreate` 自动创建的。
  *
  * It can be created manually, as follows:
  *
+ * 也可以手动创建，如下所示：
+ *
  * ### Example
+ *
+ * ### 例子
  *
  * ```typescript
  * var resolvedProviders = Injector.resolve([{ provide: 'message', useValue: 'Hello' }]);
@@ -57,16 +66,25 @@ const _EMPTY_LIST: any[] = [];
 export interface ResolvedReflectiveProvider {
   /**
    * A key, usually a `Type<any>`.
+   *
+   * 一个 Key，通常是 `Type<any>` 。
+   *
    */
   key: ReflectiveKey;
 
   /**
    * Factory function which can return an instance of an object represented by a key.
+   *
+   * 可以返回 Key 表示的对象实例的工厂函数。
+   *
    */
   resolvedFactories: ResolvedReflectiveFactory[];
 
   /**
    * Indicates if the provider is a multi-provider or a regular provider.
+   *
+   * 指示提供者是多重提供者还是常规提供者。
+   *
    */
   multiProvider: boolean;
 }
@@ -83,6 +101,9 @@ export class ResolvedReflectiveProvider_ implements ResolvedReflectiveProvider {
 
 /**
  * An internal resolved representation of a factory function created by resolving `Provider`.
+ *
+ * `Provider` 创建的工厂函数的内部解析表示形式。
+ *
  * @publicApi
  */
 export class ResolvedReflectiveFactory {

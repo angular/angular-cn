@@ -30,6 +30,9 @@ function _isAndroid(): boolean {
  * @description
  * Provide this token to control if form directives buffer IME input until
  * the "compositionend" event occurs.
+ *
+ * 提供此令牌来控制表单指令是否要缓冲 IME 输入，直到发生“ compositionend” 事件为止。
+ *
  * @publicApi
  */
 export const COMPOSITION_BUFFER_MODE = new InjectionToken<boolean>('CompositionEventMode');
@@ -47,8 +50,12 @@ export const COMPOSITION_BUFFER_MODE = new InjectionToken<boolean>('CompositionE
  *
  * ### Using the default value accessor
  *
+ * ### 使用默认值访问器
+ *
  * The following example shows how to use an input element that activates the default value accessor
  * (in this case, a text field).
+ *
+ * 以下示例演示了如何使用输入元素激活默认值访问器（在这种情况下为文本字段）。
  *
  * ```ts
  * const firstNameControl = new FormControl();
@@ -62,6 +69,8 @@ export const COMPOSITION_BUFFER_MODE = new InjectionToken<boolean>('CompositionE
  * you could also use it for custom components that have similar behavior and do not require special
  * processing. In order to attach the default value accessor to a custom element, add the
  * `ngDefaultControl` attribute as shown below.
+ *
+ * 默认情况下，此值访问器用于 `<input type="text">` 和 `<textarea>` 元素，但你也可以将其用于具有类似行为且不需要特殊处理的自定义组件。为了将默认值访问器附加到自定义元素，请添加 `ngDefaultControl` 属性，如下所示。
  *
  * ```
  * <custom-input-component ngDefaultControl [(ngModel)]="value"></custom-input-component>
@@ -88,17 +97,28 @@ export const COMPOSITION_BUFFER_MODE = new InjectionToken<boolean>('CompositionE
 export class DefaultValueAccessor implements ControlValueAccessor {
   /**
    * The registered callback function called when an input event occurs on the input element.
+   *
+   * 在输入元素上发生输入事件时调用的已注册回调函数。
+   *
    * @nodoc
    */
   onChange = (_: any) => {};
 
   /**
    * The registered callback function called when a blur event occurs on the input element.
+   *
+   * 当输入元素上发生失焦事件时，调用已注册的回调函数。
+   *
    * @nodoc
    */
   onTouched = () => {};
 
-  /** Whether the user is creating a composition string (IME events). */
+  /**
+   * Whether the user is creating a composition string (IME events).
+   *
+   * 用户是否正在创建合成字符串（IME 事件）。
+   *
+   */
   private _composing = false;
 
   constructor(
@@ -111,6 +131,9 @@ export class DefaultValueAccessor implements ControlValueAccessor {
 
   /**
    * Sets the "value" property on the input element.
+   *
+   * 在输入元素上设置 “value” 属性。
+   *
    * @nodoc
    */
   writeValue(value: any): void {
@@ -120,6 +143,9 @@ export class DefaultValueAccessor implements ControlValueAccessor {
 
   /**
    * Registers a function called when the control value changes.
+   *
+   * 注册控件值更改时要调用的函数。
+   *
    * @nodoc
    */
   registerOnChange(fn: (_: any) => void): void {
@@ -128,6 +154,9 @@ export class DefaultValueAccessor implements ControlValueAccessor {
 
   /**
    * Registers a function called when the control is touched.
+   *
+   * 注册控件被接触过时要调用的函数。
+   *
    * @nodoc
    */
   registerOnTouched(fn: () => void): void {
@@ -136,6 +165,9 @@ export class DefaultValueAccessor implements ControlValueAccessor {
 
   /**
    * Sets the "disabled" property on the input element.
+   *
+   * 在此 input 元素上设置“disabled”属性。
+   *
    * @nodoc
    */
   setDisabledState(isDisabled: boolean): void {

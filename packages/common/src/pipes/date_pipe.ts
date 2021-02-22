@@ -55,15 +55,17 @@ import {invalidPipeArgumentError} from './invalid_pipe_argument_error';
  *   `'medium'`: 等价于 `'MMM d, y, h:mm:ss a'` (`Jun 15, 2015, 9:03:01 AM`).
  *
  * - `'long'`: equivalent to `'MMMM d, y, h:mm:ss a z'` (`June 15, 2015 at 9:03:01 AM
+ *   GMT+1`).
  *
- *   `'long'`: 等价于 `'MMMM d, y, h:mm:ss a z'` (`June 15, 2015 at 9:03:01 AM
+ *     `'long'`: 等价于 `'MMMM d, y, h:mm:ss a z'` (`June 15, 2015 at 9:03:01 AM
+ *   GMT+1`)。
  *
- * GMT+1`).
  * - `'full'`: equivalent to `'EEEE, MMMM d, y, h:mm:ss a zzzz'` (`Monday, June 15, 2015 at
+ *   9:03:01 AM GMT+01:00`).
  *
- *   `'full'`: 等价于 `'EEEE, MMMM d, y, h:mm:ss a zzzz'` (`Monday, June 15, 2015 at
+ *     `'full'`: 等价于 `'EEEE, MMMM d, y, h:mm:ss a zzzz'` (`Monday, June 15, 2015 at
+ *   9:03:01 AM GMT+01:00`)。
  *
- * 9:03:01 AM GMT+01:00`).
  * - `'shortDate'`: equivalent to `'M/d/yy'` (`6/15/15`).
  *
  *   `'shortDate'`: 等价于 `'M/d/yy'` (`6/15/15`).
@@ -110,73 +112,73 @@ import {invalidPipeArgumentError} from './invalid_pipe_argument_error';
  * 具体格式取决于区域设置。
  * 标 `*` 的字段表示仅在特定区域的数据中才有效。
  *
- *  | <t>Field type</t><t>字段类型</t> | <t>Format</t><t>格式</t> | <t>Description</t><t>说明</t> | <t>Example Value</t><t>范例值</t>                                              |
- *  |--------------------|-------------|---------------------------------------------------------------|------------------------------------------------------------|
- *  | <t>Era</t><t>纪元</t>                | G, GG & GGG | <t>Abbreviated</t><t>缩略</t>| AD                                                         |
- *  |                    | GGGG        | <t>Wide</t><t>全称</t>| Anno Domini                                                |
- *  |                    | GGGGG       | <t>Narrow</t><t>最简</t>| A                                                          |
- *  | <t>Year</t><t>年</t>               | y           | <t>Numeric</t><t>数字</t>: <t>minimum digits</t><t>最小位数</t>                                       | 2, 20, 201, 2017, 20173                                    |
- *  |                    | yy          | <t>Numeric</t><t>数字</t>: 2 <t>digits + zero padded</t><t>数字 + 0 补位</t>                               | 02, 20, 01, 17, 73                                         |
- *  |                    | yyy         | <t>Numeric</t><t>数字</t>: 3 <t>digits + zero padded</t><t>数字 + 0 补位</t>                               | 002, 020, 201, 2017, 20173                                 |
- *  |                    | yyyy        | <t>Numeric</t><t>数字</t>: 4 <t>digits or more + zero padded</t><t>或更多数字 + 0 补位</t> | 0002, 0020, 0201, 2017, 20173                              |
- *  | Week-numbering year| Y           | Numeric: minimum digits                                       | 2, 20, 201, 2017, 20173                                    |
- *  | 周日历年| Y           | 数字: 最少化数字                                       | 2, 20, 201, 2017, 20173                                    |
- *  |                    | YY          | Numeric: 2 digits + zero padded                               | 02, 20, 01, 17, 73                                         |
- *  |                    | YY          | 数字：2字符+补零                               | 02, 20, 01, 17, 73                                         |
- *  |                    | YYY         | Numeric: 3 digits + zero padded                               | 002, 020, 201, 2017, 20173                                 |
- *  |                    | YYY         | 数字：3字符+补零                               | 002, 020, 201, 2017, 20173                                 |
- *  |                    | YYYY        | Numeric: 4 digits or more + zero padded                       | 0002, 0020, 0201, 2017, 20173                              |
- *  |                    | YYYY        | 数字：4字符+补零                       | 0002, 0020, 0201, 2017, 20173                              |
- *  | <t>Month</t><t>月</t>              | M           | <t>Numeric</t><t>数字</t>: <t>1 digit</t><t>1 数字</t>                                              | 9, 12                                                      |
- *  |                    | MM          | <t>Numeric</t><t>数字</t>: 2 <t>digits + zero padded</t><t>数字 + 0 补位</t>                               | 09, 12                                                     |
- *  |                    | MMM         | <t>Abbreviated</t><t>缩略</t>| Sep                                                        |
- *  |                    | MMMM        | <t>Wide</t><t>全称</t>| September                                                  |
- *  |                    | MMMMM       | <t>Narrow</t><t>最简</t>| S                                                          |
- *  | <t>Month standalone</t><t>独立月份</t> | L           | <t>Numeric</t><t>数字</t>: <t>1 digit</t><t>1 数字</t>                                              | 9, 12                                                      |
- *  |                    | LL          | <t>Numeric</t><t>数字</t>: 2 <t>digits + zero padded</t><t>数字 + 0 补位</t>                               | 09, 12                                                     |
- *  |                    | LLL         | <t>Abbreviated</t><t>缩略</t>| Sep                                                        |
- *  |                    | LLLL        | <t>Wide</t><t>全称</t>| September                                                  |
- *  |                    | LLLLL       | <t>Narrow</t><t>最简</t>| S                                                          |
- *  | <t>Week of year</t><t>年内周次</t> | w           | <t>Numeric</t><t>数字</t>: <t>minimum digits</t><t>最小位数</t>                                       | 1... 53                                                    |
- *  |                    | ww          | <t>Numeric</t><t>数字</t>: 2 <t>digits + zero padded</t><t>数字 + 0 补位</t>                               | 01... 53                                                   |
- *  | <t>Week of month</t><t>月内周次</t> | W           | <t>Numeric</t><t>数字</t>: <t>1 digit</t><t>1 数字</t>                                              | 1... 5                                                     |
- *  | <t>Day of month</t><t>月内日</t> | d           | <t>Numeric</t><t>数字</t>: <t>minimum digits</t><t>最小位数</t>                                       | 1                                                          |
- *  |                    | dd          | <t>Numeric</t><t>数字</t>: 2 <t>digits + zero padded</t><t>数字 + 0 补位</t>                               | 01                                                          |
- *  | <t>Week day</t><t>周内日</t> | E, EE & EEE | <t>Abbreviated</t><t>缩略</t>| Tue                                                        |
- *  |                    | EEEE        | <t>Wide</t><t>全称</t>| Tuesday                                                    |
- *  |                    | EEEEE       | <t>Narrow</t><t>最简</t>| T                                                          |
- *  |                    | EEEEEE      | <t>Short</t><t>短</t> | Tu                                                         |
- *  | <t>Period</t><t>日内时段</t> | a, aa & aaa | <t>Abbreviated</t><t>缩略</t>| am/pm or AM/PM                                             |
- *  |                    | aaaa        | <t>Wide</t><t>全称</t><t>(fallback to `a` when missing)</t><t>(缺少时等同于 `a`)</t>| ante meridiem/post meridiem                                |
- *  |                    | aaaaa       | <t>Narrow</t><t>最简</t>| a/p                                                        |
- *  | <t>Period*</t><t>日内时段</t> | B, BB & BBB | <t>Abbreviated</t><t>缩略</t>| mid.                                                       |
- *  |                    | BBBB        | <t>Wide</t><t>全称</t>| am, pm, midnight, noon, morning, afternoon, evening, night |
- *  |                    | BBBBB       | <t>Narrow</t><t>最简</t>| md                                                         |
- *  | <t>Period standalone*</t><t>独立时段</t> | b, bb & bbb | <t>Abbreviated</t><t>缩略</t>| mid.                                                       |
- *  |                    | bbbb        | <t>Wide</t><t>全称</t>| am, pm, midnight, noon, morning, afternoon, evening, night |
- *  |                    | bbbbb       | <t>Narrow</t><t>最简</t>| md                                                         |
- *  | <t>Hour 1-12</t><t>小时(1-12)</t> | h           | <t>Numeric</t><t>数字</t>: <t>minimum digits</t><t>最小位数</t>                                       | 1, 12                                                      |
- *  |                    | hh          | <t>Numeric</t><t>数字</t>: 2 <t>digits + zero padded</t><t>数字 + 0 补位</t>                               | 01, 12                                                     |
- *  | <t>Hour 0-23</t><t>小时(0-23)</t> | H           | <t>Numeric</t><t>数字</t>: <t>minimum digits</t><t>最小位数</t>                                       | 0, 23                                                      |
- *  |                    | HH          | <t>Numeric</t><t>数字</t>: 2 <t>digits + zero padded</t><t>数字 + 0 补位</t>                               | 00, 23                                                     |
- *  | <t>Minute</t><t>分</t> | m           | <t>Numeric</t><t>数字</t>: <t>minimum digits</t><t>最小位数</t>                                       | 8, 59                                                      |
- *  |                    | mm          | <t>Numeric</t><t>数字</t>: 2 <t>digits + zero padded</t><t>数字 + 0 补位</t>                               | 08, 59                                                     |
- *  | <t>Second</t><t>秒</t> | s           | <t>Numeric</t><t>数字</t>: <t>minimum digits</t><t>最小位数</t>                                       | 0... 59                                                    |
- *  |                    | ss          | <t>Numeric</t><t>数字</t>: 2 <t>digits + zero padded</t><t>数字 + 0 补位</t>                               | 00... 59                                                   |
- *  | <t>Fractional seconds</t><t>分数秒</t> | S           | <t>Numeric</t><t>数字</t>: <t>1 digit</t><t>1 数字</t>                                              | 0... 9                                                     |
- *  |                    | SS          | <t>Numeric</t><t>数字</t>: 2 <t>digits + zero padded</t><t>数字 + 0 补位</t>                               | 00... 99                                                   |
- *  |                    | SSS         | <t>Numeric</t><t>数字</t>: 3 <t>digits + zero padded</t><t>数字 + 0 补位</t> (= <t>milliseconds</t><t>毫秒</t>)              | 000... 999                                                 |
- *  | <t>Zone</t><t>时区</t> | z, zz & zzz | <t>Short specific non location format (fallback to O)</t><t>位置无关短格式（默认为0）</t>            | GMT-8                                                      |
- *  |                    | zzzz        | <t>Long specific non location format (fallback to OOOO)</t><t>位置无关长格式（默认为0000）</t>          | GMT-08:00                                                  |
- *  |                    | Z, ZZ & ZZZ | ISO8601 <t>basic format</t><t>基本格式</t> | -0800                                                      |
- *  |                    | ZZZZ        | <t>Long localized GMT format</t><t>本地化 GMT 长格式</t> | GMT-8:00                                                   |
- *  |                    | ZZZZZ       | ISO8601 <t>extended format + Z indicator for offset 0</t><t>扩展格式 + 偏移为 0 时用 Z 表示</t> (= XXXXX) | -08:00                                                     |
- *  |                    | O, OO & OOO | <t>Short localized GMT format</t><t>本地化 GMT 短格式</t> | GMT-8                                                      |
- *  |                    | OOOO        | <t>Long localized GMT format</t><t>本地化 GMT 长格式</t> | GMT-08:00                                                  |
+ * | <t>Field type</t><t>字段类型</t> | <t>Format</t><t>格式</t> | <t>Description</t><t>说明</t> | <t>Example Value</t><t>范例值</t> |
+ * | -------------------------------- | ------------------------ | ----------------------------- | --------------------------------- |
+ * | <t>Era</t><t>纪元</t> | G, GG & GGG | <t>Abbreviated</t><t>缩略</t> | AD |
+ * |  | GGGG | <t>Wide</t><t>全称</t> | Anno Domini |
+ * |  | GGGGG | <t>Narrow</t><t>最简</t> | A |
+ * | <t>Year</t><t>年</t> | y | <t>Numeric</t><t>数字</t>: <t>minimum digits</t><t>最小位数</t> | 2, 20, 201, 2017, 20173 |
+ * |  | yy | <t>Numeric</t><t>数字</t>: 2 <t>digits + zero padded</t><t>数字 + 0 补位</t> | 02, 20, 01, 17, 73 |
+ * |  | yyy | <t>Numeric</t><t>数字</t>: 3 <t>digits + zero padded</t><t>数字 + 0 补位</t> | 002, 020, 201, 2017, 20173 |
+ * |  | yyyy | <t>Numeric</t><t>数字</t>: 4 <t>digits or more + zero padded</t><t>或更多数字 + 0 补位</t> | 0002, 0020, 0201, 2017, 20173 |
+ * | Week-numbering year | Y | Numeric: minimum digits | 2, 20, 201, 2017, 20173 |
+ * | 周日历年 | Y | 数字: 最少化数字 | 2, 20, 201, 2017, 20173 |
+ * |  | YY | Numeric: 2 digits + zero padded | 02, 20, 01, 17, 73 |
+ * |  | YY | 数字：2 字符+补零 | 02, 20, 01, 17, 73 |
+ * |  | YYY | Numeric: 3 digits + zero padded | 002, 020, 201, 2017, 20173 |
+ * |  | YYY | 数字：3 字符+补零 | 002, 020, 201, 2017, 20173 |
+ * |  | YYYY | Numeric: 4 digits or more + zero padded | 0002, 0020, 0201, 2017, 20173 |
+ * |  | YYYY | 数字：4 字符+补零 | 0002, 0020, 0201, 2017, 20173 |
+ * | <t>Month</t><t>月</t> | M | <t>Numeric</t><t>数字</t>: <t>1 digit</t><t>1 数字</t> | 9, 12 |
+ * |  | MM | <t>Numeric</t><t>数字</t>: 2 <t>digits + zero padded</t><t>数字 + 0 补位</t> | 09, 12 |
+ * |  | MMM | <t>Abbreviated</t><t>缩略</t> | Sep |
+ * |  | MMMM | <t>Wide</t><t>全称</t> | September |
+ * |  | MMMMM | <t>Narrow</t><t>最简</t> | S |
+ * | <t>Month standalone</t><t>独立月份</t> | L | <t>Numeric</t><t>数字</t>: <t>1 digit</t><t>1 数字</t> | 9, 12 |
+ * |  | LL | <t>Numeric</t><t>数字</t>: 2 <t>digits + zero padded</t><t>数字 + 0 补位</t> | 09, 12 |
+ * |  | LLL | <t>Abbreviated</t><t>缩略</t> | Sep |
+ * |  | LLLL | <t>Wide</t><t>全称</t> | September |
+ * |  | LLLLL | <t>Narrow</t><t>最简</t> | S |
+ * | <t>Week of year</t><t>年内周次</t> | w | <t>Numeric</t><t>数字</t>: <t>minimum digits</t><t>最小位数</t> | 1... 53 |
+ * |  | ww | <t>Numeric</t><t>数字</t>: 2 <t>digits + zero padded</t><t>数字 + 0 补位</t> | 01... 53 |
+ * | <t>Week of month</t><t>月内周次</t> | W | <t>Numeric</t><t>数字</t>: <t>1 digit</t><t>1 数字</t> | 1... 5 |
+ * | <t>Day of month</t><t>月内日</t> | d | <t>Numeric</t><t>数字</t>: <t>minimum digits</t><t>最小位数</t> | 1 |
+ * |  | dd | <t>Numeric</t><t>数字</t>: 2 <t>digits + zero padded</t><t>数字 + 0 补位</t> | 01 |
+ * | <t>Week day</t><t>周内日</t> | E, EE & EEE | <t>Abbreviated</t><t>缩略</t> | Tue |
+ * |  | EEEE | <t>Wide</t><t>全称</t> | Tuesday |
+ * |  | EEEEE | <t>Narrow</t><t>最简</t> | T |
+ * |  | EEEEEE | <t>Short</t><t>短</t> | Tu |
+ * | <t>Period</t><t>日内时段</t> | a, aa & aaa | <t>Abbreviated</t><t>缩略</t> | am/pm or AM/PM |
+ * |  | aaaa | <t>Wide</t><t>全称</t><t>(fallback to `a` when missing)</t><t>(缺少时等同于 `a`)</t> | ante meridiem/post meridiem |
+ * |  | aaaaa | <t>Narrow</t><t>最简</t> | a/p |
+ * | <t>Period\*</t><t>日内时段</t> | B, BB & BBB | <t>Abbreviated</t><t>缩略</t> | mid. |
+ * |  | BBBB | <t>Wide</t><t>全称</t> | am, pm, midnight, noon, morning, afternoon, evening, night |
+ * |  | BBBBB | <t>Narrow</t><t>最简</t> | md |
+ * | <t>Period standalone\*</t><t>独立时段</t> | b, bb & bbb | <t>Abbreviated</t><t>缩略</t> | mid. |
+ * |  | bbbb | <t>Wide</t><t>全称</t> | am, pm, midnight, noon, morning, afternoon, evening, night |
+ * |  | bbbbb | <t>Narrow</t><t>最简</t> | md |
+ * | <t>Hour 1-12</t><t>小时(1-12)</t> | h | <t>Numeric</t><t>数字</t>: <t>minimum digits</t><t>最小位数</t> | 1, 12 |
+ * |  | hh | <t>Numeric</t><t>数字</t>: 2 <t>digits + zero padded</t><t>数字 + 0 补位</t> | 01, 12 |
+ * | <t>Hour 0-23</t><t>小时(0-23)</t> | H | <t>Numeric</t><t>数字</t>: <t>minimum digits</t><t>最小位数</t> | 0, 23 |
+ * |  | HH | <t>Numeric</t><t>数字</t>: 2 <t>digits + zero padded</t><t>数字 + 0 补位</t> | 00, 23 |
+ * | <t>Minute</t><t>分</t> | m | <t>Numeric</t><t>数字</t>: <t>minimum digits</t><t>最小位数</t> | 8, 59 |
+ * |  | mm | <t>Numeric</t><t>数字</t>: 2 <t>digits + zero padded</t><t>数字 + 0 补位</t> | 08, 59 |
+ * | <t>Second</t><t>秒</t> | s | <t>Numeric</t><t>数字</t>: <t>minimum digits</t><t>最小位数</t> | 0... 59 |
+ * |  | ss | <t>Numeric</t><t>数字</t>: 2 <t>digits + zero padded</t><t>数字 + 0 补位</t> | 00... 59 |
+ * | <t>Fractional seconds</t><t>分数秒</t> | S | <t>Numeric</t><t>数字</t>: <t>1 digit</t><t>1 数字</t> | 0... 9 |
+ * |  | SS | <t>Numeric</t><t>数字</t>: 2 <t>digits + zero padded</t><t>数字 + 0 补位</t> | 00... 99 |
+ * |  | SSS | <t>Numeric</t><t>数字</t>: 3 <t>digits + zero padded</t><t>数字 + 0 补位</t> (= <t>milliseconds</t><t>毫秒</t>) | 000... 999 |
+ * | <t>Zone</t><t>时区</t> | z, zz & zzz | <t>Short specific non location format (fallback to O)</t><t>位置无关短格式（默认为 0）</t> | GMT-8 |
+ * |  | zzzz | <t>Long specific non location format (fallback to OOOO)</t><t>位置无关长格式（默认为 0000）</t> | GMT-08:00 |
+ * |  | Z, ZZ & ZZZ | ISO8601 <t>basic format</t><t>基本格式</t> | -0800 |
+ * |  | ZZZZ | <t>Long localized GMT format</t><t>本地化 GMT 长格式</t> | GMT-8:00 |
+ * |  | ZZZZZ | ISO8601 <t>extended format + Z indicator for offset 0</t><t>扩展格式 + 偏移为 0 时用 Z 表示</t> (= XXXXX) | -08:00 |
+ * |  | O, OO & OOO | <t>Short localized GMT format</t><t>本地化 GMT 短格式</t> | GMT-8 |
+ * |  | OOOO | <t>Long localized GMT format</t><t>本地化 GMT 长格式</t> | GMT-08:00 |
  *
  * Note that timezone correction is not applied to an ISO string that has no time component, such as "2016-09-19"
  *
- * 请注意，时区校正不适用于没有时间部分的ISO字符串，例如“2016-09-19”
+ * 请注意，时区校正不适用于没有时间部分的 ISO 字符串，例如“2016-09-19”
  *
  * ### Format examples
  *
@@ -243,7 +245,7 @@ export class DatePipe implements PipeTransform {
    * UTC/GMT or continental US timezone abbreviation.
    * When not supplied, uses the end-user's local system timezone.
    *
-   * 一个时区偏移（比如`'+0430'`）或标准的 UTC/GMT 或美国大陆时区的缩写。默认为最终用户机器上的本地系统时区。
+   * 一个时区偏移（比如 `'+0430'`）或标准的 UTC/GMT 或美国大陆时区的缩写。默认为最终用户机器上的本地系统时区。
    *
    * @param locale A locale code for the locale format rules to use.
    * When not supplied, uses the value of `LOCALE_ID`, which is `en-US` by default.

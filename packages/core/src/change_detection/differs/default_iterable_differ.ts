@@ -27,6 +27,9 @@ const trackByIdentity = (index: number, item: any) => item;
 
 /**
  * @deprecated v4.0.0 - Should not be part of public API.
+ *
+ * v4.0.0-不应成为公共 API 的一部分。
+ *
  * @publicApi
  */
 export class DefaultIterableDiffer<V> implements IterableDiffer<V>, IterableChanges<V> {
@@ -231,6 +234,8 @@ export class DefaultIterableDiffer<V> implements IterableDiffer<V>, IterableChan
    * Set the previousIndexes of moved and added items to their currentIndexes
    * Reset the list of additions, moves and removals
    *
+   * 重置更改对象的状态以便不显示任何更改。这意味着将 previousKey 设置为 currentKey，并清除所有队列（添加、移动、移除）。将已移动和已添加条目的 previousIndexes 设置为其 currentIndexes。重置包含添加、移动和删除的列表
+   *
    * @internal
    */
   _reset() {
@@ -261,10 +266,20 @@ export class DefaultIterableDiffer<V> implements IterableDiffer<V>, IterableChan
   /**
    * This is the core function which handles differences between collections.
    *
+   * 这是处理集合之间差异的核心函数。
+   *
    * - `record` is the record which we saw at this position last time. If null then it is a new
    *   item.
+   *
+   *   `record` 是我们上次在此位置看到的记录。如果为 null，则为新条目。
+   *
    * - `item` is the current item in the collection
+   *
+   *   `item` 是集合中的当前条目
+   *
    * - `index` is the position of the item in the collection
+   *
+   *   `index` 是条目在集合中的位置
    *
    * @internal
    */
@@ -310,20 +325,51 @@ export class DefaultIterableDiffer<V> implements IterableDiffer<V>, IterableChan
   /**
    * This check is only needed if an array contains duplicates. (Short circuit of nothing dirty)
    *
+   * 仅当数组包含重复项时才需要进行此检查。 （不脏时跳过）
+   *
    * Use case: `[a, a]` => `[b, a, a]`
    *
+   * 用例： `[a, a]` => `[b, a, a]`
+   *
    * If we did not have this check then the insertion of `b` would:
-   *   1) evict first `a`
-   *   2) insert `b` at `0` index.
-   *   3) leave `a` at index `1` as is. <-- this is wrong!
-   *   3) reinsert `a` at index 2. <-- this is wrong!
+   *
+   * 如果我们不做这项检查，则插入 `b` 时会：
+   *
+   * 1. evict first `a`
+   *
+   *    移出第一个 `a`
+   *
+   * 1. insert `b` at `0` index.
+   *
+   *    把 `b` 插入在 `0` 号索引处。
+   *
+   * 1. leave `a` at index `1` as is. &lt;-- this is wrong!
+   *
+   *    把 `a` 留在现在的 `1` 号索引处。&lt;-- 这是错的！
+   *
+   * 1. reinsert `a` at index 2. &lt;-- this is wrong!
+   *
+   *    重新把 `a` 插入在 `2` 号索引处。 &lt;-- 这是错的！
    *
    * The correct behavior is:
-   *   1) evict first `a`
-   *   2) insert `b` at `0` index.
-   *   3) reinsert `a` at index 1.
-   *   3) move `a` at from `1` to `2`.
    *
+   * 正确的行为是：
+   *
+   * 1. evict first `a`
+   *
+   *    移出第一个 `a`
+   *
+   * 1. insert `b` at `0` index.
+   *
+   *    把 `b` 插入在 `0` 号索引处。
+   *
+   * 1. reinsert `a` at index 1.
+   *
+   *    把 `a` 插入在 `1` 号索引处。
+   *
+   * 1. move `a` at from `1` to `2`.
+   *
+   *    把 `a` 从 `1` 号位移到 `2` 号位。
    *
    * Double check that we have not evicted a duplicate item. We need to check if the item type may
    * have already been removed:
@@ -331,6 +377,8 @@ export class DefaultIterableDiffer<V> implements IterableDiffer<V>, IterableChan
    * at the end. Which will show up as the two 'a's switching position. This is incorrect, since a
    * better way to think of it is as insert of 'b' rather then switch 'a' with 'b' and then add 'a'
    * at the end.
+   *
+   * 再次确认我们没有移出重复的条目。我们需要检查此条目类型是否已被删除：插入 b 将移出第一个 “a”。如果我们现在不重新插入，它将重新在最后插入。这将表现为两个 “a” 调换了位置。这是不正确的，因为更好的方法是插入 “b”，而不是将 “a” 和 “b” 互换，然后在末尾添加 “a”。
    *
    * @internal
    */
@@ -350,7 +398,11 @@ export class DefaultIterableDiffer<V> implements IterableDiffer<V>, IterableChan
   /**
    * Get rid of any excess {@link IterableChangeRecord_}s from the previous collection
    *
-   * - `record` The first excess {@link IterableChangeRecord_}.
+   * 摆脱上一个集合中任何多余的 {@link IterableChangeRecord_}
+   *
+   * - `record` The first excess {@link IterableChangeRecord\_}.
+   *
+   *   `record` 是指第一个多余的{@link IterableChangeRecord\_}。
    *
    * @internal
    */

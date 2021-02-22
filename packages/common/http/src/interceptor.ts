@@ -60,10 +60,21 @@ import {HttpEvent} from './response';
 export interface HttpInterceptor {
   /**
    * Identifies and handles a given HTTP request.
+   *
+   * 标识并处理给定的 HTTP 请求。
+   *
    * @param req The outgoing request object to handle.
+   *
+   * 要处理的传出请求对象。
+   *
    * @param next The next interceptor in the chain, or the backend
    * if no interceptors remain in the chain.
+   *
+   * 链中的下一个拦截器，如果链中没有拦截器，则为其后端接口。
+   *
    * @returns An observable of the event stream.
+   *
+   * 事件流的可观察值。
    */
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>>;
 }
@@ -86,7 +97,7 @@ export class HttpInterceptorHandler implements HttpHandler {
  * `HttpInterceptor` objects.
  *
  *
- * 一个多重提供商（multi-provider）令牌，它代表所有已注册的 `HttpInterceptor` 构成的数组。
+ * 一个多重提供者（multi-provider）令牌，它代表所有已注册的 `HttpInterceptor` 构成的数组。
  *
  * @publicApi
  */

@@ -18,12 +18,16 @@ export const enum BypassType {
 /**
  * Marker interface for a value that's safe to use in a particular context.
  *
+ * 标记界面，可在特定上下文中安全使用值。
+ *
  * @publicApi
  */
 export interface SafeValue {}
 
 /**
  * Marker interface for a value that's safe to use as HTML.
+ *
+ * 标记界面，可安全用作 HTML 值。
  *
  * @publicApi
  */
@@ -32,12 +36,16 @@ export interface SafeHtml extends SafeValue {}
 /**
  * Marker interface for a value that's safe to use as style (CSS).
  *
+ * 标记界面，可安全用作样式（CSS）。
+ *
  * @publicApi
  */
 export interface SafeStyle extends SafeValue {}
 
 /**
  * Marker interface for a value that's safe to use as JavaScript.
+ *
+ * 标记界面，可安全用作 JavaScript 的值。
  *
  * @publicApi
  */
@@ -46,12 +54,16 @@ export interface SafeScript extends SafeValue {}
 /**
  * Marker interface for a value that's safe to use as a URL linking to a document.
  *
+ * 标记界面，用于安全地用作链接到文档的 URL 的值。
+ *
  * @publicApi
  */
 export interface SafeUrl extends SafeValue {}
 
 /**
  * Marker interface for a value that's safe to use as a URL to load executable code from.
+ *
+ * 标记接口，用于安全地用作 URL 的值，以从中加载可执行代码。
  *
  * @publicApi
  */

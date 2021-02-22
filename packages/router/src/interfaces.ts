@@ -21,6 +21,8 @@ import {UrlSegment, UrlTree} from './url_tree';
  * navigation is cancelled. If any guard returns a `UrlTree`, the current navigation
  * is cancelled and a new navigation begins to the `UrlTree` returned from the guard.
  *
+ * 类可以实现的接口，用于确定是否可以激活路由。如果所有守卫都返回了 `true`，那么导航将继续。如果任何守卫返回 `false`，则导航将被取消。如果任何守卫返回 `UrlTree` ，当前导航被取消，新的导航开始到守卫所返回的 `UrlTree`。
+ *
  * The following example implements a `CanActivate` function that checks whether the
  * current user has permission to activate the requested route.
  *
@@ -110,6 +112,8 @@ export type CanActivateFn = (route: ActivatedRouteSnapshot, state: RouterStateSn
  * If all guards return `true`, navigation continues. If any guard returns `false`,
  * navigation is cancelled. If any guard returns a `UrlTree`, current navigation
  * is cancelled and a new navigation begins to the `UrlTree` returned from the guard.
+ *
+ * 类可以实现的接口，用于确定是否可以激活子路由。如果所有守卫都返回了 `true`，那么导航将继续。如果任何守卫返回 `false`，则导航将被取消。如果任何守卫返回 `UrlTree` ，当前导航被取消，新的导航开始到守卫所返回的 `UrlTree`。
  *
  * The following example implements a `CanActivateChild` function that checks whether the
  * current user has permission to activate the requested child route.
@@ -211,6 +215,8 @@ export type CanActivateChildFn = (childRoute: ActivatedRouteSnapshot, state: Rou
  * navigation is cancelled. If any guard returns a `UrlTree`, current navigation
  * is cancelled and a new navigation begins to the `UrlTree` returned from the guard.
  *
+ * 类可以实现的接口，用于确定是否可以离开某个路由。如果所有守卫都返回了 `true`，那么导航将继续。如果任何守卫返回 `false`，则导航将被取消。如果任何守卫返回 `UrlTree` ，当前导航被取消，新的导航开始到守卫所返回的 `UrlTree`。
+ *
  * The following example implements a `CanDeactivate` function that checks whether the
  * current user has permission to deactivate the requested route.
  *
@@ -229,6 +235,8 @@ export type CanActivateChildFn = (childRoute: ActivatedRouteSnapshot, state: Rou
  *
  * Here, the defined guard function is provided as part of the `Route` object
  * in the router configuration:
+ *
+ * 在此，定义的守卫函数作为路由器配置中的 `Route` 对象：
  *
  * ```
  *
@@ -309,6 +317,8 @@ export type CanDeactivateFn<T> =
  * The interface defines a `resolve()` method that is invoked when the navigation starts.
  * The router waits for the data to be resolved before the route is finally activated.
  *
+ * 可以实现为数据提供者的类的接口。数据提供者类可与路由器一起使用，以在导航期间解析数据。接口定义了开始导航时调用 `resolve()` 路由器在最终激活路由之前等待数据解析。
+ *
  * The following example implements a `resolve()` method that retrieves the data
  * needed to activate the requested route.
  *
@@ -387,6 +397,8 @@ export type CanDeactivateFn<T> =
  * all guards have run and succeeded.
  * For example, consider the following route configuration:
  *
+ * 如果同时指定了守卫和解析器，则直到所有守卫都运行并成功后，解析器才会执行。例如，考虑以下路由配置：
+ *
  * ```
  * {
  *  path: 'base'
@@ -402,7 +414,10 @@ export type CanDeactivateFn<T> =
  *  ]
  * }
  * ```
+ *
  * The order of execution is: BaseGuard, ChildGuard, BaseDataResolver, ChildDataResolver.
+ *
+ * 执行顺序为：BaseGuard、ChildGuard、BaseDataResolver、ChildDataResolver。
  *
  * @publicApi
  */
@@ -418,6 +433,8 @@ export interface Resolve<T> {
  * If all guards return `true`, navigation continues. If any guard returns `false`,
  * navigation is cancelled. If any guard returns a `UrlTree`, current navigation
  * is cancelled and a new navigation starts to the `UrlTree` returned from the guard.
+ *
+ * 类可以实现的接口，用于确定是否可以加载子路由。如果所有守卫都返回了 `true`，那么导航将继续。如果任何守卫返回 `false`，则导航将被取消。如果任何守卫返回 `UrlTree` ，当前导航被取消，新的导航开始到守卫所返回的 `UrlTree`。
  *
  * The following example implements a `CanLoad` function that decides whether the
  * current user has permission to load requested child routes.

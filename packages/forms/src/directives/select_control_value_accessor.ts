@@ -124,12 +124,18 @@ export class SelectControlValueAccessor implements ControlValueAccessor {
 
   /**
    * The registered callback function called when a change event occurs on the input element.
+   *
+   * 在输入元素上发生 change 事件时调用的已注册回调函数。
+   *
    * @nodoc
    */
   onChange = (_: any) => {};
 
   /**
    * The registered callback function called when a blur event occurs on the input element.
+   *
+   * 当输入元素上发生 blur 事件时调用已注册回调函数。
+   *
    * @nodoc
    */
   onTouched = () => {};
@@ -138,6 +144,9 @@ export class SelectControlValueAccessor implements ControlValueAccessor {
    * @description
    * Tracks the option comparison algorithm for tracking identities when
    * checking for changes.
+   *
+   * 跟踪选项的比较算法，以在检查变更时跟踪其标识。
+   *
    */
   @Input()
   set compareWith(fn: (o1: any, o2: any) => boolean) {
@@ -154,6 +163,9 @@ export class SelectControlValueAccessor implements ControlValueAccessor {
   /**
    * Sets the "value" property on the input element. The "selectedIndex"
    * property is also set if an ID is provided on the option element.
+   *
+   * 在输入元素上设置 “value” 属性。如果在选项元素上提供了 ID，则还将设置 “selectedIndex” 属性。
+   *
    * @nodoc
    */
   writeValue(value: any): void {
@@ -168,6 +180,9 @@ export class SelectControlValueAccessor implements ControlValueAccessor {
 
   /**
    * Registers a function called when the control value changes.
+   *
+   * 注册控件值更改时要调用的函数。
+   *
    * @nodoc
    */
   registerOnChange(fn: (value: any) => any): void {
@@ -179,6 +194,9 @@ export class SelectControlValueAccessor implements ControlValueAccessor {
 
   /**
    * Registers a function called when the control is touched.
+   *
+   * 注册控件被接触过时要调用的函数。
+   *
    * @nodoc
    */
   registerOnTouched(fn: () => any): void {
@@ -187,6 +205,9 @@ export class SelectControlValueAccessor implements ControlValueAccessor {
 
   /**
    * Sets the "disabled" property on the select input element.
+   *
+   * 在 select 输入元素上设置 “disabled” 属性。
+   *
    * @nodoc
    */
   setDisabledState(isDisabled: boolean): void {
@@ -230,6 +251,9 @@ export class NgSelectOption implements OnDestroy {
   /**
    * @description
    * ID of the option element
+   *
+   * 选项元素的 ID
+   *
    */
   // TODO(issue/24571): remove '!'.
   id!: string;
@@ -244,6 +268,9 @@ export class NgSelectOption implements OnDestroy {
    * @description
    * Tracks the value bound to the option element. Unlike the value binding,
    * ngValue supports binding to objects.
+   *
+   * 跟踪绑定到选项元素的值。与值绑定不同，ngValue 支持绑定到对象。
+   *
    */
   @Input('ngValue')
   set ngValue(value: any) {
@@ -257,6 +284,9 @@ export class NgSelectOption implements OnDestroy {
    * @description
    * Tracks simple string values bound to the option element.
    * For objects, use the `ngValue` input binding.
+   *
+   * 跟踪绑定到 option 元素的简单字符串值。对于对象，请使用 `ngValue` 输入绑定。
+   *
    */
   @Input('value')
   set value(value: any) {

@@ -43,7 +43,7 @@
           </a>
         </td>
         <td>
-          {% if item.deprecated !== undefined %}{$ ('**已弃用:** ' + item.deprecated) | marked $}{% endif %}
+          {% if item.deprecated !== undefined %}<div no-translate>{$ ('**已弃用:** ' + item.deprecated) | marked $}</div>{% endif %}
           {$ item.shortDescription | marked $}
         </td>
       </tr>

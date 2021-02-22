@@ -65,7 +65,7 @@ Most Angular code can be written with just the latest JavaScript, using [types](
 
 有些企业内部的防火墙比较严格，如果无法打开 <https://angular.cn>，你可以在企业内部进行私有化部署。步骤如下：
 
-本文档的预编译版本位于 [Github](https://github.com/ng-docs/ng-docs.github.io) 上，如果你想进行私有化部署，请把它 Clone 下来，在 nginx 等服务器上按照静态网站的形式做部署即可，除此之外不需要任何服务端环境。
+本文档的预编译版本位于 [Github](https://github.com/ng-docs/latest.angular.live) 上，如果你想进行私有化部署，请把它 Clone 下来，在 nginx 等服务器上按照静态网站的形式做部署即可，除此之外不需要任何服务端环境。
 
 以 Nginx 为例，你需要在 nginx 上做如下改动：
 

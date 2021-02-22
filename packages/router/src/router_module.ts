@@ -78,17 +78,27 @@ export function routerNgProbeToken() {
  * Use the Angular `Router` service to declaratively specify application states and manage state
  * transitions.
  *
+ * 添加指令和提供者，以便在应用程序中定义的视图之间进行应用内导航。使用 Angular `Router` 服务以声明方式指定应用程序状态并管理状态转换。
+ *
  * You can import this NgModule multiple times, once for each lazy-loaded bundle.
  * However, only one `Router` service can be active.
  * To ensure this, there are two ways to register routes when importing this module:
  *
+ * 你可以多次导入此 NgModule，对于每个惰性加载的包导入一次。但是，只能有一个 `Router` 服务是活动的。为确保这一点，在导入此模块时有两种方法来注册路由：
+ *
  * * The `forRoot()` method creates an `NgModule` that contains all the directives, the given
  * routes, and the `Router` service itself.
+ *
+ *   `forRoot()` 方法会创建一个 `NgModule`，其中包含所有指令、给定的路由以及 `Router` 服务本身。
+ *
  * * The `forChild()` method creates an `NgModule` that contains all the directives and the given
  * routes, but does not include the `Router` service.
  *
+ *   `forChild()` 方法会创建一个 `NgModule`，其中包含所有指令和给定的路由，但不包括 `Router` 服务。
  * @see [Routing and Navigation guide](guide/router) for an
  * overview of how the `Router` service should be used.
+ *
+ * [路由和导航指南](guide/router)，概述了应如何使用 `Router` 服务。
  *
  * @see [路由与导航](guide/router.html) 以获得如何使用路由器服务的概览。
  *
@@ -107,7 +117,11 @@ export class RouterModule {
    * Creates and configures a module with all the router providers and directives.
    * Optionally sets up an application listener to perform an initial navigation.
    *
+   * 带着所有路由器提供者和指令创建和配置模块。（可选）设置应用程序监听器以执行初始导航。
+   *
    * When registering the NgModule at the root, import as follows:
+   *
+   * 在根目录下注册 NgModule 时，请按以下方式导入：
    *
    * ```
    * @NgModule({
@@ -117,9 +131,15 @@ export class RouterModule {
    * ```
    *
    * @param routes An array of `Route` objects that define the navigation paths for the application.
+   *
+   * `Route` 对象的数组，这些对象定义应用程序的导航路径。
    * @param config An `ExtraOptions` configuration object that controls how navigation is performed.
+   *
+   * 一个 `ExtraOptions` 配置对象，该对象会控制如何执行导航。
+   *
    * @return The new `NgModule`.
    *
+   * 新的 `NgModule` 。
    */
   static forRoot(routes: Routes, config?: ExtraOptions): ModuleWithProviders<RouterModule> {
     return {
@@ -160,6 +180,8 @@ export class RouterModule {
    * without creating a new Router service.
    * When registering for submodules and lazy-loaded submodules, create the NgModule as follows:
    *
+   * 创建带有所有路由器指令和提供者注册的路由的模块，而无需创建新的路由器服务。注册子模块和惰性加载的子模块时，像这样创建 NgModule：
+   *
    * ```
    * @NgModule({
    *   imports: [RouterModule.forChild(ROUTES)]
@@ -168,8 +190,11 @@ export class RouterModule {
    * ```
    *
    * @param routes An array of `Route` objects that define the navigation paths for the submodule.
+   *
+   * `Route` 对象的数组，它们定义了子模块的导航路径。
    * @return The new NgModule.
    *
+   * 新的 NgModule。
    */
   static forChild(routes: Routes): ModuleWithProviders<RouterModule> {
     return {ngModule: RouterModule, providers: [provideRoutes(routes)]};
@@ -200,6 +225,9 @@ export function provideForRootGuard(router: Router): any {
 
 /**
  * Registers a [DI provider](guide/glossary#provider) for a set of routes.
+ *
+ * 为一组路由注册一个 [DI 提供者。](guide/glossary#provider)
+ *
  * @param routes The route configuration to provide.
  *
  * 注册路由。
@@ -227,12 +255,20 @@ export function provideRoutes(routes: Routes): any {
  * Allowed values in an `ExtraOptions` object that configure
  * when the router performs the initial navigation operation.
  *
+ * `ExtraOptions` 对象中的允许值，用于配置路由器何时执行初始导航操作。
+ *
  * * 'enabledNonBlocking' - (default) The initial navigation starts after the
  * root component has been created. The bootstrap is not blocked on the completion of the initial
  * navigation.
+ *
+ *   'enabledNonBlocking' -（默认值）在创建根组件之后开始初始导航。初始导航完成后，引导程序不会被阻止。
+ *
  * * 'enabledBlocking' - The initial navigation starts before the root component is created.
  * The bootstrap is blocked until the initial navigation is complete. This value is required
  * for [server-side rendering](guide/universal) to work.
+ *
+ *   'enabledBlocking' - 初始导航在创建根组件之前开始。引导程序将被阻止，直到完成初始导航为止。该值是让[服务器渲染](guide/universal)正常工作所必需的。
+ *
  * * 'disabled' - The initial navigation is not performed. The location listener is set up before
  * the root component gets created. Use if there is a reason to have
  * more control over when the router starts its initial navigation due to some complex
@@ -243,7 +279,11 @@ export function provideRoutes(routes: Routes): any {
  * The following values have been [deprecated](guide/releases#deprecation-practices) since v11,
  * and should not be used for new applications.
  *
+ * [从 v11 开始不推荐使用](guide/releases#deprecation-practices)以下值，并且不应将其用于新应用程序。
+ *
  * * 'enabled' - This option is 1:1 replaceable with `enabledNonBlocking`.
+ *
+ *   'enabled' - 此选项可以 1：1 替换为 `enabledNonBlocking`。
  *
  * @see `forRoot()`
  *
@@ -255,6 +295,8 @@ export type InitialNavigation = 'disabled'|'enabled'|'enabledBlocking'|'enabledN
  * A set of configuration options for a router module, provided in the
  * `forRoot()` method.
  *
+ * 在 `forRoot()` 方法中提供的一组路由器模块配置选项。
+ *
  * @see `forRoot()`
  *
  *
@@ -264,6 +306,9 @@ export interface ExtraOptions {
   /**
    * When true, log all internal navigation events to the console.
    * Use for debugging.
+   *
+   * 如果为 true，则将所有内部导航事件记录到控制台。用于调试。
+   *
    */
   enableTracing?: boolean;
 
@@ -285,6 +330,14 @@ export interface ExtraOptions {
    * `disabled`, the initial navigation is not performed. The location listener is set up before the
    * root component gets created. Use if there is a reason to have more control over when the router
    * starts its initial navigation due to some complex initialization logic.
+   *
+   * `enabled`、`enabledBlocking`、`enabledNonBlocking` 或 `disabled` 之一。
+   * 设置为 `enabled` 或 `enabledBlocking` ，则初始导航在创建根组件之前开始。引导程序将被阻止，直到完成初始导航为止。
+   * 该值是让[服务器端渲染](guide/universal)正常工作所必需的。
+   * 设置为 `enabledNonBlocking`，则初始导航在创建根组件之后开始。初始导航完成后，引导程序不会被阻止。
+   * 设置为 `disabled`，不执行初始导航。位置监听器是在创建根组件之前设置的。
+   * 如果由于某些复杂的初始化逻辑，而有理由对路由器何时开始其初始导航有更多的控制权，请使用它。
+   *
    */
   initialNavigation?: InitialNavigation;
 
@@ -292,6 +345,8 @@ export interface ExtraOptions {
    * A custom error handler for failed navigations.
    * If the handler returns a value, the navigation Promise is resolved with this value.
    * If the handler throws an exception, the navigation Promise is rejected with the exception.
+   *
+   * 导航失败的自定义错误处理器。如果处理器返回一个值，则导航的 Promise 将使用该值进行解析。如果处理器引发异常，则导航 Promise 将被拒绝，并带有该异常。
    *
    */
   errorHandler?: ErrorHandler;
@@ -368,9 +423,14 @@ export interface ExtraOptions {
    * When set to 'enabled', scrolls to the anchor element when the URL has a fragment.
    * Anchor scrolling is disabled by default.
    *
+   * 设置为 “enabled” 时，如果 URL 有一个片段，就滚动到锚点元素。默认情况下，锚定滚动是禁用的。
+   *
    * Anchor scrolling does not happen on 'popstate'. Instead, we restore the position
    * that we stored or scroll to the top.
    *
+   * 锚点滚动不会在 “popstate” 上发生。相反，我们会恢复存储的位置或滚动到顶部。
+   *
+   */
   anchorScrolling?: 'disabled'|'enabled';
 
   /**
@@ -393,6 +453,9 @@ export interface ExtraOptions {
    * routes. By default ('emptyOnly'), inherits parent parameters only for
    * path-less or component-less routes.
    * Set to 'always' to enable unconditional inheritance of parent parameters.
+   *
+   * 定义路由器如何将参数、数据和已解析的数据从父路由合并到子路由。默认情况下（“emptyOnly”），仅继承无路径或无组件路由的父参数。设置为 “always” 时会始终启用父参数的无条件继承。
+   *
    */
   paramsInheritanceStrategy?: 'emptyOnly'|'always';
 
@@ -426,6 +489,10 @@ export interface ExtraOptions {
    * Set to 'eager' if prefer to update the URL at the beginning of navigation.
    * Updating the URL early allows you to handle a failure of navigation by
    * showing an error message with the URL that failed.
+   *
+   * 定义路由器要何时更新浏览器 URL。默认情况下（“deferred”），在成功导航后进行更新。如果希望在导航开始时更新 URL，则设置为 “eager” 。
+   * 以便早期更新 URL，这样可以通过显示带有失败 URL 的错误消息来处理导航失败。
+   *
    */
   urlUpdateStrategy?: 'deferred'|'eager';
 
@@ -462,9 +529,11 @@ export interface ExtraOptions {
    *
    * In other words, you're required to use `../` rather than `./`.
    *
+   * 换句话说，你需要使用 `../` 而不是 `./` 。
+   *
    * The default in v11 is `corrected`.
    *
-   * 换句话说，要使用 `../` 而不是 `./`。它是当前版本的默认行为。把该选项设置为 `corrected` 可以启用这项修正。
+   * v11 中的默认值是 `corrected`。
    */
   relativeLinkResolution?: 'legacy'|'corrected';
 }

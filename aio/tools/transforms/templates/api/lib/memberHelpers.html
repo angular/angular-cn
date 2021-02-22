@@ -211,9 +211,9 @@
         </td>
         <td>
           {%- if (property.isGetAccessor or property.isReadonly) and not property.isSetAccessor %}<span class='read-only-property'>只读</span>{% endif %}
-          {%- if property.isSetAccessor and not property.isGetAccessor %}<span class='write-only-property'>Write-only.</span>{% endif %}
-          {% if property.constructorParamDoc %} <span class='from-constructor'>Declared in constructor.</span>{% endif %}
-          {% if property.shortDescription %}{$ property.shortDescription | marked $}{% endif %}
+          {%- if property.isSetAccessor and not property.isGetAccessor %}<span class='write-only-property'>只写</span>{% endif %}
+          {% if property.constructorParamDoc %} <span class='from-constructor'>声明在构造函数中</span>{% endif %}
+          {% if property.shortDescription %}<div no-translate>{$ property.shortDescription | marked $}</div>{% endif %}
           {$ (property.description or property.constructorParamDoc.description) | marked $}
           {%- if property.see.length %}
           <p>参见:</p>

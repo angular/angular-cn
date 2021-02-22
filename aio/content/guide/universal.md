@@ -501,7 +501,7 @@ This option is the least intrusive as it does not require any changes to the app
 Here, "request URL" refers to the URL of the request as a response to which the app is being rendered on the server.
 For example, if the client requested `https://my-server.com/dashboard` and you are rendering the app on the server to respond to that request, `options.url` should be set to `https://my-server.com/dashboard`.
 
-建议的解决方案是将完整的请求 URL 传给 [renderModule（）](api/platform-server/renderModule) 或 [renderModuleFactory（）](api/platform-server/renderModuleFactory) 的 `options` 参数（具体取决于你在服务器上渲染 `AppServerModule` 的目的）。此选项的侵入性最小，因为它不需要对应用进行任何更改。这里的“请求 URL” 是指当应用在服务器上渲染时的地址。例如，如果客户端请求了 `https://my-server.com/dashboard` 并且要在服务器上渲染该应用以响应该请求，那么 `options.url` 应设置为 `https://my-server.com/dashboard`。
+建议的解决方案是将完整的请求 URL 传给 [renderModule()](api/platform-server/renderModule) 或 [renderModuleFactory()](api/platform-server/renderModuleFactory) 的 `options` 参数（具体取决于你在服务器上渲染 `AppServerModule` 的目的）。此选项的侵入性最小，因为它不需要对应用进行任何更改。这里的“请求 URL” 是指当应用在服务器上渲染时的地址。例如，如果客户端请求了 `https://my-server.com/dashboard` 并且要在服务器上渲染该应用以响应该请求，那么 `options.url` 应设置为 `https://my-server.com/dashboard`。
 
 Now, on every HTTP request made as part of rendering the app on the server, Angular can correctly resolve the request URL to an absolute URL, using the provided `options.url`.
 

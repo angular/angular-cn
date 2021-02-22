@@ -16,10 +16,15 @@ import {FormBuilder} from './form_builder';
  * Exports the required providers and directives for template-driven forms,
  * making them available for import by NgModules that import this module.
  *
- * 导出模板驱动表单所需的提供商和指令，使其可用于导入了该模块的 NgModule 中。
+ * 导出模板驱动表单所需的提供者和指令，使其可用于导入了该模块的 NgModule 中。
  *
  * @see [Forms Overview](/guide/forms-overview)
+ *
+ * [表单总览](/guide/forms-overview)
+ *
  * @see [Template-driven Forms Guide](/guide/forms)
+ *
+ * [模板驱动表单指南](/guide/forms)
  *
  * @publicApi
  */
@@ -70,7 +75,12 @@ export class ReactiveFormsModule {
    *
    */
   static withConfig(opts: {
-    /** @deprecated as of v6 */ warnOnNgModelWithFormControl: 'never'|'once'|'always'
+    /**
+     * @deprecated as of v6
+     *
+     * 从 v6 开始
+     *
+     */ warnOnNgModelWithFormControl: 'never'|'once'|'always'
   }): ModuleWithProviders<ReactiveFormsModule> {
     return {
       ngModule: ReactiveFormsModule,

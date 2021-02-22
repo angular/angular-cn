@@ -23,6 +23,7 @@ module.exports = function h1CheckerPostProcessor() {
     if (file.headings.h1.length > 2) {
       file.fail(`More than two h1 found in ${file}`);
     } else if (file.headings.h1.length > 1) {
+      file.titleCn = file.headings.h1[0];
       file.title = file.headings.h1[1];
     } else if (file.headings.h1.length === 1) {
       file.title = file.headings.h1[0];

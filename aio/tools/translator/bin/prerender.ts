@@ -1,6 +1,6 @@
-import { readFileSync, writeFileSync } from 'fs';
+import { writeFileSync } from 'fs';
+import * as globby from 'globby';
 import { minify } from 'html-minifier';
-import * as klawSync from 'klaw-sync';
 import { chunk, uniq } from 'lodash';
 import { sync as mkdirp } from 'mkdirp';
 import { dirname, join } from 'path';
@@ -16,26 +16,19 @@ const minifyOptions = {
   removeStyleLinkTypeAttributes: true,
 };
 
-function getGuideUrls(): string[] {
-  const navigation = readFileSync('./content/navigation.json', 'utf-8');
-  return (navigation.match(/"url": "(.*?)"/g) || [])
-    .map((entry) => entry.replace(/^"url": "(.*?)".*$/, '$1'))
-    .filter(url => url.slice(0, 4) !== 'http');
+function getAllUrls(): string[] {
+  return globby.sync('./dist/generated/docs/**/*.json')
+    .map(file => file.replace(/^.*generated\/docs\/(.*).json$/, '$1'));
 }
 
-function getApiUrls(): string[] {
-  return klawSync('./dist/generated/docs/api', { nodir: true })
-    .map(file => file.path.replace(/^.*generated\/docs\/(.*).json$/, '$1'));
-}
+const urls = [...getAllUrls(), 'index.html'];
 
-const urls = [...getGuideUrls(), ...getApiUrls(), 'translations/cn/about.html', 'index.html'];
-
-function filterResource(request: Request) {
+async function filterResource(request: Request) {
   const type = request.resourceType();
   if (['image', 'stylesheet', 'font'].indexOf(type) !== -1) {
-    request.abort();
+    return request.abort();
   } else {
-    request.continue();
+    return request.continue();
   }
 }
 

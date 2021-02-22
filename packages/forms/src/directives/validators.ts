@@ -17,6 +17,8 @@ import {NG_VALIDATORS, Validators} from '../validators';
  * @description
  * Defines the map of errors returned from failed validation checks.
  *
+ * 定义从失败的验证检查返回的错误映射表。
+ *
  * @publicApi
  */
 export type ValidationErrors = {
@@ -59,10 +61,17 @@ export interface Validator {
    * @description
    * Method that performs synchronous validation against the provided control.
    *
+   * 对所提供的控件执行同步验证的方法。
+   *
    * @param control The control to validate against.
+   *
+   * 要验证的控件。
    *
    * @returns A map of validation errors if validation fails,
    * otherwise null.
+   *
+   * 如果验证失败，则验证错误的映射表，否则为 null。
+   *
    */
   validate(control: AbstractControl): ValidationErrors|null;
 
@@ -70,7 +79,12 @@ export interface Validator {
    * @description
    * Registers a callback function to call when the validator inputs change.
    *
+   * 注册一个回调函数以在验证器的输入发生更改时调用。
+   *
    * @param fn The callback function
+   *
+   * 回调函数
+   *
    */
   registerOnValidatorChange?(fn: () => void): void;
 }
@@ -79,12 +93,18 @@ export interface Validator {
  * @description
  * An interface implemented by classes that perform asynchronous validation.
  *
+ * 由执行异步验证的类实现的接口。
+ *
  * @usageNotes
  *
  * ### Provide a custom async validator directive
  *
+ * ### 提供自定义异步验证程序指令
+ *
  * The following example implements the `AsyncValidator` interface to create an
  * async validator directive with a custom error key.
+ *
+ * 以下示例实现 `AsyncValidator` 接口，以使用自定义错误键名创建异步验证程序指令。
  *
  * ```typescript
  * import { of } from 'rxjs';
@@ -108,10 +128,17 @@ export interface AsyncValidator extends Validator {
    * @description
    * Method that performs async validation against the provided control.
    *
+   * 对提供的控件执行异步验证的方法。
+   *
    * @param control The control to validate against.
+   *
+   * 要验证的控件。
    *
    * @returns A promise or observable that resolves a map of validation errors
    * if validation fails, otherwise null.
+   *
+   * 如果验证失败，则将解决验证错误映射表的 Promise 或 Observable，否则为 null。
+   *
    */
   validate(control: AbstractControl):
       Promise<ValidationErrors|null>|Observable<ValidationErrors|null>;
@@ -147,6 +174,8 @@ export const CHECKBOX_REQUIRED_VALIDATOR: StaticProvider = {
  *
  * @see [Form Validation](guide/form-validation)
  *
+ * [表单验证](guide/form-validation)
+ *
  * @usageNotes
  *
  * ### Adding a required validator using template-driven forms
@@ -174,6 +203,9 @@ export class RequiredValidator implements Validator {
   /**
    * @description
    * Tracks changes to the required attribute bound to this directive.
+   *
+   * 跟踪对该指令绑定的 required 属性的更改。
+   *
    */
   @Input()
   get required(): boolean|string {
@@ -188,6 +220,9 @@ export class RequiredValidator implements Validator {
   /**
    * Method that validates whether the control is empty.
    * Returns the validation result if enabled, otherwise null.
+   *
+   * 验证控件是否为空的方法。如果启用，则返回验证结果，否则返回 null。
+   *
    * @nodoc
    */
   validate(control: AbstractControl): ValidationErrors|null {
@@ -196,6 +231,9 @@ export class RequiredValidator implements Validator {
 
   /**
    * Registers a callback function to call when the validator inputs change.
+   *
+   * 注册一个回调函数以在验证器的输入更改时调用。
+   *
    * @nodoc
    */
   registerOnValidatorChange(fn: () => void): void {
@@ -211,6 +249,8 @@ export class RequiredValidator implements Validator {
  * 该指令会借助 `NG_VALIDATORS` 绑定把 `required` 验证器添加到任何带有 `required` 属性的检查框控件上。
  *
  * @see [Form Validation](guide/form-validation)
+ *
+ * [表单验证](guide/form-validation)
  *
  * @usageNotes
  *
@@ -240,6 +280,9 @@ export class CheckboxRequiredValidator extends RequiredValidator {
   /**
    * Method that validates whether or not the checkbox has been checked.
    * Returns the validation result if enabled, otherwise null.
+   *
+   * 验证复选框是否已选中的方法。如果启用，则返回验证结果，否则返回 null。
+   *
    * @nodoc
    */
   validate(control: AbstractControl): ValidationErrors|null {
@@ -251,7 +294,7 @@ export class CheckboxRequiredValidator extends RequiredValidator {
  * @description
  * Provider which adds `EmailValidator` to the `NG_VALIDATORS` multi-provider list.
  *
- * 该提供商用于把 `EmailValidator` 添加到 `NG_VALIDATORS` 中。
+ * 该提供者用于把 `EmailValidator` 添加到 `NG_VALIDATORS` 中。
  */
 export const EMAIL_VALIDATOR: any = {
   provide: NG_VALIDATORS,
@@ -267,6 +310,7 @@ export const EMAIL_VALIDATOR: any = {
  *
  * @see [Form Validation](guide/form-validation)
  *
+ * [表单验证](guide/form-validation)
  * @usageNotes
  *
  * ### Adding an email validator
@@ -298,6 +342,9 @@ export class EmailValidator implements Validator {
   /**
    * @description
    * Tracks changes to the email attribute bound to this directive.
+   *
+   * 跟踪绑定到该指令的 email 属性的更改。
+   *
    */
   @Input()
   set email(value: boolean|string) {
@@ -308,6 +355,9 @@ export class EmailValidator implements Validator {
   /**
    * Method that validates whether an email address is valid.
    * Returns the validation result if enabled, otherwise null.
+   *
+   * 验证 email 地址是否有效的方法。如果启用，则返回验证结果，否则返回 null。
+   *
    * @nodoc
    */
   validate(control: AbstractControl): ValidationErrors|null {
@@ -316,6 +366,9 @@ export class EmailValidator implements Validator {
 
   /**
    * Registers a callback function to call when the validator inputs change.
+   *
+   * 注册一个回调函数以在验证器的输入发生更改时调用。
+   *
    * @nodoc
    */
   registerOnValidatorChange(fn: () => void): void {
@@ -328,6 +381,8 @@ export class EmailValidator implements Validator {
  * A function that receives a control and synchronously returns a map of
  * validation errors if present, otherwise null.
  *
+ * 本函数接收控件并同步返回验证错误的映射表（如果存在），否则返回 null。
+ *
  * @publicApi
  */
 export interface ValidatorFn {
@@ -339,6 +394,8 @@ export interface ValidatorFn {
  * A function that receives a control and returns a Promise or observable
  * that emits validation errors if present, otherwise null.
  *
+ * 本函数接收控件并返回 Promise 或 Observable，如果存在，则该函数会发出验证错误，否则为 null。
+ *
  * @publicApi
  */
 export interface AsyncValidatorFn {
@@ -349,7 +406,7 @@ export interface AsyncValidatorFn {
  * @description
  * Provider which adds `MinLengthValidator` to the `NG_VALIDATORS` multi-provider list.
  *
- * 一个提供商，用于把 `MinLengthValidator` 添加到 `NG_VALIDATORS` 多重提供商列表中。
+ * 一个提供者，用于把 `MinLengthValidator` 添加到 `NG_VALIDATORS` 多重提供者列表中。
  */
 export const MIN_LENGTH_VALIDATOR: any = {
   provide: NG_VALIDATORS,
@@ -361,9 +418,11 @@ export const MIN_LENGTH_VALIDATOR: any = {
  * A directive that adds minimum length validation to controls marked with the
  * `minlength` attribute. The directive is provided with the `NG_VALIDATORS` multi-provider list.
  *
- * 该指令用于为带有 `minlength` 属性的控件添加最小长度验证器。该指令会提供 `NG_VALIDATORS` 多重提供商列表。
+ * 该指令用于为带有 `minlength` 属性的控件添加最小长度验证器。该指令会提供 `NG_VALIDATORS` 多重提供者列表。
  *
  * @see [Form Validation](guide/form-validation)
+ *
+ * [表单验证](guide/form-validation)
  *
  * @usageNotes
  *
@@ -396,6 +455,9 @@ export class MinLengthValidator implements Validator, OnChanges {
   /**
    * @description
    * Tracks changes to the the minimum length bound to this directive.
+   *
+   * 跟踪与此指令绑定的最小长度的更改。
+   *
    */
   @Input()
   minlength!: string|number;  // This input is always defined, since the name matches selector.
@@ -411,6 +473,9 @@ export class MinLengthValidator implements Validator, OnChanges {
   /**
    * Method that validates whether the value meets a minimum length requirement.
    * Returns the validation result if enabled, otherwise null.
+   *
+   * 验证值是否满足最小长度要求的方法。如果启用，则返回验证结果，否则返回 null。
+   *
    * @nodoc
    */
   validate(control: AbstractControl): ValidationErrors|null {
@@ -419,6 +484,9 @@ export class MinLengthValidator implements Validator, OnChanges {
 
   /**
    * Registers a callback function to call when the validator inputs change.
+   *
+   * 注册一个回调函数以在验证器的输入发生更改时调用。
+   *
    * @nodoc
    */
   registerOnValidatorChange(fn: () => void): void {
@@ -435,7 +503,7 @@ export class MinLengthValidator implements Validator, OnChanges {
  * @description
  * Provider which adds `MaxLengthValidator` to the `NG_VALIDATORS` multi-provider list.
  *
- * 一个提供商，用于把 `MaxLengthValidator` 添加到 `NG_VALIDATORS` 多重提供商列表中。
+ * 一个提供者，用于把 `MaxLengthValidator` 添加到 `NG_VALIDATORS` 多重提供者列表中。
  *
  */
 export const MAX_LENGTH_VALIDATOR: any = {
@@ -448,9 +516,11 @@ export const MAX_LENGTH_VALIDATOR: any = {
  * A directive that adds max length validation to controls marked with the
  * `maxlength` attribute. The directive is provided with the `NG_VALIDATORS` multi-provider list.
  *
- * 该指令用于为带有 `maxlength` 属性的控件添加最大长度验证器。该指令会提供 `NG_VALIDATORS` 多重提供商列表。
+ * 该指令用于为带有 `maxlength` 属性的控件添加最大长度验证器。该指令会提供 `NG_VALIDATORS` 多重提供者列表。
  *
  * @see [Form Validation](guide/form-validation)
+ *
+ * [表单验证](guide/form-validation)
  *
  * @usageNotes
  *
@@ -483,6 +553,9 @@ export class MaxLengthValidator implements Validator, OnChanges {
   /**
    * @description
    * Tracks changes to the the maximum length bound to this directive.
+   *
+   * 跟踪与此指令绑定的最大长度的更改。
+   *
    */
   @Input()
   maxlength!: string|number;  // This input is always defined, since the name matches selector.
@@ -497,6 +570,9 @@ export class MaxLengthValidator implements Validator, OnChanges {
 
   /**
    * Method that validates whether the value exceeds the maximum length requirement.
+   *
+   * 验证值是否超过最大长度要求的方法。
+   *
    * @nodoc
    */
   validate(control: AbstractControl): ValidationErrors|null {
@@ -505,6 +581,9 @@ export class MaxLengthValidator implements Validator, OnChanges {
 
   /**
    * Registers a callback function to call when the validator inputs change.
+   *
+   * 注册一个回调函数以在验证器的输入发生更改时调用。
+   *
    * @nodoc
    */
   registerOnValidatorChange(fn: () => void): void {
@@ -540,6 +619,8 @@ export const PATTERN_VALIDATOR: any = {
  *
  * @see [Form Validation](guide/form-validation)
  *
+ * [表单验证](guide/form-validation)
+ *
  * @usageNotes
  *
  * ### Adding a pattern validator
@@ -571,6 +652,9 @@ export class PatternValidator implements Validator, OnChanges {
   /**
    * @description
    * Tracks changes to the pattern bound to this directive.
+   *
+   * 跟踪对与此指令绑定的模式（pattern）的更改。
+   *
    */
   @Input()
   pattern!: string|RegExp;  // This input is always defined, since the name matches selector.
@@ -585,6 +669,9 @@ export class PatternValidator implements Validator, OnChanges {
 
   /**
    * Method that validates whether the value matches the the pattern requirement.
+   *
+   * 验证值是否符合模式（pattern）要求的方法。
+   *
    * @nodoc
    */
   validate(control: AbstractControl): ValidationErrors|null {
@@ -593,6 +680,9 @@ export class PatternValidator implements Validator, OnChanges {
 
   /**
    * Registers a callback function to call when the validator inputs change.
+   *
+   * 注册一个回调函数以便在验证器的输入发生更改时调用。
+   *
    * @nodoc
    */
   registerOnValidatorChange(fn: () => void): void {

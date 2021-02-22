@@ -28,6 +28,8 @@ export interface HttpParameterCodec {
 /**
  * Provides encoding and decoding of URL parameter and query-string values.
  *
+ * 提供 URL 参数和查询字符串值的编码和解码。
+ *
  * Serializes and parses URL parameter keys and values to encode and decode them.
  * If you pass URL query parameters without encoding,
  * the query parameters can be misinterpreted at the receiving end.
@@ -41,8 +43,17 @@ export interface HttpParameterCodec {
 export class HttpUrlEncodingCodec implements HttpParameterCodec {
   /**
    * Encodes a key name for a URL parameter or query-string.
+   *
+   * 编码 URL 参数或查询字符串的键名。
+   *
    * @param key The key name.
+   *
+   * 键名。
+   *
    * @returns The encoded key name.
+   *
+   * 编码过的键名。
+   *
    */
   encodeKey(key: string): string {
     return standardEncoding(key);
@@ -50,8 +61,17 @@ export class HttpUrlEncodingCodec implements HttpParameterCodec {
 
   /**
    * Encodes the value of a URL parameter or query-string.
+   *
+   * 对 URL 参数或查询字符串的值进行编码。
+   *
    * @param value The value.
+   *
+   * 值。
+   *
    * @returns The encoded value.
+   *
+   * 编码过的值。
+   *
    */
   encodeValue(value: string): string {
     return standardEncoding(value);
@@ -59,8 +79,17 @@ export class HttpUrlEncodingCodec implements HttpParameterCodec {
 
   /**
    * Decodes an encoded URL parameter or query-string key.
+   *
+   * 解码编码的 URL 参数或查询字符串键。
+   *
    * @param key The encoded key name.
+   *
+   * 编码过的键名。
+   *
    * @returns The decoded key name.
+   *
+   * 解码过的键名。
+   *
    */
   decodeKey(key: string): string {
     return decodeURIComponent(key);
@@ -68,8 +97,17 @@ export class HttpUrlEncodingCodec implements HttpParameterCodec {
 
   /**
    * Decodes an encoded URL parameter or query-string value.
+   *
+   * 解码编码的 URL 参数或查询字符串值。
+   *
    * @param value The encoded value.
+   *
+   * 编码过的值。
+   *
    * @returns The decoded value.
+   *
+   * 解码过的值。
+   *
    */
   decodeValue(value: string) {
     return decodeURIComponent(value);
@@ -145,7 +183,7 @@ export interface HttpParamsOptions {
  * An HTTP request/response body that represents serialized parameters,
  * per the MIME type `application/x-www-form-urlencoded`.
  *
- * HTTP 请求/响应体，用来表示序列化参数，它们的 MIME 类型都是 `application/x-www-form-urlencoded`。
+ * HTTP 请求体/响应体，用来表示序列化参数，它们的 MIME 类型都是 `application/x-www-form-urlencoded`。
  *
  * This class is immutable; all mutation operations return a new instance.
  *
@@ -179,9 +217,18 @@ export class HttpParams {
 
   /**
    * Reports whether the body includes one or more values for a given parameter.
+   *
+   * 报告主体中是否包含给定参数的一个或多个值。
+   *
    * @param param The parameter name.
+   *
+   * 参数名称。
+   *
    * @returns True if the parameter has one or more values,
    * false if it has no value or is not present.
+   *
+   * 如果参数具有一个或多个值，则为 true；如果参数没有值或不存在，则为 false。
+   *
    */
   has(param: string): boolean {
     this.init();
@@ -190,7 +237,13 @@ export class HttpParams {
 
   /**
    * Retrieves the first value for a parameter.
+   *
+   * 检索参数的第一个值。
+   *
    * @param param The parameter name.
+   *
+   * 参数名称。
+   *
    * @returns The first value of the given parameter,
    * or `null` if the parameter is not present.
    *
@@ -204,7 +257,13 @@ export class HttpParams {
 
   /**
    * Retrieves all values for a  parameter.
+   *
+   * 检索某个参数的所有值。
+   *
    * @param param The parameter name.
+   *
+   * 参数名称。
+   *
    * @returns All values in a string array,
    * or `null` if the parameter not present.
    *
@@ -217,7 +276,13 @@ export class HttpParams {
 
   /**
    * Retrieves all the parameters for this body.
+   *
+   * 检索此 `body` 的所有参数。
+   *
    * @returns The parameter names in a string array.
+   *
+   * 字符串数组中的参数名称。
+   *
    */
   keys(): string[] {
     this.init();
@@ -226,8 +291,17 @@ export class HttpParams {
 
   /**
    * Appends a new value to existing values for a parameter.
+   *
+   * 将新值附加到参数的现有值。
+   *
    * @param param The parameter name.
+   *
+   * 参数名称。
+   *
    * @param value The new value to add.
+   *
+   * 要添加的新值。
+   *
    * @return A new body with the appended value.
    *
    * 构造一个新的 `body`，添加一个具有给定参数名的值。
@@ -238,8 +312,17 @@ export class HttpParams {
 
   /**
    * Replaces the value for a parameter.
+   *
+   * 替换参数的值。
+   *
    * @param param The parameter name.
+   *
+   * 参数名称。
+   *
    * @param value The new value.
+   *
+   * 新值。
+   *
    * @return A new body with the new value.
    *
    * 构造一个新的 `body`，具有一个给定参数名的新值。
@@ -250,8 +333,17 @@ export class HttpParams {
 
   /**
    * Removes a given value or all values from a parameter.
+   *
+   * 从参数中删除给定值或所有值。
+   *
    * @param param The parameter name.
+   *
+   * 参数名称。
+   *
    * @param value The value to remove, if provided.
+   *
+   * 要删除的值（如果提供）。
+   *
    * @return A new body with the given value removed, or with all values
    * removed if no value is specified.
    *

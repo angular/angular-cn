@@ -31,6 +31,7 @@ let upgradeCount: number = 0;
  *    coexisting in a single application.
  *
  * @usageNotes
+ *
  * ### Mental Model
  *
  * When reasoning about how a hybrid application works it is useful to have a mental model which
@@ -137,6 +138,7 @@ export class UpgradeAdapter {
    * AngularJS template.
    *
    * @usageNotes
+   *
    * ### Mental Model
    *
    * 1. The component is instantiated by being listed in AngularJS template. This means that the
@@ -203,6 +205,7 @@ export class UpgradeAdapter {
    * template.
    *
    * @usageNotes
+   *
    * ### Mental Model
    *
    * 1. The component is instantiated by being listed in Angular template. This means that the
@@ -288,6 +291,7 @@ export class UpgradeAdapter {
    * the AngularJS testing injector.
    *
    * @usageNotes
+   *
    * ### Example
    *
    * ```
@@ -346,6 +350,7 @@ export class UpgradeAdapter {
    * AngularJS, this bootstrap is asynchronous.
    *
    * @usageNotes
+   *
    * ### Example
    *
    * ```
@@ -423,6 +428,7 @@ export class UpgradeAdapter {
    * Allows AngularJS service to be accessible from Angular.
    *
    * @usageNotes
+   *
    * ### Example
    *
    * ```
@@ -463,6 +469,7 @@ export class UpgradeAdapter {
    * Allows Angular service to be accessible from AngularJS.
    *
    * @usageNotes
+   *
    * ### Example
    *
    * ```
@@ -494,6 +501,7 @@ export class UpgradeAdapter {
    * @returns The AngularJS upgrade module that is declared by this method
    *
    * @usageNotes
+   *
    * ### Example
    *
    * ```

@@ -80,13 +80,19 @@ export class RadioControlRegistry {
  * changes. The value accessor is used by the `FormControlDirective`, `FormControlName`, and
  * `NgModel` directives.
  *
+ * `ControlValueAccessor` 用于写入单选控件的值和监听单选控件值的更改。这个值访问器由 `FormControlDirective`、`FormControlName` 和 `NgModel` 指令使用。
+ *
  * @usageNotes
  *
  * ### Using radio buttons with reactive form directives
  *
+ * ### 将单选按钮与响应式表单指令一起使用
+ *
  * The follow example shows how to use radio buttons in a reactive form. When using radio buttons in
  * a reactive form, radio buttons in the same group should have the same `formControlName`.
  * Providing a `name` attribute is optional.
+ *
+ * 下面的示例演示了如何在响应式表单中使用单选按钮。当使用响应式表单的单选按钮时，同一组中的单选按钮应具有相同的 `formControlName` 。所提供的 `name` 属性是可选的。
  *
  * {@example forms/ts/reactiveRadioButtons/reactive_radio_button_example.ts region='Reactive'}
  *
@@ -113,12 +119,18 @@ export class RadioControlValueAccessor implements ControlValueAccessor, OnDestro
 
   /**
    * The registered callback function called when a change event occurs on the input element.
+   *
+   * 在此 input 元素上发生 change 事件时调用的已注册回调函数。
+   *
    * @nodoc
    */
   onChange = () => {};
 
   /**
    * The registered callback function called when a blur event occurs on the input element.
+   *
+   * 当 input 元素上发生 blur 事件时，调用已注册的回调函数。
+   *
    * @nodoc
    */
   onTouched = () => {};
@@ -126,6 +138,9 @@ export class RadioControlValueAccessor implements ControlValueAccessor, OnDestro
   /**
    * @description
    * Tracks the name of the radio input element.
+   *
+   * 跟踪单选 input 元素的名称。
+   *
    */
   // TODO(issue/24571): remove '!'.
   @Input() name!: string;
@@ -134,6 +149,9 @@ export class RadioControlValueAccessor implements ControlValueAccessor, OnDestro
    * @description
    * Tracks the name of the `FormControl` bound to the directive. The name corresponds
    * to a key in the parent `FormGroup` or `FormArray`.
+   *
+   * 跟踪绑定到指令的 `FormControl` 的名称。该名称对应于父 `FormGroup` 或 `FormArray` 。
+   *
    */
   // TODO(issue/24571): remove '!'.
   @Input() formControlName!: string;
@@ -141,6 +159,9 @@ export class RadioControlValueAccessor implements ControlValueAccessor, OnDestro
   /**
    * @description
    * Tracks the value of the radio input element
+   *
+   * 跟踪单选 input 元素的值
+   *
    */
   @Input() value: any;
 
@@ -162,6 +183,9 @@ export class RadioControlValueAccessor implements ControlValueAccessor, OnDestro
 
   /**
    * Sets the "checked" property value on the radio input element.
+   *
+   * 在单选 input 元素上设置 “checked” 属性的值。
+   *
    * @nodoc
    */
   writeValue(value: any): void {
@@ -171,6 +195,9 @@ export class RadioControlValueAccessor implements ControlValueAccessor, OnDestro
 
   /**
    * Registers a function called when the control value changes.
+   *
+   * 注册控件值更改时要调用的函数。
+   *
    * @nodoc
    */
   registerOnChange(fn: (_: any) => {}): void {
@@ -184,6 +211,8 @@ export class RadioControlValueAccessor implements ControlValueAccessor, OnDestro
   /**
    * Sets the "value" on the radio input element and unchecks it.
    *
+   * 在单选 input 元素上设置 “value”，并取消选中它。
+   *
    * @param value
    */
   fireUncheck(value: any): void {
@@ -192,6 +221,9 @@ export class RadioControlValueAccessor implements ControlValueAccessor, OnDestro
 
   /**
    * Registers a function called when the control is touched.
+   *
+   * 注册控件被接触过时要调用的函数。
+   *
    * @nodoc
    */
   registerOnTouched(fn: () => {}): void {
@@ -200,6 +232,9 @@ export class RadioControlValueAccessor implements ControlValueAccessor, OnDestro
 
   /**
    * Sets the "disabled" property on the input element.
+   *
+   * 在此 input 元素上设置 “disabled” 属性。
+   *
    * @nodoc
    */
   setDisabledState(isDisabled: boolean): void {

@@ -45,6 +45,7 @@ import {invalidPipeArgumentError} from './invalid_pipe_argument_error';
  * @see `formatNumber()`
  *
  * @usageNotes
+ *
  * The following code shows how the pipe transforms numbers
  * into text strings, according to various format specifications,
  * where the caller's default locale is `en-US`.
@@ -131,6 +132,7 @@ export class DecimalPipe implements PipeTransform {
  * @see `formatPercent()`
  *
  * @usageNotes
+ *
  * The following code shows how the pipe transforms numbers
  * into text strings, according to various format specifications,
  * where the caller's default locale is `en-US`.
@@ -234,6 +236,7 @@ export class PercentPipe implements PipeTransform {
  * @see `formatCurrency()`
  *
  * @usageNotes
+ *
  * The following code shows how the pipe transforms numbers
  * into text strings, according to various format specifications,
  * where the caller's default locale is `en-US`.

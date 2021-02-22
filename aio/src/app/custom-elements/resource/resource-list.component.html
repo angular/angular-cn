@@ -16,8 +16,10 @@
           <div class="c-resource">
             <a class="l-flex--column resource-row-link" rel="noopener" target="_blank" [href]="resource.url">
               <div>
-                <h4>{{resource.title}}</h4>
-                <p class="resource-description">{{resource.desc || 'No Description'}}</p>
+                <h4 translation-result="on">{{resource.titleCn || resource.title}}</h4>
+                <h4 translation-origin="off">{{resource.title}}</h4>
+                <p translation-result="on" class="resource-description">{{resource.descCn || resource.desc || '无描述'}}</p>
+                <p translation-origin="off" class="resource-description">{{resource.desc || 'No Description'}}</p>
               </div>
             </a>
           </div>

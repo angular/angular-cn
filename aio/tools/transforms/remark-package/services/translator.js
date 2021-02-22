@@ -1,15 +1,11 @@
-const {addIdForHeaders, markAndSwapAll} = require('@awesome-fe/translate');
-
-const {JSDOM} = require('jsdom');
-
-const selectorGroups = ['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'header', 'section', 'p', 't'];
+const {Marker, defaultSelectors, DomDocumentFragment} = require('@awesome-fe/translate');
 
 function mark(text) {
-  const dom = new JSDOM(text);
-  const body = dom.window.document.body;
-  addIdForHeaders(body);
-  markAndSwapAll(body, selectorGroups);
-  return body.innerHTML;
+  const marker = new Marker([...defaultSelectors, (node) => node.isTagOf('header') || node.isTagOf('section')]);
+  const doc = DomDocumentFragment.parse(text);
+  marker.addIdForHeaders(doc);
+  marker.markAndSwapAll(doc);
+  return doc.toHtml();
 }
 
 module.exports = {

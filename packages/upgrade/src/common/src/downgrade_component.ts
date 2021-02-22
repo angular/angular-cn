@@ -27,6 +27,7 @@ import {controllerKey, getDowngradedModuleCount, getTypeName, getUpgradeAppType,
  * an AngularJS wrapper directive for "downgrading" an Angular component.
  *
  * @usageNotes
+ *
  * ### Examples
  *
  * Let's assume that you have an Angular component called `ng2Heroes` that needs

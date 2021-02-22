@@ -79,10 +79,10 @@ Learn more in [The App Shell Model](https://developers.google.com/web/fundamenta
 
 欲知详情，参阅[应用外壳模型](https://developers.google.com/web/fundamentals/architecture/app-shell)。
 
-You can use the Angular CLI to [generate](cli/generate#appshell) an app shell.
+You can use the Angular CLI to [generate](cli/generate#app-shell) an app shell.
 This can improve the user experience by quickly launching a static rendered page (a skeleton common to all pages) while the browser downloads the full client version and switches to it automatically after the code loads.
 
-你可以使用 Angular CLI 来[生成](cli/generate#appshell)一个应用外壳。
+你可以使用 Angular CLI 来[生成](cli/generate#app-shell)一个应用外壳。
 它可以在浏览器下载完整版应用之前，先快速启动一个静态渲染页面（所有页面的公共骨架）来增强用户体验，等代码加载完毕后再自动切换到完整版。
 
 See also [Service Worker and PWA](guide/service-worker-intro).

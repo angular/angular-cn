@@ -53,7 +53,12 @@ export class HttpHeaders {
    */
   private lazyUpdate: Update[]|null = null;
 
-  /**  Constructs a new HTTP header object with the given values.*/
+  /**
+   *  Constructs a new HTTP header object with the given values.
+   *
+   * 使用给定的值构造一个新的 HTTP 标头对象。
+   *
+   */
 
   constructor(headers?: string|{[name: string]: string | string[]}) {
     if (!headers) {
@@ -161,7 +166,7 @@ export class HttpHeaders {
    *
    * @returns A string of values if the header exists, null otherwise.
    *
-   * 如果头存在则返回一个字符串数组，否则返回 null。
+   * 如果标头存在则返回一个字符串数组，否则返回 null。
    *
    */
   getAll(name: string): string[]|null {
@@ -174,10 +179,20 @@ export class HttpHeaders {
    * Appends a new value to the existing set of values for a header
    * and returns them in a clone of the original instance.
    *
+   * 将新值附加到标头的现有值集中，并在原始实例的克隆中返回它们。
+   *
    * @param name The header name for which to append the values.
+   *
+   * 要附加值的标头名称。
+   *
    * @param value The value to append.
    *
+   * 要附加的值。
+   *
    * @returns A clone of the HTTP headers object with the value appended to the given header.
+   *
+   * HTTP 标头对象的克隆，带有由给定标头追加的值。
+   *
    */
 
   append(name: string, value: string|string[]): HttpHeaders {
@@ -188,10 +203,20 @@ export class HttpHeaders {
    * If the header already exists, its value is replaced with the given value
    * in the returned object.
    *
+   * 设置或修改原始实例的克隆中给定标头的值。如果标题已经存在，则其值将在返回对象中被给定值替换。
+   *
    * @param name The header name.
+   *
+   * 标头名称。
+   *
    * @param value The value or values to set or overide for the given header.
    *
+   * 要设置或覆盖给定标头的一个或多个值。
+   *
    * @returns A clone of the HTTP headers object with the newly set header value.
+   *
+   * HTTP 标头对象的克隆，其中包含新设置的标头值。
+   *
    */
   set(name: string, value: string|string[]): HttpHeaders {
     return this.clone({name, value, op: 's'});
@@ -199,10 +224,20 @@ export class HttpHeaders {
   /**
    * Deletes values for a given header in a clone of the original instance.
    *
+   * 在原始实例的克隆中删除给定标头的值。
+   *
    * @param name The header name.
+   *
+   * 标头名称。
+   *
    * @param value The value or values to delete for the given header.
    *
+   * 要删除的给定标头的一个或多个值。
+   *
    * @returns A clone of the HTTP headers object with the given value deleted.
+   *
+   * HTTP 标头对象的克隆，其中删除了给定值。
+   *
    */
   delete(name: string, value?: string|string[]): HttpHeaders {
     return this.clone({name, value, op: 'd'});

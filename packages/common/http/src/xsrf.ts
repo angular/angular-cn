@@ -21,13 +21,20 @@ export const XSRF_HEADER_NAME = new InjectionToken<string>('XSRF_HEADER_NAME');
 /**
  * Retrieves the current XSRF token to use with the next outgoing request.
  *
+ * 检索当前的 XSRF 令牌以用于下一个传出请求。
+ *
  * @publicApi
  */
 export abstract class HttpXsrfTokenExtractor {
   /**
    * Get the XSRF token to use with an outgoing request.
    *
+   * 获取 XSRF 令牌以用于传出请求。
+   *
    * Will be called for every request, so the token may change between requests.
+   *
+   * 在每个请求中都会被调用，因此该令牌可能会在请求之间更改。
+   *
    */
   abstract getToken(): string|null;
 }

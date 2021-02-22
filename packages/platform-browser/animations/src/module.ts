@@ -13,6 +13,9 @@ import {BROWSER_ANIMATIONS_PROVIDERS, BROWSER_NOOP_ANIMATIONS_PROVIDERS} from '.
 /**
  * Exports `BrowserModule` with additional [dependency-injection providers](guide/glossary#provider)
  * for use with animations. See [Animations](guide/animations).
+ *
+ * 导出带有附加[依赖项注入提供者](guide/glossary#provider) 的`BrowserModule` 以便与动画一起使用。请参阅[动画](guide/animations)。
+ *
  * @publicApi
  */
 @NgModule({
@@ -24,6 +27,9 @@ export class BrowserAnimationsModule {
 
 /**
  * A null player that must be imported to allow disabling of animations.
+ *
+ * 必须导入一个空播放器以支持禁用动画。
+ *
  * @publicApi
  */
 @NgModule({

@@ -13,8 +13,12 @@ import {ɵglobal as global} from '@angular/core';
  * An implementation of ResourceLoader that uses a template cache to avoid doing an actual
  * ResourceLoader.
  *
+ * ResourceLoader 的实现，该实现使用模板缓存来避免执行实际的 ResourceLoader。
+ *
  * The template cache needs to be built and loaded into window.$templateCache
  * via a separate mechanism.
+ *
+ * 模板缓存需要通过单独的机制构建并加载到 `window.$templateCache` 中。
  *
  * @publicApi
  */

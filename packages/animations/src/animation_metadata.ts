@@ -653,6 +653,7 @@ export interface AnimationStaggerMetadata extends AnimationMetadata {
  * 用于包装该触发器数据的对象。
  *
  * @usageNotes
+ *
  * Define an animation trigger in the `animations` section of `@Component` metadata.
  * In the template, reference the trigger by name and bind it to a trigger expression that
  * evaluates to a defined animation state, using the following format:
@@ -888,6 +889,7 @@ export function trigger(name: string, definitions: AnimationMetadata[]): Animati
  * 一个用于封装动画步骤的对象。
  *
  * @usageNotes
+ *
  * Call within an animation `sequence()`, `{@link animations/group group()}`, or
  * `transition()` call to specify an animation step
  * that applies given style data to the parent animation for a given amount of time.
@@ -1002,6 +1004,7 @@ export function animate(
  * 一个封装了该组数据的对象。
  *
  * @usageNotes
+ *
  * Grouped animations are useful when a series of styles must be
  * animated at different starting times and closed off at different ending times.
  *
@@ -1056,6 +1059,7 @@ export function group(
  * 一个封装了该动画序列数据的对象。
  *
  * @usageNotes
+ *
  * When you pass an array of steps to a
  * `transition()` call, the steps run sequentially by default.
  * Compare this to the `{@link animations/group group()}` call, which runs animation steps in
@@ -1070,6 +1074,7 @@ export function group(
  *
  * 当在 `{@link animations/group group()}` 或 `transition()` 调用中应用动画序列时，
  * 只有当每个内部动画步骤都完成之后，才会继续执行下一个指令。
+ *
  * @publicApi
  **/
 export function sequence(
@@ -1113,6 +1118,7 @@ export function sequence(
  * 一个封装了样式数据的对象。
  *
  * @usageNotes
+ *
  * The following examples create animation styles that collect a set of
  * CSS property values:
  *
@@ -1185,6 +1191,7 @@ export function style(tokens: '*'|{[key: string]: string | number}|
  * 一个封装了新状态数据的对象。
  *
  * @usageNotes
+ *
  * Use the `trigger()` function to register states to an animation trigger.
  * Use the `transition()` function to animate between states.
  * When a state is active within a component, its associated styles persist on the element,
@@ -1220,6 +1227,7 @@ export function state(
  * 一个封装关键帧数据的对象。
  *
  * @usageNotes
+ *
  * Use with the `animate()` call. Instead of applying animations
  * from the current state
  * to the destination state, keyframes describe how each style entry is applied and at what point
@@ -1335,6 +1343,7 @@ export function keyframes(steps: AnimationStyleMetadata[]): AnimationKeyframesSe
  * 一个封装了转场数据的对象。
  *
  * @usageNotes
+ *
  * The template associated with a component binds an animation trigger to an element.
  *
  * 与组件关联的模板会把动画触发器绑定到某个元素上。
@@ -1542,6 +1551,7 @@ export function transition(
  * 一个封装了动画数据的对象。
  *
  * @usageNotes
+ *
  * The following example defines a reusable animation, providing some default parameter
  * values.
  *
@@ -1602,6 +1612,7 @@ export function animation(
  * 一个对象，封装了子动画数据。
  *
  * @usageNotes
+ *
  * Each time an animation is triggered in Angular, the parent animation
  * has priority and any child animations are blocked. In order
  * for a child animation to run, the parent animation must query each of the elements
@@ -1698,6 +1709,7 @@ export function useAnimation(
  * 一个封装了查询数据的对象。
  *
  * @usageNotes
+ *
  * Tokens can be merged into a combined query selector string. For example:
  *
  * 多个令牌可以合并成复合查询选择器。比如：
@@ -1774,7 +1786,6 @@ export function useAnimation(
  *   }
  * }
  * ```
- *
  * @publicApi
  */
 export function query(
@@ -1802,6 +1813,7 @@ export function query(
  * 一个封装了交错数据的对象。
  *
  * @usageNotes
+ *
  * In the following example, a container element wraps a list of items stamped out
  * by an `ngFor`. The container element contains an animation trigger that will later be set
  * to query for each of the inner items.

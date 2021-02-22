@@ -17,34 +17,53 @@ import {AngularJSUrlCodec, UrlCodec} from './params';
 /**
  * Configuration options for LocationUpgrade.
  *
+ * LocationUpgrade 的配置选项。
+ *
  * @publicApi
  */
 export interface LocationUpgradeConfig {
   /**
    * Configures whether the location upgrade module should use the `HashLocationStrategy`
    * or the `PathLocationStrategy`
+   *
+   * 配置 location 升级模块应使用 `HashLocationStrategy` 还是 `PathLocationStrategy`
+   *
    */
   useHash?: boolean;
   /**
    * Configures the hash prefix used in the URL when using the `HashLocationStrategy`
+   *
+   * 配置使用 `HashLocationStrategy` 时 URL 中要使用的哈希前缀
+   *
    */
   hashPrefix?: string;
   /**
    * Configures the URL codec for encoding and decoding URLs. Default is the `AngularJSCodec`
+   *
+   * 配置 URL 编解码器以对 URL 进行编码和解码。默认为 `AngularJSCodec`
+   *
    */
   urlCodec?: typeof UrlCodec;
   /**
    * Configures the base href when used in server-side rendered applications
+   *
+   * 配置在服务器端渲染的应用程序中使用时的 base href
+   *
    */
   serverBaseHref?: string;
   /**
    * Configures the base href when used in client-side rendered applications
+   *
+   * 配置在客户端渲染的应用程序中使用时的 base href
+   *
    */
   appBaseHref?: string;
 }
 
 /**
  * A provider token used to configure the location upgrade module.
+ *
+ * 提供者令牌，用于配置 location 升级模块。
  *
  * @publicApi
  */
@@ -56,7 +75,11 @@ const APP_BASE_HREF_RESOLVED = new InjectionToken<string>('APP_BASE_HREF_RESOLVE
 /**
  * `NgModule` used for providing and configuring Angular's Unified Location Service for upgrading.
  *
+ * `NgModule` 用于提供和配置 Angular 的统一 location 服务以进行升级。
+ *
  * @see [Using the Unified Angular Location Service](guide/upgrade#using-the-unified-angular-location-service)
+ *
+ * [使用统一的 Angular location 服务](guide/upgrade#using-the-unified-angular-location-service)
  *
  * @publicApi
  */

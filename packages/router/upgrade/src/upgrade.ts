@@ -15,6 +15,8 @@ import {UpgradeModule} from '@angular/upgrade/static';
  * Creates an initializer that sets up `ngRoute` integration
  * along with setting up the Angular router.
  *
+ * 创建一个初始化程序，该初始化程序设置 `ngRoute` 集成并设置 Angular 路由器。
+ *
  * @usageNotes
  *
  * <code-example language="typescript">
@@ -55,8 +57,16 @@ export function locationSyncBootstrapListener(ngUpgrade: UpgradeModule) {
  * Works around the problem that `onPopState` does not trigger `history.pushState`.
  * Must be called *after* calling `UpgradeModule.bootstrap`.
  *
+ * 设置 location 更改监听器以触发 `history.pushState`。解决 `onPopState` 不会触发 `history.pushState` 的问题。必须在调用 `UpgradeModule.bootstrap` *之后*调用。
+ *
  * @param ngUpgrade The upgrade NgModule.
+ *
+ * 升级 NgModule。
+ *
  * @param urlType The location strategy.
+ *
+ * location 策略。
+ *
  * @see `HashLocationStrategy`
  * @see `PathLocationStrategy`
  *

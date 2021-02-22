@@ -20,9 +20,13 @@ const _INTERPOLATION_REGEXP: RegExp = /#/g;
  *
  * Maps a value to a string that pluralizes the value according to locale rules.
  *
+ * 将值映射到根据语言环境规则对该值进行复数化的字符串。
+ *
  * @usageNotes
  *
  * ### Example
+ *
+ * ### 例子
  *
  * {@example common/pipes/ts/i18n_pipe.ts region='I18nPluralPipeComponent'}
  *
@@ -34,10 +38,18 @@ export class I18nPluralPipe implements PipeTransform {
 
   /**
    * @param value the number to be formatted
+   *
+   * 要格式化的数字
+   *
    * @param pluralMap an object that mimics the ICU format, see
    * http://userguide.icu-project.org/formatparse/messages.
+   *
+   * 模仿 ICU 格式的对象，请参见<http://userguide.icu-project.org/formatparse/messages> 。
+   *
    * @param locale a `string` defining the locale to use (uses the current {@link LOCALE_ID} by
    * default).
+   *
+   * 定义要使用的语言环境的 `string`（默认情况下使用当前的 {@link LOCALE_ID}）。
    */
   transform(value: number|null|undefined, pluralMap: {[count: string]: string}, locale?: string):
       string {

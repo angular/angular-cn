@@ -25,6 +25,9 @@ const modules = new Map<string, NgModuleFactory<any>|NgModuleType>();
 
 /**
  * Registers a loaded module. Should only be called from generated NgModuleFactory code.
+ *
+ * 注册已加载的模块。仅应从生成的 NgModuleFactory 代码中调用。
+ *
  * @publicApi
  */
 export function registerModuleFactory(id: string, factory: NgModuleFactory<any>) {

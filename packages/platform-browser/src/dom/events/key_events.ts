@@ -70,14 +70,23 @@ const MODIFIER_KEY_GETTERS: {[key: string]: (event: KeyboardEvent) => boolean} =
 };
 
 /**
- * @publicApi
  * A browser plug-in that provides support for handling of key events in Angular.
+ *
+ * 一个浏览器插件，用来为 Angular 中的键盘事件处理提供支持。
+ *
+ * @publicApi
  */
 @Injectable()
 export class KeyEventsPlugin extends EventManagerPlugin {
   /**
    * Initializes an instance of the browser plug-in.
+   *
+   * 初始化浏览器插件的实例。
+   *
    * @param doc The document in which key events will be detected.
+   *
+   * 要检测键盘事件的 document。
+   *
    */
   constructor(@Inject(DOCUMENT) doc: any) {
     super(doc);
@@ -85,8 +94,17 @@ export class KeyEventsPlugin extends EventManagerPlugin {
 
   /**
    * Reports whether a named key event is supported.
+   *
+   * 报告是否支持指定名字的键盘事件。
+   *
    * @param eventName The event name to query.
+   *
+   * 要查询的事件名称。
+   *
    * @return True if the named key event is supported.
+   *
+   * 如果支持这个名字的键盘事件，则为 True。
+   *
    */
   supports(eventName: string): boolean {
     return KeyEventsPlugin.parseEventName(eventName) != null;
@@ -94,11 +112,26 @@ export class KeyEventsPlugin extends EventManagerPlugin {
 
   /**
    * Registers a handler for a specific element and key event.
+   *
+   * 注册特定元素和键盘事件的处理器。
+   *
    * @param element The HTML element to receive event notifications.
+   *
+   * 要接收事件通知的 HTML 元素。
+   *
    * @param eventName The name of the key event to listen for.
+   *
+   * 要监听的键盘事件的名称。
+   *
    * @param handler A function to call when the notification occurs. Receives the
    * event object as an argument.
+   *
+   * 当事件发生时要调用的函数。接收一个事件对象作为参数。
+   *
    * @returns The key event that was registered.
+   *
+   * 已注册的键盘事件。
+   *
    */
   addEventListener(element: HTMLElement, eventName: string, handler: Function): Function {
     const parsedEvent = KeyEventsPlugin.parseEventName(eventName)!;
@@ -168,10 +201,25 @@ export class KeyEventsPlugin extends EventManagerPlugin {
 
   /**
    * Configures a handler callback for a key event.
+   *
+   * 为键盘事件配置处理器回调。
+   *
    * @param fullKey The event name that combines all simultaneous keystrokes.
+   *
+   * 组合了所有同时按下的键盘事件的名称。
+   *
    * @param handler The function that responds to the key event.
+   *
+   * 响应键盘事件的函数。
+   *
    * @param zone The zone in which the event occurred.
+   *
+   * 事件发生时所在的 Zone。
+   *
    * @returns A callback function.
+   *
+   * 回调函数。
+   *
    */
   static eventCallback(fullKey: any, handler: Function, zone: NgZone): Function {
     return (event: any /** TODO #9100 */) => {
