@@ -696,7 +696,7 @@ export interface Component extends Directive {
    *
    * - `ViewEncapsulation.ShadowDom`: Use Shadow DOM v1 to encapsulate styles.
    *
-   *   `ViewEncapsulation.None`：使用全局 CSS，不做任何封装。
+   *   `ViewEncapsulation.ShadowDom`：使用Shadow DOM v1，封装样式。
    *
    * If not supplied, the value is taken from `CompilerOptions`. The default compiler option is
    * `ViewEncapsulation.Emulated`.
