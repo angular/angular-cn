@@ -547,7 +547,7 @@ Put cleanup logic in `ngOnDestroy()`, the logic that must run before Angular des
 This is the place to free resources that won't be garbage-collected automatically.
 You risk memory leaks if you neglect to do so.
 
-这里是释放那些不会自动被垃圾回收的资源的好地方。如果你不这样做，就存在内存泄漏的风险。
+这里是释放那些不会自动被垃圾回收的资源的地方。如果你不这样做，就存在内存泄漏的风险。
 
 * Unsubscribe from Observables and DOM events.
 
