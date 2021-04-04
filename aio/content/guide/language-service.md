@@ -96,19 +96,17 @@ You can then click "Go to definition" or press F12 to go directly to the definit
 ## 编辑器中的 Angular 语言服务
 
 Angular Language Service is currently available as an extension for [Visual Studio Code](https://code.visualstudio.com/),
-[WebStorm](https://www.jetbrains.com/webstorm), and [Sublime Text](https://www.sublimetext.com/).
+[WebStorm](https://www.jetbrains.com/webstorm), [Sublime Text](https://www.sublimetext.com/) and [Eclipse IDE](https://www.eclipse.org/eclipseide/).
 
-Angular 语言服务目前在[Visual Studio Code](https://code.visualstudio.com/)和[WebStorm](https://www.jetbrains.com/webstorm) 和 [Sublime Text](https://www.sublimetext.com/) 中都有可用的扩展。
+Angular 语言服务目前在[Visual Studio Code](https://code.visualstudio.com/)和[WebStorm](https://www.jetbrains.com/webstorm)、[Sublime Text](https://www.sublimetext.com/) 和 [Eclipse IDE](https://www.eclipse.org/eclipseide/) 中都有可用的扩展。
 
 ### Visual Studio Code
 
-In [Visual Studio Code](https://code.visualstudio.com/), install the extension from the [Extensions: Marketplace](https://marketplace.visualstudio.com/items?itemName=Angular.ng-template). You can open the marketplace from the editor using the Extensions icon on the left menu pane, or use VS Quick Open (⌘+P on Mac, CTRL+P on Windows) and type "? ext".
+In [Visual Studio Code](https://code.visualstudio.com/), install the extension from the [Extensions: Marketplace](https://marketplace.visualstudio.com/items?itemName=Angular.ng-template). You can open the marketplace from the editor using the Extensions icon on the left menu pane, or use VS Quick Open (⌘+P on Mac, CTRL+P on Windows) and type "? ext". In the marketplace, search for Angular Language Service extension, and click the **Install** button.
 
-在 [Visual Studio Code 中](https://code.visualstudio.com/)，从 “[扩展程序：市场](https://marketplace.visualstudio.com/items?itemName=Angular.ng-template) 中安装扩展程序。你可以使用左侧菜单窗格中的扩展程序图标从编辑器中打开市场，或使用 VS 快速打开（在 Mac 上为 ⌘+ P，在 Windows 上为 CTRL + P）并输入“? ext”。
+在 [Visual Studio Code 中](https://code.visualstudio.com/)，从 “[扩展程序：市场](https://marketplace.visualstudio.com/items?itemName=Angular.ng-template) 中安装扩展程序。你可以使用左侧菜单窗格中的扩展程序图标从编辑器中打开市场，或使用 VS 快速打开（在 Mac 上为 ⌘+ P，在 Windows 上为 CTRL + P）并输入“? ext”。在市场中，搜索 Angular Language Service 扩展，并点击 **Install** 按钮。
 
-In the marketplace, search for Angular Language Service extension, and click the **Install** button.
-
-在市场上，搜索 `Angular Language Service` 扩展，然后单击 **Install** 按钮。
+The Visual Studio Code integration with the Angular language service is maintained and distributed by the Angular team.
 
 ### WebStorm
 
@@ -175,6 +173,11 @@ This allows the Angular Language Service to provide diagnostics and completions 
 
 这样就能让 Angular 语言服务提供 `.ts` 文件中的诊断与自动补全信息。
 
+### Eclipse IDE
+
+Either directly install the "Eclipse IDE for Web and JavaScript developers" package which comes with the Angular Language Server included, or from other Eclipse IDE packages, use Help > Eclipse Marketplace to find and install [Eclipse Wild Web Developer](https://marketplace.eclipse.org/content/wild-web-developer-html-css-javascript-typescript-nodejs-angular-json-yaml-kubernetes-xml).
+
+
 ## How the Language Service works
 
 ## 语言服务的工作原理
@@ -200,8 +203,6 @@ The Angular Language Services then looks at `data.---` within its context, asks 
 
 如果你要进行插值，则需要更多的精力。如果你在 `div` 有 `{{data.---}}` 的插值，并且在 `data.---` 之后需要自动补全列表，则编译器无法使用 HTML AST 查找答案。HTML AST 只能告诉编译器某些文本带有字符 “`{{data.---}}`”。
 那时模板解析器会生成一个表达式 AST，该表达式位于模板 AST 中。然后，Angular 语言服务会在其上下文中查找 `data.---`，询问 TypeScript 语言服务 `data` 的成员是什么，并返回可能性列表。
-
-<hr>
 
 ## More information
 

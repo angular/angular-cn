@@ -390,10 +390,12 @@ The `Tree` methods give you access to the complete file tree in your workspace, 
 
 ### 获取项目配置
 
-1. To determine the destination project, use the `Tree.read()` method to read the contents of the workspace configuration file, `angular.json`, at the root of the workspace.
+1. To determine the destination project, use the `workspaces.readWorkspace` method to read the contents of the workspace configuration file, `angular.json`.
+   To use `workspaces.readWorkspace` you need to create a `workspaces.WorkspaceHost` from the `Tree`.
    Add the following code to your factory function.
 
-   要确定目标项目，可以使用 `Tree.read()` 方法在工作空间的根目录下读取工作空间配置文件 `angular.json` 的内容。将以下代码添加到工厂函数中。
+   要确定目标项目，可以使用 `workspaces.readWorkspace` 方法在工作空间的根目录下读取工作空间配置文件 `angular.json` 的内容。要想使用 `workspaces.readWorkspace`，你要先从这个 `Tree` 创建出一个 `workspaces.WorkspaceHost`。
+   将以下代码添加到工厂函数中。
 
 <code-example header="projects/my-lib/schematics/my-service/index.ts (Schema Import)" path="schematics-for-libraries/projects/my-lib/schematics/my-service/index.ts" region="workspace">
 </code-example>
@@ -402,14 +404,10 @@ The `Tree` methods give you access to the complete file tree in your workspace, 
 
   一定要检查此上下文是否存在，并抛出相应的错误。
 
-* After reading the contents into a string, parse the configuration into a JSON object, typed to the `WorkspaceSchema`.
-
-  把这些内容读入成字符串后，把配置解析成一个 JSON 对象，把它的类型设置为 `WorkspaceSchema`。
-
-1. The `WorkspaceSchema` contains all the properties of the workspace configuration, including a `defaultProject` value for determining which project to use if not provided.
+1. The `WorkspaceDefinition`, `extensions` property includes a `defaultProject` value for determining which project to use if not provided.
    We will use that value as a fallback, if no project is explicitly specified in the `ng generate` command.
 
-   `WorkspaceSchema` 包含工作空间配置的所有属性，包括一个 `defaultProject` 值，用来确定如果没有提供该参数，要使用哪个项目。如果 `ng generate` 命令中没有明确指定任何项目，我们就会把它作为后备值。
+   此 `WorkspaceDefinition` 的 `extensions` 属性中包含一个 `defaultProject` 值，用来确定如果没有提供该参数，要使用哪个项目。如果 `ng generate` 命令中没有明确指定任何项目，我们就会把它作为后备值。
 
 <code-example header="projects/my-lib/schematics/my-service/index.ts (Default Project)" path="schematics-for-libraries/projects/my-lib/schematics/my-service/index.ts" region="project-fallback">
 </code-example>

@@ -277,9 +277,9 @@ For more information, see [Template reference variables](guide/template-referenc
 <live-example name="ngcontainer"></live-example>
 
 Demonstrates `<ngcontainer>`.
-For more information, see the [ngtemplate section](guide/structural-directives#ngcontainer) of [Structural directives](guide/structural-directives) .
+For more information, see the [ng-container section](guide/built-in-directives#ngcontainer) of [Built-in directives](guide/structural-directives) .
 
-演示了 `<ngcontainer>` 。欲知详情，请参阅[结构型指令](guide/structural-directives)中的 [ngtemplate 部分](guide/structural-directives#ngcontainer)。
+演示了 `<ngcontainer>` 。欲知详情，请参阅[内置指令](guide/structural-directives)中的 [ng-container 部分](guide/built-in-directives#ngcontainer)。
 
 ### Pipes
 

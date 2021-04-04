@@ -87,9 +87,9 @@ For example, `deleteHero()` of `(click)="deleteHero()"` is a method of the compo
 
 The statement context may also refer to properties of the template's own context.
 In the following example, the component's event handling method, `onSave()` takes the template's own `$event` object as an argument.
-On the next two lines, the `deleteHero()` method takes a [template input variable](guide/built-in-directives#template-input-variable), `hero`, and `onSubmit()` takes a [template reference variable](guide/template-reference-variables), `#heroForm`.
+On the next two lines, the `deleteHero()` method takes a [template input variable](guide/structural-directives#shorthand), `hero`, and `onSubmit()` takes a [template reference variable](guide/template-reference-variables), `#heroForm`.
 
-语句上下文还可以引用模板自身的上下文属性。在下面的示例中，组件的事件处理方法 `onSave()` 将模板自己的 `$event` 对象用作参数。在接下来的两行中， `deleteHero()` 方法接收了[模板输入变量](guide/built-in-directives#template-input-variable) `hero` 作为参数，而 `onSubmit()` 接收了[模板引用变量](guide/template-reference-variables) `#heroForm` 作为参数。
+语句上下文还可以引用模板自身的上下文属性。在下面的示例中，组件的事件处理方法 `onSave()` 将模板自己的 `$event` 对象用作参数。在接下来的两行中， `deleteHero()` 方法接收了[模板输入变量](guide/structural-directives#shorthand) `hero` 作为参数，而 `onSubmit()` 接收了[模板引用变量](guide/template-reference-variables) `#heroForm` 作为参数。
 
 <code-example path="template-syntax/src/app/app.component.html" region="context-var-statement" header="src/app/app.component.html"></code-example>
 

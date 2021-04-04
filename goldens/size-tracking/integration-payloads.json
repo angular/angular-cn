@@ -3,7 +3,7 @@
     "master": {
       "uncompressed": {
         "runtime-es2015": 1485,
-        "main-es2015": 141516,
+        "main-es2015": 138189,
         "polyfills-es2015": 36964
       }
     }
@@ -21,7 +21,7 @@
     "master": {
       "uncompressed": {
         "runtime-es2015": 1485,
-        "main-es2015": 146680,
+        "main-es2015": 144579,
         "polyfills-es2015": 36964
       }
     }
@@ -30,7 +30,7 @@
     "master": {
       "uncompressed": {
         "runtime-es2015": 1485,
-        "main-es2015": 136703,
+        "main-es2015": 136546,
         "polyfills-es2015": 37641
       }
     }
@@ -39,9 +39,9 @@
     "master": {
       "uncompressed": {
         "runtime-es2015": 2285,
-        "main-es2015": 241879,
-        "polyfills-es2015": 36709,
-        "5-es2015": 745
+        "main-es2015": 240874,
+        "polyfills-es2015": 36975,
+        "5-es2015": 753
       }
     }
   },
@@ -49,9 +49,18 @@
     "master": {
       "uncompressed": {
         "runtime-es2015": 2289,
-        "main-es2015": 218507,
+        "main-es2015": 216267,
         "polyfills-es2015": 36723,
         "5-es2015": 781
+      }
+    }
+  },
+  "forms": {
+    "master": {
+      "uncompressed": {
+        "runtime-es2015": 1485,
+        "main-es2015": 162346,
+        "polyfills-es2015": 36975
       }
     }
   },

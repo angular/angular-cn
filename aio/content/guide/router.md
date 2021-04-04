@@ -41,10 +41,7 @@ For a more in-depth experience of building an Angular app, see the [Tour of Hero
 
 关于这个现成应用的 Angular 简介，请参阅[快速上手](start)。关于构建 Angular 应用的更深入体验，请参阅[英雄之旅](tutorial)教程。两者都会指导你使用组件类和模板。
 
-<hr />
-
 {@a basics}
-
 ## Generate an app with routing enabled
 
 ## 生成一个支持路由的应用
@@ -523,9 +520,9 @@ The following route guards are available in Angular:
 * [`Resolve`](api/router/Resolve)
 * [`CanLoad`](api/router/CanLoad)
 
-To use route guards, consider using component-less routes as this facilitates guarding child routes.
+To use route guards, consider using [component-less routes](api/router/Route#componentless-routes) as this facilitates guarding child routes.
 
-要想使用路由守卫，可以考虑使用无组件路由，因为这对于保护子路由很方便。
+要想使用路由守卫，可以考虑使用[无组件路由](api/router/Route#componentless-routes)，因为这对于保护子路由很方便。
 
 Create a service for your guard:
 
@@ -881,7 +878,7 @@ You can use `HashLocationStrategy` by providing the `useHash: true` in an object
 
 ## 路由器参考手册
 
-The folllowing sections highlight some core router concepts.
+The following sections highlight some core router concepts.
 
 下面的部分重点介绍了一些路由器的核心概念。
 

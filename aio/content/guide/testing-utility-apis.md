@@ -232,10 +232,7 @@ Here's a summary of the stand-alone functions, in order of likely utility:
   </tr>
 </table>
 
-<hr>
-
 {@a testbed-class-summary}
-
 ## _TestBed_ class summary
 
 ## `TestBed` 类摘要
@@ -1247,6 +1244,3 @@ Angular 的 `By` 类为常用条件方法提供了三个静态方法：
    `By.directive(directive)` - 返回 Angular 能匹配一个指令类实例的所有元素。
 
 <code-example path="testing/src/app/hero/hero-list.component.spec.ts" region="by" header="app/hero/hero-list.component.spec.ts"></code-example>
-
-<hr>
-

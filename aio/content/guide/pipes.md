@@ -600,10 +600,10 @@ The following code example binds an observable of message strings
 
 ## 缓存 HTTP 请求
 
-To [communicate with backend services using HTTP](/guide/http "Communicating with backend services using HTTP"), the `HttpClient` service uses observables and offers the `HTTPClient.get()` method to fetch data from a server.
+To [communicate with backend services using HTTP](/guide/http "Communicating with backend services using HTTP"), the `HttpClient` service uses observables and offers the `HttpClient.get()` method to fetch data from a server.
 The asynchronous method sends an HTTP request, and returns an observable that emits the requested data for the response.
 
-为了[使用 HTTP 与后端服务进行通信](/guide/http "使用 HTTP 与后端服务进行通信")，`HttpClient` 服务使用了可观察对象，并提供了 `HTTPClient.get()` 方法来从服务器获取数据。这个异步方法会发送一个 HTTP 请求，并返回一个可观察对象，它会发出请求到的响应数据。
+为了[使用 HTTP 与后端服务进行通信](/guide/http "使用 HTTP 与后端服务进行通信")，`HttpClient` 服务使用了可观察对象，并提供了 `HttpClient.get()` 方法来从服务器获取数据。这个异步方法会发送一个 HTTP 请求，并返回一个可观察对象，它会发出请求到的响应数据。
 
 As shown in the previous section, you can use the impure `AsyncPipe` to accept an observable as input and subscribe to the input automatically.
 You can also create an impure pipe to make and cache an HTTP request.

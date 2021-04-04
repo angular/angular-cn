@@ -11,6 +11,8 @@ pkg_npm(
     visibility = ["//packages/core:__pkg__"],
     deps = [
         "//packages/core/schematics/migrations/abstract-control-parent",
+        "//packages/core/schematics/migrations/activated-route-snapshot-fragment",
+        "//packages/core/schematics/migrations/can-activate-with-redirect-to",
         "//packages/core/schematics/migrations/dynamic-queries",
         "//packages/core/schematics/migrations/initial-navigation",
         "//packages/core/schematics/migrations/missing-injectable",
@@ -26,5 +28,6 @@ pkg_npm(
         "//packages/core/schematics/migrations/undecorated-classes-with-decorated-fields",
         "//packages/core/schematics/migrations/undecorated-classes-with-di",
         "//packages/core/schematics/migrations/wait-for-async",
+        "//packages/core/schematics/migrations/xhr-factory",
     ],
 )

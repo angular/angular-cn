@@ -11,6 +11,7 @@ import {Observable, of} from 'rxjs';
 import {concatMap, filter, map} from 'rxjs/operators';
 
 import {HttpHandler} from './backend';
+import {HttpContext} from './context';
 import {HttpHeaders} from './headers';
 import {HttpParams, HttpParamsOptions} from './params';
 import {HttpRequest} from './request';
@@ -30,8 +31,10 @@ import {HttpEvent, HttpResponse} from './response';
 function addBody<T>(
     options: {
       headers?: HttpHeaders|{[header: string]: string | string[]},
-      observe?: HttpObserve,
-      params?: HttpParams|{[param: string]: string | string[]},
+      context?: HttpContext,
+      observe?: 'body'|'events'|'response',
+      params?: HttpParams|
+            {[param: string]: string | number | boolean | ReadonlyArray<string|number|boolean>},
       reportProgress?: boolean,
       responseType?: 'arraybuffer'|'blob'|'json'|'text',
       withCredentials?: boolean,
@@ -40,6 +43,7 @@ function addBody<T>(
   return {
     body,
     headers: options.headers,
+    context: options.context,
     observe: options.observe,
     params: options.params,
     reportProgress: options.reportProgress,
@@ -47,8 +51,6 @@ function addBody<T>(
     withCredentials: options.withCredentials,
   };
 }
-
-export type HttpObserve = 'body'|'events'|'response';
 
 /**
  * Performs HTTP requests.
@@ -84,6 +86,13 @@ export type HttpObserve = 'body'|'events'|'response';
  * }
  * ```
  *
+ * Alternatively, the parameter string can be used without invoking HttpParams
+ * by directly joining to the URL.
+ * ```
+ * this.httpClient.request('GET', this.heroesUrl + '?' + 'name=term', {responseType:'json'});
+ * ```
+ *
+ *
  * ### JSONP Example
  *
  * ### JSONP 示例
@@ -108,6 +117,7 @@ export type HttpObserve = 'body'|'events'|'response';
  * ```
  *
  * @see [HTTP Guide](guide/http)
+ * @see [HTTP Request](api/common/http/HttpRequest)
  *
  * [HTTP 指南](guide/http)
  *
@@ -118,11 +128,11 @@ export class HttpClient {
   constructor(private handler: HttpHandler) {}
 
   /**
-   * Sends an `HTTPRequest` and returns a stream of `HTTPEvents`.
+   * Sends an `HttpRequest` and returns a stream of `HttpEvent`s.
    *
    * 发送 `HTTPRequest` 并返回 `HTTPEvents` 流。
    *
-   * @return An `Observable` of the response, with the response body as a stream of `HTTPEvents`.
+   * @return An `Observable` of the response, with the response body as a stream of `HttpEvent`s.
    *
    * 响应对象的 `Observable` ，其响应体为 `HTTPEvents` 流。
    *
@@ -155,8 +165,10 @@ export class HttpClient {
   request(method: string, url: string, options: {
     body?: any,
     headers?: HttpHeaders|{[header: string]: string | string[]},
+    context?: HttpContext,
     observe?: 'body',
-    params?: HttpParams|{[param: string]: string | string[]},
+    params?: HttpParams|
+          {[param: string]: string | number | boolean | ReadonlyArray<string|number|boolean>},
     reportProgress?: boolean, responseType: 'arraybuffer',
     withCredentials?: boolean,
   }): Observable<ArrayBuffer>;
@@ -187,8 +199,10 @@ export class HttpClient {
   request(method: string, url: string, options: {
     body?: any,
     headers?: HttpHeaders|{[header: string]: string | string[]},
+    context?: HttpContext,
     observe?: 'body',
-    params?: HttpParams|{[param: string]: string | string[]},
+    params?: HttpParams|
+          {[param: string]: string | number | boolean | ReadonlyArray<string|number|boolean>},
     reportProgress?: boolean, responseType: 'blob',
     withCredentials?: boolean,
   }): Observable<Blob>;
@@ -219,8 +233,10 @@ export class HttpClient {
   request(method: string, url: string, options: {
     body?: any,
     headers?: HttpHeaders|{[header: string]: string | string[]},
+    context?: HttpContext,
     observe?: 'body',
-    params?: HttpParams|{[param: string]: string | string[]},
+    params?: HttpParams|
+          {[param: string]: string | number | boolean | ReadonlyArray<string|number|boolean>},
     reportProgress?: boolean, responseType: 'text',
     withCredentials?: boolean,
   }): Observable<string>;
@@ -243,17 +259,19 @@ export class HttpClient {
    *
    * 与请求一起发送的 HTTP 选项。
    *
-   * @return An `Observable` of the response, with the response body as an array of `HTTPEvents` for
-   *     the
-   * request.
+   * @return An `Observable` of the response, with the response body as an array of `HttpEvent`s for
+   * the request.
    *
-   * 一个响应对象的 `Observable`，其响应主体为此请求的 `HTTPEvents`
+   * 一个响应对象的 `Observable`，其响应主体为此请求的 `HttpEvent`
    *
    */
   request(method: string, url: string, options: {
     body?: any,
     headers?: HttpHeaders|{[header: string]: string | string[]},
-    params?: HttpParams|{[param: string]: string | string[]}, observe: 'events',
+    context?: HttpContext,
+    params?: HttpParams|
+          {[param: string]: string | number | boolean | ReadonlyArray<string|number|boolean>},
+          observe: 'events',
     reportProgress?: boolean, responseType: 'arraybuffer',
     withCredentials?: boolean,
   }): Observable<HttpEvent<ArrayBuffer>>;
@@ -276,7 +294,7 @@ export class HttpClient {
    *
    * 与请求一起发送的 HTTP 选项。
    *
-   * @return An `Observable` of of all `HttpEvents` for the request,
+   * @return An `Observable` of all `HttpEvent`s for the request,
    * with the response body of type `Blob`.
    *
    * 此请求的 `HttpEvents` 的 `Observable`，其响应体为 `Blob` 类型。
@@ -285,7 +303,9 @@ export class HttpClient {
   request(method: string, url: string, options: {
     body?: any,
     headers?: HttpHeaders|{[header: string]: string | string[]}, observe: 'events',
-    params?: HttpParams|{[param: string]: string | string[]},
+    context?: HttpContext,
+    params?: HttpParams|
+          {[param: string]: string | number | boolean | ReadonlyArray<string|number|boolean>},
     reportProgress?: boolean, responseType: 'blob',
     withCredentials?: boolean,
   }): Observable<HttpEvent<Blob>>;
@@ -308,7 +328,7 @@ export class HttpClient {
    *
    * 与请求一起发送的 HTTP 选项。
    *
-   * @return An `Observable` of all `HttpEvents` for the reques,
+   * @return An `Observable` of all `HttpEvent`s for the request,
    * with the response body of type string.
    *
    * 此请求的 `HttpEvents` 的 `Observable`，其响应体为 string 类型。
@@ -317,7 +337,9 @@ export class HttpClient {
   request(method: string, url: string, options: {
     body?: any,
     headers?: HttpHeaders|{[header: string]: string | string[]}, observe: 'events',
-    params?: HttpParams|{[param: string]: string | string[]},
+    context?: HttpContext,
+    params?: HttpParams|
+          {[param: string]: string | number | boolean | ReadonlyArray<string|number|boolean>},
     reportProgress?: boolean, responseType: 'text',
     withCredentials?: boolean,
   }): Observable<HttpEvent<string>>;
@@ -340,8 +362,8 @@ export class HttpClient {
    *
    * 要和此请求一起发送的 HTTP 选项。
    *
-   * @return An `Observable` of all `HttpEvents` for the request,
-   *  with the response body of type `Object`.
+   * @return An `Observable` of all `HttpEvent`s for the request,
+   * with the response body of type `Object`.
    *
    * 此请求的 `HttpEvents` 的 `Observable`，其响应体为 `Object` 类型。
    *
@@ -349,8 +371,10 @@ export class HttpClient {
   request(method: string, url: string, options: {
     body?: any,
     headers?: HttpHeaders|{[header: string]: string | string[]},
+    context?: HttpContext,
     reportProgress?: boolean, observe: 'events',
-    params?: HttpParams|{[param: string]: string | string[]},
+    params?: HttpParams|
+          {[param: string]: string | number | boolean | ReadonlyArray<string|number|boolean>},
     responseType?: 'json',
     withCredentials?: boolean,
   }): Observable<HttpEvent<any>>;
@@ -373,7 +397,7 @@ export class HttpClient {
    *
    * 与请求一起发送的 HTTP 选项。
    *
-   * @return An `Observable` of all `HttpEvents` for the request,
+   * @return An `Observable` of all `HttpEvent`s for the request,
    * with the response body of type `R`.
    *
    * 此请求的 `HttpEvents` 的 `Observable`，其响应体为 `R` 类型。
@@ -382,15 +406,17 @@ export class HttpClient {
   request<R>(method: string, url: string, options: {
     body?: any,
     headers?: HttpHeaders|{[header: string]: string | string[]},
+    context?: HttpContext,
     reportProgress?: boolean, observe: 'events',
-    params?: HttpParams|{[param: string]: string | string[]},
+    params?: HttpParams|
+          {[param: string]: string | number | boolean | ReadonlyArray<string|number|boolean>},
     responseType?: 'json',
     withCredentials?: boolean,
   }): Observable<HttpEvent<R>>;
 
   /**
    * Constructs a request which interprets the body as an `ArrayBuffer`
-   * and returns the full `HTTPResponse`.
+   * and returns the full `HttpResponse`.
    *
    * 构造一个请求，它将请求体解释为 `ArrayBuffer`，并且返回完整的 `HttpResponse`。
    *
@@ -406,7 +432,7 @@ export class HttpClient {
    *
    * 与请求一起发送的 HTTP 选项。
    *
-   * @return An `Observable` of the `HTTPResponse`, with the response body as an `ArrayBuffer`.
+   * @return An `Observable` of the `HttpResponse`, with the response body as an `ArrayBuffer`.
    *
    * 此请求的响应对象的 `Observable`，其响应体为 `ArrayBuffer` 类型。
    *
@@ -414,13 +440,15 @@ export class HttpClient {
   request(method: string, url: string, options: {
     body?: any,
     headers?: HttpHeaders|{[header: string]: string | string[]}, observe: 'response',
-    params?: HttpParams|{[param: string]: string | string[]},
+    context?: HttpContext,
+    params?: HttpParams|
+          {[param: string]: string | number | boolean | ReadonlyArray<string|number|boolean>},
     reportProgress?: boolean, responseType: 'arraybuffer',
     withCredentials?: boolean,
   }): Observable<HttpResponse<ArrayBuffer>>;
 
   /**
-   * Constructs a request which interprets the body as a `Blob` and returns the full `HTTPResponse`.
+   * Constructs a request which interprets the body as a `Blob` and returns the full `HttpResponse`.
    *
    * 构造一个请求，它将请求体解释为 `Blob`，并且返回完整的 `HttpResponse`。
    *
@@ -436,7 +464,7 @@ export class HttpClient {
    *
    * 与请求一起发送的 HTTP 选项。
    *
-   * @return An `Observable` of the `HTTPResponse`, with the response body of type `Blob`.
+   * @return An `Observable` of the `HttpResponse`, with the response body of type `Blob`.
    *
    * 此请求的响应对象的 `Observable`，其响应体为 `Blob` 类型。
    *
@@ -444,14 +472,16 @@ export class HttpClient {
   request(method: string, url: string, options: {
     body?: any,
     headers?: HttpHeaders|{[header: string]: string | string[]}, observe: 'response',
-    params?: HttpParams|{[param: string]: string | string[]},
+    context?: HttpContext,
+    params?: HttpParams|
+          {[param: string]: string | number | boolean | ReadonlyArray<string|number|boolean>},
     reportProgress?: boolean, responseType: 'blob',
     withCredentials?: boolean,
   }): Observable<HttpResponse<Blob>>;
 
   /**
    * Constructs a request which interprets the body as a text stream and returns the full
-   * `HTTPResponse`.
+   * `HttpResponse`.
    *
    * 构造一个请求，它将请求体解释为文本流，并且返回完整的 `HttpResponse`。
    *
@@ -475,14 +505,16 @@ export class HttpClient {
   request(method: string, url: string, options: {
     body?: any,
     headers?: HttpHeaders|{[header: string]: string | string[]}, observe: 'response',
-    params?: HttpParams|{[param: string]: string | string[]},
+    context?: HttpContext,
+    params?: HttpParams|
+          {[param: string]: string | number | boolean | ReadonlyArray<string|number|boolean>},
     reportProgress?: boolean, responseType: 'text',
     withCredentials?: boolean,
   }): Observable<HttpResponse<string>>;
 
   /**
    * Constructs a request which interprets the body as a JSON object and returns the full
-   * `HTTPResponse`.
+   * `HttpResponse`.
    *
    * 构造一个请求，它将请求体解释为 JSON 对象，并返回完整 `HTTPResponse`。
    *
@@ -498,7 +530,7 @@ export class HttpClient {
    *
    * 与请求一起发送的 HTTP 选项。
    *
-   * @return An `Observable` of the full `HTTPResponse`,
+   * @return An `Observable` of the full `HttpResponse`,
    * with the response body of type `Object`.
    *
    * 此请求的完整 `HTTPResponse` 的 `Observable`，其响应体为 `Object` 类型。
@@ -507,15 +539,17 @@ export class HttpClient {
   request(method: string, url: string, options: {
     body?: any,
     headers?: HttpHeaders|{[header: string]: string | string[]},
+    context?: HttpContext,
     reportProgress?: boolean, observe: 'response',
-    params?: HttpParams|{[param: string]: string | string[]},
+    params?: HttpParams|
+          {[param: string]: string | number | boolean | ReadonlyArray<string|number|boolean>},
     responseType?: 'json',
     withCredentials?: boolean,
   }): Observable<HttpResponse<Object>>;
 
   /**
    * Constructs a request which interprets the body as a JSON object and returns
-   * the full `HTTPResponse` with the response body in the requested type.
+   * the full `HttpResponse` with the response body in the requested type.
    *
    * 构造一个请求，它将请求体解释为 JSON 对象，并返回带有请求主体类型 `HTTPResponse`
    *
@@ -531,7 +565,7 @@ export class HttpClient {
    *
    * 与请求一起发送的 HTTP 选项。
    *
-   * @return  An `Observable` of the full `HTTPResponse`, with the response body of type `R`.
+   * @return  An `Observable` of the full `HttpResponse`, with the response body of type `R`.
    *
    * 此请求的完整 `HTTPResponse` 的 `Observable`，其响应体为 `R` 类型。
    *
@@ -539,15 +573,17 @@ export class HttpClient {
   request<R>(method: string, url: string, options: {
     body?: any,
     headers?: HttpHeaders|{[header: string]: string | string[]},
+    context?: HttpContext,
     reportProgress?: boolean, observe: 'response',
-    params?: HttpParams|{[param: string]: string | string[]},
+    params?: HttpParams|
+          {[param: string]: string | number | boolean | ReadonlyArray<string|number|boolean>},
     responseType?: 'json',
     withCredentials?: boolean,
   }): Observable<HttpResponse<R>>;
 
   /**
    * Constructs a request which interprets the body as a JSON object and returns the full
-   * `HTTPResponse` as a JSON object.
+   * `HttpResponse` as a JSON object.
    *
    * 构造一个请求，它将请求体解释为 JSON 对象，并返回完整的 `HTTPResponse`。
    *
@@ -563,7 +599,7 @@ export class HttpClient {
    *
    * 与请求一起发送的 HTTP 选项。
    *
-   * @return An `Observable` of the `HTTPResponse`, with the response body of type `Object`.
+   * @return An `Observable` of the `HttpResponse`, with the response body of type `Object`.
    *
    * 此请求的响应对象的 `Observable`，其响应体为 `Object` 类型。
    *
@@ -571,8 +607,10 @@ export class HttpClient {
   request(method: string, url: string, options?: {
     body?: any,
     headers?: HttpHeaders|{[header: string]: string | string[]},
+    context?: HttpContext,
     observe?: 'body',
-    params?: HttpParams|{[param: string]: string | string[]},
+    params?: HttpParams|
+          {[param: string]: string | number | boolean | ReadonlyArray<string|number|boolean>},
     responseType?: 'json',
     reportProgress?: boolean,
     withCredentials?: boolean,
@@ -596,7 +634,7 @@ export class HttpClient {
    *
    * 与请求一起发送的 HTTP 选项。
    *
-   * @return An `Observable` of the `HTTPResponse`, with the response body of type `R`.
+   * @return An `Observable` of the `HttpResponse`, with the response body of type `R`.
    *
    * 此请求的响应对象的 `Observable`，其响应体为 `R` 类型。
    *
@@ -604,8 +642,10 @@ export class HttpClient {
   request<R>(method: string, url: string, options?: {
     body?: any,
     headers?: HttpHeaders|{[header: string]: string | string[]},
+    context?: HttpContext,
     observe?: 'body',
-    params?: HttpParams|{[param: string]: string | string[]},
+    params?: HttpParams|
+          {[param: string]: string | number | boolean | ReadonlyArray<string|number|boolean>},
     responseType?: 'json',
     reportProgress?: boolean,
     withCredentials?: boolean,
@@ -636,8 +676,10 @@ export class HttpClient {
   request(method: string, url: string, options?: {
     body?: any,
     headers?: HttpHeaders|{[header: string]: string | string[]},
-    params?: HttpParams|{[param: string]: string | string[]},
-    observe?: HttpObserve,
+    context?: HttpContext,
+    params?: HttpParams|
+          {[param: string]: string | number | boolean | ReadonlyArray<string|number|boolean>},
+    observe?: 'body'|'events'|'response',
     reportProgress?: boolean,
     responseType?: 'arraybuffer'|'blob'|'json'|'text',
     withCredentials?: boolean,
@@ -694,8 +736,10 @@ export class HttpClient {
   request(first: string|HttpRequest<any>, url?: string, options: {
     body?: any,
     headers?: HttpHeaders|{[header: string]: string | string[]},
-    observe?: HttpObserve,
-    params?: HttpParams|{[param: string]: string | string[]},
+    context?: HttpContext,
+    observe?: 'body'|'events'|'response',
+    params?: HttpParams|
+          {[param: string]: string | number | boolean | ReadonlyArray<string|number|boolean>},
     reportProgress?: boolean,
     responseType?: 'arraybuffer'|'blob'|'json'|'text',
     withCredentials?: boolean,
@@ -732,6 +776,7 @@ export class HttpClient {
       // Construct the request.
       req = new HttpRequest(first, url!, (options.body !== undefined ? options.body : null), {
         headers,
+        context: options.context,
         params,
         reportProgress: options.reportProgress,
         // By default, JSON is assumed to be returned for all calls.
@@ -828,8 +873,10 @@ export class HttpClient {
    */
   delete(url: string, options: {
     headers?: HttpHeaders|{[header: string]: string | string[]},
+    context?: HttpContext,
     observe?: 'body',
-    params?: HttpParams|{[param: string]: string | string[]},
+    params?: HttpParams|
+          {[param: string]: string | number | boolean | ReadonlyArray<string|number|boolean>},
     reportProgress?: boolean, responseType: 'arraybuffer',
     withCredentials?: boolean,
   }): Observable<ArrayBuffer>;
@@ -856,8 +903,10 @@ export class HttpClient {
    */
   delete(url: string, options: {
     headers?: HttpHeaders|{[header: string]: string | string[]},
+    context?: HttpContext,
     observe?: 'body',
-    params?: HttpParams|{[param: string]: string | string[]},
+    params?: HttpParams|
+          {[param: string]: string | number | boolean | ReadonlyArray<string|number|boolean>},
     reportProgress?: boolean, responseType: 'blob',
     withCredentials?: boolean,
   }): Observable<Blob>;
@@ -883,8 +932,10 @@ export class HttpClient {
    */
   delete(url: string, options: {
     headers?: HttpHeaders|{[header: string]: string | string[]},
+    context?: HttpContext,
     observe?: 'body',
-    params?: HttpParams|{[param: string]: string | string[]},
+    params?: HttpParams|
+          {[param: string]: string | number | boolean | ReadonlyArray<string|number|boolean>},
     reportProgress?: boolean, responseType: 'text',
     withCredentials?: boolean,
   }): Observable<string>;
@@ -903,7 +954,7 @@ export class HttpClient {
    *
    * 与请求一起发送的 HTTP 选项。
    *
-   * @return An `Observable` of all `HTTPEvents` for the request,
+   * @return An `Observable` of all `HttpEvent`s for the request,
    * with response body as an `ArrayBuffer`.
    *
    * 此请求的所有 `HTTPEvents` 的 `Observable`，其响应体为 `ArrayBuffer` 类型。
@@ -911,7 +962,9 @@ export class HttpClient {
    */
   delete(url: string, options: {
     headers?: HttpHeaders|{[header: string]: string | string[]}, observe: 'events',
-    params?: HttpParams|{[param: string]: string | string[]},
+    context?: HttpContext,
+    params?: HttpParams|
+          {[param: string]: string | number | boolean | ReadonlyArray<string|number|boolean>},
     reportProgress?: boolean, responseType: 'arraybuffer',
     withCredentials?: boolean,
   }): Observable<HttpEvent<ArrayBuffer>>;
@@ -930,7 +983,7 @@ export class HttpClient {
    *
    * 与请求一起发送的 HTTP 选项。
    *
-   * @return An `Observable` of all the `HTTPEvents` for the request, with the response body as a
+   * @return An `Observable` of all the `HttpEvent`s for the request, with the response body as a
    * `Blob`.
    *
    * 此请求的所有 `HTTPEvents` 的 `Observable`，其响应体为 `Blob` 类型。
@@ -938,7 +991,9 @@ export class HttpClient {
    */
   delete(url: string, options: {
     headers?: HttpHeaders|{[header: string]: string | string[]}, observe: 'events',
-    params?: HttpParams|{[param: string]: string | string[]},
+    context?: HttpContext,
+    params?: HttpParams|
+          {[param: string]: string | number | boolean | ReadonlyArray<string|number|boolean>},
     reportProgress?: boolean, responseType: 'blob',
     withCredentials?: boolean,
   }): Observable<HttpEvent<Blob>>;
@@ -957,15 +1012,17 @@ export class HttpClient {
    *
    * 与请求一起发送的 HTTP 选项。
    *
-   * @return An `Observable` of all `HTTPEvents` for the request, with the response
-   *  body of type string.
+   * @return An `Observable` of all `HttpEvent`s for the request, with the response
+   * body of type string.
    *
    * 表示啥此请求的 `HTTPEvents` 的 `Observable`，响应体为 string 类型。
    *
    */
   delete(url: string, options: {
     headers?: HttpHeaders|{[header: string]: string | string[]}, observe: 'events',
-    params?: HttpParams|{[param: string]: string | string[]},
+    context?: HttpContext,
+    params?: HttpParams|
+          {[param: string]: string | number | boolean | ReadonlyArray<string|number|boolean>},
     reportProgress?: boolean, responseType: 'text',
     withCredentials?: boolean,
   }): Observable<HttpEvent<string>>;
@@ -984,7 +1041,7 @@ export class HttpClient {
    *
    * 与请求一起发送的 HTTP 选项。
    *
-   * @return An `Observable` of all `HTTPEvents` for the request, with response body of
+   * @return An `Observable` of all `HttpEvent`s for the request, with response body of
    * type `Object`.
    *
    * 表示啥此请求的 `HTTPEvents` 的 `Observable`，响应体为 `Object` 类型。
@@ -992,7 +1049,9 @@ export class HttpClient {
    */
   delete(url: string, options: {
     headers?: HttpHeaders|{[header: string]: string | string[]}, observe: 'events',
-    params?: HttpParams|{[param: string]: string | string[]},
+    context?: HttpContext,
+    params?: HttpParams|
+          {[param: string]: string | number | boolean | ReadonlyArray<string|number|boolean>},
     reportProgress?: boolean,
     responseType?: 'json',
     withCredentials?: boolean,
@@ -1012,7 +1071,7 @@ export class HttpClient {
    *
    * 与请求一起发送的 HTTP 选项。
    *
-   * @return An `Observable` of all the `HTTPEvents` for the request, with a response
+   * @return An `Observable` of all the `HttpEvent`s for the request, with a response
    * body in the requested type.
    *
    * 表示此请求的 `HTTPEvents` 的 `Observable`，响应体为所请求的类型。
@@ -1020,7 +1079,9 @@ export class HttpClient {
    */
   delete<T>(url: string, options: {
     headers?: HttpHeaders|{[header: string]: string | string[]}, observe: 'events',
-    params?: HttpParams|{[param: string]: string | string[]},
+    context?: HttpContext,
+    params?: HttpParams|
+          {[param: string]: string | number | boolean | (string | number | boolean)[]},
     reportProgress?: boolean,
     responseType?: 'json',
     withCredentials?: boolean,
@@ -1028,7 +1089,7 @@ export class HttpClient {
 
   /**
    * Constructs a `DELETE` request that interprets the body as an `ArrayBuffer` and returns
-   *  the full `HTTPResponse`.
+   *  the full `HttpResponse`.
    *
    * 构造一个 `DELETE` 请求，它将请求体解释为 `ArrayBuffer`，并且返回完整的 `HttpResponse`。
    *
@@ -1040,21 +1101,23 @@ export class HttpClient {
    *
    * 与请求一起发送的 HTTP 选项。
    *
-   * @return An `Observable` of the full `HTTPResponse`, with the response body as an `ArrayBuffer`.
+   * @return An `Observable` of the full `HttpResponse`, with the response body as an `ArrayBuffer`.
    *
    * 此请求的完整 `HTTPResponse` 的 `Observable`，其响应体为 `ArrayBuffer` 类型。
    *
    */
   delete(url: string, options: {
     headers?: HttpHeaders|{[header: string]: string | string[]}, observe: 'response',
-    params?: HttpParams|{[param: string]: string | string[]},
+    context?: HttpContext,
+    params?: HttpParams|
+          {[param: string]: string | number | boolean | ReadonlyArray<string|number|boolean>},
     reportProgress?: boolean, responseType: 'arraybuffer',
     withCredentials?: boolean,
   }): Observable<HttpResponse<ArrayBuffer>>;
 
   /**
    * Constructs a `DELETE` request that interprets the body as a `Blob` and returns the full
-   * `HTTPResponse`.
+   * `HttpResponse`.
    *
    * 构造一个 `DELETE` 请求，它将请求体解释为 `Blob`，并且返回完整的 `HttpResponse`。
    *
@@ -1066,21 +1129,23 @@ export class HttpClient {
    *
    * 与请求一起发送的 HTTP 选项。
    *
-   * @return An `Observable` of the `HTTPResponse`, with the response body of type `Blob`.
+   * @return An `Observable` of the `HttpResponse`, with the response body of type `Blob`.
    *
    * 此请求的响应对象的 `Observable`，其响应体为 `Blob` 类型。
    *
    */
   delete(url: string, options: {
     headers?: HttpHeaders|{[header: string]: string | string[]}, observe: 'response',
-    params?: HttpParams|{[param: string]: string | string[]},
+    context?: HttpContext,
+    params?: HttpParams|
+          {[param: string]: string | number | boolean | ReadonlyArray<string|number|boolean>},
     reportProgress?: boolean, responseType: 'blob',
     withCredentials?: boolean,
   }): Observable<HttpResponse<Blob>>;
 
   /**
    * Constructs a `DELETE` request that interprets the body as a text stream and
-   *  returns the full `HTTPResponse`.
+   *  returns the full `HttpResponse`.
    *
    * 构造一个 `DELETE` 请求，它将请求体解释为文本流，并且返回完整的 `HttpResponse`。
    *
@@ -1092,21 +1157,23 @@ export class HttpClient {
    *
    * 与请求一起发送的 HTTP 选项。
    *
-   * @return An `Observable` of the full `HTTPResponse`, with the response body of type string.
+   * @return An `Observable` of the full `HttpResponse`, with the response body of type string.
    *
    * 此请求的完整 `HTTPResponse` 的 `Observable`，其响应体为 string 类型。
    *
    */
   delete(url: string, options: {
     headers?: HttpHeaders|{[header: string]: string | string[]}, observe: 'response',
-    params?: HttpParams|{[param: string]: string | string[]},
+    context?: HttpContext,
+    params?: HttpParams|
+          {[param: string]: string | number | boolean | ReadonlyArray<string|number|boolean>},
     reportProgress?: boolean, responseType: 'text',
     withCredentials?: boolean,
   }): Observable<HttpResponse<string>>;
 
   /**
    * Constructs a `DELETE` request the interprets the body as a JSON object and returns
-   * the full `HTTPResponse`.
+   * the full `HttpResponse`.
    *
    * 构造一个 `DELETE` 请求，它将请求体解释为 JSON 对象，并且返回完整的 `HttpResponse`。
    *
@@ -1118,14 +1185,16 @@ export class HttpClient {
    *
    * 与请求一起发送的 HTTP 选项。
    *
-   * @return An `Observable` of the `HTTPResponse`, with the response body of type `Object`.
+   * @return An `Observable` of the `HttpResponse`, with the response body of type `Object`.
    *
    * 此请求的响应对象的 `Observable`，其响应体为 `Object` 类型。
    *
    */
   delete(url: string, options: {
     headers?: HttpHeaders|{[header: string]: string | string[]}, observe: 'response',
-    params?: HttpParams|{[param: string]: string | string[]},
+    context?: HttpContext,
+    params?: HttpParams|
+          {[param: string]: string | number | boolean | ReadonlyArray<string|number|boolean>},
     reportProgress?: boolean,
     responseType?: 'json',
     withCredentials?: boolean,
@@ -1133,7 +1202,7 @@ export class HttpClient {
 
   /**
    * Constructs a `DELETE` request that interprets the body as a JSON object
-   * and returns the full `HTTPResponse`.
+   * and returns the full `HttpResponse`.
    *
    * 构造一个 `DELETE` 请求，它将请求体解释为 JSON 对象，并且返回完整的 `HttpResponse`。
    *
@@ -1145,14 +1214,16 @@ export class HttpClient {
    *
    * 与请求一起发送的 HTTP 选项。
    *
-   * @return An `Observable` of the `HTTPResponse`, with the response body of the requested type.
+   * @return An `Observable` of the `HttpResponse`, with the response body of the requested type.
    *
    * 此请求的响应对象的 `Observable`，其响应体为所请求的类型。
    *
    */
   delete<T>(url: string, options: {
     headers?: HttpHeaders|{[header: string]: string | string[]}, observe: 'response',
-    params?: HttpParams|{[param: string]: string | string[]},
+    context?: HttpContext,
+    params?: HttpParams|
+          {[param: string]: string | number | boolean | ReadonlyArray<string|number|boolean>},
     reportProgress?: boolean,
     responseType?: 'json',
     withCredentials?: boolean,
@@ -1179,8 +1250,10 @@ export class HttpClient {
    */
   delete(url: string, options?: {
     headers?: HttpHeaders|{[header: string]: string | string[]},
+    context?: HttpContext,
     observe?: 'body',
-    params?: HttpParams|{[param: string]: string | string[]},
+    params?: HttpParams|
+          {[param: string]: string | number | boolean | ReadonlyArray<string|number|boolean>},
     reportProgress?: boolean,
     responseType?: 'json',
     withCredentials?: boolean,
@@ -1200,15 +1273,17 @@ export class HttpClient {
    *
    * 与请求一起发送的 HTTP 选项。
    *
-   * @return An `Observable` of the `HTTPResponse`, with response body in the requested type.
+   * @return An `Observable` of the `HttpResponse`, with response body in the requested type.
    *
    * 此请求的响应对象的 `Observable`，其响应体为所请求的类型。
    *
    */
   delete<T>(url: string, options?: {
     headers?: HttpHeaders|{[header: string]: string | string[]},
+    context?: HttpContext,
     observe?: 'body',
-    params?: HttpParams|{[param: string]: string | string[]},
+    params?: HttpParams|
+          {[param: string]: string | number | boolean | ReadonlyArray<string|number|boolean>},
     reportProgress?: boolean,
     responseType?: 'json',
     withCredentials?: boolean,
@@ -1232,8 +1307,10 @@ export class HttpClient {
    */
   delete(url: string, options: {
     headers?: HttpHeaders|{[header: string]: string | string[]},
-    observe?: HttpObserve,
-    params?: HttpParams|{[param: string]: string | string[]},
+    context?: HttpContext,
+    observe?: 'body'|'events'|'response',
+    params?: HttpParams|
+          {[param: string]: string | number | boolean | ReadonlyArray<string|number|boolean>},
     reportProgress?: boolean,
     responseType?: 'arraybuffer'|'blob'|'json'|'text',
     withCredentials?: boolean,
@@ -1263,8 +1340,10 @@ export class HttpClient {
    */
   get(url: string, options: {
     headers?: HttpHeaders|{[header: string]: string | string[]},
+    context?: HttpContext,
     observe?: 'body',
-    params?: HttpParams|{[param: string]: string | string[]},
+    params?: HttpParams|
+          {[param: string]: string | number | boolean | ReadonlyArray<string|number|boolean>},
     reportProgress?: boolean, responseType: 'arraybuffer',
     withCredentials?: boolean,
   }): Observable<ArrayBuffer>;
@@ -1290,8 +1369,10 @@ export class HttpClient {
    */
   get(url: string, options: {
     headers?: HttpHeaders|{[header: string]: string | string[]},
+    context?: HttpContext,
     observe?: 'body',
-    params?: HttpParams|{[param: string]: string | string[]},
+    params?: HttpParams|
+          {[param: string]: string | number | boolean | ReadonlyArray<string|number|boolean>},
     reportProgress?: boolean, responseType: 'blob',
     withCredentials?: boolean,
   }): Observable<Blob>;
@@ -1317,8 +1398,10 @@ export class HttpClient {
    */
   get(url: string, options: {
     headers?: HttpHeaders|{[header: string]: string | string[]},
+    context?: HttpContext,
     observe?: 'body',
-    params?: HttpParams|{[param: string]: string | string[]},
+    params?: HttpParams|
+          {[param: string]: string | number | boolean | ReadonlyArray<string|number|boolean>},
     reportProgress?: boolean, responseType: 'text',
     withCredentials?: boolean,
   }): Observable<string>;
@@ -1337,7 +1420,7 @@ export class HttpClient {
    *
    * 与请求一起发送的 HTTP 选项。
    *
-   * @return An `Observable` of all `HttpEvents` for the request, with the response
+   * @return An `Observable` of all `HttpEvent`s for the request, with the response
    * body as an `ArrayBuffer`.
    *
    * 表示此请求的 `HttpEvents` 的 `Observable`，响应体为 n `ArrayBuffer` 类型。
@@ -1345,7 +1428,9 @@ export class HttpClient {
    */
   get(url: string, options: {
     headers?: HttpHeaders|{[header: string]: string | string[]}, observe: 'events',
-    params?: HttpParams|{[param: string]: string | string[]},
+    context?: HttpContext,
+    params?: HttpParams|
+          {[param: string]: string | number | boolean | ReadonlyArray<string|number|boolean>},
     reportProgress?: boolean, responseType: 'arraybuffer',
     withCredentials?: boolean,
   }): Observable<HttpEvent<ArrayBuffer>>;
@@ -1371,7 +1456,9 @@ export class HttpClient {
    */
   get(url: string, options: {
     headers?: HttpHeaders|{[header: string]: string | string[]}, observe: 'events',
-    params?: HttpParams|{[param: string]: string | string[]},
+    context?: HttpContext,
+    params?: HttpParams|
+          {[param: string]: string | number | boolean | ReadonlyArray<string|number|boolean>},
     reportProgress?: boolean, responseType: 'blob',
     withCredentials?: boolean,
   }): Observable<HttpEvent<Blob>>;
@@ -1397,7 +1484,9 @@ export class HttpClient {
    */
   get(url: string, options: {
     headers?: HttpHeaders|{[header: string]: string | string[]}, observe: 'events',
-    params?: HttpParams|{[param: string]: string | string[]},
+    context?: HttpContext,
+    params?: HttpParams|
+          {[param: string]: string | number | boolean | ReadonlyArray<string|number|boolean>},
     reportProgress?: boolean, responseType: 'text',
     withCredentials?: boolean,
   }): Observable<HttpEvent<string>>;
@@ -1423,7 +1512,9 @@ export class HttpClient {
    */
   get(url: string, options: {
     headers?: HttpHeaders|{[header: string]: string | string[]}, observe: 'events',
-    params?: HttpParams|{[param: string]: string | string[]},
+    context?: HttpContext,
+    params?: HttpParams|
+          {[param: string]: string | number | boolean | ReadonlyArray<string|number|boolean>},
     reportProgress?: boolean,
     responseType?: 'json',
     withCredentials?: boolean,
@@ -1450,7 +1541,9 @@ export class HttpClient {
    */
   get<T>(url: string, options: {
     headers?: HttpHeaders|{[header: string]: string | string[]}, observe: 'events',
-    params?: HttpParams|{[param: string]: string | string[]},
+    context?: HttpContext,
+    params?: HttpParams|
+          {[param: string]: string | number | boolean | ReadonlyArray<string|number|boolean>},
     reportProgress?: boolean,
     responseType?: 'json',
     withCredentials?: boolean,
@@ -1458,7 +1551,7 @@ export class HttpClient {
 
   /**
    * Constructs a `GET` request that interprets the body as an `ArrayBuffer` and
-   * returns the full `HTTPResponse`.
+   * returns the full `HttpResponse`.
    *
    * 构造一个 `GET` 请求，它将请求体解释为 `ArrayBuffer`，并且返回完整的 `HttpResponse`。
    *
@@ -1470,7 +1563,7 @@ export class HttpClient {
    *
    * 与请求一起发送的 HTTP 选项。
    *
-   * @return An `Observable` of the `HTTPResponse` for the request,
+   * @return An `Observable` of the `HttpResponse` for the request,
    * with the response body as an `ArrayBuffer`.
    *
    * 此请求的响应对象的 `Observable`，其响应体为 `ArrayBuffer` 类型。
@@ -1478,14 +1571,16 @@ export class HttpClient {
    */
   get(url: string, options: {
     headers?: HttpHeaders|{[header: string]: string | string[]}, observe: 'response',
-    params?: HttpParams|{[param: string]: string | string[]},
+    context?: HttpContext,
+    params?: HttpParams|
+          {[param: string]: string | number | boolean | ReadonlyArray<string|number|boolean>},
     reportProgress?: boolean, responseType: 'arraybuffer',
     withCredentials?: boolean,
   }): Observable<HttpResponse<ArrayBuffer>>;
 
   /**
    * Constructs a `GET` request that interprets the body as a `Blob` and
-   * returns the full `HTTPResponse`.
+   * returns the full `HttpResponse`.
    *
    * 构造一个 `GET` 请求，它将请求体解释为 `Blob`，并且返回完整的 `HttpResponse`。
    *
@@ -1497,22 +1592,24 @@ export class HttpClient {
    *
    * 与请求一起发送的 HTTP 选项。
    *
-   * @return An `Observable` of the `HTTPResponse` for the request,
-   *  with the response body as a `Blob`.
+   * @return An `Observable` of the `HttpResponse` for the request,
+   * with the response body as a `Blob`.
    *
    * 此请求的响应对象的 `Observable`，其响应体为 `Blob` 类型。
    *
    */
   get(url: string, options: {
     headers?: HttpHeaders|{[header: string]: string | string[]}, observe: 'response',
-    params?: HttpParams|{[param: string]: string | string[]},
+    context?: HttpContext,
+    params?: HttpParams|
+          {[param: string]: string | number | boolean | ReadonlyArray<string|number|boolean>},
     reportProgress?: boolean, responseType: 'blob',
     withCredentials?: boolean,
   }): Observable<HttpResponse<Blob>>;
 
   /**
    * Constructs a `GET` request that interprets the body as a text stream and
-   * returns the full `HTTPResponse`.
+   * returns the full `HttpResponse`.
    *
    * 构造一个 `GET` 请求，它将请求体解释为文本流，并且返回完整的 `HttpResponse`。
    *
@@ -1524,7 +1621,7 @@ export class HttpClient {
    *
    * 与请求一起发送的 HTTP 选项。
    *
-   * @return An `Observable` of the `HTTPResponse` for the request,
+   * @return An `Observable` of the `HttpResponse` for the request,
    * with the response body of type string.
    *
    * 此请求的响应对象的 `Observable`，其响应体为 string 类型。
@@ -1532,14 +1629,16 @@ export class HttpClient {
    */
   get(url: string, options: {
     headers?: HttpHeaders|{[header: string]: string | string[]}, observe: 'response',
-    params?: HttpParams|{[param: string]: string | string[]},
+    context?: HttpContext,
+    params?: HttpParams|
+          {[param: string]: string | number | boolean | ReadonlyArray<string|number|boolean>},
     reportProgress?: boolean, responseType: 'text',
     withCredentials?: boolean,
   }): Observable<HttpResponse<string>>;
 
   /**
    * Constructs a `GET` request that interprets the body as a JSON object and
-   * returns the full `HTTPResponse`.
+   * returns the full `HttpResponse`.
    *
    * 构造一个 `GET` 请求，它将请求体解释为 JSON 对象，并且返回完整的 `HttpResponse`。
    *
@@ -1559,7 +1658,9 @@ export class HttpClient {
    */
   get(url: string, options: {
     headers?: HttpHeaders|{[header: string]: string | string[]}, observe: 'response',
-    params?: HttpParams|{[param: string]: string | string[]},
+    context?: HttpContext,
+    params?: HttpParams|
+          {[param: string]: string | number | boolean | ReadonlyArray<string|number|boolean>},
     reportProgress?: boolean,
     responseType?: 'json',
     withCredentials?: boolean,
@@ -1567,7 +1668,7 @@ export class HttpClient {
 
   /**
    * Constructs a `GET` request that interprets the body as a JSON object and
-   * returns the full `HTTPResponse`.
+   * returns the full `HttpResponse`.
    *
    * 构造一个 `GET` 请求，它将请求体解释为 JSON 对象，并且返回完整的 `HttpResponse`。
    *
@@ -1579,7 +1680,7 @@ export class HttpClient {
    *
    * 与请求一起发送的 HTTP 选项。
    *
-   * @return An `Observable` of the full `HTTPResponse` for the request,
+   * @return An `Observable` of the full `HttpResponse` for the request,
    * with a response body in the requested type.
    *
    * 此请求的完整 `HTTPResponse` 的 `Observable`，其响应体为所请求的类型。
@@ -1587,7 +1688,9 @@ export class HttpClient {
    */
   get<T>(url: string, options: {
     headers?: HttpHeaders|{[header: string]: string | string[]}, observe: 'response',
-    params?: HttpParams|{[param: string]: string | string[]},
+    context?: HttpContext,
+    params?: HttpParams|
+          {[param: string]: string | number | boolean | ReadonlyArray<string|number|boolean>},
     reportProgress?: boolean,
     responseType?: 'json',
     withCredentials?: boolean,
@@ -1614,8 +1717,10 @@ export class HttpClient {
    */
   get(url: string, options?: {
     headers?: HttpHeaders|{[header: string]: string | string[]},
+    context?: HttpContext,
     observe?: 'body',
-    params?: HttpParams|{[param: string]: string | string[]},
+    params?: HttpParams|
+          {[param: string]: string | number | boolean | ReadonlyArray<string|number|boolean>},
     reportProgress?: boolean,
     responseType?: 'json',
     withCredentials?: boolean,
@@ -1635,15 +1740,17 @@ export class HttpClient {
    *
    * 与请求一起发送的 HTTP 选项。
    *
-   * @return An `Observable` of the `HTTPResponse`, with a response body in the requested type.
+   * @return An `Observable` of the `HttpResponse`, with a response body in the requested type.
    *
    * 此请求的响应对象的 `Observable`，其响应体为所请求的类型。
    *
    */
   get<T>(url: string, options?: {
     headers?: HttpHeaders|{[header: string]: string | string[]},
+    context?: HttpContext,
     observe?: 'body',
-    params?: HttpParams|{[param: string]: string | string[]},
+    params?: HttpParams|
+          {[param: string]: string | number | boolean | ReadonlyArray<string|number|boolean>},
     reportProgress?: boolean,
     responseType?: 'json',
     withCredentials?: boolean,
@@ -1659,8 +1766,10 @@ export class HttpClient {
    */
   get(url: string, options: {
     headers?: HttpHeaders|{[header: string]: string | string[]},
-    observe?: HttpObserve,
-    params?: HttpParams|{[param: string]: string | string[]},
+    context?: HttpContext,
+    observe?: 'body'|'events'|'response',
+    params?: HttpParams|
+          {[param: string]: string | number | boolean | ReadonlyArray<string|number|boolean>},
     reportProgress?: boolean,
     responseType?: 'arraybuffer'|'blob'|'json'|'text',
     withCredentials?: boolean,
@@ -1690,8 +1799,10 @@ export class HttpClient {
    */
   head(url: string, options: {
     headers?: HttpHeaders|{[header: string]: string | string[]},
+    context?: HttpContext,
     observe?: 'body',
-    params?: HttpParams|{[param: string]: string | string[]},
+    params?: HttpParams|
+          {[param: string]: string | number | boolean | ReadonlyArray<string|number|boolean>},
     reportProgress?: boolean, responseType: 'arraybuffer',
     withCredentials?: boolean,
   }): Observable<ArrayBuffer>;
@@ -1718,8 +1829,10 @@ export class HttpClient {
 
   head(url: string, options: {
     headers?: HttpHeaders|{[header: string]: string | string[]},
+    context?: HttpContext,
     observe?: 'body',
-    params?: HttpParams|{[param: string]: string | string[]},
+    params?: HttpParams|
+          {[param: string]: string | number | boolean | ReadonlyArray<string|number|boolean>},
     reportProgress?: boolean, responseType: 'blob',
     withCredentials?: boolean,
   }): Observable<Blob>;
@@ -1745,8 +1858,10 @@ export class HttpClient {
    */
   head(url: string, options: {
     headers?: HttpHeaders|{[header: string]: string | string[]},
+    context?: HttpContext,
     observe?: 'body',
-    params?: HttpParams|{[param: string]: string | string[]},
+    params?: HttpParams|
+          {[param: string]: string | number | boolean | ReadonlyArray<string|number|boolean>},
     reportProgress?: boolean, responseType: 'text',
     withCredentials?: boolean,
   }): Observable<string>;
@@ -1765,7 +1880,7 @@ export class HttpClient {
    *
    * 与请求一起发送的 HTTP 选项。
    *
-   * @return An `Observable` of tall `HttpEvents` for the request,
+   * @return An `Observable` of all `HttpEvent`s for the request,
    * with the response body as an `ArrayBuffer`.
    *
    * 此请求的 `HttpEvents` 的 `Observable`，其响应体为 `ArrayBuffer` 类型。
@@ -1773,7 +1888,9 @@ export class HttpClient {
    */
   head(url: string, options: {
     headers?: HttpHeaders|{[header: string]: string | string[]}, observe: 'events',
-    params?: HttpParams|{[param: string]: string | string[]},
+    context?: HttpContext,
+    params?: HttpParams|
+          {[param: string]: string | number | boolean | ReadonlyArray<string|number|boolean>},
     reportProgress?: boolean, responseType: 'arraybuffer',
     withCredentials?: boolean,
   }): Observable<HttpEvent<ArrayBuffer>>;
@@ -1792,7 +1909,7 @@ export class HttpClient {
    *
    * 与请求一起发送的 HTTP 选项。
    *
-   * @return An `Observable` of all `HttpEvents` for the request,
+   * @return An `Observable` of all `HttpEvent`s for the request,
    * with the response body as a `Blob`.
    *
    * 此请求的 `HttpEvents` 的 `Observable`，其响应体为 `Blob` 类型。
@@ -1800,7 +1917,9 @@ export class HttpClient {
    */
   head(url: string, options: {
     headers?: HttpHeaders|{[header: string]: string | string[]}, observe: 'events',
-    params?: HttpParams|{[param: string]: string | string[]},
+    context?: HttpContext,
+    params?: HttpParams|
+          {[param: string]: string | number | boolean | ReadonlyArray<string|number|boolean>},
     reportProgress?: boolean, responseType: 'blob',
     withCredentials?: boolean,
   }): Observable<HttpEvent<Blob>>;
@@ -1819,15 +1938,17 @@ export class HttpClient {
    *
    * 与请求一起发送的 HTTP 选项。
    *
-   * @return An `Observable` of all HttpEvents for the request, with the response body of type
-   *     string.
+   * @return An `Observable` of all `HttpEvent`s for the request, with the response body of type
+   * string.
    *
    * 表示啥此请求的 `HttpEvents for the request` 的 `Observable`，响应体为 string 类型。
    *
    */
   head(url: string, options: {
     headers?: HttpHeaders|{[header: string]: string | string[]}, observe: 'events',
-    params?: HttpParams|{[param: string]: string | string[]},
+    context?: HttpContext,
+    params?: HttpParams|
+          {[param: string]: string | number | boolean | ReadonlyArray<string|number|boolean>},
     reportProgress?: boolean, responseType: 'text',
     withCredentials?: boolean,
   }): Observable<HttpEvent<string>>;
@@ -1846,7 +1967,7 @@ export class HttpClient {
    *
    * 与请求一起发送的 HTTP 选项。
    *
-   * @return An `Observable` of all `HTTPEvents` for the request, with a response body of
+   * @return An `Observable` of all `HttpEvent`s for the request, with a response body of
    * type `Object`.
    *
    * 表示啥此请求的 `HTTPEvents` 的 `Observable`，响应体为 `Object` 类型。
@@ -1854,7 +1975,9 @@ export class HttpClient {
    */
   head(url: string, options: {
     headers?: HttpHeaders|{[header: string]: string | string[]}, observe: 'events',
-    params?: HttpParams|{[param: string]: string | string[]},
+    context?: HttpContext,
+    params?: HttpParams|
+          {[param: string]: string | number | boolean | ReadonlyArray<string|number|boolean>},
     reportProgress?: boolean,
     responseType?: 'json',
     withCredentials?: boolean,
@@ -1866,8 +1989,8 @@ export class HttpClient {
    *
    * 构造一个 `HEAD` 请求，它将请求体解释为 JSON 对象，并且返回完整的 HTTP 事件流。
    *
-   * @return An `Observable` of all the `HTTPEvents` for the request
-   * , with a response body in the requested type.
+   * @return An `Observable` of all the `HttpEvent`s for the request,
+   * with a response body in the requested type.
    *
    * 表示此请求的 `HTTPEvents` 的 `Observable`，响应体为所请求的类型。
    *
@@ -1882,7 +2005,9 @@ export class HttpClient {
    */
   head<T>(url: string, options: {
     headers?: HttpHeaders|{[header: string]: string | string[]}, observe: 'events',
-    params?: HttpParams|{[param: string]: string | string[]},
+    context?: HttpContext,
+    params?: HttpParams|
+          {[param: string]: string | number | boolean | ReadonlyArray<string|number|boolean>},
     reportProgress?: boolean,
     responseType?: 'json',
     withCredentials?: boolean,
@@ -1902,7 +2027,7 @@ export class HttpClient {
    *
    * 与请求一起发送的 HTTP 选项。
    *
-   * @return An `Observable` of the `HTTPResponse` for the request,
+   * @return An `Observable` of the `HttpResponse` for the request,
    * with the response body as an `ArrayBuffer`.
    *
    * 此请求的响应对象的 `Observable`，其响应体为 `ArrayBuffer` 类型。
@@ -1910,14 +2035,16 @@ export class HttpClient {
    */
   head(url: string, options: {
     headers?: HttpHeaders|{[header: string]: string | string[]}, observe: 'response',
-    params?: HttpParams|{[param: string]: string | string[]},
+    context?: HttpContext,
+    params?: HttpParams|
+          {[param: string]: string | number | boolean | ReadonlyArray<string|number|boolean>},
     reportProgress?: boolean, responseType: 'arraybuffer',
     withCredentials?: boolean,
   }): Observable<HttpResponse<ArrayBuffer>>;
 
   /**
    * Constructs a `HEAD` request that interprets the body as a `Blob` and returns
-   * the full `HTTPResponse`.
+   * the full `HttpResponse`.
    *
    * 构造一个 `HEAD` 请求，它将请求体解释为 `Blob`，并且返回完整的 `HttpResponse`。
    *
@@ -1929,7 +2056,7 @@ export class HttpClient {
    *
    * 与请求一起发送的 HTTP 选项。
    *
-   * @return An `Observable` of the `HTTPResponse` for the request,
+   * @return An `Observable` of the `HttpResponse` for the request,
    * with the response body as a blob.
    *
    * 此请求的响应对象的 `Observable`，其响应体为 blob 类型。
@@ -1937,14 +2064,16 @@ export class HttpClient {
    */
   head(url: string, options: {
     headers?: HttpHeaders|{[header: string]: string | string[]}, observe: 'response',
-    params?: HttpParams|{[param: string]: string | string[]},
+    context?: HttpContext,
+    params?: HttpParams|
+          {[param: string]: string | number | boolean | ReadonlyArray<string|number|boolean>},
     reportProgress?: boolean, responseType: 'blob',
     withCredentials?: boolean,
   }): Observable<HttpResponse<Blob>>;
 
   /**
    * Constructs a `HEAD` request that interprets the body as text stream
-   * and returns the full `HTTPResponse`.
+   * and returns the full `HttpResponse`.
    *
    * 构造一个 `HEAD` 请求，它将请求体解释为文本流，并且返回完整的 `HttpResponse`。
    *
@@ -1956,7 +2085,7 @@ export class HttpClient {
    *
    * 与请求一起发送的 HTTP 选项。
    *
-   * @return An `Observable` of the `HTTPResponse` for the request,
+   * @return An `Observable` of the `HttpResponse` for the request,
    * with the response body of type string.
    *
    * 此请求的响应对象的 `Observable`，其响应体为 string 类型。
@@ -1964,14 +2093,16 @@ export class HttpClient {
    */
   head(url: string, options: {
     headers?: HttpHeaders|{[header: string]: string | string[]}, observe: 'response',
-    params?: HttpParams|{[param: string]: string | string[]},
+    context?: HttpContext,
+    params?: HttpParams|
+          {[param: string]: string | number | boolean | ReadonlyArray<string|number|boolean>},
     reportProgress?: boolean, responseType: 'text',
     withCredentials?: boolean,
   }): Observable<HttpResponse<string>>;
 
   /**
    * Constructs a `HEAD` request that interprets the body as a JSON object and
-   * returns the full `HTTPResponse`.
+   * returns the full `HttpResponse`.
    *
    * 构造一个 `HEAD` 请求，它将请求体解释为 JSON 对象，并且返回完整的 `HttpResponse`。
    *
@@ -1983,7 +2114,7 @@ export class HttpClient {
    *
    * 与请求一起发送的 HTTP 选项。
    *
-   * @return An `Observable` of the `HTTPResponse` for the request,
+   * @return An `Observable` of the `HttpResponse` for the request,
    * with the response body of type `Object`.
    *
    * 此请求的响应对象的 `Observable`，其响应体为 `Object` 类型。
@@ -1991,7 +2122,9 @@ export class HttpClient {
    */
   head(url: string, options: {
     headers?: HttpHeaders|{[header: string]: string | string[]}, observe: 'response',
-    params?: HttpParams|{[param: string]: string | string[]},
+    context?: HttpContext,
+    params?: HttpParams|
+          {[param: string]: string | number | boolean | ReadonlyArray<string|number|boolean>},
     reportProgress?: boolean,
     responseType?: 'json',
     withCredentials?: boolean,
@@ -1999,7 +2132,7 @@ export class HttpClient {
 
   /**
    * Constructs a `HEAD` request that interprets the body as a JSON object
-   * and returns the full `HTTPResponse`.
+   * and returns the full `HttpResponse`.
    *
    * 构造一个 `HEAD` 请求，它将请求体解释为 JSON 对象，并且返回完整的 `HttpResponse`。
    *
@@ -2011,7 +2144,7 @@ export class HttpClient {
    *
    * 与请求一起发送的 HTTP 选项。
    *
-   * @return An `Observable` of the `HTTPResponse` for the request,
+   * @return An `Observable` of the `HttpResponse` for the request,
    * with a responmse body of the requested type.
    *
    * 此请求的响应对象的 `Observable`，其响应体为所请求的类型。
@@ -2019,7 +2152,9 @@ export class HttpClient {
    */
   head<T>(url: string, options: {
     headers?: HttpHeaders|{[header: string]: string | string[]}, observe: 'response',
-    params?: HttpParams|{[param: string]: string | string[]},
+    context?: HttpContext,
+    params?: HttpParams|
+          {[param: string]: string | number | boolean | ReadonlyArray<string|number|boolean>},
     reportProgress?: boolean,
     responseType?: 'json',
     withCredentials?: boolean,
@@ -2046,8 +2181,10 @@ export class HttpClient {
    */
   head(url: string, options?: {
     headers?: HttpHeaders|{[header: string]: string | string[]},
+    context?: HttpContext,
     observe?: 'body',
-    params?: HttpParams|{[param: string]: string | string[]},
+    params?: HttpParams|
+          {[param: string]: string | number | boolean | ReadonlyArray<string|number|boolean>},
     reportProgress?: boolean,
     responseType?: 'json',
     withCredentials?: boolean,
@@ -2067,7 +2204,7 @@ export class HttpClient {
    *
    * 与请求一起发送的 HTTP 选项。
    *
-   * @return An `Observable` of the `HTTPResponse` for the request,
+   * @return An `Observable` of the `HttpResponse` for the request,
    * with a response body of the given type.
    *
    * 此请求的响应对象的 `Observable`，其响应体为给定的类型。
@@ -2075,8 +2212,10 @@ export class HttpClient {
    */
   head<T>(url: string, options?: {
     headers?: HttpHeaders|{[header: string]: string | string[]},
+    context?: HttpContext,
     observe?: 'body',
-    params?: HttpParams|{[param: string]: string | string[]},
+    params?: HttpParams|
+          {[param: string]: string | number | boolean | ReadonlyArray<string|number|boolean>},
     reportProgress?: boolean,
     responseType?: 'json',
     withCredentials?: boolean,
@@ -2094,8 +2233,10 @@ export class HttpClient {
    */
   head(url: string, options: {
     headers?: HttpHeaders|{[header: string]: string | string[]},
-    observe?: HttpObserve,
-    params?: HttpParams|{[param: string]: string | string[]},
+    context?: HttpContext,
+    observe?: 'body'|'events'|'response',
+    params?: HttpParams|
+          {[param: string]: string | number | boolean | ReadonlyArray<string|number|boolean>},
     reportProgress?: boolean,
     responseType?: 'arraybuffer'|'blob'|'json'|'text',
     withCredentials?: boolean,
@@ -2203,8 +2344,10 @@ export class HttpClient {
    */
   options(url: string, options: {
     headers?: HttpHeaders|{[header: string]: string | string[]},
+    context?: HttpContext,
     observe?: 'body',
-    params?: HttpParams|{[param: string]: string | string[]},
+    params?: HttpParams|
+          {[param: string]: string | number | boolean | ReadonlyArray<string|number|boolean>},
     reportProgress?: boolean, responseType: 'arraybuffer',
     withCredentials?: boolean,
   }): Observable<ArrayBuffer>;
@@ -2230,8 +2373,10 @@ export class HttpClient {
    */
   options(url: string, options: {
     headers?: HttpHeaders|{[header: string]: string | string[]},
+    context?: HttpContext,
     observe?: 'body',
-    params?: HttpParams|{[param: string]: string | string[]},
+    params?: HttpParams|
+          {[param: string]: string | number | boolean | ReadonlyArray<string|number|boolean>},
     reportProgress?: boolean, responseType: 'blob',
     withCredentials?: boolean,
   }): Observable<Blob>;
@@ -2257,8 +2402,10 @@ export class HttpClient {
    */
   options(url: string, options: {
     headers?: HttpHeaders|{[header: string]: string | string[]},
+    context?: HttpContext,
     observe?: 'body',
-    params?: HttpParams|{[param: string]: string | string[]},
+    params?: HttpParams|
+          {[param: string]: string | number | boolean | ReadonlyArray<string|number|boolean>},
     reportProgress?: boolean, responseType: 'text',
     withCredentials?: boolean,
   }): Observable<string>;
@@ -2277,7 +2424,7 @@ export class HttpClient {
    *
    * HTTP 选项。
    *
-   * @return  An `Observable` of all `HttpEvents` for the request,
+   * @return  An `Observable` of all `HttpEvent`s for the request,
    * with the response body as an `ArrayBuffer`.
    *
    * 此请求的 `HttpEvents` 的 `Observable`，其响应体为 `ArrayBuffer` 类型。
@@ -2285,7 +2432,9 @@ export class HttpClient {
    */
   options(url: string, options: {
     headers?: HttpHeaders|{[header: string]: string | string[]}, observe: 'events',
-    params?: HttpParams|{[param: string]: string | string[]},
+    context?: HttpContext,
+    params?: HttpParams|
+          {[param: string]: string | number | boolean | ReadonlyArray<string|number|boolean>},
     reportProgress?: boolean, responseType: 'arraybuffer',
     withCredentials?: boolean,
   }): Observable<HttpEvent<ArrayBuffer>>;
@@ -2304,7 +2453,7 @@ export class HttpClient {
    *
    * HTTP 选项。
    *
-   * @return An `Observable` of all `HttpEvents` for the request,
+   * @return An `Observable` of all `HttpEvent`s for the request,
    * with the response body as a `Blob`.
    *
    * 此请求的 `HttpEvents` 的 `Observable`，其响应体为 `Blob` 类型。
@@ -2312,7 +2461,9 @@ export class HttpClient {
    */
   options(url: string, options: {
     headers?: HttpHeaders|{[header: string]: string | string[]}, observe: 'events',
-    params?: HttpParams|{[param: string]: string | string[]},
+    context?: HttpContext,
+    params?: HttpParams|
+          {[param: string]: string | number | boolean | ReadonlyArray<string|number|boolean>},
     reportProgress?: boolean, responseType: 'blob',
     withCredentials?: boolean,
   }): Observable<HttpEvent<Blob>>;
@@ -2331,7 +2482,7 @@ export class HttpClient {
    *
    * HTTP 选项。
    *
-   * @return An `Observable` of all the `HTTPEvents` for the request,
+   * @return An `Observable` of all the `HttpEvent`s for the request,
    * with the response body of type string.
    *
    * 此请求的 `HTTPEvents` 的 `Observable`，其响应体为 string 类型。
@@ -2339,7 +2490,9 @@ export class HttpClient {
    */
   options(url: string, options: {
     headers?: HttpHeaders|{[header: string]: string | string[]}, observe: 'events',
-    params?: HttpParams|{[param: string]: string | string[]},
+    context?: HttpContext,
+    params?: HttpParams|
+          {[param: string]: string | number | boolean | ReadonlyArray<string|number|boolean>},
     reportProgress?: boolean, responseType: 'text',
     withCredentials?: boolean,
   }): Observable<HttpEvent<string>>;
@@ -2358,7 +2511,7 @@ export class HttpClient {
    *
    * HTTP 选项。
    *
-   * @return An `Observable` of all the `HttpEvents` for the request with the response
+   * @return An `Observable` of all the `HttpEvent`s for the request with the response
    * body of type `Object`.
    *
    * 表示啥此请求的 `HttpEvents` 的 `Observable`，响应体为 `Object` 类型。
@@ -2366,7 +2519,9 @@ export class HttpClient {
    */
   options(url: string, options: {
     headers?: HttpHeaders|{[header: string]: string | string[]}, observe: 'events',
-    params?: HttpParams|{[param: string]: string | string[]},
+    context?: HttpContext,
+    params?: HttpParams|
+          {[param: string]: string | number | boolean | ReadonlyArray<string|number|boolean>},
     reportProgress?: boolean,
     responseType?: 'json',
     withCredentials?: boolean,
@@ -2386,7 +2541,7 @@ export class HttpClient {
    *
    * HTTP 选项。
    *
-   * @return An `Observable` of all the `HttpEvents` for the request,
+   * @return An `Observable` of all the `HttpEvent`s for the request,
    * with a response body in the requested type.
    *
    * 此请求的 `HttpEvents` 的 `Observable`，其响应体为所请求的类型。
@@ -2394,7 +2549,9 @@ export class HttpClient {
    */
   options<T>(url: string, options: {
     headers?: HttpHeaders|{[header: string]: string | string[]}, observe: 'events',
-    params?: HttpParams|{[param: string]: string | string[]},
+    context?: HttpContext,
+    params?: HttpParams|
+          {[param: string]: string | number | boolean | ReadonlyArray<string|number|boolean>},
     reportProgress?: boolean,
     responseType?: 'json',
     withCredentials?: boolean,
@@ -2422,14 +2579,16 @@ export class HttpClient {
    */
   options(url: string, options: {
     headers?: HttpHeaders|{[header: string]: string | string[]}, observe: 'response',
-    params?: HttpParams|{[param: string]: string | string[]},
+    context?: HttpContext,
+    params?: HttpParams|
+          {[param: string]: string | number | boolean | ReadonlyArray<string|number|boolean>},
     reportProgress?: boolean, responseType: 'arraybuffer',
     withCredentials?: boolean,
   }): Observable<HttpResponse<ArrayBuffer>>;
 
   /**
    * Constructs an `OPTIONS` request that interprets the body as a `Blob`
-   *  and returns the full `HTTPResponse`.
+   *  and returns the full `HttpResponse`.
    *
    * 构造一个 `OPTIONS` 请求，它将请求体解释为 `Blob`，并且返回完整的 `HttpResponse`。
    *
@@ -2442,21 +2601,23 @@ export class HttpClient {
    * HTTP 选项。
    *
    * @return An `Observable` of the `HttpResponse` for the request,
-   *  with the response body as a `Blob`.
+   * with the response body as a `Blob`.
    *
    * 此请求的响应对象的 `Observable`，其响应体为 `Blob` 类型。
    *
    */
   options(url: string, options: {
     headers?: HttpHeaders|{[header: string]: string | string[]}, observe: 'response',
-    params?: HttpParams|{[param: string]: string | string[]},
+    context?: HttpContext,
+    params?: HttpParams|
+          {[param: string]: string | number | boolean | ReadonlyArray<string|number|boolean>},
     reportProgress?: boolean, responseType: 'blob',
     withCredentials?: boolean,
   }): Observable<HttpResponse<Blob>>;
 
   /**
    * Constructs an `OPTIONS` request that interprets the body as text stream
-   * and returns the full `HTTPResponse`.
+   * and returns the full `HttpResponse`.
    *
    * 构造一个 `OPTIONS` 请求，它将请求体解释为文本流，并且返回完整的 `HttpResponse`。
    *
@@ -2469,21 +2630,23 @@ export class HttpClient {
    * HTTP 选项。
    *
    * @return An `Observable` of the `HttpResponse` for the request,
-   *  with the response body of type string.
+   * with the response body of type string.
    *
    * 此请求的响应对象的 `Observable`，其响应体为 string 类型。
    *
    */
   options(url: string, options: {
     headers?: HttpHeaders|{[header: string]: string | string[]}, observe: 'response',
-    params?: HttpParams|{[param: string]: string | string[]},
+    context?: HttpContext,
+    params?: HttpParams|
+          {[param: string]: string | number | boolean | ReadonlyArray<string|number|boolean>},
     reportProgress?: boolean, responseType: 'text',
     withCredentials?: boolean,
   }): Observable<HttpResponse<string>>;
 
   /**
    * Constructs an `OPTIONS` request that interprets the body as a JSON object
-   * and returns the full `HTTPResponse`.
+   * and returns the full `HttpResponse`.
    *
    * 构造一个 `OPTIONS` 请求，它将请求体解释为 JSON 对象，并且返回完整的 `HttpResponse`。
    *
@@ -2503,7 +2666,9 @@ export class HttpClient {
    */
   options(url: string, options: {
     headers?: HttpHeaders|{[header: string]: string | string[]}, observe: 'response',
-    params?: HttpParams|{[param: string]: string | string[]},
+    context?: HttpContext,
+    params?: HttpParams|
+          {[param: string]: string | number | boolean | ReadonlyArray<string|number|boolean>},
     reportProgress?: boolean,
     responseType?: 'json',
     withCredentials?: boolean,
@@ -2511,7 +2676,7 @@ export class HttpClient {
 
   /**
    * Constructs an `OPTIONS` request that interprets the body as a JSON object and
-   * returns the full `HTTPResponse`.
+   * returns the full `HttpResponse`.
    *
    * 构造一个 `OPTIONS` 请求，它将请求体解释为 JSON 对象，并且返回完整的 `HttpResponse`。
    *
@@ -2531,7 +2696,9 @@ export class HttpClient {
    */
   options<T>(url: string, options: {
     headers?: HttpHeaders|{[header: string]: string | string[]}, observe: 'response',
-    params?: HttpParams|{[param: string]: string | string[]},
+    context?: HttpContext,
+    params?: HttpParams|
+          {[param: string]: string | number | boolean | ReadonlyArray<string|number|boolean>},
     reportProgress?: boolean,
     responseType?: 'json',
     withCredentials?: boolean,
@@ -2558,8 +2725,10 @@ export class HttpClient {
    */
   options(url: string, options?: {
     headers?: HttpHeaders|{[header: string]: string | string[]},
+    context?: HttpContext,
     observe?: 'body',
-    params?: HttpParams|{[param: string]: string | string[]},
+    params?: HttpParams|
+          {[param: string]: string | number | boolean | ReadonlyArray<string|number|boolean>},
     reportProgress?: boolean,
     responseType?: 'json',
     withCredentials?: boolean,
@@ -2579,15 +2748,17 @@ export class HttpClient {
    *
    * HTTP 选项。
    *
-   * @return An `Observable` of the `HTTPResponse`, with a response body of the given type.
+   * @return An `Observable` of the `HttpResponse`, with a response body of the given type.
    *
    * 此请求的响应对象的 `Observable`，其响应体为给定的类型。
    *
    */
   options<T>(url: string, options?: {
     headers?: HttpHeaders|{[header: string]: string | string[]},
+    context?: HttpContext,
     observe?: 'body',
-    params?: HttpParams|{[param: string]: string | string[]},
+    params?: HttpParams|
+          {[param: string]: string | number | boolean | ReadonlyArray<string|number|boolean>},
     reportProgress?: boolean,
     responseType?: 'json',
     withCredentials?: boolean,
@@ -2605,8 +2776,10 @@ export class HttpClient {
    */
   options(url: string, options: {
     headers?: HttpHeaders|{[header: string]: string | string[]},
-    observe?: HttpObserve,
-    params?: HttpParams|{[param: string]: string | string[]},
+    context?: HttpContext,
+    observe?: 'body'|'events'|'response',
+    params?: HttpParams|
+          {[param: string]: string | number | boolean | ReadonlyArray<string|number|boolean>},
     reportProgress?: boolean,
     responseType?: 'arraybuffer'|'blob'|'json'|'text',
     withCredentials?: boolean,
@@ -2639,8 +2812,10 @@ export class HttpClient {
    */
   patch(url: string, body: any|null, options: {
     headers?: HttpHeaders|{[header: string]: string | string[]},
+    context?: HttpContext,
     observe?: 'body',
-    params?: HttpParams|{[param: string]: string | string[]},
+    params?: HttpParams|
+          {[param: string]: string | number | boolean | ReadonlyArray<string|number|boolean>},
     reportProgress?: boolean, responseType: 'arraybuffer',
     withCredentials?: boolean,
   }): Observable<ArrayBuffer>;
@@ -2670,8 +2845,10 @@ export class HttpClient {
    */
   patch(url: string, body: any|null, options: {
     headers?: HttpHeaders|{[header: string]: string | string[]},
+    context?: HttpContext,
     observe?: 'body',
-    params?: HttpParams|{[param: string]: string | string[]},
+    params?: HttpParams|
+          {[param: string]: string | number | boolean | ReadonlyArray<string|number|boolean>},
     reportProgress?: boolean, responseType: 'blob',
     withCredentials?: boolean,
   }): Observable<Blob>;
@@ -2701,15 +2878,17 @@ export class HttpClient {
    */
   patch(url: string, body: any|null, options: {
     headers?: HttpHeaders|{[header: string]: string | string[]},
+    context?: HttpContext,
     observe?: 'body',
-    params?: HttpParams|{[param: string]: string | string[]},
+    params?: HttpParams|
+          {[param: string]: string | number | boolean | ReadonlyArray<string|number|boolean>},
     reportProgress?: boolean, responseType: 'text',
     withCredentials?: boolean,
   }): Observable<string>;
 
   /**
    * Constructs a `PATCH` request that interprets the body as an `ArrayBuffer` and
-   *  returns the the full event stream.
+   *  returns the full event stream.
    *
    * 构造一个 `PATCH` 请求，它将请求体解释为 `ArrayBuffer`，并返回完整的事件流。
    *
@@ -2725,7 +2904,7 @@ export class HttpClient {
    *
    * HTTP 选项。
    *
-   * @return An `Observable` of all the `HTTPevents` for the request,
+   * @return An `Observable` of all the `HttpEvent`s for the request,
    * with the response body as an `ArrayBuffer`.
    *
    * 此请求的 `HTTPevents` 的 `Observable`，其响应体为 `ArrayBuffer` 类型。
@@ -2734,7 +2913,9 @@ export class HttpClient {
 
   patch(url: string, body: any|null, options: {
     headers?: HttpHeaders|{[header: string]: string | string[]}, observe: 'events',
-    params?: HttpParams|{[param: string]: string | string[]},
+    context?: HttpContext,
+    params?: HttpParams|
+          {[param: string]: string | number | boolean | ReadonlyArray<string|number|boolean>},
     reportProgress?: boolean, responseType: 'arraybuffer',
     withCredentials?: boolean,
   }): Observable<HttpEvent<ArrayBuffer>>;
@@ -2757,7 +2938,7 @@ export class HttpClient {
    *
    * HTTP 选项。
    *
-   * @return An `Observable` of all the `HTTPevents` for the request, with the
+   * @return An `Observable` of all the `HttpEvent`s for the request, with the
    * response body as `Blob`.
    *
    * 表示此请求的 `HTTPevents` 的 `Observable`，响应体为 `Blob` 类型。
@@ -2765,7 +2946,9 @@ export class HttpClient {
    */
   patch(url: string, body: any|null, options: {
     headers?: HttpHeaders|{[header: string]: string | string[]}, observe: 'events',
-    params?: HttpParams|{[param: string]: string | string[]},
+    context?: HttpContext,
+    params?: HttpParams|
+          {[param: string]: string | number | boolean | ReadonlyArray<string|number|boolean>},
     reportProgress?: boolean, responseType: 'blob',
     withCredentials?: boolean,
   }): Observable<HttpEvent<Blob>>;
@@ -2788,7 +2971,7 @@ export class HttpClient {
    *
    * HTTP 选项。
    *
-   * @return An `Observable` of all the `HTTPevents`for the request, with a
+   * @return An `Observable` of all the `HttpEvent`s for the request, with a
    * response body of type string.
    *
    * 表示啥此请求的 `HTTPevents` 的 `Observable`，响应体为 string 类型。
@@ -2796,7 +2979,9 @@ export class HttpClient {
    */
   patch(url: string, body: any|null, options: {
     headers?: HttpHeaders|{[header: string]: string | string[]}, observe: 'events',
-    params?: HttpParams|{[param: string]: string | string[]},
+    context?: HttpContext,
+    params?: HttpParams|
+          {[param: string]: string | number | boolean | ReadonlyArray<string|number|boolean>},
     reportProgress?: boolean, responseType: 'text',
     withCredentials?: boolean,
   }): Observable<HttpEvent<string>>;
@@ -2819,7 +3004,7 @@ export class HttpClient {
    *
    * HTTP 选项。
    *
-   * @return An `Observable` of all the `HTTPevents` for the request,
+   * @return An `Observable` of all the `HttpEvent`s for the request,
    * with a response body of type `Object`.
    *
    * 此请求的 `HTTPevents` 的 `Observable`，其响应体为 `Object` 类型。
@@ -2827,7 +3012,9 @@ export class HttpClient {
    */
   patch(url: string, body: any|null, options: {
     headers?: HttpHeaders|{[header: string]: string | string[]}, observe: 'events',
-    params?: HttpParams|{[param: string]: string | string[]},
+    context?: HttpContext,
+    params?: HttpParams|
+          {[param: string]: string | number | boolean | ReadonlyArray<string|number|boolean>},
     reportProgress?: boolean,
     responseType?: 'json',
     withCredentials?: boolean,
@@ -2851,15 +3038,17 @@ export class HttpClient {
    *
    * HTTP 选项。
    *
-   * @return An `Observable` of all the `HTTPevents` for the request,
-   *  with a response body in the requested type.
+   * @return An `Observable` of all the `HttpEvent`s for the request,
+   * with a response body in the requested type.
    *
    * 此请求的 `HTTPevents` 的 `Observable`，其响应体为所请求的类型。
    *
    */
   patch<T>(url: string, body: any|null, options: {
     headers?: HttpHeaders|{[header: string]: string | string[]}, observe: 'events',
-    params?: HttpParams|{[param: string]: string | string[]},
+    context?: HttpContext,
+    params?: HttpParams|
+          {[param: string]: string | number | boolean | ReadonlyArray<string|number|boolean>},
     reportProgress?: boolean,
     responseType?: 'json',
     withCredentials?: boolean,
@@ -2867,7 +3056,7 @@ export class HttpClient {
 
   /**
    * Constructs a `PATCH` request that interprets the body as an `ArrayBuffer`
-   *  and returns the full `HTTPResponse`.
+   *  and returns the full `HttpResponse`.
    *
    * 构造一个 `PATCH` 请求，它将请求体解释为 `ArrayBuffer`，并且返回完整的 `HttpResponse`。
    *
@@ -2884,21 +3073,23 @@ export class HttpClient {
    * HTTP 选项。
    *
    * @return  An `Observable` of the `HttpResponse` for the request,
-   *  with the response body as an `ArrayBuffer`.
+   * with the response body as an `ArrayBuffer`.
    *
    * 此请求的响应对象的 `Observable`，其响应体为 `ArrayBuffer` 类型。
    *
    */
   patch(url: string, body: any|null, options: {
     headers?: HttpHeaders|{[header: string]: string | string[]}, observe: 'response',
-    params?: HttpParams|{[param: string]: string | string[]},
+    context?: HttpContext,
+    params?: HttpParams|
+          {[param: string]: string | number | boolean | ReadonlyArray<string|number|boolean>},
     reportProgress?: boolean, responseType: 'arraybuffer',
     withCredentials?: boolean,
   }): Observable<HttpResponse<ArrayBuffer>>;
 
   /**
    * Constructs a `PATCH` request that interprets the body as a `Blob` and returns the full
-   * `HTTPResponse`.
+   * `HttpResponse`.
    *
    * 构造一个 `PATCH` 请求，它将请求体解释为 `Blob`，并且返回完整的 `HttpResponse`。
    *
@@ -2922,14 +3113,16 @@ export class HttpClient {
    */
   patch(url: string, body: any|null, options: {
     headers?: HttpHeaders|{[header: string]: string | string[]}, observe: 'response',
-    params?: HttpParams|{[param: string]: string | string[]},
+    context?: HttpContext,
+    params?: HttpParams|
+          {[param: string]: string | number | boolean | ReadonlyArray<string|number|boolean>},
     reportProgress?: boolean, responseType: 'blob',
     withCredentials?: boolean,
   }): Observable<HttpResponse<Blob>>;
 
   /**
    * Constructs a `PATCH` request that interprets the body as a text stream and returns the
-   * full `HTTPResponse`.
+   * full `HttpResponse`.
    *
    * 构造一个 `PATCH` 请求，它将请求体解释为文本流，并且返回完整的 `HttpResponse`。
    *
@@ -2953,14 +3146,16 @@ export class HttpClient {
    */
   patch(url: string, body: any|null, options: {
     headers?: HttpHeaders|{[header: string]: string | string[]}, observe: 'response',
-    params?: HttpParams|{[param: string]: string | string[]},
+    context?: HttpContext,
+    params?: HttpParams|
+          {[param: string]: string | number | boolean | ReadonlyArray<string|number|boolean>},
     reportProgress?: boolean, responseType: 'text',
     withCredentials?: boolean,
   }): Observable<HttpResponse<string>>;
 
   /**
    * Constructs a `PATCH` request that interprets the body as a JSON object
-   * and returns the full `HTTPResponse`.
+   * and returns the full `HttpResponse`.
    *
    * 构造一个 `PATCH` 请求，它将请求体解释为 JSON 对象，并且返回完整的 `HttpResponse`。
    *
@@ -2984,7 +3179,9 @@ export class HttpClient {
    */
   patch(url: string, body: any|null, options: {
     headers?: HttpHeaders|{[header: string]: string | string[]}, observe: 'response',
-    params?: HttpParams|{[param: string]: string | string[]},
+    context?: HttpContext,
+    params?: HttpParams|
+          {[param: string]: string | number | boolean | ReadonlyArray<string|number|boolean>},
     reportProgress?: boolean,
     responseType?: 'json',
     withCredentials?: boolean,
@@ -2992,7 +3189,7 @@ export class HttpClient {
 
   /**
    * Constructs a `PATCH` request that interprets the body as a JSON object
-   * and returns the full `HTTPResponse`.
+   * and returns the full `HttpResponse`.
    *
    * 构造一个 `PATCH` 请求，它将请求体解释为 JSON 对象，并且返回完整的 `HttpResponse`。
    *
@@ -3016,7 +3213,9 @@ export class HttpClient {
    */
   patch<T>(url: string, body: any|null, options: {
     headers?: HttpHeaders|{[header: string]: string | string[]}, observe: 'response',
-    params?: HttpParams|{[param: string]: string | string[]},
+    context?: HttpContext,
+    params?: HttpParams|
+          {[param: string]: string | number | boolean | ReadonlyArray<string|number|boolean>},
     reportProgress?: boolean,
     responseType?: 'json',
     withCredentials?: boolean,
@@ -3047,8 +3246,10 @@ export class HttpClient {
    */
   patch(url: string, body: any|null, options?: {
     headers?: HttpHeaders|{[header: string]: string | string[]},
+    context?: HttpContext,
     observe?: 'body',
-    params?: HttpParams|{[param: string]: string | string[]},
+    params?: HttpParams|
+          {[param: string]: string | number | boolean | ReadonlyArray<string|number|boolean>},
     reportProgress?: boolean,
     responseType?: 'json',
     withCredentials?: boolean,
@@ -3080,8 +3281,10 @@ export class HttpClient {
    */
   patch<T>(url: string, body: any|null, options?: {
     headers?: HttpHeaders|{[header: string]: string | string[]},
+    context?: HttpContext,
     observe?: 'body',
-    params?: HttpParams|{[param: string]: string | string[]},
+    params?: HttpParams|
+          {[param: string]: string | number | boolean | ReadonlyArray<string|number|boolean>},
     reportProgress?: boolean,
     responseType?: 'json',
     withCredentials?: boolean,
@@ -3097,8 +3300,10 @@ export class HttpClient {
    */
   patch(url: string, body: any|null, options: {
     headers?: HttpHeaders|{[header: string]: string | string[]},
-    observe?: HttpObserve,
-    params?: HttpParams|{[param: string]: string | string[]},
+    context?: HttpContext,
+    observe?: 'body'|'events'|'response',
+    params?: HttpParams|
+          {[param: string]: string | number | boolean | ReadonlyArray<string|number|boolean>},
     reportProgress?: boolean,
     responseType?: 'arraybuffer'|'blob'|'json'|'text',
     withCredentials?: boolean,
@@ -3131,8 +3336,10 @@ export class HttpClient {
    */
   post(url: string, body: any|null, options: {
     headers?: HttpHeaders|{[header: string]: string | string[]},
+    context?: HttpContext,
     observe?: 'body',
-    params?: HttpParams|{[param: string]: string | string[]},
+    params?: HttpParams|
+          {[param: string]: string | number | boolean | ReadonlyArray<string|number|boolean>},
     reportProgress?: boolean, responseType: 'arraybuffer',
     withCredentials?: boolean,
   }): Observable<ArrayBuffer>;
@@ -3162,8 +3369,10 @@ export class HttpClient {
    */
   post(url: string, body: any|null, options: {
     headers?: HttpHeaders|{[header: string]: string | string[]},
+    context?: HttpContext,
     observe?: 'body',
-    params?: HttpParams|{[param: string]: string | string[]},
+    params?: HttpParams|
+          {[param: string]: string | number | boolean | ReadonlyArray<string|number|boolean>},
     reportProgress?: boolean, responseType: 'blob',
     withCredentials?: boolean,
   }): Observable<Blob>;
@@ -3193,8 +3402,10 @@ export class HttpClient {
    */
   post(url: string, body: any|null, options: {
     headers?: HttpHeaders|{[header: string]: string | string[]},
+    context?: HttpContext,
     observe?: 'body',
-    params?: HttpParams|{[param: string]: string | string[]},
+    params?: HttpParams|
+          {[param: string]: string | number | boolean | ReadonlyArray<string|number|boolean>},
     reportProgress?: boolean, responseType: 'text',
     withCredentials?: boolean,
   }): Observable<string>;
@@ -3217,7 +3428,7 @@ export class HttpClient {
    *
    * HTTP 选项
    *
-   * @return An `Observable` of all `HttpEvents` for the request,
+   * @return An `Observable` of all `HttpEvent`s for the request,
    * with the response body as an `ArrayBuffer`.
    *
    * 此请求的 `HttpEvents` 的 `Observable`，其响应体为 `ArrayBuffer` 类型。
@@ -3225,7 +3436,9 @@ export class HttpClient {
    */
   post(url: string, body: any|null, options: {
     headers?: HttpHeaders|{[header: string]: string | string[]}, observe: 'events',
-    params?: HttpParams|{[param: string]: string | string[]},
+    context?: HttpContext,
+    params?: HttpParams|
+          {[param: string]: string | number | boolean | ReadonlyArray<string|number|boolean>},
     reportProgress?: boolean, responseType: 'arraybuffer',
     withCredentials?: boolean,
   }): Observable<HttpEvent<ArrayBuffer>>;
@@ -3248,14 +3461,16 @@ export class HttpClient {
    *
    * HTTP 选项
    *
-   * @return An `Observable` of all `HttpEvents` for the request, with the response body as `Blob`.
+   * @return An `Observable` of all `HttpEvent`s for the request, with the response body as `Blob`.
    *
    * 此请求的 `HttpEvents` 的 `Observable`，其响应体为 `Blob` 类型。
    *
    */
   post(url: string, body: any|null, options: {
     headers?: HttpHeaders|{[header: string]: string | string[]}, observe: 'events',
-    params?: HttpParams|{[param: string]: string | string[]},
+    context?: HttpContext,
+    params?: HttpParams|
+          {[param: string]: string | number | boolean | ReadonlyArray<string|number|boolean>},
     reportProgress?: boolean, responseType: 'blob',
     withCredentials?: boolean,
   }): Observable<HttpEvent<Blob>>;
@@ -3278,7 +3493,7 @@ export class HttpClient {
    *
    * HTTP 选项
    *
-   * @return  An `Observable` of all `HttpEvents` for the request,
+   * @return  An `Observable` of all `HttpEvent`s for the request,
    * with a response body of type string.
    *
    * 此请求的 `HttpEvents` 的 `Observable`，其响应体为 string 类型。
@@ -3286,7 +3501,9 @@ export class HttpClient {
    */
   post(url: string, body: any|null, options: {
     headers?: HttpHeaders|{[header: string]: string | string[]}, observe: 'events',
-    params?: HttpParams|{[param: string]: string | string[]},
+    context?: HttpContext,
+    params?: HttpParams|
+          {[param: string]: string | number | boolean | ReadonlyArray<string|number|boolean>},
     reportProgress?: boolean, responseType: 'text',
     withCredentials?: boolean,
   }): Observable<HttpEvent<string>>;
@@ -3309,7 +3526,7 @@ export class HttpClient {
    *
    * HTTP 选项
    *
-   * @return  An `Observable` of all `HttpEvents` for the request,
+   * @return  An `Observable` of all `HttpEvent`s for the request,
    * with a response body of type `Object`.
    *
    * 此请求的 `HttpEvents` 的 `Observable`，其响应体为 `Object` 类型。
@@ -3317,7 +3534,9 @@ export class HttpClient {
    */
   post(url: string, body: any|null, options: {
     headers?: HttpHeaders|{[header: string]: string | string[]}, observe: 'events',
-    params?: HttpParams|{[param: string]: string | string[]},
+    context?: HttpContext,
+    params?: HttpParams|
+          {[param: string]: string | number | boolean | ReadonlyArray<string|number|boolean>},
     reportProgress?: boolean,
     responseType?: 'json',
     withCredentials?: boolean,
@@ -3341,7 +3560,7 @@ export class HttpClient {
    *
    * HTTP 选项
    *
-   * @return An `Observable` of all `HttpEvents` for the request,
+   * @return An `Observable` of all `HttpEvent`s for the request,
    * with a response body in the requested type.
    *
    * 此请求的 `HttpEvents` 的 `Observable`，其响应体为所请求的类型。
@@ -3349,7 +3568,9 @@ export class HttpClient {
    */
   post<T>(url: string, body: any|null, options: {
     headers?: HttpHeaders|{[header: string]: string | string[]}, observe: 'events',
-    params?: HttpParams|{[param: string]: string | string[]},
+    context?: HttpContext,
+    params?: HttpParams|
+          {[param: string]: string | number | boolean | ReadonlyArray<string|number|boolean>},
     reportProgress?: boolean,
     responseType?: 'json',
     withCredentials?: boolean,
@@ -3357,7 +3578,7 @@ export class HttpClient {
 
   /**
    * Constructs a POST request that interprets the body as an `ArrayBuffer`
-   *  and returns the full `HTTPresponse`.
+   *  and returns the full `HttpResponse`.
    *
    * 构造一个 POST 请求，它将请求体解释为 `ArrayBuffer` 类型，并返回完整的 `HTTPresponse` 。
    *
@@ -3373,22 +3594,24 @@ export class HttpClient {
    *
    * HTTP 选项
    *
-   * @return  An `Observable` of the `HTTPResponse` for the request, with the response body as an
-   *     `ArrayBuffer`.
+   * @return  An `Observable` of the `HttpResponse` for the request, with the response body as an
+   * `ArrayBuffer`.
    *
    * 此请求的响应对象的 `Observable`，其响应体为 `ArrayBuffer` 类型。
    *
    */
   post(url: string, body: any|null, options: {
     headers?: HttpHeaders|{[header: string]: string | string[]}, observe: 'response',
-    params?: HttpParams|{[param: string]: string | string[]},
+    context?: HttpContext,
+    params?: HttpParams|
+          {[param: string]: string | number | boolean | ReadonlyArray<string|number|boolean>},
     reportProgress?: boolean, responseType: 'arraybuffer',
     withCredentials?: boolean,
   }): Observable<HttpResponse<ArrayBuffer>>;
 
   /**
    * Constructs a `POST` request that interprets the body as a `Blob` and returns the full
-   * `HTTPResponse`.
+   * `HttpResponse`.
    *
    * 构造一个 `POST` 请求，它将请求体解释为 `Blob`，并且返回完整的 `HttpResponse`。
    *
@@ -3404,7 +3627,7 @@ export class HttpClient {
    *
    * HTTP 选项
    *
-   * @return An `Observable` of the `HTTPResponse` for the request,
+   * @return An `Observable` of the `HttpResponse` for the request,
    * with the response body as a `Blob`.
    *
    * 此请求的响应对象的 `Observable`，其响应体为 `Blob` 类型。
@@ -3412,14 +3635,16 @@ export class HttpClient {
    */
   post(url: string, body: any|null, options: {
     headers?: HttpHeaders|{[header: string]: string | string[]}, observe: 'response',
-    params?: HttpParams|{[param: string]: string | string[]},
+    context?: HttpContext,
+    params?: HttpParams|
+          {[param: string]: string | number | boolean | ReadonlyArray<string|number|boolean>},
     reportProgress?: boolean, responseType: 'blob',
     withCredentials?: boolean,
   }): Observable<HttpResponse<Blob>>;
 
   /**
    * Constructs a `POST` request that interprets the body as a text stream and returns
-   * the full `HTTPResponse`.
+   * the full `HttpResponse`.
    *
    * 构造一个 `POST` 请求，它将请求体解释为文本流，并且返回完整的 `HttpResponse`。
    *
@@ -3435,7 +3660,7 @@ export class HttpClient {
    *
    * HTTP 选项
    *
-   * @return  An `Observable` of the `HTTPResponse` for the request,
+   * @return  An `Observable` of the `HttpResponse` for the request,
    * with a response body of type string.
    *
    * 此请求的响应对象的 `Observable`，其响应体为 string 类型。
@@ -3443,14 +3668,16 @@ export class HttpClient {
    */
   post(url: string, body: any|null, options: {
     headers?: HttpHeaders|{[header: string]: string | string[]}, observe: 'response',
-    params?: HttpParams|{[param: string]: string | string[]},
+    context?: HttpContext,
+    params?: HttpParams|
+          {[param: string]: string | number | boolean | ReadonlyArray<string|number|boolean>},
     reportProgress?: boolean, responseType: 'text',
     withCredentials?: boolean,
   }): Observable<HttpResponse<string>>;
 
   /**
    * Constructs a `POST` request that interprets the body as a JSON object
-   * and returns the full `HTTPResponse`.
+   * and returns the full `HttpResponse`.
    *
    * 构造一个 `POST` 请求，它将请求体解释为 JSON 对象，并且返回完整的 `HttpResponse`。
    *
@@ -3466,7 +3693,7 @@ export class HttpClient {
    *
    * HTTP 选项
    *
-   * @return An `Observable` of the `HTTPResponse` for the request, with a response body of type
+   * @return An `Observable` of the `HttpResponse` for the request, with a response body of type
    * `Object`.
    *
    * 表示啥此请求的 `HTTPResponse` 的 `Observable`，响应体为 `Object` 类型。
@@ -3474,7 +3701,9 @@ export class HttpClient {
    */
   post(url: string, body: any|null, options: {
     headers?: HttpHeaders|{[header: string]: string | string[]}, observe: 'response',
-    params?: HttpParams|{[param: string]: string | string[]},
+    context?: HttpContext,
+    params?: HttpParams|
+          {[param: string]: string | number | boolean | ReadonlyArray<string|number|boolean>},
     reportProgress?: boolean,
     responseType?: 'json',
     withCredentials?: boolean,
@@ -3482,7 +3711,7 @@ export class HttpClient {
 
   /**
    * Constructs a `POST` request that interprets the body as a JSON object and returns the full
-   * `HTTPResponse`.
+   * `HttpResponse`.
    *
    * 构造一个 `POST` 请求，它将请求体解释为 JSON 对象，并且返回完整的 `HttpResponse`。
    *
@@ -3498,15 +3727,17 @@ export class HttpClient {
    *
    * HTTP 选项
    *
-   * @return An `Observable` of the `HTTPResponse` for the request, with a response body in the
-   *     requested type.
+   * @return An `Observable` of the `HttpResponse` for the request, with a response body in the
+   * requested type.
    *
    * 表示此请求的 `HTTPResponse` 的 `Observable`，响应体为所请求的类型。
    *
    */
   post<T>(url: string, body: any|null, options: {
     headers?: HttpHeaders|{[header: string]: string | string[]}, observe: 'response',
-    params?: HttpParams|{[param: string]: string | string[]},
+    context?: HttpContext,
+    params?: HttpParams|
+          {[param: string]: string | number | boolean | ReadonlyArray<string|number|boolean>},
     reportProgress?: boolean,
     responseType?: 'json',
     withCredentials?: boolean,
@@ -3537,8 +3768,10 @@ export class HttpClient {
    */
   post(url: string, body: any|null, options?: {
     headers?: HttpHeaders|{[header: string]: string | string[]},
+    context?: HttpContext,
     observe?: 'body',
-    params?: HttpParams|{[param: string]: string | string[]},
+    params?: HttpParams|
+          {[param: string]: string | number | boolean | ReadonlyArray<string|number|boolean>},
     reportProgress?: boolean,
     responseType?: 'json',
     withCredentials?: boolean,
@@ -3562,16 +3795,18 @@ export class HttpClient {
    *
    * HTTP 选项
    *
-   * @return  An `Observable` of the `HTTPResponse` for the request, with a response body in the
-   *     requested type.
+   * @return  An `Observable` of the `HttpResponse` for the request, with a response body in the
+   * requested type.
    *
    * 表示此请求的 `HTTPResponse` 的 `Observable`，响应体为所请求的类型。
    *
    */
   post<T>(url: string, body: any|null, options?: {
     headers?: HttpHeaders|{[header: string]: string | string[]},
+    context?: HttpContext,
     observe?: 'body',
-    params?: HttpParams|{[param: string]: string | string[]},
+    params?: HttpParams|
+          {[param: string]: string | number | boolean | ReadonlyArray<string|number|boolean>},
     reportProgress?: boolean,
     responseType?: 'json',
     withCredentials?: boolean,
@@ -3588,8 +3823,10 @@ export class HttpClient {
    */
   post(url: string, body: any|null, options: {
     headers?: HttpHeaders|{[header: string]: string | string[]},
-    observe?: HttpObserve,
-    params?: HttpParams|{[param: string]: string | string[]},
+    context?: HttpContext,
+    observe?: 'body'|'events'|'response',
+    params?: HttpParams|
+          {[param: string]: string | number | boolean | ReadonlyArray<string|number|boolean>},
     reportProgress?: boolean,
     responseType?: 'arraybuffer'|'blob'|'json'|'text',
     withCredentials?: boolean,
@@ -3622,8 +3859,10 @@ export class HttpClient {
    */
   put(url: string, body: any|null, options: {
     headers?: HttpHeaders|{[header: string]: string | string[]},
+    context?: HttpContext,
     observe?: 'body',
-    params?: HttpParams|{[param: string]: string | string[]},
+    params?: HttpParams|
+          {[param: string]: string | number | boolean | ReadonlyArray<string|number|boolean>},
     reportProgress?: boolean, responseType: 'arraybuffer',
     withCredentials?: boolean,
   }): Observable<ArrayBuffer>;
@@ -3653,8 +3892,10 @@ export class HttpClient {
    */
   put(url: string, body: any|null, options: {
     headers?: HttpHeaders|{[header: string]: string | string[]},
+    context?: HttpContext,
     observe?: 'body',
-    params?: HttpParams|{[param: string]: string | string[]},
+    params?: HttpParams|
+          {[param: string]: string | number | boolean | ReadonlyArray<string|number|boolean>},
     reportProgress?: boolean, responseType: 'blob',
     withCredentials?: boolean,
   }): Observable<Blob>;
@@ -3684,8 +3925,10 @@ export class HttpClient {
    */
   put(url: string, body: any|null, options: {
     headers?: HttpHeaders|{[header: string]: string | string[]},
+    context?: HttpContext,
     observe?: 'body',
-    params?: HttpParams|{[param: string]: string | string[]},
+    params?: HttpParams|
+          {[param: string]: string | number | boolean | ReadonlyArray<string|number|boolean>},
     reportProgress?: boolean, responseType: 'text',
     withCredentials?: boolean,
   }): Observable<string>;
@@ -3708,7 +3951,7 @@ export class HttpClient {
    *
    * HTTP 选项
    *
-   * @return An `Observable` of all `HttpEvents` for the request,
+   * @return An `Observable` of all `HttpEvent`s for the request,
    * with the response body as an `ArrayBuffer`.
    *
    * 此请求的 `HttpEvents` 的 `Observable`，其响应体为 `ArrayBuffer` 类型。
@@ -3716,7 +3959,9 @@ export class HttpClient {
    */
   put(url: string, body: any|null, options: {
     headers?: HttpHeaders|{[header: string]: string | string[]}, observe: 'events',
-    params?: HttpParams|{[param: string]: string | string[]},
+    context?: HttpContext,
+    params?: HttpParams|
+          {[param: string]: string | number | boolean | ReadonlyArray<string|number|boolean>},
     reportProgress?: boolean, responseType: 'arraybuffer',
     withCredentials?: boolean,
   }): Observable<HttpEvent<ArrayBuffer>>;
@@ -3739,7 +3984,7 @@ export class HttpClient {
    *
    * HTTP 选项
    *
-   * @return An `Observable` of all `HttpEvents` for the request,
+   * @return An `Observable` of all `HttpEvent`s for the request,
    * with the response body as a `Blob`.
    *
    * 此请求的 `HttpEvents` 的 `Observable`，其响应体为 `Blob` 类型。
@@ -3747,7 +3992,9 @@ export class HttpClient {
    */
   put(url: string, body: any|null, options: {
     headers?: HttpHeaders|{[header: string]: string | string[]}, observe: 'events',
-    params?: HttpParams|{[param: string]: string | string[]},
+    context?: HttpContext,
+    params?: HttpParams|
+          {[param: string]: string | number | boolean | ReadonlyArray<string|number|boolean>},
     reportProgress?: boolean, responseType: 'blob',
     withCredentials?: boolean,
   }): Observable<HttpEvent<Blob>>;
@@ -3770,7 +4017,7 @@ export class HttpClient {
    *
    * HTTP 选项
    *
-   * @return An `Observable` of all HttpEvents for the request, with a response body
+   * @return An `Observable` of all `HttpEvent`s for the request, with a response body
    * of type string.
    *
    * 表示啥此请求的 `HttpEvents for the request` 的 `Observable`，响应体为 string 类型。
@@ -3778,7 +4025,9 @@ export class HttpClient {
    */
   put(url: string, body: any|null, options: {
     headers?: HttpHeaders|{[header: string]: string | string[]}, observe: 'events',
-    params?: HttpParams|{[param: string]: string | string[]},
+    context?: HttpContext,
+    params?: HttpParams|
+          {[param: string]: string | number | boolean | ReadonlyArray<string|number|boolean>},
     reportProgress?: boolean, responseType: 'text',
     withCredentials?: boolean,
   }): Observable<HttpEvent<string>>;
@@ -3801,7 +4050,7 @@ export class HttpClient {
    *
    * HTTP 选项
    *
-   * @return An `Observable` of all `HttpEvents` for the request, with a response body of
+   * @return An `Observable` of all `HttpEvent`s for the request, with a response body of
    * type `Object`.
    *
    * 此请求的 `HttpEvents` 的 `Observable`，其响应体为 `Object` 类型。
@@ -3809,7 +4058,9 @@ export class HttpClient {
    */
   put(url: string, body: any|null, options: {
     headers?: HttpHeaders|{[header: string]: string | string[]}, observe: 'events',
-    params?: HttpParams|{[param: string]: string | string[]},
+    context?: HttpContext,
+    params?: HttpParams|
+          {[param: string]: string | number | boolean | ReadonlyArray<string|number|boolean>},
     reportProgress?: boolean,
     responseType?: 'json',
     withCredentials?: boolean,
@@ -3833,7 +4084,7 @@ export class HttpClient {
    *
    * HTTP 选项
    *
-   * @return An `Observable` of all `HttpEvents` for the request,
+   * @return An `Observable` of all `HttpEvent`s for the request,
    * with a response body in the requested type.
    *
    * 此请求的 `HttpEvents` 的 `Observable`，其响应体为所请求的类型。
@@ -3841,7 +4092,9 @@ export class HttpClient {
    */
   put<T>(url: string, body: any|null, options: {
     headers?: HttpHeaders|{[header: string]: string | string[]}, observe: 'events',
-    params?: HttpParams|{[param: string]: string | string[]},
+    context?: HttpContext,
+    params?: HttpParams|
+          {[param: string]: string | number | boolean | ReadonlyArray<string|number|boolean>},
     reportProgress?: boolean,
     responseType?: 'json',
     withCredentials?: boolean,
@@ -3865,15 +4118,17 @@ export class HttpClient {
    *
    * HTTP 选项
    *
-   * @return An `Observable` of the `HTTPResponse` for the request, with the response body as an
-   *     `ArrayBuffer`.
+   * @return An `Observable` of the `HttpResponse` for the request, with the response body as an
+   * `ArrayBuffer`.
    *
    * 此请求的响应对象的 `Observable`，其响应体为 `ArrayBuffer` 类型。
    *
    */
   put(url: string, body: any|null, options: {
     headers?: HttpHeaders|{[header: string]: string | string[]}, observe: 'response',
-    params?: HttpParams|{[param: string]: string | string[]},
+    context?: HttpContext,
+    params?: HttpParams|
+          {[param: string]: string | number | boolean | ReadonlyArray<string|number|boolean>},
     reportProgress?: boolean, responseType: 'arraybuffer',
     withCredentials?: boolean,
   }): Observable<HttpResponse<ArrayBuffer>>;
@@ -3896,7 +4151,7 @@ export class HttpClient {
    *
    * HTTP 选项
    *
-   * @return An `Observable` of the `HTTPResponse` for the request,
+   * @return An `Observable` of the `HttpResponse` for the request,
    * with the response body as a `Blob`.
    *
    * 此请求的响应对象的 `Observable`，其响应体为 `Blob` 类型。
@@ -3904,7 +4159,9 @@ export class HttpClient {
    */
   put(url: string, body: any|null, options: {
     headers?: HttpHeaders|{[header: string]: string | string[]}, observe: 'response',
-    params?: HttpParams|{[param: string]: string | string[]},
+    context?: HttpContext,
+    params?: HttpParams|
+          {[param: string]: string | number | boolean | ReadonlyArray<string|number|boolean>},
     reportProgress?: boolean, responseType: 'blob',
     withCredentials?: boolean,
   }): Observable<HttpResponse<Blob>>;
@@ -3927,15 +4184,17 @@ export class HttpClient {
    *
    * HTTP 选项
    *
-   * @return An `Observable` of the `HTTPResponse` for the request, with a response body of type
-   *     string.
+   * @return An `Observable` of the `HttpResponse` for the request, with a response body of type
+   * string.
    *
    * 表示啥此请求的 `HTTPResponse` 的 `Observable`，响应体为 string 类型。
    *
    */
   put(url: string, body: any|null, options: {
     headers?: HttpHeaders|{[header: string]: string | string[]}, observe: 'response',
-    params?: HttpParams|{[param: string]: string | string[]},
+    context?: HttpContext,
+    params?: HttpParams|
+          {[param: string]: string | number | boolean | ReadonlyArray<string|number|boolean>},
     reportProgress?: boolean, responseType: 'text',
     withCredentials?: boolean,
   }): Observable<HttpResponse<string>>;
@@ -3957,14 +4216,16 @@ export class HttpClient {
    * @param options HTTP options
    *
    * HTTP 选项
-   * @return An `Observable` of the `HTTPResponse` for the request, with a response body
+   * @return An `Observable` of the `HttpResponse` for the request, with a response body
    * of type 'Object`.
    *
    * 此请求的响应对象的 `Observable`，其响应体为 `Object` 类型。
    */
   put(url: string, body: any|null, options: {
     headers?: HttpHeaders|{[header: string]: string | string[]}, observe: 'response',
-    params?: HttpParams|{[param: string]: string | string[]},
+    context?: HttpContext,
+    params?: HttpParams|
+          {[param: string]: string | number | boolean | ReadonlyArray<string|number|boolean>},
     reportProgress?: boolean,
     responseType?: 'json',
     withCredentials?: boolean,
@@ -3988,7 +4249,7 @@ export class HttpClient {
    *
    * HTTP 选项
    *
-   * @return An `Observable` of the `HTTPResponse` for the request,
+   * @return An `Observable` of the `HttpResponse` for the request,
    * with a response body in the requested type.
    *
    * 此请求的响应对象的 `Observable`，其响应体为所请求的类型。
@@ -3996,7 +4257,9 @@ export class HttpClient {
    */
   put<T>(url: string, body: any|null, options: {
     headers?: HttpHeaders|{[header: string]: string | string[]}, observe: 'response',
-    params?: HttpParams|{[param: string]: string | string[]},
+    context?: HttpContext,
+    params?: HttpParams|
+          {[param: string]: string | number | boolean | ReadonlyArray<string|number|boolean>},
     reportProgress?: boolean,
     responseType?: 'json',
     withCredentials?: boolean,
@@ -4027,8 +4290,10 @@ export class HttpClient {
    */
   put(url: string, body: any|null, options?: {
     headers?: HttpHeaders|{[header: string]: string | string[]},
+    context?: HttpContext,
     observe?: 'body',
-    params?: HttpParams|{[param: string]: string | string[]},
+    params?: HttpParams|
+          {[param: string]: string | number | boolean | ReadonlyArray<string|number|boolean>},
     reportProgress?: boolean,
     responseType?: 'json',
     withCredentials?: boolean,
@@ -4059,8 +4324,10 @@ export class HttpClient {
    */
   put<T>(url: string, body: any|null, options?: {
     headers?: HttpHeaders|{[header: string]: string | string[]},
+    context?: HttpContext,
     observe?: 'body',
-    params?: HttpParams|{[param: string]: string | string[]},
+    params?: HttpParams|
+          {[param: string]: string | number | boolean | ReadonlyArray<string|number|boolean>},
     reportProgress?: boolean,
     responseType?: 'json',
     withCredentials?: boolean,
@@ -4077,8 +4344,10 @@ export class HttpClient {
    */
   put(url: string, body: any|null, options: {
     headers?: HttpHeaders|{[header: string]: string | string[]},
-    observe?: HttpObserve,
-    params?: HttpParams|{[param: string]: string | string[]},
+    context?: HttpContext,
+    observe?: 'body'|'events'|'response',
+    params?: HttpParams|
+          {[param: string]: string | number | boolean | ReadonlyArray<string|number|boolean>},
     reportProgress?: boolean,
     responseType?: 'arraybuffer'|'blob'|'json'|'text',
     withCredentials?: boolean,

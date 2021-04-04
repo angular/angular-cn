@@ -283,8 +283,6 @@ Here are the two files in their entirety for reference:
  </code-pane>
 </code-tabs>
 
-<hr />
-
 ## More on NgModules
 
 ## 关于 NgModule 的更多知识

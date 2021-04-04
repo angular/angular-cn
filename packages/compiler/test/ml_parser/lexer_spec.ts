@@ -234,6 +234,13 @@ import {ParseLocation, ParseSourceFile, ParseSourceSpan} from '../../src/parse_u
       });
 
       describe('tags', () => {
+        it('terminated with EOF', () => {
+          expect(tokenizeAndHumanizeSourceSpans('<div')).toEqual([
+            [lex.TokenType.INCOMPLETE_TAG_OPEN, '<div'],
+            [lex.TokenType.EOF, ''],
+          ]);
+        });
+
         it('after tag name', () => {
           expect(tokenizeAndHumanizeSourceSpans('<div<span><div</span>')).toEqual([
             [lex.TokenType.INCOMPLETE_TAG_OPEN, '<div'],
@@ -785,6 +792,31 @@ import {ParseLocation, ParseSourceFile, ParseSourceSpan} from '../../src/parse_u
           [lex.TokenType.ESCAPABLE_RAW_TEXT, 'a'],
           [lex.TokenType.TAG_CLOSE, '</title>'],
           [lex.TokenType.EOF, ''],
+        ]);
+      });
+    });
+
+    describe('parsable data', () => {
+      it('should parse an SVG <title> tag', () => {
+        expect(tokenizeAndHumanizeParts(`<svg:title>test</svg:title>`)).toEqual([
+          [lex.TokenType.TAG_OPEN_START, 'svg', 'title'],
+          [lex.TokenType.TAG_OPEN_END],
+          [lex.TokenType.TEXT, 'test'],
+          [lex.TokenType.TAG_CLOSE, 'svg', 'title'],
+          [lex.TokenType.EOF],
+        ]);
+      });
+
+      it('should parse an SVG <title> tag with children', () => {
+        expect(tokenizeAndHumanizeParts(`<svg:title><f>test</f></svg:title>`)).toEqual([
+          [lex.TokenType.TAG_OPEN_START, 'svg', 'title'],
+          [lex.TokenType.TAG_OPEN_END],
+          [lex.TokenType.TAG_OPEN_START, '', 'f'],
+          [lex.TokenType.TAG_OPEN_END],
+          [lex.TokenType.TEXT, 'test'],
+          [lex.TokenType.TAG_CLOSE, '', 'f'],
+          [lex.TokenType.TAG_CLOSE, 'svg', 'title'],
+          [lex.TokenType.EOF],
         ]);
       });
     });

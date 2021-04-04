@@ -608,6 +608,12 @@ You associate a *selector* (an HTML tag such as `<my-directive>`) with a custom 
 Angular 提供了一些以 `ng` 为前缀的内置指令。你也可以创建新的指令来实现自己的功能。
 你可以为自定义指令关联一个*选择器*（一种形如 `<my-directive>` 的 HTML 标记），以扩展[模板语法](guide/template-syntax)，从而让你能在应用中使用它。
 
+**UpperCamelCase**, such as `NgIf`, refers to a directive class.
+You can use **UpperCamelCase** when describing properties and directive behavior.
+
+**lowerCamelCase**, such as `ngIf` refers to a directive's attribute name.
+You can use **lowerCamelCase** when describing how to apply the directive to an element in the HTML template.
+
 {@a dom}
 
 ## domain-specific language (DSL)
@@ -1537,9 +1543,9 @@ In the `angular.json` file, each project has an "architect" section that contain
 
 在 `angular.json` 文件中，每个项目都有一个 `architect` 分区，其中包含一些用于配置构建器的目标。其中一些目标对应于 [CLI 命令](#cli)，比如 `build`、`serve`、`test` 和 `lint`。
 
-For example, the Architect builder invoked by the `ng build` command to compile a project uses a particular build tool, and has a default configuration whose values can be overridden on the command line. The `build` target also defines an alternate configuration for a "production" build, that can be invoked with the `--prod` flag on the `build` command.
+For example, the Architect builder invoked by the `ng build` command to compile a project uses a particular build tool, and has a default configuration with values that you can override on the command line. The `build` target also defines an alternate configuration for a "development" build, which you can invoke with the `--configuration development` flag on the `build` command.
 
-比如，`ng build` 命令用来编译项目时所调用的构建器会使用一个特定的构建工具，并且具有一份默认配置，此配置中的值可以通过命令行参数进行覆盖。目标 `build` 还为 "生产环境" 构建定义了另一个配置，可以通过在 `build` 命令上添加 `--prod` 标志来调用它。
+比如，`ng build` 命令用来编译项目时所调用的构建器会使用一个特定的构建工具，并且具有一份默认配置，此配置中的值可以通过命令行参数进行覆盖。目标 `build` 还为 "开发环境" 构建定义了另一个配置，可以通过在 `build` 命令上添加 `--configuration development` 标志来调用它。
 
 The Architect tool provides a set of builders. The [`ng new` command](cli/new) provides a set of targets for the initial application project. The [`ng generate application`](cli/generate#application) and [`ng generate library`](cli/generate#library) commands provide a set of targets for each new [project](#project). These targets, their options and configurations, can be customized to meet the needs of your project. For example, you may want to add a "staging" or "testing" configuration to a project's "build" target.
 

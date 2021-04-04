@@ -96,8 +96,6 @@ If the target event name, `myClick` fails to match an element event or an output
 
 如果目标事件名称 `myClick` 未能匹配元素上的事件或 `ClickDirective` 的输出属性，则 Angular 将报告“未知指令”错误。
 
-<hr />
-
 ## What's next
 
 ## 下一步是什么

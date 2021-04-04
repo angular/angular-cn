@@ -47,7 +47,7 @@ export class DocumentService {
     if (!this.cache.has(id)) {
       this.cache.set(id, this.fetchDocument(id));
     }
-    return this.cache.get(id)!;
+    return this.cache.get(id) as Observable<DocumentContents>;
   }
 
   private fetchDocument(id: string): Observable<DocumentContents> {

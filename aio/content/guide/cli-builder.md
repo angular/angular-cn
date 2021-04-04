@@ -36,13 +36,13 @@ The separation of concerns here is the same as with [schematics](guide/glossary#
 
 这里对关注点的分离和[原理图](guide/glossary#schematic)中是一样的，它也适用于其它要接触（touch）代码的 CLI 命令（例如 `ng generate`）。
 
-* Options are given by the CLI user, context is provided by and provides access to the CLI Builder API, and the developer provides the behavior.
+* The `options` object is provided by the CLI user, while the `context` object is provided by the CLI Builder API.
 
-  选项由 CLI 用户提供，上下文由 CLI 构建器提供，并提供对 CLI 构建器 API 的访问，而开发人员提供了处理函数的行为。
+  此 `options` 对象是由本 CLI 的用户提供的，而 `context` 对象则由 CLI 构建器的 API 提供。
 
-* The `BuilderContext` object provides access to the scheduling method, `BuilderContext.scheduleTarget()`. The scheduler executes the builder handler function with a given [target configuration](guide/glossary#target).
+* In addition to the contextual information, the `context` object, which is an instance of the `BuilderContext`, also provides access to a scheduling method, `BuilderContext.scheduleTarget()`. The scheduler executes the builder handler function with a given [target configuration](guide/glossary#target).
 
-  `BuilderContext` 对象提供了访问调度方法 `BuilderContext.scheduleTarget()` 的途径。调度器会用指定的[目标配置](guide/glossary#target)来执行构建器处理函数。
+  除了上下文信息之外，此 `context` 对象（它是 `BuilderContext` 的实例）还允许你访问调度方法 `BuilderContext.scheduleTarget()`。调度器会用指定的[目标配置](guide/glossary#target)来执行构建器处理函数。
 
 The builder handler function can be synchronous (return a value) or asynchronous (return a Promise), or it can watch and return multiple values (return an Observable).
 The return value or values must always be of type `BuilderOutput`.
@@ -77,7 +77,7 @@ For example, your `myBuilder` folder could contain the following files.
 | `builders.json`          | Builders definition.                                                                       |
 | `builders.json`          | 测试配置。                                                                                  |
 | `package.json`           | Dependencies. See <https://docs.npmjs.com/files/package.json>.                               |
-| `package.json`           | 依赖包。参阅<https://docs.npmjs.com/files/package.json>。                                  |
+| `package.json`           | 依赖包。参阅 <https://docs.npmjs.com/files/package.json>。                                  |
 | `tsconfig.json`          | [TypeScript configuration](https://www.typescriptlang.org/docs/handbook/tsconfig-json.html). |
 | `tsconfig.json`          | [TypeScript 配置文件](https://www.typescriptlang.org/docs/handbook/tsconfig-json.html)        |
 
@@ -165,7 +165,7 @@ Pass an empty string to remove the status.
 
 <code-example 
   path="cli-builder/src/my-builder.ts" 
-  header="src/my-builder.ts (progess reporting)" 
+  header="src/my-builder.ts (progress reporting)" 
   region="progress-reporting">
 </code-example>
 

@@ -13,13 +13,6 @@ import {Type} from '../interface/type';
 import {SchemaMetadata} from '../metadata/schema';
 import {compileNgModule as render3CompileNgModule} from '../render3/jit/module';
 import {makeDecorator, TypeDecorator} from '../util/decorators';
-import {NgModuleDef} from './ng_module_def';
-
-
-/**
- * @publicApi
- */
-export type ɵɵNgModuleDefWithMeta<T, Declarations, Imports, Exports> = NgModuleDef<T>;
 
 
 /**
@@ -378,11 +371,10 @@ function preR3NgModuleCompile(moduleType: Type<any>, metadata?: NgModule): void 
     imports = [...imports, metadata.exports];
   }
 
-  (moduleType as InjectorType<any>).ɵinj = ɵɵdefineInjector({
-    factory: convertInjectableProviderToFactory(moduleType, {useClass: moduleType}),
-    providers: metadata && metadata.providers,
-    imports: imports,
-  });
+  const moduleInjectorType = moduleType as InjectorType<any>;
+  moduleInjectorType.ɵfac = convertInjectableProviderToFactory(moduleType, {useClass: moduleType});
+  moduleInjectorType.ɵinj =
+      ɵɵdefineInjector({providers: metadata && metadata.providers, imports: imports});
 }
 
 

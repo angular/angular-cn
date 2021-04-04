@@ -16,22 +16,19 @@
  *
  * @usageNotes
  *
- * In the following example, `RepeatPipe` repeats a given value a given number of times.
+ * In the following example, `TruncatePipe` returns the shortened value with an added ellipses.
  *
- * 在下面的例子中，`RepeatPipe` 会把指定的值（`value`）重复指定的次数（`times`）：
+ * <code-example path="core/ts/pipes/simple_truncate.ts" header="simple_truncate.ts"></code-example>
  *
- * ```ts
- * import {Pipe, PipeTransform} from '@angular/core';
+ * Invoking `{{ 'It was the best of times' | truncate }}` in a template will produce `It was...`.
  *
- * @Pipe({name: 'repeat'})
- * export class RepeatPipe implements PipeTransform {
- *   transform(value: any, times: number) {
- *     return value.repeat(times);
- *   }
- * }
- * ```
+ * In the following example, `TruncatePipe` takes parameters that sets the truncated length and the
+ * string to append with.
  *
- * Invoking `{{ 'ok' | repeat:3 }}` in a template produces `okokok`.
+ * <code-example path="core/ts/pipes/truncate.ts" header="truncate.ts"></code-example>
+ *
+ * Invoking `{{ 'It was the best of times' | truncate:4:'....' }}` in a template will produce `It
+ * was the best....`.
  *
  * 在模板中调用 `{{ 'ok' | repeat:3 }}` 的结果是 `okokok`。
  *

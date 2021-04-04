@@ -140,7 +140,7 @@ const SCHEMA: string[] = [
   'progress^[HTMLElement]|#max,#value',
   'q,blockquote,cite^[HTMLElement]|',
   'script^[HTMLElement]|!async,charset,%crossOrigin,!defer,event,htmlFor,integrity,src,text,type',
-  'select^[HTMLElement]|!autofocus,!disabled,#length,!multiple,name,!required,#selectedIndex,#size,value',
+  'select^[HTMLElement]|autocomplete,!autofocus,!disabled,#length,!multiple,name,!required,#selectedIndex,#size,value',
   'shadow^[HTMLElement]|',
   'slot^[HTMLElement]|name',
   'source^[HTMLElement]|media,sizes,src,srcset,type',
@@ -153,7 +153,7 @@ const SCHEMA: string[] = [
   'tr^[HTMLElement]|align,bgColor,ch,chOff,vAlign',
   'tfoot,thead,tbody^[HTMLElement]|align,ch,chOff,vAlign',
   'template^[HTMLElement]|',
-  'textarea^[HTMLElement]|autocapitalize,!autofocus,#cols,defaultValue,dirName,!disabled,#maxLength,#minLength,name,placeholder,!readOnly,!required,#rows,selectionDirection,#selectionEnd,#selectionStart,value,wrap',
+  'textarea^[HTMLElement]|autocapitalize,autocomplete,!autofocus,#cols,defaultValue,dirName,!disabled,#maxLength,#minLength,name,placeholder,!readOnly,!required,#rows,selectionDirection,#selectionEnd,#selectionStart,value,wrap',
   'title^[HTMLElement]|text',
   'track^[HTMLElement]|!default,kind,label,src,srclang',
   'ul^[HTMLElement]|!compact,type',
@@ -239,6 +239,13 @@ const _ATTR_TO_PROP: {[name: string]: string} = {
   'readonly': 'readOnly',
   'tabindex': 'tabIndex',
 };
+
+// Invert _ATTR_TO_PROP.
+const _PROP_TO_ATTR: {[name: string]: string} =
+    Object.keys(_ATTR_TO_PROP).reduce((inverted, attr) => {
+      inverted[_ATTR_TO_PROP[attr]] = attr;
+      return inverted;
+    }, {} as {[prop: string]: string});
 
 export class DomElementSchemaRegistry extends ElementSchemaRegistry {
   private _schema: {[element: string]: {[property: string]: string}} = {};
@@ -384,6 +391,12 @@ export class DomElementSchemaRegistry extends ElementSchemaRegistry {
 
   allKnownElementNames(): string[] {
     return Object.keys(this._schema);
+  }
+
+  allKnownAttributesOfElement(tagName: string): string[] {
+    const elementProperties = this._schema[tagName.toLowerCase()] || this._schema['unknown'];
+    // Convert properties to attributes.
+    return Object.keys(elementProperties).map(prop => _PROP_TO_ATTR[prop] ?? prop);
   }
 
   normalizeAnimationStyleProperty(propName: string): string {

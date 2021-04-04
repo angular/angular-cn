@@ -422,7 +422,7 @@ Angular 还支持被动事件监听器。例如，你可以使用以下步骤使
 
 ```
 import './zone-flags';
-import 'zone.js/dist/zone';  // Included with Angular CLI.
+import 'zone.js';  // Included with Angular CLI.
 ```
 
 After those steps, if you add event listeners for the `scroll` event, the listeners will be `passive`.

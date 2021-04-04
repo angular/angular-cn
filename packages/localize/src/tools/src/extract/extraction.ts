@@ -5,7 +5,7 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import {AbsoluteFsPath, FileSystem} from '@angular/compiler-cli/src/ngtsc/file_system';
+import {AbsoluteFsPath, ReadonlyFileSystem} from '@angular/compiler-cli/src/ngtsc/file_system';
 import {Logger} from '@angular/compiler-cli/src/ngtsc/logging';
 import {SourceFile, SourceFileLoader} from '@angular/compiler-cli/src/ngtsc/sourcemaps';
 import {ɵParsedMessage, ɵSourceLocation} from '@angular/localize';
@@ -33,7 +33,7 @@ export class MessageExtractor {
   private loader: SourceFileLoader;
 
   constructor(
-      private fs: FileSystem, private logger: Logger,
+      private fs: ReadonlyFileSystem, private logger: Logger,
       {basePath, useSourceMaps = true, localizeName = '$localize'}: ExtractionOptions) {
     this.basePath = basePath;
     this.useSourceMaps = useSourceMaps;
@@ -58,9 +58,9 @@ export class MessageExtractor {
         code: false,
         ast: false
       });
-    }
-    if (this.useSourceMaps) {
-      this.updateSourceLocations(filename, sourceCode, messages);
+      if (this.useSourceMaps && messages.length > 0) {
+        this.updateSourceLocations(filename, sourceCode, messages);
+      }
     }
     return messages;
   }
@@ -123,7 +123,7 @@ export class MessageExtractor {
         sourceFile.sources.find(sf => sf?.sourcePath === originalStart.file)!;
     const startPos = originalSourceFile.startOfLinePositions[start.line] + start.column;
     const endPos = originalSourceFile.startOfLinePositions[end.line] + end.column;
-    const text = originalSourceFile.contents.substring(startPos, endPos);
+    const text = originalSourceFile.contents.substring(startPos, endPos).trim();
     return {file: originalStart.file, start, end, text};
   }
 }

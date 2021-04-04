@@ -64,7 +64,7 @@ export async function invokeReleaseBuildCommand(): Promise<BuiltPackage[]> {
     info(green('  ✓   Built release output for all packages.'));
     // The `ng-dev release build` command prints a JSON array to stdout
     // that represents the built release packages and their output paths.
-    return JSON.parse(stdout.trim());
+    return JSON.parse(stdout.trim()) as BuiltPackage[];
   } catch (e) {
     spinner.stop();
     error(e);
@@ -87,6 +87,23 @@ export async function invokeYarnInstallCommand(projectDir: string): Promise<void
   } catch (e) {
     error(e);
     error(red('  ✘   An error occurred while installing dependencies.'));
+    throw new FatalReleaseActionError();
+  }
+}
+
+/**
+ * Invokes the `yarn bazel clean` command in order to clean the output tree and ensure new artifacts
+ * are created for builds.
+ */
+export async function invokeBazelCleanCommand(projectDir: string): Promise<void> {
+  try {
+    // Note: No progress indicator needed as that is the responsibility of the command.
+    // TODO: Consider using an Ora spinner instead to ensure minimal console output.
+    await spawnWithDebugOutput('yarn', ['bazel', 'clean'], {cwd: projectDir});
+    info(green('  ✓   Cleaned bazel output tree.'));
+  } catch (e) {
+    error(e);
+    error(red('  ✘   An error occurred while cleaning the bazel output tree.'));
     throw new FatalReleaseActionError();
   }
 }

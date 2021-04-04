@@ -121,12 +121,18 @@ export interface Attribute {
  */
 export interface Query {
   descendants: boolean;
+  emitDistinctChangesOnly: boolean;
   first: boolean;
   read: any;
   isViewQuery: boolean;
   selector: any;
   static?: boolean;
 }
+
+// Stores the default value of `emitDistinctChangesOnly` when the `emitDistinctChangesOnly` is not
+// explicitly set.
+export const emitDistinctChangesOnlyDefaultValue = true;
+
 
 /**
  * Base class for query metadata.
@@ -183,6 +189,11 @@ export interface ContentChildrenDecorator {
    *
    *   **后代** - 包含所有后代时为 true，否则仅包括直接子代。
    *
+   * * **emitDistinctChangesOnly** - The ` QueryList#changes` observable will emit new values only
+   *   if the QueryList result has changed. When `false` the `changes` observable might emit even
+   *   if the QueryList has not changed.
+   *   ** Note: *** This config option is **deprecated**, it will be permanently set to `true` and
+   *   removed in future versions of Angular.
    * * **read** - Used to read a different token from the queried elements.
    *
    *   **read** - 用于从查询到的元素中读取不同的令牌。
@@ -204,10 +215,13 @@ export interface ContentChildrenDecorator {
    *
    * @Annotation
    */
-  (selector: Type<any>|InjectionToken<unknown>|Function|string,
-   opts?: {descendants?: boolean, read?: any}): any;
+  (selector: Type<any>|InjectionToken<unknown>|Function|string, opts?: {
+    descendants?: boolean,
+    emitDistinctChangesOnly?: boolean,
+    read?: any,
+  }): any;
   new(selector: Type<any>|InjectionToken<unknown>|Function|string,
-      opts?: {descendants?: boolean, read?: any}): Query;
+      opts?: {descendants?: boolean, emitDistinctChangesOnly?: boolean, read?: any}): Query;
 }
 
 /**
@@ -229,9 +243,14 @@ export type ContentChildren = Query;
  * @publicApi
  */
 export const ContentChildren: ContentChildrenDecorator = makePropDecorator(
-    'ContentChildren',
-    (selector?: any, data: any = {}) =>
-        ({selector, first: false, isViewQuery: false, descendants: false, ...data}),
+    'ContentChildren', (selector?: any, data: any = {}) => ({
+                         selector,
+                         first: false,
+                         isViewQuery: false,
+                         descendants: false,
+                         emitDistinctChangesOnly: emitDistinctChangesOnlyDefaultValue,
+                         ...data
+                       }),
     Query);
 
 /**
@@ -352,6 +371,11 @@ export interface ViewChildrenDecorator {
    *   **selector** - 要查询的指令类型或名称。
    *
    * * **read** - Used to read a different token from the queried elements.
+   * * **emitDistinctChangesOnly** - The ` QueryList#changes` observable will emit new values only
+   *   if the QueryList result has changed. When `false` the `changes` observable might emit even
+   *   if the QueryList has not changed.
+   *   ** Note: *** This config option is **deprecated**, it will be permanently set to `true` and
+   * removed in future versions of Angular.
    *
    *   **read** - 用于从查询的元素中读取不同的令牌。
    * @usageNotes
@@ -364,9 +388,10 @@ export interface ViewChildrenDecorator {
    *
    * @Annotation
    */
-  (selector: Type<any>|InjectionToken<unknown>|Function|string, opts?: {read?: any}): any;
+  (selector: Type<any>|InjectionToken<unknown>|Function|string,
+   opts?: {read?: any, emitDistinctChangesOnly?: boolean}): any;
   new(selector: Type<any>|InjectionToken<unknown>|Function|string,
-      opts?: {read?: any}): ViewChildren;
+      opts?: {read?: any, emitDistinctChangesOnly?: boolean}): ViewChildren;
 }
 
 /**
@@ -387,9 +412,14 @@ export type ViewChildren = Query;
  * @publicApi
  */
 export const ViewChildren: ViewChildrenDecorator = makePropDecorator(
-    'ViewChildren',
-    (selector?: any, data: any = {}) =>
-        ({selector, first: false, isViewQuery: true, descendants: true, ...data}),
+    'ViewChildren', (selector?: any, data: any = {}) => ({
+                      selector,
+                      first: false,
+                      isViewQuery: true,
+                      descendants: true,
+                      emitDistinctChangesOnly: emitDistinctChangesOnlyDefaultValue,
+                      ...data
+                    }),
     Query);
 
 /**

@@ -6,10 +6,11 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import {FileSystem} from '../../../src/ngtsc/file_system';
-import {checkExpectations} from '../test_helpers/check_expectations';
-import {CompileResult, initMockTestFileSystem} from '../test_helpers/compile_test';
-import {ComplianceTest, getAllComplianceTests} from '../test_helpers/get_compliance_tests';
-import {checkErrors} from './check_errors';
+
+import {checkErrors, checkNoUnexpectedErrors} from './check_errors';
+import {checkExpectations} from './check_expectations';
+import {CompileResult, initMockTestFileSystem} from './compile_test';
+import {CompilationMode, ComplianceTest, getAllComplianceTests} from './get_compliance_tests';
 
 /**
  * Set up jasmine specs for each of the compliance tests.
@@ -18,23 +19,20 @@ import {checkErrors} from './check_errors';
  * @param compileFn The function that will do the compilation of the source files
  */
 export function runTests(
-    type: 'partial compile + link'|'full compile',
-    compileFn: (fs: FileSystem, test: ComplianceTest) => CompileResult) {
-  const isPartial = type === 'partial compile + link';
-
+    type: CompilationMode, compileFn: (fs: FileSystem, test: ComplianceTest) => CompileResult) {
   describe(`compliance tests (${type})`, () => {
     for (const test of getAllComplianceTests()) {
-      if (isPartial && test.excludeFromPartialTests) {
+      if (!test.compilationModeFilter.includes(type)) {
         continue;
       }
 
       describe(`[${test.relativePath}]`, () => {
         const itFn = test.focusTest ? fit : test.excludeTest ? xit : it;
         itFn(test.description, () => {
-          if (isPartial && test.compilerOptions?.target === 'ES5') {
+          if (type === 'linked compile' && test.compilerOptions?.target === 'ES5') {
             throw new Error(
                 `The "${type}" scenario does not support ES5 output.\n` +
-                `Did you mean to set \`"excludeFromPartialTests": true\` in "${
+                `Did you mean to set \`"compilationModeFilter": ["full compile"]\` in "${
                     test.relativePath}"?`);
           }
 
@@ -46,6 +44,7 @@ export function runTests(
                   test.relativePath, expectation.failureMessage, expectation.expectedErrors,
                   errors);
             } else {
+              checkNoUnexpectedErrors(test.relativePath, errors);
               checkExpectations(
                   fs, test.relativePath, expectation.failureMessage, expectation.files,
                   expectation.extraChecks);

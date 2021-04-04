@@ -63,7 +63,7 @@ v12 - v15
 | `@angular/upgrade` | [`getAngularLib`](#upgrade-static) | <!--v8--> v11 |
 | `@angular/upgrade` | [`setAngularLib`](#upgrade-static) | <!--v8--> v11 |
 | template syntax | [`<template`>](#template-tag) | <!--v7--> v11 |
-| 模板语法 | [`<template` >](#template-tag) | <!--v7-->v11 |
+| 模板语法 | [`<template>`](#template-tag) | <!--v7-->v11 |
 | polyfills | [reflect-metadata](#reflect-metadata) | <!--v8--> v11 |
 | 腻子脚本 | [reflect-metadata](#reflect-metadata) | <!--v8-->v11 |
 | npm package format | [`esm5` and `fesm5` entry-points in @angular/* npm packages](guide/deprecations#esm5-fesm5) | <!-- v9 --> v11 |
@@ -133,6 +133,7 @@ Tip: In the [API reference section](api) of this doc site, deprecated APIs are i
 | [`WrappedValue`](api/core/WrappedValue) | 无 | v10 | 参阅[移除 `WrappedValue`](#wrapped-value) |
 | [`async`](api/core/testing/async) | [`waitForAsync`](api/core/testing/waitForAsync) | v11 | The `async` function from `@angular/core/testing` has been renamed to `waitForAsync` in order to avoid confusion with the native JavaScript `async` syntax. The existing function is deprecated and will be removed in a future version. |
 | [`async`](api/core/testing/async) | [`waitForAsync`](api/core/testing/waitForAsync) | v11 | `@angular/core/testing` 中的 `async` 函数已经改名为 `waitForAsync` 以免与 JavaScript 原生 `async` 语法混淆。现有函数已经标记为弃用，并将在未来版本中移除。|
+[ `ViewChildren.emitDistinctChangesOnly` / `ContentChildren.emitDistinctChangesOnly` | none (was part of [issue #40091](https://github.com/angular/angular/issues/40091)) ] | This is a temporary flag introduced as part of bugfix of [issue #40091](https://github.com/angular/angular/issues/40091) and will be removed. | 
 
 {@a testing}
 ### @angular/core/testing
@@ -599,6 +600,11 @@ If you rely on the behavior that the same object instance should cause change de
 
   显式调用 [`ChangeDetectorRef.detectChanges()`](api/core/ChangeDetectorRef#detectchanges) 进行强制更新。
 
+### Internet Explorer 11
+Angular support for Microsoft's Internet Explorer 11 (IE11) is deprecated. Maintaining support for IE11 incurs ongoing costs, including increased bundle size, code complexity, and test load. Global usage of IE11 has fallen to a point where these costs no longer warrant the additional maintenance effort. Ending IE11 support additionally allows Angular to take advantage of platform APIs present only in evergreen browsers.
+
+Microsoft announced that its 365 services will no longer support IE11 starting August 17, 2021. Microsoft previously ended support for IE11 in Microsoft Teams on November 30, 2020. For more information, see [Microsoft 365 apps say farewell to Internet Explorer 11](https://techcommunity.microsoft.com/t5/microsoft-365-blog/microsoft-365-apps-say-farewell-to-internet-explorer-11-and/ba-p/1591666).
+
 {@a deprecated-cli-flags}
 ## Deprecated CLI APIs and Options
 
@@ -620,24 +626,10 @@ This section contains a complete list all of the currently deprecated CLI flags.
 | `i18nFormat`                    | <!--v9--> v12      | 格式现在是自动检测的。                                           |
 | `i18nLocale`                    | <!--v9--> v12      | New [localization option](/guide/i18n#localize-config) in version 9 and later.  |
 | `i18nLocale`                    | <!--v9--> v12      | 版本 9 和更高版本中新的[本地化选项](/guide/i18n#localize-config) 。 |
-| `lazyModules`                   | <!--v9--> v12      | Used with deprecated SystemJsNgModuleLoader.                                    |
-| `lazyModules`                   | <!--v9--> v12      | 与已弃用的 SystemJsNgModuleLoader 配合使用。 |
 | `hmrWarning`                    | <!--v11--> v13     | No longer has an effect.                                                       |
 | `hmrWarning`                    | <!--v11--> v13     | 已无效果 |
 | `servePathDefaultWarning`       | <!--v11--> v13     | No longer has an effect.                                                       |
 | `servePathDefaultWarning`       | <!--v11--> v13     | 已无效果。                                                       |
-
-### @ngtools/webpack
-
-| API/Option | May be removed in | Notes |
-| ---------- | ----------------- | ----- |
-| API/选项 | 可能删除于 | 备注 |
-| `discoverLazyRoutes` | <!--v9--> v12 | Used with deprecated SystemJsNgModuleLoader. |
-| `discoverLazyRoutes` | <!--v9--> TBD | 与已弃用的 SystemJsNgModuleLoader 配合使用。 |
-| `additionalLazyModules` | <!--v9--> v12 | Used with deprecated SystemJsNgModuleLoader. |
-| `additionalLazyModules` | <!--v9--> TBD | 与已弃用的 SystemJsNgModuleLoader 配合使用。 |
-| `additionalLazyModuleResources` | <!--v9--> v12 | Used with deprecated SystemJsNgModuleLoader. |
-| `additionalLazyModuleResources` | <!--v9--> TBD | 与已弃用的 SystemJsNgModuleLoader 配合使用。 |
 
 ### @schematics/angular
 

@@ -18,11 +18,11 @@ A basic understanding of the following:
 
 The `ngsw-config.json` configuration file specifies which files and data URLs the Angular service
 worker should cache and how it should update the cached files and data. The [Angular CLI](cli)
-processes the configuration file during `ng build --prod`. Manually, you can process it with the
+processes the configuration file during `ng build`. Manually, you can process it with the
 `ngsw-config` tool (where `<project-name>` is the name of the project being built):
 
 配置文件 `ngsw-config.json` 指定了 Angular Service Worker 应该缓存哪些文件和数据的 URL，以及如何更新缓存的文件和数据。
-[Angular CLI](cli) 会在 `ng build --prod` 期间处理配置文件。
+[Angular CLI](cli) 会在 `ng build` 期间处理配置文件。
 如果想手动处理，你可以使用 `ngsw-config` 工具（这里的 `<project-name>` 就是要构建的项目名）：
 
 <code-example language="sh">

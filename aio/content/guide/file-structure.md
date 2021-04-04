@@ -230,7 +230,7 @@ The following command creates a workspace with all of the workspace-wide configu
 如果你打算在工作区中包含多个项目，可以在创建工作空间时不要自动创建初始应用，并为工作空间指定一个唯一的名字。下列命令用于创建一个包含全工作空间级配置文件的工作空间，但没有根应用。
 
 <code-example language="bash">
-ng new my-workspace --createApplication="false"
+ng new my-workspace --create-application false
 </code-example>
 
 You can then generate apps and libraries with names that are unique within the workspace.

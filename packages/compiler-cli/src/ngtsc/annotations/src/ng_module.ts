@@ -6,14 +6,16 @@
  * found in the LICENSE file at https://angular.io/license
  */
 
-import {compileInjector, compileNgModule, CUSTOM_ELEMENTS_SCHEMA, Expression, ExternalExpr, InvokeFunctionExpr, LiteralArrayExpr, LiteralExpr, NO_ERRORS_SCHEMA, R3Identifiers, R3InjectorMetadata, R3NgModuleMetadata, R3Reference, SchemaMetadata, Statement, STRING_TYPE, WrappedNodeExpr} from '@angular/compiler';
+import {compileDeclareInjectorFromMetadata, compileDeclareNgModuleFromMetadata, compileInjector, compileNgModule, CUSTOM_ELEMENTS_SCHEMA, Expression, ExternalExpr, FactoryTarget, Identifiers as R3, InvokeFunctionExpr, LiteralArrayExpr, LiteralExpr, NO_ERRORS_SCHEMA, R3CompiledExpression, R3FactoryMetadata, R3Identifiers, R3InjectorMetadata, R3NgModuleMetadata, R3Reference, SchemaMetadata, Statement, STRING_TYPE, WrappedNodeExpr} from '@angular/compiler';
 import * as ts from 'typescript';
 
 import {ErrorCode, FatalDiagnosticError, makeDiagnostic, makeRelatedInformation} from '../../diagnostics';
 import {DefaultImportRecorder, Reference, ReferenceEmitter} from '../../imports';
+import {isArrayEqual, isReferenceEqual, isSymbolEqual, SemanticReference, SemanticSymbol} from '../../incremental/semantic_graph';
 import {InjectableClassRegistry, MetadataReader, MetadataRegistry} from '../../metadata';
 import {PartialEvaluator, ResolvedValue} from '../../partial_evaluator';
-import {ClassDeclaration, DeclarationNode, Decorator, isNamedClassDeclaration, ReflectionHost, reflectObjectLiteral, typeNodeToValueExpr} from '../../reflection';
+import {PerfEvent, PerfRecorder} from '../../perf';
+import {ClassDeclaration, Decorator, isNamedClassDeclaration, ReflectionHost, reflectObjectLiteral, typeNodeToValueExpr} from '../../reflection';
 import {NgModuleRouteAnalyzer} from '../../routing';
 import {LocalModuleScopeRegistry, ScopeData} from '../../scope';
 import {FactoryTracker} from '../../shims/api';
@@ -21,6 +23,7 @@ import {AnalysisOutput, CompileResult, DecoratorHandler, DetectResult, HandlerPr
 import {getSourceFile} from '../../util/src/typescript';
 
 import {createValueHasWrongTypeError, getProviderDiagnostics} from './diagnostics';
+import {compileDeclareFactory, compileNgFactoryDefField} from './factory';
 import {generateSetClassMetadataCall} from './metadata';
 import {ReferencesRegistry} from './references_registry';
 import {combineResolvers, findAngularDecorator, forwardRefResolver, getValidConstructorDependencies, isExpressionForwardReference, resolveProvidersRequiringFactory, toR3Reference, unwrapExpression, wrapFunctionExpressionsInParens, wrapTypeReference} from './util';
@@ -28,6 +31,7 @@ import {combineResolvers, findAngularDecorator, forwardRefResolver, getValidCons
 export interface NgModuleAnalysis {
   mod: R3NgModuleMetadata;
   inj: R3InjectorMetadata;
+  fac: R3FactoryMetadata;
   metadataStmt: Statement|null;
   declarations: Reference<ClassDeclaration>[];
   rawDeclarations: ts.Expression|null;
@@ -45,12 +49,81 @@ export interface NgModuleResolution {
 }
 
 /**
+ * Represents an Angular NgModule.
+ */
+export class NgModuleSymbol extends SemanticSymbol {
+  private remotelyScopedComponents: {
+    component: SemanticSymbol,
+    usedDirectives: SemanticReference[],
+    usedPipes: SemanticReference[]
+  }[] = [];
+
+  isPublicApiAffected(previousSymbol: SemanticSymbol): boolean {
+    if (!(previousSymbol instanceof NgModuleSymbol)) {
+      return true;
+    }
+
+    // NgModules don't have a public API that could affect emit of Angular decorated classes.
+    return false;
+  }
+
+  isEmitAffected(previousSymbol: SemanticSymbol): boolean {
+    if (!(previousSymbol instanceof NgModuleSymbol)) {
+      return true;
+    }
+
+    // compare our remotelyScopedComponents to the previous symbol
+    if (previousSymbol.remotelyScopedComponents.length !== this.remotelyScopedComponents.length) {
+      return true;
+    }
+
+    for (const currEntry of this.remotelyScopedComponents) {
+      const prevEntry = previousSymbol.remotelyScopedComponents.find(prevEntry => {
+        return isSymbolEqual(prevEntry.component, currEntry.component);
+      });
+
+      if (prevEntry === undefined) {
+        // No previous entry was found, which means that this component became remotely scoped and
+        // hence this NgModule needs to be re-emitted.
+        return true;
+      }
+
+      if (!isArrayEqual(currEntry.usedDirectives, prevEntry.usedDirectives, isReferenceEqual)) {
+        // The list of used directives or their order has changed. Since this NgModule emits
+        // references to the list of used directives, it should be re-emitted to update this list.
+        // Note: the NgModule does not have to be re-emitted when any of the directives has had
+        // their public API changed, as the NgModule only emits a reference to the symbol by its
+        // name. Therefore, testing for symbol equality is sufficient.
+        return true;
+      }
+
+      if (!isArrayEqual(currEntry.usedPipes, prevEntry.usedPipes, isReferenceEqual)) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  isTypeCheckApiAffected(previousSymbol: SemanticSymbol): boolean {
+    if (!(previousSymbol instanceof NgModuleSymbol)) {
+      return true;
+    }
+
+    return false;
+  }
+
+  addRemotelyScopedComponent(
+      component: SemanticSymbol, usedDirectives: SemanticReference[],
+      usedPipes: SemanticReference[]): void {
+    this.remotelyScopedComponents.push({component, usedDirectives, usedPipes});
+  }
+}
+
+/**
  * Compiles @NgModule annotations to ngModuleDef fields.
- *
- * TODO(alxhub): handle injector side of things as well.
  */
 export class NgModuleDecoratorHandler implements
-    DecoratorHandler<Decorator, NgModuleAnalysis, NgModuleResolution> {
+    DecoratorHandler<Decorator, NgModuleAnalysis, NgModuleSymbol, NgModuleResolution> {
   constructor(
       private reflector: ReflectionHost, private evaluator: PartialEvaluator,
       private metaReader: MetadataReader, private metaRegistry: MetadataRegistry,
@@ -60,7 +133,8 @@ export class NgModuleDecoratorHandler implements
       private factoryTracker: FactoryTracker|null,
       private defaultImportRecorder: DefaultImportRecorder,
       private annotateForClosureCompiler: boolean,
-      private injectableRegistry: InjectableClassRegistry, private localeId?: string) {}
+      private injectableRegistry: InjectableClassRegistry, private perf: PerfRecorder,
+      private localeId?: string) {}
 
   readonly precedence = HandlerPrecedence.PRIMARY;
   readonly name = NgModuleDecoratorHandler.name;
@@ -83,6 +157,8 @@ export class NgModuleDecoratorHandler implements
 
   analyze(node: ClassDeclaration, decorator: Readonly<Decorator>):
       AnalysisOutput<NgModuleAnalysis> {
+    this.perf.eventCount(PerfEvent.AnalyzeNgModule);
+
     const name = node.name.text;
     if (decorator.args === null || decorator.args.length > 1) {
       throw new FatalDiagnosticError(
@@ -227,7 +303,7 @@ export class NgModuleDecoratorHandler implements
     const internalType = new WrappedNodeExpr(this.reflector.getInternalNameOfClass(node));
     const adjacentType = new WrappedNodeExpr(this.reflector.getAdjacentNameOfClass(node));
 
-    const ngModuleDef: R3NgModuleMetadata = {
+    const ngModuleMetadata: R3NgModuleMetadata = {
       type,
       internalType,
       adjacentType,
@@ -261,22 +337,31 @@ export class NgModuleDecoratorHandler implements
       this.routeAnalyzer.add(node.getSourceFile(), name, rawImports, rawExports, rawProviders);
     }
 
-    const ngInjectorDef: R3InjectorMetadata = {
+    const injectorMetadata: R3InjectorMetadata = {
       name,
       type,
       internalType,
-      deps: getValidConstructorDependencies(
-          node, this.reflector, this.defaultImportRecorder, this.isCore),
       providers: wrapperProviders,
       imports: injectorImports,
+    };
+
+    const factoryMetadata: R3FactoryMetadata = {
+      name,
+      type,
+      internalType,
+      typeArgumentCount: 0,
+      deps: getValidConstructorDependencies(
+          node, this.reflector, this.defaultImportRecorder, this.isCore),
+      target: FactoryTarget.NgModule,
     };
 
     return {
       analysis: {
         id,
-        schemas: schemas,
-        mod: ngModuleDef,
-        inj: ngInjectorDef,
+        schemas,
+        mod: ngModuleMetadata,
+        inj: injectorMetadata,
+        fac: factoryMetadata,
         declarations: declarationRefs,
         rawDeclarations,
         imports: importRefs,
@@ -291,6 +376,10 @@ export class NgModuleDecoratorHandler implements
         factorySymbolName: node.name.text,
       },
     };
+  }
+
+  symbol(node: ClassDeclaration): NgModuleSymbol {
+    return new NgModuleSymbol(node);
   }
 
   register(node: ClassDeclaration, analysis: NgModuleAnalysis): void {
@@ -336,13 +425,13 @@ export class NgModuleDecoratorHandler implements
       injectorImports: [],
     };
 
-    if (scope !== null && scope !== 'error') {
+    if (scope !== null && !scope.compilation.isPoisoned) {
       // Using the scope information, extend the injector's imports using the modules that are
       // specified as module exports.
       const context = getSourceFile(node);
       for (const exportRef of analysis.exports) {
         if (isNgModule(exportRef.node, scope.compilation)) {
-          data.injectorImports.push(this.refEmitter.emit(exportRef, context));
+          data.injectorImports.push(this.refEmitter.emit(exportRef, context).expression);
         }
       }
 
@@ -361,7 +450,8 @@ export class NgModuleDecoratorHandler implements
       return {diagnostics};
     }
 
-    if (scope === null || scope === 'error' || scope.reexports === null) {
+    if (scope === null || scope.compilation.isPoisoned || scope.exported.isPoisoned ||
+        scope.reexports === null) {
       return {data};
     } else {
       return {
@@ -372,29 +462,66 @@ export class NgModuleDecoratorHandler implements
   }
 
   compileFull(
-      node: ClassDeclaration, analysis: Readonly<NgModuleAnalysis>,
-      resolution: Readonly<NgModuleResolution>): CompileResult[] {
-    //  Merge the injector imports (which are 'exports' that were later found to be NgModules)
-    //  computed during resolution with the ones from analysis.
-    const ngInjectorDef = compileInjector({
-      ...analysis.inj,
-      imports: [...analysis.inj.imports, ...resolution.injectorImports],
-    });
-    const ngModuleDef = compileNgModule(analysis.mod);
-    const ngModuleStatements = ngModuleDef.additionalStatements;
-    if (analysis.metadataStmt !== null) {
-      ngModuleStatements.push(analysis.metadataStmt);
+      node: ClassDeclaration,
+      {inj, mod, fac, metadataStmt, declarations}: Readonly<NgModuleAnalysis>,
+      {injectorImports}: Readonly<NgModuleResolution>): CompileResult[] {
+    const factoryFn = compileNgFactoryDefField(fac);
+    const ngInjectorDef = compileInjector(this.mergeInjectorImports(inj, injectorImports));
+    const ngModuleDef = compileNgModule(mod);
+    const statements = ngModuleDef.statements;
+    this.insertMetadataStatement(statements, metadataStmt);
+    this.appendRemoteScopingStatements(statements, node, declarations);
+
+    return this.compileNgModule(factoryFn, ngInjectorDef, ngModuleDef);
+  }
+
+  compilePartial(
+      node: ClassDeclaration, {inj, fac, mod, metadataStmt}: Readonly<NgModuleAnalysis>,
+      {injectorImports}: Readonly<NgModuleResolution>): CompileResult[] {
+    const factoryFn = compileDeclareFactory(fac);
+    const injectorDef =
+        compileDeclareInjectorFromMetadata(this.mergeInjectorImports(inj, injectorImports));
+    const ngModuleDef = compileDeclareNgModuleFromMetadata(mod);
+    this.insertMetadataStatement(ngModuleDef.statements, metadataStmt);
+    // NOTE: no remote scoping required as this is banned in partial compilation.
+    return this.compileNgModule(factoryFn, injectorDef, ngModuleDef);
+  }
+
+  /**
+   *  Merge the injector imports (which are 'exports' that were later found to be NgModules)
+   *  computed during resolution with the ones from analysis.
+   */
+  private mergeInjectorImports(inj: R3InjectorMetadata, injectorImports: Expression[]):
+      R3InjectorMetadata {
+    return {...inj, imports: [...inj.imports, ...injectorImports]};
+  }
+
+  /**
+   * Add class metadata statements, if provided, to the `ngModuleStatements`.
+   */
+  private insertMetadataStatement(ngModuleStatements: Statement[], metadataStmt: Statement|null):
+      void {
+    if (metadataStmt !== null) {
+      ngModuleStatements.unshift(metadataStmt);
     }
+  }
+
+  /**
+   * Add remote scoping statements, as needed, to the `ngModuleStatements`.
+   */
+  private appendRemoteScopingStatements(
+      ngModuleStatements: Statement[], node: ClassDeclaration,
+      declarations: Reference<ClassDeclaration>[]): void {
     const context = getSourceFile(node);
-    for (const decl of analysis.declarations) {
+    for (const decl of declarations) {
       const remoteScope = this.scopeRegistry.getRemoteScope(decl.node);
       if (remoteScope !== null) {
-        const directives =
-            remoteScope.directives.map(directive => this.refEmitter.emit(directive, context));
-        const pipes = remoteScope.pipes.map(pipe => this.refEmitter.emit(pipe, context));
+        const directives = remoteScope.directives.map(
+            directive => this.refEmitter.emit(directive, context).expression);
+        const pipes = remoteScope.pipes.map(pipe => this.refEmitter.emit(pipe, context).expression);
         const directiveArray = new LiteralArrayExpr(directives);
         const pipesArray = new LiteralArrayExpr(pipes);
-        const declExpr = this.refEmitter.emit(decl, context)!;
+        const declExpr = this.refEmitter.emit(decl, context).expression;
         const setComponentScope = new ExternalExpr(R3Identifiers.setComponentScope);
         const callExpr =
             new InvokeFunctionExpr(setComponentScope, [declExpr, directiveArray, pipesArray]);
@@ -402,22 +529,29 @@ export class NgModuleDecoratorHandler implements
         ngModuleStatements.push(callExpr.toStmt());
       }
     }
+  }
+
+  private compileNgModule(
+      factoryFn: CompileResult, injectorDef: R3CompiledExpression,
+      ngModuleDef: R3CompiledExpression): CompileResult[] {
     const res: CompileResult[] = [
+      factoryFn,
       {
         name: 'ɵmod',
         initializer: ngModuleDef.expression,
-        statements: ngModuleStatements,
+        statements: ngModuleDef.statements,
         type: ngModuleDef.type,
       },
       {
         name: 'ɵinj',
-        initializer: ngInjectorDef.expression,
-        statements: ngInjectorDef.statements,
-        type: ngInjectorDef.type,
-      }
+        initializer: injectorDef.expression,
+        statements: injectorDef.statements,
+        type: injectorDef.type,
+      },
     ];
 
     if (this.localeId) {
+      // QUESTION: can this stuff be removed?
       res.push({
         name: 'ɵloc',
         initializer: new LiteralExpr(this.localeId),

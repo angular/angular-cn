@@ -6,7 +6,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 
-import {AssertNotNull, BinaryOperator, BinaryOperatorExpr, BuiltinMethod, BuiltinVar, CastExpr, ClassStmt, CommaExpr, ConditionalExpr, DeclareFunctionStmt, DeclareVarStmt, ExpressionStatement, ExpressionVisitor, ExternalExpr, ExternalReference, FunctionExpr, IfStmt, InstantiateExpr, InvokeFunctionExpr, InvokeMethodExpr, LeadingComment, leadingComment, LiteralArrayExpr, LiteralExpr, LiteralMapExpr, LocalizedString, NotExpr, ParseSourceFile, ParseSourceSpan, PartialModule, ReadKeyExpr, ReadPropExpr, ReadVarExpr, ReturnStatement, Statement, StatementVisitor, StmtModifier, ThrowStmt, TryCatchStmt, TypeofExpr, UnaryOperator, UnaryOperatorExpr, WrappedNodeExpr, WriteKeyExpr, WritePropExpr, WriteVarExpr} from '@angular/compiler';
+import {AssertNotNull, BinaryOperator, BinaryOperatorExpr, BuiltinMethod, BuiltinVar, CastExpr, ClassStmt, CommaExpr, ConditionalExpr, DeclareFunctionStmt, DeclareVarStmt, ExpressionStatement, ExpressionVisitor, ExternalExpr, ExternalReference, FunctionExpr, IfStmt, InstantiateExpr, InvokeFunctionExpr, InvokeMethodExpr, LeadingComment, leadingComment, LiteralArrayExpr, LiteralExpr, LiteralMapExpr, LocalizedString, NotExpr, ParseSourceFile, ParseSourceSpan, PartialModule, ReadKeyExpr, ReadPropExpr, ReadVarExpr, ReturnStatement, Statement, StatementVisitor, StmtModifier, TaggedTemplateExpr, ThrowStmt, TryCatchStmt, TypeofExpr, UnaryOperator, UnaryOperatorExpr, WrappedNodeExpr, WriteKeyExpr, WritePropExpr, WriteVarExpr} from '@angular/compiler';
 import * as ts from 'typescript';
 
 import {attachComments} from '../ngtsc/translator';
@@ -544,6 +544,10 @@ export class NodeEmitterVisitor implements StatementVisitor, ExpressionVisitor {
             expr.args.map(arg => arg.visitExpression(this, null))));
   }
 
+  visitTaggedTemplateExpr(expr: TaggedTemplateExpr): RecordedNode<ts.TaggedTemplateExpression> {
+    throw new Error('tagged templates are not supported in pre-ivy mode.');
+  }
+
   visitInstantiateExpr(expr: InstantiateExpr): RecordedNode<ts.NewExpression> {
     return this.postProcess(
         expr,
@@ -780,7 +784,6 @@ function modifierFromModifier(modifier: StmtModifier): ts.Modifier {
     case StmtModifier.Static:
       return ts.createToken(ts.SyntaxKind.StaticKeyword);
   }
-  return error(`unknown statement modifier`);
 }
 
 function translateModifiers(modifiers: StmtModifier[]|null): ts.Modifier[]|undefined {

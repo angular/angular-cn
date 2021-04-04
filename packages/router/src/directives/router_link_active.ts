@@ -12,6 +12,7 @@ import {mergeAll} from 'rxjs/operators';
 
 import {Event, NavigationEnd} from '../events';
 import {Router} from '../router';
+import {IsActiveMatchOptions} from '../url_tree';
 
 import {RouterLink, RouterLinkWithHref} from './router_link';
 
@@ -27,7 +28,7 @@ import {RouterLink, RouterLinkWithHref} from './router_link';
  * 跟踪元素上的链接路由当前是否处于活动状态，并允许你指定一个或多个 CSS 类，以便在链接路由处于活动状态时添加到该元素。
  *
  * Use this directive to create a visual distinction for elements associated with an active route.
- * For example, the following code highlights the word "Bob" when the the router
+ * For example, the following code highlights the word "Bob" when the router
  * activates the associated route:
  *
  * 使用此指令为与活动路径关联的元素创建视觉差异。例如，以下代码会在路由器激活关联的路由时突出显示单词 “Bob”：
@@ -104,7 +105,15 @@ export class RouterLinkActive implements OnChanges, OnDestroy, AfterContentInit 
   private linkInputChangesSubscription?: Subscription;
   public readonly isActive: boolean = false;
 
-  @Input() routerLinkActiveOptions: {exact: boolean} = {exact: false};
+  /**
+   * Options to configure how to determine if the router link is active.
+   *
+   * These options are passed to the `Router.isActive()` function.
+   *
+   * @see Router.isActive
+   */
+  @Input() routerLinkActiveOptions: {exact: boolean}|IsActiveMatchOptions = {exact: false};
+
 
   constructor(
       private router: Router, private element: ElementRef, private renderer: Renderer2,
@@ -120,12 +129,10 @@ export class RouterLinkActive implements OnChanges, OnDestroy, AfterContentInit 
   /** @nodoc */
   ngAfterContentInit(): void {
     // `of(null)` is used to force subscribe body to execute once immediately (like `startWith`).
-    from([this.links.changes, this.linksWithHrefs.changes, of(null)])
-        .pipe(mergeAll())
-        .subscribe(_ => {
-          this.update();
-          this.subscribeToEachLinkOnChanges();
-        });
+    of(this.links.changes, this.linksWithHrefs.changes, of(null)).pipe(mergeAll()).subscribe(_ => {
+      this.update();
+      this.subscribeToEachLinkOnChanges();
+    });
   }
 
   private subscribeToEachLinkOnChanges() {
@@ -176,8 +183,11 @@ export class RouterLinkActive implements OnChanges, OnDestroy, AfterContentInit 
   }
 
   private isLinkActive(router: Router): (link: (RouterLink|RouterLinkWithHref)) => boolean {
-    return (link: RouterLink|RouterLinkWithHref) =>
-               router.isActive(link.urlTree, this.routerLinkActiveOptions.exact);
+    const options = 'paths' in this.routerLinkActiveOptions ?
+        this.routerLinkActiveOptions :
+        // While the types should disallow `undefined` here, it's possible without strict inputs
+        (this.routerLinkActiveOptions.exact || false);
+    return (link: RouterLink|RouterLinkWithHref) => router.isActive(link.urlTree, options);
   }
 
   private hasActiveLinks(): boolean {

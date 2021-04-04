@@ -6,7 +6,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 
-import {Directive, DoCheck, EmbeddedViewRef, Input, isDevMode, IterableChangeRecord, IterableChanges, IterableDiffer, IterableDiffers, NgIterable, TemplateRef, TrackByFunction, ViewContainerRef} from '@angular/core';
+import {Directive, DoCheck, EmbeddedViewRef, Input, IterableChangeRecord, IterableChanges, IterableDiffer, IterableDiffers, NgIterable, TemplateRef, TrackByFunction, ViewContainerRef} from '@angular/core';
 
 /**
  * @publicApi
@@ -40,7 +40,7 @@ export class NgForOfContext<T, U extends NgIterable<T> = NgIterable<T>> {
  * 一种[结构型指令](guide/structural-directives)，为集合中的每个条目渲染一个模板。如果指令放置在一个元素上，该元素就会成为克隆后的模板的父级。
  *
  * The `ngForOf` directive is generally used in the
- * [shorthand form](guide/structural-directives#the-asterisk--prefix) `*ngFor`.
+ * [shorthand form](guide/structural-directives#asterisk) `*ngFor`.
  * In this form, the template to be rendered for each iteration is the content
  * of an anchor element containing the directive.
  *
@@ -79,11 +79,11 @@ export class NgForOfContext<T, U extends NgIterable<T> = NgIterable<T>> {
  * Angular 在编译模板时会自动扩展简写语法。每个嵌入式视图的上下文都会根据其词法位置在逻辑上合并到当前组件上下文。
  *
  * When using the shorthand syntax, Angular allows only [one structural directive
- * on an element](guide/structural-directives#one-structural-directive-per-host-element).
+ * on an element](guide/built-in-directives#one-per-element).
  * If you want to iterate conditionally, for example,
  * put the `*ngIf` on a container element that wraps the `*ngFor` element.
  * For futher discussion, see
- * [Structural Directives](guide/structural-directives#one-per-element).
+ * [Structural Directives](guide/built-in-directives#one-per-element).
  *
  * 使用简写语法时，Angular 在[一个元素上只允许有一个结构型指令](guide/structural-directives#one-structural-directive-per-host-element)。例如，如果要根据条件进行迭代，请将 `*ngIf` 放在 `*ngFor` 元素的容器元素上。欲知详情，请参见[《结构型指令》](guide/structural-directives#one-per-element) 。
  *
@@ -204,7 +204,7 @@ export class NgForOfContext<T, U extends NgIterable<T> = NgIterable<T>> {
 export class NgForOf<T, U extends NgIterable<T> = NgIterable<T>> implements DoCheck {
   /**
    * The value of the iterable expression, which can be used as a
-   * [template input variable](guide/structural-directives#template-input-variable).
+   * [template input variable](guide/structural-directives#shorthand).
    *
    * 可迭代表达式的值，可以将其用作[模板输入变量](guide/structural-directives#template-input-variable)。
    *
@@ -242,7 +242,7 @@ export class NgForOf<T, U extends NgIterable<T> = NgIterable<T>> implements DoCh
    */
   @Input()
   set ngForTrackBy(fn: TrackByFunction<T>) {
-    if (isDevMode() && fn != null && typeof fn !== 'function') {
+    if ((typeof ngDevMode === 'undefined' || ngDevMode) && fn != null && typeof fn !== 'function') {
       // TODO(vicb): use a log service once there is a public one available
       if (<any>console && <any>console.warn) {
         console.warn(

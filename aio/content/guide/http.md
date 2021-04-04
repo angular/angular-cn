@@ -31,9 +31,9 @@ HTTP 客户端服务提供了以下主要功能。
 
 ##### 先决条件
 
-Before working with the `HTTPClientModule`, you should have a basic understanding of the following:
+Before working with the `HttpClientModule`, you should have a basic understanding of the following:
 
-在使用 `HTTPClientModule` 之前，你应该对下列内容有基本的了解：
+在使用 `HttpClientModule` 之前，你应该对下列内容有基本的了解：
 
 * TypeScript programming
 
@@ -94,11 +94,11 @@ You can run the <live-example></live-example> that accompanies this guide.
 
 The sample app does not require a data server.
 It relies on the
-[Angular _in-memory-web-api_](https://github.com/angular/in-memory-web-api/blob/master/README.md),
+[Angular _in-memory-web-api_](https://github.com/angular/angular/tree/master/packages/misc/angular-in-memory-web-api),
 which replaces the _HttpClient_ module's `HttpBackend`.
 The replacement service simulates the behavior of a REST-like backend.
 
-该范例应用不需要数据服务器。它依赖于[Angular *in-memory-web-api*](https://github.com/angular/in-memory-web-api/blob/master/README.md)，它替代了 *HttpClient* 模块中的 `HttpBackend`。这个替代服务会模拟 REST 式的后端的行为。
+该范例应用不需要数据服务器。它依赖于 [Angular _in-memory-web-api_](https://github.com/angular/angular/tree/master/packages/misc/angular-in-memory-web-api)，它替代了 *HttpClient* 模块中的 `HttpBackend`。这个替代服务会模拟 REST 式的后端的行为。
 
 Look at the `AppModule` _imports_ to see how it is configured.
 
@@ -110,11 +110,11 @@ Look at the `AppModule` _imports_ to see how it is configured.
 
 ## 从服务器请求数据
 
-Use the [`HTTPClient.get()`](api/common/http/HttpClient#get) method to fetch data from a server.
+Use the [`HttpClient.get()`](api/common/http/HttpClient#get) method to fetch data from a server.
 The asynchronous method sends an HTTP request, and returns an Observable that emits the requested data when the response is received.
 The return type varies based on the `observe` and `responseType` values that you pass to the call.
 
-使用 [`HTTPClient.get()`](api/common/http/HttpClient#get) 方法从服务器获取数据。该异步方法会发送一个 HTTP 请求，并返回一个 Observable，它会在收到响应时发出所请求到的数据。返回的类型取决于你调用时传入的 `observe` 和 `responseType` 参数。
+使用 [`HttpClient.get()`](api/common/http/HttpClient#get) 方法从服务器获取数据。该异步方法会发送一个 HTTP 请求，并返回一个 Observable，它会在收到响应时发出所请求到的数据。返回的类型取决于你调用时传入的 `observe` 和 `responseType` 参数。
 
 The `get()` method takes two arguments; the endpoint URL from which to fetch, and an *options* object that you can use to configure the request.
 
@@ -124,7 +124,7 @@ The `get()` method takes two arguments; the endpoint URL from which to fetch, an
 options: {
     headers?: HttpHeaders | {[header: string]: string | string[]},
     observe?: 'body' | 'events' | 'response',
-    params?: HttpParams|{[param: string]: string | string[]},
+    params?: HttpParams|{[param: string]: string | number | boolean | ReadonlyArray<string | number | boolean>},
     reportProgress?: boolean,
     responseType?: 'arraybuffer'|'blob'|'json'|'text',
     withCredentials?: boolean,
@@ -481,7 +481,7 @@ Two types of errors can occur.
 
 * The server backend might reject the request, returning an HTTP response with a status code such as 404 or 500. These are error *responses*.
 
-  服务器端可能会拒绝该请求，并返回状态码为 404 或 500 的 HTTP *响应*。这些是错误*响应*。
+  服务器端可能会拒绝该请求，并返回状态码为 404 或 500 的 HTTP *响应*对象。这些是错误*响应*。
 
 * Something could go wrong on the client-side such as a network error that prevents the request from completing successfully or an exception thrown in an RxJS operator. These errors produce JavaScript `ErrorEvent` objects.
 
@@ -977,12 +977,20 @@ There are many more interceptors in the complete sample code.
 ### 拦截器的顺序
 
 Angular applies interceptors in the order that you provide them.
-If you provide interceptors _A_, then _B_, then _C_,  requests will flow in _A->B->C_ and
-responses will flow out _C->B->A_.
+For example, consider a situation in which you want to handle the authentication of your HTTP requests and log them before sending them to a server. To accomplish this task, you could provide an `AuthInterceptor` service and then a `LoggingInterceptor` service.
+Outgoing requests would flow from the `AuthInterceptor` to the `LoggingInterceptor`.
+Responses from these requests would flow in the other direction, from `LoggingInterceptor` back to `AuthInterceptor`.
+The following is a visual representation of the process:
 
-Angular 会按照你提供它们的顺序应用这些拦截器。
-如果你提供拦截器的顺序是先 *A*，再 *B*，再 *C*，那么请求阶段的执行顺序就是 *A->B->C*，而响应阶段的执行顺序则是
- *C->B->A*。
+<div class="lightbox">
+  <img src="generated/images/guide/http/interceptor-order.svg" alt="Interceptor order">
+</div>
+
+<div class="alert is-helpful">
+
+   The last interceptor in the process is always the `HttpBackend` that handles communication with the server.
+
+</div>
 
 You cannot change the order or remove interceptors later.
 If you need to enable and disable an interceptor dynamically, you'll have to build that capability into the interceptor itself.
@@ -1117,6 +1125,10 @@ To do this, set the cloned request body to `null`.
   newReq = req.clone({ body: null }); // clear the body
 ```
 
+## Http interceptor use-cases
+
+Below are a number of common uses for interceptors.
+
 ### Setting default headers
 
 ### 设置默认请求头
@@ -1163,9 +1175,9 @@ An interceptor that alters headers can be used for a number of different operati
 
    XSRF 防护
 
-### Using interceptors for logging
+### Logging request and response pairs
 
-### 用拦截器记日志
+### 记录请求与响应对
 
 Because interceptors can process the request and response *together*, they can perform tasks such as timing and logging an entire HTTP operation.
 
@@ -1194,9 +1206,42 @@ Neither `tap` nor `finalize` touch the values of the observable stream returned 
 
 在这个可观察对象的流中，无论是 `tap` 还是 `finalize` 接触过的值，都会照常发送给调用者。
 
-{@a caching}
+{@a custom-json-parser}
 
-### Using interceptors for caching
+### Custom JSON parsing
+
+Interceptors can be used to replace the built-in JSON parsing with a custom implementation.
+
+The `CustomJsonInterceptor` in the following example demonstrates how to achieve this.
+If the intercepted request expects a `'json'` response, the `reponseType` is changed to `'text'`
+to disable the built-in JSON parsing. Then the response is parsed via the injected `JsonParser`.
+
+<code-example
+  path="http/src/app/http-interceptors/custom-json-interceptor.ts"
+  region="custom-json-interceptor"
+  header="app/http-interceptors/custom-json-interceptor.ts">
+</code-example>
+
+You can then implement your own custom `JsonParser`.
+Here is a custom JsonParser that has a special date reviver.
+
+<code-example
+  path="http/src/app/http-interceptors/custom-json-interceptor.ts"
+  region="custom-json-parser"
+  header="app/http-interceptors/custom-json-interceptor.ts">
+</code-example>
+
+You provide the `CustomParser` along with the `CustomJsonInterceptor`.
+
+<code-example
+  path="http/src/app/http-interceptors/index.ts"
+  region="custom-json-interceptor"
+  header="app/http-interceptors/index.ts">
+</code-example>
+
+
+{@a caching}
+### Caching requests
 
 ### 用拦截器实现缓存
 
@@ -1419,6 +1464,16 @@ a search request for a package with that name to the npm web API.
 </code-example>
 
 Here, the `keyup` event binding sends every keystroke to the component's `search()` method.
+
+<div class="alert is-helpful">
+
+The type of `$event.target` is only `EventTarget` in the template.
+In the `getValue()` method, the target is cast to an `HTMLInputElement` to allow type-safe access to its `value` property.
+
+<code-example path="http/src/app/package-search/package-search.component.ts" region="getValue"></code-example>
+
+</div>
+
 The following snippet implements debouncing for this input using RxJS operators.
 
 这里，`keyup` 事件绑定会把每次击键都发送给组件的 `search()` 方法。下面的代码片段使用 RxJS 的操作符为这个输入实现了防抖。
@@ -1499,11 +1554,11 @@ consider moving it to a utility function or into the `PackageSearchService` itse
 ## 安全：XSRF 防护
 
 [Cross-Site Request Forgery (XSRF or CSRF)](https://en.wikipedia.org/wiki/Cross-site_request_forgery) is an attack technique by which the attacker can trick an authenticated user into unknowingly executing actions on your website.
-`HttpClient` supports a [common mechanism](https://en.wikipedia.org/wiki/Cross-site_request_forgery#Cookie-to-Header_Token) used to prevent XSRF attacks.
+`HttpClient` supports a [common mechanism](https://en.wikipedia.org/wiki/Cross-site_request_forgery#Cookie-to-header_token) used to prevent XSRF attacks.
 When performing HTTP requests, an interceptor reads a token from a cookie, by default `XSRF-TOKEN`, and sets it as an HTTP header, `X-XSRF-TOKEN`.
 Since only code that runs on your domain could read the cookie, the backend can be certain that the HTTP request came from your client application and not an attacker.
 
-[跨站请求伪造 (XSRF 或 CSRF)](https://en.wikipedia.org/wiki/Cross-site_request_forgery)是一个攻击技术，它能让攻击者假冒一个已认证的用户在你的网站上执行未知的操作。`HttpClient` 支持一种[通用的机制](https://en.wikipedia.org/wiki/Cross-site_request_forgery#Cookie-to-Header_Token)来防范 XSRF 攻击。当执行 HTTP 请求时，一个拦截器会从 cookie 中读取 XSRF 令牌（默认名字为 `XSRF-TOKEN`），并且把它设置为一个 HTTP 头 `X-XSRF-TOKEN`，由于只有运行在你自己的域名下的代码才能读取这个 cookie，因此后端可以确认这个 HTTP 请求真的来自你的客户端应用，而不是攻击者。
+[跨站请求伪造 (XSRF 或 CSRF)](https://en.wikipedia.org/wiki/Cross-site_request_forgery)是一个攻击技术，它能让攻击者假冒一个已认证的用户在你的网站上执行未知的操作。`HttpClient` 支持一种[通用的机制](https://en.wikipedia.org/wiki/Cross-site_request_forgery#Cookie-to-header_token)来防范 XSRF 攻击。当执行 HTTP 请求时，一个拦截器会从 cookie 中读取 XSRF 令牌（默认名字为 `XSRF-TOKEN`），并且把它设置为一个 HTTP 头 `X-XSRF-TOKEN`，由于只有运行在你自己的域名下的代码才能读取这个 cookie，因此后端可以确认这个 HTTP 请求真的来自你的客户端应用，而不是攻击者。
 
 By default, an interceptor sends this header on all mutating requests (such as POST)
 to relative URLs, but not on GET/HEAD requests or on requests with an absolute URL.
@@ -1634,7 +1689,7 @@ Now you can write a test that expects a GET Request to occur and provides a mock
 <code-example
   path="http/src/testing/http-client.spec.ts"
   region="get-test"
-  header="app/testing/http-client.spec.ts(httpClient.get)">
+  header="app/testing/http-client.spec.ts (HttpClient.get)">
 </code-example>
 
 The last step, verifying that no requests remain outstanding, is common enough for you to move it into an `afterEach()` step:

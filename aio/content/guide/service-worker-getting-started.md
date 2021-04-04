@@ -70,8 +70,7 @@ Now, build the project:
 
 ```sh
 
-ng build --prod
-
+ng build 
 ```
 
 The CLI project is now set up to use the Angular service worker.
@@ -222,7 +221,7 @@ Pay attention to two key points:
 ### 修改你的应用
 
 Now that you've seen how service workers cache your application, the
-next step is understanding how updates work.
+next step is understanding how updates work. Let's make a change to the application, and watch the service worker install the update:
 
 现在，你已经看到了 Service Worker 如何缓存你的应用，接下来的步骤讲它如何进行更新。
 
@@ -238,24 +237,20 @@ next step is understanding how updates work.
 
    关闭 `http-server`。
 
-4. Next, make a change to the application, and watch the service worker install the update.
+4. Open `src/app/app.component.html` for editing.
 
-   接下来，对应用进行一些修改，并且观察 Service Worker 安装这些更新。
+   打开 `src/app/app.component.html` 以供编辑。
 
-5. Open `src/app/app.component.html` for editing.
-
-   打开 `src/app/app.component.html` 供编辑。
-
-6. Change the text `Welcome to {{title}}!` to `Bienvenue à {{title}}!`.
+5. Change the text `Welcome to {{title}}!` to `Bienvenue à {{title}}!`.
 
    把文本 `Welcome to {{title}}!` 改为 `Bienvenue à {{title}}!`。
 
-7. Build and run the server again:
+6. Build and run the server again:
 
    再次构建并运行此服务器：
 
 ```sh
-ng build --prod
+ng build
 http-server -p 8080 -c-1 dist/<project-name>
 ```
 
@@ -294,8 +289,6 @@ If you look at the `http-server` logs, you can see the service worker requesting
 The service worker installed the updated version of your app *in the background*, and the next time the page is loaded or reloaded, the service worker switches to the latest version.
 
 Service Worker *在后台*安装好了这个更新后的版本，下次加载或刷新页面时，Service Worker 就切换到最新的版本了。
-
-<hr />
 
 ## More on Angular service workers
 

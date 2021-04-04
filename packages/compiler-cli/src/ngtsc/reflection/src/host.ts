@@ -474,6 +474,16 @@ export enum KnownDeclaration {
    * Indicates the `__spreadArrays` TypeScript helper function.
    */
   TsHelperSpreadArrays,
+
+  /**
+   * Indicates the `__spreadArray` TypeScript helper function.
+   */
+  TsHelperSpreadArray,
+
+  /**
+   * Indicates the `__read` TypeScript helper function.
+   */
+  TsHelperRead,
 }
 
 /**

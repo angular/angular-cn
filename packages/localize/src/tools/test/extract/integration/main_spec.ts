@@ -7,15 +7,15 @@
  */
 import {absoluteFrom, AbsoluteFsPath, FileSystem, getFileSystem, setFileSystem} from '@angular/compiler-cli/src/ngtsc/file_system';
 import {InvalidFileSystem} from '@angular/compiler-cli/src/ngtsc/file_system/src/invalid_file_system';
-import {runInEachFileSystem} from '@angular/compiler-cli/src/ngtsc/file_system/testing';
 import {MockLogger} from '@angular/compiler-cli/src/ngtsc/logging/testing';
 import {loadTestDirectory} from '@angular/compiler-cli/src/ngtsc/testing';
 
 import {extractTranslations} from '../../../src/extract/main';
 import {FormatOptions} from '../../../src/extract/translation_files/format_options';
+import {runInNativeFileSystem} from '../../helpers';
 import {toAttributes} from '../translation_files/utils';
 
-runInEachFileSystem(() => {
+runInNativeFileSystem(() => {
   let fs: FileSystem;
   let logger: MockLogger;
   let rootPath: AbsoluteFsPath;
@@ -399,7 +399,8 @@ runInEachFileSystem(() => {
              // These source file paths are due to how Bazel TypeScript compilation source-maps
              // work
              `          <context context-type="sourcefile">../packages/localize/src/tools/test/extract/integration/test_files/src/a.ts</context>`,
-             `          <context context-type="linenumber">3</context>`,
+             `          <context context-type="linenumber">3,${
+                 target === 'es2015' ? 7 : 5}</context>`,
              `        </context-group>`,
              `      </trans-unit>`,
              `      <trans-unit id="7829869508202074508" datatype="html">`,
@@ -464,7 +465,7 @@ runInEachFileSystem(() => {
           `  "locale": "en-GB",`,
           `  "translations": {`,
           `    "message-1": "message {$PH} contents",`,
-          `    "message-2": "different message contents"`,
+          `    "message-2": "message contents"`,
           `  }`,
           `}`,
         ].join('\n'));
@@ -489,10 +490,53 @@ runInEachFileSystem(() => {
           `  "locale": "en-GB",`,
           `  "translations": {`,
           `    "message-1": "message {$PH} contents",`,
-          `    "message-2": "different message contents"`,
+          `    "message-2": "message contents"`,
           `  }`,
           `}`,
         ].join('\n'));
+      });
+
+      it('should generate the migration map file, if requested', () => {
+        extractTranslations({
+          rootPath,
+          sourceLocale: 'en',
+          sourceFilePaths: [sourceFilePath],
+          format: 'legacy-migrate',
+          outputPath,
+          logger,
+          useSourceMaps: false,
+          useLegacyIds: true,
+          duplicateMessageHandling: 'ignore',
+          fileSystem: fs
+        });
+        expect(fs.readFile(outputPath)).toEqual([
+          `{`,
+          `  "1234567890123456789012345678901234567890": "273296103957933077",`,
+          `  "12345678901234567890": "273296103957933077"`,
+          `}`,
+        ].join('\n'));
+      });
+
+      it('should log a warning if there are no legacy message IDs to migrate', () => {
+        extractTranslations({
+          rootPath,
+          sourceLocale: 'en',
+          sourceFilePaths: [textFile1],
+          format: 'legacy-migrate',
+          outputPath,
+          logger,
+          useSourceMaps: false,
+          useLegacyIds: true,
+          duplicateMessageHandling: 'ignore',
+          fileSystem: fs
+        });
+
+        expect(fs.readFile(outputPath)).toBe('{}');
+        expect(logger.logs.warn).toEqual([[
+          'Messages extracted with warnings\n' +
+          'WARNINGS:\n' +
+          ' - Could not find any legacy message IDs in source files while generating the legacy message migration file.'
+        ]]);
       });
     });
   });

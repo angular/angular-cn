@@ -185,7 +185,7 @@ export enum NumberSymbol {
   /**
    * Decimal separator.
    * For `en-US`, the dot character.
-   * Example : 2,345`.`67
+   * Example: 2,345`.`67
    *
    * 小数点分隔符。对于 `en-US`，是点字符。例如：2,345`.`67
    *

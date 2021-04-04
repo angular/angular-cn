@@ -89,7 +89,7 @@ Modifies how Angular-specific annotations are emitted to improve tree-shaking. N
 
 * The `decorators` value leaves the decorators in place, which makes compilation faster. TypeScript emits calls to the`__decorate` helper. Use `--emitDecoratorMetadata` for runtime reflection (but note that the resulting code will not properly tree-shake.
 
-  `decorators` 值会将装饰器保留在原处，这将使编译速度更快。TypeScript 会发出对 `__decorate` 辅助程序的调用。使用 `--emitDecoratorMetadata` 进行运行时反射（但请注意，生成的代码将无法正确摇树）。
+  `decorators` 值会将装饰器保留在原处，这将使编译速度更快。TypeScript 会生成对辅助器 `__decorate` 的调用。使用 `--emitDecoratorMetadata` 进行运行时反射（但请注意，生成的代码将无法正确摇树）。
 
 ### `annotateForClosureCompiler`
 
@@ -183,7 +183,7 @@ to the generated flat module index instead of the library index file.
 
 Produces only one `.metadata.json` file, which contains all the metadata necessary
 for symbols exported from the library index. In the generated `.ngfactory.js` files, the flat
-module index is used to import symbols that includes both the public API from the library index
+module index is used to import symbols that include both the public API from the library index
 as well as shrowded internal symbols.
 
 它只会生成一个 `.metadata.json` 文件，该文件包含从库索引中导出的符号所需的全部元数据。在生成的 `.ngfactory.js` 文件中，扁平模块索引用于导入符号，这些符号既包括库索引中的公共 API，也包括缩进的内部符号。
@@ -211,9 +211,9 @@ When `true` (recommended), enables the [binding expression validation](guide/aot
 
 为 `true`（推荐）时，会启用模板编译器的[绑定表达式验证](guide/aot-compiler#binding-expression-validation)阶段，该阶段使用 TypeScript 来验证绑定表达式。欲知详情，请参阅[模板类型检查](guide/template-typecheck)。
 
-Default is `false`, but when you use the CLI command `ng new`, it is set to `true` by default in the generated project's configuration.
+Default is `false`, but when you use the CLI command `ng new --strict`, it is set to `true` in the generated project's configuration.
 
-默认值为 `false`，但是当你使用 CLI 命令 `ng new` 时，默认生成的项目配置中会将其设置为 `true`。
+默认值为 `false`，但是当你使用 CLI 命令 `ng new --strict` 时，默认生成的项目配置中会将其设置为 `true`。
 
 ### `generateCodeForLibraries`
 
@@ -271,9 +271,9 @@ For library projects generated with the CLI, the dev configuration default is `t
 ### `strictMetadataEmit`
 
 When `true`, reports an error to the `.metadata.json` file if `"skipMetadataEmit"` is `false`.
-Default is `false`. Use only when `"skipMetadataEmit"` is `false` and `"skipTemplateCodeGen"` is `true`.
+Default is `false`. Use only when `"skipMetadataEmit"` is `false` and `"skipTemplateCodegen"` is `true`.
 
-为 `true` 时，如果 `"skipMetadataEmit"` 为 `false` 则向 `.metadata.json` 文件中报告错误。默认值为 `false`。只在 `"skipMetadataEmit"` 为 `false` 且 `"skipTemplateCodeGen"` 为 `true` 时使用。
+为 `true` 时，如果 `"skipMetadataEmit"` 为 `false` 则向 `.metadata.json` 文件中报告错误。默认值为 `false`。只在 `"skipMetadataEmit"` 为 `false` 且 `"skipTemplateCodegen"` 为 `true` 时使用。
 
 This option is intended to validate the `.metadata.json` files emitted for bundling with an `npm` package. The validation is strict and can emit errors for metadata that would never produce an error when used by the template compiler. You can choose to suppress the error emitted by this option for an exported symbol by including `@dynamic` in the comment documenting the symbol.
 

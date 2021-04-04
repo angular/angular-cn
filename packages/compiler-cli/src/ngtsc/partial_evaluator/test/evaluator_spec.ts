@@ -646,6 +646,8 @@ runInEachFileSystem(() => {
               export declare function __assign(t: any, ...sources: any[]): any;
               export declare function __spread(...args: any[][]): any[];
               export declare function __spreadArrays(...args: any[][]): any[];
+              export declare function __spreadArray(to: any[], from: any[]): any[];
+              export declare function __read(o: any, n?: number): any[];
             `,
           },
         ]);
@@ -733,6 +735,52 @@ runInEachFileSystem(() => {
 
         expect(arr).toEqual([4, 5, 6]);
       });
+
+      it('should evaluate `__spreadArray()` (named import)', () => {
+        const arr: number[] = evaluateExpression(
+            `
+              import {__spreadArray} from 'tslib';
+              const a = [4];
+              const b = [5, 6];
+            `,
+            '__spreadArray(a, b)');
+
+        expect(arr).toEqual([4, 5, 6]);
+      });
+
+      it('should evaluate `__spreadArray()` (star import)', () => {
+        const arr: number[] = evaluateExpression(
+            `
+              import * as tslib from 'tslib';
+              const a = [4];
+              const b = [5, 6];
+            `,
+            'tslib.__spreadArray(a, b)');
+
+        expect(arr).toEqual([4, 5, 6]);
+      });
+
+      it('should evaluate `__read()` (named import)', () => {
+        const arr: number[] = evaluateExpression(
+            `
+              import {__read} from 'tslib';
+              const a = [5, 6];
+            `,
+            '__read(a)');
+
+        expect(arr).toEqual([5, 6]);
+      });
+
+      it('should evaluate `__read()` (star import)', () => {
+        const arr: number[] = evaluateExpression(
+            `
+              import * as tslib from 'tslib';
+              const a = [5, 6];
+            `,
+            'tslib.__read(a)');
+
+        expect(arr).toEqual([5, 6]);
+      });
     });
 
     describe('(with emitted TypeScript helpers as functions)', () => {
@@ -742,6 +790,8 @@ runInEachFileSystem(() => {
           function __assign(t, ...sources) { /* ... */ }
           function __spread(...args) { /* ... */ }
           function __spreadArrays(...args) { /* ... */ }
+          function __spreadArray(to, from) { /* ... */ }
+          function __read(o) { /* ... */ }
         `;
         const {checker, expression} = makeExpression(helpers + code, expr);
 
@@ -785,6 +835,27 @@ runInEachFileSystem(() => {
             '__spreadArrays(a, b)');
 
         expect(arr).toEqual([4, 5, 6]);
+      });
+
+      it('should evaluate `__spreadArray()`', () => {
+        const arr: number[] = evaluateExpression(
+            `
+              const a = [4];
+              const b = [5, 6];
+            `,
+            '__spreadArray(a, b)');
+
+        expect(arr).toEqual([4, 5, 6]);
+      });
+
+      it('should evaluate `__read()`', () => {
+        const arr: number[] = evaluateExpression(
+            `
+              const a = [5, 6];
+            `,
+            '__read(a)');
+
+        expect(arr).toEqual([5, 6]);
       });
     });
 
@@ -795,6 +866,8 @@ runInEachFileSystem(() => {
           var __assign = (this && this.__assign) || function (t, ...sources) { /* ... */ }
           var __spread = (this && this.__spread) || function (...args) { /* ... */ }
           var __spreadArrays = (this && this.__spreadArrays) || function (...args) { /* ... */ }
+          var __spreadArray = (this && this.__spreadArray) || function (to, from) { /* ... */ }
+          var __read = (this && this.__read) || function (o) { /* ... */ }
         `;
         const {checker, expression} = makeExpression(helpers + code, expr);
 
@@ -838,6 +911,27 @@ runInEachFileSystem(() => {
             '__spreadArrays(a, b)');
 
         expect(arr).toEqual([4, 5, 6]);
+      });
+
+      it('should evaluate `__spreadArray()`', () => {
+        const arr: number[] = evaluateExpression(
+            `
+              const a = [4];
+              const b = [5, 6];
+            `,
+            '__spreadArray(a, b)');
+
+        expect(arr).toEqual([4, 5, 6]);
+      });
+
+      it('should evaluate `__read()`', () => {
+        const arr: number[] = evaluateExpression(
+            `
+              const a = [5, 6];
+            `,
+            '__read(a)');
+
+        expect(arr).toEqual([5, 6]);
       });
     });
 
@@ -980,6 +1074,10 @@ runInEachFileSystem(() => {
         return KnownDeclaration.TsHelperSpread;
       case '__spreadArrays':
         return KnownDeclaration.TsHelperSpreadArrays;
+      case '__spreadArray':
+        return KnownDeclaration.TsHelperSpreadArray;
+      case '__read':
+        return KnownDeclaration.TsHelperRead;
       default:
         return null;
     }
@@ -989,6 +1087,5 @@ runInEachFileSystem(() => {
 const fakeDepTracker: DependencyTracker = {
   addDependency: () => undefined,
   addResourceDependency: () => undefined,
-  addTransitiveDependency: () => undefined,
-  addTransitiveResources: () => undefined,
+  recordDependencyAnalysisFailure: () => undefined,
 };

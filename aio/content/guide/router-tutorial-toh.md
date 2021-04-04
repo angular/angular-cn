@@ -3625,7 +3625,7 @@ The router looks for that method and calls it if found.
 
    路由器的这个 `Resolve` 接口是可选的。`CrisisDetailResolverService` 没有继承自某个基类。路由器只要找到了这个方法，就会调用它。
 
-1. The router calls the resolver in any case where the the user could navigate away so you don't have to code for each use case.
+1. The router calls the resolver in any case where the user could navigate away so you don't have to code for each use case.
 
    路由器会在用户可以导航的任何情况下调用该解析器，这样你就不用针对每个用例都编写代码了。
 

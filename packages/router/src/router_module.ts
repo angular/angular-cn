@@ -6,7 +6,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 
-import {APP_BASE_HREF, HashLocationStrategy, Location, LOCATION_INITIALIZED, LocationStrategy, PathLocationStrategy, PlatformLocation, ViewportScroller, ɵgetDOM as getDOM} from '@angular/common';
+import {APP_BASE_HREF, HashLocationStrategy, Location, LOCATION_INITIALIZED, LocationStrategy, PathLocationStrategy, PlatformLocation, ViewportScroller} from '@angular/common';
 import {ANALYZE_FOR_ENTRY_COMPONENTS, APP_BOOTSTRAP_LISTENER, APP_INITIALIZER, ApplicationRef, Compiler, ComponentRef, Inject, Injectable, InjectionToken, Injector, ModuleWithProviders, NgModule, NgModuleFactoryLoader, NgProbeToken, Optional, Provider, SkipSelf, SystemJsNgModuleLoader} from '@angular/core';
 import {of, Subject} from 'rxjs';
 
@@ -281,7 +281,7 @@ export function provideRoutes(routes: Routes): any {
  *
  * [从 v11 开始不推荐使用](guide/releases#deprecation-practices)以下值，并且不应将其用于新应用程序。
  *
- * * 'enabled' - This option is 1:1 replaceable with `enabledNonBlocking`.
+ * * 'enabled' - This option is 1:1 replaceable with `enabledBlocking`.
  *
  *   'enabled' - 此选项可以 1：1 替换为 `enabledNonBlocking`。
  *
@@ -452,9 +452,19 @@ export interface ExtraOptions {
    * Defines how the router merges parameters, data, and resolved data from parent to child
    * routes. By default ('emptyOnly'), inherits parent parameters only for
    * path-less or component-less routes.
+   *
+   * 定义路由器如何将参数、数据和已解析的数据从父路由合并到子路由。默认情况下（“emptyOnly”），仅继承无路径或无组件路由的父参数。
+   *
    * Set to 'always' to enable unconditional inheritance of parent parameters.
    *
-   * 定义路由器如何将参数、数据和已解析的数据从父路由合并到子路由。默认情况下（“emptyOnly”），仅继承无路径或无组件路由的父参数。设置为 “always” 时会始终启用父参数的无条件继承。
+   * 设置为 “always” 时会始终启用父参数的无条件继承。
+   *
+   *
+   * Note that when dealing with matrix parameters, "parent" refers to the parent `Route`
+   * config which does not necessarily mean the "URL segment to the left". When the `Route` `path`
+   * contains multiple segments, the matrix parameters must appear on the last segment. For example,
+   * matrix parameters for `{path: 'a/b', component: MyComp}` should appear as `a/b;foo=bar` and not
+   * `a;foo=bar/b`.
    *
    */
   paramsInheritanceStrategy?: 'emptyOnly'|'always';
@@ -515,7 +525,9 @@ export interface ExtraOptions {
    * ];
    * ```
    *
-   * From the `ContainerComponent`, this will not work:
+   * From the `ContainerComponent`, you should be able to navigate to `AComponent` using
+   * the following `routerLink`, but it will not work if `relativeLinkResolution` is set
+   * to `'legacy'`:
    *
    * 在 `ContainerComponent` 中不能这样用：
    *
@@ -527,7 +539,8 @@ export interface ExtraOptions {
    *
    * `<a [routerLink]="['../a']">Link to A</a>`
    *
-   * In other words, you're required to use `../` rather than `./`.
+   * In other words, you're required to use `../` rather than `./` when the relative link
+   * resolution is set to `'legacy'`.
    *
    * 换句话说，你需要使用 `../` 而不是 `./` 。
    *
@@ -557,12 +570,13 @@ export function setupRouter(
   assignExtraOptionsToRouter(opts, router);
 
   if (opts.enableTracing) {
-    const dom = getDOM();
     router.events.subscribe((e: Event) => {
-      dom.logGroup(`Router Event: ${(<any>e.constructor).name}`);
-      dom.log(e.toString());
-      dom.log(e);
-      dom.logGroupEnd();
+      // tslint:disable:no-console
+      console.group?.(`Router Event: ${(<any>e.constructor).name}`);
+      console.log(e.toString());
+      console.log(e);
+      console.groupEnd?.();
+      // tslint:enable:no-console
     });
   }
 
@@ -695,7 +709,7 @@ export function getBootstrapListener(r: RouterInitializer) {
 export const ROUTER_INITIALIZER =
     new InjectionToken<(compRef: ComponentRef<any>) => void>('Router Initializer');
 
-export function provideRouterInitializer() {
+export function provideRouterInitializer(): ReadonlyArray<Provider> {
   return [
     RouterInitializer,
     {

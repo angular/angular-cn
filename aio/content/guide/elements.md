@@ -94,8 +94,6 @@ When your custom element is placed on a page, the browser creates an instance of
   <img src="generated/images/guide/elements/customElement1.png" alt="Custom element in browser" class="left">
 </div>
 
-<hr class="clear">
-
 ## Transforming components to custom elements
 
 ## 把组件转换成自定义元素
@@ -112,16 +110,24 @@ constructor class that is configured to produce a self-bootstrapping instance of
 
 这个转换过程实现了 `NgElementConstructor` 接口，并创建了一个构造器类，用于生成该组件的一个自举型实例。
 
-Use a JavaScript function, `customElements.define()`,  to register the configured constructor
-and its associated custom-element tag with the browser's `CustomElementRegistry`.
+Use the built-in [`customElements.define()`](https://developer.mozilla.org/en-US/docs/Web/API/CustomElementRegistry/define) function to register the configured constructor and its associated custom-element tag with the browser's [`CustomElementRegistry`](https://developer.mozilla.org/en-US/docs/Web/API/CustomElementRegistry).
 When the browser encounters the tag for the registered element, it uses the constructor to create a custom-element instance.
 
-然后用 JavaScript 的 `customElements.define()` 函数把这个配置好的构造器和相关的自定义元素标签注册到浏览器的 `CustomElementRegistry` 中。
+使用内置的 [`customElements.define()`](https://developer.mozilla.org/en-US/docs/Web/API/CustomElementRegistry/define) 函数把这个配置好的构造器和相关的自定义元素标签注册到浏览器的 [`CustomElementRegistry`](https://developer.mozilla.org/en-US/docs/Web/API/CustomElementRegistry) 中。
 当浏览器遇到这个已注册元素的标签时，就会使用该构造器来创建一个自定义元素的实例。
 
 <div class="lightbox">
   <img src="generated/images/guide/elements/createElement.png" alt="Transform a component to a custom element" class="left">
 </div>
+
+<div class="alert is-important">
+
+  Avoid using the [`@Component`](api/core/Component) [selector](api/core/Directive#selector) as the custom-element tag name.
+  This can lead to unexpected behavior, due to Angular creating two component instances for a single DOM element:
+  One regular Angular component and a second one using the custom element.
+
+</div>
+
 
 ### Mapping
 
@@ -159,94 +165,52 @@ The recently-developed [custom elements](https://developer.mozilla.org/en-US/doc
 
 <table>
 <tr>
-
-  <th>
-
-      Browser
-
-      浏览器
-
-  </th>
-
-  <th>
-
-      Custom Element Support
-
-      自定义元素支持
-
-  </th>
-
+  <th>Browser</th>
+  <th>Custom Element Support</th>
 </tr>
 <tr>
-
-  <td>
-
-      Chrome
-
-  </td>
-
-  <td>
-
-      Supported natively.
-
-      原生支持。
-
-  </td>
-
+  <th>浏览器</th>
+  <th>自定义元素支持</th>
 </tr>
 <tr>
-
-  <td>
-
-      Edge (Chromium-based)
-
-      Edge (基于 Chromium 的)
-
-  </td>
-
-  <td>
-
-      Supported natively.
-
-      原生支持。
-
-  </td>
+  <td>Chrome</td>
+  <td>Supported natively.</td>
 </tr>
 <tr>
-
-  <td>
-
-      Firefox
-
-  </td>
-
-  <td>
-
-      Supported natively.
-
-      原生支持。
-
-  </td>
+  <td>Chrome</td>
+  <td>原生支持。</td>
+</tr>
+<tr>
+  <td>Edge (Chromium-based)</td>
+  <td>Supported natively.</td>
+</tr>
+<tr>
+  <td>Edge (基于 Chromium 的版本)</td>
+  <td>原生支持。</td>
+</tr>
+<tr>
+  <td>Firefox</td>
+  <td>Supported natively.</td>
+</tr>
+<tr>
+  <td>Firefox</td>
+  <td>原生支持。</td>
 </tr>
 <tr>
   <td>Opera</td>
-  <td>
-
-  Supported natively.
-
-  原生支持。
-
-  </td>
+  <td>Supported natively.</td>
+</tr>
+<tr>
+  <td>Opera</td>
+  <td>原生支持。</td>
 </tr>
 <tr>
   <td>Safari</td>
-  <td>
-
-  Supported natively.
-
-  原生支持。
-
-  </td>
+  <td>Supported natively.</td>
+</tr>
+<tr>
+  <td>Safari</td>
+  <td>原生支持。</td>
 </tr>
 </table>
 
@@ -254,7 +218,7 @@ In browsers that support Custom Elements natively, the specification requires de
 
 对于原生支持了自定义元素的浏览器，该规范要求开发人员使用 ES2016 的类来定义自定义元素 —— 开发人员可以在项目的 [TypeScript 配置文件](/guide/typescript-configuration)中设置 `target: "es2015"` 属性来满足这一要求。并不是所有浏览器都支持自定义元素和 ES2015，开发人员也可以选择使用腻子脚本来让它支持老式浏览器和 ES5 的代码。
 
-Use the [Angular CLI](cli) to automatically set up your project with the correct polyfill: 
+Use the [Angular CLI](cli) to automatically set up your project with the correct polyfill:
 
 使用 [Angular CLI](https://cli.angular.io/) 可以自动为你的项目添加正确的腻子脚本：
 
@@ -276,9 +240,9 @@ ng add @angular/elements --project=*your_project_name*
 
 ## 范例：弹窗服务
 
-Previously, when you wanted to add a component to an app at runtime, you had to define a _dynamic component_. The app module would have to list your dynamic component under `entryComponents`, so that the app wouldn't expect it to be present at startup, and then you would have to load it, attach it to an element in the DOM, and wire up all of the dependencies, change detection, and event handling, as described in [Dynamic Component Loader](guide/dynamic-component-loader).
+Previously, when you wanted to add a component to an app at runtime, you had to define a _dynamic component_, and then you would have to load it, attach it to an element in the DOM, and wire up all of the dependencies, change detection, and event handling, as described in [Dynamic Component Loader](guide/dynamic-component-loader).
 
-以前，如果你要在运行期间把一个组件添加到应用中，就不得不定义*动态组件*。你还要把动态组件添加到模块的 `entryComponents` 列表中，以便应用在启动时能找到它，然后还要加载它、把它附加到 DOM 中的元素上，并且装配所有的依赖、变更检测和事件处理，详见[动态组件加载器](guide/dynamic-component-loader)。
+以前，如果你要在运行期间把一个组件添加到应用中，就得定义成*动态组件*，然后还要加载它、把它附加到 DOM 中的元素上，并且装配所有的依赖、变更检测和事件处理，详见[动态组件加载器](guide/dynamic-component-loader)。
 
 Using an Angular custom element makes the process much simpler and more transparent, by providing all of the infrastructure and framework automatically&mdash;all you have to do is define the kind of event handling you want. (You do still have to exclude the component from compilation, if you are not going to use it in your app.)
 
@@ -288,7 +252,7 @@ The Popup Service example app (shown below) defines a component that you can eit
 
 这个弹窗服务的范例应用（见后面）定义了一个组件，你可以动态加载它也可以把它转换成自定义组件。
 
-- `popup.component.ts`  defines a simple pop-up element that displays an input message, with some animation and styling. 
+- `popup.component.ts` defines a simple pop-up element that displays an input message, with some animation and styling. 
 
    `popup.component.ts` 定义了一个简单的弹窗元素，用于显示一条输入消息，附带一些动画和样式。
 - `popup.service.ts` creates an injectable service that provides two different ways to invoke the PopupComponent; as a dynamic component, or as a custom element. Notice how much more setup is required for the dynamic-loading method.
@@ -353,9 +317,9 @@ class MyDialog {
 }
 ```
 
-The most straight forward way to get accurate typings is to cast the return value of the relevant DOM methods to the correct type. For that, you can use the `NgElement` and `WithProperties` types (both exported from `@angular/elements`):
+The most straightforward way to get accurate typings is to cast the return value of the relevant DOM methods to the correct type. For that, you can use the `NgElement` and `WithProperties` types (both exported from `@angular/elements`):
 
-获得精确类型的最简单方式是把相关 DOM 方法的返回值转换成正确的类型。要做到这一点，你可以使用 `NgElement` 和 `WithProperties` 类型（都导出自 `@angular/elements`）：
+要获得精确类型，最直白的方式是把相关 DOM 方法的返回值转换成正确的类型。要做到这一点，你可以使用 `NgElement` 和 `WithProperties` 类型（都导出自 `@angular/elements`）：
 
 ```ts
 const aDialog = document.createElement('my-dialog') as NgElement & WithProperties<{content: string}>;

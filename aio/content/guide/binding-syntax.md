@@ -1,16 +1,9 @@
-# Binding syntax: an overview
+# Binding syntax
 
 # 绑定语法：概述
 
-Data-binding is a mechanism for coordinating what users see, specifically
-with application data values.
-While you could push values to and pull values from HTML,
-the application is easier to write, read, and maintain if you turn these tasks over to a binding framework.
-You simply declare bindings between binding sources, target HTML elements, and let the framework do the rest.
-
-数据绑定是一种机制，用来协调用户可见的内容，特别是应用数据的值。
-虽然也可以手动从 HTML 中推送或拉取这些值，但是如果将这些任务转交给绑定框架，应用就会更易于编写、阅读和维护。
-你只需声明数据源和目标 HTML 元素之间的绑定关系就可以了，框架会完成其余的工作。
+Data binding automatically keeps your page up-to-date based on your application's state.
+You use data binding to specify things such as the source of an image, the state of a button, or data for a particular user.
 
 <div class="alert is-helpful">
 
@@ -20,21 +13,107 @@ See the <live-example></live-example> for a working example containing the code 
 
 </div>
 
-Angular provides many kinds of data-binding. Binding types can be grouped into three categories distinguished by the direction of data flow:
 
-Angular 提供了多种数据绑定方式。绑定类型可以分为三类，按数据流的方向分为：
+## Data binding and HTML
 
-* From the _source-to-view_
+Developers can customize HTML by specifying attributes with string values.
+In the following example, `class`, `src`, and `disabled` modify the `<div>`, `<img>`, and `<button>` elements respectively.
 
-  从*数据源到视图*
+```html
+<div class="special">Plain old HTML</div>
+<img src="images/item.png">
+<button disabled>Save</button>
+```
 
-* From _view-to-source_
+Use data binding to control things like the state of a button:
 
-  从*视图到数据源*
+<code-example path="binding-syntax/src/app/app.component.html" region="disabled-button" header="src/app/app.component.html"></code-example>
 
-* Two-way sequence: _view-to-source-to-view_
+Notice that the binding is to the `disabled` property of the button's DOM element, not the attribute.
+Data binding works with properties of DOM elements, components, and directives, not HTML attributes.
 
-  双向：*视图到数据源到视图*
+{@a html-attribute-vs-dom-property}
+
+### HTML attributes and DOM properties
+
+Angular binding distinguishes between HTML attributes and DOM properties.
+
+Attributes initialize DOM properties and you can configure them to modify an element's behavior.
+Properties are features of DOM nodes.
+
+* A few HTML attributes have 1:1 mapping to properties; for example, `id`.
+
+* Some HTML attributes don't have corresponding properties; for example, `aria-*`.
+
+* Some DOM properties don't have corresponding attributes; for example, `textContent`.
+
+<div class="alert is-important">
+
+Remember that HTML attributes and DOM properties are different things, even when they have the same name.
+
+</div>
+
+In Angular, the only role of HTML attributes is to initialize element and directive state.
+
+When you write a data binding, you're dealing exclusively with the DOM properties and events of the target object.
+
+#### Example 1: an `<input>`
+
+When the browser renders `<input type="text" value="Sarah">`, it creates a
+corresponding DOM node with a `value` property and initializes that `value` to "Sarah".
+
+```html
+<input type="text" value="Sarah">
+```
+
+When the user enters `Sally` into the `<input>`, the DOM element `value` property becomes `Sally`.
+However, if you look at the HTML attribute `value` using `input.getAttribute('value')`, you can see that the attribute remains unchanged&mdash;it returns "Sarah".
+
+The HTML attribute `value` specifies the initial value; the DOM `value` property is the current value.
+
+To see attributes versus DOM properties in a functioning app, see the <live-example name="binding-syntax"></live-example> especially for binding syntax.
+
+#### Example 2: a disabled button
+
+A button's `disabled` property is `false` by default so the button is enabled.
+
+When you add the `disabled` attribute, you are initializing the button's `disabled` property to `true` which disables the button.
+
+```html
+<button disabled>Test Button</button>
+```
+
+Adding and removing the `disabled` attribute disables and enables the button.
+However, the value of the attribute is irrelevant, which is why you cannot enable a button by writing `<button disabled="false">Still Disabled</button>`.
+
+To control the state of the button, set the `disabled` property instead.
+
+#### Property and attribute comparison
+
+Though you could technically set the `[attr.disabled]` attribute binding, the values are different in that the property binding must be a boolean value, while its corresponding attribute binding relies on whether the value is `null` or not.
+Consider the following:
+
+```html
+<input [disabled]="condition ? true : false">
+<input [attr.disabled]="condition ? 'disabled' : null">
+```
+
+The first line, which uses the `disabled` property, uses a boolean value.
+The second line, which uses the disabled attribute checks for `null`.
+
+Generally, use property binding over attribute binding as a boolean value is easy to read, the syntax is shorter, and a property is more performant.
+
+To see the `disabled` button example in a functioning application, see the <live-example></live-example>.
+This example shows you how to toggle the disabled property from the component.
+
+
+## Types of data binding
+
+Angular provides three categories of data binding according to the direction of data flow:
+
+* From the source to view
+* From view to source
+* In a two way sequence of view to source to view
 
 <style>
   td, th {vertical-align: top}
@@ -169,210 +248,27 @@ Angular 提供了多种数据绑定方式。绑定类型可以分为三类，按
   </tr>
 </table>
 
-Binding types other than interpolation have a **target name** to the left of the equal sign, either surrounded by punctuation, `[]` or `()`,
-or preceded by a prefix: `bind-`, `on-`, `bindon-`.
 
-除插值以外的其它绑定类型在等号的左侧都有一个“目标名称”，由绑定符 `[]` 或 `()` 包起来，
-或者带有前缀：`bind-`，`on-`，`bindon-`。
+Binding types other than interpolation have a target name to the left of the equal sign.
+The target of a binding is a property or event, which you surround with square brackets, `[]`, parentheses, `()`, or both, `[()]`.
 
-The *target* of a binding is the property or event inside the binding punctuation: `[]`, `()` or `[()]`.
+The binding punctuation of `[]`, `()`, `[()]`, and the prefix specify the direction of data flow.
 
-绑定的“目标”是绑定符内部的属性或事件：`[]`、`()` 或 `[()]`。
+* Use `[]` to bind from source to view.
+* Use `()` to bind from view to source.
+* Use `[()]` to bind in a two way sequence of view to source to view.
 
-Every public member of a **source** directive is automatically available for binding.
-You don't have to do anything special to access a directive member in a template expression or statement.
 
-在绑定时可以使用**来源**指令的每个公共成员。
-你无需进行任何特殊操作即可在模板表达式或语句内访问指令的成员。
-
-### Data-binding and HTML
-
-### 数据绑定与 HTML
-
-In the normal course of HTML development, you create a visual structure with HTML elements, and
-you modify those elements by setting element attributes with string constants.
-
-在正常的 HTML 开发过程中，你使用 HTML 元素来创建视觉结构，
-通过把字符串常量设置到元素的 attribute 来修改那些元素。
-
-```html
-
-<div class="special">Plain old HTML</div>
-
-<img src="images/item.png">
-<button disabled>Save</button>
-
-```
-
-With data-binding, you can control things like the state of a button:
-
-使用数据绑定，你可以控制按钮状态等各个方面：
-
-<code-example path="binding-syntax/src/app/app.component.html" region="disabled-button" header="src/app/app.component.html"></code-example>
-
-Notice that the binding is to the `disabled` property of the button's DOM element,
-**not** the attribute. This applies to data-binding in general. Data-binding works with *properties* of DOM elements, components, and directives, not HTML *attributes*.
-
-请注意，这里绑定到的是按钮的 DOM 元素的 `disabled` 这个 *Property*，而不是 *Attribute*。
-这是数据绑定的通用规则。数据绑定使用 DOM 元素、组件和指令的 *Property*，而不是 HTML 的*Attribute*。
-
-{@a html-attribute-vs-dom-property}
-
-### HTML attribute vs. DOM property
-
-### HTML attribute 与 DOM property 的对比
-
-The distinction between an HTML attribute and a DOM property is key to understanding
-how Angular binding works. **Attributes are defined by HTML. Properties are accessed from DOM (Document Object Model) nodes.**
-
-理解 HTML 属性和 DOM 属性之间的区别，是了解 Angular 绑定如何工作的关键。**Attribute 是由 HTML 定义的。Property 是从 DOM（文档对象模型）节点访问的。**
-
-* A few HTML attributes have 1:1 mapping to properties; for example, `id`.
-
-  一些 HTML Attribute 可以 1:1 映射到 Property；例如，“ id”。
-
-* Some HTML attributes don't have corresponding properties; for example, `aria-*`.
-
-  某些 HTML Attribute 没有相应的 Property。例如，`aria-*`。
-
-* Some DOM properties don't have corresponding attributes; for example, `textContent`.
-
-  某些 DOM Property 没有相应的 Attribute。例如，`textContent`。
-
-It is important to remember that *HTML attribute* and the *DOM property* are different things, even when they have the same name.
-In Angular, the only role of HTML attributes is to initialize element and directive state.
-
-重要的是要记住，*HTML Attribute* 和 *DOM Property* 是不同的，就算它们具有相同的名称也是如此。
-在 Angular 中，HTML Attribute 的唯一作用是初始化元素和指令的状态。
-
-**Template binding works with *properties* and *events*, not *attributes*.**
-
-**模板绑定使用的是 *Property* 和*事件*，而不是 *Attribute*。**
-
-When you write a data-binding, you're dealing exclusively with the *DOM properties* and *events* of the target object.
-
-编写数据绑定时，你只是在和目标对象的 *DOM Property* 和*事件*打交道。
-
-<div class="alert is-helpful">
-
-This general rule can help you build a mental model of attributes and DOM properties:
-**Attributes initialize DOM properties and then they are done.
-Property values can change; attribute values can't.**
-
-该通用规则可以帮助你建立 HTML Attribute 和 DOM Property 的思维模型：
-**属性负责初始化 DOM 属性，然后完工。Property 值可以改变；Attribute 值则不能。**
-
-There is one exception to this rule.
-Attributes can be changed by `setAttribute()`, which re-initializes corresponding DOM properties.
-
-此规则有一个例外。
-可以通过 `setAttribute()` 来更改 Attribute，接着它会重新初始化相应的 DOM 属性。
-
-</div>
-
-For more information, see the [MDN Interfaces documentation](https://developer.mozilla.org/en-US/docs/Web/API#Interfaces) which has API docs for all the standard DOM elements and their properties.
-Comparing the [`<td>` attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/td) to the [`<td>` properties](https://developer.mozilla.org/en-US/docs/Web/API/HTMLTableCellElement) provides a helpful example for differentiation.
-In particular, you can navigate from the attributes page to the properties via "DOM interface" link, and navigate the inheritance hierarchy up to `HTMLTableCellElement`.
-
-欲知详情，参见 [MDN 接口文档](https://developer.mozilla.org/en-US/docs/Web/API#Interfaces)，其中包含所有标准 DOM 元素及其 Property 的 API 文档。
-[`<td>` Attribute](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/td) 与 [`<td>` Property](https://developer.mozilla.org/en-US/docs/Web/API/HTMLTableCellElement) 之间的比较是一个很有用的例子。
-特别是，你可以通过 “DOM 接口” 链接从 Attribute 页面导航到 Property 页面，并在继承层次中导航到 `HTMLTableCellElement`。
-
-#### Example 1: an `<input>`
-
-#### 范例 1：`<input>`
-
-When the browser renders `<input type="text" value="Sarah">`, it creates a
-corresponding DOM node with a `value` property initialized to "Sarah".
-
-当浏览器渲染 `<input type="text" value="Sarah">` 时，它会创建一个对应的 DOM 节点，其 `value` Property 已初始化为 “Sarah”。
-
-```html
-
-<input type="text" value="Sarah">
-
-```
-
-When the user enters "Sally" into the `<input>`, the DOM element `value` *property* becomes "Sally".
-However, if you look at the HTML attribute `value` using `input.getAttribute('value')`, you can see that the *attribute* remains unchanged&mdash;it returns "Sarah".
-
-当用户在 `<input>` 中输入 `Sally` 时，DOM 元素的 `value` *Property* 将变为 `Sally`。
-但是，如果使用 `input.getAttribute('value')` 查看 HTML 的 Attribute `value`，则可以看到该 *attribute* 保持不变 —— 它返回了 `Sarah`。
-
-The HTML attribute `value` specifies the *initial* value; the DOM `value` property is the *current* value.
-
-HTML 的 `value` 这个 attribute 指定了*初始*值；DOM 的 `value` 这个 property 是*当前*值。
-
-To see attributes versus DOM properties in a functioning app, see the <live-example name="binding-syntax"></live-example> especially for binding syntax.
-
-要通过可运行的应用查看 Attribute 和 DOM Property 的差别，请参阅 <live-example name="binding-syntax"></live-example>，特别注意其绑定语法。
-
-#### Example 2: a disabled button
-
-#### 范例 2：禁用按钮
-
-The `disabled` attribute is another example. A button's `disabled`
-*property* is `false` by default so the button is enabled.
-
-`disabled` Attribute 是另一个例子。按钮的 `disabled` *Property* 默认为 `false`，因此按钮是启用的。
-
-When you add the `disabled` *attribute*, its presence alone
-initializes the button's `disabled` *property* to `true`
-so the button is disabled.
-
-当你添加 `disabled` *Attribute* 时，仅仅它的出现就将按钮的 `disabled` *Property* 初始化成了 `true`，因此该按钮就被禁用了。
-
-```html
-
-<button disabled>Test Button</button>
-
-```
-
-Adding and removing the `disabled` *attribute* disables and enables the button.
-However, the value of the *attribute* is irrelevant,
-which is why you cannot enable a button by writing `<button disabled="false">Still Disabled</button>`.
-
-添加和删​​除 `disabled` *Attribute* 会禁用和启用该按钮。
-但是，*Attribute* 的值无关紧要，这就是为什么你不能通过编写 `<button disabled="false">仍被禁用</button>` 来启用此按钮的原因。
-
-To control the state of the button, set the `disabled` *property*,
-
-要控制按钮的状态，请设置 `disabled` *Property*，
-
-<div class="alert is-helpful">
-
-Though you could technically set the `[attr.disabled]` attribute binding, the values are different in that the property binding requires to be a boolean value, while its corresponding attribute binding relies on whether the value is `null` or not. Consider the following:
-
-虽然技术上说你可以设置 `[attr.disabled]` 属性绑定，但是它们的值是不同的，Property 绑定要求一个布尔值，而其相应的 Attribute 绑定则取决于该值是否为 `null`。例子如下：
-
-```html
-
-<input [disabled]="condition ? true : false">
-<input [attr.disabled]="condition ? 'disabled' : null">
-
-```
-
-Generally, use property binding over attribute binding as it is more intuitive (being a boolean value), has a shorter syntax, and is more performant.
-
-通常，要使用 Property 绑定而不是 Attribute 绑定，因为它更直观（是一个布尔值），语法更短，并且性能更高。
-
-</div>
-
-
-To see the `disabled` button example in a functioning app, see the <live-example name="binding-syntax"></live-example> especially for binding syntax. This example shows you how to toggle the disabled property from the component.
-
-要通过可运行的应用查看 `disabled` 按钮示例，请参见<live-example name="binding-syntax"></live-example>，特别注意其绑定语法。本示例展示了如何从组件中切换禁用属性。
+Place the expression or statement to the right of the equal sign within double quotes, `""`.
+For more information see [Interpolation](guide/interpolation) and [Template statements](guide/template-statements).
 
 ## Binding types and targets
 
 ## 绑定类型和目标
 
-The **target of a data-binding** is something in the DOM.
-Depending on the binding type, the target can be a property (element, component, or directive),
-an event (element, component, or directive), or sometimes an attribute name.
+The target of a data binding can be a property, an event, or an attribute name.
+Every public member of a source directive is automatically available for binding in a template expression or statement.
 The following table summarizes the targets for the different binding types.
-
-**数据绑定**的目标是 DOM 中的某些东西。根据绑定类型，目标可以是属性（元素，组件或指令），事件（元素，组件或指令）或有时是属性名称。下表总结了不同绑定类型的目标。
 
 <style>
   td, th {vertical-align: top}
@@ -449,8 +345,6 @@ The following table summarizes the targets for the different binding types.
     <td>
       <code>click</code>, <code>deleteRequest</code>, and <code>myClick</code> in the following:
       <code-example path="template-syntax/src/app/app.component.html" region="event-binding-syntax-1"></code-example>
-      <!-- KW--Why don't these links work in the table? -->
-      <!-- <div>For more information, see [Event Binding](guide/event-binding).</div> -->
     </td>
   </tr>
   <tr>
@@ -465,8 +359,6 @@ The following table summarizes the targets for the different binding types.
     <td>
       <code>click</code>、<code>deleteRequest</code> 和 <code>myClick</code>，代码如下：
       <code-example path="template-syntax/src/app/app.component.html" region="event-binding-syntax-1"></code-example>
-      <!-- KW--Why don't these links work in the table? -->
-      <!-- <div>For more information, see [Event Binding](guide/event-binding).</div> -->
     </td>
   </tr>
   <tr>
@@ -560,4 +452,3 @@ The following table summarizes the targets for the different binding types.
     </td>
   </tr>
 </table>
-

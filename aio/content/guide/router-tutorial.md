@@ -6,10 +6,10 @@ This tutorial describes how you can build a single-page application, SPA that us
 
 本教程将介绍如何构建一个使用多个 Angular 路由的单页面应用 SPA。
 
-In an SPA, all of your application's functions exist in a single HTML page.
+In a Single Page Application (SPA), all of your application's functions exist in a single HTML page.
 As users access your application's features, the browser needs to render only the parts that matter to the user, instead of loading a new page. This pattern can significantly improve your application's user experience.
 
-在 SPA 中，所有应用的所有功能都存在于同一个 HTML 页面中。当用户访问应用的各种特性时，浏览器只需渲染那些用户需要关心的部分，而不用重新加载页面。这种模式可以显著改善应用的用户体验。
+在 SPA（Single Page Application 单页面应用）中，所有应用的所有功能都存在于同一个 HTML 页面中。当用户访问应用的各种特性时，浏览器只需渲染那些用户需要关心的部分，而不用重新加载页面。这种模式可以显著改善应用的用户体验。
 
 To define how users navigate through your application, you use routes. You can add routes to define how users navigate from one part of your application to another.
 You can also configure routes to guard against unexpected or unauthorized behavior.

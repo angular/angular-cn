@@ -11,11 +11,12 @@ import * as ts from 'typescript';
 
 import {absoluteFrom, AbsoluteFsPath, getSourceFileOrError, LogicalFileSystem} from '../../file_system';
 import {TestFile} from '../../file_system/testing';
-import {AbsoluteModuleStrategy, LocalIdentifierStrategy, LogicalProjectStrategy, ModuleResolver, Reexport, Reference, ReferenceEmitter} from '../../imports';
+import {AbsoluteModuleStrategy, LocalIdentifierStrategy, LogicalProjectStrategy, ModuleResolver, Reexport, Reference, ReferenceEmitter, RelativePathStrategy} from '../../imports';
 import {NOOP_INCREMENTAL_BUILD} from '../../incremental';
-import {ClassPropertyMapping} from '../../metadata';
+import {ClassPropertyMapping, CompoundMetadataReader} from '../../metadata';
+import {NOOP_PERF_RECORDER} from '../../perf';
 import {ClassDeclaration, isNamedClassDeclaration, TypeScriptReflectionHost} from '../../reflection';
-import {ComponentScopeReader, LocalModuleScope, ScopeData} from '../../scope';
+import {ComponentScopeReader, LocalModuleScope, ScopeData, TypeCheckScopeRegistry} from '../../scope';
 import {makeProgram} from '../../testing';
 import {getRootDirs} from '../../util/src/typescript';
 import {ProgramTypeCheckAdapter, TemplateTypeChecker, TypeCheckContext} from '../api';
@@ -28,6 +29,7 @@ import {Environment} from '../src/environment';
 import {OutOfBandDiagnosticRecorder} from '../src/oob';
 import {TypeCheckShimGenerator} from '../src/shim';
 import {generateTypeCheckBlock} from '../src/type_check_block';
+import {TypeCheckFile} from '../src/type_check_file';
 
 export function typescriptLibDts(): TestFile {
   return {
@@ -97,7 +99,8 @@ export function angularCoreDts(): TestFile {
     }
 
     export declare class EventEmitter<T> {
-      subscribe(generatorOrNext?: any, error?: any, complete?: any): unknown;
+      subscribe(next?: (value: T) => void, error?: (error: any) => void, complete?: () => void): unknown;
+      subscribe(observerOrNext?: any, error?: any, complete?: any): unknown;
     }
 
     export declare type NgIterable<T> = Array<T> | Iterable<T>;
@@ -164,7 +167,7 @@ export function ngForTypeCheckTarget(): TypeCheckingTarget {
   };
 }
 
-export const ALL_ENABLED_CONFIG: TypeCheckingConfig = {
+export const ALL_ENABLED_CONFIG: Readonly<TypeCheckingConfig> = {
   applyTemplateContextGuards: true,
   checkQueries: false,
   checkTemplateBodies: true,
@@ -186,34 +189,59 @@ export const ALL_ENABLED_CONFIG: TypeCheckingConfig = {
   useContextGenericType: true,
   strictLiteralTypes: true,
   enableTemplateTypeChecker: false,
+  useInlineTypeConstructors: true,
+  suggestionsForSuboptimalTypeInference: false,
 };
 
 // Remove 'ref' from TypeCheckableDirectiveMeta and add a 'selector' instead.
-export type TestDirective = Partial<Pick<
+export interface TestDirective extends Partial<Pick<
     TypeCheckableDirectiveMeta,
     Exclude<
         keyof TypeCheckableDirectiveMeta,
         'ref'|'coercedInputFields'|'restrictedInputFields'|'stringLiteralInputFields'|
-        'undeclaredInputFields'|'inputs'|'outputs'>>>&{
-  selector: string, name: string, file?: AbsoluteFsPath, type: 'directive',
-      inputs?: {[fieldName: string]: string}, outputs?: {[fieldName: string]: string},
-      coercedInputFields?: string[], restrictedInputFields?: string[],
-      stringLiteralInputFields?: string[], undeclaredInputFields?: string[], isGeneric?: boolean;
-};
-export type TestPipe = {
-  name: string,
-  file?: AbsoluteFsPath, pipeName: string, type: 'pipe',
-};
+        'undeclaredInputFields'|'inputs'|'outputs'>>> {
+  selector: string;
+  name: string;
+  file?: AbsoluteFsPath;
+  type: 'directive';
+  inputs?: {[fieldName: string]: string};
+  outputs?: {[fieldName: string]: string};
+  coercedInputFields?: string[];
+  restrictedInputFields?: string[];
+  stringLiteralInputFields?: string[];
+  undeclaredInputFields?: string[];
+  isGeneric?: boolean;
+  code?: string;
+}
+
+export interface TestPipe {
+  name: string;
+  file?: AbsoluteFsPath;
+  pipeName: string;
+  type: 'pipe';
+  code?: string;
+}
 
 export type TestDeclaration = TestDirective|TestPipe;
 
 export function tcb(
-    template: string, declarations: TestDeclaration[] = [], config?: TypeCheckingConfig,
+    template: string, declarations: TestDeclaration[] = [], config?: Partial<TypeCheckingConfig>,
     options?: {emitSpans?: boolean}): string {
-  const classes = ['Test', ...declarations.map(decl => decl.name)];
-  const code = classes.map(name => `class ${name}<T extends string> {}`).join('\n');
+  const codeLines = [`export class Test<T extends string> {}`];
 
-  const sf = ts.createSourceFile('synthetic.ts', code, ts.ScriptTarget.Latest, true);
+  for (const decl of declarations) {
+    if (decl.code !== undefined) {
+      codeLines.push(decl.code);
+    } else {
+      codeLines.push(`export class ${decl.name}<T extends string> {}`);
+    }
+  }
+  const rootFilePath = absoluteFrom('/synthetic.ts');
+  const {program, host} = makeProgram([
+    {name: rootFilePath, contents: codeLines.join('\n'), isRoot: true},
+  ]);
+
+  const sf = getSourceFileOrError(program, rootFilePath);
   const clazz = getClass(sf, 'Test');
   const templateUrl = 'synthetic.html';
   const {nodes} = parseTemplate(template, templateUrl);
@@ -225,7 +253,7 @@ export function tcb(
   const id = 'tcb' as TemplateId;
   const meta: TypeCheckBlockMetadata = {id, boundTarget, pipes, schemas: []};
 
-  config = config || {
+  const fullConfig: TypeCheckingConfig = {
     applyTemplateContextGuards: true,
     checkQueries: false,
     checkTypeOfInputBindings: true,
@@ -245,18 +273,33 @@ export function tcb(
     useContextGenericType: true,
     strictLiteralTypes: true,
     enableTemplateTypeChecker: false,
+    useInlineTypeConstructors: true,
+    suggestionsForSuboptimalTypeInference: false,
+    ...config
   };
   options = options || {
     emitSpans: false,
   };
 
-  const tcb = generateTypeCheckBlock(
-      FakeEnvironment.newFake(config), new Reference(clazz), ts.createIdentifier('Test_TCB'), meta,
-      new NoopSchemaChecker(), new NoopOobRecorder());
+  const fileName = absoluteFrom('/type-check-file.ts');
 
-  const removeComments = !options.emitSpans;
-  const res = ts.createPrinter({removeComments}).printNode(ts.EmitHint.Unspecified, tcb, sf);
-  return res.replace(/\s+/g, ' ');
+  const reflectionHost = new TypeScriptReflectionHost(program.getTypeChecker());
+
+  const refEmmiter: ReferenceEmitter = new ReferenceEmitter(
+      [new LocalIdentifierStrategy(), new RelativePathStrategy(reflectionHost)]);
+
+  const env = new TypeCheckFile(fileName, fullConfig, refEmmiter, reflectionHost, host);
+
+  const ref = new Reference(clazz);
+
+  const tcb = generateTypeCheckBlock(
+      env, ref, ts.createIdentifier('Test_TCB'), meta, new NoopSchemaChecker(),
+      new NoopOobRecorder());
+
+  env.addTypeCheckBlock(ref, meta, new NoopSchemaChecker(), new NoopOobRecorder());
+
+  const rendered = env.render(!options.emitSpans /* removeComments */);
+  return rendered.replace(/\s+/g, ' ');
 }
 
 /**
@@ -353,7 +396,14 @@ export function setup(targets: TypeCheckingTarget[], overrides: {
         program, checker, moduleResolver, new TypeScriptReflectionHost(checker)),
     new LogicalProjectStrategy(reflectionHost, logicalFs),
   ]);
-  const fullConfig = {...ALL_ENABLED_CONFIG, ...config};
+
+  const fullConfig = {
+    ...ALL_ENABLED_CONFIG,
+    useInlineTypeConstructors: overrides.inlining !== undefined ?
+        overrides.inlining :
+        ALL_ENABLED_CONFIG.useInlineTypeConstructors,
+    ...config
+  };
 
   // Map out the scope of each target component, which is needed for the ComponentScopeReader.
   const scopeMap = new Map<ClassDeclaration, ScopeData>();
@@ -407,7 +457,7 @@ export function setup(targets: TypeCheckingTarget[], overrides: {
           node: classRef.node.name,
         };
 
-        ctx.addTemplate(classRef, binder, nodes, pipes, [], sourceMapping, templateFile);
+        ctx.addTemplate(classRef, binder, nodes, pipes, [], sourceMapping, templateFile, errors);
       }
     }
   });
@@ -435,6 +485,7 @@ export function setup(targets: TypeCheckingTarget[], overrides: {
                 directives: [],
                 ngModules: [],
                 pipes: [],
+                isPoisoned: false,
               };
               return {
                 ngModule,
@@ -460,9 +511,12 @@ export function setup(targets: TypeCheckingTarget[], overrides: {
         }
   };
 
+  const typeCheckScopeRegistry =
+      new TypeCheckScopeRegistry(fakeScopeReader, new CompoundMetadataReader([]));
+
   const templateTypeChecker = new TemplateTypeCheckerImpl(
       program, programStrategy, checkAdapter, fullConfig, emitter, reflectionHost, host,
-      NOOP_INCREMENTAL_BUILD, fakeScopeReader);
+      NOOP_INCREMENTAL_BUILD, fakeScopeReader, typeCheckScopeRegistry, NOOP_PERF_RECORDER);
   return {
     templateTypeChecker,
     program,
@@ -501,6 +555,7 @@ function prepareDeclarations(
       isGeneric: decl.isGeneric ?? false,
       outputs: ClassPropertyMapping.fromMappedObject(decl.outputs || {}),
       queries: decl.queries || [],
+      isStructural: false,
     };
     matcher.addSelectables(selector, meta);
   }
@@ -532,6 +587,7 @@ function makeScope(program: ts.Program, sf: ts.SourceFile, decls: TestDeclaratio
     ngModules: [],
     directives: [],
     pipes: [],
+    isPoisoned: false,
   };
 
   for (const decl of decls) {
@@ -561,6 +617,8 @@ function makeScope(program: ts.Program, sf: ts.SourceFile, decls: TestDeclaratio
         stringLiteralInputFields: new Set(decl.stringLiteralInputFields ?? []),
         undeclaredInputFields: new Set(decl.undeclaredInputFields ?? []),
         isGeneric: decl.isGeneric ?? false,
+        isPoisoned: false,
+        isStructural: false,
       });
     } else if (decl.type === 'pipe') {
       scope.pipes.push({
@@ -582,10 +640,6 @@ class FakeEnvironment /* implements Environment */ {
 
   pipeInst(ref: Reference<ClassDeclaration<ts.ClassDeclaration>>): ts.Expression {
     return ts.createParen(ts.createAsExpression(ts.createNull(), this.referenceType(ref)));
-  }
-
-  declareOutputHelper(): ts.Expression {
-    return ts.createIdentifier('_outputHelper');
   }
 
   reference(ref: Reference<ClassDeclaration<ts.ClassDeclaration>>): ts.Expression {
@@ -639,4 +693,5 @@ export class NoopOobRecorder implements OutOfBandDiagnosticRecorder {
   duplicateTemplateVar(): void {}
   requiresInlineTcb(): void {}
   requiresInlineTypeConstructors(): void {}
+  suboptimalTypeInference(): void {}
 }

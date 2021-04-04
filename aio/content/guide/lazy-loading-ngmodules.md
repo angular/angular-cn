@@ -28,9 +28,9 @@ For a step-by-step example, see the [step-by-step setup](#step-by-step) section 
 本节会介绍配置惰性加载路由的基本过程。
 想要一个分步的范例，参阅本页的[分步设置](#step-by-step)部分。
 
-To lazy load Angular modules, use `loadchildren` (instead of `component`) in your `AppRoutingModule` `routes` configuration as follows.
+To lazy load Angular modules, use `loadChildren` (instead of `component`) in your `AppRoutingModule` `routes` configuration as follows.
 
-要惰性加载 Angular 模块，请在 `AppRoutingModule` `routes` 中使用 `loadchildren` 代替 `component` 进行配置，代码如下。
+要惰性加载 Angular 模块，请在 `AppRoutingModule` `routes` 中使用 `loadChildren` 代替 `component` 进行配置，代码如下。
 
 <code-example header="AppRoutingModule (excerpt)">
 
@@ -153,7 +153,16 @@ The import path is the relative path to the module.
 注意，惰性加载语法使用 `loadChildren`，其后是一个使用浏览器内置的 `import('...')` 语法进行动态导入的函数。
 其导入路径是到当前模块的相对路径。
 
-#### Add another feature module
+<div class="callout is-helpful">
+<header>String-based lazy loading</header>
+
+In Angular version 8, the string syntax for the `loadChildren` route specification [was deprecated](https://angular.io/guide/deprecations#loadchildren-string-syntax) in favor of the `import()` syntax. However, you can opt into using string-based lazy loading (`loadChildren: './path/to/module#Module'`) by including the lazy-loaded routes in your `tsconfig` file, which includes the lazy-loaded files in the compilation.
+
+By default the CLI will generate projects which stricter file inclusions intended to be used with the `import()` syntax.
+
+</div>
+
+### Add another feature module
 
 #### 添加另一个特性模块
 
@@ -199,9 +208,9 @@ ng serve
 
 </code-example>
 
-Then go to `localhost:4200` where you should see  `customer-app`  and three buttons.
+Then go to `localhost:4200` where you should see  "customer-app"  and three buttons.
 
-然后，跳转到 `localhost:4200`，这时你应该看到  `customer-app`  和三个按钮。
+然后，跳转到 `localhost:4200`，这时你应该看到 "customer-app" 和三个按钮。
 
 <div class="lightbox">
 
@@ -462,8 +471,13 @@ For more information with a working example, see the [routing tutorial section o
 
 关于工作范例的更多信息，请参阅[路由教程的预加载部分](guide/router-tutorial-toh#preloading-background-loading-of-feature-areas) 。
 
+## Troubleshooting lazy-loading modules
 
-<hr>
+A common error when lazy-loading modules is importing common modules in multiple places within an application.  You can test for this condition by first generating the module using the Angular CLI and including the `--route route-name` parameter, where `route-name` is the name of your module. Next, generate the module without the `--route` parameter. If the Angular CLI generates an error when you use the `--route` parameter, but runs correctly without it, you may have imported the same module in multiple places.
+
+Remember, many common Angular modules should be imported at the base of your application.
+
+For more information on Angular Modules, see [NgModules](guide/ngmodules).
 
 ## More on NgModules and routing
 

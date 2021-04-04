@@ -54,20 +54,40 @@ After running this command you will notice that the `angular.json` configuration
 <code-example language="json">
 "server": {
   "builder": "@angular-devkit/build-angular:server",
+  "defaultConfiguration": "production",
   "options": {
-    "outputPath": "dist/my-app-server",
+    "outputPath": "dist/my-app/server",
     "main": "src/main.server.ts",
     "tsConfig": "tsconfig.server.json"
+  },
+  "configurations": {
+    "development": {
+      "outputHashing": "none",
+    },
+    "production": {
+      "outputHashing": "media",
+      "fileReplacements": [
+        {
+          "replace": "src/environments/environment.ts",
+          "with": "src/environments/environment.prod.ts"
+        }
+      ],
+      "sourceMap": false,
+      "optimization": true
+    }
   }
 },
 "app-shell": {
   "builder": "@angular-devkit/build-angular:app-shell",
+  "defaultConfiguration": "production",
   "options": {
-    "browserTarget": "my-app:build",
-    "serverTarget": "my-app:server",
     "route": "shell"
   },
   "configurations": {
+    "development": {
+      "browserTarget": "my-app:build:development",
+      "serverTarget": "my-app:server:development",
+    },
     "production": {
       "browserTarget": "my-app:build:production",
       "serverTarget": "my-app:server:production"
@@ -85,7 +105,7 @@ Use the CLI to build the `app-shell` target.
 使用 CLI 构建目标 `app-shell`。
 
 <code-example language="bash">
-ng run my-app:app-shell
+ng run my-app:app-shell:development
 </code-example>
 
 Or to use the production configuration.
@@ -96,6 +116,6 @@ Or to use the production configuration.
 ng run my-app:app-shell:production
 </code-example>
 
-To verify the build output, open `dist/my-app/index.html`. Look for default text `app-shell works!` to show that the app shell route was rendered as part of the output.
+To verify the build output, open `dist/my-app/browser/index.html`. Look for default text `app-shell works!` to show that the app shell route was rendered as part of the output.
 
-要验证构建的输出，请打开 `dist/my-app/index.html`。寻找默认的文本 `app-shell works!` 就可以验证这个应用外壳路由确实是作为输出的一部分渲染出来的。
+要验证构建的输出，请打开 `dist/my-app/browser/index.html`。寻找默认的文本 `app-shell works!` 就可以验证这个应用外壳路由确实是作为输出的一部分渲染出来的。

@@ -3,7 +3,7 @@
 # 双向绑定
 
 Two-way binding gives components in your application a way to share data.
-Use two-way binding binding to listen for events and update values simultaneously between parent and child components.
+Use two-way binding to listen for events and update values simultaneously between parent and child components.
 
 双向绑定为应用中的组件提供了一种共享数据的方式。使用双向绑定绑定来侦听事件并在父组件和子组件之间同步更新值。
 

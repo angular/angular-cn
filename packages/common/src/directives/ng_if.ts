@@ -19,7 +19,7 @@ import {Directive, EmbeddedViewRef, Input, TemplateRef, ViewContainerRef, ɵstri
  *
  * 本结构型指令用于根据表达式的值（强转为 boolean）是否为真值，来有条件的包含某个模板。当表达式计算为 true 时，Angular 会渲染 `then` 子句中提供的模板，当为 false 或 null 时则渲染可选的 `else` 子句中的模板。`else` 子句的默认模板是空白模板。
  *
- * A [shorthand form](guide/structural-directives#the-asterisk--prefix) of the directive,
+ * A [shorthand form](guide/structural-directives#asterisk) of the directive,
  * `*ngIf="condition"`, is generally used, provided
  * as an attribute of the anchor element for the inserted template.
  * Angular expands this into a more explicit version, in which the anchor element
@@ -116,7 +116,7 @@ import {Directive, EmbeddedViewRef, Input, TemplateRef, ViewContainerRef, ɵstri
  * You might want to show a set of properties from the same object. If you are waiting
  * for asynchronous data, the object can be undefined.
  * In this case, you can use `ngIf` and store the result of the condition in a local
- * variable as shown in the the following example.
+ * variable as shown in the following example.
  *
  * 比如你想显示同一个对象中的一组属性。如果你在等待异步数据，此对象可能是未定义的。这时候，你可以使用 `ngIf`，并且把此条件结果保存在一个局部变量中，如下例所示。
  *
@@ -183,7 +183,7 @@ import {Directive, EmbeddedViewRef, Input, TemplateRef, ViewContainerRef, ɵstri
  *
  * The presence of the implicit template object has implications for the nesting of
  * structural directives. For more on this subject, see
- * [Structural Directives](https://angular.io/guide/structural-directives#one-per-element).
+ * [Structural Directives](https://angular.io/guide/built-in-directives#one-per-element).
  *
  *  隐式模板对象的存在，影响了结构型指令的嵌套规则。欲知详情，参见[结构型指令](https://angular.io/guide/structural-directives#one-per-element)。
  * @ngModule CommonModule

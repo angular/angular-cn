@@ -307,7 +307,7 @@ export class GuardsCheckEnd extends RouterEvent {
 }
 
 /**
- * An event triggered at the the start of the Resolve phase of routing.
+ * An event triggered at the start of the Resolve phase of routing.
  *
  * 在路由的“解析”阶段开始时触发的事件。
  *

@@ -112,5 +112,3 @@ A few techniques are noteworthy:
 - `DebugElement.properties` affords access to the artificial custom property that is set by the directive.
 
   `DebugElement.properties` 允许访问本指令设置的自定义属性。
-
-<hr>

@@ -4,7 +4,8 @@
   "description": "Angular - library for localizing messages",
   "bin": {
     "localize-translate": "./src/tools/src/translate/main.js",
-    "localize-extract": "./src/tools/src/extract/main.js"
+    "localize-extract": "./src/tools/src/extract/main.js",
+    "localize-migrate": "./src/tools/src/migrate/main.js"
   },
   "author": "angular",
   "license": "MIT",
@@ -30,7 +31,7 @@
   "dependencies": {
     "@babel/core": "7.8.3",
     "glob": "7.1.2",
-    "yargs": "^16.1.1"
+    "yargs": "^16.2.0"
   },
   "peerDependencies": {
     "@angular/compiler": "0.0.0-PLACEHOLDER",

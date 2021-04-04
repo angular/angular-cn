@@ -523,7 +523,7 @@ class _Tokenizer {
       tagName = openTagToken.parts[1];
       this._attemptCharCodeUntilFn(isNotWhitespace);
       while (this._cursor.peek() !== chars.$SLASH && this._cursor.peek() !== chars.$GT &&
-             this._cursor.peek() !== chars.$LT) {
+             this._cursor.peek() !== chars.$LT && this._cursor.peek() !== chars.$EOF) {
         this._consumeAttributeName();
         this._attemptCharCodeUntilFn(isNotWhitespace);
         if (this._attemptCharCode(chars.$EQ)) {
@@ -550,7 +550,7 @@ class _Tokenizer {
       throw e;
     }
 
-    const contentTokenType = this._getTagDefinition(tagName).contentType;
+    const contentTokenType = this._getTagDefinition(tagName).getContentType(prefix);
 
     if (contentTokenType === TagContentType.RAW_TEXT) {
       this._consumeRawTextWithTagClose(prefix, tagName, false);
@@ -560,7 +560,7 @@ class _Tokenizer {
   }
 
   private _consumeRawTextWithTagClose(prefix: string, tagName: string, decodeEntities: boolean) {
-    const textToken = this._consumeRawText(decodeEntities, () => {
+    this._consumeRawText(decodeEntities, () => {
       if (!this._attemptCharCode(chars.$LT)) return false;
       if (!this._attemptCharCode(chars.$SLASH)) return false;
       this._attemptCharCodeUntilFn(isNotWhitespace);
@@ -774,7 +774,8 @@ function isNotWhitespace(code: number): boolean {
 
 function isNameEnd(code: number): boolean {
   return chars.isWhitespace(code) || code === chars.$GT || code === chars.$LT ||
-      code === chars.$SLASH || code === chars.$SQ || code === chars.$DQ || code === chars.$EQ;
+      code === chars.$SLASH || code === chars.$SQ || code === chars.$DQ || code === chars.$EQ ||
+      code === chars.$EOF;
 }
 
 function isPrefixEnd(code: number): boolean {

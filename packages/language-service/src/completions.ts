@@ -196,7 +196,7 @@ class HtmlVisitor implements Visitor {
     // any test cases for it.
     const element = this.htmlPath.first(Element);
     if (element &&
-        getHtmlTagDefinition(element.name).contentType !== TagContentType.PARSABLE_DATA) {
+        getHtmlTagDefinition(element.name).getContentType() !== TagContentType.PARSABLE_DATA) {
       return [];
     }
     // This is to account for cases like <h1> <a> text | </h1> where the
@@ -511,7 +511,7 @@ class ExpressionVisitor extends NullTemplateVisitor {
    * These directives allows declaration of "let" variables, adds context-specific
    * symbols like $implicit, index, count, among other behaviors.
    * For a complete description of such format, see
-   * https://angular.io/guide/structural-directives#the-asterisk--prefix
+   * https://angular.io/guide/structural-directives#asterisk
    *
    * @param attr descriptor for attribute name and value pair
    * @param binding template binding for the expression in the attribute

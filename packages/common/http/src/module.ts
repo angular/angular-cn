@@ -15,7 +15,7 @@ import {HTTP_INTERCEPTORS, HttpInterceptor, HttpInterceptorHandler, NoopIntercep
 import {JsonpCallbackContext, JsonpClientBackend, JsonpInterceptor} from './jsonp';
 import {HttpRequest} from './request';
 import {HttpEvent} from './response';
-import {BrowserXhr, HttpXhrBackend, XhrFactory} from './xhr';
+import {HttpXhrBackend} from './xhr';
 import {HttpXsrfCookieExtractor, HttpXsrfInterceptor, HttpXsrfTokenExtractor, XSRF_COOKIE_NAME, XSRF_HEADER_NAME} from './xsrf';
 
 /**
@@ -199,8 +199,6 @@ export class HttpClientXsrfModule {
     {provide: HttpHandler, useClass: HttpInterceptingHandler},
     HttpXhrBackend,
     {provide: HttpBackend, useExisting: HttpXhrBackend},
-    BrowserXhr,
-    {provide: XhrFactory, useExisting: BrowserXhr},
   ],
 })
 export class HttpClientModule {

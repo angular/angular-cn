@@ -360,8 +360,6 @@ The following table summarizes the `@NgModule` metadata properties.
 
 </table>
 
-<hr />
-
 ## More on NgModules
 
 ## 关于 NgModule 的更多知识

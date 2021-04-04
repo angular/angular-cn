@@ -16,9 +16,9 @@
     "brotli": "<from-root>",
     "chalk": "<from-root>",
     "cli-progress": "<from-root>",
+    "conventional-commits-parser": "<from-root>",
     "glob": "<from-root>",
     "inquirer": "<from-root>",
-    "inquirer-autocomplete-prompt": "<from-root>",
     "minimatch": "<from-root>",
     "multimatch": "<from-root>",
     "node-fetch": "<from-root>",
@@ -52,12 +52,6 @@
     },
     "ts-node": {
       "optional": true
-    }
-  },
-  "bazelWorkspaces": {
-    "npm_angular_dev_infra_private": {
-      "version": "0.0.0-PLACEHOLDER",
-      "rootPath": "."
     }
   }
 }

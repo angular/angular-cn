@@ -2,7 +2,7 @@
 
 # 显示英雄列表
 
-In this page, you'll expand the Tour of Heroes app to display a list of heroes, and
+In this page, you'll expand the Tour of Heroes application to display a list of heroes, and
 allow users to select a hero and display the hero's details.
 
 本页中，你将扩展《英雄之旅》应用，让它显示一个英雄列表，
@@ -10,7 +10,7 @@ allow users to select a hero and display the hero's details.
 
 <div class="alert is-helpful">
 
-  For the sample app that this page describes, see the <live-example></live-example>.
+  For the sample application that this page describes, see the <live-example></live-example>.
 
   要查看本页所讲的范例程序，参阅<live-example></live-example>。
 
@@ -191,14 +191,13 @@ The `heroes.component.css` styles apply only to the `HeroesComponent` and don't 
 
 </div>
 
-## Master/Detail
+## Viewing details
 
-## 主从结构
+## 查看详情
 
-When the user clicks a hero in the **master** list,
-the component should display the selected hero's **details** at the bottom of the page.
+When the user clicks a hero in the list, the component should display the selected hero's details at the bottom of the page.
 
-当用户在**主**列表中点击一个英雄时，该组件应该在页面底部显示所选英雄的**详情**。
+当用户在此列表中点击一个英雄时，该组件应该在页面底部显示所选英雄的详情。
 
 In this section, you'll listen for the hero item click event
 and update the hero detail.
@@ -276,7 +275,7 @@ Open the browser developer tools and look in the console for an error message li
 
 #### 怎么回事？
 
-When the app starts, the `selectedHero` is `undefined` _by design_.
+When the application starts, the `selectedHero` is `undefined` _by design_.
 
 当应用启动时，`selectedHero` 是 `undefined`，*设计如此*。
 
@@ -311,7 +310,7 @@ Don't forget the asterisk (*) in front of `ngIf`. It's a critical part of the sy
 After the browser refreshes, the list of names reappears.
 The details area is blank.
 Click a hero in the list of heroes and its details appear.
-The app seems to be working again.
+The application seems to be working again.
 The heroes appear in a list and details about the clicked hero appear at the bottom of the page.
 
 浏览器刷新之后，英雄名字的列表又出现了。
@@ -335,31 +334,15 @@ When the user picks a hero, `selectedHero` has a value and
 
 ### Style the selected hero
 
-### 给所选英雄添加样式
-
-It's difficult to identify the _selected hero_ in the list when all `<li>` elements look alike.
-
-所有的 `<li>` 元素看起来都是一样的，因此很难从列表中识别出*所选英雄*。
-
-If the user clicks "Magneta", that hero should render with a distinctive but subtle background color like this:
-
-如果用户点击了“Magneta”，这个英雄应该用一个略有不同的背景色显示出来，就像这样：
+To help identify the selected hero, you can use the `.selected` CSS class in the [styles you added earlier](#styles).
+To apply the `.selected` class to the `<li>` when the user clicks it, use class binding.
 
 <div class="lightbox">
-  <img src='generated/images/guide/toh/heroes-list-selected.png' alt="Selected hero">
+  <img src='generated/images/guide/toh/heroes-list-selected.png' alt="Selected hero with dark background and light text that differentiates it from unselected list items">
 </div>
 
-That _selected hero_ coloring is the work of the `.selected` CSS class in the [styles you added earlier](#styles).
-You just have to apply the `.selected` class to the `<li>` when the user clicks it.
-
-*所选英雄*的颜色来自于[你前面添加的样式](#styles)中的 CSS 类 `.selected`。
-所以你只要在用户点击一个 `<li>` 时把 `.selected` 类应用到该元素上就可以了。
-
-The Angular [class binding](guide/attribute-binding#class-binding) makes it easy to add and remove a CSS class conditionally.
+Angular's [class binding](guide/attribute-binding#class-binding) can add and remove a CSS class conditionally.
 Just add `[class.some-css-class]="some-condition"` to the element you want to style.
-
-Angular 的 [CSS 类绑定](guide/attribute-binding#class-binding)机制让根据条件添加或移除一个 CSS 类变得很容易。
-只要把 `[class.some-css-class]="some-condition"` 添加到你要施加样式的元素上就可以了。
 
 Add the following `[class.selected]` binding to the `<li>` in the `HeroesComponent` template:
 
@@ -407,7 +390,7 @@ Here are the code files discussed on this page, including the `HeroesComponent` 
 
 ## 小结
 
-* The Tour of Heroes app displays a list of heroes in a Master/Detail view.
+* The Tour of Heroes application displays a list of heroes with a detail view.
 
    英雄之旅应用在一个主从视图中显示了英雄列表。
 

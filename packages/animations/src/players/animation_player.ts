@@ -194,6 +194,7 @@ export class NoopAnimationPlayer implements AnimationPlayer {
   private _started = false;
   private _destroyed = false;
   private _finished = false;
+  private _position = 0;
   public parentPlayer: AnimationPlayer|null = null;
   public readonly totalTime: number;
   constructor(duration: number = 0, delay: number = 0) {
@@ -254,9 +255,11 @@ export class NoopAnimationPlayer implements AnimationPlayer {
     }
   }
   reset(): void {}
-  setPosition(position: number): void {}
+  setPosition(position: number): void {
+    this._position = this.totalTime ? position * this.totalTime : 1;
+  }
   getPosition(): number {
-    return 0;
+    return this.totalTime ? this._position / this.totalTime : 1;
   }
 
   /** @internal */

@@ -2,7 +2,6 @@
 // #docregion
 import { Component } from '@angular/core';
 import { Config, ConfigService } from './config.service';
-import { MessageService } from '../message.service';
 
 @Component({
   selector: 'app-config',
@@ -25,7 +24,7 @@ export class ConfigComponent {
     this.headers = undefined;
   }
 
-  // #docregion v1, v2, v3
+  // #docregion v1, v2
   showConfig() {
     this.configService.getConfig()
   // #enddocregion v1, v2
@@ -34,25 +33,23 @@ export class ConfigComponent {
         error => this.error = error // error path
       );
   }
-  // #enddocregion v3
 
   showConfig_v1() {
     this.configService.getConfig_1()
-  // #docregion v1, v1_callback
+  // #docregion v1
       .subscribe((data: Config) => this.config = {
           heroesUrl: data.heroesUrl,
-          textfile:  data.textfile
+          textfile:  data.textfile,
+          date: data.date,
       });
-  // #enddocregion v1_callback
   }
   // #enddocregion v1
 
   showConfig_v2() {
     this.configService.getConfig()
-  // #docregion v2, v2_callback
+  // #docregion v2
       // clone the data object, using its known Config shape
       .subscribe((data: Config) => this.config = { ...data });
-  // #enddocregion v2_callback
   }
   // #enddocregion v2
 
@@ -73,6 +70,10 @@ export class ConfigComponent {
 // #enddocregion showConfigResponse
   makeError() {
     this.configService.makeIntentionalError().subscribe(null, error => this.error = error );
+  }
+
+  getType(val: any): string {
+    return val instanceof Date ? 'date' : Array.isArray(val) ? 'array' : typeof val;
   }
 }
 // #enddocregion

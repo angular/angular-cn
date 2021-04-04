@@ -22,9 +22,9 @@ Before going further into reactive forms, you should have a basic understanding 
 
 在深入了解被动表单之前，你应该对这些内容有一个基本的了解：
 
-* TypeScript programming.
+* [TypeScript](https://www.typescriptlang.org/ "The TypeScript language") programming.
 
-  TypeScript 编程。
+  [TypeScript](https://www.typescriptlang.org/ "The TypeScript language") 编程。
 
 * Angular app-design fundamentals, as described in [Angular Concepts](guide/architecture "Introduction to Angular concepts.").
 
@@ -401,7 +401,7 @@ To make more complex forms, use the following steps.
 
    创建一个嵌套的表单组。
 
-1. Group the nested form in the template.
+2. Group the nested form in the template.
 
    在模板中对这个嵌套表单分组。
 

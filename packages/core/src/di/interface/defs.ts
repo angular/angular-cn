@@ -23,7 +23,7 @@ import {ClassProvider, ConstructorProvider, ExistingProvider, FactoryProvider, S
  * 至少，这要包括一个 `factory` ，该工厂定义如何创建给定类型 `T` ，如有必要，可能会请求注入其他类型。
  *
  * Optionally, a `providedIn` parameter specifies that the given type belongs to a particular
- * `InjectorDef`, `NgModule`, or a special scope (e.g. `'root'`). A value of `null` indicates
+ * `Injector`, `NgModule`, or a special scope (e.g. `'root'`). A value of `null` indicates
  * that the injectable does not belong to any scope.
  *
  * 可选的参数 `providedIn` 规定给定的类型属于某个特定的 `InjectorDef`、`NgModule` 还是一个特殊的范围（例如 `'root'`）。如果值为 `null` 表示可注入对象不属于任何范围。
@@ -101,8 +101,6 @@ export interface ɵɵInjectableDef<T> {
  * @codeGenApi
  */
 export interface ɵɵInjectorDef<T> {
-  factory: () => T;
-
   // TODO(alxhub): Narrow down the type here once decorators properly change the return type of the
   // class they are decorating (to add the ɵprov property for example).
   providers: (Type<any>|ValueProvider|ExistingProvider|FactoryProvider|ConstructorProvider|
@@ -116,7 +114,7 @@ export interface ɵɵInjectorDef<T> {
  *
  * 具有 `InjectableDef` 静态字段的 `Type`
  *
- * `InjectableDefType`s contain their own Dependency Injection metadata and are usable in an
+ * `InjectableType`s contain their own Dependency Injection metadata and are usable in an
  * `InjectorDef`-based `StaticInjector.
  *
  * `InjectableDefType` 包含其自己的依赖注入元数据，并且可在基于 `InjectorDef` 的 `StaticInjector` 中使用。
@@ -130,7 +128,7 @@ export interface InjectableType<T> extends Type<T> {
    * 不透明类型，其结构高度依赖版本。不要依赖它的任何属性。
    *
    */
-  ɵprov: never;
+  ɵprov: unknown;
 }
 
 /**
@@ -138,24 +136,22 @@ export interface InjectableType<T> extends Type<T> {
  *
  * 具有 `InjectorDef` 静态字段的类型。
  *
- * `InjectorDefTypes` can be used to configure a `StaticInjector`.
+ * `InjectorTypes` can be used to configure a `StaticInjector`.
+ *
+ * This is an opaque type whose structure is highly version dependent. Do not rely on any
+ * properties.
  *
  * 可用于配置 `StaticInjector` 的 `InjectorDefTypes`。
  *
  * @publicApi
  */
 export interface InjectorType<T> extends Type<T> {
-  /**
-   * Opaque type whose structure is highly version dependent. Do not rely on any properties.
-   *
-   * 不透明类型，其结构高度依赖版本。不要依赖它的任何属性。
-   *
-   */
-  ɵinj: never;
+  ɵfac?: unknown;
+  ɵinj: unknown;
 }
 
 /**
- * Describes the `InjectorDef` equivalent of a `ModuleWithProviders`, an `InjectorDefType` with an
+ * Describes the `InjectorDef` equivalent of a `ModuleWithProviders`, an `InjectorType` with an
  * associated array of providers.
  *
  * Objects of this type can be listed in the imports section of an `InjectorDef`.
@@ -201,13 +197,13 @@ export interface InjectorTypeWithProviders<T> {
 export function ɵɵdefineInjectable<T>(opts: {
   token: unknown,
   providedIn?: Type<any>|'root'|'platform'|'any'|null, factory: () => T,
-}): never {
-  return ({
-           token: opts.token,
-           providedIn: opts.providedIn as any || null,
-           factory: opts.factory,
-           value: undefined,
-         } as ɵɵInjectableDef<T>) as never;
+}): unknown {
+  return {
+    token: opts.token,
+    providedIn: opts.providedIn as any || null,
+    factory: opts.factory,
+    value: undefined,
+  } as ɵɵInjectableDef<T>;
 }
 
 /**
@@ -228,9 +224,6 @@ export const defineInjectable = ɵɵdefineInjectable;
  *
  * Options:
  *
- * * `factory`: an `InjectorType` is an instantiable type, so a zero argument `factory` function to
- *   create the type must be provided. If that factory function needs to inject arguments, it can
- *   use the `inject` function.
  * * `providers`: an optional array of providers to add to the injector. Each provider must
  *   either have a factory or point to a type which has a `ɵprov` static property (the
  *   type must be an `InjectableType`).
@@ -240,13 +233,8 @@ export const defineInjectable = ɵɵdefineInjectable;
  *
  * @codeGenApi
  */
-export function ɵɵdefineInjector(options: {factory: () => any, providers?: any[], imports?: any[]}):
-    never {
-  return ({
-           factory: options.factory,
-           providers: options.providers || [],
-           imports: options.imports || [],
-         } as ɵɵInjectorDef<any>) as never;
+export function ɵɵdefineInjector(options: {providers?: any[], imports?: any[]}): unknown {
+  return {providers: options.providers || [], imports: options.imports || []};
 }
 
 /**

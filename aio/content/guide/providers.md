@@ -146,7 +146,21 @@ Register a provider with a component when you must limit a service instance to a
 比如，用户编辑组件 `UserEditorComponent`，它需要一个缓存 `UserService` 实例，那就应该把 `UserService` 注册进 `UserEditorComponent` 中。
 然后，每个 `UserEditorComponent` 的实例都会获取它自己的缓存服务实例。
 
-<hr>
+{@a singleton-services}
+{@a component-child-injectors}
+
+## Injector hierarchy and service instances
+
+Services are singletons within the scope of an injector, which means there is at most one instance of a service in a given injector.
+
+Angular DI has a [hierarchical injection system](guide/hierarchical-dependency-injection), which means that nested injectors can create their own service instances.
+Whenever Angular creates a new instance of a component that has `providers` specified in `@Component()`, it also creates a new child injector for that instance.
+Similarly, when a new NgModule is lazy-loaded at run time, Angular can create an injector for it with its own providers.
+
+Child modules and component injectors are independent of each other, and create their own separate instances of the provided services. When Angular destroys an NgModule or component instance, it also destroys that injector and that injector's service instances.
+
+For more information, see [Hierarchical injectors](guide/hierarchical-dependency-injection).
+
 
 ## More on NgModules
 

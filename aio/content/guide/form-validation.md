@@ -16,19 +16,19 @@ Before reading about form validation, you should have a basic understanding of t
 
 在阅读表单验证之前，你应该对这些内容有一个基本的了解。
 
-- [TypeScript](https://www.typescriptlang.org/docs/home.html "The TypeScript language") and HTML5  programming.
+* [TypeScript](https://www.typescriptlang.org/ "The TypeScript language") and HTML5  programming.
 
   [TypeScript](https://www.typescriptlang.org/docs/home.html "TypeScript 语言")和 HTML5 编程。
 
-- Fundamental concepts of [Angular app design](guide/architecture "Introduction to Angular app-design concepts").
+* Fundamental concepts of [Angular app design](guide/architecture "Introduction to Angular app-design concepts").
 
   [Angular 应用设计](guide/architecture "Angular 应用设计概念简介")的基本概念。
 
-- The [two types of forms that Angular supports](guide/forms-overview "Introduction to Angular forms").
+* The [two types of forms that Angular supports](guide/forms-overview "Introduction to Angular forms").
 
   [Angular 支持的两类表单](guide/forms-overview "Angular 表单简介")。
 
-- Basics of either [Template-driven Forms](guide/forms "Template-driven forms guide") or [Reactive Forms](guide/reactive-forms "Reactive forms guide").
+* Basics of either [Template-driven Forms](guide/forms "Template-driven forms guide") or [Reactive Forms](guide/reactive-forms "Reactive forms guide").
 
   [模板驱动表单](guide/forms "模板驱动表单指南")或[响应式表单](guide/reactive-forms "响应式表单指南")的基础知识。
 
@@ -133,11 +133,11 @@ Validator functions can be either synchronous or asynchronous.
 
 验证器函数可以是同步函数，也可以是异步函数。
 
-- **Sync validators**: Synchronous functions that take a control instance and immediately return either a set of validation errors or `null`. You can pass these in as the second argument when you instantiate a `FormControl`.
+* **Sync validators**: Synchronous functions that take a control instance and immediately return either a set of validation errors or `null`. You can pass these in as the second argument when you instantiate a `FormControl`.
 
    **同步验证器**：这些同步函数接受一个控件实例，然后返回一组验证错误或 `null`。你可以在实例化一个 `FormControl` 时把它作为构造函数的第二个参数传进去。
 
-- **Async validators**: Asynchronous functions that take a control instance and return a Promise
+* **Async validators**: Asynchronous functions that take a control instance and return a Promise
   or Observable that later emits a set of validation errors or `null`. You can
   pass these in as the third argument when you instantiate a `FormControl`.
 
@@ -314,11 +314,11 @@ Angular 会自动把很多控件属性作为 CSS 类映射到控件所在的元�
 
 * `.ng-valid`
 * `.ng-invalid`
-- `.ng-pending`
-- `.ng-pristine`
-- `.ng-dirty`
-- `.ng-untouched`
-- `.ng-touched`
+* `.ng-pending`
+* `.ng-pristine`
+* `.ng-dirty`
+* `.ng-untouched`
+* `.ng-touched`
 
 In the following example, the hero form uses the `.ng-valid` and `.ng-invalid` classes to
 set the color of each form control's border.
@@ -343,11 +343,11 @@ The following cross validation examples show how to do the following:
 
 下列交叉验证的例子说明了如何进行如下操作：
 
-- Validate reactive or template-based form input based on the values of two sibling controls,
+* Validate reactive or template-based form input based on the values of two sibling controls,
 
   根据两个兄弟控件的值验证响应式表单或模板驱动表单的输入，
 
-- Show a descriptive error message after the user interacted with the form and the validation failed.
+* Show a descriptive error message after the user interacted with the form and the validation failed.
 
   当用户与表单交互过，且验证失败后，就会显示描述性的错误信息。
 
@@ -455,11 +455,11 @@ These are very similar to their synchronous counterparts, with the following dif
 
 异步验证器实现了 `AsyncValidatorFn` 和 `AsyncValidator` 接口。它们与其同步版本非常相似，但有以下不同之处。
 
-- The `validate()` functions must return a Promise or an observable,
+* The `validate()` functions must return a Promise or an observable,
 
   `validate()` 函数必须返回一个 Promise 或可观察对象，
 
-- The observable returned must be finite, meaning it must complete at some point.
+* The observable returned must be finite, meaning it must complete at some point.
   To convert an infinite observable into a finite one, pipe the observable through a filtering operator such as `first`, `last`, `take`, or `takeUntil`.
 
   返回的可观察对象必须是有尽的，这意味着它必须在某个时刻完成（complete）。要把无尽的可观察对象转换成有尽的，可以在管道中加入过滤操作符，比如 `first`、`last`、`take` 或 `takeUntil`。

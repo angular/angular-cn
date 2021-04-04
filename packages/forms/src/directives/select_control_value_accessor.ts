@@ -8,7 +8,7 @@
 
 import {Directive, ElementRef, forwardRef, Host, Input, OnDestroy, Optional, Renderer2, StaticProvider} from '@angular/core';
 
-import {ControlValueAccessor, NG_VALUE_ACCESSOR} from './control_value_accessor';
+import {BuiltInControlValueAccessor, ControlValueAccessor, NG_VALUE_ACCESSOR} from './control_value_accessor';
 
 export const SELECT_VALUE_ACCESSOR: StaticProvider = {
   provide: NG_VALUE_ACCESSOR,
@@ -94,9 +94,8 @@ function _extractId(valueString: string): string {
  * ```
  *
  * **Note:** We listen to the 'change' event because 'input' events aren't fired
- * for selects in Firefox and IE:
- * https://bugzilla.mozilla.org/show_bug.cgi?id=1024350
- * https://developer.microsoft.com/en-us/microsoft-edge/platform/issues/4660045/
+ * for selects in IE, see:
+ * https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/input_event#browser_compatibility
  *
  * 注意：我们要监听 `change` 事件，这是因为 `input` 事件不会在 Firefox 和 IE 的 `select` 元素上触发：
  * https://bugzilla.mozilla.org/show_bug.cgi?id=1024350
@@ -112,7 +111,8 @@ function _extractId(valueString: string): string {
   host: {'(change)': 'onChange($event.target.value)', '(blur)': 'onTouched()'},
   providers: [SELECT_VALUE_ACCESSOR]
 })
-export class SelectControlValueAccessor implements ControlValueAccessor {
+export class SelectControlValueAccessor extends BuiltInControlValueAccessor implements
+    ControlValueAccessor {
   /** @nodoc */
   value: any;
 
@@ -158,7 +158,9 @@ export class SelectControlValueAccessor implements ControlValueAccessor {
 
   private _compareWith: (o1: any, o2: any) => boolean = Object.is;
 
-  constructor(private _renderer: Renderer2, private _elementRef: ElementRef) {}
+  constructor(private _renderer: Renderer2, private _elementRef: ElementRef) {
+    super();
+  }
 
   /**
    * Sets the "value" property on the input element. The "selectedIndex"

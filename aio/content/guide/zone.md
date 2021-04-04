@@ -398,7 +398,7 @@ Therefore in those asynchronous APIs, you don't need to trigger change detection
 `Zone` 处理大多数异步 API，例如 `setTimeout()`、`Promise.then()` 和 `addEventListener()` 。有关完整列表，请参见 [Zone 模块的文档](https://github.com/angular/angular/blob/master/packages/zone.js/MODULE.md)。因此，在这些异步 API 中，你无需手动触发变更检测。
 
 There are still some third party APIs that Zone does not handle.
-In those cases, the `NgZone` service provides a [`run()`](api/core/NgZone#run) method that allows you to execute a function inside the angular zone.
+In those cases, the `NgZone` service provides a [`run()`](api/core/NgZone#run) method that allows you to execute a function inside the Angular zone.
 This function, and all asynchronous operations in that function, trigger change detection automatically at the correct time.
 
 仍然有一些 Zone 无法处理的第三方 API。在这种情况下，`NgZone` 服务提供了 [`run()`](api/core/NgZone#run) 方法，该方法允许你在 `angular` Zone 中执行函数。此函数以及该函数中的所有异步操作会在正确的时间自动触发变更检测。
@@ -408,7 +408,7 @@ export class AppComponent implements OnInit {
   constructor(private ngZone: NgZone) {}
   ngOnInit() {
     // New async API is not handled by Zone, so you need to
-    // use ngZone.run() to make the asynchronous operation in the angular zone
+    // use ngZone.run() to make the asynchronous operation in the Angular zone
     // and trigger change detection automatically.
     this.ngZone.run(() => {
       someNewAsyncAPI(() => {
@@ -419,11 +419,11 @@ export class AppComponent implements OnInit {
 }
 ```
 
-By default, all asynchronous operations are inside the angular zone, which triggers change detection automatically.
+By default, all asynchronous operations are inside the Angular zone, which triggers change detection automatically.
 Another common case is when you don't want to trigger change detection.
 In that situation, you can use another `NgZone` method: [`runOutsideAngular()`](api/core/NgZone#runoutsideangular).
 
-默认情况下，所有异步操作都在 angular Zone 内，这会自动触发变更检测。另一个常见的情况是你不想触发变更检测。在这种情况下，你可以使用另一个 `NgZone` 方法：[`runOutsideAngular()`](api/core/NgZone#runoutsideangular) 。
+默认情况下，所有异步操作都在 Angular Zone 内，这会自动触发变更检测。另一个常见的情况是你不想触发变更检测。在这种情况下，你可以使用另一个 `NgZone` 方法：[`runOutsideAngular()`](api/core/NgZone#runoutsideangular) 。
 
 ```typescript
 export class AppComponent implements OnInit {
@@ -455,7 +455,7 @@ If you are using the Angular CLI, this step is done automatically, and you will 
 /***************************************************************************************************
  * Zone JS is required by default for Angular itself.
  */
-import 'zone.js/dist/zone';  // Included with Angular CLI.
+import 'zone.js';  // Included with Angular CLI.
 ```
 
 Before importing the  `zone.js` package, you can set the following configurations:
@@ -468,9 +468,9 @@ This is useful if, in your application, the callback of the `requestAnimationFra
 
   你可以禁用一些异步 API 的猴子补丁，以获得更好的性能。例如，你可以禁用 `requestAnimationFrame()` 的猴子补丁，这样 `requestAnimationFrame()` 的回调就不会触发变更检测。如果你的应用程序不会在 `requestAnimationFrame()` 回调中更新任何数据，则这种方式很有用。
 
-- You can specify that certain DOM events do not run inside the angular zone; for example, to prevent a `mousemove` or `scroll` event to trigger change detection.
+- You can specify that certain DOM events do not run inside the Angular zone; for example, to prevent a `mousemove` or `scroll` event to trigger change detection.
 
-  你可以指定某些 DOM 事件不在 angular Zone 内运行；例如，为了防止 `mousemove` 或 `scroll` 事件来触发变更检测。
+  你可以指定某些 DOM 事件不在 Angular Zone 内运行；例如，为了防止 `mousemove` 或 `scroll` 事件来触发变更检测。
 
 There are several other settings you can change.
 To make these changes, you need to create a `zone-flags.ts` file, such as the following.
@@ -494,7 +494,7 @@ Next, import `zone-flags` before you import `zone.js` in the `polyfills.ts`:
  * Zone JS is required by default for Angular.
  */
 import `./zone-flags`;
-import 'zone.js/dist/zone';  // Included with Angular CLI.
+import 'zone.js';  // Included with Angular CLI.
 ```
 
 For more information about what you can configure, see the [Zone.js](https://github.com/angular/angular/tree/master/packages/zone.js) documentation.
@@ -532,7 +532,7 @@ To remove Zone.js, make the following changes.
   /***************************************************************************************************
    * Zone JS is required by default for Angular itself.
    */
-  // import 'zone.js/dist/zone';  // Included with Angular CLI.
+  // import 'zone.js';  // Included with Angular CLI.
   ```
 
 2. Bootstrap Angular with the `noop` zone in `src/main.ts`:

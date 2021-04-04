@@ -5,7 +5,7 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import {AbsoluteFsPath, FileSystem, NodeJSFileSystem, PathSegment} from '../../../src/ngtsc/file_system';
+import {AbsoluteFsPath, NodeJSFileSystem, PathSegment, ReadonlyFileSystem} from '../../../src/ngtsc/file_system';
 
 const fs = new NodeJSFileSystem();
 const basePath = fs.resolve(__dirname, '../test_cases');
@@ -35,13 +35,16 @@ export function* getComplianceTests(testConfigPath: string): Generator<Complianc
   const testConfig = Array.isArray(testConfigJSON) ? testConfigJSON : [testConfigJSON];
   for (const test of testConfig) {
     const inputFiles = getStringArrayOrDefault(test, 'inputFiles', realTestPath, ['test.ts']);
+    const compilationModeFilter = getStringArrayOrDefault(
+                                      test, 'compilationModeFilter', realTestPath,
+                                      ['linked compile', 'full compile']) as CompilationMode[];
+
     yield {
       relativePath: fs.relative(basePath, realTestPath),
       realTestPath,
       description: getStringOrFail(test, 'description', realTestPath),
       inputFiles,
-      excludeFromPartialTests:
-          getBooleanOrDefault(test, 'excludeFromPartialTests', realTestPath, false),
+      compilationModeFilter,
       expectations: parseExpectations(test.expectations, realTestPath, inputFiles),
       compilerOptions: getConfigOptions(test, 'compilerOptions', realTestPath),
       angularCompilerOptions: getConfigOptions(test, 'angularCompilerOptions', realTestPath),
@@ -52,9 +55,9 @@ export function* getComplianceTests(testConfigPath: string): Generator<Complianc
 }
 
 function loadTestCasesFile(
-    fs: FileSystem, testCasesPath: AbsoluteFsPath, basePath: AbsoluteFsPath): any {
+    fs: ReadonlyFileSystem, testCasesPath: AbsoluteFsPath, basePath: AbsoluteFsPath) {
   try {
-    return JSON.parse(fs.readFile(testCasesPath));
+    return JSON.parse(fs.readFile(testCasesPath)) as {cases: TestCaseJson | TestCaseJson[]};
   } catch (e) {
     throw new Error(
         `Failed to load test-cases at "${fs.relative(basePath, testCasesPath)}":\n ${e.message}`);
@@ -243,8 +246,11 @@ export interface ComplianceTest {
   angularCompilerOptions?: ConfigOptions;
   /** A list of paths to source files that should be compiled for this test case. */
   inputFiles: string[];
-  /** If set to true then do not check expectations for this test-case in partial tests. */
-  excludeFromPartialTests: boolean;
+  /**
+   * Only run this test when the input files are compiled using the given compilation
+   * modes. The default is to run for all modes.
+   */
+  compilationModeFilter: CompilationMode[];
   /** A list of expectations to check for this test case. */
   expectations: Expectation[];
   /** If set to `true`, then focus on this test (equivalent to jasmine's 'fit()`). */
@@ -252,6 +258,8 @@ export interface ComplianceTest {
   /** If set to `true`, then exclude this test (equivalent to jasmine's 'xit()`). */
   excludeTest?: boolean;
 }
+
+export type CompilationMode = 'linked compile'|'full compile';
 
 export interface Expectation {
   /** The message to display if this expectation fails. */
@@ -290,3 +298,24 @@ export type ExtraCheck = (string|[string, ...any]);
  * Options to pass to configure the compiler.
  */
 export type ConfigOptions = Record<string, string|boolean|null>;
+
+
+
+/**
+ * Interface espressing the type for the json object found at ../test_cases/test_case_schema.json.
+ */
+export interface TestCaseJson {
+  description: string;
+  compilationModeFilter?: ('fulll compile'|'linked compile')[];
+  inputFiles?: string[];
+  expectations?: {
+    failureMessage?: string;
+    files?: ExpectedFile[] | string;
+    expectedErrors?: {message: string, location?: string};
+    extraChecks?: (string | string[])[];
+  };
+  compilerOptions?: ConfigOptions;
+  angularCompilerOptions?: ConfigOptions;
+  focusTest?: boolean;
+  excludeTest?: boolean;
+}

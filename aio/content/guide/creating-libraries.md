@@ -57,7 +57,7 @@ When you generate a new library, the workspace configuration file, `angular.json
     "prefix": "lib",
     "architect": {
       "build": {
-        "builder": "@angular-devkit/build-ng-packagr:build",
+        "builder": "@angular-devkit/build-angular:ng-packagr",
         ...
 </code-example>
 
@@ -66,15 +66,15 @@ You can build, test, and lint the project with CLI commands:
 你可以使用 CLI 命令来构建、测试和 lint 这个项目：
 
 <code-example language="bash">
- ng build my-lib
+ ng build my-lib --configuration development
  ng test my-lib
  ng lint my-lib
 </code-example>
 
 Notice that the configured builder for the project is different from the default builder for app projects.
-This builder, among other things, ensures that the library is always built with the [AOT compiler](guide/aot-compiler), without the need to specify the `--prod` flag.
+This builder, among other things, ensures that the library is always built with the [AOT compiler](guide/aot-compiler).
 
-注意，该项目配置的构建器与应用类项目的默认构建器不同。此构建器可以确保库永远使用 [AoT 编译器](guide/aot-compiler)构建，而不必再指定 `--prod` 标志。
+注意，该项目配置的构建器与应用类项目的默认构建器不同。此构建器可以确保库永远使用 [AoT 编译器](guide/aot-compiler)构建。
 
 To make library code reusable you must define a public API for it. This "user layer" defines what is available to consumers of your library. A user of your library should be able to access public functionality (such as NgModules, service providers and general utility functions) through a single import path.
 
@@ -133,15 +133,15 @@ Here are some things to consider in migrating application functionality to a lib
 
   * Services should declare their own providers, rather than declaring providers in the NgModule or a component. Declaring a provider makes that service *tree-shakable*. This practice allows the compiler to leave the service out of the bundle if it never gets injected into the application that imports the library. For more about this, see [Tree-shakable providers](guide/architecture-services#providing-services).
 
-    服务应该自己声明提供者（而不是在 NgModule 或组件中声明提供者），以便它们是*可摇树优化的* 。这样，如果服务器从未被注入到导入该库的应用中，编译器就会把该服务从该 bundle 中删除。关于这方面的更多信息，请参阅[Tree-shakable 提供者](guide/architecture-services#providing-services) 。
+     服务应该自己声明提供者（而不是在 NgModule 或组件中声明提供者），以便它们是*可摇树优化的* 。这样，如果服务器从未被注入到导入该库的应用中，编译器就会把该服务从该 bundle 中删除。关于这方面的更多信息，请参阅[Tree-shakable 提供者](guide/architecture-services#providing-services) 。
 
   * If you register global service providers or share providers across multiple NgModules, use the [`forRoot()` and `forChild()` design patterns](guide/singleton-services) provided by the [RouterModule](api/router/RouterModule).
 
-    如果你在多个 NgModules 注册全局服务提供者或提供者共享，使用[`forRoot()` 和 `forChild()` 设计模式](guide/singleton-services)由提供[RouterModule](api/router/RouterModule) 。
+     如果你在多个 NgModules 注册全局服务提供者或提供者共享，使用[`forRoot()` 和 `forChild()` 设计模式](guide/singleton-services)由提供[RouterModule](api/router/RouterModule) 。
 
   * If your library provides optional services that might not be used by all client applications, support proper tree-shaking for that case by using the [lightweight token design pattern](guide/lightweight-injection-tokens).
 
-    如果你的库中提供的可选服务可能并没有被所有的客户端应用所使用，那么就可以通过[轻量级令牌设计模式](guide/lightweight-injection-tokens)为这种情况支持正确的树状[结构了](guide/lightweight-injection-tokens) 。
+     如果你的库中提供的可选服务可能并没有被所有的客户端应用所使用，那么就可以通过[轻量级令牌设计模式](guide/lightweight-injection-tokens)为这种情况支持正确的树状[结构了](guide/lightweight-injection-tokens) 。
 
 
 {@a integrating-with-the-cli}
@@ -205,12 +205,12 @@ Use the Angular CLI and the npm package manager to build and publish your librar
 
 使用 Angular CLI 和 npm 包管理器来构建你的库并发布为 npm 包。
 
-Before publishing a library to NPM, build it using the `--prod` flag which will use the older compiler and runtime known as View Engine instead of Ivy.
+Before publishing a library to NPM, build it using the `production` configuration which uses the older compiler and runtime known as View Engine instead of Ivy.
 
-使用 Angular CLI 和 npm 包管理器来把你的库构建并发布成 npm 包。不建议把 Ivy 格式的库发布到 NPM 仓库。在把某个库发布到 NPM 之前，使用 `--prod` 标志构建它，此标志会使用老的编译器和运行时，也就是视图引擎（View Engine），以代替 Ivy.
+使用 Angular CLI 和 npm 包管理器来把你的库构建并发布成 npm 包。不建议把 Ivy 格式的库发布到 NPM 仓库。在把某个库发布到 NPM 之前，使用 `production` 配置项构建它，这样就会使用老的编译器和运行时，也就是视图引擎（View Engine），来代替 Ivy.
 
 <code-example language="bash">
-ng build my-lib --prod
+ng build my-lib
 cd dist/my-lib
 npm publish
 </code-example>

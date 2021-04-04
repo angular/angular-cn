@@ -148,8 +148,6 @@ Now, in addition to the title that renders by default, the `CustomerDashboardCom
   <img src="generated/images/guide/feature-modules/feature-module.png" alt="feature module component">
 </div>
 
-<hr />
-
 ## More on NgModules
 
 ## 关于 NgModule 的更多知识

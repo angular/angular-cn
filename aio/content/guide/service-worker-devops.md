@@ -19,8 +19,6 @@ A basic understanding of the following:
 
    [与 Service Worker 通讯](guide/service-worker-communications).
 
-<hr />
-
 ## Service worker and caching of app resources
 
 ## Service Worker 与应用资源的缓存
@@ -585,18 +583,18 @@ the past on your site.
 
 ### 更改应用的位置
 
-It is important to note that service workers don't work behind redirect. You 
+It is important to note that service workers don't work behind redirect. You
 may have already encountered the error `The script resource is behind a redirect, which is disallowed`.
 
 重要的是，要记住 Service Worker 无法在重定向后工作。你可能已经遇到过这种错误：`The script resource is behind a redirect, which is disallowed`。
 
-This can be a problem if you have to change your app's location. If you setup 
-a redirect from the old location (for example `example.com`) to the new 
-location (for example `www.example.com`) the worker will stop working. 
-Also, the redirect won't even trigger for users who are loading the site 
+This can be a problem if you have to change your app's location. If you setup
+a redirect from the old location (for example `example.com`) to the new
+location (for example `www.example.com`) the worker will stop working.
+Also, the redirect won't even trigger for users who are loading the site
 entirely from Service Worker. The old worker (registered at `example.com`)
- tries to update and sends requests to the old location `example.com` which 
- get redirected to the new location `www.example.com` and create the error 
+ tries to update and sends requests to the old location `example.com` which
+ get redirected to the new location `www.example.com` and create the error
 `The script resource is behind a redirect, which is disallowed`.
 
 如果你不得不更改应用的位置，就可能会出现问题。如果你设置了从旧位置（例如 `example.com` ）到新位置（例如 `www.example.com`）的重定向，则 Service Worker 将停止工作。

@@ -3,8 +3,8 @@
 # 样式的优先级
 
 When there are multiple bindings to the same class name or style attribute, Angular uses a set of precedence rules to determine which classes or styles to apply to the element.
-These rules specify an order for which style- and class-related bindings have priority.
-This styling precedence is as follows, from the most specific with the highest priority to least specific with the lowest priorty:
+These rules specify an order for which style and class related bindings have priority.
+This styling precedence is as follows, from the most specific with the highest priority to least specific with the lowest priority:
 
 当存在多个绑定具有相同的类名或样式属性名时，Angular 会使用一组优先级规则来确定要应用于此元素的类或样式。这些规则指定了与样式和类相关的绑定的优先顺序。最有特异性的优先级最高，最宽松的优先级最低，样式优先级如下：
 

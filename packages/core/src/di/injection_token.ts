@@ -70,7 +70,7 @@ export class InjectionToken<T> {
   /** @internal */
   readonly ngMetadataName = 'InjectionToken';
 
-  readonly ɵprov: never|undefined;
+  readonly ɵprov: unknown;
 
   constructor(protected _desc: string, options?: {
     providedIn?: Type<any>|'root'|'platform'|'any'|null, factory: () => T
@@ -97,5 +97,5 @@ export class InjectionToken<T> {
 }
 
 export interface InjectableDefToken<T> extends InjectionToken<T> {
-  ɵprov: never;
+  ɵprov: unknown;
 }

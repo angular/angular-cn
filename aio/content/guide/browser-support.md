@@ -7,142 +7,74 @@ Angular supports most recent browsers. This includes the following specific vers
 Angular 支持大多数常用浏览器，包括下列版本：
 
 <table>
-
   <tr>
-
-<th>
-
-      Browser
-
-      浏览器
-
-</th>
-
-<th>
-
-      Supported versions
-
-      支持的版本
-
-</th>
-
-  </tr>
-
-  <tr>
-
-    <td>
-
-      Chrome
-
-    </td>
-
-    <td>
-
-      latest
-
-      最新版
-
-    </td>
-
-  </tr>
-
-  <tr>
-
-    <td>
-
-      Firefox
-
-    </td>
-
-    <td>
-
-      latest and extended support release (ESR)
-
-      最新版以及扩展支持版本（ESR）
-
-    </td>
-
-  </tr>
-
-  <tr>
-
-    <td>
-
-      Edge
-
-    </td>
-
-    <td>
-
-      2 most recent major versions
-
-      最近的两个主版本
-
-    </td>
-
-  </tr>
-  <tr> 
-    <td>
-
-      IE
-
-    </td>
-
-    <td>
-      <div>11</div>
-    </td>
-
-  </tr>
- <tr>
-
-    <td>
-
-      Safari
-
-    </td>
-
-    <td>
-
-      2 most recent major versions
-
-      最近的两个主版本
-
-    </td>
-
+    <th>Browser</th>
+    <th>Supported versions</th>
   </tr>
   <tr>
-
-    <td>
-
-      iOS
-
-    </td>
-
-    <td>
-
-      2 most recent major versions
-
-      最近的两个主版本
-
-    </td>
-
+    <th>浏览器</th>
+    <th>支持的版本</th>
   </tr>
   <tr>
-
-    <td>
-
-      Android
-
-    </td>
-
-    <td>
-
-     Q (10.0), Pie (9.0), Oreo (8.0), Nougat (7.0)
-    </td>
-
+    <td>Chrome</td>
+    <td>latest</td>
   </tr>
-
+  <tr>
+    <td>Chrome</td>
+    <td>最新</td>
+  </tr>
+  <tr>
+    <td>Firefox</td>
+    <td>latest and extended support release (ESR)</td>
+  </tr>
+  <tr>
+    <td>Firefox</td>
+    <td>最新版以及扩展支持版本 (ESR)</td>
+  </tr>
+  <tr>
+    <td>Edge</td>
+    <td>2 most recent major versions</td>
+  </tr>
+  <tr>
+    <td>Edge</td>
+    <td>最近的两个主版本</td>
+  </tr>
+  <tr>
+    <td>IE</td>
+    <td>
+      11<br>
+      <em>*deprecated, see the <a href="guide/deprecations#internet-explorer-11">deprecations guide</a></em>
+    </td>
+  </tr>
+  <tr>
+    <td>IE</td>
+    <td>
+      11<br>
+      <em>*已弃用，参见 <a href="guide/deprecations#internet-explorer-11">弃用指南</a></em>
+    </td>
+  </tr>
+  <tr>
+    <td>Safari</td>
+    <td>2 most recent major versions</td>
+  </tr>
+  <tr>
+    <td>Safari</td>
+    <td>最近的两个主版本</td>
+  </tr>
+  <tr>
+    <td>iOS</td>
+    <td>2 most recent major versions</td>
+  </tr>
+  <tr>
+    <td>iOS</td>
+    <td>最近的两个主版本</td>
+  </tr>
+  <tr>
+    <td>Android</td>
+    <td>Q (10.0), Pie (9.0), Oreo (8.0), Nougat (7.0)</td>
+  </tr>
 </table>
+
 
 <div class="alert is-helpful">
 
@@ -260,42 +192,23 @@ These are the polyfills required to run an Angular application on each supported
 下表中的腻子脚本是每个浏览器中运行 Angular 应用时要用到哪些：
 
 <table>
-
   <tr style="vertical-align: top">
-
-    <th>
-
-      Browsers (Desktop & Mobile)
-
-      浏览器（桌面和移动）
-
-    </th>
-
-    <th>
-
-      Polyfills Required
-
-      需要的腻子脚本
-
-    </th>
-
+    <th>Browsers (Desktop & Mobile)</th>
+    <th>Polyfills Required</th>
   </tr>
-
   <tr style="vertical-align: top">
-
+    <th>浏览器（桌面&移动端）</th>
+    <th>所需的腻子脚本</th>
+  </tr>
+  <tr style="vertical-align: top">
     <td>
       Chrome, Firefox, Edge, <br>
       Safari, Android, IE 11
     </td>
-
     <td>
-
-      [ES2015](guide/browser-support#core-es6)
-
+      <a href="guide/browser-support#core-es6">ES2015</a>
     </td>
-
   </tr>
-
 </table>
 
 ### Optional browser features to polyfill
@@ -307,110 +220,90 @@ Some features of Angular may require additional polyfills.
 有些 Angular 特性可能需要额外的腻子脚本。
 
 <table>
-
   <tr style="vertical-align: top">
-
-    <th>
-
-      Feature
-
-      特性
-
-    </th>
-
-    <th>
-
-      Polyfill
-
-      腻子脚本
-
-    </th>
-
-    <th style="width: 50%">
-
-       Browsers (Desktop & Mobile)
-
-       浏览器（桌面和移动）
-
-    </th>
-
+    <th>Feature</th>
+    <th>Polyfill</th>
+    <th style="width: 50%">Browsers (Desktop & Mobile)</th>
   </tr>
-
   <tr style="vertical-align: top">
-
+    <th>特性</th>
+    <th>腻子脚本</th>
+    <th style="width: 50%">浏览器（桌面&移动端）</th>
+  </tr>
+  <tr style="vertical-align: top">
     <td>
-
-      [AnimationBuilder](api/animations/AnimationBuilder).
+      <a href="api/animations/AnimationBuilder">AnimationBuilder</a>
       (Standard animation support does not require polyfills.)
-
-      [AnimationBuilder](api/animations/AnimationBuilder)。
-      （支持标准动画不需要腻子脚本。）
-
     </td>
-
     <td>
-
-      [Web Animations](guide/browser-support#web-animations)
-
-      [Web 动画](guide/browser-support#web-animations)
-
+      <a href="guide/browser-support#web-animations">Web Animations</a>
     </td>
-
     <td>
       <p>If AnimationBuilder is used, enables scrubbing
       support for IE/Edge and Safari.
       (Chrome and Firefox support this natively).</p>
-
-      <p>如果用到了 AnimationBuilder，还要启用 IE/Edge 和 Safari 的 scrubbing（擦除）支持
-      （Chrome 和 Firefox 对此提供了原生支持）</p>
     </td>
-
+  </tr>
+  <tr style="vertical-align: top">
+    <td>
+      <a href="api/animations/AnimationBuilder">AnimationBuilder</a>
+（支持标准动画不需要腻子脚本）
+    </td>
+    <td>
+      <a href="guide/browser-support#web-animations">Web 动画</a>
+    </td>
+    <td>
+      <p>如果用到了 AnimationBuilder，还要启用 IE/Edge 和 Safari 的 scrubbing（擦除）支持（Chrome 和 Firefox 对此提供了原生支持）</p>
+    </td>
   </tr>
 
   <tr style="vertical-align: top">
-
     <td>
-
-       [NgClass](api/common/NgClass) on SVG elements
-
-       在 SVG 元素上应用时
-
+      <a href="api/common/NgClass">NgClass</a> on SVG elements
     </td>
-
     <td>
-
-      [classList](guide/browser-support#classlist)
-
+      <a href="guide/browser-support#classlist">classList</a>
     </td>
-
     <td>
       IE 11
     </td>
-
   </tr>
 
   <tr style="vertical-align: top">
-
     <td>
-
-      [Router](guide/router) when using
-      [hash-based routing](guide/router#location-strategy)
-
-      当使用[基于 hash 的路由](guide/router#location-strategy)时。
+      在 SVG 元素上的 <a href="api/common/NgClass">NgClass</a>
     </td>
-
     <td>
-
-      [ES7/array](guide/browser-support#core-es7-array)
-
+      <a href="guide/browser-support#classlist">classList</a>
     </td>
-
     <td>
       IE 11
     </td>
-
   </tr>
 
+  <tr style="vertical-align: top">
+    <td>
+      <a href="guide/router">Router</a> when using <a href="guide/router#location-strategy">hash-based routing</a>
+    </td>
+    <td>
+      <a href="guide/browser-support#core-es7-array">ES7/array</a>
+    </td>
+    <td>
+      IE 11
+    </td>
+  </tr>
+
+  <tr style="vertical-align: top">
+    <td>
+      当[路由器](guide/router)使用[基于 hash 的路由](guide/router#location-strategy)时。
+    </td>
+    <td>
+      <a href="guide/browser-support#core-es7-array">ES7/array</a>
+    </td>
+    <td>
+      IE 11
+    </td>
+  </tr>
 </table>
 
 ### Suggested polyfills
@@ -422,143 +315,84 @@ The following polyfills are used to test the framework itself. They are a good s
 下列腻子脚本是用来测试框架本身的。它们是应用程序的优质起点。
 
 <table>
-
   <tr>
-
     <th>
-
       Polyfill
-
-      腻子脚本
-
     </th>
-
     <th>
-
       License
-
-      授权方式
-
     </th>
-
     <th>
-
       Size*
-
-      大小*
-
     </th>
-
   </tr>
-
   <tr>
-
+    <th>
+      腻子脚本
+    </th>
+    <th>
+      授权方式
+    </th>
+    <th>
+      大小*
+    </th>
+  </tr>
+  <tr>
     <td>
-
       <a id='core-es7-array' href="https://github.com/zloirock/core-js/tree/v2/fn/array">ES7/array</a>
-
     </td>
-
     <td>
       MIT
     </td>
-
     <td>
       0.1KB
     </td>
-
   </tr>
-
   <tr>
-
     <td>
-
       <a id='core-es6' href="https://github.com/zloirock/core-js">ES2015</a>
-
     </td>
-
     <td>
-
       MIT
-
     </td>
-
     <td>
-
       27.4KB
-
     </td>
-
   </tr>
 
   <tr>
-
     <td>
-
       <a id='classlist' href="https://github.com/eligrey/classList.js">classList</a>
-
     </td>
-
     <td>
-
       Public domain
-
-      公共域
-
     </td>
-
     <td>
-
       1KB
-
     </td>
-
   </tr>
-
   <tr>
-
     <td>
-
-      <a id='intl' href="https://github.com/andyearnshaw/Intl.js">Intl</a>
-
-    </td>
-
-    <td>
-
-      MIT / Unicode license
-
-    </td>
-
-    <td>
-
-      13.5KB
-
-    </td>
-
-  </tr>
-
-  <tr>
-
-    <td>
-
        <a id='web-animations' href="https://github.com/web-animations/web-animations-js">Web Animations</a>
-
     </td>
-
     <td>
-
       Apache
-
     </td>
-
     <td>
-
       14.8KB
-
     </td>
-
   </tr>
-
+  <tr>
+    <td>
+       <a id='web-animations' href="https://github.com/web-animations/web-animations-js">Web 动画</a>
+    </td>
+    <td>
+      Apache
+    </td>
+    <td>
+      14.8KB
+    </td>
+  </tr>
 </table>
 
 \* Figures are for minified and gzipped code,
@@ -596,7 +430,6 @@ For example:
     // __Zone_disable_requestAnimationFrame = true; // disable patch requestAnimationFrame
     // __Zone_disable_on_property = true; // disable patch onProperty such as onclick
     // __zone_symbol__UNPATCHED_EVENTS = ['scroll', 'mousemove']; // disable patch specified eventNames
-
     /*
 
      * in IE/Edge developer tools, the addEventListener will also be wrapped by zone.js
@@ -607,6 +440,5 @@ For example:
   &lt;/script>
   &lt;!-- zone.js required by Angular -->
   &lt;script src="node_modules/zone.js/bundles/zone.umd.js">&lt;/script>
-
   &lt;!-- application polyfills -->
 </code-example>

@@ -8,7 +8,6 @@
 import {animate, animateChild, AnimationEvent, AnimationOptions, AUTO_STYLE, group, keyframes, query, state, style, transition, trigger, ɵPRE_STYLE as PRE_STYLE} from '@angular/animations';
 import {AnimationDriver, ɵAnimationEngine, ɵNoopAnimationDriver as NoopAnimationDriver} from '@angular/animations/browser';
 import {MockAnimationDriver, MockAnimationPlayer} from '@angular/animations/browser/testing';
-import {ɵgetDOM as getDOM} from '@angular/common';
 import {ChangeDetectorRef, Component, HostBinding, HostListener, Inject, RendererFactory2, ViewChild} from '@angular/core';
 import {fakeAsync, flushMicrotasks, TestBed} from '@angular/core/testing';
 import {ɵDomRendererFactory2} from '@angular/platform-browser';
@@ -47,8 +46,7 @@ describe('animation tests', function() {
           {declarations: [SharedAnimationCmp], imports: [BrowserAnimationsModule]});
 
       const fixture = TestBed.createComponent(SharedAnimationCmp);
-      const cmp = fixture.componentInstance;
-      expect(cmp.animationType).toEqual('BrowserAnimations');
+      expect(fixture.componentInstance.animationType).toEqual('BrowserAnimations');
     });
 
     it('should hint at NoopAnimationsModule being used', () => {
@@ -57,9 +55,20 @@ describe('animation tests', function() {
           {declarations: [SharedAnimationCmp], imports: [NoopAnimationsModule]});
 
       const fixture = TestBed.createComponent(SharedAnimationCmp);
-      const cmp = fixture.componentInstance;
-      expect(cmp.animationType).toEqual('NoopAnimations');
+      expect(fixture.componentInstance.animationType).toEqual('NoopAnimations');
     });
+
+    it('should hint at NoopAnimationsModule being used when BrowserAnimationsModule is provided with disabled animations',
+       () => {
+         TestBed.resetTestingModule();
+         TestBed.configureTestingModule({
+           declarations: [SharedAnimationCmp],
+           imports: [BrowserAnimationsModule.withConfig({disableAnimations: true})]
+         });
+
+         const fixture = TestBed.createComponent(SharedAnimationCmp);
+         expect(fixture.componentInstance.animationType).toEqual('NoopAnimations');
+       });
   });
 
   @Component({template: '<p>template text</p>'})

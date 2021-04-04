@@ -260,6 +260,35 @@ export interface TypeCheckingConfig {
    * literals are cast to `any` when declared.
    */
   strictLiteralTypes: boolean;
+
+  /**
+   * Whether to use inline type constructors.
+   *
+   * If this is `true`, create inline type constructors when required. For example, if a type
+   * constructor's parameters has private types, it cannot be created normally, so we inline it in
+   * the directives definition file.
+   *
+   * If false, do not create inline type constructors. Fall back to using `any` type for
+   * constructors that normally require inlining.
+   *
+   * This option requires the environment to support inlining. If the environment does not support
+   * inlining, this must be set to `false`.
+   */
+  useInlineTypeConstructors: boolean;
+
+  /**
+   * Whether or not to produce diagnostic suggestions in cases where the compiler could have
+   * inferred a better type for a construct, but was prevented from doing so by the current type
+   * checking configuration.
+   *
+   * For example, if the compiler could have used a template context guard to infer a better type
+   * for a structural directive's context and `let-` variables, but the user is in
+   * `fullTemplateTypeCheck` mode and such guards are therefore disabled.
+   *
+   * This mode is useful for clients like the Language Service which want to inform users of
+   * opportunities to improve their own developer experience.
+   */
+  suggestionsForSuboptimalTypeInference: boolean;
 }
 
 

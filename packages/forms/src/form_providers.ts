@@ -9,14 +9,15 @@
 import {ModuleWithProviders, NgModule} from '@angular/core';
 
 import {InternalFormsSharedModule, NG_MODEL_WITH_FORM_CONTROL_WARNING, REACTIVE_DRIVEN_DIRECTIVES, TEMPLATE_DRIVEN_DIRECTIVES} from './directives';
-import {RadioControlRegistry} from './directives/radio_control_value_accessor';
-import {FormBuilder} from './form_builder';
 
 /**
  * Exports the required providers and directives for template-driven forms,
  * making them available for import by NgModules that import this module.
  *
  * 导出模板驱动表单所需的提供者和指令，使其可用于导入了该模块的 NgModule 中。
+ *
+ * Providers associated with this module:
+ * * `RadioControlRegistry`
  *
  * @see [Forms Overview](/guide/forms-overview)
  *
@@ -30,7 +31,6 @@ import {FormBuilder} from './form_builder';
  */
 @NgModule({
   declarations: TEMPLATE_DRIVEN_DIRECTIVES,
-  providers: [RadioControlRegistry],
   exports: [InternalFormsSharedModule, TEMPLATE_DRIVEN_DIRECTIVES]
 })
 export class FormsModule {
@@ -41,6 +41,10 @@ export class FormsModule {
  * making them available for import by NgModules that import this module.
  *
  * 导出响应式表单所需的基础设施和指令，使其能用于任何导入了本模块的 NgModule 中。
+ *
+ * Providers associated with this module:
+ * * `FormBuilder`
+ * * `RadioControlRegistry`
  *
  * @see [Forms Overview](guide/forms-overview)
  *
@@ -54,7 +58,6 @@ export class FormsModule {
  */
 @NgModule({
   declarations: [REACTIVE_DRIVEN_DIRECTIVES],
-  providers: [FormBuilder, RadioControlRegistry],
   exports: [InternalFormsSharedModule, REACTIVE_DRIVEN_DIRECTIVES]
 })
 export class ReactiveFormsModule {

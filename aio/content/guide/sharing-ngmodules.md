@@ -83,8 +83,6 @@ To read about sharing services, see [Providers](guide/providers).
 
 要进一步了解共享服务，参阅[服务提供者](guide/providers)。
 
-<hr />
-
 ## More on NgModules
 
 ## 关于 NgModule 的更多知识

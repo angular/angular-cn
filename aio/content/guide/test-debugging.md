@@ -53,5 +53,3 @@ Debug specs in the browser in the same way that you debug an application.
 <div class="lightbox">
   <img src='generated/images/guide/testing/karma-1st-spec-debug.png' alt="Karma debugging">
 </div>
-
-<hr>

@@ -56,7 +56,7 @@ export enum ViewEncapsulation {
    * 使用 Shadow DOM 封装样式。
    *
    * For the DOM this means using modern [Shadow
-   * DOM](https://w3c.github.io/webcomponents/spec/shadow/) and
+   * DOM](https://developer.mozilla.org/en-US/docs/Web/Web_Components/Using_shadow_DOM) and
    * creating a ShadowRoot for Component's Host Element.
    *
    * 对于 DOM，这意味着使用现代的 [Shadow DOM](https://w3c.github.io/webcomponents/spec/shadow/) 并为组件的 Host 元素创建 ShadowRoot。

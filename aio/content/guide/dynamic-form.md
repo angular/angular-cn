@@ -68,9 +68,9 @@ Before doing this tutorial, you should have a basic understanding to the followi
 
 在做本教程之前，你应该对下列内容有一个基本的了解。
 
-* [TypeScript](https://www.typescriptlang.org/docs/home.html "The TypeScript language") and HTML5 programming.
+* [TypeScript](https://www.typescriptlang.org/ "The TypeScript language") and HTML5 programming.
 
-  [TypeScript](https://www.typescriptlang.org/docs/home.html "TypeScript 语言") 和 HTML5 编程。
+  [TypeScript](https://www.typescriptlang.org/ "TypeScript 语言") 和 HTML5 编程。
 
 * Fundamental concepts of [Angular app design](guide/architecture "Introduction to Angular app-design concepts").
 

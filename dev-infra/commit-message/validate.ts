@@ -5,10 +5,11 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
+
 import {error} from '../utils/console';
 
 import {COMMIT_TYPES, getCommitMessageConfig, ScopeRequirement} from './config';
-import {parseCommitMessage, ParsedCommitMessage} from './parse';
+import {Commit, parseCommitMessage} from './parse';
 
 /** Options for commit message validation. */
 export interface ValidateCommitMessageOptions {
@@ -20,15 +21,25 @@ export interface ValidateCommitMessageOptions {
 export interface ValidateCommitMessageResult {
   valid: boolean;
   errors: string[];
-  commit: ParsedCommitMessage;
+  commit: Commit;
 }
 
 /** Regex matching a URL for an entire commit body line. */
 const COMMIT_BODY_URL_LINE_RE = /^https?:\/\/.*$/;
+/**
+ * Regex matching a breaking change.
+ *
+ * - Starts with BREAKING CHANGE
+ * - Followed by a colon
+ * - Followed by a single space or two consecutive new lines
+ *
+ * NB: Anything after `BREAKING CHANGE` is optional to facilitate the validation.
+ */
+const COMMIT_BODY_BREAKING_CHANGE_RE = /^BREAKING CHANGE(:( |\n{2}))?/m;
 
 /** Validate a commit message against using the local repo's config. */
 export function validateCommitMessage(
-    commitMsg: string|ParsedCommitMessage,
+    commitMsg: string|Commit,
     options: ValidateCommitMessageOptions = {}): ValidateCommitMessageResult {
   const config = getCommitMessageConfig().commitMessage;
   const commit = typeof commitMsg === 'string' ? parseCommitMessage(commitMsg) : commitMsg;
@@ -36,8 +47,6 @@ export function validateCommitMessage(
 
   /** Perform the validation checks against the parsed commit. */
   function validateCommitAndCollectErrors() {
-    // TODO(josephperrott): Remove early return calls when commit message errors are found
-
     ////////////////////////////////////
     // Checking revert, squash, fixup //
     ////////////////////////////////////
@@ -122,24 +131,43 @@ export function validateCommitMessage(
     // Checking commit body //
     //////////////////////////
 
+    // Due to an issue in which conventional-commits-parser considers all parts of a commit after
+    // a `#` reference to be the footer, we check the length of all of the commit content after the
+    // header. In the future, we expect to be able to check only the body once the parser properly
+    // handles this case.
+    const allNonHeaderContent = `${commit.body.trim()}\n${commit.footer.trim()}`;
+
     if (!config.minBodyLengthTypeExcludes?.includes(commit.type) &&
-        commit.bodyWithoutLinking.trim().length < config.minBodyLength) {
+        allNonHeaderContent.length < config.minBodyLength) {
       errors.push(`The commit message body does not meet the minimum length of ${
           config.minBodyLength} characters`);
       return false;
     }
 
     const bodyByLine = commit.body.split('\n');
-    const lineExceedsMaxLength = bodyByLine.some(line => {
+    const lineExceedsMaxLength = bodyByLine.some((line: string) => {
       // Check if any line exceeds the max line length limit. The limit is ignored for
       // lines that just contain an URL (as these usually cannot be wrapped or shortened).
       return line.length > config.maxLineLength && !COMMIT_BODY_URL_LINE_RE.test(line);
     });
 
     if (lineExceedsMaxLength) {
-      errors.push(
-          `The commit message body contains lines greater than ${config.maxLineLength} characters`);
+      errors.push(`The commit message body contains lines greater than ${
+          config.maxLineLength} characters.`);
       return false;
+    }
+
+    // Breaking change
+    // Check if the commit message contains a valid break change description.
+    // https://github.com/angular/angular/blob/88fbc066775ab1a2f6a8c75f933375b46d8fa9a4/CONTRIBUTING.md#commit-message-footer
+    const hasBreakingChange = COMMIT_BODY_BREAKING_CHANGE_RE.exec(commit.fullText);
+    if (hasBreakingChange !== null) {
+      const [, breakingChangeDescription] = hasBreakingChange;
+      if (!breakingChangeDescription) {
+        // Not followed by :, space or two consecutive new lines,
+        errors.push(`The commit message body contains an invalid breaking change description.`);
+        return false;
+      }
     }
 
     return true;
@@ -159,5 +187,10 @@ export function printValidationErrors(errors: string[], print = error) {
   print('<type>(<scope>): <summary>');
   print();
   print('<body>');
+  print();
+  print(`BREAKING CHANGE: <breaking change summary>`);
+  print();
+  print(`<breaking change description>`);
+  print();
   print();
 }

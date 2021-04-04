@@ -21,7 +21,7 @@ Angular's `HttpClient`.
 
 <div class="alert is-helpful">
 
-  For the sample app that this page describes, see the <live-example></live-example>.
+  For the sample application that this page describes, see the <live-example></live-example>.
 
   要查看本页所讲的范例程序，参阅<live-example></live-example>。
 
@@ -35,7 +35,7 @@ Angular's `HttpClient`.
 
 `HttpClient` 是 Angular 通过 HTTP 与远程服务器通讯的机制。
 
-Make `HttpClient` available everywhere in the app in two steps. First, add it to the root `AppModule` by importing it:
+Make `HttpClient` available everywhere in the application in two steps. First, add it to the root `AppModule` by importing it:
 
 要让 `HttpClient` 在应用中随处可用，需要两个步骤。首先，用导入语句把它添加到根模块 `AppModule` 中：
 
@@ -54,11 +54,11 @@ Next, still in the `AppModule`, add `HttpClient` to the `imports` array:
 ## 模拟数据服务器
 
 This tutorial sample mimics communication with a remote data server by using the
-[In-memory Web API](https://github.com/angular/in-memory-web-api "In-memory Web API") module.
+[In-memory Web API](https://github.com/angular/angular/tree/master/packages/misc/angular-in-memory-web-api "In-memory Web API") module.
 
-这个教学例子会与一个使用 [内存 Web API（_In-memory Web API_）](https://github.com/angular/in-memory-web-api "In-memory Web API") 模拟出的远程数据服务器通讯。
+这个教学例子会与一个使用 [内存 Web API（_In-memory Web API_）](https://github.com/angular/angular/tree/master/packages/misc/angular-in-memory-web-api "In-memory Web API") 模拟出的远程数据服务器通讯。
 
-After installing the module, the app will make requests to and receive responses from the `HttpClient`
+After installing the module, the application will make requests to and receive responses from the `HttpClient`
 without knowing that the *In-memory Web API* is intercepting those requests,
 applying them to an in-memory data store, and returning simulated responses.
 
@@ -196,7 +196,7 @@ mock server.
 
 刷新浏览器后，英雄数据就会从模拟服务器被成功读取。
 
-You've swapped `of()` for `http.get()` and the app keeps working without any other changes
+You've swapped `of()` for `http.get()` and the application keeps working without any other changes
 because both functions return an `Observable<Hero[]>`.
 
 你用 `http.get()` 替换了 `of()`，没有做其它修改，但是应用仍然在正常工作，这是因为这两个函数都返回了 `Observable<Hero[]>`。
@@ -312,12 +312,12 @@ has configured with both the name of the operation that failed and a safe return
 </code-example>
 
 After reporting the error to the console, the handler constructs
-a user friendly message and returns a safe value to the app so the app can keep working.
+a user friendly message and returns a safe value to the application so the application can keep working.
 
 在控制台中汇报了这个错误之后，这个处理器会汇报一个用户友好的消息，并给应用返回一个安全值，让应用继续工作。
 
 Because each service method returns a different kind of `Observable` result,
-`handleError()` takes a type parameter so it can return the safe value as the type that the app expects.
+`handleError()` takes a type parameter so it can return the safe value as the type that the application expects.
 
 因为每个服务方法都会返回不同类型的 `Observable` 结果，因此 `handleError()` 也需要一个类型参数，以便它返回一个此类型的安全值，正如应用所期望的那样。
 
@@ -464,7 +464,7 @@ The hero now appears in the list with the changed name.
 
 ## 添加新英雄
 
-To add a hero, this app only needs the hero's name. You can use an `<input>`
+To add a hero, this application only needs the hero's name. You can use an `<input>`
 element paired with an add button.
 
 要添加英雄，本应用中只需要英雄的名字。你可以使用一个和添加按钮成对的 `<input>` 元素。
@@ -831,7 +831,7 @@ It cancels and discards previous search observables, returning only the latest s
 
   Note that canceling a previous `searchHeroes()` Observable
   doesn't actually abort a pending HTTP request.
-  Unwanted results are simply discarded before they reach your application code.
+  Unwanted results are discarded before they reach your application code.
 
   注意，取消前一个 `searchHeroes()` 可观察对象并不会中止尚未完成的 HTTP 请求。
   那些不想要的结果只会在它们抵达应用代码之前被舍弃。
@@ -847,13 +847,13 @@ That's the job of the [`AsyncPipe`](#asyncpipe) in the template.
 
 #### 试试看
 
-Run the app again. In the *Dashboard*, enter some text in the search box.
+Run the application again. In the *Dashboard*, enter some text in the search box.
 If you enter characters that match any existing hero names, you'll see something like this.
 
 再次运行本应用。在这个 *仪表盘* 中，在搜索框中输入一些文字。如果你输入的字符匹配上了任何现有英雄的名字，你将会看到如下效果：
 
 <div class="lightbox">
-  <img src='generated/images/guide/toh/toh-hero-search.png' alt="Hero Search Component">
+  <img src='generated/images/guide/toh/toh-hero-search.gif' alt="Hero Search field with the letters 'm' and 'a' along with four search results that match the query displayed in a list beneath the search input">
 </div>
 
 ## Final code review

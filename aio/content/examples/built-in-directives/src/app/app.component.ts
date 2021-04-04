@@ -21,7 +21,10 @@ export class AppComponent implements OnInit {
   item: Item; // defined to demonstrate template context precedence
   items: Item[];
 
+  // #docregion item
   currentItem: Item;
+  // #enddocregion item
+
 
 
   // trackBy change counting
@@ -111,6 +114,9 @@ export class AppComponent implements OnInit {
 
   trackById(index: number, item: any): number { return item.id; }
 
+  getValue(target: EventTarget): string {
+    return (target as HTMLInputElement).value;
+  }
 }
 
 

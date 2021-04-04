@@ -7,9 +7,9 @@
  */
 import * as ts from 'typescript';
 
-import {AbsoluteFsPath, FileSystem, NgtscCompilerHost} from '../../../src/ngtsc/file_system';
+import {AbsoluteFsPath, FileSystem, PathManipulation, ReadonlyFileSystem} from '../../../src/ngtsc/file_system';
 import {initMockFileSystem} from '../../../src/ngtsc/file_system/testing';
-import {loadStandardTestFiles, loadTestDirectory} from '../../../src/ngtsc/testing';
+import {loadStandardTestFiles, loadTestDirectory, NgtscTestCompilerHost} from '../../../src/ngtsc/testing';
 import {Diagnostics, performCompilation} from '../../../src/perform_compile';
 import {CompilerOptions} from '../../../src/transformers/api';
 
@@ -52,7 +52,7 @@ export function compileTest(
   const outDir = getBuildOutputDirectory(fs);
   const options = getOptions(rootDir, outDir, compilerOptions, angularCompilerOptions);
   const rootNames = files.map(f => fs.resolve(f));
-  const host = new NgtscCompilerHost(fs, options);
+  const host = new NgtscTestCompilerHost(fs, options);
   const {diagnostics, emitResult} = performCompilation({rootNames, host, options});
   const emittedFiles = emitResult ? emitResult.emittedFiles!.map(p => fs.resolve(rootDir, p)) : [];
   const errors = parseDiagnostics(diagnostics);
@@ -65,7 +65,7 @@ export function compileTest(
  *
  * @param fs the mock file-system where the compilation is happening.
  */
-export function getRootDirectory(fs: FileSystem): AbsoluteFsPath {
+export function getRootDirectory(fs: PathManipulation): AbsoluteFsPath {
   return fs.resolve('/');
 }
 
@@ -75,7 +75,7 @@ export function getRootDirectory(fs: FileSystem): AbsoluteFsPath {
  *
  * @param fs the mock file-system where the compilation is happening.
  */
-export function getBuildOutputDirectory(fs: FileSystem): AbsoluteFsPath {
+export function getBuildOutputDirectory(fs: PathManipulation): AbsoluteFsPath {
   return fs.resolve('/built');
 }
 
@@ -118,7 +118,6 @@ function getOptions(
     typeRoots: ['node_modules/@types'],
     ...convertedCompilerOptions.options,
     enableIvy: true,
-    ivyTemplateTypeCheck: false,
     enableI18nLegacyMessageIdFormat: false,
     ...angularCompilerOptions,
   };
@@ -128,13 +127,19 @@ function getOptions(
  * Replace escaped line-ending markers (\r\n) with real line-ending characters.
  *
  * This allows us to simulate, more reliably, files that have `\r\n` line-endings.
- * (See `line_ending_normalization` test cases.)
+ * (See `test_cases/r3_view_compiler_i18n/line_ending_normalization/template.html`.)
  */
-function monkeyPatchReadFile(fs: FileSystem): void {
+function monkeyPatchReadFile(fs: ReadonlyFileSystem): void {
   const originalReadFile = fs.readFile;
   fs.readFile = (path: AbsoluteFsPath): string => {
     const file = originalReadFile.call(fs, path);
-    return file.replace(/\\r\\n\r?\n/g, '\r\n');
+    return file
+        // First convert actual `\r\n` sequences to `\n`
+        .replace(/\r\n/g, '\n')
+        // unescape `\r\n` at the end of a line
+        .replace(/\\r\\n\n/g, '\r\n')
+        // unescape `\\r\\n`, at the end of a line, to `\r\n`
+        .replace(/\\\\r\\\\n(\r?\n)/g, '\\r\\n$1');
   };
 }
 

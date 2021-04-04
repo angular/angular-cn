@@ -96,11 +96,12 @@ export declare function getLocaleWeekEndRange(locale: string): [WeekDay, WeekDay
 
 export declare function getNumberOfCurrencyDigits(code: string): number;
 
-export declare class HashLocationStrategy extends LocationStrategy {
+export declare class HashLocationStrategy extends LocationStrategy implements OnDestroy {
     constructor(_platformLocation: PlatformLocation, _baseHref?: string);
     back(): void;
     forward(): void;
     getBaseHref(): string;
+    ngOnDestroy(): void;
     onPopState(fn: LocationChangeListener): void;
     path(includeHash?: boolean): string;
     prepareExternalUrl(internal: string): string;
@@ -324,11 +325,12 @@ export declare enum NumberSymbol {
     CurrencyGroup = 13
 }
 
-export declare class PathLocationStrategy extends LocationStrategy {
+export declare class PathLocationStrategy extends LocationStrategy implements OnDestroy {
     constructor(_platformLocation: PlatformLocation, href?: string);
     back(): void;
     forward(): void;
     getBaseHref(): string;
+    ngOnDestroy(): void;
     onPopState(fn: LocationChangeListener): void;
     path(includeHash?: boolean): string;
     prepareExternalUrl(internal: string): string;
@@ -355,8 +357,8 @@ export declare abstract class PlatformLocation {
     abstract forward(): void;
     abstract getBaseHrefFromDOM(): string;
     abstract getState(): unknown;
-    abstract onHashChange(fn: LocationChangeListener): void;
-    abstract onPopState(fn: LocationChangeListener): void;
+    abstract onHashChange(fn: LocationChangeListener): VoidFunction;
+    abstract onPopState(fn: LocationChangeListener): VoidFunction;
     abstract pushState(state: any, title: string, url: string): void;
     abstract replaceState(state: any, title: string, url: string): void;
 }
@@ -419,7 +421,7 @@ export declare abstract class ViewportScroller {
     abstract scrollToPosition(position: [number, number]): void;
     abstract setHistoryScrollRestoration(scrollRestoration: 'auto' | 'manual'): void;
     abstract setOffset(offset: [number, number] | (() => [number, number])): void;
-    static ɵprov: never;
+    static ɵprov: unknown;
 }
 
 export declare enum WeekDay {
@@ -430,4 +432,8 @@ export declare enum WeekDay {
     Thursday = 4,
     Friday = 5,
     Saturday = 6
+}
+
+export declare abstract class XhrFactory {
+    abstract build(): XMLHttpRequest;
 }

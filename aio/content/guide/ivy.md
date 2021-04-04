@@ -204,7 +204,7 @@ The following example shows how you modify the `server.ts` file to provide the `
   在 `ngExpressEngine` 调用中设置 `bootstrap: AppServerModuleNgFactory`。
 
 <code-example language="typescript" header="server.ts">
-import 'zone.js/dist/zone-node';
+import 'zone.js/node';
 
 import { ngExpressEngine } from '@nguniversal/express-engine';
 import * as express from 'express';

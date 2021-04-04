@@ -1,127 +1,91 @@
-# Interpolation and template expressions
+# Text interpolation
 
-# 插值与模板表达式
-
-Interpolation allows you to incorporate calculated strings into the text
-between HTML element tags and within attribute assignments. Template
-expressions are what you use to calculate those strings.
-
-插值能让你把计算后的字符串合并到 HTML 元素标签之间和属性赋值语句内的文本中。模板表达式则是用来供你求出这些字符串的。
-
+Text interpolation allows you to incorporate dynamic string values into your HTML templates.
+With interpolation, you can dynamically change what appears in an application view, such as displaying a custom greeting that includes the user's name.
 
 <div class="alert is-helpful">
 
-See the <live-example></live-example> for all of
-the syntax and code snippets in this guide.
+See the <live-example></live-example> for all of the syntax and code snippets in this guide.
 
 要了解本指南中涉及的语法和代码片段，请参阅 <live-example></live-example>。
 
 </div>
 
-## Interpolation `{{...}}`
+## Displaying values with interpolation
 
-## 插值 `{{...}}`
+## 使用插值语法显示值
 
 Interpolation refers to embedding expressions into marked up text.
-By default, interpolation uses as its delimiter the double curly braces, `{{` and `}}`.
+By default, interpolation uses the double curly braces `{{` and `}}`  as delimiters.
 
-所谓 "插值" 是指将表达式嵌入到标记文本中。
-默认情况下，插值会用双花括号 `{{` 和 `}}` 作为分隔符。
+To illustrate how interpolation works, consider an Angular component that contains a `currentCustomer` variable:
 
-In the following snippet, `{{ currentCustomer }}` is an example of interpolation.
+<code-example path="interpolation/src/app/app.component.ts" region="customer" header="src/app/app.component.ts"></code-example>
 
-在下面的代码片段中，`{{ currentCustomer }}` 就是插值的例子。
+You can use interpolation to display the value of this variable in the corresponding component template:
 
 <code-example path="interpolation/src/app/app.component.html" region="interpolation-example1" header="src/app/app.component.html"></code-example>
 
-The text between the braces is often the name of a component
-property. Angular replaces that name with the
-string value of the corresponding component property.
+Angular replaces `currentCustomer` with the string value of the corresponding component property.
+In this case, the value is `Maria`.
 
-花括号之间的文本通常是组件属性的名字。Angular 会把这个名字替换为响应组件属性的字符串值。
+In the following example, Angular evaluates the `title` and `itemImageUrl` properties to display some title text and an image.
 
 <code-example path="interpolation/src/app/app.component.html" region="component-property" header="src/app/app.component.html"></code-example>
 
-In the example above, Angular evaluates the `title` and `itemImageUrl` properties
-and fills in the blanks, first displaying some title text and then an image.
+## Template expressions
 
-在上面的示例中，Angular 计算 `title` 和 `itemImageUrl` 属性并填充空白，首先显示一些标题文本，然后显示图像。
+A template **expression** produces a value and appears within double curly braces, `{{ }}`.
+Angular resolves the expression and assigns it to a property of a binding target.
+The target could be an HTML element, a component, or a directive.
 
-More generally, the text between the braces is a **template expression**
-that Angular first **evaluates** and then **converts to a string**.
+### Resolving expressions with interpolation
+
+More generally, the text between the braces is a template expression that Angular first evaluates and then converts to a string.
 The following interpolation illustrates the point by adding two numbers:
 
-一般来说，括号间的素材是一个**模板表达式**，Angular 先**对它求值**，再把它**转换成字符串**。
+一般来说，括号间的文本是一个模板表达式，Angular 先对它求值，再把它转换成字符串。
   下列插值通过把括号中的两个数字相加说明了这一点：
 
 <code-example path="interpolation/src/app/app.component.html" region="convert-string" header="src/app/app.component.html"></code-example>
 
-The expression can invoke methods of the host component such as `getVal()` in
-the following example:
+Expressions can also invoke methods of the host component such as `getVal()` in the following example:
 
-这个表达式可以调用宿主组件的方法，就像下面用的 `getVal()`：
+这些表达式也可以调用宿主组件的方法，就像下面用的 `getVal()`：
 
 <code-example path="interpolation/src/app/app.component.html" region="invoke-method" header="src/app/app.component.html"></code-example>
 
-Angular evaluates all expressions in double curly braces,
-converts the expression results to strings, and links them with neighboring literal strings. Finally,
-it assigns this composite interpolated result to an **element or directive property**.
+With interpolation, Angular performs the following tasks:
 
-Angular 对所有双花括号中的表达式求值，把求值的结果转换成字符串，并把它们跟相邻的字符串字面量连接起来。最后，把这个组合出来的插值结果赋给**元素或指令的属性**。
-
-You appear to be inserting the result between element tags and assigning it to attributes.
-However, interpolation is a special syntax that Angular converts into a *property binding*.
-
-你看上去似乎正在将结果插入元素标签之间，并将其赋值给属性。
-但实际上，插值是一种特殊语法，Angular 会将其转换为*属性绑定*。
+1. Evaluates all expressions in double curly braces.
+1. Converts the expression results to strings.
+1. Links the results to any adjacent literal strings.
+1. Assigns the composite to an element or directive property.
 
 <div class="alert is-helpful">
 
-If you'd like to use something other than `{{` and `}}`, you can
-configure the interpolation delimiter via the
-[interpolation](api/core/Component#interpolation)
-option in the `Component` metadata.
+You can configure the interpolation delimiter with the [interpolation](api/core/Component#interpolation) option in the `@Component()` metadata.
 
-如果你想用别的分隔符来代替 `{{` 和 `}}`，也可以通过 `Component` 元数据中的 [interpolation](api/core/Component#interpolation) 选项来配置插值分隔符。
+如果你想用别的分隔符来代替 `{{` 和 `}}`，也可以通过 `@Component()` 元数据中的 [interpolation](api/core/Component#interpolation) 选项来配置插值分隔符。
 
 </div>
 
-## Template expressions
+### Syntax
 
-## 模板表达式
+Template expressions are similar to JavaScript.
+Many JavaScript expressions are legal template expressions, with the following exceptions.
 
-A template **expression** produces a value and appears within the double
-curly braces, `{{ }}`.
-Angular executes the expression and assigns it to a property of a binding target;
-the target could be an HTML element, a component, or a directive.
-
-模板**表达式**会产生一个值，并出现在双花括号 `{{ }}` 中。
-  Angular 执行这个表达式，并把它赋值给绑定目标的属性，这个绑定目标可能是 HTML 元素、组件或指令。
-
-The interpolation braces in `{{1 + 1}}` surround the template expression `1 + 1`.
-In the property binding,
-a template expression appears in quotes to the right of the&nbsp;`=` symbol as in `[property]="expression"`.
-
-`{{1 + 1}}` 中所包含的模板表达式是 `1 + 1`。
-  在属性绑定中会再次看到模板表达式，它出现在 `=` 右侧的引号中，就像这样：`[property]="expression"`。
-
-In terms of syntax, template expressions are similar to JavaScript.
-Many JavaScript expressions are legal template expressions, with a few exceptions.
-
-在语法上，模板表达式与 JavaScript 很像。很多 JavaScript 表达式都是合法的模板表达式，但也有一些例外。
-
-You can't use JavaScript expressions that have or promote side effects,
-including:
+You can't use JavaScript expressions that have or promote side effects, including:
 
 你不能使用那些具有或可能引发副作用的 JavaScript 表达式，包括：
 
 * Assignments (`=`, `+=`, `-=`, `...`)
 
-   赋值 (`=`, `+=`, `-=`, `...`)
+  赋值 (`=`, `+=`, `-=`, `...`)
 
-* Operators such as `new`, `typeof`, `instanceof`, etc.
+* Operators such as `new`, `typeof`, or `instanceof`
 
-   `new`、`typeof`、`instanceof` 等运算符。
+  运算符，比如 `new`、`typeof` 或`instanceof` 等。
 
 * Chaining expressions with <code>;</code> or <code>,</code>
 
@@ -149,156 +113,105 @@ Other notable differences from JavaScript syntax include:
 
 ## Expression context
 
-## 表达式上下文
+Interpolated expressions have a context&mdash;a particular part of the application to which the expression belongs.
+Typically, this context is the component instance.
 
-The *expression context* is typically the _component_ instance.
-In the following snippets, the `recommended` within double curly braces and the
-`itemImageUrl2` in quotes refer to properties of the `AppComponent`.
+In the following snippet, the expression `recommended` and the expression `itemImageUrl2` refer to properties of the `AppComponent`.
 
-典型的*表达式上下文*就是这个**组件实例**，它是各种绑定值的来源。
-在下面的代码片段中，双花括号中的 `recommended` 和引号中的 `itemImageUrl2` 所引用的都是 `AppComponent` 中的属性。
+在下面的代码片段中，表达式 `recommended` 和 `itemImageUrl2` 表达式所引用的都是 `AppComponent` 中的属性。
 
 <code-example path="interpolation/src/app/app.component.html" region="component-context" header="src/app/app.component.html"></code-example>
 
-An expression may also refer to properties of the _template's_ context
-such as a template input variable,
+An expression can also refer to properties of the _template's_ context such as a [template input variable](guide/structural-directives#shorthand) or a [template reference variable](guide/template-reference-variables).
 
-表达式也可以引用模板中的上下文属性，例如模板输入变量，
-
-<!-- link to built-in-directives#template-input-variables -->
-
-`let customer`, or a template reference variable, `#customerInput`.
-
-`let customer`，或模板引用变量 `#customerInput`。
-
-<!-- link to guide/template-ref-variables -->
+The following example uses a template input variable of `customer`.
 
 <code-example path="interpolation/src/app/app.component.html" region="template-input-variable" header="src/app/app.component.html (template input variable)"></code-example>
 
+This next example features a template reference variable, `#customerInput`.
+
 <code-example path="interpolation/src/app/app.component.html" region="template-reference-variable" header="src/app/app.component.html (template reference variable)"></code-example>
-
-The context for terms in an expression is a blend of the _template variables_,
-the directive's _context_ object (if it has one), and the component's _members_.
-If you reference a name that belongs to more than one of these namespaces,
-the template variable name takes precedence, followed by a name in the directive's _context_,
-and, lastly, the component's member names.
-
-表达式中的上下文变量是由*模板变量*、指令的*上下文变量*（如果有）和组件的*成员*叠加而成的。
-如果你要引用的变量名存在于一个以上的命名空间中，那么，模板变量是最优先的，其次是指令的上下文变量，最后是组件的成员。
-
-The previous example presents such a name collision. The component has a `customer`
-property and the `*ngFor` defines a `customer` template variable.
-
-上一个例子中就体现了这种命名冲突。组件具有一个名叫 `customer` 的属性，而 `*ngFor` 声明了一个也叫 `customer` 的模板变量。
 
 <div class="alert is-helpful">
 
-The `customer` in `{{customer.name}}`
-refers to the template input variable, not the component's property.
-
-在 `{{customer.name}}` 表达式中的 `customer` 实际引用的是模板变量，而不是组件的属性。
-
-Template expressions cannot refer to anything in
-the global namespace, except `undefined`. They can't refer to
-`window` or `document`. Additionally, they
-can't call `console.log()` or `Math.max()` and they are restricted to referencing
-members of the expression context.
+Template expressions cannot refer to anything in the global namespace, except `undefined`.
+They can't refer to `window` or `document`.
+Additionally, they can't call `console.log()` or `Math.max()` and they are restricted to referencing members of the expression context.
 
 模板表达式不能引用全局命名空间中的任何东西，比如 `window` 或 `document`。它们也不能调用 `console.log` 或 `Math.max`。
 它们只能引用表达式上下文中的成员。
 
 </div>
 
-## Expression guidelines
+### Preventing name collisions
 
-## 表达式使用指南
+The context against which an expression evaluates is the union of the template variables, the directive's context object&mdash;if it has one&mdash;and the component's members.
+If you reference a name that belongs to more than one of these namespaces, Angular applies the following logic to determine the context:
 
-When using template expressions follow these guidelines:
+1. The template variable name.
+1. A name in the directive's context.
+1. The component's member names.
 
-当使用模板表达式时，请遵循下列指南：
+To avoid variables shadowing variables in another context, keep variable names unique.
+In the following example, the `AppComponent` template greets the `customer`, Padma.
 
-* [Simplicity](guide/interpolation#simplicity)
+An `ngFor` then lists each `customer` in the `customers` array.
 
-   [非常简单](guide/interpolation#simplicity)
+<code-example path="interpolation/src/app/app.component.1.ts" region="var-collision" header="src/app/app.component.ts"></code-example>
 
-* [Quick execution](guide/interpolation#quick-execution)
+The `customer` within the `ngFor` is in the context of an `<ng-template>` and so refers to the `customer` in the `customers` array, in this case Ebony and Chiho.
+This list does not feature Padma because `customer` outside of the `ngFor` is in a different context.
+Conversely, `customer` in the `<h1>` doesn't include Ebony or Chiho because the context for this `customer` is the class and the class value for `customer` is Padma.
 
-   [执行迅速](guide/interpolation#quick-execution)
+## Expression best practices
 
-* [No visible side effects](guide/interpolation#no-visible-side-effects)
+When using template expressions, follow these best practices:
 
-   [没有可见的副作用](guide/interpolation#no-visible-side-effects)
+* **Use short expressions**
 
-### Simplicity
+  Use property names or method calls whenever possible.
+  Keep application and business logic in the component, where it is easier to develop and test.
 
-### 简单
+* **Quick execution**
 
-Although it's possible to write complex template expressions, it's a better
-practice to avoid them.
+  Angular executes template expressions after every [change detection](guide/glossary#change-detection) cycle.
+  Many asynchronous activities trigger change detection cycles, such as promise resolutions, HTTP results, timer events, key presses and mouse moves.
 
-虽然也可以写复杂的模板表达式，不过最好避免那样做。
+  Expressions should finish quickly to keep the user experience as efficient as possible, especially on slower devices.
+  Consider caching values when their computation requires greater resources.
 
-A property name or method call should be the norm, but an occasional Boolean negation, `!`, is OK.
-Otherwise, confine application and business logic to the component,
-where it is easier to develop and test.
+* **No visible side effects**
 
-属性名或方法调用应该是常态，但偶然使用逻辑取反 `!` 也是可以的。
-其它情况下，应该把应用程序和业务逻辑限制在组件中，这样它才能更容易开发和测试。
+  According to Angular's [unidirectional data flow model](guide/glossary#unidirectional-data-flow), a template expression should not change any application state other than the value of the target property.
+  Reading a component value should not change some other displayed value.
+  The view should be stable throughout a single rendering pass.
 
-### Quick execution
+  <div class="callout is-important">
+    <header>Idempotent expressions reduce side effects</header>
 
-### 快速执行
+    An [idempotent](https://en.wikipedia.org/wiki/Idempotence) expression is free of side effects and improves Angular's change detection performance.
+    In Angular terms, an idempotent expression always returns *exactly the same thing* until one of its dependent values changes.
 
-Angular executes template expressions after every change detection cycle.
-Change detection cycles are triggered by many asynchronous activities such as
-promise resolutions, HTTP results, timer events, key presses and mouse moves.
-
-Angular 会在每个变更检测周期后执行模板表达式。
-变更检测周期会被多种异步活动触发，比如 Promise 解析、HTTP 结果、定时器时间、按键或鼠标移动。
-
-Expressions should finish quickly or the user experience may drag, especially on slower devices.
-Consider caching values when their computation is expensive.
-
-表达式应该快速结束，否则用户就会感到拖沓，特别是在较慢的设备上。
-当计算代价较高时，应该考虑缓存那些从其它值计算得出的值。
-
-### No visible side effects
-
-### 没有可见的副作用
-
-A template expression should not change any application state other than the value of the
-target property.
-
-模板表达式除了目标属性的值以外，不应该改变应用的任何状态。
-
-This rule is essential to Angular's "unidirectional data flow" policy.
-You should never worry that reading a component value might change some other displayed value.
-The view should be stable throughout a single rendering pass.
-
-这条规则是 Angular “单向数据流”策略的基础。
-永远不用担心读取组件值可能改变另外的显示值。
-在一次单独的渲染过程中，视图应该总是稳定的。
-
-An [idempotent](https://en.wikipedia.org/wiki/Idempotence) expression is ideal because
-it is free of side effects and improves Angular's change detection performance.
-In Angular terms, an idempotent expression always returns
-*exactly the same thing* until one of its dependent values changes.
-
-[幂等](https://en.wikipedia.org/wiki/Idempotence)的表达式是最理想的，因为它没有副作用，并且可以提高 Angular 的变更检测性能。
+    [幂等](https://en.wikipedia.org/wiki/Idempotence)的表达式是最理想的，因为它没有副作用，并且可以提高 Angular 的变更检测性能。
 用 Angular 术语来说，幂等表达式总会返回*完全相同的东西*，除非其依赖值之一发生了变化。
 
 Dependent values should not change during a single turn of the event loop.
-If an idempotent expression returns a string or a number, it returns the same string or number when called twice in a row. If the expression returns an object, including an `array`, it returns the same object *reference* when called twice in a row.
+If an idempotent expression returns a string or a number, it returns the same string or number if you call it twice consecutively.
+    If the expression returns an object, including an `array`, it returns the same object *reference* if you call it twice consecutively.
 
-在单独的一次事件循环中，被依赖的值不应该改变。
-  如果幂等的表达式返回一个字符串或数字，连续调用它两次，也应该返回相同的字符串或数字。
-  如果幂等的表达式返回一个对象（包括 `Date` 或 `Array`），连续调用它两次，也应该返回同一个对象的*引用*。
+  在单独的一次事件循环中，被依赖的值不应该改变。
+  如果幂等的表达式返回一个字符串或数字，如果连续调用它两次，会返回相同的字符串或数字。
+  如果幂等的表达式返回一个对象（包括 `Date` 或 `Array`），如果连续调用它两次，会返回同一个对象的*引用*。
 
-<div class="alert is-helpful">
+</div>
 
-There is one exception to this behavior that applies to `*ngFor`. `*ngFor` has `trackBy` functionality that can deal with referential inequality of objects when iterating over them. See [*ngFor with `trackBy`](guide/built-in-directives#ngfor-with-trackby) for details.
+  <div class="alert is-important">
 
-对于 `*ngFor`，这种行为有一个例外。`*ngFor` 具有 `trackBy` 功能，在迭代对象时它可以处理对象的相等性。详情参见 [带 `trackBy` 的 *ngFor](guide/built-in-directives#ngfor-with-trackby)。
+  There is one exception to this behavior that applies to `*ngFor`.
+  `*ngFor` has `trackBy` functionality that can deal with changing values in objects when iterating over them.
+  See [*ngFor with `trackBy`](guide/built-in-directives#ngfor-with-trackby) for details.
+
+  对于 `*ngFor`，这种行为有一个例外。`*ngFor` 具有 `trackBy` 功能，在迭代对象时它可以正确处理对象值的变化。详情参见 [带 `trackBy` 的 *ngFor](guide/built-in-directives#ngfor-with-trackby)。
 
 </div>
 

@@ -48,10 +48,19 @@ With this example, the following actions occur:
 
    这个绑定会在一个上下文中执行该语句，此上下文中包含 DOM 事件对象 `$event`。
 
-1. Angular retrieves the changed text by following the path `$event.target.value` and updates the `name` property.
+1. Angular retrieves the changed text by calling `getValue($event.target)` and updates the `name` property.
 
-  Angular 会根据 `$event.target.value` 来获取更改后的文本，并用它更新 `name` 属性。
+  Angular 会通过调用 `getValue($event.target)` 来获取更改后的文本，并用它更新 `name` 属性。
 
 If the event belongs to a directive or component, `$event` has the shape that the directive or component produces.
 
 如果该事件属于某个指令或组件，那么 `$event` 就具有指令或组件中生成的形态。
+
+<div class="alert is-helpful">
+
+The type of `$event.target` is only `EventTarget` in the template.
+In the `getValue()` method, the target is cast to an `HTMLInputElement` to allow type-safe access to its `value` property.
+
+<code-example path="event-binding/src/app/app.component.ts" region="getValue"></code-example>
+
+</div>

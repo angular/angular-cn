@@ -14,158 +14,103 @@ Angular 应用至少需要一个充当根模块使用的模块。
 <table>
 
  <tr>
-
    <th style="vertical-align: top">
-
      NgModule
-
    </th>
 
    <th style="vertical-align: top">
-
      Import it from
-
-     导入自
-
    </th>
 
    <th style="vertical-align: top">
-
      Why you use it
+   </th>
+ </tr>
 
-     为何使用
-
+ <tr>
+   <th style="vertical-align: top">
+     NgModule
    </th>
 
+   <th style="vertical-align: top">
+     导入自
+   </th>
+
+   <th style="vertical-align: top">
+     为何用它
+   </th>
  </tr>
 
  <tr>
-
-   <td>
-
-       <code>BrowserModule</code>
-
-   </td>
-
-   <td>
-
-       <code>@angular/platform-browser</code>
-
-   </td>
-
-   <td>
-
-       When you want to run your app in a browser
-
-       当你想要在浏览器中运行应用时
-
-   </td>
-
+   <td><code>BrowserModule</code></td>
+   <td><code>@angular/platform-browser</code></td>
+   <td>When you want to run your app in a browser</td>
  </tr>
 
  <tr>
-
-   <td>
-
-       <code>CommonModule</code>
-
-   </td>
-
-   <td>
-
-       <code>@angular/common</code>
-
-   </td>
-
-   <td>
-
-       When you want to use <code>NgIf</code>, <code>NgFor</code>
-
-       当你想要使用 <code>NgIf</code> 和 <code>NgFor</code> 时
-
-   </td>
-
+   <td><code>BrowserModule</code></td>
+   <td><code>@angular/platform-browser</code></td>
+   <td>当你要在浏览器中运行应用时</td>
  </tr>
 
  <tr>
-
-   <td>
-
-       <code>FormsModule</code>
-
-   </td>
-
-   <td>
-
-       <code>@angular/forms</code>
-
-   </td>
-
-   <td>
-
-       When you want to build template driven forms (includes <code>NgModel</code>)
-
-       当要构建模板驱动表单时（它包含 <code>NgModel</code> ）
-
-   </td>
+   <td><code>CommonModule</code></td>
+   <td><code>@angular/common</code></td>
+   <td>When you want to use <code>NgIf</code>, <code>NgFor</code></td>
  </tr>
 
  <tr>
+   <td><code>CommonModule</code></td>
+   <td><code>@angular/common</code></td>
+   <td>当你要使用 <code>NgIf</code> 和 <code>NgFor</code> 时</td>
+ </tr>
 
-   <td>
+ <tr>
+   <td><code>FormsModule</code></td>
+   <td><code>@angular/forms</code></td>
+   <td>When you want to build template driven forms (includes <code>NgModel</code>)</td>
+ </tr>
 
-       <code>ReactiveFormsModule</code>
+ <tr>
+   <td><code>FormsModule</code></td>
+   <td><code>@angular/forms</code></td>
+   <td>当你要构建模板驱动表单时（它包含 <code>NgModel</code> ）</td>
+ </tr>
 
-   </td>
+ <tr>
+   <td><code>ReactiveFormsModule</code></td>
+   <td><code>@angular/forms</code></td>
+   <td>When you want to build reactive forms</td>
+ </tr>
 
-   <td>
-
-       <code>@angular/forms</code>
-
-   </td>
-
-   <td>
-
-       When you want to build reactive forms
-
-       当要构建响应式表单时
-
-   </td>
+ <tr>
+   <td><code>ReactiveFormsModule</code></td>
+   <td><code>@angular/forms</code></td>
+   <td>当你要构建响应式表单时</td>
  </tr>
 
  <tr>
    <td><code>RouterModule</code></td>
    <td><code>@angular/router</code></td>
-   <td>
-
-   When you want to use <code>RouterLink</code>,<code>.forRoot()</code>, and <code>.forChild()</code>
-
-   要使用路由功能，并且你要用到 <code>RouterLink</code>,<code>.forRoot()</code> 和 <code>.forChild()</code> 时
-
-   </td>
+   <td>When you want to use <code>RouterLink</code>, <code>.forRoot()</code>, and <code>.forChild()</code></td>
  </tr>
 
  <tr>
+   <td><code>RouterModule</code></td>
+   <td><code>@angular/router</code></td>
+   <td>当你要使用路由功能，并且要用到 <code>RouterLink</code>,<code>.forRoot()</code> 和 <code>.forChild()</code> 时</td>
+ </tr>
 
-   <td>
+ <tr>
+   <td><code>HttpClientModule</code></td>
+   <td><code>@angular/common/http</code></td>
+   <td>When you want to talk to a server</td>
+ </tr>
 
-       <code>HttpClientModule</code>
-
-   </td>
-
-   <td>
-
-       <code>@angular/common/http</code>
-
-   </td>
-
-   <td>
-
-       When you want to talk to a server
-
-       当你要和服务器对话时
-
-   </td>
+ <tr>
+   <td><code>HttpClientModule</code></td>
+   <td><code>@angular/common/http</code></td>
+   <td>当你要和服务器对话时</td>
  </tr>
 
 </table>
@@ -242,7 +187,6 @@ Angular returns an error telling you to use `CommonModule` instead.
   <img src="generated/images/guide/frequent-ngmodules/browser-module-error.gif" width=750 alt="BrowserModule error">
 </div>
 
-<hr />
 
 ## More on NgModules
 

@@ -8,12 +8,15 @@
 import * as core from '../../core';
 import {DEFAULT_INTERPOLATION_CONFIG} from '../../ml_parser/interpolation_config';
 import * as o from '../../output/output_ast';
+import {ParseLocation, ParseSourceFile, ParseSourceSpan} from '../../parse_util';
 import {Identifiers as R3} from '../r3_identifiers';
-import {R3ComponentDef, R3ComponentMetadata} from '../view/api';
+import {R3CompiledExpression} from '../util';
+import {DeclarationListEmitMode, R3ComponentMetadata, R3UsedDirectiveMetadata} from '../view/api';
 import {createComponentType} from '../view/compiler';
 import {ParsedTemplate} from '../view/template';
 import {DefinitionMap} from '../view/util';
 
+import {R3DeclareComponentMetadata, R3DeclareUsedDirectiveMetadata} from './api';
 import {createDirectiveDefinitionMap} from './directive';
 import {toOptionalLiteralArray} from './util';
 
@@ -22,28 +25,35 @@ import {toOptionalLiteralArray} from './util';
  * Compile a component declaration defined by the `R3ComponentMetadata`.
  */
 export function compileDeclareComponentFromMetadata(
-    meta: R3ComponentMetadata, template: ParsedTemplate): R3ComponentDef {
+    meta: R3ComponentMetadata, template: ParsedTemplate): R3CompiledExpression {
   const definitionMap = createComponentDefinitionMap(meta, template);
 
   const expression = o.importExpr(R3.declareComponent).callFn([definitionMap.toLiteralMap()]);
   const type = createComponentType(meta);
 
-  return {expression, type};
+  return {expression, type, statements: []};
 }
 
 /**
  * Gathers the declaration fields for a component into a `DefinitionMap`.
  */
-export function createComponentDefinitionMap(
-    meta: R3ComponentMetadata, template: ParsedTemplate): DefinitionMap {
-  const definitionMap = createDirectiveDefinitionMap(meta);
+export function createComponentDefinitionMap(meta: R3ComponentMetadata, template: ParsedTemplate):
+    DefinitionMap<R3DeclareComponentMetadata> {
+  const definitionMap: DefinitionMap<R3DeclareComponentMetadata> =
+      createDirectiveDefinitionMap(meta);
 
-  const templateMap = compileTemplateDefinition(template);
-
-  definitionMap.set('template', templateMap);
+  definitionMap.set('template', getTemplateExpression(template));
+  if (template.isInline) {
+    definitionMap.set('isInline', o.literal(true));
+  }
 
   definitionMap.set('styles', toOptionalLiteralArray(meta.styles, o.literal));
-  definitionMap.set('directives', compileUsedDirectiveMetadata(meta));
+  definitionMap.set(
+      'components',
+      compileUsedDirectiveMetadata(meta, directive => directive.isComponent === true));
+  definitionMap.set(
+      'directives',
+      compileUsedDirectiveMetadata(meta, directive => directive.isComponent !== true));
   definitionMap.set('pipes', compileUsedPipeMetadata(meta));
   definitionMap.set('viewProviders', meta.viewProviders);
   definitionMap.set('animations', meta.animations);
@@ -72,29 +82,58 @@ export function createComponentDefinitionMap(
   return definitionMap;
 }
 
-/**
- * Compiles the provided template into its partial definition.
- */
-function compileTemplateDefinition(template: ParsedTemplate): o.LiteralMapExpr {
-  const templateMap = new DefinitionMap();
-  const templateExpr =
-      typeof template.template === 'string' ? o.literal(template.template) : template.template;
-  templateMap.set('source', templateExpr);
-  templateMap.set('isInline', o.literal(template.isInline));
-  return templateMap.toLiteralMap();
+function getTemplateExpression(template: ParsedTemplate): o.Expression {
+  if (typeof template.template === 'string') {
+    if (template.isInline) {
+      // The template is inline but not a simple literal string, so give up with trying to
+      // source-map it and just return a simple literal here.
+      return o.literal(template.template);
+    } else {
+      // The template is external so we must synthesize an expression node with the appropriate
+      // source-span.
+      const contents = template.template;
+      const file = new ParseSourceFile(contents, template.templateUrl);
+      const start = new ParseLocation(file, 0, 0, 0);
+      const end = computeEndLocation(file, contents);
+      const span = new ParseSourceSpan(start, end);
+      return o.literal(contents, null, span);
+    }
+  } else {
+    // The template is inline so we can just reuse the current expression node.
+    return template.template;
+  }
+}
+
+function computeEndLocation(file: ParseSourceFile, contents: string): ParseLocation {
+  const length = contents.length;
+  let lineStart = 0;
+  let lastLineStart = 0;
+  let line = 0;
+  do {
+    lineStart = contents.indexOf('\n', lastLineStart);
+    if (lineStart !== -1) {
+      lastLineStart = lineStart + 1;
+      line++;
+    }
+  } while (lineStart !== -1);
+
+  return new ParseLocation(file, length, line, length - lastLineStart);
 }
 
 /**
  * Compiles the directives as registered in the component metadata into an array literal of the
  * individual directives. If the component does not use any directives, then null is returned.
  */
-function compileUsedDirectiveMetadata(meta: R3ComponentMetadata): o.LiteralArrayExpr|null {
-  const wrapType = meta.wrapDirectivesAndPipesInClosure ?
-      (expr: o.Expression) => o.fn([], [new o.ReturnStatement(expr)]) :
+function compileUsedDirectiveMetadata(
+    meta: R3ComponentMetadata,
+    predicate: (directive: R3UsedDirectiveMetadata) => boolean): o.LiteralArrayExpr|null {
+  const wrapType = meta.declarationListEmitMode !== DeclarationListEmitMode.Direct ?
+      generateForwardRef :
       (expr: o.Expression) => expr;
 
-  return toOptionalLiteralArray(meta.directives, directive => {
-    const dirMeta = new DefinitionMap();
+  const directives = meta.directives.filter(predicate);
+  return toOptionalLiteralArray(directives, directive => {
+    const dirMeta = new DefinitionMap<R3DeclareUsedDirectiveMetadata>();
     dirMeta.set('type', wrapType(directive.type));
     dirMeta.set('selector', o.literal(directive.selector));
     dirMeta.set('inputs', toOptionalLiteralArray(directive.inputs, o.literal));
@@ -114,8 +153,8 @@ function compileUsedPipeMetadata(meta: R3ComponentMetadata): o.LiteralMapExpr|nu
     return null;
   }
 
-  const wrapType = meta.wrapDirectivesAndPipesInClosure ?
-      (expr: o.Expression) => o.fn([], [new o.ReturnStatement(expr)]) :
+  const wrapType = meta.declarationListEmitMode !== DeclarationListEmitMode.Direct ?
+      generateForwardRef :
       (expr: o.Expression) => expr;
 
   const entries = [];
@@ -123,4 +162,8 @@ function compileUsedPipeMetadata(meta: R3ComponentMetadata): o.LiteralMapExpr|nu
     entries.push({key: name, value: wrapType(pipe), quoted: true});
   }
   return o.literalMap(entries);
+}
+
+function generateForwardRef(expr: o.Expression): o.Expression {
+  return o.importExpr(R3.forwardRef).callFn([o.fn([], [new o.ReturnStatement(expr)])]);
 }

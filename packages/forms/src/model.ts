@@ -1118,6 +1118,17 @@ export abstract class AbstractControl {
    * - 或 -
    *
    * * `this.form.get(['person', 'name']);`
+   *
+   * ### Retrieve a control in a FormArray
+   *
+   * When accessing an element inside a FormArray, you can use an element index.
+   * For example, to get a `price` control from the first element in an `items` array you can use:
+   *
+   * * `this.form.get('items.0.price');`
+   *
+   * -OR-
+   *
+   * * `this.form.get(['items', 0, 'price']);`
    */
   get(path: Array<string|number>|string): AbstractControl|null {
     return _find(this, path, '.');
@@ -1942,10 +1953,15 @@ export class FormGroup extends AbstractControl {
    *
    * 提供与该控件名对应的控件。
    *
+   * @param options Specifies whether this FormGroup instance should emit events after a new
+   *     control is added.
+   * * `emitEvent`: When true or not supplied (the default), both the `statusChanges` and
+   * `valueChanges` observables emit events with the latest status and value when the control is
+   * added. When false, no events are emitted.
    */
-  addControl(name: string, control: AbstractControl): void {
+  addControl(name: string, control: AbstractControl, options: {emitEvent?: boolean} = {}): void {
     this.registerControl(name, control);
-    this.updateValueAndValidity();
+    this.updateValueAndValidity({emitEvent: options.emitEvent});
     this._onCollectionChange();
   }
 
@@ -1954,15 +1970,22 @@ export class FormGroup extends AbstractControl {
    *
    * 从该组中移除一个控件。
    *
+   * This method also updates the value and validity of the control.
+   *
    * @param name The control name to remove from the collection
    *
    * 要从集合中移除的控件名
    *
+   * @param options Specifies whether this FormGroup instance should emit events after a
+   *     control is removed.
+   * * `emitEvent`: When true or not supplied (the default), both the `statusChanges` and
+   * `valueChanges` observables emit events with the latest status and value when the control is
+   * removed. When false, no events are emitted.
    */
-  removeControl(name: string): void {
+  removeControl(name: string, options: {emitEvent?: boolean} = {}): void {
     if (this.controls[name]) this.controls[name]._registerOnCollectionChange(() => {});
     delete (this.controls[name]);
-    this.updateValueAndValidity();
+    this.updateValueAndValidity({emitEvent: options.emitEvent});
     this._onCollectionChange();
   }
 
@@ -1979,12 +2002,17 @@ export class FormGroup extends AbstractControl {
    *
    * 提供具有指定名称的控件
    *
+   * @param options Specifies whether this FormGroup instance should emit events after an
+   *     existing control is replaced.
+   * * `emitEvent`: When true or not supplied (the default), both the `statusChanges` and
+   * `valueChanges` observables emit events with the latest status and value when the control is
+   * replaced with a new one. When false, no events are emitted.
    */
-  setControl(name: string, control: AbstractControl): void {
+  setControl(name: string, control: AbstractControl, options: {emitEvent?: boolean} = {}): void {
     if (this.controls[name]) this.controls[name]._registerOnCollectionChange(() => {});
     delete (this.controls[name]);
     if (control) this.registerControl(name, control);
-    this.updateValueAndValidity();
+    this.updateValueAndValidity({emitEvent: options.emitEvent});
     this._onCollectionChange();
   }
 
@@ -2118,11 +2146,9 @@ export class FormGroup extends AbstractControl {
    *   `onlySelf`：如果为 `true`，则每个变更仅仅影响当前控件，而不会影响父控件。默认为 `false`。
    *
    * * `emitEvent`: When true or not supplied (the default), both the `statusChanges` and
-   * `valueChanges`
-   * observables emit events with the latest status and value when the control value is updated.
-   * When false, no events are emitted.
-   * The configuration options are passed to the {@link AbstractControl#updateValueAndValidity
-   * updateValueAndValidity} method.
+   * `valueChanges` observables emit events with the latest status and value when the control value
+   * is updated. When false, no events are emitted. The configuration options are passed to
+   * the {@link AbstractControl#updateValueAndValidity updateValueAndValidity} method.
    *
    *    `emitEvent`：如果为 `true` 或未提供（默认），则当控件值发生变化时，`statusChanges` 和 `valueChanges` 这两个 `Observable` 分别会以最近的状态和值发出事件。
    * 如果为 `false` 则不发出事件。
@@ -2132,6 +2158,12 @@ export class FormGroup extends AbstractControl {
    */
   patchValue(value: {[key: string]: any}, options: {onlySelf?: boolean, emitEvent?: boolean} = {}):
       void {
+    // Even though the `value` argument type doesn't allow `null` and `undefined` values, the
+    // `patchValue` can be called recursively and inner data structures might have these values, so
+    // we just ignore such cases when a field containing FormGroup instance receives `null` or
+    // `undefined` as a value.
+    if (value == null /* both `null` and `undefined` */) return;
+
     Object.keys(value).forEach(name => {
       if (this.controls[name]) {
         this.controls[name].patchValue(value[name], {onlySelf: true, emitEvent: options.emitEvent});
@@ -2215,8 +2247,8 @@ export class FormGroup extends AbstractControl {
    *   last: 'last'
    * });
    *
-   * console.log(this.form.value);  // {first: 'name', last: 'last name'}
-   * console.log(this.form.get('first').status);  // 'DISABLED'
+   * console.log(form.value);  // {last: 'last'}
+   * console.log(form.get('first').status);  // 'DISABLED'
    * ```
    */
   reset(value: any = {}, options: {onlySelf?: boolean, emitEvent?: boolean} = {}): void {
@@ -2272,7 +2304,13 @@ export class FormGroup extends AbstractControl {
 
   /** @internal */
   _forEachChild(cb: (v: any, k: string) => void): void {
-    Object.keys(this.controls).forEach(k => cb(this.controls[k], k));
+    Object.keys(this.controls).forEach(key => {
+      // The list of controls can change (for ex. controls might be removed) while the loop
+      // is running (as a result of invoking Forms API in `valueChanges` subscription), so we
+      // have to null check before invoking the callback.
+      const control = this.controls[key];
+      control && cb(control, key);
+    });
   }
 
   /** @internal */
@@ -2490,11 +2528,16 @@ export class FormArray extends AbstractControl {
    *
    * 要插入的表单控件
    *
+   * @param options Specifies whether this FormArray instance should emit events after a new
+   *     control is added.
+   * * `emitEvent`: When true or not supplied (the default), both the `statusChanges` and
+   * `valueChanges` observables emit events with the latest status and value when the control is
+   * inserted. When false, no events are emitted.
    */
-  push(control: AbstractControl): void {
+  push(control: AbstractControl, options: {emitEvent?: boolean} = {}): void {
     this.controls.push(control);
     this._registerControl(control);
-    this.updateValueAndValidity();
+    this.updateValueAndValidity({emitEvent: options.emitEvent});
     this._onCollectionChange();
   }
 
@@ -2511,12 +2554,17 @@ export class FormArray extends AbstractControl {
    *
    * 要插入的表单控件
    *
+   * @param options Specifies whether this FormArray instance should emit events after a new
+   *     control is inserted.
+   * * `emitEvent`: When true or not supplied (the default), both the `statusChanges` and
+   * `valueChanges` observables emit events with the latest status and value when the control is
+   * inserted. When false, no events are emitted.
    */
-  insert(index: number, control: AbstractControl): void {
+  insert(index: number, control: AbstractControl, options: {emitEvent?: boolean} = {}): void {
     this.controls.splice(index, 0, control);
 
     this._registerControl(control);
-    this.updateValueAndValidity();
+    this.updateValueAndValidity({emitEvent: options.emitEvent});
   }
 
   /**
@@ -2528,11 +2576,16 @@ export class FormArray extends AbstractControl {
    *
    * 要移除的控件在数组中的索引
    *
+   * @param options Specifies whether this FormArray instance should emit events after a
+   *     control is removed.
+   * * `emitEvent`: When true or not supplied (the default), both the `statusChanges` and
+   * `valueChanges` observables emit events with the latest status and value when the control is
+   * removed. When false, no events are emitted.
    */
-  removeAt(index: number): void {
+  removeAt(index: number, options: {emitEvent?: boolean} = {}): void {
     if (this.controls[index]) this.controls[index]._registerOnCollectionChange(() => {});
     this.controls.splice(index, 1);
-    this.updateValueAndValidity();
+    this.updateValueAndValidity({emitEvent: options.emitEvent});
   }
 
   /**
@@ -2547,8 +2600,14 @@ export class FormArray extends AbstractControl {
    * @param control The `AbstractControl` control to replace the existing control
    *
    * 要用来替换现有控件的 `AbstractControl` 控件
+   *
+   * @param options Specifies whether this FormArray instance should emit events after an
+   *     existing control is replaced with a new one.
+   * * `emitEvent`: When true or not supplied (the default), both the `statusChanges` and
+   * `valueChanges` observables emit events with the latest status and value when the control is
+   * replaced with a new one. When false, no events are emitted.
    */
-  setControl(index: number, control: AbstractControl): void {
+  setControl(index: number, control: AbstractControl, options: {emitEvent?: boolean} = {}): void {
     if (this.controls[index]) this.controls[index]._registerOnCollectionChange(() => {});
     this.controls.splice(index, 1);
 
@@ -2557,7 +2616,7 @@ export class FormArray extends AbstractControl {
       this._registerControl(control);
     }
 
-    this.updateValueAndValidity();
+    this.updateValueAndValidity({emitEvent: options.emitEvent});
     this._onCollectionChange();
   }
 
@@ -2678,11 +2737,9 @@ export class FormArray extends AbstractControl {
    *   `onlySelf`:：如果为 `true`，则每个变更仅仅影响当前控件，而不会影响父控件。默认为 `false`。
    *
    * * `emitEvent`: When true or not supplied (the default), both the `statusChanges` and
-   * `valueChanges`
-   * observables emit events with the latest status and value when the control value is updated.
-   * When false, no events are emitted.
-   * The configuration options are passed to the {@link AbstractControl#updateValueAndValidity
-   * updateValueAndValidity} method.
+   * `valueChanges` observables emit events with the latest status and value when the control value
+   * is updated. When false, no events are emitted. The configuration options are passed to
+   * the {@link AbstractControl#updateValueAndValidity updateValueAndValidity} method.
    *
    *    `emitEvent`：如果为 `true` 或未提供（默认），则当控件值发生变化时，`statusChanges` 和 `valueChanges` 这两个 `Observable` 分别会以最近的状态和值发出事件。
    * 如果为 `false` 则不发出事件。
@@ -2691,6 +2748,12 @@ export class FormArray extends AbstractControl {
    *
    */
   patchValue(value: any[], options: {onlySelf?: boolean, emitEvent?: boolean} = {}): void {
+    // Even though the `value` argument type doesn't allow `null` and `undefined` values, the
+    // `patchValue` can be called recursively and inner data structures might have these values, so
+    // we just ignore such cases when a field containing FormArray instance receives `null` or
+    // `undefined` as a value.
+    if (value == null /* both `null` and `undefined` */) return;
+
     value.forEach((newValue: any, index: number) => {
       if (this.at(index)) {
         this.at(index).patchValue(newValue, {onlySelf: true, emitEvent: options.emitEvent});
@@ -2800,6 +2863,12 @@ export class FormArray extends AbstractControl {
    *
    * 移除 `FormArray` 的所有控件。
    *
+   * @param options Specifies whether this FormArray instance should emit events after all
+   *     controls are removed.
+   * * `emitEvent`: When true or not supplied (the default), both the `statusChanges` and
+   * `valueChanges` observables emit events with the latest status and value when all controls
+   * in this FormArray instance are removed. When false, no events are emitted.
+   *
    * @usageNotes
    *
    * ### Remove all elements from a FormArray
@@ -2832,11 +2901,11 @@ export class FormArray extends AbstractControl {
    * }
    * ```
    */
-  clear(): void {
+  clear(options: {emitEvent?: boolean} = {}): void {
     if (this.controls.length < 1) return;
     this._forEachChild((control: AbstractControl) => control._registerOnCollectionChange(() => {}));
     this.controls.splice(0);
-    this.updateValueAndValidity();
+    this.updateValueAndValidity({emitEvent: options.emitEvent});
   }
 
   /** @internal */

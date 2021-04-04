@@ -24,7 +24,7 @@ The `HeroDetailComponent` will present details of a selected hero.
 
 <div class="alert is-helpful">
 
-  For the sample app that this page describes, see the <live-example></live-example>.
+  For the sample application that this page describes, see the <live-example></live-example>.
 
   要查看本页所讲的范例程序，参阅<live-example></live-example>。
 
@@ -136,22 +136,15 @@ Add a `hero` property, preceded by the `@Input()` decorator.
 
 That's the only change you should make to the `HeroDetailComponent` class.
 There are no more properties. There's no presentation logic.
-This component simply receives a hero object through its `hero` property and displays it.
+This component only receives a hero object through its `hero` property and displays it.
 
 这就是你要对 `HeroDetailComponent` 类做的唯一一项修改。
 没有其它属性，也没有展示逻辑。这个组件所做的只是通过 `hero` 属性接收一个英雄对象，并显示它。
 
 ## Show the `HeroDetailComponent`
 
-## 显示 `HeroDetailComponent`
-
-The `HeroesComponent` is still a master/detail view.
-
-`HeroesComponent` 仍然是主从视图。
-
-It used to display the hero details on its own, before you cut that portion of the template. Now it will delegate to the `HeroDetailComponent`.
-
-在你从模板中剪切走代码之前，它自己负责显示英雄的详情。现在它要把这个职责委托给 `HeroDetailComponent` 了。
+The `HeroesComponent` used to display the hero details on its own, before you removed that portion of the template.
+This section guides you through delegating logic to the `HeroDetailComponent`.
 
 The two components will have a parent/child relationship.
 The parent `HeroesComponent` will control the child `HeroDetailComponent`
@@ -208,7 +201,7 @@ The revised `HeroesComponent` template should look like this:
 <code-example path="toh-pt3/src/app/heroes/heroes.component.html"
   header="heroes.component.html"></code-example>
 
-The browser refreshes and the app starts working again as it did before.
+The browser refreshes and the application starts working again as it did before.
 
 浏览器刷新，应用又像以前一样开始工作了。
 
@@ -227,9 +220,9 @@ Refactoring the original `HeroesComponent` into two components yields benefits, 
 
 把原来的 `HeroesComponent` 重构成两个组件带来了一些优点，无论是现在还是未来：
 
-1. You simplified the `HeroesComponent` by reducing its responsibilities.
+1. You reduced the `HeroesComponent` responsibilities.
 
-   你通过缩减 `HeroesComponent` 的职责简化了该组件。
+   你通过缩减 `HeroesComponent` 的职责缩小了该组件。
 
 1. You can evolve the `HeroDetailComponent` into a rich hero editor
 without touching the parent `HeroesComponent`.

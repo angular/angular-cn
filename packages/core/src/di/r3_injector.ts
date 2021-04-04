@@ -13,6 +13,7 @@ import {AbstractType, Type} from '../interface/type';
 import {FactoryFn, getFactoryDef} from '../render3/definition_factory';
 import {throwCyclicDependencyError, throwInvalidProviderError, throwMixedMultiProviderError} from '../render3/errors_di';
 import {deepForEach, newArray} from '../util/array_utils';
+import {EMPTY_ARRAY} from '../util/empty';
 import {stringify} from '../util/stringify';
 
 import {resolveForwardRef} from './forward_ref';
@@ -47,8 +48,6 @@ const NOT_YET = {};
  * a circular dependency among the providers.
  */
 const CIRCULAR = {};
-
-const EMPTY_ARRAY = [] as any[];
 
 /**
  * A lazily initialized NullInjector.
@@ -352,7 +351,8 @@ export class R3Injector {
     // Track the InjectorType and add a provider for it. It's important that this is done after the
     // def's imports.
     this.injectorDefTypes.add(defType);
-    this.records.set(defType, makeRecord(def.factory, NOT_YET));
+    const factory = getFactoryDef(defType) || (() => new defType());
+    this.records.set(defType, makeRecord(factory, NOT_YET));
 
     // Next, include providers listed on the definition itself.
     const defProviders = def.providers;
@@ -438,13 +438,6 @@ function injectableDefOrInjectorDefFactory(token: Type<any>|AbstractType<any>|
 
   if (factory !== null) {
     return factory;
-  }
-
-  // If the token is an NgModule, it's also injectable but the factory is on its injector def
-  // (`ɵinj`)
-  const injectorDef = getInjectorDef(token);
-  if (injectorDef !== null) {
-    return injectorDef.factory;
   }
 
   // InjectionTokens should have an injectable def (ɵprov) and thus should be handled above.

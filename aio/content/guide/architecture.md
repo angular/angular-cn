@@ -224,15 +224,14 @@ To define navigation rules, you associate *navigation paths* with your component
 路径（path）使用类似 URL 的语法来和程序数据整合在一起，就像模板语法会把你的视图和程序数据整合起来一样。
 然后你就可以用程序逻辑来决定要显示或隐藏哪些视图，以根据你制定的访问规则对用户的输入做出响应。
 
- <div class="alert is-helpful">
+<div class="alert is-helpful">
 
-   For a more detailed discussion, see [Routing and navigation](guide/router).
+  For a more detailed discussion, see [Routing and navigation](guide/router).
 
-   更深入的讨论，参阅[路由与导航](guide/router)。
+  更深入的讨论，参阅[路由与导航](guide/router)。
 
- </div>
+</div>
 
-<hr/>
 
 ## What's next
 

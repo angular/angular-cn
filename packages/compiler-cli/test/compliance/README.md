@@ -38,7 +38,7 @@ Each test-case can specify:
 * A `description` of the test.
 * The `inputFiles` that will be compiled.
 * Additional `compilerOptions` and `angularCompilerOptions` that are passed to the compiler.
-* Whether to exclude this test-case from partial compilation tests (`excludeFromPartialTests`).
+* Whether to exclude this test-case from certain tests running under certain compilation modes (`compilationModeFilter`).
 * A collection of `expectations` definitions that will be checked against the generated files.
 
 Note that there is a JSON schema for the `TEST_CASES.json` file stored at `test_cases/test_case_schema.json`.
@@ -126,6 +126,28 @@ are intelligently matched to check whether they are equivalent.
     `__i18nMsg__('message string', [ ['placeholder', 'pair] ], { meta: 'properties'})`.
   * Attribute markers - for example: `__AttributeMarker.Bindings__`.
 
+### Source-map checks
+
+To check a mapping, add a `// SOURCE:` comment to the end of a line in an expectation file:
+
+```
+<generated code> // SOURCE: "<source-url>" <source code>
+```
+
+The generated code, stripped of the `// SOURCE: ` comment, will still be checked as normal by the
+`expectEmit()` helper. But, prior to that, the source-map segments are checked to ensure that there
+is a mapping from `<generated code>` to `<source code>` found in the file at `<source-url>`.
+
+Note:
+
+* The source-url should be absolute, with the directory containing the TEST_CASES.json file assumed
+  to be `/`.
+* Whitespace is important and will be included when comparing the segments.
+* There is a single space character between each part of the line.
+* Newlines within a mapping must be escaped since the mapping and comment must all appear on a
+  single line of this file.
+
+
 ## Running tests
 
 The simplest way to run all the compliance tests is:
@@ -163,6 +185,11 @@ bazel run //packages/compiler-cli/test/compliance/test_cases:<path/to/test_case>
 where to replace `<path/to/test_case>` with the path (relative to `test_cases`) of the directory
 that contains the `GOLDEN_PARTIAL.js` to update.
 
+To update all golden partial files, the following command can be run:
+
+```sh
+node packages/compiler-cli/test/compliance/update_all_goldens.js
+```
 
 ## Debugging test-cases
 

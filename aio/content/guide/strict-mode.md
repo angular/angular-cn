@@ -15,15 +15,15 @@ Specifically, the `strict` flag does the following:
 
 具体来说， `strict` 标志执行以下操作：
 
-- Enables [`strict` mode in TypeScript](https://www.staging-typescript.org/tsconfig#strict), as well as other strictness flags recommended by the TypeScript team. Specifically, `forceConsistentCasingInFileNames`, `noImplicitReturns`,  `noFallthroughCasesInSwitch`.
+* Enables [`strict` mode in TypeScript](https://www.typescriptlang.org/tsconfig#strict), as well as other strictness flags recommended by the TypeScript team. Specifically, `forceConsistentCasingInFileNames`, `noImplicitReturns`,  `noFallthroughCasesInSwitch`.
 
-  [在 TypeScript 中](https://www.staging-typescript.org/tsconfig#strict)启用 [`strict`](https://www.staging-typescript.org/tsconfig#strict) 模式，以及 TypeScript 团队建议的其他严格性标志。具体而言，`forceConsistentCasingInFileNames`、`noImplicitReturns`、`noFallthroughCasesInSwitch`。
+  [在 TypeScript 中](https://www.staging-typescript.org/tsconfig#strict)启用 [`strict`](https://www.typescriptlang.org/tsconfig#strict) 模式，以及 TypeScript 团队建议的其他严格性标志。具体而言，`forceConsistentCasingInFileNames`、`noImplicitReturns`、`noFallthroughCasesInSwitch`。
 
-- Turns on strict Angular compiler flags [`strictTemplates`](guide/angular-compiler-options#stricttemplates), [`strictInjectionParameters`](guide/angular-compiler-options#strictinjectionparameters) and [`strictInputAccessModifiers`](guide/template-typecheck#troubleshooting-template-errors).
+* Turns on strict Angular compiler flags [`strictTemplates`](guide/angular-compiler-options#stricttemplates), [`strictInjectionParameters`](guide/angular-compiler-options#strictinjectionparameters) and [`strictInputAccessModifiers`](guide/template-typecheck#troubleshooting-template-errors).
 
   打开 Angular 编译器的严格性标志 [`strictTemplates`](guide/angular-compiler-options#stricttemplates)、[`strictInjectionParameters`](guide/angular-compiler-options#strictinjectionparameters) 和 [`strictInputAccessModifiers`](guide/template-typecheck#troubleshooting-template-errors)。
 
-- [Bundle size budgets](guide/build#configuring-size-budgets) have been reduced by ~75%.
+* [Bundle size budgets](guide/build#configuring-size-budgets) have been reduced by ~75%.
 
   [打包尺寸预算](guide/build#configuring-size-budgets)减少了约 75％。
 

@@ -18,8 +18,6 @@ A basic understanding of the following:
 
    [Service Worker 快速上手](guide/service-worker-getting-started)。
 
-<hr />
-
 ## `SwUpdate` service
 
 ## `SwUpdate` 服务

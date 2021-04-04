@@ -21,7 +21,7 @@ import {runNpmPublish} from '../versioning/npm-publish';
 import {FatalReleaseActionError, UserAbortedReleaseActionError} from './actions-error';
 import {getCommitMessageForRelease, getReleaseNoteCherryPickCommitMessage} from './commit-message';
 import {changelogPath, packageJsonPath, waitForPullRequestInterval} from './constants';
-import {invokeReleaseBuildCommand, invokeYarnInstallCommand} from './external-commands';
+import {invokeBazelCleanCommand, invokeReleaseBuildCommand, invokeYarnInstallCommand} from './external-commands';
 import {findOwnedForksOfRepoQuery} from './graphql-queries';
 import {getPullRequestState} from './pull-request-state';
 import {getDefaultExtractReleaseNotesPattern, getLocalChangelogFilePath} from './release-notes';
@@ -82,7 +82,8 @@ export abstract class ReleaseAction {
   /** Updates the version in the project top-level `package.json` file. */
   protected async updateProjectVersion(newVersion: semver.SemVer) {
     const pkgJsonPath = join(this.projectDir, packageJsonPath);
-    const pkgJson = JSON.parse(await fs.readFile(pkgJsonPath, 'utf8'));
+    const pkgJson =
+        JSON.parse(await fs.readFile(pkgJsonPath, 'utf8')) as {version: string, [key: string]: any};
     pkgJson.version = newVersion.format();
     // Write the `package.json` file. Note that we add a trailing new line
     // to avoid unnecessary diff. IDEs usually add a trailing new line.
@@ -282,6 +283,15 @@ export abstract class ReleaseAction {
       title,
     });
 
+    // Add labels to the newly created PR if provided in the configuration.
+    if (this.config.releasePrLabels !== undefined) {
+      await this.git.github.issues.addLabels({
+        ...this.git.remoteParams,
+        issue_number: data.number,
+        labels: this.config.releasePrLabels,
+      });
+    }
+
     info(green(`  ✓   Created pull request #${data.number} in ${repoSlug}.`));
     return {
       id: data.number,
@@ -441,7 +451,7 @@ export abstract class ReleaseAction {
     }
 
     // Create a cherry-pick pull request that should be merged by the caretaker.
-    const {url} = await this.pushChangesToForkAndCreatePullRequest(
+    const {url, id} = await this.pushChangesToForkAndCreatePullRequest(
         nextBranch, `changelog-cherry-pick-${newVersion}`, commitMessage,
         `Cherry-picks the changelog from the "${stagingBranch}" branch to the next ` +
             `branch (${nextBranch}).`);
@@ -450,6 +460,10 @@ export abstract class ReleaseAction {
         `  ✓   Pull request for cherry-picking the changelog into "${nextBranch}" ` +
         'has been created.'));
     info(yellow(`      Please ask team members to review: ${url}.`));
+
+    // Wait for the Pull Request to be merged.
+    await this.waitForPullRequestToBeMerged(id);
+
     return true;
   }
 
@@ -458,7 +472,7 @@ export abstract class ReleaseAction {
    * The release is created by tagging the specified commit SHA.
    */
   private async _createGithubReleaseForVersion(
-      newVersion: semver.SemVer, versionBumpCommitSha: string) {
+      newVersion: semver.SemVer, versionBumpCommitSha: string, prerelease: boolean) {
     const tagName = newVersion.format();
     await this.git.github.git.createRef({
       ...this.git.remoteParams,
@@ -471,6 +485,8 @@ export abstract class ReleaseAction {
       ...this.git.remoteParams,
       name: `v${newVersion}`,
       tag_name: tagName,
+      prerelease,
+
     });
     info(green(`  ✓   Created v${newVersion} release in Github.`));
   }
@@ -501,13 +517,15 @@ export abstract class ReleaseAction {
     // created in the `next` branch. The new package would not be part of the patch branch,
     // so we cannot build and publish it.
     await invokeYarnInstallCommand(this.projectDir);
+    await invokeBazelCleanCommand(this.projectDir);
     const builtPackages = await invokeReleaseBuildCommand();
 
     // Verify the packages built are the correct version.
     await this._verifyPackageVersions(newVersion, builtPackages);
 
     // Create a Github release for the new version.
-    await this._createGithubReleaseForVersion(newVersion, versionBumpCommitSha);
+    await this._createGithubReleaseForVersion(
+        newVersion, versionBumpCommitSha, npmDistTag === 'next');
 
     // Walk through all built packages and publish them to NPM.
     for (const builtPackage of builtPackages) {
@@ -545,7 +563,8 @@ export abstract class ReleaseAction {
   private async _verifyPackageVersions(version: semver.SemVer, packages: BuiltPackage[]) {
     for (const pkg of packages) {
       const {version: packageJsonVersion} =
-          JSON.parse(await fs.readFile(join(pkg.outputPath, 'package.json'), 'utf8'));
+          JSON.parse(await fs.readFile(join(pkg.outputPath, 'package.json'), 'utf8')) as
+          {version: string, [key: string]: any};
       if (version.compare(packageJsonVersion) !== 0) {
         error(red('The built package version does not match the version being released.'));
         error(`  Release Version:   ${version.version}`);

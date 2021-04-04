@@ -161,7 +161,7 @@ export function createPlatform(injector: Injector): PlatformRef {
 
 /**
  * Creates a factory for a platform. Can be used to provide or override `Providers` specific to
- * your applciation's runtime needs, such as `PLATFORM_INITIALIZER` and `PLATFORM_ID`.
+ * your application's runtime needs, such as `PLATFORM_INITIALIZER` and `PLATFORM_ID`.
  *
  * 为平台创建工厂。可用于提供或覆盖针对你的应用程序的运行时需求的 `Providers`，比如 `PLATFORM_INITIALIZER` 和 `PLATFORM_ID` 。
  *
@@ -377,12 +377,17 @@ export class PlatformRef {
       if (!exceptionHandler) {
         throw new Error('No ErrorHandler. Is platform module (BrowserModule) included?');
       }
-      moduleRef.onDestroy(() => remove(this._modules, moduleRef));
-      ngZone!.runOutsideAngular(() => ngZone!.onError.subscribe({
-        next: (error: any) => {
-          exceptionHandler.handleError(error);
-        }
-      }));
+      ngZone!.runOutsideAngular(() => {
+        const subscription = ngZone!.onError.subscribe({
+          next: (error: any) => {
+            exceptionHandler.handleError(error);
+          }
+        });
+        moduleRef.onDestroy(() => {
+          remove(this._modules, moduleRef);
+          subscription.unsubscribe();
+        });
+      });
       return _callAndReportToErrorHandler(exceptionHandler, ngZone!, () => {
         const initStatus: ApplicationInitStatus = moduleRef.injector.get(ApplicationInitStatus);
         initStatus.runInitializers();
@@ -635,8 +640,8 @@ export class ApplicationRef {
   private _bootstrapListeners: ((compRef: ComponentRef<any>) => void)[] = [];
   private _views: InternalViewRef[] = [];
   private _runningTick: boolean = false;
-  private _enforceNoNewChanges: boolean = false;
   private _stable = true;
+  private _onMicrotaskEmptySubscription: Subscription;
 
   /**
    * Get a list of component types registered to this application.
@@ -670,13 +675,10 @@ export class ApplicationRef {
 
   /** @internal */
   constructor(
-      private _zone: NgZone, private _console: Console, private _injector: Injector,
-      private _exceptionHandler: ErrorHandler,
+      private _zone: NgZone, private _injector: Injector, private _exceptionHandler: ErrorHandler,
       private _componentFactoryResolver: ComponentFactoryResolver,
       private _initStatus: ApplicationInitStatus) {
-    this._enforceNoNewChanges = isDevMode();
-
-    this._zone.onMicrotaskEmpty.subscribe({
+    this._onMicrotaskEmptySubscription = this._zone.onMicrotaskEmpty.subscribe({
       next: () => {
         this._zone.run(() => {
           this.tick();
@@ -781,19 +783,27 @@ export class ApplicationRef {
         isBoundToModule(componentFactory) ? undefined : this._injector.get(NgModuleRef);
     const selectorOrNode = rootSelectorOrNode || componentFactory.selector;
     const compRef = componentFactory.create(Injector.NULL, [], selectorOrNode, ngModule);
-
-    compRef.onDestroy(() => {
-      this._unloadComponent(compRef);
-    });
+    const nativeElement = compRef.location.nativeElement;
     const testability = compRef.injector.get(Testability, null);
-    if (testability) {
-      compRef.injector.get(TestabilityRegistry)
-          .registerApplication(compRef.location.nativeElement, testability);
+    const testabilityRegistry = testability && compRef.injector.get(TestabilityRegistry);
+    if (testability && testabilityRegistry) {
+      testabilityRegistry.registerApplication(nativeElement, testability);
     }
 
+    compRef.onDestroy(() => {
+      this.detachView(compRef.hostView);
+      remove(this.components, compRef);
+      if (testabilityRegistry) {
+        testabilityRegistry.unregisterApplication(nativeElement);
+      }
+    });
+
     this._loadComponent(compRef);
-    if (isDevMode()) {
-      this._console.log(
+    // Note that we have still left the `isDevMode()` condition in order to avoid
+    // creating a breaking change for projects that still use the View Engine.
+    if ((typeof ngDevMode === 'undefined' || ngDevMode) && isDevMode()) {
+      const _console = this._injector.get(Console);
+      _console.log(
           `Angular is running in development mode. Call enableProdMode() to enable production mode.`);
     }
     return compRef;
@@ -824,7 +834,9 @@ export class ApplicationRef {
       for (let view of this._views) {
         view.detectChanges();
       }
-      if (this._enforceNoNewChanges) {
+      // Note that we have still left the `isDevMode()` condition in order to avoid
+      // creating a breaking change for projects that still use the View Engine.
+      if ((typeof ngDevMode === 'undefined' || ngDevMode) && isDevMode()) {
         for (let view of this._views) {
           view.checkNoChanges();
         }
@@ -873,15 +885,10 @@ export class ApplicationRef {
     listeners.forEach((listener) => listener(componentRef));
   }
 
-  private _unloadComponent(componentRef: ComponentRef<any>): void {
-    this.detachView(componentRef.hostView);
-    remove(this.components, componentRef);
-  }
-
   /** @internal */
   ngOnDestroy() {
-    // TODO(alxhub): Dispose of the NgZone.
     this._views.slice().forEach((view) => view.destroy());
+    this._onMicrotaskEmptySubscription.unsubscribe();
   }
 
   /**

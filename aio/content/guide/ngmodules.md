@@ -109,8 +109,6 @@ At the top are the import statements. The next section is where you configure th
 文件的顶部是一些导入语句。接下来是你配置 `NgModule` 的地方，用于规定哪些组件和指令属于它（`declarations`），以及它使用了哪些其它模块（`imports`）。
 如果要进一步了解 `@NgModule` 的结构，参阅[引导](guide/bootstrapping)。
 
-<hr />
-
 ## More on NgModules
 
 ## 关于 NgModule 的更多知识

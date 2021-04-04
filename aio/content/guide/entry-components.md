@@ -2,6 +2,13 @@
 
 # 入口组件
 
+<div class="alert is-helpful">
+
+Entry components have been deprecated with the [Ivy rendering engine](https://angular.io/guide/ivy). 
+For more information, see [entryComponents deprecation](https://angular.io/guide/deprecations#entrycomponents-and-analyze_for_entry_components-no-longer-required) in the [Deprecated APIs and features](https://angular.io/guide/deprecations).
+
+</div>
+
 An entry component is any component that Angular loads imperatively, (which means you’re not referencing it in the template), by type. You specify an entry component by bootstrapping it in an NgModule, or including it in a routing definition.
 
 从分类上说，入口组件是 Angular 命令式加载的任意组件（也就是说你没有在模板中引用过它），
@@ -154,8 +161,6 @@ as trim as possible.
 
 如果一个组件既不是*入口组件*也没有在模板中使用过，摇树优化工具就会把它扔出去。
 所以，最好只添加那些真正的入口组件，以便让应用尽可能保持精简。
-
-<hr />
 
 ## More on Angular modules
 

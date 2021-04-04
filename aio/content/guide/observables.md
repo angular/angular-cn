@@ -3,7 +3,7 @@
 # 使用可观察对象（Observable）来传递值
 
 Observables provide support for passing messages between parts of your application.
-They are used frequently in Angular and are the recommended technique for event handling, asynchronous programming, and handling multiple values.
+They are used frequently in Angular and are a technique for event handling, asynchronous programming, and handling multiple values.
 
 可观察对象对在应用的各个部分之间传递消息提供了支持。
 它们在 Angular 中频繁使用，并且推荐把它们用于事件处理、异步编程以及处理多个值等场景。
@@ -25,9 +25,9 @@ An observable can deliver multiple values of any type&mdash;literals, messages, 
 可观察对象可以发送多个任意类型的值 —— 字面量、消息、事件。无论这些值是同步发送的还是异步发送的，接收这些值的 API 都是一样的。
 由于准备（setup）和清场（teardown）的逻辑都是由可观察对象自己处理的，因此你的应用代码只管订阅并消费这些值就可以了，做完之后，取消订阅。无论这个流是击键流、HTTP 响应流还是定时器，对这些值进行监听和停止监听的接口都是一样的。
 
-Because of these advantages, observables are used extensively within Angular, and are recommended for app development as well.
+Because of these advantages, observables are used extensively within Angular, and for app development as well.
 
-由于这些优点，可观察对象在 Angular 中得到广泛使用，也同样建议应用开发者好好使用它。
+由于这些优点，可观察对象在 Angular 中得到广泛使用，应用开发者也同样如此。
 
 ## Basic usage and terms
 

@@ -6,18 +6,36 @@
  * found in the LICENSE file at https://angular.io/license
  */
 
+import {AbsoluteSourceSpan, AST, ParseSourceSpan, TmplAstBoundEvent, TmplAstNode} from '@angular/compiler';
 import {CompilerOptions, ConfigurationHost, readConfiguration} from '@angular/compiler-cli';
-import {absoluteFromSourceFile, AbsoluteFsPath} from '@angular/compiler-cli/src/ngtsc/file_system';
+import {NgCompiler} from '@angular/compiler-cli/src/ngtsc/core';
+import {ErrorCode, ngErrorCode} from '@angular/compiler-cli/src/ngtsc/diagnostics';
+import {absoluteFrom, absoluteFromSourceFile, AbsoluteFsPath} from '@angular/compiler-cli/src/ngtsc/file_system';
+import {isNamedClassDeclaration} from '@angular/compiler-cli/src/ngtsc/reflection';
 import {TypeCheckShimGenerator} from '@angular/compiler-cli/src/ngtsc/typecheck';
 import {OptimizeFor, TypeCheckingProgramStrategy} from '@angular/compiler-cli/src/ngtsc/typecheck/api';
+import {findFirstMatchingNode} from '@angular/compiler-cli/src/ngtsc/typecheck/src/comments';
 import * as ts from 'typescript/lib/tsserverlibrary';
+
+import {GetComponentLocationsForTemplateResponse, GetTcbResponse} from '../api';
 
 import {LanguageServiceAdapter, LSParseConfigHost} from './adapters';
 import {CompilerFactory} from './compiler_factory';
+import {CompletionBuilder, CompletionNodeContext} from './completions';
 import {DefinitionBuilder} from './definitions';
 import {QuickInfoBuilder} from './quick_info';
-import {getTargetAtPosition} from './template_target';
+import {ReferencesAndRenameBuilder} from './references';
+import {getTargetAtPosition, TargetContext, TargetNodeKind} from './template_target';
+import {findTightestNode, getClassDeclFromDecoratorProp, getPropertyAssignmentFromValue} from './ts_utils';
 import {getTemplateInfoAtPosition, isTypeScriptFile} from './utils';
+
+interface LanguageServiceConfig {
+  /**
+   * If true, enable `strictTemplates` in Angular compiler options regardless
+   * of its value in tsconfig.json.
+   */
+  forceStrictTemplates?: true;
+}
 
 export class LanguageService {
   private options: CompilerOptions;
@@ -26,9 +44,14 @@ export class LanguageService {
   private readonly adapter: LanguageServiceAdapter;
   private readonly parseConfigHost: LSParseConfigHost;
 
-  constructor(project: ts.server.Project, private readonly tsLS: ts.LanguageService) {
+  constructor(
+      private readonly project: ts.server.Project,
+      private readonly tsLS: ts.LanguageService,
+      private readonly config: LanguageServiceConfig,
+  ) {
     this.parseConfigHost = new LSParseConfigHost(project.projectService.host);
-    this.options = parseNgCompilerOptions(project, this.parseConfigHost);
+    this.options = parseNgCompilerOptions(project, this.parseConfigHost, config);
+    logCompilerOptions(project, this.options);
     this.strategy = createTypeCheckingProgramStrategy(project);
     this.adapter = new LanguageServiceAdapter(project);
     this.compilerFactory = new CompilerFactory(this.adapter, this.strategy, this.options);
@@ -40,14 +63,35 @@ export class LanguageService {
   }
 
   getSemanticDiagnostics(fileName: string): ts.Diagnostic[] {
-    const compiler = this.compilerFactory.getOrCreateWithChangedFile(fileName);
+    const compiler = this.compilerFactory.getOrCreate();
     const ttc = compiler.getTemplateTypeChecker();
     const diagnostics: ts.Diagnostic[] = [];
     if (isTypeScriptFile(fileName)) {
       const program = compiler.getNextProgram();
       const sourceFile = program.getSourceFile(fileName);
       if (sourceFile) {
-        diagnostics.push(...ttc.getDiagnosticsForFile(sourceFile, OptimizeFor.SingleFile));
+        const ngDiagnostics = compiler.getDiagnosticsForFile(sourceFile, OptimizeFor.SingleFile);
+        // There are several kinds of diagnostics returned by `NgCompiler` for a source file:
+        //
+        // 1. Angular-related non-template diagnostics from decorated classes within that file.
+        // 2. Template diagnostics for components with direct inline templates (a string literal).
+        // 3. Template diagnostics for components with indirect inline templates (templates computed
+        //    by expression).
+        // 4. Template diagnostics for components with external templates.
+        //
+        // When showing diagnostics for a TS source file, we want to only include kinds 1 and 2 -
+        // those diagnostics which are reported at a location within the TS file itself. Diagnostics
+        // for external templates will be shown when editing that template file (the `else` block)
+        // below.
+        //
+        // Currently, indirect inline template diagnostics (kind 3) are not shown at all by the
+        // Language Service, because there is no sensible location in the user's code for them. Such
+        // templates are an edge case, though, and should not be common.
+        //
+        // TODO(alxhub): figure out a good user experience for indirect template diagnostics and
+        // show them from within the Language Service.
+        diagnostics.push(...ngDiagnostics.filter(
+            diag => diag.file !== undefined && diag.file.fileName === sourceFile.fileName));
       }
     } else {
       const components = compiler.getComponentsWithTemplateFile(fileName);
@@ -63,38 +107,255 @@ export class LanguageService {
 
   getDefinitionAndBoundSpan(fileName: string, position: number): ts.DefinitionInfoAndBoundSpan
       |undefined {
-    const compiler = this.compilerFactory.getOrCreateWithChangedFile(fileName);
-    const results =
-        new DefinitionBuilder(this.tsLS, compiler).getDefinitionAndBoundSpan(fileName, position);
-    this.compilerFactory.registerLastKnownProgram();
-    return results;
+    return this.withCompiler((compiler) => {
+      if (!isInAngularContext(compiler.getNextProgram(), fileName, position)) {
+        return undefined;
+      }
+      return new DefinitionBuilder(this.tsLS, compiler)
+          .getDefinitionAndBoundSpan(fileName, position);
+    });
   }
 
   getTypeDefinitionAtPosition(fileName: string, position: number):
       readonly ts.DefinitionInfo[]|undefined {
-    const compiler = this.compilerFactory.getOrCreateWithChangedFile(fileName);
-    const results =
-        new DefinitionBuilder(this.tsLS, compiler).getTypeDefinitionsAtPosition(fileName, position);
+    return this.withCompiler((compiler) => {
+      if (!isTemplateContext(compiler.getNextProgram(), fileName, position)) {
+        return undefined;
+      }
+      return new DefinitionBuilder(this.tsLS, compiler)
+          .getTypeDefinitionsAtPosition(fileName, position);
+    });
+  }
+
+  getQuickInfoAtPosition(fileName: string, position: number): ts.QuickInfo|undefined {
+    return this.withCompiler((compiler) => {
+      if (!isTemplateContext(compiler.getNextProgram(), fileName, position)) {
+        return undefined;
+      }
+
+      const templateInfo = getTemplateInfoAtPosition(fileName, position, compiler);
+      if (templateInfo === undefined) {
+        return undefined;
+      }
+      const positionDetails = getTargetAtPosition(templateInfo.template, position);
+      if (positionDetails === null) {
+        return undefined;
+      }
+
+      // Because we can only show 1 quick info, just use the bound attribute if the target is a two
+      // way binding. We may consider concatenating additional display parts from the other target
+      // nodes or representing the two way binding in some other manner in the future.
+      const node = positionDetails.context.kind === TargetNodeKind.TwoWayBindingContext ?
+          positionDetails.context.nodes[0] :
+          positionDetails.context.node;
+      return new QuickInfoBuilder(this.tsLS, compiler, templateInfo.component, node).get();
+    });
+  }
+
+  getReferencesAtPosition(fileName: string, position: number): ts.ReferenceEntry[]|undefined {
+    const compiler = this.compilerFactory.getOrCreate();
+    const results = new ReferencesAndRenameBuilder(this.strategy, this.tsLS, compiler)
+                        .getReferencesAtPosition(fileName, position);
     this.compilerFactory.registerLastKnownProgram();
     return results;
   }
 
-  getQuickInfoAtPosition(fileName: string, position: number): ts.QuickInfo|undefined {
-    const program = this.strategy.getProgram();
-    const compiler = this.compilerFactory.getOrCreateWithChangedFile(fileName);
+  getRenameInfo(fileName: string, position: number): ts.RenameInfo {
+    const compiler = this.compilerFactory.getOrCreate();
+    const renameInfo = new ReferencesAndRenameBuilder(this.strategy, this.tsLS, compiler)
+                           .getRenameInfo(absoluteFrom(fileName), position);
+    if (!renameInfo.canRename) {
+      return renameInfo;
+    }
+
+    const quickInfo = this.getQuickInfoAtPosition(fileName, position) ??
+        this.tsLS.getQuickInfoAtPosition(fileName, position);
+    const kind = quickInfo?.kind ?? ts.ScriptElementKind.unknown;
+    const kindModifiers = quickInfo?.kindModifiers ?? ts.ScriptElementKind.unknown;
+    return {...renameInfo, kind, kindModifiers};
+  }
+
+  findRenameLocations(fileName: string, position: number): readonly ts.RenameLocation[]|undefined {
+    const compiler = this.compilerFactory.getOrCreate();
+    const results = new ReferencesAndRenameBuilder(this.strategy, this.tsLS, compiler)
+                        .findRenameLocations(fileName, position);
+    this.compilerFactory.registerLastKnownProgram();
+    return results;
+  }
+
+  private getCompletionBuilder(fileName: string, position: number):
+      CompletionBuilder<TmplAstNode|AST>|null {
+    const compiler = this.compilerFactory.getOrCreate();
     const templateInfo = getTemplateInfoAtPosition(fileName, position, compiler);
     if (templateInfo === undefined) {
-      return undefined;
+      return null;
     }
     const positionDetails = getTargetAtPosition(templateInfo.template, position);
     if (positionDetails === null) {
-      return undefined;
+      return null;
     }
-    const results =
-        new QuickInfoBuilder(this.tsLS, compiler, templateInfo.component, positionDetails.node)
-            .get();
+
+    // For two-way bindings, we actually only need to be concerned with the bound attribute because
+    // the bindings in the template are written with the attribute name, not the event name.
+    const node = positionDetails.context.kind === TargetNodeKind.TwoWayBindingContext ?
+        positionDetails.context.nodes[0] :
+        positionDetails.context.node;
+    return new CompletionBuilder(
+        this.tsLS, compiler, templateInfo.component, node, positionDetails,
+        isTypeScriptFile(fileName));
+  }
+
+  getCompletionsAtPosition(
+      fileName: string, position: number, options: ts.GetCompletionsAtPositionOptions|undefined):
+      ts.WithMetadata<ts.CompletionInfo>|undefined {
+    return this.withCompiler((compiler) => {
+      if (!isTemplateContext(compiler.getNextProgram(), fileName, position)) {
+        return undefined;
+      }
+
+      const builder = this.getCompletionBuilder(fileName, position);
+      if (builder === null) {
+        return undefined;
+      }
+      return builder.getCompletionsAtPosition(options);
+    });
+  }
+
+  getCompletionEntryDetails(
+      fileName: string, position: number, entryName: string,
+      formatOptions: ts.FormatCodeOptions|ts.FormatCodeSettings|undefined,
+      preferences: ts.UserPreferences|undefined): ts.CompletionEntryDetails|undefined {
+    return this.withCompiler((compiler) => {
+      if (!isTemplateContext(compiler.getNextProgram(), fileName, position)) {
+        return undefined;
+      }
+
+      const builder = this.getCompletionBuilder(fileName, position);
+      if (builder === null) {
+        return undefined;
+      }
+      return builder.getCompletionEntryDetails(entryName, formatOptions, preferences);
+    });
+  }
+
+  getCompletionEntrySymbol(fileName: string, position: number, entryName: string): ts.Symbol
+      |undefined {
+    return this.withCompiler((compiler) => {
+      if (!isTemplateContext(compiler.getNextProgram(), fileName, position)) {
+        return undefined;
+      }
+
+      const builder = this.getCompletionBuilder(fileName, position);
+      if (builder === null) {
+        return undefined;
+      }
+      const result = builder.getCompletionEntrySymbol(entryName);
+      this.compilerFactory.registerLastKnownProgram();
+      return result;
+    });
+  }
+
+  getComponentLocationsForTemplate(fileName: string): GetComponentLocationsForTemplateResponse {
+    return this.withCompiler<GetComponentLocationsForTemplateResponse>((compiler) => {
+      const components = compiler.getComponentsWithTemplateFile(fileName);
+      const componentDeclarationLocations: ts.DocumentSpan[] =
+          Array.from(components.values()).map(c => {
+            let contextSpan: ts.TextSpan|undefined = undefined;
+            let textSpan: ts.TextSpan;
+            if (isNamedClassDeclaration(c)) {
+              textSpan = ts.createTextSpanFromBounds(c.name.getStart(), c.name.getEnd());
+              contextSpan = ts.createTextSpanFromBounds(c.getStart(), c.getEnd());
+            } else {
+              textSpan = ts.createTextSpanFromBounds(c.getStart(), c.getEnd());
+            }
+            return {
+              fileName: c.getSourceFile().fileName,
+              textSpan,
+              contextSpan,
+            };
+          });
+      return componentDeclarationLocations;
+    });
+  }
+
+  getTcb(fileName: string, position: number): GetTcbResponse|undefined {
+    return this.withCompiler<GetTcbResponse|undefined>(compiler => {
+      const templateInfo = getTemplateInfoAtPosition(fileName, position, compiler);
+      if (templateInfo === undefined) {
+        return undefined;
+      }
+      const tcb = compiler.getTemplateTypeChecker().getTypeCheckBlock(templateInfo.component);
+      if (tcb === null) {
+        return undefined;
+      }
+      const sf = tcb.getSourceFile();
+
+      let selections: ts.TextSpan[] = [];
+      const target = getTargetAtPosition(templateInfo.template, position);
+      if (target !== null) {
+        let selectionSpans: Array<ParseSourceSpan|AbsoluteSourceSpan>;
+        if ('nodes' in target.context) {
+          selectionSpans = target.context.nodes.map(n => n.sourceSpan);
+        } else {
+          selectionSpans = [target.context.node.sourceSpan];
+        }
+        const selectionNodes: ts.Node[] =
+            selectionSpans
+                .map(s => findFirstMatchingNode(tcb, {
+                       withSpan: s,
+                       filter: (node: ts.Node): node is ts.Node => true,
+                     }))
+                .filter((n): n is ts.Node => n !== null);
+
+        selections = selectionNodes.map(n => {
+          return {
+            start: n.getStart(sf),
+            length: n.getEnd() - n.getStart(sf),
+          };
+        });
+      }
+
+      return {
+        fileName: sf.fileName,
+        content: sf.getFullText(),
+        selections,
+      };
+    });
+  }
+
+  private withCompiler<T>(p: (compiler: NgCompiler) => T): T {
+    const compiler = this.compilerFactory.getOrCreate();
+    const result = p(compiler);
     this.compilerFactory.registerLastKnownProgram();
-    return results;
+    return result;
+  }
+
+  getCompilerOptionsDiagnostics(): ts.Diagnostic[] {
+    const project = this.project;
+    if (!(project instanceof ts.server.ConfiguredProject)) {
+      return [];
+    }
+
+    const diagnostics: ts.Diagnostic[] = [];
+    const configSourceFile = ts.readJsonConfigFile(
+        project.getConfigFilePath(), (path: string) => project.readFile(path));
+
+    if (!this.options.strictTemplates && !this.options.fullTemplateTypeCheck) {
+      diagnostics.push({
+        messageText: 'Some language features are not available. ' +
+            'To access all features, enable `strictTemplates` in `angularCompilerOptions`.',
+        category: ts.DiagnosticCategory.Suggestion,
+        code: ngErrorCode(ErrorCode.SUGGEST_STRICT_TEMPLATES),
+        file: configSourceFile,
+        start: undefined,
+        length: undefined,
+      });
+    }
+
+    const compiler = this.compilerFactory.getOrCreate();
+    diagnostics.push(...compiler.getOptionDiagnostics());
+
+    return diagnostics;
   }
 
   private watchConfigFile(project: ts.server.Project) {
@@ -110,14 +371,22 @@ export class LanguageService {
         project.getConfigFilePath(), (fileName: string, eventKind: ts.FileWatcherEventKind) => {
           project.log(`Config file changed: ${fileName}`);
           if (eventKind === ts.FileWatcherEventKind.Changed) {
-            this.options = parseNgCompilerOptions(project, this.parseConfigHost);
+            this.options = parseNgCompilerOptions(project, this.parseConfigHost, this.config);
+            logCompilerOptions(project, this.options);
           }
         });
   }
 }
 
+function logCompilerOptions(project: ts.server.Project, options: CompilerOptions) {
+  const {logger} = project.projectService;
+  const projectName = project.getProjectName();
+  logger.info(`Angular compiler options for ${projectName}: ` + JSON.stringify(options, null, 2));
+}
+
 function parseNgCompilerOptions(
-    project: ts.server.Project, host: ConfigurationHost): CompilerOptions {
+    project: ts.server.Project, host: ConfigurationHost,
+    config: LanguageServiceConfig): CompilerOptions {
   if (!(project instanceof ts.server.ConfiguredProject)) {
     return {};
   }
@@ -125,6 +394,23 @@ function parseNgCompilerOptions(
       readConfiguration(project.getConfigFilePath(), /* existingOptions */ undefined, host);
   if (errors.length > 0) {
     project.setProjectErrors(errors);
+  }
+
+  // Projects loaded into the Language Service often include test files which are not part of the
+  // app's main compilation unit, and these test files often include inline NgModules that declare
+  // components from the app. These declarations conflict with the main declarations of such
+  // components in the app's NgModules. This conflict is not normally present during regular
+  // compilation because the app and the tests are part of separate compilation units.
+  //
+  // As a temporary mitigation of this problem, we instruct the compiler to ignore classes which
+  // are not exported. In many cases, this ensures the test NgModules are ignored by the compiler
+  // and only the real component declaration is used.
+  options.compileNonExportedClasses = false;
+
+  // If `forceStrictTemplates` is true, always enable `strictTemplates`
+  // regardless of its value in tsconfig.json.
+  if (config.forceStrictTemplates === true) {
+    options.strictTemplates = true;
   }
 
   return options;
@@ -166,9 +452,11 @@ function getOrCreateTypeCheckScriptInfo(
     // attempt to fetch the content from disk and fail.
     scriptInfo = projectService.getOrCreateScriptInfoForNormalizedPath(
         ts.server.toNormalizedPath(tcf),
-        true,              // openedByClient
-        '',                // fileContent
-        ts.ScriptKind.TS,  // scriptKind
+        true,  // openedByClient
+        '',    // fileContent
+        // script info added by plugins should be marked as external, see
+        // https://github.com/microsoft/TypeScript/blob/b217f22e798c781f55d17da72ed099a9dee5c650/src/compiler/program.ts#L1897-L1899
+        ts.ScriptKind.External,  // scriptKind
     );
     if (!scriptInfo) {
       throw new Error(`Failed to create script info for ${tcf}`);
@@ -180,4 +468,47 @@ function getOrCreateTypeCheckScriptInfo(
     project.addRoot(scriptInfo);
   }
   return scriptInfo;
+}
+
+function isTemplateContext(program: ts.Program, fileName: string, position: number): boolean {
+  if (!isTypeScriptFile(fileName)) {
+    // If we aren't in a TS file, we must be in an HTML file, which we treat as template context
+    return true;
+  }
+
+  const node = findTightestNodeAtPosition(program, fileName, position);
+  if (node === undefined) {
+    return false;
+  }
+
+  let asgn = getPropertyAssignmentFromValue(node, 'template');
+  if (asgn === null) {
+    return false;
+  }
+  return getClassDeclFromDecoratorProp(asgn) !== null;
+}
+
+function isInAngularContext(program: ts.Program, fileName: string, position: number) {
+  if (!isTypeScriptFile(fileName)) {
+    return true;
+  }
+
+  const node = findTightestNodeAtPosition(program, fileName, position);
+  if (node === undefined) {
+    return false;
+  }
+
+  const asgn = getPropertyAssignmentFromValue(node, 'template') ??
+      getPropertyAssignmentFromValue(node, 'templateUrl') ??
+      getPropertyAssignmentFromValue(node.parent, 'styleUrls');
+  return asgn !== null && getClassDeclFromDecoratorProp(asgn) !== null;
+}
+
+function findTightestNodeAtPosition(program: ts.Program, fileName: string, position: number) {
+  const sourceFile = program.getSourceFile(fileName);
+  if (sourceFile === undefined) {
+    return undefined;
+  }
+
+  return findTightestNode(sourceFile, position);
 }

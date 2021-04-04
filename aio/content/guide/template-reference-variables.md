@@ -71,9 +71,9 @@ Angular 根据你所声明的变量的位置给模板变量赋值：
   如果在标准的 HTML 标记上声明变量，该变量就会引用该元素。
 
 * If you declare the variable on an `<ng-template>` element, the variable refers to a `TemplateRef` instance, which represents the template.
-  For more information on `<ng-template>`, see the [ng-template](guide/structural-directives#the-ng-template) section of [Structural directives](guide/structural-directives).
+  For more information on `<ng-template>`, see [How Angular uses the asterisk, `*`, syntax](guide/structural-directives#asterisk) in [Structural directives](guide/structural-directives).
 
-  如果你在 `<ng-template>` 元素上声明变量，该变量就会引用一个 `TemplateRef` 实例来代表此模板。关于 `<ng-template>` 的更多信息，请参阅[结构型指令](guide/structural-directives) 中的 [ng-template](guide/structural-directives#the-ng-template) 部分。
+  如果你在 `<ng-template>` 元素上声明变量，该变量就会引用一个 `TemplateRef` 实例来代表此模板。关于 `<ng-template>` 的更多信息，请参阅[结构型指令](guide/structural-directives#asterisk) 中的 [Angular 如何使用 `*` 语法](guide/structural-directives#asterisk)部分。
 
 * If the variable specifies a name on the right-hand side, such as `#var="ngModel"`, the variable refers to the directive or component on the element with a matching `exportAs` name.
 
@@ -239,3 +239,21 @@ name: "TemplateRef"
 __proto__: Function
 
 </code-example>
+
+{@a template-input-variable}
+{@a template-input-variables}
+## Template input variable
+
+A _template input variable_ is a variable you can reference within a single instance of the template.
+You declare a template input variable using the `let` keyword as in `let hero`.
+
+There are several such variables in this example: `hero`, `i`, and `odd`.
+
+The variable's scope is limited to a single instance of the repeated template.
+You can use the same variable name again in the definition of other structural directives.
+
+In contrast, you declare a template variable by prefixing the variable name with `#`, as in `#var`.
+A template variable refers to its attached element, component, or directive.
+
+Template input variables and template variables names have their own namespaces.
+The template input variable `hero` in `let hero` is distinct from the template variable `hero` in `#hero`.

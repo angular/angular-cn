@@ -1,4 +1,4 @@
-<div class="resources-container">
+<div class="center-layout">
   <div class="flex-center group-buttons">
     <a *ngFor="let category of categories"
       [class.selected]="category.id == selectedCategory.id"
@@ -6,23 +6,19 @@
       (click)="selectCategory(category.id)"
       (keyup.enter)="selectCategory(category.id)">{{category.title}}</a>
   </div>
-  <div class="l-flex--column align-items-center">
-    <div class="shadow-1 showcase">
-      <div *ngFor="let subCategory of selectedCategory?.subCategories">
-        <a class="h-anchor-offset" id="{{subCategory.id}}"></a>
-        <h3 class="subcategory-title">{{subCategory.title}}</h3>
+  <div class="showcase">
+    <div *ngFor="let subCategory of selectedCategory?.subCategories">
+      <a id="{{subCategory.id}}"></a>
+      <h3 class="subcategory-title">{{subCategory.title}}</h3>
 
-        <div *ngFor="let resource of subCategory.resources">
-          <div class="c-resource">
-            <a class="l-flex--column resource-row-link" rel="noopener" target="_blank" [href]="resource.url">
-              <div>
-                <h4 translation-result="on">{{resource.titleCn || resource.title}}</h4>
+      <div *ngFor="let resource of subCategory.resources">
+        <div class="resource-item">
+          <a class="resource-row-link" rel="noopener" target="_blank" [href]="resource.url">
+            <h4 translation-result="on">{{resource.titleCn || resource.title}}</h4>
                 <h4 translation-origin="off">{{resource.title}}</h4>
-                <p translation-result="on" class="resource-description">{{resource.descCn || resource.desc || '无描述'}}</p>
+            <p translation-result="on" class="resource-description">{{resource.descCn || resource.desc || '无描述'}}</p>
                 <p translation-origin="off" class="resource-description">{{resource.desc || 'No Description'}}</p>
-              </div>
-            </a>
-          </div>
+          </a>
         </div>
       </div>
     </div>

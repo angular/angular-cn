@@ -8,8 +8,9 @@
 
 import {Identifiers} from './identifiers';
 import * as o from './output/output_ast';
-import {compileFactoryFunction, R3DependencyMetadata, R3FactoryDelegateType, R3FactoryMetadata, R3FactoryTarget} from './render3/r3_factory';
-import {mapToMapExpression, R3Reference, typeWithParameters} from './render3/util';
+import {compileFactoryFunction, FactoryTarget, R3DependencyMetadata, R3FactoryDelegateType, R3FactoryMetadata} from './render3/r3_factory';
+import {R3Reference, typeWithParameters} from './render3/util';
+import {DefinitionMap} from './render3/view/util';
 
 export interface InjectableDef {
   expression: o.Expression;
@@ -31,7 +32,7 @@ export interface R3InjectableMetadata {
 }
 
 export function compileInjectable(meta: R3InjectableMetadata): InjectableDef {
-  let result: {factory: o.Expression, statements: o.Statement[]}|null = null;
+  let result: {expression: o.Expression, statements: o.Statement[]}|null = null;
 
   const factoryMeta: R3FactoryMetadata = {
     name: meta.name,
@@ -39,8 +40,7 @@ export function compileInjectable(meta: R3InjectableMetadata): InjectableDef {
     internalType: meta.internalType,
     typeArgumentCount: meta.typeArgumentCount,
     deps: [],
-    injectFn: Identifiers.inject,
-    target: R3FactoryTarget.Injectable,
+    target: FactoryTarget.Injectable,
   };
 
   if (meta.useClass !== undefined) {
@@ -82,7 +82,7 @@ export function compileInjectable(meta: R3InjectableMetadata): InjectableDef {
     } else {
       result = {
         statements: [],
-        factory: o.fn([], [new o.ReturnStatement(meta.useFactory.callFn([]))])
+        expression: o.fn([], [new o.ReturnStatement(meta.useFactory.callFn([]))])
       };
     }
   } else if (meta.useValue !== undefined) {
@@ -106,15 +106,18 @@ export function compileInjectable(meta: R3InjectableMetadata): InjectableDef {
 
   const token = meta.internalType;
 
-  const injectableProps: {[key: string]: o.Expression} = {token, factory: result.factory};
+  const injectableProps =
+      new DefinitionMap<{token: o.Expression, factory: o.Expression, providedIn: o.Expression}>();
+  injectableProps.set('token', token);
+  injectableProps.set('factory', result.expression);
 
   // Only generate providedIn property if it has a non-null value
   if ((meta.providedIn as o.LiteralExpr).value !== null) {
-    injectableProps.providedIn = meta.providedIn;
+    injectableProps.set('providedIn', meta.providedIn);
   }
 
-  const expression =
-      o.importExpr(Identifiers.ɵɵdefineInjectable).callFn([mapToMapExpression(injectableProps)]);
+  const expression = o.importExpr(Identifiers.ɵɵdefineInjectable)
+                         .callFn([injectableProps.toLiteralMap()], undefined, true);
   const type = new o.ExpressionType(o.importExpr(
       Identifiers.InjectableDef, [typeWithParameters(meta.type.type, meta.typeArgumentCount)]));
 
@@ -131,7 +134,7 @@ function delegateToFactory(type: o.WrappedNodeExpr<any>, internalType: o.Wrapped
     // If types are the same, we can generate `factory: type.ɵfac`
     // If types are different, we have to generate a wrapper function to ensure
     // the internal type has been resolved (`factory: function(t) { return type.ɵfac(t); }`)
-    factory: type.node === internalType.node ?
+    expression: type.node === internalType.node ?
         internalType.prop('ɵfac') :
         o.fn([new o.FnParam('t', o.DYNAMIC_TYPE)], [new o.ReturnStatement(internalType.callMethod(
                                                        'ɵfac', [o.variable('t')]))])

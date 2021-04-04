@@ -106,9 +106,9 @@ The command is interactive. In this case, you must have or create a Firebase acc
 
 该命令是交互式的。在这种情况下，你必须拥有或创建 Firebase 帐户，并使用该帐户进行身份验证。该命令提示你选择要部署的 Firebase 项目。
 
-After the command produces an optimal build of your application (equivalent to `ng deploy --prod`), it'll upload the production assets to Firebase.
+The command builds your application and uploads the production assets to Firebase.
 
-该命令会为你的应用程序生成最佳构建（等效于 `ng deploy --prod`）后，将生产环境下的资产文件上传到 Firebase。
+该命令会构建你的应用，并将生产环境的资产文件上传到 Firebase。
 
 In the table below, you can find a list of packages which implement deployment functionality to different platforms. The `deploy` command for each package may require different command line options. You can read more by following the links associated with the package names below:
 
@@ -143,7 +143,7 @@ For the simplest deployment, create a production build and copy the output direc
 
   <code-example language="none" class="code-shell">
 
-    ng build --prod
+    ng build
 
   </code-example>
 
@@ -163,25 +163,38 @@ This is the simplest production-ready deployment of your application.
 
 {@a deploy-to-github}
 
-### Deploy to GitHub pages
+### Deploy to GitHub Pages
 
-### 发布到 GitHub pages（页面服务）
+To deploy your Angular application to [GitHub Pages](https://help.github.com/articles/what-is-github-pages/), complete the following steps:
 
-Another simple way to deploy your Angular app is to use [GitHub Pages](https://help.github.com/articles/what-is-github-pages/).
+1. [Create a GitHub repository](https://help.github.com/articles/create-a-repo/) for your project.
 
-另一种发布 Angular 应用的简单途径是使用 [GitHub Pages](https://help.github.com/articles/what-is-github-pages/)。
+   为你的项目[创建一个 GitHub Pages 仓库](https://help.github.com/articles/what-is-github-pages/)。
 
-1. You need to [create a GitHub account](https://github.com/join) if you don't have one, and then [create a repository](https://help.github.com/articles/create-a-repo/) for your project.
-Make a note of the user name and project name in GitHub.
+1. Configure `git` in your local project by adding a remote that specifies the GitHub repo you created in previous step.
+  GitHub provides these commands when you create the repo so that you can copy and paste them at your command prompt.
+  The commands should be similar to the following, though GitHub fills in your project-specific settings for you:
 
-   你需要[创建一个 GitHub 账号](https://github.com/join)（如果没有的话），然后为你的项目[创建一个仓库](https://help.github.com/articles/create-a-repo/)。记下 GitHub 中的用户名和项目名。
+  ```sh
+  git remote add origin https://github.com/your-username/your-project-name.git
+  git branch -M main
+  git push -u origin main
+  ```
+  When you paste these commands from GitHub, they run automatically.
 
-1. Build your project using Github project name, with the Angular CLI command [`ng build`](cli/build) and the options shown here:
+1. Create and check out a `git` branch named `gh-pages`.
 
-   使用 Angular CLI 命令 [`ng build`](cli/build) 来构建这个 GitHub 项目，选项如下：
+  ```sh
+  git checkout -b gh-pages
+  ```
 
-   <code-example language="none" class="code-shell">
-     ng build --prod --output-path docs --base-href /&lt;project_name&gt;/
+1. Build your project using the Github project name, with the Angular CLI command [`ng build`](cli/build) and the following options, where `your_project_name` is the name of the project that you gave the GitHub repository in step 1.
+
+  Be sure to include the slashes on either side of your project name as in `/your_project_name/`.
+
+  <code-example language="none" class="code-shell">
+
+    ng build --prod --output-path docs --base-href /&lt;project_name&gt;/
 
   </code-example>
 
@@ -193,13 +206,14 @@ Make a note of the user name and project name in GitHub.
 
    提交你的更改，并推送。
 
-1. On the GitHub project page, configure it to [publish from the docs folder](https://help.github.com/articles/configuring-a-publishing-source-for-github-pages/#publishing-your-github-pages-site-from-a-docs-folder-on-your-master-branch).
+1. On the GitHub project page, go to Settings and scroll down to the GitHub Pages section to configure the site to [publish from the docs folder](https://help.github.com/articles/configuring-a-publishing-source-for-github-pages/#publishing-your-github-pages-site-from-a-docs-folder-on-your-master-branch).
 
    在 GitHub 的项目页中，把该项目配置为[从 docs 目录下发布](https://help.github.com/articles/configuring-a-publishing-source-for-github-pages/#publishing-your-github-pages-site-from-a-docs-folder-on-your-master-branch)。
 
-You can see your deployed page at `https://<user_name>.github.io/<project_name>/`.
+1. Click Save.
 
-你可以到 `https://<user_name>.github.io/<project_name>/` 中查看部署好的页面。
+1. Click on the GitHub Pages link at the top of the GitHub Pages section to see your deployed application.
+The format of the link is `https://<user_name>.github.io/<project_name>/`.
 
 <div class="alert is-helpful">
 
@@ -209,10 +223,7 @@ Check out [angular-cli-ghpages](https://github.com/angular-buch/angular-cli-ghpa
 
 </div>
 
-<hr>
-
 {@a server-configuration}
-
 ## Server configuration
 
 ## 服务端配置
@@ -408,17 +419,14 @@ Read about how to enable CORS for specific servers at
 服务器必须配置成可以接受来自该应用的请求。
 要了解如何对特定的服务器开启 CORS，参阅<a href="http://enable-cors.org/server.html" target="_blank" title="Enabling CORS server">enable-cors.org</a>。
 
-<hr>
-
 {@a optimize}
-
 ## Production optimizations
 
 ## 为生产环境优化
 
-The `--prod` _meta-flag_ engages the following build optimization features.
+The `production` configuration engages the following build optimization features.
 
-`--prod` 标志具有如下优化特性。
+`production` 配置项指定如下优化特性。
 
 * [Ahead-of-Time (AOT) Compilation](guide/aot-compiler): pre-compiles Angular component templates.
 
@@ -464,13 +472,10 @@ In addition to build optimizations, Angular also has a runtime production mode. 
 
 </code-example>
 
-Switching to _production mode_ makes it run faster by disabling development specific checks such as the dual change detection cycles.
-
-切换到*生产模式*可以通过禁用开发阶段特有的检查（比如双重变更检测周期）来让它运行得更快。
-
-When you enable production builds via `--prod` command line flag, the runtime production mode is enabled as well.
-
-如果在构建时添加了 `--prod` 标识，也会同时启用*运行期生产模式*。
+_Production mode_ improves application performance by disabling development-only safety
+checks and debugging utilities, such as the expression-changed-after-checked detection.
+Building your application with the production configuration automatically enables Angular's
+runtime production mode.
 
 {@a lazy-loading}
 
@@ -579,7 +584,7 @@ Build your app for production _including the source maps_
 
 <code-example language="none" class="code-shell">
 
-  ng build --prod --source-map
+  ng build --source-map
 
 </code-example>
 
@@ -726,10 +731,10 @@ The following configurations determine your requirements.
 
   TypeScript 配置
 
-  In the TypeScript configuration file, the "target" option in the `compilerOptions` section determines the ECMAScript target version that the code is compiled to.
+   In the TypeScript configuration file, the "target" option in the `compilerOptions` section determines the ECMAScript target version that the code is compiled to.
    Modern browsers support ES2015 natively, while ES5 is more commonly used to support legacy browsers.
 
-  在 TypeScript 配置文件中，`compilerOptions` 区的 `target` 选项会决定编译后代码的 ECMAScript 目标版本。现代浏览器原生支持 ES2015，而 ES5 则更常用于支持老式浏览器。
+   在 TypeScript 配置文件中，`compilerOptions` 区的 `target` 选项会决定编译后代码的 ECMAScript 目标版本。现代浏览器原生支持 ES2015，而 ES5 则更常用于支持老式浏览器。
 
 <div class="alert is-helpful">
 
@@ -870,15 +875,15 @@ If your Browserslist configuration includes support for any legacy browsers, the
 
 ## 旧版浏览器中的本地开发
 
-In Angular CLI version 8 and higher, differential loading is enabled by default for the `ng build` command.
+Differential loading is not enabled by default for application projects that were generated with Angular CLI 10 and above.
 The `ng serve`, `ng test`, and `ng e2e` commands, however, generate a single ES2015 build which cannot run in older browsers that don't support the modules, such as IE 11.
 
-在 Angular CLI 版本 8 和更高版本中，默认情况下会为 `ng build` 命令启用差异化加载。但是，`ng serve`，`ng test` 和 `ng e2e` 命令只会生成一个 ES2015 版本，该版本无法在不支持该模块的旧版浏览器（例如 IE 11）中运行。
+在 Angular CLI 10 或更高版本生成的应用项目中，默认是不启用差异化加载的。
+`ng serve`，`ng test` 和 `ng e2e` 命令只会生成一个 ES2015 版本，该版本无法在不支持该模块的旧版浏览器（例如 IE 11）中运行。
 
-If you want to run ES5 code during development, you could disable differential loading completely.
 To maintain the benefits of differential loading, however, a better option is to define multiple configurations for `ng serve`, `ng e2e`, and `ng test`.
 
-如果要在开发期间运行 ES5 代码，则可以完全禁用差异化加载。但是，为了保持差异化加载的好处，更好的选择是为 `ng serve`，`ng e2e` 和 `ng test` 定义多个配置。
+要保持差异化加载的好处，更好的选择是为 `ng serve`，`ng e2e` 和 `ng test` 定义多个配置。
 
 {@a differential-serve}
 

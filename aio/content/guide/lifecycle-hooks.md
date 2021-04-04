@@ -1,4 +1,4 @@
-# Hooking into the component lifecycle
+# Lifecycle hooks
 
 # 生命周期钩子
 
@@ -45,7 +45,7 @@ For example, the `OnInit` interface has a hook method named `ngOnInit()`. If you
 
 每个接口都有唯一的一个钩子方法，它们的名字是由接口名再加上 `ng` 前缀构成的。比如，`OnInit` 接口的钩子方法叫做 `ngOnInit()`。如果你在组件或指令类中实现了这个方法，Angular 就会在首次检查完组件或指令的输入属性后，紧接着调用它。
 
-<code-example path="lifecycle-hooks/src/app/peek-a-boo.component.ts" region="ngOnInit" header="peek-a-boo.component.ts (excerpt)"></code-example>
+<code-example path="lifecycle-hooks/src/app/peek-a-boo.directive.ts" region="ngOnInit" header="peek-a-boo.directive.ts (excerpt)"></code-example>
 
 You don't have to implement all (or any) of the lifecycle hooks, just the ones you need.
 
@@ -335,23 +335,12 @@ The sample code is also used to illustrate specific tasks in the following secti
   <col width="20%"></col>
   <col width="80%"></col>
   <tr>
-
-    <th>
-
-        Component
-
-        组件
-
-    </th>
-
-    <th>
-
-        Description
-
-        说明
-
-    </th>
-
+    <th>Component</th>
+    <th>Description</th>
+  </tr>
+  <tr>
+    <th>组件</th>
+    <th>说明</th>
   </tr>
   <tr style='vertical-align:top'>
 
@@ -772,7 +761,7 @@ Here's a child view that displays a hero's name in an `<input>`:
 
 下面是一个子视图，它用来把英雄的名字显示在一个 `<input>` 中：
 
-<code-example path="lifecycle-hooks/src/app/after-view.component.ts" region="child-view" header="ChildComponent"></code-example>
+<code-example path="lifecycle-hooks/src/app/child-view.component.ts" region="child-view" header="ChildViewComponent"></code-example>
 
 The `AfterViewComponent` displays this child view *within its template*:
 
@@ -872,7 +861,7 @@ The following is the parent's template.
 对比[前面的 AfterView](#afterview) 例子考虑这个变化。
 这次不再通过模板来把子视图包含进来，而是改为从 `AfterContentComponent` 的父组件中导入它。下面是父组件的模板：
 
-<code-example path="lifecycle-hooks/src/app/after-content.component.ts" region="parent-template" header="AfterContentParentComponent (template excerpt)"></code-example>
+<code-example path="lifecycle-hooks/src/app/after-content-parent.component.ts" region="parent-template" header="AfterContentParentComponent (template excerpt)"></code-example>
 
 Notice that the `<app-child>` tag is tucked between the `<after-content>` tags.
 Never put content between a component's element tags *unless you intend to project that content

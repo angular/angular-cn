@@ -85,7 +85,7 @@ export function makeStateKey<T = void>(key: string): StateKey<T> {
  * `TransferState` 将作为可注入令牌提供。要使用它，请在服务器上导入 `ServerTransferStateModule`，并在客户端上导入 `BrowserTransferStateModule`。
  *
  * The values in the store are serialized/deserialized using JSON.stringify/JSON.parse. So only
- * boolean, number, string, null and non-class objects will be serialized and deserialzied in a
+ * boolean, number, string, null and non-class objects will be serialized and deserialized in a
  * non-lossy manner.
  *
  * 这里会使用 JSON.stringify/JSON.parse 对存储中的值进行序列化/反序列化。因此，仅布尔、数字、字符串、null 和非类对象能以无损的方式进行序列化和反序列化。
@@ -182,7 +182,8 @@ export function initTransferState(doc: Document, appId: string) {
   let initialState = {};
   if (script && script.textContent) {
     try {
-      initialState = JSON.parse(unescapeHtml(script.textContent));
+      // Avoid using any here as it triggers lint errors in google3 (any is not allowed).
+      initialState = JSON.parse(unescapeHtml(script.textContent)) as {};
     } catch (e) {
       console.warn('Exception while restoring TransferState for app ' + appId, e);
     }

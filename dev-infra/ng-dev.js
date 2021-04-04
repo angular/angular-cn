@@ -8,7 +8,6 @@ var tslib = require('tslib');
 var chalk = _interopDefault(require('chalk'));
 var fs = require('fs');
 var inquirer = require('inquirer');
-var inquirerAutocomplete = require('inquirer-autocomplete-prompt');
 var path = require('path');
 var shelljs = require('shelljs');
 var url = require('url');
@@ -20,6 +19,7 @@ var fetch = _interopDefault(require('node-fetch'));
 var semver = require('semver');
 var multimatch = require('multimatch');
 var yaml = require('yaml');
+var conventionalCommitsParser = require('conventional-commits-parser');
 var cliProgress = require('cli-progress');
 var os = require('os');
 var minimatch = require('minimatch');
@@ -121,7 +121,7 @@ function validateCommonConfig(config) {
  */
 function readConfigFile(configPath, returnEmptyObjectOnError) {
     if (returnEmptyObjectOnError === void 0) { returnEmptyObjectOnError = false; }
-    // If the the `.ts` extension has not been set up already, and a TypeScript based
+    // If the `.ts` extension has not been set up already, and a TypeScript based
     // version of the given configuration seems to exist, set up `ts-node` if available.
     if (require.extensions['.ts'] === undefined && fs.existsSync(configPath + ".ts") &&
         isTsNodeAvailable()) {
@@ -231,53 +231,6 @@ function promptConfirm(message, defaultValue) {
         });
     });
 }
-function promptAutocomplete(message, choices, noChoiceText) {
-    return tslib.__awaiter(this, void 0, void 0, function () {
-        var prompt, result;
-        return tslib.__generator(this, function (_a) {
-            switch (_a.label) {
-                case 0:
-                    prompt = inquirer.createPromptModule({}).registerPrompt('autocomplete', inquirerAutocomplete);
-                    if (noChoiceText) {
-                        choices = tslib.__spread([noChoiceText], choices);
-                    }
-                    return [4 /*yield*/, prompt({
-                            type: 'autocomplete',
-                            name: 'result',
-                            message: message,
-                            source: function (_, input) {
-                                if (!input) {
-                                    return Promise.resolve(choices);
-                                }
-                                return Promise.resolve(choices.filter(function (choice) {
-                                    if (typeof choice === 'string') {
-                                        return choice.includes(input);
-                                    }
-                                    return choice.name.includes(input);
-                                }));
-                            }
-                        })];
-                case 1:
-                    result = (_a.sent()).result;
-                    if (result === noChoiceText) {
-                        return [2 /*return*/, false];
-                    }
-                    return [2 /*return*/, result];
-            }
-        });
-    });
-}
-/** Prompts the user for one line of input. */
-function promptInput(message) {
-    return tslib.__awaiter(this, void 0, void 0, function () {
-        return tslib.__generator(this, function (_a) {
-            switch (_a.label) {
-                case 0: return [4 /*yield*/, inquirer.prompt({ type: 'input', name: 'result', message: message })];
-                case 1: return [2 /*return*/, (_a.sent()).result];
-            }
-        });
-    });
-}
 /**
  * Supported levels for logging functions.
  *
@@ -313,7 +266,7 @@ function buildLogLevelFunction(loadCommand, level) {
         for (var _i = 0; _i < arguments.length; _i++) {
             text[_i] = arguments[_i];
         }
-        runConsoleCommand.apply(void 0, tslib.__spread([loadCommand, level], text));
+        runConsoleCommand.apply(void 0, tslib.__spreadArray([loadCommand, level], tslib.__read(text)));
     };
     /** Start a group at the LOG_LEVEL, optionally starting it as collapsed. */
     loggingFunction.group = function (text, collapsed) {
@@ -342,9 +295,9 @@ function runConsoleCommand(loadCommand, logLevel) {
         text[_i - 2] = arguments[_i];
     }
     if (getLogLevel() >= logLevel) {
-        loadCommand().apply(void 0, tslib.__spread(text));
+        loadCommand().apply(void 0, tslib.__spreadArray([], tslib.__read(text)));
     }
-    printToLogFile.apply(void 0, tslib.__spread([logLevel], text));
+    printToLogFile.apply(void 0, tslib.__spreadArray([logLevel], tslib.__read(text)));
 }
 /**
  * Retrieve the log level from environment variables, if the value found
@@ -387,7 +340,9 @@ function captureLogOutputForCommand(argv) {
     LOGGED_TEXT += headerLine + "\nCommand: " + argv.$0 + " " + argv._.join(' ') + "\nRan at: " + now + "\n";
     // On process exit, write the logged output to the appropriate log files
     process.on('exit', function (code) {
-        LOGGED_TEXT += "Command ran in " + (new Date().getTime() - now.getTime()) + "ms";
+        LOGGED_TEXT += headerLine + "\n";
+        LOGGED_TEXT += "Command ran in " + (new Date().getTime() - now.getTime()) + "ms\n";
+        LOGGED_TEXT += "Exit Code: " + code + "\n";
         /** Path to the log file location. */
         var logFilePath = path.join(getRepoBaseDir(), '.ng-dev.log');
         // Strip ANSI escape codes from log outputs.
@@ -396,7 +351,9 @@ function captureLogOutputForCommand(argv) {
         // For failure codes greater than 1, the new logged lines should be written to a specific log
         // file for the command run failure.
         if (code > 1) {
-            fs.writeFileSync(path.join(getRepoBaseDir(), ".ng-dev.err-" + now.getTime() + ".log"), LOGGED_TEXT);
+            var logFileName = ".ng-dev.err-" + now.getTime() + ".log";
+            console.error("Exit code: " + code + ". Writing full log to " + logFileName);
+            fs.writeFileSync(path.join(getRepoBaseDir(), logFileName), LOGGED_TEXT);
         }
     });
     // Mark file logging as enabled to prevent the function from executing multiple times.
@@ -1727,56 +1684,84 @@ const COMMIT_TYPES = {
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
+/** Markers used to denote the start of a note section in a commit. */
+var NoteSections;
+(function (NoteSections) {
+    NoteSections["BREAKING_CHANGE"] = "BREAKING CHANGE";
+    NoteSections["DEPRECATED"] = "DEPRECATED";
+})(NoteSections || (NoteSections = {}));
 /** Regex determining if a commit is a fixup. */
 const FIXUP_PREFIX_RE = /^fixup! /i;
-/** Regex finding all github keyword links. */
-const GITHUB_LINKING_RE = /((closed?s?)|(fix(es)?(ed)?)|(resolved?s?))\s\#(\d+)/ig;
 /** Regex determining if a commit is a squash. */
 const SQUASH_PREFIX_RE = /^squash! /i;
 /** Regex determining if a commit is a revert. */
 const REVERT_PREFIX_RE = /^revert:? /i;
-/** Regex determining the scope of a commit if provided. */
-const TYPE_SCOPE_RE = /^(\w+)(?:\(([^)]+)\))?\:\s(.+)$/;
-/** Regex determining the entire header line of the commit. */
-const COMMIT_HEADER_RE = /^(.*)/i;
-/** Regex determining the body of the commit. */
-const COMMIT_BODY_RE = /^.*\n\n([\s\S]*)$/;
+/**
+ * Regex pattern for parsing the header line of a commit.
+ *
+ * Several groups are being matched to be used in the parsed commit object, being mapped to the
+ * `headerCorrespondence` object.
+ *
+ * The pattern can be broken down into component parts:
+ * - `(\w+)` - a capturing group discovering the type of the commit.
+ * - `(?:\((?:([^/]+)\/)?([^)]+)\))?` - a pair of capturing groups to capture the scope and,
+ * optionally the npmScope of the commit.
+ * - `(.*)` - a capturing group discovering the subject of the commit.
+ */
+const headerPattern = /^(\w+)(?:\((?:([^/]+)\/)?([^)]+)\))?: (.*)$/;
+/**
+ * The property names used for the values extracted from the header via the `headerPattern` regex.
+ */
+const headerCorrespondence = ['type', 'npmScope', 'scope', 'subject'];
+/**
+ * Configuration options for the commit parser.
+ *
+ * NOTE: An extended type from `Options` must be used because the current
+ * @types/conventional-commits-parser version does not include the `notesPattern` field.
+ */
+const parseOptions = {
+    commentChar: '#',
+    headerPattern,
+    headerCorrespondence,
+    noteKeywords: [NoteSections.BREAKING_CHANGE, NoteSections.DEPRECATED],
+    notesPattern: (keywords) => new RegExp(`(${keywords})(?:: ?)(.*)`),
+};
 /** Parse a full commit message into its composite parts. */
-function parseCommitMessage(commitMsg) {
-    // Ignore comments (i.e. lines starting with `#`). Comments are automatically removed by git and
-    // should not be considered part of the final commit message.
-    commitMsg = commitMsg.split('\n').filter(line => !line.startsWith('#')).join('\n');
-    let header = '';
-    let body = '';
-    let bodyWithoutLinking = '';
-    let type = '';
-    let scope = '';
-    let subject = '';
-    if (COMMIT_HEADER_RE.test(commitMsg)) {
-        header = COMMIT_HEADER_RE.exec(commitMsg)[1]
-            .replace(FIXUP_PREFIX_RE, '')
-            .replace(SQUASH_PREFIX_RE, '');
-    }
-    if (COMMIT_BODY_RE.test(commitMsg)) {
-        body = COMMIT_BODY_RE.exec(commitMsg)[1];
-        bodyWithoutLinking = body.replace(GITHUB_LINKING_RE, '');
-    }
-    if (TYPE_SCOPE_RE.test(header)) {
-        const parsedCommitHeader = TYPE_SCOPE_RE.exec(header);
-        type = parsedCommitHeader[1];
-        scope = parsedCommitHeader[2];
-        subject = parsedCommitHeader[3];
-    }
+function parseCommitMessage(fullText) {
+    /** The commit message text with the fixup and squash markers stripped out. */
+    const strippedCommitMsg = fullText.replace(FIXUP_PREFIX_RE, '')
+        .replace(SQUASH_PREFIX_RE, '')
+        .replace(REVERT_PREFIX_RE, '');
+    /** The initially parsed commit. */
+    const commit = conventionalCommitsParser.sync(strippedCommitMsg, parseOptions);
+    /** A list of breaking change notes from the commit. */
+    const breakingChanges = [];
+    /** A list of deprecation notes from the commit. */
+    const deprecations = [];
+    // Extract the commit message notes by marked types into their respective lists.
+    commit.notes.forEach((note) => {
+        if (note.title === NoteSections.BREAKING_CHANGE) {
+            return breakingChanges.push(note);
+        }
+        if (note.title === NoteSections.DEPRECATED) {
+            return deprecations.push(note);
+        }
+    });
     return {
-        header,
-        body,
-        bodyWithoutLinking,
-        type,
-        scope,
-        subject,
-        isFixup: FIXUP_PREFIX_RE.test(commitMsg),
-        isSquash: SQUASH_PREFIX_RE.test(commitMsg),
-        isRevert: REVERT_PREFIX_RE.test(commitMsg),
+        fullText,
+        breakingChanges,
+        deprecations,
+        body: commit.body || '',
+        footer: commit.footer || '',
+        header: commit.header || '',
+        references: commit.references,
+        scope: commit.scope || '',
+        subject: commit.subject || '',
+        type: commit.type || '',
+        npmScope: commit.npmScope || '',
+        isFixup: FIXUP_PREFIX_RE.test(fullText),
+        isSquash: SQUASH_PREFIX_RE.test(fullText),
+        isRevert: REVERT_PREFIX_RE.test(fullText),
     };
 }
 /** Retrieve and parse each commit message in a provide range. */
@@ -1813,6 +1798,16 @@ function parseCommitMessagesForRange(range) {
  */
 /** Regex matching a URL for an entire commit body line. */
 const COMMIT_BODY_URL_LINE_RE = /^https?:\/\/.*$/;
+/**
+ * Regex matching a breaking change.
+ *
+ * - Starts with BREAKING CHANGE
+ * - Followed by a colon
+ * - Followed by a single space or two consecutive new lines
+ *
+ * NB: Anything after `BREAKING CHANGE` is optional to facilitate the validation.
+ */
+const COMMIT_BODY_BREAKING_CHANGE_RE = /^BREAKING CHANGE(:( |\n{2}))?/m;
 /** Validate a commit message against using the local repo's config. */
 function validateCommitMessage(commitMsg, options = {}) {
     const config = getCommitMessageConfig().commitMessage;
@@ -1820,11 +1815,10 @@ function validateCommitMessage(commitMsg, options = {}) {
     const errors = [];
     /** Perform the validation checks against the parsed commit. */
     function validateCommitAndCollectErrors() {
-        // TODO(josephperrott): Remove early return calls when commit message errors are found
-        var _a;
         ////////////////////////////////////
         // Checking revert, squash, fixup //
         ////////////////////////////////////
+        var _a;
         // All revert commits are considered valid.
         if (commit.isRevert) {
             return true;
@@ -1887,20 +1881,37 @@ function validateCommitMessage(commitMsg, options = {}) {
         //////////////////////////
         // Checking commit body //
         //////////////////////////
+        // Due to an issue in which conventional-commits-parser considers all parts of a commit after
+        // a `#` reference to be the footer, we check the length of all of the commit content after the
+        // header. In the future, we expect to be able to check only the body once the parser properly
+        // handles this case.
+        const allNonHeaderContent = `${commit.body.trim()}\n${commit.footer.trim()}`;
         if (!((_a = config.minBodyLengthTypeExcludes) === null || _a === void 0 ? void 0 : _a.includes(commit.type)) &&
-            commit.bodyWithoutLinking.trim().length < config.minBodyLength) {
+            allNonHeaderContent.length < config.minBodyLength) {
             errors.push(`The commit message body does not meet the minimum length of ${config.minBodyLength} characters`);
             return false;
         }
         const bodyByLine = commit.body.split('\n');
-        const lineExceedsMaxLength = bodyByLine.some(line => {
+        const lineExceedsMaxLength = bodyByLine.some((line) => {
             // Check if any line exceeds the max line length limit. The limit is ignored for
             // lines that just contain an URL (as these usually cannot be wrapped or shortened).
             return line.length > config.maxLineLength && !COMMIT_BODY_URL_LINE_RE.test(line);
         });
         if (lineExceedsMaxLength) {
-            errors.push(`The commit message body contains lines greater than ${config.maxLineLength} characters`);
+            errors.push(`The commit message body contains lines greater than ${config.maxLineLength} characters.`);
             return false;
+        }
+        // Breaking change
+        // Check if the commit message contains a valid break change description.
+        // https://github.com/angular/angular/blob/88fbc066775ab1a2f6a8c75f933375b46d8fa9a4/CONTRIBUTING.md#commit-message-footer
+        const hasBreakingChange = COMMIT_BODY_BREAKING_CHANGE_RE.exec(commit.fullText);
+        if (hasBreakingChange !== null) {
+            const [, breakingChangeDescription] = hasBreakingChange;
+            if (!breakingChangeDescription) {
+                // Not followed by :, space or two consecutive new lines,
+                errors.push(`The commit message body contains an invalid breaking change description.`);
+                return false;
+            }
         }
         return true;
     }
@@ -1916,6 +1927,11 @@ function printValidationErrors(errors, print = error) {
     print('<type>(<scope>): <summary>');
     print();
     print('<body>');
+    print();
+    print(`BREAKING CHANGE: <breaking change summary>`);
+    print();
+    print(`<breaking change description>`);
+    print();
     print();
 }
 
@@ -2094,135 +2110,11 @@ const ValidateRangeModule = {
     describe: 'Validate a range of commit messages',
 };
 
-/** Validate commit message at the provided file path. */
-function buildCommitMessage() {
-    return tslib.__awaiter(this, void 0, void 0, function* () {
-        // TODO(josephperrott): Add support for skipping wizard with local untracked config file
-        // TODO(josephperrott): Add default commit message information/commenting into generated messages
-        info('Just a few questions to start building the commit message!');
-        /** The commit message type. */
-        const type = yield promptForCommitMessageType();
-        /** The commit message scope. */
-        const scope = yield promptForCommitMessageScopeForType(type);
-        /** The commit message summary. */
-        const summary = yield promptForCommitMessageSummary();
-        return `${type.name}${scope ? '(' + scope + ')' : ''}: ${summary}\n\n`;
-    });
-}
-/** Prompts in the terminal for the commit message's type. */
-function promptForCommitMessageType() {
-    return tslib.__awaiter(this, void 0, void 0, function* () {
-        info('The type of change in the commit. Allows a reader to know the effect of the change,');
-        info('whether it brings a new feature, adds additional testing, documents the `project, etc.');
-        /** List of commit type options for the autocomplete prompt. */
-        const typeOptions = Object.values(COMMIT_TYPES).map(({ description, name }) => {
-            return {
-                name: `${name} - ${description}`,
-                value: name,
-                short: name,
-            };
-        });
-        /** The key of a commit message type, selected by the user via prompt. */
-        const typeName = yield promptAutocomplete('Select a type for the commit:', typeOptions);
-        return COMMIT_TYPES[typeName];
-    });
-}
-/** Prompts in the terminal for the commit message's scope. */
-function promptForCommitMessageScopeForType(type) {
-    return tslib.__awaiter(this, void 0, void 0, function* () {
-        // If the commit type's scope requirement is forbidden, return early.
-        if (type.scope === ScopeRequirement.Forbidden) {
-            info(`Skipping scope selection as the '${type.name}' type does not allow scopes`);
-            return false;
-        }
-        /** Commit message configuration */
-        const config = getCommitMessageConfig();
-        info('The area of the repository the changes in this commit most affects.');
-        return yield promptAutocomplete('Select a scope for the commit:', config.commitMessage.scopes, type.scope === ScopeRequirement.Optional ? '<no scope>' : '');
-    });
-}
-/** Prompts in the terminal for the commit message's summary. */
-function promptForCommitMessageSummary() {
-    return tslib.__awaiter(this, void 0, void 0, function* () {
-        info('Provide a short summary of what the changes in the commit do');
-        return yield promptInput('Provide a short summary of the commit');
-    });
-}
-
-/** The default commit message used if the wizard does not procude a commit message. */
-const defaultCommitMessage = `<type>(<scope>): <summary>
-
-# <Describe the motivation behind this change - explain WHY you are making this change. Wrap all
-#  lines at 100 characters.>\n\n`;
-function runWizard(args) {
-    var _a;
-    return tslib.__awaiter(this, void 0, void 0, function* () {
-        if ((_a = getUserConfig().commitMessage) === null || _a === void 0 ? void 0 : _a.disableWizard) {
-            debug('Skipping commit message wizard due to enabled `commitMessage.disableWizard` option in');
-            debug('user config.');
-            process.exitCode = 0;
-            return;
-        }
-        if (args.source !== undefined) {
-            info(`Skipping commit message wizard because the commit was created via '${args.source}' source`);
-            process.exitCode = 0;
-            return;
-        }
-        // Set the default commit message to be updated if the user cancels out of the wizard in progress
-        fs.writeFileSync(args.filePath, defaultCommitMessage);
-        /** The generated commit message. */
-        const commitMessage = yield buildCommitMessage();
-        fs.writeFileSync(args.filePath, commitMessage);
-    });
-}
-
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-/** Builds the command. */
-function builder$4(yargs) {
-    return yargs
-        .positional('filePath', {
-        description: 'The file path to write the generated commit message into',
-        type: 'string',
-        demandOption: true,
-    })
-        .positional('source', {
-        choices: ['message', 'template', 'merge', 'squash', 'commit'],
-        description: 'The source of the commit message as described here: ' +
-            'https://git-scm.com/docs/githooks#_prepare_commit_msg'
-    })
-        .positional('commitSha', {
-        description: 'The commit sha if source is set to `commit`',
-        type: 'string',
-    });
-}
-/** Handles the command. */
-function handler$4(args) {
-    return tslib.__awaiter(this, void 0, void 0, function* () {
-        yield runWizard(args);
-    });
-}
-/** yargs command module describing the command.  */
-const WizardModule = {
-    handler: handler$4,
-    builder: builder$4,
-    command: 'wizard <filePath> [source] [commitSha]',
-    // Description: Run the wizard to build a base commit message before opening to complete.
-    // No describe is defiend to hide the command from the --help.
-    describe: false,
-};
-
 /** Build the parser for the commit-message commands. */
 function buildCommitMessageParser(localYargs) {
     return localYargs.help()
         .strict()
         .command(RestoreCommitMessageModule)
-        .command(WizardModule)
         .command(ValidateFileModule)
         .command(ValidateRangeModule);
 }
@@ -2250,7 +2142,7 @@ function allChangedFilesSince(sha) {
     var diffFiles = gitOutputAsArray("git diff --name-only --diff-filter=d " + sha);
     var untrackedFiles = gitOutputAsArray("git ls-files --others --exclude-standard");
     // Use a set to deduplicate the list as its possible for a file to show up in both lists.
-    return Array.from(new Set(tslib.__spread(diffFiles, untrackedFiles)));
+    return Array.from(new Set(tslib.__spreadArray(tslib.__spreadArray([], tslib.__read(diffFiles)), tslib.__read(untrackedFiles))));
 }
 /**
  * A list of all staged files which have been modified.
@@ -2387,7 +2279,7 @@ class Buildifier extends Formatter {
             check: {
                 commandFlags: `${BAZEL_WARNING_FLAG} --lint=warn --mode=check --format=json`,
                 callback: (_, code, stdout) => {
-                    return code !== 0 || !JSON.parse(stdout)['success'];
+                    return code !== 0 || !JSON.parse(stdout).success;
                 },
             },
             format: {
@@ -2782,21 +2674,21 @@ var InvalidTargetLabelError = /** @class */ (function () {
 /** Gets the target label from the specified pull request labels. */
 function getTargetLabelFromPullRequest(config, labels) {
     var e_1, _a;
+    /** List of discovered target labels for the PR. */
+    var matches = [];
     var _loop_1 = function (label) {
         var match = config.labels.find(function (_a) {
             var pattern = _a.pattern;
             return matchesPattern(label, pattern);
         });
         if (match !== undefined) {
-            return { value: match };
+            matches.push(match);
         }
     };
     try {
         for (var labels_1 = tslib.__values(labels), labels_1_1 = labels_1.next(); !labels_1_1.done; labels_1_1 = labels_1.next()) {
             var label = labels_1_1.value;
-            var state_1 = _loop_1(label);
-            if (typeof state_1 === "object")
-                return state_1.value;
+            _loop_1(label);
         }
     }
     catch (e_1_1) { e_1 = { error: e_1_1 }; }
@@ -2806,7 +2698,13 @@ function getTargetLabelFromPullRequest(config, labels) {
         }
         finally { if (e_1) throw e_1.error; }
     }
-    return null;
+    if (matches.length === 1) {
+        return matches[0];
+    }
+    if (matches.length === 0) {
+        throw new InvalidTargetLabelError('Unable to determine target for the PR as it has no target label.');
+    }
+    throw new InvalidTargetLabelError('Unable to determine target for the PR as it has multiple target labels.');
 }
 /**
  * Gets the branches from the specified target label.
@@ -2842,7 +2740,7 @@ function getBranchesFromTargetLabel(label, githubTargetBranch) {
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-function checkTargetBranchesForPr(prNumber, jsonOutput = false) {
+function getTargetBranchesForPr(prNumber) {
     return tslib.__awaiter(this, void 0, void 0, function* () {
         /** The ng-dev configuration. */
         const config = getConfig();
@@ -2862,17 +2760,26 @@ function checkTargetBranchesForPr(prNumber, jsonOutput = false) {
         /** The branch targetted via the Github UI. */
         const githubTargetBranch = prData.base.ref;
         /** The active label which is being used for targetting the PR. */
-        const targetLabel = getTargetLabelFromPullRequest(mergeConfig, labels);
-        if (targetLabel === null) {
-            error(red(`No target label was found on pr #${prNumber}`));
-            process.exitCode = 1;
-            return;
+        let targetLabel;
+        try {
+            targetLabel = getTargetLabelFromPullRequest(mergeConfig, labels);
+        }
+        catch (e) {
+            if (e instanceof InvalidTargetLabelError) {
+                error(red(e.failureMessage));
+                process.exitCode = 1;
+                return;
+            }
+            throw e;
         }
         /** The target branches based on the target label and branch targetted in the Github UI. */
-        const targets = yield getBranchesFromTargetLabel(targetLabel, githubTargetBranch);
-        // When requested, print a json output to stdout, rather than using standard ng-dev logging.
-        if (jsonOutput) {
-            process.stdout.write(JSON.stringify(targets));
+        return yield getBranchesFromTargetLabel(targetLabel, githubTargetBranch);
+    });
+}
+function printTargetBranchesForPr(prNumber) {
+    return tslib.__awaiter(this, void 0, void 0, function* () {
+        const targets = yield getTargetBranchesForPr(prNumber);
+        if (targets === undefined) {
             return;
         }
         info.group(`PR #${prNumber} will merge into:`);
@@ -2889,29 +2796,23 @@ function checkTargetBranchesForPr(prNumber, jsonOutput = false) {
  * found in the LICENSE file at https://angular.io/license
  */
 /** Builds the command. */
-function builder$5(yargs) {
-    return yargs
-        .positional('pr', {
+function builder$4(yargs) {
+    return yargs.positional('pr', {
         description: 'The pull request number',
         type: 'number',
         demandOption: true,
-    })
-        .option('json', {
-        type: 'boolean',
-        default: false,
-        description: 'Print response as json',
     });
 }
 /** Handles the command. */
-function handler$5({ pr, json }) {
+function handler$4({ pr }) {
     return tslib.__awaiter(this, void 0, void 0, function* () {
-        yield checkTargetBranchesForPr(pr, json);
+        yield printTargetBranchesForPr(pr);
     });
 }
 /** yargs command module describing the command.  */
 const CheckTargetBranchesModule = {
-    handler: handler$5,
-    builder: builder$5,
+    handler: handler$4,
+    builder: builder$4,
     command: 'check-target-branches <pr>',
     describe: 'Check a PR to determine what branches it is currently targeting',
 };
@@ -2934,7 +2835,7 @@ function getPr(prSchema, prNumber, git) {
                     PR_QUERY = typedGraphqlify.params({
                         $number: 'Int!',
                         $owner: 'String!',
-                        $name: 'String!',
+                        $name: 'String!', // The organization to query for
                     }, {
                         repository: typedGraphqlify.params({ owner: '$owner', name: '$name' }, {
                             pullRequest: typedGraphqlify.params({ number: '$number' }, prSchema),
@@ -2960,7 +2861,7 @@ function getPendingPrs(prSchema, git) {
                         $first: 'Int',
                         $after: 'String',
                         $owner: 'String!',
-                        $name: 'String!',
+                        $name: 'String!', // The repository to query for
                     }, {
                         repository: typedGraphqlify.params({ owner: '$owner', name: '$name' }, {
                             pullRequests: typedGraphqlify.params({
@@ -2990,7 +2891,7 @@ function getPendingPrs(prSchema, git) {
                     return [4 /*yield*/, git.github.graphql.query(PRS_QUERY, params_1)];
                 case 2:
                     results = _b.sent();
-                    prs.push.apply(prs, tslib.__spread(results.repository.pullRequests.nodes));
+                    prs.push.apply(prs, tslib.__spreadArray([], tslib.__read(results.repository.pullRequests.nodes)));
                     hasNextPage = results.repository.pullRequests.pageInfo.hasNextPage;
                     cursor = results.repository.pullRequests.pageInfo.endCursor;
                     return [3 /*break*/, 1];
@@ -3116,11 +3017,11 @@ function checkOutPullRequestLocally(prNumber, githubToken, opts = {}) {
  * found in the LICENSE file at https://angular.io/license
  */
 /** Builds the checkout pull request command. */
-function builder$6(yargs) {
+function builder$5(yargs) {
     return addGithubTokenOption(yargs).positional('prNumber', { type: 'number', demandOption: true });
 }
 /** Handles the checkout pull request command. */
-function handler$6({ prNumber, githubToken }) {
+function handler$5({ prNumber, githubToken }) {
     return tslib.__awaiter(this, void 0, void 0, function* () {
         const prCheckoutOptions = { allowIfMaintainerCannotModify: true, branchName: `pr-${prNumber}` };
         yield checkOutPullRequestLocally(prNumber, githubToken, prCheckoutOptions);
@@ -3128,8 +3029,8 @@ function handler$6({ prNumber, githubToken }) {
 }
 /** yargs command module for checking out a PR  */
 const CheckoutCommandModule = {
-    handler: handler$6,
-    builder: builder$6,
+    handler: handler$5,
+    builder: builder$5,
     command: 'checkout <pr-number>',
     describe: 'Checkout a PR from the upstream repo',
 };
@@ -3336,9 +3237,6 @@ var PullRequestFailure = /** @class */ (function () {
     PullRequestFailure.notMergeReady = function () {
         return new this("Not marked as merge ready.");
     };
-    PullRequestFailure.noTargetLabel = function () {
-        return new this("No target branch could be determined. Please ensure a target label is set.");
-    };
     PullRequestFailure.mismatchingTargetBranch = function (allowedBranches) {
         return new this("Pull request is set to wrong base branch. Please update the PR in the Github UI " +
             ("to one of the following branches: " + allowedBranches.join(', ') + "."));
@@ -3416,9 +3314,14 @@ function loadAndValidatePullRequest(_a, prNumber, ignoreNonFatalFailures) {
                     if (!labels.some(function (name) { return matchesPattern(name, config.claSignedLabel); })) {
                         return [2 /*return*/, PullRequestFailure.claUnsigned()];
                     }
-                    targetLabel = getTargetLabelFromPullRequest(config, labels);
-                    if (targetLabel === null) {
-                        return [2 /*return*/, PullRequestFailure.noTargetLabel()];
+                    try {
+                        targetLabel = getTargetLabelFromPullRequest(config, labels);
+                    }
+                    catch (error) {
+                        if (error instanceof InvalidTargetLabelError) {
+                            return [2 /*return*/, new PullRequestFailure(error.failureMessage)];
+                        }
+                        throw error;
                     }
                     return [4 /*yield*/, git.github.repos.getCombinedStatusForRef(tslib.__assign(tslib.__assign({}, git.remoteParams), { ref: prData.head.sha }))];
                 case 2:
@@ -3583,7 +3486,7 @@ var MergeStrategy = /** @class */ (function () {
                 // Checkout the local target branch.
                 this.git.run(['checkout', localTargetBranch]);
                 // Cherry-pick the refspec into the target branch.
-                if (this.git.runGraceful(tslib.__spread(['cherry-pick'], cherryPickArgs)).status !== 0) {
+                if (this.git.runGraceful(tslib.__spreadArray(['cherry-pick'], tslib.__read(cherryPickArgs))).status !== 0) {
                     // Abort the failed cherry-pick. We do this because Git persists the failed
                     // cherry-pick state globally in the repository. This could prevent future
                     // pull request merges as a Git thinks a cherry-pick is still in progress.
@@ -3622,7 +3525,7 @@ var MergeStrategy = /** @class */ (function () {
         });
         // Fetch all target branches with a single command. We don't want to fetch them
         // individually as that could cause an unnecessary slow-down.
-        this.git.run(tslib.__spread(['fetch', '-q', '-f', this.git.repoGitUrl], fetchRefspecs, extraRefspecs));
+        this.git.run(tslib.__spreadArray(tslib.__spreadArray(['fetch', '-q', '-f', this.git.repoGitUrl], tslib.__read(fetchRefspecs)), tslib.__read(extraRefspecs)));
     };
     /** Pushes the given target branches upstream. */
     MergeStrategy.prototype.pushTargetBranchesUpstream = function (names) {
@@ -3633,7 +3536,7 @@ var MergeStrategy = /** @class */ (function () {
         });
         // Push all target branches with a single command if we don't run in dry-run mode.
         // We don't want to push them individually as that could cause an unnecessary slow-down.
-        this.git.run(tslib.__spread(['push', this.git.repoGitUrl], pushRefspecs));
+        this.git.run(tslib.__spreadArray(['push', this.git.repoGitUrl], tslib.__read(pushRefspecs)));
     };
     return MergeStrategy;
 }());
@@ -3900,35 +3803,52 @@ var AutosquashMergeStrategy = /** @class */ (function (_super) {
      */
     AutosquashMergeStrategy.prototype.merge = function (pullRequest) {
         return tslib.__awaiter(this, void 0, void 0, function () {
-            var prNumber, targetBranches, requiredBaseSha, needsCommitMessageFixup, baseSha, revisionRange, branchOrRevisionBeforeRebase, rebaseEnv, failedBranches;
+            var prNumber, targetBranches, requiredBaseSha, needsCommitMessageFixup, githubTargetBranch, baseSha, revisionRange, branchOrRevisionBeforeRebase, rebaseEnv, failedBranches, localBranch, sha;
             return tslib.__generator(this, function (_a) {
-                prNumber = pullRequest.prNumber, targetBranches = pullRequest.targetBranches, requiredBaseSha = pullRequest.requiredBaseSha, needsCommitMessageFixup = pullRequest.needsCommitMessageFixup;
-                // In case a required base is specified for this pull request, check if the pull
-                // request contains the given commit. If not, return a pull request failure. This
-                // check is useful for enforcing that PRs are rebased on top of a given commit. e.g.
-                // a commit that changes the codeowner ship validation. PRs which are not rebased
-                // could bypass new codeowner ship rules.
-                if (requiredBaseSha && !this.git.hasCommit(TEMP_PR_HEAD_BRANCH, requiredBaseSha)) {
-                    return [2 /*return*/, PullRequestFailure.unsatisfiedBaseSha()];
+                switch (_a.label) {
+                    case 0:
+                        prNumber = pullRequest.prNumber, targetBranches = pullRequest.targetBranches, requiredBaseSha = pullRequest.requiredBaseSha, needsCommitMessageFixup = pullRequest.needsCommitMessageFixup, githubTargetBranch = pullRequest.githubTargetBranch;
+                        // In case a required base is specified for this pull request, check if the pull
+                        // request contains the given commit. If not, return a pull request failure. This
+                        // check is useful for enforcing that PRs are rebased on top of a given commit. e.g.
+                        // a commit that changes the codeowner ship validation. PRs which are not rebased
+                        // could bypass new codeowner ship rules.
+                        if (requiredBaseSha && !this.git.hasCommit(TEMP_PR_HEAD_BRANCH, requiredBaseSha)) {
+                            return [2 /*return*/, PullRequestFailure.unsatisfiedBaseSha()];
+                        }
+                        baseSha = this.git.run(['rev-parse', this.getPullRequestBaseRevision(pullRequest)]).stdout.trim();
+                        revisionRange = baseSha + ".." + TEMP_PR_HEAD_BRANCH;
+                        branchOrRevisionBeforeRebase = this.git.getCurrentBranchOrRevision();
+                        rebaseEnv = needsCommitMessageFixup ? undefined : tslib.__assign(tslib.__assign({}, process.env), { GIT_SEQUENCE_EDITOR: 'true' });
+                        this.git.run(['rebase', '--interactive', '--autosquash', baseSha, TEMP_PR_HEAD_BRANCH], { stdio: 'inherit', env: rebaseEnv });
+                        // Update pull requests commits to reference the pull request. This matches what
+                        // Github does when pull requests are merged through the Web UI. The motivation is
+                        // that it should be easy to determine which pull request contained a given commit.
+                        // Note: The filter-branch command relies on the working tree, so we want to make sure
+                        // that we are on the initial branch or revision where the merge script has been invoked.
+                        this.git.run(['checkout', '-f', branchOrRevisionBeforeRebase]);
+                        this.git.run(['filter-branch', '-f', '--msg-filter', MSG_FILTER_SCRIPT + " " + prNumber, revisionRange]);
+                        failedBranches = this.cherryPickIntoTargetBranches(revisionRange, targetBranches);
+                        if (failedBranches.length) {
+                            return [2 /*return*/, PullRequestFailure.mergeConflicts(failedBranches)];
+                        }
+                        this.pushTargetBranchesUpstream(targetBranches);
+                        if (!(githubTargetBranch !== 'master')) return [3 /*break*/, 3];
+                        localBranch = this.getLocalTargetBranchName(githubTargetBranch);
+                        sha = this.git.run(['rev-parse', localBranch]).stdout.trim();
+                        // Create a comment saying the PR was closed by the SHA.
+                        return [4 /*yield*/, this.git.github.issues.createComment(tslib.__assign(tslib.__assign({}, this.git.remoteParams), { issue_number: pullRequest.prNumber, body: "Closed by commit " + sha }))];
+                    case 1:
+                        // Create a comment saying the PR was closed by the SHA.
+                        _a.sent();
+                        // Actually close the PR.
+                        return [4 /*yield*/, this.git.github.pulls.update(tslib.__assign(tslib.__assign({}, this.git.remoteParams), { pull_number: pullRequest.prNumber, state: 'closed' }))];
+                    case 2:
+                        // Actually close the PR.
+                        _a.sent();
+                        _a.label = 3;
+                    case 3: return [2 /*return*/, null];
                 }
-                baseSha = this.git.run(['rev-parse', this.getPullRequestBaseRevision(pullRequest)]).stdout.trim();
-                revisionRange = baseSha + ".." + TEMP_PR_HEAD_BRANCH;
-                branchOrRevisionBeforeRebase = this.git.getCurrentBranchOrRevision();
-                rebaseEnv = needsCommitMessageFixup ? undefined : tslib.__assign(tslib.__assign({}, process.env), { GIT_SEQUENCE_EDITOR: 'true' });
-                this.git.run(['rebase', '--interactive', '--autosquash', baseSha, TEMP_PR_HEAD_BRANCH], { stdio: 'inherit', env: rebaseEnv });
-                // Update pull requests commits to reference the pull request. This matches what
-                // Github does when pull requests are merged through the Web UI. The motivation is
-                // that it should be easy to determine which pull request contained a given commit.
-                // Note: The filter-branch command relies on the working tree, so we want to make sure
-                // that we are on the initial branch or revision where the merge script has been invoked.
-                this.git.run(['checkout', '-f', branchOrRevisionBeforeRebase]);
-                this.git.run(['filter-branch', '-f', '--msg-filter', MSG_FILTER_SCRIPT + " " + prNumber, revisionRange]);
-                failedBranches = this.cherryPickIntoTargetBranches(revisionRange, targetBranches);
-                if (failedBranches.length) {
-                    return [2 /*return*/, PullRequestFailure.mergeConflicts(failedBranches)];
-                }
-                this.pushTargetBranchesUpstream(targetBranches);
-                return [2 /*return*/, null];
             });
         });
     };
@@ -3942,15 +3862,20 @@ var AutosquashMergeStrategy = /** @class */ (function (_super) {
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
+var defaultPullRequestMergeTaskFlags = {
+    branchPrompt: true,
+};
 /**
  * Class that accepts a merge script configuration and Github token. It provides
  * a programmatic interface for merging multiple pull requests based on their
  * labels that have been resolved through the merge script configuration.
  */
 var PullRequestMergeTask = /** @class */ (function () {
-    function PullRequestMergeTask(config, git) {
+    function PullRequestMergeTask(config, git, flags) {
         this.config = config;
         this.git = git;
+        // Update flags property with the provided flags values as patches to the default flag values.
+        this.flags = tslib.__assign(tslib.__assign({}, defaultPullRequestMergeTaskFlags), flags);
     }
     /**
      * Merges the given pull request and pushes it upstream.
@@ -3960,10 +3885,10 @@ var PullRequestMergeTask = /** @class */ (function () {
     PullRequestMergeTask.prototype.merge = function (prNumber, force) {
         if (force === void 0) { force = false; }
         return tslib.__awaiter(this, void 0, void 0, function () {
-            var hasOauthScopes, pullRequest, _a, strategy, previousBranchOrRevision, failure, e_1;
+            var hasOauthScopes, pullRequest, _a, _b, strategy, previousBranchOrRevision, failure, e_1;
             var _this = this;
-            return tslib.__generator(this, function (_b) {
-                switch (_b.label) {
+            return tslib.__generator(this, function (_c) {
+                switch (_c.label) {
                     case 0: return [4 /*yield*/, this.git.hasOauthScopes(function (scopes, missing) {
                             if (!scopes.includes('repo')) {
                                 if (_this.config.remote.private) {
@@ -3975,7 +3900,7 @@ var PullRequestMergeTask = /** @class */ (function () {
                             }
                         })];
                     case 1:
-                        hasOauthScopes = _b.sent();
+                        hasOauthScopes = _c.sent();
                         if (hasOauthScopes !== true) {
                             return [2 /*return*/, {
                                     status: 5 /* GITHUB_ERROR */,
@@ -3987,43 +3912,48 @@ var PullRequestMergeTask = /** @class */ (function () {
                         }
                         return [4 /*yield*/, loadAndValidatePullRequest(this, prNumber, force)];
                     case 2:
-                        pullRequest = _b.sent();
+                        pullRequest = _c.sent();
                         if (!isPullRequest(pullRequest)) {
                             return [2 /*return*/, { status: 3 /* FAILED */, failure: pullRequest }];
                         }
+                        _a = this.flags.branchPrompt;
+                        if (!_a) return [3 /*break*/, 4];
                         return [4 /*yield*/, promptConfirm(getTargettedBranchesConfirmationPromptMessage(pullRequest))];
                     case 3:
-                        if (!(_b.sent())) {
+                        _a = !(_c.sent());
+                        _c.label = 4;
+                    case 4:
+                        if (_a) {
                             return [2 /*return*/, { status: 4 /* USER_ABORTED */ }];
                         }
-                        _a = pullRequest.hasCaretakerNote;
-                        if (!_a) return [3 /*break*/, 5];
+                        _b = pullRequest.hasCaretakerNote;
+                        if (!_b) return [3 /*break*/, 6];
                         return [4 /*yield*/, promptConfirm(getCaretakerNotePromptMessage(pullRequest))];
-                    case 4:
-                        _a = !(_b.sent());
-                        _b.label = 5;
                     case 5:
+                        _b = !(_c.sent());
+                        _c.label = 6;
+                    case 6:
                         // If the pull request has a caretaker note applied, raise awareness by prompting
                         // the caretaker. The caretaker can then decide to proceed or abort the merge.
-                        if (_a) {
+                        if (_b) {
                             return [2 /*return*/, { status: 4 /* USER_ABORTED */ }];
                         }
                         strategy = this.config.githubApiMerge ?
                             new GithubApiMergeStrategy(this.git, this.config.githubApiMerge) :
                             new AutosquashMergeStrategy(this.git);
                         previousBranchOrRevision = null;
-                        _b.label = 6;
-                    case 6:
-                        _b.trys.push([6, 10, 11, 12]);
+                        _c.label = 7;
+                    case 7:
+                        _c.trys.push([7, 11, 12, 13]);
                         previousBranchOrRevision = this.git.getCurrentBranchOrRevision();
                         // Run preparations for the merge (e.g. fetching branches).
                         return [4 /*yield*/, strategy.prepare(pullRequest)];
-                    case 7:
-                        // Run preparations for the merge (e.g. fetching branches).
-                        _b.sent();
-                        return [4 /*yield*/, strategy.merge(pullRequest)];
                     case 8:
-                        failure = _b.sent();
+                        // Run preparations for the merge (e.g. fetching branches).
+                        _c.sent();
+                        return [4 /*yield*/, strategy.merge(pullRequest)];
+                    case 9:
+                        failure = _c.sent();
                         if (failure !== null) {
                             return [2 /*return*/, { status: 3 /* FAILED */, failure: failure }];
                         }
@@ -4031,26 +3961,26 @@ var PullRequestMergeTask = /** @class */ (function () {
                         // branches because we cannot delete branches which are currently checked out.
                         this.git.run(['checkout', '-f', previousBranchOrRevision]);
                         return [4 /*yield*/, strategy.cleanup(pullRequest)];
-                    case 9:
-                        _b.sent();
+                    case 10:
+                        _c.sent();
                         // Return a successful merge status.
                         return [2 /*return*/, { status: 2 /* SUCCESS */ }];
-                    case 10:
-                        e_1 = _b.sent();
+                    case 11:
+                        e_1 = _c.sent();
                         // Catch all git command errors and return a merge result w/ git error status code.
                         // Other unknown errors which aren't caused by a git command are re-thrown.
                         if (e_1 instanceof GitCommandError) {
                             return [2 /*return*/, { status: 0 /* UNKNOWN_GIT_ERROR */ }];
                         }
                         throw e_1;
-                    case 11:
+                    case 12:
                         // Always try to restore the branch if possible. We don't want to leave
                         // the repository in a different state than before.
                         if (previousBranchOrRevision !== null) {
                             this.git.runGraceful(['checkout', '-f', previousBranchOrRevision]);
                         }
                         return [7 /*endfinally*/];
-                    case 12: return [2 /*return*/];
+                    case 13: return [2 /*return*/];
                 }
             });
         });
@@ -4078,8 +4008,7 @@ var PullRequestMergeTask = /** @class */ (function () {
  * @param projectRoot Path to the local Git project that is used for merging.
  * @param config Configuration for merging pull requests.
  */
-function mergePullRequest(prNumber, githubToken, projectRoot, config) {
-    if (projectRoot === void 0) { projectRoot = getRepoBaseDir(); }
+function mergePullRequest(prNumber, githubToken, flags) {
     return tslib.__awaiter(this, void 0, void 0, function () {
         /** Performs the merge and returns whether it was successful or not. */
         function performMerge(ignoreFatalErrors) {
@@ -4194,8 +4123,8 @@ function mergePullRequest(prNumber, githubToken, projectRoot, config) {
                 case 0:
                     // Set the environment variable to skip all git commit hooks triggered by husky. We are unable to
                     // rely on `--no-verify` as some hooks still run, notably the `prepare-commit-msg` hook.
-                    process.env['HUSKY_SKIP_HOOKS'] = '1';
-                    return [4 /*yield*/, createPullRequestMergeTask(githubToken, projectRoot, config)];
+                    process.env['HUSKY'] = '0';
+                    return [4 /*yield*/, createPullRequestMergeTask(githubToken, flags)];
                 case 1:
                     api = _a.sent();
                     return [4 /*yield*/, performMerge(false)];
@@ -4216,16 +4145,13 @@ function mergePullRequest(prNumber, githubToken, projectRoot, config) {
  * and optional explicit configuration. An explicit configuration can be specified
  * when the merge script is used outside of a `ng-dev` configured repository.
  */
-function createPullRequestMergeTask(githubToken, projectRoot, explicitConfig) {
+function createPullRequestMergeTask(githubToken, flags) {
     return tslib.__awaiter(this, void 0, void 0, function () {
-        var git_1, devInfraConfig, git, _a, config, errors;
+        var projectRoot, devInfraConfig, git, _a, config, errors;
         return tslib.__generator(this, function (_b) {
             switch (_b.label) {
                 case 0:
-                    if (explicitConfig !== undefined) {
-                        git_1 = new GitClient(githubToken, { github: explicitConfig.remote }, projectRoot);
-                        return [2 /*return*/, new PullRequestMergeTask(explicitConfig, git_1)];
-                    }
+                    projectRoot = getRepoBaseDir();
                     devInfraConfig = getConfig();
                     git = new GitClient(githubToken, devInfraConfig, projectRoot);
                     return [4 /*yield*/, loadAndValidateConfig(devInfraConfig, git.github)];
@@ -4241,7 +4167,7 @@ function createPullRequestMergeTask(githubToken, projectRoot, explicitConfig) {
                     config.remote = devInfraConfig.github;
                     // We can cast this to a merge config with remote because we always set the
                     // remote above.
-                    return [2 /*return*/, new PullRequestMergeTask(config, git)];
+                    return [2 /*return*/, new PullRequestMergeTask(config, git, flags)];
             }
         });
     });
@@ -4254,17 +4180,29 @@ function createPullRequestMergeTask(githubToken, projectRoot, explicitConfig) {
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-/** Builds the options for the merge command. */
-function buildMergeCommand(yargs) {
-    return addGithubTokenOption(yargs).help().strict().positional('pr-number', { demandOption: true, type: 'number' });
+/** Builds the command. */
+function builder$6(yargs) {
+    return addGithubTokenOption(yargs)
+        .help()
+        .strict()
+        .positional('pr', {
+        demandOption: true,
+        type: 'number',
+        description: 'The PR to be merged.',
+    })
+        .option('branch-prompt', {
+        type: 'boolean',
+        default: true,
+        description: 'Whether to prompt to confirm the branches a PR will merge into.',
+    });
 }
-/** Handles the merge command. i.e. performs the merge of a specified pull request. */
-function handleMergeCommand(_a) {
-    var pr = _a["pr-number"], githubToken = _a.githubToken;
+/** Handles the command. */
+function handler$6(_a) {
+    var pr = _a.pr, githubToken = _a.githubToken, branchPrompt = _a.branchPrompt;
     return tslib.__awaiter(this, void 0, void 0, function () {
         return tslib.__generator(this, function (_b) {
             switch (_b.label) {
-                case 0: return [4 /*yield*/, mergePullRequest(pr, githubToken)];
+                case 0: return [4 /*yield*/, mergePullRequest(pr, githubToken, { branchPrompt: branchPrompt })];
                 case 1:
                     _b.sent();
                     return [2 /*return*/];
@@ -4272,6 +4210,13 @@ function handleMergeCommand(_a) {
         });
     });
 }
+/** yargs command module describing the command.  */
+var MergeCommandModule = {
+    handler: handler$6,
+    builder: builder$6,
+    command: 'merge <pr>',
+    describe: 'Merge a PR into its targeted branches.',
+};
 
 /**
  * @license
@@ -4431,9 +4376,9 @@ function buildPrParser(localYargs) {
     return localYargs.help()
         .strict()
         .demandCommand()
-        .command('merge <pr-number>', 'Merge pull requests', buildMergeCommand, handleMergeCommand)
         .command('discover-new-conflicts <pr-number>', 'Check if a pending PR causes new conflicts for other pending PRs', buildDiscoverNewConflictsCommand, handleDiscoverNewConflictsCommand)
         .command('rebase <pr-number>', 'Rebase a pending PR and push the rebased commits back to Github', buildRebaseCommand, handleRebaseCommand)
+        .command(MergeCommandModule)
         .command(CheckoutCommandModule)
         .command(CheckTargetBranchesModule);
 }
@@ -4959,6 +4904,159 @@ const ReleaseBuildCommandModule = {
  * found in the LICENSE file at https://angular.io/license
  */
 /**
+ * Spawns a given command with the specified arguments inside a shell. All process stdout
+ * output is captured and returned as resolution on completion. Depending on the chosen
+ * output mode, stdout/stderr output is also printed to the console, or only on error.
+ *
+ * @returns a Promise resolving with captured stdout on success. The promise
+ *   rejects on command failure.
+ */
+function spawnWithDebugOutput(command, args, options) {
+    if (options === void 0) { options = {}; }
+    return new Promise(function (resolve, reject) {
+        var commandText = command + " " + args.join(' ');
+        var outputMode = options.mode;
+        debug("Executing command: " + commandText);
+        var childProcess = child_process.spawn(command, args, tslib.__assign(tslib.__assign({}, options), { shell: true, stdio: ['inherit', 'pipe', 'pipe'] }));
+        var logOutput = '';
+        var stdout = '';
+        // Capture the stdout separately so that it can be passed as resolve value.
+        // This is useful if commands return parsable stdout.
+        childProcess.stderr.on('data', function (message) {
+            logOutput += message;
+            // If console output is enabled, print the message directly to the stderr. Note that
+            // we intentionally print all output to stderr as stdout should not be polluted.
+            if (outputMode === undefined || outputMode === 'enabled') {
+                process.stderr.write(message);
+            }
+        });
+        childProcess.stdout.on('data', function (message) {
+            stdout += message;
+            logOutput += message;
+            // If console output is enabled, print the message directly to the stderr. Note that
+            // we intentionally print all output to stderr as stdout should not be polluted.
+            if (outputMode === undefined || outputMode === 'enabled') {
+                process.stderr.write(message);
+            }
+        });
+        childProcess.on('exit', function (status, signal) {
+            var exitDescription = status !== null ? "exit code \"" + status + "\"" : "signal \"" + signal + "\"";
+            var printFn = outputMode === 'on-error' ? error : debug;
+            printFn("Command \"" + commandText + "\" completed with " + exitDescription + ".");
+            printFn("Process output: \n" + logOutput);
+            // On success, resolve the promise. Otherwise reject with the captured stderr
+            // and stdout log output if the output mode was set to `silent`.
+            if (status === 0) {
+                resolve({ stdout: stdout });
+            }
+            else {
+                reject(outputMode === 'silent' ? logOutput : undefined);
+            }
+        });
+    });
+}
+
+/**
+ * @license
+ * Copyright Google LLC All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+/**
+ * Runs NPM publish within a specified package directory.
+ * @throws With the process log output if the publish failed.
+ */
+function runNpmPublish(packagePath, distTag, registryUrl) {
+    return tslib.__awaiter(this, void 0, void 0, function* () {
+        const args = ['publish', '--access', 'public', '--tag', distTag];
+        // If a custom registry URL has been specified, add the `--registry` flag.
+        if (registryUrl !== undefined) {
+            args.push('--registry', registryUrl);
+        }
+        yield spawnWithDebugOutput('npm', args, { cwd: packagePath, mode: 'silent' });
+    });
+}
+/**
+ * Sets the NPM tag to the specified version for the given package.
+ * @throws With the process log output if the tagging failed.
+ */
+function setNpmTagForPackage(packageName, distTag, version, registryUrl) {
+    return tslib.__awaiter(this, void 0, void 0, function* () {
+        const args = ['dist-tag', 'add', `${packageName}@${version}`, distTag];
+        // If a custom registry URL has been specified, add the `--registry` flag.
+        if (registryUrl !== undefined) {
+            args.push('--registry', registryUrl);
+        }
+        yield spawnWithDebugOutput('npm', args, { mode: 'silent' });
+    });
+}
+/**
+ * Checks whether the user is currently logged into NPM.
+ * @returns Whether the user is currently logged into NPM.
+ */
+function npmIsLoggedIn(registryUrl) {
+    return tslib.__awaiter(this, void 0, void 0, function* () {
+        const args = ['whoami'];
+        // If a custom registry URL has been specified, add the `--registry` flag.
+        if (registryUrl !== undefined) {
+            args.push('--registry', registryUrl);
+        }
+        try {
+            yield spawnWithDebugOutput('npm', args, { mode: 'silent' });
+        }
+        catch (e) {
+            return false;
+        }
+        return true;
+    });
+}
+/**
+ * Log into NPM at a provided registry.
+ * @throws With the process log output if the login fails.
+ */
+function npmLogin(registryUrl) {
+    return tslib.__awaiter(this, void 0, void 0, function* () {
+        const args = ['login', '--no-browser'];
+        // If a custom registry URL has been specified, add the `--registry` flag. The `--registry` flag
+        // must be spliced into the correct place in the command as npm expects it to be the flag
+        // immediately following the login subcommand.
+        if (registryUrl !== undefined) {
+            args.splice(1, 0, '--registry', registryUrl);
+        }
+        yield spawnWithDebugOutput('npm', args);
+    });
+}
+/**
+ * Log out of NPM at a provided registry.
+ * @returns Whether the user was logged out of NPM.
+ */
+function npmLogout(registryUrl) {
+    return tslib.__awaiter(this, void 0, void 0, function* () {
+        const args = ['logout'];
+        // If a custom registry URL has been specified, add the `--registry` flag. The `--registry` flag
+        // must be spliced into the correct place in the command as npm expects it to be the flag
+        // immediately following the logout subcommand.
+        if (registryUrl !== undefined) {
+            args.splice(1, 0, '--registry', registryUrl);
+        }
+        try {
+            yield spawnWithDebugOutput('npm', args, { mode: 'silent' });
+        }
+        finally {
+            return npmIsLoggedIn(registryUrl);
+        }
+    });
+}
+
+/**
+ * @license
+ * Copyright Google LLC All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+/**
  * Prints the active release trains to the console.
  * @params active Active release trains that should be printed.
  * @params config Release configuration used for querying NPM on published versions.
@@ -5056,102 +5154,6 @@ class FatalReleaseActionError extends Error {
 function semverInc(version, release, identifier) {
     const clone = new semver.SemVer(version.version);
     return clone.inc(release, identifier);
-}
-
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-/**
- * Spawns a given command with the specified arguments inside a shell. All process stdout
- * output is captured and returned as resolution on completion. Depending on the chosen
- * output mode, stdout/stderr output is also printed to the console, or only on error.
- *
- * @returns a Promise resolving with captured stdout on success. The promise
- *   rejects on command failure.
- */
-function spawnWithDebugOutput(command, args, options) {
-    if (options === void 0) { options = {}; }
-    return new Promise(function (resolve, reject) {
-        var commandText = command + " " + args.join(' ');
-        var outputMode = options.mode;
-        debug("Executing command: " + commandText);
-        var childProcess = child_process.spawn(command, args, tslib.__assign(tslib.__assign({}, options), { shell: true, stdio: ['inherit', 'pipe', 'pipe'] }));
-        var logOutput = '';
-        var stdout = '';
-        // Capture the stdout separately so that it can be passed as resolve value.
-        // This is useful if commands return parsable stdout.
-        childProcess.stderr.on('data', function (message) {
-            logOutput += message;
-            // If console output is enabled, print the message directly to the stderr. Note that
-            // we intentionally print all output to stderr as stdout should not be polluted.
-            if (outputMode === undefined || outputMode === 'enabled') {
-                process.stderr.write(message);
-            }
-        });
-        childProcess.stdout.on('data', function (message) {
-            stdout += message;
-            logOutput += message;
-            // If console output is enabled, print the message directly to the stderr. Note that
-            // we intentionally print all output to stderr as stdout should not be polluted.
-            if (outputMode === undefined || outputMode === 'enabled') {
-                process.stderr.write(message);
-            }
-        });
-        childProcess.on('exit', function (status, signal) {
-            var exitDescription = status !== null ? "exit code \"" + status + "\"" : "signal \"" + signal + "\"";
-            var printFn = outputMode === 'on-error' ? error : debug;
-            printFn("Command \"" + commandText + "\" completed with " + exitDescription + ".");
-            printFn("Process output: \n" + logOutput);
-            // On success, resolve the promise. Otherwise reject with the captured stderr
-            // and stdout log output if the output mode was set to `silent`.
-            if (status === 0) {
-                resolve({ stdout: stdout });
-            }
-            else {
-                reject(outputMode === 'silent' ? logOutput : undefined);
-            }
-        });
-    });
-}
-
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-/**
- * Runs NPM publish within a specified package directory.
- * @throws With the process log output if the publish failed.
- */
-function runNpmPublish(packagePath, distTag, registryUrl) {
-    return tslib.__awaiter(this, void 0, void 0, function* () {
-        const args = ['publish', '--access', 'public', '--tag', distTag];
-        // If a custom registry URL has been specified, add the `--registry` flag.
-        if (registryUrl !== undefined) {
-            args.push('--registry', registryUrl);
-        }
-        yield spawnWithDebugOutput('npm', args, { cwd: packagePath, mode: 'silent' });
-    });
-}
-/**
- * Sets the NPM tag to the specified version for the given package.
- * @throws With the process log output if the tagging failed.
- */
-function setNpmTagForPackage(packageName, distTag, version, registryUrl) {
-    return tslib.__awaiter(this, void 0, void 0, function* () {
-        const args = ['dist-tag', 'add', `${packageName}@${version}`, distTag];
-        // If a custom registry URL has been specified, add the `--registry` flag.
-        if (registryUrl !== undefined) {
-            args.push('--registry', registryUrl);
-        }
-        yield spawnWithDebugOutput('npm', args, { mode: 'silent' });
-    });
 }
 
 /**
@@ -5278,6 +5280,25 @@ function invokeYarnInstallCommand(projectDir) {
         }
     });
 }
+/**
+ * Invokes the `yarn bazel clean` command in order to clean the output tree and ensure new artifacts
+ * are created for builds.
+ */
+function invokeBazelCleanCommand(projectDir) {
+    return tslib.__awaiter(this, void 0, void 0, function* () {
+        try {
+            // Note: No progress indicator needed as that is the responsibility of the command.
+            // TODO: Consider using an Ora spinner instead to ensure minimal console output.
+            yield spawnWithDebugOutput('yarn', ['bazel', 'clean'], { cwd: projectDir });
+            info(green('  ✓   Cleaned bazel output tree.'));
+        }
+        catch (e) {
+            error(e);
+            error(red('  ✘   An error occurred while cleaning the bazel output tree.'));
+            throw new FatalReleaseActionError();
+        }
+    });
+}
 
 /**
  * @license
@@ -5313,6 +5334,8 @@ const findOwnedForksOfRepoQuery = typedGraphqlify.params({
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
+/** Thirty seconds in milliseconds. */
+const THIRTY_SECONDS_IN_MS = 30000;
 /** Gets whether a given pull request has been merged. */
 function getPullRequestState(api, id) {
     return tslib.__awaiter(this, void 0, void 0, function* () {
@@ -5320,12 +5343,15 @@ function getPullRequestState(api, id) {
         if (data.merged) {
             return 'merged';
         }
-        else if (data.closed_at !== null) {
+        // Check if the PR was closed more than 30 seconds ago, this extra time gives Github time to
+        // update the closed pull request to be associated with the closing commit.
+        // Note: a Date constructed with `null` creates an object at 0 time, which will never be greater
+        // than the current date time.
+        if (data.closed_at !== null &&
+            (new Date(data.closed_at).getTime() < Date.now() - THIRTY_SECONDS_IN_MS)) {
             return (yield isPullRequestClosedWithAssociatedCommit(api, id)) ? 'merged' : 'closed';
         }
-        else {
-            return 'open';
-        }
+        return 'open';
     });
 }
 /**
@@ -5614,6 +5640,10 @@ class ReleaseAction {
             const { fork, branchName } = yield this._pushHeadToFork(proposedForkBranchName, true);
             const { data } = yield this.git.github.pulls.create(Object.assign(Object.assign({}, this.git.remoteParams), { head: `${fork.owner}:${branchName}`, base: targetBranch, body,
                 title }));
+            // Add labels to the newly created PR if provided in the configuration.
+            if (this.config.releasePrLabels !== undefined) {
+                yield this.git.github.issues.addLabels(Object.assign(Object.assign({}, this.git.remoteParams), { issue_number: data.number, labels: this.config.releasePrLabels }));
+            }
             info(green(`  ✓   Created pull request #${data.number} in ${repoSlug}.`));
             return {
                 id: data.number,
@@ -5762,11 +5792,13 @@ class ReleaseAction {
                 return false;
             }
             // Create a cherry-pick pull request that should be merged by the caretaker.
-            const { url } = yield this.pushChangesToForkAndCreatePullRequest(nextBranch, `changelog-cherry-pick-${newVersion}`, commitMessage, `Cherry-picks the changelog from the "${stagingBranch}" branch to the next ` +
+            const { url, id } = yield this.pushChangesToForkAndCreatePullRequest(nextBranch, `changelog-cherry-pick-${newVersion}`, commitMessage, `Cherry-picks the changelog from the "${stagingBranch}" branch to the next ` +
                 `branch (${nextBranch}).`);
             info(green(`  ✓   Pull request for cherry-picking the changelog into "${nextBranch}" ` +
                 'has been created.'));
             info(yellow(`      Please ask team members to review: ${url}.`));
+            // Wait for the Pull Request to be merged.
+            yield this.waitForPullRequestToBeMerged(id);
             return true;
         });
     }
@@ -5774,12 +5806,12 @@ class ReleaseAction {
      * Creates a Github release for the specified version in the configured project.
      * The release is created by tagging the specified commit SHA.
      */
-    _createGithubReleaseForVersion(newVersion, versionBumpCommitSha) {
+    _createGithubReleaseForVersion(newVersion, versionBumpCommitSha, prerelease) {
         return tslib.__awaiter(this, void 0, void 0, function* () {
             const tagName = newVersion.format();
             yield this.git.github.git.createRef(Object.assign(Object.assign({}, this.git.remoteParams), { ref: `refs/tags/${tagName}`, sha: versionBumpCommitSha }));
             info(green(`  ✓   Tagged v${newVersion} release upstream.`));
-            yield this.git.github.repos.createRelease(Object.assign(Object.assign({}, this.git.remoteParams), { name: `v${newVersion}`, tag_name: tagName }));
+            yield this.git.github.repos.createRelease(Object.assign(Object.assign({}, this.git.remoteParams), { name: `v${newVersion}`, tag_name: tagName, prerelease }));
             info(green(`  ✓   Created v${newVersion} release in Github.`));
         });
     }
@@ -5806,11 +5838,12 @@ class ReleaseAction {
             // created in the `next` branch. The new package would not be part of the patch branch,
             // so we cannot build and publish it.
             yield invokeYarnInstallCommand(this.projectDir);
+            yield invokeBazelCleanCommand(this.projectDir);
             const builtPackages = yield invokeReleaseBuildCommand();
             // Verify the packages built are the correct version.
             yield this._verifyPackageVersions(newVersion, builtPackages);
             // Create a Github release for the new version.
-            yield this._createGithubReleaseForVersion(newVersion, versionBumpCommitSha);
+            yield this._createGithubReleaseForVersion(newVersion, versionBumpCommitSha, npmDistTag === 'next');
             // Walk through all built packages and publish them to NPM.
             for (const builtPackage of builtPackages) {
                 yield this._publishBuiltPackageToNpm(builtPackage, npmDistTag);
@@ -6317,6 +6350,8 @@ class ReleaseTool {
         this._projectRoot = _projectRoot;
         /** Client for interacting with the Github API and the local Git command. */
         this._git = new GitClient(this._githubToken, { github: this._github }, this._projectRoot);
+        /** The previous git commit to return back to after the release tool runs. */
+        this.previousGitBranchOrRevision = this._git.getCurrentBranchOrRevision();
     }
     /** Runs the interactive release tool. */
     run() {
@@ -6329,6 +6364,9 @@ class ReleaseTool {
             if (!(yield this._verifyNoUncommittedChanges()) || !(yield this._verifyRunningFromNextBranch())) {
                 return CompletionState.FATAL_ERROR;
             }
+            if (!(yield this._verifyNpmLoginState())) {
+                return CompletionState.MANUALLY_ABORTED;
+            }
             const { owner, name } = this._github;
             const repo = { owner, name, api: this._git.github };
             const releaseTrains = yield fetchActiveReleaseTrains(repo);
@@ -6336,7 +6374,6 @@ class ReleaseTool {
             // the current project branching state without switching context.
             yield printActiveReleaseTrains(releaseTrains, this._config);
             const action = yield this._promptForReleaseAction(releaseTrains);
-            const previousGitBranchOrRevision = this._git.getCurrentBranchOrRevision();
             try {
                 yield action.perform();
             }
@@ -6352,9 +6389,18 @@ class ReleaseTool {
                 return CompletionState.FATAL_ERROR;
             }
             finally {
-                this._git.checkout(previousGitBranchOrRevision, true);
+                yield this.cleanup();
             }
             return CompletionState.SUCCESS;
+        });
+    }
+    /** Run post release tool cleanups. */
+    cleanup() {
+        return tslib.__awaiter(this, void 0, void 0, function* () {
+            // Return back to the git state from before the release tool ran.
+            this._git.checkout(this.previousGitBranchOrRevision, true);
+            // Ensure log out of NPM.
+            yield npmLogout(this._config.publishRegistry);
         });
     }
     /** Prompts the caretaker for a release action that should be performed. */
@@ -6407,6 +6453,33 @@ class ReleaseTool {
             return true;
         });
     }
+    /**
+     * Verifies that the user is logged into NPM at the correct registry, if defined for the release.
+     * @returns a boolean indicating whether the user is logged into NPM.
+     */
+    _verifyNpmLoginState() {
+        var _a;
+        return tslib.__awaiter(this, void 0, void 0, function* () {
+            const registry = `NPM at the ${(_a = this._config.publishRegistry) !== null && _a !== void 0 ? _a : 'default NPM'} registry`;
+            if (yield npmIsLoggedIn(this._config.publishRegistry)) {
+                debug(`Already logged into ${registry}.`);
+                return true;
+            }
+            error(red(`  ✘   Not currently logged into ${registry}.`));
+            const shouldLogin = yield promptConfirm('Would you like to log into NPM now?');
+            if (shouldLogin) {
+                debug('Starting NPM login.');
+                try {
+                    yield npmLogin(this._config.publishRegistry);
+                }
+                catch (_b) {
+                    return false;
+                }
+                return true;
+            }
+            return false;
+        });
+    }
 }
 
 /**
@@ -6431,10 +6504,11 @@ function handler$8(args) {
         switch (result) {
             case CompletionState.FATAL_ERROR:
                 error(red(`Release action has been aborted due to fatal errors. See above.`));
-                process.exitCode = 1;
+                process.exitCode = 2;
                 break;
             case CompletionState.MANUALLY_ABORTED:
                 info(yellow(`Release action has been manually aborted.`));
+                process.exitCode = 1;
                 break;
             case CompletionState.SUCCESS:
                 info(green(`Release action has completed successfully.`));
@@ -6526,13 +6600,13 @@ const ReleaseSetDistTagCommand = {
  * Note: git operations, especially git status, take a long time inside mounted docker volumes
  * in Windows or OSX hosts (https://github.com/docker/for-win/issues/188).
  */
-function buildEnvStamp() {
+function buildEnvStamp(mode) {
     console.info(`BUILD_SCM_BRANCH ${getCurrentBranch()}`);
     console.info(`BUILD_SCM_COMMIT_SHA ${getCurrentSha()}`);
     console.info(`BUILD_SCM_HASH ${getCurrentSha()}`);
     console.info(`BUILD_SCM_LOCAL_CHANGES ${hasLocalChanges()}`);
     console.info(`BUILD_SCM_USER ${getCurrentGitUser()}`);
-    console.info(`BUILD_SCM_VERSION ${getSCMVersion()}`);
+    console.info(`BUILD_SCM_VERSION ${getSCMVersion(mode)}`);
     process.exit(0);
 }
 /** Run the exec command and return the stdout as a trimmed string. */
@@ -6543,10 +6617,23 @@ function exec$1(cmd) {
 function hasLocalChanges() {
     return !!exec$1(`git status --untracked-files=no --porcelain`);
 }
-/** Get the version based on the most recent semver tag. */
-function getSCMVersion() {
-    const version = exec$1(`git describe --match [0-9]*.[0-9]*.[0-9]* --abbrev=7 --tags HEAD`);
-    return `${version.replace(/-([0-9]+)-g/, '+$1.sha-')}${(hasLocalChanges() ? '.with-local-changes' : '')}`;
+/**
+ * Get the version for generated packages.
+ *
+ * In snapshot mode, the version is based on the most recent semver tag.
+ * In release mode, the version is based on the base package.json version.
+ */
+function getSCMVersion(mode) {
+    if (mode === 'release') {
+        const packageJsonPath = path.join(getRepoBaseDir(), 'package.json');
+        const { version } = require(packageJsonPath);
+        return version;
+    }
+    if (mode === 'snapshot') {
+        const version = exec$1(`git describe --match [0-9]*.[0-9]*.[0-9]* --abbrev=7 --tags HEAD`);
+        return `${version.replace(/-([0-9]+)-g/, '+$1.sha-')}${(hasLocalChanges() ? '.with-local-changes' : '')}`;
+    }
+    return '0.0.0';
 }
 /** Get the current SHA of HEAD. */
 function getCurrentSha() {
@@ -6563,6 +6650,33 @@ function getCurrentGitUser() {
     return `${userName} <${userEmail}>`;
 }
 
+/**
+ * @license
+ * Copyright Google LLC All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+function builder$a(args) {
+    return args.option('mode', {
+        demandOption: true,
+        description: 'Whether the env-stamp should be built for a snapshot or release',
+        choices: ['snapshot', 'release']
+    });
+}
+function handler$a({ mode }) {
+    return tslib.__awaiter(this, void 0, void 0, function* () {
+        buildEnvStamp(mode);
+    });
+}
+/** CLI command module for building the environment stamp. */
+const BuildEnvStampCommand = {
+    builder: builder$a,
+    handler: handler$a,
+    command: 'build-env-stamp',
+    describe: 'Build the environment stamping information',
+};
+
 /** Build the parser for the release commands. */
 function buildReleaseParser(localYargs) {
     return localYargs.help()
@@ -6571,7 +6685,7 @@ function buildReleaseParser(localYargs) {
         .command(ReleasePublishCommandModule)
         .command(ReleaseBuildCommandModule)
         .command(ReleaseSetDistTagCommand)
-        .command('build-env-stamp', 'Build the environment stamping information', {}, () => buildEnvStamp());
+        .command(BuildEnvStampCommand);
 }
 
 /**

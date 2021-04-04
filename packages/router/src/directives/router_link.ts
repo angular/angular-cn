@@ -239,6 +239,17 @@ export class RouterLink implements OnChanges {
    * @see {@link Router#navigateByUrl Router#navigateByUrl}
    */
   @Input() state?: {[k: string]: any};
+  /**
+   * Passed to {@link Router#createUrlTree Router#createUrlTree} as part of the
+   * `UrlCreationOptions`.
+   * Specify a value here when you do not want to use the default value
+   * for `routerLink`, which is the current activated route.
+   * Note that a value of `undefined` here will use the `routerLink` default.
+   * @see {@link UrlCreationOptions#relativeTo UrlCreationOptions#relativeTo}
+   * @see {@link Router#createUrlTree Router#createUrlTree}
+   */
+  @Input() relativeTo?: ActivatedRoute|null;
+
   private commands: any[] = [];
   private preserve!: boolean;
 
@@ -302,7 +313,9 @@ export class RouterLink implements OnChanges {
 
   get urlTree(): UrlTree {
     return this.router.createUrlTree(this.commands, {
-      relativeTo: this.route,
+      // If the `relativeTo` input is not defined, we want to use `this.route` by default.
+      // Otherwise, we should use the value provided by the user in the input.
+      relativeTo: this.relativeTo !== undefined ? this.relativeTo : this.route,
       queryParams: this.queryParams,
       fragment: this.fragment,
       queryParamsHandling: this.queryParamsHandling,
@@ -403,6 +416,17 @@ export class RouterLinkWithHref implements OnChanges, OnDestroy {
    * @see {@link Router#navigateByUrl Router#navigateByUrl}
    */
   @Input() state?: {[k: string]: any};
+  /**
+   * Passed to {@link Router#createUrlTree Router#createUrlTree} as part of the
+   * `UrlCreationOptions`.
+   * Specify a value here when you do not want to use the default value
+   * for `routerLink`, which is the current activated route.
+   * Note that a value of `undefined` here will use the `routerLink` default.
+   * @see {@link UrlCreationOptions#relativeTo UrlCreationOptions#relativeTo}
+   * @see {@link Router#createUrlTree Router#createUrlTree}
+   */
+  @Input() relativeTo?: ActivatedRoute|null;
+
   private commands: any[] = [];
   private subscription: Subscription;
   // TODO(issue/24571): remove '!'.
@@ -492,7 +516,9 @@ export class RouterLinkWithHref implements OnChanges, OnDestroy {
 
   get urlTree(): UrlTree {
     return this.router.createUrlTree(this.commands, {
-      relativeTo: this.route,
+      // If the `relativeTo` input is not defined, we want to use `this.route` by default.
+      // Otherwise, we should use the value provided by the user in the input.
+      relativeTo: this.relativeTo !== undefined ? this.relativeTo : this.route,
       queryParams: this.queryParams,
       fragment: this.fragment,
       queryParamsHandling: this.queryParamsHandling,

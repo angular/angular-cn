@@ -9,9 +9,12 @@
 import * as ts from 'typescript';
 
 import {absoluteFrom, absoluteFromSourceFile, AbsoluteFsPath} from '../../file_system';
+import {PerfEvent, PerfPhase, PerfRecorder} from '../../perf';
+import {ClassDeclaration} from '../../reflection';
 import {ClassRecord, TraitCompiler} from '../../transform';
 import {FileTypeCheckingData} from '../../typecheck/src/checker';
 import {IncrementalBuild} from '../api';
+import {SemanticDepGraph, SemanticDepGraphUpdater} from '../semantic_graph';
 
 import {FileDependencyGraph} from './dependency_tracking';
 
@@ -27,8 +30,8 @@ export class IncrementalDriver implements IncrementalBuild<ClassRecord, FileType
   private state: BuildState;
 
   private constructor(
-      state: PendingBuildState, private allTsFiles: Set<ts.SourceFile>,
-      readonly depGraph: FileDependencyGraph, private logicalChanges: Set<string>|null) {
+      state: PendingBuildState, readonly depGraph: FileDependencyGraph,
+      private logicalChanges: Set<string>|null) {
     this.state = state;
   }
 
@@ -41,110 +44,122 @@ export class IncrementalDriver implements IncrementalBuild<ClassRecord, FileType
    */
   static reconcile(
       oldProgram: ts.Program, oldDriver: IncrementalDriver, newProgram: ts.Program,
-      modifiedResourceFiles: Set<string>|null): IncrementalDriver {
-    // Initialize the state of the current build based on the previous one.
-    let state: PendingBuildState;
-    if (oldDriver.state.kind === BuildStateKind.Pending) {
-      // The previous build never made it past the pending state. Reuse it as the starting state for
-      // this build.
-      state = oldDriver.state;
-    } else {
-      // The previous build was successfully analyzed. `pendingEmit` is the only state carried
-      // forward into this build.
-      state = {
-        kind: BuildStateKind.Pending,
-        pendingEmit: oldDriver.state.pendingEmit,
-        changedResourcePaths: new Set<AbsoluteFsPath>(),
-        changedTsPaths: new Set<string>(),
-        lastGood: oldDriver.state.lastGood,
-      };
-    }
-
-    // Merge the freshly modified resource files with any prior ones.
-    if (modifiedResourceFiles !== null) {
-      for (const resFile of modifiedResourceFiles) {
-        state.changedResourcePaths.add(absoluteFrom(resFile));
-      }
-    }
-
-    // Next, process the files in the new program, with a couple of goals:
-    // 1) Determine which TS files have changed, if any, and merge them into `changedTsFiles`.
-    // 2) Produce a list of TS files which no longer exist in the program (they've been deleted
-    //    since the previous compilation). These need to be removed from the state tracking to avoid
-    //    leaking memory.
-
-    // All files in the old program, for easy detection of changes.
-    const oldFiles = new Set<ts.SourceFile>(oldProgram.getSourceFiles());
-
-    // Assume all the old files were deleted to begin with. Only TS files are tracked.
-    const deletedTsPaths = new Set<string>(tsOnlyFiles(oldProgram).map(sf => sf.fileName));
-
-    for (const newFile of newProgram.getSourceFiles()) {
-      if (!newFile.isDeclarationFile) {
-        // This file exists in the new program, so remove it from `deletedTsPaths`.
-        deletedTsPaths.delete(newFile.fileName);
-      }
-
-      if (oldFiles.has(newFile)) {
-        // This file hasn't changed; no need to look at it further.
-        continue;
-      }
-
-      // The file has changed since the last successful build. The appropriate reaction depends on
-      // what kind of file it is.
-      if (!newFile.isDeclarationFile) {
-        // It's a .ts file, so track it as a change.
-        state.changedTsPaths.add(newFile.fileName);
+      modifiedResourceFiles: Set<string>|null, perf: PerfRecorder): IncrementalDriver {
+    return perf.inPhase(PerfPhase.Reconciliation, () => {
+      // Initialize the state of the current build based on the previous one.
+      let state: PendingBuildState;
+      if (oldDriver.state.kind === BuildStateKind.Pending) {
+        // The previous build never made it past the pending state. Reuse it as the starting state
+        // for this build.
+        state = oldDriver.state;
       } else {
-        // It's a .d.ts file. Currently the compiler does not do a great job of tracking
-        // dependencies on .d.ts files, so bail out of incremental builds here and do a full build.
-        // This usually only happens if something in node_modules changes.
-        return IncrementalDriver.fresh(newProgram);
-      }
-    }
+        let priorGraph: SemanticDepGraph|null = null;
+        if (oldDriver.state.lastGood !== null) {
+          priorGraph = oldDriver.state.lastGood.semanticDepGraph;
+        }
 
-    // The next step is to remove any deleted files from the state.
-    for (const filePath of deletedTsPaths) {
-      state.pendingEmit.delete(filePath);
-
-      // Even if the file doesn't exist in the current compilation, it still might have been changed
-      // in a previous one, so delete it from the set of changed TS files, just in case.
-      state.changedTsPaths.delete(filePath);
-    }
-
-    // Now, changedTsPaths contains physically changed TS paths. Use the previous program's logical
-    // dependency graph to determine logically changed files.
-    const depGraph = new FileDependencyGraph();
-
-    // If a previous compilation exists, use its dependency graph to determine the set of logically
-    // changed files.
-    let logicalChanges: Set<string>|null = null;
-    if (state.lastGood !== null) {
-      // Extract the set of logically changed files. At the same time, this operation populates the
-      // current (fresh) dependency graph with information about those files which have not
-      // logically changed.
-      logicalChanges = depGraph.updateWithPhysicalChanges(
-          state.lastGood.depGraph, state.changedTsPaths, deletedTsPaths,
-          state.changedResourcePaths);
-      for (const fileName of state.changedTsPaths) {
-        logicalChanges.add(fileName);
+        // The previous build was successfully analyzed. `pendingEmit` is the only state carried
+        // forward into this build.
+        state = {
+          kind: BuildStateKind.Pending,
+          pendingEmit: oldDriver.state.pendingEmit,
+          pendingTypeCheckEmit: oldDriver.state.pendingTypeCheckEmit,
+          changedResourcePaths: new Set<AbsoluteFsPath>(),
+          changedTsPaths: new Set<string>(),
+          lastGood: oldDriver.state.lastGood,
+          semanticDepGraphUpdater: new SemanticDepGraphUpdater(priorGraph),
+        };
       }
 
-      // Any logically changed files need to be re-emitted. Most of the time this would happen
-      // regardless because the new dependency graph would _also_ identify the file as stale.
-      // However there are edge cases such as removing a component from an NgModule without adding
-      // it to another one, where the previous graph identifies the file as logically changed, but
-      // the new graph (which does not have that edge) fails to identify that the file should be
-      // re-emitted.
-      for (const change of logicalChanges) {
-        state.pendingEmit.add(change);
+      // Merge the freshly modified resource files with any prior ones.
+      if (modifiedResourceFiles !== null) {
+        for (const resFile of modifiedResourceFiles) {
+          state.changedResourcePaths.add(absoluteFrom(resFile));
+        }
       }
-    }
 
-    // `state` now reflects the initial pending state of the current compilation.
+      // Next, process the files in the new program, with a couple of goals:
+      // 1) Determine which TS files have changed, if any, and merge them into `changedTsFiles`.
+      // 2) Produce a list of TS files which no longer exist in the program (they've been deleted
+      //    since the previous compilation). These need to be removed from the state tracking to
+      //    avoid leaking memory.
 
-    return new IncrementalDriver(
-        state, new Set<ts.SourceFile>(tsOnlyFiles(newProgram)), depGraph, logicalChanges);
+      // All files in the old program, for easy detection of changes.
+      const oldFiles = new Set<ts.SourceFile>(oldProgram.getSourceFiles());
+
+      // Assume all the old files were deleted to begin with. Only TS files are tracked.
+      const deletedTsPaths = new Set<string>(tsOnlyFiles(oldProgram).map(sf => sf.fileName));
+
+      for (const newFile of newProgram.getSourceFiles()) {
+        if (!newFile.isDeclarationFile) {
+          // This file exists in the new program, so remove it from `deletedTsPaths`.
+          deletedTsPaths.delete(newFile.fileName);
+        }
+
+        if (oldFiles.has(newFile)) {
+          // This file hasn't changed; no need to look at it further.
+          continue;
+        }
+
+        // The file has changed since the last successful build. The appropriate reaction depends on
+        // what kind of file it is.
+        if (!newFile.isDeclarationFile) {
+          // It's a .ts file, so track it as a change.
+          state.changedTsPaths.add(newFile.fileName);
+        } else {
+          // It's a .d.ts file. Currently the compiler does not do a great job of tracking
+          // dependencies on .d.ts files, so bail out of incremental builds here and do a full
+          // build. This usually only happens if something in node_modules changes.
+          return IncrementalDriver.fresh(newProgram);
+        }
+      }
+
+      // The next step is to remove any deleted files from the state.
+      for (const filePath of deletedTsPaths) {
+        state.pendingEmit.delete(filePath);
+        state.pendingTypeCheckEmit.delete(filePath);
+
+        // Even if the file doesn't exist in the current compilation, it still might have been
+        // changed in a previous one, so delete it from the set of changed TS files, just in case.
+        state.changedTsPaths.delete(filePath);
+      }
+
+      perf.eventCount(PerfEvent.SourceFilePhysicalChange, state.changedTsPaths.size);
+
+      // Now, changedTsPaths contains physically changed TS paths. Use the previous program's
+      // logical dependency graph to determine logically changed files.
+      const depGraph = new FileDependencyGraph();
+
+      // If a previous compilation exists, use its dependency graph to determine the set of
+      // logically changed files.
+      let logicalChanges: Set<string>|null = null;
+      if (state.lastGood !== null) {
+        // Extract the set of logically changed files. At the same time, this operation populates
+        // the current (fresh) dependency graph with information about those files which have not
+        // logically changed.
+        logicalChanges = depGraph.updateWithPhysicalChanges(
+            state.lastGood.depGraph, state.changedTsPaths, deletedTsPaths,
+            state.changedResourcePaths);
+        perf.eventCount(PerfEvent.SourceFileLogicalChange, logicalChanges.size);
+        for (const fileName of state.changedTsPaths) {
+          logicalChanges.add(fileName);
+        }
+
+        // Any logically changed files need to be re-emitted. Most of the time this would happen
+        // regardless because the new dependency graph would _also_ identify the file as stale.
+        // However there are edge cases such as removing a component from an NgModule without adding
+        // it to another one, where the previous graph identifies the file as logically changed, but
+        // the new graph (which does not have that edge) fails to identify that the file should be
+        // re-emitted.
+        for (const change of logicalChanges) {
+          state.pendingEmit.add(change);
+          state.pendingTypeCheckEmit.add(change);
+        }
+      }
+
+      // `state` now reflects the initial pending state of the current compilation.
+      return new IncrementalDriver(state, depGraph, logicalChanges);
+    });
   }
 
   static fresh(program: ts.Program): IncrementalDriver {
@@ -155,13 +170,21 @@ export class IncrementalDriver implements IncrementalBuild<ClassRecord, FileType
     const state: PendingBuildState = {
       kind: BuildStateKind.Pending,
       pendingEmit: new Set<string>(tsFiles.map(sf => sf.fileName)),
+      pendingTypeCheckEmit: new Set<string>(tsFiles.map(sf => sf.fileName)),
       changedResourcePaths: new Set<AbsoluteFsPath>(),
       changedTsPaths: new Set<string>(),
       lastGood: null,
+      semanticDepGraphUpdater: new SemanticDepGraphUpdater(/* priorGraph */ null),
     };
 
-    return new IncrementalDriver(
-        state, new Set(tsFiles), new FileDependencyGraph(), /* logicalChanges */ null);
+    return new IncrementalDriver(state, new FileDependencyGraph(), /* logicalChanges */ null);
+  }
+
+  getSemanticDepGraphUpdater(): SemanticDepGraphUpdater {
+    if (this.state.kind !== BuildStateKind.Pending) {
+      throw new Error('Semantic dependency updater is only available when pending analysis');
+    }
+    return this.state.semanticDepGraphUpdater;
   }
 
   recordSuccessfulAnalysis(traitCompiler: TraitCompiler): void {
@@ -170,26 +193,29 @@ export class IncrementalDriver implements IncrementalBuild<ClassRecord, FileType
       return;
     }
 
+    const {needsEmit, needsTypeCheckEmit, newGraph} = this.state.semanticDepGraphUpdater.finalize();
+
     const pendingEmit = this.state.pendingEmit;
+    for (const path of needsEmit) {
+      pendingEmit.add(path);
+    }
 
-    const state: PendingBuildState = this.state;
-
-    for (const sf of this.allTsFiles) {
-      if (this.depGraph.isStale(sf, state.changedTsPaths, state.changedResourcePaths)) {
-        // Something has changed which requires this file be re-emitted.
-        pendingEmit.add(sf.fileName);
-      }
+    const pendingTypeCheckEmit = this.state.pendingTypeCheckEmit;
+    for (const path of needsTypeCheckEmit) {
+      pendingTypeCheckEmit.add(path);
     }
 
     // Update the state to an `AnalyzedBuildState`.
     this.state = {
       kind: BuildStateKind.Analyzed,
       pendingEmit,
+      pendingTypeCheckEmit,
 
       // Since this compilation was successfully analyzed, update the "last good" artifacts to the
       // ones from the current compilation.
       lastGood: {
         depGraph: this.depGraph,
+        semanticDepGraph: newGraph,
         traitCompiler: traitCompiler,
         typeCheckingResults: null,
       },
@@ -204,6 +230,12 @@ export class IncrementalDriver implements IncrementalBuild<ClassRecord, FileType
       return;
     }
     this.state.lastGood.typeCheckingResults = results;
+
+    // Delete the files for which type-check code was generated from the set of pending type-check
+    // files.
+    for (const fileName of results.keys()) {
+      this.state.pendingTypeCheckEmit.delete(fileName);
+    }
   }
 
   recordSuccessfulEmit(sf: ts.SourceFile): void {
@@ -233,7 +265,7 @@ export class IncrementalDriver implements IncrementalBuild<ClassRecord, FileType
       return null;
     }
 
-    if (this.logicalChanges.has(sf.fileName)) {
+    if (this.logicalChanges.has(sf.fileName) || this.state.pendingTypeCheckEmit.has(sf.fileName)) {
       return null;
     }
 
@@ -284,6 +316,13 @@ interface BaseBuildState {
    */
   pendingEmit: Set<string>;
 
+  /**
+   * Similar to `pendingEmit`, but then for representing the set of files for which the type-check
+   * file should be regenerated. It behaves identically with respect to errored compilations as
+   * `pendingEmit`.
+   */
+  pendingTypeCheckEmit: Set<string>;
+
 
   /**
    * Specific aspects of the last compilation which successfully completed analysis, if any.
@@ -295,6 +334,14 @@ interface BaseBuildState {
      * This is used to determine the logical impact of physical file changes.
      */
     depGraph: FileDependencyGraph;
+
+    /**
+     * The semantic dependency graph from the last successfully analyzed build.
+     *
+     * This is used to perform in-depth comparison of Angular decorated classes, to determine
+     * which files have to be re-emitted and/or re-type-checked.
+     */
+    semanticDepGraph: SemanticDepGraph;
 
     /**
      * The `TraitCompiler` from the last successfully analyzed build.
@@ -333,6 +380,12 @@ interface PendingBuildState extends BaseBuildState {
    * Set of resource file paths which have changed since the last successfully analyzed build.
    */
   changedResourcePaths: Set<AbsoluteFsPath>;
+
+  /**
+   * In a pending state, the semantic dependency graph is available to the compilation to register
+   * the incremental symbols into.
+   */
+  semanticDepGraphUpdater: SemanticDepGraphUpdater;
 }
 
 interface AnalyzedBuildState extends BaseBuildState {

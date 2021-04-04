@@ -155,7 +155,7 @@ export class ActivatedRoute {
        *
        * 一个 `Observable`，表示由所有路由共享的 URL 片段（`#`）。
        */
-      public fragment: Observable<string>,
+      public fragment: Observable<string|null>,
       /** An observable of the static and resolved data of this route.
        *
        * 一个 `Observable`，表示该路由的静态数据和解析出的数据。
@@ -371,9 +371,24 @@ export class ActivatedRouteSnapshot {
        * 与当前路由匹配的 URL 段
        */
       public url: UrlSegment[],
-      /** The matrix parameters scoped to this route
+      /**
+       *  The matrix parameters scoped to this route.
        *
-       * 此路由范围内的矩阵参数（`;`）
+       *  You can compute all params (or data) in the router state or to get params outside
+       *  of an activated component by traversing the `RouterState` tree as in the following
+       *  example:
+       *  ```
+       *  collectRouteParams(router: Router) {
+       *    let params = {};
+       *    let stack: ActivatedRouteSnapshot[] = [router.routerState.snapshot.root];
+       *    while (stack.length > 0) {
+       *      const route = stack.pop()!;
+       *      params = {...params, ...route.params};
+       *      stack.push(...route.children);
+       *    }
+       *    return params;
+       *  }
+       *  ```
        */
       public params: Params,
       /** The query parameters shared by all the routes
@@ -385,7 +400,7 @@ export class ActivatedRouteSnapshot {
        *
        * 所有路由共享的 URL 片段（`#`）
        */
-      public fragment: string,
+      public fragment: string|null,
       /** The static and resolved data of this route
        *
        * 此路由的静态数据和已解析数据

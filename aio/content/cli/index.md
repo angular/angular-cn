@@ -170,19 +170,15 @@ Command syntax is shown as follows:
   参数和选项的名称可以用[小驼峰或中线分隔的格式](guide/glossary#case-types)给出。
   `--myOptionName` 等价于 `--my-option-name`。
 
-### Boolean and enumerated options
+### Boolean options
 
-### 逻辑型与枚举型选项
+### 逻辑型选项
 
-Boolean options have two forms: `--thisOption` sets the flag, `--noThisOption` clears it.
+Boolean options have two forms: `--this-option` sets the flag to `true`, `--no-this-option` sets it to `false`.
 If neither option is supplied, the flag remains in its default state, as listed in the reference documentation.
 
-逻辑型选项有两种形式：`--thisOption` 可以设置标志，而 `--noThisOption` 可以清除标志。
+逻辑型选项有两种形式：`--this-option` 可以把标志设置为 `true`，而 `--no-this-option` 可以把它设置为 `false`。
 如果没有提供选项，该标志就会留在文档中所列出的默认状态。
-
-Allowed values are given with each enumerated option description, with the default value in **bold**.
-
-每个枚举选项的描述都给出了允许的值，其默认值是**加粗显示的**。
 
 ### Relative paths
 

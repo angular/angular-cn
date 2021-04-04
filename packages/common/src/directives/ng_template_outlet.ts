@@ -68,9 +68,7 @@ export class NgTemplateOutlet implements OnChanges {
   constructor(private _viewContainerRef: ViewContainerRef) {}
 
   ngOnChanges(changes: SimpleChanges) {
-    const recreateView = this._shouldRecreateView(changes);
-
-    if (recreateView) {
+    if (changes['ngTemplateOutlet']) {
       const viewContainerRef = this._viewContainerRef;
 
       if (this._viewRef) {
@@ -80,55 +78,9 @@ export class NgTemplateOutlet implements OnChanges {
       this._viewRef = this.ngTemplateOutlet ?
           viewContainerRef.createEmbeddedView(this.ngTemplateOutlet, this.ngTemplateOutletContext) :
           null;
-    } else if (this._viewRef && this.ngTemplateOutletContext) {
-      this._updateExistingContext(this.ngTemplateOutletContext);
-    }
-  }
-
-  /**
-   * We need to re-create existing embedded view if:
-   *
-   * 在下列情况下，我们要重新创建现存的内嵌视图：
-   *
-   * - templateRef has changed
-   *
-   *   templateRef 变化了
-   *
-   * - context has changes
-   *
-   *   context 发生了变化
-   *
-   * We mark context object as changed when the corresponding object
-   * shape changes (new properties are added or existing properties are removed).
-   * In other words we consider context with the same properties as "the same" even
-   * if object reference changes (see https://github.com/angular/angular/issues/13407).
-   *
-   * 当相应的对象的形态（而不是值）发生变化时，我们就会把上下文对象标记为已更改（添加了新的属性或移除了现有属性）。
-   * 换句话说，即使对象的引用发生了变化，我们也会把具有相同属性的上下文对象视作 "相同的"（参见 <https://github.com/angular/angular/issues/13407>）。
-   */
-  private _shouldRecreateView(changes: SimpleChanges): boolean {
-    const ctxChange = changes['ngTemplateOutletContext'];
-    return !!changes['ngTemplateOutlet'] || (ctxChange && this._hasContextShapeChanged(ctxChange));
-  }
-
-  private _hasContextShapeChanged(ctxChange: SimpleChange): boolean {
-    const prevCtxKeys = Object.keys(ctxChange.previousValue || {});
-    const currCtxKeys = Object.keys(ctxChange.currentValue || {});
-
-    if (prevCtxKeys.length === currCtxKeys.length) {
-      for (let propName of currCtxKeys) {
-        if (prevCtxKeys.indexOf(propName) === -1) {
-          return true;
-        }
-      }
-      return false;
-    }
-    return true;
-  }
-
-  private _updateExistingContext(ctx: Object): void {
-    for (let propName of Object.keys(ctx)) {
-      (<any>this._viewRef!.context)[propName] = (<any>this.ngTemplateOutletContext)[propName];
+    } else if (
+        this._viewRef && changes['ngTemplateOutletContext'] && this.ngTemplateOutletContext) {
+      this._viewRef.context = this.ngTemplateOutletContext;
     }
   }
 }

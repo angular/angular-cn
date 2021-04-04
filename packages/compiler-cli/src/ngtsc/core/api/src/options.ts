@@ -26,22 +26,10 @@ export interface TestOnlyOptions {
   _useHostForImportGeneration?: boolean;
 
   /**
-   * Turn on template type-checking in the Ivy compiler.
-   *
-   * This is an internal flag being used to roll out template type-checking in ngtsc. Turning it on
-   * by default before it's ready might break other users attempting to test the new compiler's
-   * behavior.
-   *
-   * @internal
-   */
-  ivyTemplateTypeCheck?: boolean;
-
-  /**
    * An option to enable ngtsc's internal performance tracing.
    *
-   * This should be a path to a JSON file where trace information will be written. An optional 'ts:'
-   * prefix will cause the trace to be written via the TS host instead of directly to the filesystem
-   * (not all hosts support this mode of operation).
+   * This should be a path to a JSON file where trace information will be written. This is sensitive
+   * to the compiler's working directory, and should likely be an absolute path.
    *
    * This is currently not exposed to users as the trace format is still unstable.
    */

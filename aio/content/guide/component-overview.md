@@ -42,14 +42,14 @@ To create a component, verify that you have met the following prerequisites:
 
 要创建一个组件，请先验证你是否满足以下先决条件：
 
-1. Install the Angular CLI.
+1. [Install the Angular CLI.](guide/setup-local#install-the-angular-cli)
 
-   安装 Angular CLI。
+   [安装 Angular CLI](guide/setup-local#install-the-angular-cli)。
 
-1. Create an Angular project.
+1. [Create an Angular workspace](guide/setup-local#create-a-workspace-and-initial-application) with initial application.
    If you don't have a project, you can create one using `ng new <project-name>`, where `<project-name>` is the name of your Angular application.
 
-   建立一个 Angular 项目。如果你没有项目，你可以用 `ng new <project-name>` 创建一个项目，其中 `<project-name>` 是你的 Angular 应用的名字。
+   [创建一个带有初始项目的 Angular 工作空间](guide/setup-local#create-a-workspace-and-initial-application)。如果还没有项目，你可以用 `ng new <project-name>` 创建一个，其中 `<project-name>` 是你的 Angular 应用的名字。
 
 ## Creating a component
 
@@ -276,7 +276,7 @@ To declare the styles for a component in a separate file, add a `styleUrls` prop
     region="decorator">
 </code-example>
 
-To select the styles within the component, add a `styles` property to the `@Component` decorator that contains the styles you want to use.
+To declare the styles within the component, add a `styles` property to the `@Component` decorator that contains the styles you want to use.
 
 要想在组件内部声明样式，就要把 `styles` 属性添加到 `@Component`，该属性的内容是你要用的样式。
 
@@ -308,3 +308,5 @@ The `styles` property takes an array of strings that contain the CSS rule declar
 * For more information on templates, see [Template syntax](guide/template-syntax).
 
   关于模板的详细信息，请参阅[模板语法](guide/template-syntax)。
+
+@reviewed 2021-03-18

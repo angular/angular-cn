@@ -477,7 +477,7 @@ describe('compiler compliance', () => {
       const factory =
           'MyComponent.ɵfac = function MyComponent_Factory(t) { return new (t || MyComponent)(); }';
       const template = `
-        MyComponent.ɵcmp = i0.ɵɵdefineComponent({type:MyComponent,selectors:[["my-component"]],
+        MyComponent.ɵcmp = /*@__PURE__*/ i0.ɵɵdefineComponent({type:MyComponent,selectors:[["my-component"]],
             decls: 1,
             vars: 4,
             template: function MyComponent_Template(rf,ctx){
@@ -564,7 +564,7 @@ describe('compiler compliance', () => {
 
       // ChildComponent definition should be:
       const ChildComponentDefinition = `
-        ChildComponent.ɵcmp = $r3$.ɵɵdefineComponent({
+        ChildComponent.ɵcmp = /*@__PURE__*/ $r3$.ɵɵdefineComponent({
           type: ChildComponent,
           selectors: [["child"]],
           decls: 1,
@@ -582,7 +582,7 @@ describe('compiler compliance', () => {
 
       // SomeDirective definition should be:
       const SomeDirectiveDefinition = `
-        SomeDirective.ɵdir = $r3$.ɵɵdefineDirective({
+        SomeDirective.ɵdir = /*@__PURE__*/ $r3$.ɵɵdefineDirective({
           type: SomeDirective,
           selectors: [["", "some-directive", ""]]
         });
@@ -594,7 +594,7 @@ describe('compiler compliance', () => {
       // MyComponent definition should be:
       const MyComponentDefinition = `
         …
-        MyComponent.ɵcmp = $r3$.ɵɵdefineComponent({
+        MyComponent.ɵcmp = /*@__PURE__*/ $r3$.ɵɵdefineComponent({
           type: MyComponent,
           selectors: [["my-component"]],
           decls: 2,
@@ -645,7 +645,7 @@ describe('compiler compliance', () => {
 
       // SomeDirective definition should be:
       const SomeDirectiveDefinition = `
-        SomeDirective.ɵdir = $r3$.ɵɵdefineDirective({
+        SomeDirective.ɵdir = /*@__PURE__*/ $r3$.ɵɵdefineDirective({
           type: SomeDirective,
           selectors: [["div", "some-directive", "", 8, "foo", 3, "title", "", 9, "baz"]]
         });
@@ -656,7 +656,7 @@ describe('compiler compliance', () => {
 
       // OtherDirective definition should be:
       const OtherDirectiveDefinition = `
-        OtherDirective.ɵdir = $r3$.ɵɵdefineDirective({
+        OtherDirective.ɵdir = /*@__PURE__*/ $r3$.ɵɵdefineDirective({
           type: OtherDirective,
           selectors: [["", 5, "span", "title", "", 9, "baz"]]
         });
@@ -691,7 +691,7 @@ describe('compiler compliance', () => {
 
       // SomeDirective definition should be:
       const SomeDirectiveDefinition = `
-        SomeComponent.ɵcmp = $r3$.ɵɵdefineComponent({
+        SomeComponent.ɵcmp = /*@__PURE__*/ $r3$.ɵɵdefineComponent({
           type: SomeComponent,
           selectors: [["", "id", "my-app"]],
           …
@@ -721,7 +721,7 @@ describe('compiler compliance', () => {
       // EmptyOutletComponent definition should be:
       const EmptyOutletComponentDefinition = `
         …
-        EmptyOutletComponent.ɵcmp = $r3$.ɵɵdefineComponent({
+        EmptyOutletComponent.ɵcmp = /*@__PURE__*/ $r3$.ɵɵdefineComponent({
           type: EmptyOutletComponent,
           selectors: [["ng-component"]],
           decls: 1,
@@ -768,7 +768,7 @@ describe('compiler compliance', () => {
 
          const MyComponentDefinition = `
         …
-        MyComponent.ɵcmp = $r3$.ɵɵdefineComponent({
+        MyComponent.ɵcmp = /*@__PURE__*/ $r3$.ɵɵdefineComponent({
           type: MyComponent,
           selectors: [["my-component"]],
           decls: 0,
@@ -816,7 +816,7 @@ describe('compiler compliance', () => {
       };
 
       const IfDirectiveDefinition = `
-        IfDirective.ɵdir = $r3$.ɵɵdefineDirective({
+        IfDirective.ɵdir = /*@__PURE__*/ $r3$.ɵɵdefineDirective({
           type: IfDirective,
           selectors: [["", "if", ""]]
         });`;
@@ -838,7 +838,7 @@ describe('compiler compliance', () => {
           }
         }
         …
-        MyComponent.ɵcmp = $r3$.ɵɵdefineComponent({
+        MyComponent.ɵcmp = /*@__PURE__*/ $r3$.ɵɵdefineComponent({
           type: MyComponent,
           selectors: [["my-component"]],
           decls: 3,
@@ -904,7 +904,7 @@ describe('compiler compliance', () => {
         const MyAppDeclaration = `
           const $e0_ff$ = function ($v$) { return ["Nancy", $v$]; };
           …
-          MyApp.ɵcmp = $r3$.ɵɵdefineComponent({
+          MyApp.ɵcmp = /*@__PURE__*/ $r3$.ɵɵdefineComponent({
             type: MyApp,
             selectors: [["my-app"]],
             decls: 1,
@@ -985,7 +985,7 @@ describe('compiler compliance', () => {
             return ["start-", $v0$, $v1$, $v2$, $v3$, $v4$, "-middle-", $v5$, $v6$, $v7$, $v8$, "-end"];
           }
           …
-          MyApp.ɵcmp = $r3$.ɵɵdefineComponent({
+          MyApp.ɵcmp = /*@__PURE__*/ $r3$.ɵɵdefineComponent({
             type: MyApp,
             selectors: [["my-app"]],
             decls: 1,
@@ -1047,7 +1047,7 @@ describe('compiler compliance', () => {
         const MyAppDefinition = `
           const $e0_ff$ = function ($v$) { return {"duration": 500, animation: $v$}; };
           …
-          MyApp.ɵcmp = $r3$.ɵɵdefineComponent({
+          MyApp.ɵcmp = /*@__PURE__*/ $r3$.ɵɵdefineComponent({
             type: MyApp,
             selectors: [["my-app"]],
             decls: 1,
@@ -1114,7 +1114,7 @@ describe('compiler compliance', () => {
           const $e0_ff_1$ = function ($v1$, $v2$) { return [$v1$, $v2$]; };
           const $e0_ff_2$ = function ($v1$, $v2$) { return {animation: $v1$, actions: $v2$}; };
           …
-          MyApp.ɵcmp = $r3$.ɵɵdefineComponent({
+          MyApp.ɵcmp = /*@__PURE__*/ $r3$.ɵɵdefineComponent({
             type: MyApp,
             selectors: [["my-app"]],
             decls: 1,
@@ -1173,7 +1173,7 @@ describe('compiler compliance', () => {
         };
 
         const SimpleComponentDefinition = `
-          SimpleComponent.ɵcmp = $r3$.ɵɵdefineComponent({
+          SimpleComponent.ɵcmp = /*@__PURE__*/ $r3$.ɵɵdefineComponent({
             type: SimpleComponent,
             selectors: [["simple"]],
             ngContentSelectors: $c0$,
@@ -1193,7 +1193,7 @@ describe('compiler compliance', () => {
         const ComplexComponentDefinition = `
           const $c1$ = [[["span", "title", "tofirst"]], [["span", "title", "tosecond"]]];
           …
-          ComplexComponent.ɵcmp = $r3$.ɵɵdefineComponent({
+          ComplexComponent.ɵcmp = /*@__PURE__*/ $r3$.ɵɵdefineComponent({
             type: ComplexComponent,
             selectors: [["complex"]],
             ngContentSelectors: $c2$,
@@ -1249,7 +1249,7 @@ describe('compiler compliance', () => {
           const $c0$ = ["*", [["", "spacer", ""]], "*"];
           const $c1$ = ["*", "[spacer]", "*"];
           …
-          Cmp.ɵcmp = $r3$.ɵɵdefineComponent({
+          Cmp.ɵcmp = /*@__PURE__*/ $r3$.ɵɵdefineComponent({
             type: Cmp,
             selectors: [["ng-component"]],
             ngContentSelectors: $c1$,
@@ -1434,7 +1434,7 @@ describe('compiler compliance', () => {
           const $_c0$ = [[["", "title", ""]]];
           const $_c1$ = ["[title]"];
           …
-          MyApp.ɵcmp = $r3$.ɵɵdefineComponent({
+          MyApp.ɵcmp = /*@__PURE__*/ $r3$.ɵɵdefineComponent({
             type: MyApp,
             selectors: [["my-app"]],
             decls: 2,
@@ -1486,7 +1486,7 @@ describe('compiler compliance', () => {
           const $_c0$ = [[["", "title", ""]]];
           const $_c1$ = ["[title]"];
           …
-          MyApp.ɵcmp = $r3$.ɵɵdefineComponent({
+          MyApp.ɵcmp = /*@__PURE__*/ $r3$.ɵɵdefineComponent({
             type: MyApp,
             selectors: [["my-app"]],
             decls: 2,
@@ -1526,7 +1526,7 @@ describe('compiler compliance', () => {
         };
 
         const SimpleComponentDefinition = `
-          MyApp.ɵcmp = i0.ɵɵdefineComponent({
+          MyApp.ɵcmp = /*@__PURE__*/ i0.ɵɵdefineComponent({
             type: MyApp,
             selectors: [
                 ["my-app"]
@@ -1567,7 +1567,7 @@ describe('compiler compliance', () => {
         };
 
         const SimpleComponentDefinition = `
-          SimpleComponent.ɵcmp = $r3$.ɵɵdefineComponent({
+          SimpleComponent.ɵcmp = /*@__PURE__*/ $r3$.ɵɵdefineComponent({
             type: SimpleComponent,
             selectors: [["simple"]],
             ngContentSelectors: $c0$,
@@ -1631,13 +1631,13 @@ describe('compiler compliance', () => {
 
         const ViewQueryComponentDefinition = `
           …
-          ViewQueryComponent.ɵcmp = $r3$.ɵɵdefineComponent({
+          ViewQueryComponent.ɵcmp = /*@__PURE__*/ $r3$.ɵɵdefineComponent({
             type: ViewQueryComponent,
             selectors: [["view-query-component"]],
             viewQuery: function ViewQueryComponent_Query(rf, ctx) {
               if (rf & 1) {
-                $r3$.ɵɵviewQuery(SomeDirective, true);
-                $r3$.ɵɵviewQuery(SomeDirective, true);
+                $r3$.ɵɵviewQuery(SomeDirective, 5);
+                $r3$.ɵɵviewQuery(SomeDirective, 5);
               }
               if (rf & 2) {
                 let $tmp$;
@@ -1691,12 +1691,12 @@ describe('compiler compliance', () => {
           const $e0_attrs$ = ["myRef"];
           const $e1_attrs$ = ["myRef1", "myRef2", "myRef3"];
           …
-          ViewQueryComponent.ɵcmp = $r3$.ɵɵdefineComponent({
+          ViewQueryComponent.ɵcmp = /*@__PURE__*/ $r3$.ɵɵdefineComponent({
             …
             viewQuery: function ViewQueryComponent_Query(rf, ctx) {
               if (rf & 1) {
-                $r3$.ɵɵviewQuery($e0_attrs$, true);
-                $r3$.ɵɵviewQuery($e1_attrs$, true);
+                $r3$.ɵɵviewQuery($e0_attrs$, 5);
+                $r3$.ɵɵviewQuery($e1_attrs$, 5);
               }
               if (rf & 2) {
                 let $tmp$;
@@ -1741,13 +1741,13 @@ describe('compiler compliance', () => {
         const ViewQueryComponentDefinition = `
           const $refs$ = ["foo"];
           …
-          ViewQueryComponent.ɵcmp = $r3$.ɵɵdefineComponent({
+          ViewQueryComponent.ɵcmp = /*@__PURE__*/ $r3$.ɵɵdefineComponent({
             type: ViewQueryComponent,
             selectors: [["view-query-component"]],
             viewQuery: function ViewQueryComponent_Query(rf, ctx) {
               if (rf & 1) {
-                $r3$.ɵɵstaticViewQuery(SomeDirective, true);
-                $r3$.ɵɵviewQuery($refs$, true);
+                $r3$.ɵɵviewQuery(SomeDirective, 7);
+                $r3$.ɵɵviewQuery($refs$, 5);
               }
               if (rf & 2) {
                 let $tmp$;
@@ -1806,14 +1806,14 @@ describe('compiler compliance', () => {
           const $e0_attrs$ = ["myRef"];
           const $e1_attrs$ = ["myRef1", "myRef2", "myRef3"];
           …
-          ViewQueryComponent.ɵcmp = $r3$.ɵɵdefineComponent({
+          ViewQueryComponent.ɵcmp = /*@__PURE__*/ $r3$.ɵɵdefineComponent({
             …
             viewQuery: function ViewQueryComponent_Query(rf, ctx) {
               if (rf & 1) {
-                $r3$.ɵɵviewQuery($e0_attrs$, true, TemplateRef);
-                $r3$.ɵɵviewQuery(SomeDirective, true, ElementRef);
-                $r3$.ɵɵviewQuery($e1_attrs$, true, ElementRef);
-                $r3$.ɵɵviewQuery(SomeDirective, true, TemplateRef);
+                $r3$.ɵɵviewQuery($e0_attrs$, 5, TemplateRef);
+                $r3$.ɵɵviewQuery(SomeDirective, 5, ElementRef);
+                $r3$.ɵɵviewQuery($e1_attrs$, 5, ElementRef);
+                $r3$.ɵɵviewQuery(SomeDirective, 5, TemplateRef);
               }
               if (rf & 2) {
                 let $tmp$;
@@ -1868,13 +1868,13 @@ describe('compiler compliance', () => {
         };
 
         const ContentQueryComponentDefinition = `
-          ContentQueryComponent.ɵcmp = $r3$.ɵɵdefineComponent({
+          ContentQueryComponent.ɵcmp = /*@__PURE__*/ $r3$.ɵɵdefineComponent({
             type: ContentQueryComponent,
             selectors: [["content-query-component"]],
             contentQueries: function ContentQueryComponent_ContentQueries(rf, ctx, dirIndex) {
               if (rf & 1) {
-              $r3$.ɵɵcontentQuery(dirIndex, SomeDirective, true);
-              $r3$.ɵɵcontentQuery(dirIndex, SomeDirective, false);
+              $r3$.ɵɵcontentQuery(dirIndex, SomeDirective, 5);
+              $r3$.ɵɵcontentQuery(dirIndex, SomeDirective, 4);
               }
               if (rf & 2) {
               let $tmp$;
@@ -1929,12 +1929,12 @@ describe('compiler compliance', () => {
           const $e0_attrs$ = ["myRef"];
           const $e1_attrs$ = ["myRef1", "myRef2", "myRef3"];
           …
-          ContentQueryComponent.ɵcmp = $r3$.ɵɵdefineComponent({
+          ContentQueryComponent.ɵcmp = /*@__PURE__*/ $r3$.ɵɵdefineComponent({
             …
             contentQueries: function ContentQueryComponent_ContentQueries(rf, ctx, dirIndex) {
               if (rf & 1) {
-              $r3$.ɵɵcontentQuery(dirIndex, $e0_attrs$, true);
-              $r3$.ɵɵcontentQuery(dirIndex, $e1_attrs$, false);
+              $r3$.ɵɵcontentQuery(dirIndex, $e0_attrs$, 5);
+              $r3$.ɵɵcontentQuery(dirIndex, $e1_attrs$, 4);
               }
               if (rf & 2) {
               let $tmp$;
@@ -1987,13 +1987,13 @@ describe('compiler compliance', () => {
         };
 
         const ContentQueryComponentDefinition = `
-          ContentQueryComponent.ɵcmp = $r3$.ɵɵdefineComponent({
+          ContentQueryComponent.ɵcmp = /*@__PURE__*/ $r3$.ɵɵdefineComponent({
             type: ContentQueryComponent,
             selectors: [["content-query-component"]],
             contentQueries: function ContentQueryComponent_ContentQueries(rf, ctx, dirIndex) {
               if (rf & 1) {
-              $r3$.ɵɵstaticContentQuery(dirIndex, SomeDirective, true);
-              $r3$.ɵɵcontentQuery(dirIndex, $ref0$, true);
+              $r3$.ɵɵcontentQuery(dirIndex, SomeDirective, 7);
+              $r3$.ɵɵcontentQuery(dirIndex, $ref0$, 5);
               }
               if (rf & 2) {
               let $tmp$;
@@ -2053,14 +2053,14 @@ describe('compiler compliance', () => {
           const $e0_attrs$ = ["myRef"];
           const $e1_attrs$ = ["myRef1", "myRef2", "myRef3"];
           …
-          ContentQueryComponent.ɵcmp = $r3$.ɵɵdefineComponent({
+          ContentQueryComponent.ɵcmp = /*@__PURE__*/ $r3$.ɵɵdefineComponent({
             …
             contentQueries: function ContentQueryComponent_ContentQueries(rf, ctx, dirIndex) {
               if (rf & 1) {
-                $r3$.ɵɵcontentQuery(dirIndex, $e0_attrs$, true, TemplateRef);
-              $r3$.ɵɵcontentQuery(dirIndex, SomeDirective, true, ElementRef);
-              $r3$.ɵɵcontentQuery(dirIndex, $e1_attrs$, false, ElementRef);
-              $r3$.ɵɵcontentQuery(dirIndex, SomeDirective, false, TemplateRef);
+                $r3$.ɵɵcontentQuery(dirIndex, $e0_attrs$, 5, TemplateRef);
+              $r3$.ɵɵcontentQuery(dirIndex, SomeDirective, 5, ElementRef);
+              $r3$.ɵɵcontentQuery(dirIndex, $e1_attrs$, 4, ElementRef);
+              $r3$.ɵɵcontentQuery(dirIndex, SomeDirective, 4, TemplateRef);
               }
               if (rf & 2) {
               let $tmp$;
@@ -2121,7 +2121,7 @@ describe('compiler compliance', () => {
         };
 
         const MyPipeDefinition = `
-            MyPipe.ɵpipe = $r3$.ɵɵdefinePipe({
+            MyPipe.ɵpipe = /*@__PURE__*/ $r3$.ɵɵdefinePipe({
               name: "myPipe",
               type: MyPipe,
               pure: false
@@ -2133,7 +2133,7 @@ describe('compiler compliance', () => {
         `;
 
         const MyPurePipeDefinition = `
-            MyPurePipe.ɵpipe = $r3$.ɵɵdefinePipe({
+            MyPurePipe.ɵpipe = /*@__PURE__*/ $r3$.ɵɵdefinePipe({
               name: "myPurePipe",
               type: MyPurePipe,
               pure: true
@@ -2148,7 +2148,7 @@ describe('compiler compliance', () => {
               return [$a0$, 1, 2, 3, 4, 5];
             };
             // ...
-            MyApp.ɵcmp = $r3$.ɵɵdefineComponent({
+            MyApp.ɵcmp = /*@__PURE__*/ $r3$.ɵɵdefineComponent({
               type: MyApp,
               selectors: [["my-app"]],
               decls: 7,
@@ -2215,7 +2215,7 @@ describe('compiler compliance', () => {
 
         const MyAppDefinition = `
             // ...
-            MyApp.ɵcmp = $r3$.ɵɵdefineComponent({
+            MyApp.ɵcmp = /*@__PURE__*/ $r3$.ɵɵdefineComponent({
               type: MyApp,
               selectors: [["my-app"]],
               decls: 6,
@@ -2286,7 +2286,7 @@ describe('compiler compliance', () => {
            };
 
            const MyPipeDefinition = `
-              MyPipe.ɵpipe = $r3$.ɵɵdefinePipe({
+              MyPipe.ɵpipe = /*@__PURE__*/ $r3$.ɵɵdefinePipe({
                 name: "myPipe",
                 type: MyPipe,
                 pure: true
@@ -2294,18 +2294,18 @@ describe('compiler compliance', () => {
             `;
 
            const MyPipeFactory = `
-              MyPipe.ɵfac = function MyPipe_Factory(t) { return new (t || MyPipe)($r3$.ɵɵinjectPipeChangeDetectorRef()); };
+              MyPipe.ɵfac = function MyPipe_Factory(t) { return new (t || MyPipe)($i0$.ɵɵdirectiveInject($i0$.ChangeDetectorRef, 16)); };
             `;
 
            const MyOtherPipeDefinition = `
-              MyOtherPipe.ɵpipe = $r3$.ɵɵdefinePipe({
+              MyOtherPipe.ɵpipe = /*@__PURE__*/ $r3$.ɵɵdefinePipe({
                 name: "myOtherPipe",
                 type: MyOtherPipe,
                 pure: true
               });`;
 
            const MyOtherPipeFactory = `
-              MyOtherPipe.ɵfac = function MyOtherPipe_Factory(t) { return new (t || MyOtherPipe)($r3$.ɵɵinjectPipeChangeDetectorRef(8)); };
+              MyOtherPipe.ɵfac = function MyOtherPipe_Factory(t) { return new (t || MyOtherPipe)($i0$.ɵɵdirectiveInject($i0$.ChangeDetectorRef, 24)); };
             `;
 
            const result = compile(files, angularFiles);
@@ -2335,7 +2335,7 @@ describe('compiler compliance', () => {
 
       const MyComponentDefinition = `
         …
-        MyComponent.ɵcmp = $r3$.ɵɵdefineComponent({
+        MyComponent.ɵcmp = /*@__PURE__*/ $r3$.ɵɵdefineComponent({
           type: MyComponent,
           selectors: [["my-component"]],
           decls: 3,
@@ -2428,7 +2428,7 @@ describe('compiler compliance', () => {
           }
         }
         …
-        MyComponent.ɵcmp = $r3$.ɵɵdefineComponent({
+        MyComponent.ɵcmp = /*@__PURE__*/ $r3$.ɵɵdefineComponent({
           type: MyComponent,
           selectors: [["my-component"]],
           decls: 6,
@@ -2572,7 +2572,7 @@ describe('compiler compliance', () => {
 
       it('should gen hooks with a few simple components', () => {
         const LifecycleCompDefinition = `
-          LifecycleComp.ɵcmp = $r3$.ɵɵdefineComponent({
+          LifecycleComp.ɵcmp = /*@__PURE__*/ $r3$.ɵɵdefineComponent({
             type: LifecycleComp,
             selectors: [["lifecycle-comp"]],
             inputs: {nameMin: ["name", "nameMin"]},
@@ -2584,7 +2584,7 @@ describe('compiler compliance', () => {
           });`;
 
         const SimpleLayoutDefinition = `
-          SimpleLayout.ɵcmp = $r3$.ɵɵdefineComponent({
+          SimpleLayout.ɵcmp = /*@__PURE__*/ $r3$.ɵɵdefineComponent({
             type: SimpleLayout,
             selectors: [["simple-layout"]],
             decls: 2,
@@ -2693,7 +2693,7 @@ describe('compiler compliance', () => {
 
         // TODO(benlesh): Enforce this when the directives are specified
         const ForDirectiveDefinition = `
-              ForOfDirective.ɵdir = $r3$.ɵɵdefineDirective({
+              ForOfDirective.ɵdir = /*@__PURE__*/ $r3$.ɵɵdefineDirective({
                 type: ForOfDirective,
                 selectors: [["", "forOf", ""]],
                 features: [$r3$.ɵɵNgOnChangesFeature],
@@ -2715,7 +2715,7 @@ describe('compiler compliance', () => {
                 }
               }
               …
-              MyComponent.ɵcmp = $r3$.ɵɵdefineComponent({
+              MyComponent.ɵcmp = /*@__PURE__*/ $r3$.ɵɵdefineComponent({
                 type: MyComponent,
                 selectors: [["my-component"]],
                 decls: 2,
@@ -2773,7 +2773,7 @@ describe('compiler compliance', () => {
 
         // TODO(chuckj): Enforce this when the directives are specified
         const ForDirectiveDefinition = `
-          ForOfDirective.ɵdir = $r3$.ɵɵdefineDirective({
+          ForOfDirective.ɵdir = /*@__PURE__*/ $r3$.ɵɵdefineDirective({
             type: ForOfDirective,
             selectors: [["", "forOf", ""]],
             features: [$r3$.ɵɵNgOnChangesFeature],
@@ -2801,7 +2801,7 @@ describe('compiler compliance', () => {
             }
           }
           …
-          MyComponent.ɵcmp = $r3$.ɵɵdefineComponent({
+          MyComponent.ɵcmp = /*@__PURE__*/ $r3$.ɵɵdefineComponent({
             type: MyComponent,
             selectors: [["my-component"]],
             decls: 2,
@@ -2905,7 +2905,7 @@ describe('compiler compliance', () => {
           }
 
           …
-          MyComponent.ɵcmp = $r3$.ɵɵdefineComponent({
+          MyComponent.ɵcmp = /*@__PURE__*/ $r3$.ɵɵdefineComponent({
             type: MyComponent,
             selectors: [["my-component"]],
             decls: 2,
@@ -3023,7 +3023,7 @@ describe('compiler compliance', () => {
 
       // SomeDirective definition should be:
       const SomeDirectiveDefinition = `
-        SomeDirective.ɵdir = $r3$.ɵɵdefineDirective({
+        SomeDirective.ɵdir = /*@__PURE__*/ $r3$.ɵɵdefineDirective({
           type: SomeDirective,
           selectors: [["", "some-directive", ""]],
           exportAs: ["someDir", "otherDir"]
@@ -3071,7 +3071,7 @@ describe('compiler compliance', () => {
       };
       const expectedOutput = `
       // ...
-      AbstractDirective.ɵdir = $r3$.ɵɵdefineDirective({
+      AbstractDirective.ɵdir = /*@__PURE__*/ $r3$.ɵɵdefineDirective({
         type: AbstractDirective
       });
       // ...
@@ -3099,7 +3099,7 @@ describe('compiler compliance', () => {
         const $c0$ = function () { return {}; };
         const $c1$ = function () { return { a: 1, b: 2 }; };
         …
-        MyApp.ɵcmp = $r3$.ɵɵdefineComponent({
+        MyApp.ɵcmp = /*@__PURE__*/ $r3$.ɵɵdefineComponent({
           type: MyApp,
           selectors: [["ng-component"]],
           decls: 1,
@@ -3140,7 +3140,7 @@ describe('compiler compliance', () => {
         const $c0$ = function () { return []; };
         const $c1$ = function () { return [0, 1, 2]; };
         …
-        MyApp.ɵcmp = $r3$.ɵɵdefineComponent({
+        MyApp.ɵcmp = /*@__PURE__*/ $r3$.ɵɵdefineComponent({
           type: MyApp,
           selectors: [["ng-component"]],
           decls: 1,
@@ -3187,7 +3187,7 @@ describe('compiler compliance', () => {
         const $c1$ = function () { return {}; };
         const $c2$ = function (a0) { return { foo: a0 }; };
         …
-        MyApp.ɵcmp = $r3$.ɵɵdefineComponent({
+        MyApp.ɵcmp = /*@__PURE__*/ $r3$.ɵɵdefineComponent({
           type: MyApp,
           selectors: [["ng-component"]],
           decls: 2,
@@ -3237,7 +3237,7 @@ describe('compiler compliance', () => {
         const $c1$ = function () { return []; };
         const $c2$ = function (a0) { return { foo: a0 }; };
         …
-        MyApp.ɵcmp = $r3$.ɵɵdefineComponent({
+        MyApp.ɵcmp = /*@__PURE__*/ $r3$.ɵɵdefineComponent({
           type: MyApp,
           selectors: [["ng-component"]],
           decls: 2,
@@ -3290,7 +3290,7 @@ describe('compiler compliance', () => {
         const $c0$ = function () { return { foo: null }; };
         const $c1$ = function (a0) { return { foo: a0 }; };
         …
-        MyApp.ɵcmp = $r3$.ɵɵdefineComponent({
+        MyApp.ɵcmp = /*@__PURE__*/ $r3$.ɵɵdefineComponent({
           type: MyApp,
           selectors: [["ng-component"]],
           decls: 2,
@@ -3340,14 +3340,14 @@ describe('compiler compliance', () => {
 
          // The setClassMetadata call should look like this.
          const setClassMetadata = `
-           …
-          (function() {
-            i0.ɵsetClassMetadata(Comp, [{
-              type: Component,
-              args: [{
-                template: '',
-                providers: [{ provide: token, useExisting: Comp }]
-          `;
+           (function() { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(Comp, [{
+             type: Component,
+             args: [{
+               template: '',
+               providers: [{provide: token, useExisting: Comp}],
+             }]
+           }], null, null); })();
+         `;
 
          const result = compile(files, angularFiles, {target: ts.ScriptTarget.ES5});
          expectEmit(result.source, setClassMetadata, 'Incorrect setClassMetadata call');

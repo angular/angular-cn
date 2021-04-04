@@ -80,9 +80,9 @@ Before going further into template-driven forms, you should have a basic underst
 
 在进一步研究模板驱动表单之前，你应该对下列内容有一个基本的了解。
 
-* TypeScript and HTML5 programming.
+* [TypeScript](https://www.typescriptlang.org/ "The TypeScript language") and HTML5 programming.
 
-  TypeScript 和 HTML5 编程。
+  [TypeScript](https://www.typescriptlang.org/ "The TypeScript language") 和 HTML5 编程。
 
 * Angular app-design fundamentals, as described in [Angular Concepts](guide/architecture "Introduction to Angular concepts.").
 
@@ -837,6 +837,7 @@ it doesn't do anything useful yet.
 
    立即运行该应用。注意，该按钮已启用 - 虽然它还没有做任何有用的事情。
 
+4. Delete the **Name** value. This violates the "required" rule, so it displays the error message&mdash;and notice that it also disables the **Submit** button.
 
    You didn't have to explicitly wire the button's enabled state to the form's validity.
    The `FormsModule` did this automatically when you defined a template reference variable on the enhanced form element, then referred to that variable in the button control.

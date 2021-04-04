@@ -56,23 +56,31 @@ If your team decides on a set minimum amount to be unit tested, you can enforce 
 代码覆盖率可以让你估算出你的代码测试了多少。如果你的团队确定要设置单元测试的最小覆盖率，可以使用 Angular CLI 来强制实施这个最低要求。
 
 For example, suppose you want the code base to have a minimum of 80% code coverage.
-To enable this, open the [Karma](https://karma-runner.github.io) test platform configuration file, `karma.conf.js`, and add the following in the `coverageIstanbulReporter:` key.
+To enable this, open the [Karma](https://karma-runner.github.io) test platform configuration file, `karma.conf.js`, and add the `check` property in the `coverageReporter:` key.
 
-例如，假设你希望代码库的代码覆盖率至少达到 80％。要启用此功能，请打开 [Karma](https://karma-runner.github.io) 测试平台的配置文件 `karma.conf.js`，并在 `coverageIstanbulReporter:` 键下添加以下内容。
+例如，假设你希望代码库的代码覆盖率至少达到 80％。要启用此功能，请打开 [Karma](https://karma-runner.github.io) 测试平台的配置文件 `karma.conf.js`，并在 `coverageReporter:` 键下添加 `check` 属性。
 
-```
-coverageIstanbulReporter: {
-  reports: [ 'html', 'lcovonly' ],
-  fixWebpackSourcePaths: true,
-  thresholds: {
-    statements: 80,
-    lines: 80,
-    branches: 80,
-    functions: 80
+```js
+coverageReporter: {
+  dir: require('path').join(__dirname, './coverage/<project-name>'),
+  subdir: '.',
+  reporters: [
+    { type: 'html' },
+    { type: 'text-summary' }
+  ],
+  check: {
+    global: {
+      statements: 80,
+      branches: 80,
+      functions: 80,
+      lines: 80
+    }
   }
 }
 ```
 
-The `thresholds` property causes the tool to enforce a minimum of 80% code coverage when the unit tests are run in the project.
+The `check` property causes the tool to enforce a minimum of 80% code coverage when the unit tests are run in the project.
 
-`thresholds`（阈值）属性会让该工具在项目中运行单元测试时强制要求至少 80％的代码覆盖率。
+`check` 属性会让该工具在项目中运行单元测试时强制要求至少 80％的代码覆盖率。
+
+You can find more info about the different coverage configuration options [here](https://github.com/karma-runner/karma-coverage/blob/master/docs/configuration.md).

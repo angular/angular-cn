@@ -38,7 +38,7 @@ Choose from the following modes:
   Angular 会把 CSS 添加到全局样式中。而不会应用上前面讨论过的那些作用域规则、隔离和保护等。
   从本质上来说，这跟把组件的样式直接放进 HTML 是一样的。(译注：能进能出。)
 
-To set the components encapsulation mode, use the `encapsulation` property in the component metadata:
+To set the component's encapsulation mode, use the `encapsulation` property in the component metadata:
 
 通过组件元数据中的 `encapsulation` 属性来设置组件封装模式：
 
@@ -96,7 +96,7 @@ that identifies to which host's emulated shadow DOM this element belongs.
    组件视图中的每一个元素，都有一个 `_ngcontent` 属性，它会标记出该元素属于哪个宿主的模拟 Shadow DOM。
 
 The exact values of these attributes aren't important. They are automatically
-generated and you never refer to them in application code. But they are targeted
+generated and you should never refer to them in application code. But they are targeted
 by the generated component styles, which are in the `<head>` section of the DOM:
 
 这些属性的具体值并不重要。它们是自动生成的，并且你永远不会在程序代码中直接引用到它们。

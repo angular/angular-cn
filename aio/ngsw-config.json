@@ -39,6 +39,7 @@
       "resources": {
         "files": [
           "/assets/images/favicons/**",
+          "/generated/js/custom-elements-es5-polyfills.js",
           "/*-es5*.js",
           "!/**/_unused/**"
         ]
@@ -123,6 +124,9 @@
     "!/guide/service-worker-configref",
     "!/guide/service-worker-configref.html",
     "!/guide/service-worker-configref/",
+    "!/guide/updating-to-version-10",
+    "!/guide/updating-to-version-10.html",
+    "!/guide/updating-to-version-10/",
     "!/guide/webpack",
     "!/guide/webpack.html",
     "!/guide/webpack/",

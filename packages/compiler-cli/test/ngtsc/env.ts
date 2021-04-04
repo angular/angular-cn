@@ -12,13 +12,13 @@ import * as ts from 'typescript';
 
 import {createCompilerHost, createProgram} from '../../index';
 import {main, mainDiagnosticsForTest, readNgcCommandLineAndConfiguration} from '../../src/main';
-import {absoluteFrom, AbsoluteFsPath, FileSystem, getFileSystem, NgtscCompilerHost, relativeFrom} from '../../src/ngtsc/file_system';
+import {absoluteFrom, AbsoluteFsPath, FileSystem, getFileSystem, relativeFrom} from '../../src/ngtsc/file_system';
 import {Folder, MockFileSystem} from '../../src/ngtsc/file_system/testing';
 import {IndexedComponent} from '../../src/ngtsc/indexer';
 import {NgtscProgram} from '../../src/ngtsc/program';
 import {DeclarationNode} from '../../src/ngtsc/reflection';
 import {LazyRoute} from '../../src/ngtsc/routing';
-import {getCachedSourceFile} from '../../src/ngtsc/testing';
+import {NgtscTestCompilerHost} from '../../src/ngtsc/testing';
 import {setWrapHostForTest} from '../../src/transformers/compiler_host';
 
 
@@ -72,7 +72,6 @@ export class NgtscTestEnvironment {
       },
       "angularCompilerOptions": {
         "enableIvy": true,
-        "ivyTemplateTypeCheck": false
       },
       "exclude": [
         "built"
@@ -162,7 +161,9 @@ export class NgtscTestEnvironment {
     const absFilePath = this.fs.resolve(this.basePath, fileName);
     if (this.multiCompileHostExt !== null) {
       this.multiCompileHostExt.invalidate(absFilePath);
-      this.changedResources!.add(absFilePath);
+      if (!fileName.endsWith('.ts')) {
+        this.changedResources!.add(absFilePath);
+      }
     }
     this.fs.ensureDir(this.fs.dirname(absFilePath));
     this.fs.writeFile(absFilePath, content);
@@ -174,6 +175,9 @@ export class NgtscTestEnvironment {
       throw new Error(`Not caching files - call enableMultipleCompilations()`);
     }
     this.multiCompileHostExt.invalidate(absFilePath);
+    if (!fileName.endsWith('.ts')) {
+      this.changedResources!.add(absFilePath);
+    }
   }
 
   tsconfig(
@@ -265,16 +269,6 @@ export class NgtscTestEnvironment {
     const host = createCompilerHost({options});
     const program = createProgram({rootNames, host, options});
     return (program as NgtscProgram).getIndexedComponents();
-  }
-}
-
-class NgtscTestCompilerHost extends NgtscCompilerHost {
-  getSourceFile(fileName: string, languageVersion: ts.ScriptTarget): ts.SourceFile|undefined {
-    const cachedSf = getCachedSourceFile(fileName, () => this.readFile(fileName));
-    if (cachedSf !== null) {
-      return cachedSf;
-    }
-    return super.getSourceFile(fileName, languageVersion);
   }
 }
 

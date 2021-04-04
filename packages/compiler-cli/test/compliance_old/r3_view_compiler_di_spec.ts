@@ -25,6 +25,10 @@ describe('compiler compliance: dependency injection', () => {
               @Injectable()
               export class MyService {}
 
+              function dynamicAttrName() {
+                return 'the-attr';
+              }
+
               @Component({
                 selector: 'my-component',
                 template: \`\`
@@ -32,6 +36,7 @@ describe('compiler compliance: dependency injection', () => {
               export class MyComponent {
                 constructor(
                   @Attribute('name') name:string,
+                  @Attribute(dynamicAttrName()) other: string,
                   s1: MyService,
                   @Host() s2: MyService,
                   @Self() s4: MyService,
@@ -51,6 +56,7 @@ describe('compiler compliance: dependency injection', () => {
       MyComponent.ɵfac = function MyComponent_Factory(t) {
         return new (t || MyComponent)(
           $r3$.ɵɵinjectAttribute('name'),
+          $r3$.ɵɵinjectAttribute(dynamicAttrName()),
           $r3$.ɵɵdirectiveInject(MyService),
           $r3$.ɵɵdirectiveInject(MyService, 1),
           $r3$.ɵɵdirectiveInject(MyService, 2),
@@ -88,7 +94,7 @@ describe('compiler compliance: dependency injection', () => {
       }`;
 
     const def = `
-      MyService.ɵprov = $r3$.ɵɵdefineInjectable({
+      MyService.ɵprov = /*@__PURE__*/ $r3$.ɵɵdefineInjectable({
         token: MyService,
         factory: MyService.ɵfac
       });
@@ -123,7 +129,7 @@ describe('compiler compliance: dependency injection', () => {
       }`;
 
     const def = `
-      MyService.ɵprov = $r3$.ɵɵdefineInjectable({
+      MyService.ɵprov = /*@__PURE__*/ $r3$.ɵɵdefineInjectable({
         token: MyService,
         factory: MyService.ɵfac
       });
@@ -176,7 +182,7 @@ describe('compiler compliance: dependency injection', () => {
        };
 
        const def = `
-          MyService.ɵprov = $r3$.ɵɵdefineInjectable({
+          MyService.ɵprov = /*@__PURE__*/ $r3$.ɵɵdefineInjectable({
             token: MyService,
             factory: function() {
               return alternateFactory();
@@ -209,7 +215,7 @@ describe('compiler compliance: dependency injection', () => {
        };
 
        const def = `
-          MyService.ɵprov = $r3$.ɵɵdefineInjectable({
+          MyService.ɵprov = /*@__PURE__*/ $r3$.ɵɵdefineInjectable({
             token: MyService,
             factory: function MyService_Factory(t) {
               let r = null;
@@ -247,7 +253,7 @@ describe('compiler compliance: dependency injection', () => {
        };
 
        const factory = `
-          MyService.ɵprov = $r3$.ɵɵdefineInjectable({
+          MyService.ɵprov = /*@__PURE__*/ $r3$.ɵɵdefineInjectable({
             token: MyService,
             factory: function(t) {
               return MyAlternateService.ɵfac(t);
@@ -282,7 +288,7 @@ describe('compiler compliance: dependency injection', () => {
        };
 
        const factory = `
-          MyService.ɵprov = $r3$.ɵɵdefineInjectable({
+          MyService.ɵprov = /*@__PURE__*/ $r3$.ɵɵdefineInjectable({
             token: MyService,
             factory: function MyService_Factory(t) {
               let r = null;
@@ -318,7 +324,7 @@ describe('compiler compliance: dependency injection', () => {
     };
 
     const factory = `
-      SomeProvider.ɵprov = $r3$.ɵɵdefineInjectable({
+      SomeProvider.ɵprov = /*@__PURE__*/ $r3$.ɵɵdefineInjectable({
         token: SomeProvider,
         factory: function(t) {
           return SomeProviderImpl.ɵfac(t);
@@ -372,16 +378,16 @@ describe('compiler compliance: dependency injection', () => {
 
        // The prov definition must be last so MyPipe.fac is defined
        const MyPipeDefs = `
-        MyPipe.ɵfac = function MyPipe_Factory(t) { return new (t || MyPipe)(i0.ɵɵdirectiveInject(Service)); };
-        MyPipe.ɵpipe = i0.ɵɵdefinePipe({ name: "myPipe", type: MyPipe, pure: true });
-        MyPipe.ɵprov = i0.ɵɵdefineInjectable({ token: MyPipe, factory: MyPipe.ɵfac });
+        MyPipe.ɵfac = function MyPipe_Factory(t) { return new (t || MyPipe)(i0.ɵɵdirectiveInject(Service, 16)); };
+        MyPipe.ɵpipe = /*@__PURE__*/ i0.ɵɵdefinePipe({ name: "myPipe", type: MyPipe, pure: true });
+        MyPipe.ɵprov = /*@__PURE__*/ i0.ɵɵdefineInjectable({ token: MyPipe, factory: MyPipe.ɵfac });
       `;
 
        // The prov definition must be last so MyOtherPipe.fac is defined
        const MyOtherPipeDefs = `
-        MyOtherPipe.ɵfac = function MyOtherPipe_Factory(t) { return new (t || MyOtherPipe)($r3$.ɵɵdirectiveInject(Service)); };
-        MyOtherPipe.ɵpipe = i0.ɵɵdefinePipe({ name: "myOtherPipe", type: MyOtherPipe, pure: true });
-        MyOtherPipe.ɵprov = i0.ɵɵdefineInjectable({ token: MyOtherPipe, factory: MyOtherPipe.ɵfac });
+        MyOtherPipe.ɵfac = function MyOtherPipe_Factory(t) { return new (t || MyOtherPipe)($r3$.ɵɵdirectiveInject(Service, 16)); };
+        MyOtherPipe.ɵpipe = /*@__PURE__*/ i0.ɵɵdefinePipe({ name: "myOtherPipe", type: MyOtherPipe, pure: true });
+        MyOtherPipe.ɵprov = /*@__PURE__*/ i0.ɵɵdefineInjectable({ token: MyOtherPipe, factory: MyOtherPipe.ɵfac });
       `;
 
        expectEmit(source, MyPipeDefs, 'Invalid pipe factory function');

@@ -125,7 +125,7 @@ export abstract class EmbeddedViewRef<C> extends ViewRef {
    * 该视图的上下文，继承自锚点元素。
    *
    */
-  abstract get context(): C;
+  abstract context: C;
 
   /**
    * The root nodes for this embedded view.

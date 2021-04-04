@@ -150,7 +150,7 @@ function formatNumberToLocaleString(
  *
  * [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) 货币代码，例如 `USD` 表示美元，`EUR` 表示欧元。用于确定小数部分的位数。
  *
- * @param digitInfo Decimal representation options, specified by a string in the following format:
+ * @param digitsInfo Decimal representation options, specified by a string in the following format:
  * `{minIntegerDigits}.{minFractionDigits}-{maxFractionDigits}`. See `DecimalPipe` for more details.
  *
  * 十进制表示形式的选项，通过字符串以如下格式指定：`{minIntegerDigits}.{minFractionDigits}-{maxFractionDigits}` 。欲知详情，请参见 `DecimalPipe`。
@@ -205,7 +205,7 @@ export function formatCurrency(
  *
  * 用于要使用的语言环境格式规则的语言环境代码。
  *
- * @param digitInfo Decimal representation options, specified by a string in the following format:
+ * @param digitsInfo Decimal representation options, specified by a string in the following format:
  * `{minIntegerDigits}.{minFractionDigits}-{maxFractionDigits}`. See `DecimalPipe` for more details.
  *
  * 十进制表示形式的选项，通过字符串以如下格式指定：`{minIntegerDigits}.{minFractionDigits}-{maxFractionDigits}`。欲知详情，请参见 `DecimalPipe`。
@@ -249,7 +249,7 @@ export function formatPercent(value: number, locale: string, digitsInfo?: string
  *
  * 用于要使用的语言环境格式规则的语言环境代码。
  *
- * @param digitInfo Decimal representation options, specified by a string in the following format:
+ * @param digitsInfo Decimal representation options, specified by a string in the following format:
  * `{minIntegerDigits}.{minFractionDigits}-{maxFractionDigits}`. See `DecimalPipe` for more details.
  *
  * 十进制表示形式的选项，通过字符串以如下格式指定：`{minIntegerDigits}.{minFractionDigits}-{maxFractionDigits}` 。欲知详情，请参见 `DecimalPipe`。

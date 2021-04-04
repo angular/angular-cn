@@ -32,7 +32,7 @@ This sample application is much like the one in the [_Tour of Heroes_ tutorial](
 
 本测试文档通过使用 [Angular CLI](cli) 创建的范例应用，为对 Angular 应用进行单元测试和集成测试提供了技巧和方法。这个范例应用很像[*“英雄之旅”*教程](tutorial)中的应用。
 
-<div class="alert is*helpful">
+<div class="alert is-helpful">
 
   For the sample app that the testing guides describe, see the <live-example noDownload>sample app</live-example>.
 
@@ -317,18 +317,11 @@ Step 1: Create a file called `.travis.yml` at the project root, with the followi
 步骤一：在项目根目录下创建一个名叫 `.travis.yml` 的文件，内容如下：
 
 ```
-dist: trusty
-sudo: false
-
 language: node_js
 node_js:
   - "10"
 addons:
-  apt:
-    sources:
-      - google-chrome
-    packages:
-      - google-chrome-stable
+  chrome: stable
 
 cache:
   directories:
@@ -359,6 +352,59 @@ You'll need to push a new commit to trigger a build.
 * Learn more about Travis CI testing from [Travis CI documentation](https://docs.travis-ci.com/).
 
   欲知详情，参阅 [Travis CI 文档](https://docs.travis-ci.com/)。
+
+### Configure project for GitLab CI
+
+Step 1: Create a file called `.gitlab-ci.yml` at the project root, with the following content:
+
+```
+image: node:14.15-stretch
+variables:
+  FF_USE_FASTZIP: "true"
+
+cache:
+  untracked: true
+  policy: push
+  key: ${CI_COMMIT_SHORT_SHA}
+  paths:
+    - node_modules/
+
+.pull_cached_node_modules:
+  cache:
+    untracked: true
+    key: ${CI_COMMIT_SHORT_SHA}
+    policy: pull
+
+stages:
+  - setup
+  - test
+
+install:
+  stage: setup
+  script:
+    - npm ci
+
+test:
+  stage: test
+  extends: .pull_cached_node_modules
+  before_script:
+    - apt-get update
+    - wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+    - apt install -y ./google-chrome*.deb;
+    - export CHROME_BIN=/usr/bin/google-chrome
+  script:
+    - npm run test -- --no-watch --no-progress --browsers=ChromeHeadlessCI
+    - npm run e2e -- --protractor-config=e2e/protractor-ci.conf.js
+```
+
+This configuration caches `node_modules/` in the `install` job and re-uses the cached `node_modules/` in the `test` job.
+
+Step 2: [Sign up for GitLab CI](https://gitlab.com/users/sign_in) and [add your project](https://gitlab.com/projects/new).
+You'll need to push a new commit to trigger a build.
+
+Step 3: Commit your changes and push them to your repository.
+
+* Learn more about GitLab CI testing from [GitLab CI/CD documentation](https://docs.gitlab.com/ee/ci/).
 
 ### Configure CLI for CI testing in Chrome
 
@@ -425,8 +471,6 @@ Now you can run the following commands to use the `--no-sandbox` flag:
 
 </div>
 
-<hr />
-
 ## More info on testing
 
 ## 关于测试的更多信息
@@ -459,7 +503,7 @@ After you've set up your app for testing, you may find the following testing  gu
 
   [测试管道](guide/testing-pipes) - 了解测试管道的方法。
 
-* [Debugging tests](guide/testing-attribute-directives)&mdash;uncover common testing bugs.
+* [Debugging tests](guide/test-debugging)&mdash;uncover common testing bugs.
 
   [调试测试代码](guide/testing-attribute-directives) - 发现测试代码的常见 BUG。
 

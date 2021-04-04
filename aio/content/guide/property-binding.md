@@ -35,8 +35,6 @@ To get the most out of property binding, you should be familiar with the followi
 
   [绑定语法](guide/binding-syntax)
 
-<hr />
-
 ## Understanding the flow of data
 
 ## 理解数据流
@@ -76,7 +74,7 @@ In this example, `src` is the name of the `<img>` element property.
 在大多数情况下，目标的名称就是 Property 的名称，哪怕它看起来像 Attribute 的名称。在此示例中，`src` 就是 `<img>` 元素的 Property 名称。
 
 The brackets, `[]`, cause Angular to evaluate the right-hand side of the assignment as a dynamic expression.
-Without the brackets, Angular treats the the right-hand side as a string literal and sets the property to that static value.
+Without the brackets, Angular treats the right-hand side as a string literal and sets the property to that static value.
 
 方括号 `[]` 使 Angular 将等号的右侧看作动态表达式进行求值。如果不使用方括号，Angular 就会将右侧视为字符串字面量并将此属性设置为该静态值。
 
@@ -304,8 +302,6 @@ You can use either form when rendering data values as strings, though interpolat
 However, when setting an element property to a non-string data value, you must use property binding.
 
 将数据值渲染为字符串时，可以使用任一种形式，只是插值形式更易读。但是，要将元素属性设置为非字符串数据值时，必须使用属性绑定。
-
-<hr />
 
 ## What's next
 

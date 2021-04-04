@@ -10,6 +10,7 @@ import * as ts from 'typescript';
 import {absoluteFrom, AbsoluteFsPath, getFileSystem, getSourceFileOrError, LogicalFileSystem, NgtscCompilerHost} from '../../file_system';
 import {runInEachFileSystem, TestFile} from '../../file_system/testing';
 import {AbsoluteModuleStrategy, LocalIdentifierStrategy, LogicalProjectStrategy, ModuleResolver, Reference, ReferenceEmitter} from '../../imports';
+import {NOOP_PERF_RECORDER} from '../../perf';
 import {isNamedClassDeclaration, TypeScriptReflectionHost} from '../../reflection';
 import {getDeclaration, makeProgram} from '../../testing';
 import {getRootDirs} from '../../util/src/typescript';
@@ -43,7 +44,7 @@ runInEachFileSystem(() => {
       const file = new TypeCheckFile(
           _('/_typecheck_.ts'), ALL_ENABLED_CONFIG, new ReferenceEmitter([]),
           /* reflector */ null!, host);
-      const sf = file.render();
+      const sf = file.render(false /* removeComments */);
       expect(sf).toContain('export const IS_A_MODULE = true;');
     });
 
@@ -74,7 +75,7 @@ TestClass.ngTypeCtor({value: 'test'});
         ]);
         const ctx = new TypeCheckContextImpl(
             ALL_ENABLED_CONFIG, host, new TestMappingStrategy(), emitter, reflectionHost,
-            new TestTypeCheckingHost(), InliningMode.InlineOps);
+            new TestTypeCheckingHost(), InliningMode.InlineOps, NOOP_PERF_RECORDER);
         const TestClass =
             getDeclaration(program, _('/main.ts'), 'TestClass', isNamedClassDeclaration);
         const pendingFile = makePendingFile();
@@ -113,7 +114,7 @@ TestClass.ngTypeCtor({value: 'test'});
         const pendingFile = makePendingFile();
         const ctx = new TypeCheckContextImpl(
             ALL_ENABLED_CONFIG, host, new TestMappingStrategy(), emitter, reflectionHost,
-            new TestTypeCheckingHost(), InliningMode.InlineOps);
+            new TestTypeCheckingHost(), InliningMode.InlineOps, NOOP_PERF_RECORDER);
         const TestClass =
             getDeclaration(program, _('/main.ts'), 'TestClass', isNamedClassDeclaration);
         ctx.addInlineTypeCtor(
@@ -158,7 +159,7 @@ TestClass.ngTypeCtor({value: 'test'});
         const pendingFile = makePendingFile();
         const ctx = new TypeCheckContextImpl(
             ALL_ENABLED_CONFIG, host, new TestMappingStrategy(), emitter, reflectionHost,
-            new TestTypeCheckingHost(), InliningMode.InlineOps);
+            new TestTypeCheckingHost(), InliningMode.InlineOps, NOOP_PERF_RECORDER);
         const TestClass =
             getDeclaration(program, _('/main.ts'), 'TestClass', isNamedClassDeclaration);
         ctx.addInlineTypeCtor(

@@ -6,13 +6,13 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import {setFileSystem, NodeJSFileSystem, AbsoluteFsPath, FileSystem} from '@angular/compiler-cli/src/ngtsc/file_system';
+import {setFileSystem, NodeJSFileSystem, AbsoluteFsPath, FileSystem, PathManipulation} from '@angular/compiler-cli/src/ngtsc/file_system';
 import {ConsoleLogger, Logger, LogLevel} from '@angular/compiler-cli/src/ngtsc/logging';
 import {ɵParsedMessage} from '@angular/localize';
 import * as glob from 'glob';
 import * as yargs from 'yargs';
 
-import {DiagnosticHandlingStrategy} from '../diagnostics';
+import {Diagnostics, DiagnosticHandlingStrategy} from '../diagnostics';
 
 import {checkDuplicateMessages} from './duplicates';
 import {MessageExtractor} from './extraction';
@@ -23,8 +23,10 @@ import {Xliff1TranslationSerializer} from './translation_files/xliff1_translatio
 import {Xliff2TranslationSerializer} from './translation_files/xliff2_translation_serializer';
 import {XmbTranslationSerializer} from './translation_files/xmb_translation_serializer';
 import {FormatOptions, parseFormatOptions} from './translation_files/format_options';
+import {LegacyMessageIdMigrationSerializer} from './translation_files/legacy_message_id_migration_serializer';
 
 if (require.main === module) {
+  process.title = 'Angular Localization Message Extractor (localize-extract)';
   const args = process.argv.slice(2);
   const options =
       yargs
@@ -52,7 +54,9 @@ if (require.main === module) {
           .option('f', {
             alias: 'format',
             required: true,
-            choices: ['xmb', 'xlf', 'xlif', 'xliff', 'xlf2', 'xlif2', 'xliff2', 'json'],
+            choices: [
+              'xmb', 'xlf', 'xlif', 'xliff', 'xlf2', 'xlif2', 'xliff2', 'json', 'legacy-migrate'
+            ],
             describe: 'The format of the translation file.',
             type: 'string',
           })
@@ -107,17 +111,17 @@ if (require.main === module) {
   const logger = new ConsoleLogger(logLevel ? LogLevel[logLevel] : LogLevel.warn);
   const duplicateMessageHandling = options.d as DiagnosticHandlingStrategy;
   const formatOptions = parseFormatOptions(options.formatOptions);
-
+  const format = options.f;
 
   extractTranslations({
     rootPath,
     sourceFilePaths,
     sourceLocale: options.l,
-    format: options.f,
+    format,
     outputPath: options.o,
     logger,
     useSourceMaps: options.useSourceMaps,
-    useLegacyIds: options.useLegacyIds,
+    useLegacyIds: format === 'legacy-migrate' || options.useLegacyIds,
     duplicateMessageHandling,
     formatOptions,
     fileSystem,
@@ -201,8 +205,8 @@ export function extractTranslations({
   }
 
   const outputPath = fs.resolve(rootPath, output);
-  const serializer =
-      getSerializer(format, sourceLocale, fs.dirname(outputPath), useLegacyIds, formatOptions, fs);
+  const serializer = getSerializer(
+      format, sourceLocale, fs.dirname(outputPath), useLegacyIds, formatOptions, fs, diagnostics);
   const translationFile = serializer.serialize(messages);
   fs.ensureDir(fs.dirname(outputPath));
   fs.writeFile(outputPath, translationFile);
@@ -212,9 +216,10 @@ export function extractTranslations({
   }
 }
 
-export function getSerializer(
+function getSerializer(
     format: string, sourceLocale: string, rootPath: AbsoluteFsPath, useLegacyIds: boolean,
-    formatOptions: FormatOptions = {}, fs: FileSystem): TranslationSerializer {
+    formatOptions: FormatOptions = {}, fs: PathManipulation,
+    diagnostics: Diagnostics): TranslationSerializer {
   switch (format) {
     case 'xlf':
     case 'xlif':
@@ -232,6 +237,8 @@ export function getSerializer(
       return new SimpleJsonTranslationSerializer(sourceLocale);
     case 'arb':
       return new ArbTranslationSerializer(sourceLocale, rootPath, fs);
+    case 'legacy-migrate':
+      return new LegacyMessageIdMigrationSerializer(diagnostics);
   }
   throw new Error(`No translation serializer can handle the provided format: ${format}`);
 }

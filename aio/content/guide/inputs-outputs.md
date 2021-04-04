@@ -31,7 +31,7 @@ The `<parent-component>` serves as the context for the `<child-component>`.
 
 `@Input()` and `@Output()` give a child component a way to communicate with its parent component.
 `@Input()` allows a parent component to update data in the child component.
-Conversely, `@Output() allows the child to send data to a parent component.
+Conversely, `@Output()` allows the child to send data to a parent component.
 
 `@Input()` 和 `@Output()` 为子组件提供了一种与其父组件通信的方法。 `@Input()` 允许父组件更新子组件中的数据。相反，`@Output()` 允许子组件向父组件发送数据。
 

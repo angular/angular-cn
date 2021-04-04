@@ -5,9 +5,8 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import {AbsoluteFsPath, FileSystem} from '@angular/compiler-cli/src/ngtsc/file_system';
+import {AbsoluteFsPath, PathManipulation} from '@angular/compiler-cli/src/ngtsc/file_system';
 import {ɵParsedMessage, ɵSourceLocation} from '@angular/localize';
-import {ArbJsonObject, ArbLocation, ArbMetadata} from '../../translate/translation_files/translation_parsers/arb_translation_parser';
 import {TranslationSerializer} from './translation_serializer';
 import {consolidateMessages, hasLocation} from './utils';
 
@@ -36,27 +35,23 @@ import {consolidateMessages, hasLocation} from './utils';
  * }
  * ```
  */
-
-/**
- * This is a semi-public bespoke serialization format that is used for testing and sometimes as a
- * format for storing translations that will be inlined at runtime.
- *
- * @see ArbTranslationParser
- */
 export class ArbTranslationSerializer implements TranslationSerializer {
   constructor(
-      private sourceLocale: string, private basePath: AbsoluteFsPath, private fs: FileSystem) {}
+      private sourceLocale: string, private basePath: AbsoluteFsPath,
+      private fs: PathManipulation) {}
 
   serialize(messages: ɵParsedMessage[]): string {
-    const messageMap = consolidateMessages(messages, message => message.customId || message.id);
+    const messageGroups = consolidateMessages(messages, message => getMessageId(message));
 
     let output = `{\n  "@@locale": ${JSON.stringify(this.sourceLocale)}`;
 
-    for (const [id, duplicateMessages] of messageMap.entries()) {
+    for (const duplicateMessages of messageGroups) {
       const message = duplicateMessages[0];
+      const id = getMessageId(message);
       output += this.serializeMessage(id, message);
       output += this.serializeMeta(
-          id, message.description, duplicateMessages.filter(hasLocation).map(m => m.location));
+          id, message.description, message.meaning,
+          duplicateMessages.filter(hasLocation).map(m => m.location));
     }
 
     output += '\n}';
@@ -68,12 +63,17 @@ export class ArbTranslationSerializer implements TranslationSerializer {
     return `,\n  ${JSON.stringify(id)}: ${JSON.stringify(message.text)}`;
   }
 
-  private serializeMeta(id: string, description: string|undefined, locations: ɵSourceLocation[]):
-      string {
+  private serializeMeta(
+      id: string, description: string|undefined, meaning: string|undefined,
+      locations: ɵSourceLocation[]): string {
     const meta: string[] = [];
 
     if (description) {
       meta.push(`\n    "description": ${JSON.stringify(description)}`);
+    }
+
+    if (meaning) {
+      meta.push(`\n    "x-meaning": ${JSON.stringify(meaning)}`);
     }
 
     if (locations.length > 0) {
@@ -97,4 +97,8 @@ export class ArbTranslationSerializer implements TranslationSerializer {
       `      }`,
     ].join('\n');
   }
+}
+
+function getMessageId(message: ɵParsedMessage): string {
+  return message.customId || message.id;
 }

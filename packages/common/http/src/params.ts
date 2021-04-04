@@ -118,7 +118,10 @@ export class HttpUrlEncodingCodec implements HttpParameterCodec {
 function paramParser(rawParams: string, codec: HttpParameterCodec): Map<string, string[]> {
   const map = new Map<string, string[]>();
   if (rawParams.length > 0) {
-    const params: string[] = rawParams.split('&');
+    // The `window.location.search` can be used while creating an instance of the `HttpParams` class
+    // (e.g. `new HttpParams({ fromString: window.location.search })`). The `window.location.search`
+    // may start with the `?` char, so we strip it if it's present.
+    const params: string[] = rawParams.replace(/^\?/, '').split('&');
     params.forEach((param: string) => {
       const eqIdx = param.indexOf('=');
       const [key, val]: string[] = eqIdx == -1 ?
@@ -143,10 +146,13 @@ function standardEncoding(v: string): string {
       .replace(/%3F/gi, '?')
       .replace(/%2F/gi, '/');
 }
+function valueToString(value: string|number|boolean): string {
+  return `${value}`;
+}
 
 interface Update {
   param: string;
-  value?: string;
+  value?: string|number|boolean;
   op: 'a'|'d'|'s';
 }
 
@@ -170,7 +176,7 @@ export interface HttpParamsOptions {
    *
    * HTTP 参数的对象映射表。与 `fromString` 互斥。
    */
-  fromObject?: {[param: string]: string|ReadonlyArray<string>};
+  fromObject?: {[param: string]: string|number|boolean|ReadonlyArray<string|number|boolean>};
 
   /** Encoding codec used to parse and serialize the parameters.
    *
@@ -306,8 +312,29 @@ export class HttpParams {
    *
    * 构造一个新的 `body`，添加一个具有给定参数名的值。
    */
-  append(param: string, value: string): HttpParams {
+  append(param: string, value: string|number|boolean): HttpParams {
     return this.clone({param, value, op: 'a'});
+  }
+
+  /**
+   * Constructs a new body with appended values for the given parameter name.
+   * @param params parameters and values
+   * @return A new body with the new value.
+   */
+  appendAll(params: {[param: string]: string|number|boolean|ReadonlyArray<string|number|boolean>}):
+      HttpParams {
+    const updates: Update[] = [];
+    Object.keys(params).forEach(param => {
+      const value = params[param];
+      if (Array.isArray(value)) {
+        value.forEach(_value => {
+          updates.push({param, value: _value, op: 'a'});
+        });
+      } else {
+        updates.push({param, value: value as (string | number | boolean), op: 'a'});
+      }
+    });
+    return this.clone(updates);
   }
 
   /**
@@ -327,7 +354,7 @@ export class HttpParams {
    *
    * 构造一个新的 `body`，具有一个给定参数名的新值。
    */
-  set(param: string, value: string): HttpParams {
+  set(param: string, value: string|number|boolean): HttpParams {
     return this.clone({param, value, op: 's'});
   }
 
@@ -349,7 +376,7 @@ export class HttpParams {
    *
    * 构造一个新的 `body`，如果指定了 `value`，则移除具有指定 `value` 和指定 `param` 的条目；如果没有指定 `value`，则移除指定 `param` 对应的所有值。
    */
-  delete(param: string, value?: string): HttpParams {
+  delete(param: string, value?: string|number|boolean): HttpParams {
     return this.clone({param, value, op: 'd'});
   }
 
@@ -376,10 +403,10 @@ export class HttpParams {
         .join('&');
   }
 
-  private clone(update: Update): HttpParams {
+  private clone(update: Update|Update[]): HttpParams {
     const clone = new HttpParams({encoder: this.encoder} as HttpParamsOptions);
     clone.cloneFrom = this.cloneFrom || this;
-    clone.updates = (this.updates || []).concat([update]);
+    clone.updates = (this.updates || []).concat(update);
     return clone;
   }
 
@@ -395,13 +422,13 @@ export class HttpParams {
           case 'a':
           case 's':
             const base = (update.op === 'a' ? this.map!.get(update.param) : undefined) || [];
-            base.push(update.value!);
+            base.push(valueToString(update.value!));
             this.map!.set(update.param, base);
             break;
           case 'd':
             if (update.value !== undefined) {
               let base = this.map!.get(update.param) || [];
-              const idx = base.indexOf(update.value);
+              const idx = base.indexOf(valueToString(update.value));
               if (idx !== -1) {
                 base.splice(idx, 1);
               }

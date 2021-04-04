@@ -180,10 +180,7 @@ There is no harm in calling `detectChanges()` more often than is strictly necess
 
 </div>
 
-<hr>
-
 {@a dispatch-event}
-
 #### Change an input value with _dispatchEvent()_
 
 #### 使用 *dispatchEvent()* 改变输入框的值
@@ -208,8 +205,6 @@ The following example demonstrates the proper sequence.
 下列例子说明了正确的顺序。
 
 <code-example path="testing/src/app/hero/hero-detail.component.spec.ts" region="title-case-pipe" header="app/hero/hero-detail.component.spec.ts (pipe test)"></code-example>
-
-<hr>
 
 ## Component with external files
 
@@ -417,10 +412,7 @@ The third test checks that the component displays the proper message when there 
 
 当该服务返回不同的值时，其余的测试会确认该组件的逻辑。第二个测试验证了更改用户名的效果。当用户未登录时，第三个测试会检查组件是否显示了正确的消息。
 
-<hr>
-
 {@a component-with-async-service}
-
 ## Component with async service
 
 ## 带异步服务的组件
@@ -539,10 +531,10 @@ value becomes available. The test must become _asynchronous_.
 
 #### 使用 *fakeAsync()* 进行异步测试
 
-To use `fakeAsync()` functionality, you must import `zone.js/dist/zone-testing` in your test setup file.
+To use `fakeAsync()` functionality, you must import `zone.js/testing` in your test setup file.
 If you created your project with the Angular CLI, `zone-testing` is already imported in `src/test.ts`.
 
-要使用 `fakeAsync()` 功能，你必须在测试的环境设置文件中导入 `zone.js/dist/zone-testing`。如果是用 Angular CLI 创建的项目，那么其 `src/test.ts` 中已经配置好了 `zone-testing`。
+要使用 `fakeAsync()` 功能，你必须在测试的环境设置文件中导入 `zone.js/testing`。如果是用 Angular CLI 创建的项目，那么其 `src/test.ts` 中已经配置好了 `zone-testing`。
 
 The following test confirms the expected behavior when the service returns an `ErrorObservable`.
 
@@ -657,7 +649,7 @@ If you use the Angular CLI, configure this flag in `src/test.ts`.
 
 ```
 (window as any)['__zone_symbol__fakeAsyncPatchLock'] = true;
-import 'zone.js/dist/zone-testing';
+import 'zone.js/testing';
 ```
 
 <code-example
@@ -669,13 +661,13 @@ import 'zone.js/dist/zone-testing';
 
 #### 在 `fakeAsync()` 中使用 RxJS 调度器
 
-You can also use RxJS scheduler in `fakeAsync()` just like using `setTimeout()` or `setInterval()`, but you need to import `zone.js/dist/zone-patch-rxjs-fake-async` to patch RxJS scheduler.
+You can also use RxJS scheduler in `fakeAsync()` just like using `setTimeout()` or `setInterval()`, but you need to import `zone.js/plugins/zone-patch-rxjs-fake-async` to patch RxJS scheduler.
 <code-example
   path="testing/src/app/demo/async-helper.spec.ts"
   region="fake-async-test-rxjs">
 </code-example>
 
-`fakeAsync()` 使用 RxJS 的调度器，就像使用 `setTimeout()` 或 `setInterval()` 一样，但你需要导入 `zone.js/dist/zone-patch-rxjs-fake-async` 来给 RxJS 调度器打补丁。
+`fakeAsync()` 使用 RxJS 的调度器，就像使用 `setTimeout()` 或 `setInterval()` 一样，但你需要导入 `zone.js/plugins/zone-patch-rxjs-fake-async` 来给 RxJS 调度器打补丁。
 
 #### Support more macroTasks
 
@@ -835,10 +827,10 @@ Then you can assert that the quote element displays the expected text.
 
 #### 用 *waitForAsync()* 进行异步测试
 
-To use `waitForAsync()` functionality, you must import `zone.js/dist/zone-testing` in your test setup file.
+To use `waitForAsync()` functionality, you must import `zone.js/testing` in your test setup file.
 If you created your project with the Angular CLI, `zone-testing` is already imported in `src/test.ts`.
 
-要使用 `waitForAsync()` 函数，你必须在 test 的设置文件中导入 `zone.js/dist/zone-testing`。如果你是用 Angular CLI 创建的项目，那就已经在 `src/test.ts` 中导入过 `zone-testing` 了。
+要使用 `waitForAsync()` 函数，你必须在 test 的设置文件中导入 `zone.js/testing`。如果你是用 Angular CLI 创建的项目，那就已经在 `src/test.ts` 中导入过 `zone-testing` 了。
 
 <div class="alert is-helpful">
 
@@ -947,8 +939,6 @@ can give you that information and make assertions about the state of the view.
 <code-example
   path="testing/src/app/twain/twain.component.spec.ts"
   region="spy-done-test"></code-example>
-
-<hr>
 
 {@a marble-testing}
 ## Component marble tests
@@ -1100,10 +1090,7 @@ Learn about it on the web, starting with the
 
 RxJS 弹珠测试这个主题非常丰富，超出了本指南的范围。你可以在网上了解它，先从其[官方文档](https://rxjs.dev/guide/testing/marble-testing)开始。
 
-<hr>
-
 {@a component-with-input-output}
-
 ## Component with inputs and outputs
 
 ## 具有输入和输出属性的组件
@@ -1384,10 +1371,7 @@ Here's the previous test, rewritten using the click helper.
   header="app/dashboard/dashboard-hero.component.spec.ts (test with click helper)">
 </code-example>
 
-<hr>
-
 {@a component-inside-test-host}
-
 ## Component inside a test host
 
 ## 位于测试宿主中的组件
@@ -1486,10 +1470,7 @@ really does find its way up through the event binding to the host component.
 
 只有 selected 事件的测试不一样。它确保被选择的 `DashboardHeroComponent` 英雄确实通过事件绑定被传递到宿主组件。
 
-<hr>
-
 {@a routing-component}
-
 ## Routing component
 
 ## 路由组件
@@ -1724,8 +1705,6 @@ New heroes have `id=0` and a blank `name`. This test confirms that the component
   region="route-no-id"
   header="app/hero/hero-detail.component.spec.ts (no id)"></code-example>
 
-<hr>
-
 ## Nested component tests
 
 ## 对嵌套组件的测试
@@ -1914,8 +1893,6 @@ but it ignores the `<app-welcome>` and `<router-outlet>` tags.
 
 Angular 编译器会为 `<app-banner>` 元素创建 `BannerComponentStub`，并把 `RouterLinkStubDirective` 应用到带有 `routerLink` 属性的链接上，不过它会忽略 `<app-welcome>` 和 `<router-outlet>` 标签。
 
-<hr>
-
 {@a routerlink}
 
 ## Components with _RouterLink_
@@ -2079,10 +2056,7 @@ tests with the `RouterTestingModule`.
 
 </div>
 
-<hr>
-
 {@a page-object}
-
 ## Use a _page_ object
 
 ## 使用页面（page）对象
@@ -2172,8 +2146,6 @@ Here are a few more `HeroDetailComponent` tests to reinforce the point.
   path="testing/src/app/hero/hero-detail.component.spec.ts"
   region="selected-tests"
   header="app/hero/hero-detail.component.spec.ts (selected tests)"></code-example>
-
-<hr>
 
 {@a compile-components}
 
@@ -2397,10 +2369,7 @@ The tests in this guide only call `compileComponents` when necessary.
 
 但这篇指南中的这些测试只会在必要时才调用 `compileComponents`。
 
-<hr>
-
 {@a import-module}
-
 ## Setup with module imports
 
 ## 准备模块的 `imports`
@@ -2532,10 +2501,7 @@ the module is small, as feature modules tend to be.
 
 </div>
 
-<hr>
-
 {@a component-override}
-
 ## Override component providers
 
 ## 改写组件的服务提供者
@@ -2704,5 +2670,3 @@ for digging into and replacing parts of these other classes.
 Explore the options and combinations on your own.
 
 自己探索这些选项和组合。
-
-<hr>

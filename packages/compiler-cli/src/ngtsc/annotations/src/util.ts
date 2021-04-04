@@ -6,7 +6,9 @@
  * found in the LICENSE file at https://angular.io/license
  */
 
-import {Expression, ExternalExpr, LiteralExpr, ParseLocation, ParseSourceFile, ParseSourceSpan, R3DependencyMetadata, R3Reference, R3ResolvedDependencyType, ReadPropExpr, WrappedNodeExpr} from '@angular/compiler';
+import {Expression, ExternalExpr, LiteralExpr, ParseLocation, ParseSourceFile, ParseSourceSpan, R3CompiledExpression, R3DependencyMetadata, R3Reference, ReadPropExpr, Statement, WrappedNodeExpr} from '@angular/compiler';
+import {R3FactoryMetadata} from '@angular/compiler/src/compiler';
+import {FactoryTarget} from '@angular/compiler/src/render3/partial/api';
 import * as ts from 'typescript';
 
 import {ErrorCode, FatalDiagnosticError, makeDiagnostic, makeRelatedInformation} from '../../diagnostics';
@@ -14,6 +16,7 @@ import {DefaultImportRecorder, ImportFlags, Reference, ReferenceEmitter} from '.
 import {ForeignFunctionResolver, PartialEvaluator} from '../../partial_evaluator';
 import {ClassDeclaration, CtorParameter, Decorator, Import, ImportedTypeValueReference, isNamedClassDeclaration, LocalTypeValueReference, ReflectionHost, TypeValueReference, TypeValueReferenceKind, UnavailableValue, ValueUnavailableKind} from '../../reflection';
 import {DeclarationData} from '../../scope';
+import {CompileResult} from '../../transform';
 
 export type ConstructorDeps = {
   deps: R3DependencyMetadata[];
@@ -43,9 +46,8 @@ export function getConstructorDependencies(
   }
   ctorParams.forEach((param, idx) => {
     let token = valueReferenceToExpression(param.typeValueReference, defaultImportRecorder);
-    let attribute: Expression|null = null;
+    let attributeNameType: Expression|null = null;
     let optional = false, self = false, skipSelf = false, host = false;
-    let resolved = R3ResolvedDependencyType.Token;
 
     (param.decorators || []).filter(dec => isCore || isAngularCore(dec)).forEach(dec => {
       const name = isCore || dec.import === null ? dec.name : dec.import!.name;
@@ -73,11 +75,11 @@ export function getConstructorDependencies(
         const attributeName = dec.args[0];
         token = new WrappedNodeExpr(attributeName);
         if (ts.isStringLiteralLike(attributeName)) {
-          attribute = new LiteralExpr(attributeName.text);
+          attributeNameType = new LiteralExpr(attributeName.text);
         } else {
-          attribute = new WrappedNodeExpr(ts.createKeywordTypeNode(ts.SyntaxKind.UnknownKeyword));
+          attributeNameType =
+              new WrappedNodeExpr(ts.createKeywordTypeNode(ts.SyntaxKind.UnknownKeyword));
         }
-        resolved = R3ResolvedDependencyType.Attribute;
       } else {
         throw new FatalDiagnosticError(
             ErrorCode.DECORATOR_UNEXPECTED, Decorator.nodeForError(dec),
@@ -85,10 +87,6 @@ export function getConstructorDependencies(
       }
     });
 
-    if (token instanceof ExternalExpr && token.value.name === 'ChangeDetectorRef' &&
-        token.value.moduleName === '@angular/core') {
-      resolved = R3ResolvedDependencyType.ChangeDetectorRef;
-    }
     if (token === null) {
       if (param.typeValueReference.kind !== TypeValueReferenceKind.UNAVAILABLE) {
         throw new Error(
@@ -100,7 +98,7 @@ export function getConstructorDependencies(
         reason: param.typeValueReference.reason,
       });
     } else {
-      deps.push({token, attribute, optional, self, skipSelf, host, resolved});
+      deps.push({token, attributeNameType, optional, self, skipSelf, host});
     }
   });
   if (errors.length === 0) {
@@ -267,13 +265,12 @@ function createUnsuitableInjectionTokenError(
 export function toR3Reference(
     valueRef: Reference, typeRef: Reference, valueContext: ts.SourceFile,
     typeContext: ts.SourceFile, refEmitter: ReferenceEmitter): R3Reference {
-  const value = refEmitter.emit(valueRef, valueContext);
-  const type = refEmitter.emit(
-      typeRef, typeContext, ImportFlags.ForceNewImport | ImportFlags.AllowTypeImports);
-  if (value === null || type === null) {
-    throw new Error(`Could not refer to ${ts.SyntaxKind[valueRef.node.kind]}`);
-  }
-  return {value, type};
+  return {
+    value: refEmitter.emit(valueRef, valueContext).expression,
+    type: refEmitter
+              .emit(typeRef, typeContext, ImportFlags.ForceNewImport | ImportFlags.AllowTypeImports)
+              .expression,
+  };
 }
 
 export function isAngularCore(decorator: Decorator): decorator is Decorator&{import: Import} {
@@ -516,7 +513,13 @@ export function resolveProvidersRequiringFactory(
       }
     }
 
-    if (tokenClass !== null && reflector.isClass(tokenClass.node)) {
+    // TODO(alxhub): there was a bug where `getConstructorParameters` would return `null` for a
+    // class in a .d.ts file, always, even if the class had a constructor. This was fixed for
+    // `getConstructorParameters`, but that fix causes more classes to be recognized here as needing
+    // provider checks, which is a breaking change in g3. Avoid this breakage for now by skipping
+    // classes from .d.ts files here directly, until g3 can be cleaned up.
+    if (tokenClass !== null && !tokenClass.node.getSourceFile().isDeclarationFile &&
+        reflector.isClass(tokenClass.node)) {
       const constructorParameters = reflector.getConstructorParameters(tokenClass.node);
 
       // Note that we only want to capture providers with a non-trivial constructor,
@@ -557,4 +560,36 @@ export function createSourceSpan(node: ts.Node): ParseSourceSpan {
   return new ParseSourceSpan(
       new ParseLocation(parseSf, startOffset, startLine + 1, startCol + 1),
       new ParseLocation(parseSf, endOffset, endLine + 1, endCol + 1));
+}
+
+/**
+ * Collate the factory and definition compiled results into an array of CompileResult objects.
+ */
+export function compileResults(
+    fac: CompileResult, def: R3CompiledExpression, metadataStmt: Statement|null,
+    propName: string): CompileResult[] {
+  const statements = def.statements;
+  if (metadataStmt !== null) {
+    statements.push(metadataStmt);
+  }
+  return [
+    fac, {
+      name: propName,
+      initializer: def.expression,
+      statements: def.statements,
+      type: def.type,
+    }
+  ];
+}
+
+export function toFactoryMetadata(
+    meta: Omit<R3FactoryMetadata, 'target'>, target: FactoryTarget): R3FactoryMetadata {
+  return {
+    name: meta.name,
+    type: meta.type,
+    internalType: meta.internalType,
+    typeArgumentCount: meta.typeArgumentCount,
+    deps: meta.deps,
+    target
+  };
 }

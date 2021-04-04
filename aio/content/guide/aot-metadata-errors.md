@@ -19,8 +19,6 @@ The following are metadata errors you may encounter, with explanations and sugge
 [<t>Tagged template expressions are not supported</t><t>不支持带标签函数的模板表达式</t>](#tagged-template-expressions-not-supported)<br>
 [<t>Symbol reference expected</t><t>期待是符号引用</t>](#symbol-reference-expected)<br>
 
-<hr>
-
 {@a expression-form-not-supported}
 
 ## Expression form not supported
@@ -63,8 +61,6 @@ when writing Angular metadata
 and be wary of new or unusual TypeScript features.
 
 通过在编写 Angular 元数据时坚持使用编译器的[受限表达式语法](guide/aot-compiler#expression-syntax)来避免此错误，并小心新的或不常用的 TypeScript 功能。
-
-<hr>
 
 {@a reference-to-a-local-symbol}
 
@@ -181,8 +177,6 @@ Prefixing the declaration with `export` merely produces a new error, "[`Only ini
 仅仅有对该变量的引用是不够的。
 给这个声明加上 `export` 前缀只会生成一个新的错误 "[`Only initialized variables and constants can be referenced`【只能引用初始化过的变量和常量】](#only-initialized-variables)"。
 
-<hr>
-
 {@a only-initialized-variables}
 
 ## Only initialized variables and constants
@@ -262,8 +256,6 @@ export class MyComponent {}
 
 ```
 
-<hr>
-
 {@a reference-to-a-non-exported-class}
 
 ## Reference to a non-exported class
@@ -319,8 +311,6 @@ export abstract class MyStrategy { }
 
 ```
 
-<hr>
-
 {@a reference-to-a-non-exported-function}
 
 ## Reference to a non-exported function
@@ -370,8 +360,6 @@ export function myStrategy() { ... }
   ...
 
 ```
-
-<hr>
 
 {@a function-calls-not-supported}
 
@@ -445,8 +433,6 @@ export function someValueFactory() {
 
 ```
 
-<hr>
-
 {@a destructured-variable-not-supported}
 
 ## Destructured variable or constant not supported
@@ -501,8 +487,6 @@ import { configuration } from './configuration';
   ...
 
 ```
-
-<hr>
 
 {@a could-not-resolve-type}
 
@@ -619,8 +603,6 @@ export class MyComponent {
 
 ```
 
-<hr>
-
 {@a name-expected}
 
 ## Name expected
@@ -656,8 +638,6 @@ Change the name of the property to something non-numeric.
 provider: [{ provide: Foo, useValue: { '0': 'test' } }]
 
 ```
-
-<hr>
 
 {@a unsupported-enum-member-name}
 
@@ -700,8 +680,6 @@ Avoid referring to enums with complicated initializers or computed properties.
 
 避免引用那些使用了复杂初始化对象或计算属性的枚举。
 
-<hr>
-
 {@a tagged-template-expressions-not-supported}
 
 ## Tagged template expressions are not supported
@@ -739,8 +717,6 @@ is a _tag function_ native to JavaScript ES2015.
 The AOT compiler does not support tagged template expressions; avoid them in metadata expressions.
 
 AOT 编译器不支持带标签函数的模板表达式，避免在元数据表达式中使用它们。
-
-<hr>
 
 {@a symbol-reference-expected}
 

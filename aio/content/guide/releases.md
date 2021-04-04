@@ -113,9 +113,9 @@ We work toward a regular schedule of releases, so that you can plan and coordina
 
 <div class="alert is-helpful">
 
-Disclaimer: Dates are offered as general guidance and will be adjusted by us when necessary to ensure delivery of a high-quality platform.
+Dates are offered as general guidance and are subject to change.
 
-免责条款：这些日期仅供参考，如有必要，我们会对其进行调整，以确保提供高质量的平台。
+这些日期仅供一般性参考，如有更改，恕不另行通知。
 
 </div>
 
@@ -143,11 +143,17 @@ This cadence of releases gives eager developers access to new features as soon a
 {@a support}
 ## Support policy and schedule
 
-## 支持策略
+## 支持策略与计划
 
-All of our major releases are supported for 18 months.
+<div class="alert is-helpful">
 
-所有主版本的支持周期都是 18 个月。
+这些日期仅供一般性参考，如有更改，恕不另行通知。
+
+</div>
+
+All major releases are typically supported for 18 months.
+
+所有主版本的典型支持周期都是 18 个月。
 
 * 6 months of *active support*, during which regularly-scheduled updates and patches are released.
 
@@ -170,12 +176,10 @@ Version | Status | Released     | Active Ends  | LTS Ends
 ^10.0.0 | 活跃 | 2020 年 6 月 24 日 | 2020 年 12 月 24 日 | 2021 年 12 月 24 日
 ^9.0.0  | LTS    | Feb 06, 2020 | Aug 06, 2020 | Aug 06, 2021
 ^9.0.0  | 活跃 | 2020 年 2 月 6 日 | 2020 年 8 月 6 日 | 2021 年 8 月 6 日
-^8.0.0  | LTS    | May 28, 2019 | Nov 28, 2019 | Nov 28, 2020
-^8.0.0  | LTS    | 2019 年 5 月 28 日 | 2019 年 11 月 28 日 | 2020 年 11 月 28 日
 
-Angular versions ^4.0.0, ^5.0.0, ^6.0.0 and ^7.0.0 are no longer under support.
+Angular versions v4, v5, v6, v7, and v8 are no longer under support.
 
-不再为 ^4.0.0、^5.0.0、^6.0.0 和 ^7.0.0 版提供支持。
+不再为 v4、v5、v6、v7 和 v8  版提供支持。
 
 ### LTS fixes
 

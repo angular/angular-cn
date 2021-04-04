@@ -1065,6 +1065,17 @@ For example, the prefix `toh` represents **T**our **o**f **H**eroes and the pref
 
 </div>
 
+<div class="s-rule avoid">
+
+
+
+**Don't** prefix a directive name with `ng` because that prefix is reserved for Angular and using it could cause bugs that are difficult to diagnose.
+
+
+</div>
+
+
+
 <div class="s-why">
 
 **Why?** Prevents name collisions.
@@ -3384,6 +3395,24 @@ helps instantly identify which members of the component serve which purpose.
 
 <a href="#toc">回到顶部</a>
 
+### Initialize inputs
+
+#### Style 05-18
+
+TypeScript's `--strictPropertyInitialization` compiler option ensures that a class initializes its properties during construction. When enabled, this option causes the TypeScript compiler to report an error if the class does not set a value to any property that is not explicitly marked as optional.
+
+By design, Angular treats all `@Input` properties as optional. When possible, you should satisfy `--strictPropertyInitialization` by providing a default value.
+
+<code-example path="styleguide/src/05-18/app/heroes/hero/hero.component.ts" region="example" header="app/heroes/hero/hero.component.ts"></code-example>
+
+If the property is hard to construct a default value for, use `?` to explicitly mark the property as optional.
+
+<code-example path="styleguide/src/05-18/app/heroes/hero/hero.component.optional.ts" region="example" header="app/heroes/hero/hero.component.ts"></code-example>
+
+You may want to have a required `@Input` field, meaning all your component users are required to pass that attribute. In such cases, use a default value. Just suppressing the TypeScript error with `!` is insufficient and should be avoided because it will prevent the type checker ensure the input value is provided.
+
+<code-example path="styleguide/src/05-18/app/heroes/hero/hero.component.avoid.ts" region="example" header="app/heroes/hero/hero.component.ts"></code-example>
+
 ## Directives
 
 ## 指令
@@ -3816,34 +3845,6 @@ signatures. Use those signatures to flag spelling and syntax mistakes.
 Useful tools and tips for Angular.
 
 有用的 Angular 工具和小提示
-
-<a href="#toc">Back to top</a>
-
-<a href="#toc">回到顶部</a>
-
-{@a A-01}
-
-### Codelyzer
-
-#### Style A-01
-
-#### 风格 A-01
-
-<div class="s-rule do">
-
-**Do** use [codelyzer](https://www.npmjs.com/package/codelyzer) to follow this guide.
-
-**坚持**使用 [codelyzer](https://www.npmjs.com/package/codelyzer) 来实施本指南。
-
-</div>
-
-<div class="s-rule consider">
-
-**Consider** adjusting the rules in codelyzer to suit your needs.
-
-**考虑**调整 codelyzer 的规则来满足你的需求。
-
-</div>
 
 <a href="#toc">Back to top</a>
 

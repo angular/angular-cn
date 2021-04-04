@@ -6,9 +6,12 @@
  * found in the LICENSE file at https://angular.io/license
  */
 
+import {initMockFileSystem} from '../../file_system/testing';
 import {tcb, TestDeclaration} from './test_utils';
 
 describe('type check blocks diagnostics', () => {
+  beforeEach(() => initMockFileSystem('Native'));
+
   describe('parse spans', () => {
     it('should annotate unary ops', () => {
       expect(tcbWithSpans('{{ -a }}')).toContain('(-((ctx).a /*4,5*/) /*4,5*/) /*3,5*/');
@@ -91,7 +94,7 @@ describe('type check blocks diagnostics', () => {
       const TEMPLATE = `<div (click)='a.b.c = d'></div>`;
       expect(tcbWithSpans(TEMPLATE))
           .toContain(
-              '(((((((ctx).a /*14,15*/) /*14,15*/).b /*16,17*/) /*14,17*/).c /*18,19*/) /*14,23*/ = ((ctx).d /*22,23*/) /*22,23*/) /*14,23*/');
+              '(((((((ctx).a /*14,15*/) /*14,15*/).b /*16,17*/) /*14,17*/).c /*18,19*/) /*14,23*/ = (((ctx).d /*22,23*/) /*22,23*/)) /*14,23*/');
     });
 
     it('should $event property writes', () => {
@@ -110,20 +113,20 @@ describe('type check blocks diagnostics', () => {
       const TEMPLATE = `<div (click)="a[b] = c"></div>`;
       expect(tcbWithSpans(TEMPLATE))
           .toContain(
-              '((((ctx).a /*14,15*/) /*14,15*/)[((ctx).b /*16,17*/) /*16,17*/] = ((ctx).c /*21,22*/) /*21,22*/) /*14,22*/');
+              '((((ctx).a /*14,15*/) /*14,15*/)[((ctx).b /*16,17*/) /*16,17*/] = (((ctx).c /*21,22*/) /*21,22*/)) /*14,22*/');
     });
 
     it('should annotate safe property access', () => {
       const TEMPLATE = `{{ a?.b }}`;
       expect(tcbWithSpans(TEMPLATE))
-          .toContain('((null as any) ? (((ctx).a /*3,4*/) /*3,4*/)!.b : undefined) /*3,7*/');
+          .toContain('(null as any ? (((ctx).a /*3,4*/) /*3,4*/)!.b /*6,7*/ : undefined) /*3,7*/');
     });
 
     it('should annotate safe method calls', () => {
       const TEMPLATE = `{{ a?.method(b) }}`;
       expect(tcbWithSpans(TEMPLATE))
           .toContain(
-              '((null as any) ? (((ctx).a /*3,4*/) /*3,4*/)!.method /*6,12*/(((ctx).b /*13,14*/) /*13,14*/) : undefined) /*3,15*/');
+              '(null as any ? (((ctx).a /*3,4*/) /*3,4*/)!.method /*6,12*/(((ctx).b /*13,14*/) /*13,14*/) : undefined) /*3,15*/');
     });
 
     it('should annotate $any casts', () => {
@@ -146,8 +149,9 @@ describe('type check blocks diagnostics', () => {
         pipeName: 'test',
       }];
       const block = tcbWithSpans(TEMPLATE, PIPES);
+      expect(block).toContain('var _pipe1: i0.TestPipe = null!');
       expect(block).toContain(
-          '((null as TestPipe).transform(((ctx).a /*3,4*/) /*3,4*/, ((ctx).b /*12,13*/) /*12,13*/) /*3,13*/);');
+          '(_pipe1.transform /*7,11*/(((ctx).a /*3,4*/) /*3,4*/, ((ctx).b /*12,13*/) /*12,13*/) /*3,13*/);');
     });
 
     describe('attaching multiple comments for multiple references', () => {

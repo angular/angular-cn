@@ -43,6 +43,16 @@
             "descCn": "同行评审过的 Angular 文章和教程。",
             "url": "https://indepth.dev/angular/",
             "title": "Angular inDepth"
+          },
+          "angular-nation": {
+            "desc": "Angular Nation is a free private network created for Angular developers to network, collaborate, and ask questions.",
+            "url": "https://www.angularnation.net/",
+            "title": "Angular Nation"
+          },
+          "angular-builders": {
+            "desc": "A collection of Angular builders for your Angular projects",
+            "url": "https://angular-builders.dev/",
+            "title": "Angular Builders"
           }
         }
       },
@@ -227,12 +237,13 @@
       "工具": {
         "order": 2,
         "resources": {
-          "a1": {
-            "desc": "A Google Chrome Dev Tools extension for debugging Angular applications.",
+          "ub": {
+            "desc": "UI Bakery is a low code platform to generate Angular applications.",
             "descCn": "Google Chrome 开发工具的扩展程序，用于调试 Angular 应用程序。",
-            "logo": "https://augury.angular.io/images/augury-logo.svg",
-            "title": "Augury",
-            "url": "https://augury.rangle.io/"
+            "logo": "",
+            "rev": true,
+            "title": "UI Bakery",
+            "url": "https://uibakery.io/"
           },
           "b1": {
             "desc": "Server-side Rendering for Angular apps.",
@@ -254,12 +265,12 @@
             "title": "Angular CLI",
             "url": "https://cli.angular.io"
           },
-          "d1": {
-            "desc": "Static analysis for Angular projects.",
+          "angular-eslint": {
+            "desc": "The tooling which enables ESLint to lint Angular projects.",
             "descCn": "Angular 项目的静态分析。",
             "logo": "",
-            "title": "Codelyzer",
-            "url": "https://github.com/mgechev/codelyzer"
+            "title": "Angular ESLint",
+            "url": "https://github.com/angular-eslint/angular-eslint#readme"
           },
           "f1": {
             "desc": "This tool generates dedicated documentation for Angular applications.",
@@ -274,6 +285,12 @@
             "title": "Angular Playground",
             "titleCn": "Angular 游乐场",
             "url": "https://angularplayground.it/"
+          },
+          "angular-prerender": {
+            "desc": "A command line tool to prerender Angular Apps that uses Angular Universal but also supports Scully plugins.",
+            "logo": "https://repository-images.githubusercontent.com/142886533/bd323700-e8ff-11e9-9645-75bc009ee359",
+            "title": "angular-prerender",
+            "url": "https://github.com/chrisguttandin/angular-prerender"
           },
           "nx": {
             "desc": "Nx (Nrwl Extensions for Angular) is an open source toolkit built on top of Angular CLI to help enterprise teams develop Angular at scale.",
@@ -290,12 +307,18 @@
             "titleCn": "UI-jar - 测试驱动的样式指南开发方式",
             "url": "https://github.com/ui-jar/ui-jar"
           },
-          "protactor": {
-            "desc": "The official end to end testing framework for Angular apps",
+          "protractor": {
+            "desc": "The official end to end testing framework for Angular applications.",
             "descCn": "Angular 应用的官方端到端测试框架",
             "logo": "",
             "title": "Protractor",
             "url": "https://protractor.angular.io/"
+          },
+          "observer-spy": {
+            "desc": "A library for testing RxJS observables that offers an alternative to Marble Tests.",
+            "logo": "",
+            "title": "observer-spy",
+            "url": "https://github.com/hirezio/observer-spy"
           },
           "scully": {
             "desc": "Scully (Jamstack Toolchain for Angular) makes building, testing, and deploying Jamstack apps extremely simple.",
@@ -303,6 +326,12 @@
             "title": "Scully",
             "logo": "https://raw.githubusercontent.com/scullyio/scully/main/assets/logos/PNG/Green/scullyio-logo-green.png",
             "url": "https://scully.io"
+          },
+          "ng-mocks": {
+            "desc": "A testing library for creating mock services, components, directives, pipes and modules out of annoying dependencies in unit tests.",
+            "title": "ng-mocks",
+            "logo": "",
+            "url": "https://github.com/ike18t/ng-mocks#readme"
           }
         }
       },
@@ -541,6 +570,11 @@
             "title": "NGX Skeleton Loader",
             "titleCn": "NGX 骨架装载器",
             "url": "https://www.npmjs.com/package/ngx-skeleton-loader"
+          },
+          "taiga-ui": {
+            "desc": "Taiga UI is fully-treeshakable Angular UI Kit consisting of multiple base libraries and several add-ons. We have 130+ components, 100+ directives, dozens of tokens, utils and tools. They are easily customizable and well engineered.",
+            "title": "Taiga UI",
+            "url": "https://taiga-ui.dev"
           }
         }
       }
@@ -636,6 +670,23 @@
             "title": "Developing with Angular",
             "titleCn": "用 Angular 开发",
             "url": "https://leanpub.com/developing-with-angular"
+          },
+          "reactive-state-for-angular-with-ngrx": {
+            "desc": "Learn how to build a Reactive Application with Ngrx and Angular",
+            "title": "Reactive State for Angular with NgRx",
+            "url": "https://bpbonline.com/products/reactive-state-for-angular-with-ngrx"
+          },
+          "ngrx-reactive-state-management": {
+            "title": "NgRx: Reactive State Management for Angular",
+            "desc": "Comprehensive learning resource on building Angular apps with NgRx",
+            "url": "https://gumroad.com/l/angular-ngrx-book",
+            "logo": ""
+          },
+		      "testing-angular-guide": {
+            "title": "Testing Angular",
+            "desc": "A Guide to Robust Angular Applications (free online book and e-book)",
+            "url": "https://molily.de/testing-angular",
+            "logo": ""
           }
         }
       },
@@ -743,6 +794,11 @@
             "title": "Ultimate Angular",
             "titleCn": "极限  Angular",
             "url": "https://ultimateangular.com/"
+          },
+          "angular-pro-screencast": {
+            "desc": "Youtube Channel. Online videos in English and Russian providing in-depth coverage of the Angular advanced topics.",
+            "title": "Angular Pro Screencast",
+            "url": "https://www.youtube.com/playlist?list=PLLf-VBOaoVk1E9fTBZdq1CfnRa2TtL_Kb"
           },
           "willh-angular-zero": {
             "desc": "Online video course in Chinese for newbies who need to learning from the scratch in Chinese.  It's covering Angular, Angular CLI, TypeScript, VSCode, and some must known knowledge of Angular development.",

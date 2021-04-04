@@ -8,8 +8,8 @@
 
 
 import {assertIndexInRange} from '../../util/assert';
+import {EMPTY_OBJ} from '../../util/empty';
 import {isObservable} from '../../util/lang';
-import {EMPTY_OBJ} from '../empty';
 import {PropertyAliasValue, TNode, TNodeFlags, TNodeType} from '../interfaces/node';
 import {GlobalTargetResolver, isProceduralRenderer, Renderer3} from '../interfaces/renderer';
 import {RElement} from '../interfaces/renderer_dom';
@@ -19,7 +19,7 @@ import {assertTNodeType} from '../node_assert';
 import {getCurrentDirectiveDef, getCurrentTNode, getLView, getTView} from '../state';
 import {getComponentLViewByIndex, getNativeByTNode, unwrapRNode} from '../util/view_utils';
 
-import {getLCleanup, handleError, loadComponentRenderer, markViewDirty} from './shared';
+import {getOrCreateLViewCleanup, getOrCreateTViewCleanup, handleError, loadComponentRenderer, markViewDirty} from './shared';
 
 
 
@@ -120,12 +120,12 @@ function listenerInternal(
     eventTargetResolver?: GlobalTargetResolver): void {
   const isTNodeDirectiveHost = isDirectiveHost(tNode);
   const firstCreatePass = tView.firstCreatePass;
-  const tCleanup: false|any[] = firstCreatePass && (tView.cleanup || (tView.cleanup = []));
+  const tCleanup: false|any[] = firstCreatePass && getOrCreateTViewCleanup(tView);
 
   // When the ɵɵlistener instruction was generated and is executed we know that there is either a
   // native listener or a directive output on this element. As such we we know that we will have to
   // register a listener and store its cleanup function on LView.
-  const lCleanup = getLCleanup(lView);
+  const lCleanup = getOrCreateLViewCleanup(lView);
 
   ngDevMode && assertTNodeType(tNode, TNodeType.AnyRNode | TNodeType.AnyContainer);
 

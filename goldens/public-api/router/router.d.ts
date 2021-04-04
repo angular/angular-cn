@@ -3,7 +3,7 @@ export declare class ActivatedRoute {
     component: Type<any> | string | null;
     data: Observable<Data>;
     get firstChild(): ActivatedRoute | null;
-    fragment: Observable<string>;
+    fragment: Observable<string | null>;
     outlet: string;
     get paramMap(): Observable<ParamMap>;
     params: Observable<Params>;
@@ -23,7 +23,7 @@ export declare class ActivatedRouteSnapshot {
     component: Type<any> | string | null;
     data: Data;
     get firstChild(): ActivatedRouteSnapshot | null;
-    fragment: string;
+    fragment: string | null;
     outlet: string;
     get paramMap(): ParamMap;
     params: Params;
@@ -92,7 +92,7 @@ export declare class ChildActivationStart {
 export declare class ChildrenOutletContexts {
     getContext(childName: string): OutletContext | null;
     getOrCreateContext(childName: string): OutletContext;
-    onChildOutletCreated(childName: string, outlet: RouterOutlet): void;
+    onChildOutletCreated(childName: string, outlet: RouterOutletContract): void;
     onChildOutletDestroyed(childName: string): void;
     onOutletDeactivated(): Map<string, OutletContext>;
     onOutletReAttached(contexts: Map<string, OutletContext>): void;
@@ -157,6 +157,13 @@ export declare class GuardsCheckStart extends RouterEvent {
 }
 
 export declare type InitialNavigation = 'disabled' | 'enabled' | 'enabledBlocking' | 'enabledNonBlocking';
+
+export declare interface IsActiveMatchOptions {
+    fragment: 'exact' | 'ignored';
+    matrixParams: 'exact' | 'subset' | 'ignored';
+    paths: 'exact' | 'subset';
+    queryParams: 'exact' | 'subset' | 'ignored';
+}
 
 export declare type LoadChildren = LoadChildrenCallback | DeprecatedLoadChildren;
 
@@ -234,7 +241,7 @@ export declare class NoPreloading implements PreloadingStrategy {
 export declare class OutletContext {
     attachRef: ComponentRef<any> | null;
     children: ChildrenOutletContexts;
-    outlet: RouterOutlet | null;
+    outlet: RouterOutletContract | null;
     resolver: ComponentFactoryResolver | null;
     route: ActivatedRoute | null;
 }
@@ -345,7 +352,8 @@ export declare class Router {
     dispose(): void;
     getCurrentNavigation(): Navigation | null;
     initialNavigation(): void;
-    isActive(url: string | UrlTree, exact: boolean): boolean;
+    /** @deprecated */ isActive(url: string | UrlTree, exact: boolean): boolean;
+    isActive(url: string | UrlTree, matchOptions: IsActiveMatchOptions): boolean;
     navigate(commands: any[], extras?: NavigationExtras): Promise<boolean>;
     navigateByUrl(url: string | UrlTree, extras?: NavigationBehaviorOptions): Promise<boolean>;
     ngOnDestroy(): void;
@@ -380,6 +388,7 @@ export declare class RouterLink implements OnChanges {
     preserveFragment: boolean;
     queryParams?: Params | null;
     queryParamsHandling?: QueryParamsHandling | null;
+    relativeTo?: ActivatedRoute | null;
     replaceUrl: boolean;
     set routerLink(commands: any[] | string | null | undefined);
     skipLocationChange: boolean;
@@ -399,7 +408,7 @@ export declare class RouterLinkActive implements OnChanges, OnDestroy, AfterCont
     set routerLinkActive(data: string[] | string);
     routerLinkActiveOptions: {
         exact: boolean;
-    };
+    } | IsActiveMatchOptions;
     constructor(router: Router, element: ElementRef, renderer: Renderer2, cdr: ChangeDetectorRef, link?: RouterLink | undefined, linkWithHref?: RouterLinkWithHref | undefined);
     ngAfterContentInit(): void;
     ngOnChanges(changes: SimpleChanges): void;
@@ -412,6 +421,7 @@ export declare class RouterLinkWithHref implements OnChanges, OnDestroy {
     preserveFragment: boolean;
     queryParams?: Params | null;
     queryParamsHandling?: QueryParamsHandling | null;
+    relativeTo?: ActivatedRoute | null;
     replaceUrl: boolean;
     set routerLink(commands: any[] | string | null | undefined);
     skipLocationChange: boolean;
@@ -432,7 +442,7 @@ export declare class RouterModule {
     static forRoot(routes: Routes, config?: ExtraOptions): ModuleWithProviders<RouterModule>;
 }
 
-export declare class RouterOutlet implements OnDestroy, OnInit {
+export declare class RouterOutlet implements OnDestroy, OnInit, RouterOutletContract {
     activateEvents: EventEmitter<any>;
     get activatedRoute(): ActivatedRoute;
     get activatedRouteData(): Data;
@@ -446,6 +456,17 @@ export declare class RouterOutlet implements OnDestroy, OnInit {
     detach(): ComponentRef<any>;
     ngOnDestroy(): void;
     ngOnInit(): void;
+}
+
+export declare interface RouterOutletContract {
+    activatedRoute: ActivatedRoute | null;
+    activatedRouteData: Data;
+    component: Object | null;
+    isActivated: boolean;
+    activateWith(activatedRoute: ActivatedRoute, resolver: ComponentFactoryResolver | null): void;
+    attach(ref: ComponentRef<unknown>, activatedRoute: ActivatedRoute): void;
+    deactivate(): void;
+    detach(): ComponentRef<unknown>;
 }
 
 export declare class RouterPreloader implements OnDestroy {

@@ -6,15 +6,17 @@
  * found in the LICENSE file at https://angular.io/license
  */
 
-import {BoundTarget, ParseSourceFile, R3TargetBinder, SchemaMetadata, TmplAstNode} from '@angular/compiler';
+import {BoundTarget, ParseError, ParseSourceFile, R3TargetBinder, SchemaMetadata, TemplateParseError, TmplAstNode} from '@angular/compiler';
+import {ErrorCode, ngErrorCode} from '@angular/compiler-cli/src/ngtsc/diagnostics';
 import * as ts from 'typescript';
 
 import {absoluteFromSourceFile, AbsoluteFsPath} from '../../file_system';
 import {NoopImportRewriter, Reference, ReferenceEmitter} from '../../imports';
+import {PerfEvent, PerfRecorder} from '../../perf';
 import {ClassDeclaration, ReflectionHost} from '../../reflection';
 import {ImportManager} from '../../translator';
 import {ComponentToShimMappingStrategy, TemplateId, TemplateSourceMapping, TypeCheckableDirectiveMeta, TypeCheckBlockMetadata, TypeCheckContext, TypeCheckingConfig, TypeCtorMetadata} from '../api';
-import {TemplateDiagnostic} from '../diagnostics';
+import {makeTemplateDiagnostic, TemplateDiagnostic} from '../diagnostics';
 
 import {DomSchemaChecker, RegistryDomSchemaChecker} from './dom';
 import {Environment} from './environment';
@@ -64,6 +66,11 @@ export interface TemplateData {
    * template nodes.
    */
   boundTarget: BoundTarget<TypeCheckableDirectiveMeta>;
+
+  /**
+   * Errors found while parsing them template, which have been converted to diagnostics.
+   */
+  templateDiagnostics: TemplateDiagnostic[];
 }
 
 /**
@@ -133,12 +140,6 @@ export interface TypeCheckingHost {
   shouldCheckComponent(node: ts.ClassDeclaration): boolean;
 
   /**
-   * Check if the given component has had its template overridden, and retrieve the new template
-   * nodes if so.
-   */
-  getTemplateOverride(sfPath: AbsoluteFsPath, node: ts.ClassDeclaration): TmplAstNode[]|null;
-
-  /**
    * Report data from a shim generated from the given input file path.
    */
   recordShimData(sfPath: AbsoluteFsPath, data: ShimTypeCheckingData): void;
@@ -179,7 +180,12 @@ export class TypeCheckContextImpl implements TypeCheckContext {
       private compilerHost: Pick<ts.CompilerHost, 'getCanonicalFileName'>,
       private componentMappingStrategy: ComponentToShimMappingStrategy,
       private refEmitter: ReferenceEmitter, private reflector: ReflectionHost,
-      private host: TypeCheckingHost, private inlining: InliningMode) {}
+      private host: TypeCheckingHost, private inlining: InliningMode, private perf: PerfRecorder) {
+    if (inlining === InliningMode.Error && config.useInlineTypeConstructors) {
+      // We cannot use inlining for type checking since this environment does not support it.
+      throw new Error(`AssertionError: invalid inlining configuration.`);
+    }
+  }
 
   /**
    * A `Map` of `ts.SourceFile`s that the context has seen to the operations (additions of methods
@@ -194,48 +200,46 @@ export class TypeCheckContextImpl implements TypeCheckContext {
   private typeCtorPending = new Set<ts.ClassDeclaration>();
 
   /**
-   * Record a template for the given component `node`, with a `SelectorMatcher` for directive
-   * matching.
+   * Register a template to potentially be type-checked.
    *
-   * @param node class of the node being recorded.
-   * @param template AST nodes of the template being recorded.
-   * @param matcher `SelectorMatcher` which tracks directives that are in scope for this template.
+   * Implements `TypeCheckContext.addTemplate`.
    */
   addTemplate(
       ref: Reference<ClassDeclaration<ts.ClassDeclaration>>,
       binder: R3TargetBinder<TypeCheckableDirectiveMeta>, template: TmplAstNode[],
       pipes: Map<string, Reference<ClassDeclaration<ts.ClassDeclaration>>>,
-      schemas: SchemaMetadata[], sourceMapping: TemplateSourceMapping,
-      file: ParseSourceFile): void {
+      schemas: SchemaMetadata[], sourceMapping: TemplateSourceMapping, file: ParseSourceFile,
+      parseErrors: ParseError[]|null): void {
     if (!this.host.shouldCheckComponent(ref.node)) {
       return;
     }
 
-    const sfPath = absoluteFromSourceFile(ref.node.getSourceFile());
-    const overrideTemplate = this.host.getTemplateOverride(sfPath, ref.node);
-    if (overrideTemplate !== null) {
-      template = overrideTemplate;
-    }
-
-    // Accumulate a list of any directives which could not have type constructors generated due to
-    // unsupported inlining operations.
-    let missingInlines: ClassDeclaration[] = [];
-
     const fileData = this.dataForFile(ref.node.getSourceFile());
     const shimData = this.pendingShimForComponent(ref.node);
+    const templateId = fileData.sourceManager.getTemplateId(ref.node);
+
+    const templateDiagnostics: TemplateDiagnostic[] = [];
+
+    if (parseErrors !== null) {
+      templateDiagnostics.push(
+          ...this.getTemplateDiagnostics(parseErrors, templateId, sourceMapping));
+    }
+
     const boundTarget = binder.bind({template});
 
-    // Get all of the directives used in the template and record type constructors for all of them.
-    for (const dir of boundTarget.getUsedDirectives()) {
-      const dirRef = dir.ref as Reference<ClassDeclaration<ts.ClassDeclaration>>;
-      const dirNode = dirRef.node;
+    if (this.inlining === InliningMode.InlineOps) {
+      // Get all of the directives used in the template and record inline type constructors when
+      // required.
+      for (const dir of boundTarget.getUsedDirectives()) {
+        const dirRef = dir.ref as Reference<ClassDeclaration<ts.ClassDeclaration>>;
+        const dirNode = dirRef.node;
 
-      if (dir.isGeneric && requiresInlineTypeCtor(dirNode, this.reflector)) {
-        if (this.inlining === InliningMode.Error) {
-          missingInlines.push(dirNode);
+        if (!dir.isGeneric || !requiresInlineTypeCtor(dirNode, this.reflector)) {
+          // inlining not required
           continue;
         }
-        // Add a type constructor operation for the directive.
+
+        // Add an inline type constructor operation for the directive.
         this.addInlineTypeCtor(fileData, dirNode.getSourceFile(), dirRef, {
           fnName: 'ngTypeCtor',
           // The constructor should have a body if the directive comes from a .ts file, but not if
@@ -251,30 +255,26 @@ export class TypeCheckContextImpl implements TypeCheckContext {
         });
       }
     }
-    const templateId = fileData.sourceManager.getTemplateId(ref.node);
+
     shimData.templates.set(templateId, {
       template,
       boundTarget,
+      templateDiagnostics,
     });
 
-    const tcbRequiresInline = requiresInlineTypeCheckBlock(ref.node);
+    const tcbRequiresInline = requiresInlineTypeCheckBlock(ref.node, pipes);
 
     // If inlining is not supported, but is required for either the TCB or one of its directive
     // dependencies, then exit here with an error.
-    if (this.inlining === InliningMode.Error && (tcbRequiresInline || missingInlines.length > 0)) {
+    if (this.inlining === InliningMode.Error && tcbRequiresInline) {
       // This template cannot be supported because the underlying strategy does not support inlining
       // and inlining would be required.
 
       // Record diagnostics to indicate the issues with this template.
-      if (tcbRequiresInline) {
-        shimData.oobRecorder.requiresInlineTcb(templateId, ref.node);
-      }
-
-      if (missingInlines.length > 0) {
-        shimData.oobRecorder.requiresInlineTypeConstructors(templateId, ref.node, missingInlines);
-      }
+      shimData.oobRecorder.requiresInlineTcb(templateId, ref.node);
 
       // Checking this template would be unsupported, so don't try.
+      this.perf.eventCount(PerfEvent.SkipGenerateTcbNoInline);
       return;
     }
 
@@ -284,6 +284,7 @@ export class TypeCheckContextImpl implements TypeCheckContext {
       pipes,
       schemas,
     };
+    this.perf.eventCount(PerfEvent.GenerateTcb);
     if (tcbRequiresInline) {
       // This class didn't meet the requirements for external type checking, so generate an inline
       // TCB for the class.
@@ -354,7 +355,7 @@ export class TypeCheckContextImpl implements TypeCheckContext {
 
     // Write out the imports that need to be added to the beginning of the file.
     let imports = importManager.getAllImports(sf.fileName)
-                      .map(i => `import * as ${i.qualifier} from '${i.specifier}';`)
+                      .map(i => `import * as ${i.qualifier.text} from '${i.specifier}';`)
                       .join('\n');
     code = imports + '\n' + code;
 
@@ -384,7 +385,8 @@ export class TypeCheckContextImpl implements TypeCheckContext {
           path: pendingShimData.file.fileName,
           templates: pendingShimData.templates,
         });
-        updates.set(pendingShimData.file.fileName, pendingShimData.file.render());
+        updates.set(
+            pendingShimData.file.fileName, pendingShimData.file.render(false /* removeComments */));
       }
     }
 
@@ -434,6 +436,26 @@ export class TypeCheckContextImpl implements TypeCheckContext {
     }
 
     return this.fileMap.get(sfPath)!;
+  }
+
+  private getTemplateDiagnostics(
+      parseErrors: ParseError[], templateId: TemplateId,
+      sourceMapping: TemplateSourceMapping): TemplateDiagnostic[] {
+    return parseErrors.map(error => {
+      const span = error.span;
+
+      if (span.start.offset === span.end.offset) {
+        // Template errors can contain zero-length spans, if the error occurs at a single point.
+        // However, TypeScript does not handle displaying a zero-length diagnostic very well, so
+        // increase the ending offset by 1 for such errors, to ensure the position is shown in the
+        // diagnostic.
+        span.end.offset++;
+      }
+
+      return makeTemplateDiagnostic(
+          templateId, sourceMapping, span, ts.DiagnosticCategory.Error,
+          ngErrorCode(ErrorCode.TEMPLATE_PARSE_ERROR), error.msg);
+    });
   }
 }
 

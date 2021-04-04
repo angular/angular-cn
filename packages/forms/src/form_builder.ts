@@ -9,6 +9,7 @@
 import {Injectable} from '@angular/core';
 
 import {AsyncValidatorFn, ValidatorFn} from './directives/validators';
+import {ReactiveFormsModule} from './form_providers';
 import {AbstractControl, AbstractControlOptions, FormArray, FormControl, FormGroup, FormHooks} from './model';
 
 function isAbstractControlOptions(options: AbstractControlOptions|
@@ -37,7 +38,7 @@ function isAbstractControlOptions(options: AbstractControlOptions|
  *
  * @publicApi
  */
-@Injectable()
+@Injectable({providedIn: ReactiveFormsModule})
 export class FormBuilder {
   /**
    * @description
@@ -79,8 +80,14 @@ export class FormBuilder {
    *
    * 构造一个新的 `FormGroup` 实例。
    *
-   * @deprecated This api is not typesafe and can result in issues with Closure Compiler renaming.
-   *  Use the `FormBuilder#group` overload with `AbstractControlOptions` instead.
+   * @deprecated This API is not typesafe and can result in issues with Closure Compiler renaming.
+   * Use the `FormBuilder#group` overload with `AbstractControlOptions` instead.
+   * Note that `AbstractControlOptions` expects `validators` and `asyncValidators` to be valid
+   * validators. If you have custom validators, make sure their validation function parameter is
+   * `AbstractControl` and not a sub-class, such as `FormGroup`. These functions will be called with
+   * an object of type `AbstractControl` and that cannot be automatically downcast to a subclass, so
+   * TypeScript sees this as an error. For example, change the `(group: FormGroup) =>
+   * ValidationErrors|null` signature to be `(group: AbstractControl) => ValidationErrors|null`.
    *
    * 此 api 不是类型安全的，可能会导致 Closure Compiler 重命名时出现问题。应该改用 `FormBuilder#group` 的接受 `AbstractControlOptions` 的重载形式。
    *

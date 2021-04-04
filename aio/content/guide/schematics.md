@@ -52,10 +52,10 @@ See [Workspace Configuration](guide/workspace-config) for information about how 
 
 与原理图相关联的 JSON 模式会告诉 Angular CLI 命令和子命令都有哪些选项以及默认值。这些默认值可以通过在命令行中为该选项提供不同的值来进行覆盖。要了解如何更改代码生成选项的默认值，请参阅“ [工作区配置](guide/workspace-config) ”。
 
-The JSON schemas for the default schematics used by the CLI to generate projects and parts of projects are collected in the package [`@schematics/angular`](https://raw.githubusercontent.com/angular/angular-cli/v7.0.0/packages/schematics/angular/application/schema.json).
+The JSON schemas for the default schematics used by the CLI to generate projects and parts of projects are collected in the package [`@schematics/angular`](https://github.com/angular/angular-cli/tree/master/packages/schematics/angular).
 The schema describes the options available to the CLI for each of the `ng generate` sub-commands, as shown in the `--help` output.
 
-CLI 中那些用来生成项目及其部件的默认原理图，其 JSON 模式收集在 [`@schematics/angular`](https://raw.githubusercontent.com/angular/angular-cli/v7.0.0/packages/schematics/angular/application/schema.json) 包中。该模式描述了 CLI 中每个可用的 `ng generate` 子命令选项，如 `--help` 输出中所示。
+CLI 中那些用来生成项目及其部件的默认原理图，其 JSON 模式收集在 [`@schematics/angular`](https://github.com/angular/angular-cli/tree/master/packages/schematics/angular) 包中。该模式描述了 CLI 中每个可用的 `ng generate` 子命令选项，如 `--help` 输出中所示。
 
 ## Developing schematics for libraries
 

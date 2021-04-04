@@ -24,7 +24,7 @@ This guide assumes that you have a basic understanding of the following.
 
 本指南假设你对以下内容有基本的了解。
 
-* [TypeScript](https://www.typescriptlang.org/docs/home.html "The TypeScript language") and HTML5 programming.
+* [TypeScript](https://www.typescriptlang.org/ "The TypeScript language") and HTML5 programming.
 
   [TypeScript](https://www.typescriptlang.org/docs/home.html "TypeScript 语言")和 HTML5 编程。
 

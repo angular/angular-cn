@@ -33,6 +33,30 @@ You can configure an injector with a service class, you can provide a substitute
 
 你可以使用服务类来配置注入器，也可以提供一个替代类、一个对象或一个工厂函数。
 
+
+{@a token}
+
+{@a injection-token}
+
+## Dependency injection tokens
+
+When you configure an [injector](guide/glossary#injector) with a [provider](guide/glossary#provider), you are associating that provider with a [dependency injection token](guide/glossary#di-token), or DI token.
+The injector allows Angular create a map of any internal dependencies.
+The DI token acts as a key to that map.
+
+The dependency value is an instance, and the class type serves as a lookup key.
+Here, the injector uses the `HeroService` type as the token for looking up `heroService`.
+
+<code-example path="dependency-injection/src/app/injector.component.ts" region="get-hero-service" header="src/app/injector.component.ts"></code-example>
+
+When you define a constructor parameter with the `HeroService` class type, Angular knows to inject the service associated with that `HeroService` class token:
+
+<code-example path="dependency-injection/src/app/heroes/hero-list.component.ts" region="ctor-signature" header="src/app/heroes/hero-list.component.ts">
+</code-example>
+
+Though classes provide many dependency values, the expanded `provide` object lets you associate different kinds of providers with a DI token.
+
+
 {@a provide}
 
 ## Defining providers
@@ -59,11 +83,12 @@ The expanded provider configuration is an object literal with two properties.
 
 扩展的提供者配置是一个具有两个属性的对象字面量。
 
-1. The `provide` property holds the [token](guide/dependency-injection#token) that serves as the key for both locating a dependency value and configuring the injector.
+* The `provide` property holds the [token](#token)
+that serves as the key for both locating a dependency value and configuring the injector.
 
-  `provide` 属性存有[令牌](guide/dependency-injection#token)，它作为一个 key，在定位依赖值和配置注入器时使用。
+  `provide` 属性存有[令牌](#token)，它作为一个 key，在定位依赖值和配置注入器时使用。
 
-2. The second property is a provider definition object, which tells the injector how to create the dependency value.
+* The second property is a provider definition object, which tells the injector how to create the dependency value.
 The provider-definition key can be `useClass`, as in the example.
 It can also be `useExisting`, `useValue`, or `useFactory`.
 Each of these keys provides a different type of dependency, as discussed below.
@@ -75,14 +100,10 @@ Each of these keys provides a different type of dependency, as discussed below.
 
 {@a class-provider}
 
-## Configuring the injector to use alternative class providers
+## Specifying an alternative class provider
 
-## 配置该注入器以使用替代类提供者
-
-To configure the injector to return a different class that provides the same service, you can use the `useClass` property.
-In this example, the injector returns a `BetterLogger` instance when using the `Logger` token.
-
-为了让注入器能够返回提供同一服务的另一个类，你可以使用 `useClass` 属性。在这个例子中，当使用 `Logger` 令牌时，注入器会返回一个 `BetterLogger` 的实例。
+Different classes can provide the same service.
+For example, the following code tells the injector to return a `BetterLogger` instance when the component asks for a logger using the `Logger` token.
 
 <code-example path="dependency-injection/src/app/providers.component.ts" region="providers-4" >
 </code-example>
@@ -230,9 +251,9 @@ The following example defines a token, `APP_CONFIG` of the type `InjectionToken`
 
 <code-example path="dependency-injection/src/app/app.config.ts" region="token" header="src/app/app.config.ts"></code-example>
 
-The optional type parameter, `app.config`, and the token description, `<AppConfig>` specify the token's purpose.
+The optional type parameter, `<AppConfig>`, and the token description, `app.config`, specify the token's purpose.
 
-可选的参数 `app.config` 和令牌类型 `<AppConfig>` 指出了令牌的用途。
+可选的参数 `<AppConfig>` 和令牌描述 `app.config` 指明了此令牌的用途。
 
 Next, register the dependency provider in the component using the `InjectionToken` object of `APP_CONFIG`.
 
@@ -308,11 +329,11 @@ You inject both `Logger` and `UserService` into the factory provider so the inje
 
   `useFactory` 字段指定该提供程序是一个工厂函数，其实现代码是 `heroServiceFactory` 。
 
-* The `deps` property is an array of [provider tokens](guide/dependency-injection#token).
+* The `deps` property is an array of [provider tokens](#token).
 The `Logger` and `UserService` classes serve as tokens for their own class providers.
 The injector resolves these tokens and injects the corresponding services into the matching `heroServiceFactory` factory function parameters.
 
-  `deps` 属性是一个[提供者令牌](guide/dependency-injection#token)数组。 `Logger` 和 `UserService` 类都是自己类提供者的令牌。该注入器解析了这些令牌，并把相应的服务注入到 `heroServiceFactory` 工厂函数的参数中。
+  `deps` 属性是一个[提供者令牌](#token)数组。 `Logger` 和 `UserService` 类都是自己类提供者的令牌。该注入器解析了这些令牌，并把相应的服务注入到 `heroServiceFactory` 工厂函数的参数中。
 
 Capturing the factory provider in the exported variable, `heroServiceProvider`, makes the factory provider reusable.
 

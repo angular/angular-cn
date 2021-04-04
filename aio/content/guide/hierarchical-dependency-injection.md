@@ -1641,8 +1641,6 @@ its injector produces an instance of `Car` resolved by injector (C) with an `Eng
 
 </div>
 
-<hr />
-
 ## More on dependency injection
 
 ## 关于依赖注入的更多知识

@@ -182,10 +182,9 @@ The following table lists some of the key AngularJS template features with their
 
       Angular 有了真正的模板输入变量，它需要使用 `let` 关键字进行明确定义。
 
-      For more information, see the [ngFor micro-syntax](guide/built-in-directives#microsyntax)
-      section of the [Built-in Directives](guide/built-in-directives) page.
+      For more information, see the [Structural directive shorthand](guide/structural-directives#shorthand) section of [Structural Directives](guide/structural-directives).
 
-      要了解更多信息，请参阅[内置指令](guide/built-in-directives)中的[ngFor 微语法](guide/built-in-directives#microsyntax)部分。
+      要了解更多信息，请参阅[结构型指令](guide/structural-directives)中的[结构型指令的简写法](guide/structural-directives#shorthand)部分。
     </td>
 
   </tr>
@@ -820,10 +819,10 @@ AngularJS 为模板提供了七十多个内置指令。
 
       要了解关于样式绑定的更多知识，参阅[属性绑定](guide/attribute-binding)中的[样式绑定](guide/attribute-binding#style-binding)部分。
 
-      For more information on the `ngStyle` directive, see the [NgStyle](guide/built-in-directives#ngStyle)
+      For more information on the `ngStyle` directive, see the [NgStyle](guide/built-in-directives#ngstyle)
       section of the [Built-in directives](guide/built-in-directives) page.
 
-      要了解关于 `ngStyle` 指令的更多知识，参阅[内置指令](guide/built-in-directives)中的[NgStyle](guide/built-in-directives#ngStyle)部分。
+      要了解关于 `ngStyle` 指令的更多知识，参阅[内置指令](guide/built-in-directives)中的[NgStyle](guide/built-in-directives#ngstyle)部分。
     </td>
 
   </tr>

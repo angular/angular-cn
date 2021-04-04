@@ -12,12 +12,13 @@ import {Identifiers} from '@angular/compiler/src/render3/r3_identifiers';
 import {angularCoreEnv} from '../../src/render3/jit/environment';
 
 const INTERFACE_EXCEPTIONS = new Set<string>([
-  'ɵɵComponentDefWithMeta',
-  'ɵɵDirectiveDefWithMeta',
+  'ɵɵComponentDeclaration',
+  'ɵɵDirectiveDeclaration',
+  'ɵɵInjectorDeclaration',
   'ɵɵInjectorDef',
-  'ɵɵNgModuleDefWithMeta',
-  'ɵɵPipeDefWithMeta',
-  'ɵɵFactoryDef',
+  'ɵɵNgModuleDeclaration',
+  'ɵɵPipeDeclaration',
+  'ɵɵFactoryDeclaration',
   'ModuleWithProviders',
 ]);
 
@@ -28,6 +29,11 @@ const INTERFACE_EXCEPTIONS = new Set<string>([
 const PARTIAL_ONLY = new Set<string>([
   'ɵɵngDeclareDirective',
   'ɵɵngDeclareComponent',
+  'ɵɵngDeclareFactory',
+  'ɵɵngDeclareInjector',
+  'ɵɵngDeclareNgModule',
+  'ɵɵngDeclarePipe',
+  'ɵɵFactoryTarget',
   'ChangeDetectionStrategy',
   'ViewEncapsulation',
 ]);

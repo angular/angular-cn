@@ -137,10 +137,10 @@ export class AppComponent {
 
 ## 配置针对特定目标的文件替换规则
 
-The main CLI configuration file, `angular.json`, contains a `fileReplacements` section in the configuration for each build target, which allows you to replace any file with a target-specific version of that file.
+The main CLI configuration file, `angular.json`, contains a `fileReplacements` section in the configuration for each build target, which allows you to replace any file in the TypeScript program with a target-specific version of that file.
 This is useful for including target-specific code or variables in a build that targets a specific environment, such as production or staging.
 
-CLI 的主配置文件 `angular.json` 中的每个构建目标下都包含了一个 `fileReplacements` 区段。这能让你把任何文件替换为针对特定目标的版本。
+CLI 的主配置文件 `angular.json` 中的每个构建目标下都包含了一个 `fileReplacements` 区段。这能让你把 TypeScript 程序中的任何文件替换为针对特定目标的版本。
 当构建目标需要包含针对特定环境（比如生产或预生产）的代码或变量时，这非常有用。
 
 By default no files are replaced.
@@ -162,9 +162,9 @@ For example:
     ...
 ```
 
-This means that when you build your production configuration (using `ng build --prod` or `ng build --configuration=production`), the `src/environments/environment.ts` file is replaced with the target-specific version of the file, `src/environments/environment.prod.ts`.
+This means that when you build your production configuration with `ng build --configuration production`, the `src/environments/environment.ts` file is replaced with the target-specific version of the file, `src/environments/environment.prod.ts`.
 
-这意味着当你构建生产配置时（用 `ng build --prod` 或 `ng build --configuration=production`），就会把 `src/environments/environment.ts` 文件替换成针对特定目标的版本 `src/environments/environment.prod.ts`。
+这意味着当你使用 `ng build --configuration production` 构建生产配置时，就会把 `src/environments/environment.ts` 文件替换成针对特定目标的版本 `src/environments/environment.prod.ts`。
 
 You can add additional configurations as required. To add a staging environment, create a copy of `src/environments/environment.ts` called `src/environments/environment.staging.ts`, then add a `staging` configuration to `angular.json`:
 
@@ -297,116 +297,120 @@ Each budget entry is a JSON object with the following properties:
 
     The type of budget. One of:
 
-    限制的类型。有效值为：
-
 * `bundle` - The size of a specific bundle.
-
-  `bundle` - 特定包的大小。
-
 * `initial` - The initial size of the app.
-
-  `initial` -  应用的初始大小。
-
 * `allScript` - The size of all scripts.
-
-  `allScript` - 所有脚本的总大小。
-
 * `all` - The size of the entire app.
-
-  `all` - 整个应用的总大小。
-
 * `anyComponentStyle` - This size of any one component stylesheet.
-
-  `anyComponentStyle` - 任何一个组件样式文件的大小。
-
 * `anyScript` - The size of any one script.
-
-  `anyScript` - 任何一个脚本的大小。
-
 * `any` - The size of any file.
-
-  `any` - 任何一个文件的大小。
 
     </td>
   </tr>
+
+  <tr>
+    <td>type</td>
+    <td>
+
+  限制的类型。有效值为：
+
+* `bundle` - 特定包的大小。
+* `initial` -  应用的初始大小。
+* `allScript` - 所有脚本的总大小。
+* `all` - 整个应用的总大小。
+* `anyComponentStyle` - 任何一个组件样式文件的大小。
+* `anyScript` - 任何一个脚本的大小。
+* `any` - 任何一个文件的大小。
+
+    </td>
+  </tr>
+
    <tr>
     <td>name</td>
     <td>
 
-    The name of the bundle (for `type=bundle`).
+  The name of the bundle (for `type=bundle`).
 
-    要限制的包的名字（当 `type=bundle` 时）。
     </td>
   </tr>
+
+   <tr>
+    <td>name</td>
+    <td>
+
+  要限制的包的名字（当 `type=bundle` 时）。
+
+    </td>
+  </tr>
+
   <tr>
     <td>baseline</td>
-    <td>
-
-    The baseline size for comparison. 
-
-    一个表示基准大小的绝对值，用做比例值的基数。
-
-    </td>
+    <td>The baseline size for comparison.</td>
   </tr>
+
+  <tr>
+    <td>baseline</td>
+    <td>一个表示基准大小的绝对值，用做比例值的基数。</td>
+  </tr>
+
   <tr>
     <td>maximumWarning</td>
-    <td>
-
-    The maximum threshold for warning relative to the baseline.
-
-    当大小超过基线的这个阈值百分比时给出警告。
-
-    </td>
+    <td>The maximum threshold for warning relative to the baseline.</td>
   </tr>
+
+  <tr>
+    <td>maximumWarning</td>
+    <td>当大小超过基线的这个阈值百分比时给出警告。</td>
+  </tr>
+
   <tr>
     <td>maximumError</td>
-    <td>
-
-    The maximum threshold for error relative to the baseline.
-
-    当大小超过基线的这个阈值百分比时报错。
-
-    </td>
+    <td>The maximum threshold for error relative to the baseline.</td>
   </tr>
+
+  <tr>
+    <td>maximumError</td>
+    <td>当大小超过基线的这个阈值百分比时报错。</td>
+  </tr>
+
   <tr>
     <td>minimumWarning</td>
-    <td>
-
-    The minimum threshold for warning relative to the baseline.
-
-    当大小小于基线的这个阈值百分比时给出警告。
-
-    </td>
+    <td>The minimum threshold for warning relative to the baseline.</td>
   </tr>
+
+  <tr>
+    <td>minimumWarning</td>
+    <td>当大小小于基线的这个阈值百分比时给出警告。</td>
+  </tr>
+
   <tr>
     <td>minimumError</td>
-    <td>
-
-    The minimum threshold for error relative to the baseline.
-
-    当大小小于基线的这个阈值百分比时报错。
-
-    </td>
+    <td>The minimum threshold for error relative to the baseline.</td>
   </tr>
+
+  <tr>
+    <td>minimumError</td>
+    <td>当大小小于基线的这个阈值百分比时报错。</td>
+  </tr>
+
   <tr>
     <td>warning</td>
-    <td>
-
-    The threshold for warning relative to the baseline (min & max).
-
-    当大小达到或小于基线的这个阈值百分比时都给出警告。
-
-    </td>
+    <td>The threshold for warning relative to the baseline (min & max).</td>
   </tr>
+
+  <tr>
+    <td>warning</td>
+    <td>当大小达到或小于基线的这个阈值百分比时都给出警告。</td>
+  </tr>
+
   <tr>
     <td>error</td>
-    <td>
+    <td>The threshold for error relative to the baseline (min & max).</td>
+  </tr>
 
-    The threshold for error relative to the baseline (min & max).
-
-    当大小达到或小于基线的这个阈值百分比时都报错。
-
-    </td>
+  <tr>
+    <td>error</td>
+    <td>当大小达到或小于基线的这个阈值百分比时都报错。</td>
   </tr>
 
  </table>
@@ -472,22 +476,22 @@ Browserlist 会在 `package.json` 的 `browserlist` 属性中或一个名叫 `.b
 
   你可以为 `package.json` 添加 `browserslist` 属性来告诉 Autoprefixer，要针对哪些浏览器：
 
-  ```
-   "browserslist": [
-     "> 1%",
-     "last 2 versions"
-   ]
-  ```
+```
+ "browserslist": [
+   "> 1%",
+   "last 2 versions"
+ ]
+```
 
 * Alternatively, you can add a new file, `.browserslistrc`, to the project directory, that specifies browsers you want to support:
 
   或者你也可以在项目目录下添加一个新文件 `.browserslistrc`，用于指定你要支持哪些浏览器： 
 
-  ```
-   ### Supported Browsers
-   > 1%
-   last 2 versions
-  ```
+```
+ ### Supported Browsers
+ > 1%
+ last 2 versions
+```
 
 See the [browserslist repo](https://github.com/browserslist/browserslist) for more examples of how to target specific browsers and versions.
 

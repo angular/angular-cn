@@ -1,6 +1,6 @@
-# Add in-app navigation with routing
+# Add navigation with routing
 
-# 路由
+# 用路由添加导航支持
 
 There are new requirements for the Tour of Heroes app:
 
@@ -24,13 +24,13 @@ There are new requirements for the Tour of Heroes app:
 
 <div class="alert is-helpful">
 
-  For the sample app that this page describes, see the <live-example></live-example>.
+  For the sample application that this page describes, see the <live-example></live-example>.
 
   要查看本页所讲的范例程序，参阅<live-example></live-example>。
 
 </div>
 
-When you’re done, users will be able to navigate the app like this:
+When you’re done, users will be able to navigate the application like this:
 
 完成时，用户就能像这样在应用中导航：
 
@@ -83,9 +83,9 @@ Replace it with the following:
 <code-example path="toh-pt5/src/app/app-routing.module.1.ts" header="src/app/app-routing.module.ts (updated)">
 </code-example>
 
-First, `AppRoutingModule` imports `RouterModule` and `Routes` so the app can have routing functionality. The next import, `HeroesComponent`, will give the Router somewhere to go once you configure the routes.
+First, the `app-routing.module.ts` file imports `RouterModule` and `Routes` so the application can have routing functionality. The next import, `HeroesComponent`, will give the Router somewhere to go once you configure the routes.
 
-首先，`AppRoutingModule` 会导入 `RouterModule` 和 `Routes`，以便该应用具有路由功能。配置好路由后，接着导入 `HeroesComponent`，它将告诉路由器要去什么地方。
+首先，`app-routing.module.ts` 会导入 `RouterModule` 和 `Routes`，以便该应用具有路由功能。配置好路由后，接着导入 `HeroesComponent`，它将告诉路由器要去什么地方。
 
 Notice that the `CommonModule` references and `declarations` array are unnecessary, so are no
 longer part of `AppRoutingModule`. The following sections explain the rest of the `AppRoutingModule` in more detail.
@@ -103,9 +103,9 @@ pastes a URL into the browser address bar.
 该文件的下一部分是你的路由配置。
 *Routes* 告诉路由器，当用户单击链接或将 URL 粘贴进浏览器地址栏时要显示哪个视图。
 
-Since `AppRoutingModule` already imports `HeroesComponent`, you can use it in the `routes` array:
+Since `app-routing.module.ts` already imports `HeroesComponent`, you can use it in the `routes` array:
 
-由于 `AppRoutingModule` 已经导入了 `HeroesComponent`，因此你可以直接在 `routes` 数组中使用它：
+由于 `app-routing.module.ts` 已经导入了 `HeroesComponent`，因此你可以直接在 `routes` 数组中使用它：
 
 <code-example path="toh-pt5/src/app/app-routing.module.ts" header="src/app/app-routing.module.ts"
   region="heroes-route">
@@ -173,7 +173,7 @@ Open the `AppComponent` template and replace the `<app-heroes>` element with a `
 <code-example path="toh-pt5/src/app/app.component.html" region="outlet" header="src/app/app.component.html (router-outlet)">
 </code-example>
 
-The `AppComponent` template no longer needs `<app-heroes>` because the app will only display the `HeroesComponent` when the user navigates to it.
+The `AppComponent` template no longer needs `<app-heroes>` because the application will only display the `HeroesComponent` when the user navigates to it.
 
 `AppComponent` 的模板不再需要 `<app-heroes>`，因为只有当用户导航到这里时，才需要显示 `HeroesComponent`。
 
@@ -203,7 +203,7 @@ You should still be running with this CLI command.
   ng serve
 </code-example>
 
-The browser should refresh and display the app title but not the list of heroes.
+The browser should refresh and display the application title but not the list of heroes.
 
 浏览器应该刷新，并显示着应用的标题，但是没有显示英雄列表。
 
@@ -251,7 +251,7 @@ It's another of the public directives in the `RouterModule`.
 `routerLink` 是 [`RouterLink` 指令](/api/router/RouterLink)的选择器，它会把用户的点击转换为路由器的导航操作。
 它是 `RouterModule` 中的另一个公共指令。
 
-The browser refreshes and displays the app title and heroes link,
+The browser refreshes and displays the application title and heroes link,
 but not the heroes list.
 
 刷新浏览器，显示出了应用的标题和指向英雄列表的链接，但并没有显示英雄列表。
@@ -356,16 +356,16 @@ To navigate to the dashboard, the router needs an appropriate route.
 
 要导航到仪表盘，路由器中就需要一个相应的路由。
 
-Import the `DashboardComponent` in the `AppRoutingModule`.
+Import the `DashboardComponent` in the `app-routing-module.ts` file.
 
-把 `DashboardComponent` 导入到 `AppRoutingModule` 中。
+把 `DashboardComponent` 导入到 `app-routing-module.ts` 中。
 
 <code-example path="toh-pt5/src/app/app-routing.module.ts" region="import-dashboard" header="src/app/app-routing.module.ts (import DashboardComponent)">
 </code-example>
 
-Add a route to the `AppRoutingModule.routes` array that matches a path to the `DashboardComponent`.
+Add a route to the `routes` array that matches a path to the `DashboardComponent`.
 
-把一个指向 `DashboardComponent` 的路由添加到 `AppRoutingModule.routes` 数组中。
+把一个指向 `DashboardComponent` 的路由添加到 `routes` 数组中。
 
 <code-example path="toh-pt5/src/app/app-routing.module.ts" header="src/app/app-routing.module.ts" region="dashboard-route">
 </code-example>
@@ -374,7 +374,7 @@ Add a route to the `AppRoutingModule.routes` array that matches a path to the `D
 
 ### 添加默认路由
 
-When the app starts, the browser's address bar points to the web site's root.
+When the application starts, the browser's address bar points to the web site's root.
 That doesn't match any existing route so the router doesn't navigate anywhere.
 The space below the `<router-outlet>` is blank.
 
@@ -382,10 +382,10 @@ The space below the `<router-outlet>` is blank.
 它没有匹配到任何现存路由，因此路由器也不会导航到任何地方。
 `<router-outlet>` 下方是空白的。
 
-To make the app navigate to the dashboard automatically, add the following
-route to the `AppRoutingModule.Routes` array.
+To make the application navigate to the dashboard automatically, add the following
+route to the `routes` array.
 
-要让应用自动导航到这个仪表盘，请把下列路由添加到 `AppRoutingModule.Routes` 数组中。
+要让应用自动导航到这个仪表盘，请把下列路由添加到 `routes` 数组中。
 
 <code-example path="toh-pt5/src/app/app-routing.module.ts" header="src/app/app-routing.module.ts" region="redirect-route">
 </code-example>
@@ -458,7 +458,7 @@ and liberate it from the `HeroesComponent`.
 ### 从 `HeroesComponent` 中删除*英雄详情*
 
 When the user clicks a hero item in the `HeroesComponent`,
-the app should navigate to the `HeroDetailComponent`,
+the application should navigate to the `HeroDetailComponent`,
 replacing the heroes list view with the hero detail view.
 The heroes list view should no longer show hero details as it does now.
 
@@ -483,16 +483,16 @@ A URL like `~/detail/11` would be a good URL for navigating to the *Hero Detail*
 
 要导航到 `id` 为 `11` 的英雄的*详情*视图，类似于 `~/detail/11` 的 URL 将是一个不错的 URL。
 
-Open `AppRoutingModule` and import `HeroDetailComponent`.
+Open `app-routing.module.ts` and import `HeroDetailComponent`.
 
-打开 `AppRoutingModule` 并导入 `HeroDetailComponent`。
+打开 `app-routing.module.ts` 并导入 `HeroDetailComponent`。
 
 <code-example path="toh-pt5/src/app/app-routing.module.ts" region="import-herodetail" header="src/app/app-routing.module.ts (import HeroDetailComponent)">
 </code-example>
 
-Then add a _parameterized_ route to the `AppRoutingModule.routes` array that matches the path pattern to the _hero detail_ view.
+Then add a _parameterized_ route to the `routes` array that matches the path pattern to the _hero detail_ view.
 
-然后把一个*参数化*路由添加到 `AppRoutingModule.routes` 数组中，它要匹配指向*英雄详情*视图的路径。
+然后把一个*参数化*路由添加到 `routes` 数组中，它要匹配指向*英雄详情*视图的路径。
 
 <code-example path="toh-pt5/src/app/app-routing.module.ts" header="src/app/app-routing.module.ts" region="detail-route">
 </code-example>
@@ -683,7 +683,7 @@ which is what a hero `id` should be.
 路由参数总会是字符串。
 JavaScript 的 (+) 操作符会把字符串转换成数字，英雄的 `id` 就是数字类型。
 
-The browser refreshes and the app crashes with a compiler error.
+The browser refreshes and the application crashes with a compiler error.
 `HeroService` doesn't have a `getHero()` method.
 Add it now.
 
@@ -726,7 +726,7 @@ without having to change the `HeroDetailComponent` that calls it.
 
 #### 试试看
 
-The browser refreshes and the app is working again.
+The browser refreshes and the application is working again.
 You can click a hero in the dashboard or in the heroes list and navigate to that hero's detail view.
 
 刷新浏览器，应用又恢复正常了。
@@ -896,7 +896,8 @@ Here are the code files discussed on this page.
 * You configured the router in an `AppRoutingModule` 
 
    你在 `AppRoutingModule` 中配置了路由器。
-* You defined simple routes, a redirect route, and a parameterized route.
+
+* You defined routes, a redirect route, and a parameterized route.
 
    你定义了一些简单路由、一个重定向路由和一个参数化路由。
 

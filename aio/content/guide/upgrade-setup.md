@@ -342,12 +342,12 @@ The following are all in `src/`
 
 ## 附录：用 IE 进行本地化开发
 
-If you develop angular locally with `ng serve`, a `websocket` connection is set up automatically between browser and local dev server, so when your code changes, the browser can automatically refresh.
+If you develop Angular locally with `ng serve`, a `websocket` connection is set up automatically between browser and local dev server, so when your code changes, the browser can automatically refresh.
 
 如果你使用 `ng serve` 进行本地化 Angular 开发，就会自动在浏览器和本地开发服务器之间建立一个 `websocket` 连接，这样，在代码发生变化时，浏览器就会自动刷新。
 
 In Windows, by default, one application can only have 6 websocket connections, <a href="https://msdn.microsoft.com/library/ee330736%28v=vs.85%29.aspx?f=255&MSPPError=-2147217396#websocket_maxconn" title="MSDN WebSocket settings">MSDN WebSocket Settings</a>.
-So when IE is refreshed (manually or automatically by `ng serve`), sometimes the websocket does not close properly. When websocket connections exceed the limitations, a `SecurityError` will be thrown. This error will not affect the angular application, you can just restart IE to clear this error, or modify the windows registry to update the limitations.
+So when IE is refreshed (manually or automatically by `ng serve`), sometimes the websocket does not close properly. When websocket connections exceed the limitations, a `SecurityError` will be thrown. This error will not affect the Angular application, you can just restart IE to clear this error, or modify the windows registry to update the limitations.
 
 在 Windows 上，默认情况下，每个应用最多只能有 6 个 websocket 连接，参阅 <a href="https://msdn.microsoft.com/library/ee330736%28v=vs.85%29.aspx?f=255&MSPPError=-2147217396#websocket_maxconn" title="MSDN WebSocket settings">MSDN 上的 WebSocket 设置</a>。
 所以，当 IE 刷新时（手动刷新或由 `ng serve` 自动刷新），websocket 可能无法正常关闭。当 websocket 连接数超过上限时，就会抛出一个 `SecurityError` 异常。这种错误不会影响 Angular 应用，你可以重启 IE 来清除此异常或在 Windows 注册表中加大这个上限。
@@ -356,9 +356,9 @@ So when IE is refreshed (manually or automatically by `ng serve`), sometimes the
 
 ## 附录：使用 `fakeAsync()/async()` 进行测试
 
-If you use the `fakeAsync()/waitForAsync()` helper function to run unit tests (for details, read the [Testing guide](guide/testing-components-scenarios#fake-async)), you need to import `zone.js/dist/zone-testing` in your test setup file.
+If you use the `fakeAsync()/waitForAsync()` helper function to run unit tests (for details, read the [Testing guide](guide/testing-components-scenarios#fake-async)), you need to import `zone.js/testing` in your test setup file.
 
-如果你使用 `fakeAsync()/async()` 辅助函数来运行单元测试（详情参阅[测试指南](guide/testing-components-scenarios#fake-async)），就要在测试的准备文件中导入 `zone.js/dist/zone-testing`。
+如果你使用 `fakeAsync()/async()` 辅助函数来运行单元测试（详情参阅[测试指南](guide/testing-components-scenarios#fake-async)），就要在测试的准备文件中导入 `zone.js/testing`。
 
 <div class="alert is-important">
 
@@ -373,12 +373,12 @@ And in the earlier versions of `Angular`, the following files were imported or a
 在以前版本的 `Angular` 中，下列文件曾被导入或添加到 html 文件中：
 
 ```
-import 'zone.js/dist/long-stack-trace-zone';
-import 'zone.js/dist/proxy';
-import 'zone.js/dist/sync-test';
-import 'zone.js/dist/jasmine-patch';
-import 'zone.js/dist/async-test';
-import 'zone.js/dist/fake-async-test';
+import 'zone.js/plugins/long-stack-trace-zone';
+import 'zone.js/plugins/proxy';
+import 'zone.js/plugins/sync-test';
+import 'zone.js/plugins/jasmine-patch';
+import 'zone.js/plugins/async-test';
+import 'zone.js/plugins/fake-async-test';
 ```
 
 You can still load those files separately, but the order is important, you must import `proxy` before `sync-test`, `async-test`, `fake-async-test` and `jasmine-patch`. And you also need to import `sync-test` before `jasmine-patch`, so it is recommended to just import `zone-testing` instead of loading those separated files.

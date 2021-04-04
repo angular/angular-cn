@@ -237,14 +237,14 @@ To specify a value transformation in an HTML template, use the [pipe operator (|
 
 要在 HTML 模板中指定值的转换方式，请使用 [管道操作符 (|)](guide/pipes)。
 
- `{{interpolated_value | pipe_name}}`
+`{{interpolated_value | pipe_name}}`
 
 You can chain pipes, sending the output of one pipe function to be transformed by another pipe function. A pipe can also take arguments that control how it performs its transformation. For example, you can pass the desired format to the `date` pipe.
 
 你可以把管道串联起来，把一个管道函数的输出送给另一个管道函数进行转换。
  管道还能接收一些参数，来控制它该如何进行转换。比如，你可以把要使用的日期格式传给 `date` 管道：
 
- ```
+```
   <!-- Default format: output 'Jun 15, 2015'-->
 
   <p>Today is {{today | date}}</p>
@@ -300,13 +300,13 @@ The example template uses two built-in structural directives to add application 
 
 <code-example path="architecture/src/app/hero-list.component.1.html" header="src/app/hero-list.component.html (structural)" region="structural"></code-example>
 
-  * [`*ngFor`](guide/structural-directives#inside-ngfor) is an iterative; it tells Angular to stamp out one `<li>` per hero in the `heroes` list.
+  * [`*ngFor`](guide/built-in-directives#ngFor) is an iterative; it tells Angular to stamp out one `<li>` per hero in the `heroes` list.
 
-     [`*ngFor`](guide/structural-directives#inside-ngfor) 是一个迭代器，它要求 Angular 为 `heroes` 列表中的每个英雄渲染出一个 `<li>`。
+     [`*ngFor`](guide/built-in-directives#ngFor) 是一个迭代器，它要求 Angular 为 `heroes` 列表中的每个英雄渲染出一个 `<li>`。
 
-  * [`*ngIf`](guide/structural-directives#ngif-case-study) is a conditional; it includes the `HeroDetail` component only if a selected hero exists.
+  * [`*ngIf`](guide/built-in-directives#ngIf) is a conditional; it includes the `HeroDetail` component only if a selected hero exists.
 
-     [`*ngIf`](guide/structural-directives#ngif-case-study) 是个条件语句，只有当选中的英雄存在时，它才会包含 `HeroDetail` 组件。
+     [`*ngIf`](guide/built-in-directives#ngIf) 是个条件语句，只有当选中的英雄存在时，它才会包含 `HeroDetail` 组件。
 
 #### Attribute directives
 
@@ -328,9 +328,9 @@ The `ngModel` directive, which implements two-way data binding, is an example of
 Angular has more pre-defined directives that either alter the layout structure
 (for example, [ngSwitch](guide/built-in-directives#ngSwitch))
 or modify aspects of DOM elements and components
-(for example, [ngStyle](guide/built-in-directives#ngStyle) and [ngClass](guide/built-in-directives#ngClass)).
+(for example, [ngStyle](guide/built-in-directives#ngstyle) and [ngClass](guide/built-in-directives#ngClass)).
 
-Angular 还有很多预定义指令，有些修改布局结构（比如 [ngSwitch](guide/built-in-directives#ngSwitch)），有些修改 DOM 元素和组件的样子（比如 [ngStyle](guide/built-in-directives#ngStyle) 和 [ngClass](guide/built-in-directives#ngClass)）。
+Angular 还有很多预定义指令，有些修改布局结构（比如 [ngSwitch](guide/built-in-directives#ngSwitch)），有些修改 DOM 元素和组件的样子（比如 [ngStyle](guide/built-in-directives#ngstyle) 和 [ngClass](guide/built-in-directives#ngClass)）。
 
 <div class="alert is-helpful">
 

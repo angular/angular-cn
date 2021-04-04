@@ -15,9 +15,9 @@ import {Query} from '../../metadata/di';
 import {Component, Directive, Input} from '../../metadata/directives';
 import {componentNeedsResolution, maybeQueueResolutionOfComponentResources} from '../../metadata/resource_loading';
 import {ViewEncapsulation} from '../../metadata/view';
+import {EMPTY_ARRAY, EMPTY_OBJ} from '../../util/empty';
 import {initNgDevMode} from '../../util/ng_dev_mode';
 import {getComponentDef, getDirectiveDef} from '../definition';
-import {EMPTY_ARRAY, EMPTY_OBJ} from '../empty';
 import {NG_COMP_DEF, NG_DIR_DEF, NG_FACTORY_DEF} from '../fields';
 import {ComponentType} from '../interfaces/definition';
 import {stringifyForError} from '../util/stringify_utils';
@@ -211,9 +211,11 @@ function addDirectiveFactoryDef(type: Type<any>, metadata: Directive|Component) 
         const meta = getDirectiveMetadata(type, metadata);
         const compiler = getCompilerFacade();
         ngFactoryDef = compiler.compileFactory(angularCoreEnv, `ng:///${type.name}/ɵfac.js`, {
-          ...meta.metadata,
-          injectFn: 'directiveInject',
-          target: compiler.R3FactoryTarget.Directive
+          name: meta.metadata.name,
+          type: meta.metadata.type,
+          typeArgumentCount: 0,
+          deps: reflectDependencies(type),
+          target: compiler.FactoryTarget.Directive
         });
       }
       return ngFactoryDef;
@@ -239,9 +241,7 @@ export function directiveMetadata(type: Type<any>, metadata: Directive): R3Direc
   return {
     name: type.name,
     type: type,
-    typeArgumentCount: 0,
     selector: metadata.selector !== undefined ? metadata.selector : null,
-    deps: reflectDependencies(type),
     host: metadata.host || EMPTY_OBJ,
     propMetadata: propMetadata,
     inputs: metadata.inputs || EMPTY_ARRAY,
@@ -286,7 +286,8 @@ export function convertToR3QueryMetadata(propertyName: string, ann: Query): R3Qu
     descendants: ann.descendants,
     first: ann.first,
     read: ann.read ? ann.read : null,
-    static: !!ann.static
+    static: !!ann.static,
+    emitDistinctChangesOnly: !!ann.emitDistinctChangesOnly,
   };
 }
 function extractQueriesMetadata(

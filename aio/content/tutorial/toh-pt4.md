@@ -13,7 +13,7 @@ It will also be easier to unit-test with a mock service.
 
 <div class="alert is-helpful">
 
-  For the sample app that this page describes, see the <live-example></live-example>.
+  For the sample application that this page describes, see the <live-example></live-example>.
 
   要查看本页所讲的范例程序，参阅<live-example></live-example>。
 
@@ -133,7 +133,7 @@ before Angular can _inject_ it into the `HeroesComponent` by registering a _prov
 
 To make sure that the `HeroService` can provide this service, register it
 with the _injector_, which is the object that is responsible for choosing
-and injecting the provider where the app requires it.
+and injecting the provider where the application requires it.
 
 为了确保 `HeroService` 可以提供该服务，就要使用*注入器*来注册它。注入器是一个对象，负责当应用要求获取它的实例时选择和注入该提供者。
 
@@ -150,7 +150,7 @@ By default, the Angular CLI command `ng generate service` registers a provider w
 ```
 
 When you provide the service at the root level, Angular creates a single, shared instance of `HeroService` and injects into any class that asks for it.
-Registering the provider in the `@Injectable` metadata also allows Angular to optimize an app by removing the service if it turns out not to be used after all.
+Registering the provider in the `@Injectable` metadata also allows Angular to optimize an application by removing the service if it turns out not to be used after all.
 
 当你在顶层提供该服务时，Angular 就会为 `HeroService` 创建一个单一的、共享的实例，并把它注入到任何想要它的类上。
 在 `@Injectable` 元数据中注册该提供者，还能允许 Angular 通过移除那些完全没有用过的服务来进行优化。
@@ -194,7 +194,7 @@ Import the `HeroService` instead.
 <code-example path="toh-pt4/src/app/heroes/heroes.component.ts" header="src/app/heroes/heroes.component.ts (import HeroService)" region="hero-service-import">
 </code-example>
 
-Replace the definition of the `heroes` property with a simple declaration.
+Replace the definition of the `heroes` property with a declaration.
 
 把 `heroes` 属性的定义改为一句简单的声明。
 
@@ -244,11 +244,11 @@ While you could call `getHeroes()` in the constructor, that's not the best pract
 
 你固然可以在构造函数中调用 `getHeroes()`，但那不是最佳实践。
 
-Reserve the constructor for simple initialization such as wiring constructor parameters to properties.
+Reserve the constructor for minimal initialization such as wiring constructor parameters to properties.
 The constructor shouldn't _do anything_.
 It certainly shouldn't call a function that makes HTTP requests to a remote server as a _real_ data service would.
 
-让构造函数保持简单，只做初始化操作，比如把构造函数的参数赋值给属性。
+让构造函数保持简单，只做最小化的初始化操作，比如把构造函数的参数赋值给属性。
 构造函数不应该*做任何事*。
 它当然不应该调用某个函数来向远端服务（比如真实的数据服务）发起 HTTP 请求。
 
@@ -264,7 +264,7 @@ let Angular call `ngOnInit()` at an appropriate time _after_ constructing a `Her
 
 ### 查看运行效果
 
-After the browser refreshes, the app should run as before,
+After the browser refreshes, the application should run as before,
 showing a list of heroes and a hero detail view when you click on a hero name.
 
 刷新浏览器，该应用仍运行的一如既往。
@@ -287,7 +287,7 @@ as if heroes could be fetched synchronously.
 
 This will not work in a real app.
 You're getting away with it now because the service currently returns _mock heroes_.
-But soon the app will fetch heroes from a remote server,
+But soon the application will fetch heroes from a remote server,
 which is an inherently _asynchronous_ operation.
 
 这在真实的应用中几乎是不可能的。
@@ -418,7 +418,7 @@ This section guides you through the following:
 
 这一节将指导你：
 
-* adding a `MessagesComponent` that displays app messages at the bottom of the screen
+* adding a `MessagesComponent` that displays application messages at the bottom of the screen
 
    添加一个 `MessagesComponent`，它在屏幕的底部显示应用中的消息。
 
@@ -623,11 +623,11 @@ path="toh-pt4/src/app/heroes/heroes.component.ts">
 
 Refresh the browser to see the list of heroes, and scroll to the bottom to see the
 messages from the HeroService. Each time you click a hero, a new message appears to record
-the selection. Use the "clear" button to clear the message history.
+the selection. Use the **Clear messages** button to clear the message history.
 
 刷新浏览器，页面显示出了英雄列表。
 滚动到底部，就会在消息区看到来自 `HeroService` 的消息。
-点击“清空”按钮，消息区不见了。
+点击 **Clear messages** 按钮，消息区不见了。
 
 {@a final-code-review}
 

@@ -112,7 +112,7 @@ export declare interface AsyncValidatorFn {
     (control: AbstractControl): Promise<ValidationErrors | null> | Observable<ValidationErrors | null>;
 }
 
-export declare class CheckboxControlValueAccessor implements ControlValueAccessor {
+export declare class CheckboxControlValueAccessor extends ɵangular_packages_forms_forms_f implements ControlValueAccessor {
     onChange: (_: any) => void;
     onTouched: () => void;
     constructor(_renderer: Renderer2, _elementRef: ElementRef);
@@ -172,20 +172,30 @@ export declare class FormArray extends AbstractControl {
     get length(): number;
     constructor(controls: AbstractControl[], validatorOrOpts?: ValidatorFn | ValidatorFn[] | AbstractControlOptions | null, asyncValidator?: AsyncValidatorFn | AsyncValidatorFn[] | null);
     at(index: number): AbstractControl;
-    clear(): void;
+    clear(options?: {
+        emitEvent?: boolean;
+    }): void;
     getRawValue(): any[];
-    insert(index: number, control: AbstractControl): void;
+    insert(index: number, control: AbstractControl, options?: {
+        emitEvent?: boolean;
+    }): void;
     patchValue(value: any[], options?: {
         onlySelf?: boolean;
         emitEvent?: boolean;
     }): void;
-    push(control: AbstractControl): void;
-    removeAt(index: number): void;
+    push(control: AbstractControl, options?: {
+        emitEvent?: boolean;
+    }): void;
+    removeAt(index: number, options?: {
+        emitEvent?: boolean;
+    }): void;
     reset(value?: any, options?: {
         onlySelf?: boolean;
         emitEvent?: boolean;
     }): void;
-    setControl(index: number, control: AbstractControl): void;
+    setControl(index: number, control: AbstractControl, options?: {
+        emitEvent?: boolean;
+    }): void;
     setValue(value: any[], options?: {
         onlySelf?: boolean;
         emitEvent?: boolean;
@@ -237,7 +247,7 @@ export declare class FormControl extends AbstractControl {
     }): void;
 }
 
-export declare class FormControlDirective extends NgControl implements OnChanges {
+export declare class FormControlDirective extends NgControl implements OnChanges, OnDestroy {
     get control(): FormControl;
     form: FormControl;
     set isDisabled(isDisabled: boolean);
@@ -247,6 +257,7 @@ export declare class FormControlDirective extends NgControl implements OnChanges
     viewModel: any;
     constructor(validators: (Validator | ValidatorFn)[], asyncValidators: (AsyncValidator | AsyncValidatorFn)[], valueAccessors: ControlValueAccessor[], _ngModelWarningConfig: string | null);
     ngOnChanges(changes: SimpleChanges): void;
+    ngOnDestroy(): void;
     viewToModelUpdate(newValue: any): void;
 }
 
@@ -271,7 +282,9 @@ export declare class FormGroup extends AbstractControl {
     constructor(controls: {
         [key: string]: AbstractControl;
     }, validatorOrOpts?: ValidatorFn | ValidatorFn[] | AbstractControlOptions | null, asyncValidator?: AsyncValidatorFn | AsyncValidatorFn[] | null);
-    addControl(name: string, control: AbstractControl): void;
+    addControl(name: string, control: AbstractControl, options?: {
+        emitEvent?: boolean;
+    }): void;
     contains(controlName: string): boolean;
     getRawValue(): any;
     patchValue(value: {
@@ -281,12 +294,16 @@ export declare class FormGroup extends AbstractControl {
         emitEvent?: boolean;
     }): void;
     registerControl(name: string, control: AbstractControl): AbstractControl;
-    removeControl(name: string): void;
+    removeControl(name: string, options?: {
+        emitEvent?: boolean;
+    }): void;
     reset(value?: any, options?: {
         onlySelf?: boolean;
         emitEvent?: boolean;
     }): void;
-    setControl(name: string, control: AbstractControl): void;
+    setControl(name: string, control: AbstractControl, options?: {
+        emitEvent?: boolean;
+    }): void;
     setValue(value: {
         [key: string]: any;
     }, options?: {
@@ -295,7 +312,7 @@ export declare class FormGroup extends AbstractControl {
     }): void;
 }
 
-export declare class FormGroupDirective extends ControlContainer implements Form, OnChanges {
+export declare class FormGroupDirective extends ControlContainer implements Form, OnChanges, OnDestroy {
     get control(): FormGroup;
     directives: FormControlName[];
     form: FormGroup;
@@ -311,6 +328,7 @@ export declare class FormGroupDirective extends ControlContainer implements Form
     getFormArray(dir: FormArrayName): FormArray;
     getFormGroup(dir: FormGroupName): FormGroup;
     ngOnChanges(changes: SimpleChanges): void;
+    ngOnDestroy(): void;
     onReset(): void;
     onSubmit($event: Event): boolean;
     removeControl(dir: FormControlName): void;
@@ -335,11 +353,21 @@ export declare class MaxLengthValidator implements Validator, OnChanges {
     validate(control: AbstractControl): ValidationErrors | null;
 }
 
+export declare class MaxValidator extends AbstractValidatorDirective implements OnChanges {
+    max: string | number;
+    ngOnChanges(changes: SimpleChanges): void;
+}
+
 export declare class MinLengthValidator implements Validator, OnChanges {
     minlength: string | number;
     ngOnChanges(changes: SimpleChanges): void;
     registerOnValidatorChange(fn: () => void): void;
     validate(control: AbstractControl): ValidationErrors | null;
+}
+
+export declare class MinValidator extends AbstractValidatorDirective implements OnChanges {
+    min: string | number;
+    ngOnChanges(changes: SimpleChanges): void;
 }
 
 export declare const NG_ASYNC_VALIDATORS: InjectionToken<(Function | Validator)[]>;
@@ -354,11 +382,11 @@ export declare abstract class NgControl extends AbstractControlDirective {
     abstract viewToModelUpdate(newValue: any): void;
 }
 
-export declare class NgControlStatus extends ɵangular_packages_forms_forms_g {
+export declare class NgControlStatus extends ɵangular_packages_forms_forms_h {
     constructor(cd: NgControl);
 }
 
-export declare class NgControlStatusGroup extends ɵangular_packages_forms_forms_g {
+export declare class NgControlStatusGroup extends ɵangular_packages_forms_forms_h {
     constructor(cd: ControlContainer);
 }
 
@@ -426,7 +454,7 @@ export declare class NgSelectOption implements OnDestroy {
     ngOnDestroy(): void;
 }
 
-export declare class NumberValueAccessor implements ControlValueAccessor {
+export declare class NumberValueAccessor extends ɵangular_packages_forms_forms_f implements ControlValueAccessor {
     onChange: (_: any) => void;
     onTouched: () => void;
     constructor(_renderer: Renderer2, _elementRef: ElementRef);
@@ -443,13 +471,13 @@ export declare class PatternValidator implements Validator, OnChanges {
     validate(control: AbstractControl): ValidationErrors | null;
 }
 
-export declare class RadioControlValueAccessor implements ControlValueAccessor, OnDestroy, OnInit {
+export declare class RadioControlValueAccessor extends ɵangular_packages_forms_forms_f implements ControlValueAccessor, OnDestroy, OnInit {
     formControlName: string;
     name: string;
     onChange: () => void;
     onTouched: () => void;
     value: any;
-    constructor(_renderer: Renderer2, _elementRef: ElementRef, _registry: ɵangular_packages_forms_forms_n, _injector: Injector);
+    constructor(_renderer: Renderer2, _elementRef: ElementRef, _registry: ɵangular_packages_forms_forms_p, _injector: Injector);
     fireUncheck(value: any): void;
     ngOnDestroy(): void;
     ngOnInit(): void;
@@ -459,7 +487,7 @@ export declare class RadioControlValueAccessor implements ControlValueAccessor, 
     writeValue(value: any): void;
 }
 
-export declare class RangeValueAccessor implements ControlValueAccessor {
+export declare class RangeValueAccessor extends ɵangular_packages_forms_forms_f implements ControlValueAccessor {
     onChange: (_: any) => void;
     onTouched: () => void;
     constructor(_renderer: Renderer2, _elementRef: ElementRef);
@@ -481,7 +509,7 @@ export declare class RequiredValidator implements Validator {
     validate(control: AbstractControl): ValidationErrors | null;
 }
 
-export declare class SelectControlValueAccessor implements ControlValueAccessor {
+export declare class SelectControlValueAccessor extends ɵangular_packages_forms_forms_f implements ControlValueAccessor {
     set compareWith(fn: (o1: any, o2: any) => boolean);
     onChange: (_: any) => void;
     onTouched: () => void;
@@ -493,7 +521,7 @@ export declare class SelectControlValueAccessor implements ControlValueAccessor 
     writeValue(value: any): void;
 }
 
-export declare class SelectMultipleControlValueAccessor implements ControlValueAccessor {
+export declare class SelectMultipleControlValueAccessor extends ɵangular_packages_forms_forms_f implements ControlValueAccessor {
     set compareWith(fn: (o1: any, o2: any) => boolean);
     onChange: (_: any) => void;
     onTouched: () => void;

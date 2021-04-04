@@ -6,9 +6,9 @@
  * found in the LICENSE file at https://angular.io/license
  */
 
-import {Directive, ElementRef, forwardRef, Injectable, Injector, Input, OnDestroy, OnInit, Renderer2} from '@angular/core';
+import {Directive, ElementRef, forwardRef, Injectable, Injector, Input, NgModule, OnDestroy, OnInit, Renderer2} from '@angular/core';
 
-import {ControlValueAccessor, NG_VALUE_ACCESSOR} from './control_value_accessor';
+import {BuiltInControlValueAccessor, ControlValueAccessor, NG_VALUE_ACCESSOR} from './control_value_accessor';
 import {NgControl} from './ng_control';
 
 export const RADIO_VALUE_ACCESSOR: any = {
@@ -25,10 +25,20 @@ function throwNameError() {
 }
 
 /**
+ * Internal-only NgModule that works as a host for the `RadioControlRegistry` tree-shakable
+ * provider. Note: the `InternalFormsSharedModule` can not be used here directly, since it's
+ * declared *after* the `RadioControlRegistry` class and the `providedIn` doesn't support
+ * `forwardRef` logic.
+ */
+@NgModule()
+export class RadioControlRegistryModule {
+}
+
+/**
  * @description
  * Class used by Angular to track radio buttons. For internal use only.
  */
-@Injectable()
+@Injectable({providedIn: RadioControlRegistryModule})
 export class RadioControlRegistry {
   private _accessors: any[] = [];
 
@@ -106,7 +116,8 @@ export class RadioControlRegistry {
   host: {'(change)': 'onChange()', '(blur)': 'onTouched()'},
   providers: [RADIO_VALUE_ACCESSOR]
 })
-export class RadioControlValueAccessor implements ControlValueAccessor, OnDestroy, OnInit {
+export class RadioControlValueAccessor extends BuiltInControlValueAccessor implements
+    ControlValueAccessor, OnDestroy, OnInit {
   /** @internal */
   // TODO(issue/24571): remove '!'.
   _state!: boolean;
@@ -167,7 +178,9 @@ export class RadioControlValueAccessor implements ControlValueAccessor, OnDestro
 
   constructor(
       private _renderer: Renderer2, private _elementRef: ElementRef,
-      private _registry: RadioControlRegistry, private _injector: Injector) {}
+      private _registry: RadioControlRegistry, private _injector: Injector) {
+    super();
+  }
 
   /** @nodoc */
   ngOnInit(): void {
