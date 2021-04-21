@@ -677,11 +677,11 @@ The `"id"` key returns the `id` of the hero to fetch.
 `"id"` 对应的值就是要获取的英雄的 `id`。
 
 Route parameters are always strings.
-The JavaScript (+) operator converts the string to a number,
-which is what a hero `id` should be.
+The JavaScript Number function converts the string to a number,
+which is what a hero id should be.
 
 路由参数总会是字符串。
-JavaScript 的 (+) 操作符会把字符串转换成数字，英雄的 `id` 就是数字类型。
+JavaScript 的 `Number` 函数会把字符串转换成数字，英雄的 `id` 应当是数字类型。
 
 The browser refreshes and the app crashes with a compiler error.
 `HeroService` doesn't have a `getHero()` method.
