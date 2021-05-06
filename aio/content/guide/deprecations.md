@@ -52,12 +52,12 @@ v12 - v15
 | ---- | -------------- | ----------------- |
 | 区域 | API 或特性 | 可能会在什么时候移除 |
 | `@angular/common` | [`ReflectiveInjector`](#reflectiveinjector) | <!--v8--> v11 |
-| `@angular/common`             | [`CurrencyPipe` - `DEFAULT_CURRENCY_CODE`](api/common/CurrencyPipe#currency-code-deprecation) | <!--v9--> v11 |
-| `@angular/common/http`        | [`XhrFactory`](api/common/http/XhrFactory)                                    | <!--v12--> v15 |
+| `@angular/common` | [`CurrencyPipe` - `DEFAULT_CURRENCY_CODE`](api/common/CurrencyPipe#currency-code-deprecation) | <!--v9--> v11 |
+| `@angular/common/http` | [`XhrFactory`](api/common/http/XhrFactory) | <!--v12--> v15 |
 | `@angular/core` | [`DefaultIterableDiffer`](#core) | <!--v7--> v11 |
 | `@angular/core` | [`ReflectiveKey`](#core) | <!--v8--> v11 |
 | `@angular/core` | [`RenderComponentType`](#core) | <!--v7--> v11 |
-| `@angular/core`               | [`WrappedValue`](#core)                                                       | <!--v10--> v12 |
+| `@angular/core` | [`WrappedValue`](#core) | <!--v10--> v12 |
 | `@angular/forms` | [`ngModel` with reactive forms](#ngmodel-reactive) | <!--v6--> v11 |
 | `@angular/forms` | [响应式表单中的 `ngModel`](#ngmodel-reactive) | <!--v6-->v11 |
 | `@angular/upgrade` | [`@angular/upgrade`](#upgrade) | <!--v8--> v11 |
@@ -74,14 +74,14 @@ v12 - v15
 | `@angular/core` | [`ANALYZE_FOR_ENTRY_COMPONENTS`](api/core/ANALYZE_FOR_ENTRY_COMPONENTS) | <!--v9--> v11 |
 | `@angular/router` | [`loadChildren` string syntax](#loadChildren) | <!--v9--> v11 |
 | `@angular/router` | [`loadChildren` 字符串语法](#loadChildren) | <!--v9--> v11 |
-| `@angular/core/testing`       | [`TestBed.get`](#testing)                                                     | <!--v9--> v12 |
-| `@angular/core/testing`       | [`async`](#testing)                                                           | <!--v9--> v12 |
-| `@angular/forms`              | [`FormBuilder.group` legacy options parameter](api/forms/FormBuilder#group)   | <!--v11--> v14 |
-| `@angular/forms`              | [`FormBuilder.group` 老式选项参数](api/forms/FormBuilder#group)   | <!--v11--> v14 |
-| `@angular/router`             | [`ActivatedRoute` params and `queryParams` properties](#activatedroute-props) | unspecified |
-| `@angular/router`             | [`ActivatedRoute` 参数和 `queryParams` 属性](#activatedroute-props) | 未定 |
-| template syntax               | [`/deep/`, `>>>`, and `::ng-deep`](#deep-component-style-selector)            | <!--v7--> unspecified |
-| 模板语法               | [`/deep/`, `>>>`, 和 `::ng-deep`](#deep-component-style-selector)            | <!--v7--> 未定 |
+| `@angular/core/testing` | [`TestBed.get`](#testing) | <!--v9--> v12 |
+| `@angular/core/testing` | [`async`](#testing) | <!--v9--> v12 |
+| `@angular/forms` | [`FormBuilder.group` legacy options parameter](api/forms/FormBuilder#group) | <!--v11--> v14 |
+| `@angular/forms` | [`FormBuilder.group` 老式选项参数](api/forms/FormBuilder#group) | <!--v11--> v14 |
+| `@angular/router` | [`ActivatedRoute` params and `queryParams` properties](#activatedroute-props) | unspecified |
+| `@angular/router` | [`ActivatedRoute` 参数和 `queryParams` 属性](#activatedroute-props) | 未定 |
+| template syntax | [`/deep/`, `>>>`, and `::ng-deep`](#deep-component-style-selector) | <!--v7--> unspecified |
+| 模板语法 | [`/deep/`, `>>>`, 和 `::ng-deep`](#deep-component-style-selector) | <!--v7--> 未定 |
 
 For information about Angular CDK and Angular Material deprecations, see the [changelog](https://github.com/angular/components/blob/master/CHANGELOG.md).
 
@@ -104,20 +104,26 @@ Tip: In the [API reference section](api) of this doc site, deprecated APIs are i
 </div>
 
 {@a common}
+
+
 ### @angular/common
 
-| API                                                                                           | Replacement                                         | Deprecation announced | Notes |
-| --------------------------------------------------------------------------------------------- | --------------------------------------------------- | --------------------- | ----- |
+| API | Replacement | Deprecation announced | Notes |
+| --- | ----------- | --------------------- | ----- |
 | API | 替代品 | 宣布弃用 | 备注 |
-| [`CurrencyPipe` - `DEFAULT_CURRENCY_CODE`](api/common/CurrencyPipe#currency-code-deprecation) | `{provide: DEFAULT_CURRENCY_CODE, useValue: 'USD'}` | v9                    | From v11 the default code will be extracted from the locale data given by `LOCAL_ID`, rather than `USD`. |
-| [`CurrencyPipe` - `DEFAULT_CURRENCY_CODE`](api/common/CurrencyPipe#currency-code-deprecation) | `{provide: DEFAULT_CURRENCY_CODE, useValue: 'USD'}` | v9                    |  从 v11 开始，默认代码将从由 `LOCAL_ID` 提供的本地环境数据中提取，而不再是固定值 `USD`。|
+| [`CurrencyPipe` - `DEFAULT_CURRENCY_CODE`](api/common/CurrencyPipe#currency-code-deprecation) | `{provide: DEFAULT_CURRENCY_CODE, useValue: 'USD'}` | v9 | From v11 the default code will be extracted from the locale data given by `LOCAL_ID`, rather than `USD`. |
+| [`CurrencyPipe` - `DEFAULT_CURRENCY_CODE`](api/common/CurrencyPipe#currency-code-deprecation) | `{provide: DEFAULT_CURRENCY_CODE, useValue: 'USD'}` | v9 | 从 v11 开始，默认代码将从由 `LOCAL_ID` 提供的本地环境数据中提取，而不再是固定值 `USD`。|
 
 {@a common-http}
+
+
 ### @angular/common/http
 
 | API                                          | Replacement                          | Deprecation announced | Notes |
 | -------------------------------------------- | ------------------------------------ | --------------------- | ----- |
+| API | 替代品 | 宣布弃用 | 备注 |
 | [`XhrFactory`](api/common/http/XhrFactory)   | `XhrFactory` in `@angular/common`    | v12                   | The `XhrFactory` has moved from `@angular/common/http` to `@angular/common`. |
+| [`XhrFactory`](api/common/http/XhrFactory)   | `@angular/common` 中的 `XhrFactory`    | v12                   | `XhrFactory` 已从 `@angular/common/http` 移到了 `@angular/common`。 |
 
 
 {@a core}
@@ -143,8 +149,10 @@ Tip: In the [API reference section](api) of this doc site, deprecated APIs are i
 | [`async`](api/core/testing/async) | [`waitForAsync`](api/core/testing/waitForAsync) | v11 | The `async` function from `@angular/core/testing` has been renamed to `waitForAsync` in order to avoid confusion with the native JavaScript `async` syntax. The existing function is deprecated and will be removed in a future version. |
 | [`async`](api/core/testing/async) | [`waitForAsync`](api/core/testing/waitForAsync) | v11 | `@angular/core/testing` 中的 `async` 函数已经改名为 `waitForAsync` 以免与 JavaScript 原生 `async` 语法混淆。现有函数已经标记为弃用，并将在未来版本中移除。|
 [ `ViewChildren.emitDistinctChangesOnly` / `ContentChildren.emitDistinctChangesOnly` | none (was part of [issue #40091](https://github.com/angular/angular/issues/40091)) ] | This is a temporary flag introduced as part of bugfix of [issue #40091](https://github.com/angular/angular/issues/40091) and will be removed. | 
+[ `ViewChildren.emitDistinctChangesOnly` / `ContentChildren.emitDistinctChangesOnly` | 无（作为 [issue #40091](https://github.com/angular/angular/issues/40091)）的一部分] | 这是为了修复 [issue #40091](https://github.com/angular/angular/issues/40091)  而引入的临时标志，以后将会被移除。| 
 
 {@a testing}
+
 ### @angular/core/testing
 
 | API | Replacement | Deprecation announced | Notes |
@@ -154,7 +162,6 @@ Tip: In the [API reference section](api) of this doc site, deprecated APIs are i
 | [`TestBed.get`](api/core/testing/TestBed#get) | [`TestBed.inject`](api/core/testing/TestBed#inject) | v9 | 行为相同，但类型安全。|
 | [`async`](api/core/testing/async) | [`waitForAsync`](api/core/testing/waitForAsync) | v10 | Same behavior, but rename to avoid confusion. |
 | [`async`](api/core/testing/async) | [`waitForAsync`](api/core/testing/waitForAsync) | v10 | 行为相同，只是改名以免混淆。 |
-
 
 {@a forms}
 ### @angular/forms
@@ -167,8 +174,8 @@ Tip: In the [API reference section](api) of this doc site, deprecated APIs are i
 | [`FormBuilder.group` legacy options parameter](api/forms/FormBuilder#group) | [`AbstractControlOptions` parameter value](api/forms/AbstractControlOptions) | v11 | none |
 | [`FormBuilder.group` 老式选项参数](api/forms/FormBuilder#group) | [`AbstractControlOptions` 参数值](api/forms/AbstractControlOptions) | v11 | 无 |
 
-
 {@a upgrade}
+
 ### @angular/upgrade
 
 | API | Replacement | Deprecation announced | Notes |
@@ -178,6 +185,7 @@ Tip: In the [API reference section](api) of this doc site, deprecated APIs are i
 | [所有入口点](api/upgrade) | [`@angular/upgrade/static`](api/upgrade/static) | v5 | 参阅 [从 AngularJS 升级](guide/upgrade)。|
 
 {@a upgrade-static}
+
 ### @angular/upgrade/static
 
 | API | Replacement | Deprecation announced | Notes |
@@ -199,6 +207,7 @@ This section lists all of the currently-deprecated features, which includes temp
 本节列出了所有当前已弃用的特性，包括模板语法、配置选项，以及前面[已弃用的 API ](#deprecated-apis)部分未列出的其它弃用。它还包括已弃用的 API 用例或 API 组合，以增强上述信息。
 
 {@a bazelbuilder}
+
 ### Bazel builder and schematics
 
 ### Bazel 构建器及其原理图
@@ -210,6 +219,7 @@ Bazel 构建器及其原理图曾经被引入到 Angular Labs 中，以便让用
 该特性已经弃用了。欲知详情，参阅[迁移文档](https://github.com/angular/angular/blob/master/packages/bazel/src/schematics/README.md)。
 
 {@a wtf}
+
 ### Web Tracing Framework integration
 
 ### Web 跟踪框架集成
@@ -219,6 +229,7 @@ Angular previously has supported an integration with the [Web Tracing Framework 
 Angular 以前支持与 [Web 跟踪框架（WTF）](https://google.github.io/tracing-framework/)集成，用于 Angular 应用程序的性能测试。此集成已经停止维护并失效。因此，该集成在 Angular 版本 8 中被弃用，并且由于没有证据表明在版本 9 中删除了任何现有用法。
 
 {@a deep-component-style-selector}
+
 ### `/deep/`, `>>>` and `:ng-deep` component style selectors
 
 ### `/deep/`，`>>>` 和 `:ng-deep` 组件样式选择器
@@ -233,9 +244,10 @@ For more information, see [/deep/, >>>, and ::ng-deep](guide/component-styles#de
 欲知详情，参阅“组件样式”一章中的 [/deep/，>>> 和 :: ng-deep](guide/component-styles#deprecated-deep--and-ng-deep "“组件样式”指南，代号为 deep 和 ngdeep")。
 
 {@a template-tag}
-### &lt;template&gt; tag
 
-### &lt;template&gt; 标签
+### &lt;template> tag
+
+### &lt;template> 标签
 
 The `<template>` tag was deprecated in v4 to avoid colliding with the DOM's element of the same name (such as when using web components). Use `<ng-template>` instead. For more information, see the [Ahead-of-Time Compilation](guide/angular-compiler-options#enablelegacytemplate) guide.
 
@@ -357,6 +369,7 @@ Injector.create({providers});
 ```
 
 {@a loadChildren}
+
 ### loadChildren string syntax
 
 ### loadChildren 字符串语法
@@ -419,10 +432,10 @@ const routes: Routes = [{
 
 [ActivatedRoute](api/router/ActivatedRoute) 包含两个[属性](api/router/ActivatedRoute#properties)，它们的能力低于它们的替代品，在将来的 Angular 版本中可能会弃用。
 
-| Property      | Replacement     |
-| ------------- | --------------- |
-| 属性          | 替代品            |
-| `params`      | `paramMap`      |
+| Property | Replacement |
+| -------- | ----------- |
+| 属性 | 替代品 |
+| `params` | `paramMap` |
 | `queryParams` | `queryParamMap` |
 
 For more information see the [Getting route information](guide/router#activated-route) section of the [Router guide](guide/router).
@@ -430,6 +443,7 @@ For more information see the [Getting route information](guide/router#activated-
 欲知详情，参阅[路由器指南](guide/router#activated-route)。
 
 {@a reflect-metadata}
+
 ### Dependency on a reflect-metadata polyfill in JIT mode
 
 ### 在 JIT 模式下对 reflect-metadata 腻子脚本的依赖
@@ -453,9 +467,10 @@ In a typical Angular project, the polyfill is not used in production builds, so 
 
 See the [dedicated migration guide for static queries](guide/static-query-migration).
 
-参阅[[静态查询的专用迁移指南](guide/static-query-migration)。
+参阅[静态查询的专用迁移指南](guide/static-query-migration)。
 
 {@a contentchild-input-together}
+
 ### `@ContentChild()` / `@Input()` used together
 
 ### `@ContentChild()` / `@Input()` 一起使用
@@ -477,7 +492,9 @@ properties and add fallback logic as in the following example:
 @Input() tpl !: TemplateRef<any>;
 @ContentChild(TemplateRef) inlineTemplate !: TemplateRef<any>;
 ```
+
 {@a cant-assign-template-vars}
+
 ### Cannot assign to template variables
 
 ### 无法赋值给模板变量
@@ -513,6 +530,7 @@ These two properties have subtle differences, so switching to `textContent` unde
 这两个属性有细微的差异，切换到 `textContent` 可能会让用户感到惊讶。因此，我们弃用了此行为。展望未来，用户应该在使用 Domino 时显式绑定到 `textContent`。
 
 {@a wtf-apis}
+
 ### `wtfStartTimeRange` and all `wtf*` APIs
 
 ### `wtfStartTimeRange` 和所有 `wtf*` API
@@ -522,6 +540,7 @@ All of the `wtf*` APIs are deprecated and will be removed in a future version.
 所有 `wtf*` API 均已弃用，并将在以后的版本中删除。
 
 {@a entryComponents}
+
 ### `entryComponents` and `ANALYZE_FOR_ENTRY_COMPONENTS` no longer required
 
 ### 不再需要 `entryComponents` 和 `ANALYZE_FOR_ENTRY_COMPONENTS`
@@ -531,6 +550,7 @@ Previously, the `entryComponents` array in the `NgModule` definition was used to
 以前，`NgModule` 定义中的 `entryComponents` 数组用于告诉编译器将动态创建和插入哪些组件。改用 Ivy 后，将不再需要它们，并且可以从现有模块声明中删除 `entryComponents` 数组。`ANALYZE_FOR_ENTRY_COMPONENTS` 注入令牌也是如此。
 
 {@a moduleWithProviders}
+
 ### `ModuleWithProviders` type without a generic
 
 ### 不带泛型的 `ModuleWithProviders` 类型
@@ -612,7 +632,11 @@ If you rely on the behavior that the same object instance should cause change de
 ### Internet Explorer 11
 Angular support for Microsoft's Internet Explorer 11 (IE11) is deprecated. Maintaining support for IE11 incurs ongoing costs, including increased bundle size, code complexity, and test load. Global usage of IE11 has fallen to a point where these costs no longer warrant the additional maintenance effort. Ending IE11 support additionally allows Angular to take advantage of platform APIs present only in evergreen browsers.
 
+不再支持 Microsoft 的 Internet Explorer 11（IE11）。维持对 IE11 的支持会产生持续的成本，包括额外的软件包大小、代码复杂性和测试负载。IE11 的全球使用率已下降到这些成本不再需要额外维护工作的地步。终止对 IE11 的支持还使 Angular 可以利用仅在常绿浏览器中提供的平台 API。
+
 Microsoft announced that its 365 services will no longer support IE11 starting August 17, 2021. Microsoft previously ended support for IE11 in Microsoft Teams on November 30, 2020. For more information, see [Microsoft 365 apps say farewell to Internet Explorer 11](https://techcommunity.microsoft.com/t5/microsoft-365-blog/microsoft-365-apps-say-farewell-to-internet-explorer-11-and/ba-p/1591666).
+
+微软宣布，其 365 服务将从 2021 年 8 月 17 日开始不再支持 IE11。微软先前于 2020 年 11 月 30 日在 Microsoft Teams 中终止了对 IE11 的支持。有关更多信息，请参阅 [Microsoft 365 应用与 Internet Explorer 11 说再见](https://techcommunity.microsoft.com/t5/microsoft-365-blog/microsoft-365-apps-say-farewell-to-internet-explorer-11-and/ba-p/1591666)。
 
 {@a deprecated-cli-flags}
 ## Deprecated CLI APIs and Options
@@ -625,27 +649,28 @@ This section contains a complete list all of the currently deprecated CLI flags.
 
 ### @angular-devkit/build-angular
 
-| API/Option                      | May be removed in | Notes                                                                           |
-| ------------------------------- | ----------------- |-------------------------------------------------------------------------------- |
+| API/Option | May be removed in | Notes |
+| ---------- | ----------------- | ----- |
 | API/选项 | 可能删除于 | 备注 |
-| `i18nFile` | <!--v9--> v11 |
-| `extractCss`                    | <!--v11--> v13     | No longer required to disable CSS extraction during development.               |
-| `extractCss`                    | <!--v11--> v13     | 不需要在开发期间禁用 CSS 抽取。               |
-| `i18nFormat`                    | <!--v9--> v12      | Format is now automatically detected.                                           |
-| `i18nFormat`                    | <!--v9--> v12      | 格式现在是自动检测的。                                           |
-| `i18nLocale`                    | <!--v9--> v12      | New [localization option](/guide/i18n#localize-config) in version 9 and later.  |
-| `i18nLocale`                    | <!--v9--> v12      | 版本 9 和更高版本中新的[本地化选项](/guide/i18n#localize-config) 。 |
-| `hmrWarning`                    | <!--v11--> v13     | No longer has an effect.                                                       |
-| `hmrWarning`                    | <!--v11--> v13     | 已无效果 |
-| `servePathDefaultWarning`       | <!--v11--> v13     | No longer has an effect.                                                       |
-| `servePathDefaultWarning`       | <!--v11--> v13     | 已无效果。                                                       |
+| `i18nFile` | <!--v9--> v11 |  |
+| `extractCss` | <!--v11--> v13 | No longer required to disable CSS extraction during development. |
+| `extractCss` | <!--v11--> v13 | 不需要在开发期间禁用 CSS 抽取。|
+| `i18nFormat` | <!--v9--> v12 | Format is now automatically detected. |
+| `i18nFormat` | <!--v9--> v12 | 格式现在是自动检测的。|
+| `i18nLocale` | <!--v9--> v12 | New [localization option](/guide/i18n#localize-config) in version 9 and later. |
+| `i18nLocale` | <!--v9--> v12 | 版本 9 和更高版本中新的[本地化选项](/guide/i18n#localize-config)。|
+| `hmrWarning` | <!--v11--> v13 | No longer has an effect. |
+| `hmrWarning` | <!--v11--> v13 | 已无效果 |
+| `servePathDefaultWarning` | <!--v11--> v13 | No longer has an effect. |
+| `servePathDefaultWarning` | <!--v11--> v13 | 已无效果。|
 
 ### @schematics/angular
 
-| API/Option                      | May be removed in | Notes                                                                           |
-| ------------------------------- | ----------------- |-------------------------------------------------------------------------------- |
-| `lintFix`                       | <!--v11--> v12    | Deprecated as part of TSLint deprecation.                                      |
-| `lintFix`                       | <!--v11--> v12    | 作为 TSLint 的一部分而被弃用。                                      |
+| API/Option | May be removed in | Notes |
+| ---------- | ----------------- | ----- |
+| API /选项 | 可能删除于 | 备注 |
+| `lintFix` | <!--v11--> v12 | Deprecated as part of TSLint deprecation. |
+| `lintFix` | <!--v11--> v12 | 作为 TSLint 的一部分而被弃用。|
 
 {@a removed}
 
@@ -657,10 +682,10 @@ The following APIs have been removed starting with version 11.0.0*:
 
 下列 API 已从 11.0.0* 版本开始移除：
 
-| Package          | API            | Replacement | Notes |
-| ---------------- | -------------- | ----------- | ----- |
+| Package | API | Replacement | Notes |
+| ------- | --- | ----------- | ----- |
 | 包 | API | 替代品 | 备注 |
-| `@angular/router` | `preserveQueryParams` | [`queryParamsHandling`](api/router/UrlCreationOptions#queryParamsHandling) | |
+| `@angular/router` | `preserveQueryParams` | [`queryParamsHandling`](api/router/UrlCreationOptions#queryParamsHandling) |  |
 
 *To see APIs removed in version 10, check out this guide on the [version 10 docs site](https://v10.angular.io/guide/deprecations#removed).
 
@@ -744,4 +769,3 @@ For more information about the npm package format, see the [Angular Package Form
 Angular used to sanitize `[style]` and `[style.prop]` bindings to prevent malicious code from being inserted through `javascript:` expressions in CSS `url()` entries. However, most modern browsers no longer support the usage of these expressions, so sanitization was only maintained for the sake of IE 6 and 7. Given that Angular does not support either IE 6 or 7 and sanitization has a performance cost, we will no longer sanitize style bindings as of version 10 of Angular.
 
 Angular 会清理 `[style]` 和 `[style.prop]` 绑定，以防止恶意代码通过 CSS `url()` 条目中的 `javascript:` 表达式进行插入。但是，大多数现代浏览器都已不再支持这些表达式的使用，所以这种清理只对 IE 6 和 7 才有意义。鉴于 Angular 不支持 IE 6 或 7，并且这种清理有性能代价，因此我们将不再清理 Angular 版本 10 中的样式绑定。
-

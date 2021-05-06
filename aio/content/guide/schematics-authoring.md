@@ -75,7 +75,7 @@ You need a rule, for example, to define how a template in the schematic is to be
 
 Rules can make use of utilities provided with the `@schematics/angular` package. Look for helper functions for working with modules, dependencies, TypeScript, AST, JSON, Angular CLI workspaces and projects, and more.
 
-规则可以利用 `@schematics/angular` 包提供的实用工具。寻求辅助函数来处理模块、依赖、TypeScript、AST、JSON、Angular CLI 工作空间和项目等等。
+规则可以利用 `@schematics/angular` 包提供的实用工具。寻求辅助函数来处理模块、依赖、TypeScript、AST、JSON、Angular CLI 工作区和项目等等。
 
 <code-example language="TypeScript" header="index.ts">
 
@@ -361,7 +361,7 @@ The most common use of schematics, however, is to integrate an Angular library w
 You can do this by creating the schematic files directly within the library project in an Angular workspace, without using the Schematics CLI.
 See [Schematics for Libraries](guide/schematics-for-libraries).
 
-但是，原理图的最常见用途是将 Angular 库与 Angular CLI 集成在一起。你可以直接在 Angular 工作空间的库项目中创建原理图文件，而无需使用 Schematics CLI。参阅[库的原理图](guide/schematics-for-libraries)。
+但是，原理图的最常见用途是将 Angular 库与 Angular CLI 集成在一起。你可以直接在 Angular 工作区的库项目中创建原理图文件，而无需使用 Schematics CLI。参阅[库的原理图](guide/schematics-for-libraries)。
 
 ### Creating a schematics collection
 

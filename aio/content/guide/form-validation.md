@@ -543,7 +543,7 @@ The `pending` flag is set to `false`, and the form validity is updated.
 By default, all validators run after every form value change. With synchronous validators, this does not normally have a noticeable impact on application performance.
 Async validators, however, commonly perform some kind of HTTP request to validate the control. Dispatching an HTTP request after every keystroke could put a strain on the backend API, and should be avoided if possible.
 
-默认情况下，所有验证程序在每次表单值更改后都会运行。对于同步验证器，这通常不会对应用性能产生明显的影响。但是，异步验证器通常会执行某种 HTTP 请求来验证控件。每次击键后调度一次 HTTP 请求都会给后端 API 带来压力，应该尽可能避免。
+默认情况下，所有验证程序在每次表单值更改后都会运行。对于同步验证器，这通常不会对应用性能产生明显的影响。但是，异步验证器通常会执行某种 HTTP 请求来验证控件。每次按键后调度一次 HTTP 请求都会给后端 API 带来压力，应该尽可能避免。
 
 You can delay updating the form validity by changing the `updateOn` property from `change` (default) to `submit` or `blur`.
 

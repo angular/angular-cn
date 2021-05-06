@@ -244,16 +244,28 @@ __proto__: Function
 {@a template-input-variables}
 ## Template input variable
 
+## 模板输入变量
+
 A _template input variable_ is a variable you can reference within a single instance of the template.
 You declare a template input variable using the `let` keyword as in `let hero`.
 
+*模板输入变量*是可以在模板的单个实例中引用的变量。你可以用 `let` 关键字声明模板输入变量，比如 `let hero`。
+
 There are several such variables in this example: `hero`, `i`, and `odd`.
+
+在这个例子中，有几个这样的变量：`hero`、`i` 和 `odd`。
 
 The variable's scope is limited to a single instance of the repeated template.
 You can use the same variable name again in the definition of other structural directives.
 
+此变量的范围仅限于可复写模板中的单个实例。你可以在其他结构型指令的定义中再次使用相同的变量名。
+
 In contrast, you declare a template variable by prefixing the variable name with `#`, as in `#var`.
 A template variable refers to its attached element, component, or directive.
 
+相反，你可以通过在变量名称前加上 `#` 来声明模板变量，如 `#var`。模板变量引用其附加的元素、组件或指令。
+
 Template input variables and template variables names have their own namespaces.
 The template input variable `hero` in `let hero` is distinct from the template variable `hero` in `#hero`.
+
+模板输入变量和模板变量名称具有各自的名称空间。`let hero` 中的模板输入变量 `hero` 和 `#hero` 中的模板变量 `hero` 是不同的。

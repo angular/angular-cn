@@ -4,11 +4,11 @@
 
 You develop applications in the context of an Angular [workspace](guide/glossary#workspace). A workspace contains the files for one or more [projects](guide/glossary#project). A project is the set of files that comprise a standalone application or a shareable library.
 
-你会以 Angular [工作空间](guide/glossary#workspace)作为上下文来开发应用。工作空间包含一个或多个[项目](guide/glossary#project)的文件集。一个项目就是一组包含独立应用或可共享库的文件。
+你会以 Angular [工作区](guide/glossary#workspace)作为上下文来开发应用。工作区包含一个或多个[项目](guide/glossary#project)的文件集。一个项目就是一组包含独立应用或可共享库的文件。
 
 The Angular CLI `ng new` command creates a workspace.
 
-Angular CLI 的 `ng new` 命令可以创建一个工作空间。
+Angular CLI 的 `ng new` 命令可以创建一个工作区。
 
 <code-example language="bash">
 ng new &lt;my-project&gt;
@@ -18,29 +18,29 @@ When you run this command, the CLI installs the necessary Angular npm packages a
 The workspace root folder contains various support and configuration files, and a README file with generated descriptive text that you can customize.
 
 当你运行这个命令时，CLI 会在一个新的工作区中安装必需的 Angular npm 包和其它依赖项，其根应用名叫 *my-project*。
-该工作空间的根文件夹中包含一些工作空间配置文件，和一个带有自动生成的描述性文本的自述文件，你可以自定义它。
+该工作区的根文件夹中包含一些工作区配置文件，和一个带有自动生成的描述性文本的自述文件，你可以自定义它。
 
 By default, `ng new` creates an initial skeleton application at the root level of the workspace, along with its end-to-end tests.
 The skeleton is for a simple Welcome application that is ready to run and easy to modify.
 The root-level application has the same name as the workspace, and the source files reside in the `src/` subfolder of the workspace.
 
-`ng new` 还会默认创建一个位于工作空间根级的骨架应用，及其端到端测试项目。这个骨架是一个简单的 Welcome 应用，它可以运行，也很容易修改。这个*根应用*与工作空间同名，其源文件位于工作空间的 `src/` 子文件夹中。
+`ng new` 还会默认创建一个位于工作区根级的骨架应用，及其端到端测试项目。这个骨架是一个简单的 Welcome 应用，它可以运行，也很容易修改。这个*根应用*与工作区同名，其源文件位于工作区的 `src/` 子文件夹中。
 
 This default behavior is suitable for a typical "multi-repo" development style where each application resides in its own workspace.
 Beginners and intermediate users are encouraged to use `ng new` to create a separate workspace for each application.
 
-这种默认行为适用于典型的“多重（multi）仓库”开发风格，每个应用都位于它自己的工作空间中。建议初学者和中级用户使用 `ng new` 为每个应用创建一个单独的工作空间。
+这种默认行为适用于典型的“多重（multi）仓库”开发风格，每个应用都位于它自己的工作区中。建议初学者和中级用户使用 `ng new` 为每个应用创建一个单独的工作区。
 
 Angular also supports workspaces with [multiple projects](#multiple-projects).
 This type of development environment is suitable for advanced users who are developing [shareable libraries](guide/glossary#library),
 and for enterprises that use a "monorepo" development style, with a single repository and global configuration for all Angular projects.
 
-Angular 还支持包含[多个项目](#multiple-projects)的工作空间。这种开发环境适用于正在开发[可共享库](guide/glossary#library)的高级用户，以及那些使用“单一（mono）仓库”开发风格的企业，它只需要一个仓库，而且所有 Angular 项目都使用全局配置。
+Angular 还支持包含[多个项目](#multiple-projects)的工作区。这种开发环境适用于正在开发[可共享库](guide/glossary#library)的高级用户，以及那些使用“单一（mono）仓库”开发风格的企业，它只需要一个仓库，而且所有 Angular 项目都使用全局配置。
 
 To set up a monorepo workspace, you should skip the creating the root application.
 See [Setting up for a multi-project workspace](#multiple-projects) below.
 
-要设置单一仓库的工作空间，你应该跳过创建根应用的过程。请参阅下面的[设置多项目工作空间](#multiple-projects)部分。
+要设置单一仓库的工作区，你应该跳过创建根应用的过程。请参阅下面的[设置多项目工作区](#multiple-projects)部分。
 
 ## Workspace configuration files
 
@@ -49,11 +49,11 @@ See [Setting up for a multi-project workspace](#multiple-projects) below.
 All projects within a workspace share a [CLI configuration context](guide/workspace-config).
 The top level of the workspace contains workspace-wide configuration files, configuration files for the root-level application, and subfolders for the root-level application source and test files.
 
-每个工作空间中的所有项目共享同一个 [CLI 配置环境](guide/workspace-config)。该工作空间的顶层包含着全工作空间级的配置文件、根应用的配置文件以及一些包含根应用的源文件和测试文件的子文件夹。
+每个工作区中的所有项目共享同一个 [CLI 配置环境](guide/workspace-config)。该工作区的顶层包含着全工作区级的配置文件、根应用的配置文件以及一些包含根应用的源文件和测试文件的子文件夹。
 
 | WORKSPACE CONFIG FILES | PURPOSE |
 | :--------------------- | :------------------------------------------|
-| 工作空间配置文件 | 用途 |
+| 工作区配置文件 | 用途 |
 | `.editorconfig` | Configuration for code editors. See [EditorConfig](https://editorconfig.org/). |
 | `.editorconfig` | 代码编辑器的配置。参阅 [EditorConfig](https://editorconfig.org/)。 |
 | `.gitignore` | Specifies intentionally untracked files that [Git](https://git-scm.com/) should ignore. |
@@ -61,19 +61,19 @@ The top level of the workspace contains workspace-wide configuration files, conf
 | `README.md` | Introductory documentation for the root app. |
 | `README.md` | 根应用的简介文档. |
 | `angular.json` | CLI configuration defaults for all projects in the workspace, including configuration options for build, serve, and test tools that the CLI uses, such as [TSLint](https://palantir.github.io/tslint/), [Karma](https://karma-runner.github.io/), and [Protractor](https://www.protractortest.org/). For details, see [Angular Workspace Configuration](guide/workspace-config). |
-| `angular.json` | 为工作区中的所有项目指定 CLI 的默认配置，包括 CLI 要用到的构建、启动开发服务器和测试工具的配置项，比如 [TSLint](https://palantir.github.io/tslint/)，[Karma](https://karma-runner.github.io/) 和 [Protractor](http://www.protractortest.org/)。欲知详情，请参阅 [Angular 工作空间配置](guide/workspace-config) 部分。 |
+| `angular.json` | 为工作区中的所有项目指定 CLI 的默认配置，包括 CLI 要用到的构建、启动开发服务器和测试工具的配置项，比如 [TSLint](https://palantir.github.io/tslint/)，[Karma](https://karma-runner.github.io/) 和 [Protractor](http://www.protractortest.org/)。欲知详情，请参阅 [Angular 工作区配置](guide/workspace-config) 部分。 |
 | `package.json` | Configures [npm package dependencies](guide/npm-packages) that are available to all projects in the workspace. See [npm documentation](https://docs.npmjs.com/files/package.json) for the specific format and contents of this file. |
-| `package.json` | 配置工作空间中所有项目可用的 [npm 包依赖](guide/npm-packages)。关于此文件的具体格式和内容，请参阅 [npm 的文档](https://docs.npmjs.com/files/package.json)。 |
+| `package.json` | 配置工作区中所有项目可用的 [npm 包依赖](guide/npm-packages)。关于此文件的具体格式和内容，请参阅 [npm 的文档](https://docs.npmjs.com/files/package.json)。 |
 | `package-lock.json` | Provides version information for all packages installed into `node_modules` by the npm client. See [npm documentation](https://docs.npmjs.com/files/package-lock.json) for details. If you use the yarn client, this file will be [yarn.lock](https://yarnpkg.com/lang/en/docs/yarn-lock/) instead. |
 | `package-lock.json` | 提供 npm 客户端安装到 `node_modules` 的所有软件包的版本信息。欲知详情，请参阅 [npm 的文档](https://docs.npmjs.com/files/package-lock.json)。如果你使用的是 yarn 客户端，那么该文件[就是 yarn.lock](https://yarnpkg.com/lang/en/docs/yarn-lock/)。 |
 | `src/` | Source files for the root-level application project. |
 | `src/` | 根项目的源文件。|
 | `node_modules/` | Provides [npm packages](guide/npm-packages) to the entire workspace. Workspace-wide `node_modules` dependencies are visible to all projects. |
-| `node_modules/` | 为整个工作空间提供 [npm 包](guide/npm-packages)。这些工作空间级的 `node_modules` 依赖对其中的所有项目可见。 |
+| `node_modules/` | 为整个工作区提供 [npm 包](guide/npm-packages)。这些工作区级的 `node_modules` 依赖对其中的所有项目可见。 |
 | `tsconfig.json` | The base [TypeScript](https://www.typescriptlang.org/) configuration for projects in the workspace. All other configuration files inherit from this base file. For more information, see the [Configuration inheritance with extends](https://www.typescriptlang.org/docs/handbook/tsconfig-json.html#configuration-inheritance-with-extends) section of the TypeScript documentation.|
-| `tsconfig.json` | 工作空间中所有项目的基本 [TypeScript](https://www.typescriptlang.org/) 配置。所有其它配置文件都继承自这个基本配置。欲知详情，参阅 TypeScript 文档中的 [通过 extends 进行配置继承](https://www.typescriptlang.org/docs/handbook/tsconfig-json.html#configuration-inheritance-with-extends) 部分。|
+| `tsconfig.json` | 工作区中所有项目的基本 [TypeScript](https://www.typescriptlang.org/) 配置。所有其它配置文件都继承自这个基本配置。欲知详情，参阅 TypeScript 文档中的 [通过 extends 进行配置继承](https://www.typescriptlang.org/docs/handbook/tsconfig-json.html#configuration-inheritance-with-extends) 部分。|
 | `tslint.json` | Default [TSLint](https://palantir.github.io/tslint/) configuration for projects in the workspace. |
-| `tslint.json` | 工作空间中所有项目的默认的 [TSLint](https://palantir.github.io/tslint/) 配置。 |
+| `tslint.json` | 工作区中所有项目的默认的 [TSLint](https://palantir.github.io/tslint/) 配置。 |
 
 
 ## Application project files
@@ -83,12 +83,12 @@ The top level of the workspace contains workspace-wide configuration files, conf
 By default, the CLI command `ng new my-app` creates a workspace folder named "my-app" and generates a new application skeleton in a `src/` folder at the top level of the workspace.
 A newly generated application contains source files for a root module, with a root component and template.
 
-CLI 命令 `ng new my-app` 会默认创建名为 “my-app” 的工作空间文件夹，并在 `src/` 文件夹下为工作空间顶层的根应用生成一个新的应用骨架。新生成的应用包含一个根模块的源文件，包括一个根组件及其模板。
+CLI 命令 `ng new my-app` 会默认创建名为 “my-app” 的工作区文件夹，并在 `src/` 文件夹下为工作区顶层的根应用生成一个新的应用骨架。新生成的应用包含一个根模块的源文件，包括一个根组件及其模板。
 
 When the workspace file structure is in place, you can use the `ng generate` command on the command line to add functionality and data to the application.
 This initial root-level application is the *default app* for CLI commands (unless you change the default after creating [additional apps](#multiple-projects)).
 
-当工作空间文件结构到位时，可以在命令行中使用 `ng generate` 命令往该应用中添加功能和数据。这个初始的根应用是 CLI 命令的*默认应用*（除非你在创建[其它应用](#multiple-projects)之后更改了默认值）。
+当工作区文件结构到位时，可以在命令行中使用 `ng generate` 命令往该应用中添加功能和数据。这个初始的根应用是 CLI 命令的*默认应用*（除非你在创建[其它应用](#multiple-projects)之后更改了默认值）。
 
 <div class="alert is-helpful">
 
@@ -101,7 +101,7 @@ This initial root-level application is the *default app* for CLI commands (unles
 For a single-application workspace, the `src/` subfolder of the workspace contains the source files (application logic, data, and assets) for the root application.
 For a multi-project workspace, additional projects in the `projects/` folder contain a `project-name/src/` subfolder with the same structure.
 
-对于单应用的工作区，工作空间的 `src/` 子文件夹包含根应用的源文件（应用逻辑、数据和静态资源）。对于多项目的工作空间，`projects/` 文件夹中的其它项目各自包含一个具有相同结构的 `project-name/src/` 子目录。
+对于单应用的工作区，工作区的 `src/` 子文件夹包含根应用的源文件（应用逻辑、数据和静态资源）。对于多项目的工作区，`projects/` 文件夹中的其它项目各自包含一个具有相同结构的 `project-name/src/` 子目录。
 
 ### Application source files
 
@@ -169,7 +169,7 @@ Angular components, templates, and styles go here.
 The application-specific configuration files for the root application reside at the workspace root level.
 For a multi-project workspace, project-specific configuration files are in the project root, under `projects/project-name/`.
 
-根应用的配置文件位于工作空间的根目录下。对于多项目工作空间，项目专属的配置文件位于项目根目录 `projects/project-name/`。
+根应用的配置文件位于工作区的根目录下。对于多项目工作区，项目专属的配置文件位于项目根目录 `projects/project-name/`。
 
 Project-specific [TypeScript](https://www.typescriptlang.org/) configuration files inherit from the workspace-wide `tsconfig.json`, and project-specific [TSLint](https://palantir.github.io/tslint/) configuration files inherit from the workspace-wide `tslint.json`.
 
@@ -199,7 +199,7 @@ An `e2e/` folder at the top level contains source files for a set of end-to-end 
 
 For a multi-project workspace, application-specific end-to-end tests are in the project root, under `projects/project-name/e2e/`.
 
-对于多项目的工作空间，应用专属的端到端测试文件都位于项目各自的根目录下，即 `projects/project-name/e2e/`。
+对于多项目的工作区，应用专属的端到端测试文件都位于项目各自的根目录下，即 `projects/project-name/e2e/`。
 
 <code-example language="none">
   e2e/
@@ -218,16 +218,16 @@ For a multi-project workspace, application-specific end-to-end tests are in the 
 
 A multi-project workspace is suitable for an enterprise that uses a single repository and global configuration for all Angular projects (the "monorepo" model). A multi-project workspace also supports library development.
 
-多项目工作空间适用于对所有 Angular 项目使用单一存储库（单仓库模型）和全局配置的企业。多项目工作空间也能为库开发提供支持。
+多项目工作区适用于对所有 Angular 项目使用单一存储库（单仓库模型）和全局配置的企业。多项目工作区也能为库开发提供支持。
 
 ### Setting up for a multi-project workspace
 
-### 建立多项目工作空间
+### 建立多项目工作区
 
 If you intend to have multiple projects in a workspace, you can skip the initial application generation when you create the workspace, and give the workspace a unique name.
 The following command creates a workspace with all of the workspace-wide configuration files, but no root-level application.
 
-如果你打算在工作区中包含多个项目，可以在创建工作空间时不要自动创建初始应用，并为工作空间指定一个唯一的名字。下列命令用于创建一个包含全工作空间级配置文件的工作空间，但没有根应用。
+如果你打算在工作区中包含多个项目，可以在创建工作区时不要自动创建初始应用，并为工作区指定一个唯一的名字。下列命令用于创建一个包含全工作区级配置文件的工作区，但没有根应用。
 
 <code-example language="bash">
 ng new my-workspace --create-application false
@@ -235,7 +235,7 @@ ng new my-workspace --create-application false
 
 You can then generate apps and libraries with names that are unique within the workspace.
 
-然后，你可以使用工作空间内唯一的名字来生成应用和库。
+然后，你可以使用工作区内唯一的名字来生成应用和库。
 
 <code-example language="bash">
 cd my-workspace
@@ -250,7 +250,7 @@ The first explicitly generated application goes into the `projects/` folder alon
 Newly generated libraries are also added under `projects/`.
 When you create projects this way, the file structure of the workspace is entirely consistent with the structure of the [workspace configuration file](guide/workspace-config), `angular.json`.
 
-工作空间中第一个显式生成的应用会像工作空间中的其它项目一样放在 `projects/` 文件夹中。新生成的库也会添加到 `projects/` 下。当你以这种方式创建项目时，工作空间的文件结构与[工作空间配置文件](guide/workspace-config) `angular.json` 中的结构完全一致。
+工作区中第一个显式生成的应用会像工作区中的其它项目一样放在 `projects/` 文件夹中。新生成的库也会添加到 `projects/` 下。当你以这种方式创建项目时，工作区的文件结构与[工作区配置文件](guide/workspace-config) `angular.json` 中的结构完全一致。
 
 <code-example language="none">
 my-workspace/

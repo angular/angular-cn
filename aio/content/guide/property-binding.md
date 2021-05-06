@@ -37,7 +37,7 @@ To get the most out of property binding, you should be familiar with the followi
 
 ## Understanding the flow of data
 
-## 理解数据流
+## 了解数据流
 
 Property binding moves a value in one direction, from a component's property into a target element property.
 
@@ -71,7 +71,7 @@ For example, the target property in the following code is the image element's `s
 In most cases, the target name is the name of a property, even when it appears to be the name of an attribute.
 In this example, `src` is the name of the `<img>` element property.
 
-在大多数情况下，目标的名称就是 Property 的名称，哪怕它看起来像 Attribute 的名称。在此示例中，`src` 就是 `<img>` 元素的 Property 名称。
+在大多数情况下，目标的名称就是 Property 的名称，哪怕它看起来像 Attribute 的名称。在这个例子中，`src` 就是 `<img>` 元素的 Property 名称。
 
 The brackets, `[]`, cause Angular to evaluate the right-hand side of the assignment as a dynamic expression.
 Without the brackets, Angular treats the right-hand side as a string literal and sets the property to that static value.
@@ -234,7 +234,7 @@ Next, the code declares the property of `parentItem` in its component class, in 
 In this example the type of `childItem` is `string`, so `parentItem` needs to be a string.
 Here, `parentItem` has the string value of `lamp`.
 
-接下来，代码在其组件类（这里是 `AppComponent`）中声明属性 `parentItem`。在此示例中， `childItem` 的类型为 `string` ，因此 `parentItem` 也必须为字符串。在这里，`parentItem` 的字符串值为 `lamp`。
+接下来，代码在其组件类（这里是 `AppComponent`）中声明属性 `parentItem`。在这个例子中， `childItem` 的类型为 `string` ，因此 `parentItem` 也必须为字符串。在这里，`parentItem` 的字符串值为 `lamp`。
 
 <code-example path="property-binding/src/app/app.component.ts" region="parent-data-type" header="src/app/app.component.ts"></code-example>
 

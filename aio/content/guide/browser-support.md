@@ -231,30 +231,16 @@ Some features of Angular may require additional polyfills.
     <th style="width: 50%">浏览器（桌面&移动端）</th>
   </tr>
   <tr style="vertical-align: top">
-    <td>
-      <a href="api/animations/AnimationBuilder">AnimationBuilder</a>
-      (Standard animation support does not require polyfills.)
-    </td>
-    <td>
-      <a href="guide/browser-support#web-animations">Web Animations</a>
-    </td>
-    <td>
-      <p>If AnimationBuilder is used, enables scrubbing
+    <td><a href="api/animations/AnimationBuilder">AnimationBuilder</a> (Standard animation support does not require polyfills.) </td>
+    <td><a href="guide/browser-support#web-animations">Web Animations</a></td>
+    <td>If AnimationBuilder is used, enables scrubbing
       support for IE/Edge and Safari.
-      (Chrome and Firefox support this natively).</p>
-    </td>
+      (Chrome and Firefox support this natively).</td>
   </tr>
   <tr style="vertical-align: top">
-    <td>
-      <a href="api/animations/AnimationBuilder">AnimationBuilder</a>
-（支持标准动画不需要腻子脚本）
-    </td>
-    <td>
-      <a href="guide/browser-support#web-animations">Web 动画</a>
-    </td>
-    <td>
-      <p>如果用到了 AnimationBuilder，还要启用 IE/Edge 和 Safari 的 scrubbing（擦除）支持（Chrome 和 Firefox 对此提供了原生支持）</p>
-    </td>
+    <td><a href="api/animations/AnimationBuilder">AnimationBuilder</a>（支持标准动画不需要腻子脚本）</td>
+    <td><a href="guide/browser-support#web-animations">Web 动画</a></td>
+    <td>如果用到了 AnimationBuilder，还要启用 IE/Edge 和 Safari 的 scrubbing（擦除）支持（Chrome 和 Firefox 对此提供了原生支持）</td>
   </tr>
 
   <tr style="vertical-align: top">

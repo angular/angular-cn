@@ -143,8 +143,12 @@ This component only receives a hero object through its `hero` property and displ
 
 ## Show the `HeroDetailComponent`
 
+## 显示 `HeroDetailComponent`
+
 The `HeroesComponent` used to display the hero details on its own, before you removed that portion of the template.
 This section guides you through delegating logic to the `HeroDetailComponent`.
+
+`HeroesComponent` 会自行显示英雄的详情，但后面我们要移除这部分。本节会指导你把这部分逻辑委派给 `HeroDetailComponent`。
 
 The two components will have a parent/child relationship.
 The parent `HeroesComponent` will control the child `HeroDetailComponent`

@@ -130,12 +130,17 @@ This section walks you through using the `CartService` to add a product to the c
 1. In `product-details.component.html`, add a button with the label **Buy**, and bind the `click()` event to the `addToCart()` method.
     This code updates the product details template with a **Buy** button that adds the current product to the cart.
 
+   在 `product-details.component.html` 中，添加一个带有 **Buy** 标签的按钮，并且把其 `click()` 事件绑定到  `addToCart()` 方法上。
+   这段代码会为产品详情模板添加一个 **Buy** 按钮，并把当前产品添加到购物车中。
+
       <code-example header="src/app/product-details/product-details.component.html" path="getting-started/src/app/product-details/product-details.component.html">
       </code-example>
     
     
 
 1. Verify that the new **Buy** button appears as expected by refreshing the application and clicking on a product's name to display its details.
+
+   刷新应用，以验证新的 **Buy** 按钮如预期般出现了，并且单击某个产品的名称，以展示其详情。
 
     <div class="lightbox">
       <img src='generated/images/guide/start/product-details-buy.png' alt="Display details for selected product with a Buy button">
@@ -155,6 +160,8 @@ This section walks you through using the `CartService` to add a product to the c
 
 For customers to see their cart, you can create the cart view in two steps:
 
+为了让顾客看到他们的购物车，你可以用两步创建购物车视图：
+
 1. Create a cart component and configure routing to the new component.
 
    创建一个购物车组件并配置指向这个新组件的路由。
@@ -169,6 +176,8 @@ For customers to see their cart, you can create the cart view in two steps:
 
  To create the cart view, follow the same steps you did to create the `ProductDetailsComponent` and configure routing for the new component.
 
+ 要创建购物车视图，可遵循与创建  `ProductDetailsComponent` 相同的步骤，并且为这个新组件配置路由。
+
 1. Generate a cart component named `cart` by right-clicking the `app` folder, choosing **Angular Generator**, and **Component**.
 
    右键单击 `app` 文件夹，选择 **Angular Generator** 和 **Component** 以生成一个名为 `cart` 的购物车组件。
@@ -176,6 +185,8 @@ For customers to see their cart, you can create the cart view in two steps:
    <code-example header="src/app/cart/cart.component.ts" path="getting-started/src/app/cart/cart.component.1.ts"></code-example>
 
     StackBlitz also generates an `ngOnInit()` by default in components.  You can ignore the `CartComponent` `ngOnInit()` for this tutorial.
+
+    StackBlitz 默认还会在组件中生成一个 `ngOnInit()`。不过在本教程中，你可以忽略 `CartComponent` 的 `ngOnInit()`。
 
 1. Open `app.module.ts` and add a route for the component `CartComponent`, with a `path` of `cart`.
 
@@ -233,6 +244,8 @@ This section shows you how to use the cart service to display the products in th
 
     This code sets the items using the `CartService` `getItems()` method.
     You defined this method [when you created `cart.service.ts`](#generate-cart-service).
+   
+    这段代码使用 `CartService` 的 `getItems()` 方法来设置条目。你以前在[创建 `cart.service.ts`](#generate-cart-service) 时定义过此方法。
 
 1. Update the cart template with a header, and use a `<div>` with an `*ngFor` to display each of the cart items with its name and price.
 
@@ -288,8 +301,6 @@ Angular 的 HTTP 客户端（ `HttpClient` ）是一种内置的方式，可以�
 This section shows you how to use `HttpClient` to retrieve shipping prices from an external file.
 
 本节会为你展示如何使用 `HttpClient` 从外部文件中检索运费。
-
-### 预定义的配送数据
 
 The application that StackBlitz generates for this guide comes with predefined shipping data in `assets/shipping.json`.
 Use this data to add shipping prices for items in the cart.
@@ -404,6 +415,8 @@ This section guides you through modifying the `ShippingComponent` to retrieve sh
 
 1. In `shipping.component.ts`, import `CartService`.
 
+   在 `shipping.component.ts` 中导入 `CartService`。
+
       <code-example header="src/app/shipping/shipping.component.ts" path="getting-started/src/app/shipping/shipping.component.ts" region="imports"></code-example>
 
 1. Inject the cart service in the `ShippingComponent` `constructor()`.
@@ -414,7 +427,7 @@ This section guides you through modifying the `ShippingComponent` to retrieve sh
 
    1. Define a `shippingCosts` property that sets the `shippingCosts` property using the `getShippingPrices()` method from the `CartService`.
 
-      利用购物车服务的 `getShippingPrices()` 方法设置 `shippingCosts` 属性。
+      定义一个 `shippingCosts` 属性，并从 `CartService` 中利用购物车服务的 `getShippingPrices()` 方法设置它。
 
       <code-example path="getting-started/src/app/shipping/shipping.component.ts" header="src/app/shipping/shipping.component.ts" region="props"></code-example>
 
@@ -456,7 +469,7 @@ This section guides you through modifying the `ShippingComponent` to retrieve sh
 
 ## What's next
 
-### 下一步
+## 下一步
 
 You now have a store application with a product catalog, a shopping cart, and you can  look up shipping prices.
 

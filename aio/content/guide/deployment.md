@@ -165,7 +165,11 @@ This is the simplest production-ready deployment of your application.
 
 ### Deploy to GitHub Pages
 
+### 部署到 GitHub Pages
+
 To deploy your Angular application to [GitHub Pages](https://help.github.com/articles/what-is-github-pages/), complete the following steps:
+
+要将 Angular 应用程序部署到 [GitHub Pages](https://help.github.com/articles/what-is-github-pages/)，请遵循以下步骤：
 
 1. [Create a GitHub repository](https://help.github.com/articles/create-a-repo/) for your project.
 
@@ -175,22 +179,33 @@ To deploy your Angular application to [GitHub Pages](https://help.github.com/art
   GitHub provides these commands when you create the repository so that you can copy and paste them at your command prompt.
   The commands should be similar to the following, though GitHub fills in your project-specific settings for you:
 
-  ```sh
-  git remote add origin https://github.com/your-username/your-project-name.git
-  git branch -M main
-  git push -u origin main
-  ```
-  When you paste these commands from GitHub, they run automatically.
+   通过添加指定你在上一步中创建的 GitHub 存储库的远端地址，来在本地项目中配置 `git`。创建存储库时，GitHub 已提供了这些命令，以便你可以在命令提示符下复制和粘贴它们。尽管 GitHub 会为你填上某些特定于项目的设置，但这些命令应该类似于以下形式：
+
+   ```sh
+   git remote add origin https://github.com/your-username/your-project-name.git
+   git branch -M main
+   git push -u origin main
+   ```
+
+   When you paste these commands from GitHub, they run automatically.
+
+   当你从 GitHub 粘贴这些命令时，它们会自动运行。
 
 1. Create and check out a `git` branch named `gh-pages`.
 
-  ```sh
-  git checkout -b gh-pages
-  ```
+   创建并签出一个名为 `gh-pages` 的 `git` 分支。
+
+   ```sh
+   git checkout -b gh-pages
+   ```
 
 1. Build your project using the Github project name, with the Angular CLI command [`ng build`](cli/build) and the following options, where `your_project_name` is the name of the project that you gave the GitHub repository in step 1.
 
-  Be sure to include the slashes on either side of your project name as in `/your_project_name/`.
+   借助 Angular CLI 命令 [`ng build`](cli/build)和以下选项，使用 Github 项目名称构建应用。这里的 `your_project_name` 是你在步骤 1 中为 GitHub 存储库提供的项目的名称。
+
+   Be sure to include the slashes on either side of your project name as in `/your_project_name/`.
+
+   确保在项目名称的两边都包含有斜杠，如 `/your_project_name/` 的斜杠。
 
   <code-example language="none" class="code-shell">
 
@@ -212,8 +227,12 @@ To deploy your Angular application to [GitHub Pages](https://help.github.com/art
 
 1. Click Save.
 
+   单击保存。
+
 1. Click on the GitHub Pages link at the top of the GitHub Pages section to see your deployed application.
 The format of the link is `https://<user_name>.github.io/<project_name>/`.
+
+   单击 GitHub Pages 区顶部的 “GitHub Pages” 链接，以查看已部署的应用程序。链接的格式为 `https://<user_name>.github.io/<project_name>/`。
 
 <div class="alert is-helpful">
 
@@ -233,6 +252,7 @@ This section covers changes you may have to make to the server or to files deplo
 这一节涵盖了你可能对服务器或准备部署到服务器的文件要做的那些修改。
 
 {@a fallback}
+
 
 ### Routed apps must fallback to `index.html`
 
@@ -386,7 +406,7 @@ and to
 * [Firebase hosting](https://firebase.google.com/docs/hosting/): add a
 [rewrite rule](https://firebase.google.com/docs/hosting/url-redirects-rewrites#section-rewrites).
 
-   [Firebase 主机服务](https://firebase.google.com/docs/hosting/)：添加一条[重写规则](https://firebase.google.com/docs/hosting/url-redirects-rewrites#section-rewrites)。
+     [Firebase 托管服务](https://firebase.google.com/docs/hosting/)：添加一条[重写规则](https://firebase.google.com/docs/hosting/url-redirects-rewrites#section-rewrites)。
 
   <code-example language="json">
     "rewrites": [ {
@@ -470,12 +490,16 @@ In addition to build optimizations, Angular also has a runtime production mode. 
 
   Angular is running in development mode. Call enableProdMode() to enable production mode.
 
+  Angular 正运行在开发模式下。调用 enableProdMode（）以启用生产模式。
+
 </code-example>
 
 _Production mode_ improves application performance by disabling development-only safety
 checks and debugging utilities, such as the expression-changed-after-checked detection.
 Building your application with the production configuration automatically enables Angular's
 runtime production mode.
+
+*生产模式*通过禁用仅供开发用的安全检查和调试工具（例如，expression-changed-after-checked 检测）来提高应用程序性能。使用生产配置构建应用程序时会自动启用 Angular 的运行时生产模式。
 
 {@a lazy-loading}
 
@@ -796,13 +820,25 @@ The following examples show a `.browserslistrc` and `tsconfig.json` file for a n
 
 <code-example language="none" header=".browserslistrc">
 # This file is used by the build system to adjust CSS and JS output to support the specified browsers below.
+
+# 构建系统使用此文件来调整 CSS 和 JS 输出，以支持下列指定的浏览器。
+
 # For additional information regarding the format and rule options, please see:
+
+# 有关格式和规则选项的其他信息，请参见：
+
 # https://github.com/browserslist/browserslist#queries
 
 # For the full list of supported browsers by the Angular framework, please see:
+
+# 有关 Angular 框架支持的浏览器的完整列表，请参见：
+
 # https://angular.io/guide/browser-support
 
 # You can see what browsers were selected by your queries by running:
+
+# 你可以通过运行以下命令查看你指定的查询选择了哪些浏览器：
+
 #   npx browserslist
 
 last 1 Chrome version
@@ -886,6 +922,7 @@ To maintain the benefits of differential loading, however, a better option is to
 要保持差异化加载的好处，更好的选择是为 `ng serve`，`ng e2e` 和 `ng test` 定义多个配置。
 
 {@a differential-serve}
+
 
 ### Configuring serve for ES5
 

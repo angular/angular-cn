@@ -147,6 +147,8 @@ This cadence of releases gives eager developers access to new features as soon a
 
 <div class="alert is-helpful">
 
+Dates are offered as general guidance and are subject to change.
+
 这些日期仅供一般性参考，如有更改，恕不另行通知。
 
 </div>

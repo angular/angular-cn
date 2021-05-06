@@ -16,7 +16,6 @@ allow users to select a hero and display the hero's details.
 
 </div>
 
-
 ## Create mock heroes
 
 ## 创建模拟（mock）的英雄数据
@@ -90,6 +89,8 @@ Make it look like this:
 <code-example path="toh-pt2/src/app/heroes/heroes.component.1.html" region="list" header="heroes.component.html (heroes template)"></code-example>
 
 That displays an error since the property 'hero' does not exist. To have access to each individual hero and list them all, add an `*ngFor` to the `<li>` to iterate through the list of heroes:
+
+由于属性 'hero' 不存在，因此会显示一个错误。要访问每个英雄并列出所有英雄，请在 `<li>` 上添加 `*ngFor` 以遍历英雄列表：
 
 <code-example path="toh-pt2/src/app/heroes/heroes.component.1.html" region="li">
 </code-example>
@@ -332,8 +333,12 @@ When the user picks a hero, `selectedHero` has a value and
 
 ### Style the selected hero
 
+### 为选定的英雄设置样式
+
 To help identify the selected hero, you can use the `.selected` CSS class in the [styles you added earlier](#styles).
 To apply the `.selected` class to the `<li>` when the user clicks it, use class binding.
+
+为了标出选定的英雄，你可以在[以前添加过的样式中](#styles)增加 CSS 类 `.selected`。若要把 `.selected` 类应用于此 `<li>` 上，请使用类绑定。
 
 <div class="lightbox">
   <img src='generated/images/guide/toh/heroes-list-selected.png' alt="Selected hero with dark background and light text that differentiates it from unselected list items">
@@ -341,6 +346,8 @@ To apply the `.selected` class to the `<li>` when the user clicks it, use class 
 
 Angular's [class binding](guide/attribute-binding#class-binding) can add and remove a CSS class conditionally.
 Just add `[class.some-css-class]="some-condition"` to the element you want to style.
+
+Angular 的[类绑定](guide/attribute-binding#class-binding)可以有条件地添加和删除 CSS 类。只需将 `[class.some-css-class]="some-condition"` 添加到要设置样式的元素即可。
 
 Add the following `[class.selected]` binding to the `<li>` in the `HeroesComponent` template:
 

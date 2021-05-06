@@ -134,9 +134,13 @@ The next example targets the host element again, but only when it also has the `
 The `:host` selector can also be combined with other selectors.
 Add selectors behind the `:host` to select child elements, for example using `:host h2` to target all `<h2>` elements inside a component's view.
 
+`:host` 选择器也可以与其他选择器组合使用。在 `:host` 后面添加选择器以选择子元素，例如，使用 `:host h2` 定位组件视图内的 `<h2>`。
+
 <div class="alert is-helpful">
 
 You should not add selectors (other than `:host-context`) in front of the `:host` selector to style a component based on the outer context of the component's view. Such selectors are not scoped to a component's view and will select the outer context, but it's not native behavior. Use `:host-context` selector for that purpose instead.
+
+不应该在 `:host` 选择器前面添加除 `:host-context` 之外的选择器来试图基于组件视图的外部上下文为本组件设置样式。因为此类选择器的作用域不会限于组件的视图，而是会选择外部上下文，但这不是自然的行为。请改用 `:host-context` 选择器。
 
 </div>
 

@@ -54,7 +54,7 @@ Angular provides some builders that are used by the CLI for commands such as `ng
 Default target configurations for these and other built-in CLI builders can be found (and customized) in the "architect" section of the [workspace configuration file](guide/workspace-config), `angular.json`.
 You can also extend and customize Angular by creating your own builders, which you can run using the [`ng run` CLI command](cli/run).
 
-Angular 提供了一些构建器，供 CLI 命令使用，如 `ng build`、`ng test` 和 `ng lint` 等。这些内置 CLI 构建器的默认目标配置可以在[工作空间配置文件](guide/workspace-config) `angular.json` 的 `architect` 部分找到（并进行自定义）。可以通过创建自己的构建器来扩展和自定义 Angular，你可以使用 [`ng run` CLI 命令](cli/run)来运行你自己的构建器。
+Angular 提供了一些构建器，供 CLI 命令使用，如 `ng build`、`ng test` 和 `ng lint` 等。这些内置 CLI 构建器的默认目标配置可以在[工作区配置文件](guide/workspace-config) `angular.json` 的 `architect` 部分找到（并进行自定义）。可以通过创建自己的构建器来扩展和自定义 Angular，你可以使用 [`ng run` CLI 命令](cli/run)来运行你自己的构建器。
 
 ### Builder project structure
 
@@ -386,7 +386,7 @@ If inputs are valid, Architect creates the context and executes the builder.
 
 For more information see [Workspace Configuration](guide/workspace-config).
 
-欲知详情，请参阅[工作空间配置](guide/workspace-config)。
+欲知详情，请参阅[工作区配置](guide/workspace-config)。
 
 <div class="alert is-helpful">
 

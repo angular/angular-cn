@@ -778,7 +778,7 @@ The `searchTerms` becomes an `Observable` emitting a steady stream of search ter
 Passing a new search term directly to the `searchHeroes()` after every user keystroke would create an excessive amount of HTTP requests,
 taxing server resources and burning through data plans.
 
-如果每当用户击键后就直接调用 `searchHeroes()` 将导致创建海量的 HTTP 请求，浪费服务器资源并干扰数据调度计划。
+如果每当用户按键后就直接调用 `searchHeroes()` 将导致创建海量的 HTTP 请求，浪费服务器资源并干扰数据调度计划。
 
 Instead, the `ngOnInit()` method pipes the `searchTerms` observable through a sequence of RxJS operators that reduce the number of calls to the `searchHeroes()`,
 ultimately returning an observable of timely hero search results (each a `Hero[]`).
@@ -820,7 +820,7 @@ It cancels and discards previous search observables, returning only the latest s
   and they may not return in the order sent.
 
   借助 [switchMap 操作符](http://www.learnrxjs.io/operators/transformation/switchmap.html)，
-  每个有效的击键事件都会触发一次 `HttpClient.get()` 方法调用。
+  每个有效的按键事件都会触发一次 `HttpClient.get()` 方法调用。
   即使在每个请求之间都有至少 300ms 的间隔，仍然可能会同时存在多个尚未返回的 HTTP 请求。
 
   `switchMap()` preserves the original request order while returning only the observable from the most recent HTTP method call.

@@ -7,6 +7,8 @@
 Entry components have been deprecated with the [Ivy rendering engine](https://angular.io/guide/ivy). 
 For more information, see [entryComponents deprecation](https://angular.io/guide/deprecations#entrycomponents-and-analyze_for_entry_components-no-longer-required) in the [Deprecated APIs and features](https://angular.io/guide/deprecations).
 
+[Ivy 渲染引擎](https://angular.io/guide/ivy)已弃用入口组件。有关更多信息，请参见[“弃用的 API 和功能”](https://angular.io/guide/deprecations)中的 [entryComponents 已弃用](https://angular.io/guide/deprecations#entrycomponents-and-analyze_for_entry_components-no-longer-required)。
+
 </div>
 
 An entry component is any component that Angular loads imperatively, (which means you’re not referencing it in the template), by type. You specify an entry component by bootstrapping it in an NgModule, or including it in a routing definition.
@@ -18,7 +20,7 @@ An entry component is any component that Angular loads imperatively, (which mean
 
     To contrast the two types of components, there are components which are included in the template, which are declarative. Additionally, there are components which you load imperatively; that is, entry components.
 
-对比一下这两种组件类型：有一类组件被包含在模板中，它们是声明式加载的；另一类组件你会命令式加载它，这就是入口组件。
+    对比一下这两种组件类型：有一类组件被包含在模板中，它们是声明式加载的；另一类组件你会命令式加载它，这就是入口组件。
 
 </div>
 
@@ -44,7 +46,6 @@ The following is an example of specifying a bootstrapped component,
 下面这个例子中指定了一个引导用组件 `AppComponent`，位于基本的 `app.module.ts` 中：
 
 ```typescript
-
 @NgModule({
   declarations: [
     AppComponent
@@ -58,7 +59,6 @@ The following is an example of specifying a bootstrapped component,
   providers: [],
   bootstrap: [AppComponent] // bootstrapped entry component
 })
-
 ```
 
 A bootstrapped component is an entry component
@@ -126,7 +126,6 @@ All router components must be entry components. Because this would require you t
    从支持 Ivy 的 9.0.0 开始，`entryComponents` 属性就不再需要了，参见[弃用指南](guide/deprecations#entryComponents)。
 
 </div>
-
 
 Though the `@NgModule` decorator has an `entryComponents` array, most of the time
 you won't have to explicitly set any entry components because Angular adds components listed in `@NgModule.bootstrap` and those in route definitions to entry components automatically. Though these two mechanisms account for most entry components, if your app happens to bootstrap or dynamically load a component by type imperatively,

@@ -33,29 +33,37 @@ You can configure an injector with a service class, you can provide a substitute
 
 你可以使用服务类来配置注入器，也可以提供一个替代类、一个对象或一个工厂函数。
 
-
 {@a token}
 
 {@a injection-token}
 
 ## Dependency injection tokens
 
+## 依赖注入令牌
+
 When you configure an [injector](guide/glossary#injector) with a [provider](guide/glossary#provider), you are associating that provider with a [dependency injection token](guide/glossary#di-token), or DI token.
 The injector allows Angular to create a map of any internal dependencies.
 The DI token acts as a key to that map.
 
+当使用[提供者](guide/glossary#provider)配置[注入器](guide/glossary#injector)时，会将该提供者与[依赖项注入令牌](guide/glossary#di-token)（或叫 DI 令牌）关联起来。注入器允许 Angular 创建任何内部依赖项的映射。DI 令牌会充当该映射的键名。
+
 The dependency value is an instance, and the class type serves as a lookup key.
 Here, the injector uses the `HeroService` type as the token for looking up `heroService`.
+
+依赖项值是一个实例，而这个类的类型用作查找键。在这里，注入器使用 `HeroService` 类型作为令牌来查找 `heroService`。
 
 <code-example path="dependency-injection/src/app/injector.component.ts" region="get-hero-service" header="src/app/injector.component.ts"></code-example>
 
 When you define a constructor parameter with the `HeroService` class type, Angular knows to inject the service associated with that `HeroService` class token:
+
+当你使用 `HeroService` 类的类型来定义构造函数参数时，Angular 会注入与这个 `HeroService` 类令牌相关联的服务：
 
 <code-example path="dependency-injection/src/app/heroes/hero-list.component.ts" region="ctor-signature" header="src/app/heroes/hero-list.component.ts">
 </code-example>
 
 Though classes provide many dependency values, the expanded `provide` object lets you associate different kinds of providers with a DI token.
 
+尽管许多依赖项的值是通过类提供的，但扩展的 `provide` 对象使你可以将不同种类的提供者与 DI 令牌相关联。
 
 {@a provide}
 
@@ -84,9 +92,9 @@ The expanded provider configuration is an object literal with two properties:
 扩展的提供者配置是一个具有两个属性的对象字面量：
 
 * The `provide` property holds the [token](#token)
-that serves as the key for both locating a dependency value and configuring the injector.
+  that serves as the key for both locating a dependency value and configuring the injector.
 
-  `provide` 属性存有[令牌](#token)，它作为一个 key，在定位依赖值和配置注入器时使用。
+    `provide` 属性存有[令牌](#token)，它作为一个 key，在定位依赖值和配置注入器时使用。
 
 * The second property is a provider definition object, which tells the injector how to create the dependency value.
 The provider-definition key can be `useClass`, as in the example.
@@ -102,8 +110,12 @@ Each of these keys provides a different type of dependency, as discussed below.
 
 ## Specifying an alternative class provider
 
+## 指定替代性的类提供者
+
 Different classes can provide the same service.
 For example, the following code tells the injector to return a `BetterLogger` instance when the component asks for a logger using the `Logger` token.
+
+不同的类可以提供相同的服务。例如，以下代码告诉注入器，当组件使用 `Logger` 令牌请求一个 logger 时，给它返回一个 `BetterLogger`。
 
 <code-example path="dependency-injection/src/app/providers.component.ts" region="providers-4" >
 </code-example>
@@ -140,13 +152,13 @@ The injector needs providers for both this new logging service and its dependent
 
 To alias a class provider, specify the alias and the class provider in the `providers` array with the `useExisting` property.
 
-要为类提供者设置别名，请在 `providers` 数组中使用 `useExisting` 属性指定别名和类提供程序。
+要为类提供者设置别名，请在 `providers` 数组中使用 `useExisting` 属性指定别名和类提供者。
 
 In the following example, the injector injects the singleton instance of `NewLogger` when the component asks for either the new or the old logger.
 In this way, `OldLogger` is an alias for `NewLogger`.
 
 在下面的例子中，当组件请求新的或旧的记录器时，注入器都会注入一个 `NewLogger` 的实例。
-通过这种方式， `OldLogger` 就成了 `NewLogger` 的别名。
+通过这种方式，`OldLogger` 就成了 `NewLogger` 的别名。
 
 <code-example path="dependency-injection/src/app/providers.component.ts" region="providers-6b"></code-example>
 
@@ -194,10 +206,9 @@ Here's a revised version that defaults to `parent` but also accepts an optional 
 
 Next, to use `provideParent()` with a different parent type, provide a second argument, here `DifferentParent`.
 
-接下来，要使用 `provideParent()` ，请传入第二参数，这里是 `DifferentParent` 。
+接下来，要使用 `provideParent()`，请传入第二参数，这里是 `DifferentParent`。
 
 <code-example path="dependency-injection-in-action/src/app/parent-finder.component.ts" region="beth-providers" header="dependency-injection-in-action/src/app/parent-finder.component.ts"></code-example>
-
 
 {@a value-provider}
 
@@ -327,7 +338,7 @@ You inject both `Logger` and `UserService` into the factory provider so the inje
 
 * The `useFactory` field specifies that the provider is a factory function whose implementation is `heroServiceFactory`.
 
-  `useFactory` 字段指定该提供程序是一个工厂函数，其实现代码是 `heroServiceFactory` 。
+  `useFactory` 字段指定该提供者是一个工厂函数，其实现代码是 `heroServiceFactory`。
 
 * The `deps` property is an array of [provider tokens](#token).
 The `Logger` and `UserService` classes serve as tokens for their own class providers.

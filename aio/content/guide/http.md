@@ -98,7 +98,7 @@ It relies on the
 which replaces the _HttpClient_ module's `HttpBackend`.
 The replacement service simulates the behavior of a REST-like backend.
 
-该范例应用不需要数据服务器。它依赖于 [Angular _in-memory-web-api_](https://github.com/angular/angular/tree/master/packages/misc/angular-in-memory-web-api)，它替代了 *HttpClient* 模块中的 `HttpBackend`。这个替代服务会模拟 REST 式的后端的行为。
+该范例应用不需要数据服务器。它依赖于 [Angular *in-memory-web-api*](https://github.com/angular/angular/tree/master/packages/misc/angular-in-memory-web-api)，它替代了 *HttpClient* 模块中的 `HttpBackend`。这个替代服务会模拟 REST 式的后端的行为。
 
 Look at the `AppModule` _imports_ to see how it is configured.
 
@@ -982,6 +982,8 @@ Outgoing requests would flow from the `AuthInterceptor` to the `AuthInterceptor`
 Responses from these requests would flow in the other direction, from `LoggingInterceptor` back to `AuthInterceptor`.
 The following is a visual representation of the process:
 
+Angular 会按你提供拦截器的顺序应用它们。例如，考虑一个场景：你想处理 HTTP 请求的身份验证并记录它们，然后再将它们发送到服务器。要完成此任务，你可以提供 `AuthInterceptor` 服务，然后提供 `LoggingInterceptor` 服务。发出的请求将从 `AuthInterceptor` 到 `LoggingInterceptor`。这些请求的响应则沿相反的方向流动，从 `LoggingInterceptor` 回到 `AuthInterceptor`。以下是该过程的直观表示：
+
 <div class="lightbox">
   <img src="generated/images/guide/http/interceptor-order.svg" alt="Interceptor in order of HttpClient, AuthInterceptor, AuthInterceptor, HttpBackend, Server, and back in opposite order to show the two-way flow">
 </div>
@@ -989,6 +991,8 @@ The following is a visual representation of the process:
 <div class="alert is-helpful">
 
    The last interceptor in the process is always the `HttpBackend` that handles communication with the server.
+
+   该过程中的最后一个拦截器始终是处理与服务器通信的 `HttpBackend` 服务。
 
 </div>
 
@@ -1088,11 +1092,11 @@ If you must modify the request body, follow these steps.
 
    复制请求体并在副本中进行修改。
 
-2. Clone the request object, using its `clone()` method.
+1. Clone the request object, using its `clone()` method.
 
    使用 `clone()` 方法克隆这个请求对象。
 
-3. Replace the clone's body with the modified copy.
+1. Replace the clone's body with the modified copy.
 
    用修改过的副本替换被克隆的请求体。
 
@@ -1127,7 +1131,11 @@ To do this, set the cloned request body to `null`.
 
 ## Http interceptor use-cases
 
+## HTTP 拦截器用例
+
 Below are a number of common uses for interceptors.
+
+以下是拦截器的一些常见用法。
 
 ### Setting default headers
 
@@ -1210,11 +1218,17 @@ Neither `tap` nor `finalize` touch the values of the observable stream returned 
 
 ### Custom JSON parsing
 
+### 自定义 JSON 解析
+
 Interceptors can be used to replace the built-in JSON parsing with a custom implementation.
+
+拦截器可用来以自定义实现替换内置的 JSON 解析。
 
 The `CustomJsonInterceptor` in the following example demonstrates how to achieve this.
 If the intercepted request expects a `'json'` response, the `responseType` is changed to `'text'`
 to disable the built-in JSON parsing. Then the response is parsed via the injected `JsonParser`.
+
+以下示例中的 `CustomJsonInterceptor` 演示了如何实现此目的。如果截获的请求期望一个 `'json'` 响应，则将 `responseType` 更改为 `'text'` 以禁用内置的 JSON 解析。然后，通过注入的 `JsonParser` 解析响应。
 
 <code-example
   path="http/src/app/http-interceptors/custom-json-interceptor.ts"
@@ -1225,6 +1239,8 @@ to disable the built-in JSON parsing. Then the response is parsed via the inject
 You can then implement your own custom `JsonParser`.
 Here is a custom JsonParser that has a special date reviver.
 
+然后，你可以实现自己的自定义 `JsonParser`。这是一个具有特殊日期接收器的自定义 JsonParser。
+
 <code-example
   path="http/src/app/http-interceptors/custom-json-interceptor.ts"
   region="custom-json-parser"
@@ -1233,12 +1249,13 @@ Here is a custom JsonParser that has a special date reviver.
 
 You provide the `CustomParser` along with the `CustomJsonInterceptor`.
 
+你提供 `CustomParser` 以及 `CustomJsonInterceptor`。
+
 <code-example
   path="http/src/app/http-interceptors/index.ts"
   region="custom-json-interceptor"
   header="app/http-interceptors/index.ts">
 </code-example>
-
 
 {@a caching}
 ### Caching requests
@@ -1448,7 +1465,7 @@ If you need to make an HTTP request in response to user input, it's not efficien
 It's better to wait until the user stops typing and then send a request.
 This technique is known as debouncing.
 
-如果你需要发一个 HTTP 请求来响应用户的输入，那么每次击键就发送一个请求的效率显然不高。最好等用户停止输入后再发送请求。这种技术叫做防抖。
+如果你需要发一个 HTTP 请求来响应用户的输入，那么每次按键就发送一个请求的效率显然不高。最好等用户停止输入后再发送请求。这种技术叫做防抖。
 
 Consider the following template, which lets a user enter a search term to find an npm package by name.
 When the user enters a name in a search-box, the `PackageSearchComponent` sends
@@ -1465,10 +1482,14 @@ a search request for a package with that name to the npm web API.
 
 Here, the `keyup` event binding sends every keystroke to the component's `search()` method.
 
+在这里，`keyup` 事件绑定会将每个按键都发送到组件的 `search()` 方法。
+
 <div class="alert is-helpful">
 
 The type of `$event.target` is only `EventTarget` in the template.
 In the `getValue()` method, the target is cast to an `HTMLInputElement` to allow type-safe access to its `value` property.
+
+`$event.target` 的类型在模板中只是 `EventTarget`，而在 `getValue()` 方法中，目标会转换成 `HTMLInputElement` 类型，以允许对它的 `value` 属性进行类型安全的访问。
 
 <code-example path="http/src/app/package-search/package-search.component.ts" region="getValue"></code-example>
 
@@ -1476,7 +1497,7 @@ In the `getValue()` method, the target is cast to an `HTMLInputElement` to allow
 
 The following snippet implements debouncing for this input using RxJS operators.
 
-这里，`keyup` 事件绑定会把每次击键都发送给组件的 `search()` 方法。下面的代码片段使用 RxJS 的操作符为这个输入实现了防抖。
+这里，`keyup` 事件绑定会把每次按键都发送给组件的 `search()` 方法。下面的代码片段使用 RxJS 的操作符为这个输入实现了防抖。
 
 <code-example
   path="http/src/app/package-search/package-search.component.ts"
@@ -1766,46 +1787,74 @@ Alternatively, you can call `request.error()` with an `ErrorEvent`.
 
 ## Passing metadata to interceptors
 
+## 将元数据传递给拦截器
+
 Many interceptors require or benefit from configuration. Consider an interceptor that retries failed requests.
 By default, the interceptor might retry a request three times, but you might want to override this retry count for particularly error-prone or sensitive requests.
+
+许多拦截器都需要进行配置或从配置中受益。考虑一个重试失败请求的拦截器。默认情况下，拦截器可能会重试请求三次，但是对于特别容易出错或敏感的请求，你可能要改写这个重试次数。
 
 `HttpClient` requests contain a _context_ that can carry metadata about the request.
 This context is available for interceptors to read or modify, though it is not transmitted to the backend server when the request is sent.
 This allows applications or other interceptors to tag requests with configuration parameters, such as how many times to retry a request.
 
+`HttpClient` 请求包含一个*上下文*，该上下文可以携带有关请求的元数据。该上下文可供拦截器读取或修改，尽管发送请求时它并不会传输到后端服务器。这允许应用程序或其他拦截器使用配置参数来标记这些请求，例如重试请求的次数。
+
 ### Creating a context token
+
+### 创建上下文令牌
 
 Angular stores and retrieves a value in the context using an `HttpContextToken`.
 You can create a context token using the `new` operator, as in the following example:
+
+`HttpContextToken` 用于在上下文中存储和检索值。你可以用 `new` 运算符创建上下文令牌，如以下例所示：
 
 <code-example path="http/src/app/http-interceptors/retry-interceptor.ts" region="context-token" header="creating a context token"></code-example>
 
 The lambda function `() => 3` passed during the creation of the `HttpContextToken` serves two purposes:
 
+`HttpContextToken` 创建期间传递的 lambda 函数 `() => 3` 有两个用途：
+
 1. It allows TypeScript to infer the type of this token: `HttpContextToken<number>`.
   The request context is type-safe&mdash;reading a token from a request's context returns a value of the appropriate type.
+
+   它允许 TypeScript 推断此令牌的类型： `HttpContextToken<number>`。这个请求上下文是类型安全的 —— 从请求上下文中读取令牌将返回适当类型的值。
 
 1. It sets the default value for the token.
   This is the value that the request context returns if no other value has been set for this token.
   Using a default value avoids the need to check if a particular value is set.
 
+   它会设置令牌的默认值。如果尚未为此令牌设置其他值，那么这就是请求上下文返回的值。使用默认值可以避免检查是否已设置了特定值。
+
 ### Setting context values when making a request
 
+### 在发起请求时设置上下文值
+
 When making a request, you can provide an `HttpContext` instance, in which you have already set the context values.
+
+发出请求时，你可以提供一个 `HttpContext` 实例，在该实例中你已经设置了一些上下文值。
 
 <code-example path="http/src/app/http-interceptors/retry-interceptor.ts" region="set-context" header="setting context values"></code-example>
 
 ### Reading context values in an interceptor
 
+### 在拦截器中读取上下文值
+
 Within an interceptor, you can read the value of a token in a given request's context with `HttpContext.get()`.
 If you have not explicitly set a value for the token, Angular returns the default value specified in the token.
+
+`HttpContext.get()` 在给定请求的上下文中读取令牌的值。如果尚未显式设置令牌的值，则 Angular 将返回令牌中指定的默认值。
 
 <code-example path="http/src/app/http-interceptors/retry-interceptor.ts" region="reading-context" header="reading context values in an interceptor"></code-example>
 
 ### Contexts are mutable
 
+### 上下文是可变的（Mutable）
+
 Unlike most other aspects of `HttpRequest` instances, the request context is mutable and persists across other immutable transformations of the request.
 This allows interceptors to coordinate operations through the context.
 For instance, the `RetryInterceptor` example could use a second context token to track how many errors occur during the execution of a given request:
+
+与 `HttpRequest` 实例的大多数其他方面不同，请求上下文是可变的，并且在请求的其他不可变转换过程中仍然存在。这允许拦截器通过此上下文协调来操作。例如，`RetryInterceptor` 示例可以使用第二个上下文令牌来跟踪在执行给定请求期间发生过多少错误：
 
 <code-example path="http/src/app/http-interceptors/retry-interceptor.ts" region="mutable-context" header="coordinating operations through the context"></code-example>

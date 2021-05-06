@@ -27,7 +27,7 @@ The key goes under `cli.analyticsSharing` at the top level of the file, outside 
 The value of the key is your organization's tracking ID, as assigned by Google Analytics.
 This ID is a string that looks like `UA-123456-12`.
 
-要配置对所属用户的 CLI 使用率数据的访问权限，请使用 `ng config` 命令在全局 [`angular.json` 工作空间配置文件中](guide/workspace-config)添加一个键。这个键位于文件顶层的 `cli.analyticsSharing` 下，位于 `projects` 部分之外。此键值是你们组织的跟踪 ID，通过 Google Analytics 指定。此 ID 形如 `UA-123456-12`。
+要配置对所属用户的 CLI 使用率数据的访问权限，请使用 `ng config` 命令在全局 [`angular.json` 工作区配置文件中](guide/workspace-config)添加一个键。这个键位于文件顶层的 `cli.analyticsSharing` 下，位于 `projects` 部分之外。此键值是你们组织的跟踪 ID，通过 Google Analytics 指定。此 ID 形如 `UA-123456-12`。
 
 You can choose to use a descriptive string as the key value, or be assigned a random key when you run the CLI command.
 For example, the following command adds a configuration key named "tracking".

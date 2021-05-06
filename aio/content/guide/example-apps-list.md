@@ -241,9 +241,13 @@ For more information, see the [`$any()` type cast function section](guide/templa
 
 ### Content projection
 
+### 内容投影
+
 <live-example name="content-projection"></live-example>
 
 Demonstrates how to use Angular's content projection feature when creating reusable components.
+
+演示在创建可复用组件时如何使用 Angular 的内容投影功能。
 
 ### Interpolation
 
@@ -403,7 +407,7 @@ For more information, see [Dynamic component loader](guide/dynamic-component-loa
 Demonstrates using Angular custom elements.
 For more information, see [Angular elements overview](guide/elements).
 
-演示如何使用 Angular 自定义元素。欲知详情，请参阅 [Angular 自定义元素概览](guide/elements) 。
+演示如何使用 Angular 自定义元素。欲知详情，请参阅 [Angular 自定义元素概览](guide/elements)。
 
 ### Event binding
 
@@ -417,6 +421,8 @@ For more information, see [Event binding](guide/event-binding).
 演示了如何绑定 Angular 中的事件。欲知详情，请参阅[事件绑定](guide/event-binding)。
 
 ### `@Input()` and `@Output()`
+
+### `@Input()` 和 `@Output()`
 
 <live-example name="inputs-outputs"></live-example>
 
@@ -434,7 +440,7 @@ For more information, see [`@Input()` and `@Output()` properties](guide/inputs-o
 Demonstrates Angular lifecycle hooks such as `ngOnInit()` and `ngOnChanges()`.
 For more information, see [Hooking into the component lifecycle](guide/lifecycle-hooks).
 
-演示了 Angular 的生命周期钩子，比如 `ngOnInit()` 和 `ngOnChanges()` 。欲知详情，请参阅[钩入组件生命周期](guide/lifecycle-hooks)。
+演示了 Angular 的生命周期钩子，比如 `ngOnInit()` 和 `ngOnChanges()`。欲知详情，请参阅[钩入组件生命周期](guide/lifecycle-hooks)。
 
 ## Dependency injection
 
@@ -460,7 +466,7 @@ For more information, see [Dependency injection](guide/dependency-injection).
 Demonstrates many of the features of Angular dependency injection.
 For more information, see [Dependency injection in action](guide/dependency-injection).
 
-演示了 Angular 依赖注入的很多特性。欲知详情，请参阅“[依赖注入”](guide/dependency-injection) 。
+演示了 Angular 依赖注入的很多特性。欲知详情，请参阅“[依赖注入”](guide/dependency-injection)。
 
 ### Providing dependencies in NgModules
 
@@ -504,7 +510,7 @@ For more information, see the [Providing services in `@Component()`](guide/hiera
 Demonstrates Angular's resolution modifiers, such as `@Self()`.
 For more information, see the [Modifying service visibility](guide/hierarchical-dependency-injection#modifying-service-visibility) section of [Hierarchical injectors](guide/hierarchical-dependency-injection).
 
-演示了 Angular 的解析修饰器，比如 `@Self()` 。关于详细信息，请参阅“[分层注入器”](guide/hierarchical-dependency-injection)中的[“修改服务可见性”](guide/hierarchical-dependency-injection#modifying-service-visibility)部分。
+演示了 Angular 的解析修饰器，比如 `@Self()`。关于详细信息，请参阅“[分层注入器”](guide/hierarchical-dependency-injection)中的[“修改服务可见性”](guide/hierarchical-dependency-injection#modifying-service-visibility)部分。
 
 ## Forms
 
@@ -574,7 +580,7 @@ For more information, see [Building dynamic forms](guide/dynamic-form).
 Demonstrates fundamentals of NgModules.
 For more information, see [NgModules](guide/ngmodules).
 
-演示了 NgModules 的基础知识。欲知详情，请参阅[NgModules](guide/ngmodules) 。
+演示了 NgModules 的基础知识。欲知详情，请参阅[NgModules](guide/ngmodules)。
 
 ### Feature modules
 
@@ -694,4 +700,3 @@ Demonstrates Angular for those with an AngularJS background.
 For more information, see [AngularJS to Angular concepts: Quick reference](guide/ajs-quick-reference).
 
 为具有 AngularJS 背景的人演示 Angular。要了解更多信息，请参阅 [AngularJS 到 Angular 的概念变迁：快速参考](guide/ajs-quick-reference)。
-

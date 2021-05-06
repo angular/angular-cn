@@ -114,7 +114,6 @@ For more information on how to bind to the `colSpan` property, see the [`colspan
 
 </div>
 
-
 {@a class-binding}
 ## Binding to the `class` attribute
 
@@ -251,7 +250,6 @@ The following table summarizes class binding syntax.
   </tr>
 </table>
 
-
 {@a style-binding}
 ## Binding to the style attribute
 
@@ -317,6 +315,8 @@ Updating the property without changing object identity has no effect.
 </div>
 
 #### Single and multiple-style binding example
+
+#### 单样式和多样式绑定示例
 
 <code-example path="attribute-binding/src/app/single-and-multiple-style-binding.component.ts" header="nav-bar.component.ts">
 </code-example>
@@ -418,63 +418,129 @@ The following table summarizes style binding syntax.
 The [NgStyle](guide/built-in-directives/#ngstyle) directive can be used as an alternative to direct `[style]` bindings.
 However, using the above style binding syntax without `NgStyle` is preferred because due to improvements in style binding in Angular, `NgStyle` no longer provides significant value, and might eventually be removed in the future.
 
+[NgStyle](guide/built-in-directives/#ngstyle)指令可以用作代替直接绑定 `[style]` 的方法。但是，最好使用上述不用 `NgStyle` 的绑定语法，因为由于 Angular 中样式绑定的改进，`NgStyle` 不再提供显著价值，将来可能会被删除。
+
 </div>
 
 {@a styling-precedence}
 ## Styling Precedence
 
+## 样式优先级
+
 A single HTML element can have its CSS class list and style values bound to multiple sources (for example, host bindings from multiple directives).
+
+一个 HTML 元素可以将其 CSS 类列表和样式值绑定到多个源（例如，来自多个指令的宿主绑定）。
 
 When there are multiple bindings to the same class name or style property, Angular uses a set of precedence rules to resolve conflicts and determine which classes or styles are ultimately applied to the element.
 
+当有多个到相同的类名或样式属性的绑定时，Angular 使用一组优先规则来解决冲突并确定最终将哪些类或样式应用于元素。
+
 <div class="alert is-helpful">
 <h4>Styling precedence (highest to lowest)</h4>
+<h4>样式优先级（从高到低）</h4>
 
 1. Template bindings
+
+   模板绑定
+
     1. Property binding (for example, `<div [class.foo]="hasFoo">` or `<div [style.color]="color">`)
+
+       属性绑定（例如，`<div [class.foo]="hasFoo">` 或 `<div [style.color]="color">` ）
+
     1. Map binding (for example, `<div [class]="classExpr">` or `<div [style]="styleExpr">`)
+
+       映射表绑定（例如，`<div [class]="classExpr">` 或 `<div [style]="styleExpr">` ）
+
     1. Static value (for example, `<div class="foo">` or `<div style="color: blue">`)
+
+       静态值（例如 `<div class="foo">` 或 `<div style="color: blue">` ）
+
 1. Directive host bindings
+
+   指令宿主绑定
+
     1. Property binding (for example, `host: {'[class.foo]': 'hasFoo'}` or `host: {'[style.color]': 'color'}`)
+
+       属性绑定（例如，`host: {'[class.foo]': 'hasFoo'}` 或 `host: {'[style.color]': 'color'}` ）
+
     1. Map binding (for example, `host: {'[class]': 'classExpr'}` or `host: {'[style]': 'styleExpr'}`)
+
+       映射表绑定（例如，`host: {'[class]': 'classExpr'}` 或 `host: {'[style]': 'styleExpr'}` ）
+
     1. Static value (for example, `host: {'class': 'foo'}` or `host: {'style': 'color: blue'}`)
+
+       静态值（例如，`host: {'class': 'foo'}` 或 `host: {'style': 'color: blue'}` ）
+
 1. Component host bindings
+
+   组件宿主绑定
+
     1. Property binding (for example, `host: {'[class.foo]': 'hasFoo'}` or `host: {'[style.color]': 'color'}`)
+
+       属性绑定（例如，`host: {'[class.foo]': 'hasFoo'}` 或 `host: {'[style.color]': 'color'}` ）
+
     1. Map binding (for example, `host: {'[class]': 'classExpr'}` or `host: {'[style]': 'styleExpr'}`)
+
+       映射表绑定（例如，`host: {'[class]': 'classExpr'}` 或 `host: {'[style]': 'styleExpr'}` ）
+
     1. Static value (for example, `host: {'class': 'foo'}` or `host: {'style': 'color: blue'}`)
+
+       静态值（例如，`host: {'class': 'foo'}` 或 `host: {'style': 'color: blue'}` ）
 
 </div>
 
 The more specific a class or style binding is, the higher its precedence.
 
+总之，类或样式绑定越具体，其优先级就越高。
+
 A binding to a specific class (for example, `[class.foo]`) will take precedence over a generic `[class]` binding, and a binding to a specific style (for example, `[style.bar]`) will take precedence over a generic `[style]` binding.
+
+绑定到具体类（例如 `[class.foo]` ）将优先于不特定 `[class]` 的绑定，并且绑定到特定样式（例如 `[style.bar]` ）将优先于不特定 `[style]` 的绑定。
 
 <code-example path="attribute-binding/src/app/app.component.html" region="basic-specificity" header="src/app/app.component.html"></code-example>
 
 Specificity rules also apply when it comes to bindings that originate from different sources.
 It's possible for an element to have bindings in the template where it's declared, from host bindings on matched directives, and from host bindings on matched components.
 
+当涉及不同来源的绑定时，也适用这些特异性规则。元素可能具有在其声明的模板中的绑定、在其匹配的指令中的宿主绑定、在其匹配的组件中的宿主绑定。
+
 Template bindings are the most specific because they apply to the element directly and exclusively, so they have the highest precedence.
+
+模板绑定是最具体的，因为它们会直接且排他地应用于元素，因此它们具有最高的优先级。
 
 Directive host bindings are considered less specific because directives can be used in multiple locations, so they have a lower precedence than template bindings.
 
+指令宿主绑定被认为不太具体，因为指令可以在多个位置使用，因此它们的优先级低于模板绑定。
+
 Directives often augment component behavior, so host bindings from components have the lowest precedence.
+
+指令通常会增强组件的行为，因此组件的宿主绑定具有最低的优先级。
 
 <code-example path="attribute-binding/src/app/app.component.html" region="source-specificity" header="src/app/app.component.html"></code-example>
 
 In addition, bindings take precedence over static attributes.
 
+此外，绑定会优先于静态属性。
+
 In the following case, `class` and `[class]` have similar specificity, but the `[class]` binding will take precedence because it is dynamic.
+
+在这里，`class` 和 `[class]` 具有相似的特异性，但是 `[class]` 绑定更优先一些，因为它是动态的。
 
 <code-example path="attribute-binding/src/app/app.component.html" region="dynamic-priority" header="src/app/app.component.html"></code-example>
 
 {@a styling-delegation}
 ### Delegating to styles with lower precedence
 
+### 委托给优先级较低的样式
+
 It is possible for higher precedence styles to "delegate" to lower precedence styles using `undefined` values.
 Whereas setting a style property to `null` ensures the style is removed, setting it to `undefined` will cause Angular to fall back to the next-highest precedence binding to that style.
 
+可以用 `undefined` 值来把高优先级的样式“委托”给较低优先级的样式。将样式属性设置为 `null` 可以确保样式被删除，而将其设置为 `undefined` 将导致 Angular 回退到该样式的次高优先级绑定。
+
 For example, consider the following template:
+
+例如，考虑以下模板：
 
 <code-example path="attribute-binding/src/app/app.component.html" region="style-delegation" header="src/app/app.component.html"></code-example>
 
@@ -482,17 +548,26 @@ Imagine that the `dirWithHostBinding` directive and the `comp-with-host-binding`
 In that case, if `dirWithHostBinding` sets its binding to `undefined`, the `width` property will fall back to the value of the `comp-with-host-binding` host binding.
 However, if `dirWithHostBinding` sets its binding to `null`, the `width` property will be removed entirely.
 
+假设 `dirWithHostBinding` 指令和 `comp-with-host-binding` 组件都具有 `[style.width]` 宿主绑定。在这里，如果 `dirWithHostBinding` 将其绑定设置为 `undefined` ，则 `width` 属性将回退到 `comp-with-host-binding` 宿主绑定的值。但是，如果 `dirWithHostBinding` 将其绑定设置为 `null` ，则会完全删除 `width`
 
 ## Injecting attribute values
 
+## 注入属性值
+
 There are cases where you need to differentiate the behavior of a [Component](api/core/Component) or [Directive](api/core/Directive) based on a static value set on the host element as an HTML attribute. For example, you might have a directive that needs to know the `type` of a `<button>` or `<input>` element.
 
+在某些情况下，你需要根据在 host 元素上以 HTML 属性的形式设置的静态值来区分[组件](api/core/Component)或[指令](api/core/Directive)的行为。例如，你可能有一个指令，需要知道 `<button>` 或 `<input>` 元素的 `type` 值。
+
 The [Attribute](api/core/Attribute) parameter decorator is great for passing the value of an HTML attribute to a component/directive constructor via [dependency injection](guide/dependency-injection).
+
+[Attribute](api/core/Attribute)参数装饰器非常适合通过[依赖注入](guide/dependency-injection)来将 HTML 属性的值传递给组件/指令构造函数。
 
 <div class="alert is-helpful">
 
   The injected value captures the value of the specified HTML attribute at that moment.
   Future updates to the attribute value are not reflected in the injected value.
+
+  这里注入的值将捕获指定 HTML 属性的当前值。将来对属性值的修改不会反映到注入的值中。
 
 </div>
 
@@ -509,12 +584,18 @@ The [Attribute](api/core/Attribute) parameter decorator is great for passing the
 
 In the preceding example, the result of `app.component.html` is **The type of the input is: number**.
 
+在前面的示例中，`app.component.html`的结果为：**The type of the input is: number**。
+
 Another example is the [RouterOutlet](api/router/RouterOutlet) directive, which makes use of the [Attribute](api/core/Attribute) decorator to retrieve the unique [name](api/router/RouterOutlet#description) on each outlet.
+
+另一个示例是[RouterOutlet](api/router/RouterOutlet)指令，该指令利用 [Attribute](api/core/Attribute) 装饰器检索每个路由插座上的唯一[名称。](api/router/RouterOutlet#description)
 
 <div class="callout is-helpful">
 
   <header>@Attribute() vs @Input()</header>
 
   Remember, use [@Input()](api/core/Input) when you want to keep track of the attribute value and update the associated property. Use [@Attribute()](api/core/Attribute) when you want to inject the value of an HTML attribute to a component or directive constructor.
+
+  请记住，要持续跟踪 Attribute 的值并更新关联的 Property 时，请使用 [@Input()](api/core/Input)。若要将 HTML 属性的值注入到组件或指令的构造函数中，请使用[@Attribute()](api/core/Attribute)。
 
 </div>

@@ -4,7 +4,7 @@
 
 Event binding allows you to listen for and respond to user actions such as keystrokes, mouse movements, clicks, and touches.
 
-通过事件绑定，你可以侦听并响应用户操作，例如击键、鼠标移动、点击和触摸。
+通过事件绑定，你可以侦听并响应用户操作，例如按键、鼠标移动、点击和触摸。
 
 <div class="alert is-helpful">
 

@@ -34,7 +34,7 @@ Building accessible web experience often involves setting [ARIA attributes](http
 to provide semantic meaning where it might otherwise be missing.
 Use [attribute binding](guide/attribute-binding) template syntax to control the values of accessibility-related attributes.
 
-建立无障碍的 Web 体验通常会涉及设置 [ARIA 属性（Attribute）](https://developers.google.com/web/fundamentals/accessibility/semantics-aria) 以提供可能会丢失的语义。使用 [Attribute 绑定](guide/attribute-binding模板语法来控制与无障碍性相关的属性（Attribute）值。
+建立无障碍的 Web 体验通常会涉及设置 [ARIA 属性（Attribute）](https://developers.google.com/web/fundamentals/accessibility/semantics-aria) 以提供可能会丢失的语义。使用 [Attribute 绑定](guide/attribute-binding)模板语法来控制与无障碍性相关的属性（Attribute）值。
 
 When binding to ARIA attributes in Angular, you must use the `attr.` prefix, as the ARIA
 specification depends specifically on HTML attributes rather than properties of DOM elements.
@@ -64,7 +64,7 @@ Static ARIA attributes require no extra syntax.
 
    See the [Binding syntax](guide/binding-syntax#html-attribute-vs-dom-property) guide for more background on the difference between attributes and properties.
 
-   关于 Attribute 和 Property 之间差异的更多背景信息，请参阅[模板语法](guide/html-attribute-vs-dom-property一章。
+   关于 Attribute 和 Property 之间差异的更多背景信息，请参阅[模板语法](guide/html-attribute-vs-dom-property)一章。
 
 </div>
 
@@ -216,6 +216,8 @@ You should avoid situations where focus returns to the `body` element after a ro
   [Rob Dodson 的 A11y 播客](https://www.youtube.com/watch?v=HtTyRajRuyY)
 
 * [Angular ESLint](https://github.com/angular-eslint/angular-eslint#functionality) provides linting rules that can help you make sure your code meets accessibility standards.
+
+  [Angular ESLint](https://github.com/angular-eslint/angular-eslint#functionality)提供了整理(linting)规则，可以帮助你确保你的代码符合无障碍性标准。
 
 Books
 

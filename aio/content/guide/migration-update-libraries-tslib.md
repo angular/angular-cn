@@ -10,7 +10,7 @@ If you have any libraries within your workspace, this migration will convert `ts
 TypeScript uses the `tslib` package to provide common helper functions used in compiled TypeScript code.
 The `tslib` version is also updated to `2.0.0` to support TypeScript 3.9.
 
-如果你的工作空间中有任何库，此迁移会将它们对 `tslib` 的平级依赖转换为直接依赖。TypeScript 使用 `tslib` 包来提供 TypeScript 编译后代码中使用的常用辅助函数。`tslib` 版本也更新为 `2.0.0` 以支持 TypeScript 3.9。
+如果你的工作区中有任何库，此迁移会将它们对 `tslib` 的平级依赖转换为直接依赖。TypeScript 使用 `tslib` 包来提供 TypeScript 编译后代码中使用的常用辅助函数。`tslib` 版本也更新为 `2.0.0` 以支持 TypeScript 3.9。
 
 Before:
 
@@ -55,7 +55,7 @@ The version of this library is bound to the version of the TypeScript compiler u
 Peer dependencies do not accurately represent this relationship between the runtime and the compiler.
 If `tslib` remained declared as a library peer dependency, it would be possible for some Angular workspaces to get into a state where the workspace could not satisfy `tslib` peer dependency requirements for multiple libraries, resulting in build-time or run-time errors.
 
-[`tslib`](https://github.com/Microsoft/tslib) 是 Typescript 的运行时库。该库的版本绑定到了用于编译库的 TypeScript 编译器的版本。平级依赖不能准确表达此运行时库与编译器之间的这种关系。如果 `tslib` 仍然声明为库对等依赖项，则某些 Angular 工作空间可能会出现工作空间无法满足 `tslib` 平级依赖项要求的状态，从而导致构建期或运行期错误。
+[`tslib`](https://github.com/Microsoft/tslib) 是 Typescript 的运行时库。该库的版本绑定到了用于编译库的 TypeScript 编译器的版本。平级依赖不能准确表达此运行时库与编译器之间的这种关系。如果 `tslib` 仍然声明为库对等依赖项，则某些 Angular 工作区可能会出现工作区无法满足 `tslib` 平级依赖项要求的状态，从而导致构建期或运行期错误。
 
 As of TypeScript 3.9 (used by Angular v10), `tslib` version of 2.x is required to build new applications.
 However, older libraries built with previous version of TypeScript and already published to npm might need `tslib` 1.x.
@@ -70,4 +70,4 @@ This migration makes it possible for code depending on incompatible versions of 
 Yes.
 The `tslib` dependency declared in the `package.json` file of the workspace is used to build applications within this workspace, as well as run unit tests for workspace libraries, and is required.
 
-是。`package.json` 文件中声明的 `tslib` 依赖用于在此工作空间内构建应用程序，以及对工作空间中的库进行运行单元测试，这是必要的。
+是。`package.json` 文件中声明的 `tslib` 依赖用于在此工作区内构建应用程序，以及对工作区中的库进行运行单元测试，这是必要的。

@@ -781,6 +781,8 @@ from heroes list to the mini detail to the hero details and back to the heroes a
 The details will look better when you add the private CSS styles to `hero-detail.component.css`
 as listed in one of the ["final code review"](#final-code-review) tabs below.
 
+当你将一些私有 CSS 样式添加到 `hero-detail.component.css` 里之后，其细节看起来会更好，如下面的[“查看最终代码”](#final-code-review)标签页中所示。
+
 ## Final code review
 
 ## 查看最终代码

@@ -102,10 +102,19 @@ When `true`, use [Tsickle](https://github.com/angular/tsickle) to annotate the e
 
 Specifies the compilation mode to use. The following modes are available:
 
+指定要使用的编译模式。可以使用以下模式：
+
 - `'full'`: generates fully AOT-compiled code according to the version of Angular that is currently being used.
+
+  `'full'`：根据当前使用的 Angular 版本生成完全 AOT 编译的代码。
+
 - `'partial'`: generates code in a stable, but intermediate form suitable for a published library.
 
+  `'partial'`：生成稳定的中间代码，适用于已发布的库。
+
 The default value is `'full'`.
+
+默认值为 `'full'` 。
 
 ### `disableExpressionLowering`
 
@@ -334,4 +343,3 @@ When you use the CLI command `ng new --strict`, it is set to `true` in the gener
 When `true`, prints extra information while compiling templates. Default is `false`.
 
 如果为 `true`，则在编译模板时输出额外的信息。默认值为 `false`。
-

@@ -184,7 +184,7 @@ The following table lists some of the key AngularJS template features with their
 
       For more information, see the [Structural directive shorthand](guide/structural-directives#shorthand) section of [Structural Directives](guide/structural-directives).
 
-      要了解更多信息，请参阅[结构型指令](guide/structural-directives)中的[结构型指令的简写法](guide/structural-directives#shorthand)部分。
+      要了解更多信息，请参阅[结构型指令](guide/structural-directives)中的[结构型指令的简写形式](guide/structural-directives#shorthand)部分。
     </td>
 
   </tr>
@@ -673,7 +673,7 @@ AngularJS 为模板提供了七十多个内置指令。
 
       For more information, see [Structural Directives](guide/structural-directives).
 
-      要了解更多信息，参阅[结构性指令](guide/structural-directives)。
+      要了解更多信息，参阅[结构型指令](guide/structural-directives)。
 
     </td>
 

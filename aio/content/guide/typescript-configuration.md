@@ -35,7 +35,7 @@ that are important to Angular developers, including details about the following 
 A given Angular workspace contains several TypeScript configuration files.
 At the root `tsconfig.json` file specifies the base TypeScript and Angular compiler options that all projects in the workspace inherit.
 
-一个 Angular 工作空间中包含多个 TypeScript 配置文件。在根一级，有两个主要的 TypeScript 配置文件：`tsconfig.json` 文件和 `tsconfig.base.json` 文件。
+一个 Angular 工作区中包含多个 TypeScript 配置文件。在根一级，有两个主要的 TypeScript 配置文件：`tsconfig.json` 文件和 `tsconfig.base.json` 文件。
 
 <div class="alert is-helpful">
 
@@ -62,7 +62,7 @@ For details about configuration inheritance, see the [Configuration inheritance 
 
 The initial `tsconfig.json` for an Angular workspace typically looks like the following example.
 
-Angular 工作空间的初始 `tsconfig.base.json` 通常是这样的。
+Angular 工作区的初始 `tsconfig.base.json` 通常是这样的。
 
 <code-example lang="json" header="tsconfig.json" linenums="false">
 {
@@ -93,7 +93,7 @@ Angular 工作空间的初始 `tsconfig.base.json` 通常是这样的。
 When you create new workspaces and projects, you have the option to use Angular's strict mode, which can help you write better, more maintainable code.
 For more information, see [Strict mode](/guide/strict-mode).
 
-当你创建新的工作空间和项目时，你可以选择使用 Angular 的严格模式，它会帮助你写出更好、更容易维护的代码。
+当你创建新的工作区和项目时，你可以选择使用 Angular 的严格模式，它会帮助你写出更好、更容易维护的代码。
 欲知详情，参阅[严格模式](/guide/strict-mode)。
 
 {@a noImplicitAny}

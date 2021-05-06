@@ -158,13 +158,17 @@ The import path is the relative path to the module.
 
 In Angular version 8, the string syntax for the `loadChildren` route specification [was deprecated](https://angular.io/guide/deprecations#loadchildren-string-syntax) in favor of the `import()` syntax. However, you can opt into using string-based lazy loading (`loadChildren: './path/to/module#Module'`) by including the lazy-loaded routes in your `tsconfig` file, which includes the lazy-loaded files in the compilation.
 
+在 Angular 版本 8 中，`loadChildren` 路由规范的字符串语法[已弃用](https://angular.io/guide/deprecations#loadchildren-string-syntax)，建议改用 `import()` 语法。不过，你仍然可以通过在 `tsconfig` 文件中包含惰性加载的路由来选择使用基于字符串的惰性加载（`loadChildren: './path/to/module#Module'`），这样它就会在编译时包含惰性加载的文件。
+
 By default the CLI will generate projects which stricter file inclusions intended to be used with the `import()` syntax.
+
+默认情况下，会用 CLI 生成项目，这些项目将更严格地包含旨在与 `import()` 语法一起使用的文件。
 
 </div>
 
 ### Add another feature module
 
-#### 添加另一个特性模块
+### 添加另一个特性模块
 
 Use the same command to create a second lazy-loaded feature module with routing, along with its stub component.
 
@@ -365,7 +369,7 @@ Preloading modules improves UX by loading parts of your app in the background so
 
 To enable preloading of all lazy loaded modules, import the `PreloadAllModules` token from the Angular `router`.
 
-要启用所有惰性加载模块的预加载， 请从 Angular 的 `router` 导入 `PreloadAllModules` 令牌。
+要启用所有惰性加载模块的预加载，请从 Angular 的 `router` 导入 `PreloadAllModules` 令牌。
 
 <code-example header="AppRoutingModule (excerpt)">
 
@@ -469,15 +473,23 @@ ngOnInit() {
 
 For more information with a working example, see the [routing tutorial section on preloading](guide/router-tutorial-toh#preloading-background-loading-of-feature-areas).
 
-关于工作范例的更多信息，请参阅[路由教程的预加载部分](guide/router-tutorial-toh#preloading-background-loading-of-feature-areas) 。
+关于工作范例的更多信息，请参阅[路由教程的预加载部分](guide/router-tutorial-toh#preloading-background-loading-of-feature-areas)。
 
 ## Troubleshooting lazy-loading modules
 
+## 对惰性加载模块进行故障排除
+
 A common error when lazy-loading modules is importing common modules in multiple places within an application.  You can test for this condition by first generating the module using the Angular CLI and including the `--route route-name` parameter, where `route-name` is the name of your module. Next, generate the module without the `--route` parameter. If the Angular CLI generates an error when you use the `--route` parameter, but runs correctly without it, you may have imported the same module in multiple places.
+
+惰性加载模块时常见的错误之一，就是在应用程序中的多个位置导入通用模块。你可以通过首先使用 Angular CLI 生成模块并包括 `--route route-name` 参数来测试这种情况，其中 `route-name` 是模块的名称。接下来，生成不带 `--route` 参数的模块。如果你用了`--route` 参数，Angular CLI 就会生成错误，但如果不使用它便可以正确运行，则可能是在多个位置导入了相同的模块。
 
 Remember, many common Angular modules should be imported at the base of your application.
 
+请记住，许多常见的 Angular 模块都应该导入应用的基础模块中。
+
 For more information on Angular Modules, see [NgModules](guide/ngmodules).
+
+有关 Angular 模块的更多信息，请参见 [NgModules](guide/ngmodules)。
 
 ## More on NgModules and routing
 
@@ -506,4 +518,3 @@ You may also be interested in the following:
 * [Route preloading strategies in Angular](https://web.dev/route-preloading-in-angular/)
 
   [Angular 中的路由预加载策略](https://web.dev/route-preloading-in-angular/)
-

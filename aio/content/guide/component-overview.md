@@ -49,7 +49,7 @@ To create a component, verify that you have met the following prerequisites:
 1. [Create an Angular workspace](guide/setup-local#create-a-workspace-and-initial-application) with initial application.
    If you don't have a project, you can create one using `ng new <project-name>`, where `<project-name>` is the name of your Angular application.
 
-   [创建一个带有初始项目的 Angular 工作空间](guide/setup-local#create-a-workspace-and-initial-application)。如果还没有项目，你可以用 `ng new <project-name>` 创建一个，其中 `<project-name>` 是你的 Angular 应用的名字。
+   [创建一个带有初始项目的 Angular 工作区](guide/setup-local#create-a-workspace-and-initial-application)。如果还没有项目，你可以用 `ng new <project-name>` 创建一个，其中 `<project-name>` 是你的 Angular 应用的名字。
 
 ## Creating a component
 

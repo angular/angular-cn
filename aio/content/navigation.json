@@ -62,7 +62,7 @@
       "tooltip": "建立开发环境，并学习基本概念",
       "children": [
         { "url": "guide/what-is-angular",
-          "title": "What is Angular?",
+          "title": "什么是 Angular？",
           "tooltip": "A brief description of the Angular platform."
         },
         {
@@ -104,7 +104,7 @@
       ]
     },
     {
-      "title": "Understanding Angular",
+      "title": "了解 Angular",
       "tooltip": "Learn the concepts essential to becoming a proficient Angular developer.",
       "children": [
         {
@@ -143,7 +143,7 @@
             },
             {
               "url": "guide/content-projection",
-              "title": "Content Projection",
+              "title": "内容投影",
               "tooltip": "Learn how to create reusable components using Angular's content projection feature."
             },
             {
@@ -169,7 +169,7 @@
             },
             {
               "url": "guide/interpolation",
-              "title": "Text interpolation",
+              "title": "文本插值",
               "tooltip": "An introduction to interpolation and expressions in HTML."
             },
             {
@@ -189,7 +189,7 @@
             },
             {
               "url": "guide/attribute-binding",
-              "title": "属性（Attribute）绑定、类绑定、样式绑定",
+              "title": "属性（Attribute）、类、样式绑定",
               "tooltip": "介绍如何设置 HTML 属性（Attribute）的值"
             },
             {
@@ -214,7 +214,7 @@
             },
             {
               "url": "guide/svg-in-templates",
-              "title": "SVG as templates",
+              "title": "用 SVG 做模板",
               "tooltip": "Learn how to use SVGs as templates for Angular applications."
             }
           ]
@@ -259,7 +259,7 @@
       ]
     },
     {
-      "title": "Developer Guides",
+      "title": "开发指南",
       "tooltip": "Learn more about how to use Angular to build your applications.",
       "children": [
         {
@@ -299,52 +299,52 @@
           "tooltip": "Use HTTP to talk to a remote server."
         },
         {
-          "title": "Testing",
+          "title": "测试",
           "tooltip": "Testing your Angular apps.",
           "children": [
             {
               "url": "guide/testing",
-              "title": "Intro to Testing",
+              "title": "测试简介",
               "tooltip": "Introduction to testing an Angular app."
             },
             {
               "url": "guide/testing-code-coverage",
-              "title": "Code Coverage",
+              "title": "代码覆盖率",
               "tooltip": "Determine how much of your code is tested."
             },
             {
               "url": "guide/testing-services",
-              "title": "Testing Services",
+              "title": "测试服务",
               "tooltip": "How to test services."
             },
             {
               "url": "guide/testing-components-basics",
-              "title": "Basics of Testing Components",
+              "title": "测试组件-基础",
               "tooltip": "The fundamentals of how to test components."
             },
             {
               "url": "guide/testing-components-scenarios",
-              "title": "Component Testing Scenarios",
+              "title": "组件测试场景",
               "tooltip": "Use cases for testing components."
             },
             {
               "url": "guide/testing-attribute-directives",
-              "title": "Testing Attribute Directives",
+              "title": "测试属性型指令",
               "tooltip": "How to test attribute directives."
             },
             {
               "url": "guide/testing-pipes",
-              "title": "Testing Pipes",
+              "title": "测试管道",
               "tooltip": "Writing tests for pipes."
             },
             {
               "url": "guide/test-debugging",
-              "title": "Debugging Tests",
+              "title": "调试测试代码",
               "tooltip": "How to debug tests."
             },
             {
               "url": "guide/testing-utility-apis",
-              "title": "Testing Utility APIs",
+              "title": "测试工具 API",
               "tooltip": "Features of the Angular testing utilities."
             }
           ]
@@ -470,18 +470,18 @@
         },
         {
           "url": "guide/lazy-loading-ngmodules",
-          "title": "Lazy Loading Feature Modules",
+          "title": "惰性加载特性模块",
           "tooltip": "Lazy load modules to speed up your apps."
         },
         {
           "url": "guide/lightweight-injection-tokens",
-          "title": "Lightweight Injection Tokens for Libraries",
+          "title": "为库准备的轻量级注入令牌",
           "tooltip": "Optimize client app size by designing library services with lightweight injection tokens."
         }
       ]
     },
     {
-      "title": "Angular Tools",
+      "title": "Angular 工具",
       "tooltip": "Tools to help you build your Angular applications.",
       "children": [
         {
@@ -583,7 +583,7 @@
             },
             {
               "url": "tutorial/toh-pt5",
-              "title": "5. Add Navigation",
+              "title": "5. 添加导航",
               "tooltip": "Part 5: Add the Angular router and navigate among the views."
             },
             {
@@ -626,7 +626,7 @@
             {
               "url": "guide/libraries",
               "title": "库概览",
-              "tooltip": "理解如何以及何时使用或创建库"
+              "tooltip": "了解如何以及何时使用或创建库"
             },
             {
               "url": "guide/using-libraries",
@@ -672,7 +672,7 @@
             },
             {
               "url": "guide/migration-legacy-message-id",
-              "title": "Migration: Legacy Localization IDs",
+              "title": "迁移：遗留的本地化 ID",
               "tooltip": "Learn how to migrate legacy IDs for localization to new, more stable ones."
             }
           ]
@@ -755,7 +755,7 @@
                 },
                 {
                   "url": "guide/binding-syntax",
-                  "title": "Binding syntax",
+                  "title": "绑定语法",
                   "tooltip": "Introductory guide to coordinating app values."
                 },
                 {
@@ -771,7 +771,7 @@
               ]
             },
             {
-              "title": "工作空间与项目的结构",
+              "title": "工作区与项目的结构",
               "tooltip": "Workspace and project file structure and configuration.",
               "children": [
                 {
@@ -781,7 +781,7 @@
                 },
                 {
                   "url": "guide/workspace-config",
-                  "title": "工作空间配置",
+                  "title": "工作区配置",
                   "tooltip": "The \"angular.json\" file contains workspace and project configuration defaults for Angular CLI commands."
                 },
                 {
@@ -943,11 +943,11 @@
           "url": "api"
         },
         {
-          "title": "Error Reference",
+          "title": "报错参考手册",
           "tooltip": "Details of the errors that can be thrown by Angular.",
           "children": [
             {
-              "title": "Overview",
+              "title": "概览",
               "url": "errors",
               "hidden": true
             }
@@ -980,27 +980,27 @@
           ]
         },
         {
-          "title": "Content Contributor's Guide",
+          "title": "内容贡献者指南",
           "tooltip": "Describes how to contribute to the Angular documentation.",
           "children": [
             {
               "url": "guide/contributors-guide-overview",
-              "title": "Overview",
+              "title": "概览",
               "tooltip": "Provides an overview of how to contribute to Angular's documentation."
             },
             {
               "url": "guide/reviewing-content",
-              "title": "Reviewing content",
+              "title": "内容复查",
               "tooltip": "Keep Angular content up-to-date by reviewing topics for accuracy."
             },
             {
               "url": "guide/updating-search-keywords",
-              "title": "Updating search keywords",
+              "title": "更新搜索关键字",
               "tooltip": "Help users find the content they need by adding additional search keywords."
             },
             {
               "url": "guide/updating-content-github-ui",
-              "title": "Updating content using GitHub UI",
+              "title": "使用 GitHub UI 修改内容",
               "tooltip": "Update topics in the browser through the GitHub user interface."
             },
             {

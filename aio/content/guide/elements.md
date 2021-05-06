@@ -34,13 +34,13 @@ Creating a custom element is simple and straightforward, and automatically conne
 
 <div class="alert is-helpful">
 
-    We are working on custom elements that can be used by web apps built on other frameworks.
-    A minimal, self-contained version of the Angular framework will be injected as a service to support the component's change-detection and data-binding functionality.
-    For more about the direction of development, check out this [video presentation](https://www.youtube.com/watch?v=Z1gLFPLVJjY&t=4s).
+We are working on custom elements that can be used by web apps built on other frameworks.
+A minimal, self-contained version of the Angular framework will be injected as a service to support the component's change-detection and data-binding functionality.
+For more about the direction of development, check out this [video presentation](https://www.youtube.com/watch?v=Z1gLFPLVJjY&t=4s).
 
-    我们正在持续开发自定义元素功能，让它们可以用在由其它框架所构建的 Web 应用中。
-    Angular 框架的一个小型的、自包含的版本将会作为服务注入进去，以提供组件的变更检测和数据绑定功能。
-    要了解这个开发方向的更多内容，参阅[这个视频演讲](https://www.youtube.com/watch?v=Z1gLFPLVJjY&t=4s)。
+我们正在持续开发自定义元素功能，让它们可以用在由其它框架所构建的 Web 应用中。
+Angular 框架的一个小型的、自包含的版本将会作为服务注入进去，以提供组件的变更检测和数据绑定功能。
+要了解这个开发方向的更多内容，参阅[这个视频演讲](https://www.youtube.com/watch?v=Z1gLFPLVJjY&t=4s)。
 
 </div>
 
@@ -125,6 +125,8 @@ When the browser encounters the tag for the registered element, it uses the cons
   Avoid using the [`@Component`](api/core/Component) [selector](api/core/Directive#selector) as the custom-element tag name.
   This can lead to unexpected behavior, due to Angular creating two component instances for a single DOM element:
   One regular Angular component and a second one using the custom element.
+
+  不要将 [`@Component`](api/core/Component) 的[选择器](api/core/Directive#selector)用作自定义元素的标记名称。由于 Angular 会为单个 DOM 元素创建两个组件实例，所以这可能导致意外行为：一个是常规的 Angular 组件，而另一个是自定义元素。
 
 </div>
 
@@ -255,6 +257,7 @@ The Popup Service example app (shown below) defines a component that you can eit
 - `popup.component.ts` defines a simple pop-up element that displays an input message, with some animation and styling. 
 
    `popup.component.ts` 定义了一个简单的弹窗元素，用于显示一条输入消息，附带一些动画和样式。
+
 - `popup.service.ts` creates an injectable service that provides two different ways to invoke the PopupComponent; as a dynamic component, or as a custom element. Notice how much more setup is required for the dynamic-loading method.
 
    `popup.service.ts` 创建了一个可注入的服务，它提供了两种方式来执行 PopupComponent：作为动态组件或作为自定义元素。注意动态组件的方式需要更多的代码来做搭建工作。

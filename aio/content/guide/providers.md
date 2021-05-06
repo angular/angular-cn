@@ -21,9 +21,7 @@ If you already have an app that was created with the [Angular CLI](cli), you can
 如果你是用 [Angular CLI](cli) 创建的应用，那么可以使用下列 CLI 的 [`ng generate`](cli/generate) 命令在项目根目录下创建一个服务。把其中的 `User` 替换成你的服务名。
 
 ```sh
-
 ng generate service User
-
 ```
 
 This command creates the following `UserService` skeleton:
@@ -109,7 +107,6 @@ With `providedIn: 'any'`, all eagerly loaded modules share a singleton instance;
 
 <img src="generated/images/guide/providers/any-provider.svg" alt="any-provider-scope" class="left">
 
-
 ## Limiting provider scope with components
 
 ## 使用组件限定服务提供者的作用域
@@ -151,16 +148,25 @@ Register a provider with a component when you must limit a service instance to a
 
 ## Injector hierarchy and service instances
 
+## 分层注入器和服务实例
+
 Services are singletons within the scope of an injector, which means there is at most one instance of a service in a given injector.
+
+服务都是某个注入器范围内的单例，这意味着在给定的注入器中最多有一个服务实例。
 
 Angular DI has a [hierarchical injection system](guide/hierarchical-dependency-injection), which means that nested injectors can create their own service instances.
 Whenever Angular creates a new instance of a component that has `providers` specified in `@Component()`, it also creates a new child injector for that instance.
 Similarly, when a new NgModule is lazy-loaded at run time, Angular can create an injector for it with its own providers.
 
+Angular DI 具有[分层注入体系](guide/hierarchical-dependency-injection)，这意味着嵌套的注入器可以创建自己的服务实例。`@Component()` 指定的 `providers` 的组件的新实例时，它也会为该实例创建一个新的子注入器。同样，当在运行时惰性加载新的 NgModule 时，Angular 可以使用其自己的提供者为其创建注入器。
+
 Child modules and component injectors are independent of each other, and create their own separate instances of the provided services. When Angular destroys an NgModule or component instance, it also destroys that injector and that injector's service instances.
+
+子模块注入器和组件注入器彼此独立，并为已提供的服务创建它们自己的单独实例。当 Angular 销毁 NgModule 或组件实例时，它也会销毁该注入器和该注入器的服务实例。
 
 For more information, see [Hierarchical injectors](guide/hierarchical-dependency-injection).
 
+欲知详情，请参见[分层注射器](guide/hierarchical-dependency-injection)。
 
 ## More on NgModules
 

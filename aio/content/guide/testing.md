@@ -353,7 +353,11 @@ You'll need to push a new commit to trigger a build.
 
 ### Configure project for GitLab CI
 
+### 为 GitLab CI 配置项目
+
 Step 1: Create a file called `.gitlab-ci.yml` at the project root, with the following content:
+
+步骤 1：在项目根目录下创建一个名为 `.gitlab-ci.yml` 的文件，内容如下：
 
 ```
 image: node:14.15-stretch
@@ -396,18 +400,32 @@ test:
 
 This configuration caches `node_modules/` in the `install` job and re-uses the cached `node_modules/` in the `test` job.
 
+这种配置会 在 `install` 作业下缓存 `node_modules/`，并在 `test` 作业中重新使用缓存的 `node_modules/`。
+
 Step 2: [Sign up for GitLab CI](https://gitlab.com/users/sign_in) and [add your project](https://gitlab.com/projects/new).
 You'll need to push a new commit to trigger a build.
 
+步骤 2：[注册 GitLab CI](https://gitlab.com/users/sign_in) 并[添加你的项目](https://gitlab.com/projects/new)。你需要推送新的提交以触发构建。
+
 Step 3: Commit your changes and push them to your repository.
+
+步骤 3：提交你的更改并将其推送到你的代码仓库。
 
 * Learn more about GitLab CI testing from [GitLab CI/CD documentation](https://docs.gitlab.com/ee/ci/).
 
+  [从 GitLab CI / CD 文档中](https://docs.gitlab.com/ee/ci/)了解有关 GitLab CI 测试的更多信息。
+
 ### Configure project for GitHub Actions
+
+### 为 GitHub Actions 配置项目
 
 Step 1: Create a folder called `.github/workflows` at root of your project
 
+步骤 1：在项目的根目录下创建一个名叫 `.github/workflows` 的文件夹
+
 Step 2: In the new folder, create a file called `main.yml` with the following content:
+
+步骤 2：在新文件夹中，创建一个名为 `main.yml` 的文件，其内容如下：
 
 ```yml
 name: CI Angular app through Github Actions
@@ -432,11 +450,19 @@ jobs:
 
 Step 3: [Sign up for GitHub](https://github.com/join) and [add your project](https://github.com/new). You'll need to push a new commit to trigger a build.
 
+步骤 3：[注册 GitHub](https://github.com/join) 并[添加你的项目](https://github.com/new)。你需要推送新的提交以触发构建。
+
 Step 4: Commit your changes and push them to your repository.
+
+步骤 4：提交你的更改并将其推送到你的代码仓库。
 
 * Learn more about GitHub Actions from [GitHub Actions documentation](https://docs.github.com/en/actions).
 
+  [从 GitHub Actions 文档中](https://docs.github.com/en/actions)了解有关 GitHub Actions 的更多信息。
+
 ### Configure CLI for CI testing in Chrome
+
+### 在 Chrome 中配置 CLI 以进行 CI 测试
 
 While the CLI command `ng test` is generally running the CI tests in your environment, you might still need to adjust your configuration to run the Chrome browser tests.
 
@@ -454,6 +480,7 @@ We'll be using [Headless Chrome](https://developers.google.com/web/updates/2017/
 * In the Karma configuration file, `karma.conf.js`, add a custom launcher called ChromeHeadlessCI below browsers:
 
   在 Karma 配置文件 `karma.conf.js` 中，浏览器的紧下方，添加自定义的启动器，名叫 ChromeNoSandbox。
+
 ```
 browsers: ['ChromeHeadlessCI'],
 customLaunchers: {
@@ -519,4 +546,3 @@ After you've set up your app for testing, you may find the following testing  gu
 * [Testing utility APIs](guide/testing-utility-apis)&mdash;get familiar with Angular testing features.
 
   [测试实用工具 API](guide/testing-utility-apis) - 了解 Angular 的测试特性。
-

@@ -18,7 +18,7 @@ A simple example might be a button that sends users to your company website, tha
 
 Use the Angular CLI to generate a new library skeleton in a new workspace with the following commands.
 
-使用 Angular CLI，用以下命令在新的工作空间中生成一个新库的骨架：
+使用 Angular CLI，用以下命令在新的工作区中生成一个新库的骨架：
 
 <code-example language="bash">
  ng new my-workspace --create-application=false
@@ -28,7 +28,7 @@ Use the Angular CLI to generate a new library skeleton in a new workspace with t
 
 The `ng generate` command creates the `projects/my-lib` folder in your workspace, which contains a component and a service inside an NgModule.
 
-`ng generate` 命令会在你的工作空间中创建 `projects/my-lib` 文件夹，其中包含带有一个组件和一个服务的 NgModule。
+`ng generate` 命令会在你的工作区中创建 `projects/my-lib` 文件夹，其中包含带有一个组件和一个服务的 NgModule。
 
 <div class="alert is-helpful">
 
@@ -39,7 +39,7 @@ The `ng generate` command creates the `projects/my-lib` folder in your workspace
      You can use the monorepo model to use the same workspace for multiple projects.
      See [Setting up for a multi-project workspace](guide/file-structure#multiple-projects).
 
-     你可以使用单一仓库（monorepo）模式将同一个工作空间用于多个项目。参阅[建立多项目型工作区](guide/file-structure#multiple-projects)。
+     你可以使用单一仓库（monorepo）模式将同一个工作区用于多个项目。参阅[建立多项目型工作区](guide/file-structure#multiple-projects)。
 
 </div>
 
@@ -211,16 +211,18 @@ See [Building libraries with Ivy](guide/creating-libraries#ivy-libraries) for in
 distribution formats supported by `ng-packagr` and guidance on how
 to choose the right format for your library.
 
+Angular CLI 使用一个名为 [ng-packagr](https://github.com/ng-packagr/ng-packagr/blob/master/README.md) 的工具从已编译的代码中创建可以发布到 npm 的软件包。`ng-packagr` 支持的发行格式的信息以及有关如何为库选择正确格式的指南，请参阅[使用 Ivy 构建库](guide/creating-libraries#ivy-libraries)。
+
 You should always build libraries for distribution using the `production` configuration.
 This ensures that generated output uses the appropriate optimizations and the correct package format for npm.
+
+你应该总是使用 `production` 配置来构建用于分发的库。这样可以确保所生成的输出对 npm 使用了适当的优化和正确的软件包格式。
 
 <code-example language="bash">
 ng build my-lib
 cd dist/my-lib
 npm publish
 </code-example>
-
-
 
 {@a lib-assets}
 
@@ -270,7 +272,7 @@ While developing a library, you must install all peer dependencies through `devD
 A linked library will then have its own set of Angular libraries that it uses for building, located in its `node_modules` folder.
 However, this can cause problems while building or running your application.
 
-在开发库的过程中，你必须通过 `devDependencies` 安装所有的同级依赖，以确保库能够正确编译。这样，一个链接过的库就会拥有自己的一组用于构建的 Angular 库，它们位于 `node_modules` 文件夹中。但是，这会在构建或运行应用程序时引发问题。
+在开发库的过程中，你必须通过 `devDependencies` 安装所有的同级依赖，以确保库能够正确编译。这样，一个链接过的库就会拥有自己的一组用于构建的 Angular 库，它们位于 `node_modules` 文件夹中。但是，这会在构建或运行应用时引发问题。
 
 To get around this problem you can use TypeScript path mapping to tell TypeScript that it should load some modules from a specific location.
 List all the peer dependencies that your library uses in the workspace TypeScript configuration file `./tsconfig.json`, and point them at the local copy in the app's `node_modules` folder.
@@ -322,6 +324,7 @@ To use your own library in an app:
  ```
  import { myExport } from 'my-lib';
  ```
+
 ### Building and rebuilding your library
 
 ### 构建和重建你的库
@@ -367,11 +370,11 @@ ng build my-lib --watch
 
 The CLI `build` command uses a different builder and invokes a different build tool for libraries than it does for applications.
 
-CLI 的 `build` 命令为库使用与应用程序不同的构建器，并调用不同的构建工具。
+CLI 的 `build` 命令为库使用与应用不同的构建器，并调用不同的构建工具。
 
 * The build system for apps, `@angular-devkit/build-angular`, is based on `webpack`, and is included in all new Angular CLI projects.
 
-  应用程序的构建体系（`@angular-devkit/build-angular`）基于 `webpack`，并被包含在所有新的 Angular CLI 项目中。
+  应用的构建体系（`@angular-devkit/build-angular`）基于 `webpack`，并被包含在所有新的 Angular CLI 项目中。
 
 * The build system for libraries is based on `ng-packagr`. It is only added to your dependencies when you add a library using `ng generate library my-lib`.
 
@@ -395,23 +398,45 @@ TypeScript 的路径映射*不应该*指向库的 `.ts` 源文件。
 
 ## Building libraries with Ivy
 
+## 使用 Ivy 构建库
+
 There are three distribution formats that you can use when publishing a library:
+
+发布库时可以使用三种分发格式：
 
 * View Engine _(deprecated)_&mdash;legacy format, slated for removal in Angular version 13.
   Only use this format if you must support View Engine applications.
+
+  View Engine *（已弃用）* —— 旧版格式，计划在 Angular 版本 13 中删除。仅在必须支持 View Engine 应用时才使用此格式。
+
 * partial-Ivy **(recommended)**&mdash;contains portable code that can be consumed by Ivy applications built with any version of Angular from v12 onwards.
+
+  partial-Ivy（部分 Ivy）**（推荐）** —— 包含可移植代码，从 v12 开始，使用任何版本的 Angular 构建的 Ivy 应用都可以使用这些可移植代码。
+
 * full-Ivy&mdash;contains private Angular Ivy instructions, which are not guaranteed to work across different versions of Angular. This format requires that the library and application are built with the _exact_ same version of Angular. This format is useful for environments where all library and application code is built directly from source.
+
+  full-Ivy（完全 Ivy）—— 包含专用的 Angular Ivy 指令，不能保证它们可在 Angular 的不同版本中使用。这种格式要求库和应用使用*完全相同*的 Angular 版本构建。这种格式对于直接从源代码构建所有库和应用代码的环境很有用。
 
 New libraries created with Angular CLI default to partial-Ivy format.
 If you are creating a new library with `ng generate library`, Angular uses Ivy by default with no further action on your part.
 
+使用 Angular CLI 创建的新库默认为 partial-Ivy 格式。如果你正在使用 `ng generate library` 创建一个新库，则 Angular 默认使用 Ivy，而你无需采取任何其他措施。
+
 ### Transitioning libraries to partial-Ivy format
+
+### 将库转换为部分 Ivy 格式
 
 Existing libraries, which are configured to generate the View Engine format, do not change when upgrading to later versions of Angular that use Ivy.
 
+升级到使用 Ivy 的更高版本的 Angular 时，配置为生成 View Engine 格式的现有库不会更改。
+
 If you intend to publish your library to npm, compile with partial-Ivy code by setting `"compilationMode": "partial"` in `tsconfig.prod.json`.
 
+如果打算将库发布到 npm，请通过在 `tsconfig.prod.json` 中设置 `"compilationMode": "partial"` 来编译为部分 Ivy 的代码。
+
 A library that uses View Engine, rather than Ivy, has a `tsconfig.prod.json` file that contains the following:
+
+使用 View Engine 而不是 Ivy 的库具有 `tsconfig.prod.json` 文件，该文件包含以下内容：
 
 <code-example>
 
@@ -423,7 +448,11 @@ A library that uses View Engine, rather than Ivy, has a `tsconfig.prod.json` fil
 
 To convert such libraries to use the partial-Ivy format, change the `tsconfig.prod.json` file by removing the `enableIvy` option and adding the `compilationMode` option.
 
+要把这样的库转换为使用部分 Ivy 的格式，请修改 `tsconfig.prod.json` 文件，删除 `enableIvy` 选项，并添加 `compilationMode` 选项。
+
 Enable partial-Ivy compilation by replacing `"enableIvy": false` with `"compilationMode": "partial"` as follows:
+
+通过把 `"enableIvy": false` 替换为 `"compilationMode": "partial"` 来启用部分 Ivy 编译，如下所示：
 
 <code-example>
 
@@ -435,58 +464,95 @@ Enable partial-Ivy compilation by replacing `"enableIvy": false` with `"compilat
 
 For publishing to npm use the partial-Ivy format as it is stable between patch versions of Angular.
 
+对于发布到 npm 的库，请使用 partial-Ivy 格式，因为它在 Angular 的各个补丁版本之间是稳定的。
+
 Avoid compiling libraries with full-Ivy code if you are publishing to npm because the generated Ivy instructions are not part of Angular's public API, and so may change between patch versions.
+
+如果要发布到 npm，请避免使用完全 Ivy 的方式编译库，因为生成的 Ivy 指令不属于 Angular 公共 API 的一部分，因此在补丁版本之间可能会有所不同。
 
 Partial-Ivy code is not backward compatible with View Engine.
 If you use the library in a View Engine application, you must compile the library into the View Engine format by setting `"enableIvy": false` in the `tsconfig.json` file.
 
+部分 Ivy 的代码与 View Engine 向后不兼容。如果在 View Engine 应用中使用该库，则必须在 `tsconfig.json` 文件中设置 `"enableIvy": false`。
+
 Ivy applications can still consume the View Engine format because the Angular compatibility compiler, or `ngcc`, can convert it to Ivy.
 
+Ivy 应用仍然可以使用 View Engine 格式，因为 Angular 兼容性编译器或 `ngcc` 可以将其转换为 Ivy。
+
 ## Ensuring library version compatibility
+
+## 确保库版本兼容性
 
 The Angular version used to build an application should always be the same or greater than the Angular versions used to build any of its dependent libraries.
 For example, if you had a library using Angular version 12, the application that depends on that library should use Angular version 12 or later.
 Angular does not support using an earlier version for the application.
+
+用于构建应用的 Angular 版本应始终与用于构建其任何依赖库的 Angular 版本相同或更大。例如，如果你有一个使用 Angular 12 版的库，则依赖于该库的应用应该使用 Angular 12 版或更高版本。Angular 不支持为该应用使用早期版本。
 
 <div class="alert is-helpful">
 
 The Angular CLI uses Ivy to build applications and no longer uses View Engine.
 A library or an application built with View Engine cannot consume a partial-Ivy library.
 
+Angular CLI 使用 Ivy 来构建应用，并且不再使用 View Engine。使用 View Engine 构建的库或应用不能使用部分 Ivy 格式的库。
+
 </div>
 
 Because this process happens during the application build, it uses the same version of the Angular compiler, ensuring that the application and all of its libraries use a single version of Angular.
 
+由于此过程发生在应用构建期间，所以它使用相同版本的 Angular 编译器，从而确保应用及其所有库都使用单一版本的 Angular。
+
 If you intend to publish your library to npm, compile with partial-Ivy code by setting `"compilationMode": "partial"` in `tsconfig.prod.json`.
 This partial format is stable between different versions of Angular, so is safe to publish to npm.
 
+如果打算将库发布到 npm，请通过在 `tsconfig.prod.json` 的 `"compilationMode": "partial"` 来使用部分 Ivy 代码进行编译。这种部分格式在不同版本的 Angular 之间是稳定的，因此可以安全地发布到 npm。
+
 Avoid compiling libraries with full-Ivy code if you are publishing to npm because the generated Ivy instructions are not part of Angular's public API, and so might change between patch versions.
+
+如果要发布到 npm，请避免使用完全 Ivy 代码来编译库，因为生成的 Ivy 指令不属于 Angular 公共 API 的一部分，因此在补丁版本之间可能会有所不同。
 
 Partial-Ivy code is not backward compatible with View Engine.
 If you use the library in a View Engine application, you must compile the library into the View Engine format by setting `"enableIvy": false` in the `tsconfig.json` file.
 
+部分 Ivy 代码与 View Engine 向后不兼容。如果在 View Engine 应用中使用该库，则必须通过在 `tsconfig.json` 文件中设置 `"enableIvy": false`。
+
 Ivy applications can still consume the View Engine format because the Angular compatibility compiler, or `ngcc`, can convert it to Ivy in the Angular CLI.
+
+Ivy 应用仍然可以使用 View Engine 格式，因为 Angular 兼容性编译器（`ngcc`）可以在 Angular CLI 中将其转换为 Ivy。
 
 If you've never published a package in npm before, you must create a user account. Read more in [Publishing npm Packages](https://docs.npmjs.com/getting-started/publishing-npm-packages).
 
+如果你以前从未在 npm 中发布过软件包，则必须创建一个用户帐户。在[发布 npm 程序包](https://docs.npmjs.com/getting-started/publishing-npm-packages)中了解更多信息。
 
 ## Consuming partial-Ivy code outside the Angular CLI
+
+## 在 Angular CLI 之外使用部分 Ivy 代码
 
 An application installs many Angular libraries from npm into its `node_modules` directory.
 However, the code in these libraries cannot be bundled directly along with the built application as it is not fully compiled.
 To finish compilation, you can use the Angular linker.
 
+应用将 npm 中的许多 Angular 库安装到其 `node_modules` 目录中。但是，这些库中的代码不能与已编译的应用直接捆绑在一起，因为它尚未完全编译。要完成编译，可以使用 Angular 链接器。
+
 For applications that don't use the Angular CLI, the linker is available as a Babel plugin.
 You can use the Babel plugin using the module `@angular/compiler-cli/linker/babel` to incorporate into your builds.
 For example, you can integrate the plugin into a custom Webpack build by registering the linker as a plugin for `babel-loader`.
 
+对于不使用 Angular CLI 的应用，链接器可作为 Babel 插件使用。`@angular/compiler-cli/linker/babel` 模块来使用 Babel 插件，以将其并入你的构建中。比如你可以将 `babel-loader` 插件注册为链接器，以将其集成到自定义 Webpack 构建中。
+
 Previously, if you ran `yarn install` or `npm install` you had to re-run `ngcc`.
 Now, libraries only need to be processed by the linker a single time, regardless of other npm operations.
 
+以前，如果你运行 `yarn install` 或 `npm install`，则必须重新运行 `ngcc`。现在，无论其他 npm 操作如何，链接器都只需要对库处理一次。
+
 The Angular linker Babel plugin supports build caching, meaning that libraries only need to be processed by the linker a single time, regardless of other npm operations.
+
+Angular 链接器的 Babel 插件支持构建缓存，这意味着链接器只需一次处理库，而与其他 npm 操作无关。
 
 <div class="alert is-helpful">
 
 The Angular CLI integrates the linker plugin automatically, so if consumers of your library are using the CLI, they can install Ivy-native libraries from npm without any additional configuration.
+
+Angular CLI 自动集成了链接器插件，因此，如果你这个库的使用方也在使用 CLI，则他们可以从 npm 安装 Ivy 原生库，而无需任何其他配置。
 
 </div>

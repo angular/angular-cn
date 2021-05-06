@@ -97,8 +97,9 @@ To systematically block XSS bugs, Angular treats all values as untrusted by defa
 当值从模板中以属性（Property）、DOM 元素属性（Attribte)、CSS 类绑定或插值等途径插入到 DOM 中的时候，
 Angular 将对这些值进行无害化处理（Sanitize），对不可信的值进行编码。如果某个值已经在 Angular 之外进行过无害化处理，可以确信是安全的，你可以[把这个值标记为安全的](#bypass-security-apis)来把这一点通知 Angular。
 
-
 Unlike values to be used for rendering, Angular templates are considered trusted by default, and should be treated as executable code. Never generate templates by concatenating user input and template syntax. Doing this would enable attackers to [inject arbitrary code](https://en.wikipedia.org/wiki/Code_injection) into your application. To prevent these vulnerabilities, always use the default [AOT template compiler](/guide/security#offline-template-compiler) in production deployments.
+
+与用于渲染的值不同，默认情况下，Angular 模板被认为是受信任的，应被视为可执行代码。切勿通过串联用户输入和模板语法来生成模板。这样做会使攻击者能够[将任意代码注入](https://en.wikipedia.org/wiki/Code_injection)你的应用程序。为避免这些漏洞，请始终在生产部署中[使用默认的 AOT 模板编译器。](/guide/security#offline-template-compiler)
 
 ### Sanitization and security contexts
 
@@ -264,28 +265,44 @@ Angular to allow binding into `<iframe src>`:
 {@a content-security-policy}
 ### Content security policy
 
+### 内容安全政策
+
 Content Security Policy (CSP) is a defense-in-depth
 technique to prevent XSS. To enable CSP, configure your web server to return an appropriate
 `Content-Security-Policy`HTTPheader. Read more about content security policy at the 
 [Web Fundamentals guide](https://developers.google.com/web/fundamentals/security/csp) on the
 Google Developers website.
 
+内容安全策略（CSP）是防止 XSS 的深度防御技术。要启用 CSP，请将你的 Web 服务器配置为返回适当的 `Content-Security-Policy` HTTP 标头。在 Google Developers 网站上的[《网络基础知识》指南](https://developers.google.com/web/fundamentals/security/csp)中了解有关内容安全政策的更多信息。
+
 {@a offline-template-compiler}
 
 ### Use the AOT template compiler
 
+### 使用 AOT 模板编译器
+
 The AOT template compiler prevents a whole class of vulnerabilities called template injection,
 and greatly improves application performance. The AOT template compiler is the default compiler used by Angular CLI applications, and you should use it in all production deployments.
 
+AOT 模板编译器可防止称为模板注入的一整类漏洞，并大大提高了应用程序性能。AOT 模板编译器是 Angular CLI 应用程序使用的默认编译器，你应该在所有生产部署中使用它。
+
 An alternative to the AOT compiler is the JIT compiler which compiles templates to executable template code within the browser at runtime. Angular trusts template code, so dynamically generating templates and compiling them, in particular templates containing user data, circumvents Angular's built-in protections and is a security anti-pattern. For information about dynamically constructing forms in a safe way, see the [Dynamic Forms](guide/dynamic-form) guide.
+
+AOT 编译器的替代方法是 JIT 编译器，它可以在运行时将模板编译为浏览器中的可执行模板代码。Angular 信任这些模板代码，因此动态生成模板并进行编译（尤其是包含用户数据的模板）可以规避 Angular 的内置保护，并且是一种安全性方面的反模式。要了解如何以安全方式动态构建表单，请参见[《动态表单》](guide/dynamic-form)指南。
 
 {@a server-side-xss}
 ### Server-side XSS protection
 
+### 服务器端 XSS 保护
+
 HTML constructed on the server is vulnerable to injection attacks. Injecting template code into an Angular application is the same as injecting executable code into the application: it gives the attacker full control over the application. To prevent this, use a templating language that automatically escapes values to prevent XSS vulnerabilities on the server. Don't generate Angular templates on the server side using a templating language; doing this carries a high risk of introducing template-injection vulnerabilities.
+
+在服务器上构造的 HTML 容易受到注入攻击。将模板代码注入到 Angular 应用程序中与注入可执行代码是一样的：它使攻击者可以完全控制该应用程序。为避免这种情况，请使用一种模板语言来自动转义值以防止服务器上的 XSS 漏洞。不要在服务器端使用模板语言生成 Angular 模板；这样做会带来引入模板注入漏洞的高风险。
 
 {@a http}
 ## HTTP-level vulnerabilities
+
+## HTTP 级漏洞
 
 Angular has built-in support to help prevent two common HTTP vulnerabilities, cross-site request
 forgery (CSRF or XSRF) and cross-site script inclusion (XSSI). Both of these must be mitigated primarily
@@ -405,4 +422,4 @@ such as the [_bypassSecurityTrust_](guide/security#bypass-security-apis) methods
 as security sensitive.
 
 Angular 应用应该遵循和常规 Web 应用一样的安全原则并按照这些原则进行审计。Angular 中某些应该在安全评审中被审计的 API（
-比如[_bypassSecurityTrust_](guide/security#bypass-security-apis) API）都在文档中被明确标记为安全性敏感的。
+比如[*bypassSecurityTrust*](guide/security#bypass-security-apis) API）都在文档中被明确标记为安全性敏感的。

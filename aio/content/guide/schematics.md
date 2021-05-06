@@ -67,7 +67,7 @@ As a library developer, you can create your own collections of custom schematics
 
 * An *add schematic* allows developers to install your library in an Angular workspace using `ng add`.
 
-  *添加（Add）原理图*允许开发人员使用 `ng add` 在 Angular 工作空间中安装你的库。
+  *添加（Add）原理图*允许开发人员使用 `ng add` 在 Angular 工作区中安装你的库。
 
 * *Generation schematics* can tell the `ng generate` subcommands how to modify projects, add configurations and scripts, and scaffold artifacts that are defined in your library.
 
@@ -138,7 +138,7 @@ ng generate @angular/material:table <component-name>
 
 The `ng update` command can be used to update your workspace's library dependencies. If you supply no options or use the help option, the command examines your workspace and suggests libraries to update.
 
-`ng update` 命令可以用来更新工作空间的库依赖。如果你没有提供任何选项或使用了 help 选项，该命令会检查你的工作空间并建议要更新哪些库。
+`ng update` 命令可以用来更新工作区的库依赖。如果你没有提供任何选项或使用了 help 选项，该命令会检查你的工作区并建议要更新哪些库。
 
 <code-example language="bash">
 ng update
@@ -165,7 +165,7 @@ If you pass the command a set of libraries to update (or the `--all` flag), it u
 
 If there are inconsistencies (for example, if peer dependencies cannot be matched by a simple [semver](https://semver.io/) range), the command generates an error and does not change anything in the workspace.
 
-如果存在不一致（例如，如果在某个简单的 [semver](https://semver.io/) 范围内无法匹配对等依赖），那么该命令会生成一个错误，并且不会更改工作空间中的任何内容。
+如果存在不一致（例如，如果在某个简单的 [semver](https://semver.io/) 范围内无法匹配对等依赖），那么该命令会生成一个错误，并且不会更改工作区中的任何内容。
 
 We recommend that you do not force an update of all dependencies by default. Try updating specific dependencies first.
 
@@ -192,4 +192,4 @@ ng update @angular/material
 This command updates both `@angular/material` and its dependency `@angular/cdk` in your workspace's `package.json`.
 If either package contains an update schematic that covers migration from the existing version to a new version, the command runs that schematic on your workspace.
 
-该命令会在你的工作空间的 `package.json` 中更新 `@angular/material` 及其依赖项 `@angular/cdk`。如果任何一个包中包含了涵盖从现有版本到新版本的迁移规则的更新原理图，那么该命令就会在你的工作区中运行这个原理图。
+该命令会在你的工作区的 `package.json` 中更新 `@angular/material` 及其依赖项 `@angular/cdk`。如果任何一个包中包含了涵盖从现有版本到新版本的迁移规则的更新原理图，那么该命令就会在你的工作区中运行这个原理图。

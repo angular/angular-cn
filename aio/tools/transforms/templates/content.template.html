@@ -10,6 +10,6 @@
 {% block content %}
 <div class="content">
   {$ doc.description | marked $}
-  {% if doc.reviewed %}<div class="reviewed">Last reviewed on {$ doc.reviewed.date.toDateString() $}</div>{% endif %}
+  {% if doc.reviewed %}<div class="reviewed">最后复查时间： {$ doc.reviewed.date.toLocaleDateString() $}</div>{% endif %}
 </div>
 {% endblock %}

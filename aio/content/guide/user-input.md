@@ -83,7 +83,7 @@ DOM events carry a payload of information that may be useful to the component.
 This section shows how to bind to the `keyup` event of an input box to get the user's input after each keystroke.
 
 DOM 事件可以携带可能对组件有用的信息。
-本节将展示如何绑定输入框的 `keyup` 事件，在每个敲击键盘时获取用户输入。
+本节将展示如何绑定输入框的 `keyup` 事件，在每个敲按键盘时获取用户输入。
 
 The following code listens to the `keyup` event and passes the entire event payload (`$event`) to the component event handler.
 
@@ -251,7 +251,7 @@ to the number 0, the shortest template statement possible.
 While the statement does nothing useful,
 it satisfies Angular's requirement so that Angular will update the screen.
 
-只有在应用做了些异步事件（如击键），Angular 才更新绑定（并最终影响到屏幕）。
+只有在应用做了些异步事件（如按键），Angular 才更新绑定（并最终影响到屏幕）。
 本例代码将 `keyup` 事件绑定到了数字 0，这可能是最短的模板语句了。
 虽然这个语句不做什么，但它满足 Angular 的要求，所以 Angular 将更新屏幕。
 

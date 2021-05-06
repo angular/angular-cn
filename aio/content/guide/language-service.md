@@ -11,7 +11,11 @@ Angular 语言服务为代码编辑器提供了一种在 Angular 模板中获取
 
 ## Configuring compiler options for the Angular Language Service
 
+## 配置 Angular 语言服务的编译器选项
+
 To enable the latest Language Service features, set the `strictTemplates` option in `tsconfig.json` by setting `strictTemplates` to `true,` as shown in the following example:
+
+要启用最新的语言服务功能，请在 `tsconfig.json` 中将 `strictTemplates` 选项设置为 `true`，如以下示例所示：
 
 <code-example language="json">
 
@@ -22,6 +26,8 @@ To enable the latest Language Service features, set the `strictTemplates` option
 </code-example>
 
 For more information, see the [Angular compiler options](guide/angular-compiler-options) guide.
+
+有关更多信息，请参见 [Angular 编译器选项](guide/angular-compiler-options)指南。
 
 ## Features
 
@@ -122,11 +128,17 @@ In [Visual Studio Code](https://code.visualstudio.com/), install the extension f
 
 The Visual Studio Code integration with the Angular language service is maintained and distributed by the Angular team.
 
+Visual Studio Code 与 Angular 语言服务的集成工作是由 Angular 团队发布的。
+
 ### Visual Studio
 
 In [Visual Studio](https://visualstudio.microsoft.com/), install the extension from the [Extensions: Marketplace](https://marketplace.visualstudio.com/items?itemName=TypeScriptTeam.AngularLanguageService). You can open the marketplace from the editor selecting Extensions on the top menu pane, and then selecting Manage Extensions. In the marketplace, search for Angular Language Service extension, and click the **Install** button.
 
+在 [Visual Studio 中](https://visualstudio.microsoft.com/)，从[“扩展程序：市场”](https://marketplace.visualstudio.com/items?itemName=TypeScriptTeam.AngularLanguageService)中安装扩展程序。你可以从编辑器中打开市场，在顶部菜单窗格中选择“扩展”，然后选择“管理扩展”。在市场上，搜索 Angular Language Service extension，然后单击**“安装”**按钮。
+
 The Visual Studio integration with the Angular language service is maintained and distributed by Microsoft with help from the Angular team. Check out the project [here](https://github.com/microsoft/vs-ng-language-service)
+
+Microsoft 在 Angular 团队的帮助下维护和发布了 Visual Studio 与 Angular 语言服务的集成。[在这里](https://github.com/microsoft/vs-ng-language-service)查看项目
 
 ### WebStorm
 
@@ -185,7 +197,6 @@ npm install --save-dev @angular/language-service
 
    在编辑器的用户首选项（`Cmd+,` 或 `Ctrl+,`）中，添加以下内容：
 
-<code-example language="json" header="Sublime Text user preferences">
 "typescript-tsdk": "<path to your folder>/node_modules/typescript/lib"
 </code-example>
 
@@ -197,6 +208,7 @@ This allows the Angular Language Service to provide diagnostics and completions 
 
 Either directly install the "Eclipse IDE for Web and JavaScript developers" package which comes with the Angular Language Server included, or from other Eclipse IDE packages, use Help > Eclipse Marketplace to find and install [Eclipse Wild Web Developer](https://marketplace.eclipse.org/content/wild-web-developer-html-css-javascript-typescript-nodejs-angular-json-yaml-kubernetes-xml).
 
+你或者直接安装包含了 Angular Language Server 的 “Eclipse IDE for Web and JavaScript developers” 软件包，或者直接从其他 Eclipse IDE 软件包中安装，使用“Help” > “Eclipse Marketplace” 来查找并安装 [Eclipse Wild Web Developer](https://marketplace.eclipse.org/content/wild-web-developer-html-css-javascript-typescript-nodejs-angular-json-yaml-kubernetes-xml)。
 
 ## How the Language Service works
 
@@ -229,9 +241,9 @@ The Angular Language Services then looks at `data.---` within its context, asks 
 ## 更多信息
 
 * For more in-depth information on the implementation, see the
-[Angular Language Service API](https://github.com/angular/angular/blob/master/packages/language-service/src/types.ts).
+  [Angular Language Service API](https://github.com/angular/angular/blob/master/packages/language-service/src/types.ts).
 
-  关于该实现的更多详细信息，请参阅 [Angular 语言服务 API](https://github.com/angular/angular/blob/master/packages/language-service/src/types.ts)。
+    关于该实现的更多详细信息，请参阅 [Angular 语言服务 API](https://github.com/angular/angular/blob/master/packages/language-service/src/types.ts)。
 
 * For more on the design considerations and intentions, see [design documentation here](https://github.com/angular/vscode-ng-language-service/wiki/Design).
 
@@ -240,4 +252,3 @@ The Angular Language Services then looks at `data.---` within its context, asks 
 * See also [Chuck Jazdzewski's presentation](https://www.youtube.com/watch?v=ez3R0Gi4z5A&t=368s) on the Angular Language Service from [ng-conf](https://www.ng-conf.org/) 2017.
 
   另请参阅 [ng-conf](https://www.ng-conf.org/) 2017 上 [Chuck Jazdzewski](https://www.youtube.com/watch?v=ez3R0Gi4z5A&t=368s) 关于 Angular 语言服务的 [演讲](https://www.youtube.com/watch?v=ez3R0Gi4z5A&t=368s)。
-

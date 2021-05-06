@@ -95,7 +95,7 @@ On the next two lines, the `deleteHero()` method takes a [template input variabl
 
 In this example, the context of the `$event` object, `hero`, and `#heroForm` is the template.
 
-在此示例中， `$event` 对象、`hero` 和 `#heroForm` 的上下文都是其模板。
+在这个例子中， `$event` 对象、`hero` 和 `#heroForm` 的上下文都是其模板。
 
 Template context names take precedence over component context names.
 In the preceding `deleteHero(hero)`, the `hero` is the template input variable, not the component's `hero` property.

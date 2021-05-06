@@ -33,7 +33,7 @@ You can apply these settings at the workspace and project level.
 
 To create a new workspace and application using the strict mode, run the following command:
 
-要使用严格模式创建新的工作空间和应用程序，请运行以下命令：
+要使用严格模式创建新的工作区和应用程序，请运行以下命令：
 
 <code-example language="sh" class="code-shell">
 
@@ -43,7 +43,7 @@ ng new [project-name] --strict
 
 To create a new application in the strict mode within an existing non-strict workspace, run the following command:
 
-要在现有的非严格工作空间内以严格模式创建新应用程序，请运行以下命令：
+要在现有的非严格工作区内以严格模式创建新应用程序，请运行以下命令：
 
 <code-example language="sh" class="code-shell">
 

@@ -21,7 +21,6 @@ CLI 可以运行单元测试并创建代码覆盖率报告。代码覆盖率报�
 
 </div>
 
-
 To generate a coverage report run the following command in the root of your project.
 
 要生成覆盖率报告，请在项目的根目录下运行以下命令。
@@ -84,3 +83,5 @@ The `check` property causes the tool to enforce a minimum of 80% code coverage w
 `check` 属性会让该工具在项目中运行单元测试时强制要求至少 80％的代码覆盖率。
 
 You can find more info about the different coverage configuration options [here](https://github.com/karma-runner/karma-coverage/blob/master/docs/configuration.md).
+
+你可以在[此处](https://github.com/karma-runner/karma-coverage/blob/master/docs/configuration.md)找到关于其它覆盖率配置项的更多信息。

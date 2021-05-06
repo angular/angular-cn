@@ -297,50 +297,47 @@ Each budget entry is a JSON object with the following properties:
 
     The type of budget. One of:
 
+    限制的类型。有效值为：
+
 * `bundle` - The size of a specific bundle.
+
+  `bundle` - 特定包的大小。
+
 * `initial` - The initial size of the app.
+
+  `initial` -  应用的初始大小。
+
 * `allScript` - The size of all scripts.
+
+  `allScript` - 所有脚本的总大小。
+
 * `all` - The size of the entire app.
+
+  `all` - 整个应用的总大小。
+
 * `anyComponentStyle` - This size of any one component stylesheet.
+
+  `anyComponentStyle` - 任何一个组件样式文件的大小。
+
 * `anyScript` - The size of any one script.
+
+  `anyScript` - 任何一个脚本的大小。
+
 * `any` - The size of any file.
 
-    </td>
-  </tr>
-
-  <tr>
-    <td>type</td>
-    <td>
-
-  限制的类型。有效值为：
-
-* `bundle` - 特定包的大小。
-* `initial` -  应用的初始大小。
-* `allScript` - 所有脚本的总大小。
-* `all` - 整个应用的总大小。
-* `anyComponentStyle` - 任何一个组件样式文件的大小。
-* `anyScript` - 任何一个脚本的大小。
-* `any` - 任何一个文件的大小。
+  `any` - 任何一个文件的大小。
 
     </td>
   </tr>
 
    <tr>
     <td>name</td>
-    <td>
-
-  The name of the bundle (for `type=bundle`).
-
-    </td>
+    <td>The name of the bundle (for `type=bundle`).</td>
   </tr>
 
    <tr>
     <td>name</td>
-    <td>
-
-  要限制的包的名字（当 `type=bundle` 时）。
-
-    </td>
+    <td>要限制的包的名字（当 `type=bundle` 时）。</td>
   </tr>
 
   <tr>

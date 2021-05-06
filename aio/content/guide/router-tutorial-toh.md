@@ -88,7 +88,7 @@ You might find the [Tour of Heroes tutorial](/tutorial) helpful, but it is not r
 
 ## The sample application in action
 
-### 范例应用实战
+## 范例应用实战
 
 The sample application for this tutorial helps the Hero Employment Agency find crises for heroes to solve.
 

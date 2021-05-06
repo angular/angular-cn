@@ -169,7 +169,7 @@ To tell the library how to build the schematics, add a `tsconfig.schematics.json
 
 * The `outDir` maps to the library's output folder. By default, this is the `dist/my-lib` folder at the root of your workspace.
 
-  `outDir` 映射到了库的输出目录下。默认情况下，这是工作空间根目录下的 `dist/my-lib` 文件夹。
+  `outDir` 映射到了库的输出目录下。默认情况下，这是工作区根目录下的 `dist/my-lib` 文件夹。
 
 1. To make sure your schematics source files get compiled into the library bundle, add the following scripts to the `package.json` file in your library project's root folder (`projects/my-lib`).
 
@@ -384,7 +384,7 @@ In either case, your code needs to identify the specific project to which this s
 You can do this using the `Tree` object that is passed in to the factory function.
 The `Tree` methods give you access to the complete file tree in your workspace, allowing you to read and write files during the execution of the schematic.
 
-你可以使用传给工厂函数的 `Tree` 对象来做到这一点。通过 `Tree` 的一些方法，你可以访问此工作空间的完整文件树，以便在运行原理图时读写文件。
+你可以使用传给工厂函数的 `Tree` 对象来做到这一点。通过 `Tree` 的一些方法，你可以访问此工作区的完整文件树，以便在运行原理图时读写文件。
 
 ### Get the project configuration
 
@@ -394,7 +394,7 @@ The `Tree` methods give you access to the complete file tree in your workspace, 
    To use `workspaces.readWorkspace` you need to create a `workspaces.WorkspaceHost` from the `Tree`.
    Add the following code to your factory function.
 
-   要确定目标项目，可以使用 `workspaces.readWorkspace` 方法在工作空间的根目录下读取工作空间配置文件 `angular.json` 的内容。要想使用 `workspaces.readWorkspace`，你要先从这个 `Tree` 创建出一个 `workspaces.WorkspaceHost`。
+   要确定目标项目，可以使用 `workspaces.readWorkspace` 方法在工作区的根目录下读取工作区配置文件 `angular.json` 的内容。要想使用 `workspaces.readWorkspace`，你要先从这个 `Tree` 创建出一个 `workspaces.WorkspaceHost`。
    将以下代码添加到工厂函数中。
 
 <code-example header="projects/my-lib/schematics/my-service/index.ts (Schema Import)" path="schematics-for-libraries/projects/my-lib/schematics/my-service/index.ts" region="workspace">
@@ -536,7 +536,7 @@ Then, you change into your library directory to build the schematic
 
 Your library and schematics are packaged and placed in the `dist/my-lib` folder at the root of your workspace. For running the schematic, you need to link the library into your `node_modules` folder. From the root of your workspace, run the `npm link` command with the path to your distributable library.
 
-这些库和原理图都已打包好了，就放在你工作区根目录下的 `dist/my-lib` 文件夹中。要运行这个原理图，你需要把这个库链接到 `node_modules` 文件夹中。在工作空间的根目录下，运行 `npm link` 命令，并把你的可分发库的路径作为参数。
+这些库和原理图都已打包好了，就放在你工作区根目录下的 `dist/my-lib` 文件夹中。要运行这个原理图，你需要把这个库链接到 `node_modules` 文件夹中。在工作区的根目录下，运行 `npm link` 命令，并把你的可分发库的路径作为参数。
 
 <code-example language="bash">
 

@@ -50,7 +50,7 @@ With this example, the following actions occur:
 
 1. Angular retrieves the changed text by calling `getValue($event.target)` and updates the `name` property.
 
-  Angular 会通过调用 `getValue($event.target)` 来获取更改后的文本，并用它更新 `name` 属性。
+   Angular 会通过调用 `getValue($event.target)` 来获取更改后的文本，并用它更新 `name` 属性。
 
 If the event belongs to a directive or component, `$event` has the shape that the directive or component produces.
 
@@ -60,6 +60,8 @@ If the event belongs to a directive or component, `$event` has the shape that th
 
 The type of `$event.target` is only `EventTarget` in the template.
 In the `getValue()` method, the target is cast to an `HTMLInputElement` to allow type-safe access to its `value` property.
+
+在模板中，`$event.target` 的类型只是 `EventTarget`。在 `getValue()` 方法中，把此目标转为 `HTMLInputElement` 类型，以允许对其 `value` 属性进行类型安全的访问。
 
 <code-example path="event-binding/src/app/app.component.ts" region="getValue"></code-example>
 

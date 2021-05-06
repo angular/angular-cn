@@ -92,7 +92,7 @@ In production, change detection kicks in automatically
 when Angular creates a component or the user enters a keystroke or
 an asynchronous activity (e.g., AJAX) completes.
 
-在生产环境中，当 Angular 创建一个组件，或者用户输入击键，或者异步活动（比如 AJAX）完成时，就会自动进行变更检测。
+在生产环境中，当 Angular 创建一个组件，或者用户输入按键，或者异步活动（比如 AJAX）完成时，就会自动进行变更检测。
 
 The `TestBed.createComponent` does _not_ trigger change detection; a fact confirmed in the revised test:
 

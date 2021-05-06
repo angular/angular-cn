@@ -51,7 +51,7 @@ An Angular [component](#component) packaged as a [custom element](#custom-elemen
 
 Learn more in [Angular Elements Overview](guide/elements).
 
-参阅 [_Angular 元素 _](guide/elements) 一文。
+参阅 [*Angular 元素*](guide/elements) 一文。
 
 {@a annotation}
 
@@ -103,7 +103,7 @@ CLI 用来根据所提供的配置执行复杂任务（比如编译和执行测�
 
 In the [workspace configuration file](guide/workspace-config#project-tool-configuration-options), an "architect" section provides configuration options for Architect builders.
 
-在[工作空间配置文件](guide/workspace-config#project-tool-configuration-options)中，"architect" 区可以为建筑师的各个构建器提供配置项。
+在[工作区配置文件](guide/workspace-config#project-tool-configuration-options)中，"architect" 区可以为建筑师的各个构建器提供配置项。
 
 For example, a built-in builder for linting is defined in the package `@angular-devkit/build_angular:tslint`, which uses the [TSLint](https://palantir.github.io/tslint/) tool to perform linting, with a configuration specified in a `tslint.json` file.
 
@@ -196,7 +196,7 @@ The [CLI command `ng run`](cli/run) invokes a builder with a specific [target co
 The [workspace configuration](guide/workspace-config) file, `angular.json`, contains default configurations for built-in builders.
 
 [CLI 命令 `ng run`](cli/run) 使用一个特定的[目标配置](#target)来调用构建器。
-[工作空间配置](guide/workspace-config)文件 `angular.json` 中包含这些内置构建器的默认配置。
+[工作区配置](guide/workspace-config)文件 `angular.json` 中包含这些内置构建器的默认配置。
 
 {@a C}
 
@@ -217,34 +217,35 @@ Angular uses capitalization conventions to distinguish the names of various type
 Angular 使用大小写约定来区分多种名字，详见[风格指南中的 "命名" 一节](guide/styleguide#02-01)。下面是这些大小写类型的汇总表：
 
 * camelCase : Symbols, properties, methods, pipe names, non-component directive selectors, constants.
-Standard or lower camel case uses lowercase on the first letter of the item. For example, "selectedHero".
+  Standard or lower camel case uses lowercase on the first letter of the item. For example, "selectedHero".
 
-  小驼峰形式（camelCase）：符号、属性、方法、管道名、非组件指令的选择器、常量。
-  小驼峰（也叫标准驼峰）形式的第一个字母要使用小写形式。比如 "selectedHero"。
+    小驼峰形式（camelCase）：符号、属性、方法、管道名、非组件指令的选择器、常量。
+    小驼峰（也叫标准驼峰）形式的第一个字母要使用小写形式。比如 "selectedHero"。
 
 * UpperCamelCase (or PascalCase): Class names, including classes that define components, interfaces, NgModules, directives, and pipes,
-Upper camel case uses uppercase on the first letter of the item. For example, "HeroListComponent".
+  Upper camel case uses uppercase on the first letter of the item. For example, "HeroListComponent".
 
-  大驼峰形式（UpperCamelCase）或叫帕斯卡形式（PascalCase）：类名（包括用来定义组件、接口、NgModule、指令、管道等的类）。
-  大驼峰形式的第一个字母要使用大写形式。比如 "HeroListComponent"。
+    大驼峰形式（UpperCamelCase）或叫帕斯卡形式（PascalCase）：类名（包括用来定义组件、接口、NgModule、指令、管道等的类）。
+    大驼峰形式的第一个字母要使用大写形式。比如 "HeroListComponent"。
 
 * dash-case (or "kebab-case"): Descriptive part of file names, component selectors. For example, "app-hero-list".
 
   中线形式（dash-case）或叫烤串形式（kebab-case）：文件名中的描述部分，组件的选择器。比如 "app-hero-list"。
 
 * underscore_case (or "snake_case"): Not typically used in Angular. Snake case uses words connected with underscores.
-For example, "convert_link_mode".
+  For example, "convert_link_mode".
 
-  下划线形式（underscore_case）或叫蛇形形式（snake_case）：在 Angular 中没有典型用法。蛇形形式使用下划线连接各个单词。
-  比如 "convert_link_mode"。
+    下划线形式（underscore_case）或叫蛇形形式（snake_case）：在 Angular 中没有典型用法。蛇形形式使用下划线连接各个单词。
+    比如 "convert_link_mode"。
 
 * UPPER_UNDERSCORE_CASE (or UPPER_SNAKE_CASE, or SCREAMING_SNAKE_CASE): Traditional for constants (acceptable, but prefer camelCase).
-Upper snake case uses words in all capital letters connected with underscores. For example, "FIX_ME".
+  Upper snake case uses words in all capital letters connected with underscores. For example, "FIX_ME".
 
-  大写下划线形式（UPPER_UNDERSCORE_CASE）或叫大写蛇形形式（UPPER_SNAKE_CASE）：传统的常量写法（可以接受，但更推荐用小驼峰形式（camelCase））
-  大蛇形形式使用下划线分隔的全大写单词。比如 "FIX_ME"。
+    大写下划线形式（UPPER_UNDERSCORE_CASE）或叫大写蛇形形式（UPPER_SNAKE_CASE）：传统的常量写法（可以接受，但更推荐用小驼峰形式（camelCase））
+    大蛇形形式使用下划线分隔的全大写单词。比如 "FIX_ME"。
 
 {@a change-detection}
+
 ## change detection
 
 ## 变更检测（change detection）
@@ -302,6 +303,7 @@ A [decorator](#decorator) statement immediately before a field in a class defini
 
 {@a collection}
 
+
 ## collection
 
 ## 集合（collection）
@@ -324,7 +326,7 @@ CLI 支持开发周期中的所有阶段，比如构建、测试、打包和部�
 * To begin using the CLI for a new project, see [Local Environment Setup](guide/setup-local "Setting up for Local Development").
 
   要开始使用 CLI 来创建新项目，参阅[建立本地开发环境](guide/setup-local "Setting up for Local Development")。
-  
+
 * To learn more about the full capabilities of the CLI, see the [CLI command reference](cli).
 
   要了解 CLI 的全部功能，参阅 [CLI 命令参考手册](cli)。
@@ -362,7 +364,7 @@ Read more about component classes, templates, and views in [Introduction to Angu
 
 See  [workspace configuration](#cli-config)
 
-参阅[工作空间配置](#cli-config)
+参阅[工作区配置](#cli-config)
 
 {@a content-projection}
 
@@ -431,33 +433,33 @@ Read about the following forms of binding in Angular's [Template Syntax](guide/t
 
 更多的绑定形式，见[模板语法](guide/template-syntax)：
 
- * [Interpolation](guide/interpolation)
+* [Interpolation](guide/interpolation)
 
-    [插值](guide/interpolation)
+   [插值](guide/interpolation)
 
- * [Property binding](guide/property-binding)
+* [Property binding](guide/property-binding)
 
-    [property 绑定](guide/property-binding)
+   [property 绑定](guide/property-binding)
 
- * [Event binding](guide/event-binding)
+* [Event binding](guide/event-binding)
 
-    [事件绑定](guide/event-binding)
+   [事件绑定](guide/event-binding)
 
- * [Attribute binding](guide/attribute-binding)
+* [Attribute binding](guide/attribute-binding)
 
-    [attribute 绑定](guide/attribute-binding)
+   [attribute 绑定](guide/attribute-binding)
 
- * [Class binding](guide/attribute-binding#class-binding)
+* [Class binding](guide/attribute-binding#class-binding)
 
-    [CSS 类绑定](guide/attribute-binding#class-binding)
+   [CSS 类绑定](guide/attribute-binding#class-binding)
 
- * [Style binding](guide/attribute-binding#style-binding)
+* [Style binding](guide/attribute-binding#style-binding)
 
-    [样式绑定](guide/attribute-binding#style-binding)
+   [样式绑定](guide/attribute-binding#style-binding)
 
- * [Two-way data binding with ngModel](guide/built-in-directives#ngModel)
+* [Two-way data binding with ngModel](guide/built-in-directives#ngModel)
 
-    [基于 ngModel 的双向数据绑定](guide/built-in-directives#ngModel)
+   [基于 ngModel 的双向数据绑定](guide/built-in-directives#ngModel)
 
 {@a declarable}
 
@@ -607,8 +609,12 @@ Angular 提供了一些以 `ng` 为前缀的内置指令。你也可以创建新
 **UpperCamelCase**, such as `NgIf`, refers to a directive class.
 You can use **UpperCamelCase** when describing properties and directive behavior.
 
+**UpperCamelCase**（例如 `NgIf` ）用于引用指令类。在描述属性和指令行为时，使用 **UpperCamelCase**。
+
 **lowerCamelCase**, such as `ngIf` refers to a directive's attribute name.
 You can use **lowerCamelCase** when describing how to apply the directive to an element in the HTML template.
+
+**lowerCamelCase**（例如 `ngIf`）用于引用指令的属性名。在描述如何将指令应用于 HTML 模板中的元素时，使用 **lowerCamelCase**。
 
 {@a dom}
 
@@ -963,6 +969,7 @@ Angular 会按以下顺序调用钩子方法：
 * `ngOnChanges`: When an [input](#input)/[output](#output) binding value changes.
 
    `ngOnChanges` - 在[输入属性 (input)](#input)/[输出属性 (output)](#output)的绑定值发生变化时调用。
+
 * `ngOnInit`: After the first `ngOnChanges`.
 
    `ngOnInit` - 在第一次 `ngOnChanges` 完成后调用。
@@ -1204,7 +1211,7 @@ For more information, see [Project File Structure](guide/file-structure).
 
 The [`angular.json`](guide/workspace-config) file configures all projects in a [workspace](#workspace).
 
-[`angular.json`](guide/workspace-config) 文件可以配置某个[工作空间](#workspace) 中的所有项目。
+[`angular.json`](guide/workspace-config) 文件可以配置某个[工作区](#workspace) 中的所有项目。
 
 {@a provider}
 
@@ -1259,6 +1266,7 @@ When using reactive forms:
 * Validation is set up through validation functions rather than validation directives.
 
   表单验证在组件代码而不是验证器指令中定义。
+
 * Each control is explicitly created in the component class by creating a `FormControl` instance manually or with `FormBuilder`.
 
    在组件类中，使用 `new FormControl()` 或者 `FormBuilder` 显性地创建每个控件。
@@ -1389,7 +1397,7 @@ Angular [CLI](#cli) 使用原理图来生成和修改 [Angular 项目](#project)
 * [Library](#library) developers can create schematics that enable the Angular CLI to add and update their published libraries, and to generate artifacts the library defines.
 Add these schematics to the npm package that you use to publish and share your library.
 
-  公共库的开发者可以创建原理图，来让 CLI 生成他们自己的发布的库。欲知详情，参阅 [devkit 文档](https://www.npmjs.com/package/@angular-devkit/schematics)。
+    公共库的开发者可以创建原理图，来让 CLI 生成他们自己的发布的库。欲知详情，参阅 [devkit 文档](https://www.npmjs.com/package/@angular-devkit/schematics)。
 
 For more information, see [Schematics](guide/schematics) and [Integrating Libraries with the CLI](guide/creating-libraries#integrating-with-the-cli).
 
@@ -1533,7 +1541,7 @@ The `subscribe()` method takes a JavaScript object (called an [observer](#observ
 
 A buildable or runnable subset of a [project](#project), configured as an object in the [workspace configuration file](guide/workspace-config#project-tool-configuration-options), and executed by an [Architect](#architect) [builder](#builder).
 
-[项目](#project)的一个可构建或可运行的子集，它是[工作空间配置文件](guide/workspace-config#project-tool-configuration-options)中的一个子对象，它会被[建筑师（Architect）](#architect)的[构建器（Builder）](#builder)执行。
+[项目](#project)的一个可构建或可运行的子集，它是[工作区配置文件](guide/workspace-config#project-tool-configuration-options)中的一个子对象，它会被[建筑师（Architect）](#architect)的[构建器（Builder）](#builder)执行。
 
 In the `angular.json` file, each project has an "architect" section that contains targets which configure builders. Some of these targets correspond to [CLI commands](#cli), such as `build`, `serve`, `test`, and `lint`.
 
@@ -1598,6 +1606,7 @@ When using template-driven forms:
 * [Two-way binding](#data-binding) with `ngModel` keeps the component model synchronized with the user's entry into the input elements.
 
    使用 `ngModel` 进行[双向绑定](#data-binding)，保持组件模型和用户输入之间的同步。
+
 * Behind the scenes, Angular creates a new control for each input element, provided you have set up a `name` attribute and two-way binding for each input.
 
    在幕后，Angular 为每个带有 `name` 属性和双向绑定的输入元素创建了一个新的控件。
@@ -1814,17 +1823,17 @@ See [custom element](#custom-element).
 
 ## workspace
 
-## 工作空间（Workspace）
+## 工作区（Workspace）
 
 A collection of Angular [projects](#project) (that is, applications and libraries) powered by the [Angular CLI] (#cli) that are typically co-located in a single source-control repository (such as [git](https://git-scm.com/)).
 
-一组基于 [Angular CLI] (#cli) 的 Angular [项目](#project)（也就是说应用或库），它们通常共同位于一个单一的源码仓库（比如 [git](https://git-scm.com/)）中。
+一组基于 [Angular CLI](#cli) 的 Angular [项目](#project)（也就是说应用或库），它们通常共同位于一个单一的源码仓库（比如 [git](https://git-scm.com/)）中。
 
 The [CLI](#cli) [`ng new` command](cli/new) creates a file system directory (the "workspace root").
 In the workspace root, it also creates the workspace [configuration file](#configuration) (`angular.json`) and, by default, an initial application project with the same name.
 
-[CLI](#cli) 的 [`ng new` 命令](cli/new)会在文件系统中创建一个目录（也就是工作空间的根目录）。
-在工作空间根目录下，还会创建此工作空间的[配置文件](#configuration)（`angular.json`），并且还会默认初始化一个同名的应用项目。
+[CLI](#cli) 的 [`ng new` 命令](cli/new)会在文件系统中创建一个目录（也就是工作区的根目录）。
+在工作区根目录下，还会创建此工作区的[配置文件](#configuration)（`angular.json`），并且还会默认初始化一个同名的应用项目。
 
 Commands that create or operate on apps and libraries (such as `add` and `generate`) must be executed from within a workspace folder.
 
@@ -1832,7 +1841,7 @@ Commands that create or operate on apps and libraries (such as `add` and `genera
 
 For more information, see [Workspace Configuration](guide/workspace-config).
 
-欲知详情，参阅[工作空间配置](guide/workspace-config)。
+欲知详情，参阅[工作区配置](guide/workspace-config)。
 
 {@a cli-config}
 
@@ -1840,15 +1849,15 @@ For more information, see [Workspace Configuration](guide/workspace-config).
 
 ## workspace configuration
 
-## 工作空间配置（Workspace configuration）
+## 工作区配置（Workspace configuration）
 
 A file named `angular.json` at the root level of an Angular [workspace](#workspace) provides workspace-wide and project-specific configuration defaults for build and development tools that are provided by or integrated with the [Angular CLI](#cli).
 
-一个名叫 `angular.json` 的文件，它位于 Angular [工作空间](#workspace) 的根目录下，并为 [Angular CLI](#cli) 提供的或集成的各个构建/开发工具提供工作空间级和项目专属的默认配置项。
+一个名叫 `angular.json` 的文件，它位于 Angular [工作区](#workspace) 的根目录下，并为 [Angular CLI](#cli) 提供的或集成的各个构建/开发工具提供工作区级和项目专属的默认配置项。
 
 For more information, see [Workspace Configuration](guide/workspace-config).
 
-欲知详情，参阅[工作空间配置](guide/workspace-config)。
+欲知详情，参阅[工作区配置](guide/workspace-config)。
 
 Additional project-specific configuration files are used by tools, such as `package.json` for the [npm package manager](#npm-package), `tsconfig.json` for [TypeScript transpilation](#transpile), and `tslint.json` for [TSLint](https://palantir.github.io/tslint/).
 
@@ -1856,7 +1865,7 @@ Additional project-specific configuration files are used by tools, such as `pack
 
 For more information, see [Workspace and Project File Structure](guide/file-structure).
 
-欲知详情，参阅[工作空间和项目文件结构](guide/file-structure)。
+欲知详情，参阅[工作区和项目文件结构](guide/file-structure)。
 
 {@a X}
 

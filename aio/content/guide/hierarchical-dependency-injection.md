@@ -1146,7 +1146,7 @@ the 🌺 (red hibiscus) value, which is available because the `<app-child>`
 `ModuleInjector` and the `<app-root>` `ModuleInjector` are flattened into one
  `ModuleInjector`. Thus, the UI renders the following:
 
-使用 `@SkipSelf()`，`<app-child>` 注入器不会寻找自身来获取 `FlowerService`。相反，喷射器开始在 `<app-root>` 的 `ElementInjector` 中寻找 `FlowerService`，在那里它什么也没找到。
+使用 `@SkipSelf()`，`<app-child>` 注入器不会寻找自身来获取 `FlowerService`。相反，注入器开始在 `<app-root>` 的 `ElementInjector` 中寻找 `FlowerService`，在那里它什么也没找到。
 然后，它返回到 `<app-child>` 的 `ModuleInjector` 并找到🌺（红芙蓉）值，这是可用的，因为 `<app-child>` `ModuleInjector` 和 `<app-root>` `ModuleInjector` 被展开成了一个 `ModuleInjector`。因此，UI 将渲染以下内容：
 
 ```
