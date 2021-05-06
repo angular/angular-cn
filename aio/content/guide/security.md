@@ -100,8 +100,6 @@ Angular 将对这些值进行无害化处理（Sanitize），对不可信的值�
 
 Unlike values to be used for rendering, Angular templates are considered trusted by default, and should be treated as executable code. Never generate templates by concatenating user input and template syntax. Doing this would enable attackers to [inject arbitrary code](https://en.wikipedia.org/wiki/Code_injection) into your application. To prevent these vulnerabilities, always use the default [AOT template compiler](/guide/security#offline-template-compiler) in production deployments.
 
-An additional layer of protection can be provided through the use of Content security policy and Trusted Types. These web platform features operate at the DOM level which is the most effective place to prevent XSS issues because they can't be bypassed using other, lower-level APIs. For this reason, we strongly encourage developers to take advantage of these features by configuring the [content security policy](#content-security-policy) for their application and enabling [trusted types enforcement](#trusted-types).
-
 ### Sanitization and security contexts
 
 ### 无害化处理与安全环境
@@ -177,13 +175,14 @@ Angular 认为这些值是不安全的，并自动进行无害化处理。它会
 
 ### 避免直接使用 DOM API
 
-Unless you enforce Trusted Types, the built-in browser DOM APIs don't automatically protect you from security vulnerabilities.
+Built-in browser DOM APIs don't automatically
+browser DOM APIs don't automatically protect you from security vulnerabilities.
 For example, `document`, the node available through `ElementRef`, and many third-party APIs
 contain unsafe methods. In the same way, if you interact with other libraries that manipulate
 the DOM, you likely won't have the same automatic sanitization as with Angular interpolations.
 Avoid directly interacting with the DOM and instead use Angular templates where possible.
 
-除非你坚持使用这些可信类型，否则浏览器内置的 DOM API 不会自动保护你免受安全漏洞的侵害。比如 `document`、通过 `ElementRef` 拿到的节点和很多第三方 API，都可能包含不安全的方法。如果你使用能操纵 DOM 的其它库，也同样无法借助像 Angular 插值那样的自动清理功能。
+浏览器内置的 DOM API 不会自动保护你免受安全漏洞的侵害。比如 `document`、通过 `ElementRef` 拿到的节点和很多第三方 API，都可能包含不安全的方法。如果你使用能操纵 DOM 的其它库，也同样无法借助像 Angular 插值那样的自动清理功能。
 所以，要避免直接和 DOM 打交道，而是尽可能使用 Angular 模板。
 
 For cases where this is unavoidable, use the built-in Angular sanitization functions.
@@ -270,59 +269,6 @@ technique to prevent XSS. To enable CSP, configure your web server to return an 
 `Content-Security-Policy`HTTPheader. Read more about content security policy at the 
 [Web Fundamentals guide](https://developers.google.com/web/fundamentals/security/csp) on the
 Google Developers website.
-
-{@a trusted-types}
-### Enforcing Trusted Types
-
-We recommend the use of [Trusted Types](https://w3c.github.io/webappsec-trusted-types/dist/spec/) as a way to help secure your applications from cross-site scripting attacks. Trusted Types is a [web platform](https://en.wikipedia.org/wiki/Web_platform)
-feature that can help you prevent cross-site scripting attacks by enforcing
-safer coding practices. Trusted Types can also help simplify the auditing of application code.
-
-<div class="callout is-helpful">
-
-Trusted Types might not yet be available in all browsers your application targets. In the case your Trusted-Types-enabled application runs in a browser that doesn't support Trusted Types, the functionality of the application will be preserved, and your application will be guarded against XSS via Angular's DomSanitizer. See [caniuse.com/trusted-types](https://caniuse.com/trusted-types) for the current browser support.
-
-</div>
-
-To enforce Trusted Types for your application, you must configure your application's web server to emit HTTP headers with one of the following Angular policies:
-
-* `angular` - This policy is used in security-reviewed code that is internal to Angular, and is required for Angular to function when Trusted Types are enforced. Any inline template values or content sanitized by Angular is treated as safe by this policy.
-* `angular#unsafe-bypass` - This policy is used for applications that use any of the methods in Angular's [DomSanitizer](api/platform-browser/DomSanitizer) that bypass security, such as `bypassSecurityTrustHtml`. Any application that uses these methods must enable this policy.
-* `angular#unsafe-jit` - This policy is used by the [JIT compiler](api/core/Compiler). You must enable this policy if your application interacts directly with the JIT compiler or is running in JIT mode using the [platform browser dynamic](api/platform-browser-dynamic/platformBrowserDynamic).
-
-You should configure the HTTP headers for Trusted Types in the following locations:
-
-* Production serving infrastructure
-* Angular CLI (`ng serve`), using the `headers` property in the `angular.json` file, for local development and end-to-end testing
-* Karma (`ng test`), using the `customHeaders` property in the `karma.config.js` file, for unit testing
-
-The following is an example of a header specifically configured for Trusted Types and Angular:
-
-<code-example language="html">
-Content-Security-Policy: trusted-types angular; require-trusted-types-for 'script';
-</code-example>
-
-The following is an example of a header specifically configured for Trusted Types and Angular applications that use any of the methods in Angular's [DomSanitizer](api/platform-browser/DomSanitizer) that bypasses security.
-
-<code-example language="html">
-Content-Security-Policy: trusted-types angular angular#unsafe-bypass; require-trusted-types-for 'script';
-</code-example>
-
-The following is an example of a header specifically configured for Trusted Types and Angular applications using JIT:
-
-<code-example language="html">
-Content-Security-Policy: trusted-types angular angular#unsafe-jit; require-trusted-types-for 'script';
-</code-example>
-
-<div class="callout is-helpful">
-
-<header>Community contributions</header>
-
-To learn more about troubleshooting Trusted Type configurations, the following resource might be helpful:
-
-[Prevent DOM-based cross-site scripting vulnerabilities with Trusted Types](https://web.dev/trusted-types/#how-to-use-trusted-types)
-
-</div>
 
 {@a offline-template-compiler}
 

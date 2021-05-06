@@ -8,14 +8,14 @@
 
 import * as ts from 'typescript';
 
-import {CompilationTicket, freshCompilationTicket, incrementalFromDriverTicket, NgCompiler, NgCompilerHost} from './core';
+import {CompilationTicket, freshCompilationTicket, incrementalFromStateTicket, NgCompiler, NgCompilerHost} from './core';
 import {NgCompilerOptions, UnifiedModulesHost} from './core/api';
-import {NodeJSFileSystem, setFileSystem} from './file_system';
+import {AbsoluteFsPath, NodeJSFileSystem, resolve, setFileSystem} from './file_system';
 import {PatchedProgramIncrementalBuildStrategy} from './incremental';
-import {ActivePerfRecorder, NOOP_PERF_RECORDER, PerfPhase} from './perf';
+import {ActivePerfRecorder, PerfPhase} from './perf';
+import {TsCreateProgramDriver} from './program_driver';
 import {untagAllTsFiles} from './shims';
 import {OptimizeFor} from './typecheck/api';
-import {ReusedProgramStrategy} from './typecheck/src/augmented_program';
 
 // The following is needed to fix a the chicken-and-egg issue where the sync (into g3) script will
 // refuse to accept this file unless the following string appears:
@@ -106,28 +106,27 @@ export class NgTscPlugin implements TscPlugin {
     }
     this.host.postProgramCreationCleanup();
     untagAllTsFiles(program);
-    const typeCheckStrategy = new ReusedProgramStrategy(
+    const programDriver = new TsCreateProgramDriver(
         program, this.host, this.options, this.host.shimExtensionPrefixes);
     const strategy = new PatchedProgramIncrementalBuildStrategy();
-    const oldDriver = oldProgram !== undefined ? strategy.getIncrementalDriver(oldProgram) : null;
+    const oldState = oldProgram !== undefined ? strategy.getIncrementalState(oldProgram) : null;
     let ticket: CompilationTicket;
 
-    let modifiedResourceFiles: Set<string>|undefined = undefined;
+    const modifiedResourceFiles = new Set<AbsoluteFsPath>();
     if (this.host.getModifiedResourceFiles !== undefined) {
-      modifiedResourceFiles = this.host.getModifiedResourceFiles();
-    }
-    if (modifiedResourceFiles === undefined) {
-      modifiedResourceFiles = new Set<string>();
+      for (const resourceFile of this.host.getModifiedResourceFiles() ?? []) {
+        modifiedResourceFiles.add(resolve(resourceFile));
+      }
     }
 
-    if (oldProgram === undefined || oldDriver === null) {
+    if (oldProgram === undefined || oldState === null) {
       ticket = freshCompilationTicket(
-          program, this.options, strategy, typeCheckStrategy, perfRecorder,
+          program, this.options, strategy, programDriver, perfRecorder,
           /* enableTemplateTypeChecker */ false, /* usePoisonedData */ false);
     } else {
-      strategy.toNextBuildStrategy().getIncrementalDriver(oldProgram);
-      ticket = incrementalFromDriverTicket(
-          oldProgram, oldDriver, program, this.options, strategy, typeCheckStrategy,
+      strategy.toNextBuildStrategy().getIncrementalState(oldProgram);
+      ticket = incrementalFromStateTicket(
+          oldProgram, oldState, program, this.options, strategy, programDriver,
           modifiedResourceFiles, perfRecorder, false, false);
     }
     this._compiler = NgCompiler.fromTicket(ticket, this.host);
@@ -149,7 +148,7 @@ export class NgTscPlugin implements TscPlugin {
   }
 
   getNextProgram(): ts.Program {
-    return this.compiler.getNextProgram();
+    return this.compiler.getCurrentProgram();
   }
 
   createTransformers(): ts.CustomTransformers {

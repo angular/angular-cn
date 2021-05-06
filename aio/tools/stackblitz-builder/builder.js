@@ -25,14 +25,19 @@ class StackblitzBuilder {
     // const stackblitzPaths = path.join(this.basePath, '**/testing/*stackblitz.json');
     const stackblitzPaths = path.join(this.basePath, '**/*stackblitz.json');
     const fileNames = globby.sync(stackblitzPaths, {ignore: ['**/node_modules/**']});
+    let failed = false;
     fileNames.forEach((configFileName) => {
       try {
-        // console.log('***'+configFileName)
         this._buildStackblitzFrom(configFileName);
       } catch (e) {
+        failed = true;
         console.log(e);
       }
     });
+
+    if (failed) {
+      process.exit(1);
+    }
   }
 
   _addDependencies(config, postData) {
@@ -249,7 +254,7 @@ class StackblitzBuilder {
 
   _createStackblitzHtml(config, postData) {
     const baseHtml = this._createBaseStackblitzHtml(config);
-    const doc = new JSDOM(baseHtml).window.document;
+    const doc = new jsdom.JSDOM(baseHtml).window.document;
     const form = doc.querySelector('form');
 
     for (const [key, value] of Object.entries(postData)) {

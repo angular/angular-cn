@@ -44,6 +44,9 @@ export abstract class LocationStrategy {
   abstract replaceState(state: any, title: string, url: string, queryParams: string): void;
   abstract forward(): void;
   abstract back(): void;
+  historyGo?(relativePosition: number): void {
+    throw new Error('Not implemented');
+  }
   abstract onPopState(fn: LocationChangeListener): void;
   abstract getBaseHref(): string;
 }
@@ -192,5 +195,9 @@ export class PathLocationStrategy extends LocationStrategy implements OnDestroy 
 
   back(): void {
     this._platformLocation.back();
+  }
+
+  historyGo(relativePosition: number = 0): void {
+    this._platformLocation.historyGo?.(relativePosition);
   }
 }

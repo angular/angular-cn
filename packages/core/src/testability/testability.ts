@@ -53,8 +53,8 @@ interface WaitCallback {
 
 /**
  * The Testability service provides testing hooks that can be accessed from
- * the browser and by services such as Protractor. Each bootstrapped Angular
- * application on the page will have an instance of Testability.
+ * the browser. Each bootstrapped Angular application on the page will have
+ * an instance of Testability.
  *
  *  `Testability` 服务提供了可以从浏览器和诸如 Protractor 之类的服务访问的测试钩子。页面上每个自举的 Angular 应用程序都会有一个 Testability 实例。
  *

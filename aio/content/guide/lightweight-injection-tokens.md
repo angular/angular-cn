@@ -17,12 +17,12 @@ This page describes a dependency-injection design pattern that supports proper t
 
 但是，由于 Angular 存储注入令牌的方式，可能会导致未用到的组件或服务最终进入发布包中。本页描述了依赖注入的一种设计模式，它通过使用轻量级注入令牌来支持正确的摇树优化。
 
-The lightweight injection token design pattern is especially important for library developers. It ensures that when an application uses only some of your library's capabilities, the unused code can be eliminated from the client's app bundle.
+The lightweight injection token design pattern is especially important for library developers. It ensures that when an application uses only some of your library's capabilities, the unused code can be eliminated from the client's application bundle.
 
 这种轻量级注入令牌设计模式对于库开发者来说尤其重要。它可以确保当应用只用到了你库中的某些功能时，可以从客户应用的发布包中删除未使用过的代码。
 
-When an application uses your library, there might be some services that your library supplies which the client app doesn't use.
-In this case, the app developer should expect that service to be tree-shaken, and not contribute to the size of the compiled app.
+When an application uses your library, there might be some services that your library supplies which the client application doesn't use.
+In this case, the application developer should expect that service to be tree-shaken, and not contribute to the size of the compiled application.
 Because the application developer cannot know about or remedy a tree-shaking problem in the library, it is the responsibility of the library developer to do so.
 To prevent the retention of unused components, your library should use the lightweight injection token design pattern.
 

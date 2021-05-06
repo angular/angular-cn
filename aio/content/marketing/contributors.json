@@ -48,7 +48,7 @@
     "name": "Alisa Duncan",
     "picture": "alisaduncan.jpg",
     "twitter": "alisaduncan",
-    "website": "https://github.com/alisaduncan", 
+    "website": "https://github.com/alisaduncan",
     "bio": "Alisa is a software engineer and community builder who loves the thrill of learning new things. She is a core member of the ngGirls Team, co-organizes the local AngularKC meetup, and helps women learn web development as the Curriculum Director for the Coding & Cocktails program at Kansas City Women in Technology. When not coding, she enjoys drinking red wine with her husband while sitting on the patio.",
     "groups": ["GDE"]
   },
@@ -273,6 +273,15 @@
     "website": "https://angularforenterprise.com",
     "bio": "Doguhan is a GDE in Angular and Web Technologies. He is the author of Angular for Enterprise-Ready Web Applications, a speaker, organizer for AngularDC, and OSS contributor. When away from a screen, he enjoys playing Go, building legos, and claims to be an avid mixologist.",
     "groups": ["GDE"]
+  },
+  "dylhunn": {
+    "name": "Dylan Hunn",
+    "picture": "dylan-hunn.jpg",
+    "twitter": "dylhunn",
+    "website": "https://hunn.io",
+    "bio": "Dylan is a software engineer at Google on the Angular Core team. He loves board games, the open web, and adorable rabbits.",
+    "groups": ["Angular"],
+    "lead": "jelbourn"
   },
   "EladBezalel": {
     "name": "Elad Bezalel",
@@ -669,12 +678,28 @@
     "groups": ["Angular"],
     "lead": "jelbourn"
   },
+  "nartc": {
+    "name": "Chau Tran",
+    "picture": "nartc.jpg",
+    "twitter": "Nartc1410",
+    "website": "https://nartc.me",
+    "bio": "Chau works to bring the best engineering practices to web application production. He is the creator of AutoMapper TypeScript, @ngneat/tailwind for Angular, and a core member of NestJS. Also, he is one of Angular Vietnam’s founders. He blogs, lives stream, and maintains open-source projects.",
+    "groups": ["GDE"]
+  },
   "nirkaufman": {
     "name": "Nir Kaufman",
     "picture": "nirkaufman.jpg",
     "twitter": "nirkaufman",
     "website": "http://ngnir.life/",
     "bio": "Nir is a Principal Frontend Consultant & Head of the Angular department at 500Tech, Google Developer Expert and community leader. He organizes the largest Angular meetup group in Israel (Angular-IL), talks and teaches about front-end technologies around the world. He is also the author of two books about Angular and the founder of the 'Frontend Band'.",
+    "groups": ["GDE"]
+  },
+  "nishugoel": {
+    "name": "Nishu Goel",
+    "picture": "nishugoel.jpg",
+    "twitter": "TheNishuGoel",
+    "website": "https://unravelweb.dev",
+    "bio": "Nishu is a Google Developer Expert for Angular and loves to share her learning with everyone. She is the author of the book Step by Step Angular Routing and has written a code-text based course on educative.io. She is a frontend engineer at The DataWorks, London and is recognized as a Microsoft MVP.",
     "groups": ["GDE"]
   },
   "pascalprecht": {
@@ -939,6 +964,14 @@
     "website": "https://medium.com/@a.yurich.zuev",
     "bio": "Alexey is a web development addict who likes diving deep into the source code and sharing his knowledge through visualization. Creator of ng-run.com",
     "groups": ["GDE"]
+  },
+  "zackderose": {
+    "name": "Zack DeRose",
+    "picture": "zack-derose.jpg",
+    "bio": "Zack DeRose is Senior Engineer for Narwhal Technologies, where he works to build a better world through tech! In addition to the enterprise consulting done at Narwhal, Zack is very interested in content creation and teaching others! When not building web applications at scale, Zack enjoys a robust family life at scale, living in Phoenix AZ with his wife and 6 kids.",
+    "groups": ["GDE"],
+    "twitter": "zackderose",
+    "website": "https://zackderose.dev"
   },
   "zarend": {
     "name": "Zach Arend",

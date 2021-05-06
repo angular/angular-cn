@@ -142,6 +142,11 @@
               "tooltip": "Introductory guide to sharing data between parent and child directives or components."
             },
             {
+              "url": "guide/content-projection",
+              "title": "Content Projection",
+              "tooltip": "Learn how to create reusable components using Angular's content projection feature."
+            },
+            {
               "url": "guide/dynamic-component-loader",
               "title": "动态组件",
               "tooltip": "动态加载组件"
@@ -464,6 +469,11 @@
           "tooltip": "Use property binding efficiently."
         },
         {
+          "url": "guide/lazy-loading-ngmodules",
+          "title": "Lazy Loading Feature Modules",
+          "tooltip": "Lazy load modules to speed up your apps."
+        },
+        {
           "url": "guide/lightweight-injection-tokens",
           "title": "Lightweight Injection Tokens for Libraries",
           "tooltip": "Optimize client app size by designing library services with lightweight injection tokens."
@@ -659,6 +669,11 @@
               "url": "guide/ivy-compatibility",
               "title": "Ivy 兼容性指南",
               "tooltip": "Details to help you make sure your application is compatible with Ivy."
+            },
+            {
+              "url": "guide/migration-legacy-message-id",
+              "title": "Migration: Legacy Localization IDs",
+              "tooltip": "Learn how to migrate legacy IDs for localization to new, more stable ones."
             }
           ]
         },
@@ -841,11 +856,6 @@
                   "tooltip": "Creating singleton services."
                 },
                 {
-                  "url": "guide/lazy-loading-ngmodules",
-                  "title": "惰性加载特性模块",
-                  "tooltip": "Lazy load modules to speed up your apps."
-                },
-                {
                   "url": "guide/sharing-ngmodules",
                   "title": "共享 Angular 模块",
                   "tooltip": "Share NgModules to streamline your apps."
@@ -976,7 +986,7 @@
             {
               "url": "guide/contributors-guide-overview",
               "title": "Overview",
-              "tooltip": "Provides an overview of how to contribute to Angular's documentation"
+              "tooltip": "Provides an overview of how to contribute to Angular's documentation."
             },
             {
               "url": "guide/reviewing-content",
@@ -987,6 +997,11 @@
               "url": "guide/updating-search-keywords",
               "title": "Updating search keywords",
               "tooltip": "Help users find the content they need by adding additional search keywords."
+            },
+            {
+              "url": "guide/updating-content-github-ui",
+              "title": "Updating content using GitHub UI",
+              "tooltip": "Update topics in the browser through the GitHub user interface."
             },
             {
               "url": "guide/docs-style-guide",

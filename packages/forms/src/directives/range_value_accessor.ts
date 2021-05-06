@@ -59,29 +59,6 @@ export const RANGE_VALUE_ACCESSOR: StaticProvider = {
 export class RangeValueAccessor extends BuiltInControlValueAccessor implements
     ControlValueAccessor {
   /**
-   * The registered callback function called when a change or input event occurs on the input
-   * element.
-   *
-   * 在 input 元素上发生 change 或 input 事件时调用的已注册回调函数。
-   *
-   * @nodoc
-   */
-  onChange = (_: any) => {};
-
-  /**
-   * The registered callback function called when a blur event occurs on the input element.
-   *
-   * 当 input 元素上发生 blur 事件时，调用已注册的回调函数。
-   *
-   * @nodoc
-   */
-  onTouched = () => {};
-
-  constructor(private _renderer: Renderer2, private _elementRef: ElementRef) {
-    super();
-  }
-
-  /**
    * Sets the "value" property on the input element.
    *
    * 在 input 元素上设置 “value” 属性。
@@ -89,7 +66,7 @@ export class RangeValueAccessor extends BuiltInControlValueAccessor implements
    * @nodoc
    */
   writeValue(value: any): void {
-    this._renderer.setProperty(this._elementRef.nativeElement, 'value', parseFloat(value));
+    this.setProperty('value', parseFloat(value));
   }
 
   /**
@@ -103,27 +80,5 @@ export class RangeValueAccessor extends BuiltInControlValueAccessor implements
     this.onChange = (value) => {
       fn(value == '' ? null : parseFloat(value));
     };
-  }
-
-  /**
-   * Registers a function called when the control is touched.
-   *
-   * 注册控件被接触过时要调用的函数。
-   *
-   * @nodoc
-   */
-  registerOnTouched(fn: () => void): void {
-    this.onTouched = fn;
-  }
-
-  /**
-   * Sets the "disabled" property on the range input element.
-   *
-   * 在范围 input 元素上设置 “disabled” 属性。
-   *
-   * @nodoc
-   */
-  setDisabledState(isDisabled: boolean): void {
-    this._renderer.setProperty(this._elementRef.nativeElement, 'disabled', isDisabled);
   }
 }

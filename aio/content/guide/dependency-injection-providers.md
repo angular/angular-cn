@@ -41,7 +41,7 @@ You can configure an injector with a service class, you can provide a substitute
 ## Dependency injection tokens
 
 When you configure an [injector](guide/glossary#injector) with a [provider](guide/glossary#provider), you are associating that provider with a [dependency injection token](guide/glossary#di-token), or DI token.
-The injector allows Angular create a map of any internal dependencies.
+The injector allows Angular to create a map of any internal dependencies.
 The DI token acts as a key to that map.
 
 The dependency value is an instance, and the class type serves as a lookup key.
@@ -79,9 +79,9 @@ Angular 把这个 `providers` 值扩展为一个完整的提供者对象，如�
 <code-example path="dependency-injection/src/app/providers.component.ts" region="providers-3" >
 </code-example>
 
-The expanded provider configuration is an object literal with two properties.
+The expanded provider configuration is an object literal with two properties:
 
-扩展的提供者配置是一个具有两个属性的对象字面量。
+扩展的提供者配置是一个具有两个属性的对象字面量：
 
 * The `provide` property holds the [token](#token)
 that serves as the key for both locating a dependency value and configuring the injector.

@@ -2,14 +2,14 @@
 
 # 应用外壳
 
-App shell is a way to render a portion of your application via a route at build time.
+Application shell is a way to render a portion of your application using a route at build time.
 It can improve the user experience by quickly launching a static rendered page (a skeleton common to all pages) while the browser downloads the full client version and switches to it automatically after the code loads.
 
 应用外壳是一种在构建期间借助路由渲染部分应用的方法。它可以通过快速启动一个静态渲染页面（所有页面的公共骨架）来改善用户体验。与此同时，浏览器会下载完整的客户端版本，并在代码加载后自动切换到完整版。
 
-This gives users a meaningful first paint of your application that appears quickly because the browser can simply render the HTML and CSS without the need to initialize any JavaScript.
+This gives users a meaningful first paint of your application that appears quickly because the browser can render the HTML and CSS without the need to initialize any JavaScript.
 
-这能让用户快速看到应用中第一个有意义的画面，因为浏览器可以很简单地渲染出 HTML 和 CSS，而无需初始化任何 JavaScript。
+这能让用户快速看到应用中第一个有意义的画面，因为浏览器可以渲染出 HTML 和 CSS，而无需初始化任何 JavaScript。
 
 Learn more in [The App Shell Model](https://developers.google.com/web/fundamentals/architecture/app-shell).
 
@@ -35,7 +35,7 @@ For an existing application, you have to manually add the `RouterModule` and def
 
 ## 第 2 步：创建应用外壳
 
-Use the CLI to automatically create the app shell.
+Use the CLI to automatically create the application shell.
 
 使用 CLI 自动创建一个应用外壳。
 
@@ -116,6 +116,6 @@ Or to use the production configuration.
 ng run my-app:app-shell:production
 </code-example>
 
-To verify the build output, open `dist/my-app/browser/index.html`. Look for default text `app-shell works!` to show that the app shell route was rendered as part of the output.
+To verify the build output, open `dist/my-app/browser/index.html`. Look for default text `app-shell works!` to show that the application shell route was rendered as part of the output.
 
 要验证构建的输出，请打开 `dist/my-app/browser/index.html`。寻找默认的文本 `app-shell works!` 就可以验证这个应用外壳路由确实是作为输出的一部分渲染出来的。

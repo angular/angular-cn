@@ -285,13 +285,9 @@ The following decorators can declare Angular class types:
 可以用下列装饰器来声明 Angular 的类：
 
 * `@Component()`
-
 * `@Directive()`
-
 * `@Pipe()`
-
 * `@Injectable()`
-
 * `@NgModule()`
 
 {@a class-field-decorator}
@@ -1011,7 +1007,7 @@ In general, a module collects a block of code dedicated to a single purpose. Ang
 
 通常，模块会收集一组专注于单一目的的代码块。Angular 既使用 JavaScript 的标准模块，也定义了 Angular 自己的模块，也就是 `NgModule`。
 
-In JavaScript (ECMAScript), each file is a module and all objects defined in the file belong to that module. Objects can exported, making them public, and public objects can be imported for use by other modules.
+In JavaScript (ECMAScript), each file is a module and all objects defined in the file belong to that module. Objects can be exported, making them public, and public objects can be imported for use by other modules.
 
 在 JavaScript (ECMAScript) 中，每个文件都是一个模块，该文件中定义的所有对象都属于这个模块。这些对象可以导出为公共对象，而这些公共对象可以被其它模块导入后使用。
 

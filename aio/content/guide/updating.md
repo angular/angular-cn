@@ -2,11 +2,11 @@
 
 # 持续更新你的 Angular 项目
 
-Just like Web and the entire web ecosystem, Angular is continuously improving. Angular balances continuous improvement with a strong focus on stability and making updates easy. Keeping your Angular app up-to-date enables you to take advantage of leading-edge new features, as well as optimizations and bug fixes.
+Just like Web and the entire web ecosystem, Angular is continuously improving. Angular balances continuous improvement with a strong focus on stability and making updates easy. Keeping your Angular application up-to-date enables you to take advantage of leading-edge new features, as well as optimizations and bug fixes.
 
 就像 Web 及其整个生态系统一样，Angular 也在持续改进中。Angular 平衡了持续改进与强调稳定性之间的冲突，努力让升级变得更简单。让 Angular 应用始终保持最新，可以让你获得前沿的新特性所带来的好处，还有各种优化和 Bug 修复。
 
-This document contains information and resources to help you keep your Angular apps and libraries up-to-date.
+This document contains information and resources to help you keep your Angular applications and libraries up-to-date.
 
 本文档包含一些信息和资源，来帮助你持续更新 Angular 的应用和库。
 
@@ -53,7 +53,7 @@ To review a complete list of changes, organized by version, see the [Angular cha
 
 ## 检查你的 Angular 版本
 
-To check your app's version of Angular: From within your project directory, use the `ng version` command. 
+To check your application's version of Angular: From within your project directory, use the `ng version` command. 
 
 要检查你的应用的 Angular 版本，就到项目目录下执行 `ng version` 命令。
 

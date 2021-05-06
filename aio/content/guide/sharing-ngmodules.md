@@ -63,26 +63,6 @@ having to import it directly into the `@NgModule` decorator.
 即使 `SharedModule` 中声明的组件没有绑定过 `[(ngModel)]`，而且 `SharedModule` 也不需要导入 `FormsModule`，`SharedModule` 仍然可以导出 `FormsModule`，而不必把它列在 `imports` 中。
 这种方式下，你可以让其它模块也能访问 `FormsModule`，而不用直接在自己的 `@NgModule` 装饰器中导入它。
 
-### Using components vs services from other modules
-
-### 使用来自其它模块的组件和服务
-
-There is an important distinction between using another module's component and
-using a service from another module. Import modules when you want to use
-directives, pipes, and components. Importing a module with services means that you will have a new instance of that service, which typically is not what you need (typically one wants to reuse an existing service). Use module imports to control service instantiation.
-
-在使用来自其它模块的组件和来自其它模块的服务时，有一个很重要的区别。
-当你要使用指令、管道和组件时，导入那些模块就可以了。而导入带有服务的模块意味着你会拥有那个服务的一个新实例，这通常不会是你想要的结果（你通常会想取到现存的服务）。使用模块导入来控制服务的实例化。
-
-The most common way to get a hold of shared services is through Angular
-[dependency injection](guide/dependency-injection), rather than through the module system (importing a module will result in a new service instance, which is not a typical usage).
-
-获取共享服务的最常见方式是通过 Angular 的[依赖注入系统](guide/dependency-injection)，而不是模块系统（导入模块将导致创建新的服务实例，那不是典型的用法）。
-
-To read about sharing services, see [Providers](guide/providers).
-
-要进一步了解共享服务，参阅[服务提供者](guide/providers)。
-
 ## More on NgModules
 
 ## 关于 NgModule 的更多知识

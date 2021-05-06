@@ -275,6 +275,92 @@ describe('getSemanticDiagnostics', () => {
     expect(diag.category).toBe(ts.DiagnosticCategory.Suggestion);
     expect(getTextOfDiagnostic(diag)).toBe('user');
   });
+
+  it('should process a component that would otherwise require an inline TCB', () => {
+    const files = {
+      'app.ts': `
+        import {Component, NgModule} from '@angular/core';
+        import {CommonModule} from '@angular/common';
+
+        interface PrivateInterface {}
+
+        @Component({
+          template: 'Simple template',
+        })
+        export class MyComponent<T extends PrivateInterface> {}
+      `
+    };
+
+    const project = createModuleAndProjectWithDeclarations(env, 'test', files);
+    const diags = project.getDiagnosticsForFile('app.ts');
+    expect(diags.length).toBe(0);
+  });
+
+  it('logs perf tracing', () => {
+    const files = {
+      'app.ts': `
+        import {Component} from '@angular/core';
+        @Component({ template: '' })
+        export class MyComponent {}
+      `
+    };
+
+    const project = createModuleAndProjectWithDeclarations(env, 'test', files);
+
+    const logger = project.getLogger();
+    spyOn(logger, 'hasLevel').and.returnValue(true);
+    spyOn(logger, 'perftrc').and.callFake(() => {});
+
+    const diags = project.getDiagnosticsForFile('app.ts');
+    expect(diags.length).toEqual(0);
+    expect(logger.perftrc)
+        .toHaveBeenCalledWith(jasmine.stringMatching(
+            /LanguageService\#LsDiagnostics\:.*\"LsDiagnostics\":\s*\d+.*/g));
+  });
+
+  it('does not produce diagnostics when pre-compiled file is found', () => {
+    const files = {
+      'app.ts': `
+        import {Component} from '@angular/core';
+
+        @Component({
+          template: '',
+          styleUrls: ['./one.css', './two/two.css', './three.css', '../test/four.css'],
+        })
+        export class MyComponent {}
+      `,
+      'one.scss': '',
+      'two/two.sass': '',
+      'three.less': '',
+      'four.styl': '',
+    };
+
+    const project = createModuleAndProjectWithDeclarations(env, 'test', files);
+    const diags = project.getDiagnosticsForFile('app.ts');
+    expect(diags.length).toBe(0);
+  });
+
+  it('produces missing resource diagnostic for missing css', () => {
+    const files = {
+      'app.ts': `
+        import {Component} from '@angular/core';
+
+        @Component({
+          template: '',
+          styleUrls: ['./missing.css'],
+        })
+        export class MyComponent {}
+      `,
+    };
+
+    const project = createModuleAndProjectWithDeclarations(env, 'test', files);
+    const diags = project.getDiagnosticsForFile('app.ts');
+    expect(diags.length).toBe(1);
+    const diag = diags[0];
+    expect(diag.code).toBe(ngErrorCode(ErrorCode.COMPONENT_RESOURCE_NOT_FOUND));
+    expect(diag.category).toBe(ts.DiagnosticCategory.Error);
+    expect(getTextOfDiagnostic(diag)).toBe(`'./missing.css'`);
+  });
 });
 
 function getTextOfDiagnostic(diag: ts.Diagnostic): string {

@@ -9,7 +9,7 @@
 import {ɵgetDOM as getDOM} from '@angular/common';
 import {Directive, ElementRef, forwardRef, Inject, InjectionToken, Optional, Renderer2} from '@angular/core';
 
-import {ControlValueAccessor, NG_VALUE_ACCESSOR} from './control_value_accessor';
+import {BaseControlValueAccessor, ControlValueAccessor, NG_VALUE_ACCESSOR} from './control_value_accessor';
 
 export const DEFAULT_VALUE_ACCESSOR: any = {
   provide: NG_VALUE_ACCESSOR,
@@ -38,13 +38,11 @@ function _isAndroid(): boolean {
 export const COMPOSITION_BUFFER_MODE = new InjectionToken<boolean>('CompositionEventMode');
 
 /**
- * @description
- *
- * {@searchKeywords ngDefaultControl}
- *
  * The default `ControlValueAccessor` for writing a value and listening to changes on input
  * elements. The accessor is used by the `FormControlDirective`, `FormControlName`, and
  * `NgModel` directives.
+ *
+ * {@searchKeywords ngDefaultControl}
  *
  * @usageNotes
  *
@@ -94,36 +92,14 @@ export const COMPOSITION_BUFFER_MODE = new InjectionToken<boolean>('CompositionE
   },
   providers: [DEFAULT_VALUE_ACCESSOR]
 })
-export class DefaultValueAccessor implements ControlValueAccessor {
-  /**
-   * The registered callback function called when an input event occurs on the input element.
-   *
-   * 在输入元素上发生输入事件时调用的已注册回调函数。
-   *
-   * @nodoc
-   */
-  onChange = (_: any) => {};
-
-  /**
-   * The registered callback function called when a blur event occurs on the input element.
-   *
-   * 当输入元素上发生失焦事件时，调用已注册的回调函数。
-   *
-   * @nodoc
-   */
-  onTouched = () => {};
-
-  /**
-   * Whether the user is creating a composition string (IME events).
-   *
-   * 用户是否正在创建合成字符串（IME 事件）。
-   *
-   */
+export class DefaultValueAccessor extends BaseControlValueAccessor implements ControlValueAccessor {
+  /** Whether the user is creating a composition string (IME events). */
   private _composing = false;
 
   constructor(
-      private _renderer: Renderer2, private _elementRef: ElementRef,
+      renderer: Renderer2, elementRef: ElementRef,
       @Optional() @Inject(COMPOSITION_BUFFER_MODE) private _compositionMode: boolean) {
+    super(renderer, elementRef);
     if (this._compositionMode == null) {
       this._compositionMode = !_isAndroid();
     }
@@ -138,40 +114,7 @@ export class DefaultValueAccessor implements ControlValueAccessor {
    */
   writeValue(value: any): void {
     const normalizedValue = value == null ? '' : value;
-    this._renderer.setProperty(this._elementRef.nativeElement, 'value', normalizedValue);
-  }
-
-  /**
-   * Registers a function called when the control value changes.
-   *
-   * 注册控件值更改时要调用的函数。
-   *
-   * @nodoc
-   */
-  registerOnChange(fn: (_: any) => void): void {
-    this.onChange = fn;
-  }
-
-  /**
-   * Registers a function called when the control is touched.
-   *
-   * 注册控件被接触过时要调用的函数。
-   *
-   * @nodoc
-   */
-  registerOnTouched(fn: () => void): void {
-    this.onTouched = fn;
-  }
-
-  /**
-   * Sets the "disabled" property on the input element.
-   *
-   * 在此 input 元素上设置“disabled”属性。
-   *
-   * @nodoc
-   */
-  setDisabledState(isDisabled: boolean): void {
-    this._renderer.setProperty(this._elementRef.nativeElement, 'disabled', isDisabled);
+    this.setProperty('value', normalizedValue);
   }
 
   /** @internal */

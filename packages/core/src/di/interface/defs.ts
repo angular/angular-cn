@@ -33,7 +33,7 @@ import {ClassProvider, ConstructorProvider, ExistingProvider, FactoryProvider, S
  *   deployed to npm, and should be treated as public api.
 
  */
-export interface ɵɵInjectableDef<T> {
+export interface ɵɵInjectableDeclaration<T> {
   /**
    * Specifies that the given type belongs to a particular injector:
    *
@@ -110,7 +110,7 @@ export interface ɵɵInjectorDef<T> {
 }
 
 /**
- * A `Type` which has an `InjectableDef` static field.
+ * A `Type` which has a `ɵprov: ɵɵInjectableDeclaration` static field.
  *
  * 具有 `InjectableDef` 静态字段的 `Type`
  *
@@ -166,8 +166,8 @@ export interface InjectorTypeWithProviders<T> {
 
 
 /**
- * Construct an `InjectableDef` which defines how a token will be constructed by the DI system, and
- * in which injectors (if any) it will be available.
+ * Construct an injectable definition which defines how a token will be constructed by the DI
+ * system, and in which injectors (if any) it will be available.
  *
  * 构造一个 `InjectableDef` ，它定义 DI 体系将如何构造令牌以及在哪些注入器中可用（如果有的话）。
  *
@@ -203,7 +203,7 @@ export function ɵɵdefineInjectable<T>(opts: {
     providedIn: opts.providedIn as any || null,
     factory: opts.factory,
     value: undefined,
-  } as ɵɵInjectableDef<T>;
+  } as ɵɵInjectableDeclaration<T>;
 }
 
 /**
@@ -243,7 +243,7 @@ export function ɵɵdefineInjector(options: {providers?: any[], imports?: any[]}
  *
  * @param type A type which may have its own (non-inherited) `ɵprov`.
  */
-export function getInjectableDef<T>(type: any): ɵɵInjectableDef<T>|null {
+export function getInjectableDef<T>(type: any): ɵɵInjectableDeclaration<T>|null {
   return getOwnDefinition(type, NG_PROV_DEF) || getOwnDefinition(type, NG_INJECTABLE_DEF);
 }
 
@@ -251,7 +251,7 @@ export function getInjectableDef<T>(type: any): ɵɵInjectableDef<T>|null {
  * Return definition only if it is defined directly on `type` and is not inherited from a base
  * class of `type`.
  */
-function getOwnDefinition<T>(type: any, field: string): ɵɵInjectableDef<T>|null {
+function getOwnDefinition<T>(type: any, field: string): ɵɵInjectableDeclaration<T>|null {
   return type.hasOwnProperty(field) ? type[field] : null;
 }
 
@@ -263,7 +263,7 @@ function getOwnDefinition<T>(type: any, field: string): ɵɵInjectableDef<T>|nul
  * @deprecated Will be removed in a future version of Angular, where an error will occur in the
  *     scenario if we find the `ɵprov` on an ancestor only.
  */
-export function getInheritedInjectableDef<T>(type: any): ɵɵInjectableDef<T>|null {
+export function getInheritedInjectableDef<T>(type: any): ɵɵInjectableDeclaration<T>|null {
   const def = type && (type[NG_PROV_DEF] || type[NG_INJECTABLE_DEF]);
 
   if (def) {

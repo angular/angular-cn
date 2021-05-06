@@ -330,6 +330,34 @@ describe('ngc transformer command-line', () => {
     });
   });
 
+  it('should give a specific error when an Angular Ivy NgModule is imported', () => {
+    writeConfig(`{
+      "extends": "./tsconfig-base.json",
+      "files": ["mymodule.ts"]
+    }`);
+    write('node_modules/test/index.d.ts', `
+      export declare class FooModule {
+        static ɵmod = null;
+      }
+    `);
+    write('mymodule.ts', `
+      import {NgModule} from '@angular/core';
+      import {FooModule} from 'test';
+
+      @NgModule({
+        imports: [FooModule],
+      })
+      export class TestModule {}
+    `);
+
+    const exitCode = main(['-p', basePath], errorSpy);
+    expect(errorSpy).toHaveBeenCalledTimes(1);
+    const message = errorSpy.calls.mostRecent().args[0];
+
+    // The error message should mention Ivy specifically.
+    expect(message).toContain('Angular Ivy');
+  });
+
   describe('compile ngfactory files', () => {
     it('should compile ngfactory files that are not referenced by root files', () => {
       writeConfig(`{
@@ -2152,7 +2180,7 @@ describe('ngc transformer command-line', () => {
       });
     });
 
-    it('compiles a basic InjectableDef', () => {
+    it('compiles a basic Injectable definition', () => {
       const source = compileService(`
         import {Injectable} from '@angular/core';
         import {Module} from './module';
@@ -2187,7 +2215,7 @@ describe('ngc transformer command-line', () => {
       expect(source).toMatch(/\/\*\* @nocollapse \*\/ Service\.ɵprov =/);
     });
 
-    it('compiles a useValue InjectableDef', () => {
+    it('compiles a useValue Injectable definition', () => {
       const source = compileService(`
         import {Injectable} from '@angular/core';
         import {Module} from './module';
@@ -2203,7 +2231,7 @@ describe('ngc transformer command-line', () => {
       expect(source).toMatch(/ɵprov.*return CONST_SERVICE/);
     });
 
-    it('compiles a useExisting InjectableDef', () => {
+    it('compiles a useExisting Injectable definition', () => {
       const source = compileService(`
         import {Injectable} from '@angular/core';
         import {Module} from './module';
@@ -2220,7 +2248,7 @@ describe('ngc transformer command-line', () => {
       expect(source).toMatch(/ɵprov.*return ..\.ɵɵinject\(Existing\)/);
     });
 
-    it('compiles a useFactory InjectableDef with optional dep', () => {
+    it('compiles a useFactory Injectable definition with optional dep', () => {
       const source = compileService(`
         import {Injectable, Optional} from '@angular/core';
         import {Module} from './module';
@@ -2240,7 +2268,7 @@ describe('ngc transformer command-line', () => {
       expect(source).toMatch(/ɵprov.*return ..\(..\.ɵɵinject\(Existing, 8\)/);
     });
 
-    it('compiles a useFactory InjectableDef with skip-self dep', () => {
+    it('compiles a useFactory Injectable definition with skip-self dep', () => {
       const source = compileService(`
         import {Injectable, SkipSelf} from '@angular/core';
         import {Module} from './module';
@@ -2302,6 +2330,22 @@ describe('ngc transformer command-line', () => {
         }
       `);
       expect(source).toMatch(/new Service\(i0\.ɵɵinject\(exports\.TOKEN\)\);/);
+    });
+
+    it('compiles an injectable using `forwardRef` inside `providedIn`', () => {
+      const source = compileService(`
+        import {Injectable, forwardRef} from '@angular/core';
+        import {Module} from './module';
+
+        @Injectable({
+          providedIn: forwardRef(() => Module),
+        })
+        export class Service {}
+      `);
+
+      expect(source).toMatch(/ɵprov = .+\.ɵɵdefineInjectable\(/);
+      expect(source).toMatch(/ɵprov.*token: Service/);
+      expect(source).toMatch(/ɵprov.*providedIn: .+\.Module/);
     });
   });
 

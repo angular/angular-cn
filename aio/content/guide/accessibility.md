@@ -20,7 +20,7 @@ work well for all users, including those who rely on assistive technologies.
 
 <div class="alert is-helpful">
 
-  For the sample app that this page describes, see the <live-example></live-example>.
+  For the sample application that this page describes, see the <live-example></live-example>.
 
   本页所描述的范例程序，参阅<live-example></live-example>。
 
@@ -130,9 +130,9 @@ You can see [`MatFormField`](https://material.angular.io/components/form-field/o
 
 ## 案例研究：构建自定义进度条
 
-The following example shows how to make a simple progress bar accessible by using host binding to control accessibility-related attributes.
+The following example shows how to make a progress bar accessible by using host binding to control accessibility-related attributes.
 
-以下范例显示如何通过使用宿主（host）绑定来控制与无障碍性相关的属性（Attribute），来把简单的进度条无障碍化。
+以下范例显示如何通过使用宿主（host）绑定来控制与无障碍性相关的属性（Attribute），来把进度条无障碍化。
 
 * The component defines an accessibility-enabled element with both the standard HTML attribute `role`, and ARIA attributes. The ARIA attribute `aria-valuenow` is bound to the user's input.
 
@@ -215,9 +215,7 @@ You should avoid situations where focus returns to the `body` element after a ro
 
   [Rob Dodson 的 A11y 播客](https://www.youtube.com/watch?v=HtTyRajRuyY)
 
-* [Codelyzer](http://codelyzer.com/rules/) provides linting rules that can help you make sure your code meets accessibility standards.
-
-  [Codelyzer](http://codelyzer.com/rules/)提供了一些 lint 规则，可以帮助你确保代码符合无障碍性标准。
+* [Angular ESLint](https://github.com/angular-eslint/angular-eslint#functionality) provides linting rules that can help you make sure your code meets accessibility standards.
 
 Books
 
@@ -226,16 +224,3 @@ Books
 * "A Web for Everyone: Designing Accessible User Experiences", Sarah Horton and Whitney Quesenbery
 
 * "Inclusive Design Patterns", Heydon Pickering
-
-## More on accessibility
-
-## 关于无障碍性的更多信息
-
-You may also be interested in the following:
-
-你可能也对以下内容感兴趣：
-
-* [Audit your Angular app's accessibility with codelyzer](https://web.dev/accessible-angular-with-codelyzer/).
-
-  [使用 codelyzer 审核 Angular 应用程序的无障碍性](https://web.dev/accessible-angular-with-codelyzer/)。
-

@@ -93,6 +93,7 @@ export class EventManager {
    *
    * 可用于删除处理器的回调函数。
    *
+   * @deprecated No longer being used in Ivy code. To be removed in version 14.
    */
   addGlobalEventListener(target: string, eventName: string, handler: Function): Function {
     const plugin = this._findPluginFor(eventName);

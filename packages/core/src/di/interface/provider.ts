@@ -343,7 +343,7 @@ export interface FactoryProvider extends FactorySansProvider {
  *
  * 描述如何将 `Injector` 配置为静态的（即不需要反射）。静态提供者为各种类型的依赖项提供令牌给注入器。
  *
- * @see [Injector.create()](/api/core/Injector#create).
+ * @see `Injector.create()`.
  * @see ["Dependency Injection Guide"](guide/dependency-injection-providers).
  *
  * [“依赖注入指南”](guide/dependency-injection-providers) 。

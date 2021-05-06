@@ -13,45 +13,45 @@ Tutorials and guides include downloadable examples to accelerate your projects.
 这些教程和指南中都包含可下载的范例，以加速你的学习。
 
 <div class="card-container">
-  <a href="guide/what-is-angular" class="docs-card"
-    title="Angular Local Environment Setup">
-      <section>What is Angular</section>
-      <p>Get a high-level overview of the Angular platform.</p>
-      <p class="card-footer">Local setup</p>
+  <a href="guide/what-is-angular" class="docs-card" title="Angular Platform Overview">
+    <section>What is Angular</section>
+    <section>什么是 Angular</section>
+    <p>Get a high-level overview of the Angular platform.</p>
+    <p>对 Angular 平台进行一次高层概览。</p>
+    <p class="card-footer">Platform overview</p>
+    <p class="card-footer">平台概览</p>
   </a>
-  <a href="guide/setup-local" class="docs-card"
-    title="Angular Local Environment Setup">
-      <section>Get Started</section>
-      <section>开始工作</section>
+  <a href="guide/setup-local" class="docs-card" title="Angular Local Environment Setup">
+    <section>Get Started</section>
+    <section>开始工作</section>
       <p>Set up your local environment for development with the Angular CLI.</p>
       <p>使用 Angular CLI 搭建本地开发环境</p>
-      <p class="card-footer">Local setup</p>
+    <p class="card-footer">Local setup</p>
       <p class="card-footer">开始搭建</p>
   </a>
   <a href="guide/architecture" class="docs-card" title="Angular Concepts">
-      <section>Learn and Explore</section>
-      <section>深入探索</section>
+    <section>Learn and Explore</section>
+    <section>深入探索</section>
       <p>Learn about the fundamental design concepts and architecture of Angular apps.</p>
       <p>学习 Angular 应用的更多知识及架构特性</p>
-      <p class="card-footer">Introduction to Angular concepts</p>
+    <p class="card-footer">Introduction to Angular concepts</p>
       <p class="card-footer">架构</p>
   </a>
   <a href="start" class="docs-card" title="Try out Angular">
-      <section>Take a Look</section>
-      <section>走马观花</section>
+    <section>Take a Look</section>
+    <section>走马观花</section>
       <p>Examine and work with a small ready-made Angular app, without any setup.</p>
       <p>零设置，试用一个现成的 Angular 应用</p>
-      <p class="card-footer">Try it now</p>
+    <p class="card-footer">Try it now</p>
       <p class="card-footer">现在试试</p>
   </a>
-  <a href="tutorial" class="docs-card" title="Create an app">
-      <section>Hello World</section>
-      <p>Work through a full tutorial to create your first app.</p>
-      <p>一个完整教程，带你从头到尾创建首个应用</p>
+  <a href="tutorial" class="docs-card" title="Work through a full tutorial">
+    <section>Hello World</section>
+    <p>Work through a full tutorial to create your first app.</p>
+    <p>一个完整教程，带你从头到尾创建首个应用</p>
       <p class="card-footer">Tour of Heroes tutorial</p>
       <p class="card-footer">英雄之旅教程</p>
   </a>
-
 </div>
 
 ## Assumptions

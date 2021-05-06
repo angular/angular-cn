@@ -192,18 +192,10 @@ Package name                               | Description
 **@angular/<br />compiler&#8209;cli** | Angular 编译器，Angular CLI 的 `ng build` 和 `ng serve` 命令会调用它。
 **@types/... ** | TypeScript definition files for 3rd party libraries such as Jasmine and Node.js.
 **@types/... ** | 第三方库（如 Jasmine、Node.js）的 TypeScript 类型定义文件。
-[**codelyzer**](https://www.npmjs.com/package/codelyzer) | A linter for Angular apps whose rules conform to the Angular [style guide](guide/styleguide).
-[**codelyzer**](https://www.npmjs.com/package/codelyzer) | Angular 应用的风格检查器（linter），它可以为满足 Angular [风格指南](guide/styleguide)中的规则提供保障。
 **jasmine/... ** | Packages to support the [Jasmine](https://jasmine.github.io/) test library.
 **jasmine/... ** | 用于支持 [Jasmine](https://jasmine.github.io/) 测试库的包。
 **karma/... ** | Packages to support the [karma](https://www.npmjs.com/package/karma) test runner.
 **karma/... ** | 用于支持 [karma](https://www.npmjs.com/package/karma) 测试运行器的包。
-[**protractor**](https://www.npmjs.com/package/protractor) | An end-to-end (e2e) framework for Angular apps. Built on top of [WebDriverJS](https://github.com/SeleniumHQ/selenium/wiki/WebDriverJs).
-[**protractor**](https://www.npmjs.com/package/protractor) | 一个针对 Angular 应用的端到端 (e2e) 测试框架。基于 [WebDriverJS](https://github.com/SeleniumHQ/selenium/wiki/WebDriverJs) 构建。
-[**ts-node**](https://www.npmjs.com/package/ts-node) | TypeScript execution environment and REPL for Node.js.
-[**ts-node**](https://www.npmjs.com/package/ts-node) | 供 Node.js 使用的 TypeScript 运行环境和 REPL。
-[**tslint**](https://www.npmjs.com/package/tslint) | A static analysis tool that checks TypeScript code for readability, maintainability, and functionality errors.
-[**tslint**](https://www.npmjs.com/package/tslint) | 一个静态分析工具，它可以检查 TypeScript 代码的可读性、可维护性和功能性方面的错误。
 [**typescript**](https://www.npmjs.com/package/typescript) | The TypeScript language server, including the *tsc* TypeScript compiler.
 [**typescript**](https://www.npmjs.com/package/typescript) | TypeScript 语言的服务提供者，包括 TypeScript 编译器 *tsc*。
 

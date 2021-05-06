@@ -76,6 +76,11 @@ const coreR3InjectableMetadataFacade: core.R3InjectableMetadataFacade =
 const compilerR3InjectableMetadataFacade: compiler.R3InjectableMetadataFacade =
     null! as core.R3InjectableMetadataFacade;
 
+const coreR3DeclareInjectableFacade: core.R3DeclareInjectableFacade =
+    null! as compiler.R3DeclareInjectableFacade;
+const compilerR3DeclareInjectableFacade: compiler.R3DeclareInjectableFacade =
+    null! as core.R3DeclareInjectableFacade;
+
 const coreR3NgModuleMetadataFacade: core.R3NgModuleMetadataFacade =
     null! as compiler.R3NgModuleMetadataFacade;
 const compilerR3NgModuleMetadataFacade: compiler.R3NgModuleMetadataFacade =
@@ -115,6 +120,11 @@ const coreR3DeclareComponentFacade: core.R3DeclareComponentFacade =
     null! as compiler.R3DeclareComponentFacade;
 const compilerR3DeclareComponentFacade: compiler.R3DeclareComponentFacade =
     null! as core.R3DeclareComponentFacade;
+
+const coreR3DeclareUsedDirectiveFacade: core.R3DeclareUsedDirectiveFacade =
+    null! as compiler.R3DeclareUsedDirectiveFacade;
+const compilerR3DeclareUsedDirectiveFacade: compiler.R3DeclareUsedDirectiveFacade =
+    null! as core.R3DeclareUsedDirectiveFacade;
 
 const coreR3UsedDirectiveMetadata: core.R3UsedDirectiveMetadata =
     null! as compiler.R3UsedDirectiveMetadata;

@@ -103,6 +103,7 @@ export class Project {
       // Mark the project as dirty because the act of opening a file may result in the version
       // changing since TypeScript will `switchToScriptVersionCache` when a file is opened.
       // Note that this emulates what we have to do in the server/extension as well.
+      // TODO: remove this once PR #41475 lands
       this.tsProject.markAsDirty();
 
       scriptInfo = this.tsProject.getScriptInfo(fileName);
@@ -158,8 +159,6 @@ export class Project {
       const ngDiagnostics = ngCompiler.getDiagnosticsForFile(sf, OptimizeFor.WholeProgram);
       expect(ngDiagnostics.map(diag => diag.messageText)).toEqual([]);
     }
-
-    this.ngLS.compilerFactory.registerLastKnownProgram();
   }
 
   expectNoTemplateDiagnostics(projectFileName: string, className: string): void {
@@ -172,12 +171,15 @@ export class Project {
     const component = getClassOrError(sf, className);
 
     const diags = this.getTemplateTypeChecker().getDiagnosticsForComponent(component);
-    this.ngLS.compilerFactory.registerLastKnownProgram();
     expect(diags.map(diag => diag.messageText)).toEqual([]);
   }
 
   getTemplateTypeChecker(): TemplateTypeChecker {
     return this.ngLS.compilerFactory.getOrCreate().getTemplateTypeChecker();
+  }
+
+  getLogger(): ts.server.Logger {
+    return this.tsProject.projectService.logger;
   }
 }
 

@@ -54,28 +54,6 @@ export const CHECKBOX_VALUE_ACCESSOR: any = {
 export class CheckboxControlValueAccessor extends BuiltInControlValueAccessor implements
     ControlValueAccessor {
   /**
-   * The registered callback function called when a change event occurs on the input element.
-   *
-   * 当此 input 元素上发生更改事件时，要调用的已注册回调函数。
-   *
-   * @nodoc
-   */
-  onChange = (_: any) => {};
-
-  /**
-   * The registered callback function called when a blur event occurs on the input element.
-   *
-   * 当此 input 元素上发生失焦事件时，要调用的已注册回调函数。
-   *
-   * @nodoc
-   */
-  onTouched = () => {};
-
-  constructor(private _renderer: Renderer2, private _elementRef: ElementRef) {
-    super();
-  }
-
-  /**
    * Sets the "checked" property on the input element.
    *
    * 在此 input 元素上设置“checked”属性。
@@ -83,39 +61,6 @@ export class CheckboxControlValueAccessor extends BuiltInControlValueAccessor im
    * @nodoc
    */
   writeValue(value: any): void {
-    this._renderer.setProperty(this._elementRef.nativeElement, 'checked', value);
-  }
-
-  /**
-   * Registers a function called when the control value changes.
-   *
-   * 注册控件值更改时调用的函数。
-   *
-   * @nodoc
-   */
-  registerOnChange(fn: (_: any) => {}): void {
-    this.onChange = fn;
-  }
-
-  /**
-   * Registers a function called when the control is touched.
-   *
-   * 注册控件被接触过时要调用的函数。
-   *
-   * @nodoc
-   */
-  registerOnTouched(fn: () => {}): void {
-    this.onTouched = fn;
-  }
-
-  /**
-   * Sets the "disabled" property on the input element.
-   *
-   * 在此 input 元素上设置“disabled”属性。
-   *
-   * @nodoc
-   */
-  setDisabledState(isDisabled: boolean): void {
-    this._renderer.setProperty(this._elementRef.nativeElement, 'disabled', isDisabled);
+    this.setProperty('checked', value);
   }
 }

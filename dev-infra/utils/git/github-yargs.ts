@@ -7,8 +7,11 @@
  */
 
 import {Argv} from 'yargs';
+
 import {error, red, yellow} from '../console';
+
 import {GITHUB_TOKEN_GENERATE_URL} from './github-urls';
+import {GitClient} from './index';
 
 export type ArgvWithGithubToken = Argv<{githubToken: string}>;
 
@@ -28,6 +31,11 @@ export function addGithubTokenOption(yargs: Argv): ArgvWithGithubToken {
             error(red('Alternatively, pass the `--github-token` command line flag.'));
             error(yellow(`You can generate a token here: ${GITHUB_TOKEN_GENERATE_URL}`));
             process.exit(1);
+          }
+          try {
+            GitClient.getAuthenticatedInstance();
+          } catch {
+            GitClient.authenticateWithToken(githubToken);
           }
           return githubToken;
         },

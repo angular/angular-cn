@@ -47,7 +47,7 @@ export enum CompletionNodeContext {
  * @param N type of the template node in question, narrowed accordingly.
  */
 export class CompletionBuilder<N extends TmplAstNode|AST> {
-  private readonly typeChecker = this.compiler.getNextProgram().getTypeChecker();
+  private readonly typeChecker = this.compiler.getCurrentProgram().getTypeChecker();
   private readonly templateTypeChecker = this.compiler.getTemplateTypeChecker();
   private readonly nodeParent = this.targetDetails.parent;
   private readonly nodeContext = nodeContextFromTarget(this.targetDetails.context);
@@ -57,7 +57,7 @@ export class CompletionBuilder<N extends TmplAstNode|AST> {
   constructor(
       private readonly tsLS: ts.LanguageService, private readonly compiler: NgCompiler,
       private readonly component: ts.ClassDeclaration, private readonly node: N,
-      private readonly targetDetails: TemplateTarget, private readonly inlineTemplate: boolean) {}
+      private readonly targetDetails: TemplateTarget) {}
 
   /**
    * Analogue for `ts.LanguageService.getCompletionsAtPosition`.
@@ -216,21 +216,21 @@ export class CompletionBuilder<N extends TmplAstNode|AST> {
       options: ts.GetCompletionsAtPositionOptions|
       undefined): ts.WithMetadata<ts.CompletionInfo>|undefined {
     const completions =
-        this.templateTypeChecker.getGlobalCompletions(this.template, this.component);
+        this.templateTypeChecker.getGlobalCompletions(this.template, this.component, this.node);
     if (completions === null) {
       return undefined;
     }
 
-    const {componentContext, templateContext} = completions;
+    const {componentContext, templateContext, nodeContext: astContext} = completions;
 
     const replacementSpan = makeReplacementSpanFromAst(this.node);
 
     // Merge TS completion results with results from the template scope.
     let entries: ts.CompletionEntry[] = [];
-    const tsLsCompletions = this.tsLS.getCompletionsAtPosition(
+    const componentCompletions = this.tsLS.getCompletionsAtPosition(
         componentContext.shimPath, componentContext.positionInShimFile, options);
-    if (tsLsCompletions !== undefined) {
-      for (const tsCompletion of tsLsCompletions.entries) {
+    if (componentCompletions !== undefined) {
+      for (const tsCompletion of componentCompletions.entries) {
         // Skip completions that are shadowed by a template entity definition.
         if (templateContext.has(tsCompletion.name)) {
           continue;
@@ -241,6 +241,24 @@ export class CompletionBuilder<N extends TmplAstNode|AST> {
           // with the `replacementSpan` within the template source.
           replacementSpan,
         });
+      }
+    }
+
+    // Merge TS completion results with results from the ast context.
+    if (astContext !== null) {
+      const nodeCompletions = this.tsLS.getCompletionsAtPosition(
+          astContext.shimPath, astContext.positionInShimFile, options);
+      if (nodeCompletions !== undefined) {
+        for (const tsCompletion of nodeCompletions.entries) {
+          if (this.isValidNodeContextCompletion(tsCompletion)) {
+            entries.push({
+              ...tsCompletion,
+              // Substitute the TS completion's `replacementSpan` (which uses offsets within the
+              // TCB) with the `replacementSpan` within the template source.
+              replacementSpan,
+            });
+          }
+        }
       }
     }
 
@@ -276,7 +294,7 @@ export class CompletionBuilder<N extends TmplAstNode|AST> {
       formatOptions: ts.FormatCodeOptions|ts.FormatCodeSettings|undefined,
       preferences: ts.UserPreferences|undefined): ts.CompletionEntryDetails|undefined {
     const completions =
-        this.templateTypeChecker.getGlobalCompletions(this.template, this.component);
+        this.templateTypeChecker.getGlobalCompletions(this.template, this.component, this.node);
     if (completions === null) {
       return undefined;
     }
@@ -317,7 +335,7 @@ export class CompletionBuilder<N extends TmplAstNode|AST> {
   private getGlobalPropertyExpressionCompletionSymbol(
       this: PropertyExpressionCompletionBuilder, entryName: string): ts.Symbol|undefined {
     const completions =
-        this.templateTypeChecker.getGlobalCompletions(this.template, this.component);
+        this.templateTypeChecker.getGlobalCompletions(this.template, this.component, this.node);
     if (completions === null) {
       return undefined;
     }
@@ -371,11 +389,9 @@ export class CompletionBuilder<N extends TmplAstNode|AST> {
     const replacementSpan: ts.TextSpan = {start, length};
 
     let potentialTags = Array.from(templateTypeChecker.getPotentialElementTags(this.component));
-    if (!this.inlineTemplate) {
-      // If we are in an external template, don't provide non-Angular tags (directive === null)
-      // because we expect other extensions (i.e. Emmet) to provide those for HTML files.
-      potentialTags = potentialTags.filter(([_, directive]) => directive !== null);
-    }
+    // Don't provide non-Angular tags (directive === null) because we expect other extensions (i.e.
+    // Emmet) to provide those for HTML files.
+    potentialTags = potentialTags.filter(([_, directive]) => directive !== null);
     const entries: ts.CompletionEntry[] = potentialTags.map(([tag, directive]) => ({
                                                               kind: tagCompletionKind(directive),
                                                               name: tag,
@@ -462,7 +478,7 @@ export class CompletionBuilder<N extends TmplAstNode|AST> {
     }
 
     const attrTable = buildAttributeCompletionTable(
-        this.component, element, this.compiler.getTemplateTypeChecker(), this.inlineTemplate);
+        this.component, element, this.compiler.getTemplateTypeChecker());
 
     let entries: ts.CompletionEntry[] = [];
 
@@ -536,7 +552,7 @@ export class CompletionBuilder<N extends TmplAstNode|AST> {
     }
 
     const attrTable = buildAttributeCompletionTable(
-        this.component, element, this.compiler.getTemplateTypeChecker(), this.inlineTemplate);
+        this.component, element, this.compiler.getTemplateTypeChecker());
 
     if (!attrTable.has(name)) {
       return undefined;
@@ -603,7 +619,7 @@ export class CompletionBuilder<N extends TmplAstNode|AST> {
     }
 
     const attrTable = buildAttributeCompletionTable(
-        this.component, element, this.compiler.getTemplateTypeChecker(), this.inlineTemplate);
+        this.component, element, this.compiler.getTemplateTypeChecker());
 
     if (!attrTable.has(name)) {
       return undefined;
@@ -639,6 +655,25 @@ export class CompletionBuilder<N extends TmplAstNode|AST> {
       isMemberCompletion: false,
       isNewIdentifierLocation: false,
     };
+  }
+
+  /**
+   * From the AST node of the cursor position, include completion of string literals, number
+   * literals, `true`, `false`, `null`, and `undefined`.
+   */
+  private isValidNodeContextCompletion(completion: ts.CompletionEntry): boolean {
+    if (completion.kind === ts.ScriptElementKind.string) {
+      // 'string' kind includes both string literals and number literals
+      return true;
+    }
+    if (completion.kind === ts.ScriptElementKind.keyword) {
+      return completion.name === 'true' || completion.name === 'false' ||
+          completion.name === 'null';
+    }
+    if (completion.kind === ts.ScriptElementKind.variableElement) {
+      return completion.name === 'undefined';
+    }
+    return false;
   }
 }
 

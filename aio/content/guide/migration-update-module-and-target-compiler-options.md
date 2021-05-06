@@ -19,8 +19,8 @@ This process helps ensure that intentional changes to the options are kept in pl
 | `<workspace base>/tsconfig.json` | `"module"` | `"esnext"` | `"es2020"` |
 | Used in `browser` builder options (`ng build` for applications) | `"module"` | `"esnext"` | `"es2020"` |
 | 在 `browser` 构建器选项中使用（用于应用程序的 `ng build`）| `"module"` | `"esnext"` | `"es2020"` |
-| Used in `ng-packgr` builder options (`ng build` for libraries) | `"module"` | `"esnext"` | `"es2020"` |
-| 在 `ng-packgr` 构建器选项中使用（用于库的 `ng build`）| `"module"` | `"esnext"` | `"es2020"` |
+| Used in `ng-packagr` builder options (`ng build` for libraries) | `"module"` | `"esnext"` | `"es2020"` |
+| 在 `ng-packagr` 构建器选项中使用（用于库的 `ng build`）| `"module"` | `"esnext"` | `"es2020"` |
 | Used in `karma` builder options (`ng test` for applications) | `"module"` | `"esnext"` | `"es2020"` |
 | 在 `karma` 器选项中使用（用于应用程序的 `ng test`）| `"module"` | `"esnext"` | `"es2020"` |
 | Used in `server` builder options (universal) | `"module"` | `"commonjs"` | *removed* |

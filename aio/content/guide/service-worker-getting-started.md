@@ -2,7 +2,7 @@
 
 # Service Worker 快速上手
 
-This document explains how to enable Angular service worker support in projects that you created with the [Angular CLI](cli). It then uses a simple example to show you a service worker in action, demonstrating loading and basic caching.
+This document explains how to enable Angular service worker support in projects that you created with the [Angular CLI](cli). It then uses an example to show you a service worker in action, demonstrating loading and basic caching.
 
 本文档解释了如何在 [Angular CLI](cli) 项目中启用对 Angular Service Worker 的支持。稍后它会用一个简单的范例来向你展示 Service Worker 实践，包括加载和基础的缓存功能。
 
@@ -18,7 +18,7 @@ A basic understanding of the information in [Introduction to Angular service wor
 
 ## 为你的项目添加 Service Worker
 
-To set up the Angular service worker in your project, use the CLI command `ng add @angular/pwa`. It takes care of configuring your app to use service workers by adding the `service-worker` package along
+To set up the Angular service worker in your project, use the CLI command `ng add @angular/pwa`. It takes care of configuring your application to use service workers by adding the `service-worker` package along
 with setting up the necessary support files.
 
 要让你的项目支持 Angular Service Worker，可以使用 CLI 命令 `ng add @angular/pwa`。它会添加 `service-worker` 包，并建立必要的支持文件，小心翼翼地配置你的应用，以便使用 Service Worker。
@@ -40,7 +40,7 @@ The above command completes the following actions:
 
    在 CLI 中启用 Service Worker 的构建支持。
 
-3. Imports and registers the service worker in the app module.
+3. Imports and registers the service worker in the application module.
 
    在应用模块中导入并注册 Service Worker。
 
@@ -119,7 +119,7 @@ With the server running, you can point your browser at http://localhost:8080/. Y
 <div class="alert is-helpful">
 
 **Note:**
-If you are not using HTTPS, the service worker will only be registered when accessing the app on `localhost`.
+If you are not using HTTPS, the service worker will only be registered when accessing the application on `localhost`.
 
 **注意：**
 如果没有使用 HTTPS，那么 Service Worker 只会在 `localhost` 上的应用中进行注册。
@@ -149,7 +149,7 @@ To simulate a network issue, disable network interaction for your application. I
   <img src="generated/images/guide/service-worker/offline-checkbox.png" alt="The offline checkbox in the Network tab is checked">
 </div>
 
-Now the app has no access to network interaction.
+Now the application has no access to network interaction.
 
 现在，本应用不能再和网络进行交互了。
 
@@ -286,7 +286,7 @@ If you look at the `http-server` logs, you can see the service worker requesting
   <img src="generated/images/guide/service-worker/welcome-msg-fr.png" alt="The text has changed to say Bienvenue à app!">
 </div>
 
-The service worker installed the updated version of your app *in the background*, and the next time the page is loaded or reloaded, the service worker switches to the latest version.
+The service worker installed the updated version of your application *in the background*, and the next time the page is loaded or reloaded, the service worker switches to the latest version.
 
 Service Worker *在后台*安装好了这个更新后的版本，下次加载或刷新页面时，Service Worker 就切换到最新的版本了。
 

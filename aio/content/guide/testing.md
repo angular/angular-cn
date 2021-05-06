@@ -286,7 +286,6 @@ jobs:
           paths:
             - "node_modules"
       - run: npm run test -- --no-watch --no-progress --browsers=ChromeHeadlessCI
-      - run: npm run e2e -- --protractor-config=e2e/protractor-ci.conf.js
 ```
 
 This configuration caches `node_modules/` and uses [`npm run`](https://docs.npmjs.com/cli/run-script) to run CLI commands, because `@angular/cli` is not installed globally.
@@ -332,7 +331,6 @@ install:
 
 script:
   - npm run test -- --no-watch --no-progress --browsers=ChromeHeadlessCI
-  - npm run e2e -- --protractor-config=e2e/protractor-ci.conf.js
 ```
 
 This does the same things as the CircleCI configuration, except that Travis doesn't come with Chrome, so use Chromium instead.
@@ -394,7 +392,6 @@ test:
     - export CHROME_BIN=/usr/bin/google-chrome
   script:
     - npm run test -- --no-watch --no-progress --browsers=ChromeHeadlessCI
-    - npm run e2e -- --protractor-config=e2e/protractor-ci.conf.js
 ```
 
 This configuration caches `node_modules/` in the `install` job and re-uses the cached `node_modules/` in the `test` job.
@@ -406,19 +403,49 @@ Step 3: Commit your changes and push them to your repository.
 
 * Learn more about GitLab CI testing from [GitLab CI/CD documentation](https://docs.gitlab.com/ee/ci/).
 
+### Configure project for GitHub Actions
+
+Step 1: Create a folder called `.github/workflows` at root of your project
+
+Step 2: In the new folder, create a file called `main.yml` with the following content:
+
+```yml
+name: CI Angular app through Github Actions
+on: push
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Use Node.js 14.x
+        uses: actions/setup-node@v1
+        with:
+          node-version: 14.x
+
+      - name: Setup
+        run: npm ci
+
+      - name: Test
+        run: |
+          npm test -- --no-watch --no-progress --browsers=ChromeHeadlessCI
+```
+
+Step 3: [Sign up for GitHub](https://github.com/join) and [add your project](https://github.com/new). You'll need to push a new commit to trigger a build.
+
+Step 4: Commit your changes and push them to your repository.
+
+* Learn more about GitHub Actions from [GitHub Actions documentation](https://docs.github.com/en/actions).
+
 ### Configure CLI for CI testing in Chrome
 
-### 为在 Chrome 中运行 CI 测试而配置 CLI
+While the CLI command `ng test` is generally running the CI tests in your environment, you might still need to adjust your configuration to run the Chrome browser tests.
 
-When the CLI commands `ng test` and `ng e2e` are generally running the CI tests in your environment, you might still need to adjust your configuration to run the Chrome browser tests.
+当你要用 CLI 命令 `ng test` 在自己的环境中运行 CI 测试时，你可能需要再调整一下配置，以运行 Chrome 浏览器测试。
 
-当 CLI 命令 `ng test` 和 `ng e2e` 经常要在你的环境中运行 CI 测试时，你可能需要再调整一下配置，以运行 Chrome 浏览器测试。
-
-There are configuration files for both the [Karma JavaScript test runner](https://karma-runner.github.io/latest/config/configuration-file.html)
-and [Protractor](https://www.protractortest.org/#/api-overview) end-to-end testing tool,
+There is a configuration file for the [Karma JavaScript test runner](https://karma-runner.github.io/latest/config/configuration-file.html),
 which you must adjust to start Chrome without sandboxing.
 
-有一些文件是给 [Karma（直译 "报应"）](https://karma-runner.github.io/latest/config/configuration-file.html)测试运行器和 [Protractor（直译 "量角器"）](https://www.protractortest.org/#/api-overview) 端到端测试运行器使用的，你必须改为不用沙箱的 Chrome 启动方式。
+这个配置文件是给 [Karma（直译 "报应"）](https://karma-runner.github.io/latest/config/configuration-file.html)测试运行器使用的，你必须改为不用沙箱的 Chrome 启动方式。
 
 We'll be using [Headless Chrome](https://developers.google.com/web/updates/2017/04/headless-chrome#cli) in these examples.
 
@@ -437,30 +464,12 @@ customLaunchers: {
 },
 ```
 
-* In the root folder of your e2e tests project, create a new file named `protractor-ci.conf.js`. This new file extends the original `protractor.conf.js`.
-
-  在 e2e 测试项目的根目录下创建一个新文件 `protractor-ci.conf.js`，它扩展了原始的 `protractor.conf.js`：
-
-```
-const config = require('./protractor.conf').config;
-
-config.capabilities = {
-  browserName: 'chrome',
-  chromeOptions: {
-    args: ['--headless', '--no-sandbox']
-  }
-};
-
-exports.config = config;
-```
-
-Now you can run the following commands to use the `--no-sandbox` flag:
+Now you can run the following command to use the `--no-sandbox` flag:
 
 现在你可以运行下列带有 `--no-sandbox` 标志的命令了：
 
 <code-example language="sh" class="code-shell">
   ng test --no-watch --no-progress --browsers=ChromeHeadlessCI
-  ng e2e --protractor-config=e2e/protractor-ci.conf.js
 </code-example>
 
 <div class="alert is-helpful">

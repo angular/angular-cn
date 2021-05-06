@@ -1227,10 +1227,8 @@ export class Router {
   }
 
   /**
-   * The current Navigation object if one exists
-   *
-   * 当前导航对象（如果存在）
-   *
+   * Returns the current `Navigation` object when the router is navigating,
+   * and `null` when idle.
    */
   getCurrentNavigation(): Navigation|null {
     return this.currentNavigation;
@@ -1546,7 +1544,6 @@ export class Router {
               .next(new NavigationEnd(
                   t.id, this.serializeUrl(t.extractedUrl), this.serializeUrl(this.currentUrlTree)));
           this.lastSuccessfulNavigation = this.currentNavigation;
-          this.currentNavigation = null;
           t.resolve(true);
         },
         e => {

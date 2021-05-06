@@ -65,16 +65,16 @@ The table below summarizes the key differences between reactive and template-dri
   td, th {vertical-align: top};
 </style>
 
-|  | Reactive | Template-driven |
-| --- | -------- | --------------- |
+||Reactive|Template-driven|
+|--- |--- |--- |
 |  | 响应式 | 模板驱动 |
-| [Setup of form model](#setup) | Explicit, created in component class | Implicit, created by directives |
+|[Setup of form model](#setup) | Explicit, created in component class | Implicit, created by directives |
 | [建立表单模型](#setup) | 显式的，在组件类中创建 | 隐式的，由指令创建 |
-| [Data model](#data-flow-in-forms) | Structured and immutable | Unstructured and mutable |
-| [数据模型](#data-flow-in-forms) | 结构化和不可变的 | 非结构化和可变的 |
-| Predictability | Synchronous | Asynchronous |
-| 可预测性 | 同步 | 异步 |
-| [Form validation](#validation) | Functions | Directives |
+|[Data model](#mutability-of-the-data-model) | Structured and immutable | Unstructured and mutable |
+| [数据模型](#mutability-of-the-data-model) | 结构化和不可变的 | 非结构化和可变的 |
+|[Data flow](#data-flow-in-forms) | Synchronous | Asynchronous |
+|[数据流](#data-flow-in-forms) | 同步 | 异步 |
+|[Form validation](#validation) | Functions | Directives |
 | [表单验证](#validation) | 函数 | 指令 |
 
 ### Scalability
@@ -85,17 +85,17 @@ If forms are a central part of your application, scalability is very important. 
 
 如果表单是应用程序的核心部分，那么可伸缩性就非常重要。能够跨组件复用表单模型是至关重要的。
 
-Reactive forms are more scalable than template-driven forms. They provide direct access to the underlying form API, and synchronous access to the form data model, making creating large-scale forms easier.
+Reactive forms are more scalable than template-driven forms. They provide direct access to the underlying form API, and use [synchronous data flow](#data-flow-in-reactive-forms) between the view and the data model, which makes creating large-scale forms easier.
 Reactive forms require less setup for testing, and testing does not require deep understanding of change detection to properly test form updates and validation.
 
-响应式表单比模板驱动表单更有可伸缩性。它们提供对底层表单 API 的直接访问，以及对表单数据模型的同步访问，从而可以更轻松地创建大型表单。响应式表单需要较少的测试设置，测试时不需要深入理解变更检测，就能正确测试表单更新和验证。
+响应式表单比模板驱动表单更有可伸缩性。它们提供对底层表单 API 的直接访问，并且在视图和数据模型之间使用[同步数据流](#data-flow-in-reactive-forms)，从而可以更轻松地创建大型表单。响应式表单需要较少的测试设置，测试时不需要深入理解变更检测，就能正确测试表单更新和验证。
 
 Template-driven forms focus on simple scenarios and are not as reusable.
-They abstract away the underlying form API, and provide only asynchronous access to the form data model.
+They abstract away the underlying form API, and use [asynchronous data flow](#data-flow-in-template-driven-forms) between the view and the data model.
 The abstraction of template-driven forms also affects testing.
 Tests are deeply reliant on manual change detection execution to run properly, and require more setup.
 
-模板驱动表单专注于简单的场景，可复用性没那么高。它们抽象出了底层表单 API，并且只提供对表单数据模型的异步访问。对模板驱动表单的这种抽象也会影响测试。测试程序非常依赖于手动触发变更检测才能正常运行，并且需要进行更多设置工作。
+模板驱动表单专注于简单的场景，可复用性没那么高。它们抽象出了底层表单 API，并且在视图和数据模型之间使用[异步数据流](#data-flow-in-template-driven-forms)。对模板驱动表单的这种抽象也会影响测试。测试程序非常依赖于手动触发变更检测才能正常运行，并且需要进行更多设置工作。
 
 
 {@a setup}
@@ -213,6 +213,8 @@ The following diagrams illustrate both kinds of data flow for each type of form,
 
 响应式表单和模板驱动表单在处理来自用户或程序化变更时的数据处理方式上有所不同。下面的这些示意图会以上面定义的 `favorite-color` 输入字段为例，分别说明两种表单各自的数据流。
 
+{@a data-flow-in-reactive-forms}
+
 ### Data flow in reactive forms
 
 ### 响应式表单中的数据流
@@ -273,6 +275,8 @@ The model-to-view diagram shows how a programmatic change to the model is propag
 <div class="lightbox">
   <img src="generated/images/guide/forms-overview/dataflow-reactive-forms-mtv.png" alt="Reactive forms data flow - model to view">
 </div>
+
+{@a data-flow-in-template-driven-forms}
 
 ### Data flow in template-driven forms
 
@@ -362,6 +366,8 @@ The model-to-view diagram shows how data flows from model to view when the `favo
   <img src="generated/images/guide/forms-overview/dataflow-td-forms-mtv.png" alt="Template-driven forms data flow - model to view" width="100%">
 </div>
 
+{@a mutability-of-the-data-model}
+
 ### Mutability of the data model
 
 ### 数据模型的可变性
@@ -396,6 +402,7 @@ The difference is demonstrated in the previous examples that use the favorite-co
   对于模板驱动表单，**`favorite-color` 属性**总会被修改为新值。
 
 {@a validation}
+
 ## Form validation
 
 ## 表单验证

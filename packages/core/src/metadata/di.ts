@@ -7,7 +7,7 @@
  */
 
 import {InjectionToken} from '../di/injection_token';
-import {Type} from '../interface/type';
+import {ProviderToken} from '../di/provider_token';
 import {makePropDecorator} from '../util/decorators';
 
 /**
@@ -185,7 +185,8 @@ export interface ContentChildrenDecorator {
    *
    *   **selector** - 要查询的指令类型或名称。
    *
-   * * **descendants** - True to include all descendants, otherwise include only direct children.
+   * * **descendants** - If `true` include all descendants of the element. If `false` then only
+   * query direct children of the element.
    *
    *   **后代** - 包含所有后代时为 true，否则仅包括直接子代。
    *
@@ -215,12 +216,12 @@ export interface ContentChildrenDecorator {
    *
    * @Annotation
    */
-  (selector: Type<any>|InjectionToken<unknown>|Function|string, opts?: {
+  (selector: ProviderToken<unknown>|Function|string, opts?: {
     descendants?: boolean,
     emitDistinctChangesOnly?: boolean,
     read?: any,
   }): any;
-  new(selector: Type<any>|InjectionToken<unknown>|Function|string,
+  new(selector: ProviderToken<unknown>|Function|string,
       opts?: {descendants?: boolean, emitDistinctChangesOnly?: boolean, read?: any}): Query;
 }
 
@@ -307,9 +308,8 @@ export interface ContentChildDecorator {
    *
    * @Annotation
    */
-  (selector: Type<any>|InjectionToken<unknown>|Function|string,
-   opts?: {read?: any, static?: boolean}): any;
-  new(selector: Type<any>|InjectionToken<unknown>|Function|string,
+  (selector: ProviderToken<unknown>|Function|string, opts?: {read?: any, static?: boolean}): any;
+  new(selector: ProviderToken<unknown>|Function|string,
       opts?: {read?: any, static?: boolean}): ContentChild;
 }
 
@@ -388,9 +388,9 @@ export interface ViewChildrenDecorator {
    *
    * @Annotation
    */
-  (selector: Type<any>|InjectionToken<unknown>|Function|string,
+  (selector: ProviderToken<unknown>|Function|string,
    opts?: {read?: any, emitDistinctChangesOnly?: boolean}): any;
-  new(selector: Type<any>|InjectionToken<unknown>|Function|string,
+  new(selector: ProviderToken<unknown>|Function|string,
       opts?: {read?: any, emitDistinctChangesOnly?: boolean}): ViewChildren;
 }
 
@@ -504,9 +504,8 @@ export interface ViewChildDecorator {
    *
    * @Annotation
    */
-  (selector: Type<any>|InjectionToken<unknown>|Function|string,
-   opts?: {read?: any, static?: boolean}): any;
-  new(selector: Type<any>|InjectionToken<unknown>|Function|string,
+  (selector: ProviderToken<unknown>|Function|string, opts?: {read?: any, static?: boolean}): any;
+  new(selector: ProviderToken<unknown>|Function|string,
       opts?: {read?: any, static?: boolean}): ViewChild;
 }
 

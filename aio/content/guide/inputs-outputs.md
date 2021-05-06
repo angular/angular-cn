@@ -46,7 +46,7 @@ The `@Input()` decorator in a child component or directive signifies that the pr
 子组件或指令中的 `@Input()` 装饰器表示该属性可以从其父组件中获取值。
 
 <div class="lightbox">
-  <img src="generated/images/guide/inputs-outputs/input.svg" alt="Input data flow diagram">
+  <img src="generated/images/guide/inputs-outputs/input.svg" alt="Input data flow diagram of data flowing from parent to child">
 </div>
 
 To use `@Input()`, you must configure the parent and child.
@@ -110,7 +110,7 @@ The following diagram shows this structure:
 下图展示了这种结构：
 
 <div class="lightbox">
-  <img src="generated/images/guide/inputs-outputs/input-diagram-target-source.svg" alt="Property binding diagram">
+  <img src="generated/images/guide/inputs-outputs/input-diagram-target-source.svg" alt="Property binding diagram of the target, item, in square brackets set to the source, currentItem, on the right of an equal sign">
 </div>
 
 The target in the square brackets, `[]`, is the property you decorate with `@Input()` in the child component.
@@ -138,7 +138,7 @@ The `@Output()` decorator in a child component or directive allows data to flow 
 子组件或指令中的 `@Output()` 装饰器允许数据从子组件传给父组件。
 
 <div class="lightbox">
-  <img src="generated/images/guide/inputs-outputs/output.svg" alt="Output diagram">
+  <img src="generated/images/guide/inputs-outputs/output.svg" alt="Output diagram of the data flow going from child to parent">
 </div>
 
 `@Output()` marks a property in a child component as a doorway through which data can travel from the child to the parent.
@@ -309,7 +309,7 @@ The following diagram shows the different parts of the `@Input()` and `@Output()
 下图展示了子组件 `<app-input-output>` 中 `@Input()` 和 `@Output()` 的各个部分。
 
 <div class="lightbox">
-  <img src="generated/images/guide/inputs-outputs/input-output-diagram.svg" alt="Input/Output diagram">
+  <img src="generated/images/guide/inputs-outputs/input-output-diagram.svg" alt="Diagram of an input target and an output target each bound to a source.">
 </div>
 
 The child selector is `<app-input-output>` with `item` and `deleteRequest` being `@Input()` and `@Output()`

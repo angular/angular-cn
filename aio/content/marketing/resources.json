@@ -53,6 +53,11 @@
             "desc": "A collection of Angular builders for your Angular projects",
             "url": "https://angular-builders.dev/",
             "title": "Angular Builders"
+          },
+          "butter-cms": {
+            "desc": "Add API Based CMS to your Angular app",
+            "url": "https://github.com/ButterCMS/buttercms-angular-tutorial",
+            "title": "API Based CMS with Butter"
           }
         }
       },
@@ -152,6 +157,11 @@
             "title": "ngrx",
             "url": "https://ngrx.io/"
           },
+          "rx-angular": {
+            "desc": "RxAngular is a reactive library that provides extensions for developing high performant and scalable applications. It addresses the issues of local state management, rendering performance, and reactive architecture.",
+            "title": "rx-angular",
+            "url": "https://rx-angular.io"
+          },
           "ngxs": {
             "desc": "NGXS is a state management pattern + library for Angular. NGXS is modeled after the CQRS pattern popularly implemented in libraries like Redux and NgRx but reduces boilerplate by using modern TypeScript features such as classes and decorators.",
             "descCn": "NGXS 是 Angular 的状态管理模式+库。 NGXS 是根据 Redux 和 NgRx 等库中普遍实现的 CQRS 模式进行建模的，但是通过使用现代 TypeScript 功能（如类和装饰器）减少了样板代码。",
@@ -191,6 +201,12 @@
             "logo": "",
             "title": "ngx-api-utils",
             "url": "https://github.com/ngx-api-utils/ngx-api-utils"
+          },
+          "butter": {
+            "desc": "ButterCMS is a headless CMS that lets you manage content using our dashboard and integrate it into your Angular Application",
+            "logo": "https://buttercms.com/static/v2/images/logo.fb7c1035e94d.svg",
+            "title": "ButterCMS",
+            "url": "https://buttercms.com/docs/api-client/angular"
           }
         }
       },
@@ -298,14 +314,6 @@
             "title": "Nx",
             "logo": "https://nrwl.io/assets/nx-logo.png",
             "url": "https://nrwl.io/nx"
-          },
-          "uijar": {
-            "desc": "A drop in module to automatically create a living style guide based on the test you write for your components.",
-            "descCn": "一个空投式模块，可根据你为组件编写的测试自动创建现场样式指南（Living Style Guide）。",
-            "logo": "",
-            "title": "UI-jar - Test Driven Style Guide Development",
-            "titleCn": "UI-jar - 测试驱动的样式指南开发方式",
-            "url": "https://github.com/ui-jar/ui-jar"
           },
           "protractor": {
             "desc": "The official end to end testing framework for Angular applications.",
@@ -429,6 +437,18 @@
             "logo": "",
             "title": "Angular Material",
             "url": "https://material.angular.io/"
+          },
+          "mdb5": {
+            "desc": "Free components, templates & plugins for the latest Bootstrap 5 styled in accordance with Material Design 2.0 (guidelines introduced in 2020)",
+            "logo": "",
+            "title": "Angular & Material Design 2.0 for Bootstrap 5",
+            "url": "https://mdbootstrap.com/docs/b5/angular/"
+          },
+          "mdb4": {
+            "desc": "Free components, templates & plugins for the latest Bootstrap 4 styled in accordance with Material Design (guidelines introduced in 2015)",
+            "logo": "",
+            "title": "Angular & Material Design for Bootstrap 4",
+            "url": "https://mdbootstrap.com/docs/angular/"
           },
           "mcc": {
             "desc": "Material components made by the community",
@@ -682,10 +702,16 @@
             "url": "https://gumroad.com/l/angular-ngrx-book",
             "logo": ""
           },
-		      "testing-angular-guide": {
+          "testing-angular-guide": {
             "title": "Testing Angular",
             "desc": "A Guide to Robust Angular Applications (free online book and e-book)",
-            "url": "https://molily.de/testing-angular",
+            "url": "https://testing-angular.com",
+            "logo": ""
+          },
+          "butter-cms": {
+            "title":"How to integrate ButterCMS into Angular 2+ App",
+            "desc": "Integrate a Headless CMS into your Angular App, create blog posts and pages",
+            "url":"https://medium.com/orlyknop/how-to-integrate-buttercms-into-angular-2-app-a1baaa51402",
             "logo": ""
           }
         }

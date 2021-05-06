@@ -239,6 +239,12 @@ For more information, see the [`$any()` type cast function section](guide/templa
 
 演示了 Angular 的内置模板函数。欲知详情，请参阅 [Template 表达式运算符](guide/template-expression-operators)中的 [`$any()` 类型转换函数部分](guide/template-expression-operators#the-any-type-cast-function)。
 
+### Content projection
+
+<live-example name="content-projection"></live-example>
+
+Demonstrates how to use Angular's content projection feature when creating reusable components.
+
 ### Interpolation
 
 ### 插值

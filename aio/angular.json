@@ -31,15 +31,9 @@
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.app.json",
             "webWorkerTsConfig": "tsconfig.worker.json",
-            "aot": true,
-            "optimization": true,
-            "buildOptimizer": true,
             "outputHashing": "all",
             "sourceMap": true,
-            "statsJson": true,
-            "extractLicenses": true,
             "namedChunks": true,
-            "vendorChunk": false,
             "assets": [
               "src/assets",
               "src/generated",
@@ -60,6 +54,7 @@
           },
           "configurations": {
             "fast": {
+              "buildOptimizer": false,
               "optimization": false
             },
             "next": {
@@ -145,7 +140,6 @@
             "karmaConfig": "karma.conf.js",
             "assets": [
               "src/assets",
-              "src/generated",
               "src/pwa-manifest.json",
               "src/google44a5c950a9a9b940.html",
               "src/baidu_verify_AD8wvnfKCx.html"

@@ -6,10 +6,9 @@
  * found in the LICENSE file at https://angular.io/license
  */
 
-import {AbstractType, Type} from '../interface/type';
 import {stringify} from '../util/stringify';
+
 import {resolveForwardRef} from './forward_ref';
-import {InjectionToken} from './injection_token';
 import {catchInjectorError, formatError, NG_TEMP_TOKEN_PATH, setCurrentInjector, THROW_IF_NOT_FOUND, USE_VALUE, ɵɵinject} from './injector_compatibility';
 import {InjectorMarkers} from './injector_marker';
 import {INJECTOR} from './injector_token';
@@ -18,6 +17,7 @@ import {InjectFlags} from './interface/injector';
 import {ConstructorProvider, ExistingProvider, FactoryProvider, StaticClassProvider, StaticProvider, ValueProvider} from './interface/provider';
 import {Inject, Optional, Self, SkipSelf} from './metadata';
 import {NullInjector} from './null_injector';
+import {ProviderToken} from './provider_token';
 import {createInjector} from './r3_injector';
 import {INJECTOR_SCOPE} from './scope';
 
@@ -84,10 +84,9 @@ export abstract class Injector {
    * 当 `notFoundValue` 为 `undefined` 或 `Injector.THROW_IF_NOT_FOUND` 时。
    *
    */
-  abstract get<T>(
-      token: Type<T>|AbstractType<T>|InjectionToken<T>, notFoundValue?: T, flags?: InjectFlags): T;
+  abstract get<T>(token: ProviderToken<T>, notFoundValue?: T, flags?: InjectFlags): T;
   /**
-   * @deprecated from v4.0.0 use Type<T>, AbstractType<T> or InjectionToken<T>
+   * @deprecated from v4.0.0 use ProviderToken<T>
    *
    *   从 v4.0.0 开始，改用 Type<T>、AbstractType<T> 或 InjectionToken<T>
    *
@@ -194,8 +193,7 @@ export class StaticInjector implements Injector {
     this.scope = recursivelyProcessProviders(records, providers);
   }
 
-  get<T>(token: Type<T>|AbstractType<T>|InjectionToken<T>, notFoundValue?: T, flags?: InjectFlags):
-      T;
+  get<T>(token: ProviderToken<T>, notFoundValue?: T, flags?: InjectFlags): T;
   get(token: any, notFoundValue?: any): any;
   get(token: any, notFoundValue?: any, flags: InjectFlags = InjectFlags.Default): any {
     const records = this._records;
@@ -204,7 +202,7 @@ export class StaticInjector implements Injector {
       // This means we have never seen this record, see if it is tree shakable provider.
       const injectableDef = getInjectableDef(token);
       if (injectableDef) {
-        const providedIn = injectableDef && injectableDef.providedIn;
+        const providedIn = injectableDef && resolveForwardRef(injectableDef.providedIn);
         if (providedIn === 'any' || providedIn != null && providedIn === this.scope) {
           records.set(
               token,

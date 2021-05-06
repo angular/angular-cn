@@ -20,7 +20,7 @@ Before reading about form validation, you should have a basic understanding of t
 
   [TypeScript](https://www.typescriptlang.org/docs/home.html "TypeScript 语言")和 HTML5 编程。
 
-* Fundamental concepts of [Angular app design](guide/architecture "Introduction to Angular app-design concepts").
+* Fundamental concepts of [Angular application design](guide/architecture "Introduction to Angular application-design concepts").
 
   [Angular 应用设计](guide/architecture "Angular 应用设计概念简介")的基本概念。
 

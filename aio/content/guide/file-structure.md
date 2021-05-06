@@ -51,29 +51,29 @@ The top level of the workspace contains workspace-wide configuration files, conf
 
 每个工作空间中的所有项目共享同一个 [CLI 配置环境](guide/workspace-config)。该工作空间的顶层包含着全工作空间级的配置文件、根应用的配置文件以及一些包含根应用的源文件和测试文件的子文件夹。
 
-| WORKSPACE CONFIG FILES    | PURPOSE |
+| WORKSPACE CONFIG FILES | PURPOSE |
 | :--------------------- | :------------------------------------------|
-| 工作空间配置文件      | 用途                 |
-| `.editorconfig`        | Configuration for code editors. See [EditorConfig](https://editorconfig.org/). |
-| `.editorconfig`        | 代码编辑器的配置。参阅 [EditorConfig](https://editorconfig.org/)。 |
-| `.gitignore`           | Specifies intentionally untracked files that [Git](https://git-scm.com/) should ignore. |
-| `.gitignore`           | 指定 [Git](https://git-scm.com/) 应忽略的不必追踪的文件。     |
-| `README.md`            | Introductory documentation for the root app. |
-| `README.md`            | 根应用的简介文档. |
-| `angular.json`         | CLI configuration defaults for all projects in the workspace, including configuration options for build, serve, and test tools that the CLI uses, such as [TSLint](https://palantir.github.io/tslint/), [Karma](https://karma-runner.github.io/), and [Protractor](https://www.protractortest.org/). For details, see [Angular Workspace Configuration](guide/workspace-config). |
-| `angular.json`         | 为工作区中的所有项目指定 CLI 的默认配置，包括 CLI 要用到的构建、启动开发服务器和测试工具的配置项，比如 [TSLint](https://palantir.github.io/tslint/)，[Karma](https://karma-runner.github.io/) 和 [Protractor](http://www.protractortest.org/)。欲知详情，请参阅 [Angular 工作空间配置](guide/workspace-config) 部分。                                                                |
-| `package.json`         | Configures [npm package dependencies](guide/npm-packages) that are available to all projects in the workspace. See [npm documentation](https://docs.npmjs.com/files/package.json) for the specific format and contents of this file.                                                                                                                                            |
-| `package.json`         | 配置工作空间中所有项目可用的 [npm 包依赖](guide/npm-packages)。关于此文件的具体格式和内容，请参阅 [npm 的文档](https://docs.npmjs.com/files/package.json)。                                                                                                                                                                                                                        |
-| `package-lock.json`    | Provides version information for all packages installed into `node_modules` by the npm client. See [npm documentation](https://docs.npmjs.com/files/package-lock.json) for details. If you use the yarn client, this file will be [yarn.lock](https://yarnpkg.com/lang/en/docs/yarn-lock/) instead.                                                                             |
-| `package-lock.json`    | 提供 npm 客户端安装到 `node_modules` 的所有软件包的版本信息。欲知详情，请参阅 [npm 的文档](https://docs.npmjs.com/files/package-lock.json)。如果你使用的是 yarn 客户端，那么该文件[就是 yarn.lock](https://yarnpkg.com/lang/en/docs/yarn-lock/)。                                                                                                                                       |
-| `src/`                  | Source files for the root-level application project. |
-| `src/`                  | 根项目的源文件。|
-| `node_modules/`         | Provides [npm packages](guide/npm-packages) to the entire workspace. Workspace-wide `node_modules` dependencies are visible to all projects. |
-| `node_modules/`         | 为整个工作空间提供 [npm 包](guide/npm-packages)。这些工作空间级的 `node_modules` 依赖对其中的所有项目可见。 |
-| `tsconfig.json`         | The base [TypeScript](https://www.typescriptlang.org/) configuration for projects in the workspace. All other configuration files inherit from this base file. For more information, see the [Configuration inheritance with extends](https://www.typescriptlang.org/docs/handbook/tsconfig-json.html#configuration-inheritance-with-extends) section of the TypeScript documentation.|
-| `tsconfig.json`         | 工作空间中所有项目的基本 [TypeScript](https://www.typescriptlang.org/) 配置。所有其它配置文件都继承自这个基本配置。欲知详情，参阅 TypeScript 文档中的 [通过 extends 进行配置继承](https://www.typescriptlang.org/docs/handbook/tsconfig-json.html#configuration-inheritance-with-extends) 部分。|
-| `tslint.json`           | Default [TSLint](https://palantir.github.io/tslint/) configuration for projects in the workspace. |
-| `tslint.json`           | 工作空间中所有项目的默认的 [TSLint](https://palantir.github.io/tslint/) 配置。 |
+| 工作空间配置文件 | 用途 |
+| `.editorconfig` | Configuration for code editors. See [EditorConfig](https://editorconfig.org/). |
+| `.editorconfig` | 代码编辑器的配置。参阅 [EditorConfig](https://editorconfig.org/)。 |
+| `.gitignore` | Specifies intentionally untracked files that [Git](https://git-scm.com/) should ignore. |
+| `.gitignore` | 指定 [Git](https://git-scm.com/) 应忽略的不必追踪的文件。 |
+| `README.md` | Introductory documentation for the root app. |
+| `README.md` | 根应用的简介文档. |
+| `angular.json` | CLI configuration defaults for all projects in the workspace, including configuration options for build, serve, and test tools that the CLI uses, such as [TSLint](https://palantir.github.io/tslint/), [Karma](https://karma-runner.github.io/), and [Protractor](https://www.protractortest.org/). For details, see [Angular Workspace Configuration](guide/workspace-config). |
+| `angular.json` | 为工作区中的所有项目指定 CLI 的默认配置，包括 CLI 要用到的构建、启动开发服务器和测试工具的配置项，比如 [TSLint](https://palantir.github.io/tslint/)，[Karma](https://karma-runner.github.io/) 和 [Protractor](http://www.protractortest.org/)。欲知详情，请参阅 [Angular 工作空间配置](guide/workspace-config) 部分。 |
+| `package.json` | Configures [npm package dependencies](guide/npm-packages) that are available to all projects in the workspace. See [npm documentation](https://docs.npmjs.com/files/package.json) for the specific format and contents of this file. |
+| `package.json` | 配置工作空间中所有项目可用的 [npm 包依赖](guide/npm-packages)。关于此文件的具体格式和内容，请参阅 [npm 的文档](https://docs.npmjs.com/files/package.json)。 |
+| `package-lock.json` | Provides version information for all packages installed into `node_modules` by the npm client. See [npm documentation](https://docs.npmjs.com/files/package-lock.json) for details. If you use the yarn client, this file will be [yarn.lock](https://yarnpkg.com/lang/en/docs/yarn-lock/) instead. |
+| `package-lock.json` | 提供 npm 客户端安装到 `node_modules` 的所有软件包的版本信息。欲知详情，请参阅 [npm 的文档](https://docs.npmjs.com/files/package-lock.json)。如果你使用的是 yarn 客户端，那么该文件[就是 yarn.lock](https://yarnpkg.com/lang/en/docs/yarn-lock/)。 |
+| `src/` | Source files for the root-level application project. |
+| `src/` | 根项目的源文件。|
+| `node_modules/` | Provides [npm packages](guide/npm-packages) to the entire workspace. Workspace-wide `node_modules` dependencies are visible to all projects. |
+| `node_modules/` | 为整个工作空间提供 [npm 包](guide/npm-packages)。这些工作空间级的 `node_modules` 依赖对其中的所有项目可见。 |
+| `tsconfig.json` | The base [TypeScript](https://www.typescriptlang.org/) configuration for projects in the workspace. All other configuration files inherit from this base file. For more information, see the [Configuration inheritance with extends](https://www.typescriptlang.org/docs/handbook/tsconfig-json.html#configuration-inheritance-with-extends) section of the TypeScript documentation.|
+| `tsconfig.json` | 工作空间中所有项目的基本 [TypeScript](https://www.typescriptlang.org/) 配置。所有其它配置文件都继承自这个基本配置。欲知详情，参阅 TypeScript 文档中的 [通过 extends 进行配置继承](https://www.typescriptlang.org/docs/handbook/tsconfig-json.html#configuration-inheritance-with-extends) 部分。|
+| `tslint.json` | Default [TSLint](https://palantir.github.io/tslint/) configuration for projects in the workspace. |
+| `tslint.json` | 工作空间中所有项目的默认的 [TSLint](https://palantir.github.io/tslint/) 配置。 |
 
 
 ## Application project files
@@ -111,33 +111,33 @@ Files at the top level of `src/` support testing and running your application. S
 
 顶层文件 `src/` 为测试并运行你的应用提供支持。其子文件夹中包含应用源代码和应用的专属配置。
 
-| APP SUPPORT FILES | PURPOSE                                                                                                                                                                                                                                                                                                                                                                                         |
-| :---------------- | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 应用支持文件       | 目的                                                                                                                                                                                                                                                                                                                                                                                            |
-| `app/`            | Contains the component files in which your application logic and data are defined. See details [below](#app-src).                                                                                                                                                                                                                                                                               |
-| `app/`            | 包含定义应用逻辑和数据的组件文件。详见[下文](#app-src)。                                                                                                                                                                                                                                                                                                                                      |
-| `assets/`         | Contains image and other asset files to be copied as-is when you build your application.                                                                                                                                                                                                                                                                                                        |
-| `assets/`         | 包含要在构建应用时应该按原样复制的图像和其它静态资源文件。                                                                                                                                                                                                                                                                                                                                             |
-| `environments/`   | Contains build configuration options for particular target environments. By default there is an unnamed standard development environment and a production ("prod") environment. You can define additional target environment configurations.                                                                                                                                                    |
-| `environments/`   | 包含特定目标环境的构建配置选项。默认情况下，有一个无名的标准开发环境和一个生产（“prod”）环境。你还可以定义其它的目标环境配置。                                                                                                                                                                                                                                                             |
-| `favicon.ico`     | An icon to use for this application in the bookmark bar.                                                                                                                                                                                                                                                                                                                                        |
-| `favicon.ico`     | 用作该应用在标签栏中的图标。                                                                                                                                                                                                                                                                                                                                                                 |
-| `index.html`      | The main HTML page that is served when someone visits your site. The CLI automatically adds all JavaScript and CSS files when building your app, so you typically don't need to add any `<script>` or`<link>` tags here manually.                                                                                                                                                               |
-| `index.html`      | 当有人访问你的站点时，提供服务的主要 HTML 页面。CLI 会在构建你的应用时自动添加所有的 JavaScript 和 CSS 文件，所以你通常不用手动添加任何 `<script>` 或 `<link>` 标签。                                                                                                                                                                                                                                    |
-| `main.ts`         | The main entry point for your application. Compiles the application with the [JIT compiler](guide/glossary#jit) and bootstraps the application's root module (AppModule) to run in the browser. You can also use the [AOT compiler](guide/aot-compiler) without changing any code by appending the `--aot` flag to the CLI `build` and `serve` commands. |
-| `main.ts`         | 应用的主要切入点。用 [JIT 编译器](guide/glossary#jit)编译应用，然后引导应用的根模块（AppModule）在浏览器中运行。你也可以在不改变任何代码的情况下改用 [AOT 编译器](https://angular.io/guide/aot-compiler)，只要在 CLI 的 `build` 和 `serve` 命令中加上 `--aot` 标志就可以了。                                                                                                         |
-| `polyfills.ts`    | Provides polyfill scripts for browser support.                                                                                                                                                                                                                                                                                                                                                  |
-| `polyfills.ts`    | 为浏览器支持提供了腻子（polyfill）脚本。                                                                                                                                                                                                                                                                                                                                                               |
-| `styles.sass`     | Lists CSS files that supply styles for a project. The extension reflects the style preprocessor you have configured for the project.                                                                                                                                                                                                                                                            |
-| `styles.sass`     | 列出为项目提供样式的 CSS 文件。该扩展还反映了你为该项目配置的样式预处理器。                                                                                                                                                                                                                                                                                                                      |
-| `test.ts`         | The main entry point for your unit tests, with some Angular-specific configuration. You don't typically need to edit this file.                                                                                                                                                                                                                                                                 |
-| `test.ts`         | 单元测试的主入口点，带有一些 Angular 特有的配置。你通常不需要编辑这个文件。                                                                                                                                                                                                                                                                                                                      |
+| APP SUPPORT FILES | PURPOSE |
+| :--------------------- | :------------------------------------------|
+| 应用支持文件 | 目的 |
+| `app/` | Contains the component files in which your application logic and data are defined. See details [below](#app-src). |
+| `app/` | 包含定义应用逻辑和数据的组件文件。详见[下文](#app-src)。 |
+| `assets/` | Contains image and other asset files to be copied as-is when you build your application. |
+| `assets/` | 包含要在构建应用时应该按原样复制的图像和其它静态资源文件。 |
+| `environments/` | Contains build configuration options for particular target environments. By default there is an unnamed standard development environment and a production ("prod") environment. You can define additional target environment configurations. |
+| `environments/` | 包含特定目标环境的构建配置选项。默认情况下，有一个无名的标准开发环境和一个生产（“prod”）环境。你还可以定义其它的目标环境配置。 |
+| `favicon.ico` | An icon to use for this application in the bookmark bar. |
+| `favicon.ico` | 用作该应用在标签栏中的图标。 |
+| `index.html` | The main HTML page that is served when someone visits your site. The CLI automatically adds all JavaScript and CSS files when building your app, so you typically don't need to add any `<script>` or`<link>` tags here manually. |
+| `index.html` | 当有人访问你的站点时，提供服务的主要 HTML 页面。CLI 会在构建你的应用时自动添加所有的 JavaScript 和 CSS 文件，所以你通常不用手动添加任何 `<script>` 或 `<link>` 标签。 |
+| `main.ts` | The main entry point for your application. Compiles the application with the [JIT compiler](guide/glossary#jit) and bootstraps the application's root module (AppModule) to run in the browser. You can also use the [AOT compiler](guide/aot-compiler) without changing any code by appending the `--aot` flag to the CLI `build` and `serve` commands. |
+| `main.ts` | 应用的主要切入点。用 [JIT 编译器](guide/glossary#jit)编译应用，然后引导应用的根模块（AppModule）在浏览器中运行。你也可以在不改变任何代码的情况下改用 [AOT 编译器](https://angular.io/guide/aot-compiler)，只要在 CLI 的 `build` 和 `serve` 命令中加上 `--aot` 标志就可以了。 |
+| `polyfills.ts` | Provides polyfill scripts for browser support. |
+| `polyfills.ts` | 为浏览器支持提供了腻子（polyfill）脚本。 |
+| `styles.sass` | Lists CSS files that supply styles for a project. The extension reflects the style preprocessor you have configured for the project. |
+| `styles.sass` | 列出为项目提供样式的 CSS 文件。该扩展还反映了你为该项目配置的样式预处理器。 |
+| `test.ts` | The main entry point for your unit tests, with some Angular-specific configuration. You don't typically need to edit this file. |
+| `test.ts` | 单元测试的主入口点，带有一些 Angular 特有的配置。你通常不需要编辑这个文件。 |
 
 <div class="alert is-helpful">
 
-If you create an application using Angular's strict mode, you will also have an additional `package.json` file in the `src/app` directory. For more information, see [Strict mode](/guide/strict-mode).
+New Angular projects use strict mode by default. If this is not desired you can opt-out when creating the project. For more information, see [Strict mode](/guide/strict-mode).
 
-如果你使用 Angular 的严格模式创建了应用，就会在 `src/app` 目录下有一个额外的 `package.json` 文件。欲知详情，请参阅[严格模式](/guide/strict-mode)。 
+新的 Angular 项目默认使用严格模式。如果你不想这样，可以在创建项目时禁用它。欲知详情，参见[严格模式](/guide/strict-mode)。
 
 </div>
 
@@ -148,10 +148,10 @@ Angular components, templates, and styles go here.
 
 在 `src/` 文件夹里面，`app/` 文件夹中包含此项目的逻辑和数据。Angular 组件、模板和样式也都在这里。
 
-| `src/app/` FILES            | PURPOSE                                                                                                                                                                                                                                             |
-| :-------------------------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `src/app/` 文件            | 用途                                                                                                                                                                                                                                                |
-| `app/app.component.ts`      | Defines the logic for the app's root component, named `AppComponent`. The view associated with this root component becomes the root of the [view hierarchy](guide/glossary#view-hierarchy) as you add components and services to your application. |
+| `src/app/` FILES | PURPOSE |
+| :-------------------------- | :------------------------------------------|
+| `src/app/` 文件 | 用途 |
+| `app/app.component.ts` | Defines the logic for the app's root component, named `AppComponent`. The view associated with this root component becomes the root of the [view hierarchy](guide/glossary#view-hierarchy) as you add components and services to your application. |
 | `app/app.component.ts` | 为应用的根组件定义逻辑，名为 `AppComponent`。当你向应用中添加组件和服务时，与这个根组件相关联的视图就会成为[视图树](guide/glossary#view-hierarchy)的根。 |
 | `app/app.component.html` | Defines the HTML template associated with the root `AppComponent`. |
 | `app/app.component.html` | 定义与根组件 `AppComponent` 关联的 HTML 模板。 |
@@ -175,19 +175,19 @@ Project-specific [TypeScript](https://www.typescriptlang.org/) configuration fil
 
 项目专属的 [TypeScript](https://www.typescriptlang.org/) 配置文件继承自工作区范围内的 `tsconfig.base.json`，而项目专属的 [TSLint](https://palantir.github.io/tslint/) 配置文件则继承自全工作区级内的 `tslint.json`。
 
-| APPLICATION-SPECIFIC CONFIG FILES | PURPOSE                                                                                                                                                                                                       |
-| :-------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| 应用专属的配置文件              | 用途                                                                                                                                                                                                          |
-| `.browserslistrc`                    | Configures sharing of target browsers and Node.js versions among various front-end tools. See [Browserslist on GitHub](https://github.com/browserslist/browserslist) for more information.                    |
-| `browserslist`                    | 配置各种前端工具之间共享的目标浏览器和 Node.js 版本。欲知详情，请参阅 [GitHub 上的浏览器列表](https://github.com/browserslist/browserslist)。                                                               |
-| `karma.conf.js`                   | Application-specific [Karma](https://karma-runner.github.io/2.0/config/configuration-file.html) configuration.                                                                                                |
-| `karma.conf.js`                   | 应用专属的 [Karma](https://karma-runner.github.io/2.0/config/configuration-file.html) 配置。                                                                                                                 |
-| `tsconfig.app.json`               | Application-specific [TypeScript](https://www.typescriptlang.org/) configuration, including TypeScript and Angular template compiler options. See [TypeScript Configuration](guide/typescript-configuration) and [Angular Compiler Options](guide/angular-compiler-options). |
-| `tsconfig.app.json`               | 应用专属的 [TypeScript](https://www.typescriptlang.org/) 配置，包括 TypeScript 和 Angular 模板编译器的选项。参阅 [TypeScript 配置](guide/typescript-configuration)。                                                |
-| `tsconfig.spec.json`              | [TypeScript](https://www.typescriptlang.org/) configuration for the application tests. See [TypeScript Configuration](guide/typescript-configuration).                                                        |
-| `tsconfig.spec.json`              | 应用测试的 [TypeScript](https://www.typescriptlang.org/) 配置。参阅 [TypeScript 配置](guide/typescript-configuration)。                                                                                         |
-| `tslint.json`                     | Application-specific [TSLint](https://palantir.github.io/tslint/) configuration.                                                                                                                              |
-| `tslint.json`                     | 应用专属的 [TSLint](https://palantir.github.io/tslint/) 配置。                                                                                                         |
+| APPLICATION-SPECIFIC CONFIG FILES | PURPOSE |
+| :--------------------- | :------------------------------------------|
+| 应用专属的配置文件 | 用途 |
+| `.browserslistrc` | Configures sharing of target browsers and Node.js versions among various front-end tools. See [Browserslist on GitHub](https://github.com/browserslist/browserslist) for more information. |
+| `browserslist` | 配置各种前端工具之间共享的目标浏览器和 Node.js 版本。欲知详情，请参阅 [GitHub 上的浏览器列表](https://github.com/browserslist/browserslist)。 |
+| `karma.conf.js` | Application-specific [Karma](https://karma-runner.github.io/2.0/config/configuration-file.html) configuration. |
+| `karma.conf.js` | 应用专属的 [Karma](https://karma-runner.github.io/2.0/config/configuration-file.html) 配置。 |
+| `tsconfig.app.json` | Application-specific [TypeScript](https://www.typescriptlang.org/) configuration, including TypeScript and Angular template compiler options. See [TypeScript Configuration](guide/typescript-configuration) and [Angular Compiler Options](guide/angular-compiler-options). |
+| `tsconfig.app.json` | 应用专属的 [TypeScript](https://www.typescriptlang.org/) 配置，包括 TypeScript 和 Angular 模板编译器的选项。参阅 [TypeScript 配置](guide/typescript-configuration)。 |
+| `tsconfig.spec.json` | [TypeScript](https://www.typescriptlang.org/) configuration for the application tests. See [TypeScript Configuration](guide/typescript-configuration). |
+| `tsconfig.spec.json` | 应用测试的 [TypeScript](https://www.typescriptlang.org/) 配置。参阅 [TypeScript 配置](guide/typescript-configuration)。 |
+| `tslint.json` | Application-specific [TSLint](https://palantir.github.io/tslint/) configuration. |
+| `tslint.json` | 应用专属的 [TSLint](https://palantir.github.io/tslint/) 配置。 |
 
 ### End-to-end test files
 
@@ -271,11 +271,11 @@ my-workspace/
 
 ## 库项目文件
 
-When you generate a library using the CLI (with a command such as `ng generate library my-lib`), the generated files go into the projects/ folder of the workspace. For more information about creating your own libraries, see  [Creating Libraries](guide/creating-libraries).
+When you generate a library using the CLI (with a command such as `ng generate library my-lib`), the generated files go into the `projects/` folder of the workspace. For more information about creating your own libraries, see  [Creating Libraries](guide/creating-libraries).
 
 当你使用 CLI 命令（例如 `ng generate library my-lib`）生成一个库时，所生成的文件会放在工作区的 `projects/` 文件夹中。关于如何创建自己的库的更多信息，请参阅[创建库](guide/creating-libraries)一章。
 
-Libraries (unlike applications and their associated e2e projects) have their own `package.json` configuration files.
+Libraries (unlike applications and their associated e2e projects) have their own `package.json` configuration file.
 
 与应用及其相关的 e2e 项目不同，库有它自己的 `package.json` 配置文件。
 
@@ -283,24 +283,26 @@ Under the `projects/` folder, the `my-lib` folder contains your library code.
 
 在 `projects/` 目录下，`my-lib` 文件夹中包含你的库代码。
 
-| LIBRARY SOURCE FILES | PURPOSE                                                                                                                                                                                                   |
-| :------------------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 库的源文件       | 用途                                                                                                                                                                                                      |
-| `src/lib`            | Contains your library project's logic and data. Like an application project, a library project can contain components, services, modules, directives, and pipes.                                          |
-| `src/lib`            | 包含库项目的逻辑和数据。像应用项目一样，库项目也可以包含组件、服务、模块、指令和管道。                                                                                                                     |
-| `src/test.ts`        | The main entry point for your unit tests, with some library-specific configuration. You don't typically need to edit this file.                                                                           |
-| `src/test.ts`        | 单元测试的主要入口点是一些库专属的配置。你通常不用编辑这个文件。                                                                                                                                     |
-| `src/public-api.ts`  | Specifies all files that are exported from your library.                                                                                                                                                  |
-| `src/public-api.ts`  | 指定从库中导出的所有文件。                                                                                                                                                                               |
-| `karma.conf.js`      | Library-specific [Karma](https://karma-runner.github.io/2.0/config/configuration-file.html) configuration.                                                                                                |
-| `karma.conf.js`      | 库专属的 [Karma](https://karma-runner.github.io/2.0/config/configuration-file.html) 配置。                                                                                                               |
-| `ng-package.json`    | Configuration file used by [ng-packagr](https://github.com/ng-packagr/ng-packagr) for building your library.                                                                                              |
-| `ng-package.json`    | 构建库时，[ng-packagr](https://github.com/ng-packagr/ng-packagr) 用到的配置文件。                                                                                                                             |
-| `package.json`       | Configures [npm package dependencies](guide/npm-packages) that are required for this library.                                                                                                             |
-| `package.json`       | 配置这个库所需的 [npm 包依赖](guide/npm-packages)。                                                                                                                                                       |
-| `tsconfig.lib.json`  | Library-specific [TypeScript](https://www.typescriptlang.org/) configuration, including TypeScript and Angular template compiler options. See [TypeScript Configuration](guide/typescript-configuration). |
-| `tsconfig.lib.json`  | 库专属的 [TypeScript](https://www.typescriptlang.org/) 配置，包括 TypeScript 和 Angular 模板编译器选项。参阅 [TypeScript 配置](guide/typescript-configuration)。                                              |
-| `tsconfig.spec.json` | [TypeScript](https://www.typescriptlang.org/) configuration for the library tests. See [TypeScript Configuration](guide/typescript-configuration).                                                        |
-| `tsconfig.spec.json` | 测试库时用到的 [TypeScript](https://www.typescriptlang.org/) 配置。参阅 [TypeScript 配置](guide/typescript-configuration)。                                                                                     |
-| `tslint.json`        | Library-specific [TSLint](https://palantir.github.io/tslint/) configuration.                                                                                                                              |
-| `tslint.json`        | 库专属的 [TSLint](https://palantir.github.io/tslint/) 配置。                                                                                                       |
+| LIBRARY SOURCE FILES | PURPOSE |
+| :------------------- | :----------------------------------------------------------------------------|
+| 库的源文件 | 用途 |
+| `src/lib` | Contains your library project's logic and data. Like an application project, a library project can contain components, services, modules, directives, and pipes. |
+| `src/lib` | 包含库项目的逻辑和数据。像应用项目一样，库项目也可以包含组件、服务、模块、指令和管道。 |
+| `src/test.ts` | The main entry point for your unit tests, with some library-specific configuration. You don't typically need to edit this file. |
+| `src/test.ts` | 单元测试的主要入口点是一些库专属的配置。你通常不用编辑这个文件。 |
+| `src/public-api.ts` | Specifies all files that are exported from your library. |
+| `src/public-api.ts` | 指定从库中导出的所有文件。 |
+| `karma.conf.js` | Library-specific [Karma](https://karma-runner.github.io/2.0/config/configuration-file.html) configuration. |
+| `karma.conf.js` | 库专属的 [Karma](https://karma-runner.github.io/2.0/config/configuration-file.html) 配置。 |
+| `ng-package.json` | Configuration file used by [ng-packagr](https://github.com/ng-packagr/ng-packagr) for building your library. |
+| `ng-package.json` | 构建库时，[ng-packagr](https://github.com/ng-packagr/ng-packagr) 用到的配置文件。 |
+| `package.json` | Configures [npm package dependencies](guide/npm-packages) that are required for this library. |
+| `package.json` | 配置这个库所需的 [npm 包依赖](guide/npm-packages)。 |
+| `tsconfig.lib.json` | Library-specific [TypeScript](https://www.typescriptlang.org/) configuration, including TypeScript and Angular template compiler options. See [TypeScript Configuration](guide/typescript-configuration). |
+| `tsconfig.lib.json` | 库专属的 [TypeScript](https://www.typescriptlang.org/) 配置，包括 TypeScript 和 Angular 模板编译器选项。参阅 [TypeScript 配置](guide/typescript-configuration)。 |
+| `tsconfig.lib.prod.json` | Library-specific [TypeScript](https://www.typescriptlang.org/) configuration that is used when building the library in production mode. |
+| `tsconfig.lib.prod.json` | 库专属的 [TypeScript](https://www.typescriptlang.org/) 配置，用于构建生产模式的库。 |
+| `tsconfig.spec.json` | [TypeScript](https://www.typescriptlang.org/) configuration for the library tests. See [TypeScript Configuration](guide/typescript-configuration). |
+| `tsconfig.spec.json` | 测试库时用到的 [TypeScript](https://www.typescriptlang.org/) 配置。参阅 [TypeScript 配置](guide/typescript-configuration)。 |
+| `tslint.json` | Library-specific [TSLint](https://palantir.github.io/tslint/) configuration. |
+| `tslint.json` | 库专属的 [TSLint](https://palantir.github.io/tslint/) 配置。 |

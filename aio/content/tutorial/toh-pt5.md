@@ -426,11 +426,11 @@ After the browser refreshes you can navigate freely between the two views by cli
 
 ## 导航到英雄详情
 
-The `HeroDetailsComponent` displays details of a selected hero.
-At the moment the `HeroDetailsComponent` is only visible at the bottom of the `HeroesComponent`
+The `HeroDetailComponent` displays details of a selected hero.
+At the moment the `HeroDetailComponent` is only visible at the bottom of the `HeroesComponent`
 
 `HeroDetailComponent` 可以显示所选英雄的详情。
-此刻，`HeroDetailsComponent` 只能在 `HeroesComponent` 的底部看到。
+此刻，`HeroDetailComponent` 只能在 `HeroesComponent` 的底部看到。
 
 The user should be able to get to these details in three ways.
 
@@ -448,7 +448,7 @@ The user should be able to get to these details in three ways.
 
    通过把一个“深链接” URL 粘贴到浏览器的地址栏中来指定要显示的英雄。
 
-In this section, you'll enable navigation to the `HeroDetailsComponent`
+In this section, you'll enable navigation to the `HeroDetailComponent`
 and liberate it from the `HeroesComponent`.
 
 在这一节，你将能导航到 `HeroDetailComponent`，并把它从 `HeroesComponent` 中解放出来。
@@ -677,11 +677,11 @@ The `"id"` key returns the `id` of the hero to fetch.
 `"id"` 对应的值就是要获取的英雄的 `id`。
 
 Route parameters are always strings.
-The JavaScript (+) operator converts the string to a number,
+The JavaScript `Number` function converts the string to a number,
 which is what a hero `id` should be.
 
 路由参数总会是字符串。
-JavaScript 的 (+) 操作符会把字符串转换成数字，英雄的 `id` 就是数字类型。
+JavaScript 的 `Number` 函数会把字符串转换成数字，英雄的 `id` 就是数字类型。
 
 The browser refreshes and the application crashes with a compiler error.
 `HeroService` doesn't have a `getHero()` method.
@@ -777,6 +777,9 @@ from heroes list to the mini detail to the hero details and back to the heroes a
 
 刷新浏览器，并开始点击。
 用户能在应用中导航：从仪表盘到英雄详情再回来，从英雄列表到 mini 版英雄详情到英雄详情，再回到英雄列表。
+
+The details will look better when you add the private CSS styles to `hero-detail.component.css`
+as listed in one of the ["final code review"](#final-code-review) tabs below.
 
 ## Final code review
 

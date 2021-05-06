@@ -10,6 +10,11 @@ import * as o from '../../output/output_ast';
 
 export interface R3PartialDeclaration {
   /**
+   * The minimum version of the compiler that can process this partial declaration.
+   */
+  minVersion: string;
+
+  /**
    * Version number of the Angular compiler that was used to compile this declaration. The linker
    * will be able to detect which version a library is using and interpret its metadata accordingly.
    */
@@ -368,6 +373,53 @@ export enum FactoryTarget {
 }
 
 /**
+ * Describes the shape of the object that the `ɵɵngDeclareInjectable()` function accepts.
+ *
+ * This interface serves primarily as documentation, as conformance to this interface is not
+ * enforced during linking.
+ */
+export interface R3DeclareInjectableMetadata extends R3PartialDeclaration {
+  /**
+   * If provided, specifies that the declared injectable belongs to a particular injector:
+   * - `InjectorType` such as `NgModule`,
+   * - `'root'` the root injector
+   * - `'any'` all injectors.
+   * If not provided, then it does not belong to any injector. Must be explicitly listed in the
+   * providers of an injector.
+   */
+  providedIn?: o.Expression;
+
+  /**
+   * If provided, an expression that evaluates to a class to use when creating an instance of this
+   * injectable.
+   */
+  useClass?: o.Expression;
+
+  /**
+   * If provided, an expression that evaluates to a function to use when creating an instance of
+   * this injectable.
+   */
+  useFactory?: o.Expression;
+
+  /**
+   * If provided, an expression that evaluates to a token of another injectable that this injectable
+   * aliases.
+   */
+  useExisting?: o.Expression;
+
+  /**
+   * If provided, an expression that evaluates to the value of the instance of this injectable.
+   */
+  useValue?: o.Expression;
+
+  /**
+   * An array of dependencies to support instantiating this injectable via `useClass` or
+   * `useFactory`.
+   */
+  deps?: R3DeclareDependencyMetadata[];
+}
+
+/**
  * Metadata indicating how a dependency should be injected into a factory.
  */
 export interface R3DeclareDependencyMetadata {
@@ -409,4 +461,29 @@ export interface R3DeclareDependencyMetadata {
    * Default: false,
    */
   skipSelf?: boolean;
+}
+
+/**
+ * Describes the shape of the object that the `ɵɵngDeclareClassMetadata()` function accepts.
+ *
+ * This interface serves primarily as documentation, as conformance to this interface is not
+ * enforced during linking.
+ */
+export interface R3DeclareClassMetadata extends R3PartialDeclaration {
+  /**
+   * The Angular decorators of the class.
+   */
+  decorators: o.Expression;
+
+  /**
+   * Optionally specifies the constructor parameters, their types and the Angular decorators of each
+   * parameter. This property is omitted if the class does not have a constructor.
+   */
+  ctorParameters?: o.Expression;
+
+  /**
+   * Optionally specifies the Angular decorators applied to the class properties. This property is
+   * omitted if no properties have any decorators.
+   */
+  propDecorators?: o.Expression;
 }

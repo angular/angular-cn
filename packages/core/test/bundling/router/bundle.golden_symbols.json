@@ -738,6 +738,12 @@
     "name": "SimpleChange"
   },
   {
+    "name": "SimpleInnerSubscriber"
+  },
+  {
+    "name": "SimpleOuterSubscriber"
+  },
+  {
     "name": "SkipSelf"
   },
   {
@@ -925,6 +931,9 @@
   },
   {
     "name": "_testabilityGetter"
+  },
+  {
+    "name": "_wrapInTimeout"
   },
   {
     "name": "absoluteRedirect"
@@ -1495,6 +1504,9 @@
   },
   {
     "name": "injectableDefOrInjectorDefFactory"
+  },
+  {
+    "name": "innerSubscribe"
   },
   {
     "name": "insertBloom"

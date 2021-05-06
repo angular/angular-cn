@@ -8,9 +8,11 @@
 
 import * as Octokit from '@octokit/rest';
 import {spawnSync, SpawnSyncOptions, SpawnSyncReturns} from 'child_process';
+import {Options as SemVerOptions, parse, SemVer} from 'semver';
 
-import {getConfig, getRepoBaseDir, NgDevConfig} from '../config';
+import {getConfig, GithubConfig, NgDevConfig} from '../config';
 import {debug, info, yellow} from '../console';
+import {DryRunError, isDryRun} from '../dry-run';
 import {GithubClient} from './github';
 import {getRepositoryGitUrl, GITHUB_TOKEN_GENERATE_URL, GITHUB_TOKEN_SETTINGS_URL} from './github-urls';
 
@@ -24,7 +26,7 @@ export type OAuthScopeTestFunction = (scopes: string[], missing: string[]) => vo
 
 /** Error for failed Git commands. */
 export class GitCommandError extends Error {
-  constructor(client: GitClient, public args: string[]) {
+  constructor(client: GitClient<boolean>, public args: string[]) {
     // Errors are not guaranteed to be caught. To ensure that we don't
     // accidentally leak the Github token that might be used in a command,
     // we sanitize the command that will be part of the error message.
@@ -41,18 +43,50 @@ export class GitCommandError extends Error {
  *   `config`: The dev-infra configuration containing information about the remote. By default
  *     the dev-infra configuration is loaded with its Github configuration.
  **/
-export class GitClient {
-  /** Whether verbose logging of Git actions should be used. */
-  static LOG_COMMANDS = true;
-  /** Short-hand for accessing the default remote configuration. */
-  remoteConfig = this._config.github;
-  /** Octokit request parameters object for targeting the configured remote. */
-  remoteParams = {owner: this.remoteConfig.owner, repo: this.remoteConfig.name};
-  /** Git URL that resolves to the configured repository. */
-  repoGitUrl = getRepositoryGitUrl(this.remoteConfig, this.githubToken);
-  /** Instance of the authenticated Github octokit API. */
-  github = new GithubClient(this.githubToken);
+export class GitClient<Authenticated extends boolean> {
+  /*************************************************
+   * Singleton definition and configuration.       *
+   *************************************************/
+  /** The singleton instance of the authenticated GitClient. */
+  private static authenticated: GitClient<true>;
+  /** The singleton instance of the unauthenticated GitClient. */
+  private static unauthenticated: GitClient<false>;
 
+  /**
+   * Static method to get the singleton instance of the unauthorized GitClient, creating it if it
+   * has not yet been created.
+   */
+  static getInstance() {
+    if (!GitClient.unauthenticated) {
+      GitClient.unauthenticated = new GitClient(undefined);
+    }
+    return GitClient.unauthenticated;
+  }
+
+  /**
+   * Static method to get the singleton instance of the authenticated GitClient if it has been
+   * generated.
+   */
+  static getAuthenticatedInstance() {
+    if (!GitClient.authenticated) {
+      throw Error('The authenticated GitClient has not yet been generated.');
+    }
+    return GitClient.authenticated;
+  }
+
+  /** Build the authenticated GitClient instance. */
+  static authenticateWithToken(token: string) {
+    if (GitClient.authenticated) {
+      throw Error(
+          'Cannot generate new authenticated GitClient after one has already been generated.');
+    }
+    GitClient.authenticated = new GitClient(token);
+  }
+
+  /** The configuration, containing the github specific configuration. */
+  private config: NgDevConfig;
+  /** Whether verbose logging of Git actions should be used. */
+  private verboseLogging = true;
   /** The OAuth scopes available for the provided Github token. */
   private _cachedOauthScopes: Promise<string[]>|null = null;
   /**
@@ -60,16 +94,40 @@ export class GitClient {
    * sanitizing the token from Git child process output.
    */
   private _githubTokenRegex: RegExp|null = null;
+  /** Short-hand for accessing the default remote configuration. */
+  remoteConfig: GithubConfig;
+  /** Octokit request parameters object for targeting the configured remote. */
+  remoteParams: {owner: string, repo: string};
+  /** Instance of the Github octokit API. */
+  github = new GithubClient(this.githubToken);
+  /** The full path to the root of the repository base. */
+  baseDir: string;
 
-  constructor(
-      public githubToken?: string, private _config: Pick<NgDevConfig, 'github'> = getConfig(),
-      private _projectRoot = getRepoBaseDir()) {
+  /**
+   * @param githubToken The github token used for authentication, if provided.
+   * @param _config The configuration, containing the github specific configuration.
+   * @param baseDir The full path to the root of the repository base.
+   */
+  protected constructor(public githubToken: Authenticated extends true? string: undefined,
+                                                                  config?: NgDevConfig,
+                                                                  baseDir?: string) {
+    this.baseDir = baseDir || this.determineBaseDir();
+    this.config = config || getConfig(this.baseDir);
+    this.remoteConfig = this.config.github;
+    this.remoteParams = {owner: this.remoteConfig.owner, repo: this.remoteConfig.name};
+
     // If a token has been specified (and is not empty), pass it to the Octokit API and
     // also create a regular expression that can be used for sanitizing Git command output
     // so that it does not print the token accidentally.
-    if (githubToken != null) {
+    if (typeof githubToken === 'string') {
       this._githubTokenRegex = new RegExp(githubToken, 'g');
     }
+  }
+
+  /** Set the verbose logging state of the GitClient instance. */
+  setVerboseLoggingState(verbose: boolean): this {
+    this.verboseLogging = verbose;
+    return this;
   }
 
   /** Executes the given git command. Throws if the command fails. */
@@ -89,16 +147,24 @@ export class GitClient {
    * info failed commands.
    */
   runGraceful(args: string[], options: SpawnSyncOptions = {}): SpawnSyncReturns<string> {
+    /** The git command to be run. */
+    const gitCommand = args[0];
+
+    if (isDryRun() && gitCommand === 'push') {
+      debug(`"git push" is not able to be run in dryRun mode.`);
+      throw new DryRunError();
+    }
+
     // To improve the debugging experience in case something fails, we print all executed Git
     // commands to better understand the git actions occuring. Depending on the command being
     // executed, this debugging information should be logged at different logging levels.
-    const printFn = (!GitClient.LOG_COMMANDS || options.stdio === 'ignore') ? debug : info;
+    const printFn = (!this.verboseLogging || options.stdio === 'ignore') ? debug : info;
     // Note that we do not want to print the token if it is contained in the command. It's common
     // to share errors with others if the tool failed, and we do not want to leak tokens.
     printFn('Executing: git', this.omitGithubTokenFromMessage(args.join(' ')));
 
     const result = spawnSync('git', args, {
-      cwd: this._projectRoot,
+      cwd: this.baseDir,
       stdio: 'pipe',
       ...options,
       // Encoding is always `utf8` and not overridable. This ensures that this method
@@ -114,6 +180,11 @@ export class GitClient {
     }
 
     return result;
+  }
+
+  /** Git URL that resolves to the configured repository. */
+  getRepoGitUrl() {
+    return getRepositoryGitUrl(this.remoteConfig, this.githubToken);
   }
 
   /** Whether the given branch contains the specified SHA. */
@@ -172,6 +243,38 @@ export class GitClient {
     return this.runGraceful(['checkout', branchOrRevision], {stdio: 'ignore'}).status === 0;
   }
 
+  /** Gets the latest git tag on the current branch that matches SemVer. */
+  getLatestSemverTag(): SemVer {
+    const semVerOptions: SemVerOptions = {loose: true};
+    const tags = this.runGraceful(['tag', '--sort=-committerdate', '--merged']).stdout.split('\n');
+    const latestTag = tags.find((tag: string) => parse(tag, semVerOptions));
+
+    if (latestTag === undefined) {
+      throw new Error(
+          `Unable to find a SemVer matching tag on "${this.getCurrentBranchOrRevision()}"`);
+    }
+    return new SemVer(latestTag, semVerOptions);
+  }
+
+  /** Retrieve a list of all files in the repostitory changed since the provided shaOrRef. */
+  allChangesFilesSince(shaOrRef = 'HEAD'): string[] {
+    return Array.from(new Set([
+      ...gitOutputAsArray(this.runGraceful(['diff', '--name-only', '--diff-filter=d', shaOrRef])),
+      ...gitOutputAsArray(this.runGraceful(['ls-files', '--others', '--exclude-standard'])),
+    ]));
+  }
+
+  /** Retrieve a list of all files currently staged in the repostitory. */
+  allStagedFiles(): string[] {
+    return gitOutputAsArray(
+        this.runGraceful(['diff', '--name-only', '--diff-filter=ACM', '--staged']));
+  }
+
+  /** Retrieve a list of all files tracked in the repostitory. */
+  allFiles(): string[] {
+    return gitOutputAsArray(this.runGraceful(['ls-files']));
+  }
+
   /**
    * Assert the GitClient instance is using a token with permissions for the all of the
    * provided OAuth scopes.
@@ -216,4 +319,29 @@ export class GitClient {
       return scopes.split(',').map(scope => scope.trim());
     });
   }
+
+  private determineBaseDir() {
+    this.setVerboseLoggingState(false);
+    const {stdout, stderr, status} = this.runGraceful(['rev-parse', '--show-toplevel']);
+    if (status !== 0) {
+      throw Error(
+          `Unable to find the path to the base directory of the repository.\n` +
+          `Was the command run from inside of the repo?\n\n` +
+          `ERROR:\n ${stderr}`);
+    }
+    this.setVerboseLoggingState(true);
+    return stdout.trim();
+  }
+}
+
+/**
+ * Takes the output from `GitClient.run` and `GitClient.runGraceful` and returns an array of strings
+ * for each new line. Git commands typically return multiple output values for a command a set of
+ * strings separated by new lines.
+ *
+ * Note: This is specifically created as a locally available function for usage as convenience
+ * utility within `GitClient`'s methods to create outputs as array.
+ */
+function gitOutputAsArray(gitCommandResult: SpawnSyncReturns<string>): string[] {
+  return gitCommandResult.stdout.split('\n').map(x => x.trim()).filter(x => !!x);
 }

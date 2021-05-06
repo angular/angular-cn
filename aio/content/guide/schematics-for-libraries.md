@@ -78,9 +78,9 @@ The following steps will define this type of schematic.
 
 `ng add` 命令的原理图可以增强用户的初始安装过程。可以按如下步骤定义这种原理图。
 
-1. Go to the <lib-root>/schematics/ng-add/ folder.
+1. Go to the `<lib-root>/schematics/ng-add/` folder.
 
-   进入 <lib-root>/schematics/ng-add/ 目录。
+   进入 `<lib-root>/schematics/ng-add/` 目录。
 
 1. Create the main file, `index.ts`.
 
@@ -118,9 +118,9 @@ Possible values are:
 
 可能的值有：
 
-  * `false` - Don't add the package to package.json
+  * `false` - Don't add the package to `package.json`
 
-     `false` - 不把此包添加到 package.json
+     `false` - 不把此包添加到 `package.json`
 
   * `true` - Add the package to the dependencies
 
@@ -165,7 +165,7 @@ To tell the library how to build the schematics, add a `tsconfig.schematics.json
 
 * The `rootDir` specifies that your `schematics/` folder contains the input files to be compiled.
 
-  `rootDir` 指出在你的 `schematics/` 文件夹中包含要编译的输入文件。
+    `rootDir` 指出在你的 `schematics/` 文件夹中包含要编译的输入文件。
 
 * The `outDir` maps to the library's output folder. By default, this is the `dist/my-lib` folder at the root of your workspace.
 
@@ -362,10 +362,10 @@ For details of these data structures and syntax, see the [Schematics README](htt
 <code-example header="projects/my-lib/schematics/my-service/index.ts (Initial Rule)" path="schematics-for-libraries/projects/my-lib/schematics/my-service/index.1.ts" region="factory">
 </code-example>
 
-This simple rule factory returns the tree without modification.
+This rule factory returns the tree without modification.
 The options are the option values passed through from the `ng generate` command.
 
-这个简单的规则工厂返回树而不做任何修改。这些选项都是从 `ng generate` 命令传过来的选项值。
+这个规则工厂返回树而不做任何修改。这些选项都是从 `ng generate` 命令传过来的选项值。
 
 ## Define a generation rule
 
@@ -400,14 +400,14 @@ The `Tree` methods give you access to the complete file tree in your workspace, 
 <code-example header="projects/my-lib/schematics/my-service/index.ts (Schema Import)" path="schematics-for-libraries/projects/my-lib/schematics/my-service/index.ts" region="workspace">
 </code-example>
 
-* Be sure to check that the context exists and throw the appropriate error.
+ Be sure to check that the context exists and throw the appropriate error.
 
   一定要检查此上下文是否存在，并抛出相应的错误。
 
-1. The `WorkspaceDefinition`, `extensions` property includes a `defaultProject` value for determining which project to use if not provided.
+1. The `workspace.extensions` property includes a `defaultProject` value for determining which project to use if not provided.
    We will use that value as a fallback, if no project is explicitly specified in the `ng generate` command.
 
-   此 `WorkspaceDefinition` 的 `extensions` 属性中包含一个 `defaultProject` 值，用来确定如果没有提供该参数，要使用哪个项目。如果 `ng generate` 命令中没有明确指定任何项目，我们就会把它作为后备值。
+   此 `workspace.extensions` 属性中包含一个 `defaultProject` 值，用来确定如果没有提供该参数，要使用哪个项目。如果 `ng generate` 命令中没有明确指定任何项目，我们就会把它作为后备值。
 
 <code-example header="projects/my-lib/schematics/my-service/index.ts (Default Project)" path="schematics-for-libraries/projects/my-lib/schematics/my-service/index.ts" region="project-fallback">
 </code-example>
@@ -419,9 +419,9 @@ The `Tree` methods give you access to the complete file tree in your workspace, 
 <code-example header="projects/my-lib/schematics/my-service/index.ts (Project)" path="schematics-for-libraries/projects/my-lib/schematics/my-service/index.ts" region="project-info">
 </code-example>
 
-   The `workspace projects` object contains all the project-specific configuration information.
+   The `workspace.projects` object contains all the project-specific configuration information.
 
-   `workspace projects` 对象包含指定项目的全部配置信息。
+   此 `workspace.projects` 对象包含指定项目的全部配置信息。
 
 1. The `options.path` determines where the schematic template files are moved to once the schematic is applied.
 
@@ -482,11 +482,11 @@ A `Rule` can use external template files, transform them, and return another `Ru
 </code-example>
 
   The `chain()` method allows you to combine multiple rules into a single rule, so that you can perform multiple operations in a single schematic.
-  Here you are only merging the template rules with any code executed by the schematic.
+    Here you are only merging the template rules with any code executed by the schematic.
 
-  `chain()` 方法允许你把多个规则组合到一个规则中，这样就可以在一个原理图中执行多个操作。这里你只是把模板规则和原理图要执行的代码合并在一起。
+  该 `chain()` 方法允许你把多个规则组合到一个规则中，这样就可以在一个原理图中执行多个操作。这里你只是把模板规则和原理图要执行的代码合并在一起。
 
-See a complete exampled of the schematic rule function.
+See a complete example of the schematic rule function below.
 
 请看原理图规则函数的一个完整例子。
 
@@ -558,7 +558,7 @@ ng generate my-lib:my-service --name my-data
 
 </code-example>
 
-In the console, you will see that the schematic was run and the `my-data.service.ts` file was created in your app folder.
+In the console, you will see that the schematic was run and the `my-data.service.ts` file was created in your application folder.
 
 在控制台中，你会看到原理图已经运行过了，`my-data.service.ts` 文件被创建在了你的 app 文件夹中。
 

@@ -88,7 +88,7 @@ The `home` and `about` paths are associated with the `HomeComponent` and `AboutC
 
 `home` 和 `about` 路径分别关联着 `HomeComponent` 和 `AboutComponent` 视图。该路由配置告诉 Angular 路由器当导航匹配了相应的路径时，就实例化 `HomeComponent` 和 `AboutComponent` 视图。
 
-In addition to `path` and `component`, the `data` property of each route defines the key animation-specific configuration associated with a route. The `data` property value is passed into `AppComponent` when the route changes. You can also pass additional data in route config that is consumed within the animation. The data property value has to match the transitions defined in the `routeAnimation` trigger, which we'll define later.
+In addition to `path` and `component`, the `data` property of each route defines the key animation-specific configuration associated with a route. The `data` property value is passed into `AppComponent` when the route changes. You can also pass additional data in route configuration that is consumed within the animation. The data property value has to match the transitions defined in the `routeAnimation` trigger, which we'll define later.
 
 除了 `path`、`component` 之外，每个路由定义中的 `data` 属性也定义了与此路由有关的动画配置。当路由变化时，`data` 属性的值就会传给 `AppComponent`。你还可以在路由配置中传递其它的值供路由的动画使用。`data` 属性的值必须满足 `routeAnimation` 中定义的转场动画的要求，稍后我们就会定义它。
 

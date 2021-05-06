@@ -79,8 +79,8 @@ Each section of the configuration file is described below.
 
 ## `appData`
 
-This section enables you to pass any data you want that describes this particular version of the app.
-The `SwUpdate` service includes that data in the update notifications. Many apps use this section to provide additional information for the display of UI popups, notifying users of the available update.
+This section enables you to pass any data you want that describes this particular version of the application.
+The `SwUpdate` service includes that data in the update notifications. Many applications use this section to provide additional information for the display of UI popups, notifying users of the available update.
 
 本节允许你传递用来描述这个特定应用版本的任何数据。
 `SwUpdate` 服务会在更新通知中包含这些数据。
@@ -96,7 +96,7 @@ Specifies the file that serves as the index page to satisfy navigation requests.
 
 ## `assetGroups`
 
-*Assets* are resources that are part of the app version that update along with the app. They can include resources loaded from the page's origin as well as third-party resources loaded from CDNs and other external URLs. As not all such external URLs may be known at build time, URL patterns can be matched.
+*Assets* are resources that are part of the application version that update along with the application. They can include resources loaded from the page's origin as well as third-party resources loaded from CDNs and other external URLs. As not all such external URLs may be known at build time, URL patterns can be matched.
 
 *资产（Assets）*是与应用一起更新的应用版本的一部分。
 它们可以包含从页面的同源地址加载的资源以及从 CDN 和其它外部 URL 加载的第三方资源。
@@ -173,7 +173,7 @@ The `installMode` determines how these resources are initially cached. The `inst
 
 `installMode` 决定了这些资源最初的缓存方式。`installMode` 可以取如下两个值之一：
 
-* `prefetch` tells the Angular service worker to fetch every single listed resource while it's caching the current version of the app. This is bandwidth-intensive but ensures resources are available whenever they're requested, even if the browser is currently offline.
+* `prefetch` tells the Angular service worker to fetch every single listed resource while it's caching the current version of the application. This is bandwidth-intensive but ensures resources are available whenever they're requested, even if the browser is currently offline.
 
    `prefetch` 告诉 Angular Service Worker 在缓存当前版本的应用时要获取每一个列出的资源。
   这是个带宽密集型的模式，但可以确保这些资源在请求时可用，即使浏览器正处于离线状态。
@@ -190,7 +190,7 @@ Defaults to `prefetch`.
 
 ### `updateMode`
 
-For resources already in the cache, the `updateMode` determines the caching behavior when a new version of the app is discovered. Any resources in the group that have changed since the previous version are updated in accordance with `updateMode`.
+For resources already in the cache, the `updateMode` determines the caching behavior when a new version of the application is discovered. Any resources in the group that have changed since the previous version are updated in accordance with `updateMode`.
 
 对于已经存在于缓存中的资源，`updateMode` 会决定在发现了新版本应用后的缓存行为。
 自上一版本以来更改过的所有组中资源都会根据 `updateMode` 进行更新。
@@ -219,7 +219,7 @@ This section describes the resources to cache, broken up into the following grou
    `files` 列出了与 `dist` 目录中的文件相匹配的模式。它们可以是单个文件也可以是能匹配多个文件的类似 glob 的模式。
 
 * `urls` includes both URLs and URL patterns that will be matched at runtime. These resources are not fetched directly and do not have content hashes, but they will be cached according to their HTTP headers. This is most useful for CDNs such as the Google Fonts service.<br>
-  _(Negative glob patterns are not supported and `?` will be matched literally; i.e. it will not match any character other than `?`.)_
+  _(Negative glob patterns are not supported and `?` will be matched literally; that is, it will not match any character other than `?`.)_
 
    `urls` 包括要在运行时进行匹配的 URL 和 URL 模式。
   这些资源不是直接获取的，也没有内容散列，但它们会根据 HTTP 标头进行缓存。
@@ -238,7 +238,7 @@ These options are used to modify the matching behavior of requests. They are pas
 
 ## `dataGroups`
 
-Unlike asset resources, data requests are not versioned along with the app. They're cached according to manually-configured policies that are more useful for situations such as API requests and other data dependencies.
+Unlike asset resources, data requests are not versioned along with the application. They're cached according to manually-configured policies that are more useful for situations such as API requests and other data dependencies.
 
 与这些资产性（asset）资源不同，数据请求不会随应用一起版本化。
 它们会根据手动配置的策略进行缓存，这些策略对 API 请求和所依赖的其它数据等情况会更有用。
@@ -319,7 +319,7 @@ A list of URL patterns. URLs that match these patterns are cached according to t
 
 ### `version`
 
-Occasionally APIs change formats in a way that is not backward-compatible. A new version of the app may not be compatible with the old API format and thus may not be compatible with existing cached resources from that API.
+Occasionally APIs change formats in a way that is not backward-compatible. A new version of the application may not be compatible with the old API format and thus may not be compatible with existing cached resources from that API.
 
 API 有时可能会以不向后兼容的方式更改格式。
 新版本的应用可能与旧的 API 格式不兼容，因此也就与该 API 中目前已缓存的资源不兼容。
@@ -437,10 +437,9 @@ This will essentially do the following:
 
    首先尝试从网络上获取。
 
-2. If the network request does not complete after 0ms (i.e. immediately), fall back to the cache (ignoring cache age).
+2. If the network request does not complete after 0ms (that is, immediately), fall back to the cache (ignoring cache age).
 
    如果网络请求没有在 0ms 内（也就是立刻）完成，就用缓存做为后备（忽略缓存有效期）。
-
 3. Once the network request completes, update the cache for future requests.
 
    一旦网络请求完成，就更新缓存，以供将来的请求使用。
@@ -487,7 +486,7 @@ By default, these criteria are:
 
 默认情况下，这些条件是：
 
-1. The URL must not contain a file extension (i.e. a `.`) in the last path segment.
+1. The URL must not contain a file extension (that is, a `.`) in the last path segment.
 
    URL 的最后一段路径中不能包含文件扩展名（比如 `.`）。
 
@@ -511,7 +510,7 @@ While these default criteria are fine in most cases, it is sometimes desirable t
 
 虽然这些默认条件在大多数情况下都挺好用，不过有时还是要配置一些不同的规则。比如，你可能希望忽略一些特定的路由（它们可能不是 Angular 应用的一部分），而是把它们透传给服务器。
 
-This field contains an array of URLs and [glob-like](#glob-patterns) URL patterns that will be matched at runtime. It can contain both negative patterns (i.e. patterns starting with `!`) and non-negative patterns and URLs.
+This field contains an array of URLs and [glob-like](#glob-patterns) URL patterns that will be matched at runtime. It can contain both negative patterns (that is, patterns starting with `!`) and non-negative patterns and URLs.
 
 该字段包含一个将要在运行期间匹配的 URL 和 [类似 glob 的](#glob-patterns) URL 模式。
 它既可以包含正向模式也可以包含反向模式（比如用 `!` 开头的模式）。

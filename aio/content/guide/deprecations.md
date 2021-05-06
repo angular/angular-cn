@@ -53,6 +53,7 @@ v12 - v15
 | 区域 | API 或特性 | 可能会在什么时候移除 |
 | `@angular/common` | [`ReflectiveInjector`](#reflectiveinjector) | <!--v8--> v11 |
 | `@angular/common`             | [`CurrencyPipe` - `DEFAULT_CURRENCY_CODE`](api/common/CurrencyPipe#currency-code-deprecation) | <!--v9--> v11 |
+| `@angular/common/http`        | [`XhrFactory`](api/common/http/XhrFactory)                                    | <!--v12--> v15 |
 | `@angular/core` | [`DefaultIterableDiffer`](#core) | <!--v7--> v11 |
 | `@angular/core` | [`ReflectiveKey`](#core) | <!--v8--> v11 |
 | `@angular/core` | [`RenderComponentType`](#core) | <!--v7--> v11 |
@@ -111,6 +112,14 @@ Tip: In the [API reference section](api) of this doc site, deprecated APIs are i
 | [`CurrencyPipe` - `DEFAULT_CURRENCY_CODE`](api/common/CurrencyPipe#currency-code-deprecation) | `{provide: DEFAULT_CURRENCY_CODE, useValue: 'USD'}` | v9                    | From v11 the default code will be extracted from the locale data given by `LOCAL_ID`, rather than `USD`. |
 | [`CurrencyPipe` - `DEFAULT_CURRENCY_CODE`](api/common/CurrencyPipe#currency-code-deprecation) | `{provide: DEFAULT_CURRENCY_CODE, useValue: 'USD'}` | v9                    |  从 v11 开始，默认代码将从由 `LOCAL_ID` 提供的本地环境数据中提取，而不再是固定值 `USD`。|
 
+{@a common-http}
+### @angular/common/http
+
+| API                                          | Replacement                          | Deprecation announced | Notes |
+| -------------------------------------------- | ------------------------------------ | --------------------- | ----- |
+| [`XhrFactory`](api/common/http/XhrFactory)   | `XhrFactory` in `@angular/common`    | v12                   | The `XhrFactory` has moved from `@angular/common/http` to `@angular/common`. |
+
+
 {@a core}
 ### @angular/core
 
@@ -119,8 +128,8 @@ Tip: In the [API reference section](api) of this doc site, deprecated APIs are i
 | API | 替代品 | 宣布弃用 | 备注 |
 | [`DefaultIterableDiffer`](api/core/DefaultIterableDiffer) | n/a | v4 | Not part of public API. |
 | [`DefaultIterableDiffer`](api/core/DefaultIterableDiffer) | 不适用 | v4 | 不属于公共 API。|
-| [`ReflectiveInjector`](api/core/ReflectiveInjector) | [`Injector.create`](api/core/Injector#create) | v5 | See [`ReflectiveInjector`](#reflectiveinjector) |
-| [`ReflectiveInjector`](api/core/ReflectiveInjector) | [`Injector.create`](api/core/Injector#create) | v5 | 参阅 [`ReflectiveInjector`](#reflectiveinjector) |
+| [`ReflectiveInjector`](api/core/ReflectiveInjector) | `{@link Injector#create Injector.create()}` | v5 | See [`ReflectiveInjector`](#reflectiveinjector) |
+| [`ReflectiveInjector`](api/core/ReflectiveInjector) | `{@link Injector#create Injector.create()}` | v5 | 参阅 [`ReflectiveInjector`](#reflectiveinjector) |
 | [`ReflectiveKey`](api/core/ReflectiveKey) | none | v5 | none |
 | [`ReflectiveKey`](api/core/ReflectiveKey) | 无 | v5 | 无 |
 | [`defineInjectable`](api/core/defineInjectable) | `ɵɵdefineInjectable` | v8 | Used only in generated code. No source code should depend on this API. |
@@ -635,9 +644,6 @@ This section contains a complete list all of the currently deprecated CLI flags.
 
 | API/Option                      | May be removed in | Notes                                                                           |
 | ------------------------------- | ----------------- |-------------------------------------------------------------------------------- |
-| API/选项 | 可能删除于 | 备注 |
-| `entryComponent`                | <!--v9--> v12     | No longer needed with Ivy.                                                      |
-| `entryComponent`                | <!--v9--> v12     | Ivy 中不再需要了。                                                     |
 | `lintFix`                       | <!--v11--> v12    | Deprecated as part of TSLint deprecation.                                      |
 | `lintFix`                       | <!--v11--> v12    | 作为 TSLint 的一部分而被弃用。                                      |
 

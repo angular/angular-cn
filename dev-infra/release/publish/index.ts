@@ -8,10 +8,11 @@
 
 import {ListChoiceOptions, prompt} from 'inquirer';
 
+import {spawnWithDebugOutput} from '../../utils/child-process';
 import {GithubConfig} from '../../utils/config';
 import {debug, error, info, log, promptConfirm, red, yellow} from '../../utils/console';
 import {GitClient} from '../../utils/git/index';
-import {ReleaseConfig} from '../config';
+import {ReleaseConfig} from '../config/index';
 import {ActiveReleaseTrains, fetchActiveReleaseTrains, nextBranchName} from '../versioning/active-release-trains';
 import {npmIsLoggedIn, npmLogin, npmLogout} from '../versioning/npm-publish';
 import {printActiveReleaseTrains} from '../versioning/print-active-trains';
@@ -28,14 +29,14 @@ export enum CompletionState {
 }
 
 export class ReleaseTool {
-  /** Client for interacting with the Github API and the local Git command. */
-  private _git = new GitClient(this._githubToken, {github: this._github}, this._projectRoot);
+  /** The singleton instance of the GitClient. */
+  private _git = GitClient.getAuthenticatedInstance();
   /** The previous git commit to return back to after the release tool runs. */
   private previousGitBranchOrRevision = this._git.getCurrentBranchOrRevision();
 
   constructor(
       protected _config: ReleaseConfig, protected _github: GithubConfig,
-      protected _githubToken: string, protected _projectRoot: string) {}
+      protected _projectRoot: string) {}
 
   /** Runs the interactive release tool. */
   async run(): Promise<CompletionState> {
@@ -45,7 +46,8 @@ export class ReleaseTool {
     log(yellow('--------------------------------------------'));
     log();
 
-    if (!await this._verifyNoUncommittedChanges() || !await this._verifyRunningFromNextBranch()) {
+    if (!await this._verifyEnvironmentHasPython3Symlink() ||
+        !await this._verifyNoUncommittedChanges() || !await this._verifyRunningFromNextBranch()) {
       return CompletionState.FATAL_ERROR;
     }
 
@@ -128,6 +130,38 @@ export class ReleaseTool {
   }
 
   /**
+   * Verifies that Python can be resolved within scripts and points to a compatible version. Python
+   * is required in Bazel actions as there can be tools (such as `skydoc`) that rely on it.
+   * @returns a boolean indicating success or failure.
+   */
+  private async _verifyEnvironmentHasPython3Symlink(): Promise<boolean> {
+    try {
+      // Note: We do not rely on `/usr/bin/env` but rather access the `env` binary directly as it
+      // should be part of the shell's `$PATH`. This is necessary for compatibility with Windows.
+      const pyVersion =
+          await spawnWithDebugOutput('env', ['python', '--version'], {mode: 'silent'});
+      const version = pyVersion.stdout.trim() || pyVersion.stderr.trim();
+      if (version.startsWith('Python 3.')) {
+        debug(`Local python version: ${version}`);
+        return true;
+      }
+      error(red(`  ✘   \`/usr/bin/python\` is currently symlinked to "${version}", please update`));
+      error(red('      the symlink to link instead to Python3'));
+      error();
+      error(red('      Googlers: please run the following command to symlink python to python3:'));
+      error(red('        sudo ln -s /usr/bin/python3 /usr/bin/python'));
+      return false;
+    } catch {
+      error(red('  ✘   `/usr/bin/python` does not exist, please ensure `/usr/bin/python` is'));
+      error(red('      symlinked to Python3.'));
+      error();
+      error(red('      Googlers: please run the following command to symlink python to python3:'));
+      error(red('        sudo ln -s /usr/bin/python3 /usr/bin/python'));
+    }
+    return false;
+  }
+
+  /**
    * Verifies that the next branch from the configured repository is checked out.
    * @returns a boolean indicating success or failure.
    */
@@ -150,6 +184,17 @@ export class ReleaseTool {
    */
   private async _verifyNpmLoginState(): Promise<boolean> {
     const registry = `NPM at the ${this._config.publishRegistry ?? 'default NPM'} registry`;
+    // TODO(josephperrott): remove wombat specific block once wombot allows `npm whoami` check to
+    // check the status of the local token in the .npmrc file.
+    if (this._config.publishRegistry?.includes('wombat-dressing-room.appspot.com')) {
+      info('Unable to determine NPM login state for wombat proxy, requiring login now.');
+      try {
+        await npmLogin(this._config.publishRegistry);
+      } catch {
+        return false;
+      }
+      return true;
+    }
     if (await npmIsLoggedIn(this._config.publishRegistry)) {
       debug(`Already logged into ${registry}.`);
       return true;

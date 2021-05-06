@@ -109,7 +109,7 @@ For example, `@ng-bootstrap/schematics` adds [ng-bootstrap](https://ng-bootstrap
 合作伙伴和第三方库也可以通过添加原理图来支持 Angular CLI。例如，`@ng-bootstrap/schematics` 会把 [ng-bootstrap](https://ng-bootstrap.github.io/) 添加到应用中，`@clr/angular` 会安装并设置 [VMWare 的 Clarity](https://vmware.github.io/clarity/documentation/v1.0/get-started)。
 
 An add schematic can also update a project with configuration changes, add additional dependencies (such as polyfills), or scaffold package-specific initialization code.
-For example, the `@angular/pwa` schematic turns your application into a PWA by adding an app manifest and service worker, and the `@angular/elements`  schematic adds the `document-register-element.js` polyfill and dependencies for Angular Elements.
+For example, the `@angular/pwa` schematic turns your application into a PWA by adding an application manifest and service worker, and the `@angular/elements`  schematic adds the `document-register-element.js` polyfill and dependencies for Angular Elements.
 
 "添加原理图" 还可以通过更改配置、添加额外依赖（比如腻子脚本），或者添加程序包特有的初始化代码来修改项目。例如，`@angular/pwa` 原理图会通过添加一个应用清单（manifest）和 Service Worker，来把你的应用变成一个 PWA，`@angular/elements` 原理图添加了 `document-register-element.js` 腻子脚本和 Angular Elelments 的依赖项。
 

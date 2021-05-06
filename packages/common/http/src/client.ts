@@ -879,6 +879,7 @@ export class HttpClient {
           {[param: string]: string | number | boolean | ReadonlyArray<string|number|boolean>},
     reportProgress?: boolean, responseType: 'arraybuffer',
     withCredentials?: boolean,
+    body?: any|null,
   }): Observable<ArrayBuffer>;
 
 
@@ -909,6 +910,7 @@ export class HttpClient {
           {[param: string]: string | number | boolean | ReadonlyArray<string|number|boolean>},
     reportProgress?: boolean, responseType: 'blob',
     withCredentials?: boolean,
+    body?: any|null,
   }): Observable<Blob>;
 
   /**
@@ -938,6 +940,7 @@ export class HttpClient {
           {[param: string]: string | number | boolean | ReadonlyArray<string|number|boolean>},
     reportProgress?: boolean, responseType: 'text',
     withCredentials?: boolean,
+    body?: any|null,
   }): Observable<string>;
 
   /**
@@ -967,6 +970,7 @@ export class HttpClient {
           {[param: string]: string | number | boolean | ReadonlyArray<string|number|boolean>},
     reportProgress?: boolean, responseType: 'arraybuffer',
     withCredentials?: boolean,
+    body?: any|null
   }): Observable<HttpEvent<ArrayBuffer>>;
 
   /**
@@ -996,6 +1000,7 @@ export class HttpClient {
           {[param: string]: string | number | boolean | ReadonlyArray<string|number|boolean>},
     reportProgress?: boolean, responseType: 'blob',
     withCredentials?: boolean,
+    body?: any|null,
   }): Observable<HttpEvent<Blob>>;
 
   /**
@@ -1025,6 +1030,7 @@ export class HttpClient {
           {[param: string]: string | number | boolean | ReadonlyArray<string|number|boolean>},
     reportProgress?: boolean, responseType: 'text',
     withCredentials?: boolean,
+    body?: any|null,
   }): Observable<HttpEvent<string>>;
 
   /**
@@ -1055,6 +1061,7 @@ export class HttpClient {
     reportProgress?: boolean,
     responseType?: 'json',
     withCredentials?: boolean,
+    body?: any|null,
   }): Observable<HttpEvent<Object>>;
 
   /**
@@ -1085,6 +1092,7 @@ export class HttpClient {
     reportProgress?: boolean,
     responseType?: 'json',
     withCredentials?: boolean,
+    body?: any|null,
   }): Observable<HttpEvent<T>>;
 
   /**
@@ -1113,6 +1121,7 @@ export class HttpClient {
           {[param: string]: string | number | boolean | ReadonlyArray<string|number|boolean>},
     reportProgress?: boolean, responseType: 'arraybuffer',
     withCredentials?: boolean,
+    body?: any|null,
   }): Observable<HttpResponse<ArrayBuffer>>;
 
   /**
@@ -1141,6 +1150,7 @@ export class HttpClient {
           {[param: string]: string | number | boolean | ReadonlyArray<string|number|boolean>},
     reportProgress?: boolean, responseType: 'blob',
     withCredentials?: boolean,
+    body?: any|null,
   }): Observable<HttpResponse<Blob>>;
 
   /**
@@ -1169,6 +1179,7 @@ export class HttpClient {
           {[param: string]: string | number | boolean | ReadonlyArray<string|number|boolean>},
     reportProgress?: boolean, responseType: 'text',
     withCredentials?: boolean,
+    body?: any|null,
   }): Observable<HttpResponse<string>>;
 
   /**
@@ -1198,6 +1209,7 @@ export class HttpClient {
     reportProgress?: boolean,
     responseType?: 'json',
     withCredentials?: boolean,
+    body?: any|null,
   }): Observable<HttpResponse<Object>>;
 
   /**
@@ -1227,6 +1239,7 @@ export class HttpClient {
     reportProgress?: boolean,
     responseType?: 'json',
     withCredentials?: boolean,
+    body?: any|null,
   }): Observable<HttpResponse<T>>;
 
   /**
@@ -1257,6 +1270,7 @@ export class HttpClient {
     reportProgress?: boolean,
     responseType?: 'json',
     withCredentials?: boolean,
+    body?: any|null,
   }): Observable<Object>;
 
   /**
@@ -1287,6 +1301,7 @@ export class HttpClient {
     reportProgress?: boolean,
     responseType?: 'json',
     withCredentials?: boolean,
+    body?: any|null,
   }): Observable<T>;
 
   /**
@@ -1314,6 +1329,7 @@ export class HttpClient {
     reportProgress?: boolean,
     responseType?: 'arraybuffer'|'blob'|'json'|'text',
     withCredentials?: boolean,
+    body?: any|null,
   } = {}): Observable<any> {
     return this.request<any>('DELETE', url, options as any);
   }

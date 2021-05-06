@@ -62,7 +62,7 @@ describe(browser.baseUrl, () => {
 
     describe('(api docs pages)', () => {
       const textPerUrl: { [key: string]: string } = {
-        /* Class */ 'api/core/Injector': 'class injector',
+        /* Class */ 'api/core/Injector-0': 'class injector',
         /* Const */ 'api/forms/NG_VALIDATORS': 'const ng_validators',
         /* Decorator */ 'api/core/Component': '@component',
         /* Directive */ 'api/common/NgIf': 'class ngif',
@@ -103,11 +103,10 @@ describe(browser.baseUrl, () => {
     });
 
     it('should show relevant results on 404', async () => {
-      await page.goTo('http/router');
+      await page.goTo('common/http');
       const results = await page.getSearchResults();
 
-      expect(results).toContain('HttpClient');
-      expect(results).toContain('Router');
+      expect(results).toContain('common/http package');
     });
   });
 });

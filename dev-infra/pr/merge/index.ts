@@ -7,7 +7,7 @@
  */
 
 
-import {getConfig, getRepoBaseDir} from '../../utils/config';
+import {getConfig} from '../../utils/config';
 import {error, green, info, promptConfirm, red, yellow} from '../../utils/console';
 import {GithubApiRequestError} from '../../utils/git/github';
 import {GITHUB_TOKEN_GENERATE_URL} from '../../utils/git/github-urls';
@@ -25,17 +25,14 @@ import {MergeResult, MergeStatus, PullRequestMergeTask, PullRequestMergeTaskFlag
  * See {@link GithubApiMergeStrategy} and {@link AutosquashMergeStrategy}
  *
  * @param prNumber Number of the pull request that should be merged.
- * @param githubToken Github token used for merging (i.e. fetching and pushing)
- * @param projectRoot Path to the local Git project that is used for merging.
- * @param config Configuration for merging pull requests.
+ * @param flags Configuration options for merging pull requests.
  */
-export async function mergePullRequest(
-    prNumber: number, githubToken: string, flags: PullRequestMergeTaskFlags) {
+export async function mergePullRequest(prNumber: number, flags: PullRequestMergeTaskFlags) {
   // Set the environment variable to skip all git commit hooks triggered by husky. We are unable to
   // rely on `--no-verify` as some hooks still run, notably the `prepare-commit-msg` hook.
   process.env['HUSKY'] = '0';
 
-  const api = await createPullRequestMergeTask(githubToken, flags);
+  const api = await createPullRequestMergeTask(flags);
 
   // Perform the merge. Force mode can be activated through a command line flag.
   // Alternatively, if the merge fails with non-fatal failures, the script
@@ -123,14 +120,14 @@ export async function mergePullRequest(
 }
 
 /**
- * Creates the pull request merge task from the given Github token, project root
- * and optional explicit configuration. An explicit configuration can be specified
- * when the merge script is used outside of a `ng-dev` configured repository.
+ * Creates the pull request merge task using the given configuration options. Explicit configuration
+ * options can be specified when the merge script is used outside of an `ng-dev` configured
+ * repository.
  */
-async function createPullRequestMergeTask(githubToken: string, flags: PullRequestMergeTaskFlags) {
-  const projectRoot = getRepoBaseDir();
+async function createPullRequestMergeTask(flags: PullRequestMergeTaskFlags) {
   const devInfraConfig = getConfig();
-  const git = new GitClient(githubToken, devInfraConfig, projectRoot);
+  /** The singleton instance of the GitClient. */
+  const git = GitClient.getAuthenticatedInstance();
   const {config, errors} = await loadAndValidateConfig(devInfraConfig, git.github);
 
   if (errors) {

@@ -4199,10 +4199,6 @@ But first, make a few changes to the `AppRoutingModule`.
 
    把 `PreloadAllModules` 策略替换成对 `forRoot()` 的调用，并且传入这个 `SelectivePreloadingStrategyService`。
 
-1. Add the `SelectivePreloadingStrategyService` strategy to the `AppRoutingModule` providers array so you can inject it elsewhere in the app.
-
-   把 `SelectivePreloadingStrategyService` 策略添加到 `AppRoutingModule` 的 `providers` 数组中，以便它可以注入到应用中的任何地方。
-
 Now edit the `AdminDashboardComponent` to display the log of preloaded routes.
 
 现在，编辑 `AdminDashboardComponent` 以显示这些预加载路由的日志。

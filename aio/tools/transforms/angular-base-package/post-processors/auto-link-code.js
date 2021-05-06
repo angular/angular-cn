@@ -55,7 +55,7 @@ module.exports = function autoLinkCode(getDocFromAlias) {
           const index = parent.children.indexOf(node);
 
           // Can we convert the whole text node into a doc link?
-          const docs = getDocFromAlias(node.value);
+          const docs = getFilteredDocsFromAlias([node.value], 0);
           if (foundValidDoc(docs, node.value, file)) {
             parent.children.splice(index, 1, createLinkNode(docs[0], node.value));
           } else {
@@ -63,6 +63,8 @@ module.exports = function autoLinkCode(getDocFromAlias) {
             const nodes = getNodes(node, file);
             // Replace the text node with the links and leftover text nodes
             Array.prototype.splice.apply(parent.children, [index, 1].concat(nodes));
+            // Do not visit this node's children or the newly added nodes
+            return [visit.SKIP, index + nodes.length];
           }
         });
       });
@@ -87,14 +89,18 @@ module.exports = function autoLinkCode(getDocFromAlias) {
     return ancestors.some(ancestor => is(ancestor, 'a'));
   }
 
+  function getFilteredDocsFromAlias(words, index) {
+    // Remove docs that fail the custom filter tests.
+    return autoLinkCodeImpl.customFilters.reduce(
+        (docs, filter) => filter(docs, words, index), getDocFromAlias(words[index]));
+  }
+
   function getNodes(node, file) {
     return textContent(node)
         .split(/([A-Za-z0-9_.-]+)/)
         .filter(word => word.length)
         .map((word, index, words) => {
-          // remove docs that fail the custom filter tests
-          const filteredDocs = autoLinkCodeImpl.customFilters.reduce(
-              (docs, filter) => filter(docs, words, index), getDocFromAlias(word));
+          const filteredDocs = getFilteredDocsFromAlias(words, index);
 
           return foundValidDoc(filteredDocs, word, file) ?
               // Create a link wrapping the text node.

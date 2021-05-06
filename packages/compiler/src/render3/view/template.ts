@@ -22,7 +22,7 @@ import {LexerRange} from '../../ml_parser/lexer';
 import {isNgContainer as checkIsNgContainer, splitNsName} from '../../ml_parser/tags';
 import {mapLiteral} from '../../output/map_util';
 import * as o from '../../output/output_ast';
-import {ParseError, ParseSourceSpan} from '../../parse_util';
+import {ParseError, ParseSourceFile, ParseSourceSpan} from '../../parse_util';
 import {DomElementSchemaRegistry} from '../../schema/dom_element_schema_registry';
 import {isTrustedTypesSink} from '../../schema/trusted_types_sinks';
 import {CssSelector, SelectorMatcher} from '../../selector';
@@ -875,17 +875,17 @@ export class TemplateDefinitionBuilder implements t.Visitor<void>, LocalResolver
       this.i18n.appendTemplate(template.i18n!, templateIndex);
     }
 
-    const tagName = sanitizeIdentifier(template.tagName || '');
-    const contextName = `${this.contextName}${tagName ? '_' + tagName : ''}_${templateIndex}`;
+    const tagNameWithoutNamespace =
+        template.tagName ? splitNsName(template.tagName)[1] : template.tagName;
+    const contextName = `${this.contextName}${
+        template.tagName ? '_' + sanitizeIdentifier(template.tagName) : ''}_${templateIndex}`;
     const templateName = `${contextName}_Template`;
-
     const parameters: o.Expression[] = [
       o.literal(templateIndex),
       o.variable(templateName),
-
       // We don't care about the tag's namespace here, because we infer
       // it based on the parent nodes inside the template instruction.
-      o.literal(template.tagName ? splitNsName(template.tagName)[1] : template.tagName),
+      o.literal(tagNameWithoutNamespace),
     ];
 
     // find directives matching on a given <ng-template> node
@@ -937,7 +937,7 @@ export class TemplateDefinitionBuilder implements t.Visitor<void>, LocalResolver
     this.templatePropertyBindings(templateIndex, template.templateAttrs);
 
     // Only add normal input/output binding instructions on explicit <ng-template> elements.
-    if (template.tagName === NG_TEMPLATE_TAG_NAME) {
+    if (tagNameWithoutNamespace === NG_TEMPLATE_TAG_NAME) {
       const [i18nInputs, inputs] =
           partitionArray<t.BoundAttribute, t.BoundAttribute>(template.inputs, hasI18nMeta);
 
@@ -2082,6 +2082,7 @@ export interface ParseTemplateOptions {
    * `$localize` message id format and you are not using compile time translation merging.
    */
   enableI18nLegacyMessageIdFormat?: boolean;
+
   /**
    * If this text is stored in an external template (e.g. via `templateUrl`) then we need to decide
    * whether or not to normalize the line-endings (from `\r\n` to `\n`) when processing ICU
@@ -2091,11 +2092,6 @@ export interface ParseTemplateOptions {
    * The default is `false`, but this will be switched in a future major release.
    */
   i18nNormalizeLineEndingsInICUs?: boolean;
-
-  /**
-   * Whether the template was inline.
-   */
-  isInline?: boolean;
 
   /**
    * Whether to always attempt to convert the parsed HTML AST to an R3 AST, despite HTML or i18n
@@ -2134,7 +2130,6 @@ export interface ParseTemplateOptions {
 export function parseTemplate(
     template: string, templateUrl: string, options: ParseTemplateOptions = {}): ParsedTemplate {
   const {interpolationConfig, preserveWhitespaces, enableI18nLegacyMessageIdFormat} = options;
-  const isInline = options.isInline ?? false;
   const bindingParser = makeBindingParser(interpolationConfig);
   const htmlParser = new HtmlParser();
   const parseResult = htmlParser.parse(
@@ -2146,9 +2141,6 @@ export function parseTemplate(
     const parsedTemplate: ParsedTemplate = {
       interpolationConfig,
       preserveWhitespaces,
-      template,
-      templateUrl,
-      isInline,
       errors: parseResult.errors,
       nodes: [],
       styleUrls: [],
@@ -2177,9 +2169,6 @@ export function parseTemplate(
     const parsedTemplate: ParsedTemplate = {
       interpolationConfig,
       preserveWhitespaces,
-      template,
-      templateUrl,
-      isInline,
       errors: i18nMetaResult.errors,
       nodes: [],
       styleUrls: [],
@@ -2215,14 +2204,12 @@ export function parseTemplate(
     interpolationConfig,
     preserveWhitespaces,
     errors: errors.length > 0 ? errors : null,
-    template,
-    templateUrl,
-    isInline,
     nodes,
     styleUrls,
     styles,
     ngContentSelectors
   };
+
   if (options.collectCommentNodes) {
     parsedTemplate.commentNodes = commentNodes;
   }
@@ -2383,29 +2370,6 @@ export interface ParsedTemplate {
    * How to parse interpolation markers.
    */
   interpolationConfig?: InterpolationConfig;
-
-  /**
-   * The string contents of the template, or an expression that represents the string/template
-   * literal as it occurs in the source.
-   *
-   * This is the "logical" template string, after expansion of any escaped characters (for inline
-   * templates). This may differ from the actual template bytes as they appear in the .ts file.
-   */
-  template: string|o.Expression;
-
-  /**
-   * A full path to the file which contains the template.
-   *
-   * This can be either the original .ts file if the template is inline, or the .html file if an
-   * external file was used.
-   */
-  templateUrl: string;
-
-  /**
-   * Whether the template was inline (using `template`) or external (using `templateUrl`).
-   */
-  isInline: boolean;
-
   /**
    * Any errors from parsing the template the first time.
    *

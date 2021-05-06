@@ -23,7 +23,7 @@ Before fully deploying your application, you can test the process, build configu
 ### 从磁盘构建和提供服务
 
 During development, you typically use the `ng serve` command to build, watch, and serve the application from local memory, using [webpack-dev-server](https://webpack.js.org/guides/development/#webpack-dev-server).
-When you are ready to deploy, however, you must use the `ng build` command to build the app and deploy the build artifacts elsewhere.
+When you are ready to deploy, however, you must use the `ng build` command to build the application and deploy the build artifacts elsewhere.
 
 在开发过程中，你通常会使用 `ng serve` 命令来借助 [webpack-dev-server](https://webpack.js.org/guides/development/#webpack-dev-server) 在本地内存中构建、监控和提供服务。但是，当你打算部署它时，就必须使用 `ng build` 命令来构建应用并在其它地方部署这些构建成果。
 
@@ -125,7 +125,7 @@ In the table below, you can find a list of packages which implement deployment f
 | [NPM](https://npmjs.com/)                                     | [`ngx-deploy-npm`](https://npmjs.org/package/ngx-deploy-npm)                   |
 | [Amazon Cloud S3](https://aws.amazon.com/s3/?nc2=h_ql_prod_st_s3) | [`@jefiozie/ngx-aws-deploy`](https://www.npmjs.com/package/@jefiozie/ngx-aws-deploy) |
 
-If you're deploying to a self-managed server or there's no builder for your favorite cloud platform, you can either create a builder that allows you to use the `ng deploy` command, or read through this guide to learn how to manually deploy your app.
+If you're deploying to a self-managed server or there's no builder for your favorite cloud platform, you can either create a builder that allows you to use the `ng deploy` command, or read through this guide to learn how to manually deploy your application.
 
 如果要部署到自己管理的服务器上，或者缺少针对你喜欢的云平台的构建器，则可以创建支持你使用 `ng deploy` 命令的构建器，或者通读本指南以了解如何手动部署应用程序。
 
@@ -171,8 +171,8 @@ To deploy your Angular application to [GitHub Pages](https://help.github.com/art
 
    为你的项目[创建一个 GitHub Pages 仓库](https://help.github.com/articles/what-is-github-pages/)。
 
-1. Configure `git` in your local project by adding a remote that specifies the GitHub repo you created in previous step.
-  GitHub provides these commands when you create the repo so that you can copy and paste them at your command prompt.
+1. Configure `git` in your local project by adding a remote that specifies the GitHub repository you created in previous step.
+  GitHub provides these commands when you create the repository so that you can copy and paste them at your command prompt.
   The commands should be similar to the following, though GitHub fills in your project-specific settings for you:
 
   ```sh
@@ -238,14 +238,14 @@ This section covers changes you may have to make to the server or to files deplo
 
 ### 带路由的应用必须以 `index.html` 作为后备页面
 
-Angular apps are perfect candidates for serving with a simple static HTML server.
+Angular applications are perfect candidates for serving with a simple static HTML server.
 You don't need a server-side engine to dynamically compose application pages because
 Angular does that on the client-side.
 
 Angular 应用很适合用简单的静态 HTML 服务器提供服务。
 你不需要服务端引擎来动态合成应用页面，因为 Angular 会在客户端完成这件事。
 
-If the app uses the Angular router, you must configure the server
+If the application uses the Angular router, you must configure the server
 to return the application's host page (`index.html`) when asked for a file that it does not have.
 
 如果该应用使用 Angular 路由器，你就必须配置服务器，让它对不存在的文件返回应用的宿主页(`index.html`)。
@@ -253,7 +253,7 @@ to return the application's host page (`index.html`) when asked for a file that 
 {@a deep-link}
 
 A routed application should support "deep links".
-A _deep link_ is a URL that specifies a path to a component inside the app.
+A _deep link_ is a URL that specifies a path to a component inside the application.
 For example, `http://www.mysite.com/heroes/42` is a _deep link_ to the hero detail page
 that displays the hero with `id: 42`.
 
@@ -372,7 +372,7 @@ modified to serve `index.html`:
 [directly configure](https://github.com/isaacs/github/issues/408)
 the GitHub Pages server, but you can add a 404 page.
 Copy `index.html` into `404.html`.
-It will still be served as the 404 response, but the browser will process that page and load the app properly.
+It will still be served as the 404 response, but the browser will process that page and load the application properly.
 It's also a good idea to
 [serve from `docs/` on master](https://help.github.com/articles/configuring-a-publishing-source-for-github-pages/#publishing-your-github-pages-site-from-a-docs-folder-on-your-master-branch)
 and to
@@ -462,7 +462,7 @@ See [`ng build`](cli/build) for more about CLI build options and what they do.
 
 ### 启用生产模式
 
-In addition to build optimizations, Angular also has a runtime production mode. Angular apps run in development mode by default, as you can see by the following message on the browser console:
+In addition to build optimizations, Angular also has a runtime production mode. Angular applications run in development mode by default, as you can see by the following message on the browser console:
 
 除了构建期优化之外，Angular 还支持运行期生产模式。Angular 应用默认运行在开发模式下，你可以在浏览器的控制台中看到如下信息：
 
@@ -484,7 +484,7 @@ runtime production mode.
 ### 惰性加载
 
 You can dramatically reduce launch time by only loading the application modules that
-absolutely must be present when the app starts.
+absolutely must be present when the application starts.
 
 通过只加载应用启动时绝对必须的那些模块，你可以极大缩短应用启动的时间。
 
@@ -502,7 +502,7 @@ them on demand.
 <header>不要急性（eagerly）导入来自惰性加载模块中的任何东西</header>
 
 If you mean to lazy-load a module, be careful not to import it
-in a file that's eagerly loaded when the app starts (such as the root `AppModule`).
+in a file that's eagerly loaded when the application starts (such as the root `AppModule`).
 If you do that, the module will be loaded immediately.
 
 如果要惰性加载某个模块，就要小心别在应用启动时要急性加载的模块（比如根模块 `AppModule`）中导入它。
@@ -535,8 +535,8 @@ CLI 会运行 [Angular Ahead-of-Time Webpack 插件](https://github.com/angular/
 You can make better decisions about what to optimize and how when you have a clear and accurate understanding of
 what's making the application slow.
 The cause may not be what you think it is.
-You can waste a lot of time and money optimizing something that has no tangible benefit or even makes the app slower.
-You should measure the app's actual behavior when running in the environments that are important to you.
+You can waste a lot of time and money optimizing something that has no tangible benefit or even makes the application slower.
+You should measure the application's actual behavior when running in the environments that are important to you.
 
 如果你对哪些东西拖慢了应用有更加清晰、精确的了解，就可以更好地决定优化什么以及如何优化。
 慢的原因可能和你所想的不一样。
@@ -578,7 +578,7 @@ Install `source-map-explorer`:
 
 </code-example>
 
-Build your app for production _including the source maps_
+Build your application for production _including the source maps_
 
 为生产环境构建应用，包括源码映射表（source map）
 
@@ -615,7 +615,7 @@ showing exactly which classes are included in the bundle.
 
 `source-map-explorer` 会分析与包一起生成的 source map，并画出所有依赖的地图，精确展示哪些类包含在哪个包中。
 
-Here's the output for the _main_ bundle of an example app called `cli-quickstart`.
+Here's the output for the _main_ bundle of an example application called `cli-quickstart`.
 
 下面是范例应用 `cli-quickstart` 中 `main` 包的输出。
 
@@ -650,19 +650,19 @@ See also the [*APP_BASE_HREF*](api/common/APP_BASE_HREF "API: APP_BASE_HREF") al
 </div>
 
 In development, you typically start the server in the folder that holds `index.html`.
-That's the root folder and you'd add `<base href="/">` near the top of `index.html` because `/` is the root of the app.
+That's the root folder and you'd add `<base href="/">` near the top of `index.html` because `/` is the root of the application.
 
 在开发期间，你通常会在存有 `index.html` 的目录下启动开发服务器。
 那就是根目录，你要在 `index.html` 的顶部附近添加 `<base href="/">`，因为 `/` 就是该应用的根路径。
 
-But on the shared or production server, you might serve the app from a subfolder.
-For example, when the URL to load the app is something like `http://www.mysite.com/my/app/`,
+But on the shared or production server, you might serve the application from a subfolder.
+For example, when the URL to load the application is something like `http://www.mysite.com/my/app/`,
 the subfolder is `my/app/` and you should add `<base href="/my/app/">` to the server version of the `index.html`.
 
 但是在共享或生产服务器上，你可能会在子目录下启动服务器。
 比如，当前应用的加载地址可能类似于 `http://www.mysite.com/my/app/`，这里的子目录就是 `my/app/`。所以你就要往服务端版本的 `index.html` 中添加 `<base href="/my/app/">`。
 
-When the `base` tag is mis-configured, the app fails to load and the browser console displays `404 - Not Found` errors
+When the `base` tag is mis-configured, the application fails to load and the browser console displays `404 - Not Found` errors
 for the missing files. Look at where it _tried_ to find those files and adjust the base tag appropriately.
 
 这里如果不配置 `base` 标签，应用就会失败，并在浏览器的控制台中为缺失的文件显示一个 `404 - Not Found` 错误。看看它*试图*从哪里去查找那些文件，并据此调整 base 标签。
@@ -943,7 +943,7 @@ In `angular.json` add two new configuration sections under the `build` and `serv
 
 </code-example>
 
-You can then run the `ng serve` command with this configuration. Make sure to replace `<app-name>` (in `"<app-name>:build:es5"`) with the actual name of the app, as it appears under `projects` in `angular.json`. For example, if your app name is `myAngularApp` the config will become `"browserTarget": "myAngularApp:build:es5"`.
+You can then run the `ng serve` command with this configuration. Make sure to replace `<app-name>` (in `"<app-name>:build:es5"`) with the actual name of the app, as it appears under `projects` in `angular.json`. For example, if your application name is `myAngularApp` the configuration will become `"browserTarget": "myAngularApp:build:es5"`.
 
 然后，你可以使用此配置运行 `ng serve` 命令。务必确保将 `<app-name>`（在 `"<app-name>:build:es5"` 中）替换为应用程序的实际名称，因为它也会出现在 `angular.json` 的 `projects` 中。例如，如果你的应用程序名称为 `myAngularApp` 则配置要变成 `"browserTarget": "myAngularApp:build:es5"`。
 
@@ -997,42 +997,5 @@ You can then run the tests with this configuration
 <code-example language="none" class="code-shell">
 
 ng test --configuration es5
-
-</code-example>
-
-### Configuring the e2e command
-
-### 配置 `e2e` 命令
-
-Create an [ES5 serve configuration](guide/deployment#configuring-serve-for-es5) as explained above, and configuration an ES5 configuration for the E2E target.
-
-如上所述创建 [ES5 serve 配置](guide/deployment#configuring-serve-for-es5)，并为 E2E 目标配置上 ES5 配置。
-
-<code-example language="json">
-
-"e2e": {
-  "builder": "@angular-devkit/build-angular:protractor",
-  "options": {
-      ...
-  },
-  "configurations": {
-	  "production": {
-		  ...
-	  },
-    "es5": {
-      "devServerTarget": "&lt;app-name&gt;:serve:es5"
-    }
-  }
-},
-
-</code-example>
-
-You can then run the `ng e2e` command with this configuration. Make sure to replace `<app-name>` (in `"<app-name>:serve:es5"`) with the actual name of the app, as it appears under `projects` in `angular.json`. For example, if your app name is `myAngularApp` the config will become `"devServerTarget": "myAngularApp:serve:es5"`.
-
-然后，你就可以使用此配置运行 `ng e2e` 命令了。务必确保将 `<app-name>`（在 `"<app-name>:serve:es5"` 中）替换为应用程序的实际名称，因为它也出现在 `angular.json` 的 `projects` 中。例如，如果你的应用程序名称为 `myAngularApp` 则配置要变成 `"devServerTarget": "myAngularApp:serve:es5"`。
-
-<code-example language="none" class="code-shell">
-
-ng e2e --configuration es5
 
 </code-example>

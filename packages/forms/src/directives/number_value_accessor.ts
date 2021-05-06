@@ -55,29 +55,6 @@ export const NUMBER_VALUE_ACCESSOR: any = {
 export class NumberValueAccessor extends BuiltInControlValueAccessor implements
     ControlValueAccessor {
   /**
-   * The registered callback function called when a change or input event occurs on the input
-   * element.
-   *
-   * 在此 input 元素上发生 change 或 input 事件时要调用的已注册回调函数。
-   *
-   * @nodoc
-   */
-  onChange = (_: any) => {};
-
-  /**
-   * The registered callback function called when a blur event occurs on the input element.
-   *
-   * 当此 input 元素上发生 blur 事件时，调用已注册的回调函数。
-   *
-   * @nodoc
-   */
-  onTouched = () => {};
-
-  constructor(private _renderer: Renderer2, private _elementRef: ElementRef) {
-    super();
-  }
-
-  /**
    * Sets the "value" property on the input element.
    *
    * 在此 input 元素上设置 “value” 属性。
@@ -87,7 +64,7 @@ export class NumberValueAccessor extends BuiltInControlValueAccessor implements
   writeValue(value: number): void {
     // The value needs to be normalized for IE9, otherwise it is set to 'null' when null
     const normalizedValue = value == null ? '' : value;
-    this._renderer.setProperty(this._elementRef.nativeElement, 'value', normalizedValue);
+    this.setProperty('value', normalizedValue);
   }
 
   /**
@@ -101,27 +78,5 @@ export class NumberValueAccessor extends BuiltInControlValueAccessor implements
     this.onChange = (value) => {
       fn(value == '' ? null : parseFloat(value));
     };
-  }
-
-  /**
-   * Registers a function called when the control is touched.
-   *
-   * 注册控件被接触过时要调用的函数。
-   *
-   * @nodoc
-   */
-  registerOnTouched(fn: () => void): void {
-    this.onTouched = fn;
-  }
-
-  /**
-   * Sets the "disabled" property on the input element.
-   *
-   * 在此 input 元素上设置 “disabled” 属性。
-   *
-   * @nodoc
-   */
-  setDisabledState(isDisabled: boolean): void {
-    this._renderer.setProperty(this._elementRef.nativeElement, 'disabled', isDisabled);
   }
 }

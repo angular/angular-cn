@@ -338,10 +338,9 @@ You can also write `<link>` tags into the component's HTML template.
 
 <div class="alert is-critical">
 
-When building with the CLI, be sure to include the linked style file among the assets to be copied to the server as described in the [CLI wiki](https://github.com/angular/angular-cli/wiki/stories-asset-configuration).
-<!-- 2018-10-16: The link above is still the best source for this information. -->
+When building with the CLI, be sure to include the linked style file among the assets to be copied to the server as described in the [Assets configuration guide](guide/workspace-config#assets-configuration).
 
-当使用 CLI 进行构建时，要确保这个链接到的样式表文件被复制到了服务器上。参阅 [CLI 官方文档](https://github.com/angular/angular-cli/wiki/stories-asset-configuration)。
+当使用 CLI 进行构建时，要确保这个链接到的样式表文件被复制到了服务器上。参阅[资产文件配置指南](guide/workspace-config#assets-configuration)。
 
 Once included, the CLI will include the stylesheet, whether the link tag's href URL is relative to the application root or the component file.
 
@@ -379,10 +378,9 @@ Register **global** style files in the `styles` section which, by default, is pr
 
 在它的 `styles` 区注册这些**全局**样式文件，默认情况下，它会有一个预先配置的全局 `styles.css` 文件。
 
-See the [CLI wiki](https://github.com/angular/angular-cli/wiki/stories-global-styles) to learn more.
-<!-- 2018-10-16: The link above is still the best source for this information. -->
+See the [Styles configuration guide](guide/workspace-config#styles-and-scripts-configuration) to learn more.
 
-要了解更多，参阅 [CLI 官方文档](https://github.com/angular/angular-cli/wiki/stories-global-styles)。
+要了解更多，参阅 [样式配置指南](guide/workspace-config#styles-and-scripts-configuration)。
 
 ### Non-CSS style files
 
@@ -407,14 +405,10 @@ The CLI build process runs the pertinent CSS preprocessor.
 CLI 的构建过程会运行相关的预处理器。
 
 When generating a component file with `ng generate component`, the CLI emits an empty CSS styles file (`.css`) by default.
-You can configure the CLI to default to your preferred CSS preprocessor
-as explained in the [CLI wiki](https://github.com/angular/angular-cli/wiki/stories-css-preprocessors
-"CSS Preprocessor integration").
-<!-- 2018-10-16: The link above is still the best source for this information. -->
+You can configure the CLI to default to your preferred CSS preprocessor as explained in the [Workspace configuration guide](guide/workspace-config#generation-schematics).
 
 当使用 `ng generate component` 命令生成组件文件时，CLI 会默认生成一个空白的 CSS 样式文件（`.css`）。
-你可以配置 CLI，让它默认使用你喜欢的 CSS 预处理器，参阅 [CLI 官方文档](https://github.com/angular/angular-cli/wiki/stories-css-preprocessors
-                                 "CSS Preprocessor integration") 中的解释。
+你可以配置 CLI，让它默认使用你喜欢的 CSS 预处理器，参阅[工作区配置指南](guide/workspace-config#generation-schematics)中的解释。
 
 <div class="alert is-important">
 

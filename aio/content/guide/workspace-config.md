@@ -178,19 +178,11 @@ The schemas configure options for the following builders.
 Angular 定义了用于特定 CLI 命令或常规 `ng run` 命令的默认构建器。为每个默认构建器定义选项和默认值的 JSON 模式收集在 [`@angular-devkit/build-angular`](https://github.com/angular/angular-cli/blob/master/packages/angular/cli/lib/config/schema.json) 包中。这些架构为以下构建器配置选项。
 
 * app-shell
-
 * browser
-
 * dev-server
-
 * extract-i18n
-
 * karma
-
-* protractor
-
 * server
-
 * tslint
 
 ### Configuring builder targets

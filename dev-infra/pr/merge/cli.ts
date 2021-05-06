@@ -37,11 +37,11 @@ function builder(yargs: Argv) {
 }
 
 /** Handles the command. */
-async function handler({pr, githubToken, branchPrompt}: Arguments<MergeCommandOptions>) {
-  await mergePullRequest(pr, githubToken, {branchPrompt});
+async function handler({pr, branchPrompt}: Arguments<MergeCommandOptions>) {
+  await mergePullRequest(pr, {branchPrompt});
 }
 
-/** yargs command module describing the command.  */
+/** yargs command module describing the command. */
 export const MergeCommandModule: CommandModule<{}, MergeCommandOptions> = {
   handler,
   builder,

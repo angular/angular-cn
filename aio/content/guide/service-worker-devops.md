@@ -2,7 +2,7 @@
 
 # 生产环境下的 Service Worker
 
-This page is a reference for deploying and supporting production apps that use the Angular service worker. It explains how the Angular service worker fits into the larger production environment, the service worker's behavior under various conditions, and available resources and fail-safes.
+This page is a reference for deploying and supporting production applications that use the Angular service worker. It explains how the Angular service worker fits into the larger production environment, the service worker's behavior under various conditions, and available resources and fail-safes.
 
 本页讲的是如何使用 Angular Service Worker 发布和支持生产环境下的应用。
 它解释了 Angular Service Worker 如何满足大规模生产环境的需求、Service Worker 在多种条件下有哪些行为以及有哪些可用的资源和故障保护机制。
@@ -23,7 +23,7 @@ A basic understanding of the following:
 
 ## Service Worker 与应用资源的缓存
 
-Conceptually, you can imagine the Angular service worker as a forward cache or a CDN edge that is installed in the end user's web browser. The service worker's job is to satisfy requests made by the Angular app for resources or data from a local cache, without needing to wait for the network. Like any cache, it has rules for how content is expired and updated.
+Conceptually, you can imagine the Angular service worker as a forward cache or a CDN edge that is installed in the end user's web browser. The service worker's job is to satisfy requests made by the Angular application for resources or data from a local cache, without needing to wait for the network. Like any cache, it has rules for how content is expired and updated.
 
 从概念上说，你可以把 Angular Service Worker 想象成一个转发式缓存或装在最终用户浏览器中的 CDN 边缘。
 Service Worker 的工作是从本地缓存中满足 Angular 应用对资源或数据的请求，而不用等待网络。
@@ -35,7 +35,7 @@ Service Worker 的工作是从本地缓存中满足 Angular 应用对资源或�
 
 ### 应用的版本
 
-In the context of an Angular service worker, a "version" is a collection of resources that represent a specific build of the Angular app. Whenever a new build of the app is deployed, the service worker treats that build as a new version of the app. This is true even if only a single file is updated. At any given time, the service worker may have multiple versions of the app in its cache and it may be serving them simultaneously. For more information, see the [App tabs](guide/service-worker-devops#tabs) section below.
+In the context of an Angular service worker, a "version" is a collection of resources that represent a specific build of the Angular application. Whenever a new build of the application is deployed, the service worker treats that build as a new version of the application. This is true even if only a single file is updated. At any given time, the service worker may have multiple versions of the application in its cache and it may be serving them simultaneously. For more information, see the [App tabs](guide/service-worker-devops#tabs) section below.
 
 在 Angular Service Worker 的语境下，“版本”是指用来表示 Angular 应用的某一次构建成果的一组资源。
 当应用的一个新的构建发布时，Service Worker 就把它看做此应用的一个新版本。
@@ -43,7 +43,7 @@ In the context of an Angular service worker, a "version" is a collection of reso
 在任何一个给定的时间，Service Worker 可能会在它的缓存中拥有此应用的多个版本，这几个版本也都能用于提供服务。
 要了解更多，参阅稍后的 [App 选项卡](guide/service-worker-devops#tabs)。
 
-To preserve app integrity, the Angular service worker groups all files into a version together. The files grouped into a version usually include HTML, JS, and CSS files. Grouping of these files is essential for integrity because HTML, JS, and CSS files frequently refer to each other and depend on specific content. For example, an `index.html` file might have a `<script>` tag that references `bundle.js` and it might attempt to call a function `startApp()` from within that script. Any time this version of `index.html` is served, the corresponding `bundle.js` must be served with it. For example, assume that the `startApp()` function is renamed to `runApp()` in both files. In this scenario, it is not valid to serve the old `index.html`, which calls `startApp()`, along with the new bundle, which defines `runApp()`.
+To preserve application integrity, the Angular service worker groups all files into a version together. The files grouped into a version usually include HTML, JS, and CSS files. Grouping of these files is essential for integrity because HTML, JS, and CSS files frequently refer to each other and depend on specific content. For example, an `index.html` file might have a `<script>` tag that references `bundle.js` and it might attempt to call a function `startApp()` from within that script. Any time this version of `index.html` is served, the corresponding `bundle.js` must be served with it. For example, assume that the `startApp()` function is renamed to `runApp()` in both files. In this scenario, it is not valid to serve the old `index.html`, which calls `startApp()`, along with the new bundle, which defines `runApp()`.
 
 要保持应用的整体性，Angular Service Worker 会用所有的文件共同组成一个版本。
 组成版本的这些文件通常包括 HTML、JS 和 CSS 文件。把这些文件分成一组是至关重要的，因为它们会互相引用，并且依赖于一些特定内容。
@@ -53,15 +53,15 @@ To preserve app integrity, the Angular service worker groups all files into a ve
 
 This file integrity is especially important when lazy loading modules.
 A JS bundle may reference many lazy chunks, and the filenames of the
-lazy chunks are unique to the particular build of the app. If a running
-app at version `X` attempts to load a lazy chunk, but the server has
+lazy chunks are unique to the particular build of the application. If a running
+application at version `X` attempts to load a lazy chunk, but the server has
 updated to version `X + 1` already, the lazy loading operation will fail.
 
 当使用惰性加载模块时，文件的整体性就显得格外重要。
 某个 JS 包可能引用很多惰性块，而这些惰性块的文件名在应用的每次特定的构建中都是唯一的。
 如果运行应用的 `X` 版本视图加载一个惰性块，但该块的服务器已经升级到了 `X + 1` 版本，这次惰性加载操作就会失败。
 
-The version identifier of the app is determined by the contents of all
+The version identifier of the application is determined by the contents of all
 resources, and it changes if any of them change. In practice, the version
 is determined by the contents of the `ngsw.json` file, which includes
 hashes for all known content. If any of the cached files change, the file's
@@ -73,7 +73,7 @@ treat the active set of files as a new version.
 如果任何一个被缓存的文件发生了变化，则该文件的哈希也将在 `ngsw.json` 中随之变化，从而导致 Angular Service Worker 将这个活动文件的集合视为一个新版本。
 
 With the versioning behavior of the Angular service worker, an application
-server can ensure that the Angular app always has a consistent set of files.
+server can ensure that the Angular application always has a consistent set of files.
 
 借助 Angular Service Worker 的这种版本控制行为，应用服务器就可以确保这个 Angular 应用中的这组文件始终保持一致。
 
@@ -82,7 +82,7 @@ server can ensure that the Angular app always has a consistent set of files.
 #### 更新检测
 
 Every time the user opens or refreshes the application, the Angular service worker
-checks for updates to the app by looking for updates to the `ngsw.json` manifest. If
+checks for updates to the application by looking for updates to the `ngsw.json` manifest. If
 an update is found, it is downloaded and cached automatically, and will be served
 the next time the application is loaded.
 
@@ -97,7 +97,7 @@ One of the potential side effects of long caching is inadvertently
 caching an invalid resource. In a normal HTTP cache, a hard refresh
 or cache expiration limits the negative effects of caching an invalid
 file. A service worker ignores such constraints and effectively long
-caches the entire app. Consequently, it is essential that the service worker
+caches the entire application. Consequently, it is essential that the service worker
 gets the correct content.
 
 长周期缓存的潜在副作用之一就是可能无意中缓存了无效的资源。
@@ -107,7 +107,7 @@ gets the correct content.
 
 To ensure resource integrity, the Angular service worker validates
 the hashes of all resources for which it has a hash. Typically for
-an app created with the [Angular CLI](cli), this is everything in the `dist` directory covered by
+an application created with the [Angular CLI](cli), this is everything in the `dist` directory covered by
 the user's `src/ngsw-config.json` configuration.
 
 为了确保资源的整体性，Angular Service Worker 会验证所有带哈希的资源的哈希值。
@@ -117,8 +117,8 @@ If a particular file fails validation, the Angular service worker
 attempts to re-fetch the content using a "cache-busting" URL
 parameter to eliminate the effects of browser or intermediate
 caching. If that content also fails validation, the service worker
-considers the entire version of the app to be invalid and it stops
-serving the app. If necessary, the service worker enters a safe mode
+considers the entire version of the application to be invalid and it stops
+serving the application. If necessary, the service worker enters a safe mode
 where requests fall back on the network, opting not to use its cache
 if the risk of serving invalid, broken, or outdated content is high.
 
@@ -153,7 +153,7 @@ manifest are resources that were present in the `dist`
 directory at the time the manifest was built. Other
 resources, especially those loaded from CDNs, have
 content that is unknown at build time or are updated
-more frequently than the app is deployed.
+more frequently than the application is deployed.
 
 `ngsw.json` 清单中唯一带哈希值的资源就是构建清单时 `dist` 目录中的资源。
 而其它资源，特别是从 CDN 加载的资源，其内容在构建时是未知的，或者会比应用程序部署得更频繁。
@@ -178,18 +178,18 @@ configured lifetimes.
 
 ### App 选项卡
 
-It can be problematic for an app if the version of resources
+It can be problematic for an application if the version of resources
 it's receiving changes suddenly or without warning. See the
 [Versions](guide/service-worker-devops#versions) section above
 for a description of such issues.
 
 如果应用程序的资源版本突然发生了变化或没有给出警告，就可能会有问题。关于这些问题的描述，请参阅前面的 [版本](guide/service-worker-devops#versions) 部分。
 
-The Angular service worker provides a guarantee: a running app
-will continue to run the same version of the app. If another
-instance of the app is opened in a new web browser tab, then
+The Angular service worker provides a guarantee: a running application
+will continue to run the same version of the application. If another
+instance of the application is opened in a new web browser tab, then
 the most current version of the app is served. As a result,
-that new tab can be running a different version of the app
+that new tab can be running a different version of the application
 than the original tab.
 
 Angular Service Worker 会保证：正在运行的应用程序会继续运行和当前应用相同的版本。
@@ -199,15 +199,15 @@ Angular Service Worker 会保证：正在运行的应用程序会继续运行和
 It's important to note that this guarantee is **stronger**
 than that provided by the normal web deployment model. Without
 a service worker, there is no guarantee that code lazily loaded
-later in a running app is from the same version as the initial
-code for the app.
+later in a running application is from the same version as the initial
+code for the application.
 
 值得注意的是，这种担保比普通的 Web 部署模型提供的担保还要**更强一点**。
 如果没有 Service Worker，则不能保证稍后在这个正在运行的应用中惰性加载的代码
 和其初始代码的版本是一样的。
 
 There are a few limited reasons why the Angular service worker
-might change the version of a running app. Some of them are
+might change the version of a running application. Some of them are
 error conditions:
 
 Angular Service Worker 为什么可能会更改运行中的应用的版本有几个有限的原因。
@@ -229,7 +229,7 @@ Angular Service Worker 能知道在任何指定的时刻正在使用哪些版本
 并清除那些没有被任何选项卡使用的版本。
 
 Other reasons the Angular service worker might change the version
-of a running app are normal events:
+of a running application are normal events:
 
 另一些可能导致 Angular Service Worker 在运行期间改变版本的因素是一些正常事件：
 
@@ -237,7 +237,7 @@ of a running app are normal events:
 
    页面被重新加载/刷新。
 
-* The page requests an update be immediately activated via the `SwUpdate` service.
+* The page requests an update be immediately activated using the `SwUpdate` service.
 
    该页面通过 `SwUpdate` 服务请求立即激活这个更新。
 
@@ -252,8 +252,8 @@ fixes and feature improvements.
 Angular Service Worker 是一个运行在 Web 浏览器中的小脚本。
 有时，这个 Service Worker 也可能会需要更新，以修复错误和增强特性。
 
-The Angular service worker is downloaded when the app is first opened
-and when the app is accessed after a period of inactivity. If the
+The Angular service worker is downloaded when the application is first opened
+and when the application is accessed after a period of inactivity. If the
 service worker has changed, the service worker will be updated in the background.
 
 首次打开应用时或在一段非活动时间之后再访问应用程序时，就会下载 Angular Service Worker。如果 Service Worker 发生了变化，Service Worker 就会在后台进行更新。
@@ -262,7 +262,7 @@ Most updates to the Angular service worker are transparent to the
 app&mdash;the old caches are still valid and content is still served
 normally. However, occasionally a bugfix or feature in the Angular
 service worker requires the invalidation of old caches. In this case,
-the app will be refreshed transparently from the network.
+the application will be refreshed transparently from the network.
 
 Angular Service Worker 的大部分更新对应用程序来说都是透明的 - 旧缓存仍然有效，其内容仍然能正常使用。
 但是，在 Angular Service Worker 中可能偶尔会有错误修复或新功能，需要让旧的缓存失效。
@@ -274,8 +274,7 @@ Angular Service Worker 的大部分更新对应用程序来说都是透明的 - 
 
 In some cases, you may want to bypass the service worker entirely and let the browser handle the
 request instead. An example is when you rely on a feature that is currently not supported in service
-workers (e.g.
-[reporting progress on uploaded files](https://github.com/w3c/ServiceWorker/issues/1141)).
+workers (for example, [reporting progress on uploaded files](https://github.com/w3c/ServiceWorker/issues/1141)).
 
 某些情况下，你可能想要完全绕过 Service Worker，转而让浏览器处理请求。比如当你要用到某些 Service Worker 尚不支持的特性时（例如[报告文件上传的进度](https://github.com/w3c/ServiceWorker/issues/1141)）。
 
@@ -355,9 +354,9 @@ There are two possible degraded states:
 有两种可能的降级状态：
 
 * `EXISTING_CLIENTS_ONLY`: the service worker does not have a
-clean copy of the latest known version of the app. Older cached
+clean copy of the latest known version of the application. Older cached
 versions are safe to use, so existing tabs continue to run from
-cache, but new loads of the app will be served from the network.
+cache, but new loads of the application will be served from the network.
 The service worker will try to recover from this state when a new
 version of the application is detected and installed (that is,
 when a new `ngsw.json` is available).
@@ -401,7 +400,7 @@ Latest manifest hash: eea7f5f464f90789b621170af5a569d6be077e5c
 
 ```
 
-This is the SHA1 hash of the most up-to-date version of the app that the service worker knows about.
+This is the SHA1 hash of the most up-to-date version of the application that the service worker knows about.
 
 这是 Service Worker 所知道的应用最新版本的 SHA1 哈希值。
 
@@ -415,7 +414,7 @@ Last update check: never
 
 ```
 
-This indicates the last time the service worker checked for a new version, or update, of the app. `never` indicates that the service worker has never checked for an update.
+This indicates the last time the service worker checked for a new version, or update, of the application. `never` indicates that the service worker has never checked for an update.
 
 这表示 Service Worker 最后一次检查应用程序的新版本或更新的时间。“never” 表示 Service Worker 从未检查过更新。
 
@@ -435,7 +434,7 @@ Clients: 7b79a015-69af-4d3d-9ae6-95ba90c79486, 5bc08295-aaf2-42f3-a4cc-9e4ef9100
 
 ```
 
-In this example, the service worker has one version of the app cached and
+In this example, the service worker has one version of the application cached and
 being used to serve two different tabs. Note that this version hash
 is the "latest manifest hash" listed above. Both clients are on the
 latest version. Each client is listed by its ID from the `Clients`
@@ -588,7 +587,7 @@ may have already encountered the error `The script resource is behind a redirect
 
 重要的是，要记住 Service Worker 无法在重定向后工作。你可能已经遇到过这种错误：`The script resource is behind a redirect, which is disallowed`。
 
-This can be a problem if you have to change your app's location. If you setup
+This can be a problem if you have to change your application's location. If you setup
 a redirect from the old location (for example `example.com`) to the new
 location (for example `www.example.com`) the worker will stop working.
 Also, the redirect won't even trigger for users who are loading the site

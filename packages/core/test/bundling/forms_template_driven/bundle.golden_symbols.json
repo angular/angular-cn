@@ -45,6 +45,9 @@
     "name": "BROWSER_MODULE_PROVIDERS"
   },
   {
+    "name": "BaseControlValueAccessor"
+  },
+  {
     "name": "BrowserDomAdapter"
   },
   {
@@ -237,9 +240,6 @@
     "name": "Injector"
   },
   {
-    "name": "InnerSubscriber"
-  },
-  {
     "name": "IterableChangeRecord_"
   },
   {
@@ -420,9 +420,6 @@
     "name": "Optional"
   },
   {
-    "name": "OuterSubscriber"
-  },
-  {
     "name": "PLATFORM_ID"
   },
   {
@@ -511,6 +508,12 @@
   },
   {
     "name": "SimpleChange"
+  },
+  {
+    "name": "SimpleInnerSubscriber"
+  },
+  {
+    "name": "SimpleOuterSubscriber"
   },
   {
     "name": "SkipSelf"
@@ -637,6 +640,9 @@
   },
   {
     "name": "_testabilityGetter"
+  },
+  {
+    "name": "_wrapInTimeout"
   },
   {
     "name": "addComponentLogic"
@@ -1311,9 +1317,6 @@
     "name": "noop"
   },
   {
-    "name": "noop"
-  },
-  {
     "name": "normalizeValidators"
   },
   {
@@ -1612,6 +1615,9 @@
   },
   {
     "name": "ɵɵelementStart"
+  },
+  {
+    "name": "ɵɵgetInheritedFactory"
   },
   {
     "name": "ɵɵinject"

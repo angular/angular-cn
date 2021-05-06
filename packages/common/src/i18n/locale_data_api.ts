@@ -124,7 +124,7 @@ export enum TranslationWidth {
  * 可用于日期时间格式的字符串宽度。特定的字符宽度是特定于语言环境的。示例中是给 `en-US` 的示例。
  *
  * @see `getLocaleDateFormat()`
- * @see `getLocaleTimeFormat()``
+ * @see `getLocaleTimeFormat()`
  * @see `getLocaleDateTimeFormat()`
  * @see [Internationalization (i18n) Guide](https://angular.io/guide/i18n)
  *

@@ -151,6 +151,15 @@ describe('quick info', () => {
         expect(toText(documentation)).toBe('This Component provides the `test-comp` selector.');
       });
 
+      it('should work for components with bound attributes', () => {
+        const {documentation} = expectQuickInfo({
+          templateOverride: `<t¦est-comp [attr.id]="'1' + '2'" [attr.name]="'myName'"></test-comp>`,
+          expectedSpanText: `<test-comp [attr.id]="'1' + '2'" [attr.name]="'myName'"></test-comp>`,
+          expectedDisplayString: '(component) AppModule.TestComponent'
+        });
+        expect(toText(documentation)).toBe('This Component provides the `test-comp` selector.');
+      });
+
       it('should work for structural directives', () => {
         const {documentation} = expectQuickInfo({
           templateOverride: `<div *¦ngFor="let item of heroes"></div>`,
@@ -553,8 +562,40 @@ describe('quick info', () => {
       expectQuickInfo(
           {templateOverride, expectedSpanText: 'date', expectedDisplayString: '(pipe) DatePipe'});
     });
-  });
 
+    it('should still get quick info if there is an invalid css resource', () => {
+      project = env.addProject('test', {
+        'app.ts': `
+         import {Component, NgModule} from '@angular/core';
+
+         @Component({
+           selector: 'some-cmp',
+           templateUrl: './app.html',
+           styleUrls: ['./does_not_exist'],
+         })
+         export class SomeCmp {
+           myValue!: string;
+         }
+
+         @NgModule({
+           declarations: [SomeCmp],
+         })
+         export class AppModule{
+         }
+       `,
+        'app.html': `{{myValue}}`,
+      });
+      const diagnostics = project.getDiagnosticsForFile('app.ts');
+      expect(diagnostics.length).toBe(1);
+      expect(diagnostics[0].messageText)
+          .toEqual(`Could not find stylesheet file './does_not_exist'.`);
+
+      const template = project.openFile('app.html');
+      template.moveCursorToText('{{myVa¦lue}}');
+      const quickInfo = template.getQuickInfoAtPosition();
+      expect(toText(quickInfo!.displayParts)).toEqual('(property) SomeCmp.myValue: string');
+    });
+  });
 
   function expectQuickInfo(
       {templateOverride, expectedSpanText, expectedDisplayString}:

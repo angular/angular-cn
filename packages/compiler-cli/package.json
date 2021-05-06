@@ -18,21 +18,17 @@
     "canonical-path": "1.0.0",
     "chokidar": "^3.0.0",
     "convert-source-map": "^1.5.1",
-    "dependency-graph": "^0.7.2",
-    "fs-extra": "4.0.2",
+    "dependency-graph": "^0.11.0",
     "magic-string": "^0.25.0",
-    "semver": "^6.3.0",
+    "semver": "^7.0.0",
     "source-map": "^0.6.1",
     "sourcemap-codec": "^1.4.8",
     "tslib": "^2.1.0",
-    "yargs": "^16.2.0"
+    "yargs": "^17.0.0"
   },
   "peerDependencies": {
     "@angular/compiler": "0.0.0-PLACEHOLDER",
     "typescript": ">=4.2.3 <4.3"
-  },
-  "engines": {
-    "node": ">=10.0"
   },
   "repository": {
     "type": "git",
@@ -44,6 +40,9 @@
     "compiler"
   ],
   "license": "MIT",
+  "engines": {
+    "node": "^12.14.1 || ^14.0.0"
+  },
   "bugs": {
     "url": "https://github.com/angular/angular/issues"
   },

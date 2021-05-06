@@ -13,21 +13,13 @@ shelljs.set('-e');
 process.env.CHROME_BIN = require('puppeteer').executablePath();
 
 const AIO_PATH = path.join(__dirname, '../../');
-const SHARED_PATH = path.join(__dirname, '/shared');
 const EXAMPLES_PATH = path.join(AIO_PATH, './content/examples/');
-const PROTRACTOR_CONFIG_FILENAME = path.join(__dirname, './shared/protractor.config.js');
 const SJS_SPEC_FILENAME = 'e2e-spec.ts';
 const CLI_SPEC_FILENAME = 'e2e/src/app.e2e-spec.ts';
 const EXAMPLE_CONFIG_FILENAME = 'example-config.json';
 const DEFAULT_CLI_EXAMPLE_PORT = 4200;
 const DEFAULT_CLI_SPECS_CONCURRENCY = 1;
 const IGNORED_EXAMPLES = [];
-
-const fixmeIvyExamples = [];
-
-if (!argv.viewengine) {
-  IGNORED_EXAMPLES.push(...fixmeIvyExamples);
-}
 
 /**
  * Run Protractor End-to-End Tests for Doc Samples
@@ -42,8 +34,6 @@ if (!argv.viewengine) {
  *  --local to use the locally built Angular packages, rather than versions from npm
  *    Must be used in conjunction with --setup as this is when the packages are copied.
  *    e.g. --setup --local
- *
- *  --viewengine to turn on `ViewEngine` mode
  *
  *  --shard to shard the specs into groups to allow you to run them in parallel
  *    e.g. --shard=0/2 // the even specs: 0, 2, 4, etc
@@ -61,9 +51,8 @@ function runE2e() {
     // Run setup.
     console.log('runE2e: setup boilerplate');
     const installPackagesCommand = `example-use-${argv.local ? 'local' : 'npm'}`;
-    const addBoilerplateCommand = `boilerplate:add${argv.viewengine ? ':viewengine' : ''}`;
     shelljs.exec(`yarn ${installPackagesCommand}`, {cwd: AIO_PATH});
-    shelljs.exec(`yarn ${addBoilerplateCommand}`, {cwd: AIO_PATH});
+    shelljs.exec(`yarn boilerplate:add`, {cwd: AIO_PATH});
   }
 
   const outputFile = path.join(AIO_PATH, './protractor-results.txt');
@@ -182,11 +171,10 @@ function runE2eTestsSystemJS(appDir, outputFile) {
 
   let run = runProtractorSystemJS(appBuildSpawnInfo.promise, appDir, appRunSpawnInfo, outputFile);
 
-  // Only run AOT tests in ViewEngine mode. The current AOT setup does not work in Ivy.
-  // See https://github.com/angular/angular/issues/35989.
-  if (argv.viewengine && fs.existsSync(appDir + '/aot/index.html')) {
+  if (fs.existsSync(appDir + '/aot/index.html')) {
     run = run.then((ok) => ok && runProtractorAoT(appDir, outputFile));
   }
+
   return run;
 }
 
@@ -204,13 +192,7 @@ function runProtractorSystemJS(prepPromise, appDir, appRunSpawnInfo, outputFile)
 
         // Start protractor.
         console.log(`\n\n=========== Running aio example tests for: ${appDir}`);
-        const spawnInfo = spawnExt(
-            'yarn',
-            [
-              'protractor', PROTRACTOR_CONFIG_FILENAME, `--specs=${specFilename}`,
-              '--params.appDir=' + appDir, '--params.outputFile=' + outputFile
-            ],
-            {cwd: SHARED_PATH});
+        const spawnInfo = spawnExt('yarn', [ 'protractor', '--params.outputFile=' + outputFile ], {cwd: appDir});
 
         spawnInfo.proc.stderr.on('data', function(data) {
           transpileError = transpileError || /npm ERR! Exit status 100/.test(data.toString());
@@ -319,14 +301,6 @@ function reportStatus(status, outputFile) {
       .forEach(function(val) {
         log.push('  ' + val);
       });
-
-  if (!argv.viewengine) {
-    log.push('');
-    log.push('Suites ignored due to breakage with Ivy:');
-    fixmeIvyExamples.forEach(function(val) {
-      log.push('  ' + val);
-    });
-  }
 
   log.push('');
   log.push('Suites passed:');

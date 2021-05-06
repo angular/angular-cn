@@ -302,10 +302,10 @@ whose `nativeElement` property exposes the DOM element for the directive to mani
 
 Angular 把构造函数参数 `el` 设置为注入的 `ElementRef`，该 `ElementRef` 代表了宿主的 DOM 元素，它的 `nativeElement` 属性把该 DOM 元素暴露给了指令。
 
-The sample code applies the directive's `myHighlight` attribute to two `<div>` tags,
+The sample code applies the directive's `appHighlight` attribute to two `<div>` tags,
 first without a value (yielding the default color) and then with an assigned color value.
 
-下面的代码把指令的 `myHighlight` 属性(Attribute)填加到两个 `<div>` 标签里，一个没有赋值，一个赋值了颜色。
+下面的代码把指令的 `appHighlight` 属性(Attribute)填加到两个 `<div>` 标签里，一个没有赋值，一个赋值了颜色。
 
 <code-example path="dependency-injection-in-action/src/app/app.component.html" region="highlight" header="src/app/app.component.html (highlight)"></code-example>
 

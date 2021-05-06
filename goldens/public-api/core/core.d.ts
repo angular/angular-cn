@@ -159,11 +159,11 @@ export declare interface ConstructorSansProvider {
 export declare type ContentChild = Query;
 
 export declare interface ContentChildDecorator {
-    (selector: Type<any> | InjectionToken<unknown> | Function | string, opts?: {
+    (selector: ProviderToken<unknown> | Function | string, opts?: {
         read?: any;
         static?: boolean;
     }): any;
-    new (selector: Type<any> | InjectionToken<unknown> | Function | string, opts?: {
+    new (selector: ProviderToken<unknown> | Function | string, opts?: {
         read?: any;
         static?: boolean;
     }): ContentChild;
@@ -172,12 +172,12 @@ export declare interface ContentChildDecorator {
 export declare type ContentChildren = Query;
 
 export declare interface ContentChildrenDecorator {
-    (selector: Type<any> | InjectionToken<unknown> | Function | string, opts?: {
+    (selector: ProviderToken<unknown> | Function | string, opts?: {
         descendants?: boolean;
         emitDistinctChangesOnly?: boolean;
         read?: any;
     }): any;
-    new (selector: Type<any> | InjectionToken<unknown> | Function | string, opts?: {
+    new (selector: ProviderToken<unknown> | Function | string, opts?: {
         descendants?: boolean;
         emitDistinctChangesOnly?: boolean;
         read?: any;
@@ -448,7 +448,7 @@ export declare class InjectionToken<T> {
 }
 
 export declare abstract class Injector {
-    abstract get<T>(token: Type<T> | AbstractType<T> | InjectionToken<T>, notFoundValue?: T, flags?: InjectFlags): T;
+    abstract get<T>(token: ProviderToken<T>, notFoundValue?: T, flags?: InjectFlags): T;
     /** @deprecated */ abstract get(token: any, notFoundValue?: any): any;
     static NULL: Injector;
     static THROW_IF_NOT_FOUND: {};
@@ -680,16 +680,8 @@ export declare function ɵɵdefineInjectable<T>(opts: {
 }): unknown;
 
 /** @codeGenApi */
-export declare function ɵɵinject<T>(token: Type<T> | AbstractType<T> | InjectionToken<T>): T;
-export declare function ɵɵinject<T>(token: Type<T> | AbstractType<T> | InjectionToken<T>, flags?: InjectFlags): T | null;
-
-/** @codeGenApi */
-export declare interface ɵɵInjectableDef<T> {
-    factory: (t?: Type<any>) => T;
-    providedIn: InjectorType<any> | 'root' | 'platform' | 'any' | null;
-    token: unknown;
-    value: T | undefined;
-}
+export declare function ɵɵinject<T>(token: ProviderToken<T>): T;
+export declare function ɵɵinject<T>(token: ProviderToken<T>, flags?: InjectFlags): T | null;
 
 /** @codeGenApi */
 export declare function ɵɵinjectAttribute(attrNameToInject: string): string | null;
@@ -732,6 +724,8 @@ export declare interface Predicate<T> {
 }
 
 export declare type Provider = TypeProvider | ValueProvider | ClassProvider | ConstructorProvider | ExistingProvider | FactoryProvider | any[];
+
+export declare type ProviderToken<T> = Type<T> | AbstractType<T> | InjectionToken<T>;
 
 export declare interface Query {
     descendants: boolean;
@@ -997,11 +991,11 @@ export declare const VERSION: Version;
 export declare type ViewChild = Query;
 
 export declare interface ViewChildDecorator {
-    (selector: Type<any> | InjectionToken<unknown> | Function | string, opts?: {
+    (selector: ProviderToken<unknown> | Function | string, opts?: {
         read?: any;
         static?: boolean;
     }): any;
-    new (selector: Type<any> | InjectionToken<unknown> | Function | string, opts?: {
+    new (selector: ProviderToken<unknown> | Function | string, opts?: {
         read?: any;
         static?: boolean;
     }): ViewChild;
@@ -1010,11 +1004,11 @@ export declare interface ViewChildDecorator {
 export declare type ViewChildren = Query;
 
 export declare interface ViewChildrenDecorator {
-    (selector: Type<any> | InjectionToken<unknown> | Function | string, opts?: {
+    (selector: ProviderToken<unknown> | Function | string, opts?: {
         read?: any;
         emitDistinctChangesOnly?: boolean;
     }): any;
-    new (selector: Type<any> | InjectionToken<unknown> | Function | string, opts?: {
+    new (selector: ProviderToken<unknown> | Function | string, opts?: {
         read?: any;
         emitDistinctChangesOnly?: boolean;
     }): ViewChildren;

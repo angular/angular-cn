@@ -109,24 +109,6 @@ export class SelectMultipleControlValueAccessor extends BuiltInControlValueAcces
   _idCounter: number = 0;
 
   /**
-   * The registered callback function called when a change event occurs on the input element.
-   *
-   * 在输入元素上发生 change 事件时调用的已注册回调函数。
-   *
-   * @nodoc
-   */
-  onChange = (_: any) => {};
-
-  /**
-   * The registered callback function called when a blur event occurs on the input element.
-   *
-   * 当输入元素上发生 blur 事件时，调用的已注册回调函数。
-   *
-   * @nodoc
-   */
-  onTouched = () => {};
-
-  /**
    * @description
    * Tracks the option comparison algorithm for tracking identities when
    * checking for changes.
@@ -143,10 +125,6 @@ export class SelectMultipleControlValueAccessor extends BuiltInControlValueAcces
   }
 
   private _compareWith: (o1: any, o2: any) => boolean = Object.is;
-
-  constructor(private _renderer: Renderer2, private _elementRef: ElementRef) {
-    super();
-  }
 
   /**
    * Sets the "value" property on one or of more of the select's options.
@@ -205,28 +183,6 @@ export class SelectMultipleControlValueAccessor extends BuiltInControlValueAcces
       this.value = selected;
       fn(selected);
     };
-  }
-
-  /**
-   * Registers a function called when the control is touched.
-   *
-   * 注册控件被接触过时要调用的函数。
-   *
-   * @nodoc
-   */
-  registerOnTouched(fn: () => any): void {
-    this.onTouched = fn;
-  }
-
-  /**
-   * Sets the "disabled" property on the select input element.
-   *
-   * 在 select 输入元素上设置 “disabled” 属性。
-   *
-   * @nodoc
-   */
-  setDisabledState(isDisabled: boolean): void {
-    this._renderer.setProperty(this._elementRef.nativeElement, 'disabled', isDisabled);
   }
 
   /** @internal */

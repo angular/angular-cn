@@ -24,6 +24,18 @@ const DIR_WITH_INPUT = {
   `
 };
 
+const DIR_WITH_UNION_TYPE_INPUT = {
+  'Dir': `
+    @Directive({
+      selector: '[dir]',
+      inputs: ['myInput']
+    })
+    export class Dir {
+      myInput!: 'foo'|42|null|undefined
+    }
+  `
+};
+
 const DIR_WITH_OUTPUT = {
   'Dir': `
     @Directive({
@@ -203,6 +215,18 @@ describe('completions', () => {
       const completions = templateFile.getCompletionsAtPosition();
       expectContain(completions, ts.ScriptElementKind.memberVariableElement, ['title']);
     });
+
+    it('should return completions of string literals, number literals, `true`, `false`, `null` and `undefined`',
+       () => {
+         const {templateFile} = setup(`<input dir [myInput]="">`, '', DIR_WITH_UNION_TYPE_INPUT);
+         templateFile.moveCursorToText('dir [myInput]="¦">');
+
+         const completions = templateFile.getCompletionsAtPosition();
+         expectContain(completions, ts.ScriptElementKind.string, [`'foo'`, '42']);
+         expectContain(completions, ts.ScriptElementKind.keyword, ['null']);
+         expectContain(completions, ts.ScriptElementKind.variableElement, ['undefined']);
+         expectDoesNotContain(completions, ts.ScriptElementKind.parameterElement, ['ctx']);
+       });
   });
 
   describe('in an expression scope', () => {
@@ -308,11 +332,11 @@ describe('completions', () => {
           ['div', 'span']);
     });
 
-    it('should return DOM completions', () => {
+    it('should not return DOM completions for inline template', () => {
       const {appFile} = setupInlineTemplate(`<div>`, '');
       appFile.moveCursorToText('<div¦>');
       const completions = appFile.getCompletionsAtPosition();
-      expectContain(
+      expectDoesNotContain(
           completions, unsafeCastDisplayInfoKindToScriptElementKind(DisplayInfoKind.ELEMENT),
           ['div', 'span']);
     });
@@ -431,20 +455,25 @@ describe('completions', () => {
 
     describe('element attribute scope', () => {
       describe('dom completions', () => {
-        it('should not return completions dom completions in external template', () => {
+        it('should return dom property completions in external template', () => {
           const {templateFile} = setup(`<input >`, '');
           templateFile.moveCursorToText('<input ¦>');
 
           const completions = templateFile.getCompletionsAtPosition();
-          expect(completions?.entries.length).toBe(0);
+          expectDoesNotContain(
+              completions, unsafeCastDisplayInfoKindToScriptElementKind(DisplayInfoKind.ATTRIBUTE),
+              ['value']);
+          expectContain(
+              completions, unsafeCastDisplayInfoKindToScriptElementKind(DisplayInfoKind.PROPERTY),
+              ['[value]']);
         });
 
-        it('should return completions for a new element attribute', () => {
+        it('should return completions for a new element property', () => {
           const {appFile} = setupInlineTemplate(`<input >`, '');
           appFile.moveCursorToText('<input ¦>');
 
           const completions = appFile.getCompletionsAtPosition();
-          expectContain(
+          expectDoesNotContain(
               completions, unsafeCastDisplayInfoKindToScriptElementKind(DisplayInfoKind.ATTRIBUTE),
               ['value']);
           expectContain(
@@ -457,7 +486,7 @@ describe('completions', () => {
           appFile.moveCursorToText('<input val¦>');
 
           const completions = appFile.getCompletionsAtPosition();
-          expectContain(
+          expectDoesNotContain(
               completions, unsafeCastDisplayInfoKindToScriptElementKind(DisplayInfoKind.ATTRIBUTE),
               ['value']);
           expectContain(
@@ -477,7 +506,7 @@ describe('completions', () => {
           expectDoesNotContain(
               completions, unsafeCastDisplayInfoKindToScriptElementKind(DisplayInfoKind.PROPERTY),
               ['[value]']);
-          expectContain(
+          expectDoesNotContain(
               completions, unsafeCastDisplayInfoKindToScriptElementKind(DisplayInfoKind.PROPERTY),
               ['value']);
           expectReplacementText(completions, appFile.contents, 'val');
@@ -784,7 +813,7 @@ function setup(
         export class AppCmp {
           ${classContents}
         }
-        
+
         ${otherDirectiveClassDecls}
 
         @NgModule({
@@ -817,7 +846,7 @@ function setupInlineTemplate(
         export class AppCmp {
           ${classContents}
         }
-        
+
         ${otherDirectiveClassDecls}
 
         @NgModule({

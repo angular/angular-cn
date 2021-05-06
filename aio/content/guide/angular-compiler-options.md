@@ -98,6 +98,15 @@ When `true`, use [Tsickle](https://github.com/angular/tsickle) to annotate the e
 
 如果为 `true`，则使用 [Tsickle](https://github.com/angular/tsickle) 来用 [JSDoc](http://usejsdoc.org/) 对生成的 JavaScript 代码进行注解，这些注释是供 [Closure 编译器](https://github.com/google/closure-compiler) 使用的。默认值为 `false`。
 
+### `compilationMode`
+
+Specifies the compilation mode to use. The following modes are available:
+
+- `'full'`: generates fully AOT-compiled code according to the version of Angular that is currently being used.
+- `'partial'`: generates code in a stable, but intermediate form suitable for a published library.
+
+The default value is `'full'`.
+
 ### `disableExpressionLowering`
 
 When `true` (the default), transforms code that is or could be used in an annotation, to allow it to be imported from template factory modules. See [metadata rewriting](guide/aot-compiler#metadata-rewriting) for more information.

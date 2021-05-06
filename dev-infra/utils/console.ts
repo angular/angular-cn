@@ -6,20 +6,20 @@
  * found in the LICENSE file at https://angular.io/license
  */
 
-import chalk from 'chalk';
+import * as chalk from 'chalk';
 import {writeFileSync} from 'fs';
 import {prompt} from 'inquirer';
 import {join} from 'path';
 import {Arguments} from 'yargs';
 
-import {getRepoBaseDir} from './config';
+import {GitClient} from './git/index';
 
 /** Reexport of chalk colors for convenient access. */
-export const red: typeof chalk = chalk.red;
-export const green: typeof chalk = chalk.green;
-export const yellow: typeof chalk = chalk.yellow;
-export const bold: typeof chalk = chalk.bold;
-export const blue: typeof chalk = chalk.blue;
+export const red = chalk.red;
+export const green = chalk.green;
+export const yellow = chalk.yellow;
+export const bold = chalk.bold;
+export const blue = chalk.blue;
 
 /** Prompts the user with a confirmation question and a specified message. */
 export async function promptConfirm(message: string, defaultValue = false): Promise<boolean> {
@@ -143,6 +143,8 @@ export function captureLogOutputForCommand(argv: Arguments) {
   if (FILE_LOGGING_ENABLED) {
     throw Error('`captureLogOutputForCommand` cannot be called multiple times');
   }
+
+  const git = GitClient.getInstance();
   /** The date time used for timestamping when the command was invoked. */
   const now = new Date();
   /** Header line to separate command runs in log files. */
@@ -155,7 +157,7 @@ export function captureLogOutputForCommand(argv: Arguments) {
     LOGGED_TEXT += `Command ran in ${new Date().getTime() - now.getTime()}ms\n`;
     LOGGED_TEXT += `Exit Code: ${code}\n`;
     /** Path to the log file location. */
-    const logFilePath = join(getRepoBaseDir(), '.ng-dev.log');
+    const logFilePath = join(git.baseDir, '.ng-dev.log');
 
     // Strip ANSI escape codes from log outputs.
     LOGGED_TEXT = LOGGED_TEXT.replace(/\x1B\[([0-9]{1,3}(;[0-9]{1,2})?)?[mGK]/g, '');
@@ -167,7 +169,7 @@ export function captureLogOutputForCommand(argv: Arguments) {
     if (code > 1) {
       const logFileName = `.ng-dev.err-${now.getTime()}.log`;
       console.error(`Exit code: ${code}. Writing full log to ${logFileName}`);
-      writeFileSync(join(getRepoBaseDir(), logFileName), LOGGED_TEXT);
+      writeFileSync(join(git.baseDir, logFileName), LOGGED_TEXT);
     }
   });
 

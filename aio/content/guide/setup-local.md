@@ -44,16 +44,16 @@ To install Angular on your local system, you need the following:
 {@a nodejs}
 
 * **Node.js**
-  
-  Angular requires a [current, active LTS, or maintenance LTS](https://nodejs.org/about/releases) version of Node.js.
 
-  Angular 需要 Node.js 的[当前版、活跃 LTS 版或维护期 LTS版](https://nodejs.org/about/releases)。
+  Angular requires an [active LTS or maintenance LTS](https://nodejs.org/about/releases) version of Node.js.
+
+  Angular 需要 Node.js 的[活跃 LTS 版或维护期 LTS版](https://nodejs.org/about/releases)。
 
   <div class="alert is-helpful">
 
-  For information about specific version requirements, see the `engines` key in the [package.json](https://unpkg.com/@angular/cli/package.json) file.
+  For information about specific version requirements, see the `engines` key in the [package.json](https://unpkg.com/browse/@angular/core/package.json) file.
 
-  关于具体版本需求，参阅 [package.json](https://unpkg.com/@angular/cli/package.json) 文件中的 `engines`。
+  关于具体版本需求，参阅 [package.json](https://unpkg.com/browse/@angular/core/package.json) 文件中的 `engines`。
 
   </div>
 
@@ -128,16 +128,6 @@ Angular CLI 会安装必要的 Angular npm 包和其它依赖包。这可能要�
 The CLI creates a new workspace and a simple Welcome app, ready to run.
 
 CLI 会创建一个新的工作区和一个简单的欢迎应用，随时可以运行它。
-
-<div class="alert is-helpful">
-
-You also have the option to use Angular's strict mode, which can help you write better, more maintainable code.
-For more information, see [Strict mode](/guide/strict-mode).
-
-你还可以使用 Angular 的严格模式，他可以帮助你编写更好、更容易维护的代码。
-欲知详情，参阅[严格模式](/guide/strict-mode)。
-
-</div>
 
 {@a serve}
 

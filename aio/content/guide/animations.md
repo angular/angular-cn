@@ -120,7 +120,7 @@ In the component file, add a metadata property called `animations:` within the `
 
 ## 简单转场动画
 
-Let's animate a simple transition that changes a single HTML element from one state to another. For example, you can specify that a button displays either **Open** or **Closed** based on the user's last action. When the button is in the `open` state, it's visible and yellow. When it's the `closed` state, it's transparent and green.
+Let's animate a simple transition that changes a single HTML element from one state to another. For example, you can specify that a button displays either **Open** or **Closed** based on the user's last action. When the button is in the `open` state, it's visible and yellow. When it's in the `closed` state, it's transparent and green.
 
 我们来做一个简单的转场动作，它把单个 HTML 元素从一个状态变成另一个状态。
 比如，你可以指定按钮根据用户的最后一个动作显示成**Open**或**Closed**状态。当按钮处于 `open` 状态时，它是可见的，并且是黄色的。当它处于 `closed` 状态时，它是透明的，并且是绿色的。
@@ -507,9 +507,9 @@ Specifies a group of animation steps (<em>inner animations</em>) to be run in pa
 <td><code>query()</code></td>
 <td>
 
-Use to find one or more inner HTML elements within the current element. 
+Finds one or more inner HTML elements within the current element. 
 
-用于找出当前元素中的一个或多个内部 HTML 元素。
+找出当前元素中的一个或多个内部 HTML 元素。
 
 </td>
 </tr>

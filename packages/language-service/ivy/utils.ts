@@ -121,7 +121,7 @@ function getInlineTemplateInfoAtPosition(
 export function getTemplateInfoAtPosition(
     fileName: string, position: number, compiler: NgCompiler): TemplateInfo|undefined {
   if (isTypeScriptFile(fileName)) {
-    const sf = compiler.getNextProgram().getSourceFile(fileName);
+    const sf = compiler.getCurrentProgram().getSourceFile(fileName);
     if (sf === undefined) {
       return undefined;
     }
@@ -171,7 +171,7 @@ function getFirstComponentForTemplateFile(fileName: string, compiler: NgCompiler
  * Given an attribute node, converts it to string form.
  */
 function toAttributeString(attribute: t.TextAttribute|t.BoundAttribute|t.BoundEvent): string {
-  if (attribute instanceof t.BoundEvent) {
+  if (attribute instanceof t.BoundEvent || attribute instanceof t.BoundAttribute) {
     return `[${attribute.name}]`;
   } else {
     return `[${attribute.name}=${attribute.valueSpan?.toString() ?? ''}]`;
