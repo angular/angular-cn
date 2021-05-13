@@ -90,8 +90,8 @@ To install the Angular CLI, open a terminal window and run the following command
 
 要使用 `npm` 命令安装 CLI，请打开终端/控制台窗口，输入如下命令：
 
-<code-example language="sh" class="code-shell">
-  npm install -g @angular/cli
+<code-example language="sh">
+  npm install -g @angular/cli<aio-angular-dist-tag class="pln"></aio-angular-dist-tag>
 </code-example>
 
 {@a create-proj}
@@ -112,7 +112,7 @@ To create a new workspace and initial starter app:
 
    运行 CLI 命令 `ng new` 并提供 `my-app` 名称作为参数，如下所示：
 
-    <code-example language="sh" class="code-shell">
+    <code-example language="sh" >
       ng new my-app
 
     </code-example>
@@ -147,7 +147,7 @@ Angular CLI 中包含一个服务器，方便你在本地构建和提供应用�
 
    运行下列命令：
 
-<code-example language="sh" class="code-shell">
+<code-example language="sh">
   cd my-app
   ng serve --open
 </code-example>

@@ -26,7 +26,7 @@ This section walks you through creating a highlight directive that sets the back
 
    要创建指令，请使用 CLI 命令 [`ng generate directive`](cli/generate)。
 
-  <code-example language="sh" class="code-shell">
+  <code-example language="sh">
 ng generate directive highlight
 </code-example>
 

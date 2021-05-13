@@ -86,16 +86,6 @@ Angular 工作区的初始 `tsconfig.base.json` 通常是这样的。
 }
 </code-example>
 
-### Strict mode
-
-### 严格模式
-
-When you create new workspaces and projects, you have the option to use Angular's strict mode, which can help you write better, more maintainable code.
-For more information, see [Strict mode](/guide/strict-mode).
-
-当你创建新的工作区和项目时，你可以选择使用 Angular 的严格模式，它会帮助你写出更好、更容易维护的代码。
-欲知详情，参阅[严格模式](/guide/strict-mode)。
-
 {@a noImplicitAny}
 
 ### *noImplicitAny* and *suppressImplicitAnyIndexErrors*

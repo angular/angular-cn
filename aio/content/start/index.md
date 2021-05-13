@@ -127,7 +127,7 @@ The project section on the left shows the source files that make up the applicat
 
 左侧的项目区显示了构成本应用的源文件，包括基础结构和配置文件。
 
-When you generate the StackBlitz example apps that accompany the tutorials, StackBlitz creates the starter files and mock data for you.
+When you generate the StackBlitz example applications that accompany the tutorials, StackBlitz creates the starter files and mock data for you.
 The files you use throughout the tutorial are in the `src` folder.
 
 当你生成本教程随附的 StackBlitz 范例应用时，StackBlitz 会为你创建启动程序文件和模拟数据。本教程中用到的文件位于 `src` 文件夹中。
@@ -437,7 +437,7 @@ To continue exploring Angular and developing this application:
 
   继续进行[应用内导航](start/start-routing "入门：应用内导航")，以创建产品详情页。
 
-* Skip ahead to [Deployment](start/start-deployment "Getting started: Deployment") to move to local development, or deploy your app to Firebase or your own server.
+* Skip ahead to [Deployment](start/start-deployment "Getting started: Deployment") to move to local development, or deploy your application to Firebase or your own server.
 
   跳至[部署](start/start-deployment "入门：部署")以转为本地开发，或将你的应用部署到 Firebase 或你自己的服务器上。
 

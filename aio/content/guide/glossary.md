@@ -1654,6 +1654,31 @@ For more information, see the [Template reference variable](guide/template-refer
 
 到[模板表达式](guide/template-reference-variables)部分了解更多模板表达式的知识。
 
+
+{@a template-input-variable}
+
+## template input variable
+## 模板输入变量（template input variable）
+
+A template input variable is a variable you can reference within a single instance of the template. You declare a template input variable using the `let` keyword as in `let customer`.
+
+模板输入变量是一种你可以在模板的单个实例中引用的变量。你可以使用 `let` 关键字来声明模板输入变量，就像 `let customer` 一样。
+
+```
+ <tr *ngFor="let customer of customers;">
+     <td>{{customer.customerNo}}</td>
+     <td>{{customer.name}}</td>
+     <td>{{customer.address}}</td>
+     <td>{{customer.city}}</td>
+     <td>{{customer.state}}</td>
+     <button (click)="selectedCustomer=customer">Select</button>
+   </tr>
+```
+
+Read and learn more about [template input variables](guide/template-reference-variables#template-input-variable).
+
+欲知详情，参见[模板输入变量](guide/template-reference-variables#template-input-variable)。
+
 {@a token}
 
 ## token

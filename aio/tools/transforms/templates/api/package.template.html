@@ -1,16 +1,17 @@
 {% extends 'base.template.html' -%}
 
-{% macro listItems(items, title, originalTitle, overridePath) %}
+{% macro listItems(items, title, titleCn, overridePath) %}
   {% set filteredItems = items | filterByPropertyValue('internal', undefined) %}
   {% if filteredItems.length %}
   <section class="export-list">
-    <h3 id="{$ originalTitle $}">{$ title $}</h3>
+    <h3>{$ title $}</h3>
+    <h3>{$ titleCn $}</h3>
     <table class="is-full-width list-table">
       {% for item in filteredItems %}
       <tr>
         <td><code class="code-anchor{% if item.deprecated %} deprecated-api-item{% endif %}"><a href="{$ overridePath or item.path $}"{%- if item.deprecated != undefined %} class="deprecated-api-item"{% endif %}>{$ item.name $}</a></code></td>
         <td>
-          {% if item.deprecated !== undefined %}<div no-translate>{$ ('**已废弃:** ' + item.deprecated) | marked $}</div>{% endif %}
+          {% if item.deprecated !== undefined %}{$ ('**已弃用:** ' + item.deprecated) | marked $}{% endif %}
           {% if item.shortDescription %}{$ item.shortDescription | marked $}{% endif %}
         </td>
       </tr>
@@ -37,22 +38,24 @@
   {% include "includes/see-also.html" %}
 
   {% if doc.isPrimaryPackage %}
-  <h2 id="entry-points">入口点</h2>
-  {$ listItems([doc.packageInfo.primary], '主要', 'primary', '#primary-entry-point-exports') $}
-  {$ listItems(doc.packageInfo.secondary, '次要', 'secondary') $}
+  <h2>Entry points</h2>
+  {$ listItems([doc.packageInfo.primary], 'Primary', '主要', '#primary-entry-point-exports') $}
+  {$ listItems(doc.packageInfo.secondary, 'Secondary', '次要') $}
   {% endif %}
 
-  <h2>{% if doc.isPrimaryPackage %}主入口{% else %}入口{% endif %}点的导出</h2>
+  <h2>{% if doc.isPrimaryPackage %}Primary entry{% else %}Entry{% endif %} point exports</h2>
+  <h2>{% if doc.isPrimaryPackage %}主要入口{% else %}入口{% endif %}点的导出</h2>
   {% if not doc.hasPublicExports %}
-    <p><i>没有公共导出。</i></p>
+    <p><i>No public exports.</i></p>
+    <p>没有公共导出。</p>
   {% endif %}
   {% include "includes/deprecation.html" %}
-  {$ listItems(doc.ngmodules, '模块', 'ngmodules') $}
-  {$ listItems(doc.classes, '类', 'classes') $}
-  {$ listItems(doc.decorators, '装饰器', 'decorators') $}
-  {$ listItems(doc.functions, '函数', 'functions') $}
-  {$ listItems(doc.structures, '结构', 'structures') $}
-  {$ listItems(doc.directives, '指令', 'directives') $}
-  {$ listItems(doc.pipes, '管道', 'pipes') $}
-  {$ listItems(doc.types, '类型', 'types') $}
+  {$ listItems(doc.ngmodules, 'NgModules') $}
+  {$ listItems(doc.classes, 'Classes', '类') $}
+  {$ listItems(doc.decorators, 'Decorators', '装饰器') $}
+  {$ listItems(doc.functions, 'Functions', '函数') $}
+  {$ listItems(doc.structures, 'Structures', '结构') $}
+  {$ listItems(doc.directives, 'Directives', '指令') $}
+  {$ listItems(doc.pipes, 'Pipes', '管道') $}
+  {$ listItems(doc.types, 'Types', '类型') $}
 {%- endblock %}

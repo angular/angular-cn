@@ -266,7 +266,7 @@ of Angular.
 
 Now deprecated:
 
-现在已经废弃：
+现在已经弃用：
 
 ```html
 <input [formControl]="control" [(ngModel)]="value">
@@ -630,13 +630,18 @@ If you rely on the behavior that the same object instance should cause change de
   显式调用 [`ChangeDetectorRef.detectChanges()`](api/core/ChangeDetectorRef#detectchanges) 进行强制更新。
 
 ### Internet Explorer 11
-Angular support for Microsoft's Internet Explorer 11 (IE11) is deprecated. Maintaining support for IE11 incurs ongoing costs, including increased bundle size, code complexity, and test load. Global usage of IE11 has fallen to a point where these costs no longer warrant the additional maintenance effort. Ending IE11 support additionally allows Angular to take advantage of platform APIs present only in evergreen browsers.
+Angular support for Microsoft's Internet Explorer 11 (IE11) is deprecated and will be removed in Angular v13.
+Ending IE11 support allows Angular to take advantage of web platform APIs present only in evergreen browsers, resulting in better APIs for developers and more capabilities for application users.
+An additional motivation behind this removal is the drop in global usage of IE11 to just ~1% (as of March 2021).
+For full rationale and discussion behind this deprecation see [RFC: Internet Explorer 11 support deprecation and removal](https://github.com/angular/angular/issues/41840).
 
-不再支持 Microsoft 的 Internet Explorer 11（IE11）。维持对 IE11 的支持会产生持续的成本，包括额外的软件包大小、代码复杂性和测试负载。IE11 的全球使用率已下降到这些成本不再需要额外维护工作的地步。终止对 IE11 的支持还使 Angular 可以利用仅在常绿浏览器中提供的平台 API。
+Angular 对 IE11 的支持已经弃用，将会在 Angular v13 中移除。
+结束对 IE11 的支持，可以让 Angular 从那些只出现在长青浏览器中的 Web 平台 API 中受益，为开发人员带来更好地 API，并为应用的用户提供更多的能力。
+本次移除还有一个动机在于全球范围内 IE11 的使用率已经只有 ~1%（2021年3月）。关于这次弃用的全部论证和讨论，参见 [RFC: Internet Explorer 11 support deprecation and removal](https://github.com/angular/angular/issues/41840)。
 
-Microsoft announced that its 365 services will no longer support IE11 starting August 17, 2021. Microsoft previously ended support for IE11 in Microsoft Teams on November 30, 2020. For more information, see [Microsoft 365 apps say farewell to Internet Explorer 11](https://techcommunity.microsoft.com/t5/microsoft-365-blog/microsoft-365-apps-say-farewell-to-internet-explorer-11-and/ba-p/1591666).
+*Note: IE11 will be supported in Angular v12 LTS releases through November 2022.*
 
-微软宣布，其 365 服务将从 2021 年 8 月 17 日开始不再支持 IE11。微软先前于 2020 年 11 月 30 日在 Microsoft Teams 中终止了对 IE11 的支持。有关更多信息，请参阅 [Microsoft 365 应用与 Internet Explorer 11 说再见](https://techcommunity.microsoft.com/t5/microsoft-365-blog/microsoft-365-apps-say-farewell-to-internet-explorer-11-and/ba-p/1591666)。
+*注意：Angular v12 的 LTS 版本将会继续支持 IE11，一直到 2022 年 11 月。
 
 {@a deprecated-cli-flags}
 ## Deprecated CLI APIs and Options

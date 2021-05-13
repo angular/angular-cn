@@ -38,7 +38,7 @@ Use the Angular CLI to generate a new component named `hero-detail`.
 
 使用 Angular CLI 生成一个名叫 `hero-detail` 的新组件。
 
-<code-example language="sh" class="code-shell">
+<code-example language="sh">
   ng generate component hero-detail
 </code-example>
 

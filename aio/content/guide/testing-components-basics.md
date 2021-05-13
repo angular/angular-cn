@@ -227,7 +227,7 @@ For example, the following CLI command generates a `BannerComponent` in the `app
 
 比如，下列 CLI 命令会在 `app/banner` 文件夹中生成带有内联模板和内联样式的 `BannerComponent`：
 
-<code-example language="sh" class="code-shell">
+<code-example language="sh">
 ng generate component banner --inline-template --inline-style --module app
 </code-example>
 
@@ -500,7 +500,7 @@ If it doesn't support `querySelector`, the previous test could fail.
 例如，作为优化策略的一部分，该组件可能会首先在服务器上渲染，以便在连接不良的设备上更快地启动本应用。服务器端渲染器可能不支持完整的 HTML 元素 API。如果它不支持 `querySelector`，之前的测试就会失败。
 
 The `DebugElement` offers query methods that work for all supported platforms.
-These query methods take a *predicate* function that returns `true` when a node in the `DebugElement` tree matches the selection criteria.
+These query methods take a _predicate_ function that returns `true` when a node in the `DebugElement` tree matches the selection criteria.
 
 `DebugElement` 提供了适用于其支持的所有平台的查询方法。这些查询方法接受一个*谓词*函数，当 `DebugElement` 树中的一个节点与选择条件匹配时，该函数返回 `true`。
 

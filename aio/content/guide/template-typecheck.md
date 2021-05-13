@@ -99,14 +99,14 @@ The following still have type `any`.
 
 ### 严格模式
 
-Angular version 9 maintains the behavior of the `fullTemplateTypeCheck` flag, and introduces a third "strict mode".
+Angular maintains the behavior of the `fullTemplateTypeCheck` flag, and introduces a third "strict mode".
 Strict mode is a superset of full mode, and is accessed by setting the `strictTemplates` flag to true. This flag supersedes the `fullTemplateTypeCheck` flag.
-In strict mode, Angular version 9 adds checks that go beyond the version 8 type-checker.
+In strict mode, Angular uses checks that go beyond the version 8 type-checker.
 Note that strict mode is only available if using Ivy.
 
-Angular 版本 9 延续了 `fullTemplateTypeCheck` 标志的行为，并引入了第三个“严格模式”。严格模式是完全模式的超集，可以通过将 `strictTemplates` 标志设置为 true 来访问。该标志取代 `fullTemplateTypeCheck` 标志。在严格模式下，Angular 9 版添加了超出 8 版类型检查器的检查。请注意，严格模式仅在使用 Ivy 时可用。
+Angular 延续了 `fullTemplateTypeCheck` 标志的行为，并引入了第三个“严格模式”。严格模式是完全模式的超集，可以通过将 `strictTemplates` 标志设置为 true 来访问。该标志取代 `fullTemplateTypeCheck` 标志。在严格模式下，Angular 添加了超出 8 版类型检查器的检查。请注意，严格模式仅在使用 Ivy 时可用。
 
-In addition to the full mode behavior, Angular version 9:
+In addition to the full mode behavior, Angular does the following:
 
 除了完全模式的行为之外，Angular 版本 9 还会：
 
@@ -179,11 +179,11 @@ In strict mode, Angular knows that the `user` in the `<span>` has a type of `Use
 
 ## 排除模板错误
 
-When enabling the new strict mode in version 9, you might encounter template errors that didn't arise in either of the previous modes.
+With strict mode, you might encounter template errors that didn't arise in either of the previous modes.
 These errors often represent genuine type mismatches in the templates that were not caught by the previous tooling.
 If this is the case, the error message should make it clear where in the template the problem occurs.
 
-在版本 9 中启用新的严格模式时，你可能会遇到在以前的两种模式下都没有出现过的模板错误。这些错误通常表示模板中的真正类型不匹配，而以前的工具并未捕获这些错误。在这种情况下，该错误消息会使该问题在模板中的位置清晰可见。
+使用严格模式，你可能会遇到在以前的两种模式下都没有出现过的模板错误。这些错误通常表示模板中的真正类型不匹配，而以前的工具并未捕获这些错误。在这种情况下，该错误消息会使该问题在模板中的位置清晰可见。
 
 There can also be false positives when the typings of an Angular library are either incomplete or incorrect, or when the typings don't quite line up with expectations as in the following cases.
 
@@ -243,12 +243,11 @@ In case of a false positive like these, there are a few options:
 |`strictContextGenerics`|泛型组件的类型参数是否应该被正确推断（包括泛型上界和下界）. 如果禁用它，所有的类型参数都会被当做 `any`。|
 |`strictLiteralTypes`|Whether object and array literals declared in the template will have their type inferred. If disabled, the type of such literals will be `any`.|
 |`strictLiteralTypes`|是否要推断模板中声明的对象和数组字面量的类型。如果禁用，则此类文字的类型就是 `any`。|
-
 If you still have issues after troubleshooting with these flags, you can fall back to full mode by disabling `strictTemplates`.
 
 如果使用这些标志进行故障排除后仍然存在问题，可以通过禁用 `strictTemplates` 退回到完全模式。
 
-If that doesn't work, an option of last resort is to turn off full mode entirely with `fullTemplateTypeCheck: false`, as we've made a special effort to make Angular version 9 backwards compatible in this case.
+If that doesn't work, an option of last resort is to turn off full mode entirely with `fullTemplateTypeCheck: false`.
 
 如果这不起作用，则最后一种选择是完全关闭 full 模式，并使用 `fullTemplateTypeCheck: false`，因为在这种情况下，我们已经做了一些特殊的努力来使 Angular 9 向后兼容。
 
@@ -260,12 +259,10 @@ If this happens, please [file an issue](https://github.com/angular/angular/issue
 
 ## Inputs and type-checking
 
-## 输入和类型检查
-
-In Angular version 9, the template type checker checks whether a binding expression's type is compatible with that of the corresponding directive input.
+The template type checker checks whether a binding expression's type is compatible with that of the corresponding directive input.
 As an example, consider the following component:
 
-在 Angular 版本 9 中，模板类型检查器会检查绑定表达式的类型是否与相应指令输入的类型兼容。例如，请考虑以下组件：
+模板类型检查器会检查绑定表达式的类型是否与相应指令输入的类型兼容。例如，请考虑以下组件：
 
 ```typescript
 

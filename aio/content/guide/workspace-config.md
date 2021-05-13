@@ -78,16 +78,6 @@ When you create a library project with `ng generate library`, the library projec
 
 </div>
 
-## Strict mode
-
-## 严格模式
-
-When you create new workspaces and projects, you have the option to use Angular's strict mode, which can help you write better, more maintainable code.
-For more information, see [Strict mode](/guide/strict-mode).
-
-当你创建新的工作区和项目时，你可以通过一个选项来使用 Angular 的严格模式，它可以帮你编写更好、更容易维护的代码。
-欲知详情，请参阅[严格模式](/guide/strict-mode)。
-
 ## Project configuration options
 
 ## 项目配置选项
@@ -447,11 +437,11 @@ The following example uses the `ignore` field to exclude certain files in the as
 
 <code-example language="json">
 "assets": [
- { 
+ {
    "glob": "**/*",
    "input": "src/assets/",
    "ignore": ["**/*.svg"],
-   "output": "/assets/" 
+   "output": "/assets/"
  }
 ]
 
@@ -486,7 +476,7 @@ For example, the following object values create and name a bundle that contains 
      }
    ],
    "scripts": [
-     { 
+     {
        "input": "src/external-module/main.js",
        "inject": false,
        "bundleName": "external-module"
@@ -672,7 +662,7 @@ There are several options that can be used to fine-tune the optimization of an a
 
 <code-example language="json">
 
-  "optimization": { 
+  "optimization": {
     "scripts": true,
     "styles": {
       "minify": true,

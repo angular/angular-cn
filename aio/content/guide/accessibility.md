@@ -64,7 +64,7 @@ Static ARIA attributes require no extra syntax.
 
    See the [Binding syntax](guide/binding-syntax#html-attribute-vs-dom-property) guide for more background on the difference between attributes and properties.
 
-   关于 Attribute 和 Property 之间差异的更多背景信息，请参阅[模板语法](guide/html-attribute-vs-dom-property)一章。
+   关于 Attribute 和 Property 之间差异的更多背景信息，请参阅[模板语法](guide/binding-syntax#html-attribute-vs-dom-property)一章。
 
 </div>
 

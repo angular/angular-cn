@@ -44,7 +44,7 @@ export class NgForOfContext<T, U extends NgIterable<T> = NgIterable<T>> {
  * In this form, the template to be rendered for each iteration is the content
  * of an anchor element containing the directive.
  *
- * `ngForOf` 指令通常在 `*ngFor` 的[简写形式](guide/structural-directives#the-asterisk--prefix)内部使用。在这种形式下，每次迭代要渲染的模板是包含指令的锚点元素的内容。
+ * `ngForOf` 指令通常在 `*ngFor` 的[简写形式](guide/structural-directives#asterisk)内部使用。在这种形式下，每次迭代要渲染的模板是包含指令的锚点元素的内容。
  *
  * The following example shows the shorthand syntax with some options,
  * contained in an `<li>` element.
@@ -85,7 +85,7 @@ export class NgForOfContext<T, U extends NgIterable<T> = NgIterable<T>> {
  * For futher discussion, see
  * [Structural Directives](guide/built-in-directives#one-per-element).
  *
- * 使用简写语法时，Angular 在[一个元素上只允许有一个结构型指令](guide/structural-directives#one-structural-directive-per-host-element)。例如，如果要根据条件进行迭代，请将 `*ngIf` 放在 `*ngFor` 元素的容器元素上。欲知详情，请参见[《结构型指令》](guide/structural-directives#one-per-element) 。
+ * 使用简写语法时，Angular 在[一个元素上只允许有一个结构型指令](guide/built-in-directives#one-per-element)。例如，如果要根据条件进行迭代，请将 `*ngIf` 放在 `*ngFor` 元素的容器元素上。欲知详情，请参见[《结构型指令》](guide/built-in-directives#one-per-element) 。
  *
  * @usageNotes
  *
@@ -206,7 +206,7 @@ export class NgForOf<T, U extends NgIterable<T> = NgIterable<T>> implements DoCh
    * The value of the iterable expression, which can be used as a
    * [template input variable](guide/structural-directives#shorthand).
    *
-   * 可迭代表达式的值，可以将其用作[模板输入变量](guide/structural-directives#template-input-variable)。
+   * 可迭代表达式的值，可以将其用作[模板输入变量](guide/structural-directives#shorthand)。
    *
    */
   @Input()

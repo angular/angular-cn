@@ -55,7 +55,7 @@ Use the CLI to generate it.
 
 使用 CLI 生成它。
 
-<code-example language="sh" class="code-shell">
+<code-example language="sh">
   ng generate module app-routing --flat --module=app
 </code-example>
 
@@ -199,7 +199,7 @@ You should still be running with this CLI command.
 
 你的 CLI 命令应该仍在运行吧。
 
-<code-example language="sh" class="code-shell">
+<code-example language="sh">
   ng serve
 </code-example>
 
@@ -283,7 +283,7 @@ Add a `DashboardComponent` using the CLI:
 
 使用 CLI 添加一个 `DashboardComponent`：
 
-<code-example language="sh" class="code-shell">
+<code-example language="sh">
   ng generate component dashboard
 </code-example>
 

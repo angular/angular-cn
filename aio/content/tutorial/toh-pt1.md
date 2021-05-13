@@ -25,7 +25,7 @@ Using the Angular CLI, generate a new component named `heroes`.
 
 使用 Angular CLI 创建一个名为 `heroes` 的新组件。
 
-<code-example language="sh" class="code-shell">
+<code-example language="sh">
   ng generate component heroes
 </code-example>
 
@@ -253,7 +253,7 @@ for a message like
 
 打开浏览器的开发工具，就会在控制台中看到如下信息：
 
-<code-example language="sh" class="code-shell">
+<code-example language="sh">
 Template parse errors:
 Can't bind to 'ngModel' since it isn't a known property of 'input'.
 </code-example>

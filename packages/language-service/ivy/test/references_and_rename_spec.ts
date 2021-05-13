@@ -754,11 +754,54 @@ describe('find references and rename locations', () => {
           }
         }`;
 
-    describe('when cursor is on pipe name', () => {
-      let file: OpenBuffer;
-      beforeEach(() => {
+    for (const checkTypeOfPipes of [true, false]) {
+      describe(`when cursor is on pipe name, checkTypeOfPipes: ${checkTypeOfPipes}`, () => {
+        let file: OpenBuffer;
+        beforeEach(() => {
+          const files = {
+            'app.ts': `
+        import {Component} from '@angular/core';
+
+        @Component({template: '{{birthday | prefixPipe: "MM/dd/yy"}}'})
+        export class AppCmp {
+          birthday = '';
+        }
+      `,
+            'prefix-pipe.ts': prefixPipe
+          };
+
+          env = LanguageServiceTestEnv.setup();
+          const project = createModuleAndProjectWithDeclarations(env, 'test', files);
+          file = project.openFile('app.ts');
+          file.moveCursorToText('prefi¦xPipe:');
+        });
+
+        it('should find references', () => {
+          const refs = getReferencesAtPosition(file)!;
+          expect(refs.length).toBe(5);
+          assertFileNames(refs, ['index.d.ts', 'prefix-pipe.ts', 'app.ts']);
+          assertTextSpans(refs, ['transform', 'prefixPipe']);
+        });
+
+        it('should find rename locations', () => {
+          const renameLocations = getRenameLocationsAtPosition(file)!;
+          expect(renameLocations.length).toBe(2);
+          assertFileNames(renameLocations, ['prefix-pipe.ts', 'app.ts']);
+          assertTextSpans(renameLocations, ['prefixPipe']);
+        });
+
+        it('should get rename info', () => {
+          const result = file.getRenameInfo() as ts.RenameInfoSuccess;
+          expect(result.canRename).toEqual(true);
+          expect(result.displayName).toEqual('prefixPipe');
+        });
+      });
+    }
+
+    describe('when cursor is on pipe name expression', () => {
+      it('finds rename locations and rename info', () => {
         const files = {
-          'app.ts': `
+          '/app.ts': `
         import {Component} from '@angular/core';
 
         @Component({template: '{{birthday | prefixPipe: "MM/dd/yy"}}'})
@@ -768,28 +811,49 @@ describe('find references and rename locations', () => {
       `,
           'prefix-pipe.ts': prefixPipe
         };
-
         env = LanguageServiceTestEnv.setup();
         const project = createModuleAndProjectWithDeclarations(env, 'test', files);
-        file = project.openFile('app.ts');
+        const file = project.openFile('app.ts');
         file.moveCursorToText('prefi¦xPipe:');
-      });
-
-      it('should find references', () => {
-        const refs = getReferencesAtPosition(file)!;
-        expect(refs.length).toBe(5);
-        assertFileNames(refs, ['index.d.ts', 'prefix-pipe.ts', 'app.ts']);
-        assertTextSpans(refs, ['transform', 'prefixPipe']);
-      });
-
-      it('should find rename locations', () => {
         const renameLocations = getRenameLocationsAtPosition(file)!;
-        expect(renameLocations).toBeUndefined();
+        expect(renameLocations.length).toBe(2);
+        assertFileNames(renameLocations, ['prefix-pipe.ts', 'app.ts']);
+        assertTextSpans(renameLocations, ['prefixPipe']);
 
-        // TODO(atscott): Add support for renaming the pipe 'name'
-        // expect(renameLocations.length).toBe(2);
-        // assertFileNames(renameLocations, ['prefix-pipe.ts', 'app.ts']);
-        // assertTextSpans(renameLocations, ['prefixPipe']);
+        const result = file.getRenameInfo() as ts.RenameInfoSuccess;
+        expect(result.canRename).toEqual(true);
+        expect(result.displayName).toEqual('prefixPipe');
+      });
+
+      it('finds rename locations in base class', () => {
+        const files = {
+          '/base_pipe.ts': `
+        import {Pipe, PipeTransform} from '@angular/core';
+
+        @Pipe({ name: 'basePipe' })
+        export class BasePipe implements PipeTransform {
+          transform(value: string, prefix: string): string;
+          transform(value: number, prefix: number): number;
+          transform(value: string|number, prefix: string|number): string|number {
+            return '';
+          }
+        }`,
+          'prefix_pipe.ts': prefixPipe,
+          'app.ts': `
+            import {Component} from '@angular/core';
+
+            @Component({template: '{{"a" | prefixPipe: "MM/dd/yy"}}'})
+            export class AppCmp { }
+          `
+        };
+        env = LanguageServiceTestEnv.setup();
+        const project = createModuleAndProjectWithDeclarations(env, 'test', files);
+        const file = project.openFile('prefix_pipe.ts');
+        file.moveCursorToText(`'prefi¦xPipe'`);
+        const renameLocations = getRenameLocationsAtPosition(file)!;
+        expect(renameLocations.length).toBe(2);
+        assertFileNames(renameLocations, ['prefix_pipe.ts', 'app.ts']);
+        assertTextSpans(renameLocations, ['prefixPipe']);
       });
     });
 
@@ -884,7 +948,7 @@ describe('find references and rename locations', () => {
 
         @Directive({selector: '[string-model]'})
         export class OtherDir {
-          @Input('model') model!: any;
+          @Input('model') otherDirAliasedInput!: any;
         }
         `,
           'string-model.ts': dirFileContents,
@@ -903,22 +967,20 @@ describe('find references and rename locations', () => {
         file.moveCursorToText('[mod¦el]');
       });
 
-      // TODO(atscott): This test does not pass because the template symbol builder only returns one
-      // binding.
-      xit('should find references', () => {
+      it('should find references', () => {
         const refs = getReferencesAtPosition(file)!;
         expect(refs.length).toEqual(3);
-        assertFileNames(refs, ['string-model.ts', 'app.ts', 'other-dir']);
+        assertFileNames(refs, ['string-model.ts', 'app.ts', 'other-dir.ts']);
         assertTextSpans(refs, ['model', 'otherDirAliasedInput']);
       });
 
       // TODO(atscott): This test fails because template symbol builder only returns one binding.
       // The result is that rather than returning `undefined` because we don't handle alias inputs,
       // we return the rename locations for the first binding.
-      xit('should find rename locations', () => {
+      it('should find rename locations', () => {
         const renameLocations = getRenameLocationsAtPosition(file)!;
         expect(renameLocations).toBeUndefined();
-        // TODO(atscott):
+        // TODO(atscott): The below assertions are the correct ones if we were supporting aliases
         // expect(renameLocations.length).toEqual(3);
         // assertFileNames(renameLocations, ['string-model.ts', 'app.ts', 'other-dir']);
         // assertTextSpans(renameLocations, ['model']);
@@ -1194,10 +1256,7 @@ describe('find references and rename locations', () => {
     file.moveCursorToText('[(mod¦el)]');
 
     const refs = getReferencesAtPosition(file)!;
-    // Note that this includes the 'model` twice from the template. As with other potential
-    // duplicates (like if another plugin returns the same span), we expect the LS clients to filter
-    // these out themselves.
-    expect(refs.length).toEqual(4);
+    expect(refs.length).toEqual(3);
     assertFileNames(refs, ['dir.ts', 'app.ts']);
     assertTextSpans(refs, ['model', 'modelChange']);
   });
@@ -1284,7 +1343,7 @@ describe('find references and rename locations', () => {
 
       it('gets references to all matching directives', () => {
         const refs = getReferencesAtPosition(file)!;
-        expect(refs.length).toBe(8);
+        expect(refs.length).toBe(7);
         assertTextSpans(refs, ['<div dir>', 'Dir', 'Dir2']);
         assertFileNames(refs, ['app.ts', 'dir.ts', 'dir2.ts']);
       });

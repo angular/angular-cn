@@ -69,9 +69,9 @@
 
   {$ memberHelpers.renderMethodDetails(versionInfo, doc.methods, 'instance-methods', 'instance-method', '方法') $}
 
-  {% if doc.ngmoduleOptions.providers %}
+  {% if doc.providers %}
   <a name="providers"></a>
-  {$ renderTable(doc.ngmoduleOptions.providers, 'providers', '提供商', '提供商') $}
+  {$ renderTable(doc.providers, 'providers', '提供商', '提供商') $}
   {% endif %}
 
   {% if doc.directives.length %}

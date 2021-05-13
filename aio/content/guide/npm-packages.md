@@ -169,11 +169,11 @@ To add a new `devDependency`, use either one of the following commands:
 
 要想添加新的 `devDependency`，请使用下列命令之一：
 
-<code-example language="sh" class="code-shell">
+<code-example language="sh">
   npm install --save-dev &lt;package-name&gt;
 </code-example>
 
-<code-example language="sh" class="code-shell">
+<code-example language="sh">
   yarn add --dev &lt;package-name&gt;
 </code-example>
 

@@ -102,7 +102,7 @@ Use the [CLI command](cli "Using the Angular command-line interface.") `ng gener
 
 使用 [CLI 命令](cli "使用 Angular 命令行界面。") `ng generate` 在项目中生成一个组件作为该表单控件的宿主。
 
-<code-example language="sh" class="code-shell">
+<code-example language="sh">
 
   ng generate component NameEditor
 
@@ -258,7 +258,7 @@ Generate a `ProfileEditor` component and import the `FormGroup` and `FormControl
 
 生成一个 `ProfileEditor` 组件并从 `@angular/forms` 包中导入 `FormGroup` 和 `FormControl` 类。
 
-<code-example language="sh" class="code-shell">
+<code-example language="sh">
 
   ng generate component ProfileEditor
 

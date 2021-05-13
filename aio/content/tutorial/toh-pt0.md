@@ -65,7 +65,7 @@ To create a new workspace and an initial app project:
 
      运行 CLI 命令 `ng new`，空间名请使用 `angular-tour-of-heroes`，如下所示： 
 
-<code-example language="sh" class="code-shell">
+<code-example language="sh">
   ng new angular-tour-of-heroes
 </code-example> 
 
@@ -109,7 +109,7 @@ Go to the workspace directory and launch the application.
 
 进入工作区目录，并启动这个应用。
 
-<code-example language="sh" class="code-shell">
+<code-example language="sh">
   cd angular-tour-of-heroes
   ng serve --open
 </code-example>

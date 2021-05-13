@@ -13,7 +13,7 @@ This document contains information and resources to help you keep your Angular a
 For information about our versioning policy and practices&mdash;including
 support and deprecation practices, as well as the release schedule&mdash;see [Angular versioning and releases](guide/releases "Angular versioning and releases").
 
-要了解我们的版本策略和实践（包括支持或废弃某些特性时的做法，以及发布计划），请参阅 [Angular 的版本与发布](guide/releases "Angular versioning and releases")。
+要了解我们的版本策略和实践（包括支持或弃用某些特性时的做法，以及发布计划），请参阅 [Angular 的版本与发布](guide/releases "Angular versioning and releases")。
 
 <div class="alert is-helpful">
 
@@ -121,4 +121,4 @@ For simple updates, the CLI command [`ng update`](cli/update) is all you need. W
 
 * Versioning, release, support, and deprecation practices: [Angular versioning and releases](guide/releases "Angular versioning and releases")
 
-   版本、发布、支持与废弃的实践：[Angular 的版本与发布](guide/releases "Angular versioning and releases")
+   版本、发布、支持与弃用的实践：[Angular 的版本与发布](guide/releases "Angular versioning and releases")

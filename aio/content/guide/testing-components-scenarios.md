@@ -240,7 +240,7 @@ For example, if you run the `BannerComponent` tests in a web coding environment 
 
 但是，如果在**非 CLI 环境中**运行这些测试，那么这个组件的测试可能会失败。例如，如果你在一个 web 编程环境（比如 [plunker](https://plnkr.co/) 中运行 `BannerComponent` 测试，你会看到如下消息：
 
-<code-example language="sh" class="code-shell" hideCopy>
+<code-example language="sh" hideCopy>
 Error: This test module uses the component BannerComponent
 which is using a "templateUrl" or "styleUrls", but they were never compiled.
 Please call "TestBed.compileComponents" before your test.
@@ -832,23 +832,13 @@ If you created your project with the Angular CLI, `zone-testing` is already impo
 
 要使用 `waitForAsync()` 函数，你必须在 test 的设置文件中导入 `zone.js/testing`。如果你是用 Angular CLI 创建的项目，那就已经在 `src/test.ts` 中导入过 `zone-testing` 了。
 
-<div class="alert is-helpful">
-
-The `TestBed.compileComponents()` method (see [below](#compile-components)) calls `XHR`
-to read external template and css files during "just-in-time" compilation.
-Write tests that call `compileComponents()` with the `waitForAsync()` utility.
-
-`TestBed.compileComponents()` 方法（参阅[下文](#compile-components)）会调用 `XHR` 通过“即时（JIT）”编译过程来读取外部模板和 css 文件。可以在 `waitForAsync()` 工具函数中调用 `compileComponents()`，以编写这种测试。
-
-</div>
-
 Here's the previous `fakeAsync()` test, re-written with the `waitForAsync()` utility.
 
 这是之前的 `fakeAsync()` 测试，用 `waitForAsync()` 工具函数重写的版本。
 
 <code-example
   path="testing/src/app/twain/twain.component.spec.ts"
-  region="async-test">
+  region="waitForAsync-test">
 </code-example>
 
 The `waitForAsync()` utility hides some asynchronous boilerplate by arranging for the tester's code
@@ -2166,7 +2156,7 @@ If you run tests in a **non-CLI environment**, the tests may fail with a message
 
 如果你在**非 CLI 环境**中运行测试，这些测试可能会报错，错误信息如下：
 
-<code-example language="sh" class="code-shell" hideCopy>
+<code-example language="sh" hideCopy>
 Error: This test module uses the component BannerComponent
 which is using a "templateUrl" or "styleUrls", but they were never compiled.
 Please call "TestBed.compileComponents" before your test.
@@ -2226,12 +2216,12 @@ You must call `compileComponents()` within an asynchronous test function.
 <div class="alert is-critical">
 
 If you neglect to make the test function async
-(e.g., forget to use `waitForAsync()` as described below),
+(e.g., forget to use the `async` keyword as described below),
 you'll see this error message
 
-如果你忘了把测试函数标为异步的（比如忘了像稍后的代码中那样使用 `waitForAsync()`），就会看到下列错误。
+如果你忘了把测试函数标为异步的（比如忘了像稍后的代码中那样使用 `async` 关键字），就会看到下列错误。
 
-<code-example language="sh" class="code-shell" hideCopy>
+<code-example language="sh" hideCopy>
 Error: ViewDestroyedError: Attempt to use a destroyed view
 </code-example>
 
@@ -2249,15 +2239,6 @@ A typical approach is to divide the setup logic into two separate `beforeEach()`
 
    同步的 `beforeEach()` 负责执行其余的准备代码。
 
-To follow this pattern, import the `waitForAsync()` helper with the other testing symbols.
-
-要想使用这种模式，就要和其它符号一起从测试库中导入 `waitForAsync()` 辅助函数。
-
-<code-example
-  path="testing/src/app/banner/banner-external.component.spec.ts"
-  region="import-async">
-</code-example>
-
 #### The async _beforeEach_
 
 #### 异步的 `beforeEach`
@@ -2270,10 +2251,6 @@ Write the first async `beforeEach` like this.
   path="testing/src/app/banner/banner-external.component.spec.ts"
   region="async-before-each"
   header="app/banner/banner-external.component.spec.ts (async beforeEach)"></code-example>
-
-The `waitForAsync()` helper function takes a parameterless function with the body of the setup.
-
-`waitForAsync()` 辅助函数接受一个无参函数，其内容是环境准备代码。
 
 The `TestBed.configureTestingModule()` method returns the `TestBed` class so you can chain
 calls to other `TestBed` static methods such as `compileComponents()`.

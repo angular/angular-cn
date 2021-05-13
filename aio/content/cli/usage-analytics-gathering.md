@@ -34,7 +34,7 @@ For example, the following command adds a configuration key named "tracking".
 
 你也可以选择使用描述性字符串作为键，或者在运行 CLI 命令时给它赋值一个随机的键。例如，下面的命令会添加一个名为 “tracking” 的配置键。
 
-<code-example language="sh" class="code-shell">
+<code-example language="sh">
 ng config --global cli.analyticsSharing.tracking UA-123456-12
 </code-example>
 
@@ -42,7 +42,7 @@ To turn off this feature, run the following command:
 
 要关闭此功能，请执行如下命令：
 
-<code-example language="sh" class="code-shell">
+<code-example language="sh">
 ng config --global --remove cli.analyticsSharing
 </code-example>
 
@@ -55,7 +55,7 @@ If that user enables CLI analytics for their own project, your analytics display
 
 你可以在全局配置中添加一个自定义的用户 ID，以单独区分命令和标志的使用情况。如果该用户也为自己的项目启用了 CLI 分析，那么分析器会分别显示这些跟踪并标记出各自的使用情况。
 
-<code-example language="sh" class="code-shell">
+<code-example language="sh" >
 ng config --global cli.analyticsSharing.user SOME_USER_NAME
 </code-example>
 
@@ -63,6 +63,6 @@ To generate a new random user ID, run the following command:
 
 要生成新的随机用户 ID，请执行如下命令：
 
-<code-example language="sh" class="code-shell">
+<code-example language="sh">
 ng config --global cli.analyticsSharing.user ""
 </code-example>

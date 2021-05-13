@@ -32,16 +32,17 @@ export class CutNextPrereleaseAction extends ReleaseAction {
     const {branchName} = releaseTrain;
     const newVersion = await this._newVersion;
 
-    const {id} = await this.checkoutBranchAndStageVersion(newVersion, branchName);
+    const {pullRequest: {id}, releaseNotes} =
+        await this.checkoutBranchAndStageVersion(newVersion, branchName);
 
     await this.waitForPullRequestToBeMerged(id);
-    await this.buildAndPublish(newVersion, branchName, 'next');
+    await this.buildAndPublish(releaseNotes, branchName, 'next');
 
     // If the pre-release has been cut from a branch that is not corresponding
     // to the next release-train, cherry-pick the changelog into the primary
     // development branch. i.e. the `next` branch that is usually `master`.
     if (releaseTrain !== this.active.next) {
-      await this.cherryPickChangelogIntoNextBranch(newVersion, branchName);
+      await this.cherryPickChangelogIntoNextBranch(releaseNotes, branchName);
     }
   }
 

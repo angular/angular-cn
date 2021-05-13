@@ -25,7 +25,7 @@ import {Directive, EmbeddedViewRef, Input, TemplateRef, ViewContainerRef, ɵstri
  * Angular expands this into a more explicit version, in which the anchor element
  * is contained in an `<ng-template>` element.
  *
- * 通常使用指令的[简写形式](guide/structural-directives#the-asterisk--prefix) `*ngIf="condition"`，作为插入模板的锚点元素的属性提供。Angular 将其扩展为更明确的版本，其中锚点元素包含在 `<ng-template>` 元素中。
+ * 通常使用指令的[简写形式](guide/structural-directives#asterisk) `*ngIf="condition"`，作为插入模板的锚点元素的属性提供。Angular 将其扩展为更明确的版本，其中锚点元素包含在 `<ng-template>` 元素中。
  *
  * Simple form with shorthand syntax:
  *

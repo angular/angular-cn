@@ -49,7 +49,7 @@ You will need two terminals to get the live-reload experience.
 
   在第一个终端上，在*监控（watch）*模式下执行 [`ng build` 命令](cli/build)把该应用编译进 `dist` 文件夹。
 
-  <code-example language="none" class="code-shell">
+  <code-example language="sh">
 
    ng build --watch
 
@@ -63,7 +63,7 @@ You will need two terminals to get the live-reload experience.
 
   在第二个终端上，安装一个 Web 服务器（比如 [lite-server](https://github.com/johnpapa/lite-server) ），然后使用输出文件夹中的内容运行它。例如：
 
-  <code-example language="none" class="code-shell">
+  <code-example language="sh">
 
    lite-server --baseDir="dist/project-name"
 
@@ -97,7 +97,7 @@ For example, the following command automatically deploys a project to Firebase.
 
 例如，以下命令将项目自动部署到 Firebase。
 
-<code-example language="none" class="code-shell">
+<code-example language="sh">
 ng add @angular/fire
 ng deploy
 </code-example>
@@ -141,7 +141,7 @@ For the simplest deployment, create a production build and copy the output direc
 
    使用开发环境进行构建
 
-  <code-example language="none" class="code-shell">
+  <code-example language="sh">
 
     ng build
 
@@ -207,9 +207,9 @@ To deploy your Angular application to [GitHub Pages](https://help.github.com/art
 
    确保在项目名称的两边都包含有斜杠，如 `/your_project_name/` 的斜杠。
 
-  <code-example language="none" class="code-shell">
+  <code-example language="sh">
 
-    ng build --prod --output-path docs --base-href /&lt;project_name&gt;/
+    ng build --output-path docs --base-href /your_project_name/
 
   </code-example>
 
@@ -345,7 +345,7 @@ modified to serve `index.html`:
 
   [Ruby](https://www.ruby-lang.org/)：使用 [sinatra](http://sinatrarb.com/) 和用来配置服务器的基础 Ruby 文件 `server.rb` 创建一个 Ruby 服务器：
 
-  ``` ruby
+  ```ruby
   require 'sinatra'
 
   # Folder structure
@@ -596,7 +596,7 @@ Install `source-map-explorer`:
 
 安装 `source-map-explorer`：
 
-<code-example language="none" class="code-shell">
+<code-example language="sh">
 
   npm install source-map-explorer --save-dev
 
@@ -606,7 +606,7 @@ Build your application for production _including the source maps_
 
 为生产环境构建应用，包括源码映射表（source map）
 
-<code-example language="none" class="code-shell">
+<code-example language="sh">
 
   ng build --source-map
 
@@ -616,7 +616,7 @@ List the generated bundles in the `dist/project-name/` folder.
 
 在 `dist/` 目录下列出生成的包。
 
-<code-example language="none" class="code-shell">
+<code-example language="sh">
 
   ls dist/project-name/*.js
 
@@ -628,7 +628,7 @@ The following example displays the graph for the _main_ bundle.
 运行浏览器来生成其中一个包的图形化表示。
 下面的例子展示了 `main` 包的图表。
 
-<code-example language="none" class="code-shell">
+<code-example language="sh">
 
   node_modules/.bin/source-map-explorer dist/project-name/main*
 
@@ -984,7 +984,7 @@ You can then run the `ng serve` command with this configuration. Make sure to re
 
 然后，你可以使用此配置运行 `ng serve` 命令。务必确保将 `<app-name>`（在 `"<app-name>:build:es5"` 中）替换为应用程序的实际名称，因为它也会出现在 `angular.json` 的 `projects` 中。例如，如果你的应用程序名称为 `myAngularApp` 则配置要变成 `"browserTarget": "myAngularApp:build:es5"`。
 
-<code-example language="none" class="code-shell">
+<code-example language="sh">
 
 ng serve --configuration es5
 
@@ -1031,7 +1031,7 @@ You can then run the tests with this configuration
 
 然后，你可以使用此配置运行测试了
 
-<code-example language="none" class="code-shell">
+<code-example language="sh">
 
 ng test --configuration es5
 

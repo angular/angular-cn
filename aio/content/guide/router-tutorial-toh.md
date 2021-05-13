@@ -222,7 +222,7 @@ Generate a sample application with the Angular CLI.
 
 用 Angular CLI 生成一个范例应用。
 
-<code-example language="none" class="code-shell">
+<code-example language="sh">
   ng new angular-router-sample
 </code-example>
 
@@ -262,11 +262,11 @@ Generate the `CrisisList` and `HeroList` components so that the router has somet
 
 生成 `CrisisList` 和 `HeroList` 组件，以便路由器能够渲染它们。
 
-<code-example language="none" class="code-shell">
+<code-example language="sh">
   ng generate component crisis-list
 </code-example>
 
-<code-example language="none" class="code-shell">
+<code-example language="sh">
   ng generate component hero-list
 </code-example>
 
@@ -400,7 +400,7 @@ Create the `PageNotFoundComponent` to display when users visit invalid URLs.
 
 创建 `PageNotFoundComponent`，以便在用户访问无效网址时显示它。
 
-<code-example language="none" class="code-shell">
+<code-example language="sh">
   ng generate component page-not-found
 </code-example>
 
@@ -810,7 +810,7 @@ Create an `AppRouting` module in the `/app` folder to contain the routing config
 
 在 `/app` 目录下创建一个 `AppRouting` 模块，以包含路由配置。
 
-<code-example language="none" class="code-shell">
+<code-example language="sh">
   ng generate module app-routing --module app --flat
 </code-example>
 
@@ -937,7 +937,7 @@ Follow these steps:
 
   为了管理这些英雄，在 `heroes` 目录下创建一个带路由的 `HeroesModule`，并把它注册到根模块 `AppModule` 中。
 
-<code-example language="none" class="code-shell">
+<code-example language="sh">
   ng generate module heroes/heroes --module app --flat --routing
 </code-example>
 
@@ -2281,7 +2281,7 @@ Generate a `CrisisCenter` component in the `crisis-center` folder:
 
 在 `crisis-center` 目录下生成一个 `CrisisCenter` 组件：
 
-<code-example language="none" class="code-shell">
+<code-example language="sh">
   ng generate component crisis-center/crisis-center
 </code-example>
 
@@ -2317,7 +2317,7 @@ As a host page for the "Crisis Center" feature, generate a `CrisisCenterHome` co
 
 在 `crisis-center` 目录下生成一个 `CrisisCenterHome` 组件，作为 "危机中心" 特性的宿主页面。
 
-<code-example language="none" class="code-shell">
+<code-example language="sh">
   ng generate component crisis-center/crisis-center-home
 </code-example>
 
@@ -2608,7 +2608,7 @@ Generate a new component to compose the message.
 
 生成一个新的组件来组合这个消息。
 
-<code-example language="none" class="code-shell">
+<code-example language="sh">
   ng generate component compose-message
 </code-example>
 
@@ -2965,7 +2965,7 @@ Generate an `admin` folder with a feature module file and a routing configuratio
 
 生成一个带有特性模块文件和路由配置文件的 `admin` 目录。
 
-<code-example language="none" class="code-shell">
+<code-example language="sh">
   ng generate module admin --routing
 </code-example>
 
@@ -2973,19 +2973,19 @@ Next, generate the supporting components.
 
 接下来，生成一些支持性组件。
 
-<code-example language="none" class="code-shell">
+<code-example language="sh">
   ng generate component admin/admin-dashboard
 </code-example>
 
-<code-example language="none" class="code-shell">
+<code-example language="sh">
   ng generate component admin/admin
 </code-example>
 
-<code-example language="none" class="code-shell">
+<code-example language="sh">
   ng generate component admin/manage-crises
 </code-example>
 
-<code-example language="none" class="code-shell">
+<code-example language="sh">
   ng generate component admin/manage-heroes
 </code-example>
 
@@ -3192,7 +3192,7 @@ Generate an `AuthGuard` in the `auth` folder.
 
 在 `auth` 文件夹中生成一个 `AuthGuard`。
 
-<code-example language="none" class="code-shell">
+<code-example language="sh">
   ng generate guard auth/auth
 </code-example>
 
@@ -3227,7 +3227,7 @@ The `AuthGuard` should call an application service that can login a user and ret
 
 `AuthGuard` 可以调用应用中的一项服务，该服务能让用户登录，并且保存当前用户的信息。在 `admin` 目录下生成一个新的 `AuthService`：
 
-<code-example language="none" class="code-shell">
+<code-example language="sh">
   ng generate service auth/auth
 </code-example>
 
@@ -3293,7 +3293,7 @@ There is nothing new about this component or the way you use it in the router co
 你需要一个 `LoginComponent` 来让用户登录进这个应用。在登录之后，你就会跳转到前面保存的 URL，如果没有，就跳转到默认 URL。
   该组件没有什么新内容，你在路由配置中使用它的方式也没什么新意。
 
-<code-example language="none" class="code-shell">
+<code-example language="sh">
   ng generate component auth/login
 </code-example>
 
@@ -3439,7 +3439,7 @@ Generate a `Dialog` service to handle user confirmation.
 
 生成一个 `Dialog` 服务，以处理用户的确认操作。
 
-<code-example language="none" class="code-shell">
+<code-example language="sh">
   ng generate service dialog
 </code-example>
 
@@ -3460,7 +3460,7 @@ Generate a guard that checks for the presence of a `canDeactivate()` method in a
 
 生成一个守卫（guard），以检查组件（任意组件均可）中是否存在 `canDeactivate()` 方法。
 
-<code-example language="none" class="code-shell">
+<code-example language="sh">
   ng generate guard can-deactivate
 </code-example>
 
@@ -3561,7 +3561,7 @@ Generate a `CrisisDetailResolver` service file within the `Crisis Center` featur
 
 在 `Crisis Center` 特性区生成一个 `CrisisDetailResolver` 服务文件。
 
-<code-example language="none" class="code-shell">
+<code-example language="sh">
   ng generate service crisis-center/crisis-detail-resolver
 </code-example>
 
@@ -4141,7 +4141,7 @@ Generate a new `SelectivePreloadingStrategy` service.
 
 生成一个新的 `SelectivePreloadingStrategy` 服务。
 
-<code-example language="none" class="code-shell">
+<code-example language="sh">
   ng generate service selective-preloading-strategy
 </code-example>
 

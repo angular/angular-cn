@@ -131,6 +131,7 @@ export class AppComponent {
   title = 'app works!';
 }
 ```
+
 {@a file-replacement}
 
 ## Configure target-specific file replacements
@@ -194,7 +195,7 @@ To build using the staging configuration, run the following command:
 
 要想使用预生产环境（staging）的配置进行构建，请运行下列命令：
 
-<code-example language="sh" class="code-shell">
+<code-example language="sh">
  ng build --configuration=staging
 </code-example>
 
@@ -743,7 +744,7 @@ In this case, you can configure the backend proxy to redirect calls through your
 如果你在某个公司代理之后，此后端就无法直接代理到局域网之外的任何 URL。
 这种情况下，你可以把这个后端代理配置为，借助 agent 通过你的公司代理转发此调用：
 
-<code-example language="none" class="code-shell">
+<code-example language="sh">
 npm install --save-dev https-proxy-agent
 </code-example>
 

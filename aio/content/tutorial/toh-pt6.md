@@ -86,7 +86,7 @@ Install the In-memory Web API package from npm with the following command:
 
 用如下命令从 `npm` 中安装这个*内存 Web API* 包（译注：请使用 0.5+ 的版本，不要使用 0.4-）
 
-<code-example language="sh" class="code-shell">
+<code-example language="sh">
   npm install angular-in-memory-web-api --save
 </code-example>
 
@@ -115,7 +115,7 @@ Generate the class `src/app/in-memory-data.service.ts` with the following comman
 
 使用以下命令生成类 `src/app/in-memory-data.service.ts`：
 
-<code-example language="sh" class="code-shell">
+<code-example language="sh">
   ng generate service InMemoryData
 </code-example>
 
@@ -672,7 +672,7 @@ Create a `HeroSearchComponent` with the CLI.
 
 使用 CLI 创建一个 `HeroSearchComponent`。
 
-<code-example language="sh" class="code-shell">
+<code-example language="sh">
   ng generate component hero-search
 </code-example>
 

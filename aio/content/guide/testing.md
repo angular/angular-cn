@@ -60,7 +60,7 @@ Just run the [`ng test`](cli/test) CLI command:
 你使用 CLI 创建的项目是可以立即用于测试的。
 运行 CLI 命令 [`ng test`](cli/test) 即可：
 
-<code-example language="sh" class="code-shell">
+<code-example language="sh">
   ng test
 </code-example>
 
@@ -73,7 +73,7 @@ The console output looks a bit like this:
 
 它的控制台输出一般是这样的：
 
-<code-example language="sh" class="code-shell">
+<code-example language="sh">
 10% building modules 1/1 modules 0 active
 ...INFO [karma]: Karma v1.7.1 server started at http://0.0.0.0:9876/
 ...INFO [launcher]: Launching browser Chrome ...
@@ -495,7 +495,7 @@ Now you can run the following command to use the `--no-sandbox` flag:
 
 现在你可以运行下列带有 `--no-sandbox` 标志的命令了：
 
-<code-example language="sh" class="code-shell">
+<code-example language="sh">
   ng test --no-watch --no-progress --browsers=ChromeHeadlessCI
 </code-example>
 

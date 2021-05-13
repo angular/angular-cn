@@ -169,7 +169,7 @@ if some ancestor element has the CSS class `theme-light`.
 
 ### (deprecated) `/deep/`, `>>>`, and `::ng-deep`
 
-### 已废弃 `/deep/`、`>>>` 和 `::ng-deep`
+### 已弃用 `/deep/`、`>>>` 和 `::ng-deep`
 
 Component styles normally apply only to the HTML in the component's own template.
 
@@ -212,7 +212,7 @@ The shadow-piercing descendant combinator is deprecated and [support is being re
 As such we plan to drop support in Angular (for all 3 of `/deep/`, `>>>` and `::ng-deep`).
 Until then `::ng-deep` should be preferred for a broader compatibility with the tools.
 
-CSS 标准中用于 "刺穿 Shadow DOM" 的组合器已经被废弃，并将[这个特性从主流浏览器和工具中移除](https://www.chromestatus.com/features/6750456638341120)。
+CSS 标准中用于 "刺穿 Shadow DOM" 的组合器已经被弃用，并将[这个特性从主流浏览器和工具中移除](https://www.chromestatus.com/features/6750456638341120)。
 因此，我们也将在 Angular 中移除对它们的支持（包括 `/deep/`、`>>>` 和 `::ng-deep`）。
 目前，建议先统一使用 `::ng-deep`，以便兼容将来的工具。
 
@@ -273,7 +273,7 @@ The Angular CLI command [`ng generate component`](cli/generate) defines an empty
 
 当使用 `--inline-styles` 标识创建组件时，Angular CLI 的 [`ng generate component`](cli/generate) 命令就会定义一个空的 `styles` 数组
 
-<code-example language="sh" class="code-shell">
+<code-example language="sh">
 ng generate component hero-app --inline-style
 </code-example>
 
@@ -313,7 +313,7 @@ When you use the Angular CLI command [`ng generate component`](cli/generate) wit
 
 当你使用 Angular CLI 的 [`ng generate component`](cli/generate) 命令但不带 `--inline-style` 标志时，CLI 会为你创建一个空白的样式表文件，并且在所生成组件的 `styleUrls` 中引用该文件。
 
-<code-example language="sh" class="code-shell">
+<code-example language="sh">
 ng generate component hero-app
 </code-example>
 

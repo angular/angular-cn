@@ -160,7 +160,7 @@ In Angular version 8, the string syntax for the `loadChildren` route specificati
 
 在 Angular 版本 8 中，`loadChildren` 路由规范的字符串语法[已弃用](https://angular.io/guide/deprecations#loadchildren-string-syntax)，建议改用 `import()` 语法。不过，你仍然可以通过在 `tsconfig` 文件中包含惰性加载的路由来选择使用基于字符串的惰性加载（`loadChildren: './path/to/module#Module'`），这样它就会在编译时包含惰性加载的文件。
 
-By default the CLI will generate projects which stricter file inclusions intended to be used with the `import()` syntax.
+By default the CLI will generate projects with stricter file inclusions intended to be used with the `import()` syntax.
 
 默认情况下，会用 CLI 生成项目，这些项目将更严格地包含旨在与 `import()` 语法一起使用的文件。
 
@@ -411,7 +411,7 @@ With the CLI, the command to generate a service is as follows:
 创建一个解析器服务。通过 CLI，生成服务的命令如下：
 
 
-<code-example language="none" class="code-shell">
+<code-example language="sh">
   ng generate service <service-name>
 </code-example>
 

@@ -19,9 +19,9 @@ If you're seeing errors, first temporarily [turn off Ivy](guide/ivy#opting-out-o
 
 如果发现了错误，请先在 `tsconfig.json` 中[暂时关闭 Ivy](guide/ivy#opting-out-of-angular-ivy) ，然后重新启动你的应用程序。
 
-If you're still seeing the errors, they are not specific to Ivy. In this case, you may want to consult the [general update guide](guide/updating-to-version-11). If you've opted into any of the new, stricter type-checking settings, you may also want to check out the [template type-checking guide](guide/template-typecheck).
+If you're still seeing the errors, they are not specific to Ivy. In this case, you may want to consult the [general update guide](guide/updating-to-version-12). If you've opted into any of the new, stricter type-checking settings, you may also want to check out the [template type-checking guide](guide/template-typecheck).
 
-如果仍然有错，说要这些错误不是 Ivy 特有的。在这种情况下，你可能需要查阅[常规更新指南](guide/updating-to-version-11)。如果你选择了任何新的、更严格的类型检查设置，则可能还需要查看[模板类型检查指南](guide/template-typecheck)。
+如果仍然有错，说要这些错误不是 Ivy 特有的。在这种情况下，你可能需要查阅[常规更新指南](guide/updating-to-version-12)。如果你选择了任何新的、更严格的类型检查设置，则可能还需要查看[模板类型检查指南](guide/template-typecheck)。
 
 If the errors are gone, switch back to Ivy by removing the changes to the `tsconfig.json` and review the list of expected changes below.
 

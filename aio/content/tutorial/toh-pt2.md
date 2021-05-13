@@ -266,7 +266,7 @@ Open the browser developer tools and look in the console for an error message li
 
 打开浏览器的开发者工具，它的控制台中显示出如下错误信息：
 
-<code-example language="sh" class="code-shell">
+<code-example language="sh">
   HeroesComponent.html:3 ERROR TypeError: Cannot read property 'name' of undefined
 </code-example>
 

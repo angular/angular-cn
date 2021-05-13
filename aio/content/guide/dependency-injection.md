@@ -28,7 +28,7 @@ To generate a new `HeroService` class in the `src/app/heroes` folder use the fol
 
 要想在 `src/app/heroes` 目录下生成一个新的 `HeroService` 类，请使用下列 [Angular CLI](cli) 命令。
 
-<code-example language="sh" class="code-shell">
+<code-example language="sh">
 ng generate service heroes/hero
 </code-example>
 

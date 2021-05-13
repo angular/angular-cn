@@ -43,7 +43,7 @@ Use the CLI to automatically create the application shell.
 ng generate app-shell
 </code-example>
 
-* `client-project` takes the name of your client application.
+For more information about this command see [App shell command](cli/generate#app-shell-command). 
 
   `client-project` 是你这个客户端应用的名字。
 

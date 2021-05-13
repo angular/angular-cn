@@ -45,7 +45,7 @@ Perform the _clone-to-launch_ steps with these terminal commands.
 
 运行下列命令来执行*克隆并启动*步骤。
 
-<code-example language="sh" class="code-shell">
+<code-example language="sh" >
   git clone https://github.com/angular/quickstart.git quickstart
   cd quickstart
   npm install
@@ -73,7 +73,7 @@ and unzip it into your project folder. Then perform the remaining steps with the
 <a href="https://github.com/angular/quickstart/archive/master.zip" title="下载《快速上手》种子库">下载《快速上手》种子</a>
 并解压到你的项目目录中。然后执行下面的命令完成剩余步骤。
 
-<code-example language="sh" class="code-shell">
+<code-example language="sh" >
   cd quickstart
   npm install
   npm start
@@ -114,7 +114,7 @@ Open a terminal window in the project folder and enter the following commands fo
 
 ### OS/X (bash)
 
-<code-example language="sh" class="code-shell">
+<code-example language="sh">
   xargs rm -rf &lt; non-essential-files.osx.txt
   rm src/app/*.spec*.ts
   rm non-essential-files.osx.txt
@@ -123,7 +123,7 @@ Open a terminal window in the project folder and enter the following commands fo
 
 ### Windows
 
-<code-example language="sh" class="code-shell">
+<code-example language="sh">
   for /f %i in (non-essential-files.txt) do del %i /F /S /Q
   rd .git /s /q
   rd e2e /s /q
@@ -354,9 +354,9 @@ So when IE is refreshed (manually or automatically by `ng serve`), sometimes the
 
 ## Appendix: Test using `fakeAsync()/waitForAsync()`
 
-## 附录：使用 `fakeAsync()/async()` 进行测试
+## 附录：使用 `fakeAsync()/waitForAsync()` 进行测试
 
-If you use the `fakeAsync()/waitForAsync()` helper function to run unit tests (for details, read the [Testing guide](guide/testing-components-scenarios#fake-async)), you need to import `zone.js/testing` in your test setup file.
+If you use the `fakeAsync()/waitForAsync()` helper functions to run unit tests (for details, read the [Testing guide](guide/testing-components-scenarios#fake-async)), you need to import `zone.js/testing` in your test setup file.
 
 如果你使用 `fakeAsync()/async()` 辅助函数来运行单元测试（详情参阅[测试指南](guide/testing-components-scenarios#fake-async)），就要在测试的准备文件中导入 `zone.js/testing`。
 

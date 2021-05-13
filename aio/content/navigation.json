@@ -657,13 +657,13 @@
           "tooltip": "Roadmap of the Angular team."
         },
         {
-          "title": "升级到 Angular 11",
-          "tooltip": "Support for updating your application from version 9 to 10.",
+          "title": "升级到 v12",
+          "tooltip": "Support for updating your application from version 11 to 12.",
           "children": [
             {
-              "url": "guide/updating-to-version-11",
+              "url": "guide/updating-to-version-12",
               "title": "概览",
-              "tooltip": "Everything you need to know for updating your application from version 10 to 11."
+              "tooltip": "Everything you need to know for updating your application from version 11 to 12."
             },
             {
               "url": "guide/ivy-compatibility",
@@ -802,7 +802,8 @@
                 {
                   "url": "guide/strict-mode",
                   "title": "严格模式",
-                  "tooltip": "Reference documentation for Angular's strict mode."
+                  "tooltip": "Reference documentation for Angular's strict mode.",
+                  "hidden": true
                 }
               ]
             },

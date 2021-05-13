@@ -51,7 +51,7 @@ The app name in the following example is `routing-app`.
 
 下面的命令会用 Angular CLI 来生成一个带有应用路由模块（`AppRoutingModule`）的基本 Angular 应用，它是一个 NgModule，可用来配置路由。下面的例子中应用的名字是 `routing-app`。
 
-<code-example language="none" class="code-shell">
+<code-example language="sh">
   ng new routing-app --routing
 </code-example>
 
@@ -68,7 +68,7 @@ To use the Angular router, an app needs to have at least two components so that 
 
 为了使用 Angular 的路由器，应用至少要有两个组件才能从一个导航到另一个。要使用 CLI 创建组件，请在命令行输入以下内容，其中 `first` 是组件的名称：
 
-<code-example language="none" class="code-shell">
+<code-example language="sh">
   ng generate component first
 </code-example>
 
@@ -77,7 +77,7 @@ Here, the new name is `second`.
 
 为第二个组件重复这个步骤，但给它一个不同的名字。这里的新名字是 `second`。
 
-<code-example language="none" class="code-shell">
+<code-example language="sh">
   ng generate component second
 </code-example>
 
@@ -528,7 +528,7 @@ Create a service for your guard:
 
 为你的守卫创建一项服务：
 
-<code-example language="none" class="code-shell">
+<code-example language="sh">
   ng generate guard your-guard
 </code-example>
 

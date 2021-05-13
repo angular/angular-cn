@@ -11,9 +11,9 @@ CLI 可以运行单元测试并创建代码覆盖率报告。代码覆盖率报�
 
 <div class="alert is-helpful">
 
-  For the sample app that the testing guides describe, see the <live-example name="testing" embedded-style noDownload>sample app</live-example>.
+For the sample app that the testing guides describe, see the <live-example name="testing" embedded-style noDownload>sample app</live-example>.
 
-  对于本测试指南中描述的范例应用，参阅<live-example name="testing" embedded-style noDownload>范例应用</live-example>。
+对于本测试指南中描述的范例应用，参阅<live-example name="testing" embedded-style noDownload>范例应用</live-example>。
 
   For the tests features in the testing guides, see <live-example name="testing" stackblitz="specs" noDownload>tests</live-example>.
 
@@ -25,7 +25,7 @@ To generate a coverage report run the following command in the root of your proj
 
 要生成覆盖率报告，请在项目的根目录下运行以下命令。
 
-<code-example language="sh" class="code-shell">
+<code-example language="sh">
   ng test --no-watch --code-coverage
 </code-example>
 

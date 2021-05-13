@@ -61,7 +61,7 @@ Using the Angular CLI, create a service called `hero`.
 
 使用 Angular CLI 创建一个名叫 `hero` 的服务。
 
-<code-example language="sh" class="code-shell">
+<code-example language="sh">
   ng generate service hero
 </code-example>
 
@@ -442,7 +442,7 @@ Use the CLI to create the `MessagesComponent`.
 
 使用 CLI 创建 `MessagesComponent`。
 
-<code-example language="sh" class="code-shell">
+<code-example language="sh">
   ng generate component messages
 </code-example>
 
@@ -471,7 +471,7 @@ Use the CLI to create the `MessageService` in `src/app`.
 
 使用 CLI 在 `src/app` 中创建 `MessageService`。
 
-<code-example language="sh" class="code-shell">
+<code-example language="sh">
   ng generate service message
 </code-example>
 

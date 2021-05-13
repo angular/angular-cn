@@ -156,7 +156,7 @@ For example, if you need the optional [web animations polyfill](https://caniuse.
 
 比如，如果需要可选的 [Web 动画腻子脚本](http://caniuse.com/#feat=web-animation)，则可以使用以下命令来通过 `npm`（或等效的 `yarn` ）安装它：
 
-<code-example language="sh" class="code-shell">
+<code-example language="sh">
   # install the optional web animations polyfill
   npm install --save web-animations-js
 </code-example>
