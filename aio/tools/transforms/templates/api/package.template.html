@@ -4,8 +4,8 @@
   {% set filteredItems = items | filterByPropertyValue('internal', undefined) %}
   {% if filteredItems.length %}
   <section class="export-list">
-    <h3>{$ title $}</h3>
-    <h3>{$ titleCn $}</h3>
+    <h3 translation-result="on">{$ titleCn $}</h3>
+    <h3 translation-origin="off">{$ title $}</h3>
     <table class="is-full-width list-table">
       {% for item in filteredItems %}
       <tr>
@@ -25,8 +25,8 @@
 <header class="api-header">
   <h1>{$ doc.name $}</h1>
   {% if doc.isPrimaryPackage %}<label class="api-type-label package">package</label>{% else %}<label class="api-type-label {$ entry-point $}">entry-point</label>{% endif %}
-  {% if doc.packageDeprecated or (not doc.isPrimaryPackage and doc.deprecated !== undefined) %}<label class="api-status-label deprecated">弃用</label>{% endif %}
-  {% if doc.security !== undefined %}<label class="api-status-label security">安全性</label>{% endif %}
+  {% if doc.packageDeprecated or (not doc.isPrimaryPackage and doc.deprecated !== undefined) %}<label class="api-status-label deprecated">已弃用</label>{% endif %}
+  {% if doc.security !== undefined %}<label class="api-status-label security">安全</label>{% endif %}
   {% if doc.pipeOptions.pure === 'false' %}<label class="api-status-label impure-pipe">非纯</label>{% endif %}
 </header>
 {% endblock %}
@@ -38,16 +38,17 @@
   {% include "includes/see-also.html" %}
 
   {% if doc.isPrimaryPackage %}
-  <h2>Entry points</h2>
+  <h2 translation-result="on">入口点</h2>
+  <h2 translation-origin="off">Entry points</h2>
   {$ listItems([doc.packageInfo.primary], 'Primary', '主要', '#primary-entry-point-exports') $}
   {$ listItems(doc.packageInfo.secondary, 'Secondary', '次要') $}
   {% endif %}
 
-  <h2>{% if doc.isPrimaryPackage %}Primary entry{% else %}Entry{% endif %} point exports</h2>
-  <h2>{% if doc.isPrimaryPackage %}主要入口{% else %}入口{% endif %}点的导出</h2>
+  <h2 translation-result="on">{% if doc.isPrimaryPackage %}主要入口{% else %}入口{% endif %}点的导出</h2>
+  <h2 translation-origin="off">{% if doc.isPrimaryPackage %}Primary entry{% else %}Entry{% endif %} point exports</h2>
   {% if not doc.hasPublicExports %}
+    <p translation-result="on">没有公共导出。</p>
     <p><i>No public exports.</i></p>
-    <p>没有公共导出。</p>
   {% endif %}
   {% include "includes/deprecation.html" %}
   {$ listItems(doc.ngmodules, 'NgModules') $}
