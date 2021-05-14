@@ -694,7 +694,7 @@ The following APIs have been removed starting with version 11.0.0*:
 
 *To see APIs removed in version 10, check out this guide on the [version 10 docs site](https://v10.angular.io/guide/deprecations#removed).
 
-*要查看版本 9 中移除的 API，请查看[版本 9 文档站](https://v9.angular.io/guide/deprecations#removed)上本指南*。
+*要查看版本 10 中移除的 API，请查看[版本 10 文档站](https://v10.angular.cn/guide/deprecations#removed)上本指南*。
 
 {@a esm5-fesm5}
 
