@@ -4,7 +4,7 @@ import { minify } from 'html-minifier';
 import { chunk, uniq } from 'lodash';
 import { sync as mkdirp } from 'mkdirp';
 import { dirname, join } from 'path';
-import { Browser, launch, Request } from 'puppeteer';
+import { Browser, launch, HTTPRequest } from 'puppeteer';
 
 const minifyOptions = {
   collapseWhitespace: true,
@@ -23,7 +23,7 @@ function getAllUrls(): string[] {
 
 const urls = [...getAllUrls(), 'index.html'];
 
-async function filterResource(request: Request) {
+async function filterResource(request: HTTPRequest) {
   const type = request.resourceType();
   if (['image', 'stylesheet', 'font'].indexOf(type) !== -1) {
     return request.abort();

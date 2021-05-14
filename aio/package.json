@@ -98,7 +98,7 @@
     "@angular/platform-browser-dynamic": "12.0.0-rc.2",
     "@angular/router": "12.0.0-rc.2",
     "@angular/service-worker": "12.0.0-rc.2",
-    "@awesome-fe/translate": "1.0.0",
+    "@awesome-fe/translate": "1.0.3",
     "@webcomponents/custom-elements": "1.4.3",
     "rxjs": "^6.6.7",
     "tslib": "^2.1.0",
