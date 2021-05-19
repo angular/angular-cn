@@ -66,7 +66,7 @@ When you create a library project with `ng generate library`, the library projec
 
   * The initial app created by `ng new` is at the top level of the workspace file structure.
 
-    `ng new` 创建的这个初始应用位于工作区文件结构的顶层。
+  `ng new` 创建的这个初始应用位于工作区文件结构的顶层。
 
   * Additional applications and libraries go into a `projects` folder in the workspace.
 
@@ -102,17 +102,17 @@ The following top-level configuration properties are available for each project,
 | :------- | :---------- |
 | 属性 | 说明 |
 | `root` | The root folder for this project's files, relative to the workspace folder. Empty for the initial app, which resides at the top level of the workspace. |
-| `root` | 该项目的根文件夹，相对于工作区文件夹的路径。初始应用的值为空，因为它位于工作区的顶层。|
+| `root` | 该项目的根文件夹，相对于工作区文件夹的路径。初始应用的值为空，因为它位于工作区的顶层。 |
 | `sourceRoot` | The root folder for this project's source files. |
-| `sourceRoot` | 该项目源文件的根文件夹。|
+| `sourceRoot` | 该项目源文件的根文件夹。 |
 | `projectType` | One of "application" or "library". An application can run independently in a browser, while a library cannot. |
-| `projectType` | "application" 或 "library" 之一。应用可以在浏览器中独立运行，而库则不行。|
+| `projectType` | "application" 或 "library" 之一。应用可以在浏览器中独立运行，而库则不行。 |
 | `prefix` | A string that Angular prepends to generated selectors. Can be customized to identify an app or feature area. |
-| `prefix` | Angular 所生成的选择器的前缀字符串。可以自定义它，以作为应用或功能区的标识。|
+| `prefix` | Angular 所生成的选择器的前缀字符串。可以自定义它，以作为应用或功能区的标识。 |
 | `schematics` | A set of schematics that customize the `ng generate` sub-command option defaults for this project. See [Generation schematics](#schematics) below. |
-| `schematics` | 一组原理图（schematic），它可以为该项目自定义 `ng generate` 子命令的默认选项。|
+| `schematics` | 一组原理图（schematic），它可以为该项目自定义 `ng generate` 子命令的默认选项。 |
 | `architect` | Configuration defaults for Architect builder targets for this project. |
-| `architect` | 为本项目的各个构建器目标配置默认值。|
+| `architect` | 为本项目的各个构建器目标配置默认值。 |
 
 {@a schematics}
 
@@ -206,9 +206,9 @@ See the example in [Build target](#build-target) below.
 </code-example>
 
 * The `architect/build` section configures defaults for options of the `ng build` command.
-See [Build target](#build-target) below for more information.
+  See [Build target](#build-target) below for more information.
 
-  `architect/build` 节会为 `ng build` 命令的选项配置默认值。更多信息，参阅稍后的[构建目标](#build-target)部分。
+    `architect/build` 节会为 `ng build` 命令的选项配置默认值。更多信息，参阅稍后的[构建目标](#build-target)部分。
 
 * The `architect/serve` section overrides build defaults and supplies additional serve defaults for the `ng serve` command. In addition to the options available for the `ng build` command, it adds options related to serving the app.
 
@@ -257,11 +257,11 @@ The `architect/build` section configures defaults for options of the `ng build` 
 | :------- | :---------- |
 | 属性 | 说明 |
 | `builder` | The npm package for the build tool used to create this target. The default builder for an application (`ng build myApp`)is `@angular-devkit/build-angular:browser`, which uses the [webpack](https://webpack.js.org/) package bundler.                                                                                    Note that a different builder is used for building a library (`ng build myLib`). |
-| `builder` | 用于构建此目标的构建工具的 npm 包。默认为 `@angular-devkit/build-angular:browser`，它使用的是 [webpack](https://webpack.js.org/) 打包器。|
+| `builder` | 用于构建此目标的构建工具的 npm 包。默认为 `@angular-devkit/build-angular:browser`，它使用的是 [webpack](https://webpack.js.org/) 打包器。 |
 | `options` | This section contains default build target options, used when no named alternative configuration is specified. See [Default build targets](#default-build-targets) below. |
-| `options` | 本节包含构建选项的默认值，当没有指定命名的备用配置时使用。参阅下面的[默认构建选项](#build-props)。|
+| `options` | 本节包含构建选项的默认值，当没有指定命名的备用配置时使用。参阅下面的[默认构建选项](#build-props)。 |
 | `configurations` | This section defines and names alternative configurations for different intended destinations. It contains a section for each named configuration, which sets the default options for that intended environment. See [Alternate build configurations](#build-configs) below. |
-| `configurations` | 本节定义并命名针对不同目标的备用配置。它为每个命名配置都包含一节，用于设置该目标环境的默认选项。参阅下面的[备用的构建配置](#build-configs)。|
+| `configurations` | 本节定义并命名针对不同目标的备用配置。它为每个命名配置都包含一节，用于设置该目标环境的默认选项。参阅下面的[备用的构建配置](#build-configs)。 |
 
 {@a build-configs}
 
@@ -319,17 +319,17 @@ Some additional options can only be set through the configuration file, either b
 | :----------------- | :---------- |
 | 选项属性 | 说明 |
 | `assets` | An object containing paths to static assets to add to the global context of the project. The default paths point to the project's icon file and its `assets` folder. See more in [Assets configuration](#asset-config) below. |
-| `assets` | 一个对象，包含一些用于添加到项目的全局上下文中的静态文件路径。它的默认路径指向项目的图标文件及项目的 `assets` 文件夹。参阅稍后的[项目资产（asset）配置](#asset-config)部分。|
+| `assets` | 一个对象，包含一些用于添加到项目的全局上下文中的静态文件路径。它的默认路径指向项目的图标文件及项目的 `assets` 文件夹。参阅稍后的[项目资产（asset）配置](#asset-config)部分。 |
 | `styles` | An array of style files to add to the global context of the project. Angular CLI supports CSS imports and all major CSS preprocessors: [sass/scss](https://sass-lang.com/), [less](http://lesscss.org/), and [stylus](https://stylus-lang.com/). See more in [Styles and scripts configuration](#style-script-config) below. |
-| `styles` | 一个对象，包含一些要添加到项目全局上下文中的样式文件。Angular CLI 支持 CSS 导入和所有主要的 CSS 预处理器： [sass/scss](http://sass-lang.com/)、[less](http://lesscss.org/) 和 [stylus](http://stylus-lang.com/)。参阅稍后的 [样式和脚本配置](#style-script-config)部分。|
+| `styles` | 一个对象，包含一些要添加到项目全局上下文中的样式文件。Angular CLI 支持 CSS 导入和所有主要的 CSS 预处理器： [sass/scss](http://sass-lang.com/)、[less](http://lesscss.org/) 和 [stylus](http://stylus-lang.com/)。参阅稍后的 [样式和脚本配置](#style-script-config)部分。 |
 | `stylePreprocessorOptions` | An object containing option-value pairs to pass to style preprocessors. See more in [Styles and scripts configuration](#style-script-config) below. |
-| `stylePreprocessorOptions` | 一个对象，包含要传给样式预处理器的选项"值-对"。参阅稍后的 [样式和脚本配置](#style-script-config) 部分。|
+| `stylePreprocessorOptions` | 一个对象，包含要传给样式预处理器的选项"值-对"。参阅稍后的 [样式和脚本配置](#style-script-config) 部分。 |
 | `scripts` | An object containing JavaScript script files to add to the global context of the project. The scripts are loaded exactly as if you had added them in a `<script>` tag inside `index.html`. See more in [Styles and scripts configuration](#style-script-config) below. |
-| `scripts` | 一个对象，包含一些 JavaScript 脚本文件，用于添加到项目的全局上下文中。这些脚本的加载方式和在 `index.html` 的 `<script>` 标签中添加是完全一样的。参阅稍后的 [样式和脚本配置](#style-script-config) 部分。|
+| `scripts` | 一个对象，包含一些 JavaScript 脚本文件，用于添加到项目的全局上下文中。这些脚本的加载方式和在 `index.html` 的 `<script>` 标签中添加是完全一样的。参阅稍后的 [样式和脚本配置](#style-script-config) 部分。 |
 | `budgets` | Default size-budget type and threshholds for all or parts of your app. You can configure the builder to report a warning or an error when the output reaches or exceeds a threshold size. See [Configure size budgets](guide/build#configure-size-budgets). (Not available in `test` section.) |
 | `budgets` | 全部或部分应用的默认尺寸预算的类型和阈值。当构建的输出达到或超过阈值大小时，你可以将构建器配置为报告警告或错误。参阅[配置尺寸预算](guide/build#configure-size-budgets)。（不适用于 `test` 部分。） |
 | `fileReplacements` | An object containing files and their compile-time replacements. See more in [Configure target-specific file replacements](guide/build#configure-target-specific-file-replacements). |
-| `fileReplacements` | 一个对象，包含一些文件及其编译时替代品。参阅[为指定的目标配置文件替换规则](guide/build#configure-target-specific-file-replacements) 部分。|
+| `fileReplacements` | 一个对象，包含一些文件及其编译时替代品。参阅[为指定的目标配置文件替换规则](guide/build#configure-target-specific-file-replacements) 部分。 |
 
 {@a complex-config}
 
@@ -384,7 +384,7 @@ A asset specification object can have the following fields.
   `output`：相对于 `outDir` 的路径（默认为 `dist/`*project-name* ）。为了杜绝安全隐患，CLI 永远不会在项目输出路径之外写文件。
 
 * `ignore`: A list of globs to exclude.
-  
+
   `ignore` ：要排除的 glob 列表。
 
 * `followSymlinks`: Allow glob patterns to follow symlink directories. This allows subdirectories of the symlink to be searched. Defaults to `false`.
@@ -581,11 +581,23 @@ There are several options that can be used to fine-tune the optimization of an a
 <th>Value Type</th>
 <th>Default Value</th>
 </tr>
+<tr>
+<th>选项</th>
+<th width="40%">说明</th>
+<th>值类型</th>
+<th>默认值</th>
+</tr>
 </thead>
 <tbody>
 <tr>
 <td><code>scripts</code></td>
 <td>Enables optimization of the scripts output.</td>
+<td><code class="no-auto-link">boolean</code></td>
+<td><code>true</code></td>
+</tr>
+<tr>
+<td><code>scripts</code></td>
+<td>启用对 Script 输出结果的优化。</td>
 <td><code class="no-auto-link">boolean</code></td>
 <td><code>true</code></td>
 </tr>
@@ -596,9 +608,21 @@ There are several options that can be used to fine-tune the optimization of an a
 <td><code>true</code></td>
 </tr>
 <tr>
+<td><code>styles</code></td>
+<td>启用对样式输出结果的优化。</td>
+<td><code>boolean|<a href="#styles-optimization-options">样式优化选项</a></code></td>
+<td><code>true</code></td>
+</tr>
+<tr>
 <td><code>fonts</code></td>
 <td>Enables optimization for fonts.<br><strong>Note:</strong> This requires internet access.</td>
 <td><code class="no-auto-link">boolean|<a href="#fonts-optimization-options">Fonts optimization options</a></code></td>
+<td><code>true</code></td>
+</tr>
+<tr>
+<td><code>fonts</code></td>
+<td>启用对字体的优化。<br><strong>注意：</strong>这要求能访问互联网。</td>
+<td><code class="no-auto-link">boolean|<a href="#fonts-optimization-options">字体优化选项</a></code></td>
 <td><code>true</code></td>
 </tr>
 </tbody>
@@ -616,6 +640,12 @@ There are several options that can be used to fine-tune the optimization of an a
 <th>Value Type</th>
 <th>Default Value</th>
 </tr>
+<tr>
+<th>选项</th>
+<th width="40%">说明</th>
+<th>值类型</th>
+<th>默认值</th>
+</tr>
 </thead>
 <tbody>
 <tr>
@@ -625,8 +655,20 @@ There are several options that can be used to fine-tune the optimization of an a
 <td><code>true</code></td>
 </tr>
 <tr>
+<td><code>minify</code></td>
+<td>通过移除多余的空格和注释、合并标识符、最小化值，来对 CSS 定义进行最小化。</td>
+<td><code class="no-auto-link">boolean</code></td>
+<td><code>true</code></td>
+</tr>
+<tr>
 <td><code>inlineCritical</code></td>
-<td>Extract and inline critical CSS definitions to improve <a href="https://web.dev/first-contentful-paint/">First Contentful Paint.</td>
+<td>Extract and inline critical CSS definitions to improve <a href="https://web.dev/first-contentful-paint/">First Contentful Paint.</a></td>
+<td><code class="no-auto-link">boolean</code></td>
+<td><code>true</code></td>
+</tr>
+<tr>
+<td><code>inlineCritical</code></td>
+<td>提取并内联一些关键 CSS 定义，以强化<a href="https://web.dev/first-contentful-paint/">First Contentful Paint（首次内容绘制）.</a></td>
 <td><code class="no-auto-link">boolean</code></td>
 <td><code>true</code></td>
 </tr>
@@ -645,11 +687,23 @@ There are several options that can be used to fine-tune the optimization of an a
 <th>Value Type</th>
 <th>Default Value</th>
 </tr>
+<tr>
+<th>选项</th>
+<th width="40%">说明</th>
+<th>值类型</th>
+<th>默认值</th>
+</tr>
 </thead>
 <tbody>
 <tr>
 <td><code>inline</code></td>
 <td>Reduce <a href="https://web.dev/render-blocking-resources/">render blocking requests</a> by inlining external Google fonts and icons CSS definitions in the application's HTML index file.<br><strong>Note:</strong>This requires internet access.</td>
+<td><code class="no-auto-link">boolean</code></td>
+<td><code>true</code></td>
+</tr>
+<tr>
+<td><code>inline</code></td>
+<td>通过把外部 Google 字体和图标的 CSS 定义内联到应用的 HTML 索引文件中，来缩小<a href="https://web.dev/render-blocking-resources/">会阻塞渲染的请求</a><br><strong>注意：</strong>这要求能访问互联网。</td>
 <td><code class="no-auto-link">boolean</code></td>
 <td><code>true</code></td>
 </tr>
@@ -699,11 +753,23 @@ The `sourceMap` browser builder option can be either a Boolean or an Object for 
 <th>Value Type</th>
 <th>Default Value</th>
 </tr>
+<tr>
+<th>选项</th>
+<th width="40%">说明</th>
+<th>值类型</th>
+<th>默认值</th>
+</tr>
 </thead>
 <tbody>
 <tr>
 <td><code>scripts</code></td>
 <td>Output source maps for all scripts.</td>
+<td><code class="no-auto-link">boolean</code></td>
+<td><code>true</code></td>
+</tr>
+<tr>
+<td><code>scripts</code></td>
+<td>为所有脚本输出源码映射。</td>
 <td><code class="no-auto-link">boolean</code></td>
 <td><code>true</code></td>
 </tr>
@@ -714,14 +780,32 @@ The `sourceMap` browser builder option can be either a Boolean or an Object for 
 <td><code>true</code></td>
 </tr>
 <tr>
+<td><code>styles</code></td>
+<td>为所有样式输出源码映射。</td>
+<td><code class="no-auto-link">boolean</code></td>
+<td><code>true</code></td>
+</tr>
+<tr>
 <td><code>vendor</code></td>
 <td>Resolve vendor packages source maps.</td>
 <td><code class="no-auto-link">boolean</code></td>
 <td><code>false</code></td>
 </tr>
 <tr>
+<td><code>vendor</code></td>
+<td>解析所有第三方包的源码映射。</td>
+<td><code class="no-auto-link">boolean</code></td>
+<td><code>false</code></td>
+</tr>
+<tr>
 <td><code>hidden</code></td>
 <td>Output source maps used for error reporting tools.</td>
+<td><code class="no-auto-link">boolean</code></td>
+<td><code>false</code></td>
+</tr>
+<tr>
+<td><code>hidden</code></td>
+<td>输出供错误报告工具使用的源码映射。</td>
 <td><code class="no-auto-link">boolean</code></td>
 <td><code>false</code></td>
 </tr>

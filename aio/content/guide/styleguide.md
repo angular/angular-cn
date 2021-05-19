@@ -3397,19 +3397,29 @@ helps instantly identify which members of the component serve which purpose.
 
 ### Initialize inputs
 
+### 初始化输入属性
+
 #### Style 05-18
 
 TypeScript's `--strictPropertyInitialization` compiler option ensures that a class initializes its properties during construction. When enabled, this option causes the TypeScript compiler to report an error if the class does not set a value to any property that is not explicitly marked as optional.
 
+TypeScript 的编译器选项 `--strictPropertyInitialization`，会确保某个类在构造函数中初始化其属性。当启用时，如果该类没有对任何未显式标为可选值的属性提供初始值，TypeScript 编译器就会报错。
+
 By design, Angular treats all `@Input` properties as optional. When possible, you should satisfy `--strictPropertyInitialization` by providing a default value.
+
+按照设计，Angular 把所有 `@Input` 都视为可选值。只要有可能，你就应该通过提供默认值来满足 `--strictPropertyInitialization` 的要求。
 
 <code-example path="styleguide/src/05-18/app/heroes/hero/hero.component.ts" region="example" header="app/heroes/hero/hero.component.ts"></code-example>
 
 If the property is hard to construct a default value for, use `?` to explicitly mark the property as optional.
 
+如果该属性很难构造出默认值，请使用 `?` 来把该属性显式标记为可选的。
+
 <code-example path="styleguide/src/05-18/app/heroes/hero/hero.component.optional.ts" region="example" header="app/heroes/hero/hero.component.ts"></code-example>
 
 You may want to have a required `@Input` field, meaning all your component users are required to pass that attribute. In such cases, use a default value. Just suppressing the TypeScript error with `!` is insufficient and should be avoided because it will prevent the type checker ensure the input value is provided.
+
+你可能希望某个 `@Input` 字段是必填的，也就是说此组件的所有用户都必须传入该属性。这种情况下，请使用默认值。仅仅使用 `!` 来抑制 TypeScript 报错是不够的，应该避免它，因为这样做会阻止类型检查器来确保必须提供此输入值。
 
 <code-example path="styleguide/src/05-18/app/heroes/hero/hero.component.avoid.ts" region="example" header="app/heroes/hero/hero.component.ts"></code-example>
 

@@ -197,6 +197,7 @@ npm install --save-dev @angular/language-service
 
    在编辑器的用户首选项（`Cmd+,` 或 `Ctrl+,`）中，添加以下内容：
 
+<code-example language="json" header="Sublime Text user preferences">
 "typescript-tsdk": "<path to your folder>/node_modules/typescript/lib"
 </code-example>
 

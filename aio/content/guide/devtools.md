@@ -230,7 +230,10 @@ When you click on a bar, you'll find a detailed view about how much time your ap
 <div class="lightbox">
   <img src="generated/images/guide/devtools/directive-details.png" alt="directive details">
 </div>
+
 Figure shows the total time spent by NgforOf directive and which method was called in it. It also shows the parent hierarchy of the directive selected.
+
+这张图展示了 NgForOf 指令花费的总时间，以及其中调用了哪个方法。它还展示了所选指令的父级层次。
 
 ### Hierarchical views
 

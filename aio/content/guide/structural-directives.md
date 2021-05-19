@@ -251,20 +251,39 @@ The following tables describe each portion of the structural directive grammar:
     <td>HTML attribute key</td>
   </tr>
   <tr>
+    <td><code>prefix</code></td>
+    <td>HTML 属性的键名</td>
+  </tr>
+  <tr>
     <td><code>key</code></td>
     <td>HTML attribute key</td>
+  </tr>
+  <tr>
+    <td><code>key</code></td>
+    <td>HTML 属性的键名</td>
   </tr>
   <tr>
     <td><code>local</code></td>
     <td>local variable name used in the template</td>
   </tr>
   <tr>
+    <td><code>local</code></td>
+    <td>在模板中使用的局部变量名</td>
+  </tr>
+  <tr>
     <td><code>export</code></td>
     <td>value exported by the directive under a given name</td>
+  <tr>
+    <td><code>export</code></td>
+    <td>该指令以特定名称导出的值</td>
   </tr>
   <tr>
     <td><code>expression</code></td>
     <td>standard Angular expression</td>
+  </tr>
+  <tr>
+    <td><code>expression</code></td>
+    <td>标准 Angular 表达式</td>
   </tr>
 </table>
 
@@ -297,7 +316,15 @@ Angular 会将结构型指令的简写形式转换为普通的绑定语法，如
     <th>Translation</th>
   </tr>
   <tr>
+    <th>简写形式</th>
+    <th>翻译结果</th>
+  </tr>
+  <tr>
     <td><code>prefix</code> and naked <code>expression</code></td>
+    <td><code>[prefix]="expression"</code></td>
+  </tr>
+  <tr>
+    <td><code>prefix</code> 和裸 <code>expression</code></td>
     <td><code>[prefix]="expression"</code></td>
   </tr>
   <tr>
@@ -308,6 +335,13 @@ Angular 会将结构型指令的简写形式转换为普通的绑定语法，如
     Notice that the <code>prefix</code>
     is added to the <code>key</code>
     </td>
+  </tr>
+  <tr>
+    <td><code>keyExp</code></td>
+    <td><code>[prefixKey] "expression"
+    (let-prefixKey="export")</code>
+    <br />
+    注意，这个 <code>prefix</code> 已经加到了 <code>key</code> 上。</td>
   </tr>
   <tr>
     <td><code>let</code></td>
@@ -327,6 +361,10 @@ The following table provides shorthand examples:
   <tr>
     <th>Shorthand</th>
     <th>How Angular interprets the syntax</th>
+  </tr>
+  <tr>
+    <th>简写形式</th>
+    <th>Angular 如何解释此语法</th>
   </tr>
   <tr>
     <td><code>*ngFor="let item of [1,2,3]"</code></td>

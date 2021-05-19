@@ -155,6 +155,7 @@ The import path is the relative path to the module.
 
 <div class="callout is-helpful">
 <header>String-based lazy loading</header>
+<header>基于字符串的惰性加载</header>
 
 In Angular version 8, the string syntax for the `loadChildren` route specification [was deprecated](https://angular.io/guide/deprecations#loadchildren-string-syntax) in favor of the `import()` syntax. However, you can opt into using string-based lazy loading (`loadChildren: './path/to/module#Module'`) by including the lazy-loaded routes in your `tsconfig` file, which includes the lazy-loaded files in the compilation.
 

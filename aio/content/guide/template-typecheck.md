@@ -259,6 +259,8 @@ If this happens, please [file an issue](https://github.com/angular/angular/issue
 
 ## Inputs and type-checking
 
+## 输入属性与类型检查
+
 The template type checker checks whether a binding expression's type is compatible with that of the corresponding directive input.
 As an example, consider the following component:
 
