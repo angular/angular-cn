@@ -1120,7 +1120,7 @@ function fetchLongTermSupportBranchesFromNpm(config) {
         // their corresponding branches. We assume that an LTS tagged version in NPM belongs to the
         // last-minor branch of a given major (i.e. we assume there are no outdated LTS NPM dist tags).
         for (const npmDistTag in distTags) {
-            if (ltsNpmDistTagRegex.test(npmDistTag)) {
+            if (isLtsDistTag(npmDistTag)) {
                 const version = semver.parse(distTags[npmDistTag]);
                 const branchName = `${version.major}.${version.minor}.x`;
                 const majorReleaseDate = new Date(time[`${version.major}.0.0`]);
@@ -1141,6 +1141,10 @@ function fetchLongTermSupportBranchesFromNpm(config) {
         inactive.sort((a, b) => semver.rcompare(a.version, b.version));
         return { active, inactive };
     });
+}
+/** Gets whether the specified tag corresponds to a LTS dist tag. */
+function isLtsDistTag(tagName) {
+    return ltsNpmDistTagRegex.test(tagName);
 }
 /**
  * Computes the date when long-term support ends for a major released at the
@@ -5623,25 +5627,6 @@ function invokeYarnInstallCommand(projectDir) {
         }
     });
 }
-/**
- * Invokes the `yarn bazel clean` command in order to clean the output tree and ensure new artifacts
- * are created for builds.
- */
-function invokeBazelCleanCommand(projectDir) {
-    return tslib.__awaiter(this, void 0, void 0, function* () {
-        try {
-            // Note: No progress indicator needed as that is the responsibility of the command.
-            // TODO: Consider using an Ora spinner instead to ensure minimal console output.
-            yield spawnWithDebugOutput('yarn', ['bazel', 'clean'], { cwd: projectDir });
-            info(green('  ✓   Cleaned bazel output tree.'));
-        }
-        catch (e) {
-            error(e);
-            error(red('  ✘   An error occurred while cleaning the bazel output tree.'));
-            throw new FatalReleaseActionError();
-        }
-    });
-}
 
 /**
  * @license
@@ -5874,18 +5859,20 @@ function getLocalChangelogFilePath(projectDir) {
 }
 /** Release note generation. */
 class ReleaseNotes {
-    constructor(version, config) {
+    constructor(version, startingRef, endingRef) {
         this.version = version;
-        this.config = config;
+        this.startingRef = startingRef;
+        this.endingRef = endingRef;
         /** An instance of GitClient. */
         this.git = GitClient.getInstance();
         /** A promise resolving to a list of Commits since the latest semver tag on the branch. */
-        this.commits = getCommitsInRange(this.git.getLatestSemverTag().format(), 'HEAD');
+        this.commits = this.getCommitsInRange(this.startingRef, this.endingRef);
+        /** The configuration for release notes. */
+        this.config = this.getReleaseConfig().releaseNotes;
     }
-    /** Construct a release note generation instance. */
-    static fromLatestTagToHead(version, config) {
+    static fromRange(version, startingRef, endingRef) {
         return tslib.__awaiter(this, void 0, void 0, function* () {
-            return new ReleaseNotes(version, config);
+            return new ReleaseNotes(version, startingRef, endingRef);
         });
     }
     /** Retrieve the release note generated for a Github Release. */
@@ -5907,7 +5894,7 @@ class ReleaseNotes {
     promptForReleaseTitle() {
         return tslib.__awaiter(this, void 0, void 0, function* () {
             if (this.title === undefined) {
-                if (this.config.releaseNotes.useReleaseTitle) {
+                if (this.config.useReleaseTitle) {
                     this.title = yield promptInput('Please provide a title for the release:');
                 }
                 else {
@@ -5925,13 +5912,23 @@ class ReleaseNotes {
                     commits: yield this.commits,
                     github: this.git.remoteConfig,
                     version: this.version.format(),
-                    groupOrder: this.config.releaseNotes.groupOrder,
-                    hiddenScopes: this.config.releaseNotes.hiddenScopes,
+                    groupOrder: this.config.groupOrder,
+                    hiddenScopes: this.config.hiddenScopes,
                     title: yield this.promptForReleaseTitle(),
                 });
             }
             return this.renderContext;
         });
+    }
+    // These methods are used for access to the utility functions while allowing them to be
+    // overwritten in subclasses during testing.
+    getCommitsInRange(from, to) {
+        return tslib.__awaiter(this, void 0, void 0, function* () {
+            return getCommitsInRange(from, to);
+        });
+    }
+    getReleaseConfig(config) {
+        return getReleaseConfig(config);
     }
 }
 
@@ -5957,7 +5954,7 @@ class ReleaseAction {
         this._cachedForkRepo = null;
     }
     /** Whether the release action is currently active. */
-    static isActive(_trains) {
+    static isActive(_trains, _config) {
         throw Error('Not implemented.');
     }
     /** Updates the version in the project top-level `package.json` file. */
@@ -6213,7 +6210,7 @@ class ReleaseAction {
      */
     stageVersionForBranchAndCreatePullRequest(newVersion, pullRequestBaseBranch) {
         return tslib.__awaiter(this, void 0, void 0, function* () {
-            const releaseNotes = yield ReleaseNotes.fromLatestTagToHead(newVersion, this.config);
+            const releaseNotes = yield ReleaseNotes.fromRange(newVersion, this.git.getLatestSemverTag().format(), 'HEAD');
             yield this.updateProjectVersion(newVersion);
             yield this.prependReleaseNotesToChangelog(releaseNotes);
             yield this.waitForEditsAndCreateReleaseCommit(newVersion);
@@ -6276,7 +6273,7 @@ class ReleaseAction {
     }
     /**
      * Builds and publishes the given version in the specified branch.
-     * @param newVersion The new version to be published.
+     * @param releaseNotes The release notes for the version being published.
      * @param publishBranch Name of the branch that contains the new version.
      * @param npmDistTag NPM dist tag where the version should be published to.
      */
@@ -6297,7 +6294,6 @@ class ReleaseAction {
             // created in the `next` branch. The new package would not be part of the patch branch,
             // so we cannot build and publish it.
             yield invokeYarnInstallCommand(this.projectDir);
-            yield invokeBazelCleanCommand(this.projectDir);
             const builtPackages = yield invokeReleaseBuildCommand();
             // Verify the packages built are the correct version.
             yield this._verifyPackageVersions(releaseNotes.version, builtPackages);
@@ -6639,7 +6635,17 @@ class CutStableAction extends ReleaseAction {
             const isNewMajor = (_a = this.active.releaseCandidate) === null || _a === void 0 ? void 0 : _a.isMajor;
             const { pullRequest: { id }, releaseNotes } = yield this.checkoutBranchAndStageVersion(newVersion, branchName);
             yield this.waitForPullRequestToBeMerged(id);
-            yield this.buildAndPublish(releaseNotes, branchName, 'latest');
+            // If a new major version is published, we publish to the `next` NPM dist tag temporarily.
+            // We do this because for major versions, we want all main Angular projects to have their
+            // new major become available at the same time. Publishing immediately to the `latest` NPM
+            // dist tag could cause inconsistent versions when users install packages with `@latest`.
+            // For example: Consider Angular Framework releases v12. CLI and Components would need to
+            // wait for that release to complete. Once done, they can update their dependencies to point
+            // to v12. Afterwards they could start the release process. In the meanwhile though, the FW
+            // dependencies were already available as `@latest`, so users could end up installing v12 while
+            // still having the older (but currently still latest) CLI version that is incompatible.
+            // The major release can be re-tagged to `latest` through a separate release action.
+            yield this.buildAndPublish(releaseNotes, branchName, isNewMajor ? 'next' : 'latest');
             // If a new major version is published and becomes the "latest" release-train, we need
             // to set the LTS npm dist tag for the previous latest release-train (the current patch).
             if (isNewMajor) {
@@ -6772,10 +6778,59 @@ class MoveNextIntoFeatureFreezeAction extends ReleaseAction {
  * found in the LICENSE file at https://angular.io/license
  */
 /**
+ * Release action that tags the recently published major as latest within the NPM
+ * registry. Major versions are published to the `next` NPM dist tag initially and
+ * can be re-tagged to the `latest` NPM dist tag. This allows caretakers to make major
+ * releases available at the same time. e.g. Framework, Tooling and Components
+ * are able to publish v12 to `@latest` at the same time. This wouldn't be possible if
+ * we directly publish to `@latest` because Tooling and Components needs to wait
+ * for the major framework release to be available on NPM.
+ * @see {CutStableAction#perform} for more details.
+ */
+class TagRecentMajorAsLatest extends ReleaseAction {
+    getDescription() {
+        return tslib.__awaiter(this, void 0, void 0, function* () {
+            return `Tag recently published major v${this.active.latest.version} as "next" in NPM.`;
+        });
+    }
+    perform() {
+        return tslib.__awaiter(this, void 0, void 0, function* () {
+            yield this.checkoutUpstreamBranch(this.active.latest.branchName);
+            yield invokeYarnInstallCommand(this.projectDir);
+            yield invokeSetNpmDistCommand('latest', this.active.latest.version);
+        });
+    }
+    static isActive({ latest }, config) {
+        return tslib.__awaiter(this, void 0, void 0, function* () {
+            // If the latest release-train does currently not have a major version as version. e.g.
+            // the latest branch is `10.0.x` with the version being `10.0.2`. In such cases, a major
+            // has not been released recently, and this action should never become active.
+            if (latest.version.minor !== 0 || latest.version.patch !== 0) {
+                return false;
+            }
+            const packageInfo = yield fetchProjectNpmPackageInfo(config);
+            const npmLatestVersion = semver.parse(packageInfo['dist-tags']['latest']);
+            // This action only becomes active if a major just has been released recently, but is
+            // not set to the `latest` NPM dist tag in the NPM registry. Note that we only allow
+            // re-tagging if the current `@latest` in NPM is the previous major version.
+            return npmLatestVersion !== null && npmLatestVersion.major === latest.version.major - 1;
+        });
+    }
+}
+
+/**
+ * @license
+ * Copyright Google LLC All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+/**
  * List of release actions supported by the release staging tool. These are sorted
  * by priority. Actions which are selectable are sorted based on this declaration order.
  */
 const actions = [
+    TagRecentMajorAsLatest,
     CutStableAction,
     CutReleaseCandidateAction,
     CutNewPatchAction,
@@ -6864,7 +6919,7 @@ class ReleaseTool {
             const choices = [];
             // Find and instantiate all release actions which are currently valid.
             for (let actionType of actions) {
-                if (yield actionType.isActive(activeTrains)) {
+                if (yield actionType.isActive(activeTrains, this._config)) {
                     const action = new actionType(activeTrains, this._git, this._config, this._projectRoot);
                     choices.push({ name: yield action.getDescription(), value: action });
                 }

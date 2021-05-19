@@ -22,7 +22,7 @@ import {UrlSegment, UrlSegmentGroup} from './url_tree';
  *
  * @see `Route`
  * @see `Router`
- * @see [Router configuration guide](guide/router#configuration)
+ * @see [Router configuration guide](guide/router-reference#configuration)
  *
  * [路由器配置指南](guide/router#configuration)
  *

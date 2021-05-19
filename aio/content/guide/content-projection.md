@@ -196,7 +196,7 @@ The following steps demonstrate a typical implementation of conditional content 
 
    在上一步中，你已添加了具有自定义属性 `appExampleZippyDirective` 的 `ng-template` 元素。这段代码提供了当 Angular 遇到该自定义属性时要使用的逻辑。在这里，该逻辑指示 Angular 实例化这个模板引用。
 
-1. In the component you want to project content into, use `@ContentChild` to get the template of the project content.
+1. In the component you want to project content into, use `@ContentChild` to get the template of the projected content.
 
    在你要将内容投影到的组件中，使用 `@ContentChild` 获取此投影内容的模板。
 

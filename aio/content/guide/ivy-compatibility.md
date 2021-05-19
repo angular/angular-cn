@@ -51,7 +51,7 @@ See more details in the original issue [here](https://github.com/angular/angular
    检查导入的库是否已标记为无副作用。如果你的应用导入过那些没有副作用的共享库，就把“sideEffects”：false 添加到他们的 `package.json`。如果这些库被导入过但没有被直接引用，那么这将确保这些库被正确摇树优化了。原始问题请[点击此处](https://github.com/angular/angular-cli/issues/16799#issuecomment-580912090)查看详情。
 
 1. Projects not using Angular CLI will see a significant size regression unless they update their minifier settings and set compile-time constants `ngDevMode`, `ngI18nClosureMode` and `ngJitMode` to `false` (for Terser, please set these to `false` via [`global_defs` config option](https://terser.org/docs/api-reference.html#conditional-compilation)).
-Please note that these constants are not meant to be used by 3rd party library or application code as they are not part of our public api surface and might change in the future.
+Please note that these constants are not meant to be used by 3rd party library or application code as they are not part of our public API surface and might change in the future.
 
    未使用 Angular CLI 的项目会看到一个显著的大小回归，除非他们更新了最小化工具的设置，并把编译时常量 `ngDevMode`，`ngI18nClosureMode` 和 `ngJitMode` 设为了 `false` （对于 Terser，请通过[`global_defs` 配置选项](https://terser.org/docs/api-reference.html#conditional-compilation)把它们设为 `false` ）。请注意，这些常量不能给第三方库或应用代码使用，因为它们不是我们公共 API 的一部分，可能会在将来发生变化。
 

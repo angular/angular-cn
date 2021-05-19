@@ -53,7 +53,7 @@ export type NavigationTrigger = 'imperative'|'popstate'|'hashchange';
  * ```
  *
  * @see `Event`
- * @see [Router events summary](guide/router#router-events)
+ * @see [Router events summary](guide/router-reference#router-events)
  *
  * [路由器事件摘要](guide/router#router-events)
  *

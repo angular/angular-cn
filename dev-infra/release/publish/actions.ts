@@ -15,13 +15,14 @@ import {debug, error, green, info, promptConfirm, red, warn, yellow} from '../..
 import {getListCommitsInBranchUrl, getRepositoryGitUrl} from '../../utils/git/github-urls';
 import {GitClient} from '../../utils/git/index';
 import {BuiltPackage, ReleaseConfig} from '../config/index';
+import {NpmDistTag} from '../versioning';
 import {ActiveReleaseTrains} from '../versioning/active-release-trains';
 import {runNpmPublish} from '../versioning/npm-publish';
 
 import {FatalReleaseActionError, UserAbortedReleaseActionError} from './actions-error';
 import {getCommitMessageForRelease, getReleaseNoteCherryPickCommitMessage} from './commit-message';
 import {changelogPath, packageJsonPath, waitForPullRequestInterval} from './constants';
-import {invokeBazelCleanCommand, invokeReleaseBuildCommand, invokeYarnInstallCommand} from './external-commands';
+import {invokeReleaseBuildCommand, invokeYarnInstallCommand} from './external-commands';
 import {findOwnedForksOfRepoQuery} from './graphql-queries';
 import {getPullRequestState} from './pull-request-state';
 import {getLocalChangelogFilePath, ReleaseNotes} from './release-notes/release-notes';
@@ -47,7 +48,7 @@ export interface PullRequest {
 /** Constructor type for instantiating a release action */
 export interface ReleaseActionConstructor<T extends ReleaseAction = ReleaseAction> {
   /** Whether the release action is currently active. */
-  isActive(active: ActiveReleaseTrains): Promise<boolean>;
+  isActive(active: ActiveReleaseTrains, config: ReleaseConfig): Promise<boolean>;
   /** Constructs a release action. */
   new(...args: [ActiveReleaseTrains, GitClient<true>, ReleaseConfig, string]): T;
 }
@@ -59,7 +60,7 @@ export interface ReleaseActionConstructor<T extends ReleaseAction = ReleaseActio
  */
 export abstract class ReleaseAction {
   /** Whether the release action is currently active. */
-  static isActive(_trains: ActiveReleaseTrains): Promise<boolean> {
+  static isActive(_trains: ActiveReleaseTrains, _config: ReleaseConfig): Promise<boolean> {
     throw Error('Not implemented.');
   }
 
@@ -350,7 +351,8 @@ export abstract class ReleaseAction {
   protected async stageVersionForBranchAndCreatePullRequest(
       newVersion: semver.SemVer, pullRequestBaseBranch: string):
       Promise<{releaseNotes: ReleaseNotes, pullRequest: PullRequest}> {
-    const releaseNotes = await ReleaseNotes.fromLatestTagToHead(newVersion, this.config);
+    const releaseNotes =
+        await ReleaseNotes.fromRange(newVersion, this.git.getLatestSemverTag().format(), 'HEAD');
     await this.updateProjectVersion(newVersion);
     await this.prependReleaseNotesToChangelog(releaseNotes);
     await this.waitForEditsAndCreateReleaseCommit(newVersion);
@@ -439,12 +441,12 @@ export abstract class ReleaseAction {
 
   /**
    * Builds and publishes the given version in the specified branch.
-   * @param newVersion The new version to be published.
+   * @param releaseNotes The release notes for the version being published.
    * @param publishBranch Name of the branch that contains the new version.
    * @param npmDistTag NPM dist tag where the version should be published to.
    */
   protected async buildAndPublish(
-      releaseNotes: ReleaseNotes, publishBranch: string, npmDistTag: string) {
+      releaseNotes: ReleaseNotes, publishBranch: string, npmDistTag: NpmDistTag) {
     const versionBumpCommitSha = await this._getCommitOfBranch(publishBranch);
 
     if (!await this._isCommitForVersionStaging(releaseNotes.version, versionBumpCommitSha)) {
@@ -463,7 +465,6 @@ export abstract class ReleaseAction {
     // created in the `next` branch. The new package would not be part of the patch branch,
     // so we cannot build and publish it.
     await invokeYarnInstallCommand(this.projectDir);
-    await invokeBazelCleanCommand(this.projectDir);
     const builtPackages = await invokeReleaseBuildCommand();
 
     // Verify the packages built are the correct version.
@@ -482,7 +483,7 @@ export abstract class ReleaseAction {
   }
 
   /** Publishes the given built package to NPM with the specified NPM dist tag. */
-  private async _publishBuiltPackageToNpm(pkg: BuiltPackage, npmDistTag: string) {
+  private async _publishBuiltPackageToNpm(pkg: BuiltPackage, npmDistTag: NpmDistTag) {
     debug(`Starting publish of "${pkg.name}".`);
     const spinner = ora.call(undefined).start(`Publishing "${pkg.name}"`);
 

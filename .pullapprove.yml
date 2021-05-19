@@ -58,7 +58,6 @@
 #
 # aikidave
 # gkalpak
-# kapunahelewong
 # petebacondarwin
 
 
@@ -184,7 +183,6 @@ groups:
          - ayazhafiz               # Ayaz Hafiz
          - clydin                  # Charles Lyding
          - crisbeto                # Kristiyan Kostadinov
-         - dennispbrown            # Denny Brown
          - devversion              # Paul Gschwendtner
          - dgp1130                 # Doug Parker
          - filipesilva             # Filipe Silva
@@ -197,9 +195,6 @@ groups:
          - JiaLiPassion            # Jia Li
          - JoostK                  # Joost Koehoorn
          - josephperrott           # Joey Perrott
-         - juleskremer             # Jules Kremer
-         - kapunahelewong          # Kapunahele Wong
-         - kara                    # Kara Erickson
          - kyliau                  # Keen Yee Liau
          - manughub                # Manu Murthy
          - mgechev                 # Minko Gechev
@@ -431,7 +426,6 @@ groups:
         - alxhub
         - AndrewKushnir
         - atscott
-        - ~kara  # do not request reviews from Kara, but allow her to approve PRs
         - mhevery
         - jessicajaniuk
         # OOO as of 2020-09-28 - pkozlowski-opensource
@@ -455,7 +449,6 @@ groups:
         - alxhub
         - AndrewKushnir
         - atscott
-        - ~kara # do not request reviews from Kara, but allow her to approve PRs
         - mhevery
         - jessicajaniuk
         # OOO as of 2020-09-28 - pkozlowski-opensource
@@ -607,6 +600,8 @@ groups:
           'aio/content/guide/router.md',
           'aio/content/guide/router-tutorial.md',
           'aio/content/guide/router-tutorial-toh.md',
+          'aio/content/guide/routing-overview.md',
+          'aio/content/guide/router-reference.md',
           'aio/content/examples/router-tutorial/**',
           'aio/content/examples/router/**',
           'aio/content/images/guide/router/**'
@@ -769,6 +764,23 @@ groups:
       required: 2   # require at least 2 approvals
       reviewed_for: required
 
+  # =========================================================
+  #  DevTools
+  # =========================================================
+  devtools:
+    <<: *defaults
+    conditions:
+      - *can-be-global-approved
+      - *can-be-global-docs-approved
+      - >
+        contains_any_globs(files, [
+          'aio/content/guide/devtools.md',
+          'aio/content/images/guide/devtools/**'
+          ])
+    reviewers:
+      users:
+        - mgechev
+        - twerske
 
   # =========================================================
   #  Bazel

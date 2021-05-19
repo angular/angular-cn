@@ -1283,7 +1283,7 @@ The `CachingInterceptor` in the following example demonstrates this approach.
 </code-example>
 
 * The `isCacheable()` function determines if the request is cacheable.
-  In this sample, only GET requests to the npm package search api are cacheable.
+  In this sample, only GET requests to the npm package search API are cacheable.
 
   `isCacheable()` 函数用于决定该请求是否允许缓存。
   在这个例子中，只有发到 npm 包搜索 API 的 GET 请求才是可以缓存的。

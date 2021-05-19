@@ -32,8 +32,8 @@
       {"type": 301, "source": "/getting-started", "destination": "/start"},
       {"type": 301, "source": "/getting-started/:rest*", "destination": "/start/:rest*"},
       {"type": 301, "source": "/guide/displaying-data", "destination": "/start#template-syntax"},
-      {"type": 301, "source": "/guide/updating-to-version-10", "destination": "https://v11.angular.io/guide/updating-to-version-11"},
-      {"type": 301, "source": "/guide/updating-to-version-11", "destination": "/guide/updating-to-version-12"},
+      {"type": 301, "source": "/guide/updating-to-version-10", "destination": "https://v10.angular.io/guide/updating-to-version-10"},
+      {"type": 301, "source": "/guide/updating-to-version-11", "destination": "https://v11.angular.io/guide/updating-to-version-11"},
 
       // Renaming of Getting Started topics
       {"type": 301, "source": "/start/data", "destination": "/start/start-data"},
@@ -133,7 +133,10 @@
       {"type": 301, "source": "/config/tsconfig", "destination": "/guide/typescript-configuration"},
       {"type": 301, "source": "/config/solution-tsconfig", "destination": "https://devblogs.microsoft.com/typescript/announcing-typescript-3-9/#solution-style-tsconfig"},
       {"type": 301, "source": "/config/app-package-json", "destination": "/guide/strict-mode#non-local-side-effects-in-applications"},
-      {"type": 301, "source": "/strict", "destination": "/guide/strict-mode"}
+      {"type": 301, "source": "/strict", "destination": "/guide/strict-mode"},
+
+      // Use discoverable link for Angular DevTools and redirect to the guide page
+      {"type": 301, "source": "/devtools", "destination": "/guide/devtools"}
     ],
     "rewrites": [
       {

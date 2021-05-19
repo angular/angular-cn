@@ -400,6 +400,7 @@ Consider the following directive:
 class SubmitButton {
   private _disabled: boolean;
 
+  @Input()
   get disabled(): boolean {
     return this._disabled;
   }
@@ -462,6 +463,7 @@ As a workaround for this problem, Angular supports checking a wider, more permis
 class SubmitButton {
   private _disabled: boolean;
 
+  @Input()
   get disabled(): boolean {
     return this._disabled;
   }

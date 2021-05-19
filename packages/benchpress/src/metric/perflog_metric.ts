@@ -238,13 +238,26 @@ export class PerflogMetric extends Metric {
     events.forEach((event) => {
       const ph = event['ph'];
       const name = event['name'];
-      if (ph === 'B' && name === markName) {
+
+      // Here we are determining if this is the event signaling the start or end of our performance
+      // testing (this is triggered by us calling #timeBegin and #timeEnd).
+      //
+      // Previously, this was done by checking that the event name matched our mark name and that
+      // the phase was either "B" or "E" ("begin" or "end"). However, since Chrome v90 this is
+      // showing up as "-bpstart" and "-bpend" ("benchpress start/end"), which is what one would
+      // actually expect since that is the mark name used in ChromeDriverExtension - see the
+      // #timeBegin and #timeEnd implementations in chrome_driver_extension.ts. For
+      // backwards-compatibility with Chrome v89 (and older), we do both checks: the phase-based
+      // one ("B" or "E") and event name-based (the "-bp(start/end)" suffix).
+      const isStartEvent = (ph === 'B' && name === markName) || name === markName + '-bpstart';
+      const isEndEvent = (ph === 'E' && name === markName) || name === markName + '-bpend';
+      if (isStartEvent) {
         markStartEvent = event;
       } else if (ph === 'I' && name === 'navigationStart' && !this._ignoreNavigation) {
         // if a benchmark measures reload of a page, use the last
         // navigationStart as begin event
         markStartEvent = event;
-      } else if (ph === 'E' && name === markName) {
+      } else if (isEndEvent) {
         markEndEvent = event;
       }
     });

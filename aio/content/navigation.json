@@ -61,7 +61,8 @@
       "title": "快速上手",
       "tooltip": "建立开发环境，并学习基本概念",
       "children": [
-        { "url": "guide/what-is-angular",
+        {
+          "url": "guide/what-is-angular",
           "title": "什么是 Angular？",
           "tooltip": "A brief description of the Angular platform."
         },
@@ -263,9 +264,36 @@
       "tooltip": "Learn more about how to use Angular to build your applications.",
       "children": [
         {
-          "url": "guide/router",
           "title": "路由与导航",
-          "tooltip": "使用 Angular 路由器在多个视图之间进行应用内导航。"
+          "tooltip": "使用 Angular 路由器在多个视图之间进行应用内导航。",
+          "children": [
+            {
+              "url": "guide/routing-overview",
+              "title": "Overview",
+              "tooltip": "Introduces the Angular Router and lists topics that teach you how to add the router to your applications."
+            },
+            {
+              "url": "guide/router",
+              "title": "Common routing tasks",
+              "tooltip": "Task-based content on many of the common tasks associated with Angular routing, such as defining routs, setting up wildcard routes, and redirects."
+            },
+            {
+              "url": "guide/router-tutorial",
+              "title": "Tutorial: Routing in Single-page Applications",
+              "tooltip": "A tutorial that covers many patterns associated with Angular routing."
+            },
+            {
+              "url": "guide/router-tutorial-toh",
+              "title": "Tutorial: Adding routing to Tour of Heroes",
+              "tooltip": "Explore how to use Angular's router. Based on the Tour of Heroes example."
+            },
+            {
+              "url": "guide/router-reference",
+              "title": "Router reference",
+              "tooltip": "Describes highlight some core router API concepts."
+            }
+
+          ]
         },
         {
           "title": "表单",
@@ -540,6 +568,11 @@
           "url": "guide/language-service",
           "title": "语言服务",
           "tooltip": "Use Angular Language Service to speed up dev time."
+        },
+        {
+          "title": "DevTools",
+          "tooltip": "DevTools",
+          "url": "guide/devtools"
         }
       ]
     },
@@ -590,22 +623,6 @@
               "url": "tutorial/toh-pt6",
               "title": "6. 从服务器获取数据",
               "tooltip": "Part 6: Use HTTP to retrieve and save hero data."
-            }
-          ]
-        },
-        {
-          "title": "路由",
-          "tooltip": "End-to-end tutorials for learning about Angular's router.",
-          "children": [
-            {
-              "url": "guide/router-tutorial",
-              "title": "在单页面应用中使用路由",
-              "tooltip": "A tutorial that covers many patterns associated with Angular routing."
-            },
-            {
-              "url": "guide/router-tutorial-toh",
-              "title": "路由器教程：英雄之旅",
-              "tooltip": "Explore how to use Angular's router. Based on the Tour of Heroes example."
             }
           ]
         },
