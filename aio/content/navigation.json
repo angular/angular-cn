@@ -269,27 +269,27 @@
           "children": [
             {
               "url": "guide/routing-overview",
-              "title": "Overview",
+              "title": "概览",
               "tooltip": "Introduces the Angular Router and lists topics that teach you how to add the router to your applications."
             },
             {
               "url": "guide/router",
-              "title": "Common routing tasks",
+              "title": "常见路由任务",
               "tooltip": "Task-based content on many of the common tasks associated with Angular routing, such as defining routs, setting up wildcard routes, and redirects."
             },
             {
               "url": "guide/router-tutorial",
-              "title": "Tutorial: Routing in Single-page Applications",
+              "title": "教程：在单页面应用中导航",
               "tooltip": "A tutorial that covers many patterns associated with Angular routing."
             },
             {
               "url": "guide/router-tutorial-toh",
-              "title": "Tutorial: Adding routing to Tour of Heroes",
+              "title": "教程：为英雄之旅添加路由支持",
               "tooltip": "Explore how to use Angular's router. Based on the Tour of Heroes example."
             },
             {
               "url": "guide/router-reference",
-              "title": "Router reference",
+              "title": "路由参考手册",
               "tooltip": "Describes highlight some core router API concepts."
             }
 

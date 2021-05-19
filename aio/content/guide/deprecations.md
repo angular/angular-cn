@@ -216,7 +216,7 @@ Bazel builder and schematics were introduced in Angular Labs to let users try ou
 This feature has been deprecated. For more information, please refer to the [migration doc](https://github.com/angular/angular/blob/master/packages/bazel/docs/BAZEL_SCHEMATICS.md).
 
 Bazel 构建器及其原理图曾经被引入到 Angular Labs 中，以便让用户尝试 Bazel，而不用管理 Bazel 的版本和 BUILD 文件。
-该特性已经弃用了。欲知详情，参阅[迁移文档](https://github.com/angular/angular/blob/master/packages/bazel/src/schematics/README.md)。
+该特性已经弃用了。欲知详情，参阅[迁移文档](https://github.com/angular/angular/blob/master/packages/bazel/docs/BAZEL_SCHEMATICS.md)。
 
 {@a wtf}
 
@@ -440,7 +440,7 @@ const routes: Routes = [{
 
 For more information see the [Getting route information](guide/router-reference#activated-route) section of the [Router guide](guide/router).
 
-欲知详情，参阅[路由器指南](guide/router#activated-route)。
+欲知详情，参阅[路由器指南](guide/router-reference#activated-route)。
 
 {@a reflect-metadata}
 

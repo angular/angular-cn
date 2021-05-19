@@ -375,7 +375,7 @@ A wildcard route can navigate to a custom "404 Not Found" component or [redirect
 The router selects the route with a [_first match wins_](/guide/router-reference#example-config) strategy.
 Because a wildcard route is the least specific route, place it last in the route configuration.
 
-路由器会使用[先到先得](/guide/router#example-config)的策略来选择路由。
+路由器会使用[先到先得](/guide/router-reference#example-config)的策略来选择路由。
 由于通配符路由是最不具体的那个，因此务必确保它是路由配置中的*最后一个*路由。
 
 </div>
