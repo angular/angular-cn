@@ -17,7 +17,7 @@ Libraries extend Angular's base functionality. For example, to add [reactive for
 Similarly, adding the [service worker](guide/service-worker-intro) library to an Angular application is one of the steps for turning an application into a [Progressive Web App](https://developers.google.com/web/progressive-web-apps/) (PWA).
 [Angular Material](https://material.angular.io/) is an example of a large, general-purpose library that provides sophisticated, reusable, and adaptable UI components.
 
-这些库扩展了 Angular 的基本功能。例如，要向应用添加[响应式表单](guide/reactive-forms)，请使用 `ng add @angular/forms` 添加该库的 npm 包，再从应用代码中，从 `@angular/forms` 库中导入 `ReactiveFormsModule`。同样，把 [Service Worker](guide/service-worker-intro) 库添加到 Angular 应用中是将应用转换为[渐进式 Web 应用程序](https://developers.google.com/web/progressive-web-apps/)（PWA）的步骤之一。[Angular Material](https://material.angular.io/) 是一个大型通用库的典范，它提供了一些复杂、可复用，兼具高度适应性的 UI 组件。
+这些库扩展了 Angular 的基本功能。例如，要向应用添加[响应式表单](guide/reactive-forms)，请使用 `ng add @angular/forms` 添加该库的 npm 包，再从应用代码中，从 `@angular/forms` 库中导入 `ReactiveFormsModule`。同样，把 [Service Worker](guide/service-worker-intro) 库添加到 Angular 应用中是将应用转换为[渐进式 Web 应用程序](https://developers.google.com/web/progressive-web-apps/)（PWA）的步骤之一。[Angular Material](https://material.angular.cn/) 是一个大型通用库的典范，它提供了一些复杂、可复用，兼具高度适应性的 UI 组件。
 
 Any app developer can use these and other libraries that have been published as npm packages by the Angular team or by third parties. See [Using Published Libraries](guide/using-libraries).
 

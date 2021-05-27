@@ -23,7 +23,7 @@ The `ng add` command uses a package manager such as [npm](https://www.npmjs.com/
 A published library typically provides a README or other documentation on how to add that lib to your app.
 For an example, see [Angular Material](https://material.angular.io/) docs.
 
-已发布的库通常会提供 README 或者其它文档来介绍如何把该库添加到你的应用中。例子可参阅 [Angular Material](https://material.angular.io/) 文档。
+已发布的库通常会提供 README 或者其它文档来介绍如何把该库添加到你的应用中。例子可参阅 [Angular Material](https://material.angular.cn/) 文档。
 
 ### Library typings
 

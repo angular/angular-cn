@@ -7,7 +7,7 @@
 Entry components have been deprecated with the [Ivy rendering engine](https://angular.io/guide/ivy). 
 For more information, see [entryComponents deprecation](https://angular.io/guide/deprecations#entrycomponents-and-analyze_for_entry_components-no-longer-required) in the [Deprecated APIs and features](https://angular.io/guide/deprecations).
 
-[Ivy 渲染引擎](https://angular.io/guide/ivy)已弃用入口组件。有关更多信息，请参见[“弃用的 API 和功能”](https://angular.io/guide/deprecations)中的 [entryComponents 已弃用](https://angular.io/guide/deprecations#entrycomponents-and-analyze_for_entry_components-no-longer-required)。
+[Ivy 渲染引擎](https://angular.cn/guide/ivy)已弃用入口组件。有关更多信息，请参见[“弃用的 API 和功能”](https://angular.cn/guide/deprecations)中的 [entryComponents 已弃用](https://angular.io/guide/deprecations#entrycomponents-and-analyze_for_entry_components-no-longer-required)。
 
 </div>
 

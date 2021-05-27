@@ -159,7 +159,7 @@ The import path is the relative path to the module.
 
 In Angular version 8, the string syntax for the `loadChildren` route specification [was deprecated](https://angular.io/guide/deprecations#loadchildren-string-syntax) in favor of the `import()` syntax. However, you can opt into using string-based lazy loading (`loadChildren: './path/to/module#Module'`) by including the lazy-loaded routes in your `tsconfig` file, which includes the lazy-loaded files in the compilation.
 
-在 Angular 版本 8 中，`loadChildren` 路由规范的字符串语法[已弃用](https://angular.io/guide/deprecations#loadchildren-string-syntax)，建议改用 `import()` 语法。不过，你仍然可以通过在 `tsconfig` 文件中包含惰性加载的路由来选择使用基于字符串的惰性加载（`loadChildren: './path/to/module#Module'`），这样它就会在编译时包含惰性加载的文件。
+在 Angular 版本 8 中，`loadChildren` 路由规范的字符串语法[已弃用](https://angular.cn/guide/deprecations#loadchildren-string-syntax)，建议改用 `import()` 语法。不过，你仍然可以通过在 `tsconfig` 文件中包含惰性加载的路由来选择使用基于字符串的惰性加载（`loadChildren: './path/to/module#Module'`），这样它就会在编译时包含惰性加载的文件。
 
 By default the CLI will generate projects with stricter file inclusions intended to be used with the `import()` syntax.
 

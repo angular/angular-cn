@@ -76,7 +76,7 @@ The [Angular Material](https://material.angular.io/) library, which is maintaine
 The [Component Development Kit (CDK)](https://material.angular.io/cdk/categories) includes the `a11y` package that provides tools to support various areas of accessibility.
 For example:
 
-由 Angular 团队维护的 [Angular Material](https://material.angular.io/) 库是旨在提供完全无障碍的一组可复用 UI 组件。[组件开发工具包（CDK）](https://material.angular.io/cdk/categories)中包括 `a11y` 软件包，该软件包提供了支持无障碍领域的各种工具。例如：
+由 Angular 团队维护的 [Angular Material](https://material.angular.cn/) 库是旨在提供完全无障碍的一组可复用 UI 组件。[组件开发工具包（CDK）](https://material.angular.cn/cdk/categories)中包括 `a11y` 软件包，该软件包提供了支持无障碍领域的各种工具。例如：
 
 * `LiveAnnouncer` is used to announce messages for screen-reader users using an `aria-live` region. See the W3C documentation for more information on [aria-live regions](https://www.w3.org/WAI/PF/aria-1.1/states_and_properties#aria-live).
 
@@ -124,7 +124,7 @@ component's API.
 
 You can see [`MatFormField`](https://material.angular.io/components/form-field/overview) as an example of this pattern.
 
-你可以把 [`MatFormField`](https://material.angular.io/components/form-field/overview) 作为该模式的例子。
+你可以把 [`MatFormField`](https://material.angular.cn/components/form-field/overview) 作为该模式的例子。
 
 ## Case study: Building a custom progress bar
 

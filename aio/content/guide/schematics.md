@@ -101,7 +101,7 @@ The `add` command uses your package manager to download new dependencies, and in
 For example, the [`@angular/material`](https://material.angular.io/guide/schematics) schematic tells the `add` command to install and set up Angular Material and theming, and register new starter components that can be created with `ng generate`.
 You can look at this one as an example and model for your own add schematic.
 
-例如，[`@angular/material`](https://material.angular.io/guide/schematics) 原理图会要求 `add` 命令安装并设置 Angular Material 及其主题，并注册可通过 `ng generate` 创建的新启动器组件。你可以把它作为自己的 "添加原理图" 的范例。
+例如，[`@angular/material`](https://material.angular.cn/guide/schematics) 原理图会要求 `add` 命令安装并设置 Angular Material 及其主题，并注册可通过 `ng generate` 创建的新启动器组件。你可以把它作为自己的 "添加原理图" 的范例。
 
 Partner and third party libraries also support the Angular CLI with add schematics.
 For example, `@ng-bootstrap/schematics` adds [ng-bootstrap](https://ng-bootstrap.github.io/)  to an app, and  `@clr/angular` installs and sets up [Clarity from VMWare](https://vmware.github.io/clarity/documentation/v1.0/get-started).
