@@ -6,7 +6,7 @@ This guide builds on the second step of the [Getting started with a basic Angula
 At this stage of development, the store application has a product catalog with two views: a product list and product details.
 Users can click on a product name from the list to see details in a new view, with a distinct URL, or route.
 
-本章基于[以一个基本 Anguluar 应用快速上手](start)的第二步 —— [添加导航](start/start-routing "Adding navigation")。
+本章基于[以一个基本 Angular 应用快速上手](start)的第二步 —— [添加导航](start/start-routing "Adding navigation")。
 在此开发阶段，本商店应用具有一个包含两个视图的商品名录：商品列表和商品详情。用户点击清单中的某个商品名称，就会在新视图中看到具有专门的 URL 或路由的详情页。
 
 This step of the tutorial guides you through creating a shopping cart in the following phases:
