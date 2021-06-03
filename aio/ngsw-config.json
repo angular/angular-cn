@@ -11,13 +11,12 @@
           "/pwa-manifest.json",
           "/assets/images/favicons/favicon.ico",
           "/assets/js/*.js",
+          "/assets/css/*.css",
+          "/assets/fonts/*.ttf",
           "/*.css",
           "/*.js",
-          "!/*-es5*.js"
-        ],
-        "urls": [
-          "https://fonts.googleapis.com/**",
-          "https://fonts.gstatic.com/s/**"
+          "!/*-es5*.js",
+          "!/*.js.map"
         ]
       }
     }, {

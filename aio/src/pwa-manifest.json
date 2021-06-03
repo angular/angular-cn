@@ -1,6 +1,6 @@
 {
-  "name": "Angular Documentation",
-  "short_name": "angular.io",
+  "name": "Angular 官方文档中文版",
+  "short_name": "angular.cn",
   "background_color": "#1976d2",
   "theme_color": "#1976d2",
   "display": "standalone",
