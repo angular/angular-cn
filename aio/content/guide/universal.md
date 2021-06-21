@@ -331,7 +331,7 @@ Similarly, without mouse or keyboard events, a server-side app can't rely on a u
 The app must determine what to render based solely on the incoming client request.
 This is a good argument for making the app [routable](guide/router).
 
-同样，由于没有鼠标或键盘事件，因此 Universal 应用也不能依赖于用户点击某个按钮来显示每个组件。
+同样，由于没有鼠标或键盘事件，因此 Universal 应用也不能依赖于用户点击某个按钮来显示某个组件。
 Universal 应用必须仅仅根据客户端过来的请求决定要渲染的内容。
 把该应用做成[可路由的](guide/router)，就是一种好方案。
 
