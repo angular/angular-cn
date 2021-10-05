@@ -29,7 +29,7 @@ When you are ready to deploy, however, you must use the `ng build` command to bu
 
 Both `ng build` and `ng serve` clear the output folder before they build the project, but only the `ng build` command writes the generated build artifacts to the output folder.
 
-`ng build` 和 `ng serve` 在构建项目之前都会清除输出文件夹，但只有 `ng build` 命令会把生成的构建成果写入输出输出文件夹中。
+`ng build` 和 `ng serve` 在构建项目之前都会清除输出文件夹，但只有 `ng build` 命令会把生成的构建成果写入输出文件夹中。
 
 <div class="alert is-helpful">
 
