@@ -36,7 +36,7 @@ async function renderPage(browser: Browser, url: string) {
   const page = await browser.newPage();
   await page.setRequestInterception(true);
   page.on('request', filterResource);
-  await page.goto(`http://localhost:4200/${url}`, { waitUntil: 'domcontentloaded' });
+  await page.goto(`http://localhost:42001/${url}`, { waitUntil: 'domcontentloaded' });
   await page.waitForSelector('aio-doc-viewer>div');
   const content = await page.content();
   const filename = join('dist', `${url}.html`);

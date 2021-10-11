@@ -12,7 +12,7 @@
     "aio-check-local": "node tools/ng-packages-installer check .",
     "ng": "yarn check-env && ng",
     "start": "yarn check-env && ng serve --configuration=fast --port=4201",
-    "preview": "http-server-spa ./dist index.html 4200",
+    "preview": "http-server-spa ./dist index.html 42001",
     "prebuild": "yarn setup",
     "build": "yarn ~~build",
     "prebuild-local": "yarn setup-local",

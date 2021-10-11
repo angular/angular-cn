@@ -6,39 +6,30 @@ set -e
 commitSha=$(git rev-parse --short HEAD)
 commitMessage=$(git log --oneline -n 1)
 
-cd `dirname $0`
+cd $(dirname $0)
 
 yarn build
 
-yarn preview > /tmp/preview.log &
+yarn preview >/tmp/preview.log &
 
 pid=$!
 
-sleep 3;
+sleep 3
 
 npx ts-node --project=./tools/translator/tsconfig.json ./tools/translator/bin/prerender.ts
 
 kill -9 ${pid}
 
-if [[ ! -d "./ng-docs.github.io" ]]
-then
-    git clone https://asnowwolf:${GITHUB_ACCESS_TOKEN}@github.com/ng-docs/preview.angular.cn.git ./ng-docs.github.io
-fi
+rm -fr ./prebuilt
 
-cp -r dist/* ./ng-docs.github.io
+git clone git@github.com:ng-docs/prebuilt.angular.cn.git ./prebuilt
 
-cd ./ng-docs.github.io
+cp -r dist/* ./prebuilt
 
-git add ./generated/docs/api/
-git commit --allow-empty -am "${commitMessage}"
-git add ./generated/docs/guide/
-git commit --amend --allow-empty -am "${commitMessage}"
-git add ./generated/docs/
-git commit --amend --allow-empty -am "${commitMessage}"
-git add ./generated/images/
-git commit --amend --allow-empty -am "${commitMessage}"
+cd ./prebuilt
+
 git add .
-git commit --amend --allow-empty -am "${commitMessage}"
+git commit -am "${commitMessage}"
 
 git push
 
