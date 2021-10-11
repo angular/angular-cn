@@ -1,0 +1,204 @@
+1
+00:00:00,000 --> 00:00:02,700
+Multiple components match node with tag name.
+
+2
+00:00:02,700 --> 00:00:06,900
+When you encounter this error, it means two or more components use the same element name.
+
+3
+00:00:07,000 --> 00:00:10,400
+The element selectors of all components within an ngModule
+
+4
+00:00:10,400 --> 00:00:13,800
+must be unique because when there's a name collision, Angular
+
+5
+00:00:13,800 --> 00:00:16,800
+has no way of knowing which component to render in the template.
+
+6
+00:00:16,900 --> 00:00:21,100
+Let's take a look at a simple reproduction and quick fix in the code.
+
+7
+00:00:21,100 --> 00:00:25,600
+We have an icon component with a selector name of mat-icon.
+
+8
+00:00:25,600 --> 00:00:28,600
+The component has been declared with that selector in the
+
+9
+00:00:28,600 --> 00:00:32,200
+app component template, but when we attempt to\h
+run the app, we get the error.
+
+11
+00:00:32,300 --> 00:00:36,200
+Multiple components match node with tag name mat-icon your
+
+12
+00:00:36,200 --> 00:00:39,000
+IDE should be able to catch the error in advance.
+
+13
+00:00:39,000 --> 00:00:42,100
+Notice how when we Hover over the red underline, we get the
+
+14
+00:00:42,100 --> 00:00:45,100
+feedback that more than one component matched on this element.
+
+15
+00:00:45,200 --> 00:00:48,500
+In addition, it tells us exactly which classes are in conflict.
+
+16
+00:00:48,700 --> 00:00:51,600
+In this case, the mat-icon and the icon component.
+
+17
+00:00:51,800 --> 00:00:55,100
+Alternatively, we can debug from the error in the browser
+
+18
+00:00:55,100 --> 00:00:57,800
+console. Find the link to the template in the stack trace
+
+19
+00:00:57,800 --> 00:01:00,000
+to determine which line of code cause the issue.
+
+20
+00:01:00,100 --> 00:01:03,600
+Then we need to figure out which two components share the same selector.
+
+21
+00:01:03,600 --> 00:01:07,500
+The first technique you might try is a global search in VS code.
+
+22
+00:01:07,500 --> 00:01:10,900
+Use Control Shift F to bring up the search bar and look for
+
+23
+00:01:10,900 --> 00:01:13,200
+any component files that use that selector name.
+
+24
+00:01:13,300 --> 00:01:15,800
+If you have two conflicting components in your code base,
+
+25
+00:01:15,800 --> 00:01:17,300
+simply rename one of them.
+
+26
+00:01:17,300 --> 00:01:21,200
+However, in this demo, we only have one match, and that means
+
+27
+00:01:21,200 --> 00:01:23,900
+the collision is caused by a third party library.
+
+28
+00:01:23,900 --> 00:01:26,600
+Because you likely don't have control over the name of a
+
+29
+00:01:26,600 --> 00:01:28,300
+component in a third party library.
+
+30
+00:01:28,300 --> 00:01:31,400
+Your only option is to rename your local component.
+
+31
+00:01:31,400 --> 00:01:35,800
+Notice how when we rename mat-icon to app-icon, the error goes away.
+
+32
+00:01:36,000 --> 00:01:38,700
+Now, there are a couple of best practices that we can follow
+
+33
+00:01:38,700 --> 00:01:40,600
+to prevent this error from ever happening.
+
+34
+00:01:40,600 --> 00:01:42,700
+Selectors should always be formatted.
+
+35
+00:01:42,700 --> 00:01:45,900
+In Kebab case, even though it is possible to use a single
+
+36
+00:01:45,900 --> 00:01:49,400
+word as a selector, it's generally better to use a consistent
+
+37
+00:01:49,400 --> 00:01:51,300
+set of characters to pre fix it.
+
+38
+00:01:51,400 --> 00:01:55,300
+When you use the Angular CLI, it will prefix your component names with 'app'.
+
+39
+00:01:55,400 --> 00:01:58,300
+By default, this convention makes it easy to distinguish
+
+40
+00:01:58,300 --> 00:02:01,700
+which components are local to your code base and which components
+
+41
+00:02:01,700 --> 00:02:05,000
+are external like material, which are prefixed with 'mat'.
+
+42
+00:02:05,100 --> 00:02:08,500
+Another best practice that can help here is one component per file.
+
+43
+00:02:08,700 --> 00:02:12,000
+When you have one component per file, the file name generally
+
+44
+00:02:12,100 --> 00:02:15,200
+corresponds to the selector name, which makes it more difficult
+
+45
+00:02:15,200 --> 00:02:18,700
+to end up with two components in your code base that share a selector name.
+
+46
+00:02:18,900 --> 00:02:20,300
+Let's go ahead and recap.
+
+47
+00:02:20,300 --> 00:02:23,700
+When you encounter the multiple components match node with
+
+48
+00:02:23,700 --> 00:02:26,500
+tag name error, you have a name collision between two or
+
+49
+00:02:26,500 --> 00:02:29,200
+more components, which will likely require you to change
+
+50
+00:02:29,200 --> 00:02:31,600
+the selector name in one of your local components.
+
+51
+00:02:31,800 --> 00:02:34,900
+Make sure to follow best practices to avoid issues like this
+
+52
+00:02:34,900 --> 00:02:39,300
+and refer to the Angular Style Guide and the official documentation for additional details.

@@ -1,0 +1,330 @@
+1
+00:00:00,720 --> 00:00:04,480
+NullInjectorError: No provider\h
+for the injectable class.\h
+
+2
+00:00:04,480 --> 00:00:07,360
+You'll encounter this error when\h
+you attempt to inject a service,\h\h
+
+3
+00:00:07,360 --> 00:00:12,000
+without declaring the corresponding provider.
+In other words, your code is attempting to use\h\h
+
+4
+00:00:12,000 --> 00:00:17,120
+a dependency, but Angular has no way to find\h
+or inject that dependency, because there is\h\h
+
+5
+00:00:17,120 --> 00:00:21,520
+currently no provider pointing to it.
+But what is a provider exactly?\h\h
+
+6
+00:00:21,520 --> 00:00:26,400
+Think of it like a prescription for a medication,\h
+where the prescription is a provider and the\h\h
+
+7
+00:00:26,400 --> 00:00:31,200
+medication is an injectable service. What the\h
+error is telling us is that we're trying to\h\h
+
+8
+00:00:31,200 --> 00:00:36,720
+use a medication that has not been prescribed.\h
+There are two places we can address the issue:\h\h
+
+9
+00:00:36,720 --> 00:00:42,320
+the injectable decorator or the provider's array\h
+in an ngModule. In either case, a provider is\h\h
+
+10
+00:00:42,320 --> 00:00:46,560
+composed of three main pieces of information.
+First, it needs to know where to make the\h\h
+
+11
+00:00:46,560 --> 00:00:50,480
+class available, like the root of\h
+the application or a feature module.\h\h
+
+12
+00:00:50,480 --> 00:00:55,840
+And second, it needs a token for locating that\h
+class within the dependency injection system. The\h\h
+
+13
+00:00:55,840 --> 00:01:01,280
+token is the class type that has been decorated.\h
+In most cases the token will be the same as the\h\h
+
+14
+00:01:01,280 --> 00:01:06,080
+class that you want to provide, however, it's\h
+possible to provide a third piece of information\h\h
+
+15
+00:01:06,080 --> 00:01:12,160
+like useClass to provide an entirely different\h
+class or useValue to provide a raw value.\h
+
+16
+00:01:12,160 --> 00:01:16,080
+Let's start by taking a look at a couple\h
+of common examples and quick fixes,\h\h
+
+17
+00:01:16,080 --> 00:01:20,000
+then we'll take a more detailed look at\h
+injectors and providers to understand why\h\h
+
+18
+00:01:20,000 --> 00:01:24,880
+this error happens at a more fundamental level.
+In our code base we have a service decorated\h\h
+
+19
+00:01:24,880 --> 00:01:30,240
+with @Injectable, but currently the service\h
+has not been provided to any ngModule within\h\h
+
+20
+00:01:30,240 --> 00:01:34,480
+the application. When we attempt to inject\h
+it in the constructor of the AppComponent,\h\h
+
+21
+00:01:34,480 --> 00:01:39,840
+the result is the NullInjectorError. The error\h
+message itself points to the offending class.\h\h
+
+22
+00:01:39,840 --> 00:01:44,160
+Now there are two main ways we might address the\h
+issue. If we want to provide the class throughout\h\h
+
+23
+00:01:44,160 --> 00:01:49,760
+the entire application we can use the providedIn:\h
+'root' option. That'll provide a global singleton\h\h
+
+24
+00:01:49,760 --> 00:01:54,320
+that can be used anywhere in the application\h
+and clears the error. However, that may not\h\h
+
+25
+00:01:54,320 --> 00:01:59,520
+always be the optimal solution. In some cases,\h
+it may be more efficient to scope a service to\h\h
+
+26
+00:01:59,520 --> 00:02:04,880
+a feature module. And that can be achieved by\h
+providing an ngModule class as the providedIn\h\h
+
+27
+00:02:04,880 --> 00:02:09,760
+option. That makes it possible to exclude this\h
+code from the app's main JavaScript bundle\h\h
+
+28
+00:02:09,760 --> 00:02:14,800
+and lazy load it when it becomes needed to improve\h
+load time performance. That's ideal when you have\h\h
+
+29
+00:02:14,800 --> 00:02:20,160
+a service that's used by an individual module,\h
+but what if a service is required by multiple lazy\h\h
+
+30
+00:02:20,160 --> 00:02:25,600
+loaded modules? In that case you may want each\h
+module to create its own instance of the service.\h\h
+
+31
+00:02:25,600 --> 00:02:30,240
+That can be achieved with the providedIn:\h
+'any' option. Instead of a singleton,\h\h
+
+32
+00:02:30,240 --> 00:02:35,600
+this option will instantiate a new service for\h
+each module that injects it. And one other option\h\h
+
+33
+00:02:35,600 --> 00:02:40,560
+to also be aware of is providedIn: 'platform',\h
+which is relevant to projects that use multiple\h\h
+
+34
+00:02:40,560 --> 00:02:46,160
+Angular applications on a single page, such as\h
+web components with Angular elements for example.\h\h
+
+35
+00:02:46,160 --> 00:02:50,640
+providedIn: 'platform' will make the service\h
+available to all applications on that page.\h
+
+36
+00:02:51,200 --> 00:02:54,240
+In total that's four different\h
+ways to provide a service.\h
+
+37
+00:02:54,240 --> 00:02:57,440
+'root' instantiates a singleton\h
+for an entire Angular app,\h
+
+38
+00:02:57,440 --> 00:03:00,880
+a module class provides a\h
+singleton for just that module,\h
+
+39
+00:03:00,880 --> 00:03:04,000
+'any' provides an instance for\h
+each module that injects it,\h
+
+40
+00:03:04,000 --> 00:03:07,760
+and 'platform' provides a singleton\h
+for multiple Angular applications.\h
+
+41
+00:03:08,320 --> 00:03:13,600
+Now it's also worth noting that you can provide\h
+a service directly in the ngModule decorator.\h\h
+
+42
+00:03:13,600 --> 00:03:18,000
+Import the service you want to provide then\h
+add it to the provider's array within the\h\h
+
+43
+00:03:18,000 --> 00:03:22,880
+ngModule decorator. This pattern also creates a\h
+provider, however it's generally not the preferred\h\h
+
+44
+00:03:22,880 --> 00:03:27,520
+approach because it makes the code more difficult\h
+to tree shake when a service has not been injected\h\h
+
+45
+00:03:27,520 --> 00:03:32,960
+anywhere. Now in many cases you may encounter the\h
+NullInjectorError from a third-party dependency\h\h
+
+46
+00:03:32,960 --> 00:03:38,640
+or one of Angular's built-in modules. For\h
+example, imagine we import the HTTP client into\h\h
+
+47
+00:03:38,640 --> 00:03:43,680
+our AppComponent, then inject it as a dependency\h
+in the constructor. That also throws an error,\h\h
+
+48
+00:03:43,680 --> 00:03:48,080
+but you might be wondering why something built\h
+into Angular would not have a provider. There\h\h
+
+49
+00:03:48,080 --> 00:03:53,280
+are only a handful of minimal services built into\h
+Angular core. Almost everything else is isolated\h\h
+
+50
+00:03:53,280 --> 00:03:59,200
+in its own module. What that means is that in\h
+order to use the HTTP client, we need to import\h\h
+
+51
+00:03:59,200 --> 00:04:04,560
+its corresponding ngModule in the module that\h
+depends on it, which in our case is the AppModule,\h\h
+
+52
+00:04:04,560 --> 00:04:09,520
+and we do that by adding it to its imports array.\h
+Now that we know how to fix the issue, let's talk\h\h
+
+53
+00:04:09,520 --> 00:04:14,960
+about injectors. When Angular is bootstrapped, it\h
+creates an application-wide injector. Its job is\h\h
+
+54
+00:04:14,960 --> 00:04:20,320
+to create and manage dependencies, and it does\h
+that by maintaining a collection of providers.\h\h
+
+55
+00:04:20,320 --> 00:04:26,320
+Each provider contains a token or class type that\h
+tells Angular where to find the injectable value.\h\h
+
+56
+00:04:26,320 --> 00:04:30,720
+In most cases a provider is created with\h
+the @Injectable decorator. When that class\h\h
+
+57
+00:04:30,720 --> 00:04:35,120
+is then referenced in the constructor of a\h
+component for example, the injector will use\h\h
+
+58
+00:04:35,120 --> 00:04:40,400
+the provider to find the existing instance of\h
+that class or instantiate a new one if required.\h\h
+
+59
+00:04:40,400 --> 00:04:44,640
+Every dependency needs to have at least one\h
+provider, and that brings us to the root of\h\h
+
+60
+00:04:44,640 --> 00:04:49,520
+the NullInjectorError. If there's no provider,\h
+it just doesn't work. Let's go ahead and recap.\h\h
+
+61
+00:04:49,520 --> 00:04:54,320
+When you encounter the NullInjectorError, it\h
+means a service was injected without the necessary\h\h
+
+62
+00:04:54,320 --> 00:04:59,680
+provider. The first step is to find the offending\h
+class. If it's one of your own injectable classes,\h\h
+
+63
+00:04:59,680 --> 00:05:04,640
+you can provide it in the root of the application\h
+or provide it in an ngModule. If it's related to\h\h
+
+64
+00:05:04,640 --> 00:05:08,960
+a third party dependency, you're likely\h
+missing an ngModule import. Determine\h\h
+
+65
+00:05:08,960 --> 00:05:14,080
+where that service is provided, then import the\h
+corresponding ngModule. For additional details\h\h
+
+66
+00:05:14,080 --> 00:05:19,920
+and examples check out the dependency injection\h
+guide in the official Angular documentation
+

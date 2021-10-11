@@ -1,0 +1,448 @@
+1
+00:00:00,480 --> 00:00:03,000
+ExpressionChangedAfterItHasBeenCheckedError.
+
+2
+00:00:03,000 --> 00:00:08,720
+You'll encounter this error if your code\hchanges a value after change detection\hhas been run and the view has been built.\h
+
+3
+00:00:08,720 --> 00:00:12,480
+You'll only see this error in development\h
+because Angular runs an additional change\h\h
+
+4
+00:00:12,480 --> 00:00:16,480
+detection check to catch errors like\h
+this that can cause erratic UI behavior.\h
+
+5
+00:00:16,480 --> 00:00:21,520
+The extra check ensures the app is stable and that\h
+all data updates have been reflected in the views.\h
+
+6
+00:00:21,520 --> 00:00:25,499
+There are a variety of reasons the view might\h
+be left in an inconsistent state,
+
+7
+00:00:25,499 --> 00:00:30,960
+such as code\hthat updates the view during the AfterViewInit\h
+lifecycle hook or when change detection triggers\h\h
+
+8
+00:00:30,960 --> 00:00:35,369
+itself in an infinite loop, like a method that\h
+returns a different value each time,
+
+9
+00:00:35,369 --> 00:00:38,212
+or a child\hcomponent that changes the bindings on its parent.
+
+10
+00:00:38,212 --> 00:00:41,331
+Let's start by looking at a simple reproduction\hand solution.
+
+11
+00:00:41,331 --> 00:00:45,120
+Then, we'll take a more detailed\h
+look at Angular's change detection to understand\h\h
+
+12
+00:00:45,120 --> 00:00:49,600
+why this error happens and why it's important.
+Here in the app component template we're using\h\h
+
+13
+00:00:49,600 --> 00:00:54,480
+the ngIf directive with a loading boolean.
+In the model, or our component type script,\h\h
+
+14
+00:00:54,480 --> 00:01:00,000
+we give it a default value of true. Then, using\h
+the AfterViewInit lifecycle hook we flip the\h\h
+
+15
+00:01:00,000 --> 00:01:03,120
+value to false when it's done loading.
+But when we run this code we see\h\h
+
+16
+00:01:03,120 --> 00:01:08,240
+ExpressionChangedAfterItHasBeenCheckedError:\h
+Previous value: false, Current value: true.\h
+
+17
+00:01:08,240 --> 00:01:12,480
+Now in a more complex app it might not be\h
+clear where this error originates from,\h\h
+
+18
+00:01:12,480 --> 00:01:16,320
+but you can always assume that it has\h
+something to do with a binding in the template.\h
+
+19
+00:01:16,320 --> 00:01:20,560
+In the stack trace you'll find a link to the\h
+source map for the component template that\h\h
+
+20
+00:01:20,560 --> 00:01:24,480
+caused the error and it takes us directly\h
+to the line of code that caused the issue,\h\h
+
+21
+00:01:24,480 --> 00:01:29,440
+which is our ngIf binding to the loading boolean.
+What the error is trying to tell us is that\h\h
+
+22
+00:01:29,440 --> 00:01:34,000
+the loading value has changed after the change\h
+detection cycle has completed, but what exactly\h\h
+
+23
+00:01:34,000 --> 00:01:37,120
+is wrong with our code in this case?
+The short answer is that we're using\h\h
+
+24
+00:01:37,120 --> 00:01:39,680
+the wrong lifecycle hook.
+If we move our code from\h\h
+
+25
+00:01:39,680 --> 00:01:44,160
+AfterViewInit to OnInit the error goes\h
+away and everything works perfectly.\h
+
+26
+00:01:44,160 --> 00:01:48,560
+In other words, if you find yourself updating\h
+values in AfterViewInit there's a good chance\h\h
+
+27
+00:01:48,560 --> 00:01:53,280
+that a simple refactor to OnInit or the\h
+component constructor will fix the issue.\h
+
+28
+00:01:53,280 --> 00:01:58,240
+Okay, at this point we know we used the wrong\h
+lifecycle hook and we can fix it by refactoring,\h\h
+
+29
+00:01:58,240 --> 00:02:03,040
+but to really understand why let's do a quick\h
+review of how change detection works in Angular.\h
+
+30
+00:02:03,040 --> 00:02:06,880
+The goal of change detection is to\h
+keep the model, your typescript code,\h\h
+
+31
+00:02:06,880 --> 00:02:10,880
+in sync with the template, your html.
+And it does so by looking for data\h\h
+
+32
+00:02:10,880 --> 00:02:15,520
+changes in the component tree from top to bottom.
+First it checks the parent, then the first child,\h\h
+
+33
+00:02:15,520 --> 00:02:19,840
+second child and so on, but if we update a\h
+binding on the parent after it has already\h\h
+
+34
+00:02:19,840 --> 00:02:24,560
+been checked Angular will throw the error.
+Now what we have here is a simplified\h\h
+
+35
+00:02:24,560 --> 00:02:30,000
+breakdown of Angular's life cycle, or the steps\h
+it performs when a component is first initialized.\h
+
+36
+00:02:30,000 --> 00:02:33,920
+First it updates the bindings like\h
+the ngIf directive in the template.\h
+
+37
+00:02:33,920 --> 00:02:37,600
+Then it runs the OnInit lifecycle\h
+hook, updates the DOM, then runs\h\h
+
+38
+00:02:37,600 --> 00:02:42,000
+change detection for the child component.
+Notice how the final step is AfterViewInit,\h\h
+
+39
+00:02:42,000 --> 00:02:44,880
+and more importantly that it\h
+runs after change detection.\h
+
+40
+00:02:44,880 --> 00:02:48,480
+Basically any code that runs here\h
+should not attempt to update the view\h\h
+
+41
+00:02:48,480 --> 00:02:53,600
+and that was the root of the problem in this case.
+Refactoring to OnInit works great for initial\h\h
+
+42
+00:02:53,600 --> 00:02:57,840
+values, but if that doesn't fix the issue there\h
+are a few other ways you may have encountered\h\h
+
+43
+00:02:57,840 --> 00:03:02,560
+this error, along with additional ways to fix it.
+In the component here, we're using ViewChild to\h\h
+
+44
+00:03:02,560 --> 00:03:06,320
+grab an element from the DOM, but this\h
+element won't be available until the\h\h
+
+45
+00:03:06,320 --> 00:03:10,080
+AfterViewInit lifecycle hook is called.
+But what if we can't update the state of\h\h
+
+46
+00:03:10,080 --> 00:03:13,040
+the component until after we\h
+have the ViewChild element?\h
+
+47
+00:03:13,040 --> 00:03:16,720
+If we can't refactor to ngOnInit,\h
+we have a couple of other options.\h
+
+48
+00:03:16,720 --> 00:03:21,440
+An approach you'll often see on StackOverflow\h
+answers is to make the update asynchronous.\h
+
+49
+00:03:21,440 --> 00:03:25,120
+When we make the update async, it'll be\h
+picked up on the next change detection\h\h
+
+50
+00:03:25,120 --> 00:03:29,440
+check and prevent the error from occurring.
+We can make it asynchronous by wrapping it in\h\h
+
+51
+00:03:29,440 --> 00:03:34,320
+a set timeout with a delay of zero. That'll put\h
+the update in the next macro task queue of the\h\h
+
+52
+00:03:34,320 --> 00:03:39,440
+Javascript event loop. Alternatively we can use\h
+a promise that resolves immediately, then run the\h\h
+
+53
+00:03:39,440 --> 00:03:44,000
+update in its callback. This code will achieve the\h
+same result, the only subtle difference is that\h\h
+
+54
+00:03:44,000 --> 00:03:48,880
+it runs on the micro task queue before the end of\h
+the current iteration in the browser's event loop.\h
+
+55
+00:03:48,880 --> 00:03:52,400
+Making the update asynchronous can\h
+work, however it's very implicit\h\h
+
+56
+00:03:52,400 --> 00:03:57,440
+and should really only be used as a last resort.
+It's not clear why we make this code asynchronous\h\h
+
+57
+00:03:57,440 --> 00:04:01,920
+unless you understand the nuances of Angular\h
+change detection and the browser's event loop.\h
+
+58
+00:04:01,920 --> 00:04:06,480
+Luckily Angular provides us with a more direct\h
+and explicit way to trigger change detection.\h
+
+59
+00:04:06,480 --> 00:04:11,680
+We can manually trigger it by injecting the change\h
+detector ref in the constructor of the component.\h
+
+60
+00:04:11,680 --> 00:04:16,320
+We can then use it to manually run change\h
+detection by calling the detect changes method.\h
+
+61
+00:04:16,320 --> 00:04:20,080
+This will tell Angular to check the view and\h
+its children, in which case it will notice\h\h
+
+62
+00:04:20,080 --> 00:04:24,240
+that our loading state has changed, giving\h
+us yet another way to address the error.\h
+
+63
+00:04:24,240 --> 00:04:28,560
+Now an entirely different way you might encounter\h
+this error is when you have a method, usually a\h\h
+
+64
+00:04:28,560 --> 00:04:33,520
+getter, that doesn't return a predictable value,\h
+which can cause an infinite change detection loop.\h
+
+65
+00:04:33,520 --> 00:04:37,200
+Take for example this getter in our\h
+component that returns a random number.\h
+
+66
+00:04:37,200 --> 00:04:40,400
+If we try to use this value in the\h
+template, Angular will get a different\h\h
+
+67
+00:04:40,400 --> 00:04:43,280
+value each time it's checked.
+The solution in this case\h\h
+
+68
+00:04:43,280 --> 00:04:47,440
+is to make the method return a consistent\h
+value based on the state of the component.\h
+
+69
+00:04:47,440 --> 00:04:51,120
+In other words getters should be derived\h
+directly from the component state and\h\h
+
+70
+00:04:51,120 --> 00:04:54,800
+not values that change constantly\h
+like timestamps or random numbers.\h
+
+71
+00:04:54,800 --> 00:05:00,240
+Now let's take a look at one more example, where\h
+we have both a parent and child component at play.\h
+
+72
+00:05:00,240 --> 00:05:05,040
+The app component the parent contains the\h
+loading state just like our previous examples,\h\h
+
+73
+00:05:05,040 --> 00:05:08,560
+but instead of running the update from the\h
+parent component, we'll make it happen from\h\h
+
+74
+00:05:08,560 --> 00:05:12,880
+a child component with a custom event.
+In the item component, the child,\h\h
+
+75
+00:05:12,880 --> 00:05:17,760
+we're using the @Output decorator to create\h
+a custom event along with an event emitter.\h
+
+76
+00:05:17,760 --> 00:05:21,680
+Then during ngOnInit we'll go ahead and\h
+emit the event with a value of true.\h
+
+77
+00:05:22,240 --> 00:05:26,560
+Then back in the app component template we'll\h
+go ahead and declare the item component.\h
+
+78
+00:05:26,560 --> 00:05:29,440
+When it fires, we'll set\h
+the loading value to false.\h
+
+79
+00:05:29,440 --> 00:05:34,080
+The end result is a situation where we have a\h
+child component updating the parent after change\h\h
+
+80
+00:05:34,080 --> 00:05:38,080
+detection has already run on the parent,\h
+and once again that produces the error.\h
+
+81
+00:05:38,080 --> 00:05:42,880
+A potential solution in this case would be to\h
+move the loading state into the child component\h\h
+
+82
+00:05:42,880 --> 00:05:47,040
+and if that's not possible you might consider\h
+moving this state to a shared service where it\h\h
+
+83
+00:05:47,040 --> 00:05:49,332
+can be injected in multiple components.
+
+84
+00:05:49,332 --> 00:05:51,440
+Let's finish up by doing a quick recap.\h
+
+85
+00:05:51,440 --> 00:05:56,960
+The ExpressionChangedAfterItHasBeenCheckedError\h
+occurs because a value in the template has been\h\h
+
+86
+00:05:56,960 --> 00:06:01,040
+updated after change detection has finished.
+Debug it by first finding\h\h
+
+87
+00:06:01,040 --> 00:06:04,720
+the template in the stack trace.
+From there you can analyze your code to determine\h\h
+
+88
+00:06:04,720 --> 00:06:08,640
+where the value is being updated and use one of\h
+the methods covered in this video to address it,\h\h
+
+89
+00:06:08,640 --> 00:06:13,520
+such as refactoring to the OnInit lifecycle\h
+hook, using change detector ref manually,\h\h
+
+90
+00:06:13,520 --> 00:06:18,080
+making getters item potent, or making\h
+your updates async as a last resort.\h
+
+91
+00:06:18,080 --> 00:06:23,200
+Refer to the Angular documentation\h
+for additional details and examples.

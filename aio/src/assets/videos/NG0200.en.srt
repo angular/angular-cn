@@ -1,0 +1,175 @@
+1
+00:00:00,240 --> 00:00:04,080
+Circular dependency in DI detected.
+You'll encounter this error when you\h\h
+
+2
+00:00:04,080 --> 00:00:09,200
+have a dependency that depends on itself,\h
+either directly, or more often indirectly.\h
+
+3
+00:00:09,200 --> 00:00:13,600
+A runtime error will be thrown in the browser\h
+console telling you which class is effected, but\h\h
+
+4
+00:00:13,600 --> 00:00:18,400
+what's perhaps more useful is a warning that can\h
+be seen both in the console and in the terminal.\h
+
+5
+00:00:18,400 --> 00:00:21,760
+Most importantly, it provides the\h
+path of the circular dependency.\h
+
+6
+00:00:21,760 --> 00:00:26,960
+If we look closely, it's telling us we have a\h
+storage class that injects a user class, which\h\h
+
+7
+00:00:26,960 --> 00:00:31,520
+itself depends on the original storage class.
+Let's go ahead and look at a simple reproduction,\h\h
+
+8
+00:00:31,520 --> 00:00:35,680
+and then we'll take some time to go in depth\h
+about angular's dependency injection system.\h
+
+9
+00:00:35,680 --> 00:00:40,480
+If we take a look at our source code, you'll\h
+notice we have two services, user and storage.\h
+
+10
+00:00:40,480 --> 00:00:45,600
+The problem is that user has injected storage\h
+in its constructor and storage has injected\h\h
+
+11
+00:00:45,600 --> 00:00:49,840
+user in its constructor, putting them in\h
+an impossible codependent relationship.\h
+
+12
+00:00:49,840 --> 00:00:54,800
+The solution to this problem is to break the loop,\h
+which will most likely require some refactoring.\h\h
+
+13
+00:00:54,800 --> 00:00:59,440
+It's perfectly okay for an @Injectable to depend\h
+on another @Injectable, but the relationship\h\h
+
+14
+00:00:59,440 --> 00:01:04,640
+can only go one way, which means in this case we\h
+need to refactor to remove the user service from\h\h
+
+15
+00:01:04,640 --> 00:01:10,400
+storage, or vice versa, remove the storage service\h
+from user, and generally speaking, it's a good\h\h
+
+16
+00:01:10,400 --> 00:01:14,800
+idea to minimize the number of dependencies in\h
+an @Injectable service, because that will reduce\h\h
+
+17
+00:01:14,800 --> 00:01:20,000
+the likelihood of similar issues coming up in the\h
+future. Now in our storage class we have a method\h\h
+
+18
+00:01:20,000 --> 00:01:25,040
+to write the user to the database, but it depends\h
+on the user service for the current user value.\h\h
+
+19
+00:01:25,040 --> 00:01:30,480
+We can address the problem here by refactoring\h
+our code to take the user value as an argument,\h\h
+
+20
+00:01:30,480 --> 00:01:35,120
+rather than inject the entire user class. Not only\h
+does that allow us to remove the dependency from\h\h
+
+21
+00:01:35,120 --> 00:01:39,040
+the constructor, it will also make this code\h
+easier to unit test, because you don't have\h\h
+
+22
+00:01:39,040 --> 00:01:44,320
+an additional dependency to mock or worry about,\h
+and the method only depends on its input arguments\h\h
+
+23
+00:01:44,320 --> 00:01:49,600
+making it easier to reason about. Now if we go\h
+ahead and save our changes, the error is gone. But\h\h
+
+24
+00:01:49,600 --> 00:01:54,480
+before we wrap things up, let's take a deeper look\h
+at Angular's dependency injection to understand\h\h
+
+25
+00:01:54,480 --> 00:01:59,280
+why this error happens in the first place. When\h
+you generate a service with the Angular CLI you'll\h\h
+
+26
+00:01:59,280 --> 00:02:04,000
+notice how the class is decorated with @Injectable\h
+when used with the \{ providedIn: 'root' \} option,\h\h
+
+27
+00:02:04,000 --> 00:02:07,840
+Angular will instantiate the class and make\h
+it visible throughout the entire application.\h\h
+
+28
+00:02:08,400 --> 00:02:13,040
+Unlike a component, this class is only\h
+instantiated once as a singleton. Now\h\h
+
+29
+00:02:13,040 --> 00:02:17,760
+imagine two classes that depend on each other, how\h
+do you determine which one to instantiate first?\h\h
+
+30
+00:02:17,760 --> 00:02:21,760
+It's a classic chicken or the egg paradox, and\h
+that just doesn't work when you're following\h\h
+
+31
+00:02:21,760 --> 00:02:26,960
+the dependency inversion principle. Let's go ahead\h
+and recap. When you encounter circular dependency\h\h
+
+32
+00:02:26,960 --> 00:02:31,600
+in DI detected, the first step is to determine\h
+which dependencies create a loop by mapping\h\h
+
+33
+00:02:31,600 --> 00:02:35,680
+out the dependencies and the constructor\h
+of your components modules and services.\h\h
+
+34
+00:02:35,680 --> 00:02:40,160
+Once identified you can then refactor your code\h
+to break the loop. For additional details and\h\h
+
+35
+00:02:40,160 --> 00:02:44,720
+examples check out the dependency injection\h
+guide in the official Angular documentation.
+

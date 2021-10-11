@@ -1,0 +1,230 @@
+1
+00:00:00,400 --> 00:00:05,360
+Can't bind to prop name because it isn't a known\h
+property of node. You may encounter this error\h\h
+
+2
+00:00:05,360 --> 00:00:10,160
+when you attempt to bind to a property or\h
+attribute of an element, but that property\h\h
+
+3
+00:00:10,160 --> 00:00:15,600
+is unknown to Angular. It may be unknown for a\h
+variety of reasons. If it's an Angular component,\h\h
+
+4
+00:00:15,600 --> 00:00:20,640
+it might be missing the @Input decorator on the\h
+component definition. But if it's a native HTML\h\h
+
+5
+00:00:20,640 --> 00:00:25,520
+element, it may be a property that just does\h
+not exist. Or, if you happen to be working with\h\h
+
+6
+00:00:25,520 --> 00:00:30,080
+custom elements or web components, there may\h
+be additional configuration required to bind\h\h
+
+7
+00:00:30,080 --> 00:00:35,520
+to custom properties. Let's start with a quick\h
+review of how property binding works in Angular.\h\h
+
+8
+00:00:35,520 --> 00:00:39,600
+Then we'll examine several reproductions\h
+and resolutions for the issue. In an\h\h
+
+9
+00:00:39,600 --> 00:00:44,000
+Angular template we can bind to a property,\h
+by wrapping it in brackets, then provide an\h\h
+
+10
+00:00:44,000 --> 00:00:49,040
+expression on the right side. When the value in\h
+the expression changes the bound property and\h\h
+
+11
+00:00:49,040 --> 00:00:54,640
+UI will be updated automatically. In most cases\h
+you'll run into issues with unknown properties\h\h
+
+12
+00:00:54,640 --> 00:00:59,600
+when working with your own custom components.\h
+In our code we have an ItemComponent with a name\h\h
+
+13
+00:00:59,600 --> 00:01:05,520
+property. Then, in the AppComponent template we\h
+reference the App Item Component and attempt to\h\h
+
+14
+00:01:05,520 --> 00:01:10,800
+bind to the name property. But currently\h
+Angular tells us it can't bind to name,\h\h
+
+15
+00:01:10,800 --> 00:01:15,920
+since it isn't a known property of 'app-item'.\h
+We can address the issue by going back into our\h\h
+
+16
+00:01:15,920 --> 00:01:22,080
+ItemComponent and adding the input decorator to\h
+the name property. The @Input decorator allows\h\h
+
+17
+00:01:22,080 --> 00:01:28,000
+data to be bound or passed in from the outside of\h
+the component via the template. In other words,\h\h
+
+18
+00:01:28,000 --> 00:01:32,960
+if a property is not specified as an input it\h
+can't be used with brackets for data binding in\h\h
+
+19
+00:01:32,960 --> 00:01:37,760
+the template. It's also worth noting that you\h
+can pass an argument to the @Input decorator\h\h
+
+20
+00:01:37,760 --> 00:01:42,880
+to change the name of the property. That allows\h
+you to use a different name in the template\h\h
+
+21
+00:01:42,880 --> 00:01:48,080
+than is used as the property name in the component\h
+itself. In addition to your custom components\h\h
+
+22
+00:01:48,080 --> 00:01:53,440
+you might also run into this issue with native\h
+HTML elements. With the default configuration,\h\h
+
+23
+00:01:53,440 --> 00:01:58,240
+you can only bind to properties that the Angular\h
+compiler knows about. When working with native\h\h
+
+24
+00:01:58,240 --> 00:02:03,600
+HTML elements it knows about the properties\h
+and attributes from the HTML standard spec. For\h\h
+
+25
+00:02:03,600 --> 00:02:09,120
+example, here we have an input element and we're\h
+binding to the value attribute on that element.\h\h
+
+26
+00:02:09,120 --> 00:02:13,840
+At this point there's no error, because\h
+value is a valid attribute on an input,\h\h
+
+27
+00:02:13,840 --> 00:02:18,640
+but if we attempt to bind to an attribute that\h
+does not exist, then Angular will throw an error.\h\h
+
+28
+00:02:18,640 --> 00:02:23,280
+There's probably not a good reason to bind\h
+to a property that does not exist on a native\h\h
+
+29
+00:02:23,280 --> 00:02:29,440
+HTML element. However it is possible to tell\h
+Angular to ignore this error within an ngModule.\h\h
+
+30
+00:02:29,440 --> 00:02:36,000
+Angular core contains a NO_ERRORS_SCHEMA which we\h
+can add to the schema's array inside an ngModule\h\h
+
+31
+00:02:36,000 --> 00:02:41,360
+decorator. Notice how the error disappears when\h
+we update the schema. But keep in mind this is\h\h
+
+32
+00:02:41,360 --> 00:02:46,240
+generally a technique that you should only use\h
+as a last resort because it will bypass the error\h\h
+
+33
+00:02:46,240 --> 00:02:51,920
+altogether which may lead to uncaught issues and\h
+unstable code in the future. Now one other area\h\h
+
+34
+00:02:51,920 --> 00:02:56,480
+you may encounter this error is when working\h
+with web components or custom elements. When\h\h
+
+35
+00:02:56,480 --> 00:03:02,000
+working with a custom element it may be perfectly\h
+acceptable to bind to a property that Angular does\h\h
+
+36
+00:03:02,000 --> 00:03:07,200
+not know about. We can tell Angular to bypass the\h
+error in a more conservative way by applying the\h\h
+
+37
+00:03:07,200 --> 00:03:13,760
+CUSTOM_ELEMENTS_SCHEMA in the ngModule. This will\h
+tell Angular to bypass the known property error on\h\h
+
+38
+00:03:13,760 --> 00:03:17,840
+custom elements like your own Angular\h
+components or third-party web components.\h\h
+
+39
+00:03:18,480 --> 00:03:22,880
+That allows you to bind to any property on a\h
+custom element, but you'll still get errors\h\h
+
+40
+00:03:22,880 --> 00:03:28,000
+when attempting to bind to a non-existent\h
+property on a native HTML element. Let's go\h\h
+
+41
+00:03:28,000 --> 00:03:32,800
+ahead and recap. When you encounter 'Can't bind\h
+to prop name since it isn't a known property of\h\h
+
+42
+00:03:32,800 --> 00:03:37,600
+node," you'll first want to verify that the\h
+prop name is known to Angular. While native\h\h
+
+43
+00:03:37,600 --> 00:03:43,280
+HTML elements should only use properties based\h
+on the actual HTML spec, when working with custom\h\h
+
+44
+00:03:43,280 --> 00:03:48,400
+elements you can bypass the error by applying\h
+the CUSTOM_ELEMENTS_SCHEMA in an ngModule,\h\h
+
+45
+00:03:48,400 --> 00:03:54,080
+or as a last resort you can bypass it all together\h
+with the NO_ERRORS_SCHEMA. For additional details\h\h
+
+46
+00:03:54,080 --> 00:03:58,960
+and examples check out the property binding\h
+guide in the official Angular documentation.
+
