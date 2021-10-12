@@ -20,13 +20,13 @@ npx ts-node --project=./tools/translator/tsconfig.json ./tools/translator/bin/pr
 
 kill -9 ${pid}
 
-rm -fr ./prebuilt
-
-git clone git@github.com:ng-docs/prebuilt.angular.cn.git ./prebuilt
-
-cp -r dist/* ./prebuilt
-
 cd ./prebuilt
+
+git pull
+
+cp -r ../dist/* .
+
+cp index.html 404.html
 
 git add .
 git commit -am "${commitMessage}"
