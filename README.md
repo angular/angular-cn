@@ -1,5 +1,7 @@
 # 注意
 
+**根据最新政策，中文翻译站已经独立运营，本仓库即将锁定，请转到 https://github.com/ng-docs/angular-cn ，谢谢！**
+
 master分支下是老版本的文档，新版本的文档位于aio分支下。目前aio只是部署到了 <https://angular.cn>，但尚未撰写中文的部署指南，不过你可以尝试自行按照英文版的readme.md进行部署。
 
 # angular.io 中文版
