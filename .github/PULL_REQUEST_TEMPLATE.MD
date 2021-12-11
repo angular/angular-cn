@@ -1,4 +1,1 @@
-注意：
-
-1. 新版本的文档位于aio分支下，master分支下是老版本的文档。
-2. 原则上不再接受对老版本的PR。
+注意：本仓库即将锁定，请转到 https://github.com/ng-docs/angular-cn/pulls 提交 PR
