@@ -119,7 +119,7 @@ In this section, you'll update your application to test the `UnlessDirective`.
    When the `condition` is falsy, the top (A) paragraph appears and the bottom (B) paragraph disappears.
    When the `condition` is truthy, the top (A) paragraph disappears and the bottom (B) paragraph appears.
 
-   星号是将 `appUnless` 标记为结构型指令的简写形式。如果 `condition` 是假值，则会让顶部段落 A，而底部段落 B 消失。当 `condition` 为真时，顶部段落 A 消失，而底部段落 B 出现。
+   星号是将 `appUnless` 标记为结构型指令的简写形式。如果 `condition` 是假值，则会让顶部段落 A 出现，而底部段落 B 消失。当 `condition` 为真时，顶部段落 A 消失，而底部段落 B 出现。
 
 1. To change and display the value of `condition` in the browser, add markup that displays the status and a button.
 
